@@ -529,6 +529,7 @@ Nov 25, 2021</span>
 <span class=ln>5</span>git push -u origin main
 </code></pre></div><p>点击保存。</p>
 <p>一整套配置完成。</p>
+<p>接下来，为了安全起见，我们不再允许git使用shell登录（过河拆桥啦），我们修改<code>/etc/passwd</code>下git用户的最后一项，将<code>/bin/bash</code>改为<code>/usr/bin/git-shell</code>，这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

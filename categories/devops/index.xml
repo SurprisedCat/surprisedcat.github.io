@@ -439,4 +439,5 @@
 &lt;span class="ln">4&lt;/span>git commit -m &lt;span class="s2">&amp;#34;`date` commit&amp;#34;&lt;/span>
 &lt;span class="ln">5&lt;/span>git push -u origin main
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>点击保存。&lt;/p>
-&lt;p>一整套配置完成。&lt;/p></description></item></channel></rss>
+&lt;p>一整套配置完成。&lt;/p>
+&lt;p>接下来，为了安全起见，我们不再允许git使用shell登录（过河拆桥啦），我们修改&lt;code>/etc/passwd&lt;/code>下git用户的最后一项，将&lt;code>/bin/bash&lt;/code>改为&lt;code>/usr/bin/git-shell&lt;/code>，这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。&lt;/p></description></item></channel></rss>
