@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cplus on SurprisedCat</title><link>https://surprisedcat.github.io/categories/cplus/</link><description>Recent content in cplus on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 14 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/cplus/index.xml" rel="self" type="application/rss+xml"/><item><title>cplus-fork-function-learning</title><link>https://surprisedcat.github.io/projectnotes/cplus-fork-function-learning/</link><pubDate>Tue, 14 Nov 2017 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/cplus-fork-function-learning/</guid><description>
+&lt;h2 id="fork函数理解---omit-in-toc---">Fork函数理解&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="fork入门知识">fork入门知识&lt;/h2>
+&lt;p>一个进程，包括代码、数据和分配给进程的资源。fork（）函数通过系统调用创建一个与原来进程几乎完全相同的进程，
+也就是两个进程可以做完全相同的事，但如果初始参数或者传入的变量不同，两个进程也可以做不同的事。&lt;/p>
+&lt;p>一个进程调用fork（）函数后，系统先给新的进程分配资源，例如存储数据和代码的空间。然后把原来的进程的所有值都复制到新的新进程中，只有少数值与原来的进程的值不同。相当于克隆了一个自己。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span>&lt;span class="cm">/*
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="cm"> * fork_test.c
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="cm"> * version 1
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="cm"> */&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;unistd.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln"> 7&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;stdio.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="cp">&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span> &lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="n">pid_t&lt;/span> &lt;span class="n">fpid&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//fpid表示fork函数返回的值
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">count&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">fpid&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">fork&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">fpid&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;error in fork!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">fpid&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;i am the child process, my process id is %d/n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">getpid&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;我是爹的儿子/n&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//对某些人来说中文看着更直白。
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">count&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;i am the parent process, my process id is %d/n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">getpid&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;我是孩子他爹/n&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="n">count&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;统计结果是: %d/n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">count&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">27&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果：&lt;br>
+i am the parent process, my process id is 31900&lt;br>
+我是孩子他爹&lt;br>
+统计结果是: 1&lt;br>
+i am the child process, my process id is 31901&lt;br>
+我是爹的儿子&lt;br>
+统计结果是: 1&lt;/p>
+&lt;p>在语句fpid=fork()之前，只有一个进程在执行这段代码，但在这条语句之后，就变成两个进程在执行了，这两个进程的几乎完全相同，&lt;/p>
+&lt;p>将要执行的下一条语句都是if(fpid&amp;lt;0)……
+为什么两个进程的fpid不同呢，这与fork函数的特性有关。&lt;/p>
+&lt;p>&lt;strong>fork调用的一个奇妙之处就是它仅仅被调用一次，却能够返回两次，它可能有三种不同的返回值：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>在父进程中，fork返回新创建子进程的进程ID；&lt;/li>
+&lt;li>在子进程中，fork返回0；&lt;/li>
+&lt;li>如果出现错误，fork返回一个负值；&lt;/li>
+&lt;/ol>
+&lt;p>在fork函数执行完毕后，如果创建新进程成功，则出现两个进程，一个是子进程，一个是父进程。在子进程中，fork函数返回0，在父进程中，fork返回新创建子进程的进程ID。我们可以通过fork返回的值来判断当前进程是子进程还是父进程。&lt;/p>
+&lt;p>引用一位网友的话来解释fpid的值为什么在父子进程中不同。“其实就相当于链表，进程形成了链表，父进程的fpid(p 意味point)指向子进程的进程id,&lt;/p>
+&lt;p>因为子进程没有子进程，所以其fpid为0.&lt;/p>
+&lt;p>&lt;strong>fork出错可能有两种原因：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>当前的进程数已经达到了系统规定的上限，这时errno的值被设置为EAGAIN。&lt;/li>
+&lt;li>系统内存不足，这时errno的值被设置为ENOMEM。&lt;/li>
+&lt;/ol>
+&lt;p>创建新进程成功后，系统中出现两个基本完全相同的进程，这两个进程执行没有固定的先后顺序，哪个进程先执行要看系统的进程调度策略。每个进程都有一个独特（互不相同）的进程标识符（process ID），可以通过getpid（）函数获得，还有一个记录父进程pid的变量，可以通过getppid（）函数获得变量的值。&lt;/p>
+&lt;p>&lt;strong>fork执行完毕后，出现两个进程&lt;/strong>。&lt;/p></description></item><item><title>cplus-NS3-Tracing</title><link>https://surprisedcat.github.io/projectnotes/cplus-ns3-tracing/</link><pubDate>Sun, 11 Dec 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/cplus-ns3-tracing/</guid><description>
+&lt;h2 id="ns3-tutorial-tracing---omit-in-toc---">NS3 Tutorial Tracing&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="tracing">Tracing&lt;/h2>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>在Using the Tracing System中提到,ns3的整个目的在于使用仿真来产生用于研究的数据。目前，ns3提供了两种策略来获取数据：通过通用的预先定义的块输出机制，并将他们的内容转换为可以提取有效信息方式（我觉得应该说的是系统定义的NS_LOG）；或者，使用一种输出机制，只传递我们想要的信息。&lt;/p>
+&lt;p>使用预定义的块输出机制有一些优点，比如不需要对ns3有额外的修改，但是需要我们写额外的脚本来转换和过滤我们感兴趣的消息。通常，PCAP和NS_LOG输出消息会在仿真运行中被收集起来，并通过运行额外的脚本程序（grep，sed，awk）来将输出精简转换成方便管理的形式。我们必须自己写一些转换程序，因此也不能说是完全不费功夫的。NS_LOG的输出不被认为是ns3 API的一部分，并且可能不经通知就在不同版本之间做出修改。此外，NS_LOG输出只在DEBUG模式下有效，因此依赖于LOG必然会导致一些性能的损失。当然，如果我们感兴趣的信息并不以预定义的信息块模式出现，这种方式就没法用了。&lt;/p>
+&lt;p>如果你需要给预先定义的信息增加一些额外的小片段，这当然也是可以的；如果你使用了一种预先定义的ns3机制，你的工作可以作为对ns3的一些contribution。&lt;/p>
+&lt;p>ns3提供了另一套机制，叫做Tracing，来避免从块状输出机制固有的一些问题。它有一些重要的优点。首先，你可以通过只Tracing你感兴趣的事件来降低你需要处理的数据量（在一些大型的仿真中，记录所有的事件会造成IO瓶颈）。第二，如果你使用这种方式，你可以直接控制输出的格式，因此可以避免后期处理的时候使用grep，sed，awk，perl或者python脚本。如果你希望的话，可以直接讲格式定义为gnuplot可以识别的格式。你可以在core中添加钩子（hook）来给别人使用，但是这不会给出明确的信息，除非明确被要求这么做。因为这些理由，我们相信ns3的Tracing系统使我们获取仿真信息的最好方式，所以也是在ns3中需要我们理解的重要机制。&lt;/p>
+&lt;h2 id="blunt-instrument">Blunt Instrument&lt;/h2>
+&lt;p>有许多从程序获取信息的办法，最直接的方式就是通过标准输入输出来直接打印信息（C语言是的printf，cout等等）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;iostream&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="n">SomeFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="kt">uint32_t&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">Some_INTERESTING_VALUE&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="s">&amp;#34;The Value of x is &amp;#34;&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>没人会制止你在ns3的核心代码从加入额外的输出信息。这种做法也不是很难，然而，你需要完全掌控你自己的ns3分支。从长期来看，这并不会得到令人满意的结果&lt;/p>
+&lt;p>随着在自己代码中添加的输出信息越来越多，管理和处理这些输出信息也变得越来越复杂。最终，你可能觉得需要一些方式来控制哪些信息需要被输出，而哪些不需要；或许通过打开或关闭某些输出类，或者增加或减少所需信息的数量。如果在这条路上越走越远，最终你可能发现自己重新实现了一遍NS_LOG机制。为了避免这一点，我们应该合理的最大化利用NS_LOG本身。&lt;/p>
+&lt;p>我们在上面提到过，一个获取ns3有效信息的方式是将现存的NS_LOG输出转换成感兴趣的消息。如果你发现你感兴趣的信息片段不在LOG信息中，你可以编辑ns3的core模块将你需要的信息加入输出流中。目前，这显然比添加自己的输出语句要好，因为这遵循了ns3的惯例，并且有可能作为一个补丁加入到ns3内核中，从而帮助其他人。&lt;/p>
+&lt;p>让我们随机选一个例子。如果你希望增加一些额外的logging给ns3的Tcp Socket（tcp-scoket-base.cc），你可以只是在实现中增加一个新的消息。注意，在 &lt;code>TCPSocketBase::ReceivedAck()&lt;/code>,原本没有任何关于no ack 情况下的log信息。你可以简单地增加一句话。&lt;/p>
+&lt;p>这是原来的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span>&lt;span class="cm">/** Process the newly received ACK */&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kt">void&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">TcpSocketBase&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ReceivedAck&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">Ptr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Packet&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">packet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">TcpHeader&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">tcpHeader&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">NS_LOG_FUNCTION&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">tcpHeader&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">// Received ACK. Compare the ACK number against highest unacked seqno
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">tcpHeader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetFlags&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">TcpHeader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ACK&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="p">{&lt;/span> &lt;span class="c1">// Ignore if no ACK flag
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>为了记录no ack的情况，你可以增加一个NS_LOG_LOGIC在if语句中：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span>&lt;span class="cm">/** Process the newly received ACK */&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="kt">void&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">TcpSocketBase&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ReceivedAck&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">Ptr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">Packet&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">packet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="n">TcpHeader&lt;/span>&lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">tcpHeader&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">NS_LOG_FUNCTION&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">tcpHeader&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">// Received ACK. Compare the ACK number against highest unacked seqno
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">tcpHeader&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetFlags&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">TcpHeader&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">ACK&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="p">{&lt;/span> &lt;span class="c1">// Ignore if no ACK flag
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">NS_LOG_LOGIC&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;TcpSocketBase &amp;#34;&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="k">this&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="s">&amp;#34; no ACK flag&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="p">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样乍看上去看起来似乎相当简单和令人满意。但是必须考虑到，如果你在NS_LOG中添加额外的代码，你同时也必须使用文本处理脚本（grep、sed、awk）来转换输出的信息以分离出你需要的内容。这是因为即使你通某种方式控制了logging系统，也只是控制了输出的级别，是一种非常粗粒度的管理。&lt;/p>
+&lt;p>如果你正在向ns3模块中添加新的输出信息，也需要考虑到其他开发者也正在添加他们自己所感兴趣的信息。你最终可能发现，为了得到自己所需要的一小片信息，你必须处理一大片自己完全没有兴趣的大段输出内容。最终这些大量的log文件会占用大量的磁盘，无论你需要什么信息都必须进行了大量额外处理。&lt;/p>
+&lt;p>既然，对ns3的NS_LOG输出的稳定我们并没有严格的稳定性保证，你可能发现你需要或依赖的log信息可能在不同的版本是不一样的，甚至可能在下一个版本完全删除了。如果你依赖于这种类型的输出，你会发现不同版本的ns3会需要不同的文本处理脚本！&lt;/p>
+&lt;p>最后，NS_LOG只在DEBUG模式下有效，在优化模式下是没有log输出的（优化模式运行速度快了两倍）。依赖NS_LOG会严重影响仿真的性能。&lt;/p>
+&lt;p>由于这些原因，我们认为使用&lt;code>std::cout&lt;/code> 和 &lt;code>NS_LOG&lt;/code> 是一种快速不标准的获取ns3更多信息的方式，但是并不适合严格的工作。&lt;/p>
+&lt;p>我们实际上十分需要一种稳定的API同时能够只获得我们所需要的信息的机制。同时不需要改变额重新编译仿真平台的核心系统。更好的是，如果能通知用户代码他所感兴趣的事件改变或者发生了，这样用户就不用在系统的大段输出中到处找东西了。&lt;/p>
+&lt;p>ns3的Tracing系统被设计和代码一起工作，并且和&lt;strong>Attribute&lt;/strong>和&lt;strong>Config&lt;/strong>子系统融合在一起，来提供相对简单的使用环境。&lt;/p>
+&lt;h2 id="概要">概要&lt;/h2>
+&lt;p>ns3的Tracing系统是由独立的跟踪源（Tracing Source）和跟踪槽（Tracing Sink）以及一种统一的机制连接跟踪源和跟踪槽组成的。&lt;/p>
+&lt;p>跟踪源是仿真过程中信号事件产生的实体，并提供底层数据的获取。例如，一个跟踪源可能意味着当一个数据包被一个网络设备收到，并能够为跟踪槽提供数据包内容。一个跟踪源也可能是系统模型的可改变的状态，比如，一个TCP模型的拥塞窗口是一个初始状态代表着一个跟踪源。每当拥塞窗口发生变化时，跟踪槽就会收到原先的值和现在的值。&lt;/p>
+&lt;p>跟踪源本身是没有什么用的，它必须和代码中其他部分联系起来，这些代码会使用源的这些有用信息做一些有用的事情。这些使用跟踪源信息的实体叫做跟踪槽。跟踪源是数据的产生者，而跟踪槽是数据的消费者。这种显式的分离模式可以使大量的跟踪源分布在系统不同的地方，这些地方往往是建模者认为有用的地方。插入跟踪源只需要增加很小的负载。&lt;/p>
+&lt;p>一个跟踪源产生的信息可能被一个或多个使用者使用。我们可以想象一个跟踪源是一个点到多点的链路。你的代码和可以和其他使用这个被追踪事件源的代码愉快地共存。&lt;/p>
+&lt;p>除非一个用户将一个跟踪槽和其中一个跟踪源联系起来，否则不会有任何信息输出。通过使用Tracing系统，你和其他关注同一个跟踪源上的人都可以获取，并只获取你们所关心的内容。你们之间不会因为改变输出的信息二队他人造成影响。如果你增加了一个跟踪源，你在为良好开源工作者的工作将会允许其他人来提供新的对大家都有益的工作，而不需要对ns3的内核做出任何改进。&lt;/p>
+&lt;h2 id="简单的例子">简单的例子&lt;/h2>
+&lt;p>让我们花几分钟来过一个简单的例子。我们需要一些有关回调的背景知识来理解这个例子，所以我们先来绕一点路。&lt;/p>
+&lt;h3 id="回调">回调&lt;/h3>
+&lt;p>ns3中的回调系统目的在于让一段代码调用一个函数而不需要模块间依赖。这意味这你需要一些间接的方式，&lt;strong>你需要将被调用函数的地址作为一个变量&lt;/strong>。这种变量叫做函数指针变量，函数和函数指针的关系和类与类指针的关系没有什么区别。&lt;/p>
+&lt;p>在C语言中，函数指针的典型例子是返回整形的函数指针（pointer to function returning integer, PFI）。PFI使用一个整形参数，它可能像如下这样被声明：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">pfi&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">arg&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从这个声明中，你可以获得一个名叫pfi的变量，被初始化为0。如果你想将这个指针初始化为更加有意义的值，你首先需要一个参数和返回值类型都匹配的函数，比如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="nf">MyFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">arg&lt;/span>&lt;span class="p">){}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你有了这个目标函数，你可以通过如下方式初始化你的函数指针：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="n">pfi&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">MyFunction&lt;/span>&lt;span class="err">；&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后你可以使用更具有提示性的方式来间接地调用&lt;code>MyFunction&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">pfi&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="mi">1234&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个可以清楚的看出，你解引用了一个函数指针，但是通常编译器知道函数指针和函数的队友了关系，因此写成这样也是没有问题的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pfi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1234&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>看上去就像你调用了一个叫做&lt;code>pfi&lt;/code> 的函数一样。但是编译器足够智能，知道我们使用的是变量 &lt;code>pfi&lt;/code> ，它间接的调用了函数 &lt;code>MyFunction&lt;/code> 。&lt;/p>
+&lt;p>概念上来说，这就是Tracing系统的工作方式。基本上，跟踪槽就是一个回调。当一个跟踪槽表示出对某个跟踪事件的兴趣时，它将自己加入到一个回调列表中，这个回调列表由跟踪源内部维护。当一个感兴趣的事件发生后，跟踪源唤醒它的 &lt;code>operator(...)&lt;/code> 提供0个或者多个参数。 &lt;code>operator(...)&lt;/code> 最终深入到系统中，做一些和刚刚的间接调用非常相似的工作，提供0个或多个参数，就像上面调用 &lt;code>pfi&lt;/code> 传递一个参数到目标函数&lt;code>MyFunction&lt;/code> 一样。&lt;/p>
+&lt;p>Tracing系统和回调的重要不同是对于每一个跟踪源，内部有一系列的回调。不仅仅是触发一个回调，一个跟踪源可能出发多个回调。当一个跟踪槽对一个跟踪源表示出兴趣，只是意味着讲自己的回调加入到回调列表中。&lt;/p>
+&lt;p>如果你对这个部分的细节希望有更多的了解，可以去查看ns3 manual中关于回调的部分。&lt;/p>
+&lt;h2 id="walkthroughfourthcc">WalkThrough：fourth.cc&lt;/h2>
+&lt;p>我们提供了最简单例子来解释Tracing系统的使用方式。你可以在&lt;code>fourth.cc&lt;/code> 中发现这段代码，让我们一起看一下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span>&lt;span class="cm">/* -*- Mode:C++; c-file-style:&amp;#34;gnu&amp;#34;; indent-tabs-mode:nil; -*- */&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="cm">/*
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="cm">* This program is free software; you can redistribute it and/or modify
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="cm">* it under the terms of the GNU General Public License version 2 as
+&lt;/span>&lt;span class="ln"> 5&lt;/span>&lt;span class="cm">* published by the Free Software Foundation;
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="cm">*
+&lt;/span>&lt;span class="ln"> 7&lt;/span>&lt;span class="cm">* This program is distributed in the hope that it will be useful,
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="cm">* but WITHOUT ANY WARRANTY; without even the implied warranty of
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="cm">* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="cm">* GNU General Public License for more details.
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="cm">*
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="cm">* You should have received a copy of the GNU General Public License
+&lt;/span>&lt;span class="ln">13&lt;/span>&lt;span class="cm">* along with this program; if not, write to the Free Software
+&lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="cm">* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="cm">*/&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;ns3/object.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;ns3/uinteger.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln">19&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;ns3/traced-value.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln">20&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;#34;ns3/trace-source-accessor.h&amp;#34;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln">21&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;iostream&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="ln">23&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="k">using&lt;/span> &lt;span class="k">namespace&lt;/span> &lt;span class="n">ns3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>大部分代码看上去都是十分熟悉的。就像上面提到那样，Tracing系统非常依赖于Object和Attribute系统，所以我们需要先include它们。前面两个include表示将它们的声明引入系统。我们可以使用 &lt;code>#include &amp;quot;ns3/core-module.h&amp;quot;&lt;/code> 来将它们一次性引入，我们这样分别引入只是表明这种功能食很简单的。&lt;/p>
+&lt;p>文件 &lt;code>traced-value.h&lt;/code> 将引入跟踪数据所需要遵循的语义。由于Tracing 系统和attribute系统融合在一起，而Attribute系统和Object 一起工作。因此跟踪源必须依附于一个类，接下来的代码段定义并声明了我们需要的一个类。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="nc">MyObject&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="k">public&lt;/span> &lt;span class="n">Object&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="k">public&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="k">static&lt;/span> &lt;span class="n">TypeId&lt;/span> &lt;span class="n">GetTypeId&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="k">static&lt;/span> &lt;span class="n">TypeId&lt;/span> &lt;span class="n">tid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">TypeId&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;MyObject&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">SetParent&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">Object&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">GetTypeId&lt;/span> &lt;span class="p">())&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">SetGroupName&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;MyGroup&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">AddConstructor&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">MyObject&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="p">()&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">AddTraceSource&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;MyInteger&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="s">&amp;#34;An integer value to trace.&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">MakeTraceSourceAccessor&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">MyObject&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">m_myInt&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="s">&amp;#34;ns3::TracedValueCallback::Int32&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="k">return&lt;/span> &lt;span class="n">tid&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">17&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="n">MyObject&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="n">TracedValue&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">int32_t&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">m_myInt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在以上的两行代码中，和Tracing密切相关的就是.AddTraceSource 和 TracedValue声明的m_myInt。&lt;/p>
+&lt;p>.AddTraceSource提供了通过Config系统连接跟踪源和外界的钩子。第一个参数是给跟踪源的命名，名字可以自己取；第二个参数是一个提示字符串；&lt;strong>我们需要关注的是第三个参数“&lt;code>&amp;amp;MyObject::m_myInt&lt;/code>”。这表示着需要被加到跟踪类中的需要跟踪的值，第三个参数总是类的成员变量。&lt;/strong> 第四个参数是TracedValue的一个typedef,是一个字符串。这个正确的回调函数签名产生文档，在一些更为通用的回调函数中十分有用。&lt;/p>
+&lt;p>TracedValue&amp;lt;&amp;gt;声明提供了驱动回调进程的基础。任何时候，只要底层的值发生变化，TracedValue机制就会提供新的值和旧的值，在本例中是一个int32_t类型的值。跟踪槽函数traceSink跟踪这个TracedValue，并需要签名：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">traceSink&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">int32_t&lt;/span> &lt;span class="n">oldValue&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kt">int32_t&lt;/span> &lt;span class="n">newValue&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>所有和这个跟踪源关联的跟踪槽都需要这个签名。我们接下来就讨论在其他场景下，如何决定所需回调函数的签名。&lt;/p>
+&lt;p>我们继续过fourth.cc我们看到：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">IntTrace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int32_t&lt;/span> &lt;span class="n">oldValue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int32_t&lt;/span> &lt;span class="n">newValue&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="s">&amp;#34;Traced&amp;#34;&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="n">oldValue&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="s">&amp;#34; to &amp;#34;&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="n">newValue&lt;/span>&lt;span class="o">&amp;lt;&amp;lt;&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里定义了一个匹配的跟踪槽函数。他直接对应与回调函数的签名。一旦被连接，这个函数就会在TracedValue 改变时被调用。&lt;/p>
+&lt;p>我们已经看过了跟踪源和跟踪槽，代码接下来要做的就是连接跟踪源和跟踪槽，这个在main函数中完成：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">argc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">char&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">argv&lt;/span>&lt;span class="p">[])&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">Ptr&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">MyObject&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">myObject&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CreateObject&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">MyObject&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">myObject&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">TraceConnectWithoutContext&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;MyInteger&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">MakeCallback&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="n">IntTrace&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="ln">5&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="n">myObject&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">m_myInt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1234&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们首先创造一个MyObject实例，这样我们的跟踪源可以存在。&lt;/p>
+&lt;p>下一步，&lt;code>TraceConnectWithoutContext&lt;/code> 形成了跟踪源和跟踪槽之间的连接。&lt;strong>第一个参数就是跟踪源的名称&lt;/strong>,我们在上面已经定义过了。需要注意的是，&lt;code>MakeCallback&lt;/code> 是一个函数模板，这个函数模板做一些ns3底层的回调类生成，关联函数（和IntTrace函数）等等工作。&lt;code>TraceConnect&lt;/code>将会关联你提供的回调函数，同时重载（）操作符。关联之后，跟踪源的被跟踪的变量将会对准你提供的回调函数。&lt;strong>第二个参数就是MakeCallback（你的函数地址）。&lt;/strong>&lt;/p>
+&lt;p>实现这些功能的代码并不平凡，但是本质上，就像一开始我们提到的使用&lt;code>pfi&lt;/code> 回调一样。在类中&lt;code>TracedValue&amp;lt;int32_t&amp;gt; m_myInt;&lt;/code> 的声明做一些重载分配操作符的工作，将会调用&lt;code>operator（）&lt;/code>来实际唤醒Callback并提供所需的参数。&lt;code>.AddTraceSource&lt;/code>将会连接回调函数和Config系统，而&lt;code>TraceConnectWithoutContext&lt;/code>将会通过Attribute系统的Attribute Name连接你的回调函数和跟踪源的名字。&lt;/p>
+&lt;p>我们先不管其他的一些内容。最后一行是给m_myInt重新分配值。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">myObject&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">m_myInt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1234&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要解释的是通过重载operator=，不仅完成了赋值的工作，还将1234作为参数传递了。&lt;/p>
+&lt;p>由于 m_myInt是一个被跟踪的值,因此它的回调函数是将两个整数值作为参数（一个旧值，一个新值），且返回空值。这也正如我们的例子所表示的那样，IntTrace。&lt;/p>
+&lt;p>总结一下，一个跟踪源本质上是一个有一系列函调函数的变量。一个跟踪槽是一个函数被用为回调的目标。Attribute和Object类信息系统，被用来连接跟踪源和跟踪槽。当一个跟踪的数据有变动时，就是重载一个操作符触发回调。这样，就使得在跟踪源注册的回调被源所提供的参数调用。
+如果你编译运行这个例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span> me~$ ./waf --run fourth
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>你将会看到IntTrace函数被执行，一旦跟踪源有变动：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span> Traced &lt;span class="m">0&lt;/span> to &lt;span class="m">1234&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当我们执行到代码，&lt;code>myObject-&amp;gt;m_myInt = 1234;&lt;/code>,跟踪源被击中，并提供原先和现在的值给跟踪槽。函数IntTrace使用便准输入输出打印。&lt;/p></description></item><item><title>cplus-DES对称加密实现</title><link>https://surprisedcat.github.io/projectnotes/cplus-des%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%AE%9E%E7%8E%B0/</link><pubDate>Tue, 18 Oct 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/cplus-des%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%AE%9E%E7%8E%B0/</guid><description>
+&lt;h2 id="desdata-encryption-standard对称加密方法---omit-in-toc---">DES（Data Encryption Standard）对称加密方法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>DES算法全称为Data Encryption Standard，即数据加密标准，是一种使用密钥加密的块算法。DES算法是一种对称算法，即可以使用同一个密钥进行加密和解密。DES的具体原理解析，&lt;strong>本人推荐J. Orlin Grabbe的名作&lt;a href="http://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm">《DES Algorithm Illustrated》&lt;/a> 以及一篇非常优秀的中文介绍：&lt;a href="http://www.hankcs.com/security/des-algorithm-illustrated.html">DES算法示例讲解&lt;/a>&lt;/strong>。本文的重点是用C++代码 &lt;strong>逐步实现DES算法的具体过程&lt;/strong> 。&lt;/p>
+&lt;h2 id="0前提说明">0.前提说明&lt;/h2>
+&lt;p>本文实现的是基于ECB的Zeropadding的DES加密算法。ECB指的是将加密的数据分成若干组，每组的大小跟加密密钥长度相同；然后每组都用相同的密钥加密， 如果最后一个分组长度不够64位，要补齐64位。Zeropadding指的是补齐着这64位的方法是用&lt;strong>0&lt;/strong>填充。这种模式是实现DES的&lt;strong>基本模式&lt;/strong>。
+DES的输入有三个部分，第一个部分是明文，就是需要加密内容；第二个部分是密钥，用来加密数据；第三个部分是工作模式，有两种，加密和解密。明文的长度不固定，但是都被分为固定的64位“数据块”，以一个块为单位进行加密，输出的密文也是一个64位的“块”；密钥的长度是64位，但是实际用到的只有56位，第8、16、24、32、40、48、56、64位是校验位，做加密中用不到。本文输入的格式为文本，例如明文‘12345678’，等同于16进制&lt;/p>
+&lt;h2 id="1密钥的生成">1.密钥的生成&lt;/h2>
+&lt;h2 id="11实现字符到bit的转换">1.1实现字符到bit的转换&lt;/h2>
+&lt;p>DES加密本质上是对二进制数据的加密，而正常我们输入电脑的多用的是文本形式，因此我们需要将字符转变为文本。我们把它放在类的成员函数中，在密钥生成阶段和明文加密阶段都会用到。本文以密钥“12345678”为例。主要分成两个函数：
+第一个函数：选取8字节密钥，超过8字节只选取前面8字节，不足8字节用0补齐。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span> &lt;span class="c1">//设置密钥的内容，截取或补齐
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">DataEncrytionStandard&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">SetKey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="kt">char&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">_key&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">lengthCout&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_key&lt;/span>&lt;span class="o">!=&lt;/span>&lt;span class="sc">&amp;#39;\0&amp;#39;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">lengthCout&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">lengthCout&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_key&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">lengthCout&lt;/span>&lt;span class="p">];&lt;/span>&lt;span class="c1">//密码的长度只截取前面8位，不够的话用‘0’补齐。
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">lengthCout&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>第二个函数将8字节转换为64bits。本文使用的是64位的array&amp;lt;bool,64&amp;gt;实现。过去曾用bitset尝试过，但是bitset默认存储的是二进制数字，比特位顺序和DES加密的顺序相反；同时bitset还要考虑小端规则，对于降下来的处理不是很方便，因此用数组替代。本人发现网上的一些C++实现没有注意到这些问题，导致加密的结果与标准结果不一样。现推荐一个网站可以查看每一步实现的数据变化：&lt;a href="http://people.eku.edu/styere/Encrypt/JS-DES.html">JavaScript DES Example&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">DataEncrytionStandard&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">CharToBits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="n">_inChar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">bits&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1">//这里注意顺序
+&lt;/span>&lt;span class="ln">7&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">bits&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">_inChar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">bits&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>获得密钥:0011000100110010001100110011010000110101001101100011011100111000&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="12密钥的pc-1转换">1.2密钥的PC-1转换&lt;/h2>
+&lt;p>这个64位的秘钥首先根据表格PC-1进行变换，变成56位的密钥。这个表格含义是64bits密钥的第57位，变成新密钥的第1位；原密钥的第49位变成新密钥的第2位；以此类推。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span> PC-1
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="m">57&lt;/span> &lt;span class="m">49&lt;/span> &lt;span class="m">41&lt;/span> &lt;span class="m">33&lt;/span> &lt;span class="m">25&lt;/span> &lt;span class="m">17&lt;/span> &lt;span class="m">9&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="m">58&lt;/span> &lt;span class="m">50&lt;/span> &lt;span class="m">42&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="m">18&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="m">10&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">59&lt;/span> &lt;span class="m">51&lt;/span> &lt;span class="m">43&lt;/span> &lt;span class="m">35&lt;/span> &lt;span class="m">27&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="m">19&lt;/span> &lt;span class="m">11&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">60&lt;/span> &lt;span class="m">52&lt;/span> &lt;span class="m">44&lt;/span> &lt;span class="m">36&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="m">63&lt;/span> &lt;span class="m">55&lt;/span> &lt;span class="m">47&lt;/span> &lt;span class="m">39&lt;/span> &lt;span class="m">31&lt;/span> &lt;span class="m">23&lt;/span> &lt;span class="m">15&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="m">7&lt;/span> &lt;span class="m">62&lt;/span> &lt;span class="m">54&lt;/span> &lt;span class="m">46&lt;/span> &lt;span class="m">38&lt;/span> &lt;span class="m">30&lt;/span> &lt;span class="m">22&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="m">14&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">61&lt;/span> &lt;span class="m">53&lt;/span> &lt;span class="m">45&lt;/span> &lt;span class="m">37&lt;/span> &lt;span class="m">29&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="m">21&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="m">20&lt;/span> &lt;span class="m">12&lt;/span> &lt;span class="m">4&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1">//第一次转换，将64bit的密钥根据PC-1变换转换成56bit。
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyInit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CharToBits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyPC_1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="n">keyPC_1&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyInit&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">PC_1&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">9&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>56位密钥：00000000000000001111111111110110011001111000100000001111&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="13-密钥拆分与移位构成16轮子密钥">1.3 密钥拆分与移位构成16轮子密钥&lt;/h2>
+&lt;p>现在我们将56位的密钥拆分成前后两个等长部分（28位），C0、D0。我们现在创建16个块Cn 和 Dn, 1&amp;lt;=n&amp;lt;=16。每一对Cn 和 Dn都是由前一对Cn-1 和 Dn-1移位而来。具体说来，对于n = 1, 2, …, 16，在前一轮移位的结果上，使用下表进行一些次数的左移操作。这意味着，比如说，C3 和 D3是C2 和 D2移位而来的，具体来说，通过2次左移位；C16 和 D16 则是由C15和D15通过1次左移得到的。移位完成后，再将其拼接起来。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>第n轮 左移位数
+&lt;span class="ln"> 2&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="m">4&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="m">5&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="m">6&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="m">7&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="m">8&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="m">9&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="m">10&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="m">11&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="m">12&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="m">13&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="m">14&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="m">15&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="m">16&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>具体代码如下所示：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span> &lt;span class="c1">//进行16轮移位，获取16个子密钥块
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//array&amp;lt;array&amp;lt;bool,48&amp;gt;,16&amp;gt;subKeys; defined in the head file
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//array&amp;lt;array&amp;lt;bool,48&amp;gt;,16&amp;gt;subKeys; defined in the head file
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">iterator&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">SubKeyOff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">keyPC_1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">keyOff&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="k">else&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">SubKeyOff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="n">keyOff&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">DataEncrytionStandard&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">SubKeyOff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">_key56&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">off&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="c1">//将密钥拆分成左右两半，各28位。
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">list&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">list&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1">//移位后的结果
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c1">//前28位
+&lt;/span>&lt;span class="ln">20&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_key56&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c1">//后28位
+&lt;/span>&lt;span class="ln">25&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_key56&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="c1">//循环移位,for内是一次移位
+&lt;/span>&lt;span class="ln">30&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">off&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">35&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">46&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">47&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">48&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">49&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">50&lt;/span>
+&lt;span class="ln">51&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">52&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以得到如下16组子密钥。&lt;/p>
+&lt;blockquote>
+&lt;p>C0 = 0000000000000000111111111111
+D0 = 0110011001111000100000001111
+C1: 0000000000000001111111111110
+D1: 1100110011110001000000011110
+C2: 0000000000000011111111111100
+D2: 1001100111100010000000111101
+C3: 0000000000001111111111110000
+D3: 0110011110001000000011110110
+C4: 0000000000111111111111000000
+D4: 1001111000100000001111011001
+C5: 0000000011111111111100000000
+D5: 0111100010000000111101100110
+C6: 0000001111111111110000000000
+D6: 1110001000000011110110011001
+C7: 0000111111111111000000000000
+D7: 1000100000001111011001100111
+C8: 0011111111111100000000000000
+D8: 0010000000111101100110011110
+C9: 0111111111111000000000000000
+D9: 0100000001111011001100111100
+C10: 1111111111100000000000000001
+D10: 0000000111101100110011110001
+C11: 1111111110000000000000000111
+D11: 0000011110110011001111000100
+C12: 1111111000000000000000011111
+D12: 0001111011001100111100010000
+C13: 1111100000000000000001111111
+D13: 0111101100110011110001000000
+C14: 1110000000000000000111111111
+D14: 1110110011001111000100000001
+C15: 1000000000000000011111111111
+D15: 1011001100111100010000000111
+C16: 0000000000000000111111111111
+D16: 0110011001111000100000001111&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="14子密钥变换">1.4子密钥变换&lt;/h2>
+&lt;p>以上获得的16个56位子密钥并不是最后加密用的子密钥，还需要根据PC-2变换成48位的子密钥。于是，第n轮的新秘钥Kn 的第1位来自组合子秘钥CnDn的第14位，第2位来自第17位，依次类推，知道新秘钥的第48位来自组合秘钥的第32位。这才是加密用的子密钥。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span> PC-2
+&lt;span class="ln">2&lt;/span>&lt;span class="m">14&lt;/span> &lt;span class="m">17&lt;/span> &lt;span class="m">11&lt;/span> &lt;span class="m">24&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="m">15&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">21&lt;/span> &lt;span class="m">10&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="m">23&lt;/span> &lt;span class="m">19&lt;/span> &lt;span class="m">12&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="m">8&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="m">16&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">27&lt;/span> &lt;span class="m">20&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="m">41&lt;/span> &lt;span class="m">52&lt;/span> &lt;span class="m">31&lt;/span> &lt;span class="m">37&lt;/span> &lt;span class="m">47&lt;/span> &lt;span class="m">55&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">30&lt;/span> &lt;span class="m">40&lt;/span> &lt;span class="m">51&lt;/span> &lt;span class="m">45&lt;/span> &lt;span class="m">33&lt;/span> &lt;span class="m">48&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="m">44&lt;/span> &lt;span class="m">49&lt;/span> &lt;span class="m">39&lt;/span> &lt;span class="m">56&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">53&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="m">46&lt;/span> &lt;span class="m">42&lt;/span> &lt;span class="m">50&lt;/span> &lt;span class="m">36&lt;/span> &lt;span class="m">29&lt;/span> &lt;span class="m">32&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="c1">//第二次转换，通过PC-2将56位子密钥变成48位子密钥，得到最后的第n轮加密使用的子密钥。
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">iterator&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">48&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="n">subKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">PC_2&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>KS1:010100000010110010101100010101110010101011000010
+KS2:010100001010110010100100010100001010001101000111
+KS3:110100001010110000100110111101101000010010001100
+KS4:111000001010011000100110010010000011011111001011
+KS5:111000001001011000100110001111101111000000101001
+KS6:111000001001001001110010011000100101110101100010
+KS7:101001001101001001110010100011001010100100111010
+KS8:101001100101001101010010111001010101111001010000
+KS9:001001100101001101010011110010111001101001000000
+KS10:001011110101000101010001110100001100011100111100
+KS11:000011110100000111011001000110010001111010001100
+KS12:000111110100000110011001110110000111000010110001
+KS13:000111110000100110001001001000110110101000101101
+KS14:000110110010100010001101101100100011100110010010
+KS15:000110010010110010001100101001010000001100110111
+KS16:010100010010110010001100101001110100001111000000&lt;/p>
+&lt;/blockquote>
+&lt;p>得到最终的16轮48位子密钥。&lt;/p>
+&lt;h2 id="2加密64位的数据块">2.加密64位的数据块&lt;/h2>
+&lt;h2 id="21-字符到比特的转换">2.1 字符到比特的转换&lt;/h2>
+&lt;p>本文的明文将以“helloDES”为例。明文的预处理和密钥是一样的，我们这一节只考虑正好8个字节的明文。首先还是要将字符串转换成二进制bit位，这里用的方法和处理密钥的是一样的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">msgInit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CharToBits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">msg&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>2进制明文：01101000 01100101 01101100 01101100 01101111 01000100 01000101 01010011&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="22-初始ip变换">2.2 初始IP变换&lt;/h2>
+&lt;p>IP是重新变换数据M的每一位产生的。产生过程由下表决定，表格的下标对应新数据的下标，表格的数值x表示新数据的这一位来自旧数据的第x位。原理和密钥的PC-1、PC-2变换也是一样的。区别是IP是一个64位到64位变换，位数不变。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span> IP
+&lt;span class="ln">2&lt;/span>&lt;span class="m">58&lt;/span> &lt;span class="m">50&lt;/span> &lt;span class="m">42&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="m">18&lt;/span> &lt;span class="m">10&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="m">60&lt;/span> &lt;span class="m">52&lt;/span> &lt;span class="m">44&lt;/span> &lt;span class="m">36&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="m">20&lt;/span> &lt;span class="m">12&lt;/span> &lt;span class="m">4&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="m">62&lt;/span> &lt;span class="m">54&lt;/span> &lt;span class="m">46&lt;/span> &lt;span class="m">38&lt;/span> &lt;span class="m">30&lt;/span> &lt;span class="m">22&lt;/span> &lt;span class="m">14&lt;/span> &lt;span class="m">6&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="m">64&lt;/span> &lt;span class="m">56&lt;/span> &lt;span class="m">48&lt;/span> &lt;span class="m">40&lt;/span> &lt;span class="m">32&lt;/span> &lt;span class="m">24&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">8&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="m">57&lt;/span> &lt;span class="m">49&lt;/span> &lt;span class="m">41&lt;/span> &lt;span class="m">33&lt;/span> &lt;span class="m">25&lt;/span> &lt;span class="m">17&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">59&lt;/span> &lt;span class="m">51&lt;/span> &lt;span class="m">43&lt;/span> &lt;span class="m">35&lt;/span> &lt;span class="m">27&lt;/span> &lt;span class="m">19&lt;/span> &lt;span class="m">11&lt;/span> &lt;span class="m">3&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="m">61&lt;/span> &lt;span class="m">53&lt;/span> &lt;span class="m">45&lt;/span> &lt;span class="m">37&lt;/span> &lt;span class="m">29&lt;/span> &lt;span class="m">21&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="m">63&lt;/span> &lt;span class="m">55&lt;/span> &lt;span class="m">47&lt;/span> &lt;span class="m">39&lt;/span> &lt;span class="m">31&lt;/span> &lt;span class="m">23&lt;/span> &lt;span class="m">15&lt;/span> &lt;span class="m">7&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>参照上表，明文2进制的第58位成为IP变换后的第1位，第50位成为IP变换后的第2位，第7位成为IP变换后的最后1位。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">msgIP&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">msgIP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">msgInit&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>IP转换后 ： 11111111 10000000 01111110 11010010 00000000 00011111 00011101 10010000&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="23">2.3&lt;/h2>
+&lt;h2 id="3输入明文拆分与填充">3.输入明文拆分与填充&lt;/h2>
+&lt;p>TODO&lt;/p>
+&lt;h2 id="4拼接密文块并输出">4.拼接密文块并输出&lt;/h2>
+&lt;p>TODO&lt;/p>
+&lt;h2 id="遇到的问题">遇到的问题&lt;/h2>
+&lt;h2 id="问题1为什么网上的des加密算法得到的结果不一样">问题1.为什么网上的DES加密算法得到的结果不一样？&lt;/h2>
+&lt;p>这个问题主要涉及编码、输入格式、输出格式、加密模式这几个方面的问题，还有一些细节问题比如空格与回车。
+首先是编码问题，在线的编码格式一般默认是UTF-8，因此如果网页编码不是UTF-8，则会导致加密的结果不一样。因为DES算法本质上是对二进制内容进行加密，同样的文字经过不同的编码映射成的二进制内容并不相同。
+其次，是输入格式问题。一般在网页的输入是文本格式（Plain Text），但是许多教程为了方便理解，写的输入格式是16进制，比如 &lt;a href="http://www.hankcs.com/security/des-algorithm-illustrated.html">DES算法实例讲解&lt;/a> 这篇文章里面主要用的是16进制格式作为讲解，对于许多在线工具，明文和密钥输入用的是文本格式。因此，在输入的时候一定要注意区分。
+然后，是输出格式的问题。有些在线加密工具输出会自动进行Base64编码，这样结果和直接加密的结果完全不同。DES加密的密文是16进制格式的，无法一一对应成ASCII码。密文要么以16进制输出，要么输出一堆乱码，而Base64能将一个较长的16进制数组编码为一个字符串，方便处理。
+最后，是加密模式的问题。DES本身采用的是ECB（电子密码本）模式，即将加密的数据分成若干组，每组的大小跟加密密钥长度相同，这样密文输出完全由明文和密钥决定。为了进一步加强安全性，有许多安全性扩展，就诞生了别的加密模式，比如加密块链模式CBC、加密反馈模式CFB等等。不同的模式加密结果也会完全不同。
+在附带一点细节问题，即空格与回车的问题。尤其是在字符串处理的时候，有些字符串会带回车换行（0x0D 0x0A）,这会造成最后一个64位字符块加密有些许差别。还有一些文本框自动（trigger）去除空格，就导致文本中的空格没有被计算在内，导致加密不同。&lt;/p></description></item></channel></rss>

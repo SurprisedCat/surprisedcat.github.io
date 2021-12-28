@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数学分析 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/</link><description>Recent content in 数学分析 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之投影内积和傅里叶级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8A%95%E5%BD%B1%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</link><pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8A%95%E5%BD%B1%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</guid><description>
+&lt;h2 id="矩阵内积是投影">矩阵内积是投影&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>傅里叶级数是函数在cos nx与sin nx上的投影&lt;/p></description></item><item><title>数学分析之泰勒级数与高阶中值定理</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</link><pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</guid><description>
+&lt;h2 id="泰勒级数与高阶中值定理">泰勒级数与高阶中值定理&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#费马引理">费马引理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#费马引理证明">费马引理证明&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一阶微分中值定理">一阶微分中值定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#罗尔rolle中值定理">罗尔（Rolle）中值定理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#罗尔rolle中值定理证明">罗尔（Rolle）中值定理证明&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#拉格朗日langrange中值定理">拉格朗日（Langrange）中值定理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#拉格朗日langrange中值定理证明">拉格朗日（Langrange）中值定理证明&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#柯西cauchy中值定理">柯西（Cauchy）中值定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#泰勒中值定理">泰勒中值定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#泰勒中值定理的二阶展开">泰勒中值定理的二阶展开&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="费马引理">费马引理&lt;/h2>
+&lt;p>设函数&lt;span class="math">\(f(x)\)&lt;/span>在点&lt;span class="math">\(x_0\)&lt;/span>的某邻域&lt;span class="math">\(U(x_0)\)&lt;/span>内有定义，并且在&lt;span class="math">\(x_0\)&lt;/span>处可导，如果对任意的&lt;span class="math">\(x\in U(x_0)\)&lt;/span>，有 &lt;span class="math">\[f(x)\le f(x_0)或f(x)\ge f(x_0)\]&lt;/span> 那么&lt;span class="math">\(f^\prime(x_0)=0\)&lt;/span>。&lt;/p>
+&lt;p>费马引理的一个推论是，函数&lt;span class="math">\(f\)&lt;/span>在定义域&lt;span class="math">\(A\)&lt;/span>内的最大值和最小值只能在&lt;strong>边界&lt;/strong>上，&lt;strong>不可导的点&lt;/strong>，或&lt;strong>驻点&lt;/strong>取得。&lt;/p>
+&lt;h3 id="费马引理证明">费马引理证明&lt;/h3>
+&lt;p>假设&lt;span class="math">\(x_0\)&lt;/span>是一个极大值（如果&lt;span class="math">\(x_{0}\)&lt;/span>是极小值，证明亦类似）。那么存在一个&lt;span class="math">\(\delta &amp;gt;0\)&lt;/span>，使得对于所有的&lt;span class="math">\(|x-x_{0}|&amp;lt;\delta\)&lt;/span>，都有&lt;span class="math">\(f(x_{0})\geq f(x)\)&lt;/span>。因此对于任何&lt;span class="math">\(h \in (0,\delta)\)&lt;/span>，有： &lt;span class="math">\[\frac{f(x_0+h) - f(x_0)}{h}\le0. (1)\]&lt;/span> 由于当&lt;span class="math">\(h\)&lt;/span>从上方趋于0时，这个比值的极限存在且为 &lt;span class="math">\(f&amp;#39;(x_0)\)&lt;/span>，我们便有&lt;span class="math">\(f&amp;#39;(x_0) \le 0\)&lt;/span>。另一方面，当 &lt;span class="math">\(h \in (-\delta,0)\)&lt;/span>时，我们注意到： &lt;span class="math">\[\frac{f(x_0+h) - f(x_0)}{h} \ge 0.(2)\]&lt;/span> 当&lt;span class="math">\(h\)&lt;/span>从下方趋于0时，这个极限存在，且等于 &lt;span class="math">\(f&amp;#39;(x_0)\)&lt;/span>，我们又有&lt;span class="math">\(f&amp;#39;(x_0) \ge 0\)&lt;/span>。&lt;/p>
+&lt;p>因此&lt;span class="math">\(f&amp;#39;(x_0) = 0\)&lt;/span>。&lt;/p>
+&lt;h2 id="一阶微分中值定理">一阶微分中值定理&lt;/h2>
+&lt;h3 id="罗尔rolle中值定理">罗尔（Rolle）中值定理&lt;/h3>
+&lt;p>&lt;span class="math">\(y=f(x)\)&lt;/span>满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>在区间[a,b]上连续&lt;/li>
+&lt;li>在区间（a，b）内可导&lt;/li>
+&lt;li>&lt;span class="math">\(f(a)=f(b)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;span class="math">\(\Rightarrow\)&lt;/span>在(a,b)内至少存在一点&lt;span class="math">\(\xi\)&lt;/span>，使&lt;span class="math">\(f&amp;#39;(\xi)=0\)&lt;/span>&lt;/p>
+&lt;h4 id="罗尔rolle中值定理证明">罗尔（Rolle）中值定理证明&lt;/h4>
+&lt;p>因&lt;span class="math">\(f(x)\)&lt;/span>在[a,b]上连续，故在[a,b]上取得最大值M和最小值m。&lt;/p>
+&lt;p>若&lt;span class="math">\(M=m\)&lt;/span>，则&lt;span class="math">\(f(x)\equiv M,x\in [a,b],\)&lt;/span>，因此&lt;span class="math">\(\forall\xi\in(a,b),f&amp;#39;(\xi)=0\)&lt;/span>&lt;/p>
+&lt;p>若M&amp;gt;m，则M和m中至少有一个与端点值不相同，不妨设极大值&lt;span class="math">\(M\neq f(a)\)&lt;/span>，则至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(f(\xi)=M\)&lt;/span>，则费马引理可知&lt;span class="math">\(f&amp;#39;(\xi)=0\)&lt;/span>（只有在驻点才可能取得极值）。&lt;/p>
+&lt;p>注意：定理条件不全具备，结论不一定成立。&lt;/p>
+（1）函数不连续 &lt;span class="math">\[f(x)=\begin{cases}
+x,\quad 0\leq x &amp;lt;1 \\
+0,\quad x=1
+\end{cases}\]&lt;/span> &lt;img src="../../images/f_uncontinus.png" alt="函数不连续" />
+&lt;center>
+图1 函数不连续
+&lt;/center>
+(2)函数不可导 &lt;span class="math">\[f(x)=\|x\|,x\in [-1,1]\]&lt;/span> &lt;img src="../../images/f_not_deriv.png" alt="函数不可导" />
+&lt;center>
+图2 函数不可导
+&lt;/center>
+&lt;h3 id="拉格朗日langrange中值定理">拉格朗日（Langrange）中值定理&lt;/h3>
+&lt;p>&lt;span class="math">\(y=f(x)\)&lt;/span>满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>在区间[a,b]上连续&lt;/li>
+&lt;li>在区间（a，b）内可导&lt;/li>
+&lt;/ol>
+&lt;p>&lt;span class="math">\(\Rightarrow\)&lt;/span>至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(f&amp;#39;(\xi)=\frac{f(b)-f(a)}{b-a}\)&lt;/span>&lt;/p>
+&lt;h4 id="拉格朗日langrange中值定理证明">拉格朗日（Langrange）中值定理证明&lt;/h4>
+&lt;p>可以把问题转为证明&lt;span class="math">\(f&amp;#39;(\xi)-\frac{f(b)-f(a)}{b-a}=0\)&lt;/span>。我们作辅助函数： &lt;span class="math">\[\phi(x)=f(x)-\frac{f(b)-f(a)}{b-a}x\]&lt;/span> 显然，&lt;span class="math">\(\phi(x)\)&lt;/span>在[a,b]上连续，在(a,b)内可导，且&lt;span class="math">\(\phi(a)=\frac{bf(a)-af(b)}{b-a}=\phi(b)\)&lt;/span>。&lt;/p>
+&lt;p>&lt;span class="math">\(\phi(x)\)&lt;/span>函数可由罗尔定理只至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(\phi&amp;#39;(\xi)=0\)&lt;/span>，即定理结论整理。证毕。&lt;/p>
+&lt;h3 id="柯西cauchy中值定理">柯西（Cauchy）中值定理&lt;/h3>
+&lt;p>&lt;span class="math">\(f(x)\)&lt;/span>及&lt;span class="math">\(F(x)\)&lt;/span>满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>在闭区间[a,b]上连续&lt;/li>
+&lt;li>在开区间(a,b)内可导&lt;/li>
+&lt;li>在开区间(a,b)内&lt;span class="math">\(F(x)\neq0\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;span class="math">\(\Rightarrow\)&lt;/span>至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(\frac{f(b)-f(a)}{F(b)-F(a)}=\frac{f&amp;#39;(\xi)}{F&amp;#39;(\xi)}\)&lt;/span>&lt;/p>
+&lt;p>证明同拉格朗日中值定理。&lt;/p>
+&lt;img src="../../images/mean_value.png" alt="中值定理之间关系" />
+&lt;center>
+图3 中值定理之间关系
+&lt;/center>
+&lt;h2 id="泰勒中值定理">泰勒中值定理&lt;/h2>
+&lt;p>若&lt;span class="math">\(f(x)\)&lt;/span>在包含&lt;span class="math">\(x_0\)&lt;/span>的某开区间（a，b）内具有直到n+1阶导数，则当&lt;span class="math">\(x\in(a,b)\)&lt;/span>时，有 &lt;span class="math">\[f(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2+\cdots+\frac{f^{(n)}(x_0)}{n!}(x-x_0)^n+R_n(x)(1)\]&lt;/span> &lt;span class="math">\[R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{(n+1)}（2）\]&lt;/span> 其中，&lt;span class="math">\(\xi\)&lt;/span>在&lt;span class="math">\(x\)&lt;/span>和&lt;span class="math">\(x_0\)&lt;/span>之间(&lt;span class="math">\(x\in [min(x,x_0),max(x,x_0)]\)&lt;/span>)。&lt;/p>
+&lt;p>公式（1）为泰勒n+1阶展开式。公式（2）为n+1阶泰勒余式。&lt;/p>
+&lt;h3 id="泰勒中值定理的二阶展开">泰勒中值定理的二阶展开&lt;/h3>
+&lt;p>如果&lt;span class="math">\(f(x)\in C^2,P=1,\xi在x_0和x之间\)&lt;/span>，那么 &lt;span class="math">\[f(x)=f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(\xi)}{2!}(x-x_0)^2,\xi\in\]&lt;/span> 变量&lt;span class="math">\(x\)&lt;/span>变成高维（&lt;span class="math">\(0\leq \alpha \leq 1\)&lt;/span>）： &lt;span class="math">\[f(\textbf{x}+\boldsymbol{\delta})=f(\textbf{x})+\textbf{g}(\textbf{x})^T\boldsymbol{\delta}+\frac{1}{2}\boldsymbol{\delta}^T\textbf{H}(\textbf{x}+\alpha\boldsymbol{\delta})\boldsymbol{\delta}\]&lt;/span>&lt;/p></description></item><item><title>数学分析之水平集</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B0%B4%E5%B9%B3%E9%9B%86/</link><pubDate>Mon, 16 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B0%B4%E5%B9%B3%E9%9B%86/</guid><description>
+&lt;h2 id="数学分析之水平集">数学分析之水平集&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>水平集是数学中的中一个重要概念，这个概念和函数图像有着直观的联系，同时水平集也和函数的连续性，拟凸性，等高线图有着直接的联系。&lt;/p>
+&lt;h2 id="水平集">水平集&lt;/h2>
+&lt;p>在数学领域中, 一个具有&lt;span class="math">\(n\)&lt;/span>变量的实值函数&lt;span class="math">\(f\)&lt;/span>的&lt;strong>水平集&lt;/strong>是具有以下形式的集合 &lt;span class="math">\[
+\{(x_1,...,x_n)|f(x_1,...,x_n)=c\}
+\]&lt;/span>&lt;/p>
+&lt;p>其中&lt;span class="math">\(c\)&lt;/span>是常数， 即使得函数值具有给定常数的变量集合。当具有&lt;strong>两个变量&lt;/strong>时, 称为&lt;strong>水平曲线(等高线)&lt;/strong>, 如果有&lt;strong>三个变量, 称为水平曲面&lt;/strong>, 更多变量时, 水平集被叫做&lt;strong>水平超曲面&lt;/strong>。&lt;/p>
+&lt;h3 id="例子">例子&lt;/h3>
+&lt;p>例如, 指定一个半径&lt;span class="math">\(r\)&lt;/span>, 圆的方程可以定义为一个等高线： &lt;span class="math">\[
+r^2=x^2 + y^2
+\]&lt;/span> 如果取&lt;span class="math">\(r=5\)&lt;/span>, 那么等高值为&lt;span class="math">\(c=5^2=25\)&lt;/span>。&lt;/p>
+&lt;p>所有使得&lt;span class="math">\(x^2 + y^2=25\)&lt;/span>的点&lt;span class="math">\((x,y)\)&lt;/span>构成了它的等高线。 这就是说他们属于等高线的水平集。 如果&lt;span class="math">\(x^2 + y^2\)&lt;/span>小于 25 这个点&lt;span class="math">\((x,y)\)&lt;/span>就在等高线的内部;如果大于25，这个点就在等高线外部。&lt;/p>
+&lt;h2 id="水平集与梯度">水平集与梯度&lt;/h2>
+&lt;blockquote>
+&lt;p>定理： 函数&lt;span class="math">\(f\)&lt;/span>在一点处的梯度与在该点处&lt;span class="math">\(f\)&lt;/span>的水平集垂直。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个定理是十分不寻常的。为更好的理解定理的含义，设想两个旅行者在一座山峰的同一位置。其中一个人很大胆，决定从坡度最大的地方走。另一个人比较保守；他不想向上爬，也不想走下去，选择了一条在同一高度的路。上面的定理就是说，这两个旅行者相互离开的方向是互相垂直的。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/Level_grad.png" alt="Level_grad.png" />&lt;p class="caption">Level_grad.png&lt;/p>
+&lt;/div>
+&lt;h2 id="上水平集和下水平集">上水平集和下水平集&lt;/h2>
+&lt;blockquote>
+&lt;p>集合&lt;span class="math">\(\{ (x_1,...,x_n) | f(x_1,...,x_n) ≤ c \}\)&lt;/span>被称为&lt;span class="math">\(f\)&lt;/span>的下水平集或子水平集;&lt;/p>
+&lt;p>集合&lt;span class="math">\(\{ (x_1,...,x_n) | f(x_1,...,x_n) \geq c \}\)&lt;/span>被称为&lt;span class="math">\(f\)&lt;/span>的上水平集。&lt;/p>
+&lt;/blockquote>
+&lt;p>上下水平集与&lt;strong>最大最小值定理&lt;/strong>相关：&lt;/p>
+&lt;blockquote>
+&lt;p>定义：对于一个拓扑空间&lt;span class="math">\(X\)&lt;/span>，如果&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(f:X→R\)&lt;/span>是下半连续的，则其任意下水平集是闭的。&lt;/li>
+&lt;li>&lt;span class="math">\(f:X→R\)&lt;/span>是上半连续的，则其任意上水平集是闭的。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>&lt;strong>通过半连续性，我们可以知道一个映射是否可以取到最值&lt;/strong>： &amp;gt;定理：设&lt;span class="math">\(X\)&lt;/span>是非空紧集，&lt;span class="math">\(f:X→R\)&lt;/span>则： &amp;gt; &amp;gt;- &lt;span class="math">\(f\)&lt;/span>下半连续&lt;span class="math">\(\Rightarrow\)&lt;/span>函数有最小值 &amp;gt;- &lt;span class="math">\(f\)&lt;/span>上半连续&lt;span class="math">\(\Rightarrow\)&lt;/span>函数有最大值&lt;/p>
+&lt;p>具体可以参考&lt;a href="https://en.wikipedia.org/wiki/Extreme_value_theorem#Extension_to_semi-continuous_functions">魏尔斯特拉斯极值定理&lt;/a>&lt;/p>
+&lt;p>上下水平集与&lt;strong>拟凸拟凹函数&lt;/strong>有关：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(f:R^n→R, \mathop{dom}f\)&lt;/span>是凸集，&lt;span class="math">\(\alpha-\)&lt;/span>下水平集是凸集，则&lt;span class="math">\(f(x)\)&lt;/span>为&lt;strong>拟凸函数&lt;/strong>。即 &lt;span class="math">\[f:R^n→R,s.t.\, S_\alpha=\{x\in \mathop{dom} f| f(x)\geq \alpha\}为凸集\]&lt;/span> &lt;span class="math">\(f\)&lt;/span>是拟凸函数，我们称&lt;span class="math">\(-f\)&lt;/span>为&lt;strong>拟凹&lt;/strong>函数,拟凹函数的&lt;span class="math">\(\alpha-\)&lt;/span>&lt;strong>上水平集是凸集&lt;/strong>。&lt;/p>
+&lt;/blockquote></description></item><item><title>数学分析之连续性</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E8%BF%9E%E7%BB%AD%E6%80%A7/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E8%BF%9E%E7%BB%AD%E6%80%A7/</guid><description>
+&lt;h2 id="数学分析之连续性">数学分析之连续性&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>设有一个&lt;span class="math">\(f:\mathcal R^n→\mathcal R^m\)&lt;/span>的映射。&lt;/p>
+&lt;blockquote>
+&lt;p>点的连续性：&lt;span class="math">\(f\)&lt;/span>称为在&lt;span class="math">\(x_0\in \mathcal R^n\)&lt;/span>处&lt;strong>连续&lt;/strong>，若&lt;span class="math">\(\forall \varepsilon&amp;gt;0, \exists \delta&amp;gt;0\)&lt;/span>，&lt;span class="math">\(s.t. \forall x\in \mathcal R^n\)&lt;/span>，若&lt;span class="math">\(\Vert x-x_0\Vert&amp;lt;\delta\)&lt;/span>，则有&lt;span class="math">\(\Vert f(x)-f(x_0)\Vert &amp;lt;\varepsilon\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果我们用开球（又称邻域）&lt;span class="math">\(B(x_0;r)=\{x\in \mathcal{R^n} \big\vert \Vert x-x_0\Vert &amp;lt;r\}\)&lt;/span>，来描述连续性： &amp;gt;&lt;span class="math">\(\forall \varepsilon&amp;gt;0, \exists \delta&amp;gt;0有f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\)&lt;/span> ---------------------------------------- &amp;gt;映射的连续性：&lt;span class="math">\(f:\mathcal R^n→\mathcal R^m\)&lt;/span>称为连续映射，若&lt;span class="math">\(\forall x_0 \in \mathcal R^n\)&lt;/span>，&lt;span class="math">\(f\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>出连续。&lt;/p>
+&lt;h2 id="连续与开集的关系">连续与开集的关系&lt;/h2>
+&lt;p>设开集为&lt;span class="math">\(U\)&lt;/span>，若对于&lt;span class="math">\(\forall U \underset{open}{\subset} \mathcal{R^m}\)&lt;/span>&lt;/p>
+&lt;p>&lt;strong>&lt;span class="math">\(f\)&lt;/span>连续&lt;span class="math">\(\Rightarrow\)&lt;/span>开集的原像是开集&lt;/strong>&lt;/p>
+&lt;p>考虑&lt;span class="math">\(U\)&lt;/span>的原像&lt;span class="math">\(f^{-1}(U),\forall x_0\in f^{-1}(U),f(x_0)\in U\)&lt;/span>。&lt;/p>
+&lt;p>由于&lt;span class="math">\(U\)&lt;/span>是开集，对于其中的点&lt;span class="math">\(f(x_0)，\exist \varepsilon&amp;gt;0. s.t. B(f(x_0);\varepsilon)\subset U\)&lt;/span>&lt;/p>
+&lt;p>又因为&lt;span class="math">\(f\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>出连续，则&lt;span class="math">\(\exist \delta&amp;gt;0\)&lt;/span>使得&lt;span class="math">\(f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\Rightarrow B(x_0;\delta)\subset f^{-1}(B(f(x_0);\varepsilon))\subset f^{-1}(U)\)&lt;/span>。对于&lt;span class="math">\(U\)&lt;/span>中每一点都成立，所以&lt;span class="math">\(f^{-1}(U)\)&lt;/span>为&lt;span class="math">\(\mathcal{R^n}\)&lt;/span>中开集。&lt;/p>
+&lt;p>&lt;strong>开集的原像是开集&lt;span class="math">\(\Rightarrow f\)&lt;/span>连续&lt;/strong>&lt;/p>
+&lt;p>&lt;span class="math">\(\forall x_0 \in \mathcal{R^n}\)&lt;/span>，先证&lt;span class="math">\(f\)&lt;/span>在任一点&lt;span class="math">\(x_0\)&lt;/span>出连续。&lt;/p>
+&lt;p>&lt;span class="math">\(\forall \varepsilon&amp;gt;0\)&lt;/span>，考虑&lt;span class="math">\(B(f(x_0);\varepsilon)\)&lt;/span>,由于条件开集的原像为开集，开球的原像&lt;span class="math">\(f^{-1}(B(f(x_0);\varepsilon))\)&lt;/span>也是开集，即&lt;span class="math">\(x_0\in f^{-1}(B(f(x_0);\varepsilon))且\exist\delta&amp;gt;0\)&lt;/span>，s.t. &lt;span class="math">\(B(x_0;\delta)\subset f^{-1}(B(f(x_0);\varepsilon))\Rightarrow f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\Rightarrow f\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>出连续。由于对任意&lt;span class="math">\(x_0\)&lt;/span>都成立，所以映射&lt;span class="math">\(f\)&lt;/span>连续。&lt;/p>
+&lt;p>总结：&lt;strong>&lt;span class="math">\(f:\mathcal{R^n}→\mathcal{R^m}\)&lt;/span>连续映射&lt;span class="math">\(\Leftrightarrow\)&lt;/span>在&lt;span class="math">\(f\)&lt;/span>下，开集的原像为开集&lt;/strong>。这样我们可以&lt;strong>仅通过开集的概念来验证映射的连续性&lt;/strong>。&lt;/p></description></item><item><title>数学分析-三角函数与三角级数的正交性</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E4%B8%8E%E4%B8%89%E8%A7%92%E7%BA%A7%E6%95%B0%E7%9A%84%E6%AD%A3%E4%BA%A4%E6%80%A7/</link><pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E4%B8%8E%E4%B8%89%E8%A7%92%E7%BA%A7%E6%95%B0%E7%9A%84%E6%AD%A3%E4%BA%A4%E6%80%A7/</guid><description>
+&lt;h2 id="三角函数与三角级数的正交性">三角函数与三角级数的正交性&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#三角恒等式和差化积与积化和差">三角恒等式——和差化积与积化和差&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#三角级数与三角函数系的正交性">三角级数与三角函数系的正交性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#应用傅里叶级数展开">应用——傅里叶级数展开&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="三角恒等式和差化积与积化和差">三角恒等式——和差化积与积化和差&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">积化和差&lt;/th>
+&lt;th align="center">和差化积&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\({\displaystyle \sin \alpha \cos \beta ={\sin(\alpha +\beta )+\sin(\alpha -\beta ) \over 2}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\({\displaystyle \sin \alpha +\sin \beta =2\sin {\frac {\alpha +\beta }{2}}\cos {\frac {\alpha -\beta }{2}}}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\({\displaystyle \cos \alpha \sin \beta ={\sin(\alpha +\beta )-\sin(\alpha -\beta ) \over 2}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\({\displaystyle \sin \alpha -\sin \beta =2\cos {\alpha +\beta \over 2}\sin {\alpha -\beta \over 2}}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\({\displaystyle \cos \alpha \cos \beta ={\cos(\alpha +\beta )+\cos(\alpha -\beta ) \over 2}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\({\displaystyle \cos \alpha +\cos \beta =2\cos {\frac {\alpha +\beta }{2}}\cos {\frac {\alpha -\beta }{2}}}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\({\displaystyle \sin \alpha \sin \beta =-{\cos(\alpha +\beta )-\cos(\alpha -\beta ) \over 2}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\({\displaystyle \cos \alpha -\cos \beta =-2\sin {\alpha +\beta \over 2}\sin {\alpha -\beta \over 2}}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="三角级数与三角函数系的正交性">三角级数与三角函数系的正交性&lt;/h2>
+&lt;blockquote>
+&lt;p>定理1： 组成三角级数的函数系 &lt;span class="math">\[1, \sin x, \cos x, \sin 2x, \cos 2x, \dotsb, \sin nx, \cos nx\]&lt;/span> 在区间&lt;span class="math">\([-\pi , \pi]或[0, 2\pi]\)&lt;/span>上正交，即其中任意两个&lt;strong>不同&lt;/strong>函数之积在区间&lt;span class="math">\([-\pi , \pi]或[0, 2\pi]\)&lt;/span>积分为0.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>证明&lt;/strong>：&lt;/p>
+可以用积化和差公式证明，&lt;span class="math">\(\sin kx \cos nx={1 \over 2}[\sin (kx+nx)+\sin (kx-nx)]\)&lt;/span>，其中&lt;span class="math">\(k,n\)&lt;/span>为整数，且&lt;span class="math">\(k \neq n\)&lt;/span>。 $$
+&lt;p>&lt;span class="math">\[
+由于对任意**非0**整数$n$，有$\sin nx, \cos nx$在区间$[-\pi , \pi]或[0, 2\pi]$积分为0，所以上式右侧积分为0，即
+\]&lt;/span> &lt;em>0^{2}kx nx x = 0 &lt;span class="math">\[
+同理可以证明
+\]&lt;/span> &lt;/em>0^{2}kx nx x = 0\ &lt;em>0^{2}kx nx x = 0\ &lt;/em>0^{2}kx nx x = 0 &lt;span class="math">\[
+需要指出的是三角函数系中相同函数的乘积在在区间$[-\pi , \pi]或[0, 2\pi]$积分不为0，即
+\]&lt;/span> &lt;em>0^{2}nx nx x 0\ &lt;/em>0^{2}nx nx x 0\ $$ 我们从积化和差公式中也可以窥出原因，即出现了直流项。&lt;/p>
+&lt;h2 id="应用傅里叶级数展开">应用——傅里叶级数展开&lt;/h2>
+&lt;blockquote>
+&lt;p>狄利克雷定理 (傅里叶级数):&lt;/p>
+&lt;p>设&lt;span class="math">\(f(x)\)&lt;/span>是周期为&lt;span class="math">\(2\pi\)&lt;/span>的周期函数，并满足狄利克雷条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>在一个周期内连续或只有有限个第一类间断点；&lt;/li>
+&lt;li>在一个周期内只有有限个极限点；&lt;/li>
+&lt;/ol>
+&lt;p>则&lt;span class="math">\(f(x)\)&lt;/span>的傅里叶级数收敛，且有 &lt;span class="math">\[
+\frac{a_0}{2}+\sum_{n=1}^\infty(a_n \cos nx + b_n \sin nx)=\\
+\begin{cases}
+f(x), x为连续点\\
+\frac{f(x^+)+f(x^-)}{2}, x为间断点
+\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(a_n, b_n\)&lt;/span>为&lt;span class="math">\(f(x)的傅里叶系数\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>可以发现傅里叶级数比幂级数的条件要宽松很多，对可导没有要求。&lt;/p>
+&lt;p>另外，对奇函数，偶函数可以有对应的正弦级数和余弦级数。&lt;/p></description></item><item><title>数学分析-等幂求和公式</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E7%AD%89%E5%B9%82%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F/</link><pubDate>Mon, 02 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E7%AD%89%E5%B9%82%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F/</guid><description>
+&lt;h2 id="等幂求和公式">等幂求和公式&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="一阶求和公式">一阶求和公式&lt;/h2>
+&lt;p>一阶求和公式就是我们熟知的高斯求和公式 &lt;span class="math">\[
+S_1(n) = 1+2+3+\dotsb+n=\frac{n(n+1)}{2}
+\]&lt;/span>&lt;/p>
+&lt;h2 id="二阶求和公式">二阶求和公式&lt;/h2>
+&lt;p>&lt;span class="math">\[
+S_2(n) = 1^2+2^2+3^2+\dotsb+n^2=\frac{n(n+1)(2n+1)}{6}
+\]&lt;/span>&lt;/p>
+&lt;p>二阶求和公式在高中也学过，但当时使用的是猜测加数学归纳法，公式的推导过程不够直观。下面，我们用一个直观的构造法来推导二阶求和公式。&lt;/p>
+&lt;p>构造直到&lt;span class="math">\(2n\)&lt;/span>的平方和： &lt;span class="math">\[
+\begin{aligned}
+S_2(2n)&amp;amp;=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\\
+&amp;amp;=\underbrace{1^2+2^2+3^2+\dotsb+n^2}_{S_2(n)}+(n^2+2n+1^2)+\dotsb+(n^2+2n\times n+n^2)\\
+&amp;amp;=S_2(n)+n\times n^2 + 2n\underbrace{(1+2+3+\dotsb+n)}_{S_1(n)}+\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}\\
+&amp;amp;=2S_2(n)+n^3+2n\times \frac{n(n+1)}{2}\\
+&amp;amp;=2S_2(n)+2n^3+n^2 \dotsb(1)\\
+\end{aligned}
+\]&lt;/span> 另一个方面，我们可以将&lt;span class="math">\(S_2(2n)\)&lt;/span>根据奇偶性拆分： &lt;span class="math">\[
+\begin{aligned}
+S_2(2n)&amp;amp;=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\\
+&amp;amp;=1^2+3^2+\dotsb+(2n-1)^2+2^2+4^2+\dotsb+(2n)^2\\
+&amp;amp;=(2\times 1-1)^2+(2\times 2-1)^2+\dotsb+(2\times n-1)^2+4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_(n)}\\
+&amp;amp;=(2^2\times 1^2 - 2\times 2\times 1 + 1^2)+(2^2\times 2^2 - 2\times 2\times 2 + 1^2)+\dotsb\\
+&amp;amp;+(2^2\times n^2 - 2\times 2\times n + 1^2)+4S_2(n)\\
+&amp;amp;=4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-4(1+2+\dotsb+n)+n+4S_2(n)\\
+&amp;amp;=8S_2(n)-4\frac{n(n+1)}{2}+n=8S_2(n)-2n^2-n\dotsb(2)
+\end{aligned}
+\]&lt;/span> 显然公式&lt;span class="math">\((1)\)&lt;/span>等于公式&lt;span class="math">\((2)\)&lt;/span>，因此有： &lt;span class="math">\[
+2S_2(n)+2n^3+n^2=8S_2(n)-2n^2-n\\
+\Rightarrow S_2(n)=\frac{n(n+1)(2n+1)}{6}
+\]&lt;/span>&lt;/p>
+&lt;h2 id="三阶求和公式">三阶求和公式&lt;/h2>
+&lt;p>&lt;span class="math">\[
+S_3(n)=\left[{\frac {n(n+1)}{2}}\right]^{{2}}
+\]&lt;/span> 三阶求和公式也需要一个构造，这个构造利用了对称性，比二阶求和公式好懂一些。 &lt;span class="math">\[
+S_3(n)=1^3 +2^3 +3^3 +\dotsb+n^3\\
+S_3(n)=n^3+(n-1)^3+(n-2)^3+\dotsb+1^3
+\]&lt;/span> 两者相加有： &lt;span class="math">\[
+\begin{aligned}
+2S_3(n)&amp;amp;=n^3+1^3+(n-1)^3+2^3+(n-2)^3+3^3+\dotsb+1^3+n^3\\
+&amp;amp;根据立方和公式a^3+b^3=(a+b)(a^2-ab+b^2)有：\\
+2S_3(n)&amp;amp;=(n+1)(n^2-n+1)+[n+1]((n-1)^2-2(n-1)+2^2)\\
+&amp;amp;+[n+1]((n-2)^2-3(n-2)+3^2)+\dotsb+[n+1](1^2-n+n^2)\\
+&amp;amp;=[n+1](2\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-(1\times n+2(n-1)+3(n-2)+\dotsb+n\times (n-(n-1)))\\
+&amp;amp;=[n+1](2S_2(n)-n\underbrace{(1+2+\dotsb+n)}_{S_1(n)}+2\times 1+3\times 2+\dotsb+n\times(n-1))\\
+&amp;amp;=[n+1](2S_2(n)-nS_1(n)+1^2+1+2^2+2+\dotsb+(n-1)^2+(n-1))\\
+&amp;amp;=[n+1](2S_2(n)-nS_1(n)+(S_2(n)-n^2)+(S_1(n)-n))\\
+&amp;amp;=[n+1](3S_2(n)-(n-1)S_1(n)-n^2-n)\\
+&amp;amp;代入S_1(n),S_2(n)结果可得：\\
+&amp;amp;=[n+1](\frac{n(n+1)(2n+1)}{2}-\frac{(n-1)n(n+1)}{2}-n(n+1))\\
+&amp;amp;={1\over 2}(n+1)^2[n(2n+1)-(n-1)n-2n]=\frac{1}{2}n^2(n+1)^2\\
+\Rightarrow S_3(n)&amp;amp;=\frac{1}{4}n^2(n+1)^2=[\frac{n(n+1)}{2}]^2
+\end{aligned}
+\]&lt;/span>&lt;/p>
+&lt;h2 id="等幂求和公式推断">等幂求和公式推断&lt;/h2>
+&lt;p>我们根据1~3阶的求和公式发现，&lt;span class="math">\(m\)&lt;/span>阶&lt;span class="math">\(n\)&lt;/span>个连续自然数的和是&lt;strong>一个和&lt;span class="math">\(n\)&lt;/span>相关的&lt;span class="math">\(m+1\)&lt;/span>阶多项式(且没有0阶项)&lt;/strong>，因此可以猜测，&lt;span class="math">\(m\)&lt;/span>阶&lt;span class="math">\(n\)&lt;/span>个连续自然数和的形式为: &lt;span class="math">\[
+a_{m+1} n^{m+1}+a_{m} n^{m}+\dotsb+a_1 n^1
+\]&lt;/span> 这样我们可以先找出&lt;span class="math">\(m+1\)&lt;/span>个初始条件，然后以待定系数法求得求和公式。以2阶求和公式为例： &lt;span class="math">\[
+\begin{aligned}
+1^2 = 1 &amp;amp;= 1^3 a_3+ 1^2 a_2 + 1^1 a_1 \\
+1^2 +2^2 = 5&amp;amp;= 2^3 a_3+ 2^2 a_2 + 2^1 a_1\\
+1^2 +2^2 + 3^2= 14&amp;amp;= 3^3 a_3+ 3^2 a_2 + 3^1 a_1
+\end{aligned}
+\]&lt;/span> 根据高斯消元法或者克莱姆法则可知： &lt;span class="math">\[
+\begin{cases}
+a_1=\frac{1}{3}\\
+a_2=\frac{1}{2}\\
+a_3=\frac{1}{6}\\
+\end{cases}
+\]&lt;/span> 即2阶求和公式为&lt;span class="math">\(S_2(n)=\frac{1}{3}n^3+\frac{1}{2}n^2+\frac{1}{6}n\)&lt;/span>。&lt;/p>
+&lt;p>当然这只是通过推断得出的结论，没有直接的证明。下面直接给出等幂求和公式 &lt;span class="math">\[
+S_m(n)={1 \over {m+1}}\sum_{{i=0}}^{m}{m+1 \choose {i}}B_{i}(n+1)^{{m+1-i}}\tag{3}
+\]&lt;/span> 其中&lt;span class="math">\(B_i\)&lt;/span>是伯努利数。关于伯努利数请参考维基百科&lt;a href="https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0">https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0&lt;/a>.&lt;/p></description></item><item><title>数学分析-基础</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80/</link><pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E5%9F%BA%E7%A1%80/</guid><description>
+&lt;h2 id="数学分析基础">数学分析基础&lt;!-- omit in toc -->&lt;/h2>
+&lt;div class="figure">
+&lt;img src="../../images/数学分析定理关系.jpg" alt="数学分析定理关系" />&lt;p class="caption">数学分析定理关系&lt;/p>
+&lt;/div>
+&lt;ul>
+&lt;li>&lt;a href="#实数完备性定理">实数完备性定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#确界定理">确界定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单调有界定理">单调有界定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#闭区间套定理">闭区间套定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#列紧性定理致密性定理">列紧性定理(致密性定理)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#柯西收敛准则">柯西收敛准则&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有限覆盖定理紧性">有限覆盖定理（紧性）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#聚点定理">聚点定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#导集内核闭包">导集内核闭包&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从完备性列紧紧看定理体系">从完备性，列紧，紧看定理体系&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="实数完备性定理">实数完备性定理&lt;/h2>
+&lt;p>详细请看&lt;a href="../文档/实变函数/实数完备性基本定理的相互证明(30个).pdf">实数完备性基本定理的相互证明(30个).pdf&lt;/a>&lt;/p>
+&lt;h2 id="确界定理">确界定理&lt;/h2>
+&lt;blockquote>
+&lt;p>上（下）确界的两种定义方式：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>严格定义：若&lt;span class="math">\(\beta\)&lt;/span>是数集&lt;span class="math">\(S\)&lt;/span>的一个上（下）界，并且有&lt;span class="math">\(\forall \varepsilon&amp;gt;0，\exists x_\varepsilon ∈ S\)&lt;/span>，满足&lt;span class="math">\(x_\varepsilon&amp;gt;\beta-\varepsilon(x_\varepsilon&amp;lt;\beta+\varepsilon)\)&lt;/span>，则称&lt;span class="math">\(\beta\)&lt;/span>是数集&lt;span class="math">\(S\)&lt;/span>的上（下）确界。&lt;/li>
+&lt;li>简化定义：上确界是最小上界，下确界是最大下界。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>确界原理可以被看做&lt;strong>公理&lt;/strong>，它是实数的&lt;strong>连续性或完备性&lt;/strong>的体现，即实数包含了数轴上所有的点，没有空隙。数集&lt;span class="math">\(S\)&lt;/span>的上确界常被记作&lt;span class="math">\(\sup S\)&lt;/span>，下确界记作&lt;span class="math">\(\inf S\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>有上界的非空数集必有上确界。有下界的非空数集必有下确界。&lt;/p>
+&lt;p>空集的上确界是&lt;span class="math">\(-∞\)&lt;/span>，下确界是&lt;span class="math">\(+∞\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="单调有界定理">单调有界定理&lt;/h2>
+&lt;blockquote>
+&lt;p>单调有界定理:单调有界数列必有极限。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>考虑有上界的单调递增序列，确定定理指出，有上界必有上确界。&lt;/p>
+&lt;p>首先指出有上确界&lt;span class="math">\(a，\forall a_n和\varepsilon&amp;gt;0，a_n≤a&amp;lt;a+\varepsilon\)&lt;/span>。&lt;/p>
+&lt;p>其次根据上确界的定义，&lt;span class="math">\(\forall \varepsilon&amp;gt;0，\exists a_N\)&lt;/span>，使得&lt;span class="math">\(a_N&amp;gt;a-\varepsilon\)&lt;/span>。由于序列递增，所以当&lt;span class="math">\(n&amp;gt;N\)&lt;/span>时，&lt;span class="math">\(a_n≥a_N&amp;gt;a-\varepsilon\)&lt;/span>。&lt;/p>
+&lt;p>综上，当&lt;span class="math">\(n&amp;gt;N\)&lt;/span>时，&lt;span class="math">\(\forall \varepsilon&amp;gt;0\)&lt;/span>， &lt;span class="math">\[a_n&amp;lt;a+\varepsilon\Rightarrow a_n-a&amp;lt;\varepsilon\\
+a_n≥a_N&amp;gt;a-\varepsilon\Rightarrow a-a_n&amp;lt;\varepsilon\]&lt;/span> 即&lt;span class="math">\(|a_n-a|&amp;lt;\varepsilon\)&lt;/span>，上确界&lt;span class="math">\(a\)&lt;/span>为序列的极限。同理对于有下界的递减数列同样可得极限为下确界。&lt;/p>
+&lt;blockquote>
+&lt;p>推论：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>如果单调序列的一个子序列收敛，则这个单调序列收敛。&lt;/li>
+&lt;li>如果单调序列的一个子序列趋向无穷，则这个序列发散。&lt;/li>
+&lt;li>一个单调序列要么收敛要么发散。&lt;/li>
+&lt;li>单调序列收敛的&lt;strong>充分必要&lt;/strong>条件是序列有界。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h2 id="闭区间套定理">闭区间套定理&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(I_n=[a_n,b_n],n∈N^+\)&lt;/span>，为一列闭区间，满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(I_1\supset I_2\supset I_3\supset\dotsb\supset I_n\supset I_{n+1} \dotsb\)&lt;/span>&lt;/li>
+&lt;li>区间长度&lt;span class="math">\(|I_n|=b_n-a_n → 0(n→∞)\)&lt;/span>，&lt;/li>
+&lt;/ol>
+&lt;p>则存在&lt;strong>唯一一点&lt;/strong>&lt;span class="math">\(\xi满足\xi\in\bigcap\limits_{n=1}^∞ I_n\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>即&lt;span class="math">\(\lim_{n→∞}a_n=\lim_{n→∞}b_n=\xi\)&lt;/span>。&lt;strong>R中长度趋于0的区间套有且只有一个公共点。&lt;/strong> &lt;img src="../../images/闭区间套定理.png" alt="闭区间套定理" />&lt;/p>
+&lt;p>证明：由区间的包含关系可知，左端点组成的数列&lt;span class="math">\(\{a_n\}\)&lt;/span>递增，右端点组成的数列&lt;span class="math">\(\{b_n\}\)&lt;/span>递减，并且&lt;span class="math">\(\{a_n\}\)&lt;/span>有上界&lt;span class="math">\(b_1\)&lt;/span>，&lt;span class="math">\(\{b_n\}\)&lt;/span>有下界&lt;span class="math">\(a_1\)&lt;/span>。由&lt;strong>单调有界定理&lt;/strong>可知，下面两式有极限： &lt;span class="math">\[\lim_{n→∞}a_n=a\\
+\lim_{n→∞}b_n=b\]&lt;/span> 由于&lt;span class="math">\(a_n\leq b_n\)&lt;/span>恒成立，所以&lt;span class="math">\(a\leq b\)&lt;/span>，因此由不等式： &lt;span class="math">\[a_n≤a≤b≤b_n(n∈N^+)\\
+\Rightarrow 0≤b-a≤b_n-a_n=|I_n|\]&lt;/span> 由区间长度&lt;span class="math">\(|I_n|→0(n→∞)\)&lt;/span>可知，&lt;span class="math">\(a=b\)&lt;/span>。此时： &lt;span class="math">\[a_n≤a=b≤b_n，对\forall n∈N^+成立，即a ∈ I_n\]&lt;/span> 由此可得：&lt;span class="math">\(a ∈ \bigcap\limits_{n=1}^∞ I_n\)&lt;/span>，&lt;span class="math">\(a\)&lt;/span>的唯一性可有极限的唯一性(Hausdorff空间极限都唯一)推得。&lt;/p>
+&lt;h2 id="列紧性定理致密性定理">列紧性定理(致密性定理)&lt;/h2>
+&lt;blockquote>
+&lt;p>列紧性定理(致密性定理)：任意有界数列中必可造出收敛子列。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>方法1：区间套定理。&lt;/p>
+&lt;p>设&lt;span class="math">\(\{x_n\}\)&lt;/span>为一有界数列，有&lt;span class="math">\(a≤x_n≤b\)&lt;/span>，将区间&lt;span class="math">\([a,b]\)&lt;/span>分成&lt;span class="math">\([a,(a+b)/2]\)&lt;/span>和&lt;span class="math">\([(a+b)/2,b]\)&lt;/span>两部分，显然至少一个区间包含无穷多项，取那个区间的下界记作&lt;span class="math">\(a_1\)&lt;/span>，上界记作&lt;span class="math">\(b_1\)&lt;/span>。在该区间任取一项记作&lt;span class="math">\(c_1\)&lt;/span>。依次取下去得到数列&lt;span class="math">\(\{a_n\}\)&lt;/span>和&lt;span class="math">\(\{b_n\}\)&lt;/span>和闭区间列&lt;span class="math">\(\{[a_n,b_n]\}\)&lt;/span>，且&lt;span class="math">\(\lim\limits_{n→∞}(b_n-a_n)=\lim\limits_{n→∞}\frac{b-a}{2^n}=0\)&lt;/span>。根据区间套定理，&lt;span class="math">\(\lim\limits_{n→∞}a_n=\lim\limits_{n→∞}b_n=\xi\)&lt;/span>，由于每一个区间包含无穷多项，因而可以取到完整的子列&lt;span class="math">\(\{c_n\}\)&lt;/span>，并且有&lt;span class="math">\(a_n≤c_n≤b_n\)&lt;/span>，根据夹逼定理有&lt;span class="math">\(\lim\limits_{n→∞}c_n=\xi\)&lt;/span>。&lt;/p>
+&lt;p>方法2：此外还可以依赖&lt;strong>单调有界定理&lt;/strong>，以下重点说明。&lt;/p>
+&lt;blockquote>
+&lt;p>引理：每一个无限实数序列必包含一个单调子序列。&lt;/p>
+&lt;p>如果对于一个正整数&lt;span class="math">\(n\)&lt;/span>，有如果&lt;span class="math">\(n&amp;lt;m\)&lt;/span>，那么&lt;span class="math">\(a_n&amp;gt;a_m\)&lt;/span>，则称&lt;span class="math">\(a_n\)&lt;/span>为一个“峰”。即峰值比以后任意一个数值都要大。&lt;/p>
+&lt;p>如果峰的个数有无限多个，&lt;span class="math">\(n_{1}&amp;lt;n_{2}&amp;lt;n_{3}&amp;lt;\dots &amp;lt;n_{j}&amp;lt;\dots\)&lt;/span>，那么我们构造峰的子序列&lt;span class="math">\(\{a_{n_j}\}\)&lt;/span>。由于峰值递减，所以子序列&lt;span class="math">\(\{a_{n_j}\}\)&lt;/span>为一&lt;strong>单调递减&lt;/strong>子序列。如果峰的个数有限，那么设&lt;span class="math">\(N\)&lt;/span>为&lt;strong>最后一个峰&lt;/strong>的序号，取&lt;span class="math">\(n_1=N+1\)&lt;/span>，&lt;span class="math">\(n_1\)&lt;/span>不是峰，那意味着&lt;span class="math">\(\exists n_2&amp;gt;n_1\)&lt;/span>，使得&lt;span class="math">\(a_{n_2}≥a_{n_1}\)&lt;/span>。同样的，&lt;span class="math">\(n_2\)&lt;/span>也不是峰，那么&lt;span class="math">\(\exists n_3&amp;gt;n_2\)&lt;/span>，使得&lt;span class="math">\(a_{n_3}≥a_{n_2}\)&lt;/span>。重复这个过程，我们就可以取得一个&lt;strong>单调递增&lt;/strong>序列&lt;span class="math">\(\{a_{n_1},a_{n_2},a_{n_3},\dotsb\}\)&lt;/span>。&lt;/p>
+&lt;p>引理证毕。&lt;/p>
+&lt;/blockquote>
+&lt;p>我们已知序列&lt;span class="math">\(\{a_n\}\)&lt;/span>中必存在一个单调子序列。并且原序列是有界的，所以子序列是一个单调有界子序列，根据&lt;strong>单调有界定理&lt;/strong>，此子序列收敛（存在极限）。&lt;/p>
+&lt;p>定理证毕。&lt;/p>
+&lt;h2 id="柯西收敛准则">柯西收敛准则&lt;/h2>
+&lt;blockquote>
+&lt;p>柯西基本序列：对给定数列&lt;span class="math">\(x_n\)&lt;/span>，如&lt;span class="math">\(\forall \varepsilon&amp;gt;0，\exists N ∈ \mathbb{N^+}\)&lt;/span>，当&lt;span class="math">\(m，n ∈ \mathbb{N^+}，且m，n&amp;gt;N\)&lt;/span>时，都有 &lt;span class="math">\[|x_m-x_n|&amp;lt;\varepsilon\]&lt;/span> 则称&lt;span class="math">\(x_n\)&lt;/span>为基本列。或者叙述为：&lt;/p>
+&lt;span class="math">\(\forall \varepsilon &amp;gt; 0, \exists N ∈ \mathbb{N^+}，当n&amp;gt;N时，\forall p ∈ \mathbb{N^+}，有\)&lt;/span> &lt;span class="math">\[|x_{n+p}-x_n|&amp;lt;\varepsilon\]&lt;/span> &lt;img src="../../images/柯西基本序列.png" alt="柯西基本序列" />
+&lt;center>
+柯西基本序列示意
+&lt;/center>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>柯西收敛准则：&lt;span class="math">\(\{a_n\}\)&lt;/span>是基本列&lt;span class="math">\(\Leftrightarrow\)&lt;/span>数列&lt;span class="math">\(\{a_n\}\)&lt;/span>收敛 。柯西收敛准则还体现了实数的完备性。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>&lt;strong>柯西基本列&lt;span class="math">\(\Rightarrow\)&lt;/span>收敛&lt;/strong>。设&lt;span class="math">\(\{a_n\}\)&lt;/span>为基本列.&lt;/p>
+&lt;p>(1)先证明&lt;span class="math">\(\{a_n\}\)&lt;/span>有界，取&lt;span class="math">\(\varepsilon_0=1\)&lt;/span>，根据基本列定义，&lt;span class="math">\(\exists N ∈ \mathbb{N}^+，n&amp;gt;N\)&lt;/span>时： &lt;span class="math">\[|a_n-a_{N+1}|&amp;lt;\varepsilon_0=1\\
+|a_n|=|a_n-a_{N+1}+a_{N+1}|≤|a_n-a_{N+1}|+|a_{N+1}|\\
+≤1+|a_{N+1}|\]&lt;/span> 取&lt;span class="math">\(M=\max\{|a_1|,|a_2|,\dots,|a_N|,1+|a_{N+1}|\},\)&lt;/span>则对&lt;span class="math">\(\forall n\)&lt;/span>，有&lt;span class="math">\(|a_n|≤M\)&lt;/span>，即数列&lt;span class="math">\(\{a_n\}\)&lt;/span>有界。&lt;/p>
+&lt;p>(2)由列紧性定理可知，数列&lt;span class="math">\(\{a_n\}\)&lt;/span>有界则存在收敛子序列&lt;span class="math">\(\{a_{i_n}\}\)&lt;/span>。设&lt;span class="math">\(\lim_{n→∞}a_{i_n}=a\)&lt;/span>，则&lt;span class="math">\(\forall \varepsilon&amp;gt;0，\exists N_1 ∈ \mathbb{N^+}\)&lt;/span>，当&lt;span class="math">\(i_n&amp;gt;N_1\)&lt;/span>时: &lt;span class="math">\[|a_{i_n}-a|&amp;lt;\frac{\varepsilon}{2}\]&lt;/span> 由&lt;span class="math">\(\{a_n\}\)&lt;/span>是基本列可知，&lt;span class="math">\(\exists N_2 ∈ \mathbb{N}^+\)&lt;/span>，&lt;span class="math">\(m，n&amp;gt;N_2\)&lt;/span>时： &lt;span class="math">\[|a_m-a_n|&amp;lt;\frac{\varepsilon}{2}\]&lt;/span> 我们取&lt;span class="math">\(i_k&amp;gt;max(N_1,N_2)\)&lt;/span>则 &lt;span class="math">\[|a_n-a|=|a_n-a_{i_k}+a_{i_k}-a|≤|a_n-a_{i_k}|+|a_{i_k}-a|&amp;lt;\varepsilon\]&lt;/span> 所以&lt;span class="math">\(\lim_{n→∞}a_n=a\)&lt;/span>，得证。&lt;/p>
+&lt;p>&lt;strong>收敛&lt;span class="math">\(\Rightarrow\)&lt;/span>柯西基本列&lt;/strong>。设&lt;span class="math">\(\{a_n\}\)&lt;/span>收敛于&lt;span class="math">\(a\)&lt;/span>，则&lt;span class="math">\(\forall\varepsilon&amp;gt;0，\exists N ∈ \mathbb{N^+}，n&amp;gt;N\)&lt;/span>，有&lt;span class="math">\(|a_n-a|&amp;lt;\varepsilon/2\)&lt;/span>。当&lt;span class="math">\(m,n&amp;gt;N\)&lt;/span>时 &lt;span class="math">\[|a_m-a_n|=|a_m-a+a-a_n|≤|a_m-a|+|a_n-a|&amp;lt;\varepsilon/2+\varepsilon/2=\varepsilon\]&lt;/span> 所以&lt;span class="math">\(\{a_n\}\)&lt;/span>是柯西基本列。&lt;/p>
+&lt;p>&lt;strong>更重要的是其他6个定理可由柯西收敛准则直接推出&lt;/strong>。&lt;/p>
+&lt;h2 id="有限覆盖定理紧性">有限覆盖定理（紧性）&lt;/h2>
+&lt;blockquote>
+&lt;p>覆盖定义：设&lt;span class="math">\(Ф\)&lt;/span>是拓扑空间&lt;span class="math">\(X\)&lt;/span>的&lt;strong>子集族&lt;/strong>，称&lt;span class="math">\(Ф\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的一个覆盖，如果对任意&lt;span class="math">\(x∈X，x\)&lt;/span>至少包含在&lt;span class="math">\(Ф\)&lt;/span>的一个成员之中。&lt;/p>
+&lt;blockquote>
+&lt;p>等价定义：给定集合&lt;span class="math">\(X\)&lt;/span>若有一族开区间&lt;span class="math">\(\{I_\lambda,\lambda ∈ \Lambda\}\)&lt;/span>，使&lt;span class="math">\(A\subset\bigcup\limits_{\lambda ∈ \Lambda}I_\lambda\)&lt;/span>，则称开区间族&lt;span class="math">\(\{I_\lambda\}\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的一个开覆盖。&lt;/p>
+&lt;/blockquote>
+&lt;/blockquote>
+&lt;hr />
+&lt;blockquote>
+&lt;p>有限覆盖定理（海涅-博雷尔定理）不同表述：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>若开区间所成的区间集&lt;span class="math">\(\{I_\lambda\}\)&lt;/span>覆盖闭区间&lt;span class="math">\([a,b]\)&lt;/span>，则可以从&lt;span class="math">\(\{I_\lambda\}\)&lt;/span>中选出&lt;strong>有限个&lt;/strong>区间覆盖&lt;span class="math">\([a,b]\)&lt;/span>。区间集必须为开区间集，否则集合不能成立。&lt;/li>
+&lt;li>R中的有界闭集是紧的。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>证明：&lt;strong>反证法&lt;/strong>。&lt;/p>
+&lt;p>设&lt;span class="math">\([a,b]\)&lt;/span>不能被&lt;span class="math">\(\{I_\lambda\}\)&lt;/span>中的有限个开区间覆盖。将&lt;span class="math">\([a,b]\)&lt;/span>二等分，必至少有一个区间&lt;span class="math">\([a_1,b_1]\)&lt;/span>不能被有限覆盖。&lt;/p>
+&lt;p>&lt;span class="math">\([a_1,b_1]\)&lt;/span>二等分，必至少有一个闭区间&lt;span class="math">\([a_2,b_2]\)&lt;/span>不能被有限覆盖。如此继续操作得到比区间套&lt;span class="math">\(\{ [a_n,b_n]\}\)&lt;/span>，且其中每一个闭区间都不能被&lt;strong>有限的覆盖&lt;/strong>。&lt;/p>
+&lt;p>由&lt;strong>闭区间套定理&lt;/strong>可知，&lt;span class="math">\(\exists \eta ∈ \bigcap\limits_{n=1}^∞[a_n,b_n]\)&lt;/span>，且&lt;span class="math">\(\lim_{n→∞}a_n=\lim_{n→∞}b_n=\eta\)&lt;/span>.&lt;/p>
+&lt;p>因为&lt;span class="math">\(\eta ∈ [a,b]\)&lt;/span>，所以根据覆盖定义在&lt;span class="math">\(\{I_\lambda\}\)&lt;/span>中至少有一个开区间&lt;span class="math">\((\alpha,\beta)\)&lt;/span>覆盖了&lt;span class="math">\(\eta\)&lt;/span>。由数列极限定义给出，对于&lt;span class="math">\(\forall \eta-\alpha&amp;gt;0，\exists N ∈ \mathbb N^+\)&lt;/span>，当&lt;span class="math">\(n&amp;gt;N\)&lt;/span>，&lt;span class="math">\(|a_n-\eta|&amp;lt;\eta-\alpha\)&lt;/span>；同理有&lt;span class="math">\(|b_n-\eta|&amp;lt;\beta-\eta\)&lt;/span>，所以： &lt;span class="math">\[|a_n-\eta|&amp;lt;\eta-\alpha\Rightarrow \eta-a_n&amp;lt;\eta-\alpha\Rightarrow a_n&amp;gt;\alpha\\
+|b_n-\eta|&amp;lt;\beta-\eta\Rightarrow b_n-\eta&amp;lt;\beta-\eta\Rightarrow b_n&amp;lt;\beta\]&lt;/span> 即&lt;span class="math">\([a_n,b_n]\subset(\alpha,\beta)\)&lt;/span>可以被一个开区间覆盖。与上文说的每一个&lt;span class="math">\([a_n,b_n]\)&lt;/span>都不能被有限的覆盖矛盾。&lt;/p>
+&lt;p>所以反命题不成立，原命题得证。&lt;/p>
+&lt;p>我觉得联系聚点的概念更容易理解有限覆盖定理。&lt;/p>
+&lt;h2 id="聚点定理">聚点定理&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>邻域&lt;/strong>：设&lt;span class="math">\(\delta&amp;gt;0\)&lt;/span>，开区间&lt;span class="math">\((a-\delta,a+\delta)\)&lt;/span>称为&lt;span class="math">\(a\)&lt;/span>的&lt;span class="math">\(\delta\)&lt;/span>邻域，记作&lt;span class="math">\(U(a,\delta)\)&lt;/span>,&lt;span class="math">\(\delta\)&lt;/span>称作该邻域的半径。 &lt;strong>去心邻域&lt;/strong>：设&lt;span class="math">\(\delta&amp;gt;0\)&lt;/span>，&lt;span class="math">\(U(a,\delta)-{a}\)&lt;/span>称为&lt;span class="math">\(a\)&lt;/span>的去心&lt;span class="math">\(\delta\)&lt;/span>邻域，记作&lt;span class="math">\(U^\circ(a,\delta)\)&lt;/span> &lt;strong>聚点&lt;/strong>：设X是数集，实数&lt;span class="math">\(a\)&lt;/span>满足，&lt;span class="math">\(\forall \delta&amp;gt;0\)&lt;/span>，满足&lt;span class="math">\(U^\circ(a,\delta)\cap X \neq \emptyset\)&lt;/span>，则称&lt;span class="math">\(a\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>的聚点。&lt;/p>
+&lt;blockquote>
+&lt;p>等价描述为：如果点&lt;span class="math">\(a\)&lt;/span>的任何邻域 &lt;span class="math">\[U^\circ(a,\delta)=\{x|0&amp;lt;|x-a|&amp;lt;\delta\}\]&lt;/span> 都含有X中无穷多个点，则称&lt;span class="math">\(a\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>的聚点。&lt;/p>
+&lt;/blockquote>
+&lt;/blockquote>
+&lt;p>借助这些概念我们有如下定理：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>聚点定理&lt;/strong>：任何有界无穷点集至少有一个聚点。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：反证法（利用有限覆盖定理）。设有界无限点集&lt;span class="math">\(S\)&lt;/span>无聚点，则由&lt;span class="math">\(S\)&lt;/span>有界可知：&lt;/p>
+&lt;p>存在实数&lt;span class="math">\(a，b\)&lt;/span>使得&lt;span class="math">\(S \subset [a,b]\)&lt;/span>。因为&lt;span class="math">\(S\)&lt;/span>无聚点，所以&lt;span class="math">\([a,b]\)&lt;/span>中的点都不是&lt;span class="math">\(S\)&lt;/span>的聚点。&lt;span class="math">\(\forall x ∈ [a,b], \exists \delta_x\)&lt;/span>，使得&lt;span class="math">\(U^\circ(x,\delta_x)\)&lt;/span>仅含有&lt;strong>有限&lt;/strong>个&lt;span class="math">\(S\)&lt;/span>中的点。&lt;/p>
+&lt;p>记&lt;span class="math">\(F=\{U^\circ(x,\delta_x)|x ∈ [a,b]\}\)&lt;/span>，则&lt;span class="math">\(F\)&lt;/span>为&lt;span class="math">\(S\)&lt;/span>的一开覆盖。由&lt;strong>有限覆盖定理&lt;/strong>可知，存在&lt;span class="math">\(S\)&lt;/span>的有限个数的子覆盖。而每个开区间邻域内只有有限个点，有限个覆盖&lt;span class="math">\(\times\)&lt;/span>有限个点&amp;lt;&lt;span class="math">\(∞\)&lt;/span>，不可能得到无穷点集，矛盾。所以反命题不成立。得证。&lt;/p>
+&lt;p>此外，我们再来写一个证明来完整闭环。聚点定理&lt;span class="math">\(\Rightarrow\)&lt;/span>致密性定理。&lt;/p>
+&lt;p>设数列&lt;span class="math">\(\{a_n\}\)&lt;/span>有界，显然可以看做一无穷点集，根据聚点定理，至少存在一个聚点&lt;span class="math">\(\xi\)&lt;/span>。依次从&lt;span class="math">\(\xi\)&lt;/span>的&lt;span class="math">\(1/i\)&lt;/span>邻域中取一项，记作&lt;span class="math">\(x_i\)&lt;/span>，根据聚点定义，可以无限取下去构成子列&lt;span class="math">\(\{x_n\}\)&lt;/span>，且有&lt;span class="math">\(|x_n-\xi|&amp;lt;1/n\)&lt;/span>，易证&lt;span class="math">\(\lim\limits_{n→ ∞}x_n=\xi\)&lt;/span>。得证。&lt;/p>
+&lt;h3 id="导集内核闭包">导集内核闭包&lt;/h3>
+&lt;blockquote>
+&lt;p>内核：设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，由&lt;span class="math">\(E\)&lt;/span>的所有内点组成的集合称为&lt;span class="math">\(E\)&lt;/span>的内核，记为&lt;span class="math">\(E^\circ\)&lt;/span>。&lt;/p>
+&lt;p>导集：设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，由&lt;span class="math">\(E\)&lt;/span>的所有聚点组成的集合称为&lt;span class="math">\(E\)&lt;/span>的导集，记为&lt;span class="math">\(E&amp;#39;\)&lt;/span>。&lt;/p>
+&lt;p>闭包：设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，称&lt;span class="math">\(E^\circ\cup E&amp;#39;\)&lt;/span>为&lt;span class="math">\(E\)&lt;/span>的闭包，记为&lt;span class="math">\(\overline{E}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>关于导集、内核、闭包有以下定理： &amp;gt;如果&lt;span class="math">\(A \subset B\)&lt;/span>，则&lt;span class="math">\(A^\circ \subset B^\circ，A&amp;#39;\subset B&amp;#39;，\overline{A}\subset\overline{B}\)&lt;/span>。即导集、内核、闭包的运算具有单调性。&lt;/p>
+&lt;h2 id="从完备性列紧紧看定理体系">从完备性，列紧，紧看定理体系&lt;/h2>
+&lt;div class="figure">
+&lt;img src="../../images/实数完备列紧与紧.jpg" alt="实数完备列紧与紧" />&lt;p class="caption">实数完备列紧与紧&lt;/p>
+&lt;/div></description></item><item><title>数学分析之拉格朗日余项与误差</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%BD%99%E9%A1%B9%E4%B8%8E%E8%AF%AF%E5%B7%AE/</link><pubDate>Thu, 05 Sep 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%BD%99%E9%A1%B9%E4%B8%8E%E8%AF%AF%E5%B7%AE/</guid><description>
+&lt;h2 id="拉格朗日余项与误差">拉格朗日余项与误差&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#拉格朗日余项">拉格朗日余项&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#拉格朗日误差界">拉格朗日误差界&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#例题">例题&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#交错级数">交错级数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#拉格朗日插值余项">拉格朗日插值余项&lt;/a> ](#拉格朗日插值余项 )&lt;/li>
+&lt;/ul>
+&lt;h2 id="拉格朗日余项">拉格朗日余项&lt;/h2>
+&lt;p>拉格朗日余项和泰勒公式密不可分。泰勒技术的全形如下： &lt;span class="math">\[
+\begin{aligned}
+f(x)&amp;amp;=f(a)+f&amp;#39;(a)(x-a)+\frac{f&amp;#39;&amp;#39;(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+\dotsb \\
+&amp;amp;=\sum^{\inf}_{n=0}\frac{f^{(n)}(a)}{n!}(x-a)^n
+\end{aligned}\]&lt;/span> 其中，前n项可以称为函数在点&lt;span class="math">\(x=a\)&lt;/span>处的n阶泰勒展开式。&lt;strong>所谓的阶，是指x的幂次；n阶就是x的最高次幂为n，而不是展开到第n项。&lt;/strong>&lt;/p>
+&lt;p>但是，泰勒展开能够无限地逼近原函数，是以n趋向于无穷为前提条件的。如果我们只是将函数展开到n阶，则后面的部分（我们称为&lt;strong>余项&lt;/strong>, remainder）就被省略了，这必然会产生误差。记余项的表达式为&lt;span class="math">\(R_n(x)\)&lt;/span>，用它表示n项之后的余项（&lt;strong>注意下标是 n 而不是 n+1&lt;/strong>），我们可以将泰勒展开写成如下形式: &lt;span class="math">\[
+f(x)=f(a)+f&amp;#39;(a)(x-a)+\frac{f&amp;#39;&amp;#39;(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+R_n(x)
+\]&lt;/span> 或者说 &lt;span class="math">\[f(x)=P_n(x)+R_n(x)\]&lt;/span> 这式子的意思是原函数可以分解为两个部分，一部分是 n 阶泰勒展开，另一部分就是拉格朗日余项。那么，做一个移项，就可以有：&lt;span class="math">\(R_n(x)=f(x)-P_n(x)\)&lt;/span>。&lt;/p>
+&lt;p>这就是说，用n阶幂级数来逼近原函数，其误差就是这一余项。而拉格朗日余项就是表达这些被省略部分的一个公式，我们可以用它来估计误差。为此，我们先写出函数的第 n+1 阶展开式： &lt;span class="math">\[\frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}\]&lt;/span> 而&lt;strong>拉格朗日余项&lt;/strong>（在具体题目中，我们也称为&lt;strong>拉格朗日误差界&lt;/strong> Lagrange Error Bound） 在形式上就类似于函数的第 n+1 阶，其表达式如下： &lt;span class="math">\[R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1},c在x与a之间。\]&lt;/span> 需要注意的是，c只是在x与a之间，可能是&lt;span class="math">\(x\le c\le a\)&lt;/span>，也可能是&lt;span class="math">\(a\le c\le x\)&lt;/span>。同时，拉格朗日余项定理像微分中值定理（Mean Value Theorem）、介值定理（Intermediate Value Theorem）一样，都是存在性定理，即只能告知值的存在（我们知道有这样一个值），但不能告知其具体位置（但不知道它到底是多少）。如果我们使用麦克劳林式（Maclaurin Series，即&lt;span class="math">\(a = 0\)&lt;/span>时的特殊形式），就可以将拉格朗日余项变成较简单的形式: &lt;span class="math">\[R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},c在x与0之间。\]&lt;/span>&lt;/p>
+&lt;h2 id="拉格朗日误差界">拉格朗日误差界&lt;/h2>
+&lt;p>观察拉格朗日余项定理的形式，对于给定&lt;span class="math">\(a、n和x\)&lt;/span>的情况下，如果要确定这个余项的界限，唯一要确定的就是前面的这个第 n+1 阶导数的取值范围。若令有&lt;strong>正数&lt;/strong>&lt;span class="math">\(M=|f^{(n+1)}(c)|\)&lt;/span>，则只需要确定M的范围，那么，整个余项的范围也就唯一给定了。由于误差值可能为正，也可能为负，为便利讨论，我们一般都取其绝对值进行考查，即 &lt;span class="math">\[\begin{aligned}
+|R_n(x)|&amp;amp;=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \\
+&amp;amp;=\frac{M}{(n+1)!}|(x-a)^{n+1}|
+\end{aligned}\]&lt;/span> 而对于麦克劳林式，我们就变成考查： &lt;span class="math">\[\begin{aligned}
+|R_n(x)|&amp;amp;=|\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1}| \\
+&amp;amp;=\frac{M}{(n+1)!}|x^{n+1}|
+\end{aligned}\]&lt;/span> 这时我们就要介绍一个基本定理，即拉格朗日余项定理：&lt;/p>
+&lt;blockquote>
+&lt;p>若存在正数Max，使得对任意&lt;span class="math">\(\xi\)&lt;/span>，如果&lt;span class="math">\(a \le \xi \le x\)&lt;/span>或&lt;span class="math">\(x \le \xi \le a\)&lt;/span>，均有&lt;span class="math">\(|f^{(n+1)}(\xi)|\le Max\)&lt;/span>，则: &lt;span class="math">\[|R_n(x)|=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \le \frac{Max}{(n+1)!}|(x-a)^{n+1}|\]&lt;/span> 也就是说Max的取值范围其实就由&lt;span class="math">\(|f^{(n+1)}(\xi)|,(a \le \xi \le x\)&lt;/span>或&lt;span class="math">\(x \le \xi \le a)\)&lt;/span>唯一给定。这一不等式也叫&lt;strong>泰勒不等式&lt;/strong>。这是我们进行余项范围估计的主要理论基础。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="例题">例题&lt;/h2>
+&lt;p>&lt;strong>例1&lt;/strong> 将&lt;span class="math">\(y=sin(x)\)&lt;/span>展开成麦克劳林式，并估计其误差：&lt;/p>
+&lt;p>根据基本公式：&lt;span class="math">\(sin(x)=x-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\dotsb+(-1)^n\frac{x^{2n+1}}{(2n+1)!}+\dotsb\)&lt;/span>，很容易得出5阶麦克劳林式：&lt;span class="math">\(sin(x)\approx x-\frac{1}{3!}x^3+\frac{1}{5!}x^5\)&lt;/span>&lt;/p>
+&lt;p>其余项按照拉格朗日余项定理，可以写成（注意：&lt;strong>5阶的余项是6次方&lt;/strong>）： &lt;span class="math">\[R_5(x)=\frac{f^6(c)}{6!}x^6,c在0和x之间\]&lt;/span> 而&lt;span class="math">\(|f^6(x)|=|-sin(x)| \le 1\)&lt;/span>，所以&lt;span class="math">\(R_5(x) \le \frac{x^6}{6!}\)&lt;/span>。&lt;/p>
+&lt;p>&lt;strong>例2&lt;/strong> 将&lt;span class="math">\(y=sin(x)\)&lt;/span>展开成麦克劳林式，据此估计sin 0.2的值，并计算其误差。&lt;/p>
+&lt;p>使用例1结论：&lt;span class="math">\(sin(0.2)\approx 0.2-\frac{1}{3!}(0.2)^3+\frac{1}{5!}(0.2)^5 \approx 0.1986693333\)&lt;/span>&lt;/p>
+&lt;p>同时，&lt;span class="math">\(R_5(0.2) \le \frac{0.2^6}{6!}=8.888889*10^{-8}\)&lt;/span>&lt;/p>
+&lt;h2 id="交错级数">交错级数&lt;/h2>
+&lt;p>在一些情况下，使用交错级数计算误差相对简单，其基本定理如下：&lt;/p>
+&lt;blockquote>
+&lt;p>若交错级数&lt;span class="math">\(\sum^{\infty}\limits_{n=0}u_n=\sum^{\infty}\limits_{n=0}(-1)^{n+1}(v_{n})\)&lt;/span>满足以下条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>正项递减，即&lt;span class="math">\(0\le v_{n+1} \le v_n;\)&lt;/span>&lt;/li>
+&lt;li>正项趋零，即&lt;span class="math">\(\lim\limits_{x \to +\infty}v_n=0\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>则必有其余项的范围&lt;span class="math">\(|R_n(x)|=|S-S_n|&amp;lt;|u_{n+1}|=v_{n+1}\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>其中，S表示全部和，&lt;span class="math">\(S_n\)&lt;/span>表示部分和，也就是我们高中数学里习惯说的前n项和。简单的讲，&lt;strong>交错级数前n项和的余项，不会超过接下来这一项的绝对值，这就是交错级数的余项公式。&lt;/strong>&lt;/p>
+&lt;h2 id="拉格朗日插值余项">拉格朗日插值余项&lt;/h2>
+&lt;p>在插值过程中，有一个拓展概念叫拉格朗日插值余项。取插值结点：&lt;span class="math">\(a≤x0&amp;lt;x1&amp;lt;······&amp;lt;xn≤b\)&lt;/span> 满足&lt;span class="math">\(L_n(x_k)=f(x_k)\)&lt;/span>的 n 次多项式插值余项： &lt;span class="math">\[R_n(x)=f(x)-L_n(x) \\
+=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}\omega_{n+1}(x)\]&lt;/span>， 其中，&lt;span class="math">\(\omega_{n+1}(x)=(x-x_0)(x-x_1)\dotsb (x-x_n)\)&lt;/span>。选取：&lt;span class="math">\(x_0,x_1,\dotsb,x_n\)&lt;/span>，使&lt;span class="math">\(\underset{a\le x \le b}{max}|\omega_{n+1}(x)|=min\)&lt;/span>$&lt;/p>
+&lt;p>结论:选取切比雪夫多项式&lt;span class="math">\(T_{n+1}(x)\)&lt;/span>的全部零点。&lt;/p>
+&lt;p>使用切比雪夫节点插值和等距插值对函数&lt;span class="math">\(f(x)=\frac{1}{1+x^2}\)&lt;/span>模拟：&lt;/p>
+&lt;img src="../../images/chebyshev_point.bmp" alt="切比雪夫结点插值" />
+&lt;center>
+插值函数L10(x)取切比雪夫结点插值
+&lt;/center>
+&lt;img src="../../images/equal_distance_point.png" alt="等距结点插值" />
+&lt;center>
+插值函数L10(x)取等距结点插值
+&lt;/center></description></item><item><title>数学分析-四次阶乘</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E5%9B%9B%E6%AC%A1%E9%98%B6%E4%B9%98/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E5%9B%9B%E6%AC%A1%E9%98%B6%E4%B9%98/</guid><description>
+&lt;h2 id="四次阶乘">四次阶乘&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>所谓的四次阶乘（又称四重阶乘） 不是&lt;span class="math">\(n!^{(4)}\)&lt;/span>，而是&lt;span class="math">\((2n)!/n!\)&lt;/span>,前几个四次阶乘为 &lt;span class="math">\[1, 2, 12, 120, 1680, 30240, 665280, ....\]&lt;/span> 它也等于 &lt;span class="math">\[{\begin{aligned}
+2^{n}{\frac {(2n)!}{n!2^{n}}}&amp;amp;=2^{n}{\frac {[2\cdot 4\cdots 2n](1\cdot 3\cdots (2n-1))}{2\cdot 4\cdots 2n}}\\
+&amp;amp;=(1\cdot 2)\cdot (3\cdot 2)\cdots [(2n-1)\cdot 2]=(4n-2)!^{{(4)}}.\end{aligned}}\]&lt;/span>&lt;/p></description></item><item><title>数学分析-数学中几个点（驻点，极值点，鞍点，拐点）</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E6%95%B0%E5%AD%A6%E4%B8%AD%E5%87%A0%E4%B8%AA%E7%82%B9%E9%A9%BB%E7%82%B9%E6%9E%81%E5%80%BC%E7%82%B9%E9%9E%8D%E7%82%B9%E6%8B%90%E7%82%B9/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E6%95%B0%E5%AD%A6%E4%B8%AD%E5%87%A0%E4%B8%AA%E7%82%B9%E9%A9%BB%E7%82%B9%E6%9E%81%E5%80%BC%E7%82%B9%E9%9E%8D%E7%82%B9%E6%8B%90%E7%82%B9/</guid><description>
+&lt;h2 id="数学中几个点驻点极值点鞍点拐点">数学中几个点（驻点，极值点，鞍点，拐点）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>函数的导数导致了图像中出现了几种点，现在详细理一下。&lt;/p>
+&lt;h2 id="驻点">驻点&lt;/h2>
+&lt;p>在数学，特别在微积分，函数在一点处的&lt;strong>一阶导数为零&lt;/strong>，该点即函数的&lt;strong>驻点&lt;/strong>（Stationary Point）或&lt;strong>稳定点&lt;/strong>，也就是说若p为驻点则 &lt;span class="math">\[\frac{dy}{dx}\biggm\vert_p=0\]&lt;/span>&lt;/p>
+&lt;p>在这一点，函数的输出值停止增加或减少。驻点有一个&lt;strong>先决条件&lt;/strong>，就是函数在这个点可微（可导）。在此之上，只有一个条件，即一阶导数为零。&lt;/p>
+&lt;h2 id="极值点">极值点&lt;/h2>
+&lt;p>在数学中，极大值与极小值（又被称为极值）是指在一个域（邻域或定义域）上函数取得最大值（或最小值）的点的函数值。而使函数取得极值的点（的横坐标）被称作极值点。&lt;/p>
+&lt;p>值得注意的是，一个函数的&lt;strong>驻点不一定是这个函数的极值点&lt;/strong>（考虑到这一点左右一阶导数符号不改变的情况）；反过来，在某设定区域内，一个函数的&lt;strong>极值点也不一定是这个函数的驻点&lt;/strong>（考虑到边界条件）或者不可微点。对于可微函数，&lt;strong>极值点一定是驻点。&lt;/strong>&lt;/p>
+&lt;h2 id="鞍点">鞍点&lt;/h2>
+&lt;p>一个&lt;strong>不是局部极值点的驻点&lt;/strong>称为鞍点。驻点--》鞍点 思考一个只有一个变数的函数。这函数在鞍点的一次导数等于零，二次导数换正负符号·例如，函数 &lt;span class="math">\[y=x^3\]&lt;/span> 就有一个鞍点在原点。&lt;/p>
+&lt;p>思考一个拥有两个以上变数的函数。它的曲面在鞍点好像一个马鞍，在某些方向往上曲，在其他方向往下曲。在一幅等高线图里，一般来说，当两个等高线圈圈相交叉的地点，就是鞍点。例如，两座山中间的山口就是一个鞍点&lt;/p>
+&lt;h2 id="拐点">拐点&lt;/h2>
+&lt;p>设&lt;span class="math">\(f(x)\)&lt;/span>在（a，b）内，二阶可导，在&lt;span class="math">\(x_0\)&lt;/span>处的二阶导数为零 &lt;span class="math">\[f&amp;#39;&amp;#39;(x_0)=0\]&lt;/span> 若在&lt;span class="math">\(x_0\)&lt;/span>两侧附近，&lt;span class="math">\(f&amp;#39;&amp;#39;(x)\)&lt;/span>异号，则点&lt;span class="math">\((x_0，f(x_0))\)&lt;/span>为曲线的拐点。否则（保持同号），不是拐点。&lt;/p>
+&lt;img src="../../images/points_in_math.png" alt="数学中的各种点" />
+&lt;center>
+图1 数学中的各种点
+&lt;/center></description></item></channel></rss>

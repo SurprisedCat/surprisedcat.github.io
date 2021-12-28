@@ -1,0 +1,1280 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on SurprisedCat</title><link>https://surprisedcat.github.io/categories/linux/</link><description>Recent content in linux on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 10 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>linux-与终端交互的发展</title><link>https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/</link><pubDate>Fri, 10 Dec 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E7%8B%AC%E7%AB%8B%E7%89%A9%E7%90%86%E7%BB%88%E7%AB%AF%E7%9A%84%E5%B4%9B%E8%B5%B7%E6%96%87%E6%9C%AC%E6%A8%A1%E5%BC%8F%E4%B8%80%E7%BB%9F%E5%A4%A9%E4%B8%8B">独立物理终端的崛起——文本模式一统天下&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BB%8E%E7%89%A9%E7%90%86%E7%BB%88%E7%AB%AF%E5%88%B0%E8%99%9A%E6%8B%9F%E7%BB%88%E7%AB%AF">从物理终端到虚拟终端&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%9B%BE%E5%BD%A2%E5%8C%96%E5%B4%9B%E8%B5%B7linux%E4%BB%8E%E6%96%87%E6%9C%AC%E8%BF%88%E5%90%91%E5%9B%BE%E5%83%8F">图形化崛起——Linux从文本迈向图像&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#desktop%E9%97%AE%E9%BC%8E">Desktop问鼎&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BC%AA%E7%BB%88%E7%AB%AFcli%E4%BA%A4%E4%BA%92%E7%9A%84%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0">伪终端——CLI交互的薪火相传&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#gui%E4%B8%AD%E7%9A%84cli">GUI中的CLI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">远程连接操作系统&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%90%8E%E5%8F%B0%E4%BF%9D%E9%9A%9C%E8%BF%90%E8%A1%8C%E7%9A%84tmux">后台保障运行的Tmux&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%80%BB%E7%BB%93">总结&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0%E5%8F%8A%E8%B5%84%E6%96%99">参考文章及资料&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-与终端交互的发展---omit-in-toc---">linux-与终端交互的发展&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>终端（英语：Computer terminal），是一台电脑或者计算机系统，用来让用户输入数据，及显示其计算结果的机器，简而言之就是人类用户与计算机交互的设备。终端其实就是一种输入输出设备，相对于计算机主机而言属于外设，本身并不提供运算处理功能。终端可分为文本终端和图形终端，从文本终端向图形终端的发展，就是计算机逐渐普及的历史，也催生了越来越强大的硬件设备和越来越用户友好的操作系统。文本终端本身也经历从物理终端到虚拟终端再到伪终端的转变，本文交错地介绍这两条终端发展路线，希望读者能更好地理解操作系统的交互方式。&lt;/p>
+&lt;h2 id="独立物理终端的崛起文本模式一统天下">独立物理终端的崛起——文本模式一统天下&lt;/h2>
+&lt;p>计算机在起步阶段都是体积庞大、复杂且昂贵的，即使发展到20世纪80，90年代，一台相对小巧一体化电脑（比如笔记本电脑）是很罕见的，在Linux诞生的1991年，一台最便宜的Apple Macintosh PowerBook 100的价格是&lt;strong>2,299美元&lt;/strong>，要知道那可是1991年的2,299美元，当年中国人民的人均GDP才333美元。所以在计算机发展早期，主流做法是多个用户是通过物理终端（外设）连接到大型计算机或中型计算机的，共享一台计算机。&lt;/p>
+&lt;p>早期的计算机终端一般是机电的电传打字机，比如ASR33。但是对于大多数应用来说它们太慢了，需要在卡片或磁带等物理性的材料上标记好资料之后，放入计算机，再印出结果，过程非常费工。20世纪70年代中，许多电脑公司认识到带显示器的打字机输入终端比穿孔卡片要好得多，而且可以使得计算机更加容易与用户互动，产生新的应用。终于，在神奇的1978年，计算机界迎来了一次创新性爆发，很多影响至今的产品被提了出来，比如：x86-CPU芯片的初代产品8086处理器，现代计算机网络的基石之一传输控制协议即TCP协议（同年ISO提出了对标TCP/IP的OSI网络体系），BIOS的存储介质第一款EEPROM-Intel 2816，苹果电脑系统的鼻祖Apple DOS，以及本文要提的第一位主角，最畅销、甚至成为实际标准的终端设备VT-100。&lt;/p>
+&lt;p>&lt;img src="../../images/DEC_VT100_terminal.jpg" alt="VT100">&lt;/p>
+&lt;p>上面这台长得像小台式机一样的机器，就是VT100终端啦。别看到长得像台式机，但是实际上只相当于现在的显示器+键盘组合在一起（还是只能显示文本不能显示图片的显示器），不包含CPU、内存、硬盘等硬件，只能通过RS232串口线连接到真正意义上的计算机，所以实际上以21世纪概念看，完整的一台电脑应该是下图这个样子（图中的计算机是DEC公司生产于1970到1980年代的PDP-11型计算机）：&lt;/p>
+&lt;p>&lt;img src="../../images/RS232-serial-communication.jpg" alt="RS232-serial-communication.jpg">&lt;/p>
+&lt;p>而从操作系统的角度看，终端是外接的设备（外设），并不属于计算机本体的功能，但是为了让终端和处理器能够相互理解、交互，就需要单独的程序担当二者的桥梁，这种充当计算机本体和外设桥梁的程序就是&lt;strong>设备驱动程序(driver)&lt;/strong>。设备驱动程序是添加到操作系统中的特殊程序，其中包含有关硬件设备的信息，此信息能够使计算机与相应的设备进行通信。&lt;/p>
+&lt;p>由于在计算机早期的快速发展阶段，基本上所有的交互设备都是像VT100的这样&lt;strong>只能进行字符交互&lt;/strong>的终端，当时操作系统要处理的26个拉丁字母机及其衍生字母、特殊符号也很有限（不像汉字……感谢王选院士），所以当时最流行的操作系统Unix以及后来参考Unix设计的linux操作系统，都在内核中留有专门为此类终端设计的teletype terminal subsystem，简称tty子系统。tty子系统主要由三个部分组成：处理硬件相关的tty驱动、处理文本与控制码的line discipline和提供统一抽象操作的tty (I/O) core。对于每个连接到计算机的物理终端，tty子系统还会分别创建对应的字符设备文件描述符&lt;code>/dev/ttyX&lt;/code>（X表示一个数字），并维护每个终端与对应&lt;code>/dev/ttyX&lt;/code>之间的数据流会话。逻辑结构如下所示：&lt;/p>
+&lt;p>&lt;img src="../../images/terminal-ttysubsystem.drawio.svg" alt="terminal-ttysubsystem">&lt;/p>
+&lt;blockquote>
+&lt;p>我查阅资料的过程中，操作系统与终端直接连接的模块，有人画的是UART驱动，有人画的是tty驱动。&lt;strong>UART（通用异步收发器）是一种串口通信方式&lt;/strong>。串口即串行接口，是一种信息传输方法，与之相对应的另一种接口叫并口，并行接口。两者的区别是，传输一个字节（8个位）的数据时，串口是将8个位排好队，逐个比特地在&lt;strong>1条连接线&lt;/strong>上传输，而并口则将8个位一字排开，分别在&lt;strong>8条连接线&lt;/strong>上同时传输1位比特，在相同的数据传输速率下，并口的确比串口更快，但由于高频传输时，并口的各个连接线之间容易互相干扰，高速情况下难以同步各连接线的数据，而且硬件成本也相对串口更高（线多），因而&lt;strong>串口取代并口成为了现在的主流接口&lt;/strong>。除了UART，目前常用的其他串口通信方式还包括RJ-45(网口)、USB系列、I2C、SPI等等。在VT100终端时代，UART是最流行的串口通信方式，常见的标准有一般电脑应用的RS-232（使用25针或9针连接器）和工业电脑应用的半双工RS-485与全双工RS-422（不要与通用串行总线Universal Serial Bus，USB混淆），以至于现在所提到的串口，默认就指的是UART串口。&lt;/p>
+&lt;p>具体说下UART驱动和tty驱动的区别。UART驱动是指&lt;strong>通信方式为UART串口&lt;/strong>的驱动程序，而tty驱动是从使用外设种类（种类为tty）的角度来描述驱动。比如网卡设备的网卡驱动，键盘、鼠标的驱动等等。二者不是一个方面的东西。如果一个外设使用了UART串口作为通信方式，那么这个外设就需要UART驱动；当然，如果该设备使用了USB作为通信方式，那么就要用USB驱动。一般的设备驱动不仅仅包括通信层面的驱动，还包括与自身硬件密切相关的程序，例如现在的家用打印机驱动程序主要就是由USB驱动和GDI打印驱动组成。&lt;/p>
+&lt;p>在物理终端的时代，由于tty终端大多数使用的都是UART传输方式，并且所有终端制造商共同采用事实标准ANSI转义序列（不需要额外的硬件驱动），所以在图中画UART驱动或tty驱动本质是一个。看tty子系统的源码，我们也可以发现tty驱动中描述的驱动类型就是UART；严格的来讲，UART驱动可以算是tty驱动的一种具体实现，在Linux中tty子系统的驱动代码里，tty驱动操作都是直接使用UART串口驱动的操作:&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="ln"> 1&lt;/span>&lt;span class="cm">/* Linux 的driver/tty/serial/serial_core.c文件中，
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="cm">uart_ops就是基于tty_operation结构体创建的*/&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="k">static&lt;/span> &lt;span class="k">const&lt;/span> &lt;span class="k">struct&lt;/span> &lt;span class="n">tty_operations&lt;/span> &lt;span class="n">uart_ops&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">install&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_install&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">open&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_open&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">close&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_close&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">write&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_write&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">put_char&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_put_char&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">flush_chars&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_flush_chars&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">write_room&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_write_room&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">chars_in_buffer&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">uart_chars_in_buffer&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">flush_buffer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_flush_buffer&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">ioctl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_ioctl&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">throttle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_throttle&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">unthrottle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_unthrottle&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">send_xchar&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_send_xchar&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">set_termios&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_set_termios&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">set_ldisc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_set_ldisc&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">stop&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_stop&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">start&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_start&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">hangup&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_hangup&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">break_ctl&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">uart_break_ctl&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="n">wait_until_sent&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">uart_wait_until_sent&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c1">// 结构体以下代码省略 ……
+&lt;/span>&lt;span class="ln">25&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">};&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>此外，由于串口设备的在这个阶段的主流地位，tty子系统为串口物理终端（如VT100）创建字符设备文件描述符实际上不是&lt;code>/dev/ttyX&lt;/code>，而是特地用&lt;code>/dev/ttySX&lt;/code>表示，其中“S”表示Serial，即串口的英文。我们现在还能在&lt;code>/dev/&lt;/code>目录下看到保留的&lt;code>/dev/ttySX&lt;/code>，只不过现在一般只有嵌入式或工控设备还在使用。&lt;/p>
+&lt;/blockquote>
+&lt;p>终端与计算机的数据交互逻辑流程如下&lt;/p>
+&lt;ul>
+&lt;li>输入数据流的逻辑流程如下：
+&lt;ol>
+&lt;li>终端（例如VT100）键盘的输入数据触发系统中断，并经过串口线（RS232）传输给计算机的串口接口，并由驱动程序接收（数方波）。驱动程序将来自硬件的数据整合成OS能够理解的字节；&lt;/li>
+&lt;li>line discipline将驱动的数据读取到字符设备缓冲区，并进行进一步解释，例：特殊符号如backspace、tab符号做出相应解释，还有将一些终端指令如ctrl+c解释为中断，将Ctrl+e解释成将光标移至行尾等转换。需要指出不同设备（如鼠标、触摸板）的line discipline内容是不一样。当前的串行通信子系统至少支持17种line discipline。解释完输入内容后，line discipline还会把输入的数据写回到echo buffer，送回终端屏幕（这是我们在键盘打字然后在terminal终端实时显示的原理）；&lt;/li>
+&lt;li>tty I/O 将字符设备缓冲区的内容read/copy到标准输入设备文件（stdin，文件描述符为&lt;code>/dev/stdin&lt;/code>实际指向&lt;code>/dev/ttySX&lt;/code>）；&lt;/li>
+&lt;li>用户进程从标准输入设备（stdin）读取输入内容作为程序运行所需的数据。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>输出数据流的逻辑流程如下：
+&lt;ol>
+&lt;li>用户进程将输出的文本数据写入标准输出设备文件（&lt;code>/dev/stdout&lt;/code>）或标准错误设备文件（&lt;code>/dev/stderr&lt;/code>）（这两个文件实际都指向&lt;code>/dev/ttySX&lt;/code>）；&lt;/li>
+&lt;li>tty I/O 先读取stdout和stderr的内容，再调用tty core的write操作，将数据写入字符设备缓冲区；&lt;/li>
+&lt;li>line discipline接收字符设备缓冲区的数据，调用line discipline的write操作，写入echo buffer,并对数据进行整理，例如将所有LF字符替换为CR/LF序列等；&lt;/li>
+&lt;li>最后，调用tty驱动的write操作，将echo buffer中的字节转换成UART能够理解的比特位，通过串口线返回给终端（VT100）的文本显示器。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>有一点需要再次强调，当年的终端设备显示器和现在的显示器接收的数据类型完全不一样。VT100终端接收的是ANSI转义序列码，只能显示规定的字符；而现在的显示器接收的数据是图像点阵，所以能够显示各种图片、视频等多媒体文件。因此，VT100等终端自然也没有分辨率的说法，只能显示24行80列的字符（后来扩充到25行，25*80成为最终标准）😅。&lt;/p>
+&lt;p>即使如此由于VT100先进地拥有双向滚动、允许自由移动光标控制屏幕、滚动翻页等功能成为当时最畅销的终端，取得了600万的销量，这在当时可算是天皇巨星级别的产品了。&lt;/p>
+&lt;h2 id="从物理终端到虚拟终端">从物理终端到虚拟终端&lt;/h2>
+&lt;blockquote>
+&lt;p>集成电路上可以容纳的晶体管数目在大约每经过18个月便会增加一倍。——戈登·摩尔&lt;/p>
+&lt;/blockquote>
+&lt;p>物理终端在个人电脑（personal computer, PC）普及之前，一直是计算机硬件系统中不可或缺的重要组成部分，然而我们今天貌似只能在博物馆里才能看见这些浑身冒着历史感的设备。击败了流行一时的VT100等物理终端的并不是更先进的终端机或是更先进的交互方式，而是&lt;strong>摩尔定律导致的个人电脑的普及&lt;/strong>。在VT100卖的最好的年代，计算机并非人人能拥有的平民设备，它不仅需要大量的金钱(a lot of money)，大量的空间(a lot of space)，还需要大量的技术能力(a lot of technology)，3A大作了属于是。&lt;/p>
+&lt;p>随着电子元件的微型化和集成电路的快速发展，计算机由一整个房间的设备逐渐缩减成等身高的机器，再到手提包大小的可随身携带的设备，整体制造成本也大大减少，人人拥有一台电脑已经不是天方夜谈。加上人们对新事物的学习与认知，也让计算机不在是“悬在天边的明月”。那么如果电脑已经能够人手一台了，那么只能打字输入和显示器输出的终端外设还需要独立售卖吗？面对这样的降维打击，终端机制造商们开始沿着两条路交错发展，一条路是把终端机拆成屏幕和键盘两部分，独立发展，屏幕开始专注于显示功能，提供彩色的、加粗、更清晰的字符显示；键盘也逐渐摆脱承重的机械装置向着轻量化、多功能化、规范化发展。第二条路是将终端设备和计算机本地融为一体，完全成为PC机不可拆分的一部分，比如笔记本电脑，同时由于集成化程度高，硬件间距离近，并口的干扰与不同步等问题大大降低，排线也取代了UART作为内部连接的高速传输通道。下图即为最接近现在笔记本电脑形态的可移动计算机——1989年的NEC UltraLite，运行MS-DOS 3.3。&lt;/p>
+&lt;p>&lt;img src="../../images/nec-ultralite.jpg" alt="nec-ultralite.jpg">&lt;/p>
+&lt;p>但是从操作系统的交互角度来说，它要做的事情大体上没有什么变化，即接收来自输入设备的字符，交给用户进程处理，再把用户进程返回的信息返回给输出终端。因此内核TTY子系统架构也一直没有发生变化。不过硬件的发展，导致了和硬件密切相关的驱动程序的大规模变化，为了适应这些变化，同时尽量兼容过去的程序（才不是因为不想改代码🤣），Linux/Unix提出了一个折衷的办法：&lt;strong>假设终端依旧存在&lt;/strong>。用软件设计一个中间层，对外接收来自“城头变幻大王旗”一般的各种外设的交互数据，然后转换成过去tty终端的数据形式，再提供给其他进程。对于其他进程而言，还是像过去一样和“某个终端”进行交互，只不过这个终端不再是物理终端，而是由程序“伪装”的&lt;strong>虚拟终端（Virtual Console or Virtual Terminal）&lt;/strong>。&lt;/p>
+&lt;p>注：虽然Linux源代码中关于的终端模拟器的代码在tty目录下，但是一般不把终端模拟器作为tty子系统的一部分。&lt;/p>
+&lt;p>上节中，我们介绍了内核中tty子系统是如何充当物理终端和操作系统交互的媒介，这节我们着重介绍一下再物理终端到虚拟终端的演变过程中，哪些部分发生了变化。新的逻辑结构图如下：&lt;/p>
+&lt;p>&lt;img src="../../images/virtual-terminal-text-mode.drawio.svg" alt="虚拟终端文本模式">&lt;/p>
+&lt;p>数据流方面，从诞生到至今也没有太大变化，最大区别在于物理终端和计算器的半双工通信，变成了计算机和显示器、键盘、鼠标等外设的单工通信。在内部程序结构方面，由于外设是变化的源头，所以Linux操作系统侧最直接的变化就是&lt;strong>硬件驱动&lt;/strong>。物理终端分成两个部分后，显示器和键盘需要独立和计算机连接，显示器主要是通过VGA（Video Graphics Array）接口，键盘主要通过PS/2接口。&lt;/p>
+&lt;p>键盘部分独立出来之后变化比较简单，只需要添加自己独立的驱动，这个驱动直接为终端模拟器提供用户输入字符以及控制指令。PS/2接口作为IBM专为交互外设设计的接口，目前已经慢慢的被更为通用的USB所取代，只有少部分的台式机仍然提供完整的PS/2键盘及鼠标接口。不过，由于USB接口对键盘无特殊调整下最大只能支持6键无冲突，而PS/2键盘接口可以支持所有按键同时而无冲突。现在大家追求的机械、无冲突键盘就是历史中曾经被放弃的产物，果然科技创新靠考古啊。&lt;/p>
+&lt;p>显示器部分相对复杂一些。VGA中文翻译叫视频图像阵列，可是在Linux系统2.1版本之前，是图像输出支持的并不好，所以VGA显示器还有一个VGA text Mode，即输出的不是任意像素点而是规定好的字符点阵。典型地，支持文本模式的屏幕由一个个均匀的矩形栅格字符元组成，其中每一个字符元包含字符集中的一个字符点阵。文本模式下显示器只能显示字符集里的内容，不能显示图片、视频等多媒体内容。vga接口相连的计算机部件叫显示适配器（display adapter），这个物件就是各种显卡的统称了，只不过其内容还包括了相应的驱动程序。这个称呼我们至今还能在windows系统的设备管理器的里看到。点阵图示例如下（实际屏幕使用的点阵图会更加精细）&lt;/p>
+&lt;p>&lt;img src="../../images/%E5%AD%97%E6%AF%8D%E7%82%B9%E9%98%B5%E5%9B%BE.jpg" alt="字母点阵图">&lt;/p>
+&lt;p>display (VGA) adapter会直接从一段内存（显存，当时二者还没有分离开）中读取字符数据，交由显示器渲染显示。这段内存由于是字符，不是像素数据，我们也可以通过工具直接查看。Linux的virtual console screen(vcs)设备就是指向这段字符内存，我们可以通过&lt;code>cat /dev/vcsX&lt;/code>查看，其中“X”表示所用tty X对应的数字。如果我们查看目前正在使用的tty1，例如&lt;code>sudo cat /dev/vcs1 &amp;gt; /tmp/foo&lt;/code>，然后用&lt;code>vim /tmp/foo&lt;/code>打开这个文件，就能够发现这个文件里的内容正是刚才屏幕上显示的内容！vcs设备（及其对应的内存）为终端模拟器扮演了过去物理终端显示器的角色。&lt;/p>
+&lt;p>该场景下，终端模拟器由于使用VGA连接，又叫做VGA console。一般叫“console”的，都和电脑上自带可以直接操作电脑和能够显示系统信息的控制台有关。由于PC电脑的“个人”属性，默认每个PC都只有一人正在使用计算机，该用户也就直接使用console。Linux/Unix从设计之初，就是一个多用户操作系统，tty子系统除了为普通用户提供了串口驱动外，本来就都有为管理员操作console准备的console driver，只不过现在console driver不用连接实体控制台，而是连接虚拟终端软件（终端模拟器）。&lt;strong>从相互关系来看，虚拟终端对于tty子系统扮演的是物理终端，但是对于整个操作系统而言，虚拟终端只是个普通进程，因此虚拟终端和tty子系统间采用进程间通信方法，例如socket、管道，而非UART串口，因此，对应的tty设备也不用特地加一个“S”，直接用&lt;code>/dev/ttyX&lt;/code>即可&lt;/strong>。&lt;/p>
+&lt;p>基于软件实现的虚拟终端数量不再受到物理硬件的限制，系统可以开启多个进程来表示多个虚拟终端，Linux系统中可以通过&lt;code>ctrl+alt+F1~F6&lt;/code>切换的tty1-tty6（&lt;code>/dev/tty1~/dev/tty6&lt;/code>）六个终端就是这个时期历史遗留的产物（在具有桌面环境的Linux发行版中，X Window Systemy一般在/dev/tty7上运行，也有把桌面终端放在tty1和tty2的比如Ubuntu，依各Linux发行版自己决定）。虚拟终端能够显示的字符行列数由其模拟的终端型号决定，并且可以根据自己的喜好切换，下图即为文本模式的虚拟终端，默认模拟的终端类型为linux。&lt;/p>
+&lt;p>&lt;img src="../../images/terminal_text_mode.png" alt="terminal_text_mode">&lt;/p>
+&lt;p>由于虚拟终端是交互的主流方式之一，Linux/Unix刚开始处于性能和通用性了考虑，都是在内核中实现了终端模拟器，但是当我们需要终端模拟器有更灵活的功能而又不想乱动内核时（内核一个进程崩溃容易导致其他进程的连锁崩溃），如果我们让终端模拟程序运行在用户区，就需要&lt;strong>伪终端&lt;/strong>（pseudoterminal或pseudotty, PTY）。伪终端作为CLI交互方式的后起之秀，在后来tty子系统使用空间被X-windows等视窗系统不断挤压之时，成为坚守CLI的坚实城墙。&lt;/p>
+&lt;h2 id="图形化崛起linux从文本迈向图像">图形化崛起——Linux从文本迈向图像&lt;/h2>
+&lt;p>20世纪80年代末，计算机显示器已经逐渐从字符显示设备转变成了像素显示设备，它们不再只能显示键盘上字符内容，也不再受到UART传输能力的限制，而是像电视机一样能够显示各种各样的多媒体内容，显示高清化，接口也发展出HDMI、DVI等更高速接口。于是计算机开始被运用到越来越多的领域，除了传统的科学计算与信息通信，图像、视频、3D、设计、游戏等多媒体内容也开始运用计算机来开展工作；此外，命令行为主的CLI对于很多不熟悉计算机的从业人员而言，学习成本很高，也不能直观的理解操作的流程和意义，这导致PC电脑在很长时间都是专业人士使用的工具。计算机潜在的商业价值和难用而不普及的矛盾，让很多商业公司看到了巨大的利润，能解决这个矛盾的公司，比如微软、苹果，都成为了这个世界上最挣钱的公司之一。&lt;/p>
+&lt;p>为了能让人们，更方便、直观地操作计算机，研究人员开始为程序提供图形化交互界面，用户只要通过移动光标、点击按钮、在特定位置输入内容就能很容易地操作程序。PC机上的第一个图形界面——Xerox Alto(并未商用，主要用于研究和大学)，其于1973年被施乐公司Xerox Palo Alto Research Center (PARC)所设计，从此，开启了计算机图形界面的新纪元，20世纪80末至90年代初，图形化界面设计经历了众多变迁，虽然距离完善的图形化操作系统（Graphical User Interface）还有距离，但是初具雏形的OS/2，Amiga Workbench，Windows 1.0-3.0还是受到的大众的热烈欢迎。&lt;/p>
+&lt;p>图形化界面本质上也是shell的一种，只是其复杂程度比基于命令行的Bash，Tcsh高得多，需要图形学、优化理论、人体工程学、UI设计等一系列知识，还需要更加精细的内存管理、更加复杂的进程通信机制、更加人性化的交互设计。而在传统计算机、网络领域，程序员对基于命令行的Shell表现的已经足够满足了，且Linux在发布之后一直都以自由免费软件称著，主要靠社区开发者“用爱发电”，缺乏商业激励和图形化程序繁重的工作量，让Linux系统图形化交互界面的发展比商业公司确实慢了不少。&lt;/p>
+&lt;p>为了实现图像领域的应用，Linux还是对CLI做了很多改进，第一个就是能让图片、pdf文档、视频能够在CLI界面中显示、处理。多媒体文件和文本类文件有着本质的区别，无法用某一字符集去描述多媒体文件，程序都是通过像素点的方式，拼出多媒体文件。通常显示一幅图片，其数据分为像素数和颜色位数两部分。如果使用最容易理解的RGB描述方法，一幅图画的一个像素点需要一个三元组（R，G，B）来描述，即红色成分R，绿色成分G和蓝色成分B，每种成分都由1字节（8bits）来细分。因此一个原始未经压缩的图像数据=宽像素数X高像素数X3字节。面对处理图像所带来的挑战，Linux在2.1.109 kernel正式引入了帧缓冲区(frambe buffer, fb)。最初它实现是为了允许内核在没有文本模式显示的Apple Macintosh等系统上模拟文本控制台，到后来甚至发展出了一个在内核空间中实现的称为FramebufferUI (fbui)的窗口系统，它提供了基本的 2D 窗口体验，并且占用的内存很少。使用framebuffer系统的结构图如下所示：&lt;/p>
+&lt;p>&lt;img src="../../images/virtual-terminal-pixel-mode.drawio.svg" alt="虚拟终端像素模式">&lt;/p>
+&lt;p>fb系统起到了显示驱动的作用，可以代替传统的VGA driver，它在内存中开辟一片区域作为显存，其内容对应于屏幕上的界面显示，可以将其简单理解为屏幕上显示内容对应的缓存，修改Framebuffer中的内容，即表示修改屏幕上的内容，所以，直接操作Framebuffer可以直接从显示器上观察到效果。但Framebuffer并不是屏幕内容的直接的像素表示。Framebuffer实际上包含了几个不同作用的缓存，比如颜色缓存、深度缓存等，因此无法像查看virtual console screen一样查看framebuffer里面的内容。&lt;/p>
+&lt;p>Linux中用设备&lt;code>/dev/fbX&lt;/code>指向这段内存，其中“X”代表一个数字。fb设备是Linux为显示设备提供的一个接口，把显存抽象后的一种设备，他允许上层应用程序在图形模式下直接对显示缓冲区进行读写操作。这种操作是抽象的，统一的，用户不必关心物理显存的位置、换页机制等等具体细节。物理实体相关的细节都是由Framebuffer设备驱动来完成的。&lt;/p>
+&lt;p>相应地，使用framebuffer的终端模拟器叫做&lt;strong>帧缓冲区控制台(framebuffer console, fbcon)&lt;/strong>，它在具有VGA console全部文本模式功能的基础上，&lt;strong>增加了对图形特性的支持&lt;/strong>。fbcon支持高分辨率、不同字体类型、显示旋转、以及底层显卡能够实现的大多数功能。在x86架构中，由于存在其他更高效的图形化机制，fbcon是可选的，有些人甚至把它当作玩具。对于其他架构，它是唯一可用的文本或图形显示设备，例如在基于光盘或USB闪存盘启动的GNU/Linux系统，KNOPPIX，为了保证对不同硬件架构的支持就是用内核必备的framebuffer作为显示驱动，通常使用framebuffer的CLI终端，都会在启动时放一个Linux吉祥物Tux的图像标志，如下图：&lt;/p>
+&lt;p>&lt;img src="../../images/fbcon_KNOPPIX.png" alt="fbcon_KNOPPIX.png">&lt;/p>
+&lt;p>此外，很多第三方应用也直接使用framebuffer在内存中的内容来显示多媒体文件，尤其在嵌入式Linux常见，一些常见的第三方应用如显示图片的fbi，显示pdf的fbgs，播放视频的mplayer等等，下图中我们分别举例使用fbi和fgbs来显示多媒体内容：&lt;/p>
+&lt;p>&lt;img src="../../images/fbconsole.png" alt="fbcon">&lt;/p>
+&lt;p>除了framebuffer，Linux还有其他支持图形化的机制，如DMA，专业显卡驱动等。这些内容超出了本文阐述的范围，如果有想详细了解的读者，我推荐一个Linux图形化系统介绍的Youtube视频，从硬件到软件都有，&lt;a href="https://www.youtube.com/watch?v=wjAJmqwg47k">An Overview of the Linux and Userspace Graphics Stack , Paul Kocialkowski&lt;/a>，有条件的建议看看。&lt;/p>
+&lt;p>第二个改变则更彻底，就是也想商业公司一样，提供图形化交互界面。Linux上的第一个“桌面”还不是桌面。相反，它们是运行在X窗口系统上的“窗口管理器window manager（WM）”。&lt;/p>
+&lt;p>这里出现了两个关键词。第一个关键词：X窗口系统（X Window System，也常称为X11或X，天窗口系统）是一种以位图方式显示的软件窗口系统。最初是1984年麻省理工学院的研究，之后变成UNIX、类UNIX（包括Linux）、以及OpenVMS等操作系统所一致适用的&lt;strong>标准化软件工具包及显示架构的运作协议&lt;/strong>。现在几乎所有的操作系统都能支持与使用X。更重要的是，今日知名的桌面环境——GNOME和KDE也都是以X窗口系统为基础建构成的。&lt;/p>
+&lt;p>理解X视窗系统有两点很关键：&lt;/p>
+&lt;ol>
+&lt;li>X 是一个“软件”而不是一个操作系统；&lt;/li>
+&lt;li>X 是用来进行图形接口的执行与绘制；&lt;/li>
+&lt;/ol>
+&lt;p>X视窗系统从逻辑上主要分为三层：最底层的X Server（X服务器）主要处理输入/输出信息并维护相关资源，它接受来自键盘、鼠标的操作并将它交给X Client（X客户端）作出反馈，而由X Client传来的输出信息也由它来负责输出；最外层的X Client则提供一个完整的GUI界面，负责与用户的直接交互（KDE、Gnome等桌面管理器本质上都是一个X Client），而衔接X Server与X Client的就是X Protocol(X通讯协议)也称为X11协议，它的任务是充当这两者的沟通管道。X视窗系统与操作系统的关系如下图所示（完全独立于tty子系统）：&lt;/p>
+&lt;p>&lt;img src="../../images/x-window-system.drawio.svg" alt="x-window-system">&lt;/p>
+&lt;p>从交互的流程来看，每当由输入操作改变桌面部件（如点击鼠标拖动窗口、关闭窗口等），输入设备驱动就会将信息交给X server，X server会通过X11协议将动作内容转递给相应的X client。X client将会改变自身状态并向X server发出一个重新绘画、渲染的请求；X server使用图形渲染机制（如DDX）完成图像的计算，交给Compositor绘制具体的图像内容。X server将绘制好的图像信息从Compositor的缓冲区更新到显示驱动的缓冲区，最终在显示器上出现新的内容。&lt;/p>
+&lt;p>从系统架构来看，由于X视窗系统从刚开始阶段就是独立于操作系统设计的，因此对于Linux而言，X视窗系统也只算个普通软件，工作在用户区。X server作为图形界面的核心负责与Linux内核交互，这种用户区工作的模式虽然降低了性能，但是增加系统的稳定性。在图形化界面初期，由于其复杂的设计模式和开发人员经验不够丰富，图形交互界面的BUG层出不穷，像windows早期系统以图形化为核心的操作系统，出BUG导致整个系统崩溃、蓝屏的现象并不罕见。X server作为用户区进程，即使崩溃了也只是造成X client的关闭，不会影响Linux内核的运行，这也是Linux一直以稳定性称著的原因之一。&lt;/p>
+&lt;p>我们在X window系统中，也标出了第二个关键词：窗口管理器window manager。它是为了方便X图形环境使用的一种特殊X client，其作用就是来管理其他所有窗口。窗口管理器也是图形化操作系统的雏形。&lt;/p>
+&lt;p>当我们运行&lt;code>xterm&lt;/code>或&lt;code>xclock&lt;/code>之类的图形化程序，X client程序就会在一个窗口中打开该程序。窗口管理器可以跟踪窗口并进行基本的内部管理，例如让你可以来回移动窗口并将其最小化。其余的事情取决于你自己。你可以通过将程序名列在&lt;code>~/.xinitrc&lt;/code>文件中以在 X 开始时启动这些程序，但是通常，你会从&lt;code>xterm&lt;/code>中运行新程序。&lt;/p>
+&lt;p>在1993年，最常见的窗口管理器是TWM。TWM相当简单，仅仅提供了基本的窗口管理功能。其效果如下图所示：&lt;/p>
+&lt;p>&lt;img src="../../images/TWM.png" alt="TWM">&lt;/p>
+&lt;p>图中的三个窗口分别是&lt;code>xterm&lt;/code>、&lt;code>xclock&lt;/code>以及&lt;code>EMacs&lt;/code>。它们是三个独立的窗口，之间无法相互交互。默认的X视窗系统运行在&lt;code>tty7&lt;/code>。&lt;/p>
+&lt;p>虽然，Linux后来也发展出了FVWM95和其他窗口管理器，但核心问题仍然存在：它们并不是真正的桌面。它只是能够管理一堆窗口管理器，仅此而已。使用图形用户界面的Linux应用程序（基本上意味着它们是X应用程序）看起来形态各异且工作方式也不同。除了有些X窗口系统提供的简单的“纯文本”复制/粘贴功能外，你不能从一个应用程序复制和粘贴到另一个应用程序里。Linux真正需要的是在其图形用户界面中进行彻底的重新打造，以创建它的第一个桌面。&lt;/p>
+&lt;h2 id="desktop问鼎">Desktop问鼎&lt;/h2>
+&lt;p>自诞生以来，Linux都被普遍认为是以命令行（CLI）交互为主的操作系统，大部分是因为Linux/UNIX的tty子系统在终端设备变革的大潮中日久弥坚，即使经历了不少改造，动了根本的改变是基本没有的。虽然，此时的Linux系统已经能够以图形化界面的方式提供一部分程序的交互，但是最大的问题还没有解决：&lt;strong>不好用&lt;/strong>。&lt;/p>
+&lt;p>在1995年，微软公司发布的Windows 95对Windows 3.x进行重新设计，整个GUI焕然一些，许多经典设计沿用至今，例如在每个窗口上加上了关闭按钮，也是最著名的“开始”按钮第一次出现。Windows 95系统一经推出就受到了市场和研究界的双重赞誉，叫好也叫座。这是Microsoft历史上最大的一步，从此走上了帝国之路。&lt;/p>
+&lt;p>然而，Windows 95的价格也十分美丽，$209.95的售价也让很多想使用图形化操作系统的用户再三踌躇。受到windows 95的启发，在1996年，Matthias Ettrich 有感于 X windows之下Linux应用程序体验不一致的困扰。他想使找个更易于使用的图形环境，而且更重要的是，他想让所有东西都“集成”在一起，就像Windows 95的桌面一样。&lt;/p>
+&lt;p>Matthias开始了K桌面环境K Desktop Environment（KDE）的工作。那个“K”代表着 “Kool”。但是 KDE 这个名字也意味着可以类似通用桌面环境Common Desktop Environment（CDE）的做法，而CDE 是“大 Unix”世界的标准（尽管到了1996年，CDE已经有点过时了）。KDE 1.0于1998年7月完成，KDE是Linux向前迈出的一大步。最终，Linux有了一个真正的桌面，集成了应用程序和更多现代的桌面图标。KDE的设计与Windows 95并无不同。屏幕底部有一个任务栏，它提供了相当于Windows 95 的“开始”菜单以及一些应用程序的快捷键，KDE还支持虚拟桌面。正在运行的应用程序通过位于屏幕顶部单独的任务栏的按钮表示。&lt;/p>
+&lt;p>&lt;img src="../../images/KDE1.0.png" alt="KDE">&lt;/p>
+&lt;p>从此，Linux的图像化界面发展就进入了快车道。&lt;/p>
+&lt;p>然而，KDE并不能算是完全的自由软件，因为其使用了Trolltech的Qt工具套件库，而Qt并不是以自由软件的许可证进行分发的。面对这种情况，Miguel de Icaza和Federico Mena 于 1997年开始开发新的Linux桌面上。这个新项目被称为GNOME，即GNU网络对象模型环境GNU Network Object Model Environment的缩写。GNOME旨在成为一个完全自由的软件，并使用了一个不同的工具套件库——来自GIMP图像编辑器的GTK。GTK从字面上的意思GIMP工具套件GIMP Tool Kit。当GNOME 1.0终于在1999年发布时，Linux又多了一个现代化的桌面环境。但是GNOME 1.0的做的十分匆忙，BUG层出不穷，甚至不如KDE 1.0的测试版。好在GNOME之后的版本有了大量改进，使它逐渐趋于稳定。&lt;/p>
+&lt;p>关于linux的图形化历程我推荐大家可以看看这篇文章：&lt;a href="https://linux.cn/article-12068-1.html">《Linux 桌面史话》&lt;/a>，其纷繁复杂的过程远超过了本文的讨论范围。&lt;/p>
+&lt;p>即使，Linux的桌面操作系统有了长远的进步，总体而言，Linux的桌面系统和微软的Windows还是有不少差距，支持图形化的Linux软件，则表现的更不尽如人意，似乎Linux的GUI的完成度，总是让人下不了决心完全拥抱它。&lt;/p>
+&lt;p>然而，Linux的一个远亲，Unix系统的一个变体，2001年发布的Mac OS似乎解决这个问题。这个图形化操作系统是如此的完善，优雅，以至于大多数使用Mac OS的人都不会接触它的CLI，即使它的CLI做的也很好。受到Mac OS的激励，Linux的一个桌面发行版Ubuntu也在2004年正式问世。Ubuntu基于开源自由的Debian发行版和GNOME桌面环境，目标在于为一般用户提供一个最新同时又相当稳定，主要以自由软件建构而成的操作系统。除此之外，越来越多的程序员在追求功能和性能的同时，将“颜值就是正义”也纳入了考虑范围，更多的优雅的桌面发行版如Centos，Mint Linux，elementary OS，deepin等等如雨后春笋一般迅速冒出生长。这也给了很多用户拥抱Linux桌面操作系统的信心。在2020年，Ubuntu系统已经占到所有桌面操作系统市场份额的1.04%，是所有Linux桌面发行版中最高的一个。下图是Unbuntu 20.04的桌面：&lt;/p>
+&lt;p>&lt;img src="../../images/Ubuntu-20.04-cat.png" alt="Ubuntu-20.04-cat.png">&lt;/p>
+&lt;p>当前的形势来看，图形化操作系统的大潮已经势不可挡，使用文本模式交互也变成了特定专业人员的选项。我们从下面这张操作系统市场份额图中可以看出，图形化操作系统已经稳稳地占据了目前绝大多数市场份额。图形化操作系统如安卓、Windows、iOS、OS X占据绝大多数用户的屏幕，纯Linux只是最底下那条趴趴着的红线，还是众多桌面发行版与命令行发行版共享的份额。这里特别提一下Android系统，目前安卓系统已经超越windows成为使用人数最多的操作系统，它是一个基于Linux内核与其他开源软件的开放源代码的移动操作系统，由谷歌成立的开放手持设备联盟持续领导与开发，本质上也算是Linux的一个衍生发行版，所以从广义上来讲，Linux已经成为使用人数最多的操作系统也没错呢。&lt;/p>
+&lt;p>实际生活中，由于图形化用户界面（Graphic User Interface, GUI）的普及，现在绝大多数人基本上没有使用过CLI，即便是很多计算机专业的本科生，也不用CLI。即使在Linux CLI的使用人群中，使用传统text console的人很少了，越来越多的人使用伪终端，例如Xterm来代替传统终端或在远程ssh连接中使用伪终端。&lt;/p>
+&lt;p>&lt;img src="../../images/os_combined-ww-monthly-200901-202111.png" alt="os_combined-ww-monthly-200901-202111.png">&lt;/p>
+&lt;h2 id="伪终端cli交互的薪火相传">伪终端——CLI交互的薪火相传&lt;/h2>
+&lt;p>我们之前的文章中，一直由提到虚拟终端是在&lt;strong>Linux内核&lt;/strong>中实现的模拟物理终端的程序，一般由内核的终端模拟器完成。当我们需要终端模拟器有更灵活、更花里胡哨的功能而又不想乱动内核时（内核一个进程崩溃容易导致其他进程的连锁崩溃），我们也可以让&lt;strong>终端模拟程序运行在用户区&lt;/strong>，如果我们让终端模拟程序运行在用户区，就需要&lt;strong>伪终端&lt;/strong>（pseudoterminal或pseudotty, PTY）。PTY是描述并非单个设备文件，而是&lt;strong>一对可异步双向通信的虚拟字符设备&lt;/strong>，这对伪终端设备为主从关系分别为 PTY master(ptmx)和 PYT slave(pts)。master端是更贴近硬件的一端，提供复用、slave端会话管理等功能，slave端则是模拟标准文字终端的&lt;strong>一套接口&lt;/strong>。之所以叫它“伪”终端，是因为伪终端不像虚拟终端拥有一个实实在在的终端模拟器，而是对外表现的像终端一样的空壳，壳子里的内容需要用户区运行的终端模拟器，甚至远程的终端模拟器去填。当前PTY有BSD（master名&lt;code>/dev/pty[p-za-e][0-9a-f]&lt;/code>，salve名&lt;code>/dev/tty[p-za-e][0-9a-f]&lt;/code>）和UNIX 98(master名&lt;code>/dev/ptmx&lt;/code>，salve名&lt;code>/dev/pts/*&lt;/code>)两种命名与实现方式，但是目前Linux大多数都用的是UNIX98标准。&lt;/p>
+&lt;p>从用户空间的程序来看，使用虚拟终端tty还是伪终端的slave，pts都是一样的。从内核的角度来看，pty系统是个不与内核其他模块交互的数据转发系统，一端是ptmx，与Gnomes terminal server，sshd和TMUX等用户空间应用程序连接，另一端是pts也是直接和用户空间程序交互。而TTY系统则和内核关系密切，其一端与内核的终端模拟器连接，内核终端模拟器的另一端则与内核中特定的硬件驱动连接，如键盘和显示器。&lt;/p>
+&lt;p>此外，如果系统有多个交互需求，伪终端系统使用ptmx和pts合力完成多个伪终端的会话管理。而TTY系统是靠内核终端模拟器创建多个虚拟终端，并维护各个虚拟终端的会话关系。因此，ptmx和内核终端模拟器都需要负责维护会话和转发数据包。不同的是，伪终端系统将终端模拟器部分交给了用户区软件去做，从而方便实现更多的扩展功能，从功能角度简单来说，内核终端模拟器=ptmx+（用户区终端模拟器-扩展功能）。&lt;/p>
+&lt;p>但由于PTY运行在用户区，更加安全和灵活，同时仍然保留了传统TTY驱动的功能，因此我们目前在Linux桌面发行版中调出来的命令行工具、telnet、ssh、VNC远程连接几乎都是伪终端。伪终端常在三种情形下使用，一是在GUI中希望使用CLI进行更方便的操作，如使用xterm，gnome-terminal；二是远程终端连接，如telnet、ssh等；第三个情形算是第二点的扩展，即用tmux，screen之类软件，让程序在后台运行，就算ssh连接断开，正在运行的程序也不会终止。&lt;/p>
+&lt;p>关于这三种场景，我花了很长时间来画他们的总体结构图，每一场景我都用一种颜色标识出来，接下来我将根据三个场景分别阐释。&lt;/p>
+&lt;p>&lt;img src="../../images/pty-all.drawio.svg" alt="伪终端总体结构图">&lt;/p>
+&lt;p>我们先来说说三个场景共性的部分——PTY子系统。PTY子系统的核心功能与TTY子系统一致，本质是TTY子系统的同一代码，调用了不同功能函数，只是现在使用的是伪终端，所以叫PTY子系统。例如，在传统物理终端连接时，tty驱动调用的是串口驱动；在使用虚拟终端时，tty驱动调用的是console驱动；现在使用伪终端时，则调用的伪终端驱动。它比传统的TTY子系统增加了伪终端的Master端，ptmx，这是因为没有了内核中的终端模拟器提供多路复用和会话管理，就让ptmx完成上述功能；PTY子系统产生的接口设备叫pts，存储在&lt;code>/dev/pts/X&lt;/code>，“X”表示一个数字，由ptmx管理，通常有几个伪终端连接，&lt;code>/dev/pts/&lt;/code>路径下就有几个数字表示的伪终端设备，pts在对用户程序的表现和&lt;code>/dev/ttyX&lt;/code>一致。&lt;/p>
+&lt;h3 id="gui中的cli">GUI中的CLI&lt;/h3>
+&lt;p>Linux桌面系统的普及为程序员们提供了更加方便的系统管理和编程环境，GUI操作直观，配置方式易懂，却也掩盖不了操作流程复杂，需要打开多个窗口，鼠标+键盘反复交互的问题。有时候只是修改一个配置就需要找很久对应的按钮和操作框；一方面GUI突出了用户集中使用的重点功能，另一方面GUI隐藏了普通用户容易误用的系统设置。恰恰这些设置，对系统管理员和计算机从业者而言是很重要的。有些程序员开始怀念其CLI的简洁、直接与高效。为了能够在GUI中使用传统的CLI，终端模拟器开始作为用户区软件被广泛地接受。&lt;/p>
+&lt;p>目前Linux中最流行的终端模拟器应该要算xterm了，它能为X Window System上创建标准虚拟终端，用户可以在同一个显示器上开启许多xterm，每一个都为其中运行的进程提供独立的输入输出（一般来说此进程是shell）。此外有许多xterm变体可用，大多数的X虚拟终端都是从xterm的变体起步的。&lt;/p>
+&lt;p>我们以Ubuntu 20.04这个桌面操作系统为例，之前我们说过桌面操作系统中的终端模拟器相当于X 视窗系统中的一个X client，所以这里也不例外。我们用下图中蓝色的部分表示GUI中的伪终端相关模块。&lt;/p>
+&lt;p>内核部分，硬件以及驱动部分和普通的GUI是一样的；PTY子系统的变化本节开头已经说过了。用户空间中，x server与x client的模式也没用变化，作为GUI中用户区终端模拟器的Gnome terminal server作为x client打开，负责处理和转化用户交互信息，Gnome terminal server持有PTY master的文件描述符&lt;code>/dev/ptmx&lt;/code>,并负责监听键盘事件，通过PTY master接收或发送字符到 PTY slave，还会在屏幕上绘制来自PTY master的字符输出。&lt;strong>每当我们通过Gnome terminal server打开一个新的CLI，它就会fork出一个进程来模拟一个终端（如xterm，vt100等），并执行bash命令变成一个CLI shell，以&lt;code>/dev/pts/X&lt;/code>为标准输入输出，因此模拟出来的CLI终端都是Gnome terminal server的子进程。Gnome terminal server接收到的数据会交给内核的PTY子系统，并由相应的pts接口提供给shell，实现数据流交互&lt;/strong>。&lt;/p>
+&lt;p>需要指出，Gnome terminal server父进程和shell子进程之间并不会直接传递信息，首先因为数据模式不同，来自Gnome terminal server的信息需要经过PTY子系统驱动转换和line discipline的进一步解码成CLI能够接受的模式；同时复用PTY子系统大大降低了Gnome terminal server程序的复杂度，由其是IPC方面的内容；另一方面这种结构兼容了Linux一直以来的系统结构，在稳定性和成熟度方面也更加可靠。对终端模拟器的程序编写者来说，维护和CLI的数据交互也并非终端模拟器的职责，终端模拟器只是一个模拟器，它的任务只是用软件生成一个“虚拟的终端”，一个复杂的terminal server不符合UNIX系统 &lt;strong>keep it simple, stupid (KISS)&lt;/strong> 的设计哲学。&lt;/p>
+&lt;p>&lt;img src="../../images/pty-gui.drawio.svg" alt="pty-gui">&lt;/p>
+&lt;p>我们以实际的例子，看看在 terminal 执行一个命令的全过程（当前进程的终端是&lt;code>/dev/pts/0&lt;/code>）。&lt;/p>
+&lt;ol>
+&lt;li>我们在桌面启动终端程序gnome-terminal，它向gnome terminal server请求ptmx建一个会话，并通过x server把gnome-terminal的图像绘制在显示器上；&lt;/li>
+&lt;li>gnome terminal server先fork启动子进程，再执行&lt;code>bash&lt;/code>命令；&lt;/li>
+&lt;li>&lt;code>bash&lt;/code>的标准输入、标准输出和标准错误都设置为PTY slave，即&lt;code>/dev/pts/0&lt;/code>；&lt;/li>
+&lt;li>gnome terminal server监听键盘事件，并将输入的字符发送到ptmx；&lt;/li>
+&lt;li>PTY子系统执行传统TTY子系统的buffer，line discipline，字符回显的功能；当按下回车键时，tty I/O core负责将缓冲的数据复制到PTY slave，&lt;code>/dev/pts/0&lt;/code>；&lt;/li>
+&lt;li>&lt;code>bash&lt;/code>接收来自&lt;code>/dev/pts/0&lt;/code>的标准输入，执行输入的命令，在将结果写入给标准输入（标准错误）&lt;code>/dev/pts/0&lt;/code>；&lt;/li>
+&lt;li>tty I/O core将&lt;code>/dev/pts/0&lt;/code>中的结果复制给ptmx的buffer；&lt;/li>
+&lt;li>gnome-terminal循环从ptmx读取字节，并交给x server绘制到用户界面上。&lt;/li>
+&lt;/ol>
+&lt;h3 id="远程连接操作系统">远程连接操作系统&lt;/h3>
+&lt;p>伪终端另一个重要应用场景就是使用网络远程登录Linux主机。这个场景的伪终端应用出现远早于GUI场景下的伪终端，甚至早于GUI的出现。CLI远程登录的主要手段就是telnet和ssh。由于telnet是使用明码来传送数据，安全性不够好，已经逐渐被舍弃，所以当前几乎所有的CLI远程登录都是使用ssh。&lt;/p>
+&lt;p>ssh登录需要远程主机上运行ssh服务器，比如openssh server，其守护进程一般为&lt;code>sshd&lt;/code>，负责远程主机ssh协议封装、加密解密、维护ssh会话等功能。但&lt;code>ssd&lt;/code>不再监听键盘事件，以及在屏幕上绘制输出结果，而是通过TCP连接，向ssh client发送或接收字符。在远程登录场景下，&lt;code>sshd&lt;/code>取代terminal server担任fork子进程并执行bash命令生成CLI shell的功能，而终端模拟功能则交给本地终端模拟器执行。&lt;/p>
+&lt;p>硬件方面，由于使用网络连接取代键盘屏幕的直连，因此对应硬件换成了网卡（network interface card, NIC）。内核中，硬件驱动改成了网卡驱动（network interface card driver, NIC driver），数据经过网卡驱动后，还要通过 TCP/IP协议栈层层解包（返回给客户端时则是层层封装数据包），最后将应用层数据交付给对应的应用进程，如&lt;code>sshd&lt;/code>。本地客户端程序担任终端模拟器的角色并启动ssh client，通过互联网或以太网等网络连接与远程主机传输信息。&lt;/p>
+&lt;p>&lt;strong>从&lt;code>sshd&lt;/code>往后的部分和本地直接使用键盘、显示器连接没有区别&lt;/strong>，驱动、协议栈以及应用层软件&lt;code>sshd&lt;/code>已经屏蔽了底层的区别，为上层提供了统一的接口。&lt;/p>
+&lt;p>&lt;img src="../../images/pty-ssh.drawio.svg" alt="pty-ssh">&lt;/p>
+&lt;p>简单梳理一下远程终端是如何执行命令的，此处PTS为&lt;code>/dev/pts/1&lt;/code>：&lt;/p>
+&lt;ol>
+&lt;li>用户在客户端的终端模拟器中输入&lt;code>ssh username@hostIP&lt;/code>命令，经过网络到达远程主机，通过网卡驱动、TCP/IP协议栈解包后，内核通过ssh协议对应端口（默认22），找到监听的&lt;code>sshd&lt;/code>进程。&lt;/li>
+&lt;li>&lt;code>sshd&lt;/code>接受ssh请求后，向内核申请创建 PTY，获得一对设备文件描述符。让&lt;code>sshd&lt;/code>持有ptmx，&lt;code>sshd&lt;/code> fork 出的子进程&lt;code>bash&lt;/code>持有PTY slave。&lt;code>bash&lt;/code>的标准输入、标准输出和标准错误都设置为了&lt;code>/dev/pts/1&lt;/code>。完成会话建立。&lt;/li>
+&lt;li>用户端数据通过&lt;code>sshd&lt;/code>传输给PTY子系统，到达PTY slave，&lt;code>/dev/pts/1&lt;/code>。&lt;/li>
+&lt;li>之后过程和&lt;a href="#gui%E4%B8%AD%E7%9A%84cli">GUI中的CLI&lt;/a>章节中4-7步一样，只不过&lt;code>sshd&lt;/code>取代了gnome terminal server的作用；&lt;/li>
+&lt;li>&lt;code>sshd&lt;/code>循环从ptmx读取字节，并通过之间建立的TCP连接发送给 ssh client。&lt;/li>
+&lt;/ol>
+&lt;p>注意1：在客户端，我们在屏幕上看到的所有字符都来自于远程服务器。包括我们输入的内容，也是远程服务器上的 line discipline 应用&lt;code>echo&lt;/code>规则的结果，将这些字符回显了回来。表面看似简单的在远程终端上执行了一条命令，实际上底下确是波涛汹涌。&lt;/p>
+&lt;p>注意2：当我们查看进程时，细心的人可能会发现，&lt;code>sshd&lt;/code>并非只是简单的fork了一个&lt;code>bash&lt;/code>子进程，而是&lt;code>sshd───sshd───sshd───bash&lt;/code>这种结构。第一个&lt;code>sshd&lt;/code>是负责监听的进程，第二个&lt;code>sshd&lt;/code>是fork出来实际和ssh client建立连接的子进程，第三个&lt;code>sshd&lt;/code>是ssh中基于安全性考虑使用&amp;quot;privilege separation&amp;quot;的结果，最后一个&lt;code>bash&lt;/code>才是真正的CLI shell。由于这种细节不影响我们整体的讨论，所以只是在这里提一下。&lt;/p>
+&lt;h3 id="后台保障运行的tmux">后台保障运行的Tmux&lt;/h3>
+&lt;p>本节开头已经说过，第三个场景时第二个场景的扩展。当我们使用ssh远程连接时，常遇到一个问题：所有的工作默认都是从&lt;code>sshd&lt;/code>产生的子进程中启动，即它们属于同一个会话。当作为根进程的&lt;code>sshd&lt;/code>一旦被终止，那么它产生的子进程，全部会关闭。为了解决这个问题，&lt;code>sshd&lt;/code>与会话可以&amp;quot;解绑&amp;quot;，将它们彻底分离：&lt;code>sshd&lt;/code>关闭时，会话并不终止，而是继续运行，等到以后需要的时候，再让会话&amp;quot;绑定&amp;quot;其他&lt;code>sshd&lt;/code>进程。这就是&lt;code>Tmux&lt;/code>以及类似应用&lt;code>screen&lt;/code>的主要作用。&lt;/p>
+&lt;p>&lt;strong>Tmux的作用机理很简单，就是改变当前会话的根进程&lt;/strong>。当我们启动Tmux client的时候，并不是在原来&lt;code>sshd--bash&lt;/code>的进程关系中启动新的CLI shell，而是通知Tmux server，让它fork子进程，然后执行&lt;code>bash&lt;/code>,然后Tmux client通过IPC方式（Unix domain socket）连到这个&lt;code>bash&lt;/code>上，这样这个新的&lt;code>bash&lt;/code>就从&lt;code>sshd&lt;/code>中独立出来，即使ssh断开连接，也只是Unix domain socket连接断了，Tmux server启动的&lt;code>bash&lt;/code>及其子进程不受影响。当新的ssh连接建立后，可以通过&lt;code>tmux attach&lt;/code>命令再建立新的Unix domain socket连接。&lt;/p>
+&lt;p>Tmux server的作用和之前场景中&lt;code>sshd&lt;/code>的作用类似，但是不同处理复杂的ssh协议。&lt;/p>
+&lt;p>&lt;img src="../../images/pty-tmux.drawio.svg" alt="pty-tmux">&lt;/p>
+&lt;p>Tmux场景下，数据流程会稍微复杂一下，我们根据上图梳理一下。从&lt;code>sshd&lt;/code>启动子进程shell 3的&lt;code>Bash&lt;/code>之后开始。&lt;/p>
+&lt;ol start="0">
+&lt;li>如上图红色部分，ssh client和&lt;code>sshd&lt;/code>建立网络连接，并产生Bash Shell 3，其使用PTY slave，&lt;code>/dev/pts/2&lt;/code>作为标准输入输出。此阶段和&lt;a href="#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">远程连接操作系统&lt;/a>中的过程一致。&lt;/li>
+&lt;li>当&lt;code>sshd&lt;/code>子进程的&lt;code>bash&lt;/code>执行&lt;code>tmux&lt;/code>后，shell 3的&lt;code>bash&lt;/code> fork出子进程，并运行tmux client作为其前台应用，占用&lt;code>/dev/pts/2&lt;/code>，此时bash shell 3和&lt;code>/dev/pts/2&lt;/code>的逻辑连接被中断，&lt;code>/dev/pts/2&lt;/code>和tmux client连接；&lt;/li>
+&lt;li>由于tmux client并非一个shell，因此它唤醒了tmux server（如果当前tmux server未启动，则启动tmux server），让其fork出一个子进程，并执行&lt;code>bash&lt;/code>命令，形成shell 4，准备供给tmux client使用；&lt;/li>
+&lt;li>tmux server通知PTY子系统，tmux server持有ptmx，PTY子系统生成新的伪终端接口&lt;code>/dev/pts/3&lt;/code>交由shell 4持有，作为其标准输入输出设备，此时shell 4只能和tmux server连通；&lt;/li>
+&lt;li>tmux client和tmux server建立Unix domain socket连接，tmux client将来自&lt;code>sshd&lt;/code>(本质来自ssh client)的数据通过该socket连接传递给tmux server，并接收其返回的信息；&lt;/li>
+&lt;li>tmux server通过PTY子系统将数据加工、传递给&lt;code>/dev/pts/3&lt;/code>，即shell 4的标准输入输出；&lt;/li>
+&lt;li>shell 4从标准输入输出&lt;code>/dev/pts/3&lt;/code>中读取来自用户的命令，执行后再返回给&lt;code>/dev/pts/3&lt;/code>；&lt;/li>
+&lt;li>返回的信息经PTY子系统处理后交付给tmux server，并通过之前建立socket连接传输回tmux client。&lt;/li>
+&lt;li>tmux client收到数据后将消息返回给占用的&lt;code>/dev/pts/2&lt;/code>，同样通过PTY子系统，转发给&lt;code>sshd&lt;/code>；&lt;/li>
+&lt;li>&lt;code>sshd&lt;/code>像之前一样，循环从ptmx读取字节，并通过之间建立的TCP连接发送给 ssh client。&lt;/li>
+&lt;/ol>
+&lt;p>需要注意的是，父进程和子进程之间通常不直接传递数据，sshd server和tmux server数据传输流程相似，都通过PTY子系统传递数据，且两者互不干涉；使用Tmux的场景下，每个单项数据流都要经过PTY子系统&lt;strong>两次&lt;/strong>。&lt;/p>
+&lt;p>从数据流程中，我们也能看出，当ssh连接断开时，&lt;code>sshd&lt;/code>侧关闭的只是shell 3和socket连接，实际上运行程序的shell 4并不受影响。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>与用户交互的终端经历了从物理终端到虚拟终端再到伪终端的演变，总的趋势是硬件通用化，功能软件化；交互的形式上，也从文字CLI终端向图形GUI终端不断发展，但是我们不能否认CLI也一直有它独到的优势，才能在半个世纪的剧变中生生不息。现在，输入输出一体化终端如触摸屏方兴未艾，3D交互、甚至脑机接口也渐入人们的视野，或许现在常用的交互的方式未来也只能像物理终端一样进入博物馆，最终最适合的才会留下来，“适者生存”不仅仅适用于自然界的生物呢。&lt;/p>
+&lt;h2 id="参考文章及资料">参考文章及资料&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="https://xie.infoq.cn/article/a6153354865c225bdce5bd55e">https://xie.infoq.cn/article/a6153354865c225bdce5bd55e&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.computerhope.com/history/index.htm">https://www.computerhope.com/history/index.htm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://developpaper.com/overview-of-linux-tty-pts-differences/">https://developpaper.com/overview-of-linux-tty-pts-differences/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.feyrer.de/NetBSD/ttys.html">https://www.feyrer.de/NetBSD/ttys.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://linux.cn/article-12068-1.html">https://linux.cn/article-12068-1.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.linusakesson.net/programming/tty/">https://www.linusakesson.net/programming/tty/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.csdn.net/dog250/article/details/78766716">https://blog.csdn.net/dog250/article/details/78766716&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/fb/index.html">https://www.kernel.org/doc/html/latest/fb/index.html&lt;/a>&lt;/li>
+&lt;li>Wikipedia&lt;/li>
+&lt;/ol></description></item><item><title>linux-特殊设备文件</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%89%B9%E6%AE%8A%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6/</link><pubDate>Wed, 01 Dec 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%89%B9%E6%AE%8A%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%BC%AA%E8%AE%BE%E5%A4%87">伪设备&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#devnull">&lt;code>/dev/null&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#devzero">&lt;code>/dev/zero&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#devfull">&lt;code>/dev/full&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#devrandom%E5%92%8Cdevurandom">&lt;code>/dev/random&lt;/code>和&lt;code>/dev/urandom&lt;/code>&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E8%AE%BE%E5%A4%87">标准输入输出设备&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#devstdin%E6%88%960">&lt;code>/dev/stdin&lt;/code>或0&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#devstdout%E6%88%961">&lt;code>/dev/stdout&lt;/code>或1&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#devstderr%E6%88%962">&lt;code>/dev/stderr&lt;/code>或2&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87">终端设备&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%BB%8E%E7%89%A9%E7%90%86%E7%BB%88%E7%AB%AF%E5%88%B0%E8%99%9A%E6%8B%9F%E7%BB%88%E7%AB%AF">从物理终端到虚拟终端&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BC%AA%E7%BB%88%E7%AB%AF">伪终端&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%B2%E8%A1%8C%E7%AB%AF%E5%8F%A3%E7%BB%88%E7%AB%AF">串行端口终端&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%94%99%E8%AF%AF%E8%AE%BE%E5%A4%87%E5%92%8C%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87%E7%9A%84%E5%85%B3%E7%B3%BB">标准输入输出（错误）设备和终端设备的关系&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-特殊设备文件---omit-in-toc---">linux-特殊设备文件&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在Linux系统中，一切皆为文件，设备也不例外，会被描述为设备文件，比如常见硬盘会被描述为&lt;em>支持随机存取和寻址&lt;/em>的块设备文件，键盘终端会被描述成&lt;em>不支持随机存取&lt;/em>的字符设备文件。此外，Linux操作系统还有一些特殊的设备，例如伪设备、标准输入输出设备、终端设备等等，它们为操作系统提供了硬件的抽象化功能，简化的系统结构提升了系统架构的可理解性。&lt;/p>
+&lt;h2 id="伪设备">伪设备&lt;/h2>
+&lt;p>在类Unix操作系统中，设备节点并不一定要对应物理设备。没有这种对应关系的设备是&lt;strong>伪设备或虚拟设备&lt;/strong>。而对程序而言，这些伪拟设备文件则会被当成真实的文件对待。程序可以向伪设备请求数据（当具有可读权限时），所得到的数据将由操作系统提供。注意，这些数据并不是从磁盘上读取到的，而是由操作系统动态生成的。程序也可以向伪设备写入数据（当具有可写权限时），程序会根据伪设备的特性相应地处理写入的数据。部分经常使用到的伪设备包括：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/dev/null&lt;/code>：接受并丢弃所有输入；。&lt;/li>
+&lt;li>&lt;code>/dev/zero&lt;/code>：产生连续的NUL字元的串流(数值为0)。&lt;/li>
+&lt;li>&lt;code>/dev/full&lt;/code>：永远在被填满状态的设备。&lt;/li>
+&lt;li>&lt;code>/dev/random&lt;/code>：产生一个虚假随机的任意长度字元串流。(Blocking，阻塞式)&lt;/li>
+&lt;li>&lt;code>/dev/urandom&lt;/code>：产生一个虚假随机的任意长度字元串流。(Non-Blocking，非阻塞式)&lt;/li>
+&lt;/ul>
+&lt;h3 id="devnull">&lt;code>/dev/null&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls -l /dev/null
+&lt;span class="ln">2&lt;/span>crw-rw-rw- &lt;span class="m">1&lt;/span> root root 1, &lt;span class="m">3&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 null
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对于以上伪设备，我们&lt;code>/dev/null&lt;/code>应该算是最常见的了。&lt;code>/dev/null&lt;/code>可称为空设备，它会接受任何写入的内容并把它们统统扔掉（但报告写入操作成功），就像黑洞一样，&lt;strong>通常用于丢弃不需要的数据输出&lt;/strong>。在程序员行话，尤其是Unix行话中，&lt;code>/dev/null&lt;/code>又被称为位桶(bit bucket)或者黑洞(black hole)。从权限来看，&lt;code>/dev/null&lt;/code>还是可读的，读取它则会立即得到一个&lt;code>EOF&lt;/code>(END Of File的缩写，表示终止符)标志。&lt;/p>
+&lt;p>总结：所有写入&lt;code>\dev\null&lt;/code>的内容都会永远丢失，而尝试从它那儿读取内容则什么也读不到。&lt;/p>
+&lt;h3 id="devzero">&lt;code>/dev/zero&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls -l /dev/zero
+&lt;span class="ln">2&lt;/span>crw-rw-rw- &lt;span class="m">1&lt;/span> root root 1, &lt;span class="m">5&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/zero
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在类UNIX 操作系统中，&lt;code>/dev/zero&lt;/code>是一个特殊的文件，当你读它的时候，它会提供无限的空字符(NULL, ASCII NUL, 0x00)。它的典型用法包括用它提供的字符流来覆盖信息，以及产生一个特定大小的空白文件等。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 创建一个名为test-dev-zero、大小为1 MiB的文件，以ASCII码为“0”(NULL)的字符填充：&lt;/span>
+&lt;span class="ln">2&lt;/span>$ dd &lt;span class="k">if&lt;/span>&lt;span class="o">=&lt;/span>/dev/zero &lt;span class="nv">of&lt;/span>&lt;span class="o">=&lt;/span>test-dev-zero &lt;span class="nv">count&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1024&lt;/span> &lt;span class="nv">bs&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1024&lt;/span>
+&lt;span class="ln">3&lt;/span>1024+0 records in
+&lt;span class="ln">4&lt;/span>1024+0 records out
+&lt;span class="ln">5&lt;/span>&lt;span class="m">1048576&lt;/span> bytes &lt;span class="o">(&lt;/span>1.0 MB, 1.0 MiB&lt;span class="o">)&lt;/span> copied, 0.00280503 s, &lt;span class="m">374&lt;/span> MB/s
+&lt;span class="ln">6&lt;/span>$ ls -lh test-dev-zero
+&lt;span class="ln">7&lt;/span>-rw-r--r-- &lt;span class="m">1&lt;/span> lelouch lelouch 1.0M Dec &lt;span class="m">6&lt;/span> 22:34 test-dev-zero
+&lt;span class="ln">8&lt;/span>&lt;span class="c1"># 彻底覆盖某一分区的数据（低格）,谨慎操作&lt;/span>
+&lt;span class="ln">9&lt;/span>$ dd &lt;span class="k">if&lt;/span>&lt;span class="o">=&lt;/span>/dev/zero &lt;span class="nv">of&lt;/span>&lt;span class="o">=&lt;/span>/dev/&amp;lt;destination partition&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>与&lt;code>/dev/null&lt;/code>类似，&lt;code>/dev/zero&lt;/code>也可以作为一个数据接收点，所有写往&lt;code>/dev/zero&lt;/code>将返回成功，没有其他影响；&lt;code>/dev/null&lt;/code>也是一样，但是&lt;code>/dev/null&lt;/code>更常用。&lt;/p>
+&lt;h3 id="devfull">&lt;code>/dev/full&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls -l /dev/full
+&lt;span class="ln">2&lt;/span>crw-rw-rw- &lt;span class="m">1&lt;/span> root root 1, &lt;span class="m">7&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/full
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意啊&lt;code>/dev/full&lt;/code>与&lt;code>/dev/null&lt;/code>只有一个字母之差，不要打错或看错了。&lt;code>/dev/full&lt;/code>也是可读写的，任何进程在向其写入时总是返回设备无剩余空间（错误码为ENOSPC， Error No Space的缩写），在Debian的返回结果如下所示；通常被用来&lt;strong>测试程序在遇到磁盘无剩余空间错误时的行为&lt;/strong>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span> &amp;gt; /dev/full
+&lt;span class="ln">2&lt;/span>-bash: echo: write error: No space left on device
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>读取时则与&lt;code>/dev/zero&lt;/code>一样，可返回无限多的空字符（NULL, ASCII NUL, 0x00）。它的典型用法和&lt;code>/dev/zero&lt;/code>包括用它提供的字符流来覆盖信息，以及产生一个特定大小的空白文件等，但是正常情况下，用&lt;code>/dev/zero&lt;/code>更多。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 创建一个名为test-dev-full、大小为1 MiB的文件，以ASCII码为“0”(NULL)的字符填充：&lt;/span>
+&lt;span class="ln">2&lt;/span>$ dd &lt;span class="k">if&lt;/span>&lt;span class="o">=&lt;/span>/dev/full &lt;span class="nv">of&lt;/span>&lt;span class="o">=&lt;/span>test-dev-full &lt;span class="nv">count&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1024&lt;/span> &lt;span class="nv">bs&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1024&lt;/span>
+&lt;span class="ln">3&lt;/span>1024+0 records in
+&lt;span class="ln">4&lt;/span>1024+0 records out
+&lt;span class="ln">5&lt;/span>&lt;span class="m">1048576&lt;/span> bytes &lt;span class="o">(&lt;/span>1.0 MB, 1.0 MiB&lt;span class="o">)&lt;/span> copied, 0.00283009 s, &lt;span class="m">371&lt;/span> MB/s
+&lt;span class="ln">6&lt;/span>$ ls -lh test-dev-full
+&lt;span class="ln">7&lt;/span>-rw-r--r-- &lt;span class="m">1&lt;/span> lelouch lelouch 1.0M Dec &lt;span class="m">6&lt;/span> 22:38 test-dev-full
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="devrandom和devurandom">&lt;code>/dev/random&lt;/code>和&lt;code>/dev/urandom&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls -l /dev/random /dev/urandom
+&lt;span class="ln">2&lt;/span>crw-rw-rw- &lt;span class="m">1&lt;/span> root root 1, &lt;span class="m">8&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/random
+&lt;span class="ln">3&lt;/span>crw-rw-rw- &lt;span class="m">1&lt;/span> root root 1, &lt;span class="m">9&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/urandom
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>/dev/random&lt;/code>和&lt;code>/dev/urandom&lt;/code>是Linux系统中提供的随机性的伪设备，这两个设备的任务，是&lt;strong>提供永不为空的随机字节数据流&lt;/strong>。很多解密程序与安全应用程序（如SSH Keys,SSL Keys等）需要它们提供的随机数据流。读取这个两个设备都会返回一堆随机乱码。&lt;/p>
+&lt;p>这两个设备的差异在于：&lt;code>/dev/random&lt;/code>的random pool依赖于系统中断，因此在系统的中断数不足时，&lt;code>/dev/random&lt;/code>设备会一直封锁，尝试读取的进程就会进入等待状态，直到系统的中断数充分够用, &lt;code>/dev/random&lt;/code>设备可以保证数据的随机性。&lt;code>/dev/urandom&lt;/code>不依赖系统的中断，也就不会造成进程忙等待，但是数据的随机性也不高。如果不是研究特定问题，一般是用不到这两个设备的。&lt;/p>
+&lt;h2 id="标准输入输出设备">标准输入输出设备&lt;/h2>
+&lt;p>还有一类常用的特殊设备就是&lt;strong>标准输入输出设备&lt;/strong>，它们和我们的操作最息息相关。所有程序默认的输入都来自&lt;strong>标准输入设备&lt;/strong>，所有回显的内容都会输出到&lt;strong>标准输出设备&lt;/strong>，而所有的操作异常、错误信息都会给到&lt;strong>标准错误设备&lt;/strong>。可以说标准输入输出设备是和我们直接交互的设备，简单说，我们通过标准输入设备给程序输入数据，再从标准输出（错误）设备得知程序运算的结果。它们三个分别表示为三个设备文件：标准输入设备&lt;code>/dev/stdin&lt;/code>，标准输出设备&lt;code>/dev/stdout&lt;/code>，标准错误设备&lt;code>/dev/stderr&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls -l /dev/std*
+&lt;span class="ln">2&lt;/span>lrwxrwxrwx &lt;span class="m">1&lt;/span> root root &lt;span class="m">15&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/stderr -&amp;gt; /proc/self/fd/2
+&lt;span class="ln">3&lt;/span>lrwxrwxrwx &lt;span class="m">1&lt;/span> root root &lt;span class="m">15&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/stdin -&amp;gt; /proc/self/fd/0
+&lt;span class="ln">4&lt;/span>lrwxrwxrwx &lt;span class="m">1&lt;/span> root root &lt;span class="m">15&lt;/span> Nov &lt;span class="m">18&lt;/span> 18:57 /dev/stdout -&amp;gt; /proc/self/fd/1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从上面的结果来看，这三个设备分别了链接到三个文件描述符(file descriptor, fd)，习惯上，标准输入（standard input）的文件描述符是 &lt;strong>0&lt;/strong>，标准输出（standard output）是 &lt;strong>1&lt;/strong>，标准错误（standard error）是 &lt;strong>2&lt;/strong>。尽管这种习惯并非Unix内核的特性，但是因为一些 shell 和很多应用程序都使用这种习惯，因此，基本常见内核都遵循这种习惯。&lt;/p>
+&lt;h3 id="devstdin或0">&lt;code>/dev/stdin&lt;/code>或0&lt;/h3>
+&lt;p>STDIN标准输入是指输入至程序（进程）的资料、文件等数据流，此数据流默认从标准输入设备获取，最常见的标准输入设备是键盘，在以&lt;code>ssh&lt;/code>远程登陆的linux中也会指向虚拟终端pts。需要指出，并不是所有程序都需要输入，如dir或ls程序（显示一个目录中的文件名）运行时不用任何输入。&lt;/p>
+&lt;ul>
+&lt;li>默认终端登录：/dev/stdin -&amp;gt; /proc/self/fd/0 -&amp;gt; /dev/tty1&lt;/li>
+&lt;li>SSH登录：/dev/stdin -&amp;gt; /proc/self/fd/0 -&amp;gt; /dev/pts/0&lt;/li>
+&lt;/ul>
+&lt;h3 id="devstdout或1">&lt;code>/dev/stdout&lt;/code>或1&lt;/h3>
+&lt;p>STDOUT（fd:1）标准输出是指程序输出资料、数据、图像的数据流，标准输出的默认对应设备是终端（这是个广阔的概念，linux中以tty指代），在以&lt;code>ssh&lt;/code>远程登陆的linux中也会指向虚拟终端pts。需要指出：并非所有程序都要求输出。如mv或ren程序在成功完成时是沉默的。&lt;em>Linux的设计理念有一条即是没有消息就是好消息&lt;/em>。&lt;/p>
+&lt;ul>
+&lt;li>默认终端登录：/dev/stdout -&amp;gt; /proc/self/fd/1 -&amp;gt; /dev/tty1&lt;/li>
+&lt;li>SSH登录：/dev/stdout -&amp;gt; /proc/self/fd/1 -&amp;gt; /dev/pts/0&lt;/li>
+&lt;/ul>
+&lt;h3 id="devstderr或2">&lt;code>/dev/stderr&lt;/code>或2&lt;/h3>
+&lt;p>STDERR（fd:2）标准错误是另一输出流，用于输出错误消息或诊断。它独立于标准输出，且可以&lt;strong>分别&lt;/strong>被重定向。常见的默认目的则为启始这个程序的终端（和STDOUT一致）。&lt;/p>
+&lt;ul>
+&lt;li>默认终端登录：/dev/stderr -&amp;gt; /proc/self/fd/2 -&amp;gt; /dev/tty1&lt;/li>
+&lt;li>SSH登录：/dev/stderr -&amp;gt; /proc/self/fd/2 -&amp;gt; /dev/pts/0&lt;/li>
+&lt;/ul>
+&lt;p>我们发现不管是通过终端还是ssh登录，最终标准输入、输出、错误设备都会被定位到同一个设备，&lt;code>/dev/tty1&lt;/code>或&lt;code>/dev/pts/0&lt;/code>，这都是linux使用虚拟终端的结果，linux使用虚拟终端来同一管理这些数据流和相应设备的驱动、协议等。下一节我们就介绍终端设备，例如tty与pts。&lt;/p>
+&lt;h2 id="终端设备">终端设备&lt;/h2>
+&lt;p>Linux的终端设备是与我们直接交互的设备，我们这里仅介绍以命令行为主的文字终端设备。终端设备，或TTY设备是一类特殊的字符设备，所有可以被用来当作控制终端的设备都可以被称为终端设备，目前常见的包括&lt;strong>虚拟终端、串口和伪终端&lt;/strong>。&lt;/p>
+&lt;h3 id="从物理终端到虚拟终端">从物理终端到虚拟终端&lt;/h3>
+&lt;p>计算机在早期都是庞大、复杂且昂贵的，即使发展到20世纪80，90年代，一台个人电脑（PC）依旧是很罕见的，在Linux诞生的1991年，一台便宜的Apple Macintosh PowerBook的价格是&lt;strong>2,299美元&lt;/strong>，要知道那可是1991年的2,299美元，当年中国人民的人均GDP才333美元。所以在计算机发展早期，大多用户是通过物理终端（外设）连接到大型计算机或中型计算机的，共享一台计算机。来看看著名的IBM 308X系列计算机（以下房间中所有设备都是IBM 3081计算机的一部分）：
+&lt;img src="../../images/IBM_3081.jpg" alt="IBM_3081.jpg">
+由于早期的计算机都是多用户共享的，而每个用户需要一套单独的外设（电传机，teletype，简称tty以及显示器）去连接主机，因此系统中就要有相应的tty终端对接程序，Linux中保留的可以通过&lt;code>ctrl+alt+F1~F6&lt;/code>切换的tty1-tty6（&lt;code>/dev/tty1~/dev/tty6&lt;/code>）六个终端就是这个时期历史遗留的产物（在具有桌面环境的Linux发行版中，X Window Systemy一般在/dev/tty7上运行，也有把桌面终端放在tty1和tty2的比如Ubuntu，依各Linux发行版自己决定）。除了通过tty连接的终端，早期电脑上还自带一个可以直接操作和能够显示系统信息的控制台（console），在linux中也有一个对应的设备&lt;code>/dev/console&lt;/code>。&lt;/p>
+&lt;p>那时tty和console还是有很大的区别的，很多系统配置只能通过console修改，tty只能执行特定的用户程序，得到用户程序返回的信息。这同样说明，控制台是计算机的基本设备，而终端是附加外设。&lt;/p>
+&lt;p>这个设计也保留到了如今的Linux操作系统中，与终端不相关的信息，比如内核消息，后台服务消息，只显示到控制台上，但不会显示到终端上。比如在启动和关闭Linux系统时，我们可以在控制台上看到很多的内核信息，而如果通过telnet、ssh等方式连接上Linux系统，这些开关机信息是不会显示的。&lt;/p>
+&lt;p>后来，由于终端硬件设备越来越多样化，厂商也各不相同，于是Linux就将对接外设的部分单独拎出来模块化并设计了名叫TTY的子系统，对于每一个终端，TTY driver都会创建一个TTY设备与它对应，如果有多个终端连接过来，那么看起来就是这个样子的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span> +----------------------------------------+
+&lt;span class="ln"> 2&lt;/span> &lt;span class="p">|&lt;/span> TTY 驱动 &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="p">|&lt;/span> +-------+ &lt;span class="p">|&lt;/span> +------------------------+
+&lt;span class="ln"> 5&lt;/span>+------------+ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--------&amp;gt;&lt;span class="p">|&lt;/span> 用户进程 A &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="p">|&lt;/span> 终端 A &lt;span class="p">|&lt;/span>&amp;lt;---------&lt;span class="p">|&lt;/span>-&amp;gt;&lt;span class="p">|&lt;/span> tty1 &lt;span class="p">|&lt;/span> +------------+
+&lt;span class="ln"> 7&lt;/span>+------------+ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--------&amp;gt;&lt;span class="p">|&lt;/span> 用户进程 B &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">|&lt;/span> +-------+ &lt;span class="p">|&lt;/span> +------------------------+
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">|&lt;/span> +-------+ &lt;span class="p">|&lt;/span> +------------------------+
+&lt;span class="ln">11&lt;/span>+------------+ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--------&amp;gt;&lt;span class="p">|&lt;/span> 用户进程 C &lt;span class="p">|&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="p">|&lt;/span> 终端 B &lt;span class="p">|&lt;/span>&amp;lt;---------&lt;span class="p">|&lt;/span>-&amp;gt;&lt;span class="p">|&lt;/span> tty2 &lt;span class="p">|&lt;/span> +------------+
+&lt;span class="ln">13&lt;/span>+------------+ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--------&amp;gt;&lt;span class="p">|&lt;/span> 用户进程 D &lt;span class="p">|&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="p">|&lt;/span> +-------+ &lt;span class="p">|&lt;/span> +------------------------+
+&lt;span class="ln">15&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln">16&lt;/span> +----------------------------------------+
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>后来随着计算机的不断发展，teletype，console这些特定的外设逐渐消失，我们不再需要专门的终端设备了，每个机器都有自己的键盘和显示器，每台机器还可以是其它机器的终端，即远程的操作通过ssh来实现，但是内核TTY驱动这一架构一直没有发生变化，我们想要和系统中的进程进行I/O交互，还是需要通过TTY设备，于是出现了各种&lt;strong>终端模拟软件&lt;/strong>，最终物理终端都变成了虚拟终端埋进了内核中。我们的输入和程序的输出都通过终端模拟软件转变为&lt;strong>过去的tty设备信息流&lt;/strong>与内核交互，可以称之为隐藏在内核深处的计算机历史痕迹😆。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span> +-----------------------------------------+
+&lt;span class="ln"> 2&lt;/span> 内核 &lt;span class="p">|&lt;/span> 用户空间 &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="p">|&lt;/span> +-----+ +------+ &lt;span class="p">|&lt;/span> +---------+
+&lt;span class="ln"> 4&lt;/span>+--------+ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--&amp;gt;&lt;span class="p">|&lt;/span> tty1 &lt;span class="p">|&lt;/span>&amp;lt;-&lt;span class="p">|&lt;/span>---&amp;gt;&lt;span class="p">|&lt;/span> Shell &lt;span class="m">1&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="p">|&lt;/span> 键 盘 &lt;span class="p">|&lt;/span>---&amp;gt;&lt;span class="p">|&lt;/span> 终端 &lt;span class="p">|&lt;/span> +------+ &lt;span class="p">|&lt;/span> +---------+
+&lt;span class="ln"> 6&lt;/span>+--------&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> 模拟 &lt;span class="p">|&lt;/span>&amp;lt;--&amp;gt;&lt;span class="p">|&lt;/span> tty2 &lt;span class="p">|&lt;/span>&amp;lt;-&lt;span class="p">|&lt;/span>---&amp;gt;&lt;span class="p">|&lt;/span> Shell &lt;span class="m">2&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="p">|&lt;/span> 显示器 &lt;span class="p">|&lt;/span>&amp;lt;---&lt;span class="p">|&lt;/span> 软件 &lt;span class="p">|&lt;/span> +------+ &lt;span class="p">|&lt;/span> +---------+
+&lt;span class="ln"> 8&lt;/span>+--------+ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--&amp;gt;&lt;span class="p">|&lt;/span> tty3 &lt;span class="p">|&lt;/span>&amp;lt;-&lt;span class="p">|&lt;/span>---&amp;gt;&lt;span class="p">|&lt;/span> Shell &lt;span class="m">3&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">|&lt;/span> +-----+ +------+ &lt;span class="p">|&lt;/span>--------------+
+&lt;span class="ln">10&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln">11&lt;/span> +-----------------------------------------+
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要指出，软件仿真终端和tty是运行在内核态的。过去的&lt;code>/dev/console&lt;/code>被默认连接到当前登录的虚拟终端（&lt;code>/dev/tty0&lt;/code>也同样指向当前的虚拟终端，但是&lt;code>/dev/tty&lt;/code>指向的当前任意终端，既可以是虚拟终端也可使伪终端）。我们可以通过把终端用&lt;code>ctrl+alt+F6&lt;/code>切换到tty6做以下尝试：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">#/dev/tty Current TTY device&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">#/dev/console System console, defalut current virtual console&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">#/dev/tty0 Current virtual console&lt;/span>
+&lt;span class="ln"> 4&lt;/span>$ tty
+&lt;span class="ln"> 5&lt;/span>/dev/tty6
+&lt;span class="ln"> 6&lt;/span>$ sudo bash -c &lt;span class="s1">&amp;#39;echo &amp;#34;Hello from tty6&amp;#34; &amp;gt; /dev/console&amp;#39;&lt;/span>
+&lt;span class="ln"> 7&lt;/span>Hello from tty6
+&lt;span class="ln"> 8&lt;/span>$ sudo bash -c &lt;span class="s1">&amp;#39;echo &amp;#34;Hello from tty6&amp;#34; &amp;gt; /dev/tty&amp;#39;&lt;/span>
+&lt;span class="ln"> 9&lt;/span>Hello from tty6
+&lt;span class="ln">10&lt;/span>$ sudo bash -c &lt;span class="s1">&amp;#39;echo &amp;#34;Hello from tty6&amp;#34; &amp;gt; /dev/tty0&amp;#39;&lt;/span>
+&lt;span class="ln">11&lt;/span>Hello from tty6
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从这三个设备都得到了重定向的消息，说明它们三个都被连接到了当前终端。但是，如果用&lt;em>伪终端&lt;/em>，只有&lt;code>sudo bash -c 'echo &amp;quot;Hello from tty6&amp;quot; &amp;gt; /dev/tty'&lt;/code>会有回显。例如，我们用Ubuntu自带的伪终端尝试结果如下：&lt;/p>
+&lt;p>&lt;img src="../../images/%E4%BC%AA%E7%BB%88%E7%AB%AF%E5%9B%9E%E6%98%BE.png" alt="伪终端回显">&lt;/p>
+&lt;p>伪终端和虚拟终端有什么不同呢？我们下面看看伪终端。&lt;/p>
+&lt;h3 id="伪终端">伪终端&lt;/h3>
+&lt;p>当我们需要终端模拟器有更灵活的功能而又不想动用内核时，我们也可以让&lt;strong>终端模拟程序运行在用户区&lt;/strong>。如果我们让终端模拟程序运行在用户区，就需要&lt;strong>伪终端&lt;/strong>（pseudoterminal或pseudotty, PTY）。PTY是描述并非单个设备文件，而是&lt;strong>一对可双向通信的虚拟字符设备&lt;/strong>，称为 PTY master(ptmx)和 PYT slave(pts)。当前PTY有BSD（master名&lt;code>/dev/pty[p-za-e][0-9a-f]&lt;/code>，salve名&lt;code>/dev/tty[p-za-e][0-9a-f]&lt;/code>）和UNIX 98(master名&lt;code>/dev/ptmx&lt;/code>，salve名&lt;code>/dev/pts/*&lt;/code>)两种命名与实现方式，但是目前大多数都用的是UNIX98标准。&lt;/p>
+&lt;p>从用户空间的程序来看，使用虚拟终端还是伪终端都是一样的。此外，如果系统由多个伪终端连接，ptmx和pts合力完成多个伪终端的会话管理。但由于PTY运行在用户区，更加安全和灵活，同时仍然保留了TTY驱动的功能，因此我们目前在Linux桌面发行版中调出来的命令行工具、telnet、ssh、VNC远程连接几乎都是伪终端。常用的伪终端有xterm，gnome-terminal，以及远程终端ssh等。&lt;/p>
+&lt;p>伪终端的具体工作流程比较复杂，如果想具体了解可以参考2010年的《The Linux Programming Interface》的64章。对一般用户而言，我们只需要知道他是一种运行在用户空间的tty就可以了~&lt;/p>
+&lt;h3 id="串行端口终端">串行端口终端&lt;/h3>
+&lt;p>串行端口终端是基于RS-232接口连接到主机的终端设备，作为最古老的设备接口之一，早期的外设一般都使用串行端口终端。同样的，它也是一类字符设备，用设备描述符&lt;code>/dev/ttySX&lt;/code>表示,&amp;quot;X&amp;quot;代表一数字。现在串口协议一般用在嵌入式单片机或工业机上，大多数个人电脑现在连串口接口都没保留。下图以纪念我单片机焊板子的生活：&lt;/p>
+&lt;p>&lt;img src="../../images/RS232.jfif" alt="RS232串口">&lt;/p>
+&lt;h3 id="标准输入输出错误设备和终端设备的关系">标准输入输出（错误）设备和终端设备的关系&lt;/h3>
+&lt;p>默认情况下，标准输入输出（错误）设备会被链接到&lt;strong>当前正在使用的终端设备&lt;/strong>，可以是虚拟设备也可以是伪设备，重要点是正在操作哪个终端设备。&lt;/p></description></item><item><title>linux-从设备文件看重定向</title><link>https://surprisedcat.github.io/projectnotes/linux-%E4%BB%8E%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6%E7%9C%8B%E9%87%8D%E5%AE%9A%E5%90%91/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E4%BB%8E%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6%E7%9C%8B%E9%87%8D%E5%AE%9A%E5%90%91/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%9A%84%E5%8E%86%E7%A8%8B">数据流输入输出的历程&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%80%E5%88%87%E7%9A%86%E6%96%87%E4%BB%B6-fd-%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6">一切皆文件 fd 文件描述符&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E8%AE%BE%E5%A4%87%E5%AF%B9%E5%BA%94tty">设备对应tty&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%9B%B4%E6%94%B9%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%96%B9%E5%90%91">更改输入输出方向&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%B3%A8%E6%84%8F-here-doucment">注意&amp;lt;&amp;lt; Here doucment&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AC%A6%E5%8F%B7">&amp;amp;符号&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-从设备文件看重定向---omit-in-toc---">linux-从设备文件看重定向&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>我们在《linux-特殊设备文件》一文中介绍了标准输入输出（错误）设备和终端设备，指出默认情况下输入的信息来自标准输入设备(stdin)，程序返回的一般信息交给标准输出设备(stdout)，返回的错误信息交给标准错误设备(stderr)，而标准输入输出（错误）设备在默认情况下，都会被链接到正在被操作的虚拟终端(tty)或伪终端(pty)，也就是我们的交互界面。&lt;/p>
+&lt;p>从数据流的角度来看，输入数据流是TTY模块将键盘输入的数据接收后，再写入&lt;code>stdin&lt;/code>设备，&lt;code>stdin&lt;/code>设备再将数据传递给相应的程序；输出数据流是程序将返回的信息写入&lt;code>stdout,stderr&lt;/code>设备，TTY模块从&lt;code>stdout,stderr&lt;/code>设备读取程序的信息，并最终交付给物理终端（显示器）。&lt;/p>
+&lt;p>从结果上来讲，上述流程大体是对的，如果只是正常使用Linux系统，理解到此也没什么问题。&lt;/p>
+&lt;p>但是，如果我们深入地了解它们之间的关系，会发现以上的描述存在一些不准确的地方。&lt;/p>
+&lt;h2 id="数据流输入输出的历程">数据流输入输出的历程&lt;/h2>
+&lt;p>我们先简化一下整个系统结构，假定数据的来源终端是键盘，数据的显示键盘是显示器，我们通过伪终端方式进行交互。&lt;/p>
+&lt;p>当执行shell命令时，会默认打开3个文件，每个文件有对应的文件描述符来方便我们使用。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">文件描述符&lt;/th>
+&lt;th style="text-align:center">类型&lt;/th>
+&lt;th style="text-align:center">默认情况&lt;/th>
+&lt;th style="text-align:center">对应文件句柄位置&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">0&lt;/td>
+&lt;td style="text-align:center">标准输入（standard input）&lt;/td>
+&lt;td style="text-align:center">从键盘获得输入&lt;/td>
+&lt;td style="text-align:center">/proc/self/fd/0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">1&lt;/td>
+&lt;td style="text-align:center">标准输出（standard output）&lt;/td>
+&lt;td style="text-align:center">输出到屏幕（即控制台）&lt;/td>
+&lt;td style="text-align:center">/proc/self/fd/1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">2&lt;/td>
+&lt;td style="text-align:center">错误输出（error output）&lt;/td>
+&lt;td style="text-align:center">输出到屏幕（即控制台）&lt;/td>
+&lt;td style="text-align:center">/proc/self/fd/2&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="一切皆文件-fd-文件描述符">一切皆文件 fd 文件描述符&lt;/h2>
+&lt;p>stdin /stdout 指向的设备 0 1 2 255 /dev/null
+255 255代表用户编辑的文件的绝对路径。&lt;/p>
+&lt;p>/dev/null代表linux的空设备文件，所有往这个文件里面写入的内容都会丢失，俗称“黑洞”。比较常见的用法是把不需要的输出重定向到这个文件。&lt;/p>
+&lt;p>比如：&lt;/p>
+&lt;p>rm -f test.log &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
+这个命令会将标准输出和错误输出重定向到/dev/null，运行这个脚本不会输出任何信息到终端。&lt;/p>
+&lt;h3 id="设备对应tty">设备对应tty&lt;/h3>
+&lt;p>默认输入输出到这些设备&lt;/p>
+&lt;h2 id="更改输入输出方向">更改输入输出方向&lt;/h2>
+&lt;p>&amp;lt;,&amp;gt;&amp;gt;,&amp;gt;&lt;/p>
+&lt;h2 id="注意-here-doucment">注意&amp;lt;&amp;lt; Here doucment&lt;/h2>
+&lt;p>Here Document
+Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式 Shell 脚本或程序。&lt;/p>
+&lt;p>它的基本的形式如下：&lt;/p>
+&lt;p>command &amp;lt;&amp;lt; delimiter
+document
+delimiter
+它的作用是将两个 delimiter 之间的内容(document) 作为输入传递给 command。&lt;/p>
+&lt;p>注意：&lt;/p>
+&lt;p>结尾的delimiter 一定要顶格写，前面不能有任何字符，后面也不能有任何字符，包括空格和 tab 缩进。
+开始的delimiter前后的空格会被忽略掉。&lt;/p>
+&lt;h2 id="符号">&amp;amp;符号&lt;/h2>
+&lt;p>一般来说, &amp;quot;1&amp;gt;&amp;quot; 通常可以省略成 &amp;quot;&amp;gt;&amp;quot;.
+即可以把如上命令写成: ls a.txt b.txt &amp;gt;file.out 2&amp;gt;file.err
+有了这些认识才能理解 &amp;quot;1&amp;gt;&amp;amp;2&amp;quot; 和 &amp;quot;2&amp;gt;&amp;amp;1&amp;quot;.
+1&amp;gt;&amp;amp;2 正确返回值传递给2输出通道 &amp;amp;2表示2输出通道
+如果此处错写成 1&amp;gt;2, 就表示把1输出重定向到文件2中.
+2&amp;gt;&amp;amp;1 错误返回值传递给1输出通道, 同样&amp;amp;1表示1输出通道.&lt;/p>
+&lt;p>&lt;img src="../../images/%E5%8D%A0%E4%BD%8D%E5%9B%BE512.png" alt="占位图">&lt;/p></description></item><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description/></item><item><title>linux-debian系统初始化</title><link>https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/</link><pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/</guid><description>
+&lt;h2 id="linux-debian-10系统初始化---omit-in-toc---">Linux-Debian 10系统初始化&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#%E8%B4%A6%E6%88%B7%E5%88%9D%E5%A7%8B%E5%8C%96">账户初始化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AE%89%E8%A3%85%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6">安装常用软件&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%9B%B4%E6%8D%A2%E5%B8%B8%E7%94%A8%E6%BA%90">更换常用源&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#apt%E6%8D%A2%E6%88%90%E5%9B%BD%E5%86%85%E6%BA%90">apt换成国内源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#pip%E6%8D%A2%E6%88%90%E5%9B%BD%E5%86%85%E6%BA%90">pip换成国内源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#npm%E6%8D%A2%E6%88%90%E5%9B%BD%E5%86%85%E6%BA%90">npm换成国内源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#docker%E6%8D%A2%E6%88%90%E5%9B%BD%E5%86%85%E6%BA%90">docker换成国内源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#github%E5%8A%A0%E9%80%9F">github加速&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">配置环境变量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ssh%E4%B8%8Esshd%E8%AE%BE%E7%BD%AE">SSH与sshd设置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nginx%E8%AE%BE%E7%BD%AE">Nginx设置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#anaconda%E5%AE%89%E8%A3%85">Anaconda安装&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#jupyter-notebook">Jupyter notebook&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BD%BF%E7%94%A8nvm%E5%AE%89%E8%A3%85nodejs">使用NVM安装Nodejs&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%AE%89%E8%A3%85hexo">安装Hexo&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%88%87%E6%8D%A2hexo%E4%B8%BB%E9%A2%98">切换Hexo主题&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#docker%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE">Docker安装与配置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#jenkins%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8">Jenkins安装与使用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gitlab%E5%AE%89%E8%A3%85">Gitlab安装&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E7%94%A8%E5%A4%84">Linux目录结构与用处&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="账户初始化">账户初始化&lt;/h2>
+&lt;p>&lt;strong>本文的Linux账号名皆以lelouch为例&lt;/strong>！！！&lt;/p>
+&lt;p>账户的创建与权限修改都是系统用户操作，所以这一节的命令都是使用&lt;code>root&lt;/code>用户执行的。&lt;/p>
+&lt;ol>
+&lt;li>使用&lt;code>adduser lelouch&lt;/code>命令创建账户，本文的用户名皆以&lt;strong>lelouch&lt;/strong>为例。&lt;code>adduser&lt;/code>是交互式命令，按照指令创建即可。&lt;/li>
+&lt;li>为新创建的用户添加&lt;code>sudo&lt;/code>权限：&lt;code>echo 'lelouch ALL=(ALL:ALL) ALL' &amp;gt; /etc/sudoers.d/lelouch&lt;/code>。若无&lt;code>sudo&lt;/code>命令，则用&lt;code>apt install sudo&lt;/code>安装。（这样添加sudo权限不用来回改sudoers文件的写权限）&lt;/li>
+&lt;li>切换到lelouch用户：&lt;code>su lelouch&lt;/code>，进行下一步操作。&lt;/li>
+&lt;/ol>
+&lt;h2 id="安装常用软件">安装常用软件&lt;/h2>
+&lt;p>以下命令都是以lelouch用户执行。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ sudo apt update
+&lt;span class="ln">2&lt;/span>............
+&lt;span class="ln">3&lt;/span>$ sudo apt install vim python3 python3-pip netcat unzip redis rar sqlite3 default-jdk tree build-essential tcpdump curl wget git cmake net-tools nginx
+&lt;span class="ln">4&lt;/span>..............
+&lt;span class="ln">5&lt;/span>$ sudo apt autoremove
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上需要的软件因人而异。如果发现自己那个命令是因为没装而出现&lt;code>command not found&lt;/code>可以参考这个网站：&lt;a href="https://command-not-found.com/">https://command-not-found.com/&lt;/a>。&lt;/p>
+&lt;h3 id="更换常用源">更换常用源&lt;/h3>
+&lt;p>如果你有代理，那么不必换成国内源。&lt;/p>
+&lt;h4 id="apt换成国内源">apt换成国内源&lt;/h4>
+&lt;p>打开&lt;code>/etc/apt/sources.list&lt;/code>文件，替换其中所有内容为国内源地址。以下为Debian 10 buster版本源的地址，选择其中一个源就行（最好复制一份原有内容到别处作为备份）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 阿里apt源&lt;/span>
+&lt;span class="ln"> 2&lt;/span>deb http://mirrors.aliyun.com/debian/ buster main non-free contrib
+&lt;span class="ln"> 3&lt;/span>deb-src http://mirrors.aliyun.com/debian/ buster main non-free contrib
+&lt;span class="ln"> 4&lt;/span>deb http://mirrors.aliyun.com/debian-security buster/updates main
+&lt;span class="ln"> 5&lt;/span>deb-src http://mirrors.aliyun.com/debian-security buster/updates main
+&lt;span class="ln"> 6&lt;/span>deb http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib
+&lt;span class="ln"> 7&lt;/span>deb-src http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib
+&lt;span class="ln"> 8&lt;/span>deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib
+&lt;span class="ln"> 9&lt;/span>deb-src http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 网易163源&lt;/span>
+&lt;span class="ln">11&lt;/span>deb http://mirrors.163.com/debian/ buster main non-free contrib
+&lt;span class="ln">12&lt;/span>deb http://mirrors.163.com/debian/ buster-updates main non-free contrib
+&lt;span class="ln">13&lt;/span>deb http://mirrors.163.com/debian/ buster-backports main non-free contrib
+&lt;span class="ln">14&lt;/span>deb-src http://mirrors.163.com/debian/ buster main non-free contrib
+&lt;span class="ln">15&lt;/span>deb-src http://mirrors.163.com/debian/ buster-updates main non-free contrib
+&lt;span class="ln">16&lt;/span>deb-src http://mirrors.163.com/debian/ buster-backports main non-free contrib
+&lt;span class="ln">17&lt;/span>deb http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
+&lt;span class="ln">18&lt;/span>deb-src http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后，使用&lt;code>sudo apt update&lt;/code>更新即可完成换源。&lt;/p>
+&lt;h4 id="pip换成国内源">pip换成国内源&lt;/h4>
+&lt;p>我们使用&lt;code>pip config set global.index-url&lt;/code>来指定下载的源。如果你的&lt;code>pip&lt;/code>命令是&lt;code>pip3&lt;/code>那么下面的命令都换成&lt;code>pip3&lt;/code>。由于&lt;code>pip&lt;/code>默认要求是https传输，而国内的源都是http的，因此直接换会有&lt;code>The repository located at http://xxxxxxxxxxxx is not a trusted or secure host and is being ignored.&lt;/code>这个错误，所以我们还要再后面加上信任国内源&lt;code>pip config set global.trusted-host&lt;/code>的设置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 清华源&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+&lt;span class="ln"> 3&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.trusted-host pypi.tuna.tsinghua.edu.cn
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 阿里源&lt;/span>
+&lt;span class="ln"> 5&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.index-url https://mirrors.aliyun.com/pypi/simple/
+&lt;span class="ln"> 6&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.trusted-host mirrors.aliyun.com
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 腾讯源&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.index-url http://mirrors.cloud.tencent.com/pypi/simple
+&lt;span class="ln"> 9&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.trusted-host mirrors.cloud.tencent.com
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 豆瓣源&lt;/span>
+&lt;span class="ln">11&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.index-url http://pypi.douban.com/simple/
+&lt;span class="ln">12&lt;/span>$ pip config &lt;span class="nb">set&lt;/span> global.trusted-host pypi.douban.com
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1"># 升级 pip 为最新版本&lt;/span>
+&lt;span class="ln">15&lt;/span>$ sudo pip install pip -U
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="npm换成国内源">npm换成国内源&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ npm config &lt;span class="nb">set&lt;/span> registry https://registry.npm.taobao.org
+&lt;span class="ln">2&lt;/span>$ npm info underscore
+&lt;span class="ln">3&lt;/span>&lt;span class="c1">#如果上面配置正确这个命令会有字符串response&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># 其他还有华为的源&lt;/span>
+&lt;span class="ln">5&lt;/span>$ npm config &lt;span class="nb">set&lt;/span> registry https://mirrors.huaweicloud.com/repository/npm/
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>npm每次会在我主的文件夹创建一个&lt;code>node_modules,package.json,packet-lock.json&lt;/code>等文件，很烦。&lt;/p>
+&lt;h4 id="docker换成国内源">docker换成国内源&lt;/h4>
+&lt;p>目前默认的源速度还不错，如果确实需要更换源，则要在配置文件中添加&lt;code>registry-mirrors&lt;/code>的配置。Linux下的默认配置文件是&lt;code>/etc/docker/daemon.json&lt;/code>，没有此文件就创建一个。在文件中添加源：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># https://&amp;lt;my-docker-mirror-host&amp;gt;表示要替换的源地址&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="s2">&amp;#34;registry-mirrors&amp;#34;&lt;/span>: &lt;span class="o">[&lt;/span>&lt;span class="s2">&amp;#34;https://&amp;lt;my-docker-mirror-host&amp;gt;&amp;#34;&lt;/span>&lt;span class="o">]&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>https://&amp;lt;my-docker-mirror-host&amp;gt;&lt;/code>可以替换成：&lt;/p>
+&lt;ul>
+&lt;li>Docker中国区官方镜像：&lt;a href="https://registry.docker-cn.com">https://registry.docker-cn.com&lt;/a>&lt;/li>
+&lt;li>网易：&lt;a href="http://hub-mirror.c.163.com">http://hub-mirror.c.163.com&lt;/a>&lt;/li>
+&lt;li>ustc：&lt;a href="https://docker.mirrors.ustc.edu.cn">https://docker.mirrors.ustc.edu.cn&lt;/a>&lt;/li>
+&lt;li>中国科技大学：&lt;a href="https://docker.mirrors.ustc.edu.cn">https://docker.mirrors.ustc.edu.cn&lt;/a>&lt;/li>
+&lt;li>阿里云容器服务：&lt;a href="https://cr.console.aliyun.com/">https://cr.console.aliyun.com/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>更改镜像后重启docker，&lt;code>sudo systemctl restart docker&lt;/code>。&lt;/p>
+&lt;h4 id="github加速">github加速&lt;/h4>
+&lt;p>你都要用github了，还没代理吗？&lt;/p>
+&lt;p>实在需要访问加速，可查看国内的镜像地址&lt;a href="https://github.com.cnpmjs.org">https://github.com.cnpmjs.org&lt;/a>，&lt;a href="https://hub.fastgit.org">https://hub.fastgit.org&lt;/a>可惜经常被限流，多刷新几次。如果用谷歌浏览器，可以下载github加速插件（可惜被Wall，自己去别的地方找）。修改HOSTS文件的方法也失灵时不灵。&lt;/p>
+&lt;p>如果需要下载加速，可尝试&lt;a href="https://toolwa.com/github/">https://toolwa.com/github/&lt;/a>。&lt;/p>
+&lt;p>最方便稳定的还是代理。&lt;/p>
+&lt;h2 id="配置环境变量">配置环境变量&lt;/h2>
+&lt;p>Linux中有多个配置环境变量的文件，分为系统级（对所有用户生效）和用户级两种。其顺序为&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>/etc/environment -&amp;gt; /etc/profile&lt;span class="o">(&lt;/span>/etc/profile.d&lt;span class="o">)&lt;/span> -&amp;gt;
+&lt;span class="ln">2&lt;/span>&lt;span class="o">(&lt;/span>~/.bash_profile &lt;span class="p">|&lt;/span> ~/.bash_login &lt;span class="p">|&lt;/span> ~/.profile&lt;span class="o">)&lt;/span> -&amp;gt;
+&lt;span class="ln">3&lt;/span>~/.bashrc -&amp;gt; &lt;span class="o">(&lt;/span>/etc/bashrc &lt;span class="p">|&lt;/span> /etc/bash.bashrc&lt;span class="o">)&lt;/span> -&amp;gt;
+&lt;span class="ln">4&lt;/span>~/.bash_logout
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>系统级：
+&lt;ol>
+&lt;li>&lt;code>/etc/environment&lt;/code>:是系统在登录时读取的&lt;strong>第一个&lt;/strong>文件，该文件设置的是整个系统的环境，只要启动系统就会读取该文件，用于为所有进程设置环境变量。系统使用此文件时并不是执行此文件中的命令，而是根据而是根据&lt;code>KEY=VALUE&lt;/code>模式的代码，对KEY赋值以VALUE，因此文件中如果要定义PATH环境变量，只需加入一行形如&lt;code>PATH=$PATH:/xxx/bin&lt;/code>的代码即可。&lt;/li>
+&lt;li>&lt;code>/etc/profile&lt;/code>:此文件是系统登录时执行的&lt;strong>第二个&lt;/strong>文件。 为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。并从&lt;code>/etc/profile.d&lt;/code>目录的配置文件中搜集shell的设置。（&lt;code>/etc/profile&lt;/code>可以用于设定针对全系统所有用户的环境变量，环境变量周期是永久性）。&lt;/li>
+&lt;li>&lt;code>/etc/bashrc&lt;/code>:是针对所有用户的bash初始化文件，在此中设定的环境变量将应用于所有用户的shell中，此文件会在&lt;strong>用户每次打开shell时执行一次&lt;/strong>。（即每次新开一个终端，都会执行&lt;code>/etc/bashrc&lt;/code>）。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>用户级（这些文件处于用户根目录下）：
+&lt;ol>
+&lt;li>&lt;code>~/.profile&lt;/code>:对应当前登录用户的profile文件，用于定制当前用户的个人工作环境(变量是永久性)，每个用户都可使用该文件输入专用于自己使用的shell信息,&lt;strong>当用户登录时,该文件仅仅执行一次&lt;/strong>!&lt;/li>
+&lt;li>&lt;code>~/.bashrc&lt;/code>:该文件包含专用于你的bash shell的bash信息，当登录时以及&lt;strong>每次打开新的shell时，该文件被读取&lt;/strong>。(&lt;code>~/.bashrc&lt;/code>只针对当前用户，变量的生命周期是永久的)。&lt;/li>
+&lt;li>&lt;code>~/.bash_profile or ~./bash_login:~/.bash_profile&lt;/code>是交互式login 方式进入&lt;code>bash&lt;/code>运行的，&lt;code>~/.bashrc&lt;/code>是交互式&lt;code>non-login&lt;/code>方式进入&lt;code>bash&lt;/code>运行的通常二者设置大致相同，所以通常前者会调用后者。每个用户都可使用该文件输入专用于自己使用的shell信息，当用户登录时，该文件仅仅执行一次。&lt;/li>
+&lt;li>&lt;code>~/.bash_logout&lt;/code>:当&lt;strong>每次退出系统&lt;/strong>（退出bash shell）时，执行该文件。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>系统级环境变量如&lt;code>/etc/profile&lt;/code>中设定的变量(全局)的可以作用于任何用户,而用户级环境变量如&lt;code>~/.bashrc&lt;/code>等中设定的变量(局部)只能继承&lt;code>/etc/profile&lt;/code>中的变量,他们是”父子”关系。&lt;/p>
+&lt;p>另外，如果只是临时的增加变量，使用&lt;code>export&lt;/code>命令声明即可，变量在关闭shell时失效。所添加变量的优先级取决于&lt;code>export&lt;/code>命令中变量的顺序如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 低优先级&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$PATH&lt;/span>:&lt;span class="nv">$NEW_VAR&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 高优先级&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$NEW_VAR&lt;/span>:&lt;span class="nv">$PATH&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ssh与sshd设置">SSH与sshd设置&lt;/h2>
+&lt;p>一般情况下，Debain这类Linux发行版自带ssh服务器（openssh-server）和客户端（openssh-client）。&lt;/p>
+&lt;p>&lt;strong>服务端设置&lt;/strong>：修改sshd的端口，端口设置在&lt;code>/etc/ssh/sshd_config&lt;/code>，其他还要注意以下配置项：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 修改端口，默认22，最好改成别的,比如5122&lt;/span>
+&lt;span class="ln"> 2&lt;/span>Port &lt;span class="m">22&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">#AddressFamily any&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 监听IP地址，0.0.0.0表示任意IP&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1">#ListenAddress 0.0.0.0&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">#ListenAddress ::&lt;/span>
+&lt;span class="ln"> 7&lt;/span>............
+&lt;span class="ln"> 8&lt;/span>............
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 是否允许root通过ssh登录，如果你只有root用户，千万不要设置成no&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 其他情况下最好设置成no&lt;/span>
+&lt;span class="ln">11&lt;/span>PermitRootLogin yes
+&lt;span class="ln">12&lt;/span>&lt;span class="c1">#StrictModes yes&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c1">#MaxAuthTries 6&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1">#MaxSessions 10&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># 通过公钥登录，如果需要就去掉前面的注释符&lt;/span>
+&lt;span class="ln">16&lt;/span>PubkeyAuthentication yes
+&lt;span class="ln">17&lt;/span>&lt;span class="c1"># 指定存放客户端ssh公钥的文件的位置&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c1"># Expect .ssh/authorized_keys2 to be disregarded by default in future.&lt;/span>
+&lt;span class="ln">19&lt;/span>AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
+&lt;span class="ln">20&lt;/span>............
+&lt;span class="ln">21&lt;/span>............
+&lt;span class="ln">22&lt;/span>&lt;span class="c1"># 这里是否保持客户端长连接可以设置成60&lt;/span>
+&lt;span class="ln">23&lt;/span>ClientAliveInterval &lt;span class="m">60&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="c1">#ClientAliveCountMax 3&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改后需要重启ssh生效。&lt;/p>
+&lt;p>&lt;strong>客户端设置&lt;/strong>：windows系统，推荐使用&lt;strong>MobaXterm&lt;/strong>，&lt;a href="https://mobaxterm.mobatek.net/">https://mobaxterm.mobatek.net/&lt;/a>。记住，将settings-&amp;gt;ssh-&amp;gt;SSH keepalive选上。不然会自动断开连接。Linux系统使用默认的bash就可以。&lt;/p>
+&lt;p>如果需要使用&lt;strong>公钥登录服务端&lt;/strong>，则还要生成公私钥对。公私钥对是客户端生成的，将客户端的公钥内容复制到服务端的&lt;code>.ssh/authorized_keys&lt;/code>文件中，如果需有多个公钥则一行一个的复制粘贴。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 生成公私钥对，下面一路回车即可&lt;/span>
+&lt;span class="ln">2&lt;/span>$ ssh-keygen -t rsa
+&lt;span class="ln">3&lt;/span>Generating public/private rsa key pair.
+&lt;span class="ln">4&lt;/span>Enter file in which to save the key &lt;span class="o">(&lt;/span>++++++++++&lt;span class="o">)&lt;/span>:
+&lt;span class="ln">5&lt;/span>Created directory &lt;span class="s1">&amp;#39;++++++++++&amp;#39;&lt;/span>.
+&lt;span class="ln">6&lt;/span>Enter passphrase &lt;span class="o">(&lt;/span>empty &lt;span class="k">for&lt;/span> no passphrase&lt;span class="o">)&lt;/span>:
+&lt;span class="ln">7&lt;/span>Enter same passphrase again:
+&lt;span class="ln">8&lt;/span>Your identification has been saved in ++++++++++/id_rsa.
+&lt;span class="ln">9&lt;/span>Your public key has been saved in ++++++++++/id_rsa.pub.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>'++++++++++'指的是公私钥对存放的位置，打开该位置，然后将&lt;code>id_rsa.pub&lt;/code>文件中的内容复制出来，放到&lt;strong>服务端&lt;/strong>的&lt;code>.ssh/authorized_keys&lt;/code>文件中，即可通过公钥登录ssh服务端。&lt;/p>
+&lt;h2 id="nginx设置">Nginx设置&lt;/h2>
+&lt;p>安装nginx：&lt;code>sudo apt install nginx&lt;/code>。需要指出nginx的命令默认放在&lt;code>/usr/sbin/nginx&lt;/code>，根据所以只有&lt;code>$PATH&lt;/code>包含了此路径且有权限才可以使用。而&lt;code>/sbin&lt;/code>这种一般是root用户才能使用的，所以运行nginx的命令要加&lt;code>sudo&lt;/code>。&lt;/p>
+&lt;p>Nginx软件本身的设置在&lt;code>/etc/nginx/nginx.conf&lt;/code>，如果不是对Nginx与http协议很熟悉，建议不要更改。我们一般要改的网站设置放在&lt;code>/etc/nginx/sites-available&lt;/code>文件下，默认有一个&lt;code>default&lt;/code>文件，里面存放了一个默认的网站设置，下面我举个完整配置的例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>server &lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="c1"># 这里指定Nginx监听的端口，即网站的端口IPv4，IPv6&lt;/span>
+&lt;span class="ln"> 3&lt;/span> listen &lt;span class="m">8888&lt;/span> default_server&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 4&lt;/span> listen &lt;span class="o">[&lt;/span>::&lt;span class="o">]&lt;/span>:8888 default_server&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="c1"># SSL configuration SSL设置，即Https监听设置 默认443端口&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="c1"># listen 443 ssl default_server;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="c1"># listen [::]:443 ssl default_server;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="c1"># Self signed certs generated by the ssl-cert package&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="c1"># Don&amp;#39;t use them in a production server!&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="c1"># include snippets/snakeoil.conf;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="c1"># 指定此网站的目录，以此为网站的根目录&lt;/span>
+&lt;span class="ln">16&lt;/span> root /var/www/html&lt;span class="p">;&lt;/span>
+&lt;span class="ln">17&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="c1"># Add index.php to the list if you are using PHP&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c1"># 打开的默认文件，如果没有指定文件，默认寻找以下几个文件&lt;/span>
+&lt;span class="ln">20&lt;/span> index index.html index.htm index.nginx-debian.html&lt;span class="p">;&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span> server_name _&lt;span class="p">;&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="c1"># 对网站根目录的设置&lt;/span>
+&lt;span class="ln">24&lt;/span> location / &lt;span class="o">{&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="c1"># First attempt to serve request as file, then&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="c1"># as directory, then fall back to displaying a 404.&lt;/span>
+&lt;span class="ln">27&lt;/span> try_files &lt;span class="nv">$uri&lt;/span> &lt;span class="nv">$uri&lt;/span>/ &lt;span class="o">=&lt;/span>404&lt;span class="p">;&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="c1"># 以根目录的基准下面一个加密文件夹的设置&lt;/span>
+&lt;span class="ln">30&lt;/span> location /encryption/ &lt;span class="o">{&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="c1"># 运行目录遍历&lt;/span>
+&lt;span class="ln">32&lt;/span> autoindex on&lt;span class="p">;&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="c1"># 不允许查看文件大小&lt;/span>
+&lt;span class="ln">34&lt;/span> autoindex_exact_size off&lt;span class="p">;&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="c1"># 设置默认字符集&lt;/span>
+&lt;span class="ln">36&lt;/span> charset utf-8&lt;span class="p">;&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="c1"># 请输入验证码的提示&lt;/span>
+&lt;span class="ln">38&lt;/span> auth_basic &lt;span class="s2">&amp;#34;Please complete user authentication&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="c1"># 存放加密认证文件的位置，这个是自己指定的，使用Apache的htpasswd工具来创建密码文件&lt;/span>
+&lt;span class="ln">40&lt;/span> auth_basic_user_file /etc/nginx/vhost/htpasswd&lt;span class="p">;&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="c1"># 这里是PHP的设置，不用PHP的可以不管&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="c1"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="c1">#location ~ \.php$ {&lt;/span>
+&lt;span class="ln">46&lt;/span> &lt;span class="c1"># include snippets/fastcgi-php.conf;&lt;/span>
+&lt;span class="ln">47&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln">48&lt;/span> &lt;span class="c1"># # With php5-cgi alone:&lt;/span>
+&lt;span class="ln">49&lt;/span> &lt;span class="c1"># fastcgi_pass 127.0.0.1:9000;&lt;/span>
+&lt;span class="ln">50&lt;/span> &lt;span class="c1"># # With php5-fpm:&lt;/span>
+&lt;span class="ln">51&lt;/span> &lt;span class="c1"># fastcgi_pass unix:/var/run/php5-fpm.sock;&lt;/span>
+&lt;span class="ln">52&lt;/span> &lt;span class="c1">#}&lt;/span>
+&lt;span class="ln">53&lt;/span> &lt;span class="c1"># .htaccess可以实现每个文件夹更精细的功能，不详细展开，可参考官方文档&lt;/span>
+&lt;span class="ln">54&lt;/span> &lt;span class="c1"># deny access to .htaccess files, if Apache&amp;#39;s document root&lt;/span>
+&lt;span class="ln">55&lt;/span> &lt;span class="c1"># concurs with nginx&amp;#39;s one&lt;/span>
+&lt;span class="ln">56&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln">57&lt;/span> &lt;span class="c1">#location ~ /\.ht {&lt;/span>
+&lt;span class="ln">58&lt;/span> &lt;span class="c1"># deny all;&lt;/span>
+&lt;span class="ln">59&lt;/span> &lt;span class="c1">#}&lt;/span>
+&lt;span class="ln">60&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置文件中以每一个&lt;code>server{...}&lt;/code>为一个网址的配置内容。如果需要在同一个Nginx部署多个网站，可以通过&lt;strong>端口&lt;/strong>或者&lt;strong>别名&lt;/strong>区分。虽然说可以把多个网站配置放在同一个文件中，我还是建议在&lt;code>/etc/nginx/sites-available&lt;/code>文件下为每一个网站单独建个文件。比如说有两个网站，我们可以分别在&lt;code>/etc/nginx/sites-available&lt;/code>建立&lt;code>website1,website2&lt;/code>两个文件，每个文件中分别放一个&lt;code>server{...}&lt;/code>配置。&lt;/p>
+&lt;p>刚开始的时候，我不清楚&lt;code>/etc/nginx/sites-available&lt;/code>，&lt;code>/etc/nginx/sites-enabled&lt;/code>的区别。其实，&lt;code>sites-enabled&lt;/code>文件下放置都是来自&lt;code>sites-enabled&lt;/code>下文件的软链接。Nginx只读取&lt;code>sites-enabled&lt;/code>下的软连接内容，也就是说Nginx只上线&lt;code>sites-enabled&lt;/code>下的配置网站。我们写把配置都写在&lt;code>sites-enabled&lt;/code>文件夹中，如果认为某个网站配置（比如&lt;code>website2&lt;/code>文件）没有问题可以上线了，就在&lt;code>sites-enabled&lt;/code>文件夹中使用&lt;code>ln -s /etc/nginx/sites-available/website2 /etc/nginx/sites-enabled/website2&lt;/code>，让Nginx读取website2的配置，然后我们使用&lt;code>nginx -t&lt;/code>测试配置文件是否正确，如果正确则显示：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+&lt;span class="ln">2&lt;/span>nginx: configuration file /etc/nginx/nginx.conf &lt;span class="nb">test&lt;/span> is successful
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后即可重启Nginx，是新的配置生效。&lt;/p>
+&lt;h2 id="anaconda安装">Anaconda安装&lt;/h2>
+&lt;p>由于国外的源速度较慢，我们使用清华源来安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-5.3.1-Linux-x86_64.sh
+&lt;span class="ln"> 2&lt;/span>--2021-11-19 00:46:58-- https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-5.3.1-Linux-x86_64.sh
+&lt;span class="ln"> 3&lt;/span>Resolving mirrors.tuna.tsinghua.edu.cn &lt;span class="o">(&lt;/span>mirrors.tuna.tsinghua.edu.cn&lt;span class="o">)&lt;/span>... 101.6.15.130, 2402:f000:1:400::2
+&lt;span class="ln"> 4&lt;/span>Connecting to mirrors.tuna.tsinghua.edu.cn &lt;span class="o">(&lt;/span>mirrors.tuna.tsinghua.edu.cn&lt;span class="o">)&lt;/span>&lt;span class="p">|&lt;/span>101.6.15.130&lt;span class="p">|&lt;/span>:443... connected.
+&lt;span class="ln"> 5&lt;/span>HTTP request sent, awaiting response... &lt;span class="m">200&lt;/span> OK
+&lt;span class="ln"> 6&lt;/span>Length: &lt;span class="m">667976437&lt;/span> &lt;span class="o">(&lt;/span>637M&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>application/octet-stream&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 7&lt;/span>Saving to: ‘Anaconda3-5.3.1-Linux-x86_64.sh’
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>Anaconda3-5.3.1-Linux-x86_64.sh 100%&lt;span class="o">[=============================================================&lt;/span>&amp;gt;&lt;span class="o">]&lt;/span> 637.03M 10.5MB/s in 56s
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span>2021-11-19 00:47:55 &lt;span class="o">(&lt;/span>11.3 MB/s&lt;span class="o">)&lt;/span> - ‘Anaconda3-5.3.1-Linux-x86_64.sh’ saved &lt;span class="o">[&lt;/span>667976437/667976437&lt;span class="o">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载好之后，在下载目录目录中，出现一个Anaconda3-5.3.1-Linux-x86_64.sh这样子的文件，运行它就好,切换到该文件目录运行&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>bash Anaconda3-5.3.1-Linux-x86_64.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后接下来会要有几次配置环境变量操作，一般默认就行。注意，安装完后需要退出终端后，再次进入才能输入conda命令。&lt;/p>
+&lt;p>如果显示&amp;quot;command not found&amp;quot;，则将&lt;code>conda&lt;/code>添加到环境变量中&lt;code>echo 'export PATH=&amp;quot;~/anaconda3/bin:$PATH&amp;quot;' &amp;gt;&amp;gt; ~/.bashrc&lt;/code>，更新bashrc以立即生效，&lt;code>source ~/.bashrc&lt;/code>。配置好PATH后，可以通过which conda或conda –version命令检查是否正确。&lt;/p>
+&lt;h2 id="jupyter-notebook">Jupyter notebook&lt;/h2>
+&lt;p>python3 pip 安装&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ pip3 install jupyter
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 如果出现&amp;#34;Faied building wheel for cffi&amp;#34;的错误则安装以下：&lt;/span>
+&lt;span class="ln">3&lt;/span>$ sudo apt-get install libssl-dev libffi-dev python3-dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用nvm安装nodejs">使用NVM安装Nodejs&lt;/h2>
+&lt;p>首先安装NVM，其官方说明文件在&lt;a href="https://github.com/nvm-sh/nvm">https://github.com/nvm-sh/nvm&lt;/a>，有具体的安装脚本。&lt;/p>
+&lt;p>nvm安装完后就可以开始管理nodejs的版本了&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 最新的lts版本&lt;/span>
+&lt;span class="ln">2&lt;/span>nvm install --lts
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 目前最新的lts版本是v16.13.0 （2021.11.18）&lt;/span>
+&lt;span class="ln">4&lt;/span>$ node -v
+&lt;span class="ln">5&lt;/span>v16.13.0
+&lt;span class="ln">6&lt;/span>$ npm -v
+&lt;span class="ln">7&lt;/span>8.1.0
+&lt;span class="ln">8&lt;/span>$ nvm -v
+&lt;span class="ln">9&lt;/span>0.39.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>即得到最新的稳定版node与npm。&lt;/p>
+&lt;h3 id="安装hexo">安装Hexo&lt;/h3>
+&lt;p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。官方文档：&lt;a href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ npm install hexo-cli -g
+&lt;span class="ln"> 2&lt;/span>$ mkdir -p nodejs &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> nodejs
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># 使用hexo，初始化&lt;/span>
+&lt;span class="ln"> 4&lt;/span>$ hexo init hexoblog
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1"># 生成静态文件&lt;/span>
+&lt;span class="ln"> 6&lt;/span>$ hexo generate
+&lt;span class="ln"> 7&lt;/span>INFO Validating config
+&lt;span class="ln"> 8&lt;/span>INFO Start processing
+&lt;span class="ln"> 9&lt;/span>INFO Files loaded in &lt;span class="m">80&lt;/span> ms
+&lt;span class="ln">10&lt;/span>WARN No layout: 2021/11/19/hello-world/index.html
+&lt;span class="ln">11&lt;/span>WARN No layout: archives/index.html
+&lt;span class="ln">12&lt;/span>WARN No layout: archives/2021/index.html
+&lt;span class="ln">13&lt;/span>WARN No layout: archives/2021/11/index.html
+&lt;span class="ln">14&lt;/span>WARN No layout: index.html
+&lt;span class="ln">15&lt;/span>INFO Generated: archives/index.html
+&lt;span class="ln">16&lt;/span>INFO Generated: archives/2021/index.html
+&lt;span class="ln">17&lt;/span>INFO Generated: archives/2021/11/index.html
+&lt;span class="ln">18&lt;/span>INFO Generated: index.html
+&lt;span class="ln">19&lt;/span>INFO Generated: 2021/11/19/hello-world/index.html
+&lt;span class="ln">20&lt;/span>INFO &lt;span class="m">5&lt;/span> files generated in &lt;span class="m">14&lt;/span> ms
+&lt;span class="ln">21&lt;/span>&lt;span class="c1"># 测试网页&lt;/span>
+&lt;span class="ln">22&lt;/span>$ hexo server
+&lt;span class="ln">23&lt;/span>INFO Validating config
+&lt;span class="ln">24&lt;/span>INFO Start processing
+&lt;span class="ln">25&lt;/span>INFO Hexo is running at http://localhost:4000 . Press Ctrl+C to stop.
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="切换hexo主题">切换Hexo主题&lt;/h3>
+&lt;h2 id="docker安装与配置">Docker安装与配置&lt;/h2>
+&lt;p>官方文档安装指南：&lt;a href="https://docs.docker.com/engine/install/debian/">https://docs.docker.com/engine/install/debian/&lt;/a>&lt;/p>
+&lt;p>x86/amd64系统请查看Install using the repository这一节，如果是在树莓派上安装docker，查看Install using the convenience script这一节。&lt;/p>
+&lt;p>安装完之后查看&lt;a href="https://docs.docker.com/engine/install/linux-postinstall/">https://docs.docker.com/engine/install/linux-postinstall/&lt;/a>来自己选取一些需要的配置。比如我这里需要这节中的非&lt;code>sudo&lt;/code>使用Docker，则参看“Manage Docker as a non-root user”这一节。&lt;/p>
+&lt;h2 id="jenkins安装与使用">Jenkins安装与使用&lt;/h2>
+&lt;p>Jenkins官方安装指：&lt;a href="https://www.jenkins.io/doc/book/installing/linux/#debianubuntu">https://www.jenkins.io/doc/book/installing/linux/#debianubuntu&lt;/a>&lt;/p>
+&lt;p>如果jenkins未启动，通过执行以下命令启用并启动Jenkins服务：&lt;code>sudo systemctl enable --now jenkins&lt;/code>&lt;/p>
+&lt;p>初次访问jenkins(默认8080端口)，需要复制&lt;code>/var/lib/jenkins/secrets/initialAdminPassword&lt;/code>文件夹下的密码。接下来要安装jenkins插件，在下一个屏幕上，安装向导将询问您是否要安装建议的插件或要选择特定的插件。对于初学者，单击Install suggested plugins（安装社区推荐的插件）框即可，安装过程将立即开始。漫长的等待之后，系统将提示您设置第一个管理员用户。填写所需的信息，然后保存并继续。然后使用其默认生成的IP(或域名)以及端口即可。&lt;/p>
+&lt;p>完成后，我们将被重定向到以前面的步骤之一创建的admin用户身份登录的Jenkins仪表板。至此，我们已经在系统上成功安装了Jenkins。&lt;/p>
+&lt;p>PS：安装完成后，如果apt库立的jenkins库总是拖速度，可以把jenkins源删掉&lt;code>sudo rm /etc/apt/sources.list.d/jenkins.list&lt;/code>。&lt;/p>
+&lt;h2 id="gitlab安装">Gitlab安装&lt;/h2>
+&lt;p>Gitlab有debian的官方安装教程，请参考&lt;a href="https://about.gitlab.com/install/#debian">https://about.gitlab.com/install/#debian&lt;/a>。&lt;/p>
+&lt;h2 id="linux目录结构与用处">Linux目录结构与用处&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>/bin&lt;/strong>：bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。&lt;/li>
+&lt;li>/boot：这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。&lt;/li>
+&lt;li>/dev：dev是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，在 Linux 中访问设备的方式和访问文件的方式是相同的。&lt;/li>
+&lt;li>&lt;strong>/etc&lt;/strong>：etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的&lt;strong>配置文件&lt;/strong>和子目录。&lt;strong>常见的配置文件都在这里&lt;/strong>。&lt;/li>
+&lt;li>&lt;strong>/home&lt;/strong>：用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的 alice、bob 和 eve。&lt;strong>一般用来存放各个用户自己的用户程序和数据&lt;/strong>。&lt;/li>
+&lt;li>/lib（还包括/lib32,/lib64,/libx32）：lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。几乎所有的应用程序都需要用到这些共享库。&lt;/li>
+&lt;li>/lost+found：这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。&lt;/li>
+&lt;li>/media：linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。&lt;/li>
+&lt;li>/mnt：系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。&lt;/li>
+&lt;li>/opt：opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。&lt;/li>
+&lt;li>/proc：proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。这个目录的&lt;strong>内容不在硬盘上而是在内存里&lt;/strong>，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：&lt;code>echo 1 &amp;gt; /proc/sys/net/ipv4/icmp_echo_ignore_all&lt;/code>；但是对这个文件中修改都是只在本次开机运行期间有效。&lt;/li>
+&lt;li>/root：该目录为系统管理员，也称作超级权限者的用户主目录。&lt;/li>
+&lt;li>/sbin：s 就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。&lt;/li>
+&lt;li>/srv：该目录存放一些服务启动之后需要提取的数据。&lt;/li>
+&lt;li>/sys：这是 Linux2.6 内核的一个很大的变化。该目录下安装了 2.6 内核中新出现的一个文件系统 sysfs 。sysfs 文件系统集成了下面3种文件系统的信息：针对进程信息的 proc 文件系统、针对设备的 devfs 文件系统以及针对伪终端的 devpts 文件系统。该文件系统是内核设备树的一个直观反映。当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。&lt;/li>
+&lt;li>/tmp：tmp 是 temporary(临时) 的缩写这个目录是用来存放一些临时文件的。&lt;/li>
+&lt;li>&lt;strong>/usr&lt;/strong>： usr 是 unix shared resources(共享资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，&lt;strong>类似于 windows 下的 program files 目录&lt;/strong>。/usr 是系统核心所在，包含了所有的共享文件。它是 unix 系统中最重要的目录之一，涵盖了二进制文件，各种文档，各种头文件，还有各种库文件；还有诸多程序，例如 ftp，telnet 等等。
+&lt;ul>
+&lt;li>&lt;strong>/usr/bin&lt;/strong> : 所有可执行文件，如 gcc，firefox 等（指不包含在 /sbin 和 /bin 内的）；&lt;/li>
+&lt;li>/usr/include : 各种头文件，编译文件等时需要使用；&lt;/li>
+&lt;li>/usr/include/’package-name’ : 程序特定的头文件；&lt;/li>
+&lt;li>/usr/lib : 所以可执行文件所需要的库文件；&lt;/li>
+&lt;li>/usr/local : /usr 通常只包含系统发行时自带的程序，而 /usr/local 则是本地系统管理员用来自由添加程序的目录；
+&lt;ul>
+&lt;li>/usr/local/bin 本地增加的命令&lt;/li>
+&lt;li>/usr/local/lib 本地增加的库&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>/usr/share : 它包含了各种程序间的共享文件，如字体，图标，文档等。（/usr/local 对应的目录是 /usr/loca/share）&lt;/li>
+&lt;li>/usr/src : linux 内核的源码和说明文档等；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>/var&lt;/strong>：var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。&lt;/li>
+&lt;li>/run：是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。&lt;/li>
+&lt;/ul></description></item><item><title>linux-su_sudo-各用户环境空间</title><link>https://surprisedcat.github.io/projectnotes/linux-su_sudo-%E5%90%84%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E7%A9%BA%E9%97%B4/</link><pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-su_sudo-%E5%90%84%E7%94%A8%E6%88%B7%E7%8E%AF%E5%A2%83%E7%A9%BA%E9%97%B4/</guid><description>
+&lt;h2 id="linux中susu--sudo各用户环境空间---omit-in-toc---">Linux中su，su -，sudo各用户环境空间&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#su%E4%B8%8Esu--">su与su -&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#sudo%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%97%AE%E9%A2%98">sudo的环境变量问题&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89sudo-su">为什么有&lt;code>sudo su&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%9C%89%E4%BA%9B%E5%91%BD%E4%BB%A4%E6%98%8E%E6%98%8E%E5%AE%89%E8%A3%85%E4%BA%86%E4%BD%86%E6%98%AF%E5%8D%B4command-not-found">有些命令明明安装了但是却&amp;quot;command not found&amp;quot;&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>我们在需要root权限时，常用&lt;code>su,su -,sudo&lt;/code>三种命令，它们的全称是：&lt;/p>
+&lt;ul>
+&lt;li>sudo = Super user do 超级用户do&lt;/li>
+&lt;li>su = Shift user 切换用户&lt;/li>
+&lt;/ul>
+&lt;p>其中，su命令会直接切换到root，而sudo只是临时使用root身份。同时&lt;code>su&lt;/code>命令要求输入的密码是root用户的密码，&lt;code>sudo&lt;/code>需要输入当前用户的密码（注意，当你是root用户是，切换到本机的其他任何用户都是不需要输入密码的）。除却表面上的区别，他们深层的环境变量也是不一样的，本文将详细说明。&lt;/p>
+&lt;h2 id="su与su--">su与su -&lt;/h2>
+&lt;p>联系：都是切换到root&lt;/p>
+&lt;p>区别：前者只是切换了root身份，但Shell&lt;strong>环境仍然是普通用户&lt;/strong>的Shell；而后者连用户和Shell&lt;strong>环境一起切换成root身份了&lt;/strong>。只有切换了Shell环境才不会出现PATH环境变量错误。&lt;code>su&lt;/code>切换成root用户以后，&lt;code>pwd&lt;/code>一下，发现工作目录仍然是普通用户的工作目录；而用&lt;code>su -&lt;/code>命令切换以后，工作目录变成root的工作目录了。用&lt;code>echo $PATH&lt;/code>命令看一下&lt;code>su&lt;/code>和&lt;code>su -&lt;/code>以后的环境变量有何不同。以此类推，要从当前用户切换到其它用户也一样，应该使用&lt;code>su -&lt;/code>命令。&lt;/p>
+&lt;p>使用&lt;code>su -&lt;/code>命令，环境变量发生了变化。补充，如果需要切换到其他用户且环境也跟着切换，则用&lt;code>su - username&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ su -
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># env&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nv">SHELL&lt;/span>&lt;span class="o">=&lt;/span>/bin/bash
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nv">HISTSIZE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3000&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nv">LANGUAGE&lt;/span>&lt;span class="o">=&lt;/span>en_US.utf8
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nv">HISTTIMEFORMAT&lt;/span>&lt;span class="o">=&lt;/span>%F %T
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nv">PWD&lt;/span>&lt;span class="o">=&lt;/span>/root &lt;span class="c1"># 这里切换到了/root&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="nv">LOGNAME&lt;/span>&lt;span class="o">=&lt;/span>root
+&lt;span class="ln"> 9&lt;/span>&lt;span class="nv">HOME&lt;/span>&lt;span class="o">=&lt;/span>/root
+&lt;span class="ln">10&lt;/span>&lt;span class="nv">LANG&lt;/span>&lt;span class="o">=&lt;/span>en_US.utf8
+&lt;span class="ln">11&lt;/span>&lt;span class="nv">PROMPT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">history&lt;/span> -a&lt;span class="p">;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="nv">TERM&lt;/span>&lt;span class="o">=&lt;/span>xterm
+&lt;span class="ln">13&lt;/span>&lt;span class="nv">USER&lt;/span>&lt;span class="o">=&lt;/span>root
+&lt;span class="ln">14&lt;/span>&lt;span class="nv">SHLVL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin &lt;span class="c1"># 这里的PATH变成了root的PATH&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="nv">MAIL&lt;/span>&lt;span class="o">=&lt;/span>/var/mail/root
+&lt;span class="ln">17&lt;/span>&lt;span class="nv">_&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/env
+&lt;span class="ln">18&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用&lt;code>su&lt;/code>命令，环境变量不变。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ su
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># env&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nv">SHELL&lt;/span>&lt;span class="o">=&lt;/span>/bin/bash
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nv">NVM_INC&lt;/span>&lt;span class="o">=&lt;/span>/home/lelouch/.nvm/versions/node/v16.13.0/include/node
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nv">CONDA_EXE&lt;/span>&lt;span class="o">=&lt;/span>/home/lelouch/anaconda3/bin/conda
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nv">_CE_M&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nv">HISTSIZE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3000&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="nv">LANGUAGE&lt;/span>&lt;span class="o">=&lt;/span>en_US.utf8
+&lt;span class="ln"> 9&lt;/span>&lt;span class="nv">HISTTIMEFORMAT&lt;/span>&lt;span class="o">=&lt;/span>%F %T
+&lt;span class="ln">10&lt;/span>&lt;span class="nv">PWD&lt;/span>&lt;span class="o">=&lt;/span>/home/lelouch &lt;span class="c1"># 这里没有变&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nv">LOGNAME&lt;/span>&lt;span class="o">=&lt;/span>lelouch
+&lt;span class="ln">12&lt;/span>&lt;span class="nv">XDG_SESSION_TYPE&lt;/span>&lt;span class="o">=&lt;/span>tty
+&lt;span class="ln">13&lt;/span>&lt;span class="nv">HOME&lt;/span>&lt;span class="o">=&lt;/span>/root
+&lt;span class="ln">14&lt;/span>&lt;span class="nv">LANG&lt;/span>&lt;span class="o">=&lt;/span>en_US.utf8
+&lt;span class="ln">15&lt;/span>&lt;span class="nv">LS_COLORS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">rs&lt;/span>&lt;span class="o">=&lt;/span>0:di&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>34:ln&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>36:mh&lt;span class="o">=&lt;/span>00:pi&lt;span class="o">=&lt;/span>40&lt;span class="p">;&lt;/span>33:so&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:do&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:bd&lt;span class="o">=&lt;/span>40&lt;span class="p">;&lt;/span>33&lt;span class="p">;&lt;/span>01:cd&lt;span class="o">=&lt;/span>40&lt;span class="p">;&lt;/span>33&lt;span class="p">;&lt;/span>01:or&lt;span class="o">=&lt;/span>40&lt;span class="p">;&lt;/span>31&lt;span class="p">;&lt;/span>01:mi&lt;span class="o">=&lt;/span>00:su&lt;span class="o">=&lt;/span>37&lt;span class="p">;&lt;/span>41:sg&lt;span class="o">=&lt;/span>30&lt;span class="p">;&lt;/span>43:ca&lt;span class="o">=&lt;/span>30&lt;span class="p">;&lt;/span>41:tw&lt;span class="o">=&lt;/span>30&lt;span class="p">;&lt;/span>42:ow&lt;span class="o">=&lt;/span>34&lt;span class="p">;&lt;/span>42:st&lt;span class="o">=&lt;/span>37&lt;span class="p">;&lt;/span>44:ex&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>32:*.tar&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tgz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.arc&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.arj&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.taz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lha&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lz4&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lzh&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lzma&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tlz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.txz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tzo&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.t7z&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.zip&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.z&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.dz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.gz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lrz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.lzo&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.xz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.zst&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tzst&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.bz2&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.bz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tbz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tbz2&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.tz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.deb&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.rpm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.jar&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.war&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.ear&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.sar&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.rar&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.alz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.ace&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.zoo&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.cpio&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.7z&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.rz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.cab&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.wim&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.swm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.dwm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.esd&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>31:*.jpg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.jpeg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mjpg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mjpeg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.gif&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.bmp&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.pbm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.pgm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.ppm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.tga&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.xbm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.xpm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.tif&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.tiff&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.png&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.svg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.svgz&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mng&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.pcx&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mov&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mpg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mpeg&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.m2v&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mkv&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.webm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.ogm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mp4&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.m4v&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.mp4v&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.vob&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.qt&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.nuv&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.wmv&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.asf&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.rm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.rmvb&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.flc&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.avi&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.fli&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.flv&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.gl&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.dl&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.xcf&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.xwd&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.yuv&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.cgm&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.emf&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.ogv&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.ogx&lt;span class="o">=&lt;/span>01&lt;span class="p">;&lt;/span>35:*.aac&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.au&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.flac&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.m4a&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.mid&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.midi&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.mka&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.mp3&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.mpc&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.ogg&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.ra&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.wav&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.oga&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.opus&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.spx&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:*.xspf&lt;span class="o">=&lt;/span>00&lt;span class="p">;&lt;/span>36:
+&lt;span class="ln">16&lt;/span>&lt;span class="nv">PROMPT_COMMAND&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">history&lt;/span> -a&lt;span class="p">;&lt;/span> &lt;span class="nb">history&lt;/span> -a&lt;span class="p">;&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nv">SSH_CONNECTION&lt;/span>&lt;span class="o">=&lt;/span>223.72.75.152 &lt;span class="m">29724&lt;/span> 172.17.0.7 &lt;span class="m">5122&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="nv">NVM_DIR&lt;/span>&lt;span class="o">=&lt;/span>/home/lelouch/.nvm
+&lt;span class="ln">19&lt;/span>&lt;span class="nv">XDG_SESSION_CLASS&lt;/span>&lt;span class="o">=&lt;/span>user
+&lt;span class="ln">20&lt;/span>&lt;span class="nv">TERM&lt;/span>&lt;span class="o">=&lt;/span>xterm
+&lt;span class="ln">21&lt;/span>&lt;span class="nv">_CE_CONDA&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="nv">USER&lt;/span>&lt;span class="o">=&lt;/span>lelouch
+&lt;span class="ln">23&lt;/span>&lt;span class="nv">CONDA_SHLVL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="nv">DISPLAY&lt;/span>&lt;span class="o">=&lt;/span>localhost:10.0
+&lt;span class="ln">25&lt;/span>&lt;span class="nv">SHLVL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="c1"># SHLVL 是记录多个Bash进程实例嵌套深度的累加器，su实在原有shell下开子shell，而su - 是完全重开&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="nv">NVM_CD_FLAGS&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;span class="ln">27&lt;/span>&lt;span class="nv">XDG_SESSION_ID&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">101&lt;/span>
+&lt;span class="ln">28&lt;/span>&lt;span class="nv">CONDA_PYTHON_EXE&lt;/span>&lt;span class="o">=&lt;/span>/home/lelouch/anaconda3/bin/python
+&lt;span class="ln">29&lt;/span>&lt;span class="nv">XDG_RUNTIME_DIR&lt;/span>&lt;span class="o">=&lt;/span>/run/user/1000
+&lt;span class="ln">30&lt;/span>&lt;span class="nv">SSH_CLIENT&lt;/span>&lt;span class="o">=&lt;/span>223.72.75.152 &lt;span class="m">29724&lt;/span> &lt;span class="m">5122&lt;/span>
+&lt;span class="ln">31&lt;/span>&lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games &lt;span class="c1"># 这里的PATH不变，保持lelouch用户的PATH变量&lt;/span>
+&lt;span class="ln">32&lt;/span>&lt;span class="nv">DBUS_SESSION_BUS_ADDRESS&lt;/span>&lt;span class="o">=&lt;/span>unix:path&lt;span class="o">=&lt;/span>/run/user/1000/bus
+&lt;span class="ln">33&lt;/span>&lt;span class="nv">MAIL&lt;/span>&lt;span class="o">=&lt;/span>/var/mail/root
+&lt;span class="ln">34&lt;/span>&lt;span class="nv">NVM_BIN&lt;/span>&lt;span class="o">=&lt;/span>/home/lelouch/.nvm/versions/node/v16.13.0/bin
+&lt;span class="ln">35&lt;/span>&lt;span class="nv">SSH_TTY&lt;/span>&lt;span class="o">=&lt;/span>/dev/pts/0
+&lt;span class="ln">36&lt;/span>&lt;span class="nv">_&lt;/span>&lt;span class="o">=&lt;/span>/usr/bin/env
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="sudo的环境变量问题">sudo的环境变量问题&lt;/h2>
+&lt;p>&lt;code>sudo&lt;/code>执行命令的流程是当前用户切换到root（或其它指定切换到的用户），然后以root（或其它指定的切换到的用户）身份执行命令，执行完成后，直接退回到当前用户。&lt;/p>
+&lt;p>由上述流程可发现&lt;code>sudo&lt;/code>命令的初衷是让用户临时有root权限，因此&lt;strong>只会对环境变量做最小修改&lt;/strong>。其他皆继承原有用户的环境变量。最典型的就是&lt;code>$PATH&lt;/code>变量。如果不在配置文件中做修改，&lt;code>sudo&lt;/code>命令下的环境&lt;code>$PATH&lt;/code>变量和原来是一样的。可是，有很多命令是在&lt;code>/sbin&lt;/code>这类文件夹里的，这些是要通过&lt;code>sudo&lt;/code>的配置文件&lt;code>/etc/sudoers&lt;/code>来进行授权的，因此为了能让用户使用root的命令，一般会在&lt;code>/etc/sudoers&lt;/code>文件中对，环境变量进行适当修改，增加普通用户的权限，比如对&lt;code>$PATH&lt;/code>变量的修改就是：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># sudoers文件中的Defaults选项来修改sudo的默认参数、环境、行为&lt;/span>
+&lt;span class="ln">2&lt;/span>Defaults &lt;span class="nv">secure_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>总结：&lt;code>sudo&lt;/code>的环境是对原用户环境的最小修改，如果需要修改默认环境、动作，则需&lt;code>/etc/sudoers&lt;/code>文件进行修改配置。&lt;/p>
+&lt;h2 id="为什么有sudo-su">为什么有&lt;code>sudo su&lt;/code>&lt;/h2>
+&lt;p>因为使用&lt;code>su&lt;/code>命令或直接以root用户身份登录有风险，所以，一些 Linux发行版（如 Ubuntu）默认禁用 root 用户帐户。鼓励用户在需要root权限时使用&lt;code>sudo&lt;/code>命令。&lt;/p>
+&lt;p>然而，您还是可以成功执行&lt;code>su&lt;/code>命令，而不用输入root用户的密码。那就是使用&lt;code>sudo su&lt;/code>。&lt;/p>
+&lt;p>由于你使用&lt;code>sudo&lt;/code>运行命令，你只需要输入当前用户的密码。所以，一旦完成操作，&lt;code>su&lt;/code>命令将会以root用户身份运行，这意味着它不会再要求输入任何密码。&lt;/p>
+&lt;h2 id="有些命令明明安装了但是却command-not-found">有些命令明明安装了但是却&amp;quot;command not found&amp;quot;&lt;/h2>
+&lt;p>这就是各用户&lt;code>$PATH&lt;/code>环境变量不同的问题。典型的就是root用户和非root用户的&lt;code>$PATH&lt;/code>环境变量：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 非root用户&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$PATH&lt;/span>
+&lt;span class="ln">3&lt;/span>/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># root用户&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># echo $PATH&lt;/span>
+&lt;span class="ln">6&lt;/span>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>各个&lt;code>/sbin&lt;/code>文件的“s”就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。&lt;/p>
+&lt;p>我们只要把命令的路径添加到&lt;code>$PATH&lt;/code>中即可直接运行命令。&lt;/p></description></item><item><title>linux-often-opeartion</title><link>https://surprisedcat.github.io/projectnotes/linux-often-opeartion/</link><pubDate>Mon, 20 Nov 2017 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-often-opeartion/</guid><description>
+&lt;h2 id="linux-常用配置1--网络地址配置---omit-in-toc---">Linux 常用配置（1）--网络地址配置&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在使用cmd操作linux系统时，常常需要配置网络，网络的配置一般在这几个地方。&lt;/p>
+&lt;h2 id="etcnetworkinterfaces">/etc/network/interfaces&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>auto eth0
+&lt;span class="ln"> 2&lt;/span>iface eth0 inet static
+&lt;span class="ln"> 3&lt;/span> address 192.168.1.3
+&lt;span class="ln"> 4&lt;/span> netmask 255.255.255.0
+&lt;span class="ln"> 5&lt;/span> gateway 192.168.1.1
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># 子网信息，可选&lt;/span>
+&lt;span class="ln"> 7&lt;/span> network 192.168.1.0
+&lt;span class="ln"> 8&lt;/span> broadcast 192.168.1.255
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 以下是添加路由的操作，可选&lt;/span>
+&lt;span class="ln">10&lt;/span> up route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.1
+&lt;span class="ln">11&lt;/span> up route add default gw 192.168.1.1
+&lt;span class="ln">12&lt;/span> down route del default gw 192.168.1.1
+&lt;span class="ln">13&lt;/span> down route del -net 192.168.1.1 netmask 255.255.255.0 gw 192.168.1.1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者配置自动获取ip地址&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>auto eth0
+&lt;span class="ln">2&lt;/span>iface eth0 inet dhcp
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>修改完成之后，可以采用重启网络的方式获取新的IP。&lt;/p>
+&lt;h2 id="network-manager">Network-Manager&lt;/h2>
+&lt;p>Network-Manager是Debian提供的网络管理工具，方便用户使用GUI的时候配置网络。这个在GUI里面比较常见，就是下图这个配置，不在赘述。&lt;/p>
+&lt;p>&lt;img src="../../images/debian-network-manager.png" alt="Network-Manager 网络配置">&lt;/p>
+&lt;h2 id="network-manager和interfaces文件的冲突">Network-Manager和interfaces文件的冲突&lt;/h2>
+&lt;p>&lt;strong>本节援引自：&lt;a href="https://www.cnblogs.com/lcword/p/5917348.html">https://www.cnblogs.com/lcword/p/5917348.html&lt;/a> 作者：lclc&lt;/strong>&lt;/p>
+&lt;p>network-manager和/etc/network/interfaces冲突
+如果修改了interfaces ，又配置了network-manager（简称nm），你就会发现出现了一些莫名其妙的问题：&lt;/p>
+&lt;ol>
+&lt;li>interfaces 和 nm 中的网络设置不一样，系统实际的IP是哪个？&lt;/li>
+&lt;li>有时候莫名其妙的，界面右上角的网络连接图标就丢失了。&lt;/li>
+&lt;li>明明在nm中配置了正确的网络设置，为什么就上不了网呢？&lt;/li>
+&lt;/ol>
+&lt;p>其实，我们要知道 interfaces 和 nm 之间的关系，这些问题就不难解释了。&lt;/p>
+&lt;p>network-manager和/etc/network/interfaces的关系&lt;/p>
+&lt;ol>
+&lt;li>当系统内无第三方网络管理工具（如 nm）时，系统默认使用 interfaces 文件内的参数进行网络配置。&lt;/li>
+&lt;li>当系统内安装了 nm 之后，nm 默认接管了系统的网络配置，使用 nm 自己的网络配置参数来进行配置。&lt;/li>
+&lt;li>但若用户在安装 nm 之后（Desktop版本默认安装了nm），自己又手动修改了 interfaces 文件，那 nm 就自动停止对系统网络的管理，系统改使用 interfaces 文件内的参数进行网络配置。此时，再去修改 nm 内的参数，不影响系统实际的网络配置。若要让 nm 内的配置生效，必须重新启用nm 接管系统的网络配置。&lt;/li>
+&lt;/ol>
+&lt;p>现在知道了两者之间的工作关系，再看上面的三个问题：&lt;/p>
+&lt;ol>
+&lt;li>要看nm是否接管，如果没有接管，系统实际的IP设置以 interfaces 中的为准。反之，以 nm 中的为准。&lt;/li>
+&lt;li>当 nm 停止接管的时候，网络连接图标就丢失了。&lt;/li>
+&lt;li>同样是接管的问题。如果用户希望在Desktop版本中，直接使用 interfaces 进行网络配置，那最好删除 network-manager 。&lt;/li>
+&lt;/ol>
+&lt;p>network-manager重新接管&lt;/p>
+&lt;p>如果在出现上述问题之后，希望能继续使用 nm 来进行网络配置，则需要进行如下操作：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>sudo service network-managerstop &lt;span class="c1">#停止 nm 服务&lt;/span>
+&lt;span class="ln">2&lt;/span>sudo rm/var/lib/NetworkManager/NetworkManager.state &lt;span class="c1">#移除 nm 的状态文件&lt;/span>
+&lt;span class="ln">3&lt;/span>sudo gedit /etc/NetworkManager/nm-system-settings.conf &lt;span class="c1">#打开 nm 的配置文件&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="c1">## 里面有一行：managed=true&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="c1">## 如果你手工改过 /etc/network/interfaces ，nm 会自己把这行改成：managed=false&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="c1">## 将 false 修改成 true&lt;/span>
+&lt;span class="ln">7&lt;/span>sudo service network-manager start
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="直接修改网络">直接修改网络&lt;/h2>
+&lt;p>除了修改配置文件和使用管理工具，Linux还提供了命令直接修改网络地址，这些修改都是&lt;strong>临时修改&lt;/strong>，一旦出现问题或重启地址会被放弃。&lt;/p>
+&lt;h3 id="使用ifconfig命令">使用ifconfig命令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1">#设置IP和掩码&lt;/span>
+&lt;span class="ln">2&lt;/span>sudo ifconfig eth0 192.168.1.4 netmask 255.255.255.0
+&lt;span class="ln">3&lt;/span>&lt;span class="c1">#设置网关&lt;/span>
+&lt;span class="ln">4&lt;/span>sudo route add default gw 192.168.1.1
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用ip命令">使用ip命令&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 增加一个ip 地址&lt;/span>
+&lt;span class="ln">2&lt;/span>sudo ip add add 192.168.1.4/24 dev eth0:0
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 删除一个ip地址&lt;/span>
+&lt;span class="ln">4&lt;/span>sudo ip add del 192.168.1.4/24 dev eth0:0
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 添加一条路由&lt;/span>
+&lt;span class="ln">6&lt;/span>sudo ip route add 192.168.1.0/24 via 192.168.1.1 dev eth0
+&lt;span class="ln">7&lt;/span>&lt;span class="c1"># 删除一条路由&lt;/span>
+&lt;span class="ln">8&lt;/span>sudo ip route del 192.168.1.0/24
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>linux-ssh-nat</title><link>https://surprisedcat.github.io/projectnotes/linux-ssh-nat/</link><pubDate>Wed, 15 Nov 2017 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-ssh-nat/</guid><description>
+&lt;h2 id="使用ssh实现内网穿透---omit-in-toc---">使用ssh实现内网穿透&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="反向连接穿透防火墙访问内网机器">反向连接：穿透防火墙访问内网机器&lt;/h2>
+&lt;p>很多单位的机器都身处内网。内网 IP 是下面的样子，用 ifconfig 便可搞清楚。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>10.0.0.0~10.255.255.255
+&lt;span class="ln">2&lt;/span>172.16.0.0~172.31.255.255
+&lt;span class="ln">3&lt;/span>192.168.0.0~192.168.255.255
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>有关&lt;a href="http://baike.baidu.com/view/1233066.htm">内网 IP&lt;/a> 的内容可以参考百度百科。跟内网 IP 对立的就是公网 IP（即凡是不是内网 IP 的 IP），它如同独一无二的信箱，世界各地的人们都能往这个地址寄东西。内网 IP 如同大杂院里的住户，东西只能寄到传达室，而不能直接送达。&lt;/p>
+&lt;p>内网机器可以访问公网机器，但是反之却不成立。譬如，公司里的机器 A 是内网机器，我们不能在公司外直接访问机器 A。但如果，在 A 和某台公网机器 C 之间建立一条加密隧道，便可以用任何一台机器 SSH 登录 A，就如同在 A 机器所处内网的防火墙上凿穿了一个洞。用下面的图来表达这个想法更直观一些。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln">2&lt;/span>A &amp;lt;-&lt;span class="p">|&lt;/span>-&amp;gt; C &amp;lt;--- B
+&lt;span class="ln">3&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="ln">4&lt;/span>内 防 公 任
+&lt;span class="ln">5&lt;/span>网 火 网 何
+&lt;span class="ln">6&lt;/span>机 墙 机 机
+&lt;span class="ln">7&lt;/span>器 器 器
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="反向连接">反向连接&lt;/h2>
+&lt;p>首先简单地介绍一下“反向连接”。在内网机器 A 上运行&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>me~$ ssh -f -N -R 10000:localhost:22 username@C机器的公网IP
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此处，10000 和 22 皆是端口号。上面的命令是由机器 A 发起，主动将 A 的端口 22 与机器 C 的端口 10000 绑定（这不会给 C 带来危险，对 A 的“投怀送抱”，C 是不拒绝的），即将本地端口 22（sshd 缺省的开放端口）映射为远程机器 C 的端口 10000。C 可以通过命令&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>sockstat -l
+&lt;span class="ln">2&lt;/span>或者
+&lt;span class="ln">3&lt;/span>netstat -an
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>监听到本地端口 10000 被绑定。这样，在 A 和 C 之间就建立了一条加密隧道，机器 C 通过命令&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>me~$ ssh username@localhost -p &lt;span class="m">10000&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>穿透内网机器 A 的防火墙 SSH 登录 A。这便是“&lt;strong>反向连接&lt;/strong>”，它是穿透防火墙的常用方法。&lt;/p>
+&lt;p>为什么需要 A 主动联系 C 呢？这是因为，A 对 C 来说是不可见的，如果不对 A 进行端口映射，C 压根找不到 A。如今，A 主动献身将自己的某端口与 C 的某端口“合体”，C 通过这个“合体”就能做到远程控制 A。机器 C 为了安全起见，可以把 username 设置为机器 C 上的没有 shell 权限的用户。&lt;/p>
+&lt;h2 id="公钥验证">公钥验证&lt;/h2>
+&lt;p>为了让 C 能验证 A 的身份，A 产生一把公钥（public key）送给 C，这样每次连接 C 都不再需要输入密码了。而且，这样的公钥验证比设普通密码要安全得多。顾名思义，公钥是可以公开的，你可以大胆地告诉全世界你的公钥，把你的公钥列入 authorized_keys 的人们就能够安全地确认并接纳那个举世无双独一无二的你。公钥不会泄漏你的个人密码以及私人信息。&lt;/p>
+&lt;p>譬如，A 产生加密类型为 RSA、长度为 1024 比特的公钥的命令是&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>me~$ ssh-keygen -t rsa -b &lt;span class="m">1024&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个命令将产生两个文件：公钥文件 id_rsa.pub 和私钥文件 id_rsa，将之存放在 $HOME/.ssh/ 里。然后，A 只要把公钥文件 id_rsa.pub 发给 C 就可以了。而 C 将之加入 &lt;code>$HOME/.ssh/authorized_keys&lt;/code>，即&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>me~$ cat id_rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ssh-登录">SSH 登录&lt;/h2>
+&lt;p>现在，从任何一台机器 B 都可以 SSH 远程登录机器 A 了。只需要&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>me~$ ssh me@C机器的公网IP -p &lt;span class="m">10000&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这种方法的缺点是不稳定，有时候从 A 到 C 的端口映射会断掉。我们不可能从家里跑到单位再敲一次命令，所以搞一个自动检查连接状态的脚本是必须的。定时地（譬如说每半个小时）检查 A ---&amp;gt; C 是否存在，如果不存在，马上再建立一个连接。&lt;/p>
+&lt;p>将下面的脚本文件存为 $HOME/Reverse_SSH.sh，让它是可执行的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#!/usr/local/bin/bash
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>&lt;span class="k">while&lt;/span> true&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="nv">RET&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>ps ax &lt;span class="p">|&lt;/span> grep &lt;span class="s2">&amp;#34;ssh -fNR 10000:localhost:22&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> grep -v &lt;span class="s2">&amp;#34;grep&amp;#34;&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$RET&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;The recent SSH failure occured at `date`&amp;#34;&lt;/span> &amp;gt; ~/reverse_ssh.log
+&lt;span class="ln">6&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Restart reverse SSH!&amp;#34;&lt;/span>
+&lt;span class="ln">7&lt;/span> ssh -fNR 10000:localhost:22 username@C机器的公网IP
+&lt;span class="ln">8&lt;/span> &lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>利用 crontab 让机器每隔 30 分钟就检查一次这个映射是否存在，若不存在，马上再次建立映射。具体过程是&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>me~$ crontab -e
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将下面的命令加入 crontab&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>*/30 * * * * &lt;span class="nv">$HOME&lt;/span>/Reverse_SSH.sh
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>linux-print-n</title><link>https://surprisedcat.github.io/projectnotes/linux-print-n/</link><pubDate>Mon, 13 Nov 2017 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-print-n/</guid><description>
+&lt;h2 id="转载-linux下printf中n的重要作用---omit-in-toc---">转载： linux下printf中\n的重要作用&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>原文链接：&lt;a href="http://blog.sina.com.cn/s/blog_563f0ca801000bfe.html">http://blog.sina.com.cn/s/blog_563f0ca801000bfe.html&lt;/a>
+作者：George&lt;/p>
+&lt;h2 id="linux下printf中n的重要作用">linux下printf中\n的重要作用&lt;/h2>
+&lt;p>今天遇到一个很有趣的问题:
+我用的是linux 2.6.11
+程序大概是这样的(参数不详写了):&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;abc&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">listen&lt;/span>&lt;span class="p">(...);&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">accept&lt;/span>&lt;span class="p">(...);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>程序死活打不出&amp;quot;abc&amp;quot;来.用gdb查看,程序又确实是运行到了accept这里。&lt;/p>
+&lt;p>有大虾告诉我:在abc末尾加\n试试。&lt;/p>
+&lt;p>加了以后,abc就打出来了。&lt;/p>
+&lt;p>后来又试了类似的:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;abc&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">recvfrom&lt;/span>&lt;span class="p">(...);&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="c1">//程序一样打不出abc来,
+&lt;/span>&lt;span class="ln">4&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;abc&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">recvfrom&lt;/span>&lt;span class="p">(...);&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1">//abc就打出来了.
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>大虾说linux下printf是以&amp;quot;行&amp;quot;来做缓冲区来刷新stdout的,如果遇到\n会强制立即刷新。否则刷新可能会延迟。因为printf中没有包含\n,内核决定满一行再刷新,而此时程序由于调用accept或recvfrom这类会block的api函数,造成屏幕一直显示不出来,除非收到了tcp连接请求或数据包,系统才会重新决定是否刷新屏幕。&lt;/p>
+&lt;p>看来小小的\n还是蛮重要的。此问题可以在&amp;lt;&amp;lt;UNIX网络编程 第2版 第2卷进程间通信&amp;gt;&amp;gt;里找到一些相关知识。多了解了解文件I/O还是很有必要的。&lt;/p></description></item><item><title>linux-svn-server</title><link>https://surprisedcat.github.io/projectnotes/linux-svn-server/</link><pubDate>Tue, 27 Dec 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-svn-server/</guid><description>
+&lt;h2 id="linux上svn服务器搭建---omit-in-toc---">Linux上SVN服务器搭建&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>一般我们使用git进行代码的版本管理，但是git自身只能识别文本文件。我们常用的office系列是文本与二进制的组合，git diff等操作无法正常使用。况且office软件自带diff的功能，我仅仅想做一个版本管理与云同步，在不想用SharePoint的倾向下，我选择在云主机上搭建一个基于Debian Linux的SVN服务器。&lt;/p>
+&lt;h2 id="linux下的svn服务器">Linux下的svn服务器&lt;/h2>
+&lt;p>Subversion是一个自由开源的版本控制系统。在Subversion管理下，文件和目录可以超越时空。Subversion将文件存放在中心版本库里，这个版本库很像一个普通的文件服务器，不同的是，它可以记录每一次文件和目录的修改情况，这样就可以借此将数据恢复到以前的版本，并可以查看数据的更改细节。$^{[1]}$&lt;/p>
+&lt;p>Subversion集服务端和客户端一体，当linux中拥有Subversion之后，既可以做SVN的服务端，也可以作为客户端。而在Windows下，服务端与客户端通常是不同的软件，例如服务端使用Visualsvn server,客户端使用TortoiseSVN。&lt;/p>
+&lt;p>在Debian Linux下安装Subversion特别简单&lt;code>sudo apt install subversion&lt;/code>即可。&lt;/p>
+&lt;h2 id="创建工作目录与库">创建工作目录与库&lt;/h2>
+&lt;p>首先我们需要给Subversion创建一个目录作为工作区。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>mkdir ~/svn
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>工作目录是存放SVN库的目录，因为会创建不只一个的库，比如下面的场景，接下来到工作目录中创建svn版本库。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">cd&lt;/span> svn
+&lt;span class="ln">2&lt;/span>svnadmin create repo1
+&lt;span class="ln">3&lt;/span>svnadmin create repo2
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样就在工作目录下创建了两个版本库。&lt;/p>
+&lt;h2 id="配置一个库">配置一个库&lt;/h2>
+&lt;p>SVN版本库的配置文件都放在对应版本库的&lt;code>conf&lt;/code>目录下，我们需要用到&lt;strong>authz、passwd、svnserve.conf&lt;/strong>这三个文件。&lt;/p>
+&lt;p>首先编辑svnserve.conf主配置文件(应仔细阅读该文件里面的注释，了解每一项的作用)，对以下几项修改如下:$^{[2]}$&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="o">[&lt;/span>general&lt;span class="o">]&lt;/span>
+&lt;span class="ln">2&lt;/span>
+&lt;span class="ln">3&lt;/span>anon-access &lt;span class="o">=&lt;/span> none &lt;span class="c1">#取消匿名访问&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>auth-access &lt;span class="o">=&lt;/span> write &lt;span class="c1">#授权用户有可写权限&lt;/span>
+&lt;span class="ln">6&lt;/span>
+&lt;span class="ln">7&lt;/span>password-db &lt;span class="o">=&lt;/span> passwd &lt;span class="c1">#指定用户配置文件，后面会用到&lt;/span>
+&lt;span class="ln">8&lt;/span>
+&lt;span class="ln">9&lt;/span>authz-db &lt;span class="o">=&lt;/span> authz &lt;span class="c1">#指定权限配置文件，后面会用到&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑passwd文件，建立svn客户端用户以及密码，一行一个，这里建立了两个用户,对应我的两台主机。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">### This file is an example password file for svnserve.&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">### Its format is similar to that of svnserve.conf. As shown in the&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">### example below it contains one section labelled [users].&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">### The name and password for each user follow, one account per line.&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="o">[&lt;/span>users&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># harry = harryssecret&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># sally = sallyssecret&lt;/span>
+&lt;span class="ln"> 9&lt;/span>cx-laptop &lt;span class="o">=&lt;/span> buptlab635
+&lt;span class="ln">10&lt;/span>cx-server &lt;span class="o">=&lt;/span> buptlab635
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>编辑authz文件，指定SVN仓库目录，以及每个认证用户的权限，这里均为可读可写&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="o">[&lt;/span>aliases&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># joe = /C=XZ/ST=Dessert/L=Snake City/O=Snake Oil, Ltd./OU=Research Institute/CN=Joe Average&lt;/span>
+&lt;span class="ln"> 3&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="o">[&lt;/span>groups&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1"># harry_and_sally = harry,sally&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># harry_sally_and_joe = harry,sally,&amp;amp;joe&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># [/foo/bar]&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># harry = rw&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># &amp;amp;joe = r&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="c1"># * =&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c1"># [repository:/baz/fuz]&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1"># @harry_and_sally = rw&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># * = r&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="o">[&lt;/span>repo1:/&lt;span class="o">]&lt;/span>
+&lt;span class="ln">18&lt;/span>cx-laptop &lt;span class="o">=&lt;/span> rw
+&lt;span class="ln">19&lt;/span>cx-server &lt;span class="o">=&lt;/span> rw
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>启动SVN服务，-d表示后台运行svn服务，-r是指定svn目录；然后执行了netstat检查端口，默认监听在3690端口上。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>svnserve -d -r ~/svn/
+&lt;span class="ln">2&lt;/span>netstat -anp &lt;span class="p">|&lt;/span> grep &lt;span class="m">3690&lt;/span> &lt;span class="c1"># 通过查看这个端口判断SVN服务器是否正常启动&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="windows客户端tortoisesvn的操作">windows客户端TortoiseSVN的操作&lt;/h2>
+&lt;p>在Windows使用SVN服务的话，需要下载一个TortoiseSVN客户端软件，安装好软件后在本地电脑创建一个工作目录，右键该目录选择checkout，checkout就是把SVN服务器上的文件下载到本地工作目录内的操作。&lt;/p>
+&lt;p>&lt;img src="../../images/tortoisesvn1.JPG" alt="tortoiseSVN操作">&lt;/p>
+&lt;p>在对话框里输入SVN服务器的地址以及需要存放文件的目录。&lt;strong>repo1&lt;/strong>是服务器工作区的一个版本库，然后点击ok按钮，之后会要求输入用户名密码，这个时候就输入在passwd里设置的信息即可。&lt;/p>
+&lt;p>&lt;img src="../../images/tortoisesvn2.JPG" alt="tortoiseSVN操作">&lt;/p>
+&lt;h2 id="路径问题">路径问题&lt;/h2>
+&lt;p>许多人搭建SVN服务器不成功都是因为SVN版本库路径的问题。在搭建过程中，有几个路径需要注意：&lt;/p>
+&lt;ol>
+&lt;li>SVN工作区所在路径，就是本文中&lt;code>mkdir ~/svn&lt;/code>的路径，具体来说是&lt;code>/home/your-host-name/svn/&lt;/code>，这个路径和&lt;code>svnserve -d -r ~/svn/&lt;/code>的路径保持一致。&lt;/li>
+&lt;li>SVN版本库配置路径，即&lt;code>authz&lt;/code>里面的路径，&lt;code>[repo1:/]&lt;/code>这一项，这个名字要和对应版本库名字一致。&lt;code>/&lt;/code>表示repo1这个版本库下的所有文件。&lt;/li>
+&lt;li>客户端checkout路径，在客户端checkout的时候，&lt;code>svn://server-ip&lt;/code>对应于服务器上&lt;code>svnserve -d -r ~/svn/&lt;/code>的路径，因此在checkout的时候，需要再跟上版本库的名字，即加上的&lt;code>repo1&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1] &lt;a href="https://baike.baidu.com/item/subversion/7818587?fr=aladdin">https://baike.baidu.com/item/subversion/7818587?fr=aladdin&lt;/a>&lt;/p>
+&lt;p>[2] &lt;a href="http://www.linuxidc.com/Linux/2016-04/130346.htm">http://www.linuxidc.com/Linux/2016-04/130346.htm&lt;/a>&lt;/p></description></item><item><title>linux-nttcp</title><link>https://surprisedcat.github.io/projectnotes/linux-nttcp/</link><pubDate>Wed, 02 Nov 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-nttcp/</guid><description>
+&lt;h2 id="翻译-新tcp测试工具nttcp---omit-in-toc---">翻译： 新TCP测试工具——nttcp&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>原链接:&lt;a href="http://linux.die.net/man/1/nttc">http://linux.die.net/man/1/nttc&lt;/a> 作者：Elmar Bartel&lt;/p>
+&lt;h2 id="名称">名称&lt;/h2>
+&lt;p>　　nttcp 新的tcp测试工具，适用于Linux系统。&lt;/p>
+&lt;h2 id="语法格式">语法格式&lt;/h2>
+&lt;p>　　&lt;strong>nttcp&lt;/strong> [ &lt;strong>local options&lt;/strong> ] &lt;strong>partner-host [ partner-host ] ...&lt;/strong> [ &lt;strong>remote options&lt;/strong> ]&lt;/p>
+&lt;h2 id="描述">描述&lt;/h2>
+&lt;p>　　&lt;strong>nttcp&lt;/strong>用来测量TCP，UDP和多播UDP连接的传输速率。使用　&lt;strong>nttcp&lt;/strong>时，需要两台电脑，一台本地主机，一台服务器。在服务器端，只需要简单的运行&lt;code>nttcp -i&lt;/code>。在本地主机上，将partner-host设置为服务起的IP地址。两台电脑会自动建立连接进行传输。&lt;strong>在默认情况下&lt;/strong>，客户端会向服务器发送2048个buffer，每个数据包大小为4KB（总共8M字节）。发送端和接收端的性能情况都会反馈到本地主机，我们可以通过命令行调整几乎每一个参数，甚至如何显示结果。&lt;/p>
+&lt;h2 id="参数选项">参数选项&lt;/h2>
+&lt;p>&lt;strong>-r&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>定义传输接收方向，本地主机为接收端，数据由服务器端发往本地主机。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-t&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>定义传输发送方向，本地主机为发送端，数据由本地主机发往服务器端，&lt;strong>这是默认的选项&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-T&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>打印标题线。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-u&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>使用UDP协议代替TCP协议（默认为TCP协议）。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-g&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>在两个数据包之间的间隔毫秒数。这种延时是通过**&lt;a href="http://linux.die.net/man/2/select">select&lt;/a>&lt;strong>和&lt;/strong>&lt;a href="http://linux.die.net/man/2/gettimeofday">gettimeofday&lt;/a>&lt;strong>两个系统函数实现的。他们的值具有误导性，大多数主机无法实现绝对精准的延时量。代码实现中，将尽量的保证准确的时延。对于TCP连接来说，这个时延只是在调用系统函数&lt;/strong>&lt;a href="http://linux.die.net/man/2/write">write&lt;/a>**之间的时间间隔，并不是物理设备真正输出之间的时延。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-v&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>给出更多更详细的输出内容，仅用于调试目的。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-D&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>在发送端设置为TCP_NODELAY选项，发送端将不缓存任何wirte请求。（存疑）&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-f&lt;/strong> format string&lt;/p>
+&lt;blockquote>
+&lt;p>格式化输出的内容，具体见OUTPUT。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-n&lt;/strong> number of buffer&lt;/p>
+&lt;blockquote>
+&lt;p>每次发送的buffer数量，默认为2048个。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-l&lt;/strong> length of a buffer&lt;/p>
+&lt;blockquote>
+&lt;p>每一个buffer的大小（说的就是每一个数据包大小），默认为4096KB。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-x&lt;/strong> fixed length of data&lt;/p>
+&lt;blockquote>
+&lt;p>发送数据包的总长度，如果接下来定义了-n或者-l ，将会自动计算剩下来的那个值，但是要保证buffers*length = fixed data length。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-w&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>定义接收方与发送放的buffer size，这个通常是由系统决定的，通常为16KB。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-c&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>如果这一项被启用，接收端将会比较接收端的字节与发送端的字节。至多前100个不同将会被报告出来。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-s&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>如果使用UDP传输，将会强制启动一个stream pattern.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-S&lt;/strong> seed string&lt;/p>
+&lt;blockquote>
+&lt;p>产生一个字符串来传输，使用-S将会自动启动-c。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-p&lt;/strong> port number&lt;/p>
+&lt;blockquote>
+&lt;p>设置对方机器的端口，默认为5037。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-i&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>作为接收端监听连接请求。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-R&lt;/strong> &lt;em>number of getpid() calls&lt;/em>*:&lt;/p>
+&lt;blockquote>
+&lt;p>这个选项将不会传输任何的数据，计算每秒调用getpid()的次数，通常作为衡量计算速度和调用端口速度的测量方法。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>-m&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>使用多播IP,将会强制使用-t和-u参数。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="输出">输出&lt;/h2>
+&lt;p>　　输出结果由两行字母组成（如果使用多播将会由多行结果）。第一行结果是本地主机的测量结果，第二行结果是对端主机的测量结果。第一行的第一个字母为“&lt;strong>l&lt;/strong>”(local)，而第二行的第一个字母为“&lt;strong>r&lt;/strong>”(remote);如果使用了“&lt;strong>-T&lt;/strong>”参数，就会多一行标题行。默认的输出格式如下所示：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Sides&lt;/th>
+&lt;th style="text-align:center">Bytes&lt;/th>
+&lt;th style="text-align:center">Real s&lt;/th>
+&lt;th style="text-align:center">CPU s&lt;/th>
+&lt;th style="text-align:center">Real-MBit/s&lt;/th>
+&lt;th style="text-align:center">CPU-MBit/s&lt;/th>
+&lt;th style="text-align:center">Calls&lt;/th>
+&lt;th style="text-align:center">Real-C/s&lt;/th>
+&lt;th style="text-align:center">CPU-C/s&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">l&lt;/td>
+&lt;td style="text-align:center">8388608&lt;/td>
+&lt;td style="text-align:center">7.51&lt;/td>
+&lt;td style="text-align:center">0.25&lt;/td>
+&lt;td style="text-align:center">8.7307&lt;/td>
+&lt;td style="text-align:center">259.8676&lt;/td>
+&lt;td style="text-align:center">2048&lt;/td>
+&lt;td style="text-align:center">272.83&lt;/td>
+&lt;td style="text-align:center">8120.86&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">r&lt;/td>
+&lt;td style="text-align:center">8388608&lt;/td>
+&lt;td style="text-align:center">7.55&lt;/td>
+&lt;td style="text-align:center">0.95&lt;/td>
+&lt;td style="text-align:center">8.6804&lt;/td>
+&lt;td style="text-align:center">68.9853&lt;/td>
+&lt;td style="text-align:center">3831&lt;/td>
+&lt;td style="text-align:center">507.42&lt;/td>
+&lt;td style="text-align:center">4032.63&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>标有CPU计时（CPU s）和频率(CPU-C/s)的值表示使用系统和用户的总时间。Real时间和频率值表示从传输开始到结束的总时间。还有可能由另一种格式输出，详见原文档。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>n&lt;/strong> prints the buffer count. Integer value.
+&lt;strong>c&lt;/strong> prints the number of calls. Integer value.
+&lt;strong>rt&lt;/strong> prints the real time in s. Float value.
+&lt;strong>rbr&lt;/strong> prints the real bit rate in MBit/s. Float value.
+&lt;strong>rcr&lt;/strong> prints the real call rate in calls/s. Float value.
+&lt;strong>ct&lt;/strong> prints the cpu time in s. Float value.
+&lt;strong>cbr&lt;/strong> prints the cpu bit rate in MBit/s. Float value.
+&lt;strong>ccr&lt;/strong> prints the cpu call rate in calls/s. Float value.
+The default format is produced with the following format string:
+&amp;quot;%9b%8.2rt%8.2ct%12.4rbr%12.4cbr%8c%10.2rcr%10.2ccr&amp;quot;&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="作者">作者&lt;/h2>
+&lt;p>Elmar Bartel
+Fakultaet fuer Informatik,
+Technische Universitaet Muenchen.&lt;/p></description></item></channel></rss>

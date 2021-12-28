@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机器学习 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 机器学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>机器学习-模型评价的11个重要指标</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</link><pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</guid><description/></item><item><title>机器学习-RNN相关</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</link><pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</guid><description>
+&lt;h2 id="rnn相关">RNN相关&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="simple-rnn">simple RNN&lt;/h2>
+&lt;p>RNN借助循环核提取时间维度特征。&lt;/p>
+&lt;p>&lt;img src="../../images/simple_RNN.png" alt="simple_RNN" /> &lt;span class="math">\[
+y_t= softmax(h_t w_{hy} +b_y)\\
+h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
+\]&lt;/span> 三个矩阵&lt;span class="math">\(w_{hy},w_{xh},w_{hh}\)&lt;/span>在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的&lt;span class="math">\(h_t\)&lt;/span>数量控制输出的序列长度。&lt;/p></description></item><item><title>机器学习-框架</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</guid><description>
+&lt;h2 id="机器学习框架">机器学习框架&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="三类机器学习算法">三类机器学习算法&lt;/h2>
+&lt;h3 id="监督学习">监督学习&lt;/h3>
+&lt;p>各种回归，决策树，随机森林，LNN，&lt;/p>
+&lt;h3 id="无监督学习">无监督学习&lt;/h3>
+&lt;p>K-means，Apriori&lt;/p>
+&lt;h3 id="强化学习">强化学习&lt;/h3>
+&lt;p>马尔科夫决策过程&lt;/p>
+&lt;h2 id="常用机器学习算法">常用机器学习算法&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Linear Regression&lt;/li>
+&lt;li>Logistic Regression&lt;/li>
+&lt;li>Decision Tree&lt;/li>
+&lt;li>SVM&lt;/li>
+&lt;li>Naive Bayes&lt;/li>
+&lt;li>kNN&lt;/li>
+&lt;li>K-Means&lt;/li>
+&lt;li>Random Forest&lt;/li>
+&lt;li>Dimensionality Reduction Algorithms&lt;/li>
+&lt;li>Gradient Boosting algorithms
+&lt;ol style="list-style-type: decimal">
+&lt;li>GBM&lt;/li>
+&lt;li>XGBoost&lt;/li>
+&lt;li>LightGBM&lt;/li>
+&lt;li>CatBoost&lt;/li>
+&lt;/ol>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>线性回归算法 Linear Regression&lt;/li>
+&lt;li>支持向量机算法 (Support Vector Machine,SVM)&lt;/li>
+&lt;li>最近邻居/k-近邻算法 (K-Nearest Neighbors,KNN)&lt;/li>
+&lt;li>逻辑回归算法 Logistic Regression&lt;/li>
+&lt;li>决策树算法 Decision Tree&lt;/li>
+&lt;li>k-平均算法 K-Means&lt;/li>
+&lt;li>随机森林算法 Random Forest&lt;/li>
+&lt;li>朴素贝叶斯算法 Naive Bayes&lt;/li>
+&lt;li>降维算法 Dimensional Reduction&lt;/li>
+&lt;li>梯度增强算法 Gradient Boosting&lt;/li>
+&lt;/ul></description></item><item><title>机器学习-什么是keras</title><link>https://surprisedcat.github.io/projectnotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%BB%80%E4%B9%88%E6%98%AFkeras/</link><pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%BB%80%E4%B9%88%E6%98%AFkeras/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%89%8D%E7%AB%AFkeras%E5%90%8E%E7%AB%AFtensorflowtheanocntk">前端Keras+后端TensorFlow\Theano\CNTK&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%B7%A5%E7%A8%8B%E7%9B%B8%E5%85%B3">工程相关&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tensorflow-2%E7%9A%84keras">Tensorflow 2的keras&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="keras---omit-in-toc---">Keras&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Keras 是一个Python深度学习框架，可以方便地定义和训练几乎所有类型地深度学习模型。Keras最开始是为研究人员开发的，其目的在于快速实验&lt;/p>
+&lt;p>keras具有以下重要特性：&lt;/p>
+&lt;ol>
+&lt;li>相同的代码可以在CPU或GPU上无缝切换运行&lt;/li>
+&lt;li>具有用户友好的API，便于快速开发深度学习模型的原型&lt;/li>
+&lt;li>内置支持卷积网络（用于计算机视觉）、循环网络（用于序列处理）以及二者的任意组合。&lt;/li>
+&lt;li>支持任意网络架构：多输入或多输出模型、层共享、模型共享等。&lt;/li>
+&lt;/ol>
+&lt;h2 id="前端keras后端tensorflowtheanocntk">前端Keras+后端TensorFlow\Theano\CNTK&lt;/h2>
+&lt;p>keras是一个模型级的库，为开发深度学习模型提供了高层次的构建模块。它依赖一个专门的、高度优化的张量库来完成这些运算，这个张量库就是Keras的后端引擎。Keras有三个后端实现:TensorFlow后端、Theano后端和微软认知工具包（CNTK）。这三个不同的后端引擎都可以无缝嵌入到Keras中。&lt;/p>
+&lt;p>&lt;img src="../../images/keras%E7%BB%93%E6%9E%84.jpg" alt="keras结构">&lt;/p>
+&lt;p>通过TensorFlow,Keras可以在CPU和GPU上无缝运行，在CPU上运行时，TensorFlow本身封装了一个低层次的张量运算库，叫做Eigen;在GPU上运行时，TensorFlow封装了一个高度优化的深度学习运算库，叫做NVIDIA CUDA深度卷积神经网络（cuDNN）。&lt;/p>
+&lt;h2 id="工程相关">工程相关&lt;/h2>
+&lt;p>目前：2020.7 默认的backend是tensorflow&lt;/p>
+&lt;p>在python中&lt;code>import keras&lt;/code>时会显示目前使用的后端。&lt;/p>
+&lt;h2 id="tensorflow-2的keras">Tensorflow 2的keras&lt;/h2>
+&lt;p>随着 TensorFlow 2.0 的发布，不少开发者产生了一些疑惑：作为 Keras 用户，TensorFlow 2.0 的发布跟我有关系吗？TensorFlow 中的 &lt;code>tf.keras&lt;/code> 和 Keras 有什么区别？我该用哪一个训练神经网络？在本文中，作者给出的答案是：你应该在以后所有的深度学习项目和实验中都使用 &lt;code>tf.keras&lt;/code>。&lt;/p></description></item><item><title>tensorflow-保存和载入模型</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-%E4%BF%9D%E5%AD%98%E5%92%8C%E8%BD%BD%E5%85%A5%E6%A8%A1%E5%9E%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-%E4%BF%9D%E5%AD%98%E5%92%8C%E8%BD%BD%E5%85%A5%E6%A8%A1%E5%9E%8B/</guid><description>
+&lt;h2 id="tensorflow-中模型的保证与载入---omit-in-toc---">Tensorflow 中模型的保证与载入&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Tensorflow中模型保存有着关键作用，无论是隔段时间保存以防止突发状况，还是保存训练完毕的模型以供使用，都需要使用tensorflow中的模型保存功能。有时候，可能也需要用到训练好的模型（迁移学习，预学习），并在这个基础上再次训练（fine tuning）。这时候我们需要掌握如何操作这些模型数据。&lt;/p>
+&lt;h2 id="模型文件">模型文件&lt;/h2>
+&lt;p>目前使用tensorflow 1.X版本，指定的模型保存目录下有4个，3类。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="p">|&lt;/span>--checkpoint_dir
+&lt;span class="ln">2&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--checkpoint
+&lt;span class="ln">3&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--MyModel.meta
+&lt;span class="ln">4&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--MyModel.data-00000-of-00001
+&lt;span class="ln">5&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--MyModel.index
+&lt;span class="ln">6&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>checkpoint：该文件是文本文件，里面记录了保存的最新的checkpoint文件以及其它checkpoint文件列表。例如最近保存的默认5个文件名称。&lt;/li>
+&lt;li>meta文件：保存的是图结构，meta文件是pb（protocol buffer）格式文件，包含变量、op、集合等。&lt;/li>
+&lt;li>ckpt文件：包含name-global_step.data-xxxx-of-xxxx和.index文件，都是二进制文件，保存了所有的weights、biases、gradients等变量。.index是索引，.data文件保存具体数值，一般参数很多时很大。&lt;/li>
+&lt;/ul>
+&lt;h2 id="保存tensorflow模型">保存Tensorflow模型&lt;/h2>
+&lt;p>Tensorflow使用tf.train.Saver类来保存模型，值得注意的是，在tensorflow中，变量是存在于Session环境中，也就是说，只有在Session环境下才会存有变量值，因此，保存模型时需要传入session：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;Mypath/checkpoint_dir/MyModel&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以下Copy from &lt;a href="https://blog.csdn.net/huachao1001/article/details/78501928">https://blog.csdn.net/huachao1001/article/details/78501928&lt;/a>&lt;/p>
+&lt;p>如果想要在1000次迭代后，再保存模型，只需设置global_step参数即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存的模型文件名称会在后面加-1000,如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>checkpoint
+&lt;span class="ln">2&lt;/span>MyModel-1000.data-00000-of-00001
+&lt;span class="ln">3&lt;/span>MyModel-1000.index
+&lt;span class="ln">4&lt;/span>MyModel-1000.meta
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在实际训练中，我们可能会在每1000次迭代中保存一次模型数据，但是由于图是不变的，没必要每次都去保存，可以通过如下方式指定不保存图：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">step&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">write_meta_graph&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>另一种比较实用的是，如果你希望每2小时保存一次模型，并且只保存最近的5个模型文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">max_to_keep&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">keep_checkpoint_every_n_hours&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注意：tensorflow默认只会保存最近的5个模型文件，如果你希望保存更多，可以通过max_to_keep来指定&lt;/p>
+&lt;/blockquote>
+&lt;p>如果我们不对tf.train.Saver指定任何参数，默认会保存所有变量。如果你不想保存所有变量，而只保存一部分变量，可以通过指定variables/collections。在创建tf.train.Saver实例时，通过将需要保存的变量构造list或者dictionary，传入到Saver中&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">w1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random_normal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">w2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random_normal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1"># 只保存w1 , w2&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="n">sess&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">global_variables_initializer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">8&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="导入tensorflow已有模型">导入Tensorflow已有模型&lt;/h2>
+&lt;p>Tensorflow将图和变量数据分开保存为不同的文件。因此，在导入模型时，也要分为2步：构造网络图和加载参数。&lt;/p>
+&lt;h3 id="导入网络图">导入网络图&lt;/h3>
+&lt;p>一个比较笨的方法是，手敲代码，实现跟模型一模一样的图结构。其实，我们既然已经保存了图，那就没必要在去手写一次图结构代码。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel-1000.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="加载参数">加载参数&lt;/h3>
+&lt;p>仅仅有图并没有用，更重要的是，我们需要前面训练好的模型参数（即weights、biases等），本文第2节提到过，变量值需要依赖于Session，因此在加载参数时，先要构造好Session：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">sess&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">new_saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel-1000.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">new_saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">restore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">latest_checkpoint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Mypath/checkpoint_dir&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># 选取最新的check point&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时，W1和W2加载进了图，并且可以被访问。&lt;/p>
+&lt;p>还有一种导入模型的方式如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">ckpt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_checkpoint_state&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MODEL_SAVE_PATH&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 若模型存在，则加载出模型到当前对话，在测试数据集上进行准确率验证，并打印出当前轮数下的准确率&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">ckpt&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">model_checkpoint_path&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1"># 默认恢复最新的模型&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">restore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">model_checkpoint_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1"># 根据模型名称获取global_step&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="n">global_step&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">model_checkpoint_path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;-&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>还可以遍历所有保存的模型：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">all_model_checkpoint_paths&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">all_model_checkpoint_paths&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用恢复的模型">使用恢复的模型&lt;/h2>
+&lt;p>前面我们理解了如何保存和恢复模型，很多时候，我们希望使用一些已经训练好的模型，如prediction、fine-tuning以及进一步训练等。这时候，我们可能需要获取训练好的模型中的一些中间结果值，可以通过&lt;code>graph.get_tensor_by_name('w1:0')&lt;/code>来获取，注意&lt;code>w1:0&lt;/code>是tensor的name。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">w1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">placeholder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;float&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;w1&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="n">w2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">placeholder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;float&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;w2&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">b1&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">2.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;bias&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">#定义一个op，用于后面恢复&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="n">w3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">w4&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">multiply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">w3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;op_to_restore&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="n">sess&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">global_variables_initializer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c1">#创建一个Saver对象，用于保存所有变量&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">15&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c1">#通过传入数据，执行op&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">w4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">feed_dict&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">}))&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c1">#打印 24.0 ==&amp;gt;(w1+w2)*b1&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c1">#现在保存模型&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;./checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来我们使用&lt;code>graph.get_tensor_by_name()&lt;/code>方法来操纵这个保存的模型。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">#先加载图和参数变量&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./checkpoint_dir/MyModel-1000.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">restore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">latest_checkpoint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./checkpoint_dir&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># 访问placeholders变量，并且创建feed-dict来作为placeholders的新值&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">graph&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_default_graph&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="n">w1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;w1:0&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="n">w2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;w2:0&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="n">feed_dict&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">13.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">17.0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1">#接下来，访问你想要执行的op&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="n">op_to_restore&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;op_to_restore:0&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">op_to_restore&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">feed_dict&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c1">#打印结果为60.0==&amp;gt;(13+17)*2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果只想恢复图的一部分，并且再加入其它的op用于fine-tuning。只需通过&lt;code>graph.get_tensor_by_name()&lt;/code>方法获取需要的op，并且在此基础上建立图，看一个简单例子，假设我们需要在训练好的VGG网络使用图，并且修改最后一层，将输出改为2，用于fine-tuning新数据：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="o">......&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="o">......&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;vgg.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 访问图&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">graph&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_default_graph&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">#访问用于fine-tuning的output&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="n">fc7&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;fc7:0&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1">#如果你想修改最后一层梯度，需要如下&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="n">fc7&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stop_gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fc7&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># It&amp;#39;s an identity function&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="n">fc7_shape&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">fc7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">as_list&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="n">new_outputs&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="n">weights&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">truncated_normal&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">fc7_shape&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">num_outputs&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">stddev&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">0.05&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="n">biases&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">constant&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.05&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">num_outputs&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="n">output&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">matmul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fc7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">weights&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">biases&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="n">pred&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">nn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">softmax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c1"># Now, you run this with fine-tuning data in sess.run()&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>tensorflow-tf.shape(x)、x.shape和x.get_shape()的区别</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-tf.shapexx.shape%E5%92%8Cx.get_shape%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-tf.shapexx.shape%E5%92%8Cx.get_shape%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>
+&lt;h2 id="tfshapexxshape和xget_shape的区别---omit-in-toc---">tf.shape(x)、x.shape和x.get_shape()的区别&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="对于tensor来说">对于Tensor来说&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nb">input&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">constant&lt;/span>&lt;span class="p">([[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">],[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">]])&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()))&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">Out&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="nc">tensorflow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">python&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">framework&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tensor_shape&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TensorShape&lt;/span>&lt;span class="s1">&amp;#39;&amp;gt;&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="nc">tensorflow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">python&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">framework&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tensor_shape&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TensorShape&lt;/span>&lt;span class="s1">&amp;#39;&amp;gt;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="nc">tensorflow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">python&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">framework&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ops&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Tensor&lt;/span>&lt;span class="s1">&amp;#39;&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到&lt;code>x.shape&lt;/code>和&lt;code>x.get_shape()&lt;/code>都是返回TensorShape类型对象，而&lt;code>tf.shape(x)&lt;/code>返回的是Tensor类型对象。&lt;/p>
+&lt;p>具体来说&lt;code>tf.shape()&lt;/code>返回的是tensor，想要获取tensor具体的shape结果需要&lt;code>sess.run&lt;/code>才行。而&lt;code>tf.get_shape&lt;/code>和&lt;code>x.shape&lt;/code>返回的是一个元组，因此要想操作维度信息，则需要调用TensorShape的&lt;code>tf.as_list()&lt;/code>方法，返回的是Python的list。&lt;/p>
+&lt;p>需要注意的是&lt;code>tf.get_shape()&lt;/code>返回的是元组，不能放到&lt;code>sess.run()&lt;/code>里面，这个里面只能放operation和tensor&lt;/p>
+&lt;h2 id="对于placeholder来说">对于placeholder来说&lt;/h2>
+&lt;p>对&lt;code>tf.placeholder&lt;/code>占位符来说，如果shape设置的其中某一个是None，那么对于&lt;code>tf.shape，sess.run&lt;/code>会报错，而&lt;code>tf.get_shape&lt;/code>不会，它会在None位置显示“?”表示此位置的shape暂时未知。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">constant&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">float32&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">placeholder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">int32&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">s1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="n">s2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Tensor(&amp;#34;Shape:0&amp;#34;, shape=(7,), dtype=int32)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 元组 (1, 2, 3, 4, 5, 6, 7)&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="n">s11&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">s21&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s11&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Tensor(&amp;#34;Shape_1:0&amp;#34;, shape=(2,), dtype=int32)&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s21&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 因为第一位设置的是None，所以这里的第一位显示问号表示暂时不确认 (?, 3)&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">sess&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">global_variables_initializer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># [1 2 3 4 5 6 7]&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s11&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="c1"># InvalidArgumentError (see above for traceback): You must feed a value for placeholder tensor &amp;#39;b&amp;#39; with dtype int32&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1"># [[Node: b = Placeholder[dtype=DT_INT32, shape=[], _device=&amp;#34;/job:localhost/replica:0/task:0/cpu:0&amp;#34;]()]]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>tensorflow-tf.control_dependencies()作用及用法</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-tf.control_dependencies%E4%BD%9C%E7%94%A8%E5%8F%8A%E7%94%A8%E6%B3%95/</link><pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-tf.control_dependencies%E4%BD%9C%E7%94%A8%E5%8F%8A%E7%94%A8%E6%B3%95/</guid><description>
+&lt;h2 id="tensorflow-tfcontrol_dependencies作用及用法---omit-in-toc---">tensorflow tf.control_dependencies()作用及用法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在有些机器学习程序中我们想要指定某些操作执行的依赖关系，这时我们可以使用&lt;code>tf.control_dependencies()&lt;/code>来实现。
+&lt;code>control_dependencies(control_inputs)&lt;/code>返回一个控制依赖的上下文管理器，使用&lt;code>with关&lt;/code>键字可以让在这个上下文环境中的操作都在&lt;code>control_inputs&lt;/code> 执行。&lt;/p>
+&lt;h2 id="原型分析">原型分析&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">control_inputs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>arguments：control_inputs: A list of &lt;code>Operation&lt;/code> or &lt;code>Tensor&lt;/code> objects
+which must be executed or computed before running the operations
+defined in the context. （注意这里control_inputs是list）
+return： A context manager that specifies control dependencies
+for all operations constructed within the context.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1"># `d` and `e` will only run after `a`, `b`, and `c` have executed.&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以嵌套&lt;code>control_dependencies&lt;/code> 使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1"># Ops constructed here run after `a` and `b`.&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1"># Ops constructed here run after `a`, `b`, `c`, and `d`.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以传入&lt;code>None&lt;/code> 来消除依赖：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1"># Ops constructed here run after `a` and `b`.&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1"># Ops constructed here run normally, not waiting for either `a` or `b`.&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1"># Ops constructed here run after `c` and `d`, also not waiting&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="c1"># for either `a` or `b`.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：控制依赖只对那些在上下文环境中建立的操作有效，仅仅在context中使用一个操作或张量是没用的&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># WRONG&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="k">def&lt;/span> &lt;span class="nf">my_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">matmul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tensor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="c1"># The matmul op is created outside the context, so no control&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="c1"># dependency will be added.&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">t&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># RIGHT&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="k">def&lt;/span> &lt;span class="nf">my_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="c1"># The matmul op is created in the context, so a control dependency&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="c1"># will be added.&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">matmul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tensor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>例子：在训练模型时我们每步训练可能要执行两种操作，op a, b 这时我们就可以使用如下代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">no_op&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;train&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#tf.no_op；什么也不做&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 在这样简单的要求下，可以将上面代码替换为：&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其他关于&lt;code>tf.identity()&lt;/code>的奇怪操作可见&lt;a href="https://blog.csdn.net/u012436149/article/details/72084744">https://blog.csdn.net/u012436149/article/details/72084744&lt;/a>&lt;/p>
+&lt;p>使用&lt;code>tf.no_op()&lt;/code>是一个占位符，表示什么都不做，但是会返回一个operation，用以保证&lt;code>tf.control_dependencies()&lt;/code>被执行，和&lt;code>tf.group&lt;/code>操作类似。&lt;/p>
+&lt;p>版权声明：本文为CSDN博主「PKU_Jade」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：&lt;a href="https://blog.csdn.net/PKU_Jade/article/details/73498753">https://blog.csdn.net/PKU_Jade/article/details/73498753&lt;/a>&lt;/p></description></item><item><title>tensorflow-1和2的区别直观理解</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-1%E5%92%8C2%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3/</link><pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-1%E5%92%8C2%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3/</guid><description>
+&lt;h2 id="tensorflow-1-和-2-区别直观理解---omit-in-toc---">Tensorflow 1 和 2 区别直观理解&lt;!-- omit in toc -->&lt;/h2>
+&lt;ol>
+&lt;li>1.X的感觉和过去用的ns3很像，默认方式是先要定义一个静态结构，然后训练操作流程时独立的。这样运行效率比较高，但是调试起来费劲。最直观的一点，就是一些在函数中预先定义静态结构“彷佛”是不执行的，这造成有些写在后面的语句彷佛先执行了一样。2.X默认采用动态图处理的方式，和python风格更接近（Eager execution）。&lt;/li>
+&lt;li>1.X版本有很多额外的概念比如，graph，session，run，placeholder，feed_dict这些，这些其实和静态模型构建息息相关，在2.X版本中不再使用了。&lt;/li>
+&lt;li>1.X的tensorflow像一个平台工具，只是借用了python语言，tensorflow 1.X本身更像是一种描述神经网络模型的语言，2.X版本更像python的一个包。&lt;/li>
+&lt;li>1.X中的变量空间和命名空间使得变量管理比较复杂，并大量依赖隐式全局名称空间（这点类似c++），还有一些必须的初始化比如&lt;code>tf.global_variables_initializer()&lt;/code>， 2.X消除了所有这些机制，支持跟踪变量。（根据这第1点和第4点我特别怀疑1.X的设计者C++用的很6）&lt;/li>
+&lt;li>2.X版本中默认使用keras作为高级API， 1.X中需要自己装。在1.X中使用keras反而更容易移植到2.X。&lt;/li>
+&lt;li>1.X中一些API很难找，而且位置分类有很多争议，2.X版本重新归纳整理了API。&lt;/li>
+&lt;/ol></description></item><item><title>机器学习-七种回归分析</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%B8%83%E7%A7%8D%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%B8%83%E7%A7%8D%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</guid><description>
+&lt;h2 id="七种回归分析">七种回归分析&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#什么是回归分析">什么是回归分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#为什么要用回归分析--预测">为什么要用回归分析？--&amp;gt;预测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#回归分析的种类">回归分析的种类&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性回归">线性回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#着重强调">着重强调&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#logistic回归">Logistic回归&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#它是如何工作的">它是如何工作的&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#注意点">注意点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#何时适用">何时适用&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#polynomial_regression">Polynomial_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#stepwise_regression">Stepwise_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ridge_regression">Ridge_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lasso_regression">Lasso_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#elasticnet_regression">ElasticNet_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#如何选择正确的回归分析算法">如何选择正确的回归分析算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="什么是回归分析">什么是回归分析&lt;/h2>
+&lt;p>回归分析是一种预测模型来研究因变量和自变量（们）之间的关系。例如，研究开快车和路上交通事故直接的关系。回归分析也是一种重要的数据建模与分析工具。我们想找到一条曲线/直线，尽可能的通过各个点，使线和点之间的总误差尽可能小。&lt;/p>
+&lt;h2 id="为什么要用回归分析--预测">为什么要用回归分析？--&amp;gt;预测&lt;/h2>
+&lt;p>如上所述，回归分析是一种估计两个或多个变量之间关系的。比如，我们想基于现在的经济状况估计一个公司的销售情况。根据近期的公司数据，销量的增长大约是经济增长的2.5倍。这样，我们可以依靠现有和过去的信息预测未来公司的销量。&lt;/p>
+&lt;p>使用回归分析的优点有两种：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>发现自变量和因变量之间的显著关系&lt;/li>
+&lt;li>发现各个自变量对因变量的影响程度&lt;/li>
+&lt;/ol>
+&lt;h2 id="回归分析的种类">回归分析的种类&lt;/h2>
+&lt;p>有许多种回归分析可以用来做预测？这些技术通常由三个维度驱动（自变量的数量，因变量的类型和回归曲线的形状），如下所示：&lt;/p>
+&lt;img src="../../images/regression_classification.png" alt="回归分析的种类" />
+&lt;center>
+图1 回归分析的种类
+&lt;/center>
+&lt;p>如果你富有创造性，也可以创造出新的回归方式，综合上面多种参数。在此之前，让我们来了解最常用的回归方式:&lt;/p>
+&lt;h3 id="线性回归">线性回归&lt;/h3>
+&lt;p>线性回归是最广为人知的建模技术，也是人们最先选择的回归预测模型。在这个技术中，自变量可以是离散的，也可以是连续的，但是&lt;strong>因变量必须是连续的&lt;/strong>。而且双方是一种线性关系。&lt;/p>
+&lt;p>线性回归使用最佳的拟合&lt;strong>直线&lt;/strong>（也就是回归线）在&lt;strong>因变量（Y）&lt;/strong>和一个或多个&lt;strong>自变量（X(s)）&lt;/strong>之间建立一种&lt;strong>线性&lt;/strong>关系。&lt;/p>
+&lt;p>这种关系可以用&lt;span class="math">\(Y=a+b*x+e\)&lt;/span>来表示。其中，a是截距，b是直线的斜率，e是误差项。这个公式可以通过给定的一些预测参数来预测目标值。&lt;/p>
+&lt;img src="../../images/linear_regression.png" alt="图2 线性回归" />
+&lt;center>
+图2 线性回归
+&lt;/center>
+&lt;p>单线性回归和多线性回归的区别是：多线性回归有多余1个自变量，而单线性回归只有一个自变量。现在的问题是“如何最适曲线？”。&lt;/p>
+&lt;p>如何最适曲线？&lt;/p>
+&lt;p>答案是寻找最小均方误差，这是回归分析最常用的方式。 &lt;span class="math">\[min\|Xw-y\|^2_2\]&lt;/span> 我们可以通过R-square来衡量模型的性能。更多的细节可以参考这篇文章&lt;a href="https://www.analyticsvidhya.com/blog/2015/01/model-performance-metrics-classification/">《11 Important Model Evaluation Metrics for Machine Learning Everyone should know》&lt;/a>&lt;/p>
+&lt;h3 id="着重强调">着重强调&lt;/h3>
+&lt;ul>
+&lt;li>自变量和因变量之间必须要有线性关系！&lt;/li>
+&lt;li>多变量回归容易收到&lt;strong>多重共线性，自相关和异方差性影响&lt;/strong>&lt;/li>
+&lt;li>线性回归对&lt;strong>异常值很敏感&lt;/strong>，它会对线性回归和最终的预测值产生糟糕的影响&lt;/li>
+&lt;li>多重共线性会增加系数估计的方差，使模型对微小的变动十分敏感。结果会导致系数估计不稳定&lt;/li>
+&lt;li>在多个独立自变量的场景下，我们可以使用前向选择，后向消除和逐步法来选择最显著的独立变量&lt;/li>
+&lt;/ul>
+&lt;h3 id="logistic回归">Logistic回归&lt;/h3>
+&lt;p>Logistic回归是用来区分Event=Success或Event=Failure概率的方法。我们在因变量是&lt;strong>二元变量&lt;/strong>（0/1，True/False，Yes/No）的回归分析中可以使用Logistic回归。&lt;/p>
+&lt;p>Logistic回归也是从统计学中借鉴来的，尽管名字里有回归俩字儿，但它不是一个需要预测连续结果的回归算法。与之相反，Logistic 回归是二分类任务的首选方法。它输出一个 0 到 1 之间的离散二值结果。简单来说，它的结果不是 1 就是 0。癌症检测算法可看做是 Logistic回归问题的一个简单例子，这种算法输入病理图片并且应该辨别患者是患有癌症（1）或没有癌症（0）。&lt;/p>
+&lt;h4 id="它是如何工作的">它是如何工作的&lt;/h4>
+&lt;p>Logistic 回归通过使用其固有的 logistic 函数估计概率，来衡量因变量（我们想要预测的标签）与一个或多个自变量（特征）之间的关系。&lt;/p>
+&lt;p>然后这些概率必须二值化才能真地进行预测。这就是 logistic 函数的任务，也称为 Sigmoid 函数。Sigmoid 函数是一个 S 形曲线，它可以将任意实数值映射到介于 0 和 1 之间的值，但并不能取到 0或1。然后使用阈值分类器将 0 和 1 之间的值转换为 0 或 1。&lt;/p>
+&lt;p>下面的图片说明了 logistic 回归得出预测所需的所有步骤。&lt;/p>
+&lt;img src="../../images/logistic_regression.png" alt="logistic回归步骤图" />
+&lt;center>
+图3 logistic回归步骤图
+&lt;/center>
+&lt;p>下面是 logistic 函数（sigmoid 函数）的图形表示：&lt;/p>
+&lt;img src="../../images/sigmoid.png" alt="sigmoid 函数" />
+&lt;center>
+图4 Sigmoid函数
+&lt;/center>
+&lt;h4 id="注意点">注意点&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>常被用于分类问题。&lt;/li>
+&lt;li>Logistic回归不需要自变量和因变量有线性关系，因为是非线性的log变换。&lt;/li>
+&lt;li>为了避免过拟合和欠拟合，我们应该包括所有重要的变量。确保这一过程的一个好方法是使用逐步的方式来估计Logistic回归。&lt;/li>
+&lt;/ol>
+&lt;h4 id="何时适用">何时适用&lt;/h4>
+&lt;p>就像我已经提到的那样，Logistic 回归通过线性边界将你的输入分成两个「区域」，每个类别划分一个区域。因此，你的数据应当是线性可分的，如下图所示的数据点：&lt;/p>
+&lt;img src="../../images/Logistic回归线性可分.png" alt="Logistic回归线性可分" />
+&lt;center>
+图5 Logistic回归线性可分
+&lt;/center>
+&lt;p>换句话说：当 Y 变量只有两个值时（例如，当你面临分类问题时），您应该考虑使用逻辑回归。注意，你也可以将 Logistic 回归用于多类别分类。其他常见的分类算法有朴素贝叶斯、决策树、随机森林、支持向量机、k-近邻等等。我们将在其他文章中讨论它们，但别被这些机器学习算法的数量吓到。请注意，最好能够真正了解 4 或 5 种算法，并将精力集中在特征处理上，这也是未来工作的主题。&lt;/p>
+&lt;h3 id="polynomial_regression">Polynomial_Regression&lt;/h3>
+&lt;p>多项式回归。如果回归方程中自变量的阶数大于1，为多项式形式，则为多项式回归。&lt;/p>
+&lt;blockquote>
+&lt;p>e.g. &lt;span class="math">\(y=a+bx^2\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>这种回归得到是曲线，而不像线性回归是直线。多项式回归可以通过提高多项式的阶数来更好的拟合曲线。但是如果阶数（特征）设置的太多，特别是当特征数和训练点数相仿时，&lt;strong>拟合就趋近于插值&lt;/strong>。对于训练集，曲线将会特别好的符合，但是无法泛化的测试集中。这种现象被称为&lt;strong>过拟合&lt;/strong>。过拟合可以通过降低多项式级数（减少特征数）或者正规化来解决。&lt;/p>
+&lt;p>欠拟合，拟合与过拟合可以由图6表示。&lt;/p>
+&lt;embed src="../../images/underfitting-overfitting.webp" />
+&lt;center>
+图6 欠拟合，拟合与过拟合
+&lt;/center>
+&lt;h3 id="stepwise_regression">Stepwise_Regression&lt;/h3>
+&lt;p>逐步回归。与平时所说的 regression analysis 不太相同，stepwise regression 可以算是一种 feature extraction 的方法。&lt;/p>
+&lt;p>举个例子，假如我们的数据中有一个因变量，但却有十几或几十个自变量。为了便于对变量数过多的数据进行处理，避免 “curse of dimensionality” 中可能出现的种种问题，我们总是会对数据进行降维，根据在特定领域中的知识或是理论假设，选择其中一些可能更有意义的变量进行后续分析。但不是任何情况下我们都掌握这些先验信息，所以基于数据本身的特征提取方法应运而生。&lt;/p>
+&lt;p>在 stepwise regression 中，提取哪些变量主要基于的假设是：在线性条件下，哪些变量组合能够解释更多的因变量变异，则将其保留。&lt;/p>
+&lt;p>具体操作方法有三种：&lt;/p>
+&lt;p>Forward selection: 首先模型中只有一个单独解释因变量变异最大的自变量，之后尝试将加入另一自变量，看加入后整个模型所能解释的因变量变异是否显著增加（这里需要进行检疫，可以用 F-test， t-test 等等）；这一过程反复迭代，直到没有自变量再符合加入模型的条件。&lt;/p>
+&lt;p>Backward elimination: 与 Forward selection 相反，此时，所有变量均放入模型，之后尝试将其中一个自变量从模型中剔除，看整个模型解释因变量的变异是否有显著变化，之后将使解释量减少最少的变量剔除；此过程不断迭代，直到没有自变量符合剔除的条件。&lt;/p>
+&lt;p>Bidirectional elimination: 这种方法相当于将前两种结合起来。可以想象，如果采用第一种方法，每加入一个自变量，可能会使已存在于模型中的变量单独对因变量的解释度减小，当其的作用很小（不显著）时，则可将其从模型中剔除。而第三种方法就做了这么一件事，不是一味的增加变量，而是增加一个后，对整个模型中的所有变量进行检验，剔除作用不显著的变量。最终尽可能得到一个最优的变量组合。&lt;/p>
+&lt;p>可以想象，这样得到的变量组合，基于当前数据，应该是可以最大程度的解释因变量的变异，但其反面的作用就是会使模型有偏，即所谓的 overfitting 问题；另外，鉴于算法是基于变量解释度来进行特征提取的，当两个变量对因变量的影响相近时，则不免受到较大的噪声影响，使特征提取结果不稳定。&lt;/p>
+&lt;h3 id="ridge_regression">Ridge_Regression&lt;/h3>
+&lt;p>当使用最小二乘法计算线性回归模型参数的时候，如果数据集合矩阵（也叫做设计矩阵(design matrix)）X，存在多重共线性，那么最小二乘法对输入变量中的噪声非常的敏感，其解会极为不稳定。为了解决这个问题，就有了这一节脊回归（Ridge Regression ）。&lt;/p>
+&lt;p>当设计矩阵&lt;span class="math">\(X\)&lt;/span>存在多重共线性的时候（数学上称为病态矩阵），最小二乘法求得的参数&lt;span class="math">\(w\)&lt;/span>在数值上会非常的大，而一般的线性回归其模型是&lt;span class="math">\(y=w^Tx\)&lt;/span>，显然，就是因为&lt;span class="math">\(w\)&lt;/span>在数值上非常的大，所以，如果输入变量&lt;span class="math">\(x\)&lt;/span>有一个微小的变动，其反应在输出结果上也会变得非常大，这就是对输入变量总的噪声非常敏感的原因。&lt;/p>
+&lt;p>如果能限制参数&lt;span class="math">\(w\)&lt;/span>的增长，使&lt;span class="math">\(w\)&lt;/span>不会变得特别大，那么模型对输入&lt;span class="math">\(w\)&lt;/span>中噪声的敏感度就会降低。这就是脊回归和套索回归（Ridge Regression and Lasso Regrission）的基本思想。&lt;/p>
+&lt;p>为了限制模型参数&lt;span class="math">\(w\)&lt;/span>的数值大小，就在模型原来的目标函数上加上一个惩罚项，这个过程叫做正则化（Regularization）。&lt;/p>
+&lt;p>如果惩罚项是参数的&lt;span class="math">\(l_2\)&lt;/span>范数，就是脊回归(Ridge Regression)&lt;/p>
+&lt;p>如果惩罚项是参数的&lt;span class="math">\(l_1\)&lt;/span>范数，就是套索回归（Lasso Regrission）&lt;/p>
+&lt;p>正则化同时也是防止过拟合有效的手段，这在“多项式回归”中有详细的说明。&lt;/p>
+&lt;p>所谓脊回归，就是对于一个线性模型，&lt;strong>在原来的损失函数加入参数的&lt;span class="math">\(l_2\)&lt;/span>范数的惩罚项&lt;/strong>，其损失函数为如下形式: &lt;span class="math">\[J_w=\min_w{\|X-w\|^2+\alpha\|w\|^2},\alpha&amp;gt;0\]&lt;/span> 由于&lt;span class="math">\(w\)&lt;/span>最小化整个式子，如果&lt;span class="math">\(w\)&lt;/span>本身特别大，第二项就会很大，这样就限制了&lt;span class="math">\(w\)&lt;/span>的大小。&lt;/p>
+&lt;p>&lt;span class="math">\(α\)&lt;/span>的数值越大，那么正则项，也是惩罚项的作用就越明显；&lt;span class="math">\(α\)&lt;/span>的数值越小，正则项的作用就越弱。极端情况下，&lt;span class="math">\(α=0\)&lt;/span>则和原来的损失函数是一样的，如果&lt;span class="math">\(α=∞\)&lt;/span>，则损失函数只有正则项，此时其最小化的结果必然是&lt;span class="math">\(w=0\)&lt;/span>。&lt;/p>
+&lt;p>之前，我们根据线性回归判断参数的解为： &lt;span class="math">\[w=(X^TX)^{-1}X^Ty\]&lt;/span> 同理，脊回归的损失函数为： &lt;span class="math">\[\|Xw-y\|^2+\alpha\|w\|^2=(Xw-y)^T(Xw-y)+\alpha w^T w\]&lt;/span> 对于参数&lt;span class="math">\(w\)&lt;/span>求导之后，极值为0： &lt;span class="math">\[X^T(Xw-y)+X^T(Xw-y)+2\alpha w=0\]&lt;/span> 解得： &lt;span class="math">\[w=(X^T X+\alpha I)^{-1}X^Ty\]&lt;/span>&lt;/p>
+&lt;h3 id="lasso_regression">Lasso_Regression&lt;/h3>
+&lt;p>Lasso回归全称是(Least Absolute Shrinkage and Selection Operator)，它使用L1范数作为惩罚项。 &lt;span class="math">\[\|Xw-y\|^2+\alpha|w|\]&lt;/span>&lt;/p>
+&lt;h3 id="elasticnet_regression">ElasticNet_Regression&lt;/h3>
+&lt;p>弹性网络是一种使用 L1，L2范数作为先验正则项训练的线性回归模型.这种组合允许学习到一个只有少量参数是非零稀疏的模型，就像 Lasso一样，但是它仍然保持一些像Ridge的正则性质。我们可利用 l1_ratio 参数控制L1和L2的凸组合。弹性网络是一不断叠代的方法。&lt;/p>
+&lt;h2 id="如何选择正确的回归分析算法">如何选择正确的回归分析算法&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>数据探索是构建预测模型的必然部分。这是选择正确的模型（例如确定变量之间的关系和影响）之前的第一步。&lt;/li>
+&lt;li>为了比较不同模型的适用性，我们需要不同维度的分析，例如参数的统计特性，R-square, Adjusted r-square, AIC, BIC和误差项等。另一个方法是使用Mallow’s Cp 准则。 This essentially checks for possible bias in your model, by comparing the model with all possible submodels (or a careful selection of them).&lt;/li>
+&lt;li>Cross-validation is the best way to evaluate models used for prediction. Here you divide your data set into two group (train and validate). A simple mean squared difference between the observed and predicted values give you a measure for the prediction accuracy.&lt;/li>
+&lt;li>If your data set has multiple confounding variables, you should not choose automatic model selection method because you do not want to put these in a model at the same time.&lt;/li>
+&lt;li>It’ll also depend on your objective. It can occur that a less powerful model is easy to implement as compared to a highly statistically significant model.&lt;/li>
+&lt;li>Regression regularization methods(Lasso, Ridge and ElasticNet) works well in case of high dimensionality and multicollinearity among the variables in the data set.&lt;/li>
+&lt;/ol>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1] 7 Regression Techniques you should know!&lt;a href="https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/">https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/&lt;/a>&lt;/p></description></item><item><title>机器学习-梯度下降算法汇总（1）</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB1/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB1/</guid><description>
+&lt;h2 id="梯度下降算法1">梯度下降算法（1）&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#梯度下降法与梯度计算">梯度下降法与梯度计算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#计算梯度通过微积分计算解析梯度">计算梯度②通过微积分计算解析梯度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#各种梯度下降法">各种梯度下降法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#batch_gradient_descent">Batch_gradient_descent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#stochastic_gradient_descent">Stochastic_gradient_descent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#mini-batch_gradient_descent">Mini-batch_gradient_descent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#挑战">挑战&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#梯度优化算法">梯度优化算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#momentum">Momentum&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nesterov加速梯度法">Nesterov加速梯度法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#未完待续">未完待续&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>本文首先查看了多种梯度下降算法，并总结了数据训练过程中遇到的挑战。接下来，我们介绍了最常用的梯度优化算法，并指出它们做出这些算法优化的缘由。我们还会简要的说明如何在并行与分布式场景下优化梯度下降算法。最后，我们会追加一些优化梯度下降算法的有用策略。&lt;/p>
+&lt;h3 id="梯度下降法与梯度计算">梯度下降法与梯度计算&lt;/h3>
+&lt;p>从最基本的来说，梯度下降算法是一个通过向负梯度方向(-∇θJ(θ))，更新参数θ来最小化目标函数J(θ)的方法。还有超参数学习率η决定我们向（本地）最优移动的步长。计算梯度，可以有两种办法，①缓慢、近似但是最简单的办法（数值梯度）②快速、精确但是更易于出错的微积分方法（解析梯度）。我们分别介绍：&lt;/p>
+&lt;h4 id="计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/h4>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">def&lt;/span> eval_numerical_gradient(f, x):
+&lt;span class="co">&amp;quot;&amp;quot;&amp;quot;&lt;/span>
+&lt;span class="co"> a naive implementation of numerical gradient of f at x&lt;/span>
+&lt;span class="co"> - f should be a function that takes a single argument&lt;/span>
+&lt;span class="co"> - x is the point (numpy array) to evaluate the gradient at&lt;/span>
+&lt;span class="co"> &amp;quot;&amp;quot;&amp;quot;&lt;/span>
+fx = f(x) &lt;span class="co"># evaluate function value at original point&lt;/span>
+grad = np.zeros(x.shape)
+h = &lt;span class="fl">0.00001&lt;/span>
+&lt;span class="co"># iterate over all indexes in x&lt;/span>
+it = np.nditer(x, flags=[&lt;span class="st">&amp;#39;multi_index&amp;#39;&lt;/span>], op_flags=[&lt;span class="st">&amp;#39;readwrite&amp;#39;&lt;/span>])
+&lt;span class="kw">while&lt;/span> not it.finished:
+&lt;span class="co"># evaluate function at x+h&lt;/span>
+ix = it.multi_index
+old_value = x[ix]
+x[ix] = old_value + h &lt;span class="co"># increment by h&lt;/span>
+fxh = f(x) &lt;span class="co"># evalute f(x + h)&lt;/span>
+x[ix] = old_value &lt;span class="co"># restore to previous value (very important!)&lt;/span>
+&lt;span class="co"># compute the partial derivative&lt;/span>
+grad[ix] = (fxh - fx) / h &lt;span class="co"># the slope&lt;/span>
+it.iternext() &lt;span class="co"># step to next dimension&lt;/span>
+&lt;span class="kw">return&lt;/span>&lt;/code>&lt;/pre>
+&lt;p>grad这个函数在每一个维度上前进了一小步（h=0.00001）,并近似计算出每一个维度的偏导数，最后组成梯度。实际上，更好的方式是使用&lt;strong>中心差分公式&lt;/strong>作为偏导数计算：&lt;span class="math">\([f(x+h)−f(x−h)]/2h\)&lt;/span>。解释在:&lt;/p>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Numerical_differentiation">https://en.wikipedia.org/wiki/Numerical_differentiation&lt;/a>&lt;/p>
+&lt;p>需要指出的是超参数步长（学习率）的设置是什么重要（也是十分令人头疼的步骤），步长小收敛的速度慢，步长大容易直接跳到极值点的另一侧。&lt;/p>
+&lt;p>基于数值的梯度计算方法需要计算很多次目标函数，参数有多少个维度，就要计算多少次偏导，就要计算多少次目标函数，十分低效。对于现代神经网络动辄有成千上万的维度，计算一次梯度就要花费那么大计算量，十分不值得。而且每次计算梯度，只能获得h（步长）的收益，更使得计算量难以估计。&lt;/p>
+&lt;h4 id="计算梯度通过微积分计算解析梯度">计算梯度②通过微积分计算解析梯度&lt;/h4>
+&lt;p>我们可以通过解析方式（求导）计算梯度的解析解，这无疑又快有精确，但是对于复杂函数求导，实际计算很容易出错，所以我们常常使用数值梯度计算来验证解析梯度的正确性，又被称为&lt;strong>梯度检查（gradient check）&lt;/strong>。通过解析解求梯度只需要计算一次，即将当前点带入梯度式子即可。&lt;/p>
+&lt;h3 id="各种梯度下降法">各种梯度下降法&lt;/h3>
+&lt;p>有三种梯度下降法的变种，差别在于我们使用&lt;strong>多少数据&lt;/strong>来计算目标函数的梯度。根据数据量，我们在参数的精度和所花的时间之间做权衡。&lt;/p>
+&lt;h4 id="batch_gradient_descent">Batch_gradient_descent&lt;/h4>
+&lt;p>Batch gradient descent（Vanilla gradient descent，批量梯度下降，BGD），这就是最基本的梯度下降法，每次运行梯度运算会把所有的训练数据都带入计算，所以它的运行速度十分缓慢，并且在大数据寄情况下，能够导致内存溢出。同时，BGD不允许我们在线更新模型，因为它要把所有数据都跑一遍。总的来说，代码如下：&lt;/p>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
+params_grad = evaluate_gradient(loss_function, data, params)
+params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
+&lt;p>在给定的循环次数内，我们首先要计算损失函数在整个数据集(data)上的梯度向量，来更新我们的参数向量params。现在很多深度学习库都提供自动差分计算能力，来求解梯度。如果你自己求解梯度，需要注意进行梯度检查。 我们接下来会根据整体数据集的负梯度和学习率来更新参数。BGD对于凸的目标函数有收敛的全局最优解，对于非凸函数有局部最优解。&lt;/p>
+&lt;img src="../../images/bgd.png" alt="图1 BGD" />
+&lt;center>
+图1 BGD
+&lt;/center>
+&lt;h4 id="stochastic_gradient_descent">Stochastic_gradient_descent&lt;/h4>
+&lt;p>随机梯度下降，SGD。与此相反，随机梯度下降只根据每一个（？？）训练数据进行一次参数更新。 &lt;span class="math">\[θ=θ−η⋅∇θJ(θ;x(i);y(i)).\]&lt;/span> BGD对于大数据集做了许多冗余的运算（我觉得不能叫冗余，而是信价比很低），因为它在更新参数之前，重复计算了很多相似数据的梯度。SGD通过每次只做一次更新来原理这种冗余。所以，SGD会快很多，且常常被用于在线学习。 SGD会以较高的方差频繁的更新，导致目标函数的抖动十分剧烈，如图2所示。&lt;/p>
+&lt;img src="../../images/sgd_fluc.png" alt="图2: SGD抖动" />
+&lt;center>
+图2: SGD抖动
+&lt;/center>
+&lt;p>不同于BGD稳定地向目标函数最小值前进，SGD的抖动从另一个角度来说使它有机会跳出局部最优找到更好的局部解（甚至最优解，参考模拟退火）。但是，这给收敛带来了很大问题。解决的方案就是&lt;strong>逐步降低学习率&lt;/strong>，这使得SGD有着和BGD相似的收敛能力。代码如下所示：&lt;/p>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
+np.random.shuffle(data)
+&lt;span class="kw">for&lt;/span> example in data:
+params_grad = evaluate_gradient(loss_function, example,params)
+params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
+&lt;img src="../../images/sgd.png" alt="图3 SGD" />
+&lt;center>
+图3 SGD
+&lt;/center>
+&lt;h4 id="mini-batch_gradient_descent">Mini-batch_gradient_descent&lt;/h4>
+&lt;p>最小batch梯度下降，MBGD综合了两种（BGD）的策略，每次选取一组最小batch（n个数据）进行训练。 &lt;span class="math">\[θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）\]&lt;/span> 这个办法a)降低了每次更新的抖动，更加容易收敛；b）计算效率高。通常最小batch的范围在50-256之间。&lt;/p>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
+np.random.shuffle(data)
+&lt;span class="kw">for&lt;/span> batch in get_batches(data, batch_size=&lt;span class="dv">50&lt;/span>):
+params_grad = evaluate_gradient(loss_function, batch, params)
+params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
+&lt;img src="../../images/mbgd.png" alt="图4 MBGD" />
+&lt;center>
+图4 MBGD
+&lt;/center>
+&lt;p>总结表格，各种算法实现：&lt;/p>
+&lt;p>&lt;a href="https://github.com/tsycnh/mlbasic">https://github.com/tsycnh/mlbasic&lt;/a> |梯度下降算法|优点|缺点| |:-:|:-:|:-:| |BGD|凸优化全局最优|计算量大，迭代速度慢，训练速度慢 |SGD|训练速度快，支持在线学习|准确度下降，有噪声，非全局最优 |MBGD|1. 训练速度较快, 取决于小批量的数目 2. 支持在线学习|准确度不如 BGD, 仍然有噪声, 非全局最优解&lt;/p>
+&lt;h3 id="挑战">挑战&lt;/h3>
+&lt;p>从上面可以看出，在优化中MBGD无疑是折衷下最佳方案。但是单纯的MBGD算法没有办法确保收敛，并且提供了一系列需要解决的问题：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>选择一个&lt;strong>合适的学习&lt;/strong>率非常困难。小的收敛慢，大的可能不收敛，或者在最小值周边浮动。&lt;/li>
+&lt;li>学习率规划尝试在训练中调节学习率，例如退火：根据一个预定的机制或目标变动之低于一个门限，就降低学习率。但是，这个调节机制或门限需要预先设定，并且不能够根据数据集特点自适应。&lt;/li>
+&lt;li>此外，相同的学习率被应用于所有的参数更新。但是如果我们的数据是稀疏的，同时特点有非常不同的频率，我们可能希望更新的程度是相当不同的，比如对于一个很少发生的事情一次性做一个大幅度的更新。&lt;/li>
+&lt;li>另一个关键挑战是避免陷入神经网络中常见的最小化非凸误差函数的局部最小值。Dauphin et al指出&lt;strong>鞍点&lt;/strong>的存在使得问题更加难解，如果一个维度使得误差函数值上升而另一个维度使得误差值下降。这些鞍点通常被一个相同误差的平台所包围，这使得SGD难以逃脱，因为梯度在所有维度上都接近于零。&lt;/li>
+&lt;/ol>
+&lt;h3 id="梯度优化算法">梯度优化算法&lt;/h3>
+&lt;p>在接下来的文章中，我们将概述一些被深度学习社区广泛使用的算法来处理上述挑战。我们不会讨论在高维数据集的实际计算中不可行的算法，例如二阶方法，如牛顿法。&lt;/p>
+&lt;h4 id="momentum">Momentum&lt;/h4>
+&lt;p>Momentum，动量法。SGD对避开“沟壑”有问题，例如，通常在局部最优附近，某一维度会远比其他维度陡峭。在这些情况下，SGD在沟谷的斜坡上振荡，而只在底部向局部最优方向缓慢前进，如图5所示：&lt;/p>
+&lt;img src="../../images/sgd_without_momentum.png" alt="图5：不加动量的SGD" />
+&lt;center>
+图5：不加动量的SGD
+&lt;/center>
+&lt;p>动量是一种在相关方向上加速SGD并抑制振荡的方法，如图6所示。它通过将过去的一部分分量，加到当前更新矢量来实现。 &lt;span class="math">\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta)\]&lt;/span> &lt;span class="math">\[\theta = \theta - v_t\]&lt;/span>&lt;/p>
+&lt;img src="../../images/momentum_vector.png" alt="图6：动量法矢量示意图" />
+&lt;center>
+图6：动量法矢量示意图
+&lt;/center>
+&lt;img src="../../images/sgd_with_momentum.png" alt="图7： 加动量的SGD" />
+&lt;center>
+图7： 加动量的SGD
+&lt;/center>
+&lt;p>γ通常是0.9，或者相似的值。&lt;/p>
+&lt;p>本质上，当使用动量时，我们把球推下山。当球滚下山时，它积累了动量，在途中变得越来越快。同样的事情也发生在我们的参数更新上：动量项对于梯度指向相同方向的维度增加，对于梯度改变方向的维度减少更新。因此，我们获得更快的收敛速度和减少振荡。（&lt;strong>通过仿真，确实降低振动，收敛更快&lt;/strong>）&lt;/p>
+&lt;img src="../../images/momentum.png" alt="图8 Momentum动量法" />
+&lt;center>
+图8 Momentum动量法
+&lt;/center>
+&lt;h4 id="nesterov加速梯度法">Nesterov加速梯度法&lt;/h4>
+&lt;p>Nesterov accelerated gradient修正动量，不让动量冲的太猛。&lt;/p>
+&lt;p>然而，当一个球滚下山坡从而带有一个初始动量之后，这个动量在其他位置就是盲目的，表现并不能令人满意。现在我们假设有一个智能球，知道这个初始动量将会把它带到何处，这样就可以提前做出一些修正，而不是仅仅用当前点的梯度来作为接下来动量的增量。&lt;/p>
+&lt;p>Nesterov加速梯度法，是一种能够提升动量精确性的方法。我们知道，在参数θ处，会带有一个初始动量γvt-1 。如果我们直接计算θ-γvt-1 处的梯度（这是估计的梯度），然后将这个梯度作为修正值来叠加在原始动量上，可以获得更加优良的效果。公式如下所示:（γ一般取0.9） &lt;span class="math">\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} )\]&lt;/span> &lt;span class="math">\[\theta = \theta - v_t \]&lt;/span>&lt;/p>
+&lt;p>根据动量法和NAG法，我们可以通过图9进行对比。动量法（Momentum）首先会计算当前位置的梯度（第一段蓝线），然后加上之前累计的初始动量（第二段蓝线），总的矢量和即为走的最终路线。而NAG方法，首先根据之前累计的初始动量前进（棕色的线），然后估计在经过这个动量之后位置的梯度（红线）作为修正，实际走的是二者之和（绿线）。NAG波动也小了很多。&lt;strong>实际上NAG方法用到了二阶信息，所以才会有这么好的结果。&lt;/strong>&lt;/p>
+&lt;img src="../../images/momentum_vs_nag.png" alt="图9 动量法（蓝线） vs NAG法（棕，红，绿）" />
+&lt;center>
+图9 动量法（蓝线） vs NAG法（棕，红，绿）
+&lt;/center>
+&lt;img src="../../images/momentum_nag.png" alt="图10 Momentum_NAG" />
+&lt;center>
+图10 Nesterov加速梯度法
+&lt;/center>
+&lt;h3 id="未完待续">未完待续&lt;/h3>
+&lt;p>既然我们能够使得我们的更新适应误差函数的斜率以相应地加速SGD，我们同样也想要使得我们的更新能够适应每一个单独参数，以根据每个参数的重要性决定大的或者小的更新。下一章将说明如何自适应更新参数。（Adagrad、RMSprop、Adadelta、Adam、MaxAdam等等）&lt;/p></description></item><item><title>机器学习-梯度下降算法汇总（2）</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB2/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB2/</guid><description>
+&lt;h2 id="梯度下降算法2">梯度下降算法（2）&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#梯度优化算法">梯度优化算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adagrad">Adagrad&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#rmsprop均方根传播">RMSprop(均方根传播)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adadelta">Adadelta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adam">Adam&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#我自己的实验到这里速度很慢了根本到不了一个理想值">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#adamax">AdaMax&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nadam">Nadam&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#amsgrad">AMSGrad&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lookahead新优化算法">Lookahead(新优化算法)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#算法可视化图">算法可视化图&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#优化器选择">优化器选择&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#并行与分布式sgd">并行与分布式SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#hogwild">Hogwild&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#downpour_sgd">Downpour_SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#delay-tolerant_algorithms_for_sgd">Delay-tolerant_Algorithms_for_SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tensorflow">TensorFlow&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#elastic_averaging_sgd">Elastic_Averaging_SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#优化sgd的其他策略">优化SGD的其他策略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#数据集的洗牌和课程学习">数据集的洗牌和课程学习&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#批量归一化">批量归一化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#early_stopping">Early_stopping&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#梯度噪音">梯度噪音&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#总结">总结&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>上一篇文章我们理解到了Adagrad算法，即一个逐渐降低学习率的算法。它带来一个弊端，学习率可能过早的太小，以致于离最优点还很远就收敛了。因此有人提出了RMSprop算法来缓解这个问题，我们这篇文章从这里开始讲起。原文中先将Adadelta，但是我觉得原文这里有些难以理解，所以先从RMSprop说起。&lt;/p>
+&lt;h3 id="梯度优化算法">梯度优化算法&lt;/h3>
+&lt;h4 id="adagrad">Adagrad&lt;/h4>
+&lt;p>Adagrad在原来基础上，做了这样一个优化：让学习率适应参数，对于出现次数较少的特征，我们对其采用更大的学习率，对于出现次数较多的特征，我们对其采用较小的学习率。因此，Adagrad非常适合处理稀疏数据。&lt;/p>
+&lt;p>之前的方法中，我们对于所有的参数&lt;span class="math">\(\boldsymbol{\theta}\)&lt;/span>，都是用相同的学习速率η。而在Adagrade算法中，对于每一个维度的参数&lt;span class="math">\({\theta}_i\)&lt;/span>，采用不同的学习速率。我们先看看&lt;span class="math">\({\theta}_i\)&lt;/span>每一个维度的更新过程，然后再把它向量化。简单来看，我们使用&lt;span class="math">\(\boldsymbol{g_t}\)&lt;/span>来表示t时刻的梯度向量，&lt;span class="math">\(g_{t,i}\)&lt;/span>表示某一维度参数&lt;span class="math">\({\theta}_i\)&lt;/span>在t时刻的&lt;strong>偏导数&lt;/strong>。 &lt;span class="math">\[g_{t,i}=\frac{{\partial}J(\boldsymbol{\theta_t)}}{d\theta_{t,i}}\]&lt;/span> 对于一般SGD算法，每一个周期t内，&lt;span class="math">\(\theta_{i}\)&lt;/span>在更新是采用相同的学习率：&lt;span class="math">\(\theta_{t+1,i}=\theta_{t,i}-\eta\cdot{g_{t,i}}\)&lt;/span>. 但是对于Adagrad算法，学习率的更新的规则如下所示： &lt;span class="math">\[\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}}+\epsilon}\cdot g_{t,i}\]&lt;/span> 其中，&lt;span class="math">\(\boldsymbol{G_t}\)&lt;/span>是d*d的对角矩阵，其中元素&lt;span class="math">\(G_{t,ii}\)&lt;/span>表示表示之前此维度偏导数的平方和。而&lt;span class="math">\(\epsilon\)&lt;/span>的存在是为了防止分母为0，一般取值为1e-8.有意思的是，如果没有平方根这个算法的效果会很差。 由于参数&lt;span class="math">\(G_t\)&lt;/span>包含过去梯度的平方和，我们可以向量化这个表达式： &lt;span class="math">\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]&lt;/span> 其中，&lt;span class="math">\(\odot\)&lt;/span>表示矩阵和向量的积。这样随着矩阵&lt;span class="math">\(\boldsymbol{G_t}\)&lt;/span>元素逐渐变大，学习率η会逐渐减少。Adagrad算法最大的问题在于：由于每增加一个正项，在整个训练过程中，累加的和会持续增长。这会导致学习率变小以至于最终变得无限小，在学习率无限小时，Adagrad算法将无法取得额外的信息，导致算法停止。尤其是初始值的梯度很大，导致算法提前收敛。接下来的算法旨在解决这个不足。&lt;/p>
+&lt;img src="../../images/adagrad.png" alt="Adagrad based MBGD" />
+&lt;center>
+图1 Adagrad效果(batch=5)Adagrad算法提前停止
+&lt;/center>
+&lt;h4 id="rmsprop均方根传播">RMSprop(均方根传播)&lt;/h4>
+&lt;p>RMSprop算法对学习率的自适应做出了修改。之前Adagrad算法中，学习率是一只下降的，为了避免过早收敛，Geoff Hinton 提出了一种新的学习率自动更新方式，类似TCP协议中平滑计算RTT的方式： &lt;span class="math">\[TCP的平均RTT : SRTT = \alpha \times SRTT + (1-\alpha)\times RTT\]&lt;/span> &lt;span class="math">\[RMSprop 学习率自适应参数: E[g^2]_t = \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t\]&lt;/span> 通常，&lt;span class="math">\(\gamma\)&lt;/span>取0.9，基础学习率&lt;span class="math">\(\eta\)&lt;/span>取0.001。我在实际使用中发现用0.001收敛的速度很慢，可以尝试使用0.2。而且损失函数的曲线明显平滑了许多。&lt;span class="math">\(E[g^2]_{t}\)&lt;/span>是0-&amp;gt;t时刻梯度的平滑值。综上所述，RMSprop的梯度更新算法为： &lt;span class="math">\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]&lt;/span> 另一个重要的建议是&lt;strong>mini-batch的值选区的大一些，否在防止震荡不收敛&lt;/strong>。&lt;/p>
+&lt;img src="../../images/rmsprop.png" alt="RMSprop based MBGD" />
+&lt;center>
+图2 RMSprop效果(batch=5)
+&lt;/center>
+&lt;h4 id="adadelta">Adadelta&lt;/h4>
+&lt;p>Adadelta算法是Adagrad算法的拓展,它能够降低Adagrad算法在学习率上单项的过度下降。相对于一直累加过去所有的梯度的平方，Adadelta算法管理了一个窗口,将过去梯度相加的个数固定为&lt;span class="math">\(\omega\)&lt;/span>。&lt;/p>
+&lt;p>但是相较于低效率地存储前&lt;span class="math">\(\omega\)&lt;/span>个梯度的平方，“梯度的和”被递归定义为逐渐衰减的之前所有梯度平方的和。这个定义有点像TCP协议中计算RTT的方式： &lt;span class="math">\[E[g^2]_t=\gamma E[g^2]_{t-1}+(1-\gamma)g^2_t\]&lt;/span> 在t时刻的实时平均&lt;span class="math">\(E[g^2]_{t}\)&lt;/span>只取决于之前的均值和当前的梯度。&lt;span class="math">\(\gamma\)&lt;/span>的作用和RMSprop中的类似，一般可以取0.9。为了清楚起见，我们重新写一般SGD算法的参数更新过程： &lt;span class="math">\[{\Delta}{\theta}_t = -{\eta}{\cdot}g_{t,i}\]&lt;/span> &lt;span class="math">\[{\theta}_{t+1} = {\theta}_t + {\Delta}{\theta}_t\]&lt;/span> 然后，我们再重写下Adagrad更新参数向量的公式： &lt;span class="math">\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]&lt;/span> 现在，我们只要把对角矩阵&lt;span class="math">\(G_t\)&lt;/span>换成逐渐衰减的梯度平方的均值&lt;span class="math">\({E[g^2]_t}\)&lt;/span>: &lt;span class="math">\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]&lt;/span> 如果我们认为&lt;span class="math">\({\sqrt{E[g^2]_t+{\epsilon}}}\)&lt;/span>近似等于均方根值RMS，也可以用下式表示： &lt;span class="math">\[\Delta\theta_t=-\frac{\eta}{RMS[g]_t}g_t\]&lt;/span> 到这里读者一定会很奇怪，这不是RMSprop算法吗？到这里如果把&lt;span class="math">\(\gamma\)&lt;/span>设置为0.9，确实和RMSprop算法一样，所以下面才说的Adadelta的独创。&lt;/p>
+我们看到目前的部分还存在两个明显问题，第一超参数学习率&lt;span class="math">\(\eta\)&lt;/span>还得手动设置；第二表达式的量纲不统一。我们假设&lt;span class="math">\(\theta\)&lt;/span>的单位是&lt;span class="math">\(x\)&lt;/span>。那么BGD、SGD、Momentum、NAG的量纲就是&lt;span class="math">\(1/x\)&lt;/span>。 &lt;span class="math">\[\Delta\theta单位\propto \boldsymbol{g}某一维度单位\propto\frac{\partial{f}}{\partial{\theta_i}}\propto\frac{1}{x}\]&lt;/span> 而Adagrad的&lt;span class="math">\(\Delta\theta\)&lt;/span>是无量纲数。如果我们想要获得匹配的量纲，必须使用二阶信息例如使用Hessian信息（或其他近似）的牛顿法： &lt;span class="math">\[\Delta\theta单位\propto \frac{\boldsymbol{g}}{\boldsymbol{H}}\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\propto{x}\]&lt;/span> 我们知道二阶的牛顿是正确的（这点先不去证明，反正是对的），但是二阶信息的计算量大大增加了，所以我们考虑如下变化： &lt;span class="math">\[\Delta\theta\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\Rightarrow\frac{\Delta\theta}{{\frac{\partial{f}}{\partial{\theta_i}}}}\propto\frac{1}{\frac{\partial^2f}{\partial{\theta^2}}}\propto\frac{1}{\boldsymbol{{H}}}\propto{x^2}\]&lt;/span> 再根据： &lt;span class="math">\[\frac{1}{\boldsymbol{H}}\cdot\boldsymbol{g}\propto{x}\]&lt;/span> &lt;span class="math">\(\boldsymbol{g}\)&lt;/span>即为当前梯度，分母中的&lt;span class="math">\(\frac{\partial{f}}{\partial{\theta_i}}\)&lt;/span>就是&lt;span class="math">\(RMS[g]_t\)&lt;/span>。关键分子还缺少一个&lt;span class="math">\(\Delta\theta\)&lt;/span>。Adadelta算法使用了平滑的均方根值&lt;span class="math">\(RMS[\Delta\theta]_{t-1}\)&lt;/span>来作为分子代替&lt;span class="math">\(\eta\)&lt;/span>，即： &lt;span class="math">\[\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]_t}g_t\]&lt;/span> &lt;span class="math">\[其中：RMS[\Delta \theta]_{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}\]&lt;/span> &lt;span class="math">\[其中：E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^2_t\]&lt;/span> 这样，Adadelta算法不用再设置超参数学习率，量纲也得到了统一。 &lt;img src="../../images/Adadelta.png" alt="Adadelta based MBGD" />
+&lt;center>
+图3 RMSprop效果(batch=5)
+&lt;/center>
+&lt;h4 id="adam">Adam&lt;/h4>
+&lt;p>自适应矩算法（Adaptive monent），是一种对随机目标函数执行一阶梯度优化的算法。其主要利用了&lt;strong>自适应性低阶矩估计&lt;/strong>。Adam 算法很容易实现，并且有很高的计算效率和较低的内存需求。Adam 算法梯度的对角缩放（diagonal rescaling）具有不变性，因此很适合求解带有大规模数据或参数的问题。该算法同样适用于解决大噪声和稀疏梯度的非稳态（non-stationary）问题。超参数可以很直观地解释，并只需要少量调整。&lt;/p>
+&lt;p>Adam算法的核心更新规律是： &lt;span class="math">\[\theta_{t+1} = \theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t\]&lt;/span> 和过去一样，&lt;span class="math">\(\eta\)&lt;/span>是学习率，&lt;span class="math">\(\hat m_t\)&lt;/span>是梯度的一阶矩，&lt;span class="math">\(\hat v_t\)&lt;/span>是梯度的二阶矩。我们用&lt;span class="math">\(g_t\)&lt;/span>表示t时刻的梯度。那么一阶矩&lt;span class="math">\(\hat m_t\)&lt;/span>和二阶矩&lt;span class="math">\(\hat v_t\)&lt;/span>分别可以指数移动平均表示： &lt;span class="math">\[m_t \leftarrow \beta_1\cdot m_{t-1}+(1-\beta_1)\cdot g_t\]&lt;/span> &lt;span class="math">\[v_t \leftarrow \beta_2\cdot v_{t-1}+(1-\beta_2)\cdot g_t^2\]&lt;/span> 但是，再初始的时候，一阶矩&lt;span class="math">\(m_0\)&lt;/span>和&lt;span class="math">\(v_0\)&lt;/span>都是从0开始，因此矩估计会偏向0（因为&lt;span class="math">\(1-\beta\)&lt;/span>接近0，所以初始阶段矩大约都接近0），因此我们在初始阶段需要用它除以一个&lt;strong>小数&lt;/strong>： &lt;span class="math">\[\hat m_t = \frac{m_t}{1-\beta_1^t}\]&lt;/span> &lt;span class="math">\[\hat v_t = \frac{v_t}{1-\beta_2^t}\]&lt;/span> t表示参数&lt;span class="math">\(\beta_1\)&lt;/span>、&lt;span class="math">\(\beta_2\)&lt;/span>的t次方，在编程中表示t次迭代，这样在最开始的时候&lt;span class="math">\(1-\beta\)&lt;/span>是一个小数，可以抵消最开始移动平均矩很小的缺点，随着迭代次数t增加，&lt;span class="math">\(1-\beta^t\)&lt;/span>逐渐趋近于1，实际的移动平均矩会逐渐占据更新过程的主导权。 论文作者建议超参数取值：&lt;span class="math">\(\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}\)&lt;/span>。&lt;/p>
+&lt;h5 id="我自己的实验到这里速度很慢了根本到不了一个理想值">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/h5>
+&lt;h4 id="adamax">AdaMax&lt;/h4>
+&lt;p>Adamax是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。从Adam算法可以算是二范数的比较，如果我们把二范数变成无穷范数，那么： &lt;span class="math">\[v_t \leftarrow \beta_2^p\cdot v_{t-1}+(1-\beta_2^p)\cdot g_t^p \\ where\quad p\rightarrow\infty\]&lt;/span> 为了防止混淆，我们用&lt;span class="math">\(u_t\)&lt;/span>代替&lt;span class="math">\(v_t\)&lt;/span>,通过无穷范数是最大值性质，我们可以推得： &lt;span class="math">\[u_t = max(\beta_2\cdot u_{t-1},|g_t|)\]&lt;/span> 相应的，更新公式为： &lt;span class="math">\[\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t\]&lt;/span> 其中，&lt;span class="math">\(\eta = 0.002,\beta_1=0.9,\beta_2=0.999\)&lt;/span>。&lt;/p>
+&lt;h4 id="nadam">Nadam&lt;/h4>
+&lt;p>Nadam可以看作是Nesterov和Adam方法的结合。Nadam对学习率有了更强的约束，同时对梯度的更新也有更直接的影响。一般而言，在想使用带动量的RMSprop，或者Adam的地方，大多可以使用Nadam取得更好的效果。&lt;/p>
+&lt;h4 id="amsgrad">AMSGrad&lt;/h4>
+&lt;h4 id="lookahead新优化算法">Lookahead(新优化算法)&lt;/h4>
+&lt;h4 id="算法可视化图">算法可视化图&lt;/h4>
+&lt;h4 id="优化器选择">优化器选择&lt;/h4>
+&lt;p>那么，我们应该选择使用哪种优化算法呢？如果输入数据是稀疏的，选择任一自适应学习率算法可能会得到最好的结果。选用这类算法的另一个好处是无需调整学习率，选用默认值就可能达到最好的结果。&lt;/p>
+&lt;p>总的来说，RMSprop是Adagrad的扩展形式，用于处理在Adagrad中急速递减的学习率。RMSprop与Adadelta相同，所不同的是Adadelta在更新规则中使用参数的均方根进行更新。最后，Adam是将偏差校正和动量加入到RMSprop中。在这样的情况下，RMSprop、Adadelta和Adam是很相似的算法并且在相似的环境中性能都不错。Kingma等人[9]指出在优化后期由于梯度变得越来越稀疏，偏差校正能够帮助Adam微弱地胜过RMSprop。综合看来，Adam可能是最佳的选择。&lt;/p>
+&lt;p>有趣的是，最近许多论文中采用不带动量的SGD和一种简单的学习率的退火策略。已表明，通常SGD能够找到最小值点，但是比其他优化的SGD花费更多的时间，与其他算法相比，SGD更加依赖鲁棒的初始化和退火策略，同时，SGD可能会陷入鞍点，而不是局部极小值点。因此，如果你关心的是快速收敛和训练一个深层的或者复杂的神经网络，你应该选择一个自适应学习率的方法。&lt;/p>
+&lt;h3 id="并行与分布式sgd">并行与分布式SGD&lt;/h3>
+&lt;p>当存在大量的大规模数据和廉价的集群时，利用分布式SGD来加速是一个显然的选择。SGD本身有固有的顺序：一步一步，我们进一步进展到最小。SGD提供了良好的收敛性，但SGD的运行缓慢，特别是对于大型数据集。相反，SGD异步运行速度更快，但客户端之间非最理想的通信会导致差的收敛。此外，我们也可以在一台机器上并行SGD，这样就无需大的计算集群。以下是已经提出的优化的并行和分布式的SGD的算法和框架。&lt;/p>
+&lt;h4 id="hogwild">Hogwild&lt;/h4>
+&lt;p>Niu等人[14]提出称为Hogwild!的更新机制，Hogwild!允许在多个CPU上并行执行SGD更新。在无需对参数加锁的情况下，处理器可以访问共享的内存。这种方法只适用于稀疏的输入数据，因为每一次更新只会修改一部分参数。在这种情况下，该更新策略几乎可以达到一个最优的收敛速率，因为CPU之间不可能重写有用的信息。&lt;/p>
+&lt;h4 id="downpour_sgd">Downpour_SGD&lt;/h4>
+&lt;p>Downpour SGD是SGD的一种异步的变形形式，在Google，Dean等人[6]在他们的DistBelief框架（TensorFlow的前身）中使用了该方法。Downpour SGD在训练集的子集上并行运行多个模型的副本。这些模型将各自的更新发送给一个参数服务器，参数服务器跨越了多台机器。每一台机器负责存储和更新模型的一部分参数。然而，因为副本之间是彼此不互相通信的，即通过共享权重或者更新，因此可能会导致参数发散而不利于收敛。&lt;/p>
+&lt;h4 id="delay-tolerant_algorithms_for_sgd">Delay-tolerant_Algorithms_for_SGD&lt;/h4>
+&lt;p>通过容忍延迟算法的开发，McMahan和Streeter[11]将AdaGraad扩展成并行的模式，该方法不仅适应于历史梯度，同时适应于更新延迟。该方法已经在实践中被证实是有效的。&lt;/p>
+&lt;h4 id="tensorflow">TensorFlow&lt;/h4>
+&lt;p>TensorFlow[1]是Google近期开源的框架，该框架用于实现和部署大规模机器学习模型。TensorFlow是基于DistBelief开发，同时TensorFlow已经在内部用来在大量移动设备和大规模分布式系统的执行计算。在2016年4月发布的分布式版本依赖于图计算，图计算即是对每一个设备将图划分成多个子图，同时，通过发送、接收节点对完成节点之间的通信。&lt;/p>
+&lt;h4 id="elastic_averaging_sgd">Elastic_Averaging_SGD&lt;/h4>
+&lt;p>Zhang等人[22]提出的弹性平均SGD（Elastic Averaging SGD，EASGD）连接了异步SGD的参数客户端和一个弹性力，即参数服务器存储的一个中心变量。EASGD使得局部变量能够从中心变量震荡得更远，这在理论上使得在参数空间中能够得到更多的探索。经验表明这种增强的探索能力通过发现新的局部最优点，能够提高整体的性能&lt;/p>
+&lt;h3 id="优化sgd的其他策略">优化SGD的其他策略&lt;/h3>
+&lt;p>最后，我们介绍可以与前面提及到的任一算法配合使用的其他的一些策略，以进一步提高SGD的性能。对于其他的一些常用技巧的概述可以参见[10]。&lt;/p>
+&lt;h4 id="数据集的洗牌和课程学习">数据集的洗牌和课程学习&lt;/h4>
+&lt;p>总的来说，我们希望避免向我们的模型中以一定意义的顺序提供训练数据，因为这样会使得优化算法产生偏差。因此，在每一轮迭代后对训练数据洗牌是一个不错的主意。&lt;/p>
+&lt;p>另一方面，在很多情况下，我们是逐步解决问题的，而将训练集按照某个有意义的顺序排列会提高模型的性能和SGD的收敛性，如何将训练集建立一个有意义的排列被称为课程学习[3]。&lt;/p>
+&lt;p>Zaremba and Sutskever[20]只能使用课程学习训练LSTM来评估简单程序，并表明组合或混合策略比单一的策略更好，通过增加难度来排列示例。&lt;/p>
+&lt;h4 id="批量归一化">批量归一化&lt;/h4>
+&lt;p>为了便于学习，我们通常用0均值和单位方差初始化我们的参数的初始值来归一化。 随着不断训练，参数得到不同的程度的更新，我们失去了这种归一化，随着网络变得越来越深，这种现象会降低训练速度，且放大参数变化。&lt;/p>
+&lt;p>批量归一化[8]在每次小批量数据反向传播之后重新对参数进行0均值单位方差标准化。通过将模型架构的一部分归一化，我们能够使用更高的学习率，更少关注初始化参数。批量归一化还充当正则化的作用，减少（有时甚至消除）Dropout的必要性。&lt;/p>
+&lt;h4 id="early_stopping">Early_stopping&lt;/h4>
+&lt;p>如Geoff Hinton所说：“Early Stopping是美丽好免费午餐”（NIPS 2015 Tutorial slides）。你因此必须在训练的过程中时常在验证集上监测误差，在验证集上如果损失函数不再显著地降低，那么应该提前结束训练。&lt;/p>
+&lt;h4 id="梯度噪音">梯度噪音&lt;/h4>
+&lt;p>Neelakantan等人[12]在每个梯度更新中增加满足高斯分布&lt;span class="math">\(N(0,σ^2_t)\)&lt;/span>的噪音： &lt;span class="math">\[g_{t,i}=g_{t,i}+N(0,σ_t^2)\]&lt;/span> 高斯分布的方差需要根据如下的策略退火： &lt;span class="math">\[σ_t^2=\frac{η}{(1+t)^γ}\]&lt;/span> 他们指出增加了噪音，使得网络对不好的初始化更加鲁棒，同时对深层的和复杂的网络的训练特别有益。他们猜测增加的噪音使得模型更优机会逃离当前的局部最优点，以发现新的局部最优点，这在更深层的模型中更加常见。&lt;/p>
+&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>在这篇博客文章中，我们初步研究了梯度下降的三个变形形式，其中，小批量梯度下降是最受欢迎的。 然后我们研究了最常用于优化SGD的算法：动量法，Nesterov加速梯度，Adagrad，Adadelta，RMSprop，Adam以及不同的优化异步SGD的算法。 最后，我们已经考虑其他一些改善SGD的策略，如洗牌和课程学习，批量归一化和early stopping。&lt;/p></description></item><item><title>机器学习-梯度和方向导数</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E5%92%8C%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0/</link><pubDate>Fri, 11 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E5%92%8C%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0/</guid><description>
+&lt;h2 id="梯度和方向导数">梯度和方向导数&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>梯度是向量，是输入空间的向量。其方向指向函数值上升最快的方向，模是值函数的陡峭程度。模越大，越陡峭。&lt;/p>
+&lt;p>方向导数是标量，指函数值沿着某一方向&lt;span class="math">\(\vec{v}\)&lt;/span>的变换率。 &lt;span class="math">\[\nabla_v f(\vec{x})=\lim_{t→∞}\frac{f(\vec x+t\vec v)-f(\vec x)}{t}\]&lt;/span>&lt;/p>
+&lt;p>单位长度内，&lt;strong>上升最多&lt;/strong>的方向是梯度所指的方向，梯度方向的方向导数指是梯度的模。&lt;/p>
+&lt;p>沿&lt;span class="math">\(\vec v\)&lt;/span>的方向导数和梯度的关系： &lt;span class="math">\[\nabla_v f(\vec{x})=\vec{v}\cdot\nabla f(\vec{x}),\\
+\nabla f(\vec{x})是点\vec x的梯度，\cdot是内积\]&lt;/span> 即使某点的梯度不存在，方向导数也可能存在。这时候可以用定义去求。&lt;/p>
+&lt;p>&lt;span class="math">\(\nabla_v f，f&amp;#39;_v，f&amp;#39;(x;v)，Df_x(v)，\frac{\partial f(x)}{\partial v}\)&lt;/span>都是指方向导数，为了省事向量的符号都没有打。&lt;/p>
+&lt;p>如果在方向&lt;span class="math">\(\vec v\)&lt;/span>上，方向导数小于0，那么在&lt;span class="math">\(\vec v\)&lt;/span>上总可以找到一小步&lt;span class="math">\(\bar t\)&lt;/span>，使得&lt;span class="math">\(f(\vec x+t\vec v)&amp;lt;f(\vec x)，t ∈(0,\bar t)\)&lt;/span>。当方向导数大于0，也有类似的结论。&lt;/p></description></item></channel></rss>

@@ -1,0 +1,1798 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概率统计随机过程 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/</link><description>Recent content in 概率统计随机过程 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 12 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之抽样的分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</link><pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</guid><description>
+&lt;h2 id="概率统计随机过程之抽样的分布统计量的分布">概率统计随机过程之抽样的分布（统计量的分布）&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#样本均值的抽样分布正态分布">样本均值的抽样分布——正态分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#样本方差的抽样分布">样本方差的抽样分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#卡方分布">卡方分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#样本方差的抽样分布服从chi2n分布">样本方差的抽样分布服从&lt;span class="math">\(\chi^2(n)\)&lt;/span>分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#样本均值与样本方差比值的分布">样本均值与样本方差比值的分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#t分布">t分布&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#tips名字来源">TIPS名字来源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#t分布介绍">t分布介绍&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#样本均值与样本方差比值服从t分布">样本均值与样本方差比值服从t分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两个独立正态样本方差比的分布">两个独立正态样本方差比的分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#f分布">F分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两个独立正态样本方差比的服从f分布">两个独立正态样本方差比的服从F分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正态总体下的抽样分布总结">正态总体下的抽样分布总结&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录">附录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录1-gamma分布可加性证明">附录1-Gamma分布可加性证明&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="样本均值的抽样分布正态分布">样本均值的抽样分布——正态分布&lt;/h2>
+&lt;p>样本均值的分布问题是被最早研究的问题，关于它的研究为中心极限定理的出现提供了巨大帮助。&lt;/p>
+&lt;blockquote>
+&lt;p>定理1：设&lt;span class="math">\(\{x_1,x_2,\dotsb,x_n\}\)&lt;/span>是来自某个总体的样本,&lt;span class="math">\(\bar{x}\)&lt;/span>为其样本均值：&lt;/p>
+&lt;p>(1)若总体分布为&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>，则&lt;span class="math">\(\bar{x}\)&lt;/span>的精确（抽样）分布为&lt;span class="math">\(N(\mu,\sigma^2/n)\)&lt;/span>;&lt;/p>
+&lt;p>(2)若总体的分布未知或不是正态分布，但&lt;span class="math">\(E(x)=\mu,Var(x)=\sigma^2\)&lt;/span>存在，则&lt;span class="math">\(n\)&lt;/span>较大时&lt;span class="math">\(\bar{x}\)&lt;/span>的渐进分布为&lt;span class="math">\(N(\mu,\sigma^2/n)\)&lt;/span>，常记为&lt;span class="math">\(\bar{x}\dot{\sim} N(\mu,\sigma^2/n)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>（1）样本中的每个样品都是独立同分布的随机变量且服从&lt;span class="math">\(x_i\sim N(\mu,\sigma^2)\)&lt;/span>，则根据正态分布的线性性质，n个i.i.d的正态随机变量和为&lt;span class="math">\(N(n\mu,n\sigma^2)\)&lt;/span>。同样根据正态分布的线性性质，和再除以&lt;span class="math">\(1/n\)&lt;/span>，有&lt;span class="math">\(\bar{x}\sim N(\mu,\sigma^2/n)\)&lt;/span>。&lt;/p>
+&lt;p>（2）就是独立同分布的中心极限定理（林德伯格-莱维中心极限定理）的结果。证明的话是用随机变量分布列的特征函数收敛到正态分布的特征函数的思路。&lt;/p>
+&lt;h2 id="样本方差的抽样分布">样本方差的抽样分布&lt;/h2>
+&lt;h3 id="卡方分布">卡方分布&lt;/h3>
+&lt;blockquote>
+&lt;p>定义1：卡方分布&lt;span class="math">\(\chi^2(n)\)&lt;/span>的概率密度是 &lt;span class="math">\[f(x)=\begin{cases}
+\frac{1}{2^{n/2}\Gamma(n/2)}x^{{n\over2} -1}e^{-x\over 2},&amp;amp;x&amp;gt;0\\
+0,&amp;amp;\text{其他}
+\end{cases}\]&lt;/span> 其中参数&lt;span class="math">\(n\)&lt;/span>称为自由度，&lt;span class="math">\(\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t} \mathrm{d}t\)&lt;/span>为伽马函数。&lt;/p>
+&lt;/blockquote>
+&lt;div class="figure">
+&lt;img src="../../images/卡方分布.png" alt="卡方分布.png" />&lt;p class="caption">卡方分布.png&lt;/p>
+&lt;/div>
+&lt;p>一些没用的观察：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>自由度为2时，卡方分布就是一个的指数分布。&lt;/li>
+&lt;li>&lt;span class="math">\(n&amp;gt;2\)&lt;/span>，单峰曲线，且在&lt;span class="math">\(x=n-2\)&lt;/span>时取最大值。&lt;/li>
+&lt;li>卡方分布不对称，但是&lt;span class="math">\(n\)&lt;/span>越大越对称，且趋向于正态分布。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>定理2（服从卡方分布）：如果随机变量&lt;span class="math">\(x_1,x_2,\dotsb,x_n\)&lt;/span>独立，且服从&lt;span class="math">\(N(0,1)\)&lt;/span>分布，那么 &lt;span class="math">\[
+\sum_{i=1}^n x_i^2 \sim \chi^2(n)
+\]&lt;/span> 即标准正态分布的&lt;strong>平方和&lt;/strong>是卡方分布，自由度是&lt;span class="math">\(n\)&lt;/span>表示加数的个数。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：令&lt;span class="math">\(y=x_i^2 ≥ 0\)&lt;/span>，其分布函数为&lt;span class="math">\(F_{y}(y)\)&lt;/span>，所以当&lt;span class="math">\(y≤0\)&lt;/span>时有&lt;span class="math">\(F_{y}(y)=0\)&lt;/span>，当&lt;span class="math">\(y&amp;gt;0\)&lt;/span>时有 &lt;span class="math">\[\begin{aligned}
+F_{y}(y)&amp;amp;=P(x_i^2≤y)=P(-\sqrt{y}≤x≤\sqrt{y})\\
+&amp;amp;=\int_{-\sqrt{y}}^0 p_x(x) dx + \int_{0}^{\sqrt{y}} p_x(x) dx\\
+&amp;amp;=F_x(\sqrt{y}) - F_x(-\sqrt{y})
+\end{aligned}\]&lt;/span> 我们把上式对&lt;span class="math">\(y\)&lt;/span>求导，有： &lt;span class="math">\[\begin{aligned}
+p_y(y)&amp;amp;=F_y&amp;#39;(y)=F&amp;#39;_x(\sqrt{y}) - F&amp;#39;_x(-\sqrt{y})\\
+&amp;amp;=p_x(\sqrt{y})\cdot (\sqrt{y})&amp;#39;-p_x(-\sqrt{y})\cdot (-\sqrt{y})&amp;#39;\\
+&amp;amp;=[p_x(\sqrt{y})+p_x(-\sqrt{y})]/(2\sqrt{y})\\
+&amp;amp;=\frac{1}{\sqrt{2\pi}}y^{-1/2}e^{-y/2},y&amp;gt;0\\
+&amp;amp;=\frac{(1/2)^{1/2}}{\Gamma(1/2)}y^{\frac{1}{2}-1}e^{-\frac{1}{2}y}=Ga(\frac{1}{2},\frac{1}{2})\end{aligned}\]&lt;/span> 即单个标准正态分布的平方服从&lt;span class="math">\(Ga(\frac{1}{2},\frac{1}{2})\)&lt;/span>。而Gamma分布是有可加性的（证明见&lt;a href="#附录1-gamma分布可加性证明">附录1-Gamma分布可加性证明&lt;/a>）。因此，n个标准正态分布的平方的和服从&lt;span class="math">\(Ga(\frac{n}{2},\frac{1}{2})\)&lt;/span>。将&lt;span class="math">\(Ga(\frac{n}{2},\frac{1}{2})\)&lt;/span>写出可发现就等于&lt;span class="math">\(\chi^2(n)\)&lt;/span>。得证。&lt;/p>
+&lt;p>卡方分布性质:若&lt;span class="math">\(X\sim \chi^2(n)\)&lt;/span>，则有：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(E(X)=n,D(X)=2n\)&lt;/span>。分部积分可得，或者直接用特征函数求。&lt;/li>
+&lt;li>由中心极限定理可知，&lt;span class="math">\(X\sim \chi^2(n)\)&lt;/span>，&lt;span class="math">\(n\)&lt;/span>充分大，&lt;span class="math">\(\frac{X-n}{\sqrt{2n}}\overset{近似}{\sim} N(0,1)\)&lt;/span>。参见中心极限定理的林德伯格－列维形式。&lt;/li>
+&lt;li>卡方分布可加性：&lt;span class="math">\(X\sim \chi^2(n),Y\sim \chi^2(m),X,Y\)&lt;/span>独立，则&lt;span class="math">\(X+Y\sim \chi^2(m+n)\)&lt;/span>。&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>推论：&lt;span class="math">\(X_i\sim \chi^2(m_i)\)&lt;/span>，各个&lt;span class="math">\(X_i\)&lt;/span>独立，则&lt;span class="math">\(\sum_{i=1}^n X_i\sim \chi^2(\sum_{i=1}^n m_i)\)&lt;/span>&lt;/li>
+&lt;li>简单论证：&lt;span class="math">\(\chi^2\)&lt;/span>分布是特殊的Gamma分布（即&lt;span class="math">\(Ga(\frac{n}{2},\frac{1}{2})\)&lt;/span>），而Gamma分布有可加性，所以&lt;span class="math">\(\chi^2\)&lt;/span>分布也有可加性。也可以从&lt;span class="math">\(\chi^2\)&lt;/span>分布的构成来看，它是由多个随机变量&lt;span class="math">\(X_i\sim N(0,1)\)&lt;/span>加出来，因此卡方分布的相加无非就是多几个标准正态分布相加的事，因此不改变分布类型，只改变分布参数。&lt;/li>
+&lt;/ul>
+&lt;h3 id="样本方差的抽样分布服从chi2n分布">样本方差的抽样分布服从&lt;span class="math">\(\chi^2(n)\)&lt;/span>分布&lt;/h3>
+&lt;blockquote>
+&lt;p>引理1： N维随机变量线性变换的分布。设在两个n随机变量&lt;span class="math">\(X=(x_1,x_2,\dotsb,x_n)&amp;#39;\)&lt;/span>与&lt;span class="math">\(Y=(_1,y_2,\dotsb,y_n)&amp;#39;\)&lt;/span>间存在一个线性变换关系&lt;span class="math">\(Y=AX\)&lt;/span>，其中&lt;span class="math">\(A=(a_{ij})\)&lt;/span>为一个&lt;span class="math">\(n\times n\)&lt;/span>的n阶方阵，则它们的期望向量和方差（协方差）矩阵之间有如下关系： &lt;span class="math">\[E(Y)=AE(X)\\Var(Y)=AVar(X)A&amp;#39;\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>（1）首先矩阵变换是一种线性变换，求期望（无论是积分还是求和）也是线性变换，有&lt;span class="math">\(E(Y)=E(AX)\)&lt;/span>，&lt;span class="math">\(A\)&lt;/span>都是常数，所以可以把它当成线性变换的系数提出来，就有了&lt;span class="math">\(E(Y)=AE(X)\)&lt;/span>。&lt;/p>
+&lt;p>（2）由于方差（协方差）运算中有变量之间的乘法，所以不是线性运算。我们老实根据定义求解，根据协方差矩阵的定义有： &lt;span class="math">\[\begin{aligned}
+Var(Y)&amp;amp;=E[(Y-E(Y))(Y-E(Y))&amp;#39;]\\
+&amp;amp;\overset{Y=AX}{=}E[AX-E(AX)(AX-E(AX))&amp;#39;]\\
+&amp;amp;=E[AX-AE(X)(AX-AE(X))&amp;#39;]\\
+&amp;amp;\overset{\text{结合律}}{=}E[A(X-E(X))(A(X-E(X)))&amp;#39;]\\
+&amp;amp;\overset{(AB)&amp;#39;=B&amp;#39;A&amp;#39;}{=}E[A(X-E(X))(X-E(X))&amp;#39;A&amp;#39;]\\
+&amp;amp;=AE[(X-E(X))(X-E(X))&amp;#39;]A&amp;#39;\\
+&amp;amp;=AVar(X)A&amp;#39;
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定理3：设&lt;span class="math">\(X=(x_1,x_2,\dotsb,x_n)\)&lt;/span>是来自正态分布&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>的样本，其样本均值和样本方差分别为&lt;span class="math">\(\bar{x}\)&lt;/span>和&lt;span class="math">\(s^2\)&lt;/span>，则有&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\frac{(n-1)s^2}{\sigma^2}\sim \chi^2(n-1)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\bar{x},s^2\)&lt;/span>相互独立。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>首先对于n维随机变量&lt;span class="math">\(X\)&lt;/span>，期望&lt;span class="math">\(E(X)=\underbrace{(\mu,\mu,\dotsb,\mu)&amp;#39;}_{n个}\)&lt;/span>；n维随机变量的自协方差矩阵为&lt;span class="math">\(Var(X)=\sigma^2I\)&lt;/span>，因为各维度之间是独立的（&lt;span class="math">\(\Rightarrow\)&lt;/span>不相关），所以只有对角线上的元素&lt;span class="math">\(conv(x_i,x_i)=\sigma^2\)&lt;/span>，其他&lt;span class="math">\(conv(x_i,x_j)=0,i\neq j\)&lt;/span>。（conv表示协方差）。&lt;/p>
+&lt;p>我们看 &lt;span class="math">\[(n-1)s^2=\sum_{i=1}^n (x-\bar{x})^2=\sum_{i=1}^n x_i^2 - 2\underbrace{\sum_{i=1}^n x_i}_{=n\bar{x}}\bar{x}+n\bar{x}^2=(\sum_{i=1}^n x_i^2)- n\bar{x}^2\]&lt;/span>&lt;/p>
+&lt;p>我们在处理样本方差的时候，最需要注意的一点就是&lt;strong>样本样品和样本均值不独立&lt;/strong>，此外，&lt;strong>一般分布都是看可加性，而上式是两个随机变量相减&lt;/strong>。所以我们需要通过&lt;code>引理1&lt;/code>构造一组不相关的随机变量相加，再通过正态分布不相关=独立的性质进行计算。证明&lt;code>定理3&lt;/code>最精巧的一步在于构造的统计量为&lt;span class="math">\(Y=AX\)&lt;/span>，&lt;span class="math">\(A\)&lt;/span>是个正交矩阵(&lt;span class="math">\(AA&amp;#39;=I\)&lt;/span>)，因为根据&lt;code>引理1&lt;/code>的方差公式，正交矩阵不改变&lt;span class="math">\(Var(X)\)&lt;/span>，既 &lt;span class="math">\[Var(Y)=AVar(X)A&amp;#39;=A\sigma^2I A&amp;#39;=\sigma^2I\]&lt;/span> 由于&lt;span class="math">\(Y\)&lt;/span>各元素是独立的正态分布随机变量&lt;span class="math">\(\{x_i\}\)&lt;/span>的线性组合，即&lt;span class="math">\(Y\)&lt;/span>各维度也服从正态分布;而&lt;span class="math">\(Y\)&lt;/span>的协方差矩阵为&lt;span class="math">\(I\)&lt;/span>，说明各维度之间不相关，又因为正态分布的不相关和独立等价，所以&lt;span class="math">\(Y=(y_1,y_2,\dotsb,y_n)&amp;#39;\)&lt;/span>的各个分量相互独立，且其方差都是&lt;span class="math">\(\sigma^2\)&lt;/span>。&lt;/p>
+&lt;p>如果我们想把&lt;span class="math">\((n-1)s^2\)&lt;/span>往&lt;span class="math">\(\chi^2(n-1)\)&lt;/span>分布上靠，首先就要把其变换成&lt;strong>独立的正态分布平方的和&lt;/strong>。同时正交矩阵&lt;span class="math">\(A\)&lt;/span>不改变原n维向量的模（的平方），即&lt;span class="math">\(\sum_{i=1}^n y_i^2=Y&amp;#39;Y=(AX)&amp;#39;AX=X&amp;#39;(A&amp;#39;A)X=X&amp;#39;X=\sum_{i=1}^n x_i^2\)&lt;/span>。这正是&lt;span class="math">\((n-1)s^2\)&lt;/span>的前半部分。下一步关键是如果改造&lt;span class="math">\(\bar{x}\)&lt;/span>，由于&lt;span class="math">\(\sum_{i=1}^n y_i^2=\sum_{i=1}^n x_i^2\)&lt;/span>都很像自由度为n的&lt;span class="math">\(\chi^2(n)\)&lt;/span>分布（只是“像”）。我们希望&lt;span class="math">\(n\bar{x}^2\)&lt;/span>变成某个&lt;span class="math">\(y_k^2\)&lt;/span>，这样就可以正好减掉一个自由度，变成&lt;span class="math">\(\chi^2(n-1)\)&lt;/span>，这就需要更精细的构造矩阵&lt;span class="math">\(A\)&lt;/span>。先来看看&lt;span class="math">\(n\bar{x}^2\)&lt;/span>的构成： &lt;span class="math">\[n\bar{x}^2=n\times (\frac{1}{n}\sum_{i=1}^n x)^2=(\sum_{i=1}^n\frac{1}{\sqrt{n}}x_i)^2\]&lt;/span> 如果我们令&lt;span class="math">\(A\)&lt;/span>的第&lt;span class="math">\(k\)&lt;/span>行为&lt;span class="math">\((\frac{1}{\sqrt{n}},\frac{1}{\sqrt{n}},\dotsb,\frac{1}{\sqrt{n}})\)&lt;/span>且&lt;span class="math">\(A_k(A_k)&amp;#39;=1\)&lt;/span>，那么&lt;span class="math">\(y_k=A_{k}X=\sqrt{n}\bar{x}\)&lt;/span>，即&lt;span class="math">\(n\bar{x}^2 = y_k^2\)&lt;/span>。这样，就使得 &lt;span class="math">\[(n-1)s^2=(\sum_{i=1}^n x_i^2)- n\bar{x}^2=(\sum_{i=1}^n y_i^2)-y_k^2,k\in\{1,2,\dotsb,n\}\]&lt;/span> 不失一般性，我们不妨让&lt;span class="math">\(k=1\)&lt;/span>，则 &lt;span class="math">\[(n-1)s^2=\sum_{i=2}^n y_i^2\]&lt;/span> 我们发现，&lt;span class="math">\((n-1)s^2\)&lt;/span>已经变成了&lt;span class="math">\(n-1\)&lt;/span>个正态分布随机变量的和，但是还不是标准正态随机变量。而根据要证的&lt;span class="math">\(\frac{(n-1)s^2}{\sigma^2}\)&lt;/span>和已知的&lt;span class="math">\(Y\)&lt;/span>各维度元素方差都是&lt;span class="math">\(\sigma^2\)&lt;/span>，因此有 &lt;span class="math">\[\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\]&lt;/span> 其中，&lt;span class="math">\(\frac{y_i}{\sigma}\sim N(\frac{\mu_i}{\sigma},1),i=2,3,\dotsb,n,\mu_i\)&lt;/span>为&lt;span class="math">\(y_i\)&lt;/span>的均值。我们希望&lt;span class="math">\(\sum_{i=2}^n (\frac{y_i}{\sigma})^2\)&lt;/span>则需要&lt;span class="math">\(\frac{y_i}{\sigma}\sim N(0,1)\)&lt;/span>，现在还差&lt;span class="math">\(\mu_i=0\)&lt;/span>，还需要进一步构造&lt;span class="math">\(A\)&lt;/span>的第&lt;span class="math">\(2\sim n\)&lt;/span>行,由于&lt;span class="math">\(x_i\)&lt;/span>是i.i.d的，即&lt;span class="math">\(x_i\)&lt;/span>的均值都是&lt;span class="math">\(\mu\)&lt;/span>，而&lt;span class="math">\(\mu_k=E(y_k)=\mu\sum_{i=1}^n a_{ki}\)&lt;/span>。要让&lt;span class="math">\(\mu_k=0\)&lt;/span>，则需要让&lt;span class="math">\(\sum_{i=1}^n a_{ki}=0\)&lt;/span>，也就是说&lt;span class="math">\(A\)&lt;/span>的第&lt;span class="math">\(2\sim n\)&lt;/span>行的和都为0，又需要&lt;span class="math">\(A\)&lt;/span>是正交矩阵，我们因此构造如下矩阵： &lt;span class="math">\[
+A=\begin{bmatrix}
+\frac{1}{\sqrt{n}}&amp;amp;\frac{1}{\sqrt{n}}&amp;amp;\frac{1}{\sqrt{n}}&amp;amp;\dotsb&amp;amp;\frac{1}{\sqrt{n}}\\
+\frac{1}{\sqrt{2\cdot 1}}&amp;amp;-\frac{1}{\sqrt{2\cdot 1}}&amp;amp;0&amp;amp;\dotsb&amp;amp;0\\
+\frac{1}{\sqrt{3\cdot 2}}&amp;amp;\frac{1}{\sqrt{3\cdot 2}}&amp;amp;-\frac{2}{\sqrt{3\cdot 2}}&amp;amp;\dotsb&amp;amp;0\\
+\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots&amp;amp;\\
+\frac{1}{\sqrt{n\cdot (n-1))}}&amp;amp;\frac{1}{\sqrt{n\cdot (n-1))}}&amp;amp;\frac{1}{\sqrt{n\cdot (n-1))}}&amp;amp;\dotsb&amp;amp;-\frac{n-1}{\sqrt{n\cdot (n-1))}}\\
+\end{bmatrix}
+\]&lt;/span> 这时有&lt;span class="math">\(\frac{y_i}{\sigma}\sim N(0,1),i=2,3,\dotsb,n;y_1=\sqrt{n}\bar{x}\)&lt;/span>，且 &lt;span class="math">\[\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\sim \chi^2(n-1)\]&lt;/span> 样本方差的抽样分布服从&lt;span class="math">\(\chi^2(n)\)&lt;/span>分布得证。&lt;/p>
+&lt;p>通过构造的矩阵&lt;span class="math">\(A\)&lt;/span>，我们还发现&lt;span class="math">\(\bar{x}\)&lt;/span>只和&lt;span class="math">\(y_1\)&lt;/span>有关，而&lt;span class="math">\(s^2\)&lt;/span>只和&lt;span class="math">\(y_2,\dotsb,y_n\)&lt;/span>有关，同时&lt;span class="math">\(y_i\)&lt;/span>之间是相互独立的，因此&lt;span class="math">\(\bar{x},s^2\)&lt;/span>也是相互独立的。&lt;/p>
+&lt;h2 id="样本均值与样本方差比值的分布">样本均值与样本方差比值的分布&lt;/h2>
+&lt;h3 id="t分布">t分布&lt;/h3>
+&lt;h4 id="tips名字来源">TIPS名字来源&lt;/h4>
+&lt;p>t，为Student简写，则是William Sealy Gosset（戈塞特）的笔名。他当年在爱尔兰都柏林的一家酒厂工作，设计了一种后来被称为t检验的方法来评价酒的质量。因为行业机密，酒厂不允许他的工作内容外泄，所以当他后来将其发表到至今仍十分著名的一本杂志《Biometrika》时，就署了student的笔名。所以现在很多人知道student，知道t，却不知道Gosset。&lt;/p>
+&lt;h4 id="t分布介绍">t分布介绍&lt;/h4>
+&lt;p>表达式：t分布的概率密度为 &lt;span class="math">\[
+p(x)=\frac{\Gamma \left(\frac{n+1}{2} \right)} {\sqrt{n\pi}\,\Gamma \left(\frac{n}{2} \right)} \left(1+\frac{x^2}{n} \right)^{-\frac{n+1}{2}}
+\]&lt;/span> 其中参数&lt;span class="math">\(n\)&lt;/span>称为自由度，&lt;span class="math">\(\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t} \mathrm{d}t\)&lt;/span>为伽马函数。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/TStudent分布.png" alt="TStudent分布.png" />&lt;p class="caption">TStudent分布.png&lt;/p>
+&lt;/div>
+&lt;p>一些观察：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>t分布是比正态分布“宽容”分布，像正态分布但是集中度没有正态分布强。在描述重尾分布时更好。&lt;/li>
+&lt;li>当&lt;span class="math">\(n=1\)&lt;/span>时，t分布为柯西分布，它的期望、方差都不存在。&lt;/li>
+&lt;li>t分布是关于y轴对称的，所以&lt;span class="math">\(X\sim t(n),E(X)=0(n&amp;gt;1)\)&lt;/span>。当&lt;span class="math">\(n&amp;gt;2\)&lt;/span>时，t分布的方差存在，为&lt;span class="math">\(n/(n-2)\)&lt;/span>。&lt;/li>
+&lt;li>当&lt;span class="math">\(n\geq 30\)&lt;/span>时，t分布于正态分布差别很小。&lt;/li>
+&lt;li>t分布被广泛应用于&lt;strong>小样本假设检验&lt;/strong>。虽然是很小的样本，但是，却强大到可以轻松的排除异常值的干扰，准确把握住数据的特征（集中趋势和离散趋势）&lt;/li>
+&lt;/ol>
+&lt;h3 id="样本均值与样本方差比值服从t分布">样本均值与样本方差比值服从t分布&lt;/h3>
+&lt;blockquote>
+&lt;p>定理4（相互独立的标准正态分布与卡方分布之比服从t分布）：&lt;span class="math">\(X\sim N(0,1),Y\sim \chi^2(n),X,Y独立\)&lt;/span>，则&lt;span class="math">\(\frac{X}{\sqrt{Y/n}}\sim t(n)\)&lt;/span>，其中&lt;span class="math">\(t(n)\)&lt;/span>是自由度为n的分布。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：思路先求&lt;span class="math">\(\sqrt{Y/n}\)&lt;/span>的分布，然后再通过&lt;strong>独立&lt;/strong>随机变量商的分布求&lt;span class="math">\(\frac{X}{\sqrt{Y/n}}\)&lt;/span>。&lt;/p>
+&lt;p>令&lt;span class="math">\(z=g(y)=\sqrt{y/n}(y\geq 0)\)&lt;/span>，则其反函数为&lt;span class="math">\(y=h(z)=nz^2(z\geq 0)\)&lt;/span>。卡方分布在&lt;span class="math">\(y&amp;lt;0\)&lt;/span>时都等于0，因此有&lt;span class="math">\(F_{z}(z)=0,z&amp;lt;0\)&lt;/span>。当&lt;span class="math">\(y,z&amp;gt;0\)&lt;/span>时，根据随机变量的单调函数分布定理有： &lt;span class="math">\[
+p_{_Z}(z)=p_{_Y}(h(z))h&amp;#39;(z)=p_{_Y}(nz^2)(2nz)\\
+=\frac{1}{2^{\frac{n}{2}-1}\Gamma(\frac{n}{2})}n^{\frac{n}{2}}z^{n-1}e^{-\frac{nz^2}{2}}
+\]&lt;/span> 由于&lt;span class="math">\(X,Y\)&lt;/span>相互独立，所以&lt;span class="math">\(X,Z\)&lt;/span>也是独立的。联合概率密度&lt;span class="math">\(p(x,z)\)&lt;/span>就是&lt;span class="math">\(X,Z\)&lt;/span>两个概率密度的乘积，因此我们可以通过随机变量商的密度函数公式（参见笔记：&lt;a href="概率统计随机过程之随机变量函数的分布.md">概率统计随机过程之随机变量函数的分布.md&lt;/a>）可得&lt;span class="math">\(T=X/Z\)&lt;/span>的密度函数为： &lt;span class="math">\[
+\begin{aligned}
+p_{_T}(t;n)&amp;amp;=\int_{-\infty}^\infty p_{_Z}(z)p_{_X}(zt) |z| \mathrm{d}z (z&amp;gt;0)\\
+&amp;amp;=\int_{0}^\infty \frac{1}{2^{\frac{n}{2}-1}\Gamma(\frac{n}{2})}n^{\frac{n}{2}}z^{n-1}e^{-\frac{nz^2}{2}}\cdot\frac{1}{\sqrt{2\pi}}e^{-\frac{(zt)^2}{2}}z \mathrm{d}z\\
+\overset{\text{提出非积分项}}{=}&amp;amp;\frac{n^{\frac{n}{2}}}{\sqrt{\pi}2^{\frac{n-1}{2}}\Gamma(\frac{n}{2})}\int_{0}^\infty z^{n}e^{-\frac{z^2}{2}(n+t^2)}\mathrm{d}z\\
+\overset{u=\frac{z^2}{2}(n+t^2)}{=}&amp;amp;\frac{1}{\sqrt{n\pi}\Gamma(\frac{n}{2})(1+\frac{t^2}{n})^{\frac{n+1}{2}}}\int_{0}^\infty u^{\frac{n+1}{2}-1}e^{-u}\mathrm{d}u\\
+&amp;amp;=\frac{\Gamma \left(\frac{n+1}{2} \right)} {\sqrt{n\pi}\,\Gamma \left(\frac{n}{2} \right)} \left(1+\frac{t^2}{n} \right)^{-\frac{n+1}{2}}
+\end{aligned}
+\]&lt;/span> 得证。&lt;/p>
+&lt;blockquote>
+&lt;p>定理5：样本均值与样本方差比值服从t分布。设&lt;span class="math">\(X=(x_1,x_2,\dotsb,x_n)\)&lt;/span>是来自正态分布&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>的样本，其样本均值和样本方差分别为&lt;span class="math">\(\bar{x}\)&lt;/span>和&lt;span class="math">\(s^2\)&lt;/span>，则有 &lt;span class="math">\[t=\frac{\sqrt{n}(\bar{x}-\mu)}{s}\sim t(n-1)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：首先根据&lt;code>定理3&lt;/code>，&lt;span class="math">\(\bar{x},s^2\)&lt;/span>是独立的，所以&lt;span class="math">\(\bar{x},s\)&lt;/span>也是独立的。根据&lt;code>定理1&lt;/code>有&lt;span class="math">\(\bar{x}\sim N(\mu,\sigma^2/n)\)&lt;/span>，则&lt;span class="math">\(\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\sim N(0,1)\)&lt;/span>，而根据&lt;code>定理3&lt;/code>有&lt;span class="math">\(\frac{(n-1)s^2}{\sigma^2}\sim \chi^2(n-1)\)&lt;/span>。仿照&lt;code>定理5&lt;/code>的结构，我们可以构造： &lt;span class="math">\[\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\bigg / \sqrt{\frac{(n-1)s^2}{\sigma^2}\big /(n-1)}\sim t(n-1)\]&lt;/span> 化简后即可得： &lt;span class="math">\[t=\frac{\sqrt{n}(\bar{x}-\mu)}{s}\sim t(n-1)\]&lt;/span>&lt;/p>
+&lt;h2 id="两个独立正态样本方差比的分布">两个独立正态样本方差比的分布&lt;/h2>
+&lt;h3 id="f分布">F分布&lt;/h3>
+&lt;p>F分布是1924年英国统计学家Ronald.A.Fisher爵士提出，并以其姓氏的第一个字母命名的。&lt;/p>
+&lt;p>F分布的PDF表达式： &lt;span class="math">\[
+p(x,n_1,n_2)=\begin{cases}
+\frac{(n1/n2)^{n_1 \over 2}}{B(n_1/2,n_2/2)}x^{{n_1\over 2}-1}(1+{n_1\over n_2}x)^{-{n_1+n_2 \over 2}},x&amp;gt;0\\
+0,x\leq 0
+\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(n_1,n_2\)&lt;/span>都是自由度，&lt;span class="math">\(B(n_1/2,n_2/2)\)&lt;/span>是BETA函数，&lt;span class="math">\(B(m,n)=\frac{\Gamma(m)\Gamma(n)}{\Gamma(m+n)}\)&lt;/span>。&lt;/p>
+&lt;p>自由度为&lt;span class="math">\(m, n\)&lt;/span>的F 分布的密度函数如下图： &lt;img src="../../images/F分布.png" alt="F分布.png" />&lt;/p>
+&lt;p>一些观察：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(F\sim F(n_1,n_2)\)&lt;/span>，则&lt;span class="math">\(\frac{1}{F}\sim F(n_2,n_1)\)&lt;/span>;&lt;/li>
+&lt;li>当&lt;span class="math">\(n_2&amp;gt;2\)&lt;/span>时，F分布存在数学期望&lt;span class="math">\(n_2/(n_2-2)\)&lt;/span>;&lt;/li>
+&lt;li>当&lt;span class="math">\(n_2&amp;gt;4\)&lt;/span>时，F分布存在方差&lt;span class="math">\(\frac{2n_2^2(n_1+n_2-2)}{n_1(n_2-2)^2(n_2-4)}\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(t\sim t(n)\)&lt;/span>，则&lt;span class="math">\(t^2\sim F(1,n)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;h3 id="两个独立正态样本方差比的服从f分布">两个独立正态样本方差比的服从F分布&lt;/h3>
+&lt;blockquote>
+&lt;p>定理6（两个独立的卡方分布之比服从F分布）：&lt;span class="math">\(X\sim \chi^2(n_1),Y\sim \chi^2(n_2),X,Y\)&lt;/span>独立，则&lt;span class="math">\(\frac{X/n_1}{Y/n_2}\sim F(n_1.n_2)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：首先通过两独立随机变量的商的分布得到&lt;span class="math">\(\frac{X}{Y}\)&lt;/span>的分布，然后再通过随机变量的单调函数的分布得到&lt;span class="math">\(\frac{n_2}{n_1}\frac{X}{Y}\)&lt;/span>的分布。证明不难，但是比较繁琐，我直接贴图片了。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/F分布形式证明.png" alt="F分布形式证明" />&lt;p class="caption">F分布形式证明&lt;/p>
+&lt;/div>
+&lt;blockquote>
+&lt;p>定理7：两个独立正态样本方差比的服从F分布。设&lt;span class="math">\(X,Y\)&lt;/span>是分别来自正态分布&lt;span class="math">\(N(\mu_1,\sigma_1^2),N(\mu_2,\sigma_2^2)\)&lt;/span>的容量为&lt;span class="math">\(n_1,n_2\)&lt;/span>样本,，样本方差分别为&lt;span class="math">\(s_1^2,s_2^2\)&lt;/span>，则有 &lt;span class="math">\[\frac{X_1/(n_1-1)}{X_2/(n_2-1)}=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\sim F(n_1-1,n_2-1)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：由&lt;code>定理3&lt;/code>可知样本方差&lt;span class="math">\(s_1^2,s_2^2\)&lt;/span>的线性变换&lt;span class="math">\(X_1=(n_1-1)s_1^2/\sigma_1^2,X_2=(n_2-1)s_2^2/\sigma_2^2\)&lt;/span>的分布分别服从&lt;span class="math">\(\chi^2(n_1-1),\chi^2(n_2-1)\)&lt;/span>，且相互独立。在将分子分母的自由度分别代入&lt;code>定理6&lt;/code>，可得&lt;span class="math">\(\frac{X_1/(n_1-1)}{X_2/(n_2-1)}\sim F(n_1-1,n_2-1)\)&lt;/span>，&lt;code>定理7&lt;/code>得证。&lt;/p>
+&lt;h2 id="正态总体下的抽样分布总结">正态总体下的抽样分布总结&lt;/h2>
+&lt;div class="figure">
+&lt;img src="../../images/正态总体下的抽样分布.jpg" alt="正态总体下的抽样分布.jpg" />&lt;p class="caption">正态总体下的抽样分布.jpg&lt;/p>
+&lt;/div>
+&lt;h2 id="附录">附录&lt;/h2>
+&lt;h3 id="附录1-gamma分布可加性证明">附录1-Gamma分布可加性证明&lt;/h3>
+&lt;p>可以利用Gamma分布的特征函数快速证明。记Gamma分布为&lt;span class="math">\(Ga(\alpha_i,\lambda)\)&lt;/span>，则其特征函数为 &lt;span class="math">\[
+\varphi_i(t)=(1-\frac{it}{\lambda})^{-\alpha_i}
+\]&lt;/span> 当&lt;span class="math">\(\lambda\)&lt;/span>相同时，有 &lt;span class="math">\[Ga(\alpha_i,\lambda)+Ga(\alpha_j,\lambda)=\varphi_i(t)*\varphi_j(t)\\
+=(1-\frac{it}{\lambda})^{-(\alpha_i+\alpha_j)}=Ga(\alpha_i+\alpha_j,\lambda)\]&lt;/span> 得证。&lt;/p></description></item><item><title>概率统计随机过程之数理统计常用概念</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/</link><pubDate>Tue, 09 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/</guid><description>
+&lt;h2 id="概率统计随机过程之数理统计常用概念">概率统计随机过程之数理统计常用概念&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#总体与样本">总体与样本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#统计量与估计量">统计量与估计量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#估计量的评价指标">估计量的评价指标&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#样本的经验分布函数和样本矩">样本的经验分布函数和样本矩&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#抽样分布">抽样分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#常见统计量的抽样分布">常见统计量的抽样分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#概率分布族">概率分布族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型分布族">指数型分布族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#次序统计量">次序统计量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#充分统计量">充分统计量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#因子分解定理">因子分解定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最小充分统计量">最小充分统计量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#常用概率分布与特征数表">常用概率分布与特征数表&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="总体与样本">总体与样本&lt;/h2>
+&lt;p>总体是个体的集合；样本是样品的集合。一个样本里样品个数叫样本容量&lt;span class="math">\(n\)&lt;/span>，每个样品都是随机抽取的，所以&lt;strong>样品是随机变量&lt;/strong>。每次抽取的实际值/物品，是观察/观测值。&lt;span class="math">\(n\)&lt;/span>个样品（随机变量）组成&lt;span class="math">\(n\)&lt;/span>维样本空间，因此一个样本容量为&lt;span class="math">\(n\)&lt;/span>个样本是一个&lt;span class="math">\(n\)&lt;/span>维随机变量。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">总体&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\overset{N\rightarrow \infty}{\leftarrow}\)&lt;/span>&lt;/th>
+&lt;th align="center">个体&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(\downarrow\)&lt;/span>&lt;/td>
+&lt;td align="center">抽样&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\downarrow\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">样本（&lt;span class="math">\(n\)&lt;/span>维）&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\overset{n个}{\leftarrow}\)&lt;/span>&lt;/td>
+&lt;td align="center">样品&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(\downarrow\)&lt;/span>&lt;/td>
+&lt;td align="center">等效&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\downarrow\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(n\)&lt;/span>维随机变量&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\overset{n个}{\leftarrow}\)&lt;/span>&lt;/td>
+&lt;td align="center">随机变量&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(\downarrow\)&lt;/span>&lt;/td>
+&lt;td align="center">观测&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\downarrow\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(n\)&lt;/span>维向量&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\overset{n个}{\leftarrow}\)&lt;/span>&lt;/td>
+&lt;td align="center">观测值&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>对总体的要求：远比样本容量大，最好是无限总体。&lt;/li>
+&lt;li>对样本的要求：抽样要独立、随机&lt;span class="math">\(\Rightarrow\)&lt;/span>n个独立同分布样品(i.i.d)&lt;span class="math">\(\Rightarrow\)&lt;/span>n维随机变量&lt;span class="math">\(\leftrightarrow\)&lt;/span>n个i.i.d的一维随机变量&lt;/li>
+&lt;li>抽样方法：简单随机抽样、分层抽样、系统抽样、按比例抽样……&lt;/li>
+&lt;/ul>
+&lt;h2 id="统计量与估计量">统计量与估计量&lt;/h2>
+&lt;blockquote>
+&lt;p>统计量：通过&lt;strong>样本构造&lt;/strong>出的&lt;strong>不含任何未知量&lt;/strong>的函数（样本函数），称此函数为统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>统计量通过构造函数把分散在样品中的反应总体的信息按人们的要求提取出来。需要强调的是由于样本是N维随机变量，因此其构造的函数（统计量）也是随机变量（大多数是一维）。我们通过观测，得到样本观察值后，立即可算得统计量的值。&lt;/p>
+&lt;p>关于统计量有以下几点说明：&lt;/p>
+&lt;ul>
+&lt;li>统计量&lt;strong>既是函数也是随机变量&lt;/strong>。函数是从统计量的构造方式角度来说的，它是样本空间到参数空间的一个映射；而由于其自变量是一个N维随机变量（样本），同时一个随机变量的函数也是随机变量，随机变量是从值域的角度来考虑。&lt;/li>
+&lt;li>构造统计量的目的是统计推断。&lt;strong>统计推断包括：抽样分布（精确，渐进，近似）、参数估计（点，区间）、假设检验（参数，非参数）&lt;/strong>。&lt;/li>
+&lt;li>统计量随机性来源于自变量的随机性，当有一组样本的观测值被取出，那么统计量的随机性就没了，值也就固定了（就是单纯函数映射关系）。&lt;/li>
+&lt;li>统计量可以简单理解为&lt;strong>随机变量的函数&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>估计量：在参数估计大类的点估计中，那么用于估计未知参数的&lt;strong>统计量&lt;/strong>称为&lt;strong>点估计(量)&lt;/strong>，简称为&lt;strong>估计(量)&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>从上面的定义中，我们注意以下几点：&lt;/p>
+&lt;ul>
+&lt;li>估计量是一种统计量，也是由样本构造的函数。二者区别在于目的：估计量要估计一个&lt;strong>未知参数&lt;/strong>；&lt;/li>
+&lt;li>要估计的未知参数设为&lt;span class="math">\(\theta\)&lt;/span>，估计量用&lt;span class="math">\(\hat{\theta}=\hat{\theta}(x_1,x_2,\dotsb,x_n)\)&lt;/span>表示，&lt;span class="math">\(\hat{\theta}\)&lt;/span>的取值范围称为&lt;strong>参数空间&lt;/strong>&lt;span class="math">\(\varTheta=\{\theta\}\)&lt;/span>，那么估计量就是一个从&lt;strong>样本空间到参数空间的映射&lt;/strong>，一个具体的观测值所得一个估计值；&lt;/li>
+&lt;li>参数&lt;span class="math">\(\theta\)&lt;/span>可以是（1）分布中的未知参数（2）分布中的特征数（期望、方差、偏度、分位数……）（3）某事件的概率；&lt;/li>
+&lt;li>由于构造出来以估计参数的函数不止一种，因此一个参数的估计量也不止一个。&lt;/li>
+&lt;/ul>
+&lt;h3 id="估计量的评价指标">估计量的评价指标&lt;/h3>
+&lt;p>（1）无偏性（小样本性质）/渐进无偏性（大样本性质）：表示的是无系统偏差，虽然每次的估计值与参数会有随即偏差，但这些随即偏差期望为0；&lt;/p>
+&lt;p>无偏估计&lt;strong>不具有变换不变性&lt;/strong>，典型的例子就是无偏样本方差&lt;span class="math">\(s^2=\frac{\sum (x_i-\bar{x})^2}{n-1}\)&lt;/span>的平方根&lt;span class="math">\(s\)&lt;/span>（样本标准差）是总体标准差的有偏估计。但是如果变换是&lt;strong>线性变换&lt;/strong>，那么无偏估计还是无偏的。&lt;/p>
+&lt;p>（2）有效性：之前指出估计量也是随机变量，如果这个估计的期望等于位置参数则为无偏；在&lt;strong>无偏估计的基础上&lt;/strong>，我们希望每次观测得出估计值尽量差距小，这就用&lt;strong>估计量的方差&lt;/strong>来表示。方差越小（即偏离无偏估计参数的概率越小），有效性越高。&lt;/p>
+&lt;p>通常，我们希望在&lt;strong>无偏估计的基础上，估计量的方差尽量小&lt;/strong>，这就是&lt;strong>一致最小方差无偏估计&lt;/strong>，简称为&lt;strong>UMVUE&lt;/strong>。&lt;/p>
+&lt;p>（3）相合性（大样本性质）：当样本容量增加时，随机变量&lt;span class="math">\(\hat{\theta}\)&lt;/span>收敛于&lt;span class="math">\(\theta\)&lt;/span>，直观的讲就是随着样本容量的增大，一个估计量的值能够稳定（以很大概率）在待估参数真值的附近，这就是估计量的相合性的要求。&lt;/p>
+&lt;p>根据随机变量收敛性的强弱，又可分为弱相合（&lt;span class="math">\(\hat{\theta}\overset{P}{\rightarrow}\theta\)&lt;/span>），强相合（&lt;span class="math">\(\hat{\theta}\overset{a.s.}{\rightarrow}\theta\)&lt;/span>）,r阶矩相合（&lt;span class="math">\(\hat{\theta}\overset{r}{\rightarrow}\theta\)&lt;/span>）。理论基础时&lt;strong>大数定理&lt;/strong>。相合性也可等效于无偏（或渐进无偏）+ 方差（弱、强、r阶矩）收敛到0。&lt;/p>
+&lt;p>（4）渐进正态性（大样本性质）：估计量的渐进正态性来源于&lt;strong>中心极限定理&lt;/strong>，若统计量在样本容量&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列&lt;span class="math">\(\{\sigma_n^2\}\)&lt;/span>，满足&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)&lt;/span>，则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，&lt;span class="math">\(\sigma_n^2\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。&lt;/p>
+&lt;p>暂时我还没有搞清楚渐进正态性的意义与用处。&lt;/p>
+&lt;h3 id="样本的经验分布函数和样本矩">样本的经验分布函数和样本矩&lt;/h3>
+&lt;p>经验分布函数部分可参考笔记《概率统计随机过程之经验函数分布》。&lt;/p>
+&lt;blockquote>
+&lt;p>样本矩：样本的经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>的各阶矩统称为样本矩，又称矩统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个说法太形式化了，直白的说，经验分布函数的概率质量函数都是&lt;span class="math">\(\frac{1}{n}\)&lt;/span>，样本矩就是以&lt;span class="math">\(p=\frac{1}{n}\)&lt;/span>为概率的各种期望。矩统计量我们心里默默替换成用样本构造的矩相关的函数来理解就行了。大体就这下面两种：&lt;/p>
+&lt;p>&lt;span class="math">\[\begin{aligned}
+A_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n x_i^k(k=1,2,\dotsb)&amp;amp;\text{样本k阶（原点）矩}\\
+B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text{样本k阶中心矩}
+\end{aligned}
+\]&lt;/span>&lt;/p>
+&lt;p>我们可以容易证明：一般样本k阶原点矩是无偏的，样本k阶中心矩是有偏的。&lt;/p>
+&lt;p>所谓矩估计，就是用这些样本矩构造（凑）出特定的参数，例如偏度系数&lt;span class="math">\(\hat{\beta}=B_3/B_2^{\frac{3}{2}}\)&lt;/span>。如果需要估计的未知参数没法用样本矩构造出来，则认为此参数的矩估计不存在；相对的，如果可以用多种方法构造出来，那么就有多种矩估计，可以通过有效性，无偏性再进行进一步筛选。&lt;/p>
+&lt;h2 id="抽样分布">抽样分布&lt;/h2>
+&lt;blockquote>
+&lt;p>抽样分布：统计量作为一个随机变量，其概率分布称为抽样分布，也称统计量分布、随机变量函数分布。&lt;/p>
+&lt;/blockquote>
+&lt;p>抽样分布就是寻求特定样本的函数（统计函数）的分布，大体分为以下三类：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>精确（抽样）分布：在总体&lt;span class="math">\(X\)&lt;/span>的分布已知，如果对任意&lt;span class="math">\(n\)&lt;/span>都能导出统计量&lt;span class="math">\(T(x_1,\dotsb,x_n)\)&lt;/span>的分布的解析表达式，则为精确分布。在&lt;strong>小样本问题&lt;/strong>中很有用。一般比较难求，大多以正态总体为研究对象，例如统计三大分布&lt;span class="math">\(\chi^2,t,F\)&lt;/span>分布等。&lt;/li>
+&lt;li>渐进（抽样）分布：精确分布大多数求不出来，或者很复杂。因此，退一步，在样本容量n很大或者趋近无穷时作为近似的分布，称为渐进分布。&lt;strong>大样本&lt;/strong>时可以使用，比如中心极限定理下的正态分布、卡方分布等。&lt;/li>
+&lt;li>近似（抽样）分布：没啥特定规律的分布，可以在&lt;em>一定条件&lt;/em>下用近似分布，常见的有假定正态分布并用样本前两阶矩替代总体前两阶矩；还有很多随机模拟方法，MCMC，Gibs采样等等。&lt;/li>
+&lt;/ol>
+&lt;h3 id="常见统计量的抽样分布">常见统计量的抽样分布&lt;/h3>
+&lt;p>统计抽样三大分布：卡方分布、t分布、F分布。&lt;/p>
+&lt;p>见笔记《概率统计随机过程之抽样的分布》&lt;/p>
+&lt;h2 id="概率分布族">概率分布族&lt;/h2>
+&lt;blockquote>
+&lt;p>分布族：&lt;strong>分布类型&lt;/strong>和&lt;strong>参数空间&lt;/strong>组成一个（概率）参数分布族。此外，分布/概率和特定条件组成，且不能由该特定条件确定具体分布的分布族成为非参数分布族。&lt;/p>
+&lt;/blockquote>
+&lt;p>分布族是一个看似很高端，其实就是某一类概率分布的统称，比如常见的参数分布族可写成：&lt;/p>
+&lt;ul>
+&lt;li>二项分布族：&lt;span class="math">\(\{b(n,p);0&amp;lt;1&amp;lt;p,n\in Z^+\}\)&lt;/span>&lt;/li>
+&lt;li>泊松分布族：&lt;span class="math">\(\{p(\lambda);\lambda&amp;gt;0\}\)&lt;/span>&lt;/li>
+&lt;li>正态分布族：&lt;span class="math">\(\{N(\mu,\sigma^2);-∞&amp;lt;\mu&amp;lt;∞,\sigma&amp;gt;0\}\)&lt;/span>&lt;/li>
+&lt;li>均匀分布族：&lt;span class="math">\(\{U(a,b);-∞&amp;lt;a&amp;lt;b&amp;lt;∞\}\)&lt;/span>&lt;/li>
+&lt;li>指数分布族：&lt;span class="math">\(\{\exp(\lambda);\lambda&amp;gt;0\}\)&lt;/span>&lt;/li>
+&lt;li>伽马分布族：&lt;span class="math">\(\{Ga(\alpha,\lambda);\alpha&amp;gt;0,\lambda&amp;gt;0\}\)&lt;/span>&lt;/li>
+&lt;li>贝塔分布族：&lt;span class="math">\(\{Beta(a,b);a&amp;gt;0,b&amp;gt;0\}\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>还有一些非参数分布族的例子：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\mathfrak{p}_1=\{p(x);p(x)\text{是连续分布}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathfrak{p}_2=\{F(x);F(x)\text{的一二阶矩存在}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathfrak{p}_3=\{p(x);p(x)\text{是对称连续分布}\}\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h3 id="指数型分布族">指数型分布族&lt;/h3>
+&lt;p>区别于指数分布族，指数型分布族是指数分布族的推广，更是囊括了正态分布族、二项分布族、伽马分布族、多项分布族等等。&lt;/p>
+&lt;blockquote>
+&lt;p>指数型分布族：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}h(x)\]&lt;/span> 其中，k为自然数；分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
+&lt;/blockquote>
+&lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>，其中主要有两条：一条是“分布的支撑与&lt;span class="math">\(\theta\)&lt;/span>无关”；另一条是“&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关”，若其间线性相关，如&lt;span class="math">\(T_1(x)=2T_2(x)+3T_3(x)\)&lt;/span>，则把&lt;span class="math">\(T_1(x)\)&lt;/span>归拢到&lt;span class="math">\(T_2(x),T_3(x)\)&lt;/span>中即可。&lt;/p>
+&lt;p>下面这张截图就是将3个常见分布族改写成指数型分布族的例子。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/指数型分布族例子.png" alt="指数型分布族例子" />&lt;p class="caption">指数型分布族例子&lt;/p>
+&lt;/div>
+&lt;h2 id="次序统计量">次序统计量&lt;/h2>
+&lt;blockquote>
+&lt;p>次序统计量：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的一个样本，&lt;span class="math">\(X_{(k)}\)&lt;/span>称为该样本的的第k个次序统计量，假如每当获得样本观测值后将其&lt;strong>从小到大排序可得如下有序样本&lt;/strong>： &lt;span class="math">\[x_{(1)}≤x_{(2)}≤x_{(3)}≤\dotsb≤x_{(k)}≤\dotsb≤x_{(n)}\]&lt;/span> 其中，第k个观测值&lt;span class="math">\(x_{(k)}\)&lt;/span>就是&lt;span class="math">\(X_{(k)}\)&lt;/span>的取值，并称&lt;span class="math">\(X_{(1)},X_{(2)},\dotsb,X_{(n)}\)&lt;/span>为该&lt;strong>样本的次序统计量&lt;/strong>，特别的，&lt;span class="math">\(X_{(1)}=\min(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最小次序统计量&lt;/strong>，&lt;span class="math">\(X_{(n)}=\max(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最大次序统计量&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>次序统计量引申出来的概念有最小次序统计量、最大次序统计量、极差、中位数、P分位数。次序统计量作为随机变量也是有概率分布的，用的不多，等用到的时候再补充。&lt;/p>
+&lt;h2 id="充分统计量">充分统计量&lt;/h2>
+&lt;p>充分统计量的概念比较难理解，但十分重要。由于我看得是茆诗松的《数理统计学》，这本书里的定义包括了分布族的充分统计量，这和其他资料上的充分统计量有一个巨大的区别，就是一般资料上充分统计量都是和分布的某个参数&lt;span class="math">\(\theta\)&lt;/span>相关的，我也更倾向这样定义（更实用）。&lt;/p>
+&lt;blockquote>
+&lt;p>充分统计量：假如&lt;span class="math">\(\mathcal{F}=\{F_\theta,\theta\in \varTheta\}\)&lt;/span>是参数分布族（&lt;span class="math">\(\theta\)&lt;/span>可以是向量），在给定&lt;span class="math">\(T=t\)&lt;/span>下，样本&lt;span class="math">\(x\)&lt;/span>（n维随机变量）的条件分布与&lt;span class="math">\(\theta\)&lt;/span>无关，则称&lt;span class="math">\(T\)&lt;/span>&lt;strong>为参数&lt;span class="math">\(\theta\)&lt;/span>的充分统计量&lt;/strong>。 &lt;span class="math">\[P(X=x\mid T(X)=t,\,\theta )=P(X=x\mid T(X)=t)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>从上面这个式子中，我们两边同时乘以&lt;span class="math">\(P(\theta)\)&lt;/span>，有 &lt;span class="math">\[
+P(X=x\mid T(X)=t,\,\theta)P(\theta)=P(X=x,\theta\mid T(X)=t)\\
+=P(X=x\mid T(X)=t)P(\theta)
+\]&lt;/span> 显然，有&lt;span class="math">\(P(X=x\mid T(X)=t),P(\theta)\)&lt;/span>二者独立。当我们已知&lt;span class="math">\(T(x)\)&lt;/span>以后，&lt;span class="math">\(\theta\)&lt;/span>的概率就不重要了，或者说&lt;span class="math">\(T(x)\)&lt;/span>完全包含了&lt;span class="math">\(\theta\)&lt;/span>对&lt;span class="math">\(X\)&lt;/span>有影响的信息。我们也可以换个角度来说明充分统计量不损失有关&lt;span class="math">\(\theta\)&lt;/span>信息，比如你已经抽样的1000个数据全都写在了一张纸上，这些数据是给你写论文用的。突然有一天你的狗把你这张写满数据的纸吃掉了，这个时候假如你的数据满足指数分布，且你已经提前把这些数据的的&lt;span class="math">\(\hat\lambda\)&lt;/span>算了出来，那你的狗也没坏了什么大事——因为这个充分统计量包含了这1000个数据的所有有用信息。你可以设计一个指数分布且&lt;span class="math">\(\lambda=\hat\lambda\)&lt;/span>的随机试验重新获得样本，这个新样本和过去的样本可能不完全一样，但它和老样本有相同的分布，当样本容量趋于无穷，新老两个样本应是等效的。&lt;/p>
+&lt;blockquote>
+&lt;p>从信息论的角度来说，就是&lt;span class="math">\(X,T(X)\)&lt;/span>中包含关于&lt;span class="math">\(\theta\)&lt;/span>的信息相同，即&lt;strong>互信息相同&lt;/strong>： &lt;span class="math">\[I{\bigl (}\theta ;T(X){\bigr )}=I(\theta ;X)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>根据&lt;strong>数据处理不等式&lt;/strong>，当我们仅对已知数据进行加工时，不可能获得额外的信息，只可能保持信息量不减，即&lt;span class="math">\(I(X;Y)≥I(X;f(Y))\)&lt;/span>，充分统计量就是在对数据&lt;span class="math">\(X\)&lt;/span>进行加工变成&lt;span class="math">\(T(X)\)&lt;/span>时，里面关于&lt;span class="math">\(\theta\)&lt;/span>的信息没有变化。&lt;/p>
+&lt;p>此外，如果&lt;strong>另一个统计量&lt;span class="math">\(S(x)\)&lt;/span>和&lt;span class="math">\(T(x)\)&lt;/span>有一一对应关系&lt;/strong>，那么&lt;span class="math">\(S(x)\)&lt;/span>也是&lt;span class="math">\(\theta\)&lt;/span>的一个充分统计量。这种一一对应关系一般并不会导致信息的损失。&lt;/p>
+&lt;h3 id="因子分解定理">因子分解定理&lt;/h3>
+&lt;p>虽然我们说的很好听，但是实际情况下通过条件概率方式的验证并不是特别容易。因此我们给出一个叫作因子分解定理的东西。它的证明并不需要掌握，而其用法又很简单，所以这个计算的难度就大大降低了。&lt;/p>
+&lt;blockquote>
+&lt;p>因子分解定理（费希尔分解定理）：设总体概率函数（分布列或密度函数）为&lt;span class="math">\(f(x;\theta)\)&lt;/span>,&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>为样本，那么&lt;span class="math">\(T=T(X_1,X_2,\dotsb,X_n)\)&lt;/span>为充分统计量的充要条件为：存在函数&lt;span class="math">\(g(t,\theta)\)&lt;/span>与&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>使得对任意的&lt;span class="math">\(\theta\)&lt;/span>和任意一组的观测值&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>，都有 &lt;span class="math">\[f(x_1,\dotsb,x_n;\theta)=g(T(x_1,\dotsb,x_n),\theta)h(x_1,\dotsb,x_n)\]&lt;/span> 其中，&lt;span class="math">\(g(t,\theta)\)&lt;/span>只通过统计量&lt;span class="math">\(T(x_1,\dotsb,x_n)\)&lt;/span>的取值二依赖于样本。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个定理把抽样的样本发生的联合概率密度分成两个部分，一是只和&lt;span class="math">\(t,\theta\)&lt;/span>相关的&lt;span class="math">\(g(t,\theta)\)&lt;/span>，另一个是只和&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>相关的&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>，比条件概率的方法容易了许多。有一个一般性的情况是通常&lt;span class="math">\(h(x_1,\dotsb,x_n)=c\)&lt;/span>，即它通常是一个常数。&lt;/p>
+&lt;h3 id="最小充分统计量">最小充分统计量&lt;/h3>
+&lt;p>充分统计量做到了“用已知刻画未知”。那么更进一步的，我们当然希望充分统计量越简单，越精细越好。所以这其实就是极小充分统计量的定义。&lt;/p>
+&lt;blockquote>
+&lt;p>最小充分统计量：若一个充分统计量是任何其他充分统计量的函数，则称其是一个最小充分统计量。即，统计量&lt;span class="math">\(S(X)\)&lt;/span>是最小充分统计量当且仅当&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(S(X)\)&lt;/span>是充分统计量，&lt;/li>
+&lt;li>如果&lt;span class="math">\(T(X)\)&lt;/span>是一个充分统计量，那么存在一个函数&lt;span class="math">\(f\)&lt;/span>使得&lt;span class="math">\(S(X)= f(T(X))\)&lt;/span>。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>如果任何一个充分统计量&lt;span class="math">\(T\)&lt;/span>都可以通过加工得到&lt;span class="math">\(S\)&lt;/span>，这就说明&lt;span class="math">\(S\)&lt;/span>一定是更精细的（或者更严谨地说，一定不会变得更粗糙）充分统计量，而“任何一个”保证了最小性。我们也可以通过数据处理不等于来理解加工只可能减少信息量这一事实。一般而言，最小充分统计量不太好证出来，而且最小充分统计量也不是唯一的，只要与最小充分统计量有一一对应关系的统计量，都是最小充分统计量。&lt;/p>
+&lt;h2 id="常用概率分布与特征数表">常用概率分布与特征数表&lt;/h2>
+&lt;div class="figure">
+&lt;img src="../../images/常用概率分布族.png" alt="常用概率分布族" />&lt;p class="caption">常用概率分布族&lt;/p>
+&lt;/div></description></item><item><title>概率统计随机过程之母函数特征函数矩母函数</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%AF%8D%E5%87%BD%E6%95%B0%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0/</link><pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%AF%8D%E5%87%BD%E6%95%B0%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0/</guid><description>
+&lt;h2 id="概率统计随机过程之母函数特征函数矩母函数">概率统计随机过程之母函数特征函数矩母函数&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>为什么要引入母函数、特征函数（矩母函数）？因为它们是处理概率论问题的有力工具。它们能把寻求独立随机变量法和的分布的卷积运算（积分运算）转换成函数的乘法运算，还能把求分布的各阶原点矩运算变成函数的微分运算，特别的，它能把寻求随机变量序列的极限分布转换成一般的函数极限问题。为概率论提供了数学分析方面的强大武器。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#母函数只适用于非负整数离散随机变量">母函数（只适用于非负整数离散随机变量）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#常见非负离散分布的母函数">常见非负离散分布的母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#离散随机变量和的分布与母函数关系">离散随机变量和的分布与母函数关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#母函数与数字特征关系">母函数与数字特征关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征函数">特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几种常见分布的特征函数">几种常见分布的特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征函数性质">特征函数性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征函数唯一决定分布函数">特征函数唯一决定分布函数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="母函数只适用于非负整数离散随机变量">母函数（只适用于非负整数离散随机变量）&lt;/h2>
+&lt;p>为何要定义概率母函数？概率论起步的时候由于其研究不确定性的特点，难以找到系统的方法，&lt;strong>设计一个包含某一随机变量所有信息的函数使其具有解析性&lt;/strong>便成为处理概率问题的一种方法。&lt;/p>
+&lt;blockquote>
+&lt;p>定义：非负整值随机变量的母函数：一个离散随机变量的概率母函数是指该随机变量的概率质量函数的幂级数表达式。&lt;/p>
+&lt;p>单变量情形&lt;/p>
+&lt;p>如果&lt;span class="math">\(X\)&lt;/span>是在非负整数域&lt;span class="math">\(\{0,1, ...\}\)&lt;/span>上取值的离散随机变量,那么&lt;span class="math">\(X\)&lt;/span>的概率母函数定义为 &lt;span class="math">\[G(z)=\operatorname {E} (z^{X})=\sum _{x=0}^{\infty }p(x)z^{x},\]&lt;/span> 其中&lt;span class="math">\(p\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的概率质量函数。&lt;/p>
+&lt;p>多变量情形&lt;/p>
+&lt;p>如果&lt;span class="math">\(X = (X1,...,Xd )\)&lt;/span>是在&lt;span class="math">\(d-\)&lt;/span>非负整数格&lt;span class="math">\(\{0,1, ...\}^d\)&lt;/span>上取值的离散随机变量, 那么&lt;span class="math">\(X\)&lt;/span>的概率母函数定义为 &lt;span class="math">\[G(z)=G(z_{1},\ldots ,z_{d})=\operatorname {E} {\bigl (}z_{1}^{X_{1}}\cdots z_{d}^{X_{d}}{\bigr )}=\\
+\sum _{x_{1},\ldots ,x_{d}=0}^{\infty }p(x_{1},\ldots ,x_{d})z_{1}^{x_{1}}\cdots z_{d}^{x_{d}},\]&lt;/span> 其中&lt;span class="math">\(p\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的概率质量函数。&lt;/p>
+&lt;/blockquote>
+&lt;p>由于&lt;span class="math">\(\forall p(x)，有0≤p(x)≤1，\sum p(x)=1\)&lt;/span>。所以概率母函数的收敛半径≥1。引进母函数的好处是它有很好的分析性质，而一旦知道了&lt;span class="math">\(X\)&lt;/span>的母函数，那么&lt;span class="math">\(X\)&lt;/span>的分布列可以通过下式获得： &lt;span class="math">\[p_k=\frac{g^{(k)}(0)}{k!}，k=0,1,2,\dotsb\]&lt;/span> 分布列和母函数的项是&lt;strong>一一对应的&lt;/strong>。&lt;/p>
+&lt;h3 id="常见非负离散分布的母函数">常见非负离散分布的母函数&lt;/h3>
+&lt;p>注：以下各式中&lt;span class="math">\(p+q=1，P(X=0)=q\)&lt;/span>&lt;/p>
+&lt;ul>
+&lt;li>伯努利分布(0-1分布)：&lt;span class="math">\(X\sim B(1,p)\)&lt;/span> &lt;span class="math">\[g(z)=q+pz\]&lt;/span>&lt;/li>
+&lt;li>二项分布：&lt;span class="math">\(X\sim B(n,p)\)&lt;/span> &lt;span class="math">\[g(z)=\sum_{k=0}^∞ C_n^kp^kq^{n-k}z^k\\
+=(q+pz)^n\]&lt;/span> 0-1分布和二项分布的关系也体现出独立同分布概率联合概率的关系。&lt;/li>
+&lt;li>泊松分布：&lt;span class="math">\(X\sim P(\lambda)\)&lt;/span> &lt;span class="math">\[g(z)=\sum_{k=0}^∞\frac{\lambda^k}{k!}e^{-\lambda}z^k\\
+=e^{\lambda(z-1)}\]&lt;/span>&lt;/li>
+&lt;li>几何分布：：&lt;span class="math">\(X\sim Geo(p)\)&lt;/span> &lt;span class="math">\[g(z)=\sum_{k=1}^∞ q^{k-1}p z^k=pz\sum_{k=1}^∞ q^{k-1}z^{k-1}\\
+\because -1&amp;lt;qz&amp;lt;1\\
+=pz\times \frac{1}{1-qz}=\frac{pz}{1-qz}\]&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h3 id="离散随机变量和的分布与母函数关系">离散随机变量和的分布与母函数关系&lt;/h3>
+&lt;blockquote>
+&lt;p>定理：设非负整值随机变量&lt;span class="math">\(X_1,X_2,\dots,X_n\)&lt;/span>相互独立，而&lt;span class="math">\(g_1,g_2,\dots,g_n\)&lt;/span>分别是他们的母函数，那么&lt;span class="math">\(Y=\sum\limits_1^n X_k\)&lt;/span>的母函数为 &lt;span class="math">\[g(z)=g_1(z)g_2(z)\dotsb g_n(z)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="母函数与数字特征关系">母函数与数字特征关系&lt;/h3>
+&lt;p>期望：&lt;span class="math">\(E(X)=g&amp;#39;(1)=\sum\limits_{k=1}^∞ kp_kz^{k-1}|_{z=1}\)&lt;/span>。 相仿的，&lt;span class="math">\(E(z^X)=\sum\limits_{k=0}^∞ z^kp_k=g(z)\)&lt;/span>。从这里，我们可以看出&lt;strong>母函数实际上是&lt;span class="math">\(z^X\)&lt;/span>的期望。&lt;/strong>&lt;/p>
+&lt;p>方差：&lt;span class="math">\(Var(x)=g&amp;#39;&amp;#39;(1)+g&amp;#39;(1)-g&amp;#39;(1)^2\)&lt;/span>&lt;/p>
+&lt;h2 id="特征函数">特征函数&lt;/h2>
+&lt;p>母函数为我们处理概率提供了数学分析的角度与方法，极大方便了概率的处理，但是并不是所有随机变量都是有母函数的（只有离散的非负整数随机变量才有母函数），对于一般的随机变量是否具有类似的东西呢？&lt;strong>这就是特征函数&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>定义：对任一随机变量&lt;span class="math">\(X\)&lt;/span>，称 &lt;span class="math">\[\varphi_X(t)=E(e^{itX})=\int_{-∞}^∞ e^{itx}p(x) \mathrm{d}x，-∞&amp;lt;t&amp;lt;+∞\]&lt;/span> 为随机变量&lt;span class="math">\(X\)&lt;/span>的特征函数。&lt;/p>
+&lt;/blockquote>
+&lt;p>说明：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>规定&lt;span class="math">\(E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(E^{itX})=E(\cos tX)+iE(\sin tX)\)&lt;/span>&lt;/li>
+&lt;li>由于&lt;span class="math">\(|e^{itX}|=1\)&lt;/span>，所以对任一随机变量都有特征函数。对于离散随机变量，其为求和形式；对于连续随机变量为积分形式。&lt;/li>
+&lt;li>特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>都是实变复值的。&lt;/li>
+&lt;li>&lt;span class="math">\(\varphi(0)=1\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;h3 id="几种常见分布的特征函数">几种常见分布的特征函数&lt;/h3>
+&lt;p>注：以下各式中&lt;span class="math">\(p+q=1，P(X=0)=q\)&lt;/span>&lt;/p>
+&lt;ul>
+&lt;li>伯努利分布(0-1分布)：&lt;span class="math">\(X\sim B(1,p)\)&lt;/span> &lt;span class="math">\[\varphi(t)=q+pe^{it}\]&lt;/span>&lt;/li>
+&lt;li>二项分布：&lt;span class="math">\(X\sim B(n,p)\)&lt;/span>，0-1分布和二项分布的关系也体现出独立同分布概率联合概率的关系。 &lt;span class="math">\[\varphi(t)=(q+pe^{it})^n\]&lt;/span>&lt;/li>
+&lt;li>泊松分布：&lt;span class="math">\(X\sim P(\lambda)\)&lt;/span> &lt;span class="math">\[\varphi(t)=\sum_{k=0}^∞\frac{\lambda^k}{k!}e^{-\lambda}e^{\lambda e^{it}}\\
+=e^{\lambda(e^{it}-1)}\]&lt;/span>&lt;/li>
+&lt;li>几何分布：：&lt;span class="math">\(X\sim Geo(p)\)&lt;/span> &lt;span class="math">\[\varphi(t)=\frac{pe^{it}}{1-qe^{it}}\]&lt;/span>&lt;/li>
+&lt;li>均匀分布：&lt;span class="math">\(X \sim U(a,b)\)&lt;/span> &lt;span class="math">\[\varphi(t)=\frac{e^{ibt}-e^{iat}}{i(b−a)t}\]&lt;/span>&lt;/li>
+&lt;li>正态分布：&lt;span class="math">\(X\sim N(\mu,\sigma^2)\)&lt;/span> &lt;span class="math">\[\varphi(t)=e^{iut-\frac{\sigma^2t^2}{2}}\]&lt;/span>&lt;/li>
+&lt;li>指数分布：&lt;span class="math">\(X \sim \exp(\lambda)\)&lt;/span> &lt;span class="math">\[\varphi(t)=(1-\frac{it}{\lambda})^{-1}\]&lt;/span>&lt;/li>
+&lt;li>gamma分布：&lt;span class="math">\(X \sim Ga(\alpha,\lambda)\)&lt;/span> &lt;span class="math">\[\varphi(t)=(1-\frac{it}{\lambda})^{-\alpha}\]&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>其他分布的特征函数可见茆诗松《概率论与数理统计教程 第二版》P219&lt;/p>
+&lt;h3 id="特征函数性质">特征函数性质&lt;/h3>
+&lt;blockquote>
+&lt;p>性质1：&lt;span class="math">\(|\varphi(t)|\leq \varphi(0)=1\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明： &lt;span class="math">\[
+|\varphi(t)|=|\int_{-∞}^∞ e^{itx}p(x) \mathrm{d}x|\overset{\text{柯西不等式}}{\le}\int_{-∞}^∞ |e^{itx}|p(x) \mathrm{d}x\\
+|e^{itx}|=\sqrt{\cos^2(tx)+\sin^2(tx)}=1=e^{ix\cdot 0}\\
+\Rightarrow|\varphi(t)|=\int_{-∞}^∞ 1\cdot p(x) \mathrm{d}x=\varphi(0)=1
+\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>性质2：&lt;span class="math">\(\varphi(-t)=\overline{\varphi(t)}\)&lt;/span>，其中&lt;span class="math">\(\overline{\varphi(t)}\)&lt;/span>表示&lt;span class="math">\(\varphi(t)\)&lt;/span>的复共轭。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明： &lt;span class="math">\[\varphi(-t)=\int_{-∞}^∞ e^{-itx}p(x) \mathrm{d}x=\int_{-∞}^∞ \overline{e^{itx}}p(x) \mathrm{d}x\]&lt;/span> 由于&lt;span class="math">\(p(x)\)&lt;/span>是非负实数，不影响虚数，所以&lt;span class="math">\(\int_{-∞}^∞ \overline{e^{itx}}p(x) \mathrm{d}x=\overline{\int_{-∞}^∞ e^{itx}p(x)}\mathrm{d}x=\overline{\varphi(t)}\)&lt;/span>，所以&lt;span class="math">\(\varphi(-t)=\overline{\varphi(t)}\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>性质3：&lt;span class="math">\(X\)&lt;/span>的特征函数为&lt;span class="math">\(\varphi(t)\)&lt;/span>，则&lt;span class="math">\(Y=aX+b\)&lt;/span>的特征函数为&lt;span class="math">\(e^{itb}\varphi(at)\)&lt;/span>.&lt;/p>
+&lt;/blockquote>
+&lt;p>证明： &lt;span class="math">\[\varphi_Y(t)=E(e^{itY})=E(e^{it(aX+b)})=E(e^{itaX})\cdot e^{itb}\]&lt;/span> 如果我们将&lt;span class="math">\(ta\)&lt;/span>作为变量整体，则有&lt;span class="math">\(E(e^{itaX})=\varphi(at)\)&lt;/span>，综上所述有&lt;span class="math">\(\varphi_Y(t)=e^{itb}\varphi(at)\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>性质4：独立随机变量的和的特征函数为每个随机变量的特征函数的积，即设&lt;span class="math">\(X_1,X_2,\dotsb X_n\)&lt;/span>相互独立，则&lt;span class="math">\(Y=\sum_{k=1}^n X_k\)&lt;/span>有 &lt;span class="math">\[\varphi_{Y}(t)=\prod_{k=1}^n \varphi_{X_k}(t)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：因为&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>相互独立，所以其随机变量的函数&lt;span class="math">\(E(e^{itX_1}),E(e^{itX_2}),\dotsb,E(e^{itX_n})\)&lt;/span>也是相互独立的，从而有 &lt;span class="math">\[\begin{aligned}
+\varphi_{Y}(t)&amp;amp;=E(e^{itY})=E(e^{it\sum_{k=1}^n X_i})=E(\prod_{k=1}^n e^{itX_k})\\
+&amp;amp;\overset{\text{独立性}}{=}\prod_{k=1}^n E(e^{itX_k})=\prod_{k=1}^n \varphi_{X_k}(t)
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>性质5：若&lt;span class="math">\(E(X^l)\)&lt;/span>存在，则&lt;span class="math">\(X\)&lt;/span>的特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>可&lt;span class="math">\(l\)&lt;/span>次求导，且对&lt;span class="math">\(1\leq k \leq l\)&lt;/span>，有 &lt;span class="math">\[\varphi^{(k)}(0)=i^kE(X^k)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明可以从特征函数的积分式进行微分即可。从性质5我们也可以用以下方式求期望和方差： &lt;span class="math">\[
+E(X)=\frac{\varphi&amp;#39;(0)}{i},\text{Var}(X)=-\varphi&amp;#39;&amp;#39;(0)+(\varphi&amp;#39;(0))^2
+\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>性质6：一致连续性。随机变量&lt;span class="math">\(X\)&lt;/span>的特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>在&lt;span class="math">\((-\infty,\infty)\)&lt;/span>上一致连续。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明略。&lt;/p>
+&lt;blockquote>
+&lt;p>性质7：非负定性。随机变量&lt;span class="math">\(X\)&lt;/span>的特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>是非负定的，即对任意正整数&lt;span class="math">\(n\)&lt;/span>及&lt;span class="math">\(n\)&lt;/span>个实数&lt;span class="math">\(t_1,t_2,\dotsb,t_n\)&lt;/span>和&lt;span class="math">\(n\)&lt;/span>个复数&lt;span class="math">\(z_1,z_2,\dotsb,z_n\)&lt;/span>，有 &lt;span class="math">\[\sum_{k=1}^n\sum_{j=1}^n \varphi(t_k-t_j)z_k\bar{z_j}\geq 0\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明略。&lt;/p>
+&lt;h3 id="特征函数唯一决定分布函数">特征函数唯一决定分布函数&lt;/h3>
+&lt;p>由特征函数的定义可知，随机变量的分布唯一地确定了它的特征函数。我们也可以同样推出特征函数完全决定了分布，也就是说，&lt;strong>两个分布函数相等当且仅当它们所对应的特征函数相等&lt;/strong>。我们不加具体证明给出如下定理：&lt;/p>
+&lt;blockquote>
+&lt;p>定理：随机变量的分布函数由其特征函数&lt;strong>唯一决定&lt;/strong>。且当&lt;span class="math">\(X\)&lt;/span>为连续随机变量，其密度函数为&lt;span class="math">\(p(x)\)&lt;/span>，特征函数为&lt;span class="math">\(\varphi(t)\)&lt;/span>，如果&lt;span class="math">\(\int_{-\infty}^\infty |\varphi(t)|\mathrm{d}t&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\[p(x)=\frac{1}{2\pi} \int_{-\infty}^\infty e^{itx}\varphi(t)\mathrm{d}t\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>我们可以称由分布转换为特征函数的过程为傅里叶变换，由特征函数转换成分布的过程为傅里叶逆变换。需要指出：这里定义的傅里叶正逆变换和我们通常在通信、复变函数中定义的傅里叶变换&lt;strong>在&lt;span class="math">\(e\)&lt;/span>的指数上相差了一个负号&lt;/strong>。&lt;/p>
+&lt;p>由于分布函数和特征函数的一一对应关系，我们可以把随机变量序列的收敛问题和函数的收敛问题联系起来，从而有以下定理：&lt;/p>
+&lt;blockquote>
+&lt;p>定理：分布函数序列&lt;span class="math">\(\{F_n(x)\}\)&lt;/span>弱收敛于分布函数&lt;span class="math">\(F(x)\)&lt;/span>的充要条件是&lt;span class="math">\(\{F_n(x)\}\)&lt;/span>的特征函数序列&lt;span class="math">\(\{\varphi_n(t)\}\)&lt;/span>收敛于&lt;span class="math">\(F(x)\)&lt;/span>的特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>例题： &lt;img src="../../images/特征函数列收敛.png" alt="特征函数列收敛" />&lt;/p></description></item><item><title>概率统计随机过程核心之大数定理和中心极限定理</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E6%A0%B8%E5%BF%83%E4%B9%8B%E5%A4%A7%E6%95%B0%E5%AE%9A%E7%90%86%E5%92%8C%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/</link><pubDate>Sun, 07 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E6%A0%B8%E5%BF%83%E4%B9%8B%E5%A4%A7%E6%95%B0%E5%AE%9A%E7%90%86%E5%92%8C%E4%B8%AD%E5%BF%83%E6%9E%81%E9%99%90%E5%AE%9A%E7%90%86/</guid><description>
+&lt;h2 id="概率统计随机过程核心大数定理和中心极限定理">概率统计随机过程核心大数定理和中心极限定理&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#随机变量序列的收敛性">随机变量序列的收敛性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#依分布收敛">依分布收敛&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#依概率收敛">依概率收敛&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几乎处处收敛依概率1收敛">几乎处处收敛（依概率1收敛）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#收敛性之间的关系">收敛性之间的关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#大数定理">大数定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#弱大数定律及其几种形式">弱大数定律及其几种形式&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#切比雪夫不等于相关的大数定律">切比雪夫不等于相关的大数定律&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#用特征函数证明的大数定律">用特征函数证明的大数定律&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#八个弱大数定律的比较">八个弱大数定律的比较&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#强大数定律">强大数定律&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#中心极限定理">中心极限定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#独立同分布条件下的中心极限定理">独立同分布条件下的中心极限定理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#棣莫佛拉普拉斯定理">棣莫佛－拉普拉斯定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#林德伯格列维中心极限定理">林德伯格－列维中心极限定理&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#非独立同分布条件下的中心极限定理">非独立同分布条件下的中心极限定理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#林德伯格-费勒定理">林德伯格-费勒定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#李雅普诺夫中心极限定理">李雅普诺夫中心极限定理&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#弱大数定理和强大数定理的区别">弱大数定理和强大数定理的区别&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="随机变量序列的收敛性">随机变量序列的收敛性&lt;/h2>
+&lt;h3 id="依分布收敛">依分布收敛&lt;/h3>
+&lt;blockquote>
+&lt;p>定义1：设随机变量序列&lt;span class="math">\(\{X_n\}\)&lt;/span>的分布函数列是&lt;span class="math">\(\{F_n(X)\}\)&lt;/span>，&lt;span class="math">\(X\)&lt;/span>的分布函数是&lt;span class="math">\(F(X)\)&lt;/span>，若在&lt;span class="math">\(F(X)\)&lt;/span>的每一个连续点都成立&lt;span class="math">\(\lim_{n→\infty}F_n(X)=F(X)\)&lt;/span>，则称&lt;span class="math">\(F_n(X)\overset{W}{\longrightarrow} F(X)\)&lt;/span>，或&lt;span class="math">\(X_n\overset{L/D}{\longrightarrow} X\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>其中&lt;span class="math">\(W,\text{Weak}\)&lt;/span>表示弱收敛，用于分布函数列；&lt;span class="math">\(L,\text{convergence in law}; D,\text{Distribution}\)&lt;/span>表示依分布收敛，用于随机变量序列。依分布收敛的本质是函数列的收敛，而非随机变量的收敛，因此我们要重点关注的是分布“函数”，在函数列弱收敛的“弱”则体现在函数不是所有点的点点收敛，而是只有在连续点才收敛。在这个定义中，我们需要注意几个点：&lt;/p>
+&lt;p>（1）&lt;span class="math">\(F(x)\)&lt;/span>要求的是所有连续点，并非所有点。&lt;/p>
+&lt;p>例1：一个离散随机变量序列&lt;span class="math">\(X_n\)&lt;/span>分布列如下所示： |&lt;span class="math">\(X_n\)&lt;/span>|&lt;span class="math">\(\frac{1}{n}\)&lt;/span>|&lt;span class="math">\(\overset{n→\infty}{\longrightarrow}\)&lt;/span>|&lt;span class="math">\(X\)&lt;/span>| 0 | |:---:|:-----------:|:-----------------------------------:|:-:|:-:| | P | 1 |&lt;span class="math">\({\longrightarrow}\)&lt;/span>|&lt;span class="math">\(P\)&lt;/span>| 1 | &lt;span class="math">\(X_n\)&lt;/span>依分布收敛到&lt;span class="math">\(X\)&lt;/span>，但是分布函数&lt;span class="math">\(F(x)\)&lt;/span>在间断点&lt;span class="math">\(x=0\)&lt;/span>显然是不收敛的。&lt;/p>
+&lt;p>（2）只有&lt;span class="math">\(F(x)\)&lt;/span>是一个分布函数的时候，而不是任意函数，才能说是依分布收敛。&lt;/p>
+&lt;h3 id="依概率收敛">依概率收敛&lt;/h3>
+&lt;blockquote>
+&lt;p>定义2：设&lt;span class="math">\(\{X_n\}\)&lt;/span>为一随机变量序列，&lt;span class="math">\(X\)&lt;/span>为一随机变量，如果对任意的&lt;span class="math">\(\varepsilon&amp;gt;0\)&lt;/span>，有 &lt;span class="math">\[\lim_{n→∞}P({|X_n-X|&amp;lt;\varepsilon})=1\]&lt;/span> 则称&lt;span class="math">\(\{X_n\}\)&lt;/span>依概率收敛于&lt;span class="math">\(X\)&lt;/span>，记作&lt;span class="math">\(X_n\overset{P}{\longrightarrow}X\)&lt;/span>。&lt;span class="math">\(P\)&lt;/span>表示Probability，概率。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个定义也有几个注意事项：&lt;/p>
+&lt;p>（1）与数列极限&lt;span class="math">\(\{a_n\}\)&lt;/span>的区别。数列极限的收敛比较好理解，就是逐渐逼近某个点。比如下右图中&lt;span class="math">\(y=(\frac{\sin x}{x})^2\)&lt;/span>所示，点序列含逐渐趋向于0。而依概率收敛，是指偏离收敛目标的概率趋于0，以下左图为例，Gamma分布的概率密度函数随&lt;span class="math">\(\beta\)&lt;/span>值减小，逐渐集中到0附近，也就是说取值大于&lt;span class="math">\(0+\varepsilon\)&lt;/span>的概率会越来越小并趋于0，但是仍然有取到一个远大于0的值的可能性。所以依概率收敛是从概率密度/质量函数的角度理解的。 &lt;img src="../../images/依概率收敛与数列收敛区别.png" alt="依概率收敛与数列收敛区别.png" />&lt;/p>
+&lt;p>（2）&lt;span class="math">\(X\)&lt;/span>既可以是随机变量，也可以是一常数（退化分布）。（但是，我遇到的场景基本上都是常数）。&lt;/p>
+&lt;p>依概率收敛的等价形式：&lt;/p>
+&lt;ul>
+&lt;li>若&lt;span class="math">\(\lim_{n→∞} E(X_n) = c\)&lt;/span>，且&lt;span class="math">\(\lim_{n→∞} \text{var}(X_n) = 0\)&lt;/span>，则&lt;span class="math">\(X_n\overset{P}{\longrightarrow}c\)&lt;/span>。(可用切比雪夫不等于证明)&lt;/li>
+&lt;/ul>
+&lt;p>依概率收敛的性质：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>四则运算。设&lt;span class="math">\({X_n},{Y_n}\)&lt;/span>是两个随机变量序列，&lt;span class="math">\(X,Y\)&lt;/span>是两个随机变量（常数也可以），如果&lt;span class="math">\(X_n\overset{P}{\longrightarrow}X,Y_n\overset{P}{\longrightarrow}Y\)&lt;/span> &lt;span class="math">\[1)~~ X_n\pm Y_n \overset{P}{\longrightarrow} X\pm Y\\
+2)~~ X_n\times Y_n \overset{P}{\longrightarrow} X\times Y\\
+3)~~ X_n\div Y_n \overset{P}{\longrightarrow} X\div Y\]&lt;/span>&lt;/li>
+&lt;li>适用于函数。如果&lt;span class="math">\(X_n\overset{P}{\longrightarrow}X,g(x)\)&lt;/span>是直线上的连续函数，则：&lt;span class="math">\(g(X_n)\overset{P}{\longrightarrow}g(X)\)&lt;/span>。&lt;/li>
+&lt;li>依概率收敛与依分布收敛的关系。依概率收敛&lt;span class="math">\(\Rightarrow\)&lt;/span>依分布收敛；当二者收敛到同一常数时，有依概率收敛&lt;span class="math">\(\overset{P}{\longrightarrow} C\Leftrightarrow \)&lt;/span>依分布收敛&lt;span class="math">\(\overset{P}{\longrightarrow} C\)&lt;/span>。&lt;/li>
+&lt;/ol>
+&lt;h3 id="几乎处处收敛依概率1收敛">几乎处处收敛（依概率1收敛）&lt;/h3>
+&lt;blockquote>
+&lt;p>定义3：设&lt;span class="math">\(\{X_n\}\)&lt;/span>为一随机变量序列，&lt;span class="math">\(X\)&lt;/span>为一随机变量，如果有 &lt;span class="math">\[\lim_{n→∞}P({X_n=X})=1\]&lt;/span> 则称&lt;span class="math">\(\{X_n\}\)&lt;/span>几乎处处（依概率1）收敛于&lt;span class="math">\(X\)&lt;/span>，记作&lt;span class="math">\(X_n\overset{a.s/a.e}{\longrightarrow}X\)&lt;/span>。&lt;span class="math">\(a.s/a.e\)&lt;/span>表示almost surely 或 almost everywhere，几乎处处。&lt;/p>
+&lt;/blockquote>
+&lt;p>显然，几乎处处收敛（依概率1收敛）的收敛性比依概率收敛更强，与&lt;span class="math">\(\varepsilon\)&lt;/span>无关。&lt;/p>
+&lt;h3 id="收敛性之间的关系">收敛性之间的关系&lt;/h3>
+&lt;ol style="list-style-type: decimal">
+&lt;li>几乎处处收敛（依概率1收敛）&lt;span class="math">\(\Rightarrow\)&lt;/span>依概率收敛&lt;span class="math">\(\Rightarrow\)&lt;/span>依分布收敛。&lt;/li>
+&lt;li>&lt;span class="math">\(L^p\)&lt;/span>收敛&lt;span class="math">\(\Rightarrow\)&lt;/span>依概率收敛&lt;span class="math">\(\Rightarrow\)&lt;/span>依分布收敛。&lt;/li>
+&lt;li>&lt;span class="math">\(L^p\)&lt;/span>收敛与几乎处处收敛（依概率1收敛）之间互相不可推导，即没有等价性。&lt;/li>
+&lt;li>依概率收敛与一系列弱大数定律相关。&lt;/li>
+&lt;li>几乎处处收敛（依概率1收敛）与强大数定律相关。&lt;/li>
+&lt;li>在收敛到同一常数时，依概率收敛与依分布收敛等价。&lt;/li>
+&lt;/ol>
+&lt;h2 id="大数定理">大数定理&lt;/h2>
+&lt;p>在数学与统计学中，大数定律又称大数法则、大数律，是描述相当多次数重复实验的结果的定律。这个定律核心是，&lt;strong>样本数量越多，则其算术平均值就有越高的概率接近期望值&lt;/strong>。&lt;/p>
+&lt;p>大数定律很重要，因为它“说明”了一些随机事件的均值的&lt;strong>长期稳定性&lt;/strong>。人们发现，在重复试验中，随着试验次数的增加，事件发生的频率趋于一个稳定值；人们同时也发现，在对物理量的测量实践中，测定值的算术平均也具有稳定性。比如，我们向上抛一枚硬币，硬币落下后哪一面朝上是偶然的，但当我们上抛硬币的次数足够多后，达到上万次甚至几十万几百万次以后，我们就会发现，硬币每一面向上的次数约占总次数的二分之一，亦即偶然之中包含着必然。&lt;/p>
+&lt;p>&lt;strong>切比雪夫不等式的一个特殊情况&lt;/strong>、&lt;strong>辛钦定理&lt;/strong>和&lt;strong>伯努利大数定律&lt;/strong>等等都概括了这一现象，都可以称为大数定律。而这几种大数定律都是&lt;strong>依概率收敛&lt;/strong>的，而相对于几乎处处收敛较弱，所以又是&lt;strong>弱大数定律&lt;/strong>的几种表现形式。对应的，能够证明为&lt;strong>几乎处处收敛&lt;/strong>的大数定律称为&lt;strong>强大数定律&lt;/strong>。&lt;/p>
+&lt;h3 id="弱大数定律及其几种形式">弱大数定律及其几种形式&lt;/h3>
+&lt;p>弱大数定律主要描述一系列&lt;strong>依概率收敛&lt;/strong>的&lt;strong>随机变量序列&lt;/strong>，利用在序列序数趋近于无穷时，序列与收敛目标的距离小于一小正数&lt;span class="math">\(\varepsilon\)&lt;/span>这种模式定义。具体描述为，当随机变量序列&lt;span class="math">\(\{X_n\}\)&lt;/span>&lt;strong>满足一些条件时&lt;/strong>有： &lt;span class="math">\[\frac{1}{n}\sum_{i=1}^n X_i\overset{P}{\longrightarrow}E(\frac{1}{n}\sum_{i=1}^n X_i)=\frac{1}{n}\sum_{i=1}^n E(X_i)\\
+即\lim_{n\rightarrow\infty} P\{|\frac{1}{n}\sum_{i=1}^n X_i-\frac{1}{n}\sum_{i=1}^n E(X_i)|&amp;lt;\varepsilon\}=1\tag{1}\]&lt;/span> 也就是说，这些随机变量的平均值趋近于其各期望的和的平均值。注意，我们在第一项中不需要取平均的期望，虽然是随机变量，但是其平均仍然具有稳定性（趋向于确定性）。&lt;/p>
+&lt;p>历史上，有很多人名命名的弱大数定律，以下分两大类共八个弱大数定律来具体阐释。&lt;/p>
+&lt;h4 id="切比雪夫不等于相关的大数定律">切比雪夫不等于相关的大数定律&lt;/h4>
+&lt;blockquote>
+&lt;p>（一）切比雪夫大数定律：设&lt;span class="math">\(\{X_n\}\)&lt;/span>为&lt;strong>两两不相关&lt;/strong>的随机变量序列，方差为：&lt;span class="math">\({\displaystyle \operatorname {Var} (X_{i})=\sigma_i^{2}\quad (i=1,\ 2,\ \dots )}\)&lt;/span>，且&lt;strong>有一致上界&lt;/strong>，即&lt;span class="math">\(\text{var}(X_i)\leq c\)&lt;/span>，对任意&lt;span class="math">\(i\)&lt;/span>成立。则有式&lt;span class="math">\((1)\)&lt;/span>成立。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：利用切比雪夫不等式。 &lt;span class="math">\[\begin{aligned}
+P\{|\frac{1}{n}\sum_{i=1}^n X_i-E(\frac{1}{n}\sum_{i=1}^n X_i)|\geq \varepsilon\}&amp;amp;\leq \frac{\text{var}(\frac{1}{n}\sum_{i=1}^n X_i)}{\varepsilon^2}\\
+\overset{两两不相关}{=}\frac{\sum_{i=1}^n\text{var}(X_i)}{n^2\varepsilon^2}\overset{\text{var}(X_i)\leq c}{\leq} \frac{nc}{n^2\varepsilon^2}&amp;amp;=\frac{c}{n\varepsilon^2}
+\end{aligned}\]&lt;/span> 显然当&lt;span class="math">\(n→∞\)&lt;/span>时，有&lt;span class="math">\(\frac{c}{n\varepsilon^2}→0\)&lt;/span>。切比雪夫大数定律得证。&lt;/p>
+&lt;blockquote>
+&lt;p>（二）独立同分布场合的大数定律：设&lt;span class="math">\(\{X_n\}\)&lt;/span>为独立同分布的随机变量序列，且方差&lt;span class="math">\(\sigma^2\)&lt;/span>存在，则有式&lt;span class="math">\((1)\)&lt;/span>成立。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个大数定律没有以人名命名，是一直被普遍认为比较直观的大数定律。独立同分布是比两两不相关更强的条件，且由于是i.i.d的，所以方差存在，等同于有一致上界。因此可以由&lt;span class="math">\((一)\Rightarrow (二)\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>（三）伯努利大数定律：设在&lt;span class="math">\(n\)&lt;/span>次&lt;strong>独立重复伯努利&lt;/strong>试验中，事件&lt;span class="math">\(X\)&lt;/span>发生的次数为&lt;span class="math">\(n_{x}\)&lt;/span>，事件&lt;span class="math">\(X\)&lt;/span>在每次试验中发生的总体概率为&lt;span class="math">\(p\)&lt;/span>，&lt;span class="math">\(\frac{n_{x}}{n}\)&lt;/span>代表样本发生事件&lt;span class="math">\(X\)&lt;/span>的频率。则对任意正数&lt;span class="math">\(\varepsilon &amp;gt;0\)&lt;/span>，伯努利大数定律表明： &lt;span class="math">\[\lim _{n\to \infty }{P{\left\{\left|{\frac {n_{x}}{n}}-p\right|&amp;lt;\varepsilon \right\}}}=1\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>换言之，事件发生的&lt;strong>频率依概率收敛于事件的总体概率&lt;/strong>。该定理以严格的数学形式表达了频率的稳定性，也就是说当&lt;span class="math">\(n\)&lt;/span>很大时，事件发生的频率于总体概率有较大偏差的可能性很小。&lt;/p>
+&lt;p>伯努利大数定律是第一个被明确提出的大数定律。原始证明没有用切比雪夫不等于证明（当时还没有此不等式），而是用了很繁琐的方式。今天，我们可以直接从（一）或（二）证明出来。因为&lt;span class="math">\(n\)&lt;/span>次独立重复伯努利是&lt;span class="math">\(n\)&lt;/span>个i.i.d的随机变量序列，且方差为&lt;span class="math">\(p(1-p)\)&lt;/span>存在，显然（三）就是（二）的一种特殊情况。&lt;/p>
+&lt;blockquote>
+&lt;p>（四）马尔可夫大数定律&lt;/p>
+&lt;/blockquote>
+&lt;p>切比雪夫大数定理的进一步&lt;/p>
+&lt;blockquote>
+&lt;p>（五）泊松大数定律&lt;/p>
+&lt;/blockquote>
+&lt;p>伯努利大数定律大数定理的进一步&lt;/p>
+&lt;blockquote>
+&lt;p>（六）伯恩斯坦大数定律&lt;/p>
+&lt;/blockquote>
+&lt;p>有相互独立性扩展为序列渐进不相关（比独立性更弱的要求）&lt;/p>
+&lt;blockquote>
+&lt;p>（七）格涅坚科大数定律&lt;/p>
+&lt;/blockquote>
+&lt;p>矩估计的理论基础&lt;/p>
+&lt;h4 id="用特征函数证明的大数定律">用特征函数证明的大数定律&lt;/h4>
+&lt;blockquote>
+&lt;p>（八）辛钦大数定理：陈述为：&lt;strong>独立同分布&lt;/strong>的样本均值&lt;strong>依概率收敛&lt;/strong>于期望值。 &lt;span class="math">\[
+{\displaystyle {\overline {X}}_{n}\ {\xrightarrow {P}}\ \mu \quad {\textrm {as}}\quad n\to \infty }
+\]&lt;/span> 也就是说对于任意正数&lt;span class="math">\(ε\)&lt;/span>, &lt;span class="math">\[\lim_{n\to \infty }P\left(\,|{\overline {X}}_{n}-\mu |&amp;gt;\varepsilon \,\right)=0 或者\\
+\lim_{n\to \infty }P\left(\,|{\overline {X}}_{n}-\mu |&amp;lt;\varepsilon \,\right)=1\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="八个弱大数定律的比较">八个弱大数定律的比较&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">定律&lt;/th>
+&lt;th align="center">分布情况&lt;/th>
+&lt;th align="center">期望&lt;/th>
+&lt;th align="center">方差&lt;/th>
+&lt;th align="center">结论&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">辛钦大数定律&lt;/td>
+&lt;td align="center">相互独立且同分布&lt;/td>
+&lt;td align="center">存在&lt;/td>
+&lt;td align="center">无要求（存在即能相等）&lt;/td>
+&lt;td align="center">估算期望&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">切比雪夫大数定律&lt;/td>
+&lt;td align="center">相互独立（不必同分布）&lt;/td>
+&lt;td align="center">相同&lt;/td>
+&lt;td align="center">相同&lt;/td>
+&lt;td align="center">估算期望&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">伯努利大数定律&lt;/td>
+&lt;td align="center">二项分布&lt;/td>
+&lt;td align="center">相同&lt;/td>
+&lt;td align="center">相同&lt;/td>
+&lt;td align="center">频率=概率&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">相同点：n−&amp;gt;+∞,依概率趋近&lt;/td>
+&lt;td align="center">条件逐渐变得严格&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="强大数定律">强大数定律&lt;/h3>
+&lt;p>后面的数学家在弱大数定理的基础上证明出了更好的强大数定理。&lt;/p>
+&lt;p>强大数定律指出，样本均值以概率1收敛于期望值。a.s. 表示almost surely. &lt;span class="math">\[
+{\displaystyle {\overline {X}}_{n}\ {\xrightarrow {\text{a.s.}}}\ \mu \quad {\textrm {as}}\quad n\to \infty }\]&lt;/span> 即 &lt;span class="math">\[
+{\displaystyle P\left(\lim_{n\to \infty }{\overline {X}}_{n}=\mu \right)=1}\]&lt;/span>&lt;/p>
+&lt;h2 id="中心极限定理">中心极限定理&lt;/h2>
+&lt;p>中心极限定理是概率论中的&lt;strong>一组定理&lt;/strong>。中心极限定理说明，在适当的条件下，&lt;strong>大量相互独立随机变量&lt;/strong>的均值经适当标准化后&lt;strong>依分布收敛于正态分布&lt;/strong>。这组定理是数理统计学和误差分析的理论基础，指出了大量随机变量之和近似服从正态分布的条件。&lt;/p>
+&lt;h3 id="独立同分布条件下的中心极限定理">独立同分布条件下的中心极限定理&lt;/h3>
+&lt;h4 id="棣莫佛拉普拉斯定理">棣莫佛－拉普拉斯定理&lt;/h4>
+&lt;p>棣莫佛－拉普拉斯（de Moivre - Laplace）定理是中央极限定理的最初版本，讨论了服从二项分布的随机变量序列。它指出，参数为&lt;span class="math">\(n, p\)&lt;/span>的二项分布以&lt;span class="math">\(np\)&lt;/span>为均值、&lt;span class="math">\(np(1-p)\)&lt;/span>为方差的正态分布为极限。&lt;/p>
+&lt;p>若&lt;span class="math">\(X\sim B(n,p)\)&lt;/span>是&lt;span class="math">\(n\)&lt;/span>次伯努利实验中事件&lt;span class="math">\(A\)&lt;/span>出现的次数，每次试验成功的概率为&lt;span class="math">\(p\)&lt;/span>，且&lt;span class="math">\(q=1-p\)&lt;/span>，则对任意有限区间&lt;span class="math">\([a,b]\)&lt;/span>：&lt;/p>
+&lt;p>令&lt;span class="math">\(x_{k}={\frac {k-np}{\sqrt {npq}}}\)&lt;/span>(标准化&lt;span class="math">\(x_k\)&lt;/span>)，当&lt;span class="math">\(n\to {\infty }\)&lt;/span>时&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\({\displaystyle P(X=k)\to {\frac {1}{\sqrt {npq}}}\cdot {\frac {1}{\sqrt {2\pi }}}e^{-{\frac {1}{2}}x_{\mu_{n}}^{2}}}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\({\displaystyle P(a\leq {\frac {X-np}{\sqrt {npq}}}\leq {b})\to \int _{a}^{b}\varphi (x)dx}\)&lt;/span>，其中&lt;span class="math">\(\varphi (x)={\frac {1}{\sqrt {2\pi }}}e^{-{\frac {x^{2}}{2}}}(-\infty &amp;lt;x&amp;lt;\infty)\)&lt;/span>.&lt;/li>
+&lt;/ol>
+&lt;p>棣莫弗－拉普拉斯定理指出二项分布的极限为正态分布。&lt;/p>
+&lt;h4 id="林德伯格列维中心极限定理">林德伯格－列维中心极限定理&lt;/h4>
+&lt;p>林德伯格－列维（Lindeberg-Levy）定理，是棣莫佛－拉普拉斯定理的扩展，讨论&lt;strong>独立同分布&lt;/strong>随机变量序列均值的中心极限定理。它表明，&lt;strong>独立同分布&lt;/strong>(iid)、且&lt;strong>数学期望和方差有限&lt;/strong>的随机变量序列均值的标准化和以标准正态分布为极限。&lt;/p>
+&lt;p>设随机变量&lt;span class="math">\(X_{1},X_{2},\cdots ,X_{n}\)&lt;/span>独立同分布，且具有&lt;strong>有限的数学期望和方差&lt;/strong>&lt;span class="math">\(E(X_{i})=\mu\)&lt;/span>，&lt;span class="math">\(D(X_{i})=\sigma ^{2}\neq 0(i=1,2,\cdots ,n)\)&lt;/span>。记 &lt;span class="math">\[
+{\bar{X}}={\frac {1}{n}}\sum_{i=1}^{n}X_{i}，\zeta_{n}={\frac {{\bar {X}}-\mu }{\sigma /{\sqrt {n}}}}，\]&lt;/span> 则 &lt;span class="math">\[\lim_{n\rightarrow \infty }P\left(\zeta_{n}\leq z\right)=\Phi \left(z\right)
+\]&lt;/span> 其中&lt;span class="math">\(\Phi (z)\)&lt;/span>是标准正态分布的分布函数。&lt;/p>
+&lt;h3 id="非独立同分布条件下的中心极限定理">非独立同分布条件下的中心极限定理&lt;/h3>
+&lt;h4 id="林德伯格-费勒定理">林德伯格-费勒定理&lt;/h4>
+&lt;p>TODO 林德伯格条件&lt;/p>
+&lt;p>林德伯格－费勒定理，是中心极限定理的高级形式，是对林德伯格－列维定理的扩展，讨论&lt;strong>独立，但不同分布&lt;/strong>的情况下的随机变量和。它表明，&lt;strong>满足林德伯格条件时&lt;/strong>，独立，但不同分布的随机变量序列的标准化和依然以标准正态分布为极限。&lt;/p>
+&lt;h4 id="李雅普诺夫中心极限定理">李雅普诺夫中心极限定理&lt;/h4>
+&lt;p>TODO 李雅普诺夫条件&lt;/p>
+&lt;h2 id="弱大数定理和强大数定理的区别">弱大数定理和强大数定理的区别&lt;/h2>
+&lt;p>作者：runze Zheng 链接：&lt;a href="https://www.zhihu.com/question/21110761/answer/23815273">https://www.zhihu.com/question/21110761/answer/23815273&lt;/a> 来源：知乎。著作权归作者所有。&lt;/p>
+&lt;p>强弱大数定律都是在说：随着样本数的增大，用样本的平均数来估计总体的平均数，是靠谱的。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>强弱大数定律的前提条件一样：要求独立同分布iid的随机序列，要求其期望存在。&lt;/li>
+&lt;li>强弱大数定律的结论不同（废话）。弱大数定律比较早被证明出来，弱大数定律表示样本均值“&lt;strong>依概率收敛&lt;/strong>”于总体均值；而强大数定律是比较晚被证明出来的，它证明了样本均值可以“&lt;strong>以概率为1收敛&lt;/strong>”于总体均值。简单的来说，就是数学家先证明了弱大数定律，后来在没有改变前提的情况下把弱大数定律推进了一步，得到了更厉害的强大数定律。&lt;/li>
+&lt;li>弱大数定律和强大数定律的区别在于，前者是“依概率收敛(convergence in probability)”，后者是“几乎确定收敛(almost surely convergence)或以概率为1收敛、几乎处处收敛”。后者比前者强，满足后者的必定满足前者，而满足前者的未必满足后者。&lt;/li>
+&lt;/ol>
+&lt;p>依概率收敛的例子：考虑下图，图中的每条线都代表一个数列，虚线表示一个非常小的区间。总的来说每个数列都越来越趋近0，且大部分时候不会超过虚线所表示的小边界，但是，偶尔会有一两条线超过虚线、然后再回到虚线之内。而且我们不能保证，有没有哪一个数列会在未来再次超出虚线的范围然后再回来——虽然概率很小。注意虚线的范围可以是任意小的实数，此图中大约是，可以把这个边界缩小到，甚至，随你喜欢，这个性质始终存在。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/弱大数定理.jpg" alt="弱大数定理" />&lt;p class="caption">弱大数定理&lt;/p>
+&lt;/div>
+&lt;p>几乎处处收敛的例子：图中的黑线表示一个随机数列，这个数列在大约n=200之后进入了一个我们定的小边界（用虚线表示），之后我们可以确定，它再也不会超出虚线所表示的边界（超出这个边界的概率是0）。跟上面的例子一样，虚线所表示的边界可以定得任意小，而一定会有一个n值，当这个数列超过了n值之后，超出这个边界的概率就是0了。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/强大数定理.jpg" alt="强大数定理" />&lt;p class="caption">强大数定理&lt;/p>
+&lt;/div>
+&lt;p>弱大数定律是较早被数学家最早证明的，即对于独立同分布的随机序列&lt;span class="math">\(X_1,X_2,\dotsb,X_n,\dotsb\)&lt;/span>，只要总体均值&lt;span class="math">\(\mu\)&lt;/span>存在，那么样本均值会随着&lt;span class="math">\(n\)&lt;/span>增大而“依概率收敛”到总体均值，就是弱大数定律。但是弱大数定律“依概率收敛”不够完美，随着增大，样本均值有没有可能（即使概率很小）偶然偏离总体均值很多呢？后来数学家们证明了强大数定律，就是告诉我们不用担心，&lt;span class="math">\(S_n=\frac{1}{n}\sum_{i=1}^n X_i\)&lt;/span>会“几乎处处收敛”到&lt;span class="math">\(\mu\)&lt;/span>。&lt;/p></description></item><item><title>概率统计随机过程之如何推导得到正态分布—正态分布的理解角度</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%A6%82%E4%BD%95%E6%8E%A8%E5%AF%BC%E5%BE%97%E5%88%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E7%90%86%E8%A7%A3%E8%A7%92%E5%BA%A6/</link><pubDate>Thu, 04 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%A6%82%E4%BD%95%E6%8E%A8%E5%AF%BC%E5%BE%97%E5%88%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E7%90%86%E8%A7%A3%E8%A7%92%E5%BA%A6/</guid><description>
+&lt;h2 id="概率统计随机过程之如何推导得到正态分布正态分布的理解角度">概率统计随机过程之如何推导得到正态分布————正态分布的理解角度&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>原文：Kim, Kiseon, 和Georgy Shevlyakov. 《Why Gaussianity?》 IEEE Signal Processing Magazine 25, 期 2 (2008年3月): 102–13. &lt;a href="https://doi.org/10.1109/MSP.2007.913700">https://doi.org/10.1109/MSP.2007.913700&lt;/a>.&lt;/p>
+&lt;p>中文部分靳志辉正态分布章节推导完善。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#正态分布表达式形式的出现">正态分布表达式形式的出现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#高斯误差与正态分布">高斯——误差与正态分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#赫歇尔和麦克斯韦正态分布的pi从哪里来">赫歇尔和麦克斯韦——正态分布的&lt;span class="math">\(\pi\)&lt;/span>从哪里来？&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#为什么正态分布那么普遍稳定性兰登的推导">为什么正态分布那么普遍？——稳定性，兰登的推导&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#基于最大熵的推导">基于最大熵的推导&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录">附录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附1-似然函数取对数">附1 似然函数取对数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附2-高斯积分">附2 高斯积分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附3-高斯在推导正态分布时系数c和方差sigma2的关系">附3 高斯在推导正态分布时系数&lt;span class="math">\(c\)&lt;/span>和方差&lt;span class="math">\(\sigma^2\)&lt;/span>的关系&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="正态分布表达式形式的出现">正态分布表达式形式的出现&lt;/h2>
+&lt;p>正态分布是概率论和数理统计中的一个重要的分布。在最开始的工作中（1733年），法国数学家&lt;strong>棣莫佛&lt;/strong>为了求二项分布在数值较大时的近似计算值，推导出正态分布的表达形式。但是，棣莫佛并没有把它当作是一个概率分布，只是认为这是二项分布在&lt;span class="math">\(N→∞\)&lt;/span>时的一个近似表达式。40年后，法国另一个数学家&lt;strong>拉普拉斯&lt;/strong>在推导最初版本的中心极限定理时也得出了正态分布表达式的形式，但当时他也没有意识这是一个概率的分布，也把它当作单纯的一种数学表达式。但是，这是第一次正态密度函数被数学家刻画出来，而且是以二项分布的极限分布的形式被推导出来的。熟悉基础概率统计的人都知道这个结果其实叫&lt;strong>棣莫弗-拉普拉斯中心极限定理&lt;/strong>。当然当时还没有这个称呼，直到1920年才有数学家波利亚提出中心极限定理这个名称。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>棣莫弗-拉普拉斯中心极限定理&lt;/strong>：若&lt;span class="math">\(X\thicksim B(n,p)\)&lt;/span>是n次伯努利试验中出现事件&lt;span class="math">\(A\)&lt;/span>的次数，每次试验成功的概率为&lt;span class="math">\(p\)&lt;/span>，且&lt;span class="math">\(q=1-p\)&lt;/span>，则对任意有限区间&lt;span class="math">\([a,b]\)&lt;/span>，令&lt;span class="math">\(x_k=\frac{k-np}{\sqrt{npq}}\)&lt;/span>，当&lt;span class="math">\(n→∞\)&lt;/span>时：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(P(X=k)→\frac{1}{\sqrt{npq}}\cdot\frac{1}{\sqrt{2\pi}}e^{-{1\over2}x^2_k}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(P(a≤\frac{k-np}{\sqrt{npq}}≤b)→\int_a^b\varphi(x)\mathrm{d}x\)&lt;/span>，其中&lt;span class="math">\(\varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}(-∞&amp;lt;x&amp;lt;∞)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>棣莫佛-拉普拉斯中心极限定理指出：参数&lt;span class="math">\(n,p\)&lt;/span>的二项分布以&lt;span class="math">\(np\)&lt;/span>为均值，&lt;span class="math">\(np(1-p)\)&lt;/span>为方差的正态分布为极限。当&lt;span class="math">\(n\)&lt;/span>很大时，可以用作二项分布的近似值。&lt;/p>
+&lt;p>总结一句：这个阶段正态分布表达式只是作为一个函数近似的结果，并没有被认为是一种概率分布。&lt;/p>
+&lt;h2 id="高斯误差与正态分布">高斯——误差与正态分布&lt;/h2>
+&lt;p>高斯所在的18-19世纪是天文学迅速发展的时期，积累了大量观测数据。但是，这些数据或多或少都是存在误差的。如何处理这些数据得到最准确的结果，或者这些误差有着什么样的数学规律？在当时，这是一个亟待解决的问题。&lt;/p>
+&lt;p>辛普森和拉普拉斯认为误差应该服从这样一些普遍规律：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>误差分布是对称的，即&lt;span class="math">\(f(x)=f(-x)\)&lt;/span>。&lt;/li>
+&lt;li>小误差应该比大误差更常见，即&lt;span class="math">\(f(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的减函数。且误差应该随&lt;span class="math">\(|x|\)&lt;/span>增大而逐渐趋于0。&lt;/li>
+&lt;li>每次测量产生的误差应该是独立的。&lt;/li>
+&lt;li>误差分布函数应是连续函数。&lt;/li>
+&lt;/ol>
+&lt;p>为此，辛普森和拉普拉斯分别设计了三角概率分布函数和重指数分布（拉普拉斯分布）作为误差的分布函数。并用这些分布证明&lt;strong>观测值取平均数比恰当选择观测值更能接近真实值&lt;/strong>。拉普拉斯在重指数分布基础上，希望使用贝叶斯法（当时拉普拉斯称之为不充分推理原则）逐渐修正后验概率得到的误差分布。但是，拉普拉斯的工作到此基本进展就很小了，在18世纪70-80年代沿着这条路径磕磕绊绊走了十几年，依旧进展甚微。&lt;/p>
+&lt;p>1809年，高斯发表了其数学和天体力学的名著《绕日天体运动的理论》。在此书末尾，他写了一节有关“数据结合”的问题，实际涉及的就是这个误差分布的问题。&lt;/p>
+&lt;p>高斯采用了拉普拉斯设计的函数&lt;span class="math">\(L(\theta)\)&lt;/span>，设真值为&lt;span class="math">\(\theta\)&lt;/span>，n个独立的测量值&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>。&lt;span class="math">\(L(\theta)\)&lt;/span>为出现这一现象的联合概率密度： &lt;span class="math">\[\begin{aligned}
+L(\theta)=&amp;amp;L(\theta;X_1,X_2,\dotsb,X_n)\\
+\stackrel{\text{独立性}}{=}&amp;amp;f(X_1-\theta)f(X_2-\theta)\dotsb f(X_n-\theta)\tag{1}
+\end{aligned}\]&lt;/span> 其中，&lt;span class="math">\(f(\cdot)\)&lt;/span>为&lt;strong>待定的误差密度函数&lt;/strong>。当时接下来的处理高斯与拉普拉斯完全不同。&lt;/p>
+&lt;p>一是高斯没有采取贝叶斯的推理方式，而是径直让&lt;span class="math">\((1)\)&lt;/span>达到最大值的&lt;span class="math">\(\hat{\theta}=\hat{\theta}(X_1,\dotsb,X_n)\)&lt;/span>作为&lt;span class="math">\(\theta\)&lt;/span>的估计。即 &lt;span class="math">\[L(\hat{\theta})=\max_{\theta} L(\theta)\tag{2}\]&lt;/span> 当然现在我们把这种方法叫做&lt;strong>最大似然估计&lt;/strong>（Maximum Likelihood Estimation, MLE），&lt;span class="math">\(L(\theta)\)&lt;/span>叫做似然函数（正式方法由Fisher推广于1922年）。最大似然估计的思想其实就是很直接：最合理的事情（即真值）最有可能发生。举个简化的例子，如果在一个不透明的袋子里有10个球，黑白两种颜色，但是不知道各有几个；我们袋子中有放回地取100次，其中71次是白球，那么大家认为白球、黑球各有多少个？一般人都会猜7个白球，3个黑球吧。但如果是黑白球各有5个，会不会抽样出上述结果呢？当然有可能啊，只不过概率没有7个白球，3个黑球大。这就是我们在不知不觉中直观地使用了最大似然估计。&lt;/p>
+&lt;p>二是高斯把辛普森和拉普拉斯的思路倒了过来。高斯先认可算数平均&lt;span class="math">\(\bar{X}\)&lt;/span>是应取的估计值，然后去找误差密度函数&lt;span class="math">\(f(\cdot)\)&lt;/span>以迎合这一点，即找这样的&lt;span class="math">\(f(\cdot)\)&lt;/span>，使由&lt;span class="math">\((2)\)&lt;/span>式决定的&lt;span class="math">\(\hat{\theta}\)&lt;/span>就是&lt;span class="math">\(\bar{X}\)&lt;/span>。&lt;/p>
+&lt;p>高斯发现，使用最大似然估计的情况下，只有当 &lt;span class="math">\[f(x)=\frac{1}{\sqrt{2\pi}h}e^{\frac{-x^2}{2h^2}}，h&amp;gt;0\]&lt;/span> 时，才有&lt;span class="math">\(\hat{\theta}=\bar{X}\)&lt;/span>。注意，高斯在原文中，并没有让&lt;span class="math">\(h=\sigma\)&lt;/span>，即方差。下面，我们来推导这个过程。&lt;/p>
+&lt;p>我们从似然函数&lt;span class="math">\((1)\)&lt;/span>式开始，要求关于&lt;span class="math">\((1)\)&lt;/span>式的最小值，而其定义域&lt;span class="math">\(x\in (-∞,∞)\)&lt;/span>，由费马引理（皮埃尔·德·费马 1601-1665，法国律师和业余数学家，业余数学家之王）可知，&lt;span class="math">\((1)\)&lt;/span>式的极值点必然是驻点，即导数为0的点。但是，连乘表达式的求导难以处理，因此高斯采用了化乘为加，且不改变驻点位置（证明见附1）的取&lt;span class="math">\(\log(ln)\)&lt;/span>法，即 &lt;span class="math">\[\frac{\mathrm{d}ln L(\theta)}{\mathrm{d}\theta}=0\]&lt;/span> 展开&lt;span class="math">\(\ln L(\theta)\)&lt;/span>求导可得： &lt;span class="math">\[\sum_{i=1}^n\frac{f&amp;#39;(x_i-\theta)}{f(x_i-\theta)}=0\]&lt;/span> 为了方便计算，我们令&lt;span class="math">\(g(x)=\frac{f&amp;#39;(x)}{f(x)}\)&lt;/span>，则有 &lt;span class="math">\[\sum_{i=1}^n g(x_i-\theta)=0\]&lt;/span> 由于高斯假设极大似然估计的解就是算术平均&lt;span class="math">\(\bar{x}\)&lt;/span>，把解直接带入上式可得 &lt;span class="math">\[\sum_{i=1}^n g(x_i-\bar{x})=0 \tag{3}\]&lt;/span> 下面就是高斯精彩的数学表演，由于&lt;span class="math">\(n,x_i\)&lt;/span>的任意性，在&lt;span class="math">\((3)\)&lt;/span>式中取&lt;span class="math">\(n=2\)&lt;/span>有： &lt;span class="math">\[g(x_1-x)+g(x_2-x)=0\]&lt;/span> 又因为&lt;span class="math">\(\bar{x}=\frac{x_1+x_2}{2}\)&lt;/span>，所以&lt;span class="math">\(x_1-x=-(x_2-x)\)&lt;/span>，即&lt;span class="math">\(g(x_1-x)+g(-(x_1-x))=0\)&lt;/span>，由于&lt;span class="math">\(x_i\)&lt;/span>的任意性可得 &lt;span class="math">\[g(-x)=-g(x),g(x)是奇函数\]&lt;/span> 在&lt;span class="math">\((3)\)&lt;/span>式中再取&lt;span class="math">\(n=m+1\)&lt;/span>，并要求&lt;span class="math">\(x_1=\dotsb=x_m=-x,x_{m+1}=mx\)&lt;/span>，则有&lt;span class="math">\(\bar{x}=0\)&lt;/span>，并且 &lt;span class="math">\[\sum_{i=1}^n g(x_i-\bar{x})=mg(-x)+g(mx)=0\]&lt;/span> 又因为&lt;span class="math">\(g(x)\)&lt;/span>是奇函数，所以有 &lt;span class="math">\[g(mx)=mg(x)\]&lt;/span> 而满足上式的&lt;strong>唯一的连续奇函数解&lt;/strong>就是&lt;span class="math">\(g(x)=cx\)&lt;/span>（可用两边求导数证明），从而进一步可以解微分方程： &lt;span class="math">\[\frac{f&amp;#39;(x)}{f(x)}=cx\Rightarrow \frac{1}{y}\frac{dy}{dx}=cx\stackrel{\text{分离变量法}}{\Rightarrow}\frac{1}{y}dy=cx dx\]&lt;/span> 两边求补丁积分，且y=f(x)作为概率值恒大于等于0，可得： &lt;span class="math">\[\ln y=\frac{1}{2}cx^2+K\Rightarrow y = e^Ke^{\frac{1}{2}cx^2}\]&lt;/span> 我们令&lt;span class="math">\(e^K=M\)&lt;/span>，且&lt;span class="math">\(f(x)\)&lt;/span>作为概率密度函数，必然有&lt;span class="math">\(\int_{-∞}^∞f(x)dx=1\)&lt;/span>，所以 &lt;span class="math">\[\int_{-∞}^∞f(x) dx= \int_{-∞}^∞ Me^{\frac{1}{2}cx^2}dx =\int_{-∞}^∞\frac{M}{\sqrt{0.5|c|}} e^{-(\sqrt{0.5|c|}x)^2} d(\sqrt{0.5|c|}x)= 1\]&lt;/span> 这里需要注意，为了保证积分收敛到1，那么常数&lt;span class="math">\(c&amp;lt;0\)&lt;/span>是必然的，在&lt;span class="math">\(e\)&lt;/span>的指数部分要加上负号，同时开方时需要加绝对值符号。此外，令&lt;span class="math">\(t=\sqrt{0.5|c|}x\)&lt;/span>，则t的积分区间为&lt;span class="math">\((-∞,∞)\)&lt;/span>，上式可转换为 &lt;span class="math">\[\frac{M}{\sqrt{0.5|c|}}\int_{-∞}^∞ e^{-t^2}dt=1\]&lt;/span> 而这个广义积分正好有&lt;span class="math">\(\int_{-∞}^∞ e^{-t^2}dt=\sqrt{\pi}\)&lt;/span>（即&lt;strong>高斯积分&lt;/strong>证明附2），所以可得 &lt;span class="math">\[M=\frac{\sqrt{|c|}}{\sqrt{2\pi}}\]&lt;/span> 将&lt;span class="math">\(M\)&lt;/span>代入&lt;span class="math">\(f(x)\)&lt;/span>可得 &lt;span class="math">\[
+f(x)=\frac{\sqrt{|c|}}{\sqrt{2\pi}}e^\frac{cx^2}{2}\tag{4}
+\]&lt;/span> 这就是高斯推导的正态分布的表达式，它满足以算数平均作为最大似然估计的结果。如果我们用方差定义式计算一下&lt;span class="math">\(\sigma^2\)&lt;/span>，可以得到&lt;span class="math">\(\sigma^2=-\frac{1}{c}\)&lt;/span>（证明见附3），由此可得，&lt;span class="math">\(f(x)\)&lt;/span>就是&lt;span class="math">\(N(0,\sigma^2)\)&lt;/span>的表达式。正态分布在误差分布计算上有着极大的理论优势，对后世影响极大，以至于正态分布有了高斯分布的名称。&lt;/p>
+&lt;p>但是，高斯的解释在逻辑上有点循环论证的味道。由于取算术平均是合理的方式，所以用MLE导出正态分布；又因为误差服从正态分布，所以算术平均能够获得更小的误差值。但是，拉普拉斯很快得知了高斯的工作，并将正态分布与中心极限定理联系起来。在1810年，拉普拉斯提出了元误差学说：如误差可以看成是大量的，有各种原因导致的微小的量的叠加，则根据中心极限定理，误差的分布应服从正态分布。拉普拉斯的补充使误差的正态分布理论有了一个更自然、更令人信服的解释。&lt;/p>
+&lt;h2 id="赫歇尔和麦克斯韦正态分布的pi从哪里来">赫歇尔和麦克斯韦——正态分布的&lt;span class="math">\(\pi\)&lt;/span>从哪里来？&lt;/h2>
+&lt;p>每当公式中出现&lt;span class="math">\(\pi\)&lt;/span>的时候，我都不禁会问自己？圆在哪里？而正态分布的表达式中正好有一个&lt;span class="math">\(\frac{1}{\sqrt{2\pi}}\)&lt;/span>系数，这个怎么解释呢？我们可以从赫歇尔和麦克斯韦的推导过程中一窥究竟。&lt;/p>
+&lt;p>1850年，天文学家赫歇尔在对星星位置进行测量时，需要考虑二维误差的分布，为了推导这个误差的概率密度分布&lt;span class="math">\(p(x,y)\)&lt;/span>，赫歇尔设置了两个准则：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>x轴，y轴的误差时相互独立的，即随机误差在正交方向上相互独立&lt;/li>
+&lt;li>误差的概率分布在空间上具有&lt;strong>旋转对称性&lt;/strong>，即误差的概率分布和角度没有关系&lt;/li>
+&lt;/ol>
+&lt;p>这两个准则对于进行了大量实际测量的赫歇尔都非常合理，而空间的旋转对称性，在二维空间里，那不正是让我们想到了“圆”吗？（三维空间就是球~）&lt;/p>
+&lt;p>由第一条准则，我们可以把&lt;span class="math">\(x,y\)&lt;/span>联合概率分布，分离成两部分： &lt;span class="math">\[p(x,y)=f(x)\cdot f(y)\]&lt;/span> 而面对旋转对称性，和角度相关的，我们不禁就和极坐标联系起来： &lt;span class="math">\[p(x,y)=p(r\cos\theta,r\sin\theta)=g(r,\theta)\]&lt;/span> 由第二条准则，旋转不变性可知，函数&lt;span class="math">\(g(r,\theta)\)&lt;/span>实际上与角度&lt;span class="math">\(\theta\)&lt;/span>无关，即&lt;span class="math">\(g(r,\theta)=g(r)\)&lt;/span>。实际上，正是这个旋转不变性，使得&lt;span class="math">\(\theta\)&lt;/span>的积分域是&lt;span class="math">\([0,2\pi]\)&lt;/span>，也就是一个圆，即正态分布中&lt;span class="math">\(\pi\)&lt;/span>的来历。综上所述，我们可得： &lt;span class="math">\[f(x)f(y)=g(r)=g(\sqrt{x^2+y^2})\tag{5}\]&lt;/span> 由于&lt;span class="math">\(x,y\)&lt;/span>的任意性，我们取&lt;span class="math">\(y=0\)&lt;/span>，得到&lt;span class="math">\(g(x)=f(x)f(0)\)&lt;/span>，所以上式中 &lt;span class="math">\[g(\sqrt{x^2+y^2})=f(\sqrt{x^2+y^2})f(0)\tag{6}\]&lt;/span> 联合式&lt;span class="math">\((5)(6)\)&lt;/span>并在两边同时除以&lt;span class="math">\(f^2(0)\)&lt;/span>有： &lt;span class="math">\[\frac{f(x)f(y)}{f(0)f(0)}=\frac{f(\sqrt{x^2+y^2})f(0)}{f(0)f(0)}\Rightarrow \frac{f(x)}{f(0)}\frac{f(y)}{f(0)}=\frac{f(\sqrt{x^2+y^2})}{f(0)}\]&lt;/span> 两边取&lt;span class="math">\(\log\)&lt;/span>则有 &lt;span class="math">\[\log\left[\frac{f(x)}{f(0)}\right]+\log\left[\frac{f(y)}{f(0)}\right]=\log\left[\frac{f(\sqrt{x^2+y^2})}{f(0)}\right]\]&lt;/span> 令&lt;span class="math">\(h(x)=\log[\frac{f(x)}{f(0)}]\)&lt;/span>，则上式可简化为函数方程： &lt;span class="math">\[h(x)+h(y)=h(\sqrt{x^2+y^2})\tag{7}\]&lt;/span> 函数方程与代数方程、微分方程不同，并没有通用的解法。所以这个分支也没能发展起来。但是，我们不难猜出&lt;span class="math">\(h(x)=ax^2\)&lt;/span>是符合&lt;span class="math">\((7)\)&lt;/span>的一个连续函数解（我觉得可以用此函数方程的二阶导数为常数和&lt;span class="math">\(h(0)=0\)&lt;/span>证明其解的唯一性）。同时，由于概率积分的收敛性，需要&lt;span class="math">\(a&amp;lt;0\)&lt;/span>，不妨令&lt;span class="math">\(\alpha=-a\)&lt;/span>： &lt;span class="math">\[h(x)=ax^2\Rightarrow f(x)=f(0)e^{-\alpha x^2}\]&lt;/span> 对于概率密度函数定义域积分为1，则有 &lt;span class="math">\[\int_{-\infty}^\infty f(0)e^{-\alpha x^2}dx = 1\Rightarrow \frac{f(0)}{\sqrt{\alpha}}\int_{-\infty}^\infty e^{-(\sqrt{\alpha} x)^2}d\sqrt{\alpha}x=1\]&lt;/span> 不妨令&lt;span class="math">\(\sqrt{\alpha}x = t, t\in (-\infty,\infty)\)&lt;/span>，根据附2的高斯积分&lt;span class="math">\(\int_{-∞}^∞ e^{-x^2}dx=\sqrt{\pi}\)&lt;/span>，可推得&lt;span class="math">\(f(0)=\sqrt{\frac{\alpha}{\pi}}\)&lt;/span>，综上所述有： &lt;span class="math">\[f(x)=\sqrt{\frac{\alpha}{\pi}}e^{-\alpha x^2}\]&lt;/span> 这也是正态分布的表达形式。这也是在0均值正态分布，当&lt;span class="math">\(\sigma^2=\frac{1}{2\alpha}\)&lt;/span>的结果（方差证明的方式类似附3）。 而满足准则1，2的二维表达式，就是&lt;em>两个独立同分布&lt;/em>的&lt;span class="math">\(f(x)\)&lt;/span>的乘机，即&lt;span class="math">\(p(x,y)\)&lt;/span>为二维i.i.d正态分布的密度函数： &lt;span class="math">\[p(x,y)=\frac{\alpha}{\pi}e^{-\alpha(x^2+y^2)}\]&lt;/span>&lt;/p>
+&lt;p>1860年麦克斯韦在考虑气体分子运动速度分布的时候，基于类似的准则推出了著名的气体分子运动速率分布的麦克斯韦-玻尔兹曼气体速率分布定率： &lt;span class="math">\[
+F(v)=(\frac{m}{2\pi kT})^{3/2}e^{-\frac{mv^2}{2kT}}
+\]&lt;/span> 这拆开看其实就是三维空间的i.i.d正态分布嘛，其中&lt;span class="math">\(\sigma^2=\frac{kT}{m}\)&lt;/span> &lt;span class="math">\[\begin{aligned}
+F(v)&amp;amp;=(\frac{m}{2\pi kT})^{3/2}e^{-\frac{mv^2}{2kT}}\\
+&amp;amp;=(\frac{m}{2\pi kT})^{1/2}e^{-\frac{mv_x^2}{2kT}}\times(\frac{m}{2\pi kT})^{1/2}e^{-\frac{mv_y^2}{2kT}}\times(\frac{m}{2\pi kT})^{1/2}e^{-\frac{mv_z^2}{2kT}}
+\end{aligned}\]&lt;/span> 其中，&lt;span class="math">\(v^2=v_x^2+v_y^2+v_z^2,v_x,v_y,v_z\)&lt;/span>是三维空间正交的三个方向向量。赫歇尔和麦克斯韦的工作神奇之处在于，他们没有利用任何概率论只是，只是基于&lt;strong>空间不变性&lt;/strong>，就推导出了正态分布。&lt;/p>
+&lt;h2 id="为什么正态分布那么普遍稳定性兰登的推导">为什么正态分布那么普遍？——稳定性，兰登的推导&lt;/h2>
+&lt;p>1941年电子工程师兰登通过分析经验数据他发现噪声电压的分布模式很相似，不同的是分布的层级，而这个层级可以使用方差&lt;span class="math">\(σ^2\)&lt;/span>来刻画。基于这些经验，兰登提出以下两个准则：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>随机噪声具有稳定的分布模式。&lt;/li>
+&lt;li>累加一个微小的随机噪声，不改变其稳定的分布模式，只改变分布的层级。(用方差度量)&lt;/li>
+&lt;li>微小的随机噪声关于0对称分布。（本质上是相位(&lt;span class="math">\([0-2\pi]\)&lt;/span>)的随机性，也是正态分布中&lt;span class="math">\(\pi\)&lt;/span>的来源）&lt;/li>
+&lt;/ol>
+&lt;p>用数学的语言描述: 如果 &lt;span class="math">\[X \sim p(x;\sigma^2),\epsilon\sim q(e),X&amp;#39;=X+\epsilon\]&lt;/span> 则有 &lt;span class="math">\[
+X&amp;#39;\sim p(x;\sigma^2+\text{var}(\epsilon))
+\]&lt;/span> 按照两个随机变量和的分布的计算方式，&lt;span class="math">\(X′\)&lt;/span>的分布密度函数将是&lt;span class="math">\(X\)&lt;/span>的分布密度函数和&lt;span class="math">\(\epsilon\)&lt;/span>的分布密度函数的卷积，即有 &lt;span class="math">\[
+f(x&amp;#39;)=\int_{-\infty}^\infty p(x&amp;#39;-e;\sigma^2)q(e)de
+\]&lt;/span> 通过泰勒级数展开和解二阶偏微分方程（也是著名的扩散方程），我们可以解得 &lt;span class="math">\[p(x;\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{-x^2}{2\sigma^2}}
+\]&lt;/span> (这里详情可以扩展写)&lt;/p>
+&lt;p>杰恩斯（概率论沉思录作者）指出这个推导这基本上就是&lt;strong>中心极限定理的增量式&lt;/strong>版本，相比于中心极限定理是一次性累加所有的因素，兰登的推导是每次在原有的分布上去累加一个微小的扰动。而在这个推导中，我们看到，正态分布具有相当好的稳定性；只要数据中正态的模式已经形成，他就容易继续保持正态分布，无论外部累加的随机噪声 q(e) 是什么分布，正态分布就像一个黑洞一样把这个累加噪声吃掉。这也是稳定性也是正态分布普遍存在的原因。&lt;/p>
+&lt;h2 id="基于最大熵的推导">基于最大熵的推导&lt;/h2>
+&lt;p>如果&lt;strong>给定一个分布密度函数&lt;span class="math">\(p(x)\)&lt;/span>的均值&lt;span class="math">\(µ\)&lt;/span>和方差&lt;span class="math">\(σ^2\)&lt;/span>&lt;/strong>(给定均值和方差这个条件，也可以描述为给定一阶原点矩和二阶原点矩，这两个条件是等价的)，则在所有满足这两个限制的概率分布中，熵最大的概率分布&lt;span class="math">\(p(x|µ; σ^2)\)&lt;/span>就是正态分布&lt;span class="math">\(N(µ; σ^2)\)&lt;/span>&lt;/p>
+&lt;p>此部分的证明用到了古典泛函分析的变分法。&lt;/p>
+&lt;h2 id="附录">附录&lt;/h2>
+&lt;h3 id="附1-似然函数取对数">附1 似然函数取对数&lt;/h3>
+&lt;blockquote>
+&lt;p>命题：对于定义域&lt;span class="math">\([x_a,x_b]\)&lt;/span>上的正函数&lt;span class="math">\(f(x)\)&lt;/span>，取对数不影响驻点位置。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明： 驻点要求函数导数为0，即&lt;span class="math">\(f&amp;#39;(x)=0\)&lt;/span>；而&lt;span class="math">\((\log_a f(x))&amp;#39;=\frac{f&amp;#39;(x)}{f(x)\ln a}\)&lt;/span>。由于&lt;span class="math">\(f(x)&amp;gt;0\)&lt;/span>，且&lt;span class="math">\(a \neq 1\)&lt;/span>，所以只要当&lt;span class="math">\(f&amp;#39;(x)=0\)&lt;/span>时，&lt;span class="math">\((\log_a f(x))&amp;#39;=0\)&lt;/span>，即二者驻点位置一致。&lt;/p>
+&lt;h3 id="附2-高斯积分">附2 高斯积分&lt;/h3>
+&lt;blockquote>
+&lt;p>命题：证明高斯积分&lt;span class="math">\(I=\int_{-∞}^∞ e^{-x^2}dx=\sqrt{\pi}\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：令两个独立的变量&lt;span class="math">\(x，y\)&lt;/span> &lt;span class="math">\[
+I^2=\int_{-∞}^∞ e^{-x^2}dx\times \int_{-∞}^∞ e^{-y^2}dy=\int_{-∞}^∞\int_{-∞}^∞ e^{-(x^2+y^2)} dx dy
+\]&lt;/span> 对于含有&lt;span class="math">\(x^2+y^2\)&lt;/span>的形式，我们一般使用极坐标变换：&lt;span class="math">\(x=r\cos\theta,y=r\sin\theta\)&lt;/span>；元面积变换：&lt;span class="math">\(dxdy=rdrd\theta\)&lt;/span> &lt;span class="math">\[
+\begin{aligned}
+I^2 &amp;amp;= \int_0^{2\pi}\int_0^∞ e^{-r^2}rdrd\theta=\int_0^{2\pi}d\theta\int_0^∞ e^{-r^2}rdr \\
+&amp;amp;=2\pi\times (-\frac{1}{2}e^{-r^2}\bigg|_0^∞)=2\pi\times{1\over2}=\pi\\
+&amp;amp;\Rightarrow I=\sqrt{\pi}
+\end{aligned}
+\]&lt;/span> 得证。&lt;/p>
+&lt;p>补充：&lt;strong>高斯积分与Gamma函数（第二类欧拉积分）的关系&lt;/strong>。在&lt;span class="math">\(I\)&lt;/span>中，因为&lt;span class="math">\(e^{-x^2}\)&lt;/span>是一个偶函数，因此积分域可以从&lt;span class="math">\(\int_{-∞}^∞dx\)&lt;/span>变成&lt;span class="math">\(2\cdot\int_0^∞dx\)&lt;/span>，此时&lt;span class="math">\(x\in(0,∞)\)&lt;/span>。如果我们做一个积分变量替换&lt;span class="math">\(x=\sqrt{t},dx={1\over 2}t^{-{1\over 2}}dt\)&lt;/span>，则&lt;span class="math">\(t\in(0,∞)\)&lt;/span>，且&lt;span class="math">\(I\)&lt;/span>有如下变换： &lt;span class="math">\[
+I= \sqrt{\pi}=\int_{-∞}^∞ e^{-x^2}dx =2\int_0^∞ e^{-t}\cdot{1\over 2}t^{-{1\over 2}}dt=\int_0^∞ e^{-t}t^{-{1\over 2}}dt=\Gamma({1\over2})
+\]&lt;/span> 即 &lt;span class="math">\[I=\underbrace{\int_{-∞}^∞ e^{-x^2}dx}_{\text{高斯积分}}=\underbrace{\int_0^∞ e^{-x}x^{-{1\over 2}}dx}_{\text{第二类欧拉积分}}=\Gamma({1\over2})=\sqrt{\pi}\]&lt;/span>&lt;/p>
+&lt;h3 id="附3-高斯在推导正态分布时系数c和方差sigma2的关系">附3 高斯在推导正态分布时系数&lt;span class="math">\(c\)&lt;/span>和方差&lt;span class="math">\(\sigma^2\)&lt;/span>的关系&lt;/h3>
+&lt;blockquote>
+&lt;p>命题：式&lt;span class="math">\((4)\)&lt;/span>中的系数&lt;span class="math">\(c=-\frac{1}{\sigma^2}\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：首先，从&lt;span class="math">\((4)\)&lt;/span>中，我们不难观察出分布函数是一个偶函数，所以有&lt;span class="math">\(E[x]=\mu=0\)&lt;/span>,则方差&lt;span class="math">\(E[(x-\mu)^2]=E[x^2]\)&lt;/span>，则有: &lt;span class="math">\[
+\begin{aligned}
+\sigma^2=&amp;amp;\frac{\sqrt{|c|}}{\sqrt{2\pi}}\int_∞^∞ x^2e^\frac{cx^2}{2}dx\\
+\stackrel{\text{分部积分}}{=}&amp;amp;\frac{\sqrt{|c|}}{\sqrt{2\pi}}\left\{x\cdot\frac{1}{c}e^\frac{cx^2}{2}\bigg |_{-\infty}^\infty-\int_∞^∞ 1\cdot \frac{1}{c}e^\frac{cx^2}{2}dx\right\}\\
+\stackrel{\text{等价无穷小}}{=}&amp;amp;\frac{\sqrt{|c|}}{\sqrt{2\pi}}\left\{0-\int_∞^∞ 1\cdot \frac{1}{c}e^\frac{cx^2}{2}dx\right\}\\
+\stackrel{\text{第一类积分变量替换}}{=}&amp;amp;\frac{\sqrt{|c|}}{\sqrt{2\pi}}\left\{-\int_∞^∞ \frac{1}{c}\cdot\sqrt{\frac{2}{|c|}} e^{-(\sqrt{\frac{|c|}{2}}x)^2}d(\sqrt{\frac{|c|}{2}}x)\right\}\\
+\stackrel{t=\sqrt{\frac{|c|}{2}}x}{=}&amp;amp;\frac{-1}{\sqrt{\pi}c}\left\{\int_∞^∞ e^{-t^2}dt\right\}\\
+\stackrel{\text{附录2高斯积分}}{=}&amp;amp;\frac{-1}{\sqrt{\pi}c}\cdot \sqrt{\pi}=\frac{-1}{c}
+\end{aligned}
+\]&lt;/span> 即系数&lt;span class="math">\(c=-\frac{1}{\sigma^2}\)&lt;/span>，代入&lt;span class="math">\((4)\)&lt;/span>可得正态分布&lt;span class="math">\(N(0,\sigma^2)\)&lt;/span>。&lt;/p></description></item><item><title>概率统计随机过程之随机变量函数的分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/</link><pubDate>Wed, 03 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83/</guid><description>
+&lt;h2 id="概率统计随机过程之随机变量函数的分布">概率统计随机过程之随机变量函数的分布&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>概率论与数理统计－－茆诗松（第二版）随机变量函数的分布内容总结&lt;/p>
+&lt;p>写在最前面：在随机变量的学习中，我们一定要明确知晓，&lt;strong>概率分布函数和随机变量的定义密切相关&lt;/strong>。概率密度函数是概率分布函数的衍生结论，因此，我们在处理问题时优先考虑概率分布函数。&lt;/p>
+&lt;p>现有随机变量&lt;span class="math">\(X\)&lt;/span>定义在&lt;span class="math">\((\Omega,\mathcal{F},P)\)&lt;/span>上。设存在一个定义在&lt;span class="math">\(\Omega\)&lt;/span>上的函数&lt;span class="math">\(y=g(x)\)&lt;/span>，若使用随机变量&lt;span class="math">\(X\)&lt;/span>作为函数&lt;span class="math">\(g\)&lt;/span>的自变量，则&lt;span class="math">\(Y=g(X)\)&lt;/span>显然也是一个随机变量。那么，问题来了：已知随机变量&lt;span class="math">\(X\)&lt;/span>的分布，如何求出另一个随机变量&lt;span class="math">\(Y=g(X)\)&lt;/span>的分布呢？&lt;/p>
+&lt;p>多维随机变量其实就是多个随机变量的意思，这些个随机变量之间可能存在关联性（破坏了独立性），导致多维随机变量的分布有时很不直观。这里也只是介绍了一部分多维随机变量的场景（和、商、最大值最小值等），很多多维随机变量的函数没有解析的结果。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#单个随机变量函数的分布">单个随机变量函数的分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单个离散型随机变量函数的分布">单个离散型随机变量函数的分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单个连续型随机变量函数的分布">单个连续型随机变量函数的分布&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#当gx严格单调时">当&lt;span class="math">\(g(x)\)&lt;/span>严格单调时&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单个连续型随机变量函数的几个常用命题">单个连续型随机变量函数的几个常用命题&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯假设的一个悖论">贝叶斯假设的一个悖论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#当gx为其他形式时">当&lt;span class="math">\(g(x)\)&lt;/span>为其他形式时&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#多维随机变量函数的分布">多维随机变量函数的分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#多维离散型随机变量函数的分布">多维离散型随机变量函数的分布&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#离散型随机变量和的分布与卷积公式">离散型随机变量和的分布与卷积公式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#思考分布可加性的本质">思考：分布可加性的本质&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#多维随机变量的最大最小值分布">多维随机变量的最大最小值分布&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#最大值分布">最大值分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最小值分布">最小值分布&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#多维连续型随机变量函数的分布">多维连续型随机变量函数的分布&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#连续型随机变量和的分布与卷积公式">连续型随机变量和的分布与卷积公式&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#变量变换法">变量变换法&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#box-muller变换">Box-muller变换&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#增补变量法">增补变量法&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#二维随机变量积的分布">二维随机变量积的分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#二维随机变量商的分布">二维随机变量商的分布&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;/ul>
+&lt;h2 id="单个随机变量函数的分布">单个随机变量函数的分布&lt;/h2>
+&lt;h3 id="单个离散型随机变量函数的分布">单个离散型随机变量函数的分布&lt;/h3>
+&lt;p>离散型随机变量函数的分布时&lt;strong>比较容易&lt;/strong>的，主要是因为离散型随机变量的函数变换结果是离散固定的。其一般方法如下：&lt;/p>
+&lt;p>设&lt;span class="math">\(X\)&lt;/span>是离散型随机变量，X的分布列为&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">&lt;span class="math">\(X\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(x_1\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(x_2\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(x_n\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(P\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p(x_1)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p(x_2)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p(x_n)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>则&lt;span class="math">\(Y=g(X)\)&lt;/span>也是一个离散型随机变量，且此时&lt;span class="math">\(Y\)&lt;/span>的分布列相应可表示为&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">&lt;span class="math">\(Y\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(g(x_1)\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(g(x_2)\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(g(x_n)\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(P\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p(x_1)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p(x_2)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p(x_n)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>注意&lt;/strong>：当函数值&lt;span class="math">\(g(x_1),g(x_2),\dotsb\)&lt;/span>有相等值时，则把那些相等的值分别合并，并把对应的概率相加。&lt;/p>
+&lt;p>以下是几个例题：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/单个离散型随机变量函数的分布.png" alt="单个离散型随机变量函数的分布" />&lt;p class="caption">单个离散型随机变量函数的分布&lt;/p>
+&lt;/div>
+&lt;h3 id="单个连续型随机变量函数的分布">单个连续型随机变量函数的分布&lt;/h3>
+&lt;p>找出离散型随机变量函数分布相对简单，只要按步骤求出对应随机变量值就可以了。而对连续性随机变量&lt;span class="math">\(X\)&lt;/span>，我们需要分两种情况讨论。&lt;/p>
+&lt;h4 id="当gx严格单调时">当&lt;span class="math">\(g(x)\)&lt;/span>严格单调时&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>定理1&lt;/strong>:设&lt;span class="math">\(X\)&lt;/span>是连续性随机变量，其密度函数为&lt;span class="math">\(p_{_X}(x)\)&lt;/span>.&lt;span class="math">\(Y=g(X)\)&lt;/span>是另一个随机变量。若&lt;span class="math">\(y=g(x)\)&lt;/span>严格单调，其反函数&lt;span class="math">\(h(y)\)&lt;/span>有连续导函数，则&lt;span class="math">\(Y=g(X)\)&lt;/span>的密度函数为 &lt;span class="math">\[p_{_Y}(y)=\begin{cases}
+p_{_X}(h(y))|h&amp;#39;(y)|, &amp;amp;a&amp;lt;y&amp;lt;b\\
+0,&amp;amp;\text{otherwise}
+\end{cases}\tag{1}\]&lt;/span> 其中，&lt;span class="math">\(a=\min\{g(-∞),g(∞)\},b=\max\{g(-∞),g(∞)\}\)&lt;/span>，即&lt;span class="math">\(a，b\)&lt;/span>为边界。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;blockquote>
+&lt;p>不妨设&lt;span class="math">\(g(x)\)&lt;/span>为严格单调递增函数，这时它的反函数&lt;span class="math">\(h(y)\)&lt;/span>也是严格单调递增的,有&lt;span class="math">\(y\in (a,b)\)&lt;/span>，且&lt;span class="math">\(h&amp;#39;(y)&amp;gt;0\)&lt;/span>。 对于随机变量&lt;span class="math">\(Y\)&lt;/span>，由于其取值范围为&lt;span class="math">\((a,b)\)&lt;/span>,当&lt;/p>
+&lt;ul>
+&lt;li>当&lt;span class="math">\(y&amp;lt;a\)&lt;/span>时，&lt;span class="math">\(F_Y(y)=P(Y≤y)=0\)&lt;/span>&lt;/li>
+&lt;li>当&lt;span class="math">\(y&amp;gt;b\)&lt;/span>时，&lt;span class="math">\(F_Y(y)=P(Y≤y)=1\)&lt;/span>&lt;/li>
+&lt;li>当&lt;span class="math">\(a≤y≤b\)&lt;/span>时，&lt;span class="math">\(F_Y(y)=P(Y≤y)=P(g(X)≤y)=P(X≤h(y))=\int_{-\infty}^{h(y)}p_{_X}(x)\mathrm{d}x\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>由此可得&lt;span class="math">\(Y\)&lt;/span>的概率密度函数为 &lt;span class="math">\[p_{_Y}(y)=\begin{cases}
+p_{_X}[h(y)]\times h&amp;#39;(y),&amp;amp;a&amp;lt;y&amp;lt;b\\
+0,&amp;amp;\text{others}
+\end{cases}\tag{2}\]&lt;/span> &lt;span class="math">\[\stackrel{\text{加绝对值符号无所谓}}{\Longrightarrow}式(1)\]&lt;/span> 当&lt;span class="math">\(g(x)\)&lt;/span>时严格单调递减函数时，这时它的反函数&lt;span class="math">\(h(y)\)&lt;/span>也是严格单调递减的,有&lt;span class="math">\(y\in (a,b)\)&lt;/span>，且&lt;span class="math">\(h&amp;#39;(y)&amp;lt;0\)&lt;/span>。&lt;/p>
+&lt;p>对于随机变量&lt;span class="math">\(Y\)&lt;/span>，由于其取值范围为&lt;span class="math">\((a,b)\)&lt;/span>,当&lt;/p>
+&lt;ul>
+&lt;li>当&lt;span class="math">\(y&amp;lt;a\)&lt;/span>时，&lt;span class="math">\(F_Y(y)=P(Y≤y)=0\)&lt;/span>(这一项和单调递增函数一样)&lt;/li>
+&lt;li>当&lt;span class="math">\(y&amp;gt;b\)&lt;/span>时，&lt;span class="math">\(F_Y(y)=P(Y≤y)=1\)&lt;/span>(这一项和单调递增函数一样)&lt;/li>
+&lt;li>当&lt;span class="math">\(a≤y≤b\)&lt;/span>时，&lt;span class="math">\(F_Y(y)=P(Y≤y)=P(g(X)≤y){\color{red}=P(X≥h(y))}\)&lt;/span>。由于&lt;span class="math">\(g(x)\)&lt;/span>是减函数，所以自变量符号应从“≤”变成“≥”。而&lt;span class="math">\(P(X≥h(y))=1-P(X≤h(y))=1-\int_{-\infty}^{h(y)}p_{_X}(x)\mathrm{d}x\)&lt;/span>。&lt;/li>
+&lt;/ul>
+&lt;p>由于&lt;span class="math">\(h(y)\)&lt;/span>是单调递减函数，所以&lt;span class="math">\(h&amp;#39;(y)&amp;lt;0\)&lt;/span>。由此可得&lt;span class="math">\(Y\)&lt;/span>的概率密度函数为 &lt;span class="math">\[p_{_Y}(y)=\begin{cases}
+-p_{_X}[h(y)]\times h&amp;#39;(y),&amp;amp;a&amp;lt;y&amp;lt;b\\
+0,&amp;amp;\text{others}
+\end{cases}\tag{3}\]&lt;/span> &lt;span class="math">\[\stackrel{\text{h&amp;#39;(y)≤0}}{\Longrightarrow}式(1)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>特别的，当&lt;span class="math">\(g(X)\)&lt;/span>的表达式为随机变量&lt;span class="math">\(X\)&lt;/span>的累积分布函数（CDF）&lt;span class="math">\(F_{_X}(X)\)&lt;/span>时，我们有以下命题：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>命题1-1&lt;/strong>：设存在一随机变量&lt;span class="math">\(X\)&lt;/span>，另一随机变量&lt;span class="math">\(Z=F(X)\)&lt;/span>，其中&lt;span class="math">\(F(\cdot)\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的分布函数，那么&lt;span class="math">\(Z\thicksim U(0,1)\)&lt;/span>&lt;/p>
+&lt;p>&lt;strong>命题1-2&lt;/strong>：令&lt;span class="math">\(Z\thicksim U(0,1)\)&lt;/span>，&lt;span class="math">\(F^{-1}\)&lt;/span>是随机变量&lt;span class="math">\(X\)&lt;/span>分布函数&lt;span class="math">\(F\)&lt;/span>的反函数，那么&lt;span class="math">\(X=F^{-1}(Z)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>这一对命题证明比较容易，借助&lt;code>定理1&lt;/code>同样的证明方法就能证明。&lt;strong>本质上这一对命题是&lt;code>定理1&lt;/code>的一个特例&lt;/strong>。但是一开始这个结论令我很不解，主要是我没有分清累积分布函数和随机变量函数的关系。这里的&lt;span class="math">\(F\)&lt;/span>只是随机变量的函数恰好等于累积分布函数，&lt;span class="math">\(X\)&lt;/span>经过&lt;span class="math">\(F\)&lt;/span>变换的得到随机变量&lt;span class="math">\(Z=F(X)\)&lt;/span>。而在累积分布函数CDF中，&lt;span class="math">\(F(x)\)&lt;/span>(注意这里写正确了，一定是&lt;span class="math">\(x\)&lt;/span>)求的是随机变量&lt;span class="math">\(X≤x\)&lt;/span>的概率值，是一个固定值。这二者看着相似，实有根本区别。&lt;/p>
+&lt;p>此外，这对命题在计算机产生各种分布随机变量时有很大作用。因为我们只要能产生均匀分布的随机变量&lt;span class="math">\(Z\thicksim U(0,1)\)&lt;/span>就可以通过随机变量&lt;span class="math">\(X\)&lt;/span>的CDF的反函数&lt;span class="math">\(F^{-1}(Z)\)&lt;/span>，得到一个服从累计分布函数&lt;span class="math">\(F\)&lt;/span>的随机变量&lt;span class="math">\(X\)&lt;/span>。事实上，计算机中大多数常用分布随机变量都是通过这个方式产生的,这也是计算机进行随机模拟法（又称蒙特卡洛法）的基础。（有趣的是最常见的正态分布却不用这个方法产生，因为正态分布的CDF不好求，其CDF的反函数更不好求。正态分布随机变量可以以均匀分布随机变量用Box-Muller算法或其改进算法生成。）&lt;/p>
+&lt;h4 id="单个连续型随机变量函数的几个常用命题">单个连续型随机变量函数的几个常用命题&lt;/h4>
+&lt;blockquote>
+&lt;p>命题2-1：设随机变量&lt;span class="math">\(X\)&lt;/span>服从正态分布&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>，当&lt;span class="math">\(a\neq 0\)&lt;/span>时，有&lt;span class="math">\(Y=aX+b\thicksim N(a\mu+b,a^2\sigma^2)\)&lt;/span>。&lt;/p>
+&lt;p>命题2-2：对数正态分布，设随机变量&lt;span class="math">\(X\)&lt;/span>服从正态分布&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>，则&lt;span class="math">\(Y=e^X\)&lt;/span>的概率密度函数为： &lt;span class="math">\[p_Y(y)=\begin{cases}
+\frac{1}{\sqrt{2\pi}y\sigma}e^{-\frac{(\ln y -\mu)^2}{2\sigma^2}},&amp;amp;y&amp;gt;0\\
+0, &amp;amp;y \le 0
+\end{cases}\]&lt;/span> 即这个分布为对数正态分布&lt;span class="math">\(LN(\mu,\sigma^2)\)&lt;/span>&lt;/p>
+&lt;p>命题2-3：随机变量&lt;span class="math">\(X\)&lt;/span>服从伽马分布&lt;span class="math">\(Ga(\alpha,\lambda)\)&lt;/span>，则当&lt;span class="math">\(k&amp;gt;0\)&lt;/span>时，有&lt;span class="math">\(Y=kX\thicksim Ga(\alpha,\lambda/k)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>以上三个命题都是单调函数变换，可以用&lt;code>定理1&lt;/code>证明。&lt;/p>
+&lt;h4 id="贝叶斯假设的一个悖论">贝叶斯假设的一个悖论&lt;/h4>
+&lt;p>随机变量函数的分布还曾被Fisher（发明F分布、Fisher信息量等，频率学派大佬）用来举例反对贝叶斯学派。迫使贝叶斯学派重新找角度解释先验分布的合理性。&lt;/p>
+&lt;p>事情大体是这样的，贝叶斯学派在求解概率问题时，&lt;strong>先要规定主观规定一个先验分布，然后获取样本，再通过样本和条件概率修正先验分布，得到后验分布&lt;/strong>。其中，后面两步都是有扎实的数学理论支撑的，唯有第一步选取先验分布是一个凭个人主观推测的事情。贝叶斯采取了这样一个假设（贝叶斯假设）：&lt;em>如果我们对某一个统计量没有任何了解，那么我们就不应该对任何值有偏好，所以在统计量的空间里，选取均匀分布作为先验分布&lt;/em>。&lt;/p>
+&lt;p>这个解释初一听，还是非常有道理的。但是Fisher提出：按照贝叶斯假设某一随机变量&lt;span class="math">\(\theta\)&lt;/span>的先验分布属于均匀分布，因为我们对其一无所知。那么对于随机变量&lt;span class="math">\(\beta=\theta^2\)&lt;/span>，我们对&lt;span class="math">\(\beta\)&lt;/span>也同样一无所知，那么&lt;span class="math">\(\beta\)&lt;/span>是不是应该也是均匀分布？两者同时是均匀分布显然是不可能的。（注1证明）。&lt;strong>到底谁应该是取均匀分布&lt;/strong>?这一悖论被Fisher用来反对贝叶斯学派的可靠性。&lt;/p>
+&lt;blockquote>
+&lt;p>注1：如果一随机变量&lt;span class="math">\(X\thicksim U(0,1)\)&lt;/span>，那么它的平方&lt;span class="math">\(Y=X^2\)&lt;/span>的概率密度函数pdf并不是均匀分布。&lt;/p>
+&lt;p>证明：&lt;span class="math">\(X\in [0,1]\Rightarrow Y\in [0,1]. \)&lt;/span> 累积分布函数CDF:&lt;span class="math">\(F_X(x) = x\)&lt;/span>. &lt;span class="math">\(F_Y(Y)=P(Y\le y)=P(X^2\le y)=P(-\sqrt{y}\le X\le\sqrt{y})\)&lt;/span>。因为&lt;span class="math">\(X\in [0,1]\)&lt;/span>，所以&lt;span class="math">\(P(-\sqrt{y}\le X\le\sqrt{y})=P(X\le\sqrt{y})=F_X(\sqrt{y})=\sqrt{y}\Rightarrow F_Y(y)=\sqrt{y}\)&lt;/span>。因此 &lt;span class="math">\[f_Y(y)=\begin{cases}\frac{1}{2\sqrt{y}},y\in [0,1]\\0,\text{others}\end{cases}\]&lt;/span> 显然&lt;span class="math">\(Y\)&lt;/span>并不是均匀分布。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="当gx为其他形式时">当&lt;span class="math">\(g(x)\)&lt;/span>为其他形式时&lt;/h4>
+&lt;p>当&lt;code>定理1&lt;/code>不适用时，我们可以从最基础的&lt;strong>分布函数&lt;/strong>（&lt;span class="math">\(F_Y(y)=P(g(X)≤y)\)&lt;/span>）入手，就像证明&lt;code>定理1&lt;/code>中使用的方法那样。具体可见下面例子&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/随机变量函数的分布例3.jpg" alt="随机变量函数的分布例3" />&lt;p class="caption">随机变量函数的分布例3&lt;/p>
+&lt;/div>
+&lt;p>对照&lt;span class="math">\(\chi^2\)&lt;/span>分布的密度函数，可以看出&lt;span class="math">\(Y\thicksim \chi^2(1)\)&lt;/span>。（因为&lt;span class="math">\(\chi^2(n)\)&lt;/span>正是n个服从正态分布随机变量的平方和的分布）&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/随机变量函数的分布例4.jpg" alt="随机变量函数的分布例4" />&lt;p class="caption">随机变量函数的分布例4&lt;/p>
+&lt;/div>
+&lt;h2 id="多维随机变量函数的分布">多维随机变量函数的分布&lt;/h2>
+&lt;p>设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>为n维随机变量，则&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>的函数&lt;span class="math">\(Y=g(X_1,X_2,\dotsb,X_n)\)&lt;/span>时一维随机变量。现在问题是如何由&lt;span class="math">\((X_1,X_2,\dotsb,X_n)\)&lt;/span>的联合分布，求出&lt;span class="math">\(Y\)&lt;/span>的分布。这是一类技巧性很强的工作，不仅对离散场合和连续场合由不同的方法，而且对不同形式的函数&lt;span class="math">\(g(X_1,X_2,\dotsb,X_n)\)&lt;/span>要采用不同的方法，甚至有些方法只对特殊形式的&lt;span class="math">\(g(\cdot)\)&lt;/span>适用。下面就几个常见的场景做介绍。&lt;/p>
+&lt;blockquote>
+&lt;p>补充定义1：n维随机变量（向量）：如果&lt;span class="math">\(X_1(\omega),X_2(\omega),\dotsb,X_n(\omega)\)&lt;/span>是定义在&lt;strong>同一个样本空间&lt;/strong>&lt;span class="math">\(\Omega=\{\omega\}\)&lt;/span>上的n个随机变量，则称 &lt;span class="math">\[X(\omega)=(X_1(\omega),X_2(\omega),\dotsb,X_n(\omega))\]&lt;/span> 为n维随机变量（向量）。&lt;/p>
+&lt;/blockquote>
+&lt;p>注意，多维随机变量的关键是定义在&lt;strong>同一个样本空间&lt;/strong>，对于不同样本空间&lt;span class="math">\(\Omega_1,\Omega_2\)&lt;/span>上的两个随机变量。我们只能在其乘机空间&lt;span class="math">\(\Omega_1\times\Omega_2=\{(\omega_1,\omega_2):\omega_1\in \Omega_1,\omega_2\in\Omega_2\}\)&lt;/span>及其事件域上讨论。以下多维随机变量默认遵从这一点。&lt;/p>
+&lt;h3 id="多维离散型随机变量函数的分布">多维离散型随机变量函数的分布&lt;/h3>
+&lt;p>首先，如果离散随机变量概率空间比较小，可将&lt;span class="math">\(Y\)&lt;/span>的取值一一求出再合并得到分布列表。这是最直观最基本的方法。见下例：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/离散型随机变量函数的分布例5.jpg" alt="多维离散型随机变量分布例5" />&lt;p class="caption">多维离散型随机变量分布例5&lt;/p>
+&lt;/div>
+&lt;h4 id="离散型随机变量和的分布与卷积公式">离散型随机变量和的分布与卷积公式&lt;/h4>
+&lt;p>下面我们讨论一种比较常见的情景，即多维离散型随机变量和的分布。我们先讨论两维随机变量，然后在拓展到多维。&lt;/p>
+&lt;p>设随机变量&lt;span class="math">\(Z=X+Y\)&lt;/span>，其中&lt;span class="math">\(X,Y\)&lt;/span>都是在同一样本空间&lt;span class="math">\(\Omega\)&lt;/span>的一维离散型随机变量，事件&lt;span class="math">\(\{Z=k\}\)&lt;/span>可以由如下诸互不相容事件 &lt;span class="math">\[\{X=i,Y=k-i\}, i\in \Omega\]&lt;/span> 的并集组成，再考虑到&lt;span class="math">\(X,Y\)&lt;/span>的独立性，则对&lt;span class="math">\(\forall k \in \Omega_Z\)&lt;/span>，有 &lt;span class="math">\[P(Z=k)=\sum_{i\in\Omega}P(X=i)P(Y=k-i)\tag{4}\]&lt;/span> 这个概率等式被称为离散场合下的&lt;strong>卷积公式&lt;/strong>。我们在这里让&lt;span class="math">\(P(X=i)\)&lt;/span>的&lt;span class="math">\(i\in\Omega\)&lt;/span>，而对&lt;span class="math">\(P(Y=k-i)\)&lt;/span>则要求所有超出样本空间的值的概率都为0。&lt;/p>
+&lt;p>从二维到多维的变换可以看出是一个逐步的过程，两两逐渐相加即可。&lt;span class="math">\(N\)&lt;/span>维离散随机变量的和在一般需要&lt;span class="math">\(N-1\)&lt;/span>次求和（本质是对和的&lt;span class="math">\(N-1\)&lt;/span>次分解）。&lt;/p>
+&lt;h4 id="思考分布可加性的本质">思考：分布可加性的本质&lt;/h4>
+&lt;p>通过离散场合下的卷积公式，我们可以证明如下三个命题：&lt;/p>
+&lt;blockquote>
+&lt;p>命题3-1：&lt;strong>泊松分布的可加性&lt;/strong>。设随机变量&lt;span class="math">\(X\thicksim P(\lambda_1),X_2\thicksim P(\lambda_2)\)&lt;/span>，且&lt;span class="math">\(X,Y\)&lt;/span>独立，则&lt;span class="math">\(Z=X+Y\thicksim P(\lambda_1+\lambda_2)\)&lt;/span>&lt;/p>
+&lt;p>命题3-2：&lt;strong>二项分布的可加性&lt;/strong>。设随机变量&lt;span class="math">\(X\thicksim P(n,p),X_2\thicksim P(m,p)\)&lt;/span>，且&lt;span class="math">\(X,Y\)&lt;/span>独立，则&lt;span class="math">\(Z=X+Y\thicksim P(m+n,p)\)&lt;/span>&lt;/p>
+&lt;p>命题3-3：&lt;strong>负二项分布的可加性&lt;/strong>。设随机变量&lt;span class="math">\(X\thicksim Nb(n,p),X_2\thicksim Nb(m,p)\)&lt;/span>，且&lt;span class="math">\(X,Y\)&lt;/span>独立，则&lt;span class="math">\(Z=X+Y\thicksim Nb(m+n,p)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>卷积显然和直接相加差别很大。那为什么有些分布能满足可加性呢？我们除了用形式化的数学方法证明，有什么本质能够理解本质的方法吗？&lt;/p>
+&lt;p>其实回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布&lt;span class="math">\(B(N,p)\)&lt;/span>，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在&lt;span class="math">\(\lambda=np\)&lt;/span>为定值时, &lt;span class="math">\(p\rightarrow 0, n\rightarrow\infty\)&lt;/span>的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（&lt;span class="math">\(e\)&lt;/span>是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。&lt;/p>
+&lt;p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是&lt;strong>指数分布&lt;span class="math">\(X\thicksim \exp(\lambda)\)&lt;/span>的和&lt;/strong>，k个指数分布&lt;span class="math">\(X_i\thicksim \exp(\lambda),i\in\{1,2,\dotsb,k\}\)&lt;/span>相加是Erlang分布 &lt;span class="math">\[
+X_{i}\sim \exp (\lambda ),\\
+\sum _{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum _{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
+p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1
+\]&lt;/span> 它和指数分布的参数&lt;span class="math">\(\lambda\)&lt;/span>是一样的，参数&lt;span class="math">\(k\)&lt;/span>是指由&lt;span class="math">\(k\)&lt;/span>个指数分布相加。其实际含义可以指代&lt;span class="math">\(k\)&lt;/span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将&lt;span class="math">\(k\rightarrow \alpha\)&lt;/span>延拓到正实数域，就是Gamma分布&lt;span class="math">\(X\sim \Gamma(\alpha,\lambda)\)&lt;/span>。 &lt;span class="math">\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x&amp;gt;0\quad \alpha ,\lambda &amp;gt;0\]&lt;/span> 其中,&lt;span class="math">\(\Gamma(\alpha)\)&lt;/span>是Gamma函数而卡方分布又是Gamma分布的特例，即&lt;span class="math">\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)&lt;/span>， &lt;span class="math">\[
+p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}
+\]&lt;/span> 因此这两种分布(Gamma分布、卡方分布)也不出意外的有可加性。还有一种满足可加性的分布，柯西分布，对它我了解不多，暂不描述。&lt;/p>
+&lt;h3 id="多维随机变量的最大最小值分布">多维随机变量的最大最小值分布&lt;/h3>
+&lt;p>最大值最小值的分布利用了分布函数和多个随机变量间的独立性，是利用定义就能搞定的多维分布。&lt;/p>
+&lt;h4 id="最大值分布">最大值分布&lt;/h4>
+&lt;blockquote>
+&lt;p>命题4：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是相互独立的n个随机变量，若&lt;span class="math">\(Y=\max\{X_1,X_2,\dotsb,X_n\}\)&lt;/span>。则对于&lt;span class="math">\(Y\)&lt;/span>的分布有：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(X_i\sim F_i(x)，,i=1,2,\dotsb,n, Y\sim \prod\limits_{i=1}^n F_i(y)\)&lt;/span>;&lt;/li>
+&lt;li>若诸&lt;span class="math">\(X_i\)&lt;/span>i.i.d，即&lt;span class="math">\(X_i\sim F(x)\)&lt;/span>，则有&lt;span class="math">\(Y\sim [F(y)]^n\)&lt;/span>&lt;/li>
+&lt;li>若诸&lt;span class="math">\(X_i\)&lt;/span>为连续随机变量，且i.i.d，则&lt;span class="math">\(Y\)&lt;/span>的概率密度函数是&lt;span class="math">\(P_Y(y)=n[F(y)]^{n-1}p(y)\)&lt;/span>&lt;/li>
+&lt;li>若诸&lt;span class="math">\(X_i\)&lt;/span>都服从&lt;span class="math">\(X\sim \exp(\lambda)\)&lt;/span>，则&lt;span class="math">\(Y\)&lt;/span>的概率密度函数是 &lt;span class="math">\[p_Y(y)=\begin{cases}0,&amp;amp;y&amp;lt;0\\n(1-e^{-\lambda y})^{n-1}\lambda e^{-\lambda y},&amp;amp;y\ge 0\end{cases}\]&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>证明： (1) 有&lt;span class="math">\(Y=\max\{X_1,X_2,\dotsb,X_n\}\)&lt;/span>，则&lt;span class="math">\(F_Y(y)=P(max\{X_1,X_2,\dotsb,X_n\}≤y)=P(X_1≤y,X_2≤y,\dotsb,X_n≤y)\stackrel{\text{独立性}}{=}P(X_1≤y)P(X_2≤y)\dotsb P(X_n≤y)=\prod\limits_{i=1}^n F_i(y)\)&lt;/span>。即&lt;span class="math">\(Y\sim \prod\limits_{i=1}^n F_i(y)\)&lt;/span>&lt;/p>
+&lt;p>(2)因为诸&lt;span class="math">\(X_i\)&lt;/span>i.i.d，所以&lt;span class="math">\(\prod\limits_{i=1}^n F_i(y)=[F(y)]^n\)&lt;/span>，即&lt;span class="math">\(Y \sim [F(y)]^{n}\)&lt;/span> (3)将结果(2)的求导即可得证。 (4)指数分布符合(3)的前提，可以直接带入(3)的公式可证。&lt;/p>
+&lt;h4 id="最小值分布">最小值分布&lt;/h4>
+&lt;blockquote>
+&lt;p>命题5：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是相互独立的n个随机变量，若&lt;span class="math">\(Y=\min\{X_1,X_2,\dotsb,X_n\}\)&lt;/span>。则对于&lt;span class="math">\(Y\)&lt;/span>的分布有：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(X_i\sim F_i(x)，,i=1,2,\dotsb,n, Y\sim 1-\prod\limits_{i=1}^n [1-F_i(y)]\)&lt;/span>;&lt;/li>
+&lt;li>若诸&lt;span class="math">\(X_i\)&lt;/span>i.i.d，即&lt;span class="math">\(X_i\sim F(x)\)&lt;/span>，则有&lt;span class="math">\(Y\sim 1-[1-F(y)]^n\)&lt;/span>&lt;/li>
+&lt;li>若诸&lt;span class="math">\(X_i\)&lt;/span>为连续随机变量，且i.i.d，则&lt;span class="math">\(Y\)&lt;/span>的概率密度函数是&lt;span class="math">\(P_Y(y)=n[1-F(y)]^{n-1}p(y)\)&lt;/span>&lt;/li>
+&lt;li>若诸&lt;span class="math">\(X_i\)&lt;/span>都服从&lt;span class="math">\(X\sim \exp(\lambda)\)&lt;/span>，则&lt;span class="math">\(Y\)&lt;/span>的概率密度函数是 &lt;span class="math">\[p_Y(y)=\begin{cases}0,&amp;amp;y&amp;lt;0\\n\lambda e^{-n\lambda y},&amp;amp;y\ge 0\end{cases}\]&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>证明： (1)由于&lt;span class="math">\(Y=\min\{X_1,X_2,\dotsb,X_n\}\)&lt;/span>，因此&lt;span class="math">\(F_Y(y)=P(\min\{X_1,X_2,\dotsb X_n\}≤y)=1-P(\min\{X_1,X_2,\dotsb X_n\}&amp;gt;y)=1-P(X_1&amp;gt;y,X_2&amp;gt;y,\dotsb,X_n&amp;gt;y)\stackrel{\text{独立性了}}{=}1-P(X_1&amp;gt;y)P(X_2&amp;gt;y)\dotsb P(X_n&amp;gt;y)=1-\prod\limits_{i=1}^n[1-F_i(y)]\)&lt;/span> (2)因为诸&lt;span class="math">\(X_i\)&lt;/span>i.i.d，即&lt;span class="math">\(X_i\sim F(x)\)&lt;/span>，代入(1)的结果则有&lt;span class="math">\(Y\sim 1-[1-F(y)]^n\)&lt;/span> (3)将结果(2)的求导即可得证。 (4)指数分布符合(3)的前提，可以直接带入(3)的公式可证。&lt;/p>
+&lt;h3 id="多维连续型随机变量函数的分布">多维连续型随机变量函数的分布&lt;/h3>
+&lt;h4 id="连续型随机变量和的分布与卷积公式">连续型随机变量和的分布与卷积公式&lt;/h4>
+&lt;p>我们之前已经研究了离散型多维随机变量的卷积公式，对于连续型多维随机变量，我们采用类似的方式推导，只是把求和换成积分。&lt;/p>
+&lt;blockquote>
+&lt;p>连续型随机变量的卷积公式：设&lt;span class="math">\(X,Y\)&lt;/span>是两个连续且独立的随机变量，其密度函数分别是&lt;span class="math">\(p_{_X}(x),p_{_Y}(y)\)&lt;/span>，则其和&lt;span class="math">\(Z=X+Y\)&lt;/span>的概率密度函数为： &lt;span class="math">\[\begin{aligned}p_{_Z}(z)&amp;amp;=\int_{-\infty}^\infty p_{_X}(x)p_{_Y}(z-x)dx\\
+&amp;amp;=\int_{-\infty}^\infty p_{_X}(z-y)p_{_Y}(y)dy
+\end{aligned}\tag{5}\]&lt;/span> 上式被称为连续随机变量的卷积公式。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明： &lt;span class="math">\(Z=X+Y\)&lt;/span>的分布函数按照定义为 &lt;span class="math">\[\begin{aligned}
+F_Z(z)&amp;amp;=P(X+Y≤Z)=\iint_{x+y≤z}p_{_X}(x)p_{_Y}(y)dxdy\\
+&amp;amp;=\int_{-\infty}^\infty\{\int_{-\infty}^{z-y}p_{_X}(x)dx\}p_{_Y}(y)dy\\
+&amp;amp;\xlongequal{变量替换}\int_{-\infty}^\infty\int_{-\infty}^z p_{_X}(t-y)p_{_Y}(y)dtdy\\
+\Rightarrow F_{Z}(z)&amp;amp;=\int_{-\infty}^z(\int_{-\infty}^∞ p_{_X}(t-y)p_{_Y}(y)dy)dt
+\end{aligned}
+\]&lt;/span> 对&lt;span class="math">\(F_{Z}(z)\)&lt;/span>以&lt;span class="math">\(z\)&lt;/span>求导，可得 &lt;span class="math">\[
+p_{_Z}(z)=\int_{-\infty}^∞ p_{_X}(z-y)p_{_Y}(y)dy
+\]&lt;/span> 令上式积分中&lt;span class="math">\(y=z-x\)&lt;/span>则可得： &lt;span class="math">\[
+p_{_Z}(z)=\int_{-\infty}^∞ p_{_X}(x)p_{_Y}(z-x)dx
+\]&lt;/span> 得证。&lt;/p>
+&lt;p>在之前&lt;a href="#思考分布可加性的本质">思考：分布可加性的本质&lt;/a>章节中我们已经讨论了为什么有些分布具有可加性，也涉及了部分连续性随机分布，这里我们给出详细命题：&lt;/p>
+&lt;blockquote>
+&lt;p>命题6-1：&lt;strong>正态分布的可加性&lt;/strong>。设随机变量&lt;span class="math">\(X\sim N(\mu_1,\sigma_1^2),Y\sim N(\mu_2,\sigma_2^2)\)&lt;/span>，且&lt;span class="math">\(X,Y\)&lt;/span>独立，则&lt;span class="math">\(Z=X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)&lt;/span> 命题6-2：&lt;strong>伽马分布的可加性&lt;/strong>。设随机变量&lt;span class="math">\(X\sim Ga(\alpha_1,\lambda),Y\sim Ga(\alpha_2,\lambda)\)&lt;/span>，且&lt;span class="math">\(X,Y\)&lt;/span>独立，则&lt;span class="math">\(Z=X+Y\sim Ga(\alpha_1+\alpha_2,\lambda)\)&lt;/span> 命题6-3：&lt;strong>卡方分布的可加性&lt;/strong>。设随机变量&lt;span class="math">\(X\sim \chi^2(m),Y\sim \chi^2(n)\)&lt;/span>，且&lt;span class="math">\(X,Y\)&lt;/span>独立，则&lt;span class="math">\(Z=X+Y\sim \chi^2(m+n)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明： (1):正态分布的可加性。首先&lt;span class="math">\(Z=X+Y\)&lt;/span>的定义域依然是&lt;span class="math">\((-∞,∞)\)&lt;/span>,利用连续随机变量的卷积公式&lt;span class="math">\((5)\)&lt;/span>可得： &lt;span class="math">\[
+\begin{aligned}
+p_{_Z}(z)&amp;amp;=\int_{-∞}^∞\frac{1}{2\pi\sigma_1\sigma_2}\exp\left\{ -\frac{1}{2}\left[\frac{(z-y-\mu_1)^2}{\sigma_1^2}+\frac{(y-\mu_2)^2}{\sigma_2^2} \right]\right\}dy\\
+&amp;amp;\xlongequal[u=y-\mu_2]{v=z-(\mu_1+\mu_2)}\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{\frac{1}{2}\left[\frac{(v-u)^2}{\sigma_1^2}+\frac{u^2}{\sigma_2^2} \right]\right\}dy\\
+&amp;amp;=\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{\frac{1}{2}\left[\frac{(v-u)^2}{\sigma_1^2}+\frac{u^2}{\sigma_2^2} \right]\right\}du\\
+\end{aligned}
+\]&lt;/span> 由于变量&lt;span class="math">\(v\)&lt;/span>与概率密度函数自变量&lt;span class="math">\(z\)&lt;/span>有关，而与积分变量&lt;span class="math">\(y\)&lt;/span>无关，因此，我们将与&lt;span class="math">\(u\)&lt;/span>无关的&lt;span class="math">\(v\)&lt;/span>从积分符号中提取出来，再把&lt;span class="math">\(u\)&lt;/span>凑成平方项，方可化腐朽为神奇 。同时，&lt;span class="math">\(u=y-\mu_1\in(-∞,∞)\)&lt;/span>，积分区间未变。 &lt;span class="math">\[
+\begin{aligned}
+p_{_Z}(z)&amp;amp;=\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{-\frac{1}{2}\left[\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2\sigma_2^2}u^2-\frac{2}{\sigma_1^2}uv+\frac{v^2}{\sigma_1^2} \right]\right\}du\\
+\overset{u凑平方}{=}&amp;amp;\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{-\frac{1}{2}\left[\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2\sigma_2^2}u^2-\frac{2}{\sigma_1^2}uv+\frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2+\sigma_2^2)}v^2\right.\right. \\
+&amp;amp;\left.\left.-\frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2+\sigma_2^2)}v^2+\frac{v^2}{\sigma_1^2} \right]\right\}du\\
+&amp;amp;=\frac{1}{2\pi\sigma_1\sigma_2}\exp\left\{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right\}\\
+&amp;amp;\cdot\int_{-∞}^∞\exp\left\{-\frac{1}{2}\left(\frac{\sqrt{\sigma_1^2+\sigma_2^2}}{\sigma_1\sigma_2}u-\frac{\sigma_2}{\sigma_1\sqrt{\sigma_1^2+\sigma_2^2}}v\right)^2\right\}du
+\end{aligned}
+\]&lt;/span> 令&lt;span class="math">\(t=\frac{\sqrt{\sigma_1^2+\sigma_2^2}}{\sigma_1\sigma_2}u-\frac{\sigma_2}{\sigma_1\sqrt{\sigma_1^2+\sigma_2^2}}v\)&lt;/span>，显然&lt;span class="math">\(v\)&lt;/span>无论取什么值，在&lt;span class="math">\(u\in(-\infty,\infty)\)&lt;/span>时，都有&lt;span class="math">\(t\in (-\infty,\infty)\)&lt;/span>。同时，&lt;span class="math">\(du=\frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}dt\)&lt;/span>。因此： &lt;span class="math">\[
+\begin{aligned}
+p_{_Z}(z)&amp;amp;=\frac{1}{2\pi\sigma_1\sigma_2}\exp\left\{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right\}\int_{-\infty}^\infty\exp \{-\frac{1}{2}t^2\}\frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}dt\\
+&amp;amp;=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left\{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right\}\int_{-\infty}^\infty\exp \{-\frac{1}{2}t^2\}dt
+\end{aligned}
+\]&lt;/span> 根据高斯积分有&lt;span class="math">\(\int_{-\infty}^\infty\exp \{-\frac{1}{2}t^2\}dt=\sqrt{2\pi}\)&lt;/span>，代入上式，并恢复&lt;span class="math">\(v=z-(\mu_1+\mu_2)\)&lt;/span>，则有 &lt;span class="math">\[
+\begin{aligned}
+p_{_Z}(z)&amp;amp;=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left\{-\frac{1}{2}\frac{(z-\mu_1-\mu_2)^2}{\sigma_1^2+\sigma_2^2}\right\}\cdot \sqrt{2\pi}\\
+&amp;amp;=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left\{-\frac{(z-\mu_1-\mu_2)^2}{2(\sigma_1^2+\sigma_2^2)}\right\}\\
+&amp;amp;\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)
+\end{aligned}
+\]&lt;/span> 得证。此命题还可扩展成线性可加性：&lt;/p>
+&lt;blockquote>
+&lt;p>命题6-4：任意n个相互独立的正态随机变量的线性组合仍是正态随机变量。即若&lt;span class="math">\(X_i\sim N(\mu_i,\sigma_i^2),i=1,2,\dotsb,n\)&lt;/span>，则&lt;span class="math">\(Y=\sum_{i=1}^n a_i X_i +b \sim N(\sum_{i=1}^n a_i \mu_i +b,\sum_{i=1}^n a_i^2 \sigma_i^2)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>(2)：证明伽马分布的可加性。首先指出&lt;span class="math">\(Z=X+Y\)&lt;/span>的取值范围仍然在&lt;span class="math">\((0,∞)\)&lt;/span>,所以当&lt;span class="math">\(z&amp;lt;0\)&lt;/span>时，有&lt;span class="math">\(p_{_Z}(z)=0\)&lt;/span>。而当&lt;span class="math">\(z&amp;gt;0\)&lt;/span>时，可用卷积公式，此时被积函数&lt;span class="math">\(p_{_X}(z-y)p_{_Y}(y)\)&lt;/span>的非零区域为&lt;span class="math">\(0&amp;lt;y&amp;lt;z\)&lt;/span>,故 &lt;span class="math">\[
+\begin{aligned}
+p_{_Z}(z)&amp;amp;=\int_{-\infty}^\infty p_{_Y}(y)p_{_X}(z-y)dy\\
+&amp;amp;=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int_0^z (z-y)^{\alpha_1-1}e^{-\lambda(z-y)}y^{\alpha_2-1}e^{-\lambda y} dy \\
+&amp;amp;=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\lambda z} \int_0^z(z-y)^{\alpha_1-1}y^{\alpha_2-1}dy\\
+\end{aligned}
+\]&lt;/span> 令&lt;span class="math">\(y=zt,t\in(0,1)\)&lt;/span>，则&lt;span class="math">\(dy=zdt\)&lt;/span>带入原式可得 &lt;span class="math">\[
+p_{_Z}(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\lambda z} z^{\alpha_1+\alpha_2-1}\underbrace{\int_0^1(1-t)^{\alpha_1-1}t^{\alpha_2-1}dt}_{\text{贝塔函数}}
+\]&lt;/span> 我们看到这个积分的式子和贝塔函数是一模一样的，贝塔函数&lt;span class="math">\(B(\alpha_1,\alpha_2)=\frac{\Gamma(\alpha_1)\Gamma(\alpha_2)}{\Gamma(\alpha_1+\alpha_2)}\)&lt;/span>。最后，相乘我们得到： &lt;span class="math">\[
+p_{_Z}(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1+\alpha_2)} z^{\alpha_1+\alpha_2-1}e^{-\lambda z}\sim Ga(\alpha_1+\alpha_2,\lambda)
+\]&lt;/span> 显然，这个结论可以推广到有限个尺度参数相同的独立伽马变量之和上。此外，在Gamma分布中，当我们令&lt;span class="math">\(\alpha=1\)&lt;/span>时，有&lt;span class="math">\(Ga(1,\lambda)=\exp(\lambda)\)&lt;/span>，那么我们可以做出如下命题：&lt;/p>
+&lt;blockquote>
+&lt;p>命题6-5：n个独立同分布的指数分布随机变量&lt;span class="math">\(X_i\sim \exp(\lambda),i=1,2,\dotsb,n\)&lt;/span>之和为Gamma分布，即&lt;span class="math">\(\sum_{i=1}^nX_i\sim \underbrace{\exp(\lambda)*\exp(\lambda)*\dotsb*\exp(\lambda)}_{n个}=Ga(\underbrace{1+1+\dotsb+1}_{n个},\lambda)=Ga(n,\lambda)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>(3)：由于卡方分布时伽马分布&lt;span class="math">\(\alpha=\frac{n}{2},\lambda=\frac{1}{2}\)&lt;/span>时的特例，因此有(2)的证明可知命题6-3也成立。&lt;/p>
+&lt;h3 id="变量变换法">变量变换法&lt;/h3>
+&lt;p>变量变换法是对于从&lt;span class="math">\(n\rightarrow n\)&lt;/span>个随机变量函数变换的概率分布的描述，和单个随机变量函数分布一样，也是&lt;strong>利用了反函数的特性，只不过求导变成了求多个偏导的雅各布行列式&lt;/strong>。在此我们仅介绍二维随机变量的变量变换的方法，更高维的方法也是类似的。&lt;/p>
+&lt;p>设二维随机变量&lt;span class="math">\((X,Y)\)&lt;/span>的联合密度函数为&lt;span class="math">\(p(x,y)\)&lt;/span>,那么如果函数 &lt;span class="math">\[
+\begin{cases} u = g_1(x,y)\\ v=g_2(x,y)\end{cases}
+\]&lt;/span> 有连续偏导数，且存在唯一的反函数： &lt;span class="math">\[
+\begin{cases} x = x(u,v)\\ y=y(x,y)\end{cases}
+\]&lt;/span> 然后我们可以列出雅克比行列式（其中的第二项倒数也告诉我们如果一方的偏导数不好求，可以求其反函数的偏导数雅克布行列式再取倒数）： &lt;span class="math">\[
+J= \frac{\partial(x,y)}{\partial(u,v)}=(\frac{\partial(u,v)}{\partial(x,y)})^{-1}=\begin{vmatrix}
+\frac{\partial x}{\partial u} &amp;amp; \frac{\partial x}{\partial v} \\
+\frac{\partial y}{\partial u} &amp;amp; \frac{\partial y}{\partial x}
+\end{vmatrix}\neq 0
+\]&lt;/span> 则二维随机变量&lt;span class="math">\((U,V)\)&lt;/span>的联合密度函数为 &lt;span class="math">\[
+p(u,v)=p(x(u,v),y(u,v))|J|\tag{6}
+\]&lt;/span> 此法为二维随机变量的变量变换法，其证明可参阅二重积分的坐标变换法。&lt;/p>
+&lt;h4 id="box-muller变换">Box-muller变换&lt;/h4>
+&lt;p>Box-muller变换在计算机领域是一个重要的变换，它能够用两个均匀分布生成正态分布，其数学原理就是变量变换法。我们通过证明以下命题：&lt;/p>
+&lt;blockquote>
+&lt;p>命题7：若两个独立的随机变量&lt;span class="math">\(U_1,U_2\)&lt;/span>都服从均匀分布&lt;span class="math">\(U(0,1)\)&lt;/span>，则其组成二维函数组的二维随机变量 &lt;span class="math">\[\begin{cases}
+X=\cos(2\pi U_1)\sqrt{-2\ln U_2}\\
+Y=\sin(2\pi U_1)\sqrt{-2\ln U_2}
+\end{cases}\]&lt;/span> 都服从标准正态分布&lt;span class="math">\(N(0,1)\)&lt;/span>，即&lt;span class="math">\(X,Y\sim N(0,1)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>根据公式&lt;span class="math">\((6)\)&lt;/span>，根据二维均匀分布的概率密度函数有： &lt;span class="math">\[
+\begin{aligned}
+p(x,y)&amp;amp;=p(u_1(x,y),u_2(x,y))|J|\\
+&amp;amp;= 1 \times |\begin{vmatrix}
+\frac{\partial u_1}{\partial x}&amp;amp;\frac{\partial u_1}{\partial y}\\
+\frac{\partial u_2}{\partial x}&amp;amp;\frac{\partial u_2}{\partial y}
+\end{vmatrix}|
+\end{aligned}
+\]&lt;/span> 而根据&lt;span class="math">\((X,Y)\)&lt;/span>的表达式，其反函数为： &lt;span class="math">\[
+\begin{cases}
+U_1=\frac{1}{2\pi}\arctan(Y/X)\\
+U_2=e^{-\frac{X^2+Y^2}{2}}\\
+\end{cases}
+\]&lt;/span> 将其代入雅可比行列式为有： &lt;span class="math">\[
+\begin{aligned}
+p(x,y)&amp;amp;=|\begin{vmatrix}
+\frac{\partial u_1}{\partial x}&amp;amp;\frac{\partial u_1}{\partial y}\\
+\frac{\partial u_2}{\partial x}&amp;amp;\frac{\partial u_2}{\partial y}
+\end{vmatrix}|\\
+&amp;amp;=|\begin{vmatrix}
+\frac{1}{2\pi}\frac{-y}{x^2+y^2}&amp;amp;\frac{1}{2\pi}\frac{x}{x^2+y^2}\\
+-xe^{-\frac{x^2+y^2}{2}}&amp;amp;-ye^{-\frac{x^2+y^2}{2}}\\
+\end{vmatrix}|\\
+&amp;amp;=\frac{y^2}{2\pi(x^2+y^2)}e^{-\frac{x^2+y^2}{2}}+\frac{y^2}{2\pi(x^2+y^2)}e^{-\frac{x^2+y^2}{2}}\\
+&amp;amp;=\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\cdot\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}
+\end{aligned}
+\]&lt;/span> 分别求&lt;span class="math">\(x,y\)&lt;/span>的边际分布可证&lt;span class="math">\(X,Y\sim N(0,1)\)&lt;/span>。注意，本次证明省略了定义域的说明，不过由其函数关系可知&lt;span class="math">\(X,Y\in(-∞,∞)\)&lt;/span>。&lt;/p>
+&lt;p>得到标准正态分布函数后，可以通过正态分布的线性变换得到其他参数的正态分布函数随机变量。&lt;/p>
+&lt;h3 id="增补变量法">增补变量法&lt;/h3>
+&lt;p>增补变量本质是变量变换法的一个推广：为了求出二维连续随机变量&lt;span class="math">\((X,Y)\)&lt;/span>只有一个函数&lt;span class="math">\(U=g(X,Y)\)&lt;/span>的密度函数，增补一个新的随机变量&lt;span class="math">\(V=h(X,Y)\)&lt;/span>，转化成变量变换法的场景，在通过一般的变量变换法解决。为了方便求解，我们通常令&lt;span class="math">\(V=X\)&lt;/span>或&lt;span class="math">\(V=Y\)&lt;/span>。先用变量变换法求出&lt;span class="math">\((U,V)\)&lt;/span>的联合密度函数&lt;span class="math">\(p(u,v)\)&lt;/span>，再对&lt;span class="math">\(p(u,v)\)&lt;/span>关于&lt;span class="math">\(v\)&lt;/span>积分，从而得出关于&lt;span class="math">\(U\)&lt;/span>的边际密度函数。&lt;/p>
+&lt;h4 id="二维随机变量积的分布">二维随机变量积的分布&lt;/h4>
+&lt;blockquote>
+&lt;p>二维随机变量积的公式：设随机变量&lt;span class="math">\(X,Y\)&lt;/span>相互独立，其密度函数分别为&lt;span class="math">\(p_{_X}(x),p_{_Y}(y)\)&lt;/span>，则&lt;span class="math">\(U=XY\)&lt;/span>的密度函数为： &lt;span class="math">\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(\frac{u}{v})p_{_Y}(v)\frac{1}{|v|}dv\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>第一步：增补变量，记&lt;span class="math">\(V=Y\)&lt;/span>，则&lt;span class="math">\(\begin{cases}u=xy\\v=y\end{cases}\)&lt;/span>，其反函数为&lt;span class="math">\(\begin{cases}x=u/v\\y=v\end{cases}\)&lt;/span>&lt;/p>
+&lt;p>第二步：通过变量变换法求出&lt;span class="math">\((U,V)\)&lt;/span>的联合密度函数。记住雅可比行列式要取绝对值。 &lt;span class="math">\[
+p(u,v)=p_{_X}(\frac{u}{v})p_{_Y}(v)|\begin{vmatrix}
+\frac{1}{v}&amp;amp;\frac{-u}{v^2}\\
+0&amp;amp;1
+\end{vmatrix}|=p_{_X}(\frac{u}{v})p_{_Y}(v)\frac{1}{|v|}
+\]&lt;/span>&lt;/p>
+&lt;p>第三步：对&lt;span class="math">\(v\)&lt;/span>积分，求&lt;span class="math">\(u\)&lt;/span>的边际分布： &lt;span class="math">\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(\frac{u}{v})p_{_Y}(v)\frac{1}{|v|}dv\]&lt;/span> 得证。&lt;/p>
+&lt;h4 id="二维随机变量商的分布">二维随机变量商的分布&lt;/h4>
+&lt;blockquote>
+&lt;p>二维随机变量商的公式：设随机变量&lt;span class="math">\(X,Y\)&lt;/span>相互独立，其密度函数分别为&lt;span class="math">\(p_{_X}(x),p_{_Y}(y)\)&lt;/span>，则&lt;span class="math">\(U=X/Y\)&lt;/span>的密度函数为： &lt;span class="math">\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(uv)p_{_Y}(v)|v|dv\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;/p>
+&lt;p>第一步：增补变量，记&lt;span class="math">\(V=Y\)&lt;/span>，则&lt;span class="math">\(\begin{cases}u=x/y\\v=y\end{cases}\)&lt;/span>，其反函数为&lt;span class="math">\(\begin{cases}x=uv\\y=v\end{cases}\)&lt;/span>&lt;/p>
+&lt;p>第二步：通过变量变换法求出&lt;span class="math">\((U,V)\)&lt;/span>的联合密度函数。记住雅可比行列式要取绝对值。 &lt;span class="math">\[
+p(u,v)=p_{_X}(uv)p_{_Y}(v)|\begin{vmatrix}
+v&amp;amp;u\\
+0&amp;amp;1
+\end{vmatrix}|=p_{_X}(uv)p_{_Y}(v){|v|}
+\]&lt;/span>&lt;/p>
+&lt;p>第三步：对&lt;span class="math">\(v\)&lt;/span>积分，求&lt;span class="math">\(u\)&lt;/span>的边际分布： &lt;span class="math">\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(uv)p_{_Y}(v){|v|}dv\]&lt;/span> 得证。&lt;/p></description></item><item><title>概率统计随机过程之马尔可夫过程</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B/</link><pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B/</guid><description>
+&lt;h2 id="概率统计随机过程之马尔可夫过程">概率统计随机过程之马尔可夫过程&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="概论">概论&lt;/h2>
+&lt;p>在概率论及统计学中，&lt;strong>马尔可夫过程&lt;/strong>（英语：Markov process）是一个具备了&lt;strong>马尔可夫性质&lt;/strong>的随机过程，因为俄国数学家安德雷·马尔可夫得名。马尔可夫过程是&lt;strong>不具备记忆特质的（memorylessness）&lt;/strong>。换言之，马尔可夫过程的条件概率仅仅与系统的&lt;strong>当前状态相关&lt;/strong>，而与它的过去历史或未来状态，都是独立、不相关的。&lt;/p>
+&lt;p>具备&lt;strong>离散状态的马尔可夫过程，通常被称为马尔可夫链&lt;/strong>。马尔可夫链通常使用离散的时间集合定义，又称离散时间马尔可夫链。有些学者虽然采用这个术语，但允许时间可以取连续的值。&lt;/p>
+&lt;p>马尔可夫过程根据时间与状态空间的连续性可分为下表所示&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">&lt;/th>
+&lt;th align="center">可数或有限的状态空间&lt;/th>
+&lt;th align="center">连续或一般的状态空间&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">离散时间&lt;/td>
+&lt;td align="center">在可数且有限状态空间下的马尔可夫链&lt;/td>
+&lt;td align="center">Harris chain (在一般状态空间下的马尔可夫链)&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">连续时间&lt;/td>
+&lt;td align="center">Continuous-time Markov process&lt;/td>
+&lt;td align="center">任何具备马尔可夫性质的连续随机过程，例如维纳过程&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>注：连续时间马尔可夫过程基本就是几何分布或者指数分布过程。&lt;/p>
+&lt;h2 id="马尔可夫性质">马尔可夫性质&lt;/h2>
+&lt;blockquote>
+&lt;p>马尔可夫性质：当一个随机过程在给定现在状态及所有过去状态情况下，其未来状态的条件概率分布仅依赖于当前状态；换句话说，在给定现在状态时，它与过去状态（即该过程的历史路径）是条件独立的，那么此随机过程即具有马尔可夫性质。&lt;/p>
+&lt;/blockquote>
+&lt;p>数学上，如果&lt;span class="math">\(X(t),t&amp;gt;0\)&lt;/span>为一个随机过程，则马尔可夫性质就是指 &lt;span class="math">\[
+{\mathrm{Pr}}{\big [}X(t+h)=y\,|\,X(s)=x(s),s\leq t{\big ]}={\mathrm {Pr}}{\big [}X(t+h)=y\,|\,X(t)=x(t){\big ]},\quad \forall h&amp;gt;0.
+\]&lt;/span>&lt;/p></description></item><item><title>概率统计随机过程之假设检验</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/</guid><description>
+&lt;h2 id="概率统计随机过程之假设检验">概率统计随机过程之假设检验&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>统计推断两大内容：&lt;strong>参数估计（点估计、区间估计）与假设检验&lt;/strong>。&lt;/p>
+&lt;h2 id="假设检验的基本概念">假设检验的基本概念&lt;/h2>
+&lt;h3 id="假设检验问题">假设检验问题&lt;/h3>
+&lt;p>总体&lt;strong>分布未知&lt;/strong>：对总体分布的“某种推断”--》“假设”：&lt;/p>
+&lt;ul>
+&lt;li>分布类型未知：非参数假设，例如假设服从正态分布，均匀分布……这类一般很难。&lt;/li>
+&lt;li>参数未知：参数假设。&lt;/li>
+&lt;/ul>
+&lt;p>假设检验：通过&lt;strong>抽样的样本&lt;/strong>进行对假设进行检验&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>参数的假设检验&lt;/strong>（重点）&lt;/li>
+&lt;li>非参数的假设检验&lt;/li>
+&lt;/ul>
+&lt;h3 id="假设">“假设”&lt;/h3>
+&lt;ul>
+&lt;li>原(零)假设：&lt;span class="math">\(H_0\)&lt;/span>。&lt;/li>
+&lt;li>备择(对立)假设：&lt;span class="math">\(H_1\)&lt;/span>，它与原假设&lt;span class="math">\(H_0\)&lt;/span>是互斥的。&lt;/li>
+&lt;/ul>
+&lt;p>原假设与备择假设&lt;strong>二选一&lt;/strong>，接受&lt;span class="math">\(H_0\)&lt;/span>则拒绝&lt;span class="math">\(H_1\)&lt;/span>，反则反之。&lt;/p>
+&lt;p>如何选择原假设&lt;span class="math">\(H_0\)&lt;/span>与备择假设&lt;span class="math">\(H_1\)&lt;/span>？&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>一般不能轻易推翻（否定）的假设为原假设，原假设不能轻易拒绝，除非有足够的证据。&lt;/li>
+&lt;li>分析人员想证明正确的命题作为备择假设，把分析人员努力证明他不正确的命题作为原假设。&lt;/li>
+&lt;li>如果命题成立，但是误判为不成立时会造成严重后果的；命题为原假设。&lt;/li>
+&lt;/ol>
+&lt;p>个人总结：惰性，严谨性（悲观性）&lt;/p>
+&lt;h3 id="基本概念">基本概念&lt;/h3>
+&lt;p>假设（如上所示）；假设检验（如上所示）&lt;/p>
+&lt;p>假设检验问题：&lt;strong>显著性假设检验问题（唯一假设，无备择假设）；&lt;span class="math">\(H_0,H_1\)&lt;/span>假设检验问题；&lt;/strong>&lt;/p>
+&lt;h3 id="基本思想与步骤">基本思想与步骤&lt;/h3>
+&lt;p>&lt;strong>基本思想&lt;/strong>：&lt;/p>
+&lt;p>用&lt;strong>样本&lt;/strong>构造统计量&lt;span class="math">\(T\)&lt;/span>，在原假设&lt;span class="math">\(H_0\)&lt;/span>情况下，&lt;span class="math">\(T\)&lt;/span>的分布已知，&lt;span class="math">\(T\)&lt;/span>发生的概率与此次抽样相关，&lt;strong>关注小概率事件在一次抽样中是否发生&lt;/strong>。&lt;/p>
+&lt;p>&lt;em>假设检验和区间估计方法是类似的&lt;/em>。&lt;/p>
+&lt;p>&lt;strong>步骤&lt;/strong>：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>提出原假设&lt;span class="math">\(H_0\)&lt;/span>与备择假设&lt;span class="math">\(H_1\)&lt;/span>&lt;/li>
+&lt;li>假定&lt;span class="math">\(H_0\)&lt;/span>成立，构造统计量&lt;span class="math">\(T\)&lt;/span>，其分布已知&lt;/li>
+&lt;li>对于给定的小概率&lt;span class="math">\(\alpha\)&lt;/span>，找到对应的小概率区间&lt;span class="math">\(W\)&lt;/span>，使得&lt;span class="math">\(P(\{X_1\dotsb,X_n\}\in W)=\alpha\)&lt;/span>。我们也称&lt;span class="math">\(W\)&lt;/span>为拒绝域，对应的大概率&lt;span class="math">\(1-\alpha\)&lt;/span>对应的区间&lt;span class="math">\(\bar W\)&lt;/span>为接受域。&lt;/li>
+&lt;li>由样本数据值&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>，求出统计量&lt;span class="math">\(T\)&lt;/span>的值&lt;/li>
+&lt;li>若样本数据构造的&lt;span class="math">\(\hat T\in W\Rightarrow\)&lt;/span> 在拒绝域，拒绝&lt;span class="math">\(H_0\)&lt;/span>；若样本数据构造的&lt;span class="math">\(\hat T\in \bar W\Rightarrow\)&lt;/span>在接受域，接受&lt;span class="math">\(H_0\)&lt;/span>；&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>补充&lt;/strong>：&lt;/p>
+&lt;p>单侧检验，拒绝域只在左侧或右侧。&lt;/p>
+&lt;h3 id="两类错误">两类错误&lt;/h3>
+&lt;p>我们根据概率做的决策未必是对的。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>第一类错误：弃真。&lt;span class="math">\(P(拒绝H_0|H_0为真)=\alpha\)&lt;/span>。此&lt;span class="math">\(\alpha\)&lt;/span>就是上文中的&lt;span class="math">\(\alpha\)&lt;/span>。&lt;/li>
+&lt;li>第二类错误：纳伪。&lt;span class="math">\(P(接受H_0|H_0为假)=\beta\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>原则：尽量保证不犯第一类错误的前提下，尽量减少第二类错误。&lt;/p>
+&lt;h2 id="一个正态总体的参数假设检验">一个正态总体的参数假设检验&lt;/h2>
+&lt;p>与区间估计类似&lt;/p>
+&lt;h2 id="两个正态总体的参数假设检验">两个正态总体的参数假设检验&lt;/h2>
+&lt;p>与区间估计类似&lt;/p>
+&lt;p>均值差异性检验&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/两个正态总体的参数假设检验1.png" alt="两个正态总体的参数假设检验1.png" />&lt;p class="caption">两个正态总体的参数假设检验1.png&lt;/p>
+&lt;/div></description></item><item><title>概率统计随机过程之参数估计</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/</guid><description>
+&lt;h2 id="概率统计随机过程之参数估计">概率统计随机过程之参数估计&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#点估计">点估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#点估计的优良性准则">点估计的优良性准则&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩估计">矩估计&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#矩估计存在的要求">矩估计存在的要求&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩估计的一般步骤">矩估计的一般步骤&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩估的特点">矩估的特点&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#极大似然估计">极大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#区间估计">区间估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#置信区间与枢轴变量">置信区间与枢轴变量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一个正态总体的期望和方差的区间估计">一个正态总体的期望和方差的区间估计&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>统计推断三大内容：&lt;strong>抽样分布、参数估计（点估计、区间估计）与假设检验&lt;/strong>。&lt;/p>
+&lt;p>参数估计的核心思想：用抽样出来的样本构造函数（统计量）来尝试近似实际分布的参数。&lt;/p>
+&lt;h2 id="点估计">点估计&lt;/h2>
+&lt;blockquote>
+&lt;p>估计量：在参数估计大类的点估计中，那么用于估计未知参数的&lt;strong>统计量&lt;/strong>称为&lt;strong>点估计(量)&lt;/strong>，简称为&lt;strong>估计(量)&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>估计一个&lt;strong>具体的数值&lt;/strong>，实际比较困难。我们用样本来构造一个函数 &lt;span class="math">\[
+\hat\theta = \Theta(X),X=(x_1,\dotsb,x_n)
+\]&lt;/span> 用以计算参数&lt;span class="math">\(\theta\)&lt;/span>，由于是估计值所以用&lt;span class="math">\(\hat\theta\)&lt;/span>表示。其中&lt;span class="math">\(X=(x_1,\dotsb,x_n)\)&lt;/span>为容量为n的样本。有时也用&lt;span class="math">\(\hat g(\theta)\)&lt;/span>表示，因为有时要估计的不是&lt;span class="math">\(\theta\)&lt;/span>，而是&lt;span class="math">\(\theta\)&lt;/span>的某个函数。&lt;/p>
+&lt;p>具体可参见笔记《概率统计随机过程之数理统计常用概念》中统计量与估计量那一小节。&lt;/p>
+&lt;p>具体方法：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>矩估计&lt;/li>
+&lt;li>最大似然估计（MLE）&lt;/li>
+&lt;li>贝叶斯估计（MAP等）&lt;/li>
+&lt;li>LSE（MMSE）&lt;/li>
+&lt;li>……&lt;/li>
+&lt;/ol>
+&lt;h3 id="点估计的优良性准则">点估计的优良性准则&lt;/h3>
+&lt;ol style="list-style-type: decimal">
+&lt;li>无偏性。&lt;span class="math">\(E(\hat\theta)=\theta\)&lt;/span>（样本方差的系数&lt;span class="math">\(n-1\)&lt;/span>就是这里的无偏性得出来的）&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\hat\theta\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的无偏估计，但是&lt;span class="math">\(g(\hat\theta)\)&lt;/span>不一定是&lt;span class="math">\(g(\theta)\)&lt;/span>的无偏估计。例如说明1。&lt;/li>
+&lt;/ul>
+&lt;ol start="2" style="list-style-type: decimal">
+&lt;li>有效性。估计值的方差越小越好。&lt;span class="math">\(D(\hat\theta_1)\leq D(\hat\theta_2)\)&lt;/span>则&lt;span class="math">\(\hat\theta_1\)&lt;/span>更好。波动性小，无偏情况下，更可能接近于真实值。&lt;/li>
+&lt;li>相合性（一致性）。&lt;span class="math">\(\lim_{n\rightarrow \infty} P(|\hat\theta-\theta|&amp;lt;\varepsilon)=1\)&lt;/span>，取的样本越多，越趋近于真实值。&lt;/li>
+&lt;li>渐进正态性（大样本性质）&lt;/li>
+&lt;/ol>
+&lt;p>说明1：样本方差&lt;span class="math">\(S^2\)&lt;/span>是&lt;span class="math">\(\sigma^2\)&lt;/span>的无偏估计，但是&lt;span class="math">\(\sqrt{(S^2)}\)&lt;/span>不是&lt;span class="math">\(\sqrt{\sigma^2}\)&lt;/span>的无偏估计。&lt;/p>
+&lt;p>说明2：无偏性+有效性（尽量小方差）=一致最小方差无偏估计（UMVUE）&lt;/p>
+&lt;p>具体可参见笔记&lt;a href="概率统计随机过程之数理统计常用概念.md">《概率统计随机过程之数理统计常用概念》&lt;/a>中估计量的评价指标那一小节。&lt;/p>
+&lt;h3 id="矩估计">矩估计&lt;/h3>
+&lt;p>核心思想：近似替代。&lt;strong>用样本的矩代替总体的矩，用样本矩的函数估计总体矩的相应函数&lt;/strong>。就把样本当总体。&lt;/p>
+&lt;p>理论基础是&lt;strong>格涅坚科大数定理&lt;/strong>（原始数据用原点矩估计）&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">总体的矩&lt;/th>
+&lt;th align="center">&amp;lt;-----&amp;gt;&lt;/th>
+&lt;th align="center">样本的矩&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">一阶 &lt;span class="math">\(E(X)\)&lt;/span>&lt;/td>
+&lt;td align="center">&amp;lt;-----&amp;gt;&lt;/td>
+&lt;td align="center">一阶 &lt;span class="math">\(\bar X = {1\over n}\sum X_i\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">二阶 &lt;span class="math">\(E(X^2)\)&lt;/span>&lt;/td>
+&lt;td align="center">&amp;lt;-----&amp;gt;&lt;/td>
+&lt;td align="center">二阶 &lt;span class="math">\(A_2 = {1\over n}\sum X_i^2\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>同时有： &lt;span class="math">\[\begin{aligned}
+&amp;amp;\hat \mu = \bar X\\
+&amp;amp;\hat \sigma^2 = A_2 - \hat \mu^2 =B_2(二阶中心矩)
+\end{aligned}
+\]&lt;/span> 不难发现，中心矩可以用原点矩来表示。&lt;/p>
+&lt;h4 id="矩估计存在的要求">矩估计存在的要求&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>该分布的k阶矩是存在的&lt;/li>
+&lt;li>估计量或其函数&lt;span class="math">\(g(\theta)\)&lt;/span>可以写成各阶矩组成的函数，即&lt;span class="math">\(g(\theta)=G(\underbrace{\alpha_1,\alpha_2,\dotsb,\alpha_k}_{k原点矩},\underbrace{\mu_2,\mu_3,\dotsb,\mu_s}_{s阶中心矩})\)&lt;/span>，则&lt;span class="math">\(g(\theta)\)&lt;/span>可以用样本矩的函数&lt;span class="math">\(\hat g(X)=G(a_1,a_2,\dotsb,a_k,m_2,\dotsb,m_s)\)&lt;/span>进行矩估计，其中&lt;span class="math">\(a_i,s_i\)&lt;/span>分别是&lt;span class="math">\(i\)&lt;/span>阶样本原点矩和中心矩。&lt;/li>
+&lt;/ol>
+&lt;h4 id="矩估计的一般步骤">矩估计的一般步骤&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>求出一些矩。一般情况下，原分布中有几个未知参数，就需要几阶矩估计。（有时也确定需要哪些矩）&lt;/li>
+&lt;li>将&lt;span class="math">\(\theta\)&lt;/span>或&lt;span class="math">\(g(\theta)\)&lt;/span>用矩表示（表示方法不唯一，可以根据UMVUE准则判断优劣，即要无偏，方差要小）。&lt;/li>
+&lt;li>替换矩（样本矩→总体矩，&lt;span class="math">\(\hat\theta = \varTheta(X)→\theta\)&lt;/span>或&lt;span class="math">\(\hat g(X)→g(\theta)\)&lt;/span>）。&lt;/li>
+&lt;/ol>
+&lt;h4 id="矩估的特点">矩估的特点&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>简单。&lt;/li>
+&lt;li>一般矩估计是渐进无偏的。由于原点矩都是无偏的，中心距是渐进无偏的；只有当估计量是原点矩的线性组合时，才是无偏估计。&lt;/li>
+&lt;li>没有运用到总体的分布信息，准确性稍差。而且要求总体的矩一定存在。&lt;/li>
+&lt;li>矩估计不唯一，取决于&lt;span class="math">\(\theta\)&lt;/span>或&lt;span class="math">\(g(\theta)\)&lt;/span>如何被各阶矩表示。&lt;/li>
+&lt;li>相合性：略&lt;/li>
+&lt;/ol>
+&lt;h3 id="极大似然估计">极大似然估计&lt;/h3>
+&lt;p>核心思想：概率大的事件比概率小的事件更容易发生。&lt;strong>要估计的参数能够使产生这个样本的概率最大&lt;/strong>。&lt;/p>
+&lt;p>步骤：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>总体的概率/密度函数。&lt;/li>
+&lt;li>写出似然估计函数&lt;span class="math">\(L(\lambda)\)&lt;/span>。&lt;/li>
+&lt;li>两边取&lt;span class="math">\(\ln\)&lt;/span>，即为&lt;span class="math">\(\ln(L(\lambda))\)&lt;/span>。&lt;/li>
+&lt;li>对&lt;span class="math">\(\lambda\)&lt;/span>求导（多参数估计就是偏导），令导数为0。&lt;/li>
+&lt;/ol>
+&lt;p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。&lt;/p>
+&lt;p>&lt;strong>似然函数取对数的原因&lt;/strong>:&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。&lt;/li>
+&lt;li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。&lt;/li>
+&lt;/ol>
+&lt;p>需要指出的是：&lt;strong>取对数不影响单调性&lt;/strong>。 &lt;span class="math">\[
+p(x|\theta_1)&amp;gt;p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))&amp;gt;\ln(p(x|\theta_2))
+\]&lt;/span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。&lt;/p>
+&lt;h2 id="区间估计">区间估计&lt;/h2>
+&lt;p>估计一个&lt;strong>数值范围&lt;/strong>，核心要求：&lt;strong>希望以尽可能大的概率落在尽可能小的区间内&lt;/strong>。&lt;/p>
+&lt;h3 id="置信区间与枢轴变量">置信区间与枢轴变量&lt;/h3>
+&lt;ul>
+&lt;li>区间长度：越长概率越大，越不精确&lt;/li>
+&lt;li>以多大概率落在区间中&lt;/li>
+&lt;li>希望以尽可能大的概率落在尽可能小的区间内&lt;/li>
+&lt;/ul>
+&lt;p>需要指出的是，置信区间是指其能包括待估计参数的区间，而不是待估计参数落入区间的意思。待估计值是客观存在的。&lt;/p>
+&lt;blockquote>
+&lt;p>枢轴变量：枢轴变量一般满足特定的分布，枢轴变量和待估计参数之间存在确定的函数关系，因此通过枢轴变量可以求出置信区间。&lt;/p>
+&lt;/blockquote>
+&lt;div class="figure">
+&lt;img src="../../images/枢轴变量.jpg" alt="枢轴变量.jpg" />&lt;p class="caption">枢轴变量.jpg&lt;/p>
+&lt;/div>
+&lt;h3 id="一个正态总体的期望和方差的区间估计">一个正态总体的期望和方差的区间估计&lt;/h3>
+&lt;p>当我们从一个含有未知参数的正态分布&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>抽样时，可以通过抽样的样本对参数&lt;span class="math">\(\mu,\sigma^2\)&lt;/span>进行区间估计，分为以下四种情况。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/一个正态总体的期望和方差的区间估计.jpg" alt="一个正态总体的期望和方差的区间估计" />&lt;p class="caption">一个正态总体的期望和方差的区间估计&lt;/p>
+&lt;/div></description></item><item><title>概率统计随机过程之蒙特卡洛方法</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/</guid><description>
+&lt;h2 id="概率统计随机过程之蒙特卡洛方法">概率统计随机过程之蒙特卡洛方法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>蒙特卡洛简称MC，本质是随机抽样。&lt;/p>
+&lt;h2 id="蒙特卡洛求定积分">蒙特卡洛求定积分&lt;/h2>
+&lt;p>&lt;span class="math">\[
+E(g(X))=\int_{-\infty}^{\infty}g(x)p(x)\mathrm{d}x={1\over N}\sum_{i=1}^Ng(x_i)
+\]&lt;/span> 其中，&lt;span class="math">\(p(x)\)&lt;/span>是随机变量&lt;span class="math">\(X\)&lt;/span>的概率密度函数,&lt;span class="math">\(x_i\)&lt;/span>是随机变量&lt;span class="math">\(X\)&lt;/span>依分布&lt;span class="math">\(p(x)\)&lt;/span>抽样出来的样本。我们&lt;strong>用多次随机抽样去近似概率分布&lt;/strong>。&lt;/p>
+&lt;p>有一个图描述了蒙特卡洛求定积分的思想：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/蒙特卡洛求定积分.png" alt="蒙特卡洛求定积分.png" />&lt;p class="caption">蒙特卡洛求定积分.png&lt;/p>
+&lt;/div>
+&lt;h2 id="马尔科夫链蒙特卡洛mcmc">马尔科夫链蒙特卡洛MCMC&lt;/h2>
+&lt;p>马尔可夫链蒙特卡洛（英语：Markov chain Monte Carlo，MCMC）方法（含随机游走蒙特卡洛方法）是一组用&lt;strong>马氏链从随机分布取样的算法&lt;/strong>，之前步骤的作为底本。&lt;strong>步数越多，结果越好&lt;/strong>。&lt;/p></description></item><item><title>概率统计随机过程之马尔可夫过程转移矩阵（随机矩阵）</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B%E8%BD%AC%E7%A7%BB%E7%9F%A9%E9%98%B5%E9%9A%8F%E6%9C%BA%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B%E8%BD%AC%E7%A7%BB%E7%9F%A9%E9%98%B5%E9%9A%8F%E6%9C%BA%E7%9F%A9%E9%98%B5/</guid><description>
+&lt;h2 id="概率统计随机过程之转移矩阵随机矩阵">概率统计随机过程之转移矩阵（随机矩阵）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>注：本文说的随机矩阵是转移矩阵，英文叫stochastic matrix不是random matrix。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#极限行为和不变概率稳态">极限行为和不变概率（稳态）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#状态分类">状态分类&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#周期性与非周期">周期性与非周期&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可约与不可约">可约与不可约&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#不可约非周期链遍历链">不可约非周期链→遍历链&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可约性非常返态和周期的影响">可约性、非常返态和周期的影响&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#随机矩阵的主特征1的简单证明">随机矩阵的主特征1的简单证明&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="极限行为和不变概率稳态">极限行为和不变概率（稳态）&lt;/h2>
+&lt;p>有转移矩阵&lt;span class="math">\(P\)&lt;/span>，但经过&lt;span class="math">\(N→ ∞\)&lt;/span>后，是否存在一个收敛的极限矩阵 &lt;span class="math">\[\Pi=\lim_{n→ ∞}P^n\]&lt;/span> 如果能有一个更好的性质： &amp;gt;极限矩阵每一行都是一样的。&lt;/p>
+&lt;p>那么对于任一个概率向量&lt;span class="math">\(\vec v\)&lt;/span>(每一项非负且和为1)，都有： &lt;span class="math">\[\vec \pi=\vec v\lim_{n→ ∞}P^n\]&lt;/span> 则&lt;span class="math">\(\vec \pi\)&lt;/span>为不变概率分布或稳态概率分布。这个时候，&lt;span class="math">\(\Pi\)&lt;/span>的值应该是 &lt;span class="math">\[\Pi=\lim_{n→ ∞}P^n=\begin{bmatrix}
+\vec \pi\\
+\vec \pi\\
+\vdots\\
+\vec \pi
+\end{bmatrix}\]&lt;/span> 因为向量左乘是行线性组合，&lt;span class="math">\(\vec \pi\)&lt;/span>之间的任何线性组合都是&lt;span class="math">\(\vec \pi\)&lt;/span>.&lt;/p>
+&lt;p>那么什么样的矩阵能有稳态分布吧?&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>主特征值为1，且为单重（1）&lt;/li>
+&lt;li>能选出一个非负的左特征向量（2）&lt;/li>
+&lt;/ol>
+&lt;p>随机矩阵的主特征值为1这点可以证明见章节&lt;a href="#随机矩阵的主特征1的简单证明">随机矩阵的主特征1的简单证明&lt;/a>。但是主特征值为单重和非负左特征向量需要更高等的数学技巧。我们用Perron–Frobenius theorem先给出一部分符合两点要求的矩阵。&lt;/p>
+&lt;p>Perron–Frobenius theorem给出了一系列符合这两点的矩阵：&lt;/p>
+&lt;blockquote>
+&lt;p>定理1：Perron–Frobenius theorem：&lt;strong>所有元素均为正实数&lt;/strong>的正矩阵的基本性质的重要定理.该定理断言:若矩阵&lt;span class="math">\(A&amp;gt;0，ρ(A)为A\)&lt;/span>的谱半径，则:&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(ρ(A)\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>的正特征值,其对应的一个特征向量为正特征向量。&lt;/li>
+&lt;li>对于&lt;span class="math">\(A\)&lt;/span>的任意其他特征值，都有&lt;span class="math">\(|λ|&amp;lt;ρ(A)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(ρ(A)是A\)&lt;/span>的单重特征值。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>尽管Perron–Frobenius theorem给出了一系列矩阵，但是却不能覆盖所有具有适当极限性质的随机矩阵。因为随机矩阵的要求是非负，而不是全是正数。尽管随机矩阵&lt;span class="math">\(P\)&lt;/span>的元素不全是正数，但是我们注意到，&lt;span class="math">\(P^n\)&lt;/span>可能是全正的。而且根据矩阵的特征值分解，&lt;span class="math">\(P^n\)&lt;/span>的特征值为&lt;span class="math">\(P\)&lt;/span>特征值的n次方，且特征向量不变。而&lt;span class="math">\(P\)&lt;/span>主特征值1的任意次方都是1，所以只要&lt;span class="math">\(P^n\)&lt;/span>满足了Perron–Frobenius theorem，那么&lt;span class="math">\(P\)&lt;/span>也满足。&lt;/p>
+&lt;p>鉴于此，我们给出以下结论：&lt;/p>
+&lt;blockquote>
+&lt;p>结论1：如果&lt;span class="math">\(P\)&lt;/span>是一个随机矩阵，且对于某一n，&lt;span class="math">\(P^n\)&lt;/span>的所有元素都是正数，则&lt;span class="math">\(P\)&lt;/span>满足条件（1）（2）。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="状态分类">状态分类&lt;/h2>
+&lt;p>那么到底什么样的矩阵，当&lt;span class="math">\(n\)&lt;/span>充分大时，&lt;span class="math">\(P^n\)&lt;/span>的元素全都是正的呢？答案是&lt;strong>遍历的&lt;/strong>随机矩阵。遍历的随机矩阵是&lt;strong>不可约、非周期&lt;/strong>的矩阵。几个不能符合（1）（2）的矩阵包括：可约的，随机矩阵不收敛（周期性），有非常返态的（因为非常返态导致矩阵可约）。&lt;/p>
+&lt;p>下面对几个概念进行介绍。&lt;/p>
+&lt;h3 id="周期性与非周期">周期性与非周期&lt;/h3>
+&lt;p>一种直观情况：如果有正整数&lt;span class="math">\(d,d&amp;gt;1\)&lt;/span>，只有当&lt;span class="math">\(n=d,2d,3d,…\)&lt;/span>时，有&lt;span class="math">\(p(n)_{ij}&amp;gt;0\)&lt;/span>，则状态i为&lt;strong>周期性的状态&lt;/strong>，周期为&lt;span class="math">\(d\)&lt;/span>。&lt;/p>
+&lt;p>周期性所说不直观的定义：若集合&lt;span class="math">\(\{n: n≥1, p_{ii}&amp;gt; 0\}\)&lt;/span>非空，则称它的最大公约数，&lt;span class="math">\(d=d(i)\)&lt;/span>为状态&lt;span class="math">\(i\)&lt;/span>的周期。若&lt;span class="math">\(d&amp;gt;1\)&lt;/span>，称&lt;span class="math">\(i\)&lt;/span>是周期的;若&lt;span class="math">\(d=1\)&lt;/span>,称 &lt;span class="math">\(i\)&lt;/span>是非周期的。（引用：《应用随机过程（张波）》，第5章）&lt;/p>
+&lt;p>我当初也纳闷，定义中取公约数和周期没啥关系，然而，这才是更加完善的周期。见下图（《应用随机过程（张波）》，图5-3）&lt;/p>
+&lt;p>&lt;img src="../../images/马尔可夫链周期性.jpg" alt="马尔可夫链周期性" /> 由状态1出发返回状态1的步长为&lt;span class="math">\(T=\{4,6,8,10,12,...\}\)&lt;/span>，很直观的感受到，4步之后就是两步两步的间隔了。&lt;/p>
+&lt;p>定义周期：方案一是取4，但是会丢失了&lt;span class="math">\(\{6,10,14...\}\)&lt;/span>这些步长；方案二就是取公约数2，就可以防止&lt;span class="math">\(\{6,10,14...\}\)&lt;/span>步长的丢失，弊端也许就是不如&lt;span class="math">\(\{d,2d,3d...\}\)&lt;/span>这种结构来得直观。（有点像&lt;span class="math">\(y=ax+b，a\)&lt;/span>是周期）。&lt;/p>
+&lt;p>补充：当马尔可夫链中&lt;strong>任意一个状态都为周期性&lt;/strong>的状态时，则称马尔可夫链是周期的。但&lt;strong>非周期性的马尔可夫链才是我们想要的&lt;/strong>，它是构成遍历的马尔可夫链的必要条件，遍历的马尔可夫有很多好的性质。&lt;/p>
+&lt;blockquote>
+&lt;p>定理2：如果状态&lt;span class="math">\(i\)&lt;/span>和&lt;span class="math">\(j\)&lt;/span>互通，那么&lt;span class="math">\(d(i)=d(j)\)&lt;/span>（互通类中各状态周期相等。）&lt;/p>
+&lt;/blockquote>
+&lt;p>非周期定义：如果链从所有任意起点返回到自己所需要的步数集的最大公约数为1，则说明此链是非周期的，即所有状态不是定期返回的且所有返回的间隔的最大公约数为1。但是并不是说，返回自己的状态只需要一步，而是说，对于某个步数&lt;span class="math">\(M\)&lt;/span>，所有步数n，满足&lt;span class="math">\(n≥M\)&lt;/span>，都能够返回原状态。&lt;/p>
+&lt;blockquote>
+&lt;p>如何判别一个状态是非周期的？&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>若此状态带有自环，则必为非周期的（虽然非周期的状态不一定有自环）&lt;/li>
+&lt;li>若此状态与一个非周期的状态互通，则必为非周期的。（定理2应用）&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>以上&lt;strong>只是两个充分&lt;/strong>条件。&lt;/p>
+&lt;h3 id="可约与不可约">可约与不可约&lt;/h3>
+&lt;p>互通：如果马尔可夫链里某状态&lt;span class="math">\(i\)&lt;/span>经过&lt;span class="math">\(n\)&lt;/span>步到达状态&lt;span class="math">\(j\)&lt;/span>的概率&lt;span class="math">\(&amp;gt;0\)&lt;/span>且相反的，状态&lt;span class="math">\(j\)&lt;/span>经过&lt;span class="math">\(n\)&lt;/span>步到&lt;span class="math">\(i\)&lt;/span>的概率也&lt;span class="math">\(&amp;gt;0\)&lt;/span>，即说明这俩状态是互通的. 如果对所有&lt;span class="math">\(n\)&lt;/span>上面都不成立，则证明&lt;span class="math">\(i,j\)&lt;/span>不通。&lt;/p>
+&lt;p>可约的（reducible），意思就是在状态集中至少存在一个状态&lt;span class="math">\(i\)&lt;/span>到状态&lt;span class="math">\(j\)&lt;/span>是不通的！注意有可能&lt;span class="math">\(j\)&lt;/span>到&lt;span class="math">\(i\)&lt;/span>是通的，互通是一个相互的概念。&lt;span class="math">\(i→j\)&lt;/span>同时&lt;span class="math">\(j→i\)&lt;/span>才是互通。可约就是存在不互通的状态。&lt;/p>
+&lt;p>不可约（irreducible），意思是马尔可夫链链从状态空间里一个位置经过有限步跳转到任何一个位置的概率大于0，即说的是马氏链里任何两个状态都是互通的。&lt;/p>
+&lt;h3 id="不可约非周期链遍历链">不可约非周期链→遍历链&lt;/h3>
+&lt;p>现在我们来证明一个非周期、不可约的转移矩阵满足结论（1），即 &amp;gt;如果&lt;span class="math">\(P\)&lt;/span>是非周期、不可约的转移矩阵(遍历的)，那么存在&lt;span class="math">\(M&amp;gt;0,\forall n≥M\)&lt;/span>，有&lt;span class="math">\(P^n\)&lt;/span>&amp;gt;0(每一个元素大于0)。&lt;span class="math">\(\Leftrightarrow\)&lt;/span>存在稳态概率&lt;span class="math">\(\vec\pi\)&lt;/span>的条件。&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;p>取任意&lt;span class="math">\(i,j\)&lt;/span>，由于矩阵&lt;span class="math">\(P\)&lt;/span>不可约，所以&lt;span class="math">\(i,j\)&lt;/span>属于同一个连通类。因此存在一个数，记为&lt;span class="math">\(m_{ij}\)&lt;/span>，使得&lt;span class="math">\(p_{m_{ij}}(i,j)&amp;gt;0\)&lt;/span>，即&lt;span class="math">\(i\)&lt;/span>通过&lt;span class="math">\(m_{ij}\)&lt;/span>次转移后到达&lt;span class="math">\(j\)&lt;/span>。&lt;/p>
+&lt;p>此外，由于&lt;span class="math">\(P\)&lt;/span>是非周期的，因此存在一个&lt;span class="math">\(M_i\)&lt;/span>，使得所有&lt;span class="math">\(n≥M_i\)&lt;/span>，有&lt;span class="math">\(p_n(i,i)&amp;gt;0\)&lt;/span>（非周期的性质）。因此对所有的n≥M_i&lt;span class="math">\(，有 \)&lt;/span>&lt;span class="math">\(p_{n+m_{ij}}(i,j)≥p_n(i,i)p_{m_{ij}}(i,j)&amp;gt;0\)&lt;/span>$ 令&lt;span class="math">\(M\)&lt;/span>为所有&lt;span class="math">\(i,j\)&lt;/span>组合中&lt;span class="math">\(M_i+m_{ij}\)&lt;/span>的最大值（现在讨论有限状态马氏链，因此最大值存在），则对于所有&lt;span class="math">\(n≥M\)&lt;/span>，以及任意的&lt;span class="math">\(i,j\)&lt;/span>都有 &lt;span class="math">\[p_{n}(i,j)&amp;gt;0.\]&lt;/span> 因此，由&lt;span class="math">\(i,j\)&lt;/span>的任意性可知：存在&lt;span class="math">\(n\)&lt;/span>，使得&lt;span class="math">\(P^n\)&lt;/span>中每一项大于0。&lt;/p>
+&lt;p>如果我们用更加数学的语言描述，将其归纳成定理：&lt;/p>
+&lt;blockquote>
+&lt;p>定理3：如果&lt;span class="math">\(P\)&lt;/span>是非周期、不可约的马尔可夫链转移矩阵，则存在一个唯一一个不变（稳态）概率向量&lt;span class="math">\(\vec\pi\)&lt;/span>，满足 &lt;span class="math">\[\vec\pi P=\vec\pi(这不是特征向量的转置吗？)\]&lt;/span> 如果&lt;span class="math">\(\phi_0\)&lt;/span>为任一初始概率向量，则有 &lt;span class="math">\[\lim_{n→ ∞}\phi_0P^n=\vec\pi\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>这也给我们求不变概率提示了一个更简单的方法，求转置矩阵&lt;span class="math">\(P^T\)&lt;/span>特征值为1时的特征向量，并要求次特征向量1-范数为1。（矩阵的特征值在转置变换中不改变，转置矩阵与原矩阵是相似的。）&lt;/p>
+&lt;h3 id="可约性非常返态和周期的影响">可约性、非常返态和周期的影响&lt;/h3>
+&lt;p>可约性：可以当成几个不可约的子矩阵处理。&lt;/p>
+&lt;p>非常返态：初始概率会对最终稳态概率有影响。&lt;/p>
+&lt;p>周期：绝对值为1的特征值不只1个，周期是几，就有几个&lt;strong>不同&lt;/strong>的绝对值为1的复根。同样，周期是多少，就有多少个不同的状态组，每个状态组都有其极限值。有平均稳态，是各个状态组极限稳态概率的平均数。&lt;/p>
+&lt;h2 id="随机矩阵的主特征1的简单证明">随机矩阵的主特征1的简单证明&lt;/h2>
+&lt;p>按照定义&lt;span class="math">\(A*[1,1,1,...1,1,1]^T\)&lt;/span>得到一个列向量。&lt;/p>
+&lt;p>而&lt;span class="math">\(A\)&lt;/span>是一个随机矩阵(这里以行的和为1为例)，即&lt;span class="math">\(A\)&lt;/span>的每一行和为1，&lt;span class="math">\(A*[1,1,1,...1,1,1]^T\)&lt;/span>的每一个元素按照定义展开，正好是A的每一行的和，即是1，所以&lt;/p>
+&lt;p>&lt;span class="math">\(A*[1,1,1,...1,1,1]^T=[1,1,1,...1,1,1]^T\)&lt;/span>。按照特征值的定义，即得到一个特征值为1。&lt;/p>
+&lt;p>然后你还要证明1是最大的特征值。&lt;/p>
+&lt;p>矩阵的1范数是1（行和范数），而根据范数不等式，任何范数都大于等于谱半径（=最大特征值），所以该矩阵的最大特征值不大于1，而，已知有一个特征值为1，所以最大特征值就是1。&lt;/p>
+&lt;p>（其实严谨点还需要证明这个最大特征值即谱半径的重数为1）&lt;/p>
+&lt;p>严谨证明请看：&lt;a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Non-negative_matrices">Perron–Frobenius theorem&lt;/a>&lt;/p></description></item><item><title>概率统计随机过程之两两独立与相互独立</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B/</link><pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B/</guid><description>
+&lt;h2 id="概率统计随机过程之两两独立与相互独立">概率统计随机过程之两两独立与相互独立&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>&lt;span class="math">\(A,B,C\)&lt;/span>互相独立，说明&lt;span class="math">\(A,B,C\)&lt;/span>间无关联，是互相独立的，但两两独立指&lt;span class="math">\(A\)&lt;/span>和&lt;span class="math">\(B\)&lt;/span>间独立，&lt;span class="math">\(B\)&lt;/span>和&lt;span class="math">\(C\)&lt;/span>之间独立，&lt;span class="math">\(A\)&lt;/span>和&lt;span class="math">\(C\)&lt;/span>间独立，但三者放在一起，并不能判断他们是无关的。&lt;/p>
+&lt;p>所以，&lt;strong>两两独立不一定相互独立，相互独立必然两两独立。&lt;/strong>&lt;/p>
+&lt;p>例如：有三个随机变量&lt;span class="math">\(A,B,C\)&lt;/span>如果他们两两独立， 那么： &lt;span class="math">\[P(AB)=P(A)P(B)\\
+P(AC)=P(A)P(C)\\
+P(BC)=P(B)P(C)\]&lt;/span>&lt;/p>
+&lt;p>但是&lt;span class="math">\(P(ABC)\)&lt;/span>不一定等于&lt;span class="math">\(P(A)P(B)P(C)\)&lt;/span>，&lt;/p>
+&lt;p>如果相互独立的话，那么上式就是成立的。&lt;/p>
+&lt;p>&lt;strong>请看下例&lt;/strong>:&lt;/p>
+&lt;blockquote>
+&lt;p>例1：设有四张外型一样的卡片,上分别写 有数字&lt;span class="math">\(2,3,5,30\)&lt;/span>今从中任取一张观察其上数字: &lt;span class="math">\[A=\{取到是2的倍数\};\\B=\{取到是3的倍数\};\\C=\{取到是5的倍数\};\]&lt;/span> 则&lt;span class="math">\(A,B,C\)&lt;/span>是两两独立而不是相互独立.&lt;/p>
+&lt;p>因为: &lt;span class="math">\[A=\{2,30\}; B=\{3,30\}; C=\{5,30\};\\AB=AC=BC=ABC=\{30\}\]&lt;/span> 所以: &lt;span class="math">\(P(A)=P(B)=P(C)=2/4=1/2;P(AB)=P(A)P(B)=(1/2)*(1/2)=0.25,\)&lt;/span>&lt;/p>
+&lt;p>类似&lt;span class="math">\(P(BC)=P(B)P(C))=0.25; P(AC)=P(A)P(C))=0.25\)&lt;/span>&lt;/p>
+&lt;p>而&lt;span class="math">\(P(ABC)=(1/2)*(1/2)*(1/2)=0.125,\)&lt;/span>&lt;/p>
+&lt;p>但&lt;span class="math">\(P(A)P(B)P(C)=0.5*0.5*0.5=0.125\)&lt;/span>两者不等.&lt;/p>
+&lt;/blockquote>
+&lt;p>下面这个例子来自维基百科： &amp;gt;例2： Suppose &lt;span class="math">\(X\)&lt;/span> and &lt;span class="math">\(Y\)&lt;/span> are two independent tosses of a fair coin, where we designate 1 for heads and 0 for tails. Let the third random variable &lt;span class="math">\(Z\)&lt;/span> be equal to 1 if exactly one of those coin tosses resulted in &amp;quot;heads&amp;quot;, and 0 otherwise(异或). Then jointly the triple &lt;span class="math">\((X, Y, Z)\)&lt;/span> has the following probability distribution: &amp;gt;&lt;span class="math">\[(X,Y,Z)=\left\{{\begin{matrix}(0,0,0)&amp;amp;{\text{with probability}}\ 1/4,\\(0,1,1)&amp;amp;{\text{with probability}}\ 1/4,\\(1,0,1)&amp;amp;{\text{with probability}}\ 1/4,\\(1,1,0)&amp;amp;{\text{with probability}}\ 1/4.\end{matrix}}\right.\]&lt;/span> &amp;gt;Here the marginal probability distributions are identical: &lt;span class="math">\(f_{X}(0)=f_{Y}(0)=f_{Z}(0)=1/2\)&lt;/span>, and &lt;span class="math">\(f_{X}(1)=f_{Y}(1)=f_{Z}(1)=1/2\)&lt;/span>. The bivariate distributions also agree: &lt;span class="math">\(f_{{X,Y}}=f_{{X,Z}}=f_{{Y,Z}}\)&lt;/span>, where &lt;span class="math">\(f_{{X,Y}}(0,0)=f_{{X,Y}}(0,1)=f_{{X,Y}}(1,0)=f_{{X,Y}}(1,1)=1/4\)&lt;/span>. &amp;gt; &amp;gt;Since each of the pairwise joint distributions equals the product of their respective marginal distributions, the variables are pairwise independent: &amp;gt; &amp;gt;- X and Y are independent, and &amp;gt;- X and Z are independent, and &amp;gt;- Y and Z are independent. &amp;gt; &amp;gt;However, &lt;span class="math">\(X, Y\)&lt;/span>, and &lt;span class="math">\(Z\)&lt;/span> are &lt;strong>not mutually independent&lt;/strong>, since &lt;span class="math">\({\displaystyle f_{X,Y,Z}(x,y,z)\neq f_{X}(x)f_{Y}(y)f_{Z}(z),}\)&lt;/span> the left side equalling for example 1/4 for &lt;span class="math">\((x, y, z) = (0, 0, 0)\)&lt;/span> while the right side equals 1/8 for &lt;span class="math">\((x, y, z) = (0, 0, 0)\)&lt;/span>. In fact, any of &lt;span class="math">\(\{X,Y,Z\}\)&lt;/span> is completely determined by the other two (any of &lt;span class="math">\(X, Y, Z\)&lt;/span> is the sum (modulo(模) 2) of the others). That is as far from independence as random variables can get.&lt;/p>
+&lt;p>总的来说，有些随机变量可以由其他随机变量决定，因此，两两独立的随机变量之间可形成组合和其他随机变量形成联系。&lt;/p></description></item><item><title>概率统计随机过程之分析化</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%88%86%E6%9E%90%E5%8C%96/</link><pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%88%86%E6%9E%90%E5%8C%96/</guid><description>
+&lt;h2 id="概率统计随机过程之概率母函数矩母函数和特征函数">概率统计随机过程之概率母函数、矩母函数和特征函数&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#概率母函数">概率母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#性质">性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#例子">例子&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#二项分布概率母函数">二项分布概率母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#泊松分布概率母函数">泊松分布概率母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几何分布概率母函数">几何分布概率母函数&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#求概率">求概率&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#推广二维概率母函数">推广——二维概率母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#局限">局限&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩母函数">矩母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩母函数性质">矩母函数性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩母函数例子">矩母函数例子&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#离散型矩母函数">离散型矩母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数分布矩母函数">指数分布矩母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正态分布矩母函数">正态分布矩母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#复合随机变量">复合随机变量&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#推广随机向量的矩母函数">推广——随机向量的矩母函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#局限性">局限性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征函数">特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征函数性质">特征函数性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征函数例子">特征函数例子&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#二项分布特征函数">二项分布特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#泊松分布特征函数">泊松分布特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几何分布特征函数">几何分布特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正态分布特征函数">正态分布特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#均匀分布特征函数">均匀分布特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#柯西分布特征函数">柯西分布特征函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#拉普拉斯分布特征函数">拉普拉斯分布特征函数&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#更多的性质">更多的性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有趣的例题">有趣的例题&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="概率母函数">概率母函数&lt;/h2>
+&lt;blockquote>
+&lt;p>定义：设&lt;span class="math">\(X\)&lt;/span>是非负整数的随机变量，定义其概率母函数 (probability-generating function)为 &lt;span class="math">\[g(s)=\mathbb{E}[s^X]=\sum_{j=0}^{\infty} s^j\mathbb{P}[X=j], s\in[-1,1]\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>其中约定 &lt;span class="math">\(0^0=1\)&lt;/span>。显然 &lt;span class="math">\(g(s)\)&lt;/span> 在 &lt;span class="math">\([-1,1]\)&lt;/span> 绝对收敛&lt;/p>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\mathbb{P}[X=k]=\frac{g^{(k)}(0)}{k!},\ k=0,1,\ldots\)&lt;/span>，这说明概率母函数和概率分布列一一对应&lt;/li>
+&lt;li>&lt;span class="math">\(\mathbb{E}[X]=g^{(1)}(1)\)&lt;/span>&lt;/li>
+&lt;li>若 &lt;span class="math">\(\mathbb{E}[X]&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\(\mathrm{Var}[X]=g^{(2)}(1)+g^{(1)}(1)-[g^{(1)}(1)]^2\)&lt;/span>&lt;/li>
+&lt;li>若 &lt;span class="math">\(X_1,\ldots,X_n\)&lt;/span> 相互独立，&lt;span class="math">\(Y=X_1+\cdots+X_n\)&lt;/span>，则 &lt;span class="math">\(g_Y(s)=g_{X_1}(s)\cdots g_{X_n}(s),s\in[-1,1]\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(X_1,X_2,\ldots\)&lt;/span> 是&lt;strong>独立同分布&lt;/strong>的非负整数随机变量，概率母函数为 &lt;span class="math">\(\psi(x)\)&lt;/span>; &lt;span class="math">\(N\)&lt;/span> 为取正整数值的随机变量且独立于 &lt;span class="math">\(X_i\)&lt;/span>，概率母函数为 &lt;span class="math">\(G(s)\)&lt;/span>。则 &lt;span class="math">\(Y=X_1+\cdots+X_N\)&lt;/span> 的概率母函数为 &lt;span class="math">\(H(s)=G[\psi(s)]\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>只给出性质五的证明 &lt;span class="math">\[\begin{aligned}
+H(s)&amp;amp;=\mathbb{E}[\mathbb{E}[S^W\mid Y]]\\
+&amp;amp;=\sum_{n=1}^{\infty}\mathbb{E}[s^{X_1+\cdots+X_n}]\mathbb{P}[Y=n]\\
+&amp;amp;=\sum_{n=1}^{\infty}[\psi(s)]^n\mathbb{P}[Y=n]=G[\psi(s)]
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;h3 id="例子">例子&lt;/h3>
+&lt;h4 id="二项分布概率母函数">二项分布概率母函数&lt;/h4>
+&lt;p>二项分布 &lt;span class="math">\(B(n,p)\)&lt;/span> 的概率母函数为 &lt;span class="math">\(g(s)=(sp+q)^n\)&lt;/span>&lt;/p>
+&lt;p>由此立得若 &lt;span class="math">\(X_i,\ldots,X_m\)&lt;/span> 独立，且&lt;span class="math">\(X_i\sim B(n_i,p)\)&lt;/span>，则&lt;span class="math">\(Y=X_1+\cdots+X_m\sim B(n_1+\cdots+n_m,p)\)&lt;/span>&lt;/p>
+&lt;h4 id="泊松分布概率母函数">泊松分布概率母函数&lt;/h4>
+&lt;p>泊松分布 &lt;span class="math">\(\mathcal{P}(\lambda)\)&lt;/span> 的概率母函数为 &lt;span class="math">\(g(s)=e^{\lambda(s-1)}\)&lt;/span>&lt;/p>
+&lt;p>由此立得若 &lt;span class="math">\(X_i,\ldots,X_m\)&lt;/span> 独立，且&lt;span class="math">\(X_i\sim \mathcal{P}(\lambda_i)\)&lt;/span>，则&lt;span class="math">\(Y=X_1+\cdots+X_m\sim \mathcal{P}(\lambda_1+\cdots+\lambda_m)\)&lt;/span>&lt;/p>
+&lt;h4 id="几何分布概率母函数">几何分布概率母函数&lt;/h4>
+&lt;p>几何分布 &lt;span class="math">\(G(p)\)&lt;/span> 的概率母函数为 &lt;span class="math">\(g(s)=\frac{sp}{1-sq}\)&lt;/span>&lt;/p>
+&lt;p>由此立得若 &lt;span class="math">\(X_i,\ldots,X_m\)&lt;/span> 独立，且&lt;span class="math">\(X_i\sim G(p)\)&lt;/span>，则&lt;span class="math">\(S_m=X_1+\cdots+X_m\)&lt;/span> 有概率母函数 &lt;span class="math">\[\begin{aligned}
+g_{S_m}(s)&amp;amp;=\left(\frac{sp}{1-sq}\right)^m\\
+&amp;amp;=(sp)^m\sum_{j=0}^{\infty}\frac{m(m+1)\cdots(m+j-1)}{j!}(sq)^j\\
+&amp;amp;=(sp)^m\sum_{j=0}^{\infty}\binom{m+j-1}{j}(sq)^j\\
+&amp;amp;=\sum_{k=m}^{\infty}\binom{k-1}{m-1}p^mq^{k-m}s^k\end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>于是得 Pascal 分布 &lt;span class="math">\[\mathbb{E}[S_m=k]=\binom{k-1}{m-1}p^mq^{k-m}\]&lt;/span>&lt;/p>
+&lt;h3 id="求概率">求概率&lt;/h3>
+&lt;p>求扔三颗骰子，总点数为 9 的概率。 记 &lt;span class="math">\(X_i\)&lt;/span> 为第 &lt;span class="math">\(i\)&lt;/span> 颗骰子的点数，其概率母函数&lt;/p>
+&lt;p>&lt;span class="math">\[g(s)=\mathbb{E}[s^{X_1}]=\frac{1}{6}(s+s^2+\cdots+s^6)=\frac{1}{6}\frac{s(1-s^6)}{1-s}\]&lt;/span>&lt;/p>
+&lt;p>则 &lt;span class="math">\(Y=X_1+X_2+X_3\)&lt;/span> 的概率母函数为&lt;/p>
+&lt;p>&lt;span class="math">\[g_Y(s)=[g_X(s)]^3=\frac{s^3(1-s^6)^3}{6^3(1-s)^s}=\frac{1}{6^3}(s^3)(1-3s^6+3s^{12}-s^{18})\sum_{k=0}^{\infty}\binom{k+2}{2}s^k\]&lt;/span>&lt;/p>
+&lt;p>则 &lt;span class="math">\(s^9\)&lt;/span> 的系数为 &lt;span class="math">\[\mathbb{P}(Y=9)=\frac{1}{6^3}[\binom{6+2}{2}-3]=\frac{25}{216}\]&lt;/span>&lt;/p>
+&lt;h3 id="推广二维概率母函数">推广——二维概率母函数&lt;/h3>
+&lt;blockquote>
+&lt;p>设 &lt;span class="math">\((X,Y)\)&lt;/span> 是二维取非负整数值的随机向量，记 &lt;span class="math">\(p_{ik}=\mathbb{P}[X=i,Y=k]\)&lt;/span>，则其二维概率母函数为 &lt;span class="math">\[g(s,t)=\mathbb{E}[s^Xt^Y]=\sum_{i=0}^{\infty}\sum_{k=0}^{\infty}p_{ik}s^it^k,\quad s,t\in[-1,1]\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>其有如下性质&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\lvert g(s,t)\rvert\leq g(1,1)=1,\lvert s\rvert\leq 1,\lvert t\rvert\leq 1\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(g_{aX+bY+c}(s)=s^cg(s^a,s^b)\)&lt;/span>&lt;/li>
+&lt;li>若 &lt;span class="math">\(X,Y\)&lt;/span> 独立，则 &lt;span class="math">\(g(s,t)=g_X(s)g_Y(t)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(g(s,1)=g_X(s),g(1,t)=g_Y(t)\)&lt;/span>&lt;/li>
+&lt;li>若 &lt;span class="math">\(\mathbb{E}[X]&amp;lt;\infty,\mathbb{E}[Y]&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\[\mathbb{E}[X]=\frac{\partial g(s,t)}{\partial s}\big|_{s=t=1},\mathbb{E}[Y]=\frac{\partial g(s,t)}{\partial t}\big|_{s=t=1}\]&lt;/span>&lt;/li>
+&lt;li>若 &lt;span class="math">\(\mathbb{E}[X^2]&amp;lt;\infty,\mathbb{E}[Y^2]&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\[\mathbb{E}[X^2]=\frac{\partial^2 g(s,t)}{\partial s^2}\big|_{s=t=1},\mathbb{E}[Y^2]=\frac{\partial^2 g(s,t)}{\partial t^2}\big|_{s=t=1},\mathbb{E}[XY]=\frac{\partial^2 g(s,t)}{\partial s\partial t}\big|_{s=t=1}\]&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(p_{ik}=\frac{1}{i!k!}\frac{\partial^{i+k}g(s,t)}{\partial s^i\partial t^k}\big |_{s=t=0},\ i,k=0,1,\ldots\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h3 id="局限">局限&lt;/h3>
+&lt;p>只能对取&lt;strong>非负整数值&lt;/strong>的随机变量定义&lt;/p>
+&lt;h2 id="矩母函数">矩母函数&lt;/h2>
+&lt;blockquote>
+&lt;p>定义:设 &lt;span class="math">\(X\)&lt;/span> 是随机变量，定义其矩母函数 (moment-generating function)为 &lt;span class="math">\[M_X(s)=\mathbb{E}[e^{sX}]\]&lt;/span> 仅当 &lt;span class="math">\(\mathbb{E}[e^{sX}]&amp;lt;\infty\)&lt;/span> 时，我们称 &lt;span class="math">\(M_X(s)\)&lt;/span> 存在&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="矩母函数性质">矩母函数性质&lt;/h3>
+&lt;ul>
+&lt;li>&lt;span class="math">\(M_{aX+b}(s)=e^{sb}M(sa)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathbb{E}[X^k]=M^{(k)}(0),k=1,2,\ldots\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(M(0)=1\)&lt;/span>&lt;/li>
+&lt;li>可逆性：若&lt;span class="math">\(\exists a&amp;gt;0,\forall s\in[-a,a], M(s)&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\(M(s)\)&lt;/span> 唯一地决定了 &lt;span class="math">\(X\)&lt;/span> 的分布函数&lt;/li>
+&lt;li>若 &lt;span class="math">\(X_1,\ldots,X_n\)&lt;/span> 独立，&lt;span class="math">\(Y=X_1+\cdots+X_n\)&lt;/span>，则&lt;span class="math">\(M_{Y}(s)=M_{X_1}(s)\cdots M_{X_n}(s)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(X_1,X_2,\ldots\)&lt;/span> 独立同分布，矩母函数为 &lt;span class="math">\(M_X(s)\)&lt;/span>; &lt;span class="math">\(N\)&lt;/span> 为取正整数值的随机变量，矩母函数为 &lt;span class="math">\(M_N(s)\)&lt;/span>。则 &lt;span class="math">\(Y=X_1+\cdots+X_Y\)&lt;/span> 的矩母函数为 &lt;span class="math">\(M_Y(s)=\mathbb{E}[\mathbb{E}[e^{sY}\mid N=n]]=\mathbb{E}[(M_X(s))^n]=\sum_{n=1}^{\infty}(M_X(s))^n\mathbb{P}[N=n]\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>而 &lt;span class="math">\(M_N(s)=\sum_{n=1}^{\infty}[e^s]^n\mathbb{P}[N=n]\)&lt;/span> 二者有紧密的联系：将 &lt;span class="math">\(M_N(s)\)&lt;/span> 中出现的 &lt;span class="math">\(e^s\)&lt;/span> 替换为 &lt;span class="math">\(M_X(s)\)&lt;/span> 即可&lt;/p>
+&lt;h3 id="矩母函数例子">矩母函数例子&lt;/h3>
+&lt;h4 id="离散型矩母函数">离散型矩母函数&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="left">X&lt;/th>
+&lt;th align="left">2&lt;/th>
+&lt;th align="left">3&lt;/th>
+&lt;th align="left">5&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="left">&lt;span class="math">\(\mathbb{P}\)&lt;/span>&lt;/td>
+&lt;td align="left">1/2&lt;/td>
+&lt;td align="left">1/6&lt;/td>
+&lt;td align="left">1/3&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;span class="math">\[M(s)=\frac{1}{2}e^{2s}+\frac{1}{6}e^{3s}+\frac{1}{3}e^{5s}\]&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\[\mathbb{E}[X]=M^{(1)}(0)=(\frac{1}{2}2e^{2s}+\frac{1}{6}3e^{3s}+\frac{1}{3}5e^{5s})|_{s=0}=\frac{19}{6}\]&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(\mathbb{E}[X^2]=M^{(2)}(0)=(\frac{1}{2}4e^{2s}+\frac{1}{6}9e^{3s}+\frac{1}{3}25e^{5s})|_{s=0}=\frac{71}{6}\)&lt;/span>&lt;/p>
+&lt;h4 id="指数分布矩母函数">指数分布矩母函数&lt;/h4>
+&lt;p>设 &lt;span class="math">\(X\sim \mathcal{E}(\lambda)\)&lt;/span>，则当 &lt;span class="math">\(s&amp;lt;\lambda\)&lt;/span> 时，有 &lt;span class="math">\[M(s)=\lambda\int_0^\infty e^{sx}e^{-\lambda x}\,\mathrm{d}x=\frac{\lambda}{s-\lambda}e^{(s-\lambda)x}|{x=0}^{\infty}=\frac{\lambda}{\lambda-s}\]&lt;/span>&lt;/p>
+&lt;p>而当 &lt;span class="math">\(s\ge\lambda\)&lt;/span> 时 &lt;span class="math">\(M(s)\)&lt;/span> 不存在&lt;/p>
+&lt;p>&lt;span class="math">\[\mathbb{E}[X]=M^{(1)}(0)=\frac{\lambda}{(\lambda-s)^2}|_{s=0}=\frac{1}{\lambda}\]&lt;/span> &lt;span class="math">\[\mathbb{E}[X]=M^{(2)}(0)=\frac{2\lambda}{(\lambda-s)^3}|_{s=0}=\frac{2}{\lambda^2}\]&lt;/span>&lt;/p>
+&lt;h4 id="正态分布矩母函数">正态分布矩母函数&lt;/h4>
+&lt;p>&lt;span class="math">\(X\sim\mathcal{N}({\mu_1,\sigma_1^2}),Y\sim\mathcal{N}(\mu_2,\sigma_2^2), X,Y\)&lt;/span> 相互独立，求 &lt;span class="math">\(Z=X+Y\)&lt;/span> 的分布&lt;/p>
+&lt;p>先计算标准正态分布的矩母函数，由定义求得 &lt;span class="math">\(M(s)=e^{s^2/2}\)&lt;/span>&lt;/p>
+&lt;p>根据矩母函数的性质，有 &lt;span class="math">\[M_X(s)=e^{\mu_1 s}e^{\sigma_1^2s^2/2},\\
+M_Y(s)=e^{\mu_2 s}e^{\sigma_2^2s^2/2},\\
+M_Z(s)=e^{(\mu_1+\mu_2) s}e^{(\sigma_1^2+\sigma_2^2)s^2/2}\]&lt;/span>&lt;/p>
+&lt;p>于是 &lt;span class="math">\(Z\sim\mathcal{N}(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)&lt;/span>&lt;/p>
+&lt;h4 id="复合随机变量">复合随机变量&lt;/h4>
+&lt;p>不断进行成功概率为 &lt;span class="math">\(p\)&lt;/span> 的伯努利实验直至成功，每次实验的耗时服从参数 &lt;span class="math">\(\lambda\)&lt;/span> 的指数分布，且完全独立。 求总耗时的分布&lt;/p>
+&lt;p>首先 &lt;span class="math">\(X_i\sim\mathcal{E}(\lambda), N\sim G(p), Y=X_1+\cdots+X_N\)&lt;/span> , 当 &lt;span class="math">\(s&amp;lt;\lambda\)&lt;/span> 时有 &lt;span class="math">\[M_{X_i}(s)=\frac{\lambda}{\lambda-s}\]&lt;/span> 而 &lt;span class="math">\[M_N(s)=\frac{pe^s}{1-qe^s}\]&lt;/span> 故 &lt;span class="math">\[M_Y(s)=\frac{p M_X(s)}{1-qM_X(s)}=\frac{p\lambda}{\lambda-s-q\lambda}=\frac{p\lambda}{p\lambda-s}\]&lt;/span>&lt;/p>
+&lt;h3 id="推广随机向量的矩母函数">推广——随机向量的矩母函数&lt;/h3>
+&lt;p>设&lt;span class="math">\(\vec{X}=(X_1,X_2,\ldots,X_n)^\intercal\)&lt;/span>，则其矩母函数定义为&lt;/p>
+&lt;p>&lt;span class="math">\[M_{\vec{X}}(\vec{s})=\mathbb{E}[e^{\vec{s}^\intercal\vec{X}}]=\mathbb{E}[e^{s_1X_1+\cdots+s_nX_n}] \]&lt;/span>&lt;/p>
+&lt;h3 id="局限性">局限性&lt;/h3>
+&lt;p>有些分布的&lt;strong>矩母函数不存在&lt;/strong>，因为&lt;strong>其积分发散&lt;/strong>，如 Cauchy 分布。为此我们引入特征函数来保证可积性。&lt;/p>
+&lt;h2 id="特征函数">特征函数&lt;/h2>
+&lt;blockquote>
+&lt;p>定义：对随机变量 &lt;span class="math">\(X\)&lt;/span> ，定义其特征函数 (characteristic function) 为 &lt;span class="math">\[\phi(t)=\mathbb{E}[e^{itX}]=\mathbb{E}[\cos(tX)]+i\mathbb{E}[\sin(tX)], t\in \mathbb{R}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="特征函数性质">特征函数性质&lt;/h3>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\lvert \phi(t)\rvert\leq \phi(0)=1,\quad\phi(-t)=\overline{\phi(t)}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\phi(t)\)&lt;/span> 在 &lt;span class="math">\((-\infty,\infty)\)&lt;/span> 一致连续 v若 &lt;span class="math">\(\mathbb{E}[\lvert X\rvert^k]&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\(\phi^{(k)}(t)=i^k\mathbb{E}[X^k e^{itX}],\phi^{(k)}(0)=i^k\mathbb{E}[X^k]\)&lt;/span>&lt;/li>
+&lt;li>非负定性：&lt;span class="math">\(\forall t_1,\ldots,t_n\in\mathbb{R},\forall z_1,\ldots,z_n\in\mathbb{C},\sum_{k=1}^{n}\sum_{j=1}^{n}\phi(t_k-t_j)z_k\bar{z}_j\ge 0\)&lt;/span>&lt;/li>
+&lt;li>若 &lt;span class="math">\(X_1,\ldots,X_n\)&lt;/span> 相互独立， &lt;span class="math">\(X_k\)&lt;/span> 特征函数为 &lt;span class="math">\(\phi_k(t)\)&lt;/span>，则 &lt;span class="math">\(Y=X_1+\cdots+X_n\)&lt;/span> 的特征函数为 &lt;span class="math">\(\phi_Y(t)=\phi_1(t)\cdots\phi_{k}(t)\)&lt;/span>。注意，逆命题不成立，后面给出了例子。&lt;/li>
+&lt;/ul>
+&lt;h3 id="特征函数例子">特征函数例子&lt;/h3>
+&lt;h4 id="二项分布特征函数">二项分布特征函数&lt;/h4>
+&lt;p>二项分布 &lt;span class="math">\(B(n,p)\)&lt;/span> 的特征函数为 &lt;span class="math">\(\phi(t)=(e^{it}p+q)^n\)&lt;/span>&lt;/p>
+&lt;p>(对比其概率母函数 &lt;span class="math">\(g(s)=(sp+q)^n\)&lt;/span>)&lt;/p>
+&lt;h4 id="泊松分布特征函数">泊松分布特征函数&lt;/h4>
+&lt;p>泊松分布 &lt;span class="math">\(\mathcal{P}(\lambda)\)&lt;/span> 的特征函数为 &lt;span class="math">\(\phi(t)=e^{\lambda(e^{it}-1)}\)&lt;/span>&lt;/p>
+&lt;p>(对比其概率母函数 &lt;span class="math">\(g(s)=e^{\lambda(s-1)}\)&lt;/span>)&lt;/p>
+&lt;h4 id="几何分布特征函数">几何分布特征函数&lt;/h4>
+&lt;p>几何分布 &lt;span class="math">\(G(p)\)&lt;/span> 的特征函数为 &lt;span class="math">\(\phi(t)=\frac{pe^{it}}{1-qe^{it}}\)&lt;/span>&lt;/p>
+&lt;p>(对比其概率母函数 &lt;span class="math">\(g(s)=\frac{sp}{1-sq}\)&lt;/span>)&lt;/p>
+&lt;h4 id="正态分布特征函数">正态分布特征函数&lt;/h4>
+&lt;p>正态分布 &lt;span class="math">\(\mathcal{N}(\mu,\sigma^2)\)&lt;/span> 有特征函数 &lt;span class="math">\(\phi(t)=e^{i\mu t}e^{-\frac{1}{2}\sigma^2t^2}\)&lt;/span>&lt;/p>
+&lt;p>(对比其矩母函数 &lt;span class="math">\(M(s)=e^{\mu s}e^{\sigma^2s^2/2}\)&lt;/span>)&lt;/p>
+&lt;p>先考察标准正态分布。正态分布的特征函数推导不太容易，一种不太严谨的做法是做形式化运算，将 &lt;span class="math">\(i\)&lt;/span> 视为常数，则&lt;/p>
+&lt;p>&lt;span class="math">\(\phi(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}e^{-x^2/2}\,\mathrm{d}x=e^{-t^2/2}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-(x-it)^2/2}\,\mathrm{d}x=e^{-t^2/2}\)&lt;/span>&lt;/p>
+&lt;p>严格的数学推导需要一定复变函数的背景知识。&lt;/p>
+&lt;p>首先 &lt;span class="math">\[\phi(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}e^{-x^2/2}\,\mathrm{d}x=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty \cos(tx)e^{-x^2/2}\,\mathrm{d}x\]&lt;/span>&lt;/p>
+&lt;p>对 &lt;span class="math">\(t\)&lt;/span> 求导得 &lt;span class="math">\[\begin{aligned}\phi&amp;#39;(t)&amp;amp;=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty x\sin(tx)e^{-x^2/2}\,\mathrm{d}x\\&amp;amp;=\frac{1}{\sqrt{2\pi}}\int_{-\infty}\sin(tx)\,\mathrm{d}e^{-x^2/2}\\&amp;amp;=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty t\cos(tx)e^{-x^2/2}\,\mathrm{d}x\\&amp;amp;=-t\phi(t)\end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>即 &lt;span class="math">\(\frac{\mathrm{d}}{\mathrm{d}t}[\phi(t)e^{t^2/2}]=0\)&lt;/span>，则 &lt;span class="math">\(\phi(t)e^{t^2/2}=C=\phi(0)=1\)&lt;/span>，得 &lt;span class="math">\(\phi(t)=e^{-t^2/2}\)&lt;/span>&lt;/p>
+&lt;p>由此再求一般正态的特征函数&lt;/p>
+&lt;p>&lt;span class="math">\(\mathbb{E}[e^{it(\mu+\sigma X)}]=e^{it\mu}\mathbb{E}[e^{it\sigma X}]=e^{it\mu}e^{-\sigma^2t^2/2}\)&lt;/span>&lt;/p>
+&lt;p>同时，若 &lt;span class="math">\(X_1,\ldots,X_m\)&lt;/span> 相互独立，&lt;span class="math">\(X_j\sim\mathcal{\mu_j,\sigma_j^2}\)&lt;/span>，则&lt;/p>
+&lt;p>&lt;span class="math">\(Y=X_1+\cdots+X_m\sim\mathcal{N}(\sum_{j=1}^{m}\mu_j,\sum_{j=1}^{m}\sigma_j^2)\)&lt;/span>&lt;/p>
+&lt;h4 id="均匀分布特征函数">均匀分布特征函数&lt;/h4>
+&lt;p>均匀分布 &lt;span class="math">\(\mathcal{U}(a,b)\)&lt;/span> 的特征函数为 &lt;span class="math">\(\phi(t)=\frac{e^{itb}-e^{ita}}{it(b-a)}\)&lt;/span>&lt;/p>
+&lt;p>指数分布 指数分布 &lt;span class="math">\(\mathcal{E}(\lambda)\)&lt;/span> 的特征函数为 &lt;span class="math">\(\phi(t)=(1-\frac{it}{\lambda})^{-1}\)&lt;/span>&lt;/p>
+&lt;p>(与矩母函数 &lt;span class="math">\(M(s)=\frac{\lambda}{\lambda-s}=\frac{1}{1-s/\lambda}=(1-s/\lambda)^{-1}\)&lt;/span> 对比)&lt;/p>
+&lt;h4 id="柯西分布特征函数">柯西分布特征函数&lt;/h4>
+&lt;p>&lt;span class="math">\(f(x)=\frac{1}{\pi(1+x^2)}\)&lt;/span>，其特征函数为 &lt;span class="math">\(\phi(t)=e^{-\lvert t\rvert}\)&lt;/span>&lt;/p>
+&lt;p>取 &lt;span class="math">\(Y=aX,(a&amp;gt;0)\)&lt;/span>，则 &lt;span class="math">\(\phi_Y(t)=\mathbb{E}[e^{i(at)X}]=e^{-a\lvert t\rvert}\)&lt;/span>，此时&lt;/p>
+&lt;p>&lt;span class="math">\(\phi_{X+Y}(t)=\mathbb{E}[e^{it(1+a)X}]=e^{-(1+a)\lvert t\rvert}=\phi_X(t)\phi_Y(t)\)&lt;/span>，但显然 &lt;span class="math">\(X,Y\)&lt;/span> 不独立&lt;/p>
+&lt;h4 id="拉普拉斯分布特征函数">拉普拉斯分布特征函数&lt;/h4>
+&lt;p>&lt;span class="math">\(f(x)=\frac{1}{2}e^{-\lvert x\rvert}\)&lt;/span> ，其特征函数为 &lt;span class="math">\(\phi(t)=\frac{1}{1+t^2}\)&lt;/span>&lt;/p>
+&lt;p>注意它和柯西分布的“对称性”&lt;/p>
+&lt;h3 id="更多的性质">更多的性质&lt;/h3>
+&lt;ul>
+&lt;li>若 &lt;span class="math">\(\mathbb{E}[\lvert X\rvert^n]&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\(\phi(t)=\sum_{m=0}^{n}\frac{\mathbb{E}[(itX)^m]}{m!}+o(t^n)\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>特别的，若二阶矩存在，则 &lt;span class="math">\(\phi(t)=1+it\mathbb{E}[X]-\frac{1}{2}t^2\mathbb{E}[X^2]+o(t^2)\)&lt;/span>&lt;/p>
+&lt;ul>
+&lt;li>&lt;p>逆转公式：若累积分布函数 &lt;span class="math">\(F(x)\)&lt;/span> 在 &lt;span class="math">\((a,b)\)&lt;/span> 连续，则 &lt;span class="math">\[\frac{1}{2\pi}\lim\limits_{T\rightarrow\infty}\int_{-T}^T\frac{e^{-ita}-e^{-itb}}{it}\phi(t)\,\mathrm{d}t=F(b)-F(a)\]&lt;/span> 若 &lt;span class="math">\(\int_{-\infty}^{\infty}\lvert\phi(t)\rvert\,\mathrm{d}t&amp;lt;\infty\)&lt;/span>，则 &lt;span class="math">\(X\)&lt;/span> 有有界连续密度函数 &lt;span class="math">\(f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-itx}\phi(t)\,\mathrm{d}t\)&lt;/span>&lt;/p>
+这些说明了随机变量和分布函数相互唯一决定&lt;/li>
+&lt;li>&lt;p>先介绍收敛性：设 &lt;span class="math">\(X\)&lt;/span> 有分布函数 &lt;span class="math">\(F(x)\)&lt;/span>， &lt;span class="math">\(X_n\)&lt;/span> 有分布函数 &lt;span class="math">\(F_n(x)\)&lt;/span>。若在 &lt;span class="math">\(F(x)\)&lt;/span> 的连续点 &lt;span class="math">\(x\)&lt;/span> 处，有 &lt;span class="math">\(\lim\limits_{n\rightarrow\infty}F_n(x)=F(x)\)&lt;/span>，则称 &lt;span class="math">\(X_n\)&lt;/span> 依分布收敛 (convergence in distribution) 到 &lt;span class="math">\(X\)&lt;/span>，记为 &lt;span class="math">\(X_n\overset{d}{\rightarrow} X\)&lt;/span>;或称 &lt;span class="math">\(F_n\)&lt;/span> 弱收敛 (weak convergence) 到 &lt;span class="math">\(F\)&lt;/span>，记为 &lt;span class="math">\(F_n\overset{w}{\rightarrow}F\)&lt;/span>&lt;/p>
+连续性定理指出，&lt;span class="math">\(X_n\)&lt;/span> 依分布收敛到 &lt;span class="math">\(X\)&lt;/span> 的充分必要条件是，其对应的特征函数满足 &lt;span class="math">\[\lim\limits_{n\rightarrow\infty}\phi_n(t)=\phi(t),\quad\forall t\in\mathbb{R}\]&lt;/span>&lt;/li>
+&lt;li>判定一个函数是否为特征函数有如下定理&lt;/li>
+&lt;li>&lt;p>S. Bochner-Khintchine 定理&lt;/p>
+&lt;p>设 &lt;span class="math">\(\phi(t),t\in\mathbb{R}\)&lt;/span> 是连续函数且 &lt;span class="math">\(\phi(0)=1\)&lt;/span>，其是特征函数的充要条件是他是非负定的，即 &lt;span class="math">\(\forall t_1,\ldots,t_n\in\mathbb{R},\forall z_1,\ldots,z_n\in\mathbb{C},\sum_{k=1}^{n}\sum_{j=1}^{n}\phi(t_k-t_j)z_k\bar{z}_j\ge 0\)&lt;/span>&lt;/p>&lt;/li>
+&lt;li>&lt;p>Polya 定理&lt;/p>
+&lt;p>设 &lt;span class="math">\(\phi(t)\)&lt;/span> 是连续函数、偶函数，在 &lt;span class="math">\((0,\infty)\)&lt;/span> 是凸函数，且满足&lt;span class="math">\(\phi(t)\ge 0\)&lt;/span>,&lt;span class="math">\(\phi(0)=1\)&lt;/span>,&lt;span class="math">\(\phi(t)\rightarrow 0\,(t\rightarrow\infty)\)&lt;/span> 则其是特征函数。&lt;/p>&lt;/li>
+&lt;li>&lt;p>J. Marcinkiewiez 定理&lt;/p>
+&lt;p>若 &lt;span class="math">\(\phi(t)\)&lt;/span> 具有形式 &lt;span class="math">\(e^{P(t)}\)&lt;/span>，其中 &lt;span class="math">\(P(t)\)&lt;/span> 是多项式，则其系数不能大于 2&lt;/p>&lt;/li>
+&lt;/ul>
+&lt;h3 id="有趣的例题">有趣的例题&lt;/h3>
+&lt;p>（1）&lt;span class="math">\(\phi(t)\)&lt;/span> 是特征函数，证明 &lt;span class="math">\(\bar{\phi},\phi^2,\lvert\phi\rvert^2,Re[\phi]\)&lt;/span> 都是特征函数&lt;/p>
+&lt;p>设 &lt;span class="math">\(X,Y\)&lt;/span>独立同分布且特征函数为 &lt;span class="math">\(\phi\)&lt;/span>，则前三个分别为 &lt;span class="math">\(-X,X+Y,X-Y\)&lt;/span>&lt;/p>
+&lt;p>第四个构造独立于 &lt;span class="math">\(X\)&lt;/span> 的随机变量 &lt;span class="math">\(Z\)&lt;/span> 且 &lt;span class="math">\(\mathbb{P}[Z=\pm 1]=0.5\)&lt;/span>，则&lt;span class="math">\(XZ\)&lt;/span> 的特征函数为 &lt;span class="math">\(Re[\phi]\)&lt;/span>&lt;/p>
+&lt;p>（2）&lt;span class="math">\(\phi(t)\)&lt;/span> 是特征函数，则 &lt;span class="math">\(\lvert\phi(t)\rvert\)&lt;/span> 未必是特征函数&lt;/p>
+&lt;p>设 &lt;span class="math">\(X\sim B(1,1/3)\)&lt;/span>，&lt;span class="math">\(\phi(t)=\frac{2}{3}+\frac{1}{3}e^{it}\)&lt;/span> 。设 &lt;span class="math">\(Y\)&lt;/span> 的特征函数为 &lt;span class="math">\(\psi(t)=\lvert\phi(t)\rvert\)&lt;/span>,则 &lt;span class="math">\(\psi^2(t)=\phi(t)\phi(-t)\)&lt;/span>，即 &lt;span class="math">\(Y_1+Y_2\)&lt;/span> 和 &lt;span class="math">\(X_1-X_2\)&lt;/span> 同分布。其中 &lt;span class="math">\(Y_1,Y_2\)&lt;/span> 与 &lt;span class="math">\(Y\)&lt;/span> 独立同分布，&lt;span class="math">\(X_1,X_2\)&lt;/span> 与 &lt;span class="math">\(X\)&lt;/span> 独立同分布。由于 &lt;span class="math">\(X_1-X_2\in\{-1,0,1\}\)&lt;/span>，则 &lt;span class="math">\(Y_i\in\{-0.5,0.5\}\)&lt;/span>，记 &lt;span class="math">\(\mathbb{P}[Y_1=0.5]=\alpha\)&lt;/span>。则&lt;/p>
+&lt;p>&lt;span class="math">\(\mathbb{P}[Y_1+Y_2=1]=\alpha^2=\mathbb{P}[X_1-X_2=1]=2/9\)&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(\mathbb{P}[Y_1+Y_2=-11]=(1-\alpha)^2=\mathbb{P}[X_2-X_1=1]=2/9\)&lt;/span>&lt;/p>
+&lt;p>此时 &lt;span class="math">\(\alpha\)&lt;/span> 无解&lt;/p>
+&lt;p>（3）&lt;span class="math">\(X_1,\ldots,X_4\)&lt;/span> 独立同标准正态分布，则&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(X_1X_2\)&lt;/span>的特征函数为 &lt;span class="math">\(\frac{1}{\sqrt{1+t^2}}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(X_1X_2+X_3X_4\)&lt;/span> 的特征函数为 &lt;span class="math">\(\frac{1}{1+t^2}\)&lt;/span>，即服从拉普拉斯分布&lt;/li>
+&lt;/ol>
+&lt;p>（4）&lt;span class="math">\(X,Y\)&lt;/span>独立同标准正态分布，&lt;span class="math">\(U,V\)&lt;/span>独立于 &lt;span class="math">\(X,Y\)&lt;/span>，则&lt;span class="math">\(Z=\frac{UX+VY}{\sqrt{U^2+V^2}}\sim\mathcal{N}(0,1)\)&lt;/span>&lt;/p>
+&lt;p>（5）利用已知结果若 &lt;span class="math">\(a&amp;gt;0,b&amp;gt;0\)&lt;/span>，则&lt;span class="math">\(I(a,b)=\int_0^\infty\exp\{-a^2u^2-b^2u^{-2}\}\,\mathrm{d}u=\frac{e^{-2ab}\sqrt{\pi}}{2a}\)&lt;/span>&lt;/p>
+&lt;p>证明若 &lt;span class="math">\(f(x)=\frac{1}{2\pi x^3}\exp(-\frac{1}{2x}),x&amp;gt;0\)&lt;/span>， 则 &lt;span class="math">\(\mathbb{E}[e^{-tX}]=\exp(-\sqrt{2t})\)&lt;/span>&lt;/p>
+&lt;p>（6）&lt;span class="math">\(X,Y,Z\)&lt;/span>独立同标准正态分布，则&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(X/Y\)&lt;/span>服从柯西分布&lt;/li>
+&lt;li>&lt;span class="math">\(1/X^2\)&lt;/span>的概率密度函数为 5. 中结果&lt;/li>
+&lt;li>&lt;span class="math">\((XYZ)/\sqrt{X^2Y^2+Y^2Z^2+Z^2X^2}\sim\mathcal{N}(0,1/9)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>（7）&lt;span class="math">\(X_n\)&lt;/span> 有分布函数 &lt;span class="math">\(F_n(x)=x-\frac{\sin(2n\pi x)}{2n\pi},0\leq x\leq 1\)&lt;/span>&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(X_n\)&lt;/span> 有密度函数 &lt;span class="math">\(f_n(x)=1-\cos(2n\pi x),0\leq x\leq 1\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(F_n(x)\)&lt;/span> 弱收敛于 &lt;span class="math">\(\mathcal{U}[0,1]\)&lt;/span>，但 &lt;span class="math">\(f_n(x)\)&lt;/span> 不收敛&lt;/li>
+&lt;/ol></description></item><item><title>概率统计随机过程之经验函数分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%BB%8F%E9%AA%8C%E5%87%BD%E6%95%B0%E5%88%86%E5%B8%83/</link><pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%BB%8F%E9%AA%8C%E5%87%BD%E6%95%B0%E5%88%86%E5%B8%83/</guid><description>
+&lt;h2 id="概率统计随机过程之经验函数分布">概率统计随机过程之经验函数分布&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>设&lt;span class="math">\(x_1, x_2, \cdots, x_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的样本, 其分布函数为&lt;span class="math">\(F(x)\)&lt;/span>,&lt;span class="math">\(F(x)\)&lt;/span>是未知的. 为了估计分布函数&lt;span class="math">\(F(x)=P(X\le x)\)&lt;/span>, 使用如下统计量 &lt;span class="math">\[
+F_n(x)=\frac{\#\{i: x_i\leq x\}}{n},
+\]&lt;/span> 其中&lt;span class="math">\(\#A\)&lt;/span>表示集合&lt;span class="math">\(A\)&lt;/span>中元素的个数, &lt;span class="math">\(F_n(x)\)&lt;/span>称为&lt;strong>经验分布函数 (empirical distribution function)&lt;/strong>. 上式中经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>的定义体现了用&lt;strong>频率近似概率&lt;/strong>的想法.&lt;/p>
+&lt;p>如果用&lt;span class="math">\(I_A(x)\)&lt;/span>表示集合&lt;span class="math">\(A\)&lt;/span>的特征函数（示性函数）, 即 &lt;span class="math">\[
+I_A(x):=\begin{cases}
+1,x \in A,\\
+0,x \notin A,
+\end{cases}
+\]&lt;/span> 则经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>可以改写成 &lt;span class="math">\[
+F_n(x)=\frac{1}{n}\sum_{i=0}^nI_{[x_i,\infty]}(x).\\
+I_{[x_i,\infty]}(x)=\begin{cases}
+1,x_i \le x,\\
+0,x_i &amp;gt; x,
+\end{cases}
+\]&lt;/span> 将样本&lt;span class="math">\(x_1,x_2,⋯,x_n\)&lt;/span>理解成样本值时, &lt;span class="math">\(F_n(x)\)&lt;/span>是一个分布函数. 设随机变量&lt;span class="math">\(W∼F_n(x)\)&lt;/span>, 则&lt;span class="math">\(W\)&lt;/span>服从离散分布, 在&lt;span class="math">\(\{x_1,x_2,⋯,x_n\}\)&lt;/span>内取值, 如果各&lt;span class="math">\(x_i\)&lt;/span>互不相同则&lt;span class="math">\(W\)&lt;/span>服从&lt;span class="math">\(\{x_1,x_2,⋯,x_n\}\)&lt;/span>上的离散均匀分布&lt;span class="math">\(P(W=x_i)=1/n, i=1,2,⋯,n.\)&lt;/span>如果&lt;span class="math">\(\{x_1,x_2,⋯,x_n\}\)&lt;/span>中有相同的观测值则其相应的取值概率是&lt;span class="math">\(1/n\)&lt;/span>乘以重复次数.&lt;/p>
+&lt;p>对样本&lt;span class="math">\(x_1,x_2,⋯,x_n\)&lt;/span>从小到大排序得到&lt;span class="math">\(x_{(1)}≤x_{(2)}≤⋯≤x_{(n)}\)&lt;/span>, 称为样本的次序统计量. 如果&lt;span class="math">\(x_{(1)}≤x_{(2)}≤⋯≤x_{(n)}\)&lt;/span>, 易见 &lt;span class="math">\[
+F_n(x)=\begin{cases}
+0, &amp;amp; \textrm{当}\, x&amp;lt; x_{(1)},\\
+\dfrac{i}{n}, &amp;amp; \textrm{当}\,x_{(i)}\leq x&amp;lt; x_{(i+1)},\quad i=1,2,\cdots, n-1,\\
+1, &amp;amp; \textrm{当}\, x\geq x_{(n)}.
+\end{cases}
+\]&lt;/span> 将样本&lt;span class="math">\(x_1,x_2,⋯,x_n\)&lt;/span>看成随机变量时, &lt;span class="math">\(F_n(x)\)&lt;/span>是样本统计量.&lt;/p>
+&lt;p>&lt;span class="math">\(I_{[x_i,∞)}(x)\)&lt;/span>是独立同分布的随机变量, 其共同分布为两点分布&lt;span class="math">\(b(1,F(x))\)&lt;/span>. 由Glivenko-Cantelli定理可知, 当&lt;span class="math">\(n→∞\)&lt;/span>时, &lt;span class="math">\[
+\sup_{x\in\mathbb R}|F_n(x)-F(x)| \xrightarrow[]{\;\;{\rm a.s.}\;\;} 0.
+\]&lt;/span> 此结果表明&lt;span class="math">\(F_n(x)\)&lt;/span>是&lt;span class="math">\(F(x)\)&lt;/span>的一致强相合估计(uniformly and strongly consistent estimator). 于是当样本容量&lt;span class="math">\(n\)&lt;/span>充分大时, &lt;span class="math">\(F_n(x)\)&lt;/span>能良好地逼近总体分布函数&lt;span class="math">\(F(x)\)&lt;/span>. 这是在统计学中以样本推断总体的依据.&lt;/p>
+&lt;h2 id="经验分布函数与样本均值的关系">经验分布函数与样本均值的关系&lt;/h2>
+&lt;p>如果随机变量&lt;span class="math">\(W∼F_n(x)\)&lt;/span>, 显然&lt;span class="math">\(W\)&lt;/span>的期望 &lt;span class="math">\[
+E(W)=\frac{1}{n}\sum_{i=1}^nx_i=\bar x,
+\]&lt;/span> 即样本均值. 所以样本均值可以理解成服从经验分布的随机变量的数学期望. &lt;strong>样本均值&lt;span class="math">\(\bar x\)&lt;/span>用于估计总体均值&lt;span class="math">\(E(X)\)&lt;/span>, 其本质上是用经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>近似总体分布函数&lt;span class="math">\(F(x)\)&lt;/span>&lt;/strong>. 用经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>近似总体分布函数&lt;span class="math">\(F(x)\)&lt;/span>的一个应用是bootstrap方法.&lt;/p>
+&lt;h2 id="经验分布函数与直方图的关系">经验分布函数与直方图的关系&lt;/h2>
+&lt;p>直方图 (histogram) 是估计分布密度非常直观简单的方法.&lt;/p>
+&lt;h3 id="直方图作法">直方图作法&lt;/h3>
+&lt;p>&lt;a href="https://www.zybuluo.com/lyc102/note/1311776">参考文献&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on SurprisedCat</title><link>https://surprisedcat.github.io/tags/shell/</link><description>Recent content in shell on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 24 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>shell-数据or文本处理流水线</title><link>https://surprisedcat.github.io/projectnotes/shell-%E6%95%B0%E6%8D%AEor%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E6%B5%81%E6%B0%B4%E7%BA%BF/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E6%95%B0%E6%8D%AEor%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid><description/></item><item><title>Shell 概要</title><link>https://surprisedcat.github.io/projectnotes/shell-%E6%A6%82%E8%A6%81/</link><pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E6%A6%82%E8%A6%81/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#shell%E8%84%9A%E6%9C%AC%E7%9A%84%E7%AC%AC%E4%B8%80%E8%A1%8C">shell脚本的第一行&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#shell%E8%84%9A%E6%9C%AC%E7%9A%84%E9%87%8D%E5%AE%9A%E5%90%91%E7%AC%A6">shell脚本的重定向符&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%80%E4%BA%9B%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7">一些特殊符号&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%98%E9%87%8F">变量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#path%E8%B7%AF%E5%BE%84%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8">PATH路径中:的作用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%AE%BF%E9%97%AEshell%E7%9A%84%E7%9A%84%E5%8F%82%E6%95%B0">访问Shell的的参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%91%BD%E4%BB%A4%E8%B7%9F%E8%B8%AA">简单的命令跟踪&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#shell%E8%84%9A%E6%9C%AC%E4%B8%AD%E7%9A%84">shell脚本中的“.”&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="shell-概述---omit-in-toc---">Shell 概述&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="shell脚本的第一行">shell脚本的第一行&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&amp;gt; &lt;span class="c1">#! /bin/sh -&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>-符号表示没有其他参数，防止一些欺骗攻击&lt;/li>
+&lt;li>shell脚本的第一行长度一般不要超过64个字符&lt;/li>
+&lt;/ul>
+&lt;h2 id="shell脚本的重定向符">shell脚本的重定向符&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>&amp;gt;&lt;/strong> 表示将命令输出的内容重定向到其他位置&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ cat &amp;gt; nusers
+&lt;span class="ln">2&lt;/span>who &lt;span class="p">|&lt;/span> wc -l
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>即将&lt;code>who | wc -l&lt;/code>复制到&lt;code>nusers&lt;/code>文件中&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&amp;gt;&amp;gt;&lt;/strong> 表示已用附加的方式重定向到指定文件。区别在于如果目标文件存在，会将内容附加到文档后面，而不会覆盖文档。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&amp;lt;表示从其他地方而不是键盘接受输入&lt;code>patch --verbose --backup -p1 &amp;lt; /tmp/cx&lt;/code>，表示从/tmp/cx文件输入内容&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="一些特殊符号">一些特殊符号&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>;&lt;/strong> 表示一条命令输入结束，命令按顺序执行&lt;/li>
+&lt;li>&lt;strong>＆&lt;/strong> 表示后台执行&amp;amp;之前的命令，直接在前台执行&amp;amp;之后的命令。&lt;/li>
+&lt;/ul>
+&lt;h2 id="变量">变量&lt;/h2>
+&lt;p>Shell脚本中变量可以是（并且通常是）空值，&lt;code>null&lt;/code>。
+变量赋值的时候&lt;code>VarName=VarValue&lt;/code>,如果&lt;code>VarValue&lt;/code>中间&lt;strong>有空格&lt;/strong>，则需要使用&lt;strong>双引号&lt;/strong>，包括&lt;code>VarValue&lt;/code>。变量引用的时候需要使用&lt;strong>＄&lt;/strong>符号,&lt;code>$VarName&lt;/code>;如果想在CMD终端显示有空格的&lt;code>VarValue&lt;/code>，需要使用&lt;code>echo&lt;/code>命令。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">fullname&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;chenxin&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$fullname&lt;/span>
+&lt;span class="ln">3&lt;/span>chen xin
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="path路径中的作用">PATH路径中:的作用&lt;/h2>
+&lt;blockquote>
+&lt;p>表示从哪里开始搜寻命令&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="访问shell的的参数">访问Shell的的参数&lt;/h2>
+&lt;p>访问shell的参数也就是说shell的命令行参数，例如&lt;code>myshell para1 para2&lt;/code>;在Shell函数里面用&lt;code>$1,$2,$3,.....,$9,${10}&lt;/code>表示。当参数&lt;strong>大于10个&lt;/strong>时，由于历史原因，需要用&lt;strong>大括号&lt;/strong>包裹起来。&lt;/p>
+&lt;p>删除一个变量可以使用&lt;code>unset&lt;/code>命令，变量名&lt;strong>不用加$&lt;/strong>,即&lt;code>unset x&lt;/code>&lt;/p>
+&lt;p>设置环境变量&lt;code>export VarName=VarValue&lt;/code>，使用&lt;code>env&lt;/code>命令可以查看所有的环境变量&lt;/p>
+&lt;p>预定义变量和位置变量（位置变量也是预定义变量的一种，只是比较常见单独拿出来说）&lt;/p>
+&lt;p>预定义变量有3个，&lt;code>$?,$$.$!&lt;/code>;位置变量有：&lt;code>$n,$*,$@,$#&lt;/code>。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>变量&lt;/th>
+&lt;th>含义&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>$0&lt;/td>
+&lt;td>当前脚本的文件名&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$n&lt;/td>
+&lt;td>传递给脚本或函数的参数。n 是一个数字，表示第几个参数。例如，第一个参数是$1，第二个参数是$2。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$#&lt;/td>
+&lt;td>传递给脚本或函数的参数个数。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$*&lt;/td>
+&lt;td>传递给脚本或函数的所有参数。这种方式将所有参数作为一个整体。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$@&lt;/td>
+&lt;td>传递给脚本或函数的所有参数。被双引号(&amp;quot; &amp;quot;)包含时，与 $* 稍有不同，会将每一个变量法分开表示。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$?&lt;/td>
+&lt;td>上个命令的退出状态，或函数的返回值。&lt;strong>$?&lt;/strong>:表示上一个命令执行的结果，如果正常执行则返回0，非正常执行则为错误代码&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$$&lt;/td>
+&lt;td>当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>$!&lt;/td>
+&lt;td>后台最后一个进程所表示的PID&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="简单的命令跟踪">简单的命令跟踪&lt;/h2>
+&lt;p>在Shell中输入&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>set -x&lt;/code> 表示每一个命令使用+表示执行到哪一个命令&lt;br>
+&lt;code>set +x&lt;/code> 表示取消跟踪&lt;br>
+&lt;code>shell -x CMD&lt;/code> 表示追踪此CMD命令&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="shell脚本中的">shell脚本中的“.”&lt;/h2>
+&lt;p>shell脚本中，使用“&lt;code>.&lt;/code>”等同于使用&lt;code>source&lt;/code>，相当于在脚本中执行另一个脚本，但是执行的时候&lt;strong>共用一个shell&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>source&lt;/code>命令用法： &lt;code>source FileName&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;p>作用:在当前bash环境下读取并执行&lt;code>FileName&lt;/code>中的命令。该命令通常用命令“&lt;code>.&lt;/code>”来替代。&lt;code>source filepath&lt;/code>或者&lt;code>. filepath&lt;/code>，&lt;code>sh filepath&lt;/code>或者&lt;code>./filepath&lt;/code>区别：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>sh filepath&lt;/code>会重新建立一个子shell，在子shell中执行脚本里面的语句，该子shell继承父shell的环境变量，但子shell是新建的，其改变的变量不会被带回父shell，除非使用export。&lt;/li>
+&lt;li>&lt;code>source filename&lt;/code>其实只是简单地读取脚本里面的语句依次在当前shell里面执行，没有建立新的子shell。那么脚本里面所有新建、改变变量的语句都会保存在当前shell里面。&lt;/li>
+&lt;/ol></description></item><item><title>shell-read函数使用</title><link>https://surprisedcat.github.io/projectnotes/shell-read%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8/</link><pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-read%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8/</guid><description/></item><item><title>Shell手册</title><link>https://surprisedcat.github.io/projectnotes/shell-cheatsheet/</link><pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-cheatsheet/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#getting-started">Getting started&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#example">Example&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#variables">Variables&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#string-quotes">String quotes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#shell-execution">Shell execution&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#conditional-execution">Conditional execution&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#functions-example">Functions Example&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#conditionals-example">Conditionals example&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#strict-mode">Strict mode&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#brace-expansion">Brace expansion&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#parameter-expansions">Parameter expansions&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#basics">Basics&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#substitution">Substitution&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#comments">Comments&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#substrings">Substrings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#length">Length&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#manipulation">Manipulation&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#default-values">Default values&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#loops">Loops&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#basic-for-loop">Basic for loop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#c-like-for-loop">C-like for loop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ranges">Ranges&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#with-step-size">With step size&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#reading-lines">Reading lines&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#forever">Forever&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#functions">Functions&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#defining-functions">Defining functions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#returning-values">Returning values&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#raising-errors">Raising errors&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#arguments">Arguments&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#conditionals">Conditionals&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#conditions">Conditions&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#more-conditions">More conditions&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#file-conditions">File conditions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#test-example">Test Example&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#arrays">Arrays&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#defining-arrays">Defining arrays&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#working-with-arrays">Working with arrays&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#operations">Operations&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#iteration">Iteration&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#dictionaries">Dictionaries&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#defining">Defining&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#working-with-dictionaries">Working with dictionaries&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#iteration-operation">Iteration Operation&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#iterate-over-values">Iterate over values&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#iterate-over-keys">Iterate over keys&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#options">Options&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#set-options">set Options&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#glob-options">Glob options&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#history">History&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#commands">Commands&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#expansions">Expansions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#operation-info">Operation Info&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#slices">Slices&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#miscellaneous">Miscellaneous&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#numeric-calculations">Numeric calculations&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#subshells">Subshells&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#redirection">Redirection&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#inspecting-commands">Inspecting commands&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#trap-errors">Trap errors&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#caseswitch">Case/switch&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#source-relative">Source relative&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#printf">printf&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#directory-of-script">Directory of script&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#getting-options">Getting options&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#heredoc">Heredoc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#reading-input">Reading input&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#special-variables">Special variables&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#go-to-previous-directory">Go to previous directory&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#check-for-commands-result">Check for command's result&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#grep-check">Grep check&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#also-see">Also see&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="getting-started">Getting started&lt;/h2>
+&lt;p>This is a quick reference to getting started with Bash scripting.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://learnxinyminutes.com/docs/bash/">Learn bash in y minutes&lt;/a> &lt;em>(learnxinyminutes.com)&lt;/em>&lt;/li>
+&lt;li>&lt;a href="http://mywiki.wooledge.org/BashGuide">Bash Guide&lt;/a> &lt;em>(mywiki.wooledge.org)&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#!/usr/bin/env bash
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nv">NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hello &lt;/span>&lt;span class="nv">$NAME&lt;/span>&lt;span class="s2">!&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="variables">Variables&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$NAME&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NAME&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">NAME&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">!&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="string-quotes">String quotes&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Hi &lt;/span>&lt;span class="nv">$NAME&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="c1">#=&amp;gt; Hi John&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;Hi $NAME&amp;#39;&lt;/span> &lt;span class="c1">#=&amp;gt; Hi $NAME&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="shell-execution">Shell execution&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;I&amp;#39;m in &lt;/span>&lt;span class="k">$(&lt;/span>&lt;span class="nb">pwd&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;I&amp;#39;m in `pwd`&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># Same&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See &lt;a href="http://wiki.bash-hackers.org/syntax/expansion/cmdsubst">Command substitution&lt;/a>&lt;/p>
+&lt;h3 id="conditional-execution">Conditional execution&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>git commit &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push
+&lt;span class="ln">2&lt;/span>git commit &lt;span class="o">||&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Commit failed&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="functions-example">Functions Example&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>get_name&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;You are &lt;/span>&lt;span class="k">$(&lt;/span>get_name&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See: &lt;a href="#functions">Functions&lt;/a>&lt;/p>
+&lt;h3 id="conditionals-example">Conditionals example&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$string&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;String is empty&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">elif&lt;/span> &lt;span class="o">[[&lt;/span> -n &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$string&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;String is not empty&amp;#34;&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See: &lt;a href="#conditionals">Conditionals&lt;/a>&lt;/p>
+&lt;h3 id="strict-mode">Strict mode&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">set&lt;/span> -euo pipefail
+&lt;span class="ln">2&lt;/span>&lt;span class="nv">IFS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">$&amp;#39;\n\t&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See: &lt;a href="http://redsymbol.net/articles/unofficial-bash-strict-mode/">Unofficial bash strict mode&lt;/a>&lt;/p>
+&lt;h3 id="brace-expansion">Brace expansion&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="o">{&lt;/span>A,B&lt;span class="o">}&lt;/span>.js
+&lt;/code>&lt;/pre>&lt;/div>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>{A,B}&lt;/code>&lt;/td>
+&lt;td>Same as &lt;code>A B&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>{A,B}.js&lt;/code>&lt;/td>
+&lt;td>Same as &lt;code>A.js B.js&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>{1..5}&lt;/code>&lt;/td>
+&lt;td>Same as &lt;code>1 2 3 4 5&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>See: &lt;a href="http://wiki.bash-hackers.org/syntax/expansion/brace">Brace expansion&lt;/a>&lt;/p>
+&lt;h2 id="parameter-expansions">Parameter expansions&lt;/h2>
+&lt;h3 id="basics">Basics&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">/J/j&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;john&amp;#34; (substitution)&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;Jo&amp;#34; (slicing)&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">::&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;Jo&amp;#34; (slicing)&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;Joh&amp;#34; (slicing)&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">:(-1)&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;n&amp;#34; (slicing from right)&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">:(-2):&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;h&amp;#34; (slicing from right)&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">food&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="nv">Cake&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; $food or &amp;#34;Cake&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">length&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">length&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;Jo&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>See: &lt;a href="http://wiki.bash-hackers.org/syntax/pe">Parameter expansion&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/path/to/foo.cpp&amp;#34;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">%.cpp&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># /path/to/foo&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">%.cpp&lt;/span>&lt;span class="si">}&lt;/span>.o &lt;span class="c1"># /path/to/foo.o&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">%/*&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># /path/to&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">##*.&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># cpp (extension)&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">##*/&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># foo.cpp (basepath)&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">#*/&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># path/to/foo.cpp&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">##*/&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># foo.cpp&lt;/span>
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">/foo/bar&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># /path/to/bar.cpp&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Hello world&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">6&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">5&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># &amp;#34;world&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">: -5:&lt;/span>&lt;span class="nv">5&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># &amp;#34;world&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">SRC&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/path/to/foo.cpp&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nv">BASE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">SRC&lt;/span>&lt;span class="p">##*/&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;foo.cpp&amp;#34; (basepath)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nv">DIR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">SRC&lt;/span>&lt;span class="p">%&lt;/span>&lt;span class="nv">$BASE&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;/path/to/&amp;#34; (dirpath)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="substitution">Substitution&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>${FOO%suffix}&lt;/code>&lt;/td>
+&lt;td>Remove suffix&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO#prefix}&lt;/code>&lt;/td>
+&lt;td>Remove prefix&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO%%suffix}&lt;/code>&lt;/td>
+&lt;td>Remove long suffix&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO##prefix}&lt;/code>&lt;/td>
+&lt;td>Remove long prefix&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO/from/to}&lt;/code>&lt;/td>
+&lt;td>Replace first match&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO//from/to}&lt;/code>&lt;/td>
+&lt;td>Replace all&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO/%from/to}&lt;/code>&lt;/td>
+&lt;td>Replace suffix&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO/#from/to}&lt;/code>&lt;/td>
+&lt;td>Replace prefix&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="comments">Comments&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># Single line comment&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>: &lt;span class="s1">&amp;#39;
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="s1">This is a
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="s1">multi line
+&lt;/span>&lt;span class="ln">4&lt;/span>&lt;span class="s1">comment
+&lt;/span>&lt;span class="ln">5&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="substrings">Substrings&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>${FOO:0:3}&lt;/code>&lt;/td>
+&lt;td>Substring &lt;em>(position, length)&lt;/em>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO:(-3):3}&lt;/code>&lt;/td>
+&lt;td>Substring from the right&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="length">Length&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>${#FOO}&lt;/code>&lt;/td>
+&lt;td>Length of &lt;code>$FOO&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="manipulation">Manipulation&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;HELLO WORLD!&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;hELLO WORLD!&amp;#34; (lowercase 1st letter)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">,,&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;hello world!&amp;#34; (all lowercase)&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;hello world!&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">^&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;Hello world!&amp;#34; (uppercase 1st letter)&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">STR&lt;/span>&lt;span class="p">^^&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1">#=&amp;gt; &amp;#34;HELLO WORLD!&amp;#34; (all uppercase)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="default-values">Default values&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>${FOO:-val}&lt;/code>&lt;/td>
+&lt;td>&lt;code>$FOO&lt;/code>, or &lt;code>val&lt;/code> if unset (or null)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO:=val}&lt;/code>&lt;/td>
+&lt;td>Set &lt;code>$FOO&lt;/code> to &lt;code>val&lt;/code> if unset (or null)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO:+val}&lt;/code>&lt;/td>
+&lt;td>&lt;code>val&lt;/code> if &lt;code>$FOO&lt;/code> is set (and not null)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>${FOO:?message}&lt;/code>&lt;/td>
+&lt;td>Show error message and exit if &lt;code>$FOO&lt;/code> is unset (or null)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Omitting the &lt;code>:&lt;/code> removes the (non)nullity checks, e.g. &lt;code>${FOO-val}&lt;/code> expands to &lt;code>val&lt;/code> if unset otherwise &lt;code>$FOO&lt;/code>.&lt;/p>
+&lt;h2 id="loops">Loops&lt;/h2>
+&lt;h3 id="basic-for-loop">Basic for loop&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> i in /etc/rc.*&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$i&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="c-like-for-loop">C-like for loop&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="o">((&lt;/span>&lt;span class="nv">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="p">;&lt;/span> i &amp;lt; &lt;span class="m">100&lt;/span> &lt;span class="p">;&lt;/span> i++&lt;span class="o">))&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$i&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ranges">Ranges&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> i in &lt;span class="o">{&lt;/span>1..5&lt;span class="o">}&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Welcome &lt;/span>&lt;span class="nv">$i&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="with-step-size">With step size&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> i in &lt;span class="o">{&lt;/span>5..50..5&lt;span class="o">}&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Welcome &lt;/span>&lt;span class="nv">$i&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="reading-lines">Reading lines&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>cat file.txt &lt;span class="p">|&lt;/span> &lt;span class="k">while&lt;/span> &lt;span class="nb">read&lt;/span> line&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$line&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="forever">Forever&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">while&lt;/span> true&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> ···
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="functions">Functions&lt;/h2>
+&lt;h3 id="defining-functions">Defining functions&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>myfunc&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello &lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># Same as above (alternate syntax)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">function&lt;/span> myfunc&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello &lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>myfunc &lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="returning-values">Returning values&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>myfunc&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">local&lt;/span> &lt;span class="nv">myresult&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;some value&amp;#39;&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$myresult&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">result&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>myfunc&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="raising-errors">Raising errors&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>myfunc&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> myfunc&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;success&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">else&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;failure&amp;#34;&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="arguments">Arguments&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>$#&lt;/code>&lt;/td>
+&lt;td>Number of arguments&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$*&lt;/code>&lt;/td>
+&lt;td>All positional arguments (as a single word)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$@&lt;/code>&lt;/td>
+&lt;td>All positional arguments (as separate strings)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$1&lt;/code>&lt;/td>
+&lt;td>First argument&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$_&lt;/code>&lt;/td>
+&lt;td>Last argument of the previous command&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Note&lt;/strong>: &lt;code>$@&lt;/code> and &lt;code>$*&lt;/code> must be quoted in order to perform as described.
+Otherwise, they do exactly the same thing (arguments as separate strings).&lt;/p>
+&lt;p>See &lt;a href="http://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables">Special parameters&lt;/a>.&lt;/p>
+&lt;h2 id="conditionals">Conditionals&lt;/h2>
+&lt;h3 id="conditions">Conditions&lt;/h3>
+&lt;p>Note that &lt;code>[[&lt;/code> is actually a command/program that returns either &lt;code>0&lt;/code> (true) or &lt;code>1&lt;/code> (false). Any program that obeys the same logic (like all base utils, such as &lt;code>grep(1)&lt;/code> or &lt;code>ping(1)&lt;/code>) can be used as condition, see examples.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Condition&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>[[ -z STRING ]]&lt;/code>&lt;/td>
+&lt;td>Empty string&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -n STRING ]]&lt;/code>&lt;/td>
+&lt;td>Not empty string&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ STRING == STRING ]]&lt;/code>&lt;/td>
+&lt;td>Equal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ STRING != STRING ]]&lt;/code>&lt;/td>
+&lt;td>Not Equal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ NUM -eq NUM ]]&lt;/code>&lt;/td>
+&lt;td>Equal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ NUM -ne NUM ]]&lt;/code>&lt;/td>
+&lt;td>Not equal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ NUM -lt NUM ]]&lt;/code>&lt;/td>
+&lt;td>Less than&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ NUM -le NUM ]]&lt;/code>&lt;/td>
+&lt;td>Less than or equal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ NUM -gt NUM ]]&lt;/code>&lt;/td>
+&lt;td>Greater than&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ NUM -ge NUM ]]&lt;/code>&lt;/td>
+&lt;td>Greater than or equal&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ STRING =~ STRING ]]&lt;/code>&lt;/td>
+&lt;td>Regexp&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>(( NUM &amp;lt; NUM ))&lt;/code>&lt;/td>
+&lt;td>Numeric conditions&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="more-conditions">More conditions&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Condition&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>[[ -o noclobber ]]&lt;/code>&lt;/td>
+&lt;td>If OPTIONNAME is enabled&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ ! EXPR ]]&lt;/code>&lt;/td>
+&lt;td>Not&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ X &amp;amp;&amp;amp; Y ]]&lt;/code>&lt;/td>
+&lt;td>And&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>`[[ X&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="file-conditions">File conditions&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Condition&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>[[ -e FILE ]]&lt;/code>&lt;/td>
+&lt;td>Exists&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -r FILE ]]&lt;/code>&lt;/td>
+&lt;td>Readable&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -h FILE ]]&lt;/code>&lt;/td>
+&lt;td>Symlink&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -d FILE ]]&lt;/code>&lt;/td>
+&lt;td>Directory&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -w FILE ]]&lt;/code>&lt;/td>
+&lt;td>Writable&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -s FILE ]]&lt;/code>&lt;/td>
+&lt;td>Size is &amp;gt; 0 bytes&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -f FILE ]]&lt;/code>&lt;/td>
+&lt;td>File&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ -x FILE ]]&lt;/code>&lt;/td>
+&lt;td>Executable&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>---&lt;/td>
+&lt;td>---&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ FILE1 -nt FILE2 ]]&lt;/code>&lt;/td>
+&lt;td>1 is more recent than 2&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ FILE1 -ot FILE2 ]]&lt;/code>&lt;/td>
+&lt;td>2 is more recent than 1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>[[ FILE1 -ef FILE2 ]]&lt;/code>&lt;/td>
+&lt;td>Same files&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="test-example">Test Example&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># String&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -z &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$string&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;String is empty&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="k">elif&lt;/span> &lt;span class="o">[[&lt;/span> -n &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$string&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;String is not empty&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="k">else&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;This never happens&amp;#34;&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># Combinations&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> X &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> Y &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">3&lt;/span> ...
+&lt;span class="ln">4&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># Equal&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$A&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$B&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># Regex&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> &lt;span class="s2">&amp;#34;A&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span>~ . &lt;span class="o">]]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">((&lt;/span> &lt;span class="nv">$a&lt;/span> &amp;lt; &lt;span class="nv">$b&lt;/span> &lt;span class="o">))&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$a&lt;/span>&lt;span class="s2"> is smaller than &lt;/span>&lt;span class="nv">$b&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> -e &lt;span class="s2">&amp;#34;file.txt&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;file exists&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="arrays">Arrays&lt;/h2>
+&lt;h3 id="defining-arrays">Defining arrays&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s1">&amp;#39;Apple&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39;Banana&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39;Orange&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>Fruits&lt;span class="o">[&lt;/span>0&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;Apple&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>Fruits&lt;span class="o">[&lt;/span>1&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;Banana&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>Fruits&lt;span class="o">[&lt;/span>2&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;Orange&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="working-with-arrays">Working with arrays&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[0]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Element #0&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[-1]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Last element&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># All elements, space-separated&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Number of elements&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># String length of the 1st element&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[3]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># String length of the Nth element&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]:&lt;/span>&lt;span class="nv">3&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Range (from position 3, length 2)&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">!Fruits[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Keys of all elements, space-separated&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="operations">Operations&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;Watermelon&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="c1"># Push&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="o">+=(&lt;/span>&lt;span class="s1">&amp;#39;Watermelon&amp;#39;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="c1"># Also Push&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="o">=(&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]/Ap*/&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="o">)&lt;/span> &lt;span class="c1"># Remove by regex match&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">unset&lt;/span> Fruits&lt;span class="o">[&lt;/span>2&lt;span class="o">]&lt;/span> &lt;span class="c1"># Remove one item&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="c1"># Duplicate&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">Fruits&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">Veggies&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="c1"># Concatenate&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="nv">lines&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="sb">`&lt;/span>cat &lt;span class="s2">&amp;#34;logfile&amp;#34;&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="c1"># Read from file&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="iteration">Iteration&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> i in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">arrayName&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$i&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dictionaries">Dictionaries&lt;/h2>
+&lt;h3 id="defining">Defining&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">declare&lt;/span> -A sounds
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>sounds&lt;span class="o">[&lt;/span>dog&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;bark&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>sounds&lt;span class="o">[&lt;/span>cow&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;moo&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>sounds&lt;span class="o">[&lt;/span>bird&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;tweet&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>sounds&lt;span class="o">[&lt;/span>wolf&lt;span class="o">]=&lt;/span>&lt;span class="s2">&amp;#34;howl&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Declares &lt;code>sound&lt;/code> as a Dictionary object (aka associative array).&lt;/p>
+&lt;h3 id="working-with-dictionaries">Working with dictionaries&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">sounds&lt;/span>&lt;span class="p">[dog]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Dog&amp;#39;s sound&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">sounds&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># All values&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">!sounds[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># All keys&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">sounds&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># Number of elements&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">unset&lt;/span> sounds&lt;span class="o">[&lt;/span>dog&lt;span class="o">]&lt;/span> &lt;span class="c1"># Delete dog&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="iteration-operation">Iteration Operation&lt;/h3>
+&lt;h4 id="iterate-over-values">Iterate over values&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> val in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">sounds&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$val&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="iterate-over-keys">Iterate over keys&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> key in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="p">!sounds[@]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$key&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="options">Options&lt;/h2>
+&lt;h3 id="set-options">set Options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">set&lt;/span> -o noclobber &lt;span class="c1"># Avoid overlay files (echo &amp;#34;hi&amp;#34; &amp;gt; foo)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">set&lt;/span> -o errexit &lt;span class="c1"># Used to exit upon error, avoiding cascading errors&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">set&lt;/span> -o pipefail &lt;span class="c1"># Unveils hidden failures&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">set&lt;/span> -o nounset &lt;span class="c1"># Exposes unset variables&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="glob-options">Glob options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">shopt&lt;/span> -s nullglob &lt;span class="c1"># Non-matching globs are removed (&amp;#39;*.foo&amp;#39; =&amp;gt; &amp;#39;&amp;#39;)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">shopt&lt;/span> -s failglob &lt;span class="c1"># Non-matching globs throw errors&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">shopt&lt;/span> -s nocaseglob &lt;span class="c1"># Case insensitive globs&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">shopt&lt;/span> -s dotglob &lt;span class="c1"># Wildcards match dotfiles (&amp;#34;*.sh&amp;#34; =&amp;gt; &amp;#34;.foo.sh&amp;#34;)&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">shopt&lt;/span> -s globstar &lt;span class="c1"># Allow ** for recursive matches (&amp;#39;lib/**/*.rb&amp;#39; =&amp;gt; &amp;#39;lib/a/b/c.rb&amp;#39;)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Set &lt;code>GLOBIGNORE&lt;/code> as a colon-separated list of patterns to be removed from glob
+matches.&lt;/p>
+&lt;h2 id="history">History&lt;/h2>
+&lt;h3 id="commands">Commands&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Command&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>history&lt;/code>&lt;/td>
+&lt;td>Show history&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>shopt -s histverify&lt;/code>&lt;/td>
+&lt;td>Don't execute expanded result immediately&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="expansions">Expansions&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>!$&lt;/code>&lt;/td>
+&lt;td>Expand last parameter of most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!*&lt;/code>&lt;/td>
+&lt;td>Expand all parameters of most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!-n&lt;/code>&lt;/td>
+&lt;td>Expand &lt;code>n&lt;/code>th most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!n&lt;/code>&lt;/td>
+&lt;td>Expand &lt;code>n&lt;/code>th command in history&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!&amp;lt;command&amp;gt;&lt;/code>&lt;/td>
+&lt;td>Expand most recent invocation of command &lt;code>&amp;lt;command&amp;gt;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="operation-info">Operation Info&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>!!&lt;/code>&lt;/td>
+&lt;td>Execute last command again&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!!:s/&amp;lt;FROM&amp;gt;/&amp;lt;TO&amp;gt;/&lt;/code>&lt;/td>
+&lt;td>Replace first occurrence of &lt;code>&amp;lt;FROM&amp;gt;&lt;/code> to &lt;code>&amp;lt;TO&amp;gt;&lt;/code> in most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!!:gs/&amp;lt;FROM&amp;gt;/&amp;lt;TO&amp;gt;/&lt;/code>&lt;/td>
+&lt;td>Replace all occurrences of &lt;code>&amp;lt;FROM&amp;gt;&lt;/code> to &lt;code>&amp;lt;TO&amp;gt;&lt;/code> in most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!$:t&lt;/code>&lt;/td>
+&lt;td>Expand only basename from last parameter of most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!$:h&lt;/code>&lt;/td>
+&lt;td>Expand only directory from last parameter of most recent command&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;code>!!&lt;/code> and &lt;code>!$&lt;/code> can be replaced with any valid expansion.&lt;/p>
+&lt;h3 id="slices">Slices&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Code&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>!!:n&lt;/code>&lt;/td>
+&lt;td>Expand only &lt;code>n&lt;/code>th token from most recent command (command is &lt;code>0&lt;/code>; first argument is &lt;code>1&lt;/code>)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!^&lt;/code>&lt;/td>
+&lt;td>Expand first argument from most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!$&lt;/code>&lt;/td>
+&lt;td>Expand last token from most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!!:n-m&lt;/code>&lt;/td>
+&lt;td>Expand range of tokens from most recent command&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>!!:n-$&lt;/code>&lt;/td>
+&lt;td>Expand &lt;code>n&lt;/code>th token to last from most recent command&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;code>!!&lt;/code> can be replaced with any valid expansion i.e. &lt;code>!cat&lt;/code>, &lt;code>!-2&lt;/code>, &lt;code>!42&lt;/code>, etc.&lt;/p>
+&lt;h2 id="miscellaneous">Miscellaneous&lt;/h2>
+&lt;h3 id="numeric-calculations">Numeric calculations&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">$((&lt;/span>a &lt;span class="o">+&lt;/span> &lt;span class="m">200&lt;/span>&lt;span class="k">))&lt;/span> &lt;span class="c1"># Add 200 to $a&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">$((&lt;/span>&lt;span class="nv">$RANDOM&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="m">200&lt;/span>&lt;span class="k">))&lt;/span> &lt;span class="c1"># Random number 0..199&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="subshells">Subshells&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nb">cd&lt;/span> somedir&lt;span class="p">;&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;I&amp;#39;m now in &lt;/span>&lt;span class="nv">$PWD&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">pwd&lt;/span> &lt;span class="c1"># still in first directory&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="redirection">Redirection&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>python hello.py &amp;gt; output.txt &lt;span class="c1"># stdout to (file)&lt;/span>
+&lt;span class="ln">2&lt;/span>python hello.py &amp;gt;&amp;gt; output.txt &lt;span class="c1"># stdout to (file), append&lt;/span>
+&lt;span class="ln">3&lt;/span>python hello.py 2&amp;gt; error.log &lt;span class="c1"># stderr to (file)&lt;/span>
+&lt;span class="ln">4&lt;/span>python hello.py 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="c1"># stderr to stdout&lt;/span>
+&lt;span class="ln">5&lt;/span>python hello.py 2&amp;gt;/dev/null &lt;span class="c1"># stderr to (null)&lt;/span>
+&lt;span class="ln">6&lt;/span>python hello.py &lt;span class="p">&amp;amp;&lt;/span>&amp;gt;/dev/null &lt;span class="c1"># stdout and stderr to (null)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>python hello.py &amp;lt; foo.txt &lt;span class="c1"># feed foo.txt to stdin for python&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="inspecting-commands">Inspecting commands&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">command&lt;/span> -V &lt;span class="nb">cd&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1">#=&amp;gt; &amp;#34;cd is a function/alias/whatever&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="trap-errors">Trap errors&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">trap&lt;/span> &lt;span class="s1">&amp;#39;echo Error at about $LINENO&amp;#39;&lt;/span> ERR
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>traperr&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;ERROR: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">BASH_SOURCE&lt;/span>&lt;span class="p">[1]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> at about &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">BASH_LINENO&lt;/span>&lt;span class="p">[0]&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">set&lt;/span> -o errtrace
+&lt;span class="ln">6&lt;/span>&lt;span class="nb">trap&lt;/span> traperr ERR
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="caseswitch">Case/switch&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> in
+&lt;span class="ln">2&lt;/span> start &lt;span class="p">|&lt;/span> up&lt;span class="o">)&lt;/span>
+&lt;span class="ln">3&lt;/span> vagrant up
+&lt;span class="ln">4&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">5&lt;/span>
+&lt;span class="ln">6&lt;/span> *&lt;span class="o">)&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Usage: &lt;/span>&lt;span class="nv">$0&lt;/span>&lt;span class="s2"> {start|stop|ssh}&amp;#34;&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="k">esac&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="source-relative">Source relative&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">source&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="p">%/*&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">/../share/foo.sh&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="printf">printf&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">printf&lt;/span> &lt;span class="s2">&amp;#34;Hello %s, I&amp;#39;m %s&amp;#34;&lt;/span> Sven Olga
+&lt;span class="ln">2&lt;/span>&lt;span class="c1">#=&amp;gt; &amp;#34;Hello Sven, I&amp;#39;m Olga&lt;/span>
+&lt;span class="ln">3&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">printf&lt;/span> &lt;span class="s2">&amp;#34;1 + 1 = %d&amp;#34;&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="c1">#=&amp;gt; &amp;#34;1 + 1 = 2&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="nb">printf&lt;/span> &lt;span class="s2">&amp;#34;This is how you print a float: %f&amp;#34;&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="c1">#=&amp;gt; &amp;#34;This is how you print a float: 2.000000&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="directory-of-script">Directory of script&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nv">DIR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="p">%/*&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="getting-options">Getting options&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">while&lt;/span> &lt;span class="o">[[&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span>~ ^- &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ! &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;--&amp;#34;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">case&lt;/span> &lt;span class="nv">$1&lt;/span> in
+&lt;span class="ln"> 2&lt;/span> -V &lt;span class="p">|&lt;/span> --version &lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$version&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nb">exit&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln"> 6&lt;/span> -s &lt;span class="p">|&lt;/span> --string &lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 7&lt;/span> shift&lt;span class="p">;&lt;/span> &lt;span class="nv">string&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$1&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> -f &lt;span class="p">|&lt;/span> --flag &lt;span class="o">)&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nv">flag&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="k">esac&lt;/span>&lt;span class="p">;&lt;/span> shift&lt;span class="p">;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[[&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;--&amp;#39;&lt;/span> &lt;span class="o">]]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span> shift&lt;span class="p">;&lt;/span> &lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="heredoc">Heredoc&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="ln">1&lt;/span>cat &lt;span class="s">&amp;lt;&amp;lt;END
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="s">hello world
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="s">END&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="reading-input">Reading input&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">echo&lt;/span> -n &lt;span class="s2">&amp;#34;Proceed? [y/n]: &amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">read&lt;/span> ans
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$ans&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">read&lt;/span> -n &lt;span class="m">1&lt;/span> ans &lt;span class="c1"># Just one character&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="special-variables">Special variables&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Expression&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>$?&lt;/code>&lt;/td>
+&lt;td>Exit status of last task&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$!&lt;/code>&lt;/td>
+&lt;td>PID of last background task&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$$&lt;/code>&lt;/td>
+&lt;td>PID of shell&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$0&lt;/code>&lt;/td>
+&lt;td>Filename of the shell script&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>$_&lt;/code>&lt;/td>
+&lt;td>Last argrument of the previous command&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>See &lt;a href="http://wiki.bash-hackers.org/syntax/shellvars#special_parameters_and_shell_variables">Special parameters&lt;/a>.&lt;/p>
+&lt;h3 id="go-to-previous-directory">Go to previous directory&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">pwd&lt;/span> &lt;span class="c1"># /home/user/foo&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">cd&lt;/span> bar/
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">pwd&lt;/span> &lt;span class="c1"># /home/user/foo/bar&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">cd&lt;/span> -
+&lt;span class="ln">5&lt;/span>&lt;span class="nb">pwd&lt;/span> &lt;span class="c1"># /home/user/foo&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="check-for-commands-result">Check for command's result&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> ping -c &lt;span class="m">1&lt;/span> google.com&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;It appears you have a working internet connection&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="grep-check">Grep check&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> grep -q &lt;span class="s1">&amp;#39;foo&amp;#39;&lt;/span> ~/.bash_history&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;You appear to have typed &amp;#39;foo&amp;#39; in the past&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="also-see">Also see&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="http://wiki.bash-hackers.org/">Bash-hackers wiki&lt;/a> &lt;em>(bash-hackers.org)&lt;/em>&lt;/li>
+&lt;li>&lt;a href="http://wiki.bash-hackers.org/syntax/shellvars">Shell vars&lt;/a> &lt;em>(bash-hackers.org)&lt;/em>&lt;/li>
+&lt;li>&lt;a href="https://learnxinyminutes.com/docs/bash/">Learn bash in y minutes&lt;/a> &lt;em>(learnxinyminutes.com)&lt;/em>&lt;/li>
+&lt;li>&lt;a href="http://mywiki.wooledge.org/BashGuide">Bash Guide&lt;/a> &lt;em>(mywiki.wooledge.org)&lt;/em>&lt;/li>
+&lt;li>&lt;a href="https://www.shellcheck.net/">ShellCheck&lt;/a> &lt;em>(shellcheck.net)&lt;/em>&lt;/li>
+&lt;/ul></description></item></channel></rss>

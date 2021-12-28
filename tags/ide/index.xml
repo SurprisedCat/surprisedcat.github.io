@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ide on SurprisedCat</title><link>https://surprisedcat.github.io/tags/ide/</link><description>Recent content in ide on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 09 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/ide/index.xml" rel="self" type="application/rss+xml"/><item><title>python-pylint无法载入动态库成员方法的处理</title><link>https://surprisedcat.github.io/projectnotes/python-pylint%E6%97%A0%E6%B3%95%E8%BD%BD%E5%85%A5%E5%8A%A8%E6%80%81%E5%BA%93%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95%E7%9A%84%E5%A4%84%E7%90%86/</link><pubDate>Tue, 09 Jun 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/python-pylint%E6%97%A0%E6%B3%95%E8%BD%BD%E5%85%A5%E5%8A%A8%E6%80%81%E5%BA%93%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95%E7%9A%84%E5%A4%84%E7%90%86/</guid><description>
+&lt;h2 id="pylint无法载入第三方库成员方法处理以cv2为例---omit-in-toc---">Pylint无法载入第三方库成员方法处理，以cv2为例&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>You can generate a pylint config file in the root of your project with this command: (I find this to be helpful if you work in a team or on different computers from the same repo)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>pylint --generate-rcfile &amp;gt; .pylintrc
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>At the beginning of the generated .pylintrc file you will see&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># A comma-separated list of package or module names from where C extensions may&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># be loaded. Extensions are loading into the active Python interpreter and may&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># run arbitrary code.&lt;/span>
+&lt;span class="ln">4&lt;/span>extension-pkg-whitelist&lt;span class="o">=&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add cv2 so you end up with&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># A comma-separated list of package or module names from where C extensions may&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># be loaded. Extensions are loading into the active Python interpreter and may&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># run arbitrary code.&lt;/span>
+&lt;span class="ln">4&lt;/span>extension-pkg-whitelist&lt;span class="o">=&lt;/span>cv2
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Save the file. The lint errors should disappear.&lt;/p></description></item><item><title>python-Eclipse-pydev-encode</title><link>https://surprisedcat.github.io/projectnotes/python-eclipse-pydev-encode/</link><pubDate>Wed, 26 Oct 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/python-eclipse-pydev-encode/</guid><description>
+&lt;h2 id="转载eclipsepydev解决中文显示和注释问题的方法大全---omit-in-toc---">转载：Eclipse+pydev解决中文显示和注释问题的方法大全&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>原文地址：&lt;a href="http://blog.sina.com.cn/s/blog_779eecd801011j7x.html">http://blog.sina.com.cn/s/blog_779eecd801011j7x.html&lt;/a> 作者：海木棉枫&lt;/p>
+&lt;h2 id="eclipse的设置">Eclipse的设置&lt;/h2>
+&lt;p>window-&amp;gt;preferences-&amp;gt;general-&amp;gt;editors-&amp;gt;text editors-&amp;gt;spelling-&amp;gt;encoding-&amp;gt;UTF-8，编辑器的编码格式&lt;/p>
+&lt;p>window-&amp;gt;preferences-&amp;gt;workspace-&amp;gt;text file encoding-&amp;gt;UTF-8&lt;/p>
+&lt;p>打开eclipse安装目录-&amp;gt;eclipse.ini，末行加上”-Dfile.encoding=UTF-8”&lt;/p>
+&lt;h2 id="文件编码">文件编码&lt;/h2>
+&lt;p>py文件记得保存成UTF-8，文件首行加上”#coding=utf-8” ，这一句话可控制代码中可输入中文字符&lt;/p>
+&lt;h2 id="run时设置">run时设置&lt;/h2>
+&lt;p>run--&amp;gt;run configurations-&amp;gt;python run-&amp;gt;Common-&amp;gt; Encoding -&amp;gt;UTF-8.这个应该是运行时的可解决中文乱码问题。&lt;/p>
+&lt;p>更改空白模块默认显示# -&lt;em>- coding: utf-8 -&lt;/em>-&lt;/p>
+&lt;p>如果想每次新建一个空模块时自动添加”# -&lt;em>- coding: utf-8 -&lt;/em>-” 这样的一句话，可以通过window--Preferences--Pydev--Editor--Template--Empty，然后点击“Edit”按钮，把我们要添加的语句加进去就可以了，将事先默认的语句去掉，改写为：# -&lt;em>- coding: utf-8 -&lt;/em>- 这样的一句话,然后你再新建一个空白模块，再也不需要每次都要复制那个编码语句了。&lt;/p>
+&lt;p>当在建立的python项目时，输入的中文太细，可以通过
+Window &amp;gt; Preferences&amp;gt;General&amp;gt;Appearance&amp;gt;Color and Fonts中的第一个来设置，Basic里面的TextFonts设置大小即可。&lt;/p></description></item></channel></rss>
