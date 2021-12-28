@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Nov 25, 2021</span>
-<span class=post_time> · 5 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/devops title=devops class="post_tag button button_translucent">devops
+<span class=post_time> · 6 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/devops title=devops class="post_tag button button_translucent">devops
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -125,9 +125,9 @@ Nov 25, 2021</span>
 <li><a href=#%E6%8E%A8%E9%80%81%E5%88%B0github%E5%B9%B6%E7%94%9F%E6%88%90gitpages>推送到Github并生成Gitpages</a></li>
 </ul>
 <h2 id=思路汇总>思路汇总</h2>
-<p>我自己分几个文件夹写了一些笔记和资料，现在想用Hugo部署到自己的云主机上同时同步到github上，利用gitpage在生成一个blog，也就是自动生成两个同步的blog，初步体验一下DevOps流程。目前本地使用win10，带有git；云主机是Debian 10，有golang 1.15.14环境。</p>
+<p>我自己分几个文件夹写了一些笔记和资料，现在想用Hugo部署到自己的云主机上同时同步到github上，利用gitpage在生成一个blog，也就是自动生成两个同步的blog，初步体验一下DevOps流程。目前本地使用win10，带有git；云主机是Debian 10，有golang 1.15.14环境。主要使用了git hooks和jenkins，以及rsync作为补充。</p>
 <p><img src=../../images/devops.png alt=DevOps></p>
-<p>初步思路：</p>
+<p>总体思路：</p>
 <ol>
 <li>由于本地文件夹都放在一起，首先通过编辑.gitignore文件，指定需要git管理的几个文件。</li>
 <li>将自己的云服务器作为一个git remote仓库，管理自己的这些资料和笔记</li>
@@ -136,9 +136,9 @@ Nov 25, 2021</span>
 <li>改成在远程主机上再设置一个git仓库，设置post-receive hook通知jenkins将提交的内容pull到云主机新的仓库中</li>
 </ul>
 </li>
-<li>建立hugo文件到git仓库的软连接，当hugo编译的时候实际使用的是git仓库中的文件</li>
+<li>建立hugo文件到git仓库的软链接，不能使用软链接的用rsync同步过去，当hugo编译的时候实际使用的是git仓库中的文件</li>
 <li>使用jenkins自动构建部署云服务器上的Hugo blog</li>
-<li>将完整的Hugo blog推送到GitHub，GitHub基于Github Action自动启动会生成Gitpages.（TODO）</li>
+<li>将完整的编译好的Hugo blog推送到GitHub，利用GitPages生成网站。</li>
 </ol>
 <p>为什么不设置两个remote repo分别推送？怕自己疏忽，造成大量的冲突处理问题。</p>
 <p>为什么不先推送到GitHub再用Github Actions推送到云上？自己觉得在云上折腾比较方便，就当云是测试环境，GitHub是发布环境吧。</p>
@@ -466,13 +466,69 @@ Nov 25, 2021</span>
 <span class=ln>18</span>$ sudo systemctl restart jenkins
 </code></pre></div><p>接下来，我们打开jenkins网站界面，默认是8080端口。首先按照页面提示进行初始化（因为我的jenkins早就安装了，这里就不介绍初始化流程了），然后点击左边菜单栏的“新建任务”，输入任务名称，选择构建一个自由风格的软件项目。</p>
 <p><img src=../../images/devops-jenkins1.png alt=jenkins1></p>
-<p>按照如下配置，设置构建流程。</p>
+<p>按照如下配置，设置构建流程。我们不需要源码，因此也没有工作区，在构建一栏中加上需要执行的命令。构建触发器接下来再设置。</p>
 <p><img src=../../images/devops-jenkins2.png alt=jenkins2></p>
-<p>设置好后，我们点击保存，然后点击左侧菜单栏的“立即构建”，就可通过jenkins执行构建命令。我们做了以上的工作。</p>
+<p>设置好后，我们点击保存，然后点击左侧菜单栏的“立即构建”，就可通过jenkins执行构建命令。目前为止，我们做的以上的工作，只不过是把在命令行做的工作放到jenkins里完成而已，若需要自动触发构建，还需要构建触发器，如下图所示：</p>
 <p><img src=../../images/devops-jenkins3.png alt=jenkins3></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>curl -X post -u <span class=s1>&#39;username:password&#39;</span> -v http://127.0.0.1:8080/job/hugoblog/build?token<span class=o>=</span>TOKEN_NAME
-</code></pre></div><h2 id=推送到github并生成gitpages>推送到Github并生成Gitpages</h2>
-<p>我们将部署在云服务器上的内容，通过<code>git push</code>推送到Github上，并用Github Action自动生成Gitpages。</p>
+<p>构建的触发器种类选择“触发远程构建”，然后在身份验证令牌中输入一串随机数作为验证码，接下面，我们只需要访问一个网址<a href="http://127.0.0.1:8080/job/hugoblog/build?token=TOKEN_NAME">http://127.0.0.1:8080/job/hugoblog/build?token=TOKEN_NAME</a>，就能触发这个构建。由于我们的git库和jenkins在同一台主机上，所以IP写127.0.0.1就行，端口8080是jenkins的默认端口，后面的url是固定的，最后在“TOKEN_NAME”处用我们刚在身份验证令牌中输入的随机替代。我们在浏览器中输入这个URL，就可以发现jenkins启动了一个新的构建。</p>
+<p>一般这样就没什么问若发生403错误：Error 403 No valid crumb was included in the request，则考虑jenkins关闭全局安全设置中的“跨站请求伪造保护”；若真心为了安全考虑，则增加获取crumb值，具体步骤自行搜索。</p>
+<p>接下来我们要把触发网址的工作交给git的hook脚本，我们在post-receive脚本的最后添加如下命令：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 触发jenkins编译新网站</span>
+<span class=ln>2</span><span class=c1># -X 表示请求类型，用post；-u 表示认证信息，填写登录jenkins的用户名密码；-v表示显示详细过程</span>
+<span class=ln>3</span><span class=c1># URL触发远程构建所用的URL</span>
+<span class=ln>4</span>curl -X post -u <span class=s1>&#39;username:password&#39;</span> -v http://127.0.0.1:8080/job/hugoblog/build?token<span class=o>=</span>TOKEN_NAME
+</code></pre></div><p>到此，我们已经完成了本地<code>git push</code>后，自动完成内容更新、网站构建的工作。</p>
+<h2 id=推送到github并生成gitpages>推送到Github并生成Gitpages</h2>
+<p>如果要使用GitPages，我们需要<strong>将hugo编译好的网站，而非原始数据推送到GitHub</strong>。</p>
+<p>首先，我们要在GitHub新建一个库，库名比较特殊，必须是：<strong>用户名.github.io</strong>，且<strong>所有字母必须小写</strong>。选择public类型，然后下面的README、证书、.gitignore都不用添加。如下图所示：</p>
+<p><img src=../../images/devops-gitpages.png alt=创建gitpages></p>
+<p>由于我们自己云服务和GitHub的域名不一样，所以不能直接把云上编译好的网站直接push到GitHub。我们需要<strong>改变baseUrl参数</strong>，重新编译。为了公式完整，我们之前在markdown编译时用了pandoc编译速度慢，同时国内连接github网络不稳定，所以我在jenkins中单独为Github的推送流程新建了一个任务，以免拖累本地编译过程。</p>
+<p>我们先做一些准备工作。</p>
+<p>第一步，我们为了能让云服务器有权限把内容推送给GitHub的库，因此要将自己的公钥存放到GitHub上。我们存放的是云服务器上git用户的公钥，查看git用户的公钥<code>cat /home/git/.ssh/id_rsa.pub</code>，若没有此文件则使用git用户的<code>ssh-keygen -t rsa</code>创建。将公钥放到GitHub右上角图像->settings->SSH and GPG keys->New SSH key，然后把公钥复制粘贴过来。</p>
+<p>第二步，我们为推送到github的库做一些初始化工作。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 为GitHub新建库文件夹，并将所有者改为git</span>
+<span class=ln> 2</span>$ sudo mkdir <span class=nb>cd</span> /opt/surprisedcat.github.io
+<span class=ln> 3</span>$ sudo chown git:git /opt/surprisedcat.github.io
+<span class=ln> 4</span><span class=c1># 切换到git用户执行以下操作</span>
+<span class=ln> 5</span>$ su - git
+<span class=ln> 6</span><span class=c1># 重新编译网站，注意baseUrl是不同的</span>
+<span class=ln> 7</span>$ hugo --minify --baseUrl<span class=o>=</span>https://surprisedcat.github.io -s /opt/blogtheme  -d /opt/surprisedcat.github.io/
+<span class=ln> 8</span>Start building sites …
+<span class=ln> 9</span>hugo v0.89.4-AB01BA6E+extended linux/amd64 <span class=nv>BuildDate</span><span class=o>=</span>2021-11-17T08:24:09Z <span class=nv>VendorInfo</span><span class=o>=</span>gohugoio
+<span class=ln>10</span>
+<span class=ln>11</span>                   <span class=p>|</span> ZH-CN
+<span class=ln>12</span>-------------------+--------
+<span class=ln>13</span>  Pages            <span class=p>|</span>   <span class=m>335</span>
+<span class=ln>14</span>  Paginator pages  <span class=p>|</span>    <span class=m>54</span>
+<span class=ln>15</span>  Non-page files   <span class=p>|</span>     <span class=m>0</span>
+<span class=ln>16</span>  Static files     <span class=p>|</span>   <span class=m>364</span>
+<span class=ln>17</span>  Processed images <span class=p>|</span>     <span class=m>0</span>
+<span class=ln>18</span>  Aliases          <span class=p>|</span>    <span class=m>80</span>
+<span class=ln>19</span>  Sitemaps         <span class=p>|</span>     <span class=m>1</span>
+<span class=ln>20</span>  Cleaned          <span class=p>|</span>     <span class=m>0</span>
+<span class=ln>21</span>
+<span class=ln>22</span>Total in <span class=m>18596</span> ms
+<span class=ln>23</span><span class=c1># 初始化git库</span>
+<span class=ln>24</span>$ <span class=nb>cd</span> /opt/surprisedcat.github.io
+<span class=ln>25</span>$ git init .
+<span class=ln>26</span><span class=c1># 第一次commit和添加远程库，commit带上日期</span>
+<span class=ln>27</span>$ git add .
+<span class=ln>28</span>$ git commit -m <span class=s2>&#34;`date` commit&#34;</span>
+<span class=ln>29</span><span class=c1># 将主分支重命名为main</span>
+<span class=ln>30</span>$ git branch -M main
+<span class=ln>31</span>$ git remote add origin git@github.com:SurprisedCat/surprisedcat.github.io.git
+<span class=ln>32</span>$ git push -u origin main
+</code></pre></div><p>第三步，在jenkins中新建构建任务。源码管理选择“无”，构建触发器选择如下图：</p>
+<p><img src=../../images/devops-jenkins-gitpages.png alt=jenkins-github></p>
+<p>我们建立两个触发器，一是传统远程触发器，二是在云构建完成后，自动构建推送到github的流程。</p>
+<p>在构建栏目下，选择“执行shell”，并填入以下命令：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>hugo --minify --baseUrl<span class=o>=</span>https://surprisedcat.github.io -s /opt/blogtheme  -d /opt/surprisedcat.github.io/
+<span class=ln>2</span><span class=nb>cd</span> /opt/surprisedcat.github.io
+<span class=ln>3</span>git add .
+<span class=ln>4</span>git commit -m <span class=s2>&#34;`date` commit&#34;</span>
+<span class=ln>5</span>git push -u origin main
+</code></pre></div><p>点击保存。</p>
+<p>一整套配置完成。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
