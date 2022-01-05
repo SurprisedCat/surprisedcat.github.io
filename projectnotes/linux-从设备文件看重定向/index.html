@@ -17,9 +17,9 @@
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
 <link rel=canonical href=https://surprisedcat.github.io/projectnotes/linux-%E4%BB%8E%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6%E7%9C%8B%E9%87%8D%E5%AE%9A%E5%90%91/>
-<link rel=preload href=https://surprisedcat.github.io/css/styles.b3aada60be6255163f15b946a17b07d8badc20be925f60ecba8489ff79d1b26de58ce9eef0c2c58457939b2b63f63e4a11cd66fd1d121ac12ec4d2594273683f.css integrity="sha512-s6raYL5iVRY/FblGoXsH2LrcIL6SX2DsuoSJ/3nRsm3ljOnu8MLFhFeTmytj9j5KEc1m/R0SGsEuxNJZQnNoPw==" as=style crossorigin=anonymous>
-<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.14825dc619648aeca2e4e66c65ef7d06ea216e6a64cd503f64d2fe77950ee425c47fc0f2cf993c2d656f534914619a2c47c8313438a810ed5008db38a46a812d.js as=script integrity="sha512-FIJdxhlkiuyi5OZsZe99BuohbmpkzVA/ZNL+d5UO5CXEf8Dyz5k8LWVvU0kUYZosR8gxNDioEO1QCNs4pGqBLQ==" crossorigin=anonymous>
-<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.b3aada60be6255163f15b946a17b07d8badc20be925f60ecba8489ff79d1b26de58ce9eef0c2c58457939b2b63f63e4a11cd66fd1d121ac12ec4d2594273683f.css integrity="sha512-s6raYL5iVRY/FblGoXsH2LrcIL6SX2DsuoSJ/3nRsm3ljOnu8MLFhFeTmytj9j5KEc1m/R0SGsEuxNJZQnNoPw==" crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
 </head>
 <body data-code=20 data-lines=true id=documentTop>
 <header class=nav_header>
@@ -77,7 +77,8 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Nov 24, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/linux title=linux class="post_tag button button_translucent">linux
+<span class=post_time> · 3 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/linux title=linux class="post_tag button button_translucent">linux
+</a><a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B title=CLI处理流程 class="post_tag button button_translucent">CLI处理流程
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -89,24 +90,50 @@ Nov 24, 2021</span>
 </span>
 </div>
 <ul>
-<li><a href=#%E6%95%B0%E6%8D%AE%E6%B5%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%9A%84%E5%8E%86%E7%A8%8B>数据流输入输出的历程</a></li>
-<li><a href=#%E4%B8%80%E5%88%87%E7%9A%86%E6%96%87%E4%BB%B6-fd-%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6>一切皆文件 fd 文件描述符</a>
-<ul>
-<li><a href=#%E8%AE%BE%E5%A4%87%E5%AF%B9%E5%BA%94tty>设备对应tty</a></li>
-</ul>
-</li>
-<li><a href=#%E6%9B%B4%E6%94%B9%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%96%B9%E5%90%91>更改输入输出方向</a></li>
+<li><a href=#%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6>终端设备文件</a></li>
+<li><a href=#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E8%AE%BE%E5%A4%87%E4%B8%8E%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6>标准输入输出设备与终端设备文件</a></li>
+<li><a href=#%E4%B8%80%E5%88%87%E7%9A%86%E6%96%87%E4%BB%B6>一切皆文件</a></li>
+<li><a href=#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91>输入输出重定向</a></li>
 <li><a href=#%E6%B3%A8%E6%84%8F-here-doucment>注意&lt;&lt; Here doucment</a></li>
 <li><a href=#%E7%AC%A6%E5%8F%B7>&符号</a></li>
+<li><a href=#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9>参考内容</a></li>
 </ul>
 <h2 id=linux-从设备文件看重定向---omit-in-toc--->linux-从设备文件看重定向</h2>
-<p>我们在《linux-特殊设备文件》一文中介绍了标准输入输出（错误）设备和终端设备，指出默认情况下输入的信息来自标准输入设备(stdin)，程序返回的一般信息交给标准输出设备(stdout)，返回的错误信息交给标准错误设备(stderr)，而标准输入输出（错误）设备在默认情况下，都会被链接到正在被操作的虚拟终端(tty)或伪终端(pty)，也就是我们的交互界面。</p>
-<p>从数据流的角度来看，输入数据流是TTY模块将键盘输入的数据接收后，再写入<code>stdin</code>设备，<code>stdin</code>设备再将数据传递给相应的程序；输出数据流是程序将返回的信息写入<code>stdout,stderr</code>设备，TTY模块从<code>stdout,stderr</code>设备读取程序的信息，并最终交付给物理终端（显示器）。</p>
-<p>从结果上来讲，上述流程大体是对的，如果只是正常使用Linux系统，理解到此也没什么问题。</p>
-<p>但是，如果我们深入地了解它们之间的关系，会发现以上的描述存在一些不准确的地方。</p>
-<h2 id=数据流输入输出的历程>数据流输入输出的历程</h2>
-<p>我们先简化一下整个系统结构，假定数据的来源终端是键盘，数据的显示键盘是显示器，我们通过伪终端方式进行交互。</p>
-<p>当执行shell命令时，会默认打开3个文件，每个文件有对应的文件描述符来方便我们使用。</p>
+<p>我们在《linux-特殊设备文件》一文中介绍了标准输入输出（错误）设备和终端设备，指出默认情况下输入的信息来自标准输入设备(stdin)，程序返回的一般信息交给标准输出设备(stdout)，返回的错误信息交给标准错误设备(stderr)，而标准输入输出（错误）设备在默认情况下，都会被链接到正在被操作的虚拟终端(tty)或伪终端(pty)，最终转发到我们的交互界面。</p>
+<p>从数据流的角度来看，正常情况下，输入数据流是Linux内核将键盘输入的数据接收后，再写入<code>/dev/stdin</code>设备，<code>/dev/stdin</code>设备再将数据传递给相应的程序；输出数据流是程序将返回的信息写入<code>/dev/stdout,/dev/stderr</code>设备，Linux内核从<code>/dev/stdout,/dev/stderr</code>设备读取程序的信息，并最终交付给物理终端（显示器）。如下图：</p>
+<p><img src=../../images/%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%80%E5%8C%96%E5%9B%BE.drawio.svg alt=标准输入输出简化图></p>
+<p>从结果上来讲，上述流程大体是对的，如果只是正常使用Linux系统，理解到此也没什么问题。如果我们深入地了解它们之间的关系，会发现以上的描述存在一些不准确的地方。</p>
+<h2 id=终端设备文件>终端设备文件</h2>
+<p>当我们使用基于命令行的用户接口，CLI Shell，时（例如Bash，sh，zsh），都是通过终端模拟器和Linux系统进行交互。如果这个终端模拟器使用的是内核中实现的终端模拟器，那么叫做虚拟终端，为用户提供了<code>/dev/ttyX</code>的设备接口文件；若这个终端模拟器工作在Linux用户区甚至远程客户端（如ssh），那么叫做伪终端，为用户提供了<code>/dev/ptmx</code>和<code>/dev/pts/X</code>这两个设备接口文件。对用户区程序而言，无论是<code>/dev/ttyX</code>还是<code>/dev/pts/X</code>I/O操作都表现得像个标准终端。</p>
+<blockquote>
+<p>注：Linux诞生之初，用户通过物理终端和Linux计算机连接交互，后来物理终端被淘汰变成键盘、显示器等外设，然后Linux内部机制却已经和物理终端模式深深绑定且工作良好，因此Linux系统为了保持兼容性（少改代码），就在系统中用软件实现了一个模仿终端工作的终端模拟器，来“欺骗”其他模块：我们仍然在和终端交互，什么都不用改~~终端发展历程可参考文章《linux-与终端交互的发展》。</p>
+</blockquote>
+<p>我们可以在<code>/dev</code>下看到这些虚拟终端或伪终端设备的设备文件描述符(file descriptor, fd)。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ ls -al /dev/tty<span class=o>[</span>0-9<span class=o>]</span> /dev/pts/*
+<span class=ln> 2</span>crw--w---- <span class=m>1</span> lelouch tty  136, <span class=m>0</span> Dec <span class=m>29</span> 23:39 /dev/pts/0
+<span class=ln> 3</span>c--------- <span class=m>1</span> root    root   5, <span class=m>2</span> Oct  <span class=m>8</span> 14:47 /dev/pts/ptmx
+<span class=ln> 4</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>0</span> Oct  <span class=m>8</span> 14:47 /dev/tty0
+<span class=ln> 5</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>1</span> Oct  <span class=m>8</span> 14:47 /dev/tty1
+<span class=ln> 6</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>2</span> Oct  <span class=m>8</span> 14:47 /dev/tty2
+<span class=ln> 7</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>3</span> Oct  <span class=m>8</span> 14:47 /dev/tty3
+<span class=ln> 8</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>4</span> Oct  <span class=m>8</span> 14:47 /dev/tty4
+<span class=ln> 9</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>5</span> Oct  <span class=m>8</span> 14:47 /dev/tty5
+<span class=ln>10</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>6</span> Oct  <span class=m>8</span> 14:47 /dev/tty6
+<span class=ln>11</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>7</span> Oct  <span class=m>8</span> 14:47 /dev/tty7
+<span class=ln>12</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>8</span> Oct  <span class=m>8</span> 14:47 /dev/tty8
+<span class=ln>13</span>crw--w---- <span class=m>1</span> root    tty    4, <span class=m>9</span> Oct  <span class=m>8</span> 14:47 /dev/tty9
+</code></pre></div><p>对某一CLI shell以及派生的子进程而言，相对应的那个<code>/dev/ttyX</code>或<code>/dev/pts/X</code>才是与其直接交互的“终端设备”。我们可以用<code>tty</code>指令，查看当前正在使用哪个终端设备。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ tty
+<span class=ln>2</span>/dev/pts/0
+</code></pre></div><p>那这个终端设备和标准输入输出有什么关系呢？</p>
+<h2 id=标准输入输出设备与终端设备文件>标准输入输出设备与终端设备文件</h2>
+<p>为了查看标准输入输出设备的真面目，我们来查看当前CLI shell的标准输入输出端口：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ ls -l /dev/std*
+<span class=ln>2</span>lrwxrwxrwx <span class=m>1</span> root root <span class=m>15</span> Oct  <span class=m>8</span> 22:47 /dev/stderr -&gt; /proc/self/fd/2
+<span class=ln>3</span>lrwxrwxrwx <span class=m>1</span> root root <span class=m>15</span> Oct  <span class=m>8</span> 22:47 /dev/stdin -&gt; /proc/self/fd/0
+<span class=ln>4</span>lrwxrwxrwx <span class=m>1</span> root root <span class=m>15</span> Oct  <span class=m>8</span> 22:47 /dev/stdout -&gt; /proc/self/fd/1
+</code></pre></div><p>从显示出来的详细性质，我们发现输入输出设备对应的不是设备描述符，而是一个链接，链接的位置就是当前进程的<code>/proc/self/fd/0-2</code>。<code>/proc/self/</code>是一个动态的目录，它始终指向当前前台进程，而标准输入输出链接到该特殊目录中的文件描述符，则保证了任何在当前在前台工作的进程，都能够和终端直接交互。</p>
+<p>当执行一个进程时，都会默认打开3个文件<code>0,1,2</code>，每个文件有对应的文件描述符来方便我们使用：</p>
 <table>
 <thead>
 <tr>
@@ -137,36 +164,178 @@ Nov 24, 2021</span>
 </tr>
 </tbody>
 </table>
-<h2 id=一切皆文件-fd-文件描述符>一切皆文件 fd 文件描述符</h2>
-<p>stdin /stdout 指向的设备 0 1 2 255 /dev/null
-255 255代表用户编辑的文件的绝对路径。</p>
-<p>/dev/null代表linux的空设备文件，所有往这个文件里面写入的内容都会丢失，俗称“黑洞”。比较常见的用法是把不需要的输出重定向到这个文件。</p>
-<p>比如：</p>
-<p>rm -f test.log > /dev/null 2>&1
-这个命令会将标准输出和错误输出重定向到/dev/null，运行这个脚本不会输出任何信息到终端。</p>
-<h3 id=设备对应tty>设备对应tty</h3>
-<p>默认输入输出到这些设备</p>
-<h2 id=更改输入输出方向>更改输入输出方向</h2>
-<p>&lt;,>>,></p>
-<h2 id=注意-here-doucment>注意&lt;&lt; Here doucment</h2>
-<p>Here Document
-Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式 Shell 脚本或程序。</p>
+<p>好的，接下来我们看看<code>/proc/self/fd/0-2</code>是什么样的文件:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>ls -l /proc/self/fd/
+<span class=ln>2</span>lrwx------ <span class=m>1</span> lelouch lelouch <span class=m>64</span> Dec <span class=m>30</span> 00:31 <span class=m>0</span> -&gt; /dev/pts/0
+<span class=ln>3</span>lrwx------ <span class=m>1</span> lelouch lelouch <span class=m>64</span> Dec <span class=m>30</span> 00:31 <span class=m>1</span> -&gt; /dev/pts/0
+<span class=ln>4</span>lrwx------ <span class=m>1</span> lelouch lelouch <span class=m>64</span> Dec <span class=m>30</span> 00:31 <span class=m>2</span> -&gt; /dev/pts/0
+</code></pre></div><p>哈，<code>/proc/self/fd/0-2</code>也都只是软链接，链接的位置就是我们使用<code>tty</code>指令显示出来的终端设备文件！也是说，无论是标准输入，还是标准输出、标准错误，最终都是在和终端设备接口文件交互。其关系如下图：</p>
+<p><img src=../../images/%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E4%B8%8E%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87.drawio.svg alt=标准输入输出与终端设备></p>
+<p>图中黄色部分表示虚拟终端的流程；蓝色部分表示伪终端流程。父进程通过fork和exec派生出不同子进程，通常子进程会继承父进程的终端接口文件，并占据前台（foreground）。从图中，我们可以看出标准输入输出设备(<code>/dev/{stdin,stdout,dtderr}</code>)始终是一个动态的链接，始终指向前台进程；而<strong>进程产生的三个链接文件<code>/proc/$pid_number/fd/0-2</code>才是进程I/O的核心</strong>，是与进程直接交互的接口。如果我们希望进程改变I/O的输入输出方向，更改<code>/dev/{stdin,stdout,stderr}</code>是没有用的，<strong>应该更改<code>0,1,2</code>所链接的位置</strong>。它们默认链接位置为<code>/dev/ttyX</code>或<code>/dev/pts/X</code>，这些设备描述符最终会将数据转发到外设，如键盘、屏幕、网络调制解调器等。</p>
+<h2 id=一切皆文件>一切皆文件</h2>
+<p>我们在聊输入输出重定向之前，我们在说说<code>/dev/ttyX</code>或<code>/dev/pts/X</code>。之前说过，它们是提供给用户进程的终端设备接口<strong>文件</strong>，本质上它们是<strong>文件</strong>啊。那么对于Linux而言，终端设备接口文件与文件系统中的文档有区别吗？答案是：没有，它们都是文件。</p>
+<blockquote>
+<p>linux 中所有内容都是以文件的形式保存和管理的，即<strong>一切皆文件</strong>，普通文件是文件，目录（Windows 下称为文件夹）是文件，硬件设备（键盘、监视器、硬盘、打印机）是文件，就连套接字（socket）、网络通信等资源也都是文件。</p>
+</blockquote>
+<p>这些内容（无论是普通文件、硬件设备、目录、套接字、链接）需要被操作时，都用**统一的文件描述符(file descriptor, fd)**来表示，当进程打开现有文件或创建新文件时，内核向进程返回一个文件描述符，文件描述符就是内核为了高效管理已被打开的文件所创建的索引，用来指向被打开的文件，所有执行I/O操作的系统调用都会通过文件描述符。只要我们有读写权限，我们就可以从文件中读取内容或是向文件写入内容，不管这个文件实际上是设备还是别的什么。当然对某些设备文件或内存文件而言，这种操作相当危险。</p>
+<p><strong>因此，当我们进行进程的I/O重定向时，从Linux系统的角度看，只不过是把读取/写入的操作从一个文件转向另一个文件而已</strong>。</p>
+<h2 id=输入输出重定向>输入输出重定向</h2>
+<p>由于在Linux中一切皆文件，所谓“重定向”就是换个操作的文件嘛。默认情况下，我们进行I/O的文件是<code>/proc/self/fd/{0,1,2}</code>，重定向的时候就是把默认输入文件<code>0</code>换个别的文件，或者默认输出<code>1、2</code>换个别的文件。此时，我们需要用的重定向符号：<code>&lt;,>>,></code>。</p>
+<p>简单用法如下：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>命令</th>
+<th style=text-align:center>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center><code>command > file</code></td>
+<td style=text-align:center>将输出从1重定向到 file。命令执行command然后将输出的内容存入file，覆盖原内容。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command &lt; file</code></td>
+<td style=text-align:center>将输入从0重定向到 file。需要从键盘获取输入的命令会转移到文件读取内容。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command >> file</code></td>
+<td style=text-align:center>将输出从1以追加的方式重定向到file。命令执行command然后将输出的内容追加到file。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command &lt; file1 >file2</code></td>
+<td style=text-align:center>command 命令将输入0重定向到 file1，将输出1重定向到 file2。</td>
+</tr>
+</tbody>
+</table>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 输出重定向到文件test_1</span>
+<span class=ln> 2</span>$ <span class=nb>echo</span> <span class=s2>&#34;redirection test&#34;</span> &gt; test_1
+<span class=ln> 3</span>$ cat test_1
+<span class=ln> 4</span>redirection <span class=nb>test</span>
+<span class=ln> 5</span><span class=c1># 输出重定向到文件test_1，覆盖原有内容</span>
+<span class=ln> 6</span>$ <span class=nb>echo</span> <span class=s2>&#34;redirection test again&#34;</span> &gt; test_1
+<span class=ln> 7</span>$ cat test_1
+<span class=ln> 8</span>redirection <span class=nb>test</span> again
+<span class=ln> 9</span><span class=c1># 输出重定向到文件test_1，追加内容</span>
+<span class=ln>10</span>$ <span class=nb>echo</span> <span class=s2>&#34;redirection test again&#34;</span> &gt;&gt; test_1
+<span class=ln>11</span>$ cat test_1
+<span class=ln>12</span>redirection <span class=nb>test</span> again
+<span class=ln>13</span>redirection <span class=nb>test</span> again
+<span class=ln>14</span><span class=c1># 输入重定向，来自test_1</span>
+<span class=ln>15</span>$ cat &lt; test_1
+<span class=ln>16</span>redirection <span class=nb>test</span> again
+<span class=ln>17</span>redirection <span class=nb>test</span> again
+<span class=ln>18</span><span class=c1># 输入重定向，来自test_1，输出重定向到test_11</span>
+<span class=ln>19</span>$ cat &lt; test_1 &gt;test_11
+<span class=ln>20</span>$ cat test_11
+<span class=ln>21</span>redirection <span class=nb>test</span> again
+<span class=ln>22</span>redirection <span class=nb>test</span> again
+<span class=ln>23</span>
+</code></pre></div><p>实际上，上面这四个命令都是简写，写完整了应该是（<strong>数字和重定向符号之间不要空格！</strong>）：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>命令</th>
+<th style=text-align:center>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center><code>command 1> file</code></td>
+<td style=text-align:center>将输出从1重定向到 file。命令执行command然后将输出的内容存入file，覆盖原内容。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command 0&lt; file</code></td>
+<td style=text-align:center>将输入从0重定向到 file。需要从键盘获取输入的命令会转移到文件读取内容。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command 1>> file</code></td>
+<td style=text-align:center>将输出从1以追加的方式重定向到file。命令执行command然后将输出的内容追加到file。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command 0&lt; file_1 1>file_2</code></td>
+<td style=text-align:center>command 命令将输入0重定向到 file_1，将输出1重定向到 file_2。</td>
+</tr>
+</tbody>
+</table>
+<p>相应的，如果我们想要把标准错误<code>2</code>重定向到其他地方，就需要手动地将数字给填上：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>命令</th>
+<th style=text-align:center>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center><code>command 2> file</code></td>
+<td style=text-align:center>将标准错误从2重定向到 file。命令执行command并将出错内容存入file，覆盖原内容。</td>
+</tr>
+<tr>
+<td style=text-align:center><code>command 2>> file</code></td>
+<td style=text-align:center>将标准错误从2以追加的方式重定向到file。命令执行command并将出错内容追加到file。</td>
+</tr>
+</tbody>
+</table>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 错误内容重定向到文件test_2</span>
+<span class=ln>2</span>$ cat /etc/shadow 2&gt; test_2
+<span class=ln>3</span>$ cat test_2
+<span class=ln>4</span>cat: /etc/shadow: Permission denied
+<span class=ln>5</span><span class=c1># 错误内容重定向到文件test_2，内容追加</span>
+<span class=ln>6</span>$ qwertyui 2&gt;&gt; test_2
+<span class=ln>7</span>$ cat test_2
+<span class=ln>8</span>cat: /etc/shadow: Permission denied
+<span class=ln>9</span>-bash: ovcosdjfo: <span class=nb>command</span> not found
+</code></pre></div><h2 id=注意-here-doucment>注意&lt;&lt; Here doucment</h2>
+<p>Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式 Shell 脚本或程序。简单的说，就是运行我们一次性输入很多内容然后一起交给程序执行。</p>
 <p>它的基本的形式如下：</p>
-<p>command &lt;&lt; delimiter
-document
-delimiter
-它的作用是将两个 delimiter 之间的内容(document) 作为输入传递给 command。</p>
-<p>注意：</p>
-<p>结尾的delimiter 一定要顶格写，前面不能有任何字符，后面也不能有任何字符，包括空格和 tab 缩进。
-开始的delimiter前后的空格会被忽略掉。</p>
-<h2 id=符号>&符号</h2>
-<p>一般来说, "1>" 通常可以省略成 ">".
-即可以把如上命令写成: ls a.txt b.txt >file.out 2>file.err
-有了这些认识才能理解 "1>&2" 和 "2>&1".
-1>&2 正确返回值传递给2输出通道 &2表示2输出通道
-如果此处错写成 1>2, 就表示把1输出重定向到文件2中.
-2>&1 错误返回值传递给1输出通道, 同样&1表示1输出通道.</p>
-<p><img src=../../images/%E5%8D%A0%E4%BD%8D%E5%9B%BE512.png alt=占位图></p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>command</span> <span class=s>&lt;&lt; delimiter
+</span><span class=ln>2</span><span class=s>    document
+</span><span class=ln>3</span><span class=s>delimiter</span>
+</code></pre></div><p>它的作用是将两个“delimiter”（定界符）之间的内容(document) 作为输入传递给<code>command</code>。比如</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 在命令行中通过 wc -l 命令计算 Here Document 的行数：</span>
+<span class=ln>2</span>$ wc -l <span class=s>&lt;&lt; EOF
+</span><span class=ln>3</span><span class=s>    Hello
+</span><span class=ln>4</span><span class=s>    redirction test
+</span><span class=ln>5</span><span class=s>    Here document test
+</span><span class=ln>6</span><span class=s>EOF</span>
+<span class=ln>7</span><span class=m>3</span> <span class=c1># 输出结果为 3 行</span>
+</code></pre></div><p>注意：</p>
+<ul>
+<li>结尾的delimiter 一定要顶格写，前面不能有任何字符，后面也不能有任何字符，包括空格和<code>tab</code>缩进。如果不满足这些条件，则不被认为是delimiter。（下例所示）</li>
+<li>开始的delimiter前后的空格会被忽略掉。</li>
+<li>delimiter具体内容可以自定义，不必非要是“EOF”，你写成“superman”也是可以的，只要开头结尾一致就行。</li>
+</ul>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 自定义delimiter</span>
+<span class=ln>2</span>$ wc -l <span class=s>&lt;&lt; superman
+</span><span class=ln>3</span><span class=s>    Hello
+</span><span class=ln>4</span><span class=s>    redirction test
+</span><span class=ln>5</span><span class=s>    Here document test superman</span>
+<span class=ln>6</span>    superman
+<span class=ln>7</span>    superman
+<span class=ln>8</span>superman
+<span class=ln>9</span><span class=m>5</span> <span class=c1># 输出结果为 5 行</span>
+</code></pre></div><h2 id=符号>&符号</h2>
+<p>Linux中，<code>&</code>符号通常表示将进程放到后台执行，但是在重定向语境下，<code>&</code>后面紧跟一个数字时，表示该进程中，此数字代表的文件描述符。例如<code>&0</code>表示进程的标准输入文件描述符，<code>&1</code>表示进程的标准输出文件描述符，<code>&2</code>表示进程的标准输出错误描述符。其他打开的文件描述符也可以用<code>&+数字</code>表示。</p>
+<p>有了这些认识才能理解 "1>&2" 和 "2>&1".</p>
+<ul>
+<li>1>&2 标准输出返回值传递给2输出通道 &2表示2号文件描述符，即标准错误通道。如果此处错写成 1>2, 就表示把1输出重定向到名称为“2”的文件中。</li>
+<li>2>&1 标准错误返回值传递给1输出通道, 同样&1表示1号文件描述符，即标准输出通道。</li>
+</ul>
+<p>再举个例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 此时，我们目录下并无test.log文件</span>
+<span class=ln>2</span>$ rm test.log &gt; /dev/null 2&gt;<span class=p>&amp;</span><span class=m>1</span> <span class=c1># 写完整了应是 1&gt; /dev/null 2&gt;&amp;1</span>
+</code></pre></div><p>这个命令先将标准输出重定向到<code>/dev/null</code>，再把错误输出重定向到1输出通道，同样是<code>/dev/null</code>，所以运行这个脚本不会输出任何信息到终端。</p>
+<blockquote>
+<p><code>/dev/null</code>代表linux的空设备文件，所有往这个文件里面写入的内容都会丢失，俗称“黑洞”。比较常见的用法是把不需要的输出重定向到这个文件。</p>
+</blockquote>
+<p>需要注意的是：如果我们把<code>1> /dev/null 2>&1</code>的顺序调换过来，意思就不一样了。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 此时，我们目录下并无test.log文件</span>
+<span class=ln>2</span>$ rm test.log 2&gt;<span class=p>&amp;</span><span class=m>1</span> &gt;/dev/null <span class=c1>#写完整了应是 2&gt;&amp;1 1&gt;/dev/null</span>
+<span class=ln>3</span>rm: cannot remove <span class=s1>&#39;test.log&#39;</span>: No such file or directory
+</code></pre></div><p>我们发现依然可以看到输出的标准错误信息。这是因为第一步<code>2>&1</code>的时候，<code>&1</code>指向的还是<code>/dev/pts/X</code>，也就是说标准错误先是被重定向到了<code>/dev/pts/X</code>（和原来一样）；当第二步<code>1>/dev/null</code>的时候，仅有标准输出被重定向到了<code>/dev/null</code>，标准错误仍然指向<code>/dev/pts/X</code>。所以，错误信息还是会显示在屏幕上。</p>
+<h2 id=参考内容>参考内容</h2>
+<p><a href=https://www.runoob.com/linux/linux-shell-io-redirections.html>https://www.runoob.com/linux/linux-shell-io-redirections.html</a></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -298,6 +467,9 @@ RASPBERRY
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程">Shell 骨干流程</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ class=nav-link title=linux-与终端交互的发展>linux-与终端交互的发展</a>
 </li>
 <li>
@@ -309,20 +481,17 @@ RASPBERRY
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/ class=nav-link title=概率统计随机过程之抽样的分布>概率统计随机过程之抽样的分布</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%A6%82%E4%BD%95%E6%8E%A8%E5%AF%BC%E5%BE%97%E5%88%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E7%90%86%E8%A7%A3%E8%A7%92%E5%BA%A6/ class=nav-link title=概率统计随机过程之如何推导得到正态分布—正态分布的理解角度>概率统计随机过程之如何推导得到正态分布—正态分布的理解角度</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程">Shell 骨干流程</a>
+</li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ class=nav-link title=linux-与终端交互的发展>linux-与终端交互的发展</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E7%89%B9%E6%AE%8A%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6/ class=nav-link title=linux-特殊设备文件>linux-特殊设备文件</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/devops-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/ class=nav-link title=devops-自动化部署自己的博客>devops-自动化部署自己的博客</a>
 </li>
 </ul>
 <div>
@@ -340,10 +509,6 @@ RASPBERRY
 概率统计随机过程
 <span class=button_tally>14</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
-LINUX
-<span class=button_tally>12</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
 <span class=button_tally>12</span>
@@ -351,6 +516,10 @@ LINUX
 <a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
 测度论
 <span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
 PYTHON
@@ -374,6 +543,8 @@ RASPBERRY
 <div class=tags_list>
 <a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=2 title=cli处理流程>CLI处理流程<span class=button_tally>2</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
@@ -384,7 +555,9 @@ RASPBERRY
 </a>
 <a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=12 title=linux>LINUX<span class=button_tally>12</span>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
 </a>
@@ -468,6 +641,6 @@ RASPBERRY
 </a>
 </div>
 </footer>
-<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.14825dc619648aeca2e4e66c65ef7d06ea216e6a64cd503f64d2fe77950ee425c47fc0f2cf993c2d656f534914619a2c47c8313438a810ed5008db38a46a812d.js integrity="sha512-FIJdxhlkiuyi5OZsZe99BuohbmpkzVA/ZNL+d5UO5CXEf8Dyz5k8LWVvU0kUYZosR8gxNDioEO1QCNs4pGqBLQ==" crossorigin=anonymous></script>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
 </body>
 </html>

@@ -383,24 +383,50 @@
 &lt;h3 id="标准输入输出错误设备和终端设备的关系">标准输入输出（错误）设备和终端设备的关系&lt;/h3>
 &lt;p>默认情况下，标准输入输出（错误）设备会被链接到&lt;strong>当前正在使用的终端设备&lt;/strong>，可以是虚拟设备也可以是伪设备，重要点是正在操作哪个终端设备。&lt;/p></description></item><item><title>linux-从设备文件看重定向</title><link>https://surprisedcat.github.io/projectnotes/linux-%E4%BB%8E%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6%E7%9C%8B%E9%87%8D%E5%AE%9A%E5%90%91/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E4%BB%8E%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6%E7%9C%8B%E9%87%8D%E5%AE%9A%E5%90%91/</guid><description>
 &lt;ul>
-&lt;li>&lt;a href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%9A%84%E5%8E%86%E7%A8%8B">数据流输入输出的历程&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#%E4%B8%80%E5%88%87%E7%9A%86%E6%96%87%E4%BB%B6-fd-%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6">一切皆文件 fd 文件描述符&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#%E8%AE%BE%E5%A4%87%E5%AF%B9%E5%BA%94tty">设备对应tty&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;a href="#%E6%9B%B4%E6%94%B9%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%96%B9%E5%90%91">更改输入输出方向&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6">终端设备文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E8%AE%BE%E5%A4%87%E4%B8%8E%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6">标准输入输出设备与终端设备文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%80%E5%88%87%E7%9A%86%E6%96%87%E4%BB%B6">一切皆文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91">输入输出重定向&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E6%B3%A8%E6%84%8F-here-doucment">注意&amp;lt;&amp;lt; Here doucment&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E7%AC%A6%E5%8F%B7">&amp;amp;符号&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9">参考内容&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="linux-从设备文件看重定向---omit-in-toc---">linux-从设备文件看重定向&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>我们在《linux-特殊设备文件》一文中介绍了标准输入输出（错误）设备和终端设备，指出默认情况下输入的信息来自标准输入设备(stdin)，程序返回的一般信息交给标准输出设备(stdout)，返回的错误信息交给标准错误设备(stderr)，而标准输入输出（错误）设备在默认情况下，都会被链接到正在被操作的虚拟终端(tty)或伪终端(pty)，也就是我们的交互界面。&lt;/p>
-&lt;p>从数据流的角度来看，输入数据流是TTY模块将键盘输入的数据接收后，再写入&lt;code>stdin&lt;/code>设备，&lt;code>stdin&lt;/code>设备再将数据传递给相应的程序；输出数据流是程序将返回的信息写入&lt;code>stdout,stderr&lt;/code>设备，TTY模块从&lt;code>stdout,stderr&lt;/code>设备读取程序的信息，并最终交付给物理终端（显示器）。&lt;/p>
-&lt;p>从结果上来讲，上述流程大体是对的，如果只是正常使用Linux系统，理解到此也没什么问题。&lt;/p>
-&lt;p>但是，如果我们深入地了解它们之间的关系，会发现以上的描述存在一些不准确的地方。&lt;/p>
-&lt;h2 id="数据流输入输出的历程">数据流输入输出的历程&lt;/h2>
-&lt;p>我们先简化一下整个系统结构，假定数据的来源终端是键盘，数据的显示键盘是显示器，我们通过伪终端方式进行交互。&lt;/p>
-&lt;p>当执行shell命令时，会默认打开3个文件，每个文件有对应的文件描述符来方便我们使用。&lt;/p>
+&lt;p>我们在《linux-特殊设备文件》一文中介绍了标准输入输出（错误）设备和终端设备，指出默认情况下输入的信息来自标准输入设备(stdin)，程序返回的一般信息交给标准输出设备(stdout)，返回的错误信息交给标准错误设备(stderr)，而标准输入输出（错误）设备在默认情况下，都会被链接到正在被操作的虚拟终端(tty)或伪终端(pty)，最终转发到我们的交互界面。&lt;/p>
+&lt;p>从数据流的角度来看，正常情况下，输入数据流是Linux内核将键盘输入的数据接收后，再写入&lt;code>/dev/stdin&lt;/code>设备，&lt;code>/dev/stdin&lt;/code>设备再将数据传递给相应的程序；输出数据流是程序将返回的信息写入&lt;code>/dev/stdout,/dev/stderr&lt;/code>设备，Linux内核从&lt;code>/dev/stdout,/dev/stderr&lt;/code>设备读取程序的信息，并最终交付给物理终端（显示器）。如下图：&lt;/p>
+&lt;p>&lt;img src="../../images/%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%80%E5%8C%96%E5%9B%BE.drawio.svg" alt="标准输入输出简化图">&lt;/p>
+&lt;p>从结果上来讲，上述流程大体是对的，如果只是正常使用Linux系统，理解到此也没什么问题。如果我们深入地了解它们之间的关系，会发现以上的描述存在一些不准确的地方。&lt;/p>
+&lt;h2 id="终端设备文件">终端设备文件&lt;/h2>
+&lt;p>当我们使用基于命令行的用户接口，CLI Shell，时（例如Bash，sh，zsh），都是通过终端模拟器和Linux系统进行交互。如果这个终端模拟器使用的是内核中实现的终端模拟器，那么叫做虚拟终端，为用户提供了&lt;code>/dev/ttyX&lt;/code>的设备接口文件；若这个终端模拟器工作在Linux用户区甚至远程客户端（如ssh），那么叫做伪终端，为用户提供了&lt;code>/dev/ptmx&lt;/code>和&lt;code>/dev/pts/X&lt;/code>这两个设备接口文件。对用户区程序而言，无论是&lt;code>/dev/ttyX&lt;/code>还是&lt;code>/dev/pts/X&lt;/code>I/O操作都表现得像个标准终端。&lt;/p>
+&lt;blockquote>
+&lt;p>注：Linux诞生之初，用户通过物理终端和Linux计算机连接交互，后来物理终端被淘汰变成键盘、显示器等外设，然后Linux内部机制却已经和物理终端模式深深绑定且工作良好，因此Linux系统为了保持兼容性（少改代码），就在系统中用软件实现了一个模仿终端工作的终端模拟器，来“欺骗”其他模块：我们仍然在和终端交互，什么都不用改~~终端发展历程可参考文章《linux-与终端交互的发展》。&lt;/p>
+&lt;/blockquote>
+&lt;p>我们可以在&lt;code>/dev&lt;/code>下看到这些虚拟终端或伪终端设备的设备文件描述符(file descriptor, fd)。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ ls -al /dev/tty&lt;span class="o">[&lt;/span>0-9&lt;span class="o">]&lt;/span> /dev/pts/*
+&lt;span class="ln"> 2&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> lelouch tty 136, &lt;span class="m">0&lt;/span> Dec &lt;span class="m">29&lt;/span> 23:39 /dev/pts/0
+&lt;span class="ln"> 3&lt;/span>c--------- &lt;span class="m">1&lt;/span> root root 5, &lt;span class="m">2&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/pts/ptmx
+&lt;span class="ln"> 4&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">0&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty0
+&lt;span class="ln"> 5&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">1&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty1
+&lt;span class="ln"> 6&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">2&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty2
+&lt;span class="ln"> 7&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">3&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty3
+&lt;span class="ln"> 8&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">4&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty4
+&lt;span class="ln"> 9&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">5&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty5
+&lt;span class="ln">10&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">6&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty6
+&lt;span class="ln">11&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">7&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty7
+&lt;span class="ln">12&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">8&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty8
+&lt;span class="ln">13&lt;/span>crw--w---- &lt;span class="m">1&lt;/span> root tty 4, &lt;span class="m">9&lt;/span> Oct &lt;span class="m">8&lt;/span> 14:47 /dev/tty9
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对某一CLI shell以及派生的子进程而言，相对应的那个&lt;code>/dev/ttyX&lt;/code>或&lt;code>/dev/pts/X&lt;/code>才是与其直接交互的“终端设备”。我们可以用&lt;code>tty&lt;/code>指令，查看当前正在使用哪个终端设备。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ tty
+&lt;span class="ln">2&lt;/span>/dev/pts/0
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那这个终端设备和标准输入输出有什么关系呢？&lt;/p>
+&lt;h2 id="标准输入输出设备与终端设备文件">标准输入输出设备与终端设备文件&lt;/h2>
+&lt;p>为了查看标准输入输出设备的真面目，我们来查看当前CLI shell的标准输入输出端口：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls -l /dev/std*
+&lt;span class="ln">2&lt;/span>lrwxrwxrwx &lt;span class="m">1&lt;/span> root root &lt;span class="m">15&lt;/span> Oct &lt;span class="m">8&lt;/span> 22:47 /dev/stderr -&amp;gt; /proc/self/fd/2
+&lt;span class="ln">3&lt;/span>lrwxrwxrwx &lt;span class="m">1&lt;/span> root root &lt;span class="m">15&lt;/span> Oct &lt;span class="m">8&lt;/span> 22:47 /dev/stdin -&amp;gt; /proc/self/fd/0
+&lt;span class="ln">4&lt;/span>lrwxrwxrwx &lt;span class="m">1&lt;/span> root root &lt;span class="m">15&lt;/span> Oct &lt;span class="m">8&lt;/span> 22:47 /dev/stdout -&amp;gt; /proc/self/fd/1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从显示出来的详细性质，我们发现输入输出设备对应的不是设备描述符，而是一个链接，链接的位置就是当前进程的&lt;code>/proc/self/fd/0-2&lt;/code>。&lt;code>/proc/self/&lt;/code>是一个动态的目录，它始终指向当前前台进程，而标准输入输出链接到该特殊目录中的文件描述符，则保证了任何在当前在前台工作的进程，都能够和终端直接交互。&lt;/p>
+&lt;p>当执行一个进程时，都会默认打开3个文件&lt;code>0,1,2&lt;/code>，每个文件有对应的文件描述符来方便我们使用：&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -431,36 +457,336 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="一切皆文件-fd-文件描述符">一切皆文件 fd 文件描述符&lt;/h2>
-&lt;p>stdin /stdout 指向的设备 0 1 2 255 /dev/null
-255 255代表用户编辑的文件的绝对路径。&lt;/p>
-&lt;p>/dev/null代表linux的空设备文件，所有往这个文件里面写入的内容都会丢失，俗称“黑洞”。比较常见的用法是把不需要的输出重定向到这个文件。&lt;/p>
-&lt;p>比如：&lt;/p>
-&lt;p>rm -f test.log &amp;gt; /dev/null 2&amp;gt;&amp;amp;1
-这个命令会将标准输出和错误输出重定向到/dev/null，运行这个脚本不会输出任何信息到终端。&lt;/p>
-&lt;h3 id="设备对应tty">设备对应tty&lt;/h3>
-&lt;p>默认输入输出到这些设备&lt;/p>
-&lt;h2 id="更改输入输出方向">更改输入输出方向&lt;/h2>
-&lt;p>&amp;lt;,&amp;gt;&amp;gt;,&amp;gt;&lt;/p>
-&lt;h2 id="注意-here-doucment">注意&amp;lt;&amp;lt; Here doucment&lt;/h2>
-&lt;p>Here Document
-Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式 Shell 脚本或程序。&lt;/p>
+&lt;p>好的，接下来我们看看&lt;code>/proc/self/fd/0-2&lt;/code>是什么样的文件:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>ls -l /proc/self/fd/
+&lt;span class="ln">2&lt;/span>lrwx------ &lt;span class="m">1&lt;/span> lelouch lelouch &lt;span class="m">64&lt;/span> Dec &lt;span class="m">30&lt;/span> 00:31 &lt;span class="m">0&lt;/span> -&amp;gt; /dev/pts/0
+&lt;span class="ln">3&lt;/span>lrwx------ &lt;span class="m">1&lt;/span> lelouch lelouch &lt;span class="m">64&lt;/span> Dec &lt;span class="m">30&lt;/span> 00:31 &lt;span class="m">1&lt;/span> -&amp;gt; /dev/pts/0
+&lt;span class="ln">4&lt;/span>lrwx------ &lt;span class="m">1&lt;/span> lelouch lelouch &lt;span class="m">64&lt;/span> Dec &lt;span class="m">30&lt;/span> 00:31 &lt;span class="m">2&lt;/span> -&amp;gt; /dev/pts/0
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>哈，&lt;code>/proc/self/fd/0-2&lt;/code>也都只是软链接，链接的位置就是我们使用&lt;code>tty&lt;/code>指令显示出来的终端设备文件！也是说，无论是标准输入，还是标准输出、标准错误，最终都是在和终端设备接口文件交互。其关系如下图：&lt;/p>
+&lt;p>&lt;img src="../../images/%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E4%B8%8E%E7%BB%88%E7%AB%AF%E8%AE%BE%E5%A4%87.drawio.svg" alt="标准输入输出与终端设备">&lt;/p>
+&lt;p>图中黄色部分表示虚拟终端的流程；蓝色部分表示伪终端流程。父进程通过fork和exec派生出不同子进程，通常子进程会继承父进程的终端接口文件，并占据前台（foreground）。从图中，我们可以看出标准输入输出设备(&lt;code>/dev/{stdin,stdout,dtderr}&lt;/code>)始终是一个动态的链接，始终指向前台进程；而&lt;strong>进程产生的三个链接文件&lt;code>/proc/$pid_number/fd/0-2&lt;/code>才是进程I/O的核心&lt;/strong>，是与进程直接交互的接口。如果我们希望进程改变I/O的输入输出方向，更改&lt;code>/dev/{stdin,stdout,stderr}&lt;/code>是没有用的，&lt;strong>应该更改&lt;code>0,1,2&lt;/code>所链接的位置&lt;/strong>。它们默认链接位置为&lt;code>/dev/ttyX&lt;/code>或&lt;code>/dev/pts/X&lt;/code>，这些设备描述符最终会将数据转发到外设，如键盘、屏幕、网络调制解调器等。&lt;/p>
+&lt;h2 id="一切皆文件">一切皆文件&lt;/h2>
+&lt;p>我们在聊输入输出重定向之前，我们在说说&lt;code>/dev/ttyX&lt;/code>或&lt;code>/dev/pts/X&lt;/code>。之前说过，它们是提供给用户进程的终端设备接口&lt;strong>文件&lt;/strong>，本质上它们是&lt;strong>文件&lt;/strong>啊。那么对于Linux而言，终端设备接口文件与文件系统中的文档有区别吗？答案是：没有，它们都是文件。&lt;/p>
+&lt;blockquote>
+&lt;p>linux 中所有内容都是以文件的形式保存和管理的，即&lt;strong>一切皆文件&lt;/strong>，普通文件是文件，目录（Windows 下称为文件夹）是文件，硬件设备（键盘、监视器、硬盘、打印机）是文件，就连套接字（socket）、网络通信等资源也都是文件。&lt;/p>
+&lt;/blockquote>
+&lt;p>这些内容（无论是普通文件、硬件设备、目录、套接字、链接）需要被操作时，都用**统一的文件描述符(file descriptor, fd)**来表示，当进程打开现有文件或创建新文件时，内核向进程返回一个文件描述符，文件描述符就是内核为了高效管理已被打开的文件所创建的索引，用来指向被打开的文件，所有执行I/O操作的系统调用都会通过文件描述符。只要我们有读写权限，我们就可以从文件中读取内容或是向文件写入内容，不管这个文件实际上是设备还是别的什么。当然对某些设备文件或内存文件而言，这种操作相当危险。&lt;/p>
+&lt;p>&lt;strong>因此，当我们进行进程的I/O重定向时，从Linux系统的角度看，只不过是把读取/写入的操作从一个文件转向另一个文件而已&lt;/strong>。&lt;/p>
+&lt;h2 id="输入输出重定向">输入输出重定向&lt;/h2>
+&lt;p>由于在Linux中一切皆文件，所谓“重定向”就是换个操作的文件嘛。默认情况下，我们进行I/O的文件是&lt;code>/proc/self/fd/{0,1,2}&lt;/code>，重定向的时候就是把默认输入文件&lt;code>0&lt;/code>换个别的文件，或者默认输出&lt;code>1、2&lt;/code>换个别的文件。此时，我们需要用的重定向符号：&lt;code>&amp;lt;,&amp;gt;&amp;gt;,&amp;gt;&lt;/code>。&lt;/p>
+&lt;p>简单用法如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">命令&lt;/th>
+&lt;th style="text-align:center">说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command &amp;gt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将输出从1重定向到 file。命令执行command然后将输出的内容存入file，覆盖原内容。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command &amp;lt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将输入从0重定向到 file。需要从键盘获取输入的命令会转移到文件读取内容。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command &amp;gt;&amp;gt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将输出从1以追加的方式重定向到file。命令执行command然后将输出的内容追加到file。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command &amp;lt; file1 &amp;gt;file2&lt;/code>&lt;/td>
+&lt;td style="text-align:center">command 命令将输入0重定向到 file1，将输出1重定向到 file2。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 输出重定向到文件test_1&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;redirection test&amp;#34;&lt;/span> &amp;gt; test_1
+&lt;span class="ln"> 3&lt;/span>$ cat test_1
+&lt;span class="ln"> 4&lt;/span>redirection &lt;span class="nb">test&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1"># 输出重定向到文件test_1，覆盖原有内容&lt;/span>
+&lt;span class="ln"> 6&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;redirection test again&amp;#34;&lt;/span> &amp;gt; test_1
+&lt;span class="ln"> 7&lt;/span>$ cat test_1
+&lt;span class="ln"> 8&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 输出重定向到文件test_1，追加内容&lt;/span>
+&lt;span class="ln">10&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;redirection test again&amp;#34;&lt;/span> &amp;gt;&amp;gt; test_1
+&lt;span class="ln">11&lt;/span>$ cat test_1
+&lt;span class="ln">12&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln">13&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln">14&lt;/span>&lt;span class="c1"># 输入重定向，来自test_1&lt;/span>
+&lt;span class="ln">15&lt;/span>$ cat &amp;lt; test_1
+&lt;span class="ln">16&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln">17&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln">18&lt;/span>&lt;span class="c1"># 输入重定向，来自test_1，输出重定向到test_11&lt;/span>
+&lt;span class="ln">19&lt;/span>$ cat &amp;lt; test_1 &amp;gt;test_11
+&lt;span class="ln">20&lt;/span>$ cat test_11
+&lt;span class="ln">21&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln">22&lt;/span>redirection &lt;span class="nb">test&lt;/span> again
+&lt;span class="ln">23&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>实际上，上面这四个命令都是简写，写完整了应该是（&lt;strong>数字和重定向符号之间不要空格！&lt;/strong>）：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">命令&lt;/th>
+&lt;th style="text-align:center">说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command 1&amp;gt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将输出从1重定向到 file。命令执行command然后将输出的内容存入file，覆盖原内容。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command 0&amp;lt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将输入从0重定向到 file。需要从键盘获取输入的命令会转移到文件读取内容。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command 1&amp;gt;&amp;gt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将输出从1以追加的方式重定向到file。命令执行command然后将输出的内容追加到file。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command 0&amp;lt; file_1 1&amp;gt;file_2&lt;/code>&lt;/td>
+&lt;td style="text-align:center">command 命令将输入0重定向到 file_1，将输出1重定向到 file_2。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>相应的，如果我们想要把标准错误&lt;code>2&lt;/code>重定向到其他地方，就需要手动地将数字给填上：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">命令&lt;/th>
+&lt;th style="text-align:center">说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command 2&amp;gt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将标准错误从2重定向到 file。命令执行command并将出错内容存入file，覆盖原内容。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;code>command 2&amp;gt;&amp;gt; file&lt;/code>&lt;/td>
+&lt;td style="text-align:center">将标准错误从2以追加的方式重定向到file。命令执行command并将出错内容追加到file。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 错误内容重定向到文件test_2&lt;/span>
+&lt;span class="ln">2&lt;/span>$ cat /etc/shadow 2&amp;gt; test_2
+&lt;span class="ln">3&lt;/span>$ cat test_2
+&lt;span class="ln">4&lt;/span>cat: /etc/shadow: Permission denied
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 错误内容重定向到文件test_2，内容追加&lt;/span>
+&lt;span class="ln">6&lt;/span>$ qwertyui 2&amp;gt;&amp;gt; test_2
+&lt;span class="ln">7&lt;/span>$ cat test_2
+&lt;span class="ln">8&lt;/span>cat: /etc/shadow: Permission denied
+&lt;span class="ln">9&lt;/span>-bash: ovcosdjfo: &lt;span class="nb">command&lt;/span> not found
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="注意-here-doucment">注意&amp;lt;&amp;lt; Here doucment&lt;/h2>
+&lt;p>Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式 Shell 脚本或程序。简单的说，就是运行我们一次性输入很多内容然后一起交给程序执行。&lt;/p>
 &lt;p>它的基本的形式如下：&lt;/p>
-&lt;p>command &amp;lt;&amp;lt; delimiter
-document
-delimiter
-它的作用是将两个 delimiter 之间的内容(document) 作为输入传递给 command。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="nb">command&lt;/span> &lt;span class="s">&amp;lt;&amp;lt; delimiter
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="s"> document
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="s">delimiter&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>它的作用是将两个“delimiter”（定界符）之间的内容(document) 作为输入传递给&lt;code>command&lt;/code>。比如&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 在命令行中通过 wc -l 命令计算 Here Document 的行数：&lt;/span>
+&lt;span class="ln">2&lt;/span>$ wc -l &lt;span class="s">&amp;lt;&amp;lt; EOF
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="s"> Hello
+&lt;/span>&lt;span class="ln">4&lt;/span>&lt;span class="s"> redirction test
+&lt;/span>&lt;span class="ln">5&lt;/span>&lt;span class="s"> Here document test
+&lt;/span>&lt;span class="ln">6&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="c1"># 输出结果为 3 行&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：&lt;/p>
+&lt;ul>
+&lt;li>结尾的delimiter 一定要顶格写，前面不能有任何字符，后面也不能有任何字符，包括空格和&lt;code>tab&lt;/code>缩进。如果不满足这些条件，则不被认为是delimiter。（下例所示）&lt;/li>
+&lt;li>开始的delimiter前后的空格会被忽略掉。&lt;/li>
+&lt;li>delimiter具体内容可以自定义，不必非要是“EOF”，你写成“superman”也是可以的，只要开头结尾一致就行。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 自定义delimiter&lt;/span>
+&lt;span class="ln">2&lt;/span>$ wc -l &lt;span class="s">&amp;lt;&amp;lt; superman
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="s"> Hello
+&lt;/span>&lt;span class="ln">4&lt;/span>&lt;span class="s"> redirction test
+&lt;/span>&lt;span class="ln">5&lt;/span>&lt;span class="s"> Here document test superman&lt;/span>
+&lt;span class="ln">6&lt;/span> superman
+&lt;span class="ln">7&lt;/span> superman
+&lt;span class="ln">8&lt;/span>superman
+&lt;span class="ln">9&lt;/span>&lt;span class="m">5&lt;/span> &lt;span class="c1"># 输出结果为 5 行&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="符号">&amp;amp;符号&lt;/h2>
+&lt;p>Linux中，&lt;code>&amp;amp;&lt;/code>符号通常表示将进程放到后台执行，但是在重定向语境下，&lt;code>&amp;amp;&lt;/code>后面紧跟一个数字时，表示该进程中，此数字代表的文件描述符。例如&lt;code>&amp;amp;0&lt;/code>表示进程的标准输入文件描述符，&lt;code>&amp;amp;1&lt;/code>表示进程的标准输出文件描述符，&lt;code>&amp;amp;2&lt;/code>表示进程的标准输出错误描述符。其他打开的文件描述符也可以用&lt;code>&amp;amp;+数字&lt;/code>表示。&lt;/p>
+&lt;p>有了这些认识才能理解 &amp;quot;1&amp;gt;&amp;amp;2&amp;quot; 和 &amp;quot;2&amp;gt;&amp;amp;1&amp;quot;.&lt;/p>
+&lt;ul>
+&lt;li>1&amp;gt;&amp;amp;2 标准输出返回值传递给2输出通道 &amp;amp;2表示2号文件描述符，即标准错误通道。如果此处错写成 1&amp;gt;2, 就表示把1输出重定向到名称为“2”的文件中。&lt;/li>
+&lt;li>2&amp;gt;&amp;amp;1 标准错误返回值传递给1输出通道, 同样&amp;amp;1表示1号文件描述符，即标准输出通道。&lt;/li>
+&lt;/ul>
+&lt;p>再举个例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 此时，我们目录下并无test.log文件&lt;/span>
+&lt;span class="ln">2&lt;/span>$ rm test.log &amp;gt; /dev/null 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="c1"># 写完整了应是 1&amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个命令先将标准输出重定向到&lt;code>/dev/null&lt;/code>，再把错误输出重定向到1输出通道，同样是&lt;code>/dev/null&lt;/code>，所以运行这个脚本不会输出任何信息到终端。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>/dev/null&lt;/code>代表linux的空设备文件，所有往这个文件里面写入的内容都会丢失，俗称“黑洞”。比较常见的用法是把不需要的输出重定向到这个文件。&lt;/p>
+&lt;/blockquote>
+&lt;p>需要注意的是：如果我们把&lt;code>1&amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code>的顺序调换过来，意思就不一样了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 此时，我们目录下并无test.log文件&lt;/span>
+&lt;span class="ln">2&lt;/span>$ rm test.log 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &amp;gt;/dev/null &lt;span class="c1">#写完整了应是 2&amp;gt;&amp;amp;1 1&amp;gt;/dev/null&lt;/span>
+&lt;span class="ln">3&lt;/span>rm: cannot remove &lt;span class="s1">&amp;#39;test.log&amp;#39;&lt;/span>: No such file or directory
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们发现依然可以看到输出的标准错误信息。这是因为第一步&lt;code>2&amp;gt;&amp;amp;1&lt;/code>的时候，&lt;code>&amp;amp;1&lt;/code>指向的还是&lt;code>/dev/pts/X&lt;/code>，也就是说标准错误先是被重定向到了&lt;code>/dev/pts/X&lt;/code>（和原来一样）；当第二步&lt;code>1&amp;gt;/dev/null&lt;/code>的时候，仅有标准输出被重定向到了&lt;code>/dev/null&lt;/code>，标准错误仍然指向&lt;code>/dev/pts/X&lt;/code>。所以，错误信息还是会显示在屏幕上。&lt;/p>
+&lt;h2 id="参考内容">参考内容&lt;/h2>
+&lt;p>&lt;a href="https://www.runoob.com/linux/linux-shell-io-redirections.html">https://www.runoob.com/linux/linux-shell-io-redirections.html&lt;/a>&lt;/p></description></item><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E7%AE%A1%E9%81%93pipe">管道——Pipe&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4">管道命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E4%BB%A3%E6%8D%A2xargs">参数代换——&lt;code>xargs&lt;/code>&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%8C%BA%E5%88%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E5%92%8C%E5%8F%82%E6%95%B0">区分标准输入和参数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%85%B3%E4%BA%8E%E5%87%8F%E5%8F%B7-%E7%9A%84%E7%94%A8%E9%80%94">关于减号“-”的用途&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9">参考内容&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-管道pipe与xargs---omit-in-toc---">linux-管道pipe与xargs&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Linux CLI shell（如bash，zsh）通常情况下都是每输入一条指令，输出一个结果，一来一回的交互，但是有的时候一条指令的输出是冗长且繁杂的，我们需要对其输出进行再处理，才能找到我们需要的内容。此时，我们就需要像筛金子一样，逐层过滤掉无用的沙子，Linux提供了这样的筛子——&lt;strong>管道&lt;/strong>，使我们能够接续处理数据。&lt;/p>
+&lt;h2 id="管道pipe">管道——Pipe&lt;/h2>
+&lt;blockquote>
+&lt;p>管道（Pipeline）操作符为“|”，是一系列将&lt;strong>标准输入输出链接起来&lt;/strong>的进程，其中每一个进程的输出被直接作为下一个进程的输入。管道中的组成元素也被称作过滤程序。这个概念是由道格拉斯·麦克罗伊为Unix 命令行发明的，因与物理上的管道相似而得名。&lt;/p>
+&lt;/blockquote>
+&lt;p>这是来自Wikipedia的定义。定义中指出，默认情况下，管道只会将上一个程序的标准输出(stdout)，传递给下一个命令，作为标准的输入(stdin)，对标准错误(stderr)信息没有直接处理能力。最后的命令将会把标准输出和标准错误都输出到屏幕上。画个简图来描述他们的关系：&lt;/p>
+&lt;p>&lt;img src="../../images/%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4%E7%A4%BA%E6%84%8F%E5%9B%BE.drawio.svg" alt="管道命令示意图">&lt;/p>
 &lt;p>注意：&lt;/p>
-&lt;p>结尾的delimiter 一定要顶格写，前面不能有任何字符，后面也不能有任何字符，包括空格和 tab 缩进。
-开始的delimiter前后的空格会被忽略掉。&lt;/p>
-&lt;h2 id="符号">&amp;amp;符号&lt;/h2>
-&lt;p>一般来说, &amp;quot;1&amp;gt;&amp;quot; 通常可以省略成 &amp;quot;&amp;gt;&amp;quot;.
-即可以把如上命令写成: ls a.txt b.txt &amp;gt;file.out 2&amp;gt;file.err
-有了这些认识才能理解 &amp;quot;1&amp;gt;&amp;amp;2&amp;quot; 和 &amp;quot;2&amp;gt;&amp;amp;1&amp;quot;.
-1&amp;gt;&amp;amp;2 正确返回值传递给2输出通道 &amp;amp;2表示2输出通道
-如果此处错写成 1&amp;gt;2, 就表示把1输出重定向到文件2中.
-2&amp;gt;&amp;amp;1 错误返回值传递给1输出通道, 同样&amp;amp;1表示1输出通道.&lt;/p>
-&lt;p>&lt;img src="../../images/%E5%8D%A0%E4%BD%8D%E5%9B%BE512.png" alt="占位图">&lt;/p></description></item><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description/></item><item><title>linux-debian系统初始化</title><link>https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/</link><pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/</guid><description>
+&lt;ol>
+&lt;li>管道命令只处理前一个命令正确输出，不处理错误输出。&lt;/li>
+&lt;li>管道命令右边命令，必须能够接收标准输入流命令才行。&lt;/li>
+&lt;li>管道触发两个子进程分别执行&amp;quot;|&amp;quot;两边的程序；而重定向是在一个进程内执行。&lt;/li>
+&lt;/ol>
+&lt;h2 id="管道命令">管道命令&lt;/h2>
+&lt;p>管道需要搭配&lt;strong>管道命令&lt;/strong>来使用，除了最开始的命令，在管道右边的命令，&lt;strong>必须能够接收标准输入流&lt;/strong>命令才行。以下这些命令就是常用的管道命令：&lt;/p>
+&lt;ul>
+&lt;li>撷取命令： cut, grep&lt;/li>
+&lt;li>排序命令： sort, uniq, wc&lt;/li>
+&lt;li>双向重导向： tee&lt;/li>
+&lt;li>字符转换命令： tr, col, join, paste, expand&lt;/li>
+&lt;li>分割命令： split&lt;/li>
+&lt;li>文本查看： cat, tac, more, less, head, tail&lt;/li>
+&lt;li>文本比较： diff&lt;/li>
+&lt;li>流文本处理： sed, awk&lt;/li>
+&lt;li>参数代换： xargs&lt;/li>
+&lt;/ul>
+&lt;p>我们不鼓励现在就了解这些命令的具体用途，因为这样学习是枯燥且低效的。我们更鼓励只有当实际用到的时候再去查找这些命令的用法。&lt;/p>
+&lt;h2 id="参数代换xargs">参数代换——&lt;code>xargs&lt;/code>&lt;/h2>
+&lt;p>上面这些命令中，有一个需要单独拎出来强调下，就是参数代换——&lt;code>xargs&lt;/code>。它的运作方式有少许不同，一般的管道命令都是把上一个命令的标准输出作为本命令的标准输入；而&lt;code>xargs&lt;/code>可以将来自管道的输出、标准输入或文件数据转换成&lt;strong>命令行参数&lt;/strong>。&lt;/p>
+&lt;p>我们先举个例子，看看&lt;code>xargs&lt;/code>带来的区别：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># xargstest目录下有一个test.txt文件&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ tree xargstest/
+&lt;span class="ln"> 3&lt;/span>xargstest/
+&lt;span class="ln"> 4&lt;/span>└── test.txt
+&lt;span class="ln"> 5&lt;/span>&lt;span class="m">0&lt;/span> directories, &lt;span class="m">1&lt;/span> file
+&lt;span class="ln"> 6&lt;/span>$ &lt;span class="nb">cd&lt;/span> xargstest/
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 直接使用管道命令&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ ls &lt;span class="p">|&lt;/span> cat
+&lt;span class="ln"> 9&lt;/span>test.txt
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># xargs下的管道命令&lt;/span>
+&lt;span class="ln">11&lt;/span>$ ls &lt;span class="p">|&lt;/span> xargs cat
+&lt;span class="ln">12&lt;/span>测试文件
+&lt;span class="ln">13&lt;/span>xargs的区别实例
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>首先，我们在&lt;code>xargstest/&lt;/code>目录下使用&lt;code>ls&lt;/code>命令，结果是显示其目录下的文件&lt;code>test.txt&lt;/code>，也就是说标准输出(stdout)是&lt;code>&amp;quot;test.txt&amp;quot;&lt;/code>。当我们直接使用管道命令&lt;code>ls | cat&lt;/code>时，标准输出&lt;code>&amp;quot;test.txt&amp;quot;&lt;/code>作为&lt;code>cat&lt;/code>的标准输入(stdin)，因此&lt;code>cat&lt;/code>的输出结果就是显示标准输入的内容，即&lt;code>&amp;quot;test.txt&amp;quot;&lt;/code>。当我们使用参数代换&lt;code>xargs&lt;/code>时，前一个命令&lt;code>ls&lt;/code>的标准输出作为&lt;strong>参数&lt;/strong>传递给&lt;code>cat&lt;/code>，而非标准输入，后一个命令在执行时，实际执行的命令是&lt;code>cat test.txt&lt;/code>，因此最终结果是显示&lt;code>test.txt&lt;/code>文件中的内容。&lt;/p>
+&lt;p>一句话总结：&lt;strong>xargs命令的作用，是将标准输入转为命令行参数&lt;/strong>。&lt;/p>
+&lt;h3 id="区分标准输入和参数">区分标准输入和参数&lt;/h3>
+&lt;p>大多数时候，&lt;code>xargs&lt;/code>命令都是跟管道一起使用的。为了进一步区分标准输入和参数，我们可以看看在&lt;strong>不使用管道时&lt;code>xargs&lt;/code>的效果&lt;/strong>。通常境况下，&lt;code>xargs&lt;/code>后面跟一个Linux shell命令，来自标准输入的内容都会是该命令的参数。如果我们单独使用&lt;code>xargs&lt;/code>，就会使用默认命令&lt;code>echo&lt;/code>，即&lt;code>xargs == xargs echo&lt;/code>。当我们直接执行&lt;code>xargs&lt;/code>后，会出现空行让我们随意输入内容，我们从键盘输入的内容就是&lt;strong>标准输入&lt;/strong>，直到我们使用&lt;code>ctrl+d&lt;/code>或者在一行仅输入“End of File”标志（使用&lt;code>-E&lt;/code>参数指定）。然后，&lt;code>echo&lt;/code>命令就会把前面的输入打印出来。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ xargs
+&lt;span class="ln">2&lt;/span>xargs测试 &lt;span class="c1"># 按Ctrl + d&lt;/span>
+&lt;span class="ln">3&lt;/span>xargs测试 &lt;span class="c1"># 输出内容&lt;/span>
+&lt;span class="ln">4&lt;/span>$ xargs -E EOF &lt;span class="c1"># 指定结束符为EOF&lt;/span>
+&lt;span class="ln">5&lt;/span>xargs测试
+&lt;span class="ln">6&lt;/span>EOF
+&lt;span class="ln">7&lt;/span>xargs测试 &lt;span class="c1"># 输出内容&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看出&lt;code>xargs + stdin == echo 'stdin'&lt;/code>，注意这里我用单引号，表示&lt;code>stdin&lt;/code>内容作为&lt;code>echo&lt;/code>的参数被执行时是直接输出，不用转义。这就是所说的&lt;code>xargs&lt;/code>将标准输入转为命令行参数。如果不好理解，我们再举个使用其他命令的例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ xargs touch &lt;span class="c1"># 打算创建一个文件，文件名由键盘输入&lt;/span>
+&lt;span class="ln">2&lt;/span>newfile.txt &lt;span class="c1"># 按Ctrl + d&lt;/span>
+&lt;span class="ln">3&lt;/span>$ ls -l newfile.txt
+&lt;span class="ln">4&lt;/span>-rw-rw-r-- &lt;span class="m">1&lt;/span> username username &lt;span class="m">0&lt;/span> Nov &lt;span class="m">24&lt;/span> 00:43 newfile.txt &lt;span class="c1"># 确实创建了此文件&lt;/span>
+&lt;span class="ln">5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;newfile.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> xargs -t rm &lt;span class="c1">#我们可以使用-t参数，显示xargs实际执行的命令。&lt;/span>
+&lt;span class="ln">6&lt;/span>rm newfile.txt
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个例子中，来自键盘的标准输入作为&lt;code>touch&lt;/code>命令的参数，决定了被新建文件的名称，等同于&lt;code>touch newfile.txt&lt;/code>。参数都是跟在命令后面的，比如&lt;code>touch&lt;/code>是&lt;code>xargs&lt;/code>的参数，&lt;code>touch newfile.txt&lt;/code>中&lt;code>newfile.txt&lt;/code>是&lt;code>touch&lt;/code>的参数。而标准输入是独立于命令存在的，由用户决定其内容，通常是命令执行后，等待用户提供的，比如执行&lt;code>xargs&lt;/code>命令后，等待来自用户键盘的输入内容。&lt;/p>
+&lt;p>其他&lt;code>xargs&lt;/code>命令的参数，可以参考其&lt;a href="https://man7.org/linux/man-pages/man1/xargs.1.html">&lt;code>man&lt;/code>帮助页面&lt;/a>。&lt;/p>
+&lt;h2 id="关于减号-的用途">关于减号“-”的用途&lt;/h2>
+&lt;p>减号“-”在shell脚本中根据使用上下文的不同，有不同的含义。在管道语境下，减号“-”代表着&lt;strong>标准输入或标准输出&lt;/strong>，用来&lt;strong>代替某个文件名参数&lt;/strong>（在非管道语境下，也可以表示标准输入或标准输出）。需要指出，并不是所有命令都支持减号“-”。&lt;/p>
+&lt;p>我们先举个做为&lt;strong>标准输出&lt;/strong>的例子。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 默认情况下，此命令会下载一个名为docker的文件，此为安装docker容器的脚本&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ wget https://get.daocloud.io/docker
+&lt;span class="ln"> 3&lt;/span>--2021-11-24 09:22:21-- https://get.daocloud.io/docker
+&lt;span class="ln"> 4&lt;/span>Resolving get.daocloud.io &lt;span class="o">(&lt;/span>get.daocloud.io&lt;span class="o">)&lt;/span>... 106.75.86.15
+&lt;span class="ln"> 5&lt;/span>...... &lt;span class="c1"># 中间省略&lt;/span>
+&lt;span class="ln"> 6&lt;/span>HTTP request sent, awaiting response... &lt;span class="m">200&lt;/span> OK
+&lt;span class="ln"> 7&lt;/span>Length: &lt;span class="m">18617&lt;/span> &lt;span class="o">(&lt;/span>18K&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>None&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 8&lt;/span>Saving to: ‘docker’ &lt;span class="c1"># 注意这里就是保存到文件&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>docker 100%&lt;span class="o">[=============================================================&lt;/span>&amp;gt;&lt;span class="o">]&lt;/span> 18.18K --.-KB/s in 0.03s
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span>2021-11-24 09:22:21 &lt;span class="o">(&lt;/span>&lt;span class="m">566&lt;/span> KB/s&lt;span class="o">)&lt;/span> - ‘docker’ saved &lt;span class="o">[&lt;/span>18617/18617&lt;span class="o">]&lt;/span>
+&lt;span class="ln">13&lt;/span>$ ls -l docker
+&lt;span class="ln">14&lt;/span>-rw-r--r-- &lt;span class="m">1&lt;/span> username username &lt;span class="m">18617&lt;/span> Nov &lt;span class="m">24&lt;/span> 09:22 docker
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># 当我们加上参数&amp;#34;-O&amp;#34;表示目标位置，通常情况下为文件名&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c1"># 我们可使用&amp;#34;-O -&amp;#34;将下载的内容直接输出到标准输出（屏幕），而非文件&lt;/span>
+&lt;span class="ln">17&lt;/span>$ wget https://get.daocloud.io/docker -O -
+&lt;span class="ln">18&lt;/span>--2021-11-24 10:03:50-- https://get.daocloud.io/docker
+&lt;span class="ln">19&lt;/span>Resolving get.daocloud.io &lt;span class="o">(&lt;/span>get.daocloud.io&lt;span class="o">)&lt;/span>... 106.75.86.15
+&lt;span class="ln">20&lt;/span>...... &lt;span class="c1"># 中间省略&lt;/span>
+&lt;span class="ln">21&lt;/span>HTTP request sent, awaiting response... &lt;span class="m">200&lt;/span> OK
+&lt;span class="ln">22&lt;/span>Length: &lt;span class="m">18617&lt;/span> &lt;span class="o">(&lt;/span>18K&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>None&lt;span class="o">]&lt;/span>
+&lt;span class="ln">23&lt;/span>Saving to: ‘STDOUT’ &lt;span class="c1"># 注意这里就是保存到标准输出，实际效果为输出到屏幕&lt;/span>
+&lt;span class="ln">24&lt;/span>
+&lt;span class="ln">25&lt;/span>- 0%&lt;span class="o">[&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="m">0&lt;/span> --.-KB/s &lt;span class="c1">#!/bin/sh&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="nb">set&lt;/span> -e
+&lt;span class="ln">27&lt;/span>&lt;span class="c1"># Docker CE for Linux installation script&lt;/span>
+&lt;span class="ln">28&lt;/span>&lt;span class="c1">#&lt;/span>
+&lt;span class="ln">29&lt;/span>&lt;span class="c1"># See https://docs.docker.com/engine/install/ for the installation steps.&lt;/span>
+&lt;span class="ln">30&lt;/span>&lt;span class="c1">#&lt;/span>
+&lt;span class="ln">31&lt;/span>...... &lt;span class="c1"># 中间省略&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;ERROR: Unsupported distribution &amp;#39;&lt;/span>&lt;span class="nv">$lsb_dist&lt;/span>&lt;span class="s2">&amp;#39;&amp;#34;&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="nb">echo&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="nb">exit&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="k">esac&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="nb">exit&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">38&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">39&lt;/span>
+&lt;span class="ln">40&lt;/span>&lt;span class="c1"># wrapped up in a function so that we have some protection against only getting&lt;/span>
+&lt;span class="ln">41&lt;/span>&lt;span class="c1"># half the file during &amp;#34;curl | sh&amp;#34;&lt;/span>
+&lt;span class="ln">42&lt;/span>do_install
+&lt;span class="ln">43&lt;/span>- 100%&lt;span class="o">[=============================================================&lt;/span>&amp;gt;&lt;span class="o">]&lt;/span> 18.18K --.-KB/s in 0.03s
+&lt;span class="ln">44&lt;/span>
+&lt;span class="ln">45&lt;/span>2022-01-05 10:03:51 &lt;span class="o">(&lt;/span>&lt;span class="m">684&lt;/span> KB/s&lt;span class="o">)&lt;/span> - written to stdout &lt;span class="o">[&lt;/span>18617/18617&lt;span class="o">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里我们使用减号“-”代替“-O”参数指向的文件名，来表示将下载的内容发到标准输出。此时相当于只是在屏幕中输出文件内容，并非下载文件。&lt;/p>
+&lt;p>而将减号“-”用于标准输入，不仅需要命令的支持，还需要命令能够从标准输入接收参数。典型的例子是&lt;code>diff&lt;/code>命令。例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">echo&lt;/span> -e &lt;span class="s2">&amp;#34;line 1 \nline 2\nline 3&amp;#34;&lt;/span> &amp;gt; minus_1.txt
+&lt;span class="ln"> 2&lt;/span>$ cat minus_1.txt
+&lt;span class="ln"> 3&lt;/span>line &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 4&lt;/span>line &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 5&lt;/span>line &lt;span class="m">3&lt;/span>
+&lt;span class="ln"> 6&lt;/span>$ diff - minus_1.txt &lt;span class="c1"># - 表示会从标准输入（键盘）接收内容&lt;/span>
+&lt;span class="ln"> 7&lt;/span>line &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 8&lt;/span>line &lt;span class="m">2&lt;/span> changed
+&lt;span class="ln"> 9&lt;/span>line &lt;span class="m">3&lt;/span> &lt;span class="c1"># 这里按ctrl+d&lt;/span>
+&lt;span class="ln">10&lt;/span>1,2c1,2
+&lt;span class="ln">11&lt;/span>&amp;lt; line &lt;span class="m">1&lt;/span>
+&lt;span class="ln">12&lt;/span>&amp;lt; line &lt;span class="m">2&lt;/span> changed
+&lt;span class="ln">13&lt;/span>---
+&lt;span class="ln">14&lt;/span>&amp;gt; line &lt;span class="m">1&lt;/span>
+&lt;span class="ln">15&lt;/span>&amp;gt; line &lt;span class="m">2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们生成了一个三行的文件&lt;code>minus_1.txt&lt;/code>，然后使用&lt;code>diff - minus_1.txt&lt;/code>让从键盘输入的内容和文件内容比较。&lt;/p>
+&lt;p>知道了减号作为标准输入输出的用法，我们就可以把它运用到管道中，在管道左边的命令中，减号可以代表标准输出；在管道右边的命令中，减号代表标准输入。例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 将/var/log中的文件打包并压缩为log.zip&lt;/span>
+&lt;span class="ln">2&lt;/span>tar -cvPf - /var/log &lt;span class="p">|&lt;/span> zip -r log.zip -
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>管道左边的第一条语句不再输入到具体文件，而输出到stdout中， 而作为第二条件的标准输入(stdin), 而stdin和 stdout都可以用“-”来取代。其实际效果等同于：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 将/var/log/中的文件打包到中间文件log.tar&lt;/span>
+&lt;span class="ln">2&lt;/span>$ tar -cvPf log.tar /var/log/
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># zip压缩log.tar为log.tar.zip&lt;/span>
+&lt;span class="ln">4&lt;/span>$ zip -r log.tar.zip log.tar
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 删除中间文件log.tar&lt;/span>
+&lt;span class="ln">6&lt;/span>$ rm -rf log.tar
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用减号不仅使命令更加简洁，也避免生成中间文件&lt;code>log.tar&lt;/code>。&lt;/p>
+&lt;h2 id="参考内容">参考内容&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html">https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html">https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7">http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>linux-debian系统初始化</title><link>https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/</link><pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/</guid><description>
 &lt;h2 id="linux-debian-10系统初始化---omit-in-toc---">Linux-Debian 10系统初始化&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#%E8%B4%A6%E6%88%B7%E5%88%9D%E5%A7%8B%E5%8C%96">账户初始化&lt;/a>&lt;/li>

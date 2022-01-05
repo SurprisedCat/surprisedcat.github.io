@@ -17,9 +17,9 @@
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
 <link rel=canonical href=https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/>
-<link rel=preload href=https://surprisedcat.github.io/css/styles.b3aada60be6255163f15b946a17b07d8badc20be925f60ecba8489ff79d1b26de58ce9eef0c2c58457939b2b63f63e4a11cd66fd1d121ac12ec4d2594273683f.css integrity="sha512-s6raYL5iVRY/FblGoXsH2LrcIL6SX2DsuoSJ/3nRsm3ljOnu8MLFhFeTmytj9j5KEc1m/R0SGsEuxNJZQnNoPw==" as=style crossorigin=anonymous>
-<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.14825dc619648aeca2e4e66c65ef7d06ea216e6a64cd503f64d2fe77950ee425c47fc0f2cf993c2d656f534914619a2c47c8313438a810ed5008db38a46a812d.js as=script integrity="sha512-FIJdxhlkiuyi5OZsZe99BuohbmpkzVA/ZNL+d5UO5CXEf8Dyz5k8LWVvU0kUYZosR8gxNDioEO1QCNs4pGqBLQ==" crossorigin=anonymous>
-<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.b3aada60be6255163f15b946a17b07d8badc20be925f60ecba8489ff79d1b26de58ce9eef0c2c58457939b2b63f63e4a11cd66fd1d121ac12ec4d2594273683f.css integrity="sha512-s6raYL5iVRY/FblGoXsH2LrcIL6SX2DsuoSJ/3nRsm3ljOnu8MLFhFeTmytj9j5KEc1m/R0SGsEuxNJZQnNoPw==" crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
 </head>
 <body data-code=20 data-lines=true id=documentTop>
 <header class=nav_header>
@@ -77,7 +77,9 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Nov 24, 2021</span>
-<span class=post_time> · 0 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/linux title=linux class="post_tag button button_translucent">linux
+<span class=post_time> · 3 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/linux title=linux class="post_tag button button_translucent">linux
+</a><a href=https://surprisedcat.github.io/tags/shell title=shell class="post_tag button button_translucent">shell
+</a><a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86 title=Linux文本处理 class="post_tag button button_translucent">Linux文本处理
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -88,6 +90,164 @@ Nov 24, 2021</span>
 </div>
 </span>
 </div>
+<ul>
+<li><a href=#%E7%AE%A1%E9%81%93pipe>管道——Pipe</a></li>
+<li><a href=#%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4>管道命令</a></li>
+<li><a href=#%E5%8F%82%E6%95%B0%E4%BB%A3%E6%8D%A2xargs>参数代换——<code>xargs</code></a>
+<ul>
+<li><a href=#%E5%8C%BA%E5%88%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E5%92%8C%E5%8F%82%E6%95%B0>区分标准输入和参数</a></li>
+</ul>
+</li>
+<li><a href=#%E5%85%B3%E4%BA%8E%E5%87%8F%E5%8F%B7-%E7%9A%84%E7%94%A8%E9%80%94>关于减号“-”的用途</a></li>
+<li><a href=#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9>参考内容</a></li>
+</ul>
+<h2 id=linux-管道pipe与xargs---omit-in-toc--->linux-管道pipe与xargs</h2>
+<p>Linux CLI shell（如bash，zsh）通常情况下都是每输入一条指令，输出一个结果，一来一回的交互，但是有的时候一条指令的输出是冗长且繁杂的，我们需要对其输出进行再处理，才能找到我们需要的内容。此时，我们就需要像筛金子一样，逐层过滤掉无用的沙子，Linux提供了这样的筛子——<strong>管道</strong>，使我们能够接续处理数据。</p>
+<h2 id=管道pipe>管道——Pipe</h2>
+<blockquote>
+<p>管道（Pipeline）操作符为“|”，是一系列将<strong>标准输入输出链接起来</strong>的进程，其中每一个进程的输出被直接作为下一个进程的输入。管道中的组成元素也被称作过滤程序。这个概念是由道格拉斯·麦克罗伊为Unix 命令行发明的，因与物理上的管道相似而得名。</p>
+</blockquote>
+<p>这是来自Wikipedia的定义。定义中指出，默认情况下，管道只会将上一个程序的标准输出(stdout)，传递给下一个命令，作为标准的输入(stdin)，对标准错误(stderr)信息没有直接处理能力。最后的命令将会把标准输出和标准错误都输出到屏幕上。画个简图来描述他们的关系：</p>
+<p><img src=../../images/%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4%E7%A4%BA%E6%84%8F%E5%9B%BE.drawio.svg alt=管道命令示意图></p>
+<p>注意：</p>
+<ol>
+<li>管道命令只处理前一个命令正确输出，不处理错误输出。</li>
+<li>管道命令右边命令，必须能够接收标准输入流命令才行。</li>
+<li>管道触发两个子进程分别执行"|"两边的程序；而重定向是在一个进程内执行。</li>
+</ol>
+<h2 id=管道命令>管道命令</h2>
+<p>管道需要搭配<strong>管道命令</strong>来使用，除了最开始的命令，在管道右边的命令，<strong>必须能够接收标准输入流</strong>命令才行。以下这些命令就是常用的管道命令：</p>
+<ul>
+<li>撷取命令： cut, grep</li>
+<li>排序命令： sort, uniq, wc</li>
+<li>双向重导向： tee</li>
+<li>字符转换命令： tr, col, join, paste, expand</li>
+<li>分割命令： split</li>
+<li>文本查看： cat, tac, more, less, head, tail</li>
+<li>文本比较： diff</li>
+<li>流文本处理： sed, awk</li>
+<li>参数代换： xargs</li>
+</ul>
+<p>我们不鼓励现在就了解这些命令的具体用途，因为这样学习是枯燥且低效的。我们更鼓励只有当实际用到的时候再去查找这些命令的用法。</p>
+<h2 id=参数代换xargs>参数代换——<code>xargs</code></h2>
+<p>上面这些命令中，有一个需要单独拎出来强调下，就是参数代换——<code>xargs</code>。它的运作方式有少许不同，一般的管道命令都是把上一个命令的标准输出作为本命令的标准输入；而<code>xargs</code>可以将来自管道的输出、标准输入或文件数据转换成<strong>命令行参数</strong>。</p>
+<p>我们先举个例子，看看<code>xargs</code>带来的区别：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># xargstest目录下有一个test.txt文件</span>
+<span class=ln> 2</span>$ tree xargstest/
+<span class=ln> 3</span>xargstest/
+<span class=ln> 4</span>└── test.txt
+<span class=ln> 5</span><span class=m>0</span> directories, <span class=m>1</span> file
+<span class=ln> 6</span>$ <span class=nb>cd</span> xargstest/
+<span class=ln> 7</span><span class=c1># 直接使用管道命令</span>
+<span class=ln> 8</span>$ ls <span class=p>|</span> cat
+<span class=ln> 9</span>test.txt
+<span class=ln>10</span><span class=c1># xargs下的管道命令</span>
+<span class=ln>11</span>$ ls <span class=p>|</span> xargs cat
+<span class=ln>12</span>测试文件
+<span class=ln>13</span>xargs的区别实例
+</code></pre></div><p>首先，我们在<code>xargstest/</code>目录下使用<code>ls</code>命令，结果是显示其目录下的文件<code>test.txt</code>，也就是说标准输出(stdout)是<code>"test.txt"</code>。当我们直接使用管道命令<code>ls | cat</code>时，标准输出<code>"test.txt"</code>作为<code>cat</code>的标准输入(stdin)，因此<code>cat</code>的输出结果就是显示标准输入的内容，即<code>"test.txt"</code>。当我们使用参数代换<code>xargs</code>时，前一个命令<code>ls</code>的标准输出作为<strong>参数</strong>传递给<code>cat</code>，而非标准输入，后一个命令在执行时，实际执行的命令是<code>cat test.txt</code>，因此最终结果是显示<code>test.txt</code>文件中的内容。</p>
+<p>一句话总结：<strong>xargs命令的作用，是将标准输入转为命令行参数</strong>。</p>
+<h3 id=区分标准输入和参数>区分标准输入和参数</h3>
+<p>大多数时候，<code>xargs</code>命令都是跟管道一起使用的。为了进一步区分标准输入和参数，我们可以看看在<strong>不使用管道时<code>xargs</code>的效果</strong>。通常境况下，<code>xargs</code>后面跟一个Linux shell命令，来自标准输入的内容都会是该命令的参数。如果我们单独使用<code>xargs</code>，就会使用默认命令<code>echo</code>，即<code>xargs == xargs echo</code>。当我们直接执行<code>xargs</code>后，会出现空行让我们随意输入内容，我们从键盘输入的内容就是<strong>标准输入</strong>，直到我们使用<code>ctrl+d</code>或者在一行仅输入“End of File”标志（使用<code>-E</code>参数指定）。然后，<code>echo</code>命令就会把前面的输入打印出来。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ xargs
+<span class=ln>2</span>xargs测试 <span class=c1># 按Ctrl + d</span>
+<span class=ln>3</span>xargs测试 <span class=c1># 输出内容</span>
+<span class=ln>4</span>$ xargs -E EOF <span class=c1># 指定结束符为EOF</span>
+<span class=ln>5</span>xargs测试
+<span class=ln>6</span>EOF
+<span class=ln>7</span>xargs测试 <span class=c1># 输出内容</span>
+</code></pre></div><p>可以看出<code>xargs + stdin == echo 'stdin'</code>，注意这里我用单引号，表示<code>stdin</code>内容作为<code>echo</code>的参数被执行时是直接输出，不用转义。这就是所说的<code>xargs</code>将标准输入转为命令行参数。如果不好理解，我们再举个使用其他命令的例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ xargs touch <span class=c1># 打算创建一个文件，文件名由键盘输入</span>
+<span class=ln>2</span>newfile.txt <span class=c1># 按Ctrl + d</span>
+<span class=ln>3</span>$ ls -l newfile.txt
+<span class=ln>4</span>-rw-rw-r-- <span class=m>1</span> username username <span class=m>0</span> Nov  <span class=m>24</span> 00:43 newfile.txt  <span class=c1># 确实创建了此文件</span>
+<span class=ln>5</span>$ <span class=nb>echo</span> <span class=s1>&#39;newfile.txt&#39;</span> <span class=p>|</span> xargs -t rm <span class=c1>#我们可以使用-t参数，显示xargs实际执行的命令。</span>
+<span class=ln>6</span>rm newfile.txt
+</code></pre></div><p>这个例子中，来自键盘的标准输入作为<code>touch</code>命令的参数，决定了被新建文件的名称，等同于<code>touch newfile.txt</code>。参数都是跟在命令后面的，比如<code>touch</code>是<code>xargs</code>的参数，<code>touch newfile.txt</code>中<code>newfile.txt</code>是<code>touch</code>的参数。而标准输入是独立于命令存在的，由用户决定其内容，通常是命令执行后，等待用户提供的，比如执行<code>xargs</code>命令后，等待来自用户键盘的输入内容。</p>
+<p>其他<code>xargs</code>命令的参数，可以参考其<a href=https://man7.org/linux/man-pages/man1/xargs.1.html><code>man</code>帮助页面</a>。</p>
+<h2 id=关于减号-的用途>关于减号“-”的用途</h2>
+<p>减号“-”在shell脚本中根据使用上下文的不同，有不同的含义。在管道语境下，减号“-”代表着<strong>标准输入或标准输出</strong>，用来<strong>代替某个文件名参数</strong>（在非管道语境下，也可以表示标准输入或标准输出）。需要指出，并不是所有命令都支持减号“-”。</p>
+<p>我们先举个做为<strong>标准输出</strong>的例子。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 默认情况下，此命令会下载一个名为docker的文件，此为安装docker容器的脚本</span>
+<span class=ln> 2</span>$ wget https://get.daocloud.io/docker
+<span class=ln> 3</span>--2021-11-24 09:22:21--  https://get.daocloud.io/docker
+<span class=ln> 4</span>Resolving get.daocloud.io <span class=o>(</span>get.daocloud.io<span class=o>)</span>... 106.75.86.15
+<span class=ln> 5</span>...... <span class=c1># 中间省略</span>
+<span class=ln> 6</span>HTTP request sent, awaiting response... <span class=m>200</span> OK
+<span class=ln> 7</span>Length: <span class=m>18617</span> <span class=o>(</span>18K<span class=o>)</span> <span class=o>[</span>None<span class=o>]</span>
+<span class=ln> 8</span>Saving to: ‘docker’ <span class=c1># 注意这里就是保存到文件</span>
+<span class=ln> 9</span>
+<span class=ln>10</span>docker                             100%<span class=o>[=============================================================</span>&gt;<span class=o>]</span>  18.18K  --.-KB/s    in 0.03s
+<span class=ln>11</span>
+<span class=ln>12</span>2021-11-24 09:22:21 <span class=o>(</span><span class=m>566</span> KB/s<span class=o>)</span> - ‘docker’ saved <span class=o>[</span>18617/18617<span class=o>]</span>
+<span class=ln>13</span>$ ls -l docker
+<span class=ln>14</span>-rw-r--r-- <span class=m>1</span> username username <span class=m>18617</span> Nov  <span class=m>24</span> 09:22 docker
+<span class=ln>15</span><span class=c1># 当我们加上参数&#34;-O&#34;表示目标位置，通常情况下为文件名</span>
+<span class=ln>16</span><span class=c1># 我们可使用&#34;-O -&#34;将下载的内容直接输出到标准输出（屏幕），而非文件</span>
+<span class=ln>17</span>$ wget https://get.daocloud.io/docker -O -
+<span class=ln>18</span>--2021-11-24 10:03:50--  https://get.daocloud.io/docker
+<span class=ln>19</span>Resolving get.daocloud.io <span class=o>(</span>get.daocloud.io<span class=o>)</span>... 106.75.86.15
+<span class=ln>20</span>...... <span class=c1># 中间省略</span>
+<span class=ln>21</span>HTTP request sent, awaiting response... <span class=m>200</span> OK
+<span class=ln>22</span>Length: <span class=m>18617</span> <span class=o>(</span>18K<span class=o>)</span> <span class=o>[</span>None<span class=o>]</span>
+<span class=ln>23</span>Saving to: ‘STDOUT’ <span class=c1># 注意这里就是保存到标准输出，实际效果为输出到屏幕</span>
+<span class=ln>24</span>
+<span class=ln>25</span>-                                    0%<span class=o>[</span>                                                              <span class=o>]</span>       <span class=m>0</span>  --.-KB/s               <span class=c1>#!/bin/sh</span>
+<span class=ln>26</span><span class=nb>set</span> -e
+<span class=ln>27</span><span class=c1># Docker CE for Linux installation script</span>
+<span class=ln>28</span><span class=c1>#</span>
+<span class=ln>29</span><span class=c1># See https://docs.docker.com/engine/install/ for the installation steps.</span>
+<span class=ln>30</span><span class=c1>#</span>
+<span class=ln>31</span>...... <span class=c1># 中间省略</span>
+<span class=ln>32</span>                       <span class=nb>echo</span> <span class=s2>&#34;ERROR: Unsupported distribution &#39;</span><span class=nv>$lsb_dist</span><span class=s2>&#39;&#34;</span>
+<span class=ln>33</span>                        <span class=nb>echo</span>
+<span class=ln>34</span>                        <span class=nb>exit</span> <span class=m>1</span>
+<span class=ln>35</span>                        <span class=p>;;</span>
+<span class=ln>36</span>        <span class=k>esac</span>
+<span class=ln>37</span>        <span class=nb>exit</span> <span class=m>1</span>
+<span class=ln>38</span><span class=o>}</span>
+<span class=ln>39</span>
+<span class=ln>40</span><span class=c1># wrapped up in a function so that we have some protection against only getting</span>
+<span class=ln>41</span><span class=c1># half the file during &#34;curl | sh&#34;</span>
+<span class=ln>42</span>do_install
+<span class=ln>43</span>-                                  100%<span class=o>[=============================================================</span>&gt;<span class=o>]</span>  18.18K  --.-KB/s    in 0.03s
+<span class=ln>44</span>
+<span class=ln>45</span>2022-01-05 10:03:51 <span class=o>(</span><span class=m>684</span> KB/s<span class=o>)</span> - written to stdout <span class=o>[</span>18617/18617<span class=o>]</span>
+</code></pre></div><p>这里我们使用减号“-”代替“-O”参数指向的文件名，来表示将下载的内容发到标准输出。此时相当于只是在屏幕中输出文件内容，并非下载文件。</p>
+<p>而将减号“-”用于标准输入，不仅需要命令的支持，还需要命令能够从标准输入接收参数。典型的例子是<code>diff</code>命令。例子如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ <span class=nb>echo</span> -e <span class=s2>&#34;line 1 \nline 2\nline 3&#34;</span> &gt; minus_1.txt
+<span class=ln> 2</span>$ cat minus_1.txt
+<span class=ln> 3</span>line <span class=m>1</span>
+<span class=ln> 4</span>line <span class=m>2</span>
+<span class=ln> 5</span>line <span class=m>3</span>
+<span class=ln> 6</span>$ diff - minus_1.txt <span class=c1># - 表示会从标准输入（键盘）接收内容</span>
+<span class=ln> 7</span>line <span class=m>1</span>
+<span class=ln> 8</span>line <span class=m>2</span> changed
+<span class=ln> 9</span>line <span class=m>3</span> <span class=c1># 这里按ctrl+d</span>
+<span class=ln>10</span>1,2c1,2
+<span class=ln>11</span>&lt; line <span class=m>1</span>
+<span class=ln>12</span>&lt; line <span class=m>2</span> changed
+<span class=ln>13</span>---
+<span class=ln>14</span>&gt; line <span class=m>1</span>
+<span class=ln>15</span>&gt; line <span class=m>2</span>
+</code></pre></div><p>我们生成了一个三行的文件<code>minus_1.txt</code>，然后使用<code>diff - minus_1.txt</code>让从键盘输入的内容和文件内容比较。</p>
+<p>知道了减号作为标准输入输出的用法，我们就可以把它运用到管道中，在管道左边的命令中，减号可以代表标准输出；在管道右边的命令中，减号代表标准输入。例子如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 将/var/log中的文件打包并压缩为log.zip</span>
+<span class=ln>2</span>tar -cvPf - /var/log <span class=p>|</span> zip -r log.zip -
+</code></pre></div><p>管道左边的第一条语句不再输入到具体文件，而输出到stdout中， 而作为第二条件的标准输入(stdin), 而stdin和 stdout都可以用“-”来取代。其实际效果等同于：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 将/var/log/中的文件打包到中间文件log.tar</span>
+<span class=ln>2</span>$ tar -cvPf log.tar /var/log/
+<span class=ln>3</span><span class=c1># zip压缩log.tar为log.tar.zip</span>
+<span class=ln>4</span>$ zip -r log.tar.zip log.tar
+<span class=ln>5</span><span class=c1># 删除中间文件log.tar</span>
+<span class=ln>6</span>$ rm -rf log.tar
+</code></pre></div><p>使用减号不仅使命令更加简洁，也避免生成中间文件<code>log.tar</code>。</p>
+<h2 id=参考内容>参考内容</h2>
+<ul>
+<li><a href=https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html>https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html</a></li>
+<li><a href=https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html>https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html</a></li>
+<li><a href=http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7>http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7</a></li>
+</ul>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -219,6 +379,9 @@ RASPBERRY
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程">Shell 骨干流程</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ class=nav-link title=linux-与终端交互的发展>linux-与终端交互的发展</a>
 </li>
 <li>
@@ -230,20 +393,17 @@ RASPBERRY
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/ class=nav-link title=概率统计随机过程之抽样的分布>概率统计随机过程之抽样的分布</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%A6%82%E4%BD%95%E6%8E%A8%E5%AF%BC%E5%BE%97%E5%88%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9A%84%E7%90%86%E8%A7%A3%E8%A7%92%E5%BA%A6/ class=nav-link title=概率统计随机过程之如何推导得到正态分布—正态分布的理解角度>概率统计随机过程之如何推导得到正态分布—正态分布的理解角度</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程">Shell 骨干流程</a>
+</li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ class=nav-link title=linux-与终端交互的发展>linux-与终端交互的发展</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E7%89%B9%E6%AE%8A%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6/ class=nav-link title=linux-特殊设备文件>linux-特殊设备文件</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/devops-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/ class=nav-link title=devops-自动化部署自己的博客>devops-自动化部署自己的博客</a>
 </li>
 </ul>
 <div>
@@ -261,10 +421,6 @@ RASPBERRY
 概率统计随机过程
 <span class=button_tally>14</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
-LINUX
-<span class=button_tally>12</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
 <span class=button_tally>12</span>
@@ -272,6 +428,10 @@ LINUX
 <a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
 测度论
 <span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
 PYTHON
@@ -295,6 +455,8 @@ RASPBERRY
 <div class=tags_list>
 <a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=2 title=cli处理流程>CLI处理流程<span class=button_tally>2</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
@@ -305,7 +467,9 @@ RASPBERRY
 </a>
 <a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=12 title=linux>LINUX<span class=button_tally>12</span>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
 </a>
@@ -389,6 +553,6 @@ RASPBERRY
 </a>
 </div>
 </footer>
-<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.14825dc619648aeca2e4e66c65ef7d06ea216e6a64cd503f64d2fe77950ee425c47fc0f2cf993c2d656f534914619a2c47c8313438a810ed5008db38a46a812d.js integrity="sha512-FIJdxhlkiuyi5OZsZe99BuohbmpkzVA/ZNL+d5UO5CXEf8Dyz5k8LWVvU0kUYZosR8gxNDioEO1QCNs4pGqBLQ==" crossorigin=anonymous></script>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
 </body>
 </html>
