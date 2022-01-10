@@ -101,6 +101,20 @@ Nov 19, 2021</span>
 </ul>
 <h2 id=shell-概述---omit-in-toc--->Shell 概述</h2>
 <h2 id=shell关键概念中英文>shell关键概念中英文</h2>
+<ul>
+<li>blank：包含空格<code>space</code>和制表符<code>tab</code></li>
+<li>control operator, 控制符：包含<code>newline, '||', '&&', '&', ';', ';;', ';&', ';;&', '|', '|&', '(', ')'</code></li>
+<li>field, 字段：shell扩展之一带来的文本单位。扩展后，当执行命令时，生成的字段将用作命令名称和参数</li>
+<li>job, 作业：在同一个进程组中的一系列进程，可由管道或衍生的进程组成</li>
+<li>job control, 作业控制：一种机制，用户可以通过该机制选择性地停止（挂起）并重新开始（恢复）进程的执行。</li>
+<li>metacharacter, 元字符：当不在引号中时，用于分割单词的字符，包括<code>space, tab, newline, '|', '&', ';', '(', ')', '&lt;', '>'</code></li>
+<li>operator, 操作符：分为控制符或重定向符，操作符由至少一个元字符组成</li>
+<li>process group, 进程组：一系列具有相同组进程ID的进程</li>
+<li>reserved word, 保留字：对shell具有特殊含义的单词。，大多数保留字用于流程控制，如<code>for, while, if</code></li>
+<li>signal, 信号：一种机制，内核可以通过该机制将系统中发生的事件通知给进程</li>
+<li>token, 标记：可以被shell认为是一个独立单元的一串字符，分为单词word或操作符operator</li>
+<li>word, 单词：可以被shell认为是一个单元的一串字符，单词不能包括不带引号的元字符。</li>
+</ul>
 <h2 id=shell脚本的第一行>shell脚本的第一行</h2>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>&gt; <span class=c1>#! /bin/sh -</span>
 </code></pre></div><ul>
@@ -126,13 +140,15 @@ Nov 19, 2021</span>
 <ul>
 <li><strong>;</strong> 表示一条命令输入结束，命令按顺序执行</li>
 <li><strong>＆</strong> 表示后台执行&之前的命令，直接在前台执行&之后的命令。</li>
+<li><strong>&&</strong> 用法<code>command 1 && command 2</code>，表示当<code>command 1</code>执行成功后，再执行<code>command 2</code>，如果不成功，则不执行<code>command 2</code>。</li>
+<li><strong>||</strong> 用法<code>command 1 || command 2</code>，表示若<code>command 1</code>执行失败，则执行<code>command 2</code>，如果执行成功，则不执行<code>command 2</code>。</li>
 </ul>
 <h2 id=变量>变量</h2>
 <p>Shell脚本中变量可以是（并且通常是）空值，<code>null</code>。
-变量赋值的时候<code>VarName=VarValue</code>,如果<code>VarValue</code>中间<strong>有空格</strong>，则需要使用<strong>双引号</strong>，包括<code>VarValue</code>。变量引用的时候需要使用<strong>＄</strong>符号,<code>$VarName</code>;如果想在CMD终端显示有空格的<code>VarValue</code>，需要使用<code>echo</code>命令。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nv>fullname</span><span class=o>=</span><span class=s2>&#34;chenxin&#34;</span>  
+变量赋值的时候<code>VarName=VarValue</code>,如果<code>VarValue</code>中间<strong>有空格</strong>，则需要使用<strong>双引号</strong>，包括<code>VarValue</code>。变量引用的时候需要使用$符号,<code>$VarName</code>;如果想在CMD终端显示有空格的<code>VarValue</code>，需要使用<code>echo</code>命令。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nv>fullname</span><span class=o>=</span><span class=s2>&#34;hello world&#34;</span>  
 <span class=ln>2</span>$ <span class=nb>echo</span> <span class=nv>$fullname</span>  
-<span class=ln>3</span>chen xin
+<span class=ln>3</span>hello world
 </code></pre></div><h2 id=path路径中的作用>PATH路径中:的作用</h2>
 <blockquote>
 <p>表示从哪里开始搜寻命令</p>

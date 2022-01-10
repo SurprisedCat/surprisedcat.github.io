@@ -1,12 +1,89 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on SurprisedCat</title><link>https://surprisedcat.github.io/categories/shell/</link><description>Recent content in shell on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 01 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell 骨干流程</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/</link><pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/</guid><description>
 &lt;ul>
+&lt;li>&lt;a href="#shell%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E4%B8%AD%E8%8B%B1%E6%96%87">shell关键概念中英文&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#shell%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE">Shell处理流程图&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B">大体流程&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4">形成初步命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6">复合命令与流程控制&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80">命令展开&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#io%E4%B8%8E%E9%87%8D%E5%AE%9A%E5%90%91">I/O与重定向&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6">命令执行与job控制&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%85%B7%E4%BD%93%E4%BE%8B%E5%AD%90">具体例子&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9">参考内容&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="shell-骨干流程---omit-in-toc---">Shell 骨干流程&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>我们在进行shell变成或使用CLI shell进行交互时，shell背后进行了复杂的处理流程。借由理清这个处理流程，会给我们对shell有更加深刻的认知。&lt;/p>
+&lt;h2 id="shell关键概念中英文">shell关键概念中英文&lt;/h2>
+&lt;p>为了更清楚的描述，我们给出如下shell中常用的中英文定义：&lt;/p>
+&lt;ul>
+&lt;li>blank：包含空格&lt;code>space&lt;/code>和制表符&lt;code>tab&lt;/code>&lt;/li>
+&lt;li>control operator, 控制符：包含&lt;code>newline, '||', '&amp;amp;&amp;amp;', '&amp;amp;', ';', ';;', ';&amp;amp;', ';;&amp;amp;', '|', '|&amp;amp;', '(', ')'&lt;/code>&lt;/li>
+&lt;li>field, 字段：shell扩展之一带来的文本单位。扩展后，当执行命令时，生成的字段将用作命令名称和参数&lt;/li>
+&lt;li>job, 作业：在同一个进程组中的一系列进程，可由管道或衍生的进程组成&lt;/li>
+&lt;li>job control, 作业控制：一种机制，用户可以通过该机制选择性地停止（挂起）并重新开始（恢复）进程的执行。&lt;/li>
+&lt;li>metacharacter, 元字符：当不在引号中时，用于分割单词的字符，包括&lt;code>space, tab, newline, '|', '&amp;amp;', ';', '(', ')', '&amp;lt;', '&amp;gt;'&lt;/code>&lt;/li>
+&lt;li>operator, 操作符：分为控制符或重定向符，操作符由至少一个元字符组成&lt;/li>
+&lt;li>process group, 进程组：一系列具有相同组进程ID的进程&lt;/li>
+&lt;li>reserved word, 保留字：对shell具有特殊含义的单词。，大多数保留字用于流程控制，如&lt;code>for, while, if&lt;/code>&lt;/li>
+&lt;li>signal, 信号：一种机制，内核可以通过该机制将系统中发生的事件通知给进程&lt;/li>
+&lt;li>token, 标记：可以被shell认为是一个独立单元的一串字符，分为单词word或操作符operator&lt;/li>
+&lt;li>word, 单词：可以被shell认为是一个单元的一串字符，单词不能包括不带引号的元字符。&lt;/li>
+&lt;/ul>
 &lt;h2 id="shell处理流程图">Shell处理流程图&lt;/h2>
 &lt;p>我们首先给出shell的执行流程图，接下针对每一个步骤进行详细说明。&lt;/p>
-&lt;p>&lt;img src="../../images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.drawio.svg" alt="shell执行流程">&lt;/p></description></item><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description>
+&lt;p>&lt;img src="../../images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.drawio.svg" alt="shell执行流程">&lt;/p>
+&lt;h2 id="大体流程">大体流程&lt;/h2>
+&lt;ol start="0">
+&lt;li>从文件、用户终端或其他唤起&lt;code>shell&lt;/code>的方法中读取输入，通常&lt;code>shell&lt;/code>会按行处理，如果有复合命令和多行命令符号则另加处理步骤。&lt;/li>
+&lt;li>根据元字符（&lt;code>space, tab, newline, '|', '&amp;amp;', ';', '(', ')', '&amp;lt;', '&amp;gt;'&lt;/code>）将输入的内容分割成各个标记（单词word或操作符operator），其中单词包括普通单词和保留字，操作符包括控制符或重定向符。&lt;/li>
+&lt;li>检查第一个标记(token)是否为引号（包括单引号，双引号，反斜杠），如果有引号则跳过部分流程。（引号处理）&lt;/li>
+&lt;li>检查第一个标记(token)是否为保留字（关键字），决定是否启用复合命令流程。（流程控制）。&lt;/li>
+&lt;li>检查第一个标记(token)是否为别名（alias），如果是则展开别名。&lt;/li>
+&lt;li>展开命令中的大括号。&lt;/li>
+&lt;li>展开波浪符号，即得到HOME_PATH。&lt;/li>
+&lt;li>参数展开，为&lt;code>${...}&lt;/code>的展开，以及&lt;code>$Varname&lt;/code>的替换。&lt;/li>
+&lt;li>命令替换&amp;quot;``&amp;quot;或者&lt;code>$(...)&lt;/code>使用子shell执行。&lt;/li>
+&lt;li>计算算术表达式。&lt;/li>
+&lt;li>将之前展开的命令、替换的命令根据分隔符再一次切割，然后重组成真正可以执行的命令。&lt;/li>
+&lt;li>根据通配符（&lt;code>*,?&lt;/code>）等展开路径名和文件名。&lt;/li>
+&lt;li>根据重定向符号执行任何必要的重定向，之后参数列表中删除重定向运算符及其操作数。&lt;/li>
+&lt;li>根据扩展后命令的首个单词在&lt;code>$PATH&lt;/code>和内建命令中查找可执行命令或文件。&lt;/li>
+&lt;li>执行命令，其中首单词为命令用&lt;code>$0&lt;/code>表示，后面为此命令的参数。如果遇到文件结束符号EOF则完成shell流程，否则读取下一条命令从第1步再开始执行。&lt;/li>
+&lt;/ol>
+&lt;h2 id="形成初步命令">形成初步命令&lt;/h2>
+&lt;p>我们将第1-4步分为第一大步，其主要作用是&lt;strong>形成初步命令&lt;/strong>。在流程图中为橙色部分，其主要处理流程为&lt;strong>元字符分割为标记、引号处理、保留字检查、别名展开&lt;/strong>。具体内容见《&lt;strong>shell-骨干流程1——形成初步命令&lt;/strong>》。&lt;/p>
+&lt;h2 id="复合命令与流程控制">复合命令与流程控制&lt;/h2>
+&lt;p>这一步发生在第3步，即检查标记是否为保留字这步，如果为合法保留字就需要组成&lt;strong>复合命令&lt;/strong>。如图中红色部分所示。由于复合命令与形成初步命令往往是交互进行的，因此我并没有将其标注成独立的步骤，详见《&lt;strong>shell-骨干流程2——复合命令与流程控制&lt;/strong>》。&lt;/p>
+&lt;h2 id="命令展开">命令展开&lt;/h2>
+&lt;p>命令展开如图中绿色部分所示，包含5-11步。第5-7步都是各式各样的命令展开。基本的命令展开包括3种，分别为：大括号展开、波浪符号展开、参数展开。这三种命令展开本质上是shell语法糖的展开。第8，9两步实际上是子命令执行，并非语法糖，原始命令将启动子进程（子shell）来执行子命令，执行的结果作为标记，嵌入到原命令中。5-7步和8-9步的区别在于，5-7步本质是查找语法糖对应的内容进行展开，无需使用子进程；8-9步本质是采纳子进程执行的结果，而非简单的查找替换。经过5-9步的处理，原始命令已经能够被shell直接执行，因此我们需要第10步将这些替换过后的内容重组起来，根据系统分隔符（Internal Field Seperator，IFS）再次分割（因为命令展开过程中会带来新的内容）。最后我们还需要第11步，展开路径和文件名，这一步和之前5-7步展开又是不同的，之前是语法糖替换，而这次是使用正则表达式方式（通配符）替换。第11步只采用了部分正则表达式，主要是通配符，并非完整的正则表达式。详见《&lt;strong>shell-骨干流程3——命令展开&lt;/strong>》。&lt;/p>
+&lt;h2 id="io与重定向">I/O与重定向&lt;/h2>
+&lt;p>第12部分（紫色方框）是执行任何必要的重定向，并从参数列表中删除重定向运算符及其操作数。这部分涉及到进程标准I/O和&lt;code>/dev&lt;/code>下的各种设备文件描述符，在文章《&lt;strong>linux-从设备文件看重定向&lt;/strong>》中有详细介绍。&lt;/p>
+&lt;h2 id="命令执行与job控制">命令执行与job控制&lt;/h2>
+&lt;p>第13，14步是真正的命令执行阶段。如图中蓝色部分所示。第13步是保证命令的存在及可执行性，在非复合命令中，首个单词（word）通常指的是需要执行的命令，后面的部分都是该命令的参数。最终在第14步执行命令+参数，并返回结果。如果存在未执行命令则读取下一条命令从头在开始处理，若遇到文件结束符（EOF）则完成shell流程。&lt;/p>
+&lt;p>作业控制（job control）是针对即将执行和正在执行命令的一套控制机制，也是shell流程中不可缺少的一部分。命令执行与job控制部分详见《&lt;strong>shell-骨干流程4——命令执行与job控制&lt;/strong>》。&lt;/p>
+&lt;h2 id="具体例子">具体例子&lt;/h2>
+&lt;p>为了更好的理解整体流程，我们使用&lt;a href="https://se.ifmo.ru/~ad/Documentation/Bash_Shell/bash3-CHP-7-SECT-3.html">https://se.ifmo.ru/~ad/Documentation/Bash_Shell/bash3-CHP-7-SECT-3.html&lt;/a>中的例子对应上图中的步骤进一步讲解。&lt;/p>
+&lt;ol start="0">
+&lt;li>读取命令&lt;code>ll $(type -path cc) ~/.*$(($$%1000))&lt;/code>；&lt;/li>
+&lt;li>将&lt;code>ll $(type -path cc) ~/.*$(($$%1000))&lt;/code>分割成不同的标记，此处分割为：&lt;code>ll, $, (, type, -path, cc, ), ~/.*, $, (, (, $$%1000, ), )&lt;/code>；&lt;/li>
+&lt;li>命令中不含有引号，无操作；&lt;/li>
+&lt;li>&lt;code>ll&lt;/code> 不是保留字，无操作;&lt;/li>
+&lt;li>检测到&lt;code>ll&lt;/code>为别名，替换为&lt;code>ls -l&lt;/code>。&lt;code>ls -l $(type -path cc) ~/.*$(($$%1000))&lt;/code>，然后，从流程开始再执行一遍步骤1-3，在步骤1中将&lt;code>ls -l&lt;/code>再分割为&lt;code>ls, -l&lt;/code>两部分；&lt;/li>
+&lt;li>不含有大括号，无操作；&lt;/li>
+&lt;li>发现波浪符号，将&lt;code>~&lt;/code>展开为&lt;code>/home/username&lt;/code>，&lt;code>ls -l $(type -path cc) /home/username/.*$(($$%1000))&lt;/code>；&lt;/li>
+&lt;li>发现&lt;code>$$&lt;/code>符号，将&lt;code>$$&lt;/code>参数展开为当前进程号2537（根据实际情况，进程号都不相同），且&lt;code>ls -l $(type -path cc) /home/username/.*$((2537%1000))&lt;/code>；&lt;/li>
+&lt;li>发现&lt;code>$()&lt;/code>符号，执行命令替换，开启子shell执行&lt;code>type -path cc&lt;/code>，结果为&lt;code>/usr/bin/cc&lt;/code>，&lt;code>ls -l /usr/bin/cc /home/username/.*$((2537%1000))&lt;/code>；&lt;/li>
+&lt;li>发现&lt;code>$(( ))&lt;/code>算数运算符号，进行算术运算2537%1000=537，代入原命令：&lt;code>ls -l /usr/bin/cc /home/username/.*537&lt;/code>；&lt;/li>
+&lt;li>未发现新的分隔符（IFS），无需进行再分割，无操作；&lt;/li>
+&lt;li>发现通配符&amp;quot;*&amp;quot;，进行展开得到&lt;code>.hist537&lt;/code>文件，&lt;code>ls -l /usr/bin/cc /home/username/.hist537&lt;/code>；&lt;/li>
+&lt;li>首个单词为“ls”，在&lt;code>$PATH，/usr/bin&lt;/code>中检索到&lt;code>ls&lt;/code>命令；&lt;/li>
+&lt;li>执行命令&lt;code>/usr/bin/ls&lt;/code>，后面的&lt;code>-l /usr/bin/cc /home/username/.hist537&lt;/code>为命令的参数，其作用为查看&lt;code>/usr/bin/cc /home/username/.hist537&lt;/code>这两个文件的详细属性。此命令后不再有其他命令，结束此shell流程。&lt;/li>
+&lt;/ol>
+&lt;h2 id="参考内容">参考内容&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://se.ifmo.ru/~ad/Documentation/Bash_Shell/bash3-CHP-7-SECT-3.html">https://se.ifmo.ru/~ad/Documentation/Bash_Shell/bash3-CHP-7-SECT-3.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.gnu.org/software/bash/manual/html_node/Shell-Operation.html">https://www.gnu.org/software/bash/manual/html_node/Shell-Operation.html&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#%E7%AE%A1%E9%81%93pipe">管道——Pipe&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4">管道命令&lt;/a>&lt;/li>
@@ -178,6 +255,20 @@
 &lt;/ul>
 &lt;h2 id="shell-概述---omit-in-toc---">Shell 概述&lt;!-- omit in toc -->&lt;/h2>
 &lt;h2 id="shell关键概念中英文">shell关键概念中英文&lt;/h2>
+&lt;ul>
+&lt;li>blank：包含空格&lt;code>space&lt;/code>和制表符&lt;code>tab&lt;/code>&lt;/li>
+&lt;li>control operator, 控制符：包含&lt;code>newline, '||', '&amp;amp;&amp;amp;', '&amp;amp;', ';', ';;', ';&amp;amp;', ';;&amp;amp;', '|', '|&amp;amp;', '(', ')'&lt;/code>&lt;/li>
+&lt;li>field, 字段：shell扩展之一带来的文本单位。扩展后，当执行命令时，生成的字段将用作命令名称和参数&lt;/li>
+&lt;li>job, 作业：在同一个进程组中的一系列进程，可由管道或衍生的进程组成&lt;/li>
+&lt;li>job control, 作业控制：一种机制，用户可以通过该机制选择性地停止（挂起）并重新开始（恢复）进程的执行。&lt;/li>
+&lt;li>metacharacter, 元字符：当不在引号中时，用于分割单词的字符，包括&lt;code>space, tab, newline, '|', '&amp;amp;', ';', '(', ')', '&amp;lt;', '&amp;gt;'&lt;/code>&lt;/li>
+&lt;li>operator, 操作符：分为控制符或重定向符，操作符由至少一个元字符组成&lt;/li>
+&lt;li>process group, 进程组：一系列具有相同组进程ID的进程&lt;/li>
+&lt;li>reserved word, 保留字：对shell具有特殊含义的单词。，大多数保留字用于流程控制，如&lt;code>for, while, if&lt;/code>&lt;/li>
+&lt;li>signal, 信号：一种机制，内核可以通过该机制将系统中发生的事件通知给进程&lt;/li>
+&lt;li>token, 标记：可以被shell认为是一个独立单元的一串字符，分为单词word或操作符operator&lt;/li>
+&lt;li>word, 单词：可以被shell认为是一个单元的一串字符，单词不能包括不带引号的元字符。&lt;/li>
+&lt;/ul>
 &lt;h2 id="shell脚本的第一行">shell脚本的第一行&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&amp;gt; &lt;span class="c1">#! /bin/sh -&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
@@ -203,13 +294,15 @@
 &lt;ul>
 &lt;li>&lt;strong>;&lt;/strong> 表示一条命令输入结束，命令按顺序执行&lt;/li>
 &lt;li>&lt;strong>＆&lt;/strong> 表示后台执行&amp;amp;之前的命令，直接在前台执行&amp;amp;之后的命令。&lt;/li>
+&lt;li>&lt;strong>&amp;amp;&amp;amp;&lt;/strong> 用法&lt;code>command 1 &amp;amp;&amp;amp; command 2&lt;/code>，表示当&lt;code>command 1&lt;/code>执行成功后，再执行&lt;code>command 2&lt;/code>，如果不成功，则不执行&lt;code>command 2&lt;/code>。&lt;/li>
+&lt;li>&lt;strong>||&lt;/strong> 用法&lt;code>command 1 || command 2&lt;/code>，表示若&lt;code>command 1&lt;/code>执行失败，则执行&lt;code>command 2&lt;/code>，如果执行成功，则不执行&lt;code>command 2&lt;/code>。&lt;/li>
 &lt;/ul>
 &lt;h2 id="变量">变量&lt;/h2>
 &lt;p>Shell脚本中变量可以是（并且通常是）空值，&lt;code>null&lt;/code>。
-变量赋值的时候&lt;code>VarName=VarValue&lt;/code>,如果&lt;code>VarValue&lt;/code>中间&lt;strong>有空格&lt;/strong>，则需要使用&lt;strong>双引号&lt;/strong>，包括&lt;code>VarValue&lt;/code>。变量引用的时候需要使用&lt;strong>＄&lt;/strong>符号,&lt;code>$VarName&lt;/code>;如果想在CMD终端显示有空格的&lt;code>VarValue&lt;/code>，需要使用&lt;code>echo&lt;/code>命令。&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">fullname&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;chenxin&amp;#34;&lt;/span>
+变量赋值的时候&lt;code>VarName=VarValue&lt;/code>,如果&lt;code>VarValue&lt;/code>中间&lt;strong>有空格&lt;/strong>，则需要使用&lt;strong>双引号&lt;/strong>，包括&lt;code>VarValue&lt;/code>。变量引用的时候需要使用$符号,&lt;code>$VarName&lt;/code>;如果想在CMD终端显示有空格的&lt;code>VarValue&lt;/code>，需要使用&lt;code>echo&lt;/code>命令。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">fullname&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;hello world&amp;#34;&lt;/span>
 &lt;span class="ln">2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$fullname&lt;/span>
-&lt;span class="ln">3&lt;/span>chen xin
+&lt;span class="ln">3&lt;/span>hello world
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="path路径中的作用">PATH路径中:的作用&lt;/h2>
 &lt;blockquote>
 &lt;p>表示从哪里开始搜寻命令&lt;/p>
