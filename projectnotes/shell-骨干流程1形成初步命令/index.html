@@ -1,6 +1,6 @@
 <!doctype html><html lang=zh-cn data-figures=true class=page>
 <head>
-<title>linux-管道pipe与xargs | SurprisedCat</title>
+<title>Shell 骨干流程1——形成初步命令 | SurprisedCat</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
@@ -8,15 +8,15 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
 <meta property="og:locale" content="zh-cn">
 <meta property="og:type" content="article">
-<meta name=description content="linux-管道pipe与xargs description.">
-<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/">
-<meta property="og:title" content="linux-管道pipe与xargs">
-<meta property="og:description" content="linux-管道pipe与xargs description.">
-<meta property="og:image" content="https://surprisedcat.github.io/images/pipe-redirection.png">
+<meta name=description content="Shell 骨干流程1——形成初步命令 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/">
+<meta property="og:title" content="Shell 骨干流程1——形成初步命令">
+<meta property="og:description" content="Shell 骨干流程1——形成初步命令 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
-<link rel=canonical href=https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/>
+<link rel=canonical href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/>
 <link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
 <link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
 <link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
@@ -72,41 +72,248 @@
 <main>
 <div class="grid-inverse wrap content">
 <article class=post_content>
-<h1 class=post_title>linux-管道pipe与xargs</h1>
+<h1 class=post_title>Shell 骨干流程1——形成初步命令</h1>
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
-Nov 24, 2021</span>
-<span class=post_time> · 3 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/linux title=linux class="post_tag button button_translucent">linux
-</a><a href=https://surprisedcat.github.io/tags/shell title=shell class="post_tag button button_translucent">shell
-</a><a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86 title=Linux文本处理 class="post_tag button button_translucent">Linux文本处理
+Jan 2, 2022</span>
+<span class=post_time> · 4 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/shell title=shell class="post_tag button button_translucent">shell
+</a><a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B title=CLI处理流程 class="post_tag button button_translucent">CLI处理流程
 </a>
 </span>
 <span class=page_only>&nbsp;·
 <div class=post_share>
 分享到:
-<a href=https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
 </a>
 </div>
 </span>
 </div>
 <ul>
-<li><a href=#%E7%AE%A1%E9%81%93pipe>管道——Pipe</a></li>
-<li><a href=#%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4>管道命令</a></li>
-<li><a href=#%E5%8F%82%E6%95%B0%E4%BB%A3%E6%8D%A2xargs>参数代换——<code>xargs</code></a>
+<li><a href=#%E5%85%83%E5%AD%97%E7%AC%A6%E5%88%86%E5%89%B2%E4%B8%BA%E6%A0%87%E8%AE%B0>元字符分割为标记</a></li>
+<li><a href=#%E5%BC%95%E5%8F%B7%E5%A4%84%E7%90%86>引号处理</a>
 <ul>
-<li><a href=#%E5%8C%BA%E5%88%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E5%92%8C%E5%8F%82%E6%95%B0>区分标准输入和参数</a></li>
+<li><a href=#%E8%BD%AC%E4%B9%89%E7%AC%A6>转义符</a>
+<ul>
+<li><a href=#ansi-c%E5%BC%95%E7%94%A8>ANSI-C引用</a></li>
 </ul>
 </li>
-<li><a href=#%E5%85%B3%E4%BA%8E%E5%87%8F%E5%8F%B7-%E7%9A%84%E7%94%A8%E9%80%94>关于减号“-”的用途</a></li>
+<li><a href=#%E5%8D%95%E5%BC%95%E5%8F%B7>单引号</a></li>
+<li><a href=#%E5%8F%8C%E5%BC%95%E5%8F%B7>双引号</a></li>
+</ul>
+</li>
+<li><a href=#shell%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90>shell命令解析</a>
+<ul>
+<li><a href=#%E7%AE%A1%E9%81%93>管道</a></li>
+<li><a href=#%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8>命令列表</a></li>
+<li><a href=#%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4>复合命令</a></li>
+</ul>
+</li>
+<li><a href=#%E5%88%AB%E5%90%8Dalias%E5%B1%95%E5%BC%80>别名(alias)展开</a></li>
 <li><a href=#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9>参考内容</a></li>
 </ul>
-<h2 id=linux-管道pipe与xargs---omit-in-toc--->linux-管道pipe与xargs</h2>
-<p>Linux CLI shell（如bash，zsh）通常情况下都是每输入一条指令，输出一个结果，一来一回的交互，但是有的时候一条指令的输出是冗长且繁杂的，我们需要对其输出进行再处理，才能找到我们需要的内容。此时，我们就需要像筛金子一样，逐层过滤掉无用的沙子，Linux提供了这样的筛子——<strong>管道</strong>，使我们能够接续处理数据。</p>
-<h2 id=管道pipe>管道——Pipe</h2>
+<p>总体流程图镇楼：</p>
+<p><img src=../../images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.drawio.svg alt=shell执行流程></p>
+<h2 id=shell-骨干流程1形成初步命令---omit-in-toc--->Shell 骨干流程1——形成初步命令</h2>
+<p>我们将第1-4步分为第一大步，其主要作用是<strong>形成初步命令</strong>。在流程图中为橙色部分，其主要处理流程为<strong>元字符分割为标记、shell命令解析、shell命令解析、别名展开</strong>。元字符将命令分割为标记，做为后续处理的准备工作。引号处理分为单引号、双引号和反斜杠的处理。shell命令解析这步比较复杂，涉及保留字，命令组合方式，条件，循环等内容，我们放到单独的文章里讨论。最后别名展开算是正式处理命令的第一步。</p>
+<h2 id=元字符分割为标记>元字符分割为标记</h2>
+<p>首先，对于元字符有哪些这个问题，我在查询资料时，发现资料的说法并不统一。于是，我查看了Bash的源码，如下所示：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=ln>1</span><span class=cp>#define shell_meta_chars   &#34;()&lt;&gt;;&amp;|&#34;
+</span><span class=ln>2</span><span class=cp>#define shell_break_chars  &#34;()&lt;&gt;;&amp;| \t\n&#34;
+</span></code></pre></div><p>按照这个定义元字符应该是<code>()&lt;>;&|</code>这几个，但是bash源码中又在下一行定义了“shell_break_chars”，添加了<code>space( ), tab(\t), newline(\n)</code>这三个元素。在源码实操分割的语法分析器（y.tab.c文件）中，使用的是“shell_break_chars”，因此第1步应该是通过"()&lt;>;&| \t\n"这几个元素来分割读取的内容。需要特别指出：引号包裹的部分会作为一个整体来处理，在1-4步中不需要额外处理，后面会有内容展开的步骤。分割完成后的标记分为单词word或操作符operator两种类型。</p>
+<p>单词word，就是按照字面意思的一串字符，一般的单词之间是没有blank（包含空格<code>space</code>和制表符<code>tab</code>）和其他元字符的，但是在如果存在引号，则可以有blank和元字符，且引号中内容作为一个单词来处理。单词word还包括等号，数字，算术表达式。操作符operator则包含了控制字符和重定位符，操作符至少由一个元字符组成。我在<a href=https://www.gnu.org/software/bash/manual/html_node/index.html#SEC_Contents>Bash Reference Manual</a>第二节看到有关操作符的内容，总觉得实际上应用的操作符比书中第二节列出的内容要多，于是我要翻了翻源码，找到了bash中操作符的内容，如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=ln> 1</span><span class=cm>/* other tokens that can be returned by read_token() */</span>
+<span class=ln> 2</span><span class=n>STRING_INT_ALIST</span> <span class=n>other_token_alist</span><span class=p>[]</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln> 3</span>  <span class=cm>/* Multiple-character tokens with special values */</span>
+<span class=ln> 4</span>  <span class=p>{</span> <span class=s>&#34;--&#34;</span><span class=p>,</span> <span class=n>TIMEIGN</span> <span class=p>},</span>
+<span class=ln> 5</span>  <span class=p>{</span> <span class=s>&#34;-p&#34;</span><span class=p>,</span> <span class=n>TIMEOPT</span> <span class=p>},</span>
+<span class=ln> 6</span>  <span class=p>{</span> <span class=s>&#34;&amp;&amp;&#34;</span><span class=p>,</span> <span class=n>AND_AND</span> <span class=p>},</span>
+<span class=ln> 7</span>  <span class=p>{</span> <span class=s>&#34;||&#34;</span><span class=p>,</span> <span class=n>OR_OR</span> <span class=p>},</span>
+<span class=ln> 8</span>  <span class=p>{</span> <span class=s>&#34;&gt;&gt;&#34;</span><span class=p>,</span> <span class=n>GREATER_GREATER</span> <span class=p>},</span>
+<span class=ln> 9</span>  <span class=p>{</span> <span class=s>&#34;&lt;&lt;&#34;</span><span class=p>,</span> <span class=n>LESS_LESS</span> <span class=p>},</span>
+<span class=ln>10</span>  <span class=p>{</span> <span class=s>&#34;&lt;&amp;&#34;</span><span class=p>,</span> <span class=n>LESS_AND</span> <span class=p>},</span>
+<span class=ln>11</span>  <span class=p>{</span> <span class=s>&#34;&gt;&amp;&#34;</span><span class=p>,</span> <span class=n>GREATER_AND</span> <span class=p>},</span>
+<span class=ln>12</span>  <span class=p>{</span> <span class=s>&#34;;;&#34;</span><span class=p>,</span> <span class=n>SEMI_SEMI</span> <span class=p>},</span>
+<span class=ln>13</span>  <span class=p>{</span> <span class=s>&#34;;&amp;&#34;</span><span class=p>,</span> <span class=n>SEMI_AND</span> <span class=p>},</span>
+<span class=ln>14</span>  <span class=p>{</span> <span class=s>&#34;;;&amp;&#34;</span><span class=p>,</span> <span class=n>SEMI_SEMI_AND</span> <span class=p>},</span>
+<span class=ln>15</span>  <span class=p>{</span> <span class=s>&#34;&lt;&lt;-&#34;</span><span class=p>,</span> <span class=n>LESS_LESS_MINUS</span> <span class=p>},</span>
+<span class=ln>16</span>  <span class=p>{</span> <span class=s>&#34;&lt;&lt;&lt;&#34;</span><span class=p>,</span> <span class=n>LESS_LESS_LESS</span> <span class=p>},</span>
+<span class=ln>17</span>  <span class=p>{</span> <span class=s>&#34;&amp;&gt;&#34;</span><span class=p>,</span> <span class=n>AND_GREATER</span> <span class=p>},</span>
+<span class=ln>18</span>  <span class=p>{</span> <span class=s>&#34;&amp;&gt;&gt;&#34;</span><span class=p>,</span> <span class=n>AND_GREATER_GREATER</span> <span class=p>},</span>
+<span class=ln>19</span>  <span class=p>{</span> <span class=s>&#34;&lt;&gt;&#34;</span><span class=p>,</span> <span class=n>LESS_GREATER</span> <span class=p>},</span>
+<span class=ln>20</span>  <span class=p>{</span> <span class=s>&#34;&gt;|&#34;</span><span class=p>,</span> <span class=n>GREATER_BAR</span> <span class=p>},</span>
+<span class=ln>21</span>  <span class=p>{</span> <span class=s>&#34;|&amp;&#34;</span><span class=p>,</span> <span class=n>BAR_AND</span> <span class=p>},</span>
+<span class=ln>22</span>  <span class=p>{</span> <span class=s>&#34;EOF&#34;</span><span class=p>,</span> <span class=n>yacc_EOF</span> <span class=p>},</span>
+<span class=ln>23</span>  <span class=cm>/* Tokens whose value is the character itself */</span>
+<span class=ln>24</span>  <span class=p>{</span> <span class=s>&#34;&gt;&#34;</span><span class=p>,</span> <span class=sc>&#39;&gt;&#39;</span> <span class=p>},</span>
+<span class=ln>25</span>  <span class=p>{</span> <span class=s>&#34;&lt;&#34;</span><span class=p>,</span> <span class=sc>&#39;&lt;&#39;</span> <span class=p>},</span>
+<span class=ln>26</span>  <span class=p>{</span> <span class=s>&#34;-&#34;</span><span class=p>,</span> <span class=sc>&#39;-&#39;</span> <span class=p>},</span>
+<span class=ln>27</span>  <span class=p>{</span> <span class=s>&#34;{&#34;</span><span class=p>,</span> <span class=sc>&#39;{&#39;</span> <span class=p>},</span>
+<span class=ln>28</span>  <span class=p>{</span> <span class=s>&#34;}&#34;</span><span class=p>,</span> <span class=sc>&#39;}&#39;</span> <span class=p>},</span>
+<span class=ln>29</span>  <span class=p>{</span> <span class=s>&#34;;&#34;</span><span class=p>,</span> <span class=sc>&#39;;&#39;</span> <span class=p>},</span>
+<span class=ln>30</span>  <span class=p>{</span> <span class=s>&#34;(&#34;</span><span class=p>,</span> <span class=sc>&#39;(&#39;</span> <span class=p>},</span>
+<span class=ln>31</span>  <span class=p>{</span> <span class=s>&#34;)&#34;</span><span class=p>,</span> <span class=sc>&#39;)&#39;</span> <span class=p>},</span>
+<span class=ln>32</span>  <span class=p>{</span> <span class=s>&#34;|&#34;</span><span class=p>,</span> <span class=sc>&#39;|&#39;</span> <span class=p>},</span>
+<span class=ln>33</span>  <span class=p>{</span> <span class=s>&#34;&amp;&#34;</span><span class=p>,</span> <span class=sc>&#39;&amp;&#39;</span> <span class=p>},</span>
+<span class=ln>34</span>  <span class=p>{</span> <span class=s>&#34;newline&#34;</span><span class=p>,</span> <span class=sc>&#39;\n&#39;</span> <span class=p>},</span>
+<span class=ln>35</span>  <span class=p>{</span> <span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)</span><span class=nb>NULL</span><span class=p>,</span> <span class=mi>0</span><span class=p>}</span>
+<span class=ln>36</span><span class=p>};</span>
+</code></pre></div><p>果然，比<a href=https://www.gnu.org/software/bash/manual/html_node/index.html#SEC_Contents>Bash Reference Manual</a>所述内容多了不少，还是实际代码中最全啊。从操作符的“other_token_alist”列表可以看出，元字符组成的操作符会在此列表中查找，将符合列表内容的多个元字符组成符号会被当成一个操作符。例如，<code>ll $(type -path cc) ~/.*$(($$%1000)) >> /tmp/test.txt 2>&1</code>会被分割为：<code>ll, $, (, type, -path, cc, ), ~/.*, $, (, (, $$%1000, ), ), >>, /tmp/test.txt, 2, >&, 1</code>。单词和操作符都被认为是一个独立单元，称为<strong>标记（token）</strong>。每一个标记都会被单独的处理。</p>
+<h2 id=引号处理>引号处理</h2>
+<p>shell的引号处理作用是<strong>去除特殊字符或单词的特殊作用</strong>。比如，在shell中，'&'通常会被用来表示后台处理命令或在重定向时表示后面的数字为打开的文件描述符，为了能直接按字面意思显示'&'符号，需要我们使用“引用”的方式。shell中存在三种引用机制：转义符（\），单引号(')和双引号（"）。还有一种特殊的引用，注释（#），这个大多数人应该都了解，就不特别说明了。</p>
+<h3 id=转义符>转义符</h3>
+<p>转义符，我们通常用反斜杠''表示，它的作用是将<strong>紧跟后面的一个字符</strong>保留原来的字面的意思。在shell中，元字符和通配符通常代表特殊的含义，如果我们想让这些字符按照普通字符显示显示出来，就需要用到转义符了。比如，我们想在shell中输出$' " * ? \ ~ ` ! # $ & |$，这类特殊字符，直接用<code>echo</code>或<code>printf</code>输出肯定是不行的，必须加上转义符号：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>echo</span> <span class=se>\&#39;</span> <span class=se>\&#34;</span> <span class=se>\*</span> <span class=se>\?</span> <span class=se>\\</span> <span class=se>\~</span> <span class=se>\`</span> <span class=se>\!</span> <span class=se>\#</span> <span class=se>\$</span> <span class=se>\&amp;</span>  <span class=se>\|</span>
+<span class=ln>2</span><span class=s1>&#39; &#34; * ? \ ~ ` ! # $ &amp; |
+</span><span class=ln>3</span><span class=s1>$ printf \&#39;</span><span class=se>\&#34;\*\?\\\~\`\!\#\$\&amp;\|</span>
+<span class=ln>4</span><span class=s1>&#39;&#34;*?\~`!#$&amp;|
+</span><span class=ln>5</span><span class=s1># 如果想让printf也空一格输出，需要在每个字符后面加上空格的转义，即\+SPACE
+</span><span class=ln>6</span><span class=s1>$ printf \&#39;</span><span class=se>\ \&#34;\ \*\ \?\ \\\ \~\ \`\ \!\ \#\ \$\ \&amp;\ \|</span>
+<span class=ln>7</span><span class=err>&#39;</span> <span class=s2>&#34; * ? \ ~ ` ! # </span>$<span class=s2> &amp; |
+</span></code></pre></div><p>实际上，转义符不仅仅对特殊字符有效，对一般的字符也是一样的作用，只不过一般字符的字面意思就是字符本身，所以转义符加了和没加一样。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>echo</span> <span class=se>\a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z</span>
+<span class=ln>2</span>abcdefghijklmnopqrstuvwxyz
+<span class=ln>3</span>$ <span class=nb>echo</span> <span class=se>\1\2\3\4\5\6\7\8\9\0</span>
+<span class=ln>4</span><span class=m>1234567890</span>
+<span class=ln>5</span>$ <span class=nb>echo</span> <span class=se>\,\;\[\]\{\}\-\@\%</span>
+<span class=ln>6</span>,<span class=p>;</span><span class=o>[]{}</span>-@%
+</code></pre></div><p>虽说，转义符会保留字符原来的字面的意思，但是在键盘上有个按键不同，就是<code>newline</code>字符（即键盘上的回车/换行）。shell会将转义符<code>\+newline</code>的组合忽略，这种机制方便了我们在输入时进行换行，而在执行时仍旧是一行，多用于很长的命令，如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ find /etc -exec grep<span class=se>\
+</span><span class=ln>2</span><span class=se></span>&gt;<span class=s1>&#39;[0-9][0-9]*[.][0-9][0-9] \
+</span><span class=ln>3</span><span class=s1>&gt; *[.][0-9][0-9]*[0-9][0-9]*&#39;</span> <span class=o>{}</span> <span class=se>\;</span>
+</code></pre></div><p>由于<code>find</code>命令很长且可以明显的分割为多个部分，因此，我们使用转义符<code>\+newline</code>让输入的时候命令更易读，实际执行起来，等同于<code>find /etc -exec grep '[0-9][0-9]*[.][0-9][0-9] *[.][0-9][0-9]*[0-9][0-9]*' {} \;</code></p>
+<h4 id=ansi-c引用>ANSI-C引用</h4>
+<p>转移符还有另一种用法，源自于C语言的字符串输出格式，叫做ANSI-C引用。对于有C语言经验的人来说，这种用法很容易理解。在这种用法下，转义符“\”和后面的一些字母组合起来会有特殊的含义。比如“\n”会被替换成换行，“\t”会被替换成<code>tab</code>，“\b”会被替换成退格（删除前一个字符）等等。如果想输出“\n，\t”这些字符，要先将转义符转义，再将字母转义，即写成“\\n,\\t”的形式。</p>
+<p>在ANSI-C模式下，转义符特殊使用方法如下表：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>字符</th>
+<th style=text-align:center>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>\a</td>
+<td style=text-align:center>响铃。</td>
+</tr>
+<tr>
+<td style=text-align:center>\b</td>
+<td style=text-align:center>退格。</td>
+</tr>
+<tr>
+<td style=text-align:center>\e、\E</td>
+<td style=text-align:center>看作一个转义字符（这不符合 ANSI C 的标准）。</td>
+</tr>
+<tr>
+<td style=text-align:center>\f</td>
+<td style=text-align:center>换页。</td>
+</tr>
+<tr>
+<td style=text-align:center>\n</td>
+<td style=text-align:center>新一行。</td>
+</tr>
+<tr>
+<td style=text-align:center>\r</td>
+<td style=text-align:center>回车。</td>
+</tr>
+<tr>
+<td style=text-align:center>\t</td>
+<td style=text-align:center>水平制表符。</td>
+</tr>
+<tr>
+<td style=text-align:center>\v</td>
+<td style=text-align:center>垂直制表符。</td>
+</tr>
+<tr>
+<td style=text-align:center>\\</td>
+<td style=text-align:center>反斜线。</td>
+</tr>
+<tr>
+<td style=text-align:center>'</td>
+<td style=text-align:center>单引号。</td>
+</tr>
+<tr>
+<td style=text-align:center>"</td>
+<td style=text-align:center>双引号。</td>
+</tr>
+<tr>
+<td style=text-align:center>?</td>
+<td style=text-align:center>问号。</td>
+</tr>
+<tr>
+<td style=text-align:center>\nnn</td>
+<td style=text-align:center>值是八进制 nnn 的八比特字符。</td>
+</tr>
+<tr>
+<td style=text-align:center>\xHH</td>
+<td style=text-align:center>值是十六进制 HH 的八比特字符。</td>
+</tr>
+<tr>
+<td style=text-align:center>\uHHHH</td>
+<td style=text-align:center>值是十六进制 HHHH 的 Unicode（ISO/IEC 10646）字符。</td>
+</tr>
+<tr>
+<td style=text-align:center>\UHHHHHHHH</td>
+<td style=text-align:center>值是十六进制的 HHHHHHHH 的 Unicode（ISO/IEC 10646）字符。</td>
+</tr>
+<tr>
+<td style=text-align:center>\cx</td>
+<td style=text-align:center>表示 control-x 字符。</td>
+</tr>
+</tbody>
+</table>
+<p>shell中常见的有三个命令会使用ANSI-C模式。</p>
+<ol>
+<li><code>echo -e 字符串</code>；</li>
+<li><code>printf FORMAT [ARGUMENT]</code>，注意只有用单/双引号引起来的FORMAT，才会使用ANSI-C模式；</li>
+<li><code>$'字符串'</code>，注意这里$后面一定是单引号。</li>
+</ol>
+<p>举例子如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ <span class=nb>echo</span> -e <span class=s1>&#39;a\tb\n&#39;</span> <span class=c1># echo命令默认有一个换行，因此会多一个空行</span>
+<span class=ln> 2</span>a       b
+<span class=ln> 3</span>
+<span class=ln> 4</span>$ <span class=nb>printf</span> <span class=s1>&#39;%s\t%s\n&#39;</span> a b <span class=c1># 必须用引号</span>
+<span class=ln> 5</span>a       b
+<span class=ln> 6</span>$ <span class=nb>printf</span> %s<span class=se>\t</span>%s<span class=se>\n</span> a b <span class=c1># 没有引号不行，下面由于没有换行，所以输出内容和$符号挤到了一行。</span>
+<span class=ln> 7</span>atbn$ <span class=nb>printf</span> <span class=s1>&#39;a%sb\n&#39;</span> <span class=se>\n</span> <span class=c1># 在参数[ARGUMENT]里面不行，必须在[FORMAT]里面。</span>
+<span class=ln> 8</span>anb
+<span class=ln> 9</span>$ <span class=nb>echo</span> <span class=s1>$&#39;a\tb&#39;</span>
+<span class=ln>10</span>a       b
+<span class=ln>11</span>$ <span class=nb>echo</span> <span class=s2>$&#34;a\tb\n&#34;</span> <span class=c1># 双引号不行</span>
+<span class=ln>12</span>a<span class=se>\t</span>b<span class=se>\n</span>
+</code></pre></div><h3 id=单引号>单引号</h3>
+<p>我们可以使用单引号引用字符串，单引号内的<strong>任何字符</strong>都会保持其字面意思。单引号不能出现在单引号引用中，即使前面加了反斜线也不行。注：<code>$'字符串'</code>属于命令扩展，并非单纯的单引号引用。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>echo</span>  <span class=s1>&#39;a\tb\n&#39;</span>
+<span class=ln>2</span>a<span class=se>\t</span>b<span class=se>\n</span>
+<span class=ln>3</span>$ <span class=nb>echo</span> <span class=s1>&#39;\\\\ $ ! * ? &#34;&#39;</span>
+<span class=ln>4</span><span class=se>\\\\</span> $ ! * ? <span class=s2>&#34;
+</span><span class=ln>5</span><span class=s2></span>$<span class=s2> echo &#39;\&#39; &#39; # 不能出现单引号
+</span><span class=ln>6</span><span class=s2>&gt; &#39;
+</span><span class=ln>7</span><span class=s2>\
+</span></code></pre></div><h3 id=双引号>双引号</h3>
+<p>我们可以使用双引号引用字符串，在双引号（' " '）内的大多数字符保留字符的字面含义，但'$'，'`'，'\'，以及在启用历史记录扩展后，'!'这四个除外。在双引号中可以使用单引号，也可以在转义符后面加双引号或其他特殊字符表示其字面意思（\",\\,\$,\`,\!）。由于双引号可以将变量、子shell命令、历史记录扩展以及其他特殊字符带入其中，因此双引号比单引号使用起来更加灵活。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nv>VAR</span><span class=o>=</span><span class=s2>&#34;a variable&#34;</span>
+<span class=ln>2</span>$ <span class=nb>echo</span> <span class=s2>&#34;This is </span><span class=nv>$VAR</span><span class=s2>&#34;</span> <span class=c1># 变量扩展</span>
+<span class=ln>3</span>This is a variable
+<span class=ln>4</span>$ <span class=nb>echo</span> <span class=s2>&#34;list path `pwd`&#34;</span> <span class=c1># 子命令扩展</span>
+<span class=ln>5</span>list path /home/lelouch
+<span class=ln>6</span>$ <span class=nb>echo</span> <span class=s2>&#34;&#39; \&#34; \` \$ \\&#34;</span> <span class=c1>#特殊字符使用，单引号不用转义</span>
+<span class=ln>7</span><span class=s1>&#39; &#34; ` $ \
+</span><span class=ln>8</span><span class=s1>$ echo &#34;!$&#34; # 输出上一个执行的命令内容
+</span><span class=ln>9</span><span class=s1>echo &#34;&#34;&#39;</span> <span class=se>\&#34;</span> <span class=se>\`</span> <span class=se>\$</span> <span class=se>\\</span><span class=s2>&#34;&#34;</span>
+</code></pre></div><h2 id=shell命令解析>shell命令解析</h2>
+<p>shell中最常见的是简单命令，我们直接在shell中输入的一般是简单命令，有shell单步执行，返回结果，如<code>ls、echo "hello world"、cat /etc/hosts</code>。简单命令是组成shell的基石，其他更复杂的命令也是由简单命令组成。</p>
 <blockquote>
-<p>管道（Pipeline）操作符为“|”，是一系列将<strong>标准输入输出链接起来</strong>的进程，其中每一个进程的输出被直接作为下一个进程的输入。管道中的组成元素也被称作过滤程序。这个概念是由道格拉斯·麦克罗伊为Unix 命令行发明的，因与物理上的管道相似而得名。</p>
+<p>简单命令是由一系列有blanks分割的一组单词(word)，并以某个shell操作符(operator)结束，首个单词通常表示需要执行的命令名称/别名，后面的单词都是该命令/别名的参数。</p>
+<ul>
+<li>blank：包含空格<code>space</code>和制表符<code>tab</code></li>
+<li>control operator, 控制符：包含<code>newline, '||', '&&', '&', ';', ';;', ';&', ';;&', '|', '|&', '(', ')'</code></li>
+</ul>
 </blockquote>
+<p>简单命令组成复杂命令的方式一般有<strong>管道、命令列表、复合命令</strong>等。</p>
+<h3 id=管道>管道</h3>
+<p>管道（Pipeline）操作符为“|”，是一系列将<strong>标准输入输出链接起来</strong>的进程，其中每一个进程的输出被直接作为下一个进程的输入。管道中的组成元素也被称作过滤程序。这个概念是由道格拉斯·麦克罗伊为Unix 命令行发明的，因与物理上的管道相似而得名。</p>
 <p>这是来自Wikipedia的定义。定义中指出，默认情况下，管道只会将上一个程序的标准输出(stdout)，传递给下一个命令，作为标准的输入(stdin)，对标准错误(stderr)信息没有直接处理能力。最后的命令将会把标准输出和标准错误都输出到屏幕上。画个简图来描述他们的关系：</p>
 <p><img src=../../images/%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4%E7%A4%BA%E6%84%8F%E5%9B%BE.drawio.svg alt=管道命令示意图></p>
 <p>注意：</p>
@@ -116,139 +323,113 @@ Nov 24, 2021</span>
 <li>管道触发两个子进程分别执行"|"两边的程序；而重定向是在一个进程内执行。</li>
 <li>如果使用<code>|&</code>，则表示命令1的标准错误和标准输出都作为命令2的标准输入，这是<code>2>&1 |</code>的简写。</li>
 </ol>
-<h2 id=管道命令>管道命令</h2>
-<p>管道需要搭配<strong>管道命令</strong>来使用，除了最开始的命令，在管道右边的命令，<strong>必须能够接收标准输入流</strong>命令才行。以下这些命令就是常用的管道命令：</p>
+<p>总结来说，管道是将命令串成一串，依次执行力，上一个命令的输出作为下一个命令的输入，更多关于管道的内容可以查看《linux-管道pipe与xargs》。</p>
+<h3 id=命令列表>命令列表</h3>
+<p>命令列表是由简单命令和<code>||,&&,&,;</code>四种符号组成的命令，简单命令之间通过上述四种符号进行分割。有时候，在直接写shell脚本时，也可以用<code>newline</code>代替<code>;</code>从而让内容更加工整。</p>
 <ul>
-<li>撷取命令： cut, grep</li>
-<li>排序命令： sort, uniq, wc</li>
-<li>双向重导向： tee</li>
-<li>字符转换命令： tr, col, join, paste, expand</li>
-<li>分割命令： split</li>
-<li>文本查看： cat, tac, more, less, head, tail</li>
-<li>文本比较： diff</li>
-<li>流文本处理： sed, awk</li>
-<li>参数代换： xargs</li>
+<li><strong>&&</strong> 用法<code>command 1 && command 2</code>，表示当<code>command 1</code>执行成功后，再执行<code>command 2</code>，如果不成功，则不执行<code>command 2</code>。</li>
+<li><strong>||</strong> 用法<code>command 1 || command 2</code>，表示若<code>command 1</code>执行失败，则执行<code>command 2</code>，如果执行成功，则不执行<code>command 2</code>。</li>
+<li><strong>;</strong> 表示一条命令输入结束，命令按顺序执行。</li>
+<li><strong>＆</strong> 表示后台执行&之前的命令，此时如果有多个命令，后台执行的命令和其他命令是异步的。</li>
 </ul>
-<p>我们不鼓励现在就了解这些命令的具体用途，因为这样学习是枯燥且低效的。我们更鼓励只有当实际用到的时候再去查找这些命令的用法。</p>
-<h2 id=参数代换xargs>参数代换——<code>xargs</code></h2>
-<p>上面这些命令中，有一个需要单独拎出来强调下，就是参数代换——<code>xargs</code>。它的运作方式有少许不同，一般的管道命令都是把上一个命令的标准输出作为本命令的标准输入；而<code>xargs</code>可以将来自管道的输出、标准输入或文件数据转换成<strong>命令行参数</strong>。</p>
-<p>我们先举个例子，看看<code>xargs</code>带来的区别：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># xargstest目录下有一个test.txt文件</span>
-<span class=ln> 2</span>$ tree xargstest/
-<span class=ln> 3</span>xargstest/
-<span class=ln> 4</span>└── test.txt
-<span class=ln> 5</span><span class=m>0</span> directories, <span class=m>1</span> file
-<span class=ln> 6</span>$ <span class=nb>cd</span> xargstest/
-<span class=ln> 7</span><span class=c1># 直接使用管道命令</span>
-<span class=ln> 8</span>$ ls <span class=p>|</span> cat
-<span class=ln> 9</span>test.txt
-<span class=ln>10</span><span class=c1># xargs下的管道命令</span>
-<span class=ln>11</span>$ ls <span class=p>|</span> xargs cat
-<span class=ln>12</span>测试文件
-<span class=ln>13</span>xargs的区别实例
-</code></pre></div><p>首先，我们在<code>xargstest/</code>目录下使用<code>ls</code>命令，结果是显示其目录下的文件<code>test.txt</code>，也就是说标准输出(stdout)是<code>"test.txt"</code>。当我们直接使用管道命令<code>ls | cat</code>时，标准输出<code>"test.txt"</code>作为<code>cat</code>的标准输入(stdin)，因此<code>cat</code>的输出结果就是显示标准输入的内容，即<code>"test.txt"</code>。当我们使用参数代换<code>xargs</code>时，前一个命令<code>ls</code>的标准输出作为<strong>参数</strong>传递给<code>cat</code>，而非标准输入，后一个命令在执行时，实际执行的命令是<code>cat test.txt</code>，因此最终结果是显示<code>test.txt</code>文件中的内容。</p>
-<p>一句话总结：<strong>xargs命令的作用，是将标准输入转为命令行参数</strong>。</p>
-<h3 id=区分标准输入和参数>区分标准输入和参数</h3>
-<p>大多数时候，<code>xargs</code>命令都是跟管道一起使用的。为了进一步区分标准输入和参数，我们可以看看在<strong>不使用管道时<code>xargs</code>的效果</strong>。通常境况下，<code>xargs</code>后面跟一个Linux shell命令，来自标准输入的内容都会是该命令的参数。如果我们单独使用<code>xargs</code>，就会使用默认命令<code>echo</code>，即<code>xargs == xargs echo</code>。当我们直接执行<code>xargs</code>后，会出现空行让我们随意输入内容，我们从键盘输入的内容就是<strong>标准输入</strong>，直到我们使用<code>ctrl+d</code>或者在一行仅输入“End of File”标志（使用<code>-E</code>参数指定）。然后，<code>echo</code>命令就会把前面的输入打印出来。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ xargs
-<span class=ln>2</span>xargs测试 <span class=c1># 按Ctrl + d</span>
-<span class=ln>3</span>xargs测试 <span class=c1># 输出内容</span>
-<span class=ln>4</span>$ xargs -E EOF <span class=c1># 指定结束符为EOF</span>
-<span class=ln>5</span>xargs测试
-<span class=ln>6</span>EOF
-<span class=ln>7</span>xargs测试 <span class=c1># 输出内容</span>
-</code></pre></div><p>可以看出<code>xargs + stdin == echo 'stdin'</code>，注意这里我用单引号，表示<code>stdin</code>内容作为<code>echo</code>的参数被执行时是直接输出，不用转义。这就是所说的<code>xargs</code>将标准输入转为命令行参数。如果不好理解，我们再举个使用其他命令的例子：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ xargs touch <span class=c1># 打算创建一个文件，文件名由键盘输入</span>
-<span class=ln>2</span>newfile.txt <span class=c1># 按Ctrl + d</span>
-<span class=ln>3</span>$ ls -l newfile.txt
-<span class=ln>4</span>-rw-rw-r-- <span class=m>1</span> username username <span class=m>0</span> Nov  <span class=m>24</span> 00:43 newfile.txt  <span class=c1># 确实创建了此文件</span>
-<span class=ln>5</span>$ <span class=nb>echo</span> <span class=s1>&#39;newfile.txt&#39;</span> <span class=p>|</span> xargs -t rm <span class=c1>#我们可以使用-t参数，显示xargs实际执行的命令。</span>
-<span class=ln>6</span>rm newfile.txt
-</code></pre></div><p>这个例子中，来自键盘的标准输入作为<code>touch</code>命令的参数，决定了被新建文件的名称，等同于<code>touch newfile.txt</code>。参数都是跟在命令后面的，比如<code>touch</code>是<code>xargs</code>的参数，<code>touch newfile.txt</code>中<code>newfile.txt</code>是<code>touch</code>的参数。而标准输入是独立于命令存在的，由用户决定其内容，通常是命令执行后，等待用户提供的，比如执行<code>xargs</code>命令后，等待来自用户键盘的输入内容。</p>
-<p>其他<code>xargs</code>命令的参数，可以参考其<a href=https://man7.org/linux/man-pages/man1/xargs.1.html><code>man</code>帮助页面</a>。</p>
-<h2 id=关于减号-的用途>关于减号“-”的用途</h2>
-<p>减号“-”在shell脚本中根据使用上下文的不同，有不同的含义。在管道语境下，减号“-”代表着<strong>标准输入或标准输出</strong>，用来<strong>代替某个文件名参数</strong>（在非管道语境下，也可以表示标准输入或标准输出）。需要指出，并不是所有命令都支持减号“-”。</p>
-<p>我们先举个做为<strong>标准输出</strong>的例子。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 默认情况下，此命令会下载一个名为docker的文件，此为安装docker容器的脚本</span>
-<span class=ln> 2</span>$ wget https://get.daocloud.io/docker
-<span class=ln> 3</span>--2021-11-24 09:22:21--  https://get.daocloud.io/docker
-<span class=ln> 4</span>Resolving get.daocloud.io <span class=o>(</span>get.daocloud.io<span class=o>)</span>... 106.75.86.15
-<span class=ln> 5</span>...... <span class=c1># 中间省略</span>
-<span class=ln> 6</span>HTTP request sent, awaiting response... <span class=m>200</span> OK
-<span class=ln> 7</span>Length: <span class=m>18617</span> <span class=o>(</span>18K<span class=o>)</span> <span class=o>[</span>None<span class=o>]</span>
-<span class=ln> 8</span>Saving to: ‘docker’ <span class=c1># 注意这里就是保存到文件</span>
-<span class=ln> 9</span>
-<span class=ln>10</span>docker                             100%<span class=o>[=============================================================</span>&gt;<span class=o>]</span>  18.18K  --.-KB/s    in 0.03s
-<span class=ln>11</span>
-<span class=ln>12</span>2021-11-24 09:22:21 <span class=o>(</span><span class=m>566</span> KB/s<span class=o>)</span> - ‘docker’ saved <span class=o>[</span>18617/18617<span class=o>]</span>
-<span class=ln>13</span>$ ls -l docker
-<span class=ln>14</span>-rw-r--r-- <span class=m>1</span> username username <span class=m>18617</span> Nov  <span class=m>24</span> 09:22 docker
-<span class=ln>15</span><span class=c1># 当我们加上参数&#34;-O&#34;表示目标位置，通常情况下为文件名</span>
-<span class=ln>16</span><span class=c1># 我们可使用&#34;-O -&#34;将下载的内容直接输出到标准输出（屏幕），而非文件</span>
-<span class=ln>17</span>$ wget https://get.daocloud.io/docker -O -
-<span class=ln>18</span>--2021-11-24 10:03:50--  https://get.daocloud.io/docker
-<span class=ln>19</span>Resolving get.daocloud.io <span class=o>(</span>get.daocloud.io<span class=o>)</span>... 106.75.86.15
-<span class=ln>20</span>...... <span class=c1># 中间省略</span>
-<span class=ln>21</span>HTTP request sent, awaiting response... <span class=m>200</span> OK
-<span class=ln>22</span>Length: <span class=m>18617</span> <span class=o>(</span>18K<span class=o>)</span> <span class=o>[</span>None<span class=o>]</span>
-<span class=ln>23</span>Saving to: ‘STDOUT’ <span class=c1># 注意这里就是保存到标准输出，实际效果为输出到屏幕</span>
-<span class=ln>24</span>
-<span class=ln>25</span>-                                    0%<span class=o>[</span>                                                              <span class=o>]</span>       <span class=m>0</span>  --.-KB/s               <span class=c1>#!/bin/sh</span>
-<span class=ln>26</span><span class=nb>set</span> -e
-<span class=ln>27</span><span class=c1># Docker CE for Linux installation script</span>
-<span class=ln>28</span><span class=c1>#</span>
-<span class=ln>29</span><span class=c1># See https://docs.docker.com/engine/install/ for the installation steps.</span>
-<span class=ln>30</span><span class=c1>#</span>
-<span class=ln>31</span>...... <span class=c1># 中间省略</span>
-<span class=ln>32</span>                       <span class=nb>echo</span> <span class=s2>&#34;ERROR: Unsupported distribution &#39;</span><span class=nv>$lsb_dist</span><span class=s2>&#39;&#34;</span>
-<span class=ln>33</span>                        <span class=nb>echo</span>
-<span class=ln>34</span>                        <span class=nb>exit</span> <span class=m>1</span>
-<span class=ln>35</span>                        <span class=p>;;</span>
-<span class=ln>36</span>        <span class=k>esac</span>
-<span class=ln>37</span>        <span class=nb>exit</span> <span class=m>1</span>
-<span class=ln>38</span><span class=o>}</span>
-<span class=ln>39</span>
-<span class=ln>40</span><span class=c1># wrapped up in a function so that we have some protection against only getting</span>
-<span class=ln>41</span><span class=c1># half the file during &#34;curl | sh&#34;</span>
-<span class=ln>42</span>do_install
-<span class=ln>43</span>-                                  100%<span class=o>[=============================================================</span>&gt;<span class=o>]</span>  18.18K  --.-KB/s    in 0.03s
-<span class=ln>44</span>
-<span class=ln>45</span>2022-01-05 10:03:51 <span class=o>(</span><span class=m>684</span> KB/s<span class=o>)</span> - written to stdout <span class=o>[</span>18617/18617<span class=o>]</span>
-</code></pre></div><p>这里我们使用减号“-”代替“-O”参数指向的文件名，来表示将下载的内容发到标准输出。此时相当于只是在屏幕中输出文件内容，并非下载文件。</p>
-<p>而将减号“-”用于标准输入，不仅需要命令的支持，还需要命令能够从标准输入接收参数。典型的例子是<code>diff</code>命令。例子如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ <span class=nb>echo</span> -e <span class=s2>&#34;line 1 \nline 2\nline 3&#34;</span> &gt; minus_1.txt
-<span class=ln> 2</span>$ cat minus_1.txt
-<span class=ln> 3</span>line <span class=m>1</span>
-<span class=ln> 4</span>line <span class=m>2</span>
-<span class=ln> 5</span>line <span class=m>3</span>
-<span class=ln> 6</span>$ diff - minus_1.txt <span class=c1># - 表示会从标准输入（键盘）接收内容</span>
-<span class=ln> 7</span>line <span class=m>1</span>
-<span class=ln> 8</span>line <span class=m>2</span> changed
-<span class=ln> 9</span>line <span class=m>3</span> <span class=c1># 这里按ctrl+d</span>
-<span class=ln>10</span>1,2c1,2
-<span class=ln>11</span>&lt; line <span class=m>1</span>
-<span class=ln>12</span>&lt; line <span class=m>2</span> changed
-<span class=ln>13</span>---
-<span class=ln>14</span>&gt; line <span class=m>1</span>
-<span class=ln>15</span>&gt; line <span class=m>2</span>
-</code></pre></div><p>我们生成了一个三行的文件<code>minus_1.txt</code>，然后使用<code>diff - minus_1.txt</code>让从键盘输入的内容和文件内容比较。</p>
-<p>知道了减号作为标准输入输出的用法，我们就可以把它运用到管道中，在管道左边的命令中，减号可以代表标准输出；在管道右边的命令中，减号代表标准输入。例子如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 将/var/log中的文件打包并压缩为log.zip</span>
-<span class=ln>2</span>tar -cvPf - /var/log <span class=p>|</span> zip -r log.zip -
-</code></pre></div><p>管道左边的第一条语句不再输入到具体文件，而输出到stdout中， 而作为第二条件的标准输入(stdin), 而stdin和 stdout都可以用“-”来取代。其实际效果等同于：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 将/var/log/中的文件打包到中间文件log.tar</span>
-<span class=ln>2</span>$ tar -cvPf log.tar /var/log/
-<span class=ln>3</span><span class=c1># zip压缩log.tar为log.tar.zip</span>
-<span class=ln>4</span>$ zip -r log.tar.zip log.tar
-<span class=ln>5</span><span class=c1># 删除中间文件log.tar</span>
-<span class=ln>6</span>$ rm -rf log.tar
-</code></pre></div><p>使用减号不仅使命令更加简洁，也避免生成中间文件<code>log.tar</code>。</p>
+<p>从运算优先级来看，<code>&&,||</code>处于同一优先级，<code>&,;</code>处于次一优先级。命令列表的使用例子如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ <span class=nb>cd</span> /tmp<span class=p>;</span> pwd<span class=p>;</span> <span class=nb>cd</span> /dev/ <span class=o>&amp;&amp;</span> <span class=nb>pwd</span>
+<span class=ln> 2</span>/tmp
+<span class=ln> 3</span>/dev
+<span class=ln> 4</span>$ <span class=nb>cd</span> /root <span class=o>&amp;&amp;</span> <span class=nb>pwd</span> <span class=c1># 无法cd到/root目录，因此&amp;&amp;后面的pwd没有执行</span>
+<span class=ln> 5</span>-bash: cd: /root: Permission denied
+<span class=ln> 6</span>$ <span class=nb>cd</span> /root <span class=o>||</span> <span class=nb>pwd</span> <span class=c1># 无法cd到/root目录，发生错误后||后面的pwd得以执行</span>
+<span class=ln> 7</span>-bash: cd: /root: Permission denied
+<span class=ln> 8</span>/dev
+<span class=ln> 9</span>$ <span class=nb>echo</span> <span class=s1>&#39;I am 1&#39;</span><span class=p>&amp;</span> <span class=nb>echo</span> <span class=s1>&#39;I am 2&#39;</span> <span class=p>&amp;</span> <span class=nb>echo</span> <span class=s1>&#39;I am 3&#39;</span> <span class=c1># 前两个命令后台异步执行，最后一个命令前台执行。</span>
+<span class=ln>10</span><span class=o>[</span>1<span class=o>]</span> <span class=m>23766</span>
+<span class=ln>11</span><span class=o>[</span>2<span class=o>]</span> <span class=m>23767</span>
+<span class=ln>12</span>I am <span class=m>3</span>
+<span class=ln>13</span>I am <span class=m>2</span>
+<span class=ln>14</span>I am <span class=m>1</span>
+<span class=ln>15</span><span class=o>[</span>1<span class=o>]</span>-  Done                    <span class=nb>echo</span> <span class=s1>&#39;I am 1&#39;</span>
+<span class=ln>16</span><span class=o>[</span>2<span class=o>]</span>+  Done                    <span class=nb>echo</span> <span class=s1>&#39;I am 2&#39;</span>
+<span class=ln>17</span>
+</code></pre></div><p>此外，除了<code>&</code>符号，GNU还提供了<code>parallel</code>命令来并行执行命令，但这部分超出了shell本身的内容，有兴趣的读者可以阅读<a href=https://www.gnu.org/software/parallel/><code>parallel</code>的相关文档</a>。</p>
+<h3 id=复合命令>复合命令</h3>
+<p>复合命令是通过shell保留字和简单命令组合形成的组合命令，算是shell脚本语言的基本结构。<strong>每一个复合命令结构都由每一个保留字或控制符开始，并以对应的保留字或控制符结束</strong>，这算是shell编程语言的一个特色，例如以<code>if</code>开头，<code>fi</code>结尾；<code>do</code>开头，<code>done</code>结尾等等。对shell复合命令结构的输入、输出重定向将被应用到该结构的每一个简单命令中，除非其中有某个简单命令用显式的重定向覆盖该结构的重定向。写shell语言时，为了保证代码可读性，在复合命令结构之间通常用<code>newline</code>来分割，而不是用<code>;</code>来分割，虽然从语法上来讲，二者作用是一样的，但是过长的代码会给后续的维护造成困难。The Bourne Again SHell（bash）提供循环、条件、组命令、协同四种流程控制复合命令，以及函数复合命令，并用相应的保留字指示bash是哪一种复合命令。bash的保留字如以下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>if</td>
+<td style=text-align:center>then</td>
+<td style=text-align:center>elif</td>
+<td style=text-align:center>else</td>
+<td style=text-align:center>fi</td>
+<td style=text-align:center>time</td>
+</tr>
+<tr>
+<td style=text-align:center>for</td>
+<td style=text-align:center>in</td>
+<td style=text-align:center>until</td>
+<td style=text-align:center>while</td>
+<td style=text-align:center>do</td>
+<td style=text-align:center>done</td>
+</tr>
+<tr>
+<td style=text-align:center>case</td>
+<td style=text-align:center>esac</td>
+<td style=text-align:center>coproc</td>
+<td style=text-align:center>select</td>
+<td style=text-align:center>function</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:center>{</td>
+<td style=text-align:center>}</td>
+<td style=text-align:center>[[</td>
+<td style=text-align:center>]]</td>
+<td style=text-align:center>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>总体处理流程上，shell会先检查第一个标记，如果是可前置保留字(<code>if, do, for, while, case, select, time, function, coproc, {, [[, !</code>)，则开启复合命令流程；如果是非可前置保留字(<code>then, elif, fi, in, until, done, esac, }, ]]</code>)，且之前没有与之对应的可前置保留字，则报语法错误；如果不是保留字则当作简单命令，执行下一步骤。</p>
+<p>我们将在《shell-骨干流程2——复合命令与控制流程》中详细的讨论复合命令。</p>
+<h2 id=别名alias展开>别名(alias)展开</h2>
+<p>经过命令解析步骤，可以将任意命令都分解成简单命令，剩下的步骤都是针对简单命令，一条条处理。首先要做的是别名展开，主要做的是检查简单命令的第一个标记(token)是否为别名（alias），如果是则展开别名(alias)。shell维护了一个“alias”列表，我们可以通过shell的内置命令<code>alias</code>查看现有的别名列表：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>alias</span>
+<span class=ln>2</span><span class=nb>alias</span> <span class=nv>l</span><span class=o>=</span><span class=s1>&#39;ls -CF&#39;</span>
+<span class=ln>3</span><span class=nb>alias</span> <span class=nv>la</span><span class=o>=</span><span class=s1>&#39;ls -A&#39;</span>
+<span class=ln>4</span><span class=nb>alias</span> <span class=nv>ll</span><span class=o>=</span><span class=s1>&#39;ls -l&#39;</span>
+<span class=ln>5</span><span class=nb>alias</span> <span class=nv>ls</span><span class=o>=</span><span class=s1>&#39;ls --color=auto&#39;</span>
+</code></pre></div><p>我们可以通过<code>alias 别名名称='别名内容'</code>的方式在当前shell环境中临时添加别名（该shell关闭后，临时添加的别名失效），也可以在任意shell环境文件（如<code>/etc/environment, /etc/profile, ~/.bash_profile, ~/.bash_login, ~/.profile, ~/.bashrc, /etc/bashrc, /etc/bash.bashrc</code>）中永久添加别名。如果别名名称重复，则会覆盖原有别名。也可以通过<code>unalias 别名名称</code>取消某个别名。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>alias</span> <span class=nv>hello</span><span class=o>=</span><span class=s1>&#39;cd /etc/ &amp;&amp; pwd&#39;</span>
+<span class=ln>2</span>$ hello
+<span class=ln>3</span>/etc
+<span class=ln>4</span>$ <span class=nb>alias</span> <span class=nv>hello</span><span class=o>=</span><span class=s1>&#39;whoami&#39;</span>
+<span class=ln>5</span>$ hello
+<span class=ln>6</span>lelouch
+<span class=ln>7</span>$ <span class=nb>unalias</span> hello
+<span class=ln>8</span>$ hello
+<span class=ln>9</span>-bash: hello: <span class=nb>command</span> not found
+</code></pre></div><p>展开别名本质上是一个<strong>文本替换</strong>的过程。比如，我们输入<code>ll /etc/</code>，shell就会拿着第一个单词"ll"，查询alias列表，发现有一项<code>alias ll='ls -l'</code>，就会将<code>ll</code>替换成<code>ls -l</code>，命令变成<code>ls -l /etc/</code>。然后，回到第1步，经过元字符分割为标记、shell命令解析、shell命令解析，再到展开别名这步，拿着第一个单词"ls"，查询alias列表，又发现有一项<code>alias ls='ls --color=auto'</code>，替换<code>ls -l /etc/</code>为<code>ls --color=auto -l /etc/</code>。再回到第1步，经过2，3两步，到展开别名这步，这次首单词还是“ls”。但是shell的alias有一个规定，<strong>之前展开过的别名不能二次展开</strong>，这是为了防止出现循环展开的情形，因此shell不会再对<code>ls</code>进行处理，完成这一步工作。</p>
+<p>有人会有一个疑惑，为什么展开别名后，还有回到第1步，重新执行1-3步？</p>
+<p>这是因为，我们对别名的名称有限制（后面再说），但是对别名的内容基本没有限制。因此别名的内容可以包含多条简单命令、复合命令、元字符、引号等等，所以别名展开后，还需要对这些内容进行再次处理。</p>
+<p>此外，从shell处理流程图中，我们能够发现别名替换是在命令执行之前完成的，如果我们在一个复合命令中使用<code>alias</code>定义了某个别名，并立即在该复合命令中使用，那么实际上是不生效的，因为复合命令没有执行完，别名未被写入系统环境。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>alias</span> <span class=nv>dog</span><span class=o>=</span><span class=s1>&#39;echo &#34;Here is a dog&#34;&#39;</span> <span class=p>;</span> dog <span class=c1># 复合命令中定义别名，后面的命令无法使用别名</span>
+<span class=ln>2</span>-bash: dog: <span class=nb>command</span> not found
+<span class=ln>3</span>$ dog <span class=c1># 当上一个复合命令执行完，别名才被写入系统</span>
+<span class=ln>4</span>Here is a dog
+</code></pre></div><p>这个问题在函数中尤其明显，因为shell在函数定义阶段并不执行，只有当实际使用的时候才会执行函数内容，而shell的函数执行流程在不同版本软件（bash，csh，zsh，sh）中多少有些不同，因此为了安全起见，不要在复合命令中使用<code>alias</code>。</p>
+<p>关于shell的别名还有两个细节问题。一是之前提到的别名的名称有限制，任何元字符、引号字符（‘'’,‘"’,‘\’）以及‘/’, ‘$’, ‘`’, ‘=’都不可以出现在别名名称中。二是在shell脚本中使用别名。别名默认只在交互式shell中启用，shell官方不赞成在脚本中使用别名，而希望使用Shell函数。</p>
 <h2 id=参考内容>参考内容</h2>
-<ul>
-<li><a href=https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html>https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html</a></li>
-<li><a href=https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html>https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html</a></li>
-<li><a href=http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7>http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7</a></li>
-</ul>
+<p><a href=https://www.gnu.org/software/bash/manual/bash.html>https://www.gnu.org/software/bash/manual/bash.html</a></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -380,9 +561,6 @@ RASPBERRY
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
-</li>
-<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程">Shell 骨干流程</a>
 </li>
 <li>
@@ -394,17 +572,20 @@ RASPBERRY
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/ class=nav-link title=linux-debian系统初始化>linux-debian系统初始化</a>
 </li>
+<li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/ class=nav-link title=概率统计随机过程之抽样的分布>概率统计随机过程之抽样的分布</a>
+</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
-</li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程">Shell 骨干流程</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ class=nav-link title=linux-与终端交互的发展>linux-与终端交互的发展</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/linux-%E7%89%B9%E6%AE%8A%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6/ class=nav-link title=linux-特殊设备文件>linux-特殊设备文件</a>
 </li>
 </ul>
 <div>

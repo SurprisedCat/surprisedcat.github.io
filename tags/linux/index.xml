@@ -627,6 +627,7 @@
 &lt;span class="ln">2&lt;/span>$ rm test.log 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &amp;gt;/dev/null &lt;span class="c1">#写完整了应是 2&amp;gt;&amp;amp;1 1&amp;gt;/dev/null&lt;/span>
 &lt;span class="ln">3&lt;/span>rm: cannot remove &lt;span class="s1">&amp;#39;test.log&amp;#39;&lt;/span>: No such file or directory
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>我们发现依然可以看到输出的标准错误信息。这是因为第一步&lt;code>2&amp;gt;&amp;amp;1&lt;/code>的时候，&lt;code>&amp;amp;1&lt;/code>指向的还是&lt;code>/dev/pts/X&lt;/code>，也就是说标准错误先是被重定向到了&lt;code>/dev/pts/X&lt;/code>（和原来一样）；当第二步&lt;code>1&amp;gt;/dev/null&lt;/code>的时候，仅有标准输出被重定向到了&lt;code>/dev/null&lt;/code>，标准错误仍然指向&lt;code>/dev/pts/X&lt;/code>。所以，错误信息还是会显示在屏幕上。&lt;/p>
+&lt;p>&amp;amp;符号的另一个用法是和重定向符号组合到一起&lt;strong>同时代表输出和标准错误输出（&amp;amp;&amp;gt;,&amp;amp;&amp;gt;&amp;gt;）&lt;/strong>。比如，&lt;code>&amp;amp;&amp;gt;文件名&lt;/code>表示将标准输出和标准错误全部保存到指定文件中，等同于&lt;code>1&amp;gt;文件名 2&amp;gt;文件名&lt;/code>或&lt;code>1&amp;gt;文件名 2&amp;gt;&amp;amp;1&lt;/code>。同样，&lt;code>&amp;amp;&amp;gt;&amp;gt;文件名&lt;/code>可表示追加写入文件。&lt;/p>
 &lt;h2 id="参考内容">参考内容&lt;/h2>
 &lt;p>&lt;a href="https://www.runoob.com/linux/linux-shell-io-redirections.html">https://www.runoob.com/linux/linux-shell-io-redirections.html&lt;/a>&lt;/p></description></item><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description>
 &lt;ul>
@@ -653,6 +654,7 @@
 &lt;li>管道命令只处理前一个命令正确输出，不处理错误输出。&lt;/li>
 &lt;li>管道命令右边命令，必须能够接收标准输入流命令才行。&lt;/li>
 &lt;li>管道触发两个子进程分别执行&amp;quot;|&amp;quot;两边的程序；而重定向是在一个进程内执行。&lt;/li>
+&lt;li>如果使用&lt;code>|&amp;amp;&lt;/code>，则表示命令1的标准错误和标准输出都作为命令2的标准输入，这是&lt;code>2&amp;gt;&amp;amp;1 |&lt;/code>的简写。&lt;/li>
 &lt;/ol>
 &lt;h2 id="管道命令">管道命令&lt;/h2>
 &lt;p>管道需要搭配&lt;strong>管道命令&lt;/strong>来使用，除了最开始的命令，在管道右边的命令，&lt;strong>必须能够接收标准输入流&lt;/strong>命令才行。以下这些命令就是常用的管道命令：&lt;/p>

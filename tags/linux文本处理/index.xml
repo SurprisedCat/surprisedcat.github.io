@@ -23,6 +23,7 @@
 &lt;li>管道命令只处理前一个命令正确输出，不处理错误输出。&lt;/li>
 &lt;li>管道命令右边命令，必须能够接收标准输入流命令才行。&lt;/li>
 &lt;li>管道触发两个子进程分别执行&amp;quot;|&amp;quot;两边的程序；而重定向是在一个进程内执行。&lt;/li>
+&lt;li>如果使用&lt;code>|&amp;amp;&lt;/code>，则表示命令1的标准错误和标准输出都作为命令2的标准输入，这是&lt;code>2&amp;gt;&amp;amp;1 |&lt;/code>的简写。&lt;/li>
 &lt;/ol>
 &lt;h2 id="管道命令">管道命令&lt;/h2>
 &lt;p>管道需要搭配&lt;strong>管道命令&lt;/strong>来使用，除了最开始的命令，在管道右边的命令，&lt;strong>必须能够接收标准输入流&lt;/strong>命令才行。以下这些命令就是常用的管道命令：&lt;/p>
