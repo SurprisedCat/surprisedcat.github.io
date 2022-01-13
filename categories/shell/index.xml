@@ -1,4 +1,455 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on SurprisedCat</title><link>https://surprisedcat.github.io/categories/shell/</link><description>Recent content in shell on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sun, 02 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell 骨干流程1——形成初步命令</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/</link><pubDate>Sun, 02 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on SurprisedCat</title><link>https://surprisedcat.github.io/categories/shell/</link><description>Recent content in shell on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell 骨干流程2——复合命令与控制流程</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/</link><pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#shell%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6">shell复合命令——流程控制&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84">循环结构&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%9D%A1%E4%BB%B6%E7%BB%93%E6%9E%84">条件结构&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6%E5%8F%B7%E4%B8%8E%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%E5%8F%B7">条件运算符号与算术运算符号&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%BB%84%E5%91%BD%E4%BB%A4">组命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8D%8F%E5%90%8C%E8%BF%9B%E7%A8%8B">协同进程&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#shell%E5%87%BD%E6%95%B0">shell函数&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89">函数的定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8">函数的使用&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#shell%E5%8F%82%E6%95%B0">shell参数&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0">位置参数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0">特殊参数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9">参考内容&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="复合命令与控制流程---omit-in-toc---">复合命令与控制流程&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>复合命令是通过shell保留字和简单命令组合形成的组合命令，算是shell脚本语言的基本结构。&lt;strong>每一个复合命令结构都由每一个保留字或控制符开始，并以对应的保留字或控制符结束&lt;/strong>，这算是shell编程语言的一个特色，例如以&lt;code>if&lt;/code>开头，&lt;code>fi&lt;/code>结尾；&lt;code>case&lt;/code>开头，&lt;code>esac&lt;/code>结尾等等。对shell复合命令结构的输入、输出重定向将被应用到该结构的每一个简单命令中，除非其中有某个简单命令用显式的重定向覆盖该结构的重定向。写shell语言时，为了保证代码可读性，在复合命令结构之间通常用&lt;code>newline&lt;/code>来分割，而不是用&lt;code>;&lt;/code>来分割，虽然从语法上来讲，二者作用是一样的，但是过长的代码会给后续的维护造成困难。&lt;/p>
+&lt;p>The Bourne Again SHell（bash）提供循环、条件、组命令、协同四种复合命令，并用相应的保留字指示bash是哪一种复合命令。bash的保留字如以下表格所示：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">if&lt;/td>
+&lt;td style="text-align:center">then&lt;/td>
+&lt;td style="text-align:center">elif&lt;/td>
+&lt;td style="text-align:center">else&lt;/td>
+&lt;td style="text-align:center">fi&lt;/td>
+&lt;td style="text-align:center">time&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">for&lt;/td>
+&lt;td style="text-align:center">in&lt;/td>
+&lt;td style="text-align:center">until&lt;/td>
+&lt;td style="text-align:center">while&lt;/td>
+&lt;td style="text-align:center">do&lt;/td>
+&lt;td style="text-align:center">done&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">case&lt;/td>
+&lt;td style="text-align:center">esac&lt;/td>
+&lt;td style="text-align:center">coproc&lt;/td>
+&lt;td style="text-align:center">select&lt;/td>
+&lt;td style="text-align:center">function&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">{&lt;/td>
+&lt;td style="text-align:center">}&lt;/td>
+&lt;td style="text-align:center">[[&lt;/td>
+&lt;td style="text-align:center">]]&lt;/td>
+&lt;td style="text-align:center">!&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>需要注意的是，在其他编程语言中，&lt;code>continue, break&lt;/code>算是关键字，而在shell中&lt;code>continue, break&lt;/code>是内置命令。&lt;/p>
+&lt;p>我们将循环、条件、组命令、协同作为四种控制流程。此外，还有一种特殊的复合命令叫做&lt;strong>函数&lt;/strong>，基本上有点编程基础的人对此都不陌生，shell的函数定义、使用方式和其他编程语言大同小异。&lt;/p>
+&lt;p>总体处理流程上，shell会先检查第一个标记，如果是可前置保留字(&lt;code>if, for, while, until, case, select, time, function, coproc, {, [[, !&lt;/code>)，则开启复合命令流程；如果是非可前置保留字(&lt;code>then, elif, fi, in, do, done, esac, }, ]]&lt;/code>)，且之前没有与之对应的可前置保留字，则报语法错误；如果不是保留字则当作简单命令，执行下一步骤。&lt;/p>
+&lt;h2 id="shell复合命令流程控制">shell复合命令——流程控制&lt;/h2>
+&lt;p>基本上所有的变成语言流程控制都包含顺序执行、条件执行、循环执行三种流程控制，shell语言也不例外。此外，shell还有分组命令、协同处理两种特殊的流程控制方法。&lt;/p>
+&lt;h3 id="循环结构">循环结构&lt;/h3>
+&lt;p>until循环: 循环执行一系列命令直至条件&lt;code>test-commands&lt;/code>为&lt;code>true&lt;/code>时停止。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 单行&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">until&lt;/span> test-commands&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> consequent-commands&lt;span class="p">;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1">#多行&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="k">until&lt;/span> test-commands
+&lt;span class="ln">5&lt;/span>&lt;span class="k">do&lt;/span>
+&lt;span class="ln">6&lt;/span> consequent-commands
+&lt;span class="ln">7&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>例子：输出 0 ~ 9 的数字&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="k">until&lt;/span> &lt;span class="o">[&lt;/span> ! &lt;span class="nv">$a&lt;/span> -lt &lt;span class="m">10&lt;/span> &lt;span class="o">]&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="k">do&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>expr &lt;span class="nv">$a&lt;/span> + 1&lt;span class="sb">`&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>while循环：和until循环相反，循环执行一系列命令直至条件&lt;code>test-commands&lt;/code>为&lt;code>false&lt;/code>时停止。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 单行&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">while&lt;/span> test-commands&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> consequent-commands&lt;span class="p">;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 多行&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="k">while&lt;/span> test-commands
+&lt;span class="ln">5&lt;/span>&lt;span class="k">do&lt;/span>
+&lt;span class="ln">6&lt;/span> consequent-commands
+&lt;span class="ln">7&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>例子：输出 0 ~ 9 的数字&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="k">while&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$a&lt;/span> -lt &lt;span class="m">10&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="c1"># 和until相比少了一个取反的&amp;#34;!&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="k">do&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sb">`&lt;/span>expr &lt;span class="nv">$a&lt;/span> + 1&lt;span class="sb">`&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>for循环：有两种模式，一种是C风格的条件模式，条件需要用shell算数表达式表示，还有一种python风格的遍历模式。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 单行C风格&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="o">((&lt;/span> expr1 &lt;span class="p">;&lt;/span> expr2 &lt;span class="p">;&lt;/span> expr3 &lt;span class="o">))&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> commands &lt;span class="p">;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln"> 3&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 多行C风格&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="o">((&lt;/span> expr1 &lt;span class="p">;&lt;/span> expr2 &lt;span class="p">;&lt;/span> expr3 &lt;span class="o">))&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="k">do&lt;/span>
+&lt;span class="ln"> 7&lt;/span> commands
+&lt;span class="ln"> 8&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 单行 遍历风格&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="k">for&lt;/span> name in &lt;span class="o">[&lt;/span>words …&lt;span class="o">]&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> commands&lt;span class="p">;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c1"># 多行 遍历风格&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="k">for&lt;/span> name in &lt;span class="o">[&lt;/span>words …&lt;span class="o">]&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="k">do&lt;/span>
+&lt;span class="ln">16&lt;/span> commands
+&lt;span class="ln">17&lt;/span>&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>跳出循环：在循环过程中，有时候需要在未达到循环结束条件时强制跳出循环，Shell使用两内置命令来实现该功能：&lt;code>break&lt;/code>和&lt;code>continue&lt;/code>。&lt;code>break&lt;/code>命令允许跳出所有循环（终止执行后面的所有循环）。&lt;code>continue&lt;/code>命令与&lt;code>break&lt;/code>命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环，有时甚至是加速循环。&lt;/p>
+&lt;h3 id="条件结构">条件结构&lt;/h3>
+&lt;p>首先介绍两个各大语言常见的条件结构if和case。其中的分号都可以用&lt;code>newline&lt;/code>替换，反之亦然。&amp;quot;[]&amp;quot;中的内容表示不是一定需要。&lt;/p>
+&lt;p>if条件结构：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">if&lt;/span> test-commands&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">2&lt;/span> consequent-commands&lt;span class="p">;&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="k">elif&lt;/span> more-test-commands&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;span class="ln">4&lt;/span> more-consequents&lt;span class="p">;&lt;/span>&lt;span class="o">]&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="k">else&lt;/span> alternate-consequents&lt;span class="p">;&lt;/span>&lt;span class="o">]&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>代码实例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">10&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">20&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$a&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nv">$b&lt;/span> &lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;a 等于 b&amp;#34;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="k">elif&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$a&lt;/span> -gt &lt;span class="nv">$b&lt;/span> &lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;a 大于 b&amp;#34;&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="k">elif&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="nv">$a&lt;/span> -lt &lt;span class="nv">$b&lt;/span> &lt;span class="o">]&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;a 小于 b&amp;#34;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="k">else&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;没有符合的条件&amp;#34;&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>case条件结构：&lt;code>case ... esac&lt;/code>为多选择语句，与其他语言中的&lt;code>switch ... case&lt;/code>语句类似，是一种多分支选择结构，每个&lt;code>case&lt;/code>分支用&lt;strong>右圆括号&lt;/strong>开始，用&lt;strong>两个分号;;表示&lt;/strong> break，即执行结束，跳出整个&lt;code>case ... esac&lt;/code>语句，&lt;code>esac&lt;/code>（就是&lt;code>case&lt;/code>反过来）作为结束标记。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nv">$var&lt;/span> in
+&lt;span class="ln">2&lt;/span> pattern1 &lt;span class="p">|&lt;/span> pattern2&lt;span class="o">)&lt;/span>
+&lt;span class="ln">3&lt;/span> statements &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">4&lt;/span> pattern3 &lt;span class="p">|&lt;/span> pattern4&lt;span class="o">)&lt;/span>
+&lt;span class="ln">5&lt;/span> statements &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">6&lt;/span> ...
+&lt;span class="ln">7&lt;/span> *&lt;span class="o">)&lt;/span>
+&lt;span class="ln">8&lt;/span> statements &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="k">esac&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>case&lt;/code>工作方式如上所示，&lt;code>case&lt;/code>后面跟需要判断的变量&lt;code>$var&lt;/code>，再后面必须为单词&lt;code>in&lt;/code>。该复合语句根据模式匹配&lt;code>case&lt;/code>后面的&lt;code>$var&lt;/code>，模式类似于正则表达式，多个模式之间用“|”分割，最后必须以右括号结束。&lt;code>$var&lt;/code>可以为变量或常数，匹配发现取值符合某一模式后，其间所有命令开始执行直至 ;;。&lt;/p>
+&lt;p>&lt;code>$var&lt;/code>将检测匹配的每一个模式。一旦模式匹配，则执行完匹配模式相应命令后&lt;strong>不再继续其他模式&lt;/strong>。如果无一匹配模式，&lt;strong>使用星号&lt;code>*&lt;/code>捕获该值&lt;/strong>，再执行后面的命令。&lt;/p>
+&lt;p>举一个简单的例子&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;输入 1 到 6 之间的数字:&amp;#39;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;你输入的数字为:&amp;#39;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nb">read&lt;/span> aNum
+&lt;span class="ln"> 4&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nv">$aNum&lt;/span> in
+&lt;span class="ln"> 5&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="p">|&lt;/span> 2&lt;span class="o">)&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;你选择了 1或2&amp;#39;&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="p">|&lt;/span> 4&lt;span class="o">)&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;你选择了 3或4&amp;#39;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> 5&lt;span class="o">)&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;你选择了 5&amp;#39;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">11&lt;/span> 6&lt;span class="o">)&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;你选择了 6&amp;#39;&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">13&lt;/span> *&lt;span class="o">)&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;你没有输入 1 到 6 之间的数字&amp;#39;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="k">esac&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>另外，一些版本的shell还提供了&lt;code>select&lt;/code>结构，&lt;code>select in&lt;/code>结构用来增强交互性，它可以显示出带编号的菜单，用户输入不同的编号就可以选择不同的菜单，并执行不同的功能。但是个人觉得在实践中，这种结果使用较少，用起来也比较鸡肋，所以不做介绍了，有兴趣同读者可以自行搜索。&lt;/p>
+&lt;h3 id="条件运算符号与算术运算符号">条件运算符号与算术运算符号&lt;/h3>
+&lt;p>我们在之前的循环与条件结构中，都会遇到条件判断语句，例如在&lt;code>if&lt;/code>后面的内容、&lt;code>while, until&lt;/code>后面的内容以及&lt;code>for&lt;/code>在C风格下的&lt;code>((...))&lt;/code>表达式。条件结构会&lt;strong>根据判断语句的返回码&lt;/strong>决定执行哪些后续内容，有趣的是，由于在shell中，返回码&lt;code>0&lt;/code>表示进程正常执行完毕，其他返回码表示进程执行遇到错误。在shell中执行&lt;code>true&lt;/code>的返回码为0，执行&lt;code>false&lt;/code>的返回码为1；算数表达式计算结果不为0时，返回码为0，计算结果等于0时，返回码为1。还是要记住，条件结构看的是返回码，不是执行的输出。&lt;/p>
+&lt;p>判断语句一般有三种，一是单中括号&lt;code>[]&lt;/code>，二是双中括号&lt;code>[[]]&lt;/code>，三是双小括号&lt;code>(())&lt;/code>。&lt;/p>
+&lt;p>单中括号&lt;code>[ ]&lt;/code>是bash特有的&lt;strong>内置命令&lt;/strong>，等同于&lt;code>test&lt;/code>命令。关于test命令的具体用法，可参考《shell-test命令使用》。&lt;/p>
+&lt;p>双中括号&lt;code>[[ ]]&lt;/code>是bash程序语言的&lt;strong>关键字&lt;/strong>，并不是一个命令，双中括号中的&lt;strong>表达式被看作一个单独的元素&lt;/strong>，计算此元素结果并返回一个退出状态码。由于&lt;code>[[ ]]&lt;/code>是关键字，因此，它们&lt;strong>和表达式之间都需要空格分割&lt;/strong>，&lt;code>[[ ]]&lt;/code>结构比&lt;code>[ ]&lt;/code>结构更加通用。在&lt;code>[[&lt;/code>和&lt;code>]]&lt;/code>之间所有的字符都不会发生文件名扩展或者单词分割，但是会发生参数扩展和命令替换。使用&lt;code>[[ ]]&lt;/code>条件判断结构，而不是&lt;code>[ ]&lt;/code>，能够防止脚本中的许多逻辑错误。比如，&lt;code>&amp;amp;&amp;amp;、||、&amp;lt;&lt;/code>和&lt;code>&amp;gt;&lt;/code>操作符能够正常存在于&lt;code>[[ ]]&lt;/code>条件判断结构中，但是如果出现在&lt;code>[ ]&lt;/code>结构中的话，会报错。比如可以直接使用&lt;code>if [[ $a != 1 &amp;amp;&amp;amp; $a != 2 ]]&lt;/code>, 如果不适用双括号, 则为&lt;code>if [ $a -ne 1] &amp;amp;&amp;amp; [ $a != 2 ]&lt;/code>或者&lt;code>if [ $a -ne 1 -a $a != 2 ]&lt;/code>。此外，&lt;code>[[ ]]&lt;/code>支持字符串的模式匹配，使用&lt;code>==, !=&lt;/code>操作符时甚至支持shell的模式匹配，此时会把&lt;strong>运算符右边的表达式作为一个匹配模式&lt;/strong>，而不仅仅是一个字符串，比如&lt;code>[[ hello == hell? ]]&lt;/code>，&lt;code>[[ hello == h* ]]&lt;/code>结果都为真。&lt;code>[[ ]]&lt;/code>中匹配字符串或通配符，不需要引号。&lt;/p>
+&lt;blockquote>
+&lt;p>关于双中括号&lt;code>[[ ]]&lt;/code>中的匹配，如果我们使用&lt;code>=~&lt;/code>操作符，支持字符串的shell模式匹配可升级为POSIX的正则匹配，提供更加丰富的匹配功能。&lt;/p>
+&lt;/blockquote>
+&lt;p>双小括号&lt;code>(( ))&lt;/code>是&lt;strong>整数扩展&lt;/strong>。这种扩展计算是&lt;strong>整数型的计算，不支持浮点型&lt;/strong>。&lt;code>(( ))&lt;/code>结构扩展并计算一个算术表达式的值，如果表达式的结果为0，那么返回的退出状态码为1，或者 是&amp;quot;false&amp;quot;，而一个非零值的表达式所返回的退出状态码将为0，或者是&amp;quot;true&amp;quot;。单纯用&lt;code>(( ))&lt;/code> 也可重定义变量值，比如&lt;code>a=5; ((a++))&lt;/code>可将&lt;code>$a&lt;/code>重定义为6。注意由于&lt;code>(( ))&lt;/code>是C风格的，因此双括号中的变量可以不使用$符号前缀。括号内支持多个表达式用逗号分开，只要括号中的表达式符合C语言运算规则,比如可以直接使用&lt;code>for((i=0;i&amp;lt;5;i++))&lt;/code>。&lt;/p>
+&lt;h3 id="组命令">组命令&lt;/h3>
+&lt;p>shell提供了两种方式来将一组命令（无论是简单命令还是复合命令）做一个单元来执行，一是单个小括号&lt;code>( command list )&lt;/code>，二是单个大括号&lt;code>{ command list; }&lt;/code>。当组命令存在时，可以改变原有的执行流程，组内的命令看作一个小单元一起执行，就像在数学中使用括号改变运算优先级一样；同时，对组命令的重定向将会生效于组内每一条命令。&lt;/p>
+&lt;p>举一个组命令改变原有的执行流程的例子，。示例：&lt;code>echo $a&lt;/code>被执行几次？&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 先执行a=1;echo $a，再执行a=1 || echo $a，由于a=1成功执行，||右面的echo $a不会执行了&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 最后再执行最后一个echo $a；共输出两次&lt;/span>
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="c1"># 先执行a=1;echo $a，后面a=1 || (echo $a ;echo $a)做为同优先级的组合命令执行，由于a=1成功执行&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="c1"># ||右面的(echo $a ;echo $a)组命令作为一个整体都不会执行，共输出一次&lt;/span>
+&lt;span class="ln">8&lt;/span>$ &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么，使用单个小括号&lt;code>( command list )&lt;/code>和单个大括号&lt;code>{ command list; }&lt;/code>到底有什么区别呢？&lt;/p>
+&lt;ol>
+&lt;li>语法层面。&lt;code>()&lt;/code>是&lt;strong>shell的操作符&lt;/strong>，因此会被shell解释器自动分割，且不用在小括号左右加空格；而&lt;code>{}&lt;/code>是&lt;strong>shell的保留字&lt;/strong>，因此需要在左大括号后面添加空格（开头不需要，后面那个右大括号也不需要），同时&lt;code>{ }&lt;/code>最后一个命令要加&lt;strong>分号分割&lt;/strong>。&lt;/li>
+&lt;li>执行层面。当shell执行&lt;code>( )&lt;/code>中的命令时将再创建一个新的子shell，然后这个子shell去执行圆括弧中的命令。&lt;code>( )&lt;/code>所有的改变只对子shell产生影响，而原shell不受任何干扰，比如在&lt;code>( )&lt;/code>内部定义、改变的变量，外面是不受影响的；&lt;code>{ }&lt;/code>是在当前shell中执行，不会衍生子shell，&lt;code>{ }&lt;/code>中操作都是对当前shell有影响的。&lt;/li>
+&lt;/ol>
+&lt;p>我们据下面这个例子来说明&lt;code>( )&lt;/code>与&lt;code>{ }&lt;/code>的区别。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># {} 内部定义变量。原进程可用&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ &lt;span class="o">{&lt;/span> &lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>1&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$b&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 没有空格、分号的话会将{b=2}整体当作一个命令&lt;/span>
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="o">{&lt;/span>&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>2&lt;span class="o">}&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$b&lt;/span>
+&lt;span class="ln"> 6&lt;/span>-bash: &lt;span class="o">{&lt;/span>&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>2&lt;span class="o">}&lt;/span>: &lt;span class="nb">command&lt;/span> not found
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 有分号无空格会报语法错误&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ &lt;span class="o">{&lt;/span>&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>2&lt;span class="p">;&lt;/span>&lt;span class="o">}&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$b&lt;/span>
+&lt;span class="ln"> 9&lt;/span>-bash: syntax error near unexpected token &lt;span class="sb">`&lt;/span>&lt;span class="o">}&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># ()中的命令会在子shell执行，不影响原本的shell&lt;/span>
+&lt;span class="ln">11&lt;/span>$ &lt;span class="o">(&lt;/span>&lt;span class="nv">b&lt;/span>&lt;span class="o">=&lt;/span>2&lt;span class="o">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$b&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="协同进程">协同进程&lt;/h3>
+&lt;p>自bash4.0开始，bash引入了一个保留字&lt;code>coproc&lt;/code>, 用来在后台创建一个&lt;strong>异步执行的子协作进程&lt;/strong>(co-process)。使用&lt;code>coproc&lt;/code>的效果就像在命令结尾加上&lt;code>&amp;amp;&lt;/code>符号一样，但是&lt;code>coproc&lt;/code>还会创建一个&lt;strong>双向管道&lt;/strong>，将协作进程的输入和输出通过管道与文件句柄相连，与原进程进行通信。如果我们希望原进程和子进程交互执行，可以考虑使用&lt;code>coproc&lt;/code>。其语法如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>coproc &lt;span class="o">[&lt;/span>NAME&lt;span class="o">]&lt;/span> &lt;span class="nb">command&lt;/span> &lt;span class="o">[&lt;/span>redirections&lt;span class="o">]&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 有没有觉得它跟bash中定义函数的语法 function NAME {cmds} 很类似？&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建的协作子进程被命名为给出的参数&lt;code>NAME&lt;/code>，如果没有给参数&lt;code>NAME&lt;/code>则默认为“COPROC”。但是只有当&lt;code>command&lt;/code>不是简单命令时，才可以给它命名，如果是简单命令，则一定不可以添加&lt;code>NAME&lt;/code>参数，否则&lt;code>NAME&lt;/code>会被当成简单命令的首单词。&lt;/p>
+&lt;p>当&lt;code>coproc&lt;/code>命令执行时，shell在当前进程中创建一个名为&lt;code>NAME&lt;/code>的数组变量，命令的&lt;strong>标准输出&lt;/strong>同当前进程的文件描述符&lt;code>NAME[0]&lt;/code>相连，&lt;strong>标准输入&lt;/strong>同&lt;code>NAME[1]&lt;/code>相连（和标准输入输出的默认文件描述符相反）。协作进程的进程号保存在变量&lt;code>NAME_PID&lt;/code>中，我们可以在当前进程使用shell内建命令&lt;code>wait&lt;/code>等待协作进程的结束。&lt;/p>
+&lt;p>&lt;code>coproc&lt;/code>的用法和GO语言中的协程有点类似，感觉在shell实际应用中并不太常见。大多数时候，有类似功效的&lt;code>expect&lt;/code>命令更受欢迎。&lt;/p>
+&lt;h2 id="shell函数">shell函数&lt;/h2>
+&lt;p>shell中函数是另一种复合命令的方式，shell中的函数定义和使用与其他变成语言中函数大同小异。然而，shell的函数设计有一个特点：&lt;strong>函数用起来尽量像个正常的命令&lt;/strong>。这个特点既有有点也有缺点，优点在于函数和命令使用的一致性，可以简化编程语法，二者互相替换会很方便；但是这也让我们无法直接分清哪些是命令哪些是函数，容易产生二义性。&lt;/p>
+&lt;h3 id="函数的定义">函数的定义&lt;/h3>
+&lt;p>shell函数的定义遵循以下两种方式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 方法一&lt;/span>
+&lt;span class="ln">2&lt;/span>fname &lt;span class="o">()&lt;/span> compound-command &lt;span class="o">[&lt;/span> redirections &lt;span class="o">]&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 方法二&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="k">function&lt;/span> fname &lt;span class="o">[()]&lt;/span> compound-command &lt;span class="o">[&lt;/span> redirections &lt;span class="o">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，&lt;code>function&lt;/code>是shell关于函数的&lt;strong>保留字&lt;/strong>，&lt;code>fname&lt;/code>是给出的&lt;strong>函数名称&lt;/strong>，后面跟的单小括号&lt;code>( )&lt;/code>也表明定义的是个函数，其中里面什么都不要添加。后面跟的是&lt;strong>函数体&lt;/strong>，注意函数体一定要是&lt;strong>复合命令&lt;/strong>。由于保留字&lt;code>function&lt;/code>和单小括号&lt;code>( )&lt;/code>都表明了是定义函数，因此二者至少有一个存在即可。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>funcName &lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span> command&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="c1"># 只存在单小括号( )&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">function&lt;/span> funcName &lt;span class="o">{&lt;/span> command&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="c1"># 只存在保留字function&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">function&lt;/span> funcName &lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span> command&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span> &lt;span class="c1"># 单小括号( )、保留字function同时存在&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后的&lt;code>[ redirections ]&lt;/code>表示整个函数的重定向。如果，我们想删除定义的函数，可以用&lt;code>unset -f&lt;/code>内置命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 删除名为funcName的函数&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">unset&lt;/span> -f funcName
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么使用&lt;code>function&lt;/code>保留字和不使用该保留字有什么区别呢？使用&lt;code>function&lt;/code>保留字后，后面的单词&lt;code>funcName&lt;/code>一定会被shell当成函数名，&lt;strong>即使使用已经存在的命令作为名称也可以&lt;/strong>，举个例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="k">function&lt;/span> ls &lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span> whoami&lt;span class="p">;&lt;/span> pwd&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">2&lt;/span>$ ls
+&lt;span class="ln">3&lt;/span>lelouch &lt;span class="c1"># 这是我自己用户的名称&lt;/span>
+&lt;span class="ln">4&lt;/span>/home/lelouch
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这个例子中，我作死把原来的&lt;code>ls&lt;/code>命令名称，定义成了一个新的函数，这个函数会执行&lt;code>whoami; pwd;&lt;/code>两个命令，所以执行结果并不是&lt;code>ls&lt;/code>原本的结果，而是显示当前用户和路径。如果我在作死一点，定义一个另一个函数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 注意这里的ls已经不是过去显示文件的命令，而是之前定义的函数&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="k">function&lt;/span> &lt;span class="nb">pwd&lt;/span> &lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span> whoami&lt;span class="p">;&lt;/span> ls&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我在函数体中，又添加了&lt;code>ls&lt;/code>，你猜猜现在执行&lt;code>pwd&lt;/code>结果会怎么样~~&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">pwd&lt;/span>
+&lt;span class="ln"> 2&lt;/span>lelouch
+&lt;span class="ln"> 3&lt;/span>lelouch
+&lt;span class="ln"> 4&lt;/span>lelouch
+&lt;span class="ln"> 5&lt;/span>lelouch
+&lt;span class="ln"> 6&lt;/span>lelouch
+&lt;span class="ln"> 7&lt;/span>lelouch
+&lt;span class="ln"> 8&lt;/span>lelouch
+&lt;span class="ln"> 9&lt;/span>lelouch
+&lt;span class="ln">10&lt;/span>lelouch
+&lt;span class="ln">11&lt;/span>lelouch
+&lt;span class="ln">12&lt;/span>lelouch
+&lt;span class="ln">13&lt;/span>lelouch
+&lt;span class="ln">14&lt;/span>lelouch
+&lt;span class="ln">15&lt;/span>lelouch
+&lt;span class="ln">16&lt;/span>lelouch
+&lt;span class="ln">17&lt;/span>....
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>结果会无限地执行&lt;code>whoami&lt;/code>。因为&lt;code>pwd&lt;/code>函数会调用函数&lt;code>ls&lt;/code>（不是&lt;code>ls&lt;/code>命令），函数&lt;code>ls&lt;/code>又会调用函数&lt;code>pwd&lt;/code>，……，产生循环调用，命令体中的&lt;code>whoami&lt;/code>会被反复执行。这也说明了shell语言并不是一个很严谨的语言，很容易产生能让系统崩溃的错误。&lt;code>function&lt;/code>保留字就是能让后面的单词强制变成函数名，覆盖原来的含义。&lt;/p>
+&lt;blockquote>
+&lt;p>我们可以设置FUNCNEST环境变量来限制函数嵌套调用的次数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">FUNCNEST&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">pwd&lt;/span>
+&lt;span class="ln">3&lt;/span>lelouch
+&lt;span class="ln">4&lt;/span>lelouch
+&lt;span class="ln">5&lt;/span>lelouch
+&lt;span class="ln">6&lt;/span>lelouch
+&lt;span class="ln">7&lt;/span>-bash: pwd: maximum &lt;span class="k">function&lt;/span> nesting level exceeded &lt;span class="o">(&lt;/span>4&lt;span class="o">)&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="c1"># 让我们结束作死，释放ls,pwd两个函数&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="nv">$unset&lt;/span> -f &lt;span class="nb">pwd&lt;/span> ls
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当函数被嵌套到达4次后，shell会自动停止，防止出现循环调用。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果不使用&lt;code>function&lt;/code>保留字，那么第一个单词就不能某个命令的名称，因为一个单词会被当成要执行的命令名，后面的内容会被当成命令的参数。&lt;code>( )&lt;/code>显然会因为不符合参数规范而报错。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls &lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span> whoami&lt;span class="p">;&lt;/span> pwd&lt;span class="p">;&lt;/span> &lt;span class="o">}&lt;/span>
+&lt;span class="ln">2&lt;/span>-bash: syntax error near unexpected token &lt;span class="sb">`&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>关于函数名称的规范，shell的要求很松，除了使用&lt;code>function&lt;/code>保留字造成的区别外，只要求是&lt;strong>不含有&lt;code>$&lt;/code>符号的单词(word)就可以（单词中默认不应含有元字符，但是非元字符的符号可以，比如func^@Name）&lt;/strong>。&lt;/p>
+&lt;p>关于函数体，只要是复合命令都可以。shell在习惯上，会像C语言一样用&lt;strong>大括号&lt;/strong>包裹函数体，需要注意的是由于大括号&lt;code>{ }&lt;/code>是shell的保留字，所以左边的大括号后面必须要用空格或者&lt;code>newline&lt;/code>分割后面的命令，同时大括号内部的命令也要用分号、&lt;code>&amp;amp;&lt;/code>符号或&lt;code>newline&lt;/code>分割。本质上这些就是使用大括号的组命令的规范啊。&lt;/p>
+&lt;p>如果在函数体中定义了局部变量，也是和其他函数一样，函数内定义的局部变量会覆盖外部定义的变量，举个例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ func1&lt;span class="o">()&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&amp;gt;&lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&amp;gt; &lt;span class="nb">local&lt;/span> &lt;span class="nv">var&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;func1 local&amp;#39;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&amp;gt; func2
+&lt;span class="ln"> 5&lt;/span>&amp;gt;&lt;span class="o">}&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>$ func2&lt;span class="o">()&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&amp;gt;&lt;span class="o">{&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;In func2, var = &lt;/span>&lt;span class="nv">$var&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">10&lt;/span>&amp;gt;&lt;span class="o">}&lt;/span>
+&lt;span class="ln">11&lt;/span>$ &lt;span class="nv">var&lt;/span>&lt;span class="o">=&lt;/span>global
+&lt;span class="ln">12&lt;/span>$ func1
+&lt;span class="ln">13&lt;/span>In func2, &lt;span class="nv">var&lt;/span> &lt;span class="o">=&lt;/span> func1 &lt;span class="nb">local&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="函数的使用">函数的使用&lt;/h3>
+&lt;p>shell函数的使用和命令、脚本的使用没有区别，都是&lt;code>命令/函数/脚本名称 参数1 参数2 ...&lt;/code>的形式。之前说过这也是shell语言的特色。&lt;/p>
+&lt;p>由于shell也是解释型语言，当函数执行时，会根据控制流程依次一步步执行，如果遇到错误就自动终止执行。&lt;/p>
+&lt;p>函数执行完成后的返回值，当函数定义时，如果未检查到语法错误，则定义语句返回状态0。当函数执行时，和其他编程语言一样，shell也用&lt;code>return&lt;/code>来返回状态值。只不过shell的&lt;code>return&lt;/code>后面只能跟一个数字，而非其他东西。如果&lt;code>return&lt;/code>后面什么都没加或者函数体中没有&lt;code>return&lt;/code>，则返回函数体最后执行的简单命令的返回值。&lt;/p>
+&lt;p>我们可以使用&lt;code>declare -f&lt;/code>查看当前环境所有的函数名称和定义，&lt;code>declare -F&lt;/code>仅查看当前环境所有的函数名称。此外，shell的函数也支持递归，但是递归的层数也受到FUNCNEST环境变量的限制。&lt;/p>
+&lt;p>说到这里，很多读者会发现，我们没有提到函数&lt;strong>最关键的功能——传参执行&lt;/strong>，即根据传入的参数变量执行函数。在Shell中，调用函数时确实可以向其传递参数。但是，传参的方式是shell语言特有的。在函数体内部，传入的参数通过位置参数&lt;code>$n&lt;/code>的形式来代表，例如，&lt;code>$1&lt;/code>表示第一个参数，&lt;code>$2&lt;/code>表示第二个参数...&lt;/p>
+&lt;p>下一节，我们将具体说说shell中的参数传递。&lt;/p>
+&lt;h2 id="shell参数">shell参数&lt;/h2>
+&lt;p>参数是一种存储值的实体，可以是名称、数字或是特殊字符。参数中用&lt;strong>名称&lt;/strong>存储值的叫&lt;strong>变量&lt;/strong>。变量由一个值和0-N个属性。变量值由赋值语句指定；属性由&lt;code>declare&lt;/code>命令指定。赋值语句格式如下，如果要删除变量则用&lt;code>unset&lt;/code>命令。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 给名为name的变量赋值为value&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nv">name&lt;/span>&lt;span class="o">=[&lt;/span>value&lt;span class="o">]&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 删除变量&lt;/span>
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">unset&lt;/span> name
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于shell把空字符串也认为是合理的变量值，因此value值可以不用给出即&lt;code>name=&lt;/code>，此时shell给name空字符串作为默认值。&lt;/p>
+&lt;h3 id="位置参数">位置参数&lt;/h3>
+&lt;p>位置参数是由&lt;code>$&lt;/code>和数字组成的参数。当一条命令、脚本或函数执行时，后面可以跟多个参数，我们使用位置参数变量来表示这些参数。也就是说在shell中&lt;strong>位置参数承担这向函数、脚本传参的使用&lt;/strong>。&lt;/p>
+&lt;p>其中，&lt;code>$0&lt;/code>代表命令、脚本本身，注意不是函数名称，&lt;code>$1&lt;/code>代表第1个参数，&lt;code>$2&lt;/code>代表第2个参数，依次类推。当参数个数超过10个时，就必须要用&lt;strong>大括号&lt;/strong>把这个数字括起来，例如，&lt;code>${10}&lt;/code>代表第 10 个参数，&lt;code>${100}&lt;/code>则代表第100个参数。&lt;/p>
+&lt;p>举个简单的例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ funWithParam&lt;span class="o">(){&lt;/span>
+&lt;span class="ln">2&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;命令/脚本的名称是：&lt;/span>&lt;span class="nv">$0&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">3&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数为 &lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第二个参数为 &lt;/span>&lt;span class="nv">$2&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">5&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第十个参数为 &lt;/span>&lt;span class="nv">$10&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>&amp;gt; &lt;span class="c1"># $10 不能获取第十个参数，获取第十个参数需要${10}。当n&amp;gt;=10时，需要使用${n}来获取参数。&lt;/span>
+&lt;span class="ln">7&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第十个参数为 &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">10&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">8&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第十一个参数为 &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">11&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">9&lt;/span>&amp;gt; &lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ funWithParam &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">8&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">73&lt;/span>
+&lt;span class="ln">2&lt;/span>函数/命令的名称是：-bash !
+&lt;span class="ln">3&lt;/span>第一个参数为 &lt;span class="m">1&lt;/span> !
+&lt;span class="ln">4&lt;/span>第二个参数为 &lt;span class="m">2&lt;/span> !
+&lt;span class="ln">5&lt;/span>第十个参数为 &lt;span class="m">10&lt;/span> !
+&lt;span class="ln">6&lt;/span>第十个参数为 &lt;span class="m">34&lt;/span> !
+&lt;span class="ln">7&lt;/span>第十一个参数为 &lt;span class="m">73&lt;/span> !
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="特殊参数">特殊参数&lt;/h3>
+&lt;p>除了位置参数，shell为了方便编程，还提供一些特殊参数，如下表所示。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">参数处理&lt;/th>
+&lt;th style="text-align:center">说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">$#&lt;/td>
+&lt;td style="text-align:center">传递到脚本或函数的参数个数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">$*&lt;/td>
+&lt;td style="text-align:center">以一个单字符串显示所有向脚本传递的参数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">$$&lt;/td>
+&lt;td style="text-align:center">脚本运行的当前进程ID号&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">$!&lt;/td>
+&lt;td style="text-align:center">后台运行的最后一个进程的ID号&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">$@&lt;/td>
+&lt;td style="text-align:center">与$*相同，但是使用时加引号，并在引号中返回每个参数。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">$-&lt;/td>
+&lt;td style="text-align:center">显示Shell使用的当前选项，与set命令功能相同。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">$?&lt;/td>
+&lt;td style="text-align:center">显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>需要指出，我们&lt;strong>不能给这些特殊参数进行赋值操作&lt;/strong>。关于&lt;code>$*,S#&lt;/code>二者的区别。当&lt;code>$*&lt;/code>和&lt;code>$@&lt;/code>不被双引号&lt;code>&amp;quot; &amp;quot;&lt;/code>包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔。但是当它们被双引号&lt;code>&amp;quot; &amp;quot;&lt;/code>包含时，就会有区别了：&lt;/p>
+&lt;ul>
+&lt;li>&amp;quot;$*&amp;quot;会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。&lt;/li>
+&lt;li>&amp;quot;$@&amp;quot;仍然将每个参数都看作一份数据，彼此之间是独立的。&lt;/li>
+&lt;/ul>
+&lt;p>比如传递了5个参数，那么对于&lt;code>$*&lt;/code>来说，这5个参数会合并到一起形成一份数据，它们之间是无法分割的；而对于&lt;code>$@&lt;/code>来说，这5个参数是相互独立的，它们是5份数据。如果使用&lt;code>echo&lt;/code>直接输出&lt;code>$*&lt;/code>和&lt;code>$@&lt;/code>做对比，是看不出区别的；但如果使用&lt;code>for&lt;/code>循环来逐个输出数据，立即就能看出区别来。&lt;/p>
+&lt;p>我们将上一个例子增加一些功能如下，为了方便，我们新建一个&lt;code>test.sh&lt;/code>文件存放函数：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">#! /bin/bash
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="cp">&lt;/span>funWithParam&lt;span class="o">(){&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;命令的名称是：&lt;/span>&lt;span class="nv">$0&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第一个参数为 &lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第二个参数为 &lt;/span>&lt;span class="nv">$2&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第十个参数为 &lt;/span>&lt;span class="nv">$10&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="c1"># $10 不能获取第十个参数，获取第十个参数需要${10}。当n&amp;gt;=10时，需要使用${n}来获取参数。&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第十个参数为 &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">10&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;第十一个参数为 &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">11&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;参数总数有 &lt;/span>&lt;span class="nv">$#&lt;/span>&lt;span class="s2"> 个!&amp;#34;&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;作为一个字符串输出所有参数 &lt;/span>&lt;span class="nv">$*&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;$*与S@的区别：&amp;#39;&lt;/span> &lt;span class="c1"># 这里是单引号防止参数展开&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;使用for循环输出$* !&amp;#39;&lt;/span> &lt;span class="c1"># 这里是单引号防止参数展开&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">for&lt;/span> var in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$*&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$var&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;使用for循环输出$@ !&amp;#39;&lt;/span> &lt;span class="c1"># 这里是单引号防止参数展开&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="k">for&lt;/span> var in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$@&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="k">do&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$var&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;脚本运行的当前进程ID号 &lt;/span>&lt;span class="nv">$$&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;显示Shell使用的当前选项 &lt;/span>&lt;span class="nv">$-&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;上一个命令的结束状态 &lt;/span>&lt;span class="nv">$?&lt;/span>&lt;span class="s2"> !&amp;#34;&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">27&lt;/span>funWithParam &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">8&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">73&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>输出结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ bash test.sh
+&lt;span class="ln"> 2&lt;/span>命令的名称是：test.sh !
+&lt;span class="ln"> 3&lt;/span>第一个参数为 &lt;span class="m">1&lt;/span> !
+&lt;span class="ln"> 4&lt;/span>第二个参数为 &lt;span class="m">2&lt;/span> !
+&lt;span class="ln"> 5&lt;/span>第十个参数为 &lt;span class="m">10&lt;/span> !
+&lt;span class="ln"> 6&lt;/span>第十个参数为 &lt;span class="m">34&lt;/span> !
+&lt;span class="ln"> 7&lt;/span>第十一个参数为 &lt;span class="m">73&lt;/span> !
+&lt;span class="ln"> 8&lt;/span>参数总数有 &lt;span class="m">11&lt;/span> 个!
+&lt;span class="ln"> 9&lt;/span>作为一个字符串输出所有参数 &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">8&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">73&lt;/span> !
+&lt;span class="ln">10&lt;/span>&lt;span class="nv">$*&lt;/span>与S@的区别：
+&lt;span class="ln">11&lt;/span>使用for循环输出&lt;span class="nv">$*&lt;/span> !
+&lt;span class="ln">12&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">8&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">73&lt;/span>
+&lt;span class="ln">13&lt;/span>使用for循环输出&lt;span class="nv">$@&lt;/span> !
+&lt;span class="ln">14&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="m">2&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="m">3&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="m">4&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="m">5&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="m">6&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="m">7&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="m">8&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="m">9&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="m">34&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="m">73&lt;/span>
+&lt;span class="ln">25&lt;/span>脚本运行的当前进程ID号 &lt;span class="m">30483&lt;/span> !
+&lt;span class="ln">26&lt;/span>显示Shell使用的当前选项 hB !
+&lt;span class="ln">27&lt;/span>上一个命令的结束状态 &lt;span class="m">0&lt;/span> !
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参考内容">参考内容&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.gnu.org/software/bash/manual/bash.html">https://www.gnu.org/software/bash/manual/bash.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.runoob.com/linux/linux-shell-process-control.html">https://www.runoob.com/linux/linux-shell-process-control.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.runoob.com/w3cnote/linux-shell-brackets-features.html">https://www.runoob.com/w3cnote/linux-shell-brackets-features.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://c.biancheng.net/view/807.html">http://c.biancheng.net/view/807.html&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Shell 骨干流程1——形成初步命令</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/</link><pubDate>Sun, 02 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#%E5%85%83%E5%AD%97%E7%AC%A6%E5%88%86%E5%89%B2%E4%B8%BA%E6%A0%87%E8%AE%B0">元字符分割为标记&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E5%BC%95%E5%8F%B7%E5%A4%84%E7%90%86">引号处理&lt;/a>
@@ -309,7 +760,7 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>总体处理流程上，shell会先检查第一个标记，如果是可前置保留字(&lt;code>if, do, for, while, case, select, time, function, coproc, {, [[, !&lt;/code>)，则开启复合命令流程；如果是非可前置保留字(&lt;code>then, elif, fi, in, until, done, esac, }, ]]&lt;/code>)，且之前没有与之对应的可前置保留字，则报语法错误；如果不是保留字则当作简单命令，执行下一步骤。&lt;/p>
+&lt;p>总体处理流程上，shell会先检查第一个标记，如果是可前置保留字(&lt;code>if, for, while, until, case, select, time, function, coproc, {, [[, !&lt;/code>)，则开启复合命令流程；如果是非可前置保留字(&lt;code>then, elif, fi, in, do, done, esac, }, ]]&lt;/code>)，且之前没有与之对应的可前置保留字，则报语法错误；如果不是保留字则当作简单命令，执行下一步骤。&lt;/p>
 &lt;p>我们将在《shell-骨干流程2——复合命令与控制流程》中详细的讨论复合命令。&lt;/p>
 &lt;h2 id="别名alias展开">别名(alias)展开&lt;/h2>
 &lt;p>经过命令解析步骤，可以将任意命令都分解成简单命令，剩下的步骤都是针对简单命令，一条条处理。首先要做的是别名展开，主要做的是检查简单命令的第一个标记(token)是否为别名（alias），如果是则展开别名(alias)。shell维护了一个“alias”列表，我们可以通过shell的内置命令&lt;code>alias&lt;/code>查看现有的别名列表：&lt;/p>
@@ -339,7 +790,7 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>这个问题在函数中尤其明显，因为shell在函数定义阶段并不执行，只有当实际使用的时候才会执行函数内容，而shell的函数执行流程在不同版本软件（bash，csh，zsh，sh）中多少有些不同，因此为了安全起见，不要在复合命令中使用&lt;code>alias&lt;/code>。&lt;/p>
 &lt;p>关于shell的别名还有两个细节问题。一是之前提到的别名的名称有限制，任何元字符、引号字符（‘'’,‘&amp;quot;’,‘\’）以及‘/’, ‘$’, ‘`’, ‘=’都不可以出现在别名名称中。二是在shell脚本中使用别名。别名默认只在交互式shell中启用，shell官方不赞成在脚本中使用别名，而希望使用Shell函数。&lt;/p>
 &lt;h2 id="参考内容">参考内容&lt;/h2>
-&lt;p>&lt;a href="https://www.gnu.org/software/bash/manual/bash.html">https://www.gnu.org/software/bash/manual/bash.html&lt;/a>&lt;/p></description></item><item><title>Shell 骨干流程</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/</link><pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/</guid><description>
+&lt;p>&lt;a href="https://www.gnu.org/software/bash/manual/bash.html">https://www.gnu.org/software/bash/manual/bash.html&lt;/a>&lt;/p></description></item><item><title>Shell 骨干流程0——流程总述</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/</link><pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#shell%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5%E4%B8%AD%E8%8B%B1%E6%96%87">shell关键概念中英文&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#shell%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE">Shell处理流程图&lt;/a>&lt;/li>
@@ -396,7 +847,7 @@
 &lt;h2 id="复合命令与流程控制">复合命令与流程控制&lt;/h2>
 &lt;p>这一步发生在第3步，即检查标记是否为保留字这步，如果为合法保留字就需要组成&lt;strong>复合命令&lt;/strong>。如图中红色部分所示。由于复合命令与形成初步命令往往是交互进行的，因此我并没有将其标注成独立的步骤，详见《&lt;strong>shell-骨干流程2——复合命令与流程控制&lt;/strong>》。&lt;/p>
 &lt;h2 id="命令展开">命令展开&lt;/h2>
-&lt;p>命令展开如图中绿色部分所示，包含5-11步。第5-7步都是各式各样的命令展开。基本的命令展开包括3种，分别为：大括号展开、波浪符号展开、参数展开。这三种命令展开本质上是shell语法糖的展开。第8，9两步实际上是子命令执行，并非语法糖，原始命令将启动子进程（子shell）来执行子命令，执行的结果作为标记，嵌入到原命令中。5-7步和8-9步的区别在于，5-7步本质是查找语法糖对应的内容进行展开，无需使用子进程；8-9步本质是采纳子进程执行的结果，而非简单的查找替换。经过5-9步的处理，原始命令已经能够被shell直接执行，因此我们需要第10步将这些替换过后的内容重组起来，根据系统分隔符（Internal Field Seperator，IFS）再次分割（因为命令展开过程中会带来新的内容）。最后我们还需要第11步，展开路径和文件名，这一步和之前5-7步展开又是不同的，之前是语法糖替换，而这次是使用正则表达式方式（通配符）替换。第11步只采用了部分正则表达式，主要是通配符，并非完整的正则表达式。详见《&lt;strong>shell-骨干流程3——命令展开&lt;/strong>》。&lt;/p>
+&lt;p>命令展开如图中绿色部分所示，包含5-11步。第5-7步都是各式各样的命令展开。基本的命令展开包括3种，分别为：大括号展开、波浪符号展开、参数与变量展开。这三种命令展开本质上是shell语法糖的展开。第8，9两步实际上是子命令执行，并非语法糖，原始命令将启动子进程（子shell）来执行子命令，执行的结果作为标记，嵌入到原命令中。5-7步和8-9步的区别在于，5-7步本质是查找语法糖对应的内容进行展开，无需使用子进程；8-9步本质是采纳子进程执行的结果，而非简单的查找替换。经过5-9步的处理，原始命令已经能够被shell直接执行，因此我们需要第10步将这些替换过后的内容重组起来，根据系统分隔符（Internal Field Seperator，IFS）再次分割（因为命令展开过程中会带来新的内容）。最后我们还需要第11步，展开路径和文件名，这一步和之前5-7步展开又是不同的，之前是语法糖替换，而这次是使用shell模式匹配方式（通配符）替换。第11步的shell模式匹配是正则表达式简化版，主要是利用通配符，并非完整的正则表达式规则。详见《&lt;strong>shell-骨干流程3——命令展开&lt;/strong>》。&lt;/p>
 &lt;h2 id="io与重定向">I/O与重定向&lt;/h2>
 &lt;p>第12部分（紫色方框）是执行任何必要的重定向，并从参数列表中删除重定向运算符及其操作数。这部分涉及到进程标准I/O和&lt;code>/dev&lt;/code>下的各种设备文件描述符，在文章《&lt;strong>linux-从设备文件看重定向&lt;/strong>》中有详细介绍。&lt;/p>
 &lt;h2 id="命令执行与job控制">命令执行与job控制&lt;/h2>

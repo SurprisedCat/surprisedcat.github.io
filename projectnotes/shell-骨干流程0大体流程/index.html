@@ -1,6 +1,6 @@
 <!doctype html><html lang=zh-cn data-figures=true class=page>
 <head>
-<title>Shell 骨干流程 | SurprisedCat</title>
+<title>Shell 骨干流程0——流程总述 | SurprisedCat</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta name=description content="Shell 骨干流程 description.">
 <meta property="og:url" content="https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/">
-<meta property="og:title" content="Shell 骨干流程">
+<meta property="og:title" content="Shell 骨干流程0——流程总述">
 <meta property="og:description" content="Shell 骨干流程 description.">
 <meta property="og:image" content="https://surprisedcat.github.io/images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
@@ -72,7 +72,7 @@
 <main>
 <div class="grid-inverse wrap content">
 <article class=post_content>
-<h1 class=post_title>Shell 骨干流程</h1>
+<h1 class=post_title>Shell 骨干流程0——流程总述</h1>
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
@@ -145,7 +145,7 @@ Jan 1, 2022</span>
 <h2 id=复合命令与流程控制>复合命令与流程控制</h2>
 <p>这一步发生在第3步，即检查标记是否为保留字这步，如果为合法保留字就需要组成<strong>复合命令</strong>。如图中红色部分所示。由于复合命令与形成初步命令往往是交互进行的，因此我并没有将其标注成独立的步骤，详见《<strong>shell-骨干流程2——复合命令与流程控制</strong>》。</p>
 <h2 id=命令展开>命令展开</h2>
-<p>命令展开如图中绿色部分所示，包含5-11步。第5-7步都是各式各样的命令展开。基本的命令展开包括3种，分别为：大括号展开、波浪符号展开、参数展开。这三种命令展开本质上是shell语法糖的展开。第8，9两步实际上是子命令执行，并非语法糖，原始命令将启动子进程（子shell）来执行子命令，执行的结果作为标记，嵌入到原命令中。5-7步和8-9步的区别在于，5-7步本质是查找语法糖对应的内容进行展开，无需使用子进程；8-9步本质是采纳子进程执行的结果，而非简单的查找替换。经过5-9步的处理，原始命令已经能够被shell直接执行，因此我们需要第10步将这些替换过后的内容重组起来，根据系统分隔符（Internal Field Seperator，IFS）再次分割（因为命令展开过程中会带来新的内容）。最后我们还需要第11步，展开路径和文件名，这一步和之前5-7步展开又是不同的，之前是语法糖替换，而这次是使用正则表达式方式（通配符）替换。第11步只采用了部分正则表达式，主要是通配符，并非完整的正则表达式。详见《<strong>shell-骨干流程3——命令展开</strong>》。</p>
+<p>命令展开如图中绿色部分所示，包含5-11步。第5-7步都是各式各样的命令展开。基本的命令展开包括3种，分别为：大括号展开、波浪符号展开、参数与变量展开。这三种命令展开本质上是shell语法糖的展开。第8，9两步实际上是子命令执行，并非语法糖，原始命令将启动子进程（子shell）来执行子命令，执行的结果作为标记，嵌入到原命令中。5-7步和8-9步的区别在于，5-7步本质是查找语法糖对应的内容进行展开，无需使用子进程；8-9步本质是采纳子进程执行的结果，而非简单的查找替换。经过5-9步的处理，原始命令已经能够被shell直接执行，因此我们需要第10步将这些替换过后的内容重组起来，根据系统分隔符（Internal Field Seperator，IFS）再次分割（因为命令展开过程中会带来新的内容）。最后我们还需要第11步，展开路径和文件名，这一步和之前5-7步展开又是不同的，之前是语法糖替换，而这次是使用shell模式匹配方式（通配符）替换。第11步的shell模式匹配是正则表达式简化版，主要是利用通配符，并非完整的正则表达式规则。详见《<strong>shell-骨干流程3——命令展开</strong>》。</p>
 <h2 id=io与重定向>I/O与重定向</h2>
 <p>第12部分（紫色方框）是执行任何必要的重定向，并从参数列表中删除重定向运算符及其操作数。这部分涉及到进程标准I/O和<code>/dev</code>下的各种设备文件描述符，在文章《<strong>linux-从设备文件看重定向</strong>》中有详细介绍。</p>
 <h2 id=命令执行与job控制>命令执行与job控制</h2>
@@ -247,7 +247,7 @@ RASPBERRY
 </a>
 <a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=5 title=shell>SHELL<span class=button_tally>5</span>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=6 title=shell>SHELL<span class=button_tally>6</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
 </a>
@@ -305,6 +305,9 @@ RASPBERRY
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程2——复合命令与控制流程">Shell 骨干流程2——复合命令与控制流程</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
 </li>
 <li>
@@ -316,20 +319,17 @@ RASPBERRY
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-debian%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96/ class=nav-link title=linux-debian系统初始化>linux-debian系统初始化</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/ class=nav-link title=概率统计随机过程之抽样的分布>概率统计随机过程之抽样的分布</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程2——复合命令与控制流程">Shell 骨干流程2——复合命令与控制流程</a>
+</li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ class=nav-link title=linux-与终端交互的发展>linux-与终端交互的发展</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/linux-%E7%89%B9%E6%AE%8A%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6/ class=nav-link title=linux-特殊设备文件>linux-特殊设备文件</a>
 </li>
 </ul>
 <div>
@@ -381,7 +381,7 @@ RASPBERRY
 <div class=tags_list>
 <a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=3 title=cli处理流程>CLI处理流程<span class=button_tally>3</span>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=4 title=cli处理流程>CLI处理流程<span class=button_tally>4</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
 </a>
@@ -403,7 +403,7 @@ RASPBERRY
 </a>
 <a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=5 title=shell>SHELL<span class=button_tally>5</span>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=6 title=shell>SHELL<span class=button_tally>6</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
 </a>
