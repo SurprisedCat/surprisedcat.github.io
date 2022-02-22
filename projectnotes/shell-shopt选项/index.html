@@ -1,6 +1,6 @@
-<!doctype html><html lang=zh-cn data-figures class=page>
+<!doctype html><html lang=zh-cn data-figures=true class=page>
 <head>
-<title>关于SurprisedCat | SurprisedCat</title>
+<title>shell-shopt选项 | SurprisedCat</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
@@ -8,15 +8,15 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
 <meta property="og:locale" content="zh-cn">
 <meta property="og:type" content="article">
-<meta name=description content="本博客内容介绍、主题介绍、联系方式">
-<meta property="og:url" content="https://surprisedcat.github.io/about/">
-<meta property="og:title" content="关于SurprisedCat">
-<meta property="og:description" content="本博客内容介绍、主题介绍、联系方式">
-<meta property="og:image" content="https://surprisedcat.github.io/images/thumbnail.png">
+<meta name=description content="shell-shopt选项 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/shell-shopt%E9%80%89%E9%A1%B9/">
+<meta property="og:title" content="shell-shopt选项">
+<meta property="og:description" content="shell-shopt选项 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/shell.png">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
-<link rel=canonical href=https://surprisedcat.github.io/about/>
+<link rel=canonical href=https://surprisedcat.github.io/projectnotes/shell-shopt%E9%80%89%E9%A1%B9/>
 <link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
 <link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
 <link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
@@ -55,7 +55,7 @@
 <div class=nav_parent>
 <a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
 </div>
-<div class="nav_parent nav_active">
+<div class=nav_parent>
 <a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
 </div>
 <div class=follow>
@@ -72,55 +72,143 @@
 <main>
 <div class="grid-inverse wrap content">
 <article class=post_content>
-<h1 class=post_title>关于SurprisedCat</h1>
+<h1 class=post_title>shell-shopt选项</h1>
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
-Nov 23, 2021</span>
-<span class=post_time> · 2 min read</span>
+Jan 1, 2022</span>
+<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/shell title=shell class="post_tag button button_translucent">shell
+</a>
+</span>
 <span class=page_only>&nbsp;·
 <div class=post_share>
 分享到:
-<a href=https://surprisedcat.github.io/about/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+<a href=https://surprisedcat.github.io/projectnotes/shell-shopt%E9%80%89%E9%A1%B9/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
 </a>
 </div>
 </span>
 </div>
-<h2 id=关于surprisedcat的博客>关于SurprisedCat的博客</h2>
-<p>SurprisedCat的个人博客和网络笔记本。积累数学、计算机编程和通信等方面知识。</p>
-<p>SurprisedCat’s Personal Blog and NoteBook for mathematics, computer programming and communication.</p>
-<p>如果有问题，请邮件联系：<a href=mailto:cx840025951@outlook.com>cx840025951@outlook.com</a></p>
-<h2 id=对clarity主题的修改>对clarity主题的修改</h2>
-<p>本博客是基于<a href=https://github.com/chipzoller/hugo-clarity>clarity</a>主题修改而来，主要改动有</p>
 <ul>
-<li>在头部导航添加了归档和分类两项，添加了二者的模板、功能和archive type;</li>
-<li>在头部导航添加了资料库->资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在<code>\static\libwebpages</code></li>
-<li>在头部导航添加了资料库->书签地址，书签位置<code>\content\library</code>；</li>
-<li>在头部导航添加了专栏项，基于原来的series修改而来；</li>
-<li>删除了多语言支持，因为总是出bug；</li>
-<li>修改了侧边栏的内容显示顺序，取消了个人信息阅读更多按钮，将链接移植到了名字上；</li>
-<li>精简了分享链接，由于外国大多社交网站不可访问和国内社交网站的封闭性，只保留了复制网页链接的功能，删除了多余的社交网站链接；</li>
-<li>简化了默认的archetypes；</li>
-<li>修改了主题配色、链接、404页面等样式</li>
+<li><a href=#shopt%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8>shopt命令使用</a></li>
+<li><a href=#shopt%E6%94%AF%E6%8C%81%E7%9A%84shell%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD>shopt支持的shell属性功能</a></li>
+<li><a href=#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9>参考内容</a></li>
 </ul>
-<h2 id=当前版本hugov0894介绍>当前版本HugoV0.89.4介绍</h2>
-<p>Hugo makes use of a variety of open source projects including:</p>
+<h2 id=shell的shopt命令---omit-in-toc--->shell的shopt命令</h2>
+<p><code>shopt</code>命令在shell中用于显示和设置shell中的行为选项，通过这些选项以增强shell易用性。<code>shopt</code>命令若不带任何参数选项，则可以显示所有可以设置的shell操作选项。</p>
+<h2 id=shopt命令使用>shopt命令使用</h2>
+<p>语法：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>shopt</span> <span class=o>[</span>-pqsu<span class=o>]</span> <span class=o>[</span>-o<span class=o>]</span> <span class=o>[</span>shell选项名 ...<span class=o>]</span>
+<span class=ln>2</span>参数：
+<span class=ln>3</span>    -o        限制 OPTNAME 为定义用于<span class=sb>`</span><span class=nb>set</span> -o<span class=err>&#39;</span> 的选项
+<span class=ln>4</span>    -p        打印每个 shell 选项并标注它的状态。（）
+<span class=ln>5</span>    -q        抑制输出
+<span class=ln>6</span>    -s        启用（设定）某个 OPTNAME 选项
+<span class=ln>7</span>    -u        禁用（反设定）某个 OPTNAME 选项
+</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ <span class=nb>shopt</span>
+<span class=ln> 2</span>autocd          off
+<span class=ln> 3</span>assoc_expand_once       off
+<span class=ln> 4</span>cdable_vars     off
+<span class=ln> 5</span>cdspell         off
+<span class=ln> 6</span>checkhash       off
+<span class=ln> 7</span>checkjobs       off
+<span class=ln> 8</span>checkwinsize    on
+<span class=ln> 9</span>cmdhist         on
+<span class=ln>10</span>compat31        off
+<span class=ln>11</span>compat32        off
+<span class=ln>12</span>compat40        off
+<span class=ln>13</span>compat41        off
+<span class=ln>14</span>compat42        off
+<span class=ln>15</span>compat43        off
+<span class=ln>16</span>compat44        off
+<span class=ln>17</span>complete_fullquote      on
+<span class=ln>18</span>direxpand       off
+<span class=ln>19</span>dirspell        off
+<span class=ln>20</span>dotglob         off
+<span class=ln>21</span>execfail        off
+<span class=ln>22</span>expand_aliases  on
+<span class=ln>23</span>extdebug        off
+<span class=ln>24</span>extglob         on
+<span class=ln>25</span>extquote        on
+<span class=ln>26</span>failglob        off
+<span class=ln>27</span>force_fignore   on
+<span class=ln>28</span>globasciiranges on
+<span class=ln>29</span>globstar        off
+<span class=ln>30</span>gnu_errfmt      off
+<span class=ln>31</span>histappend      on
+<span class=ln>32</span>histreedit      off
+<span class=ln>33</span>histverify      off
+<span class=ln>34</span>hostcomplete    off
+<span class=ln>35</span>huponexit       off
+<span class=ln>36</span>inherit_errexit off
+<span class=ln>37</span>interactive_comments    on
+<span class=ln>38</span>lastpipe        off
+<span class=ln>39</span>lithist         off
+<span class=ln>40</span>localvar_inherit        off
+<span class=ln>41</span>localvar_unset  off
+<span class=ln>42</span>login_shell     on
+<span class=ln>43</span>mailwarn        off
+<span class=ln>44</span>no_empty_cmd_completion off
+<span class=ln>45</span>nocaseglob      off
+<span class=ln>46</span>nocasematch     off
+<span class=ln>47</span>nullglob        off
+<span class=ln>48</span>progcomp        on
+<span class=ln>49</span>progcomp_alias  off
+<span class=ln>50</span>promptvars      on
+<span class=ln>51</span>restricted_shell        off
+<span class=ln>52</span>shift_verbose   off
+<span class=ln>53</span>sourcepath      on
+<span class=ln>54</span>xpg_echo        off
+</code></pre></div><h2 id=shopt支持的shell属性功能>shopt支持的shell属性功能</h2>
+<p>cdable_vars:</p>
+<p>如果给cd内置命令的参数不是一个目录,就假设它是一个变量名,变量的值是将要转换到的目录</p>
+<p>cdspell:</p>
+<p>纠正cd命令中目录名的较小拼写错误.检查的错误包括颠倒顺序的字符,遗漏的字符以及重复的字符.如果找到一处需修改之处,正确的路径将打印出,命令将继续.只用于交互式shell</p>
+<p>checkhash:</p>
+<p>bash在试图执行一个命令前,先在哈希表中寻找,以确定命令是否存在.如果命令不存在,就执行正常的路径搜索</p>
+<p>checkwinsize:</p>
+<p>bash在每个命令后检查窗口大小,如果有必要,就更新LINES和COLUMNS的值</p>
+<p>cmdhist:</p>
+<p>bash试图将一个多行命令的所有行保存在同一个历史项中.这是的多行命令的重新编辑更方便</p>
+<p>dotglob:</p>
+<p>Bash在文件名扩展的结果中包括以点(.)开头的文件名</p>
+<p>execfail:</p>
+<p>如果一个非交互式shell不能执行指定给exec内置命令作为参数的文件,它不会退出.如果exec失败,一个交互式shell不会退出</p>
+<p>expand_aliases:</p>
+<p>别名被扩展.缺省为打开</p>
+<p>extglob:</p>
+<p>打开扩展的模式匹配特性(正常的表达式元字符来自Korn shell的文件名扩展)</p>
+<p>histappend:</p>
+<p>如果readline正被使用,用户有机会重新编辑一个失败的历史替换</p>
+<p>histverify:</p>
+<p>如果设置,且readline正被使用,历史替换的结果不会立即传递给shell解释器.而是将结果行装入readline编辑缓冲区中,允许进一步修改</p>
+<p>hostcomplete:</p>
+<p>如果设置,且readline正被使用,当正在完成一个包含@的词时bash将试图执行主机名补全.缺省为打开</p>
+<p>huponexit:</p>
+<p>如果设置,当一个交互式登录shell退出时,bash将发送一个SIGHUP(挂起信号)给所有的作业</p>
+<p>interactive_comments:</p>
+<p>在一个交互式shell中.允许以#开头的词以及同一行中其他的字符被忽略.缺省为打开</p>
+<p>lithist:</p>
+<p>如果打开,且cmdhist选项也打开,多行命令讲用嵌入的换行符保存到历史中,而无需在可能的地方用分号来分隔</p>
+<p>mailwarn:</p>
+<p>如果设置,且bash用来检查邮件的文件自从上次检查后已经被访问,将显示消息”The mail in mailfile has been read”</p>
+<p>nocaseglob:</p>
+<p>如果设置,当执行文件名扩展时,bash在不区分大小写的方式下匹配文件名</p>
+<p>nullglob：</p>
+<p>如果设置,bash允许没有匹配任何文件的文件名模式扩展成一个空串,而不是他们本身</p>
+<p>promptvars:</p>
+<p>如果设置,提示串在被扩展后再进行变量和参量扩展.缺省为打开</p>
+<p>restricted_shell :</p>
+<p>如果shell在受限模式下启动就设置这个选项.该值不能被改变.当执行启动文件时不能复位该选项,允许启动文件发现shell是否受限</p>
+<p>shift_verbose :</p>
+<p>如果该选项设置,当移动计数超出位置参量个数时,shift内置命令将打印一个错误消息</p>
+<p>sourcepath :</p>
+<p>如果设置,source内置命令使用PATH的值来寻找作为参数提供的文件的目录.缺省为打开</p>
+<p>source :</p>
+<p>点(.)的同义词</p>
+<h2 id=参考内容>参考内容</h2>
 <ul>
-<li><a href=https://github.com/yuin/goldmark>https://github.com/yuin/goldmark</a></li>
-<li><a href=https://github.com/alecthomas/chroma>https://github.com/alecthomas/chroma</a></li>
-<li><a href=https://github.com/muesli/smartcrop>https://github.com/muesli/smartcrop</a></li>
-<li><a href=https://github.com/spf13/cobra>https://github.com/spf13/cobra</a></li>
-<li><a href=https://github.com/spf13/viper>https://github.com/spf13/viper</a></li>
+<li><a href=https://blog.csdn.net/dengjin20104042056/article/details/100566309>https://blog.csdn.net/dengjin20104042056/article/details/100566309</a></li>
 </ul>
-<p>Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.</p>
-<p>Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.</p>
-<p>Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.</p>
-<p>Learn more and contribute on <a href=https://github.com/gohugoio>GitHub</a>.</p>
-<h2 id=the-mit-license-mit>The MIT License (MIT)</h2>
-<p>Copyright © 2021 SurprisedCat</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
