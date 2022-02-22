@@ -1,4 +1,585 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on SurprisedCat</title><link>https://surprisedcat.github.io/categories/shell/</link><description>Recent content in shell on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell 骨干流程2——复合命令与控制流程</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/</link><pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shell on SurprisedCat</title><link>https://surprisedcat.github.io/categories/shell/</link><description>Recent content in shell on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 04 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml"/><item><title>shell-骨干流程3——命令展开</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/</link><pubDate>Tue, 04 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#shell%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D">shell的模式匹配&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%A4%A7%E6%8B%AC%E5%8F%B7%E5%B1%95%E5%BC%80">大括号展开&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%B3%A2%E6%B5%AA%E7%AC%A6%E5%8F%B7%E5%B1%95%E5%BC%80">波浪符号展开&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#shell%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%A0%86%E6%A0%88">shell文件目录堆栈&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E4%B8%8E%E5%8F%98%E9%87%8F%E5%B1%95%E5%BC%80">参数与变量展开&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E9%97%B4%E6%8E%A5%E6%89%A9%E5%B1%95">参数间接扩展&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E5%8C%B9%E9%85%8D%E6%89%A9%E5%B1%95">参数匹配扩展&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%A9%BA%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86">空参数处理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AD%90%E4%B8%B2%E6%89%A9%E5%B1%95">子串扩展&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E9%95%BF%E5%BA%A6%E8%AE%A1%E7%AE%97">参数长度计算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E5%8C%B9%E9%85%8D%E5%88%A0%E9%99%A4">参数匹配删除&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E5%8C%B9%E9%85%8D%E6%9B%BF%E6%8D%A2">参数匹配替换&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E4%BF%AE%E6%94%B9">大小写修改&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%98%E9%87%8F%E6%93%8D%E4%BD%9C">变量操作&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%91%BD%E4%BB%A4%E6%9B%BF%E6%8D%A2">命令替换&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AE%97%E6%9C%AF%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%89%A9%E5%B1%95">算术表达式扩展&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%86%8D%E6%AC%A1%E5%8D%95%E8%AF%8D%E5%88%86%E5%89%B2">再次单词分割&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%B7%AF%E5%BE%84%E4%B8%8E%E6%96%87%E4%BB%B6%E5%90%8D%E5%B1%95%E5%BC%80">路径与文件名展开&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9">参考内容&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>总体流程图镇楼：&lt;/p>
+&lt;p>&lt;img src="../../images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.drawio.svg" alt="shell执行流程">&lt;/p>
+&lt;h2 id="命令展开---omit-in-toc---">命令展开&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>命令展开是shell变成语言灵活性的最佳体现，如图中绿色部分所示，包含5-11步。展开是对每一个标记(token)分别进行的，共有以下7步，对应总体流程的5-11步。&lt;/p>
+&lt;p>第5-7步都是各式各样的命令展开。基本的命令展开包括3种，分别为：大括号展开、波浪符号展开、参数与变量展开。这三种命令展开本质上是shell语法糖的展开。&lt;/p>
+&lt;p>第8，9两步实际上是子命令执行，并非语法糖，原始命令将启动子进程（子shell）来执行子命令，执行的结果作为标记，嵌入到原命令中。5-7步和8-9步的区别在于，5-7步本质是查找语法糖对应的内容进行展开，无需使用子进程；8-9步本质是采纳子进程执行的结果，而非简单的查找替换。&lt;/p>
+&lt;p>经过5-9步的处理，原始命令已经能够被shell直接执行，因此我们需要第10步将这些替换过后的内容重组起来，根据系统分隔符（Internal Field Seperator，IFS）再次分割（因为命令展开过程中会带来新的内容）。&lt;/p>
+&lt;p>最后我们还需要第11步，展开路径和文件名，这一步和之前5-7步展开又是不同的，之前是语法糖替换，而这次是使用shell模式匹配方式（通配符）替换。第11步的shell模式匹配是正则表达式简化版，主要是利用通配符，并非完整的正则表达式规则。&lt;/p>
+&lt;p>当命令展开完成后，造成展开的引号将会被全部移除。作为单词整体引用的引号保持原样。例如，&lt;code>hello &amp;quot;$USER&amp;quot;&lt;/code>的引号在变量展开后会移除，而&lt;code>&amp;quot;hello&amp;quot;&lt;/code>的引号则不会。（&lt;strong>这里理解存疑&lt;/strong>）&lt;/p>
+&lt;h2 id="shell的模式匹配">shell的模式匹配&lt;/h2>
+&lt;p>在介绍shell中各种各样的展开之前，先说下shell的模式匹配。它是标准正则匹配的简化版，尽量保证了正则匹配中的精华，兼顾了匹配的速度。可用于shell流程中的大括号展开和路径与文件名展开。为了方便说明，我们在&lt;code>/tmp/&lt;/code>文件夹下新建&lt;code>patternMatching&lt;/code>文件夹，并在其中新建&lt;code>a.txt aaa.txt abc.txt a.md b.md c.html cd.html ddd.html 001.txt&lt;/code>这9个文件，作为演示示例。&lt;/p>
+&lt;p>&lt;strong>注意，shell中默认使用自带的模式匹配，而非正则匹配。模式匹配将在命令展开的各方面的到应用&lt;/strong>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">cd&lt;/span> /tmp/ &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> mkdir patternMatching &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> patternMatching
+&lt;span class="ln">2&lt;/span>$ touch a.txt aaa.txt abc.txt a.md b.md c.html cd.html ddd.html 001.txt
+&lt;span class="ln">3&lt;/span>$ ls
+&lt;span class="ln">4&lt;/span>001.txt aaa.txt abc.txt a.md a.txt b.md cd.html c.html ddd.html
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>shell的模式匹配主要是使用了&lt;strong>通配符&lt;/strong>，通用的有3种，当启用“extglob” shell选项时，则可以使用另外5个扩展模式匹配运算符。除了通配符，模式匹配中的其他内容都保留其字面意思，如果要匹配通配符的字面意思，则需要使用反斜杠&lt;code>\&lt;/code>进行转义。另外，&lt;code>NULL&lt;/code>字符不允许出现在模式匹配中。&lt;/p>
+&lt;p>通用的三种通配符有&lt;code>*, ?, [ ]&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>“*”：匹配&lt;strong>任意&lt;/strong>字符串，包括空字符。&lt;/li>
+&lt;li>“?”：匹配任何&lt;strong>单个&lt;/strong>字符，必须是一个字符，不匹配空字符。&lt;/li>
+&lt;li>“&lt;input disabled="" type="checkbox"> ”：匹配中括号中给定的&lt;strong>一个字符&lt;/strong>。例如&lt;code>[abdgAD134]&lt;/code>就是匹配中括号中的六个字母和三个数字。如果是连续的字符，可以使用连字符分隔的一对字符，来表示匹配范围内的任一字符。在默认环境中，&lt;code>[a-dx-z]&lt;/code>相当于&lt;code>[abcdxyz]&lt;/code>。如果是不想匹配中括号中的内容，可以在开头加上&lt;code>!&lt;/code>或&lt;code>^&lt;/code>，表示取反，如&lt;code>[!a-z]&lt;/code>或&lt;code>[^a-z]&lt;/code>则只匹配表示不匹配字母'a-z'。
+&lt;ul>
+&lt;li>
+&lt;blockquote>
+&lt;p>在'['和']'中，可以使用语法指定字符类&lt;code>[[:class:]]&lt;/code>, 这里的&lt;code>class&lt;/code>是下列类型之一，在 POSIX 标准中定义的类型:&lt;/p>
+&lt;/blockquote>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">alnum&lt;/th>
+&lt;th style="text-align:center">alpha&lt;/th>
+&lt;th style="text-align:center">ascii&lt;/th>
+&lt;th style="text-align:center">blank&lt;/th>
+&lt;th style="text-align:center">cntrl&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">digit&lt;/td>
+&lt;td style="text-align:center">graph&lt;/td>
+&lt;td style="text-align:center">lower&lt;/td>
+&lt;td style="text-align:center">print&lt;/td>
+&lt;td style="text-align:center">punct&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">space&lt;/td>
+&lt;td style="text-align:center">upper&lt;/td>
+&lt;td style="text-align:center">word&lt;/td>
+&lt;td style="text-align:center">xdigit&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>用法示例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ ls * &lt;span class="c1"># 显示任意内容&lt;/span>
+&lt;span class="ln"> 2&lt;/span>001.txt aaa.txt abc.txt a.md a.txt b.md cd.html c.html ddd.html
+&lt;span class="ln"> 3&lt;/span>$ ls a* &lt;span class="c1"># a开头的所有文件&lt;/span>
+&lt;span class="ln"> 4&lt;/span>aaa.txt abc.txt a.md a.txt
+&lt;span class="ln"> 5&lt;/span>$ ls a? &lt;span class="c1"># ?只匹配一个字符，因此那个都无法匹配上&lt;/span>
+&lt;span class="ln"> 6&lt;/span>ls: cannot access &lt;span class="s1">&amp;#39;a?&amp;#39;&lt;/span>: No such file or directory
+&lt;span class="ln"> 7&lt;/span>$ ls c?.html &lt;span class="c1"># ？匹配一位，所以c.html没有匹配 &lt;/span>
+&lt;span class="ln"> 8&lt;/span>cd.html
+&lt;span class="ln"> 9&lt;/span>$ ls &lt;span class="o">[&lt;/span>a-z&lt;span class="o">]&lt;/span>.* &lt;span class="c1"># 匹配所有单个字母为名的文件&lt;/span>
+&lt;span class="ln">10&lt;/span>a.md a.txt b.md c.html
+&lt;span class="ln">11&lt;/span>$ $ ls &lt;span class="o">[[&lt;/span>:digit:&lt;span class="o">]]&lt;/span>* &lt;span class="c1"># 匹配文件名第一位是数字的文件&lt;/span>
+&lt;span class="ln">12&lt;/span>001.txt
+&lt;span class="ln">13&lt;/span>$ ls &lt;span class="o">[[&lt;/span>:alpha:&lt;span class="o">]]&lt;/span>* &lt;span class="c1"># # 匹配文件名第一位是字母的文件&lt;/span>
+&lt;span class="ln">14&lt;/span>aaa.txt abc.txt a.md a.txt b.md cd.html c.html ddd.html
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果在shell选项中开启了&lt;code>extglob&lt;/code>选项(&lt;code>shopt -s extglob&lt;/code>)，那么shell在模式匹配中可以使用五种扩展模式。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>?(pattern-list)&lt;/code>：匹配零个或一个的给定模式。&lt;/li>
+&lt;li>&lt;code>*(pattern-list)&lt;/code>：匹配零个或多个的给定模式。&lt;/li>
+&lt;li>&lt;code>+(pattern-list)&lt;/code>：匹配一个或多个的给定模式。&lt;/li>
+&lt;li>&lt;code>@(pattern-list)&lt;/code>：匹配一个给定的模式。&lt;/li>
+&lt;li>&lt;code>!(pattern-list)&lt;/code>：匹配除了给定的模式的其他模式。&lt;/li>
+&lt;/ul>
+&lt;p>根据上述给出的文件，例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ ls c?&lt;span class="o">([&lt;/span>a-z&lt;span class="o">])&lt;/span>.html &lt;span class="c1"># c后面匹配0或1个字母&lt;/span>
+&lt;span class="ln"> 2&lt;/span>cd.html c.html
+&lt;span class="ln"> 3&lt;/span>$ ls a*&lt;span class="o">([&lt;/span>a-z&lt;span class="o">])&lt;/span>.* &lt;span class="c1"># 匹配以a开头的任意文件（文件后缀由.*匹配）&lt;/span>
+&lt;span class="ln"> 4&lt;/span>aaa.txt abc.txt a.md a.txt
+&lt;span class="ln"> 5&lt;/span>$ ls a+&lt;span class="o">([&lt;/span>a-z&lt;span class="o">])&lt;/span>.* &lt;span class="c1"># 匹配以a开头，并且不是单个a的文件，也就是说a后面必须有别的字母（文件后缀由.*匹配）&lt;/span>
+&lt;span class="ln"> 6&lt;/span>aaa.txt abc.txt
+&lt;span class="ln"> 7&lt;/span>$ ls c@&lt;span class="o">([&lt;/span>a-z&lt;span class="o">])&lt;/span>.html &lt;span class="c1"># 严格仅匹配一次&lt;/span>
+&lt;span class="ln"> 8&lt;/span>cd.html
+&lt;span class="ln"> 9&lt;/span>$ ls !&lt;span class="o">([&lt;/span>a-z&lt;span class="o">])&lt;/span>.* &lt;span class="c1"># 不匹配任何单个字母为名的文件（文件后缀由.*匹配）&lt;/span>
+&lt;span class="ln">10&lt;/span>001.txt aaa.txt abc.txt cd.html ddd.html
+&lt;span class="ln">11&lt;/span>$ ls +&lt;span class="o">([[&lt;/span>:digit:&lt;span class="o">]])&lt;/span>.* &lt;span class="c1"># 匹配名称全是数字的文件（文件后缀由.*匹配）&lt;/span>
+&lt;span class="ln">12&lt;/span>001.txt
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="大括号展开">大括号展开&lt;/h2>
+&lt;p>大括号是shell所有展开中的第一步，这意味着在执行大括号展开的时候，其他展开的标识符都存在与其中，这导致大括号展开&lt;strong>相对严格且固定的格式&lt;/strong>，任何不正确的格式都会让shell无法识别大括号展开而原样输出。大括号扩展的语法有两种形式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>preamble&lt;span class="o">{&lt;/span>pattern1,pattern2,...&lt;span class="o">}&lt;/span>postscript
+&lt;span class="ln">2&lt;/span>或者
+&lt;span class="ln">3&lt;/span>preamble&lt;span class="o">{&lt;/span>start..end&lt;span class="o">[&lt;/span>..incr&lt;span class="o">]}&lt;/span>postscript
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，前导&lt;code>preamble&lt;/code>和后缀&lt;code>postscript&lt;/code>都是可选的，表示大括号左右的内容。&lt;/p>
+&lt;p>大括号展开本质上是一种生成多个字符串的机制（由一变多），可用于生成路径和文件名称的字符串、参数的字符串甚至用户自定义输入的字符串。先举几个例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>a,b&lt;span class="o">}&lt;/span>b &lt;span class="c1"># {a,b}生成两个&lt;/span>
+&lt;span class="ln"> 2&lt;/span>aab abb
+&lt;span class="ln"> 3&lt;/span>$ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>xy,yx,yz&lt;span class="o">}&lt;/span> &lt;span class="c1"># 生成3个字符串，无后缀&lt;/span>
+&lt;span class="ln"> 4&lt;/span>axy ayx ayz
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>a..d&lt;span class="o">}&lt;/span>b &lt;span class="c1"># 正向序列，生成a,b,c,d四个&lt;/span>
+&lt;span class="ln"> 6&lt;/span>aab abb acb adb
+&lt;span class="ln"> 7&lt;/span>$ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>d..a&lt;span class="o">}&lt;/span>b &lt;span class="c1"># 反向序列，生成d,c,b,a四个&lt;/span>
+&lt;span class="ln"> 8&lt;/span>adb acb abb aab
+&lt;span class="ln"> 9&lt;/span>$ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>d..a..2&lt;span class="o">}&lt;/span>b &lt;span class="c1"># 反向序列，步长为2的方式生成，d,b两个&lt;/span>
+&lt;span class="ln">10&lt;/span>adb abb
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看出，大括号的实际效果&lt;strong>是将大括号外的内容和大括号内的每一个内容（用逗号或序列区分）进行组合&lt;/strong>，生成字符串。在使用&lt;strong>逗号&lt;/strong>进行分割的语法中，大括号内至少只要有一个逗号。若没有逗号，shell将不认为是大括号展开，原样输出内容。这同时意味大括号至少会生成两个字符串，如果为大括号内有空内容，生成的时候也是将空内容和大括号左右组合起来。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>b&lt;span class="o">}&lt;/span> &lt;span class="c1"># 没有逗号则原样输出&lt;/span>
+&lt;span class="ln">2&lt;/span>a&lt;span class="o">{&lt;/span>b&lt;span class="o">}&lt;/span>
+&lt;span class="ln">3&lt;/span>$ $ &lt;span class="nb">echo&lt;/span> a&lt;span class="o">{&lt;/span>a,,c&lt;span class="o">}&lt;/span> &lt;span class="c1"># 大括号展开对空内容的处理&lt;/span>
+&lt;span class="ln">4&lt;/span>aa a ac
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>而使用序列进行大括号展开，一定要使用&lt;code>..&lt;/code>符号，其左边是起始字符，右边是终止字符，默认包括起始和终止字符。如果需要指定步长（INCR），则使用两次&lt;code>..&lt;/code>符号，步长必须是一个整数。。如果不给定步长，shell会根据起始、终止内容自动判断步长为+1或-1。&lt;/p>
+&lt;p>大括号展开可以复合，即大括号展开可以内嵌到另一个大括号开展中，并且展开顺序是由外向内。《Bash参考手册》上有一个很有借鉴意义的例子，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>chown root /usr/&lt;span class="o">{&lt;/span>ucb/&lt;span class="o">{&lt;/span>ex,edit&lt;span class="o">}&lt;/span>,lib/&lt;span class="o">{&lt;/span>ex?.?*,how_ex&lt;span class="o">}}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>首先将最外层的大括号开展，结果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>chown root /usr/ucb/&lt;span class="o">{&lt;/span>ex,edit&lt;span class="o">}&lt;/span> /usr/lib/&lt;span class="o">{&lt;/span>ex?.?*,how_ex&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后再次执行大括号展开，最终结果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>chown root /usr/ucb/ex /usr/usb/edit /usr/lib/ex?.?* /usr/lib/how_ex
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后需要强调一点：大括号展开又是优先级最高的展开，因此语法结构固定且严格。单、双引号内的大括号不进行展开（参考《Shell 骨干流程1——形成初步命令》的引号章节）；为避免与参数扩展冲突，字符串&lt;code>'${'&lt;/code>亦不被认为是大括号扩展。&lt;/p>
+&lt;h2 id="波浪符号展开">波浪符号展开&lt;/h2>
+&lt;p>如果一个单词(word)以不带引号的波浪字符（~）开始，那么所有直到第一个非加引号的斜杠（或所有字符，如果没有未加引号的斜杠出现）的字符都被认为是波浪前缀。一般情况下，&lt;strong>波浪字符与shell的环境变量有关&lt;/strong>（如&lt;code>$HOME,$PWD,$OLDPWD&lt;/code>），如果波浪字符与数字组合，那么会涉及到&lt;strong>shell的&lt;code>dirs&lt;/code>内置命令&lt;/strong>，我们将会单独说明。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>波浪字符最常用方法是表示当前用户的HOME目录，即&lt;code>~&lt;/code>等同于&lt;code>$HOME&lt;/code>。如果波浪字符后面加特定用户名，则表示该用户名的HOME目录。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~ &lt;span class="c1"># 波浪线单独表示当前用户HOME目录&lt;/span>
+&lt;span class="ln">2&lt;/span>/home/lelouch
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~root &lt;span class="c1"># 波浪线后面跟用户名表示该用户名的HOME目录&lt;/span>
+&lt;span class="ln">4&lt;/span>/root
+&lt;span class="ln">5&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~test
+&lt;span class="ln">6&lt;/span>/home/test
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>波浪字符与&lt;code>'+,-'&lt;/code>组合，与当前路径有关，&lt;code>~+&lt;/code>表示当前路径(&lt;code>$PWD&lt;/code>)，&lt;code>~-&lt;/code>表示上个路径。&lt;code>'-'&lt;/code>用在路径名中通常表示上次所在目录。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">pwd&lt;/span> &lt;span class="c1"># 原始目录&lt;/span>
+&lt;span class="ln">2&lt;/span>/home/lelouch
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nb">cd&lt;/span> /tmp &lt;span class="c1"># 切换到/tmp目录&lt;/span>
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~+ &lt;span class="c1"># 显示当前目录&lt;/span>
+&lt;span class="ln">5&lt;/span>/tmp
+&lt;span class="ln">6&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~- &lt;span class="c1"># 显示前一个目录&lt;/span>
+&lt;span class="ln">7&lt;/span>/home/lelouch
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>波浪字符、数字N以及可选的&lt;code>'+,-'&lt;/code>组合，则与目录堆栈有关。目录堆栈可用&lt;code>dirs&lt;/code>命令查看。&lt;code>~N&lt;/code>等同于&lt;code>~+N&lt;/code>表示从目录堆栈&lt;strong>顶部&lt;/strong>开始数，&lt;code>~-N&lt;/code>表示从目录堆栈&lt;strong>底部&lt;/strong>开始数。我们单开一个小节来说明。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="shell文件目录堆栈">shell文件目录堆栈&lt;/h3>
+&lt;p>shell为了方便用户在多个目录之间直接切换，提供了目录堆栈功能。目录堆栈是将若干个目录放到一起，目录的增删遵循后入先出的规则（和堆栈一样），并且用户可以直接访问到目录堆栈中的任一目录，与目录堆栈相关的命令有：&lt;code>pushd, popd, dirs&lt;/code>。使用&lt;code>dirs&lt;/code>命令可以看到目录堆栈的内容。使用&lt;code>pushd&lt;/code>命令切换到目录同时，会将该目录添加到堆栈顶部，而使用&lt;code>popd&lt;/code>命令会删除堆栈顶部目录。默认情况下，目录堆栈底部总是保留当前目录位置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">dirs&lt;/span>
+&lt;span class="ln"> 2&lt;/span>~
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># dirs 使用指南&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nb">dirs&lt;/span> &lt;span class="o">[&lt;/span>-clpv&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>+n&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>-n&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 5&lt;/span> 当命令不带任何参数时，显示当前目录堆栈的内容，默认情况下，所有内容显示在一行，并以空格分隔。我们使用 &lt;span class="nb">pushd&lt;/span> 命令向目录堆栈压入新的目录项，使用 &lt;span class="nb">popd&lt;/span> 删除目录项。当前目录项始终放在目录堆栈的底部。
+&lt;span class="ln"> 6&lt;/span> -c 清除目录堆栈所有条目。
+&lt;span class="ln"> 7&lt;/span> -l 生成一个带有全路径名的列表；默认情况下用波浪线代表用户HOME目录。
+&lt;span class="ln"> 8&lt;/span> -p 一个目录一行的方式显示。
+&lt;span class="ln"> 9&lt;/span> -v 每行一个目录来显示目录栈的内容，每个目录前加上的编号。
+&lt;span class="ln">10&lt;/span> +n 显示从左到右的第n个目录，数字从0开始。
+&lt;span class="ln">11&lt;/span> -n 显示从右到左的第n个日录，数字从0开始。
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当前所在目录作为目录堆栈的底部常驻目录，无法将其&lt;code>popd&lt;/code>出来。&lt;/p>
+&lt;p>shell通过&lt;code>psuhd&lt;/code>和&lt;code>popd&lt;/code>两个命令操作目录堆栈，不加任何参数的情况下，使用&lt;code>pushd&lt;/code>命令切换到目录同时，会将该目录添加到堆栈顶部，而使用&lt;code>popd&lt;/code>命令会删除堆栈顶部目录。若&lt;code>pushd&lt;/code>命令不加任何参数，则会将位于记录栈最上面的2个目录对换位置。当然，&lt;code>psuhd&lt;/code>和&lt;code>popd&lt;/code>有带参数的使用方式。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 注意下面的N是数字，n是字母n参数&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nb">popd&lt;/span> +N &lt;span class="c1"># 删除栈中（从左边数）第N个元素，由0开始计。&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nb">popd&lt;/span> -N &lt;span class="c1"># 删除栈中（从右边数）第N个元素，由0开始计。&lt;/span>
+&lt;span class="ln"> 5&lt;/span>pop -n &lt;span class="c1"># 不改变当前目录（也就是不改变栈顶元素，操作除了栈顶外栈内其他元素）&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># usage: pushd [-n] [+N | -N | dir] &lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="nb">pushd&lt;/span> &lt;span class="c1"># 不加参数时，交换栈顶前两个元素&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="nb">pushd&lt;/span> +N &lt;span class="c1"># 将栈内元素循环左移，直到将（从左边数）第N个元素移动到栈顶，由0开始计。&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nb">pushd&lt;/span> -N &lt;span class="c1"># 将栈内元素循环左移，直到将（从右边数）第N个元素移动到栈顶，由0开始计。&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nb">pushd&lt;/span> -n dir &lt;span class="c1"># 将目录入栈，但不改变当前元素，即将目录插入栈中作为第二个元素。 注意-n参数要在目录之前。&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>借由&lt;code>pushd&lt;/code>和&lt;code>popd&lt;/code>的特性，可以用shell实现目录间的快速定位。&lt;/p>
+&lt;p>那么目录堆栈和波浪符号有什么关系呢？答案是&lt;strong>波浪符号与加减号、数字的组合是&lt;code>dirs&lt;/code>与加减号、数字的组合的简写&lt;/strong>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>〜N
+&lt;span class="ln">2&lt;/span>等同于&lt;span class="s1">&amp;#39;dirs +N&amp;#39;&lt;/span>显示的字符串
+&lt;span class="ln">3&lt;/span>
+&lt;span class="ln">4&lt;/span>〜+N
+&lt;span class="ln">5&lt;/span>等同于&lt;span class="s1">&amp;#39;dirs +N&amp;#39;&lt;/span>显示的字符串
+&lt;span class="ln">6&lt;/span>
+&lt;span class="ln">7&lt;/span>〜-N
+&lt;span class="ln">8&lt;/span>等同于&lt;span class="s1">&amp;#39;dirs -N&amp;#39;&lt;/span>显示的字符串
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>举个例子，我们先将&lt;code>/home /usr /etc /tmp ~&lt;/code>反向压入目录堆栈。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">dirs&lt;/span>
+&lt;span class="ln"> 2&lt;/span>/home /usr /etc /tmp ~
+&lt;span class="ln"> 3&lt;/span>$ &lt;span class="nb">dirs&lt;/span> +1
+&lt;span class="ln"> 4&lt;/span>/usr
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~1 ~+1 &lt;span class="c1"># 二者效果等同于dirs +1&lt;/span>
+&lt;span class="ln"> 6&lt;/span>/usr /usr
+&lt;span class="ln"> 7&lt;/span>$ &lt;span class="nb">dirs&lt;/span> -1
+&lt;span class="ln"> 8&lt;/span>/tmp
+&lt;span class="ln"> 9&lt;/span>$ &lt;span class="nb">echo&lt;/span> ~-1 &lt;span class="c1"># 效果等同于dirs -1&lt;/span>
+&lt;span class="ln">10&lt;/span>/tmp
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参数与变量展开">参数与变量展开&lt;/h2>
+&lt;p>&lt;code>$&lt;/code>在shell中是一个非常重要的符号，参数与变量展开、命令替换、算术表达式计算都与&lt;code>$&lt;/code>相关。接下来三个小结，我们将逐个进行介绍。&lt;/p>
+&lt;p>首先，&lt;code>$&lt;/code>最常见的功能是组成参数/变量名称，标准模式为&lt;code>${...}&lt;/code>，在不会产生误解的情形下，大括号可以省略。在大于等于10的位置参数、特殊模式变量以及名称中带有特殊符号导致变量名称有二义性时，必须要有大括号包裹。shell中的变量和一般编程语言中变量作用类似，但是在设置变量是不需要使用&lt;code>$&lt;/code>符合，只有在引用变量时才需要，例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>hello
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>
+&lt;span class="ln">3&lt;/span>hello
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">a&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">5&lt;/span>hello
+&lt;span class="ln">6&lt;/span>$ &lt;span class="nv">a&lt;/span>&lt;span class="o">=&lt;/span>world
+&lt;span class="ln">7&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$a&lt;/span>
+&lt;span class="ln">8&lt;/span>world
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>除了常规的使用方法，shell还为变量添加了各种各样便利的功能。这些拓展功能都需要使用大括号包裹。&lt;/p>
+&lt;h3 id="参数间接扩展">参数间接扩展&lt;/h3>
+&lt;p>如果shell变量中，&lt;strong>&lt;code>$&lt;/code>符号后面的第一个字符是感叹号&lt;code>!&lt;/code>，且后面的内容是一个变量的名称&lt;/strong>，那么引用的参数并不是“名称”而是该名称对应的实际的值。这就构成了变量间的间接引用。举个例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>linux
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nv">paramter&lt;/span>&lt;span class="o">=&lt;/span>name
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">!parameter&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 这里实际等同于${name}&lt;/span>
+&lt;span class="ln">4&lt;/span>linux
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面例子中，&lt;code>${}&lt;/code>中第一个字符是感叹号，而且&lt;code>parameter&lt;/code>是一个变量的名称，其值为&lt;code>name&lt;/code>，因此在执行时shell把&lt;code>!parameter&lt;/code>转换成其变量的值，即为&lt;code>name&lt;/code>，因此扩展后的结果为&lt;code>${name}&lt;/code>，最终显示&lt;code>name&lt;/code>变量的值&lt;code>linux&lt;/code>。当然，如果感叹号后面跟的内容不是变量的名称，那么就会报&lt;code>-bash: parameters: invalid indirect expansion&lt;/code>错误。&lt;/p>
+&lt;h3 id="参数匹配扩展">参数匹配扩展&lt;/h3>
+&lt;p>参数的匹配扩展与参数间接扩展&lt;strong>外表相似，但是用法完全不同&lt;/strong>。参数匹配扩展的更像是查找变量名前缀相同的变量，因此还引入了通配符&lt;code>*,@&lt;/code>，所以匹配扩展不会涉及变量实际的值。我们在前一个例子基础上增加几个变量：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">name1&lt;/span>&lt;span class="o">=&lt;/span>ubuntu
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nv">name2&lt;/span>&lt;span class="o">=&lt;/span>redhat
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nv">name3&lt;/span>&lt;span class="o">=&lt;/span>slackware
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">!name*&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">5&lt;/span>name name1 name2 name3
+&lt;span class="ln">6&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">!name@&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">7&lt;/span>name name1 name2 name3
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看出，参数间接扩展获取的是参数&lt;strong>值&lt;/strong>，参数匹配扩展获取的符合前缀的参数&lt;strong>名&lt;/strong>。如果我们将二者组合起来，就可以获取有相同前缀变量名的值：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="k">for&lt;/span> var in &lt;span class="si">${&lt;/span>&lt;span class="p">!name*&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">do&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$var&lt;/span>&lt;span class="s2">--&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="p">!var&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">2&lt;/span>name--linux
+&lt;span class="ln">3&lt;/span>name1--ubuntu
+&lt;span class="ln">4&lt;/span>name2--redhat
+&lt;span class="ln">5&lt;/span>name3--slackware
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个例子中，&lt;code>${!name*}&lt;/code>使用的是参数匹配扩展，匹配所有以&lt;code>name&lt;/code>为前缀的变量，共找到&lt;code>name, name1, name2, name3&lt;/code>四个，然后在for循环遍历中，再用参数间接扩展&lt;code>${!var}&lt;/code>将&lt;code>var&lt;/code>所指向的变量名称的实际值打印出来。&lt;/p>
+&lt;p>我们在上文中提到参数匹配扩展可以用&lt;code>*,@&lt;/code>两种符合，那么使用这两种符号有什么区别吗？区别在于：当表达式被&lt;strong>双引号&lt;/strong>包裹时，&lt;code>@&lt;/code>会扩展成&lt;strong>独立的几个变量&lt;/strong>，而&lt;code>*&lt;/code>则会扩展成&lt;strong>变量组合而成的字符串&lt;/strong>。还是以上面的几个两边为例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="k">for&lt;/span> var in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="p">!name@&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">do&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$var&lt;/span>&lt;span class="s2">--&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="p">!var&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">2&lt;/span>name--linux
+&lt;span class="ln">3&lt;/span>name1--ubuntu
+&lt;span class="ln">4&lt;/span>name2--redhat
+&lt;span class="ln">5&lt;/span>name3--slackware
+&lt;span class="ln">6&lt;/span>$ &lt;span class="k">for&lt;/span> var in &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="p">!name*&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">do&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$var&lt;/span>&lt;span class="s2">--&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="p">!var&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="k">done&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">7&lt;/span>-bash: name name1 name2 name3: invalid variable name
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在双引号中使用&lt;code>@&lt;/code>符号生成的是一个序列，可以通过&lt;code>for&lt;/code>循环遍历；而通过&lt;code>*&lt;/code>符号生成的是一个字符串，&lt;code>for&lt;/code>循环会直接读取整个字符串&lt;code>name name1 name2 name3&lt;/code>作为&lt;code>$var&lt;/code>的值，因此无法找到对应的变量，从而报&lt;code>invalid variable name&lt;/code>错误。&lt;/p>
+&lt;h3 id="空参数处理">空参数处理&lt;/h3>
+&lt;p>由于shell是一个弱类型且语法较为宽松的编程语言，因此不会对变量是否存在、变量是否为&lt;code>NULL&lt;/code>以及变量类型进行检测。如果使用了一个未设置的变量，shell直接返回空。这让我们在写程序时很容易携程难以查找的bug，因此shell提供了空参数处理的扩展。&lt;/p>
+&lt;p>空参数处理的格式为：&lt;code>${变量名[:][-+=?]变量值}&lt;/code>。其中起不起用冒号有区别，后面&lt;code>[-+=?]&lt;/code>四选一。&lt;/p>
+&lt;p>我们首先来解释有没有冒号&lt;code>:&lt;/code>的区别。当没有冒号的时候，即&lt;code>${变量名[-+=?]变量值}&lt;/code>时，shell只检测变量是否存在，相当于&lt;code>test -v 变量名&lt;/code>；而使用冒号的时候，即&lt;code>${变量名:[-+=?]变量值}&lt;/code>时，shell不仅检测变量时候存在，&lt;strong>而且检测变量是否为空&lt;/strong>，相当于&lt;code>test -v 变量名 &amp;amp;&amp;amp; test -z 变量名&lt;/code>。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>test -v&lt;/code>用于检测变量是否存在，变量存在返回结果0，不存在返回结果1；&lt;code>test -z&lt;/code>用于检测变量长度是否为0，如果为0返回0，否则返回1。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;code>${parameter:-word}&lt;/code>，如果变量parameter未设置或者值为空，那么给出word的值；否则给出&lt;code>$parameter&lt;/code>的值。&lt;/li>
+&lt;li>&lt;code>${parameter:-word}&lt;/code>，如果变量parameter未设置或者值为空，那么给出word的值同时把word的值赋给&lt;code>$parameter&lt;/code>，否则给出&lt;code>$parameter&lt;/code>的值；注意无法给位置参数和特殊参数赋值；&lt;/li>
+&lt;li>&lt;code>${parameter:?word}&lt;/code>，&lt;strong>用于交互式shell&lt;/strong>，如果变量parameter未设置或者值为空，那么将word内容作为标准错误返回给shell界面，否则给出&lt;code>$parameter&lt;/code>的值。&lt;/li>
+&lt;li>&lt;code>${parameter:+word}&lt;/code>，&lt;code>${parameter:-word}&lt;/code>的相反操作。如果parameter为空或未设置，则不进行任何替换，否则给出word的值。&lt;/li>
+&lt;/ul>
+&lt;p>下面举几个简单的例子来帮助理解空参数处理。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nv">name&lt;/span>&lt;span class="o">=&lt;/span>linux
+&lt;span class="ln"> 2&lt;/span>$ &lt;span class="nv">name1&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;span class="ln"> 3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="nv">windows&lt;/span>&lt;span class="si">}&lt;/span> --- &lt;span class="si">${&lt;/span>&lt;span class="nv">name1&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="nv">windows&lt;/span>&lt;span class="si">}&lt;/span> --- &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">-windows&lt;/span>&lt;span class="si">}&lt;/span> --- &lt;span class="si">${&lt;/span>&lt;span class="nv">name1&lt;/span>&lt;span class="p">-windows&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln"> 4&lt;/span>linux --- windows --- linux ---
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1"># name 存在且不为空，因此${name:-windows}，${name-windows}给出$name的值，&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># name1存在但是为空，因此${name1:-windows}给出替代值windows，&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 而${name1-windows}只检测到$name1存在，因此直接输出$name1，结果为空值&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ &lt;span class="nb">echo&lt;/span> name1
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 无论是${name1:-windows}还是${name1-windows}都不会给$name1赋值。&lt;/span>
+&lt;span class="ln">11&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">:=windows&lt;/span>&lt;span class="si">}&lt;/span> --- &lt;span class="si">${&lt;/span>&lt;span class="nv">name1&lt;/span>&lt;span class="p">:=windows&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">12&lt;/span>linux --- windows
+&lt;span class="ln">13&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$name1&lt;/span>
+&lt;span class="ln">14&lt;/span>windows
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># 可以看出使用:=会给原变量赋值。&lt;/span>
+&lt;span class="ln">16&lt;/span>$ &lt;span class="nv">name1&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;span class="ln">17&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">name&lt;/span>&lt;span class="p">=windows&lt;/span>&lt;span class="si">}&lt;/span> --- &lt;span class="si">${&lt;/span>&lt;span class="nv">name1&lt;/span>&lt;span class="p">=windows&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">18&lt;/span>linux ---
+&lt;span class="ln">19&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$name1&lt;/span>
+&lt;span class="ln">20&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="c1"># 这里是空值，因为$name1存在，因此${name1=windows}不进行赋值操作&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="子串扩展">子串扩展&lt;/h3>
+&lt;p>shell的子串扩展是从shell变量中切割出一部分（字串）的快捷方法，功能和python的切片类似。格式为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">offset&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">offset&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">length&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，&lt;code>offset&lt;/code>代表偏移值，为开始切割字符的序数，&lt;strong>从0开始算&lt;/strong>，&lt;code>length&lt;/code>为切割的长度，如果不指定，默认截取到最后。例子如下&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">string&lt;/span>&lt;span class="o">=&lt;/span>01234567890abcdefgh
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">7&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 不指定length默认到末尾，第一位索引序数为0&lt;/span>
+&lt;span class="ln">3&lt;/span>7890abcdefgh
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">7&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># length长度为0，截取长度也为0&lt;/span>
+&lt;span class="ln">5&lt;/span>
+&lt;span class="ln">6&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">7&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># length长度为2&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">78&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>如果&lt;code>offset&lt;/code>值为负数，那么子串是从最后开始计算起始点，-1表示最后一位，-2表示倒数第二位。&lt;/li>
+&lt;li>如果&lt;code>length&lt;/code>值大于剩余的字符数，那么子串只截取到末尾。&lt;/li>
+&lt;li>如果&lt;code>length&lt;/code>值为负数，那么&lt;code>length&lt;/code>表示的是原字符串截取到所在位序数，不包括&lt;code>length&lt;/code>所在的那一位。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>需要指出，冒号&lt;code>:&lt;/code>和负号&lt;code>-&lt;/code>之间至少要用一个空格隔开，否在会被当成是空参数处理&lt;code>:-&lt;/code>。&lt;/p>
+&lt;/blockquote>
+&lt;p>例子如下所示：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nv">string&lt;/span>&lt;span class="o">=&lt;/span>01234567890abcdefgh
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">7&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">100&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 当length大于剩余字符串长度时，只截取到末尾&lt;/span>
+&lt;span class="ln">3&lt;/span>7890abcdefgh
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">: -7:&lt;/span>&lt;span class="nv">2&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 注意中间有个空格&lt;/span>
+&lt;span class="ln">5&lt;/span>bc
+&lt;span class="ln">6&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">0&lt;/span>&lt;span class="p">: -5&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># -5(d)是原变量倒数第5个索引，但是不包括-5(d)&lt;/span>
+&lt;span class="ln">7&lt;/span>01234567890abc
+&lt;span class="ln">8&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">: -2: -1&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 这个例子更明显的表现出只包含开头，不包含结尾&lt;/span>
+&lt;span class="ln">9&lt;/span>g
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一般情况下，子串扩展都是从0开头，-1结尾，但是有一种例外，&lt;strong>位置参数是按1开始从头计算偏移值&lt;/strong>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 设置位置参数&lt;/span>
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nb">set&lt;/span> -- &lt;span class="m">0&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">8&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">0&lt;/span> a b c d e f g h
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">@:&lt;/span>&lt;span class="nv">7&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 位置参数开头从1开始计算&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="m">6&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">8&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">0&lt;/span> a b c d e f g h
+&lt;span class="ln">5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">7&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 其他参数都是从0开始计算&lt;/span>
+&lt;span class="ln">6&lt;/span>7890abcdefgh
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参数长度计算">参数长度计算&lt;/h3>
+&lt;p>bash shell在参数扩展中还提供了一种计算参数长度的便捷方式，即为&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="si">${#&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对于一般变量，&lt;code>${#parameter}&lt;/code>会计算字符串长度，对于位置参数，它会计算位置参数的个数，如果parameter是一个数组名，并且下标为*或者@，表达式扩展为数组的元素个数。例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">set&lt;/span> -- a b c d
+&lt;span class="ln">2&lt;/span>$ &lt;span class="nv">var&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">123456789&lt;/span>
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nv">arr&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="m">2&lt;/span> 3&lt;span class="o">)&lt;/span>
+&lt;span class="ln">4&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="p">@&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="p">*&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="m">4&lt;/span> &lt;span class="m">4&lt;/span>
+&lt;span class="ln">6&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">var&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">9&lt;/span>
+&lt;span class="ln">8&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="si">${#&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[*]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="m">3&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参数匹配删除">参数匹配删除&lt;/h3>
+&lt;p>shell可以通过自带的模式匹配来识别特定的“关键字”，并对识别出来的内容进行操作，例如删除、替换等。这一小节，我们先说参数匹配删除，它可以实现一些很常见的操作，如获取文件名、文件后缀、文件路径、数字等。&lt;/p>
+&lt;p>匹配删除共有四种模式，分别是从头最短检索、从头最长检索、从尾最短检索、从尾最长检索。从头、从尾比较容易理解，就是匹配的时候是从前往后找还是从后往前找。最长、最短通常是对&lt;code>*&lt;/code>通配符而言，如果遇到连续多个合适的匹配内容，最短匹配是匹配尽量少的字符、最长匹配是尽量多的匹配字符。按照这个分类方式，我们可以列出参数匹配删除的用法表格：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;/th>
+&lt;th style="text-align:center">从头&lt;/th>
+&lt;th style="text-align:center">从尾&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">最短&lt;/td>
+&lt;td style="text-align:center">&lt;code>${parameter#word}&lt;/code>&lt;/td>
+&lt;td style="text-align:center">&lt;code>${parameter%word}&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">最长&lt;/td>
+&lt;td style="text-align:center">&lt;code>${parameter##word}&lt;/code>&lt;/td>
+&lt;td style="text-align:center">&lt;code>${parameter%%word}&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>最短最长比较好记，使用一个符号&lt;code>#,%&lt;/code>比较短，是最短匹配；使用两个符号&lt;code>##,%%&lt;/code>比较长，是最长匹配。至于从头从尾，我的记忆方法是通常&lt;code>#&lt;/code>符号在bash shell中放在开头比较多（注释），因此是从头匹配。&lt;/p>
+&lt;p>下面还是通过几个例子来方便理解参数匹配删除：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 先设置一些位置参数&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ &lt;span class="nb">set&lt;/span> -- ab-cd-ef&lt;span class="o">==&lt;/span> uv-wx-yz&lt;span class="o">==&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># 使用从头最短匹配，*-匹配到的是ab- ，然后将其删除&lt;/span>
+&lt;span class="ln"> 4&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="p">#*-&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln"> 5&lt;/span>cd-ef&lt;span class="o">==&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># 使用从头最长匹配，*-匹配到的是ab-cd- ，然后将其删除&lt;/span>
+&lt;span class="ln"> 7&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="p">##*-&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="nv">ef&lt;/span>&lt;span class="o">==&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 使用从尾最短匹配，-*=匹配到的是-ef== ，然后删除&lt;/span>
+&lt;span class="ln">10&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="p">%-*=&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">11&lt;/span>ab-cd
+&lt;span class="ln">12&lt;/span>&lt;span class="c1"># 使用从尾最长匹配，-*=匹配到的是-cd-ef== ，然后删除&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">1&lt;/span>&lt;span class="p">%%-*=&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">14&lt;/span>ab
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此外，和计算参数长度的扩展一样，如果是使用&lt;code>@,*&lt;/code>的&lt;strong>位置参数或数组&lt;/strong>，那么参数匹配删除将对其中的&lt;strong>每一个元素&lt;/strong>进行操作。类似于&lt;code>for ... in...&lt;/code>的效果。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 在以下几个例子中，表示位置参数或数组的#，@符合可以互换。&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># 对于使用@，*的位置参数，将会对其中每一个元素进行匹配删除操作&lt;/span>
+&lt;span class="ln"> 3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">@#*-&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln"> 4&lt;/span>cd-ef&lt;span class="o">==&lt;/span> wx-yz&lt;span class="o">==&lt;/span>
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">*%%-*=&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln"> 6&lt;/span>ab uv
+&lt;span class="ln"> 7&lt;/span>$ &lt;span class="nv">arr&lt;/span>&lt;span class="o">=(&lt;/span>--a --b --c&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># 对数组中每一个元素进行从头最短匹配&lt;/span>
+&lt;span class="ln"> 9&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[*]#-?(-)&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># ?(-)需要启用“extglob” shell选项&lt;/span>
+&lt;span class="ln">10&lt;/span>-a -b -c
+&lt;span class="ln">11&lt;/span>&lt;span class="c1"># 对数组中每一个元素进行从头最长匹配&lt;/span>
+&lt;span class="ln">12&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[@]##-?(-)&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># ?(-)需要启用“extglob” shell选项&lt;/span>
+&lt;span class="ln">13&lt;/span>a b c
+&lt;span class="ln">14&lt;/span>$ &lt;span class="nv">arr&lt;/span>&lt;span class="o">=(&lt;/span>a-- b-- c--&lt;span class="o">)&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># 对数组中每一个元素进行从尾最短匹配&lt;/span>
+&lt;span class="ln">16&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[*]%-?(-)&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">17&lt;/span>a- b- c-
+&lt;span class="ln">18&lt;/span>&lt;span class="c1"># 对数组中每一个元素进行从尾最长匹配&lt;/span>
+&lt;span class="ln">19&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[@]%%-?(-)&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">20&lt;/span>a b c
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="c1"># 几个实用的例子&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="c1"># 获取文件名，文件后缀&lt;/span>
+&lt;span class="ln">24&lt;/span>$ &lt;span class="nv">FILENAME&lt;/span>&lt;span class="o">=&lt;/span>linux_bash.sh
+&lt;span class="ln">25&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">FILENAME&lt;/span>&lt;span class="p">%.*&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">26&lt;/span>linux_bash
+&lt;span class="ln">27&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">FILENAME&lt;/span>&lt;span class="p">##*.&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">28&lt;/span>sh
+&lt;span class="ln">29&lt;/span>&lt;span class="c1"># 判断某字符串是否以某字符开头&lt;/span>
+&lt;span class="ln">30&lt;/span>$ &lt;span class="nv">OPT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;-option&amp;#39;&lt;/span>
+&lt;span class="ln">31&lt;/span>$ &lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">OPT&lt;/span>&lt;span class="p">#-&lt;/span>&lt;span class="si">}&lt;/span> !&lt;span class="o">=&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">OPT&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">32&lt;/span>&amp;gt; &lt;span class="k">then&lt;/span>
+&lt;span class="ln">33&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;start with -&amp;#34;&lt;/span>
+&lt;span class="ln">34&lt;/span>&amp;gt; &lt;span class="k">else&lt;/span>
+&lt;span class="ln">35&lt;/span>&amp;gt; &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;not start with -&amp;#34;&lt;/span>
+&lt;span class="ln">36&lt;/span>&amp;gt; &lt;span class="k">fi&lt;/span>
+&lt;span class="ln">37&lt;/span>start with -
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="参数匹配替换">参数匹配替换&lt;/h3>
+&lt;p>前面介绍了参数的匹配删除，bash还提供了匹配替换的功能，也是通过自带的模式匹配来识别特定的“关键字”再进行替换。其格式为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">/[/#%]pattern/string&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，&lt;code>parameter&lt;/code>是待替换的原变量，&lt;code>pattern&lt;/code>是匹配的模式，即需要匹配的内容，&lt;code>string&lt;/code>是替换的内容。如果&lt;code>pattern&lt;/code>匹配到了符合的字符子串，那么就用&lt;code>string&lt;/code>替换匹配到的内容；如果&lt;code>pattern&lt;/code>未匹配到相关内容，则不做任何操作。需要指出的是，参数匹配替换都是用的是&lt;strong>最长匹配&lt;/strong>。参数匹配替换的详细用法有以下6点：&lt;/p>
+&lt;ol>
+&lt;li>默认情况下，即&lt;code>${parameter/pattern/string}&lt;/code>，是从头匹配&lt;strong>一个&lt;/strong>&lt;code>pattern&lt;/code>内容并替换。&lt;/li>
+&lt;li>当&lt;code>pattern&lt;/code>以&lt;code>/&lt;/code>符号开头时，即&lt;code>${parameter//pattern/string}&lt;/code>，将会匹配&lt;strong>所有&lt;/strong>符合&lt;code>pattern&lt;/code>的内容。&lt;/li>
+&lt;li>当&lt;code>pattern&lt;/code>以&lt;code>#&lt;/code>符号开头时，即&lt;code>${parameter/#pattern/string}&lt;/code>，将会匹配以&lt;code>pattern&lt;/code>开头的内容。&lt;/li>
+&lt;li>当&lt;code>pattern&lt;/code>以&lt;code>%&lt;/code>符号开头时，即&lt;code>${parameter/%pattern/string}&lt;/code>，将会匹配以&lt;code>pattern&lt;/code>结尾的内容。&lt;/li>
+&lt;li>如果启用了&lt;code>nocasematch&lt;/code> shell选项，则不考虑字母的大小写。&lt;/li>
+&lt;li>和参数长度计算、参数匹配删除一样，如果是使用&lt;code>@,*&lt;/code>的&lt;strong>位置参数或数组&lt;/strong>，那么参数匹配删除将对其中的&lt;strong>每一个元素&lt;/strong>进行操作。类似于&lt;code>for ... in...&lt;/code>的效果。&lt;/li>
+&lt;/ol>
+&lt;p>我们以字符串&lt;code>string=abceddabceddabcedd&lt;/code>为例说明参数匹配替换的用法。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nv">string&lt;/span>&lt;span class="o">=&lt;/span>abceddabceddabcedd
+&lt;span class="ln"> 2&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">/d?a/+&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 匹配到abce &amp;#34;dda&amp;#34; bceddabcedd&lt;/span>
+&lt;span class="ln"> 3&lt;/span>abce+bceddabcedd
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 匹配替换都是使用最长匹配&lt;/span>
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">/d*a/+&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 匹配到abce &amp;#34;ddabcedda&amp;#34; bcedd&lt;/span>
+&lt;span class="ln"> 6&lt;/span>abce+bcedd
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 替换所有d?a&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">//d?a/f&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 匹配到abce &amp;#34;dda&amp;#34; bce &amp;#34;dda&amp;#34; bcedd&lt;/span>
+&lt;span class="ln"> 9&lt;/span>abce+bce+bcedd
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 替换以a开头的内容&lt;/span>
+&lt;span class="ln">11&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">/#a??/+&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 匹配到 &amp;#34;abc&amp;#34; eddabceddabcedd&lt;/span>
+&lt;span class="ln">12&lt;/span>+eddabceddabcedd
+&lt;span class="ln">13&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">/#b??/+&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 没有b开头的内容，因此未匹配到任何内容&lt;/span>
+&lt;span class="ln">14&lt;/span>abceddabceddabcedd
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># 替换以b*d结尾的内容&lt;/span>
+&lt;span class="ln">16&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">string&lt;/span>&lt;span class="p">/%b*d/+&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 匹配到a &amp;#34;bceddabceddabcedd&amp;#34;&lt;/span>
+&lt;span class="ln">17&lt;/span>a+
+&lt;span class="ln">18&lt;/span>&lt;span class="c1"># 对于位置参数的处理&lt;/span>
+&lt;span class="ln">19&lt;/span>$ &lt;span class="nb">set&lt;/span> -- abc abd abe
+&lt;span class="ln">20&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="p">@/a/+&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">21&lt;/span>+bc +bd +be
+&lt;span class="ln">22&lt;/span>&lt;span class="c1"># 对于数组的处理&lt;/span>
+&lt;span class="ln">23&lt;/span>$ &lt;span class="nv">arr&lt;/span>&lt;span class="o">=(&lt;/span>abc abd abe&lt;span class="o">)&lt;/span>
+&lt;span class="ln">24&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">arr&lt;/span>&lt;span class="p">[@]/a/+&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">25&lt;/span>+bc +bd +be
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="大小写修改">大小写修改&lt;/h3>
+&lt;p>bash shell在匹配的基础上还提供了一个小功能，就是将匹配出来的内容进行大小写修改，实际上用的不多，可以作为了解。注：此操作仅适用于bash4.0往上版本。&lt;/p>
+&lt;p>其基本格式为:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 小写转大写: ^会把开头的小写字母转换成大写，^^会转换所有小写成大写&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">^pattern&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">^^pattern&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 大写转小写: ,会把开头的大写转换成小写，,,会把所以大写转换成小写&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">,pattern&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">parameter&lt;/span>&lt;span class="p">,,pattern
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>举几个简单的例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 小写转大写&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ &lt;span class="nv">par&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;abc&amp;#39;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">par&lt;/span>&lt;span class="p">^&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 首字母&lt;/span>
+&lt;span class="ln"> 4&lt;/span>Abc
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">par&lt;/span>&lt;span class="p">^^&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="c1"># 全部&lt;/span>
+&lt;span class="ln"> 6&lt;/span>ABC
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 大写转小写&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ &lt;span class="nv">par&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;ABC&amp;#39;&lt;/span>
+&lt;span class="ln"> 9&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">par&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">10&lt;/span>aBC
+&lt;span class="ln">11&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">par&lt;/span>&lt;span class="p">,,&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">12&lt;/span>abc
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此外，如果是使用&lt;code>@,*&lt;/code>的&lt;strong>位置参数或数组&lt;/strong>，那么大小写修改将对其中的&lt;strong>每一个元素&lt;/strong>进行操作。类似于&lt;code>for ... in...&lt;/code>的效果。&lt;/p>
+&lt;h3 id="变量操作">变量操作&lt;/h3>
+&lt;p>在bash4.0 版本以后，添加了一些方便使用的小功能，这些被统合为变量操作，格式为&lt;code>${parameter@operator}&lt;/code>，作用为根据操作符(operator)执行参数转换或者，操作符如下：&lt;/p>
+&lt;ul>
+&lt;li>Q：将字符串使用引号包裹。&lt;/li>
+&lt;li>E：对于使用反斜线&lt;code>\&lt;/code>后的字符一律按转义处理。&lt;/li>
+&lt;li>P：如果&lt;code>parameter&lt;/code>含有&lt;code>prompt string&lt;/code>时，按照prompt解释。&lt;/li>
+&lt;li>A：拓展成参数赋值的语句。&lt;/li>
+&lt;li>a：由参数属性值组成的字符串。&lt;/li>
+&lt;/ul>
+&lt;p>参数扩展做为bash中最多样，最灵活的扩展为shell提供了多样和简洁的处理方式，其本质上是多种小工具的聚合体，有的是为了弥补bash shell本身的弱点，有的是为了综合了使用率最高的小工具。同时这也是bash shell中非常容易出错的部分，需要我们谨慎地使用。&lt;/p>
+&lt;h2 id="命令替换">命令替换&lt;/h2>
+&lt;p>shell通过命令替换能够完成一些运行时的动态变化。命令替换，就是在执行bash shell是用&lt;strong>命令的输出替换命令本身&lt;/strong>。有两种格式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 旧版使用反引号&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="nb">command&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 新版使用$()&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="k">$(&lt;/span>&lt;span class="nb">command&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Bash通过在子shell环境中执行命令替换的内容来进行扩展，并将命令替换为命令执行后的标准输出，并删除任何结尾的换行符。嵌入的换行符不会被删除，但在后面再次分词过程中可能会被删除。简单的例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="sb">`&lt;/span>whoami&lt;span class="sb">`&lt;/span>
+&lt;span class="ln">2&lt;/span>lelouch
+&lt;span class="ln">3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="k">$(&lt;/span>whoami&lt;span class="k">)&lt;/span>
+&lt;span class="ln">4&lt;/span>lelouch
+&lt;span class="ln">5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello,`whoami`&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>hello,lelouch
+&lt;span class="ln">7&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello,&lt;/span>&lt;span class="k">$(&lt;/span>whoami&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">8&lt;/span>hello,lelouch
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那为什么用新版的&lt;code>$()&lt;/code>替代旧版的反引号和呢？第一个原因就是反引号&amp;quot;`&amp;quot;太容易和单引号&amp;quot;'&amp;quot;搞混了，二者长得太像不利于排错。第二个原因就是反引号不容易复合，需要使用转义符号&lt;code>\&lt;/code>而使用&lt;code>$()&lt;/code>则直接嵌套就能使用。举个例子，我们要查看当前用户home目录中的一个&lt;code>test.sh&lt;/code>文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 使用反引号命令替代，反引号需要转义&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ cat &lt;span class="sb">`&lt;/span>ls /home/&lt;span class="se">\`&lt;/span>whoami&lt;span class="se">\`&lt;/span>/test.sh&lt;span class="sb">`&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">#!/bin/bash&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nb">read&lt;/span> filename
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nb">read&lt;/span> url
+&lt;span class="ln"> 6&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="nb">test&lt;/span> -w &lt;span class="nv">$filename&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">test&lt;/span> -n &lt;span class="nv">$url&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$url&lt;/span> &amp;gt; &lt;span class="nv">$filename&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;写入成功&amp;#34;&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="k">else&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;写入失败&amp;#34;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c1"># 使用$()命令替代&lt;/span>
+&lt;span class="ln">14&lt;/span>$ cat &lt;span class="k">$(&lt;/span>ls /home/&lt;span class="k">$(&lt;/span>whoami&lt;span class="k">)&lt;/span>/test.sh&lt;span class="k">)&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c1">#!/bin/bash&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="nb">read&lt;/span> filename
+&lt;span class="ln">17&lt;/span>&lt;span class="nb">read&lt;/span> url
+&lt;span class="ln">18&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="nb">test&lt;/span> -w &lt;span class="nv">$filename&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">test&lt;/span> -n &lt;span class="nv">$url&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="k">then&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$url&lt;/span> &amp;gt; &lt;span class="nv">$filename&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;写入成功&amp;#34;&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="k">else&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;写入失败&amp;#34;&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="k">fi&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>命令替代在shell自适应编程里非常重要。因为面向不同用户编程时，各个用户的环境变量，配置文件路径都有差异，bash shell可以通过命令替代了解当前用户的上下文，为shell脚本提供灵活处理不同环境的能力。&lt;/p>
+&lt;h2 id="算术表达式扩展">算术表达式扩展&lt;/h2>
+&lt;p>算术表达式扩展允许计算算术表达式和替换结果，广义上也属于一种命令替换。算术表达式扩展使用&lt;code>$&lt;/code>和两个小括号，格式是：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="k">$((&lt;/span> expression &lt;span class="k">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>特别地，bash shell中的算术表达式扩展只支持固定长度的证书运算，任何浮点数运算都会被认为是一个错误而不做任何替换操作&lt;/strong>。此外，算术表达式扩展也是可以复合的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="k">$((&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="k">$((&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="m">4&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="k">$((&lt;/span>&lt;span class="m">6&lt;/span>&lt;span class="o">%&lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 7&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="k">$((&lt;/span>&lt;span class="m">6&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="m">15&lt;/span>&lt;span class="k">))&lt;/span>
+&lt;span class="ln"> 8&lt;/span>-9
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 不支持浮点数运算&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="k">$((&lt;/span>&lt;span class="m">1&lt;/span>.1+3&lt;span class="k">))&lt;/span>
+&lt;span class="ln">11&lt;/span>-bash: 1.1+3: syntax error: invalid arithmetic operator &lt;span class="o">(&lt;/span>error token is &lt;span class="s2">&amp;#34;.1+3&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c1"># 复合的算法表达式&lt;/span>
+&lt;span class="ln">13&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="k">$((&lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="k">$((&lt;/span>&lt;span class="m">3&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="m">2&lt;/span>&lt;span class="k">))&lt;/span> &lt;span class="k">))&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="m">16&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>bash shell的计算能力只是辅助作用，虽然除0错误被捕获并标记为错误，但是bash shell没有溢出检查，不支持浮点运算，也没有强大的数学公式库，因此并不推荐使用bash shell做复杂的数学运算。&lt;/p>
+&lt;h2 id="再次单词分割">再次单词分割&lt;/h2>
+&lt;p>在《shell骨干流程1——形成初步命令》一文中，我们了解到，shell命令处理流程的第一步就是使用元字符把输入内容分割为标记（token），以便bash shell进行保留字识别和流程控制。但是经过大括号展开、波浪符号展开、命令替换、算数运算扩展这些步骤，&lt;strong>会带来新的内容&lt;/strong>。因此，作为shell处理流程的第10步。我们需要将这些替换过后的内容重新整肃，根据系统分隔符（Internal Field Seperator，IFS）再次将命令分割成一个个便于处理的标记（token，包括控制符和单词）。也是说，如果没有前面几步的扩展，也就不需要再次进行分割。&lt;/p>
+&lt;p>默认的IFS有&lt;code>space, tab, newline&lt;/code>以及他们的组合，例如连续的空格，&lt;code>tab&lt;/code>或者多个连续的空行。&lt;/p>
+&lt;p>在这次处理中，显式的空参数（&amp;quot;&amp;quot; 或 ''）被保留并作为空字符串传递给命令，未加引号的隐式空参数将被删除。&lt;/p>
+&lt;h2 id="路径与文件名展开">路径与文件名展开&lt;/h2>
+&lt;p>如果bash中没有设置&lt;code>-f&lt;/code>选项，就会支持路径与文件名扩展，其扩展模式也是通过bash shell自带的模式匹配。比如，显示&lt;code>/etc&lt;/code>目录下的所有配置文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>ls /etc/*.conf
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或是列出所有以字母&lt;code>a&lt;/code>或&lt;code>b&lt;/code>开头的配置文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>ls /etc/&lt;span class="o">[&lt;/span>ab&lt;span class="o">]&lt;/span>*.conf
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者是显示所有的以&lt;code>image&lt;/code>开头的后面跟着一个字符格式为&lt;code>.jpg&lt;/code>的文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>ls image?.jpg
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在路径与文件名扩展中，字符&lt;code>.&lt;/code>在文件名开头或斜线后必须显式匹配，除非设置了shell选项&lt;code>dotglob&lt;/code>。匹配文件名时，斜杠字符必须始终显示匹配。更多文件匹配的例子可以看文章开头&lt;a href="#shell%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D">shell的模式匹配&lt;/a>小节。&lt;/p>
+&lt;p>shell命令展开作为四大步骤中最复杂的步骤，是我花时间精力最多的部分，其多样性和灵活性为shell脚本提供了强大的生命力。经过上述11步的操作，shell命令终于可以真正进入执行阶段了。&lt;/p>
+&lt;h2 id="参考内容">参考内容&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="https://www.gnu.org/software/bash/manual/bash.html">https://www.gnu.org/software/bash/manual/bash.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/65599187">https://zhuanlan.zhihu.com/p/65599187&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>Shell 骨干流程2——复合命令与控制流程</title><link>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/</link><pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#shell%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6">shell复合命令——流程控制&lt;/a>
 &lt;ul>
