@@ -166,6 +166,7 @@ Jan 1, 2022</span>
 <li>发现<code>$(( ))</code>算数运算符号，进行算术运算2537%1000=537，代入原命令：<code>ls -l /usr/bin/cc /home/username/.*537</code>；</li>
 <li>未发现新的分隔符（IFS），无需进行再分割，无操作；</li>
 <li>发现通配符"*"，进行展开得到<code>.hist537</code>文件，<code>ls -l /usr/bin/cc /home/username/.hist537</code>；</li>
+<li>未发现重定向操作符，无操作；</li>
 <li>首个单词为“ls”，在<code>$PATH，/usr/bin</code>中检索到<code>ls</code>命令；</li>
 <li>执行命令<code>/usr/bin/ls</code>，后面的<code>-l /usr/bin/cc /home/username/.hist537</code>为命令的参数，其作用为查看<code>/usr/bin/cc /home/username/.hist537</code>这两个文件的详细属性。此命令后不再有其他命令，结束此shell流程。</li>
 </ol>

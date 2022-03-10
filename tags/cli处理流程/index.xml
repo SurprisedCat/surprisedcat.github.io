@@ -1449,6 +1449,7 @@
 &lt;li>发现&lt;code>$(( ))&lt;/code>算数运算符号，进行算术运算2537%1000=537，代入原命令：&lt;code>ls -l /usr/bin/cc /home/username/.*537&lt;/code>；&lt;/li>
 &lt;li>未发现新的分隔符（IFS），无需进行再分割，无操作；&lt;/li>
 &lt;li>发现通配符&amp;quot;*&amp;quot;，进行展开得到&lt;code>.hist537&lt;/code>文件，&lt;code>ls -l /usr/bin/cc /home/username/.hist537&lt;/code>；&lt;/li>
+&lt;li>未发现重定向操作符，无操作；&lt;/li>
 &lt;li>首个单词为“ls”，在&lt;code>$PATH，/usr/bin&lt;/code>中检索到&lt;code>ls&lt;/code>命令；&lt;/li>
 &lt;li>执行命令&lt;code>/usr/bin/ls&lt;/code>，后面的&lt;code>-l /usr/bin/cc /home/username/.hist537&lt;/code>为命令的参数，其作用为查看&lt;code>/usr/bin/cc /home/username/.hist537&lt;/code>这两个文件的详细属性。此命令后不再有其他命令，结束此shell流程。&lt;/li>
 &lt;/ol>
