@@ -118,14 +118,14 @@ May 23, 2019</span>
 <tr class=even>
 <td align=center>样本方差</td>
 <td align=center>Sample VAR</td>
-<td align=center><span class=math>\(s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{\mu})^2}\)</span></td>
+<td align=center><span class=math>\(s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{x})^2}\)</span>，其中<span class=math>\(\bar{x}\)</span>为样本均值</td>
 <td align=center>依据所给样本对随机变量的方差做出的一个估计</td>
 <td align=center>底数<span class=math>\(N-1\)</span>，无偏估计，统计性质，大于总体方差</td>
 </tr>
 <tr class=odd>
 <td align=center>总体方差</td>
 <td align=center>Population VAR</td>
-<td align=center><span class=math>\(s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\bar{\mu})^2}\)</span></td>
+<td align=center><span class=math>\(s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)</span>，其中<span class=math>\(\mu\)</span>为总体均值</td>
 <td align=center>依据所给样本对随机变量的方差做出的一个估计</td>
 <td align=center>底数<span class=math>\(N\)</span>，<strong>有偏估计</strong>，统计性质，小于样本方差</td>
 </tr>
@@ -146,7 +146,7 @@ May 23, 2019</span>
 <tr class=even>
 <td align=center>均方误差</td>
 <td align=center>MSE</td>
-<td align=center><span class=math>\(MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\hat{x}_n)^2}\)</span></td>
+<td align=center><span class=math>\(MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)</span></td>
 <td align=center>它是“误差”的平方的期望值。误差就是估计值与被估计量的差。</td>
 <td align=center>估计（预测）的性质</td>
 </tr>
@@ -167,14 +167,14 @@ May 23, 2019</span>
 <tr class=odd>
 <td align=center>平均绝对误差</td>
 <td align=center>MAE</td>
-<td align=center><span class=math>\(MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\hat{x}_n \vert}\)</span></td>
+<td align=center><span class=math>\(MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\mu \vert}\)</span></td>
 <td align=center>所有单个观测值与算术平均值的偏差的绝对值的平均</td>
 <td align=center>防止正负值抵消，估计(预测)性质</td>
 </tr>
 <tr class=even>
 <td align=center>平均绝对百分比误差</td>
 <td align=center>MAPE</td>
-<td align=center><span class=math>\(MAPE(\hat{x})=\frac{100\%}{N}\sum^N_{n=1}{\vert \frac{x_n-\hat{x}_n }{x_n}\vert}\)</span></td>
+<td align=center><span class=math>\(MAPE(\hat{x})=\frac{100\%}{N}\sum^N_{n=1}{\vert \frac{x_n-\mu}{x_n}\vert}\)</span></td>
 <td align=center>MAE指标的百分比化。MAPE为0%表示完美模型，MAPE大于100 %则表示劣质模型。当真实值有数据等于0时，存在分母0除问题，该公式不可用！</td>
 <td align=center>平均绝对值误差的相对化，剔除数值范围影响，估计(预测)性质</td>
 </tr>
@@ -225,13 +225,13 @@ May 23, 2019</span>
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>16</span>
+</a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
 <span class=button_tally>15</span>
-</a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -311,7 +311,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=14 title=概率统计随机过程>概率统计随机过程<span class=button_tally>14</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -357,13 +357,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/ class=nav-link title=shell-骨干流程3——命令展开>shell-骨干流程3——命令展开</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程2——复合命令与控制流程">Shell 骨干流程2——复合命令与控制流程</a>
 </li>
 </ul>
 <div>
@@ -373,13 +373,13 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>16</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
 <span class=button_tally>15</span>
-</a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -473,7 +473,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=14 title=概率统计随机过程>概率统计随机过程<span class=button_tally>14</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>

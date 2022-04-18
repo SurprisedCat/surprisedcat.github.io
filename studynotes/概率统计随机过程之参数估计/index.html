@@ -98,7 +98,17 @@ Apr 16, 2021</span>
 <li><a href=#矩估计的一般步骤>矩估计的一般步骤</a></li>
 <li><a href=#矩估的特点>矩估的特点</a></li>
 </ul></li>
-<li><a href=#极大似然估计>极大似然估计</a></li>
+<li><a href=#极大似然估计>极大似然估计</a>
+<ul>
+<li><a href=#最大似然估计的不变原理>最大似然估计的不变原理</a></li>
+</ul></li>
+<li><a href=#点估计的有效性详解>点估计的有效性详解</a></li>
+<li><a href=#一致最小方差无偏估计>一致最小方差无偏估计</a>
+<ul>
+<li><a href=#零无偏估计法>零无偏估计法</a></li>
+<li><a href=#充分完全统计量法>充分完全统计量法</a></li>
+</ul></li>
+<li><a href=#cramer-rao不等式与界>Cramer-Rao不等式与界</a></li>
 <li><a href=#区间估计>区间估计</a></li>
 <li><a href=#置信区间与枢轴变量>置信区间与枢轴变量</a></li>
 <li><a href=#一个正态总体的期望和方差的区间估计>一个正态总体的期望和方差的区间估计</a></li>
@@ -131,10 +141,11 @@ Apr 16, 2021</span>
 <ol start=2 style=list-style-type:decimal>
 <li>有效性。估计值的方差越小越好。<span class=math>\(D(\hat\theta_1)\leq D(\hat\theta_2)\)</span>则<span class=math>\(\hat\theta_1\)</span>更好。波动性小，无偏情况下，更可能接近于真实值。</li>
 <li>相合性（一致性）。<span class=math>\(\lim_{n\rightarrow \infty} P(|\hat\theta-\theta|&lt;\varepsilon)=1\)</span>，取的样本越多，越趋近于真实值。</li>
-<li>渐进正态性（大样本性质）</li>
+<li>渐进正态性（大样本性质）。体现了估计量随样本数量趋近于真实值的速度。</li>
 </ol>
 <p>说明1：样本方差<span class=math>\(S^2\)</span>是<span class=math>\(\sigma^2\)</span>的无偏估计，但是<span class=math>\(\sqrt{(S^2)}\)</span>不是<span class=math>\(\sqrt{\sigma^2}\)</span>的无偏估计。</p>
 <p>说明2：无偏性+有效性（尽量小方差）=一致最小方差无偏估计（UMVUE）</p>
+<p>说明3：无偏性和相合性是两个方面的性质，无偏性是概率性质，相合性是统计性质，无偏不一定相合。</p>
 <p>具体可参见笔记<a href=概率统计随机过程之数理统计常用概念.md>《概率统计随机过程之数理统计常用概念》</a>中估计量的评价指标那一小节。</p>
 <h3 id=矩估计>矩估计</h3>
 <p>核心思想：近似替代。<strong>用样本的矩代替总体的矩，用样本矩的函数估计总体矩的相应函数</strong>。就把样本当总体。</p>
@@ -202,11 +213,64 @@ Apr 16, 2021</span>
 <p><strong>似然函数取对数的原因</strong>:</p>
 <ol style=list-style-type:decimal>
 <li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。</li>
-<li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。</li>
+<li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一s个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。</li>
 </ol>
 <p>需要指出的是：<strong>取对数不影响单调性</strong>。 <span class=math>\[
 p(x|\theta_1)>p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))>\ln(p(x|\theta_2))
 \]</span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。</p>
+<h4 id=最大似然估计的不变原理>最大似然估计的不变原理</h4>
+<p>我们介绍一个致使最大似然估计得到广泛应用的定理：</p>
+<blockquote>
+<p>不变定理：设<span class=math>\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)</span>，若<span class=math>\(\theta\)</span>的最大似然估计为<span class=math>\(\hat\theta\)</span>，则对任意函数<span class=math>\(\gamma=g(\theta)\)</span>，<span class=math>\(\gamma\)</span>的最大似然估计为<span class=math>\(\hat\gamma=g(\hat\theta)\)</span>。</p>
+</blockquote>
+<p>这个定理的条件很宽，致使最大似然估计的应用也会广泛。在函数<span class=math>\(g(\theta)\)</span>非单调的时候，它的证明需要测度论的内容，暂时不予证明。</p>
+<h3 id=点估计的有效性详解>点估计的有效性详解</h3>
+<p>我们在前面提到过可以用估计值的方差来代表估计的有效性，但是这有一个前提条件：<strong>需要该估计为无偏估计</strong>。这样估计值才能紧密散布在真值周围，如果是估计值偏差较大，方差很小，那只会猜到一个错误的位置。如果用图像表示无偏与方差的关系，如下图：</p>
+<div class=figure>
+<img src=../../images/点估计偏差与方差.jpg alt=点估计偏差与方差><p class=caption>点估计偏差与方差</p>
+</div>
+<p>从上图中，我们可以看出：第一幅子图中，当无偏估计且方差很小时，估计点密布在真值周围，我们可以用取平均的方法贴近真实值；如果像第二个子图中，是有偏估计，而方差又很小，那么我们有很大可能会得到一个错误的估计。第二行的两个子图是方差较大的情况，我们可以观察到，无偏估计在方差较大时，点比较散，因此会增大估计误差；而有偏估计在方差较大时，反而可能比小方差时表现的更好。</p>
+<p>下面我们给出无偏估计有效性的精确定义：</p>
+<blockquote>
+<p>设<span class=math>\(\hat\theta_1=\hat\theta_1(x_1,x_2,\dotsb,x_n)\)</span>与<span class=math>\(\hat\theta_2=\hat\theta_2(x_1,x_2,\dotsb,x_n)\)</span>都是参数<span class=math>\(\theta\)</span>的无偏估计，如果： <span class=math>\[\mathrm{Var}(\hat\theta_1)\leq \mathrm{Var}(\hat\theta_2),\forall \theta\in \varTheta\]</span> 且至少对一个<span class=math>\(\theta_0\in\varTheta\)</span>，有严格不等号成立，则称<span class=math>\(\hat\theta_1\)</span>比<span class=math>\(\hat\theta_2\)</span>有效。</p>
+</blockquote>
+<p>那么对于<strong>有偏估计</strong>，我们要如何评价它的优劣呢？有偏估计与无偏估计相比，除了随机散布造成的方差时存在的，还有与真实值之间的系统性<strong>偏差</strong>。由于随机造成的误差有正有负，因此我们用<strong>平方的方式</strong>来去除正负的影响（用绝对值也可以叫平均绝对误差，不过平方有更好的运算性质）。</p>
+<p>在此，我们定义有偏估计的有效性：</p>
+<blockquote>
+<p>设<span class=math>\(\hat\theta_1=\hat\theta_1(x_1,x_2,\dotsb,x_n)\)</span>与<span class=math>\(\hat\theta_2=\hat\theta_2(x_1,x_2,\dotsb,x_n)\)</span>都是参数<span class=math>\(\theta\)</span>的估计量，如果： <span class=math>\[E(\hat\theta_1-\theta)^2\leq E(\hat\theta_2-\theta)^2,\forall \theta\in \varTheta\]</span> 且至少对一个<span class=math>\(\theta_0\in\varTheta\)</span>，有严格不等号成立，则称在<strong>均方误差</strong>意义下<span class=math>\(\hat\theta_1\)</span>优于<span class=math>\(\hat\theta_2\)</span>。其中，<span class=math>\(E(\hat\theta_i-\theta)^2\)</span>称为<span class=math>\(\theta_i\)</span>d的<strong>均方误差</strong>，常记为<span class=math>\(MSE(\hat\theta_i)\)</span>。</p>
+</blockquote>
+<p>根据定义不难发现，如果<span class=math>\(\hat\theta_i\)</span>是无偏估计，那么均方误差等于方差，即<span class=math>\(MSE(\hat\theta)=Var(\hat\theta)\)</span>。我们可以将均方误差的式子做如下变换： <span class=math>\[\begin{aligned}
+MSE(\hat\theta)&=E(\hat\theta-\theta)^2=E\{[\hat\theta-E(\hat\theta)]+[E(\hat\theta)-\theta]\}^2\\
+&=E[(\hat\theta-E(\hat\theta))^2]+[E(\hat\theta)-\theta]^2\\
+&=\mathrm{Var}(\hat\theta)+\delta^2
+\end{aligned}
+\]</span> 其中，我们将<span class=math>\(\delta=|E(\hat\theta)-\theta|\)</span>称为（绝对）偏差，它体现了估计<span class=math>\(\hat\theta\)</span>与真实值<span class=math>\(\theta\)</span>之间的系统误差。由此可见，均方误差<span class=math>\(MSE(\hat\theta_i)\)</span>可以分解成<strong>系统误差和随机误差两部分</strong>两部分组成。无偏性可以让偏差<span class=math>\(\delta\)</span>为0，有效性指标等同于要求方差最小化，而有偏估计则要求二者之和越小越好。假如有一个有偏估计其均方误差比任一个无偏估计的方差还小，则此种有偏估计应予以肯定。如下例子所示：</p>
+<div class=figure>
+<img src=../../images/有偏估计MSE例子.png alt=有偏估计MSE例子.png><p class=caption>有偏估计MSE例子.png</p>
+</div>
+<p>可惜的是，参数的一切可能估计组成的估计类中一致最小均方误差估计不存在。</p>
+<p>思想实验：为什么参数的一切可能估计组成的估计类中一致最小均方误差估计不存在？</p>
+<blockquote>
+<p>如果一个估计<span class=math>\(\theta^*\)</span>为一致最小均方误差，那么对于其他任意对于<span class=math>\(\theta\)</span>的估计方法<span class=math>\(\tilde{\theta}\)</span>在参数空间<span class=math>\(\varTheta\)</span>上都有<span class=math>\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)</span>。问题就出自两个任意上，一是任意估计方法，二是<span class=math>\(\forall\theta\in\varTheta\)</span>；这两个要求太严格了。我们来设计这样一个场景：参数的真值为<span class=math>\(\theta_0\)</span>，有一个奇葩的估计方式<span class=math>\(\tilde{\theta}_0\)</span>，无论给出什么样本，其估计结果都是<span class=math>\(\theta_0\)</span>（固定值完全消除了样本随机性带来的随机性，导致方差为0）。尽管这个估计方式对于<span class=math>\(\varTheta\)</span>中除了真实值为<span class=math>\(\theta_0\)</span>的情况，一无是处，但是我们不能否认在真实值为<span class=math>\(\theta_0\)</span>，这个估计很完美（绝对误差为0）。此时，<span class=math>\(MSE(\tilde{\theta}_0)=0\)</span>。而一致最小均方误差<span class=math>\(\theta^*\)</span>要满足<span class=math>\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)</span>，那么<span class=math>\(\theta^*\)</span>必须是方差为0，偏差为0，那么只能让<span class=math>\(\theta^*=\tilde{\theta}_0\)</span>。那么对于<span class=math>\(\varTheta\)</span>中的任意<span class=math>\(\theta_i\)</span>都可以构造类似的奇葩估计：无论给出什么样本，其估计结果都是<span class=math>\(\theta_i\)</span>。根据<span class=math>\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)</span>，又必须让<span class=math>\(\theta^*=\tilde\theta_i\)</span>。那么对于不同<span class=math>\(\theta_i\)</span>，一致最小均方误差估计<span class=math>\(\theta^*\)</span>根本不是同一个估计方式，所以一致最小均方误差估计不存在。</p>
+</blockquote>
+<p>对此，我们的处理方式是将需要将估计方式范围缩小一些，做出一些限制，例如要求估计方法都必须是无偏的。此时产生一类非常重要的估计类：一致最小方差无偏估计，简称UMVUE。</p>
+<h3 id=一致最小方差无偏估计>一致最小方差无偏估计</h3>
+<p>我们前面已经分析过，均方误差在无偏估计中会简化为方差，此时一致最小均方误差估计简化为一致最小方差无偏估计。仿照前面的形式，我们给出一致最小方差无偏估计的定义：</p>
+<blockquote>
+<p>一致最小方差无偏估计：在参数估计<span class=math>\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)</span>中，如果<span class=math>\(\hat\theta\)</span>是参数<span class=math>\(\theta\)</span>的<strong>无偏估计</strong>，如果对另外任意一个<span class=math>\(\theta\)</span>的<strong>无偏估计</strong><span class=math>\(\tilde{\theta}\)</span>，在参数空间<span class=math>\(\varTheta\)</span>上都有： <span class=math>\[\mathrm{Var}(\hat\theta)\leq \mathrm{Var}(\tilde{\theta})\]</span> 则称<span class=math>\(\hat{\theta}\)</span>是<span class=math>\(\theta\)</span>的<strong>一致最小方差无偏估计，简记为UMVUE(Uniformly minimum variance unbiased estimation)</strong>。</p>
+</blockquote>
+<p>需要指出，有些参数可能不存在无偏估计，即UMVUE可能也不存在。如果参数的无偏估计存在，我们称此参数为<strong>可估参数</strong>。为什么加上无偏之后，一致最小方差估计就可以存在了呢？前面我们提到两个任意上，一是任意估计方法，二是<span class=math>\(\forall\theta\in\varTheta\)</span>，这两个要求太严格。无偏其实是对第一个任意的限制，缩小了估计类范围，把很多奇葩的估计方法（如上文提到的<span class=math>\(\tilde{\theta}_0\)</span>方法）排除在外。</p>
+<p>显然，在给定样本数量后，从无偏性和有效性两个角度，UMVUE是最优解，下面我们给出三个求UMVUE的方法。第一个是零无偏估计法，第二个是充分完全统计量法，第三个用了C-R不等式（单拎出来介绍）。下面我们分别介绍：</p>
+<h4 id=零无偏估计法>零无偏估计法</h4>
+<p>假设我们已经知道了一个无偏估计，有没有办法能够逐渐优化它，从而达到UMVUE呢？这个思路是可以的，我们先介绍一种改进无偏估计的方法，Rao–Blackwell定理：</p>
+<blockquote>
+<p>Rao–Blackwell定理：设<span class=math>\(T=T(x)\)</span>是样本<span class=math>\(x\)</span>关于参数<span class=math>\(\theta\)</span>的充分统计量，<span class=math>\(\hat\theta(x)\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，则 <span class=math>\[h(T)=E[\hat\theta(x)|T]\]</span> 是<span class=math>\(\theta\)</span>的无偏估计，并且 <span class=math>\[D[h(T)]\leq D[\hat\theta(x)]\]</span> 其中当且仅当<span class=math>\(P(\hat\theta(x))=h(T)=1\)</span>，即<span class=math>\(h(T)=\hat\theta(x)\)</span>，a.s. P成立。</p>
+</blockquote>
+<p>我们先解释下<span class=math>\(h(T)=E[\hat\theta(x)|T]\)</span>，从条件期望的<span class=math>\(E(X|Y)\)</span>可知，我们是对<span class=math>\(X\)</span>求期望，会将<span class=math>\(X\)</span>的随机性抹去，<span class=math>\(E(X|Y)\)</span>实际上是关于<span class=math>\(Y\)</span>的随机变量函数，即<span class=math>\(f(Y)=E(X|Y)\)</span>，当<span class=math>\(Y=y\)</span>时，函数的值就确定了。因此<span class=math>\(h(T)=E[\hat\theta(x)|T]\)</span>就是一个关于<span class=math>\(T\)</span>的随机变量函数<span class=math>\(h(T)\)</span>。这个定理的关键就是说，这样的复合函数<span class=math>\(h\cdot T\)</span>是<span class=math>\(\theta\)</span>的无偏估计，且方差比原来的无偏估计<span class=math>\(\hat\theta(x)\)</span>小。</p>
+<h4 id=充分完全统计量法>充分完全统计量法</h4>
+<h3 id=cramer-rao不等式与界>Cramer-Rao不等式与界</h3>
+<p>从最大似然估计的渐进正态性，我们知道估计始终会使一个概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
+<p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，也不能可能是逻辑上的真实值！</p>
 <h2 id=区间估计>区间估计</h2>
 <p>估计一个<strong>数值范围</strong>，核心要求：<strong>希望以尽可能大的概率落在尽可能小的区间内</strong>。</p>
 <h3 id=置信区间与枢轴变量>置信区间与枢轴变量</h3>
@@ -244,13 +308,13 @@ p(x|\theta_1)>p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))>\ln(p(x|\theta_2))
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>16</span>
+</a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
 <span class=button_tally>15</span>
-</a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -330,7 +394,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=14 title=概率统计随机过程>概率统计随机过程<span class=button_tally>14</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -376,13 +440,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/ class=nav-link title=shell-骨干流程3——命令展开>shell-骨干流程3——命令展开</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程2——复合命令与控制流程">Shell 骨干流程2——复合命令与控制流程</a>
 </li>
 </ul>
 <div>
@@ -392,13 +456,13 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>16</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
 <span class=button_tally>15</span>
-</a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -492,7 +556,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=14 title=概率统计随机过程>概率统计随机过程<span class=button_tally>14</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>

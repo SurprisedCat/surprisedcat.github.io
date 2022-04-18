@@ -315,14 +315,14 @@ U_{n+1}(x) = 2xU_n(x) - U_{n-1}(x). \\
 &lt;tr class="even">
 &lt;td align="center">样本方差&lt;/td>
 &lt;td align="center">Sample VAR&lt;/td>
-&lt;td align="center">&lt;span class="math">\(s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{\mu})^2}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{x})^2}\)&lt;/span>，其中&lt;span class="math">\(\bar{x}\)&lt;/span>为样本均值&lt;/td>
 &lt;td align="center">依据所给样本对随机变量的方差做出的一个估计&lt;/td>
 &lt;td align="center">底数&lt;span class="math">\(N-1\)&lt;/span>，无偏估计，统计性质，大于总体方差&lt;/td>
 &lt;/tr>
 &lt;tr class="odd">
 &lt;td align="center">总体方差&lt;/td>
 &lt;td align="center">Population VAR&lt;/td>
-&lt;td align="center">&lt;span class="math">\(s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\bar{\mu})^2}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)&lt;/span>，其中&lt;span class="math">\(\mu\)&lt;/span>为总体均值&lt;/td>
 &lt;td align="center">依据所给样本对随机变量的方差做出的一个估计&lt;/td>
 &lt;td align="center">底数&lt;span class="math">\(N\)&lt;/span>，&lt;strong>有偏估计&lt;/strong>，统计性质，小于样本方差&lt;/td>
 &lt;/tr>
@@ -343,7 +343,7 @@ U_{n+1}(x) = 2xU_n(x) - U_{n-1}(x). \\
 &lt;tr class="even">
 &lt;td align="center">均方误差&lt;/td>
 &lt;td align="center">MSE&lt;/td>
-&lt;td align="center">&lt;span class="math">\(MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\hat{x}_n)^2}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)&lt;/span>&lt;/td>
 &lt;td align="center">它是“误差”的平方的期望值。误差就是估计值与被估计量的差。&lt;/td>
 &lt;td align="center">估计（预测）的性质&lt;/td>
 &lt;/tr>
@@ -364,14 +364,14 @@ U_{n+1}(x) = 2xU_n(x) - U_{n-1}(x). \\
 &lt;tr class="odd">
 &lt;td align="center">平均绝对误差&lt;/td>
 &lt;td align="center">MAE&lt;/td>
-&lt;td align="center">&lt;span class="math">\(MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\hat{x}_n \vert}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\mu \vert}\)&lt;/span>&lt;/td>
 &lt;td align="center">所有单个观测值与算术平均值的偏差的绝对值的平均&lt;/td>
 &lt;td align="center">防止正负值抵消，估计(预测)性质&lt;/td>
 &lt;/tr>
 &lt;tr class="even">
 &lt;td align="center">平均绝对百分比误差&lt;/td>
 &lt;td align="center">MAPE&lt;/td>
-&lt;td align="center">&lt;span class="math">\(MAPE(\hat{x})=\frac{100\%}{N}\sum^N_{n=1}{\vert \frac{x_n-\hat{x}_n }{x_n}\vert}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MAPE(\hat{x})=\frac{100\%}{N}\sum^N_{n=1}{\vert \frac{x_n-\mu}{x_n}\vert}\)&lt;/span>&lt;/td>
 &lt;td align="center">MAE指标的百分比化。MAPE为0%表示完美模型，MAPE大于100 %则表示劣质模型。当真实值有数据等于0时，存在分母0除问题，该公式不可用！&lt;/td>
 &lt;td align="center">平均绝对值误差的相对化，剔除数值范围影响，估计(预测)性质&lt;/td>
 &lt;/tr>

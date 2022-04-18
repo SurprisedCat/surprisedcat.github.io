@@ -467,7 +467,7 @@ f(x)=f(a)+f&amp;#39;(a)(x-a)+\frac{f&amp;#39;&amp;#39;(a)}{2!}(x-a)^2+\dotsb+\fr
 &lt;p>其中，S表示全部和，&lt;span class="math">\(S_n\)&lt;/span>表示部分和，也就是我们高中数学里习惯说的前n项和。简单的讲，&lt;strong>交错级数前n项和的余项，不会超过接下来这一项的绝对值，这就是交错级数的余项公式。&lt;/strong>&lt;/p>
 &lt;h2 id="拉格朗日插值余项">拉格朗日插值余项&lt;/h2>
 &lt;p>在插值过程中，有一个拓展概念叫拉格朗日插值余项。取插值结点：&lt;span class="math">\(a≤x0&amp;lt;x1&amp;lt;······&amp;lt;xn≤b\)&lt;/span> 满足&lt;span class="math">\(L_n(x_k)=f(x_k)\)&lt;/span>的 n 次多项式插值余项： &lt;span class="math">\[R_n(x)=f(x)-L_n(x) \\
-=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}\omega_{n+1}(x)\]&lt;/span>， 其中，&lt;span class="math">\(\omega_{n+1}(x)=(x-x_0)(x-x_1)\dotsb (x-x_n)\)&lt;/span>。选取：&lt;span class="math">\(x_0,x_1,\dotsb,x_n\)&lt;/span>，使&lt;span class="math">\(\underset{a\le x \le b}{max}|\omega_{n+1}(x)|=min\)&lt;/span>$&lt;/p>
+=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}\omega_{n+1}(x)\]&lt;/span> 其中，&lt;span class="math">\(\omega_{n+1}(x)=(x-x_0)(x-x_1)\dotsb (x-x_n)\)&lt;/span>。选取：&lt;span class="math">\(x_0,x_1,\dotsb,x_n\)&lt;/span>，使&lt;span class="math">\(\underset{a\le x \le b}{max}|\omega_{n+1}(x)|=min\)&lt;/span>&lt;/p>
 &lt;p>结论:选取切比雪夫多项式&lt;span class="math">\(T_{n+1}(x)\)&lt;/span>的全部零点。&lt;/p>
 &lt;p>使用切比雪夫节点插值和等距插值对函数&lt;span class="math">\(f(x)=\frac{1}{1+x^2}\)&lt;/span>模拟：&lt;/p>
 &lt;img src="../../images/chebyshev_point.bmp" alt="切比雪夫结点插值" />

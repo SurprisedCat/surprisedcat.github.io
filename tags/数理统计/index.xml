@@ -13,6 +13,12 @@
 &lt;li>&lt;a href="#充分统计量">充分统计量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#因子分解定理">因子分解定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#最小充分统计量">最小充分统计量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#完全完备统计量">完全（完备）统计量&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#指数族中统计量的完全性">指数族中统计量的完全性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最小充分统计量与完备性关系">最小充分统计量与完备性关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有界完全统计量及其性质">有界完全统计量及其性质&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
 &lt;li>&lt;a href="#常用概率分布与特征数表">常用概率分布与特征数表&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="总体与样本">总体与样本&lt;/h2>
@@ -65,7 +71,7 @@
 &lt;/ul>
 &lt;h2 id="统计量与估计量">统计量与估计量&lt;/h2>
 &lt;blockquote>
-&lt;p>统计量：通过&lt;strong>样本构造&lt;/strong>出的&lt;strong>不含任何未知量&lt;/strong>的函数（样本函数），称此函数为统计量。&lt;/p>
+&lt;p>&lt;strong>统计量&lt;/strong>：通过&lt;strong>样本构造&lt;/strong>出的&lt;strong>不含任何未知量&lt;/strong>的函数（样本函数），称此函数为统计量。&lt;/p>
 &lt;/blockquote>
 &lt;p>统计量通过构造函数把分散在样品中的反应总体的信息按人们的要求提取出来。需要强调的是由于样本是N维随机变量，因此其构造的函数（统计量）也是随机变量（大多数是一维）。我们通过观测，得到样本观察值后，立即可算得统计量的值。&lt;/p>
 &lt;p>关于统计量有以下几点说明：&lt;/p>
@@ -76,7 +82,7 @@
 &lt;li>统计量可以简单理解为&lt;strong>随机变量的函数&lt;/strong>。&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>估计量：在参数估计大类的点估计中，那么用于估计未知参数的&lt;strong>统计量&lt;/strong>称为&lt;strong>点估计(量)&lt;/strong>，简称为&lt;strong>估计(量)&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>估计量&lt;/strong>：在参数估计大类的点估计中，那么用于估计未知参数的&lt;strong>统计量&lt;/strong>称为&lt;strong>点估计(量)&lt;/strong>，简称为&lt;strong>估计(量)&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>从上面的定义中，我们注意以下几点：&lt;/p>
 &lt;ul>
@@ -86,18 +92,18 @@
 &lt;li>由于构造出来以估计参数的函数不止一种，因此一个参数的估计量也不止一个。&lt;/li>
 &lt;/ul>
 &lt;h3 id="估计量的评价指标">估计量的评价指标&lt;/h3>
-&lt;p>（1）无偏性（小样本性质）/渐进无偏性（大样本性质）：表示的是无系统偏差，虽然每次的估计值与参数会有随即偏差，但这些随即偏差期望为0；&lt;/p>
+&lt;p>（1）无偏性（小样本性质）/渐进无偏性（大样本性质）：表示的是无系统偏差，虽然每次的估计值与参数会有随机偏差，但这些随机偏差期望为0；&lt;/p>
 &lt;p>无偏估计&lt;strong>不具有变换不变性&lt;/strong>，典型的例子就是无偏样本方差&lt;span class="math">\(s^2=\frac{\sum (x_i-\bar{x})^2}{n-1}\)&lt;/span>的平方根&lt;span class="math">\(s\)&lt;/span>（样本标准差）是总体标准差的有偏估计。但是如果变换是&lt;strong>线性变换&lt;/strong>，那么无偏估计还是无偏的。&lt;/p>
 &lt;p>（2）有效性：之前指出估计量也是随机变量，如果这个估计的期望等于位置参数则为无偏；在&lt;strong>无偏估计的基础上&lt;/strong>，我们希望每次观测得出估计值尽量差距小，这就用&lt;strong>估计量的方差&lt;/strong>来表示。方差越小（即偏离无偏估计参数的概率越小），有效性越高。&lt;/p>
 &lt;p>通常，我们希望在&lt;strong>无偏估计的基础上，估计量的方差尽量小&lt;/strong>，这就是&lt;strong>一致最小方差无偏估计&lt;/strong>，简称为&lt;strong>UMVUE&lt;/strong>。&lt;/p>
 &lt;p>（3）相合性（大样本性质）：当样本容量增加时，随机变量&lt;span class="math">\(\hat{\theta}\)&lt;/span>收敛于&lt;span class="math">\(\theta\)&lt;/span>，直观的讲就是随着样本容量的增大，一个估计量的值能够稳定（以很大概率）在待估参数真值的附近，这就是估计量的相合性的要求。&lt;/p>
 &lt;p>根据随机变量收敛性的强弱，又可分为弱相合（&lt;span class="math">\(\hat{\theta}\overset{P}{\rightarrow}\theta\)&lt;/span>），强相合（&lt;span class="math">\(\hat{\theta}\overset{a.s.}{\rightarrow}\theta\)&lt;/span>）,r阶矩相合（&lt;span class="math">\(\hat{\theta}\overset{r}{\rightarrow}\theta\)&lt;/span>）。理论基础时&lt;strong>大数定理&lt;/strong>。相合性也可等效于无偏（或渐进无偏）+ 方差（弱、强、r阶矩）收敛到0。&lt;/p>
-&lt;p>（4）渐进正态性（大样本性质）：估计量的渐进正态性来源于&lt;strong>中心极限定理&lt;/strong>，若统计量在样本容量&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列&lt;span class="math">\(\{\sigma_n^2\}\)&lt;/span>，满足&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)&lt;/span>，则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，&lt;span class="math">\(\sigma_n^2\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。&lt;/p>
-&lt;p>暂时我还没有搞清楚渐进正态性的意义与用处。&lt;/p>
+&lt;p>（4）渐进正态性（大样本性质）：估计量的渐进正态性来源于&lt;strong>中心极限定理&lt;/strong>，若统计量在样本容量&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列&lt;span class="math">\(\{\sigma_n^2\}\)&lt;/span>，满足&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)&lt;/span>，则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，&lt;span class="math">\(\sigma_n^2\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。从&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\)&lt;/span>来看，分子项依概率收敛于&lt;span class="math">\(\theta\)&lt;/span>的速度与分母项&lt;span class="math">\(\sigma_n(\theta)\)&lt;/span>趋近于0的速度相同时，其比值才会稳定与正态分布。因此，&lt;span class="math">\(\hat\theta_n\)&lt;/span>收敛速度与渐近方差直接相关，渐近方差越小，收敛越快。&lt;/p>
+&lt;p>渐进正态性和相合性的关系类似于中心极限定理和大数定律。相合性是对估计的一种较低要求，它只要求估计序列&lt;span class="math">\(\{\hat\theta_n\}\)&lt;/span>在样本数量&lt;span class="math">\(n\)&lt;/span>增加的时候也趋近于&lt;span class="math">\(\theta\)&lt;/span>，但是并没有指出趋近的速度（例如是&lt;span class="math">\(1/n,1/\sqrt{n}\)&lt;/span>或&lt;span class="math">\(1/\ln n\)&lt;/span>）。而渐进正态性补充了这一点，收敛速度与渐进方差相关。&lt;strong>经验来看，大多数渐进正态估计都是以&lt;span class="math">\(1/\sqrt{n}\)&lt;/span>的速度收敛于被估参数的&lt;/strong>。&lt;/p>
 &lt;h3 id="样本的经验分布函数和样本矩">样本的经验分布函数和样本矩&lt;/h3>
 &lt;p>经验分布函数部分可参考笔记《概率统计随机过程之经验函数分布》。&lt;/p>
 &lt;blockquote>
-&lt;p>样本矩：样本的经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>的各阶矩统称为样本矩，又称矩统计量。&lt;/p>
+&lt;p>&lt;strong>样本矩&lt;/strong>：样本的经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>的各阶矩统称为样本矩，又称矩统计量。&lt;/p>
 &lt;/blockquote>
 &lt;p>这个说法太形式化了，直白的说，经验分布函数的概率质量函数都是&lt;span class="math">\(\frac{1}{n}\)&lt;/span>，样本矩就是以&lt;span class="math">\(p=\frac{1}{n}\)&lt;/span>为概率的各种期望。矩统计量我们心里默默替换成用样本构造的矩相关的函数来理解就行了。大体就这下面两种：&lt;/p>
 &lt;p>&lt;span class="math">\[\begin{aligned}
@@ -109,7 +115,7 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;p>所谓矩估计，就是用这些样本矩构造（凑）出特定的参数，例如偏度系数&lt;span class="math">\(\hat{\beta}=B_3/B_2^{\frac{3}{2}}\)&lt;/span>。如果需要估计的未知参数没法用样本矩构造出来，则认为此参数的矩估计不存在；相对的，如果可以用多种方法构造出来，那么就有多种矩估计，可以通过有效性，无偏性再进行进一步筛选。&lt;/p>
 &lt;h2 id="抽样分布">抽样分布&lt;/h2>
 &lt;blockquote>
-&lt;p>抽样分布：统计量作为一个随机变量，其概率分布称为抽样分布，也称统计量分布、随机变量函数分布。&lt;/p>
+&lt;p>&lt;strong>抽样分布&lt;/strong>：统计量作为一个随机变量，其概率分布称为抽样分布，也称统计量分布、随机变量函数分布。&lt;/p>
 &lt;/blockquote>
 &lt;p>抽样分布就是寻求特定样本的函数（统计函数）的分布，大体分为以下三类：&lt;/p>
 &lt;ol style="list-style-type: decimal">
@@ -122,7 +128,7 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;p>见笔记《概率统计随机过程之抽样的分布》&lt;/p>
 &lt;h2 id="概率分布族">概率分布族&lt;/h2>
 &lt;blockquote>
-&lt;p>分布族：&lt;strong>分布类型&lt;/strong>和&lt;strong>参数空间&lt;/strong>组成一个（概率）参数分布族。此外，分布/概率和特定条件组成，且不能由该特定条件确定具体分布的分布族成为非参数分布族。&lt;/p>
+&lt;p>&lt;strong>分布族&lt;/strong>：&lt;strong>分布类型&lt;/strong>和&lt;strong>参数空间&lt;/strong>组成一个（概率）参数分布族。此外，分布/概率和特定条件组成，且不能由该特定条件确定具体分布的分布族成为非参数分布族。&lt;/p>
 &lt;/blockquote>
 &lt;p>分布族是一个看似很高端，其实就是某一类概率分布的统称，比如常见的参数分布族可写成：&lt;/p>
 &lt;ul>
@@ -143,7 +149,7 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;h3 id="指数型分布族">指数型分布族&lt;/h3>
 &lt;p>区别于指数分布族，指数型分布族是指数分布族的推广，更是囊括了正态分布族、二项分布族、伽马分布族、多项分布族等等。&lt;/p>
 &lt;blockquote>
-&lt;p>指数型分布族：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}h(x)\]&lt;/span> 其中，k为自然数；分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}h(x)\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
 &lt;/blockquote>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>，其中主要有两条：一条是“分布的支撑与&lt;span class="math">\(\theta\)&lt;/span>无关”；另一条是“&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关”，若其间线性相关，如&lt;span class="math">\(T_1(x)=2T_2(x)+3T_3(x)\)&lt;/span>，则把&lt;span class="math">\(T_1(x)\)&lt;/span>归拢到&lt;span class="math">\(T_2(x),T_3(x)\)&lt;/span>中即可。&lt;/p>
 &lt;p>下面这张截图就是将3个常见分布族改写成指数型分布族的例子。&lt;/p>
@@ -152,18 +158,46 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;/div>
 &lt;h2 id="次序统计量">次序统计量&lt;/h2>
 &lt;blockquote>
-&lt;p>次序统计量：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的一个样本，&lt;span class="math">\(X_{(k)}\)&lt;/span>称为该样本的的第k个次序统计量，假如每当获得样本观测值后将其&lt;strong>从小到大排序可得如下有序样本&lt;/strong>： &lt;span class="math">\[x_{(1)}≤x_{(2)}≤x_{(3)}≤\dotsb≤x_{(k)}≤\dotsb≤x_{(n)}\]&lt;/span> 其中，第k个观测值&lt;span class="math">\(x_{(k)}\)&lt;/span>就是&lt;span class="math">\(X_{(k)}\)&lt;/span>的取值，并称&lt;span class="math">\(X_{(1)},X_{(2)},\dotsb,X_{(n)}\)&lt;/span>为该&lt;strong>样本的次序统计量&lt;/strong>，特别的，&lt;span class="math">\(X_{(1)}=\min(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最小次序统计量&lt;/strong>，&lt;span class="math">\(X_{(n)}=\max(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最大次序统计量&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>次序统计量&lt;/strong>：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的一个样本，&lt;span class="math">\(X_{(k)}\)&lt;/span>称为该样本的的第k个次序统计量，假如每当获得样本观测值后将其&lt;strong>从小到大排序可得如下有序样本&lt;/strong>： &lt;span class="math">\[x_{(1)}≤x_{(2)}≤x_{(3)}≤\dotsb≤x_{(k)}≤\dotsb≤x_{(n)}\]&lt;/span> 其中，第k个观测值&lt;span class="math">\(x_{(k)}\)&lt;/span>就是&lt;span class="math">\(X_{(k)}\)&lt;/span>的取值，并称&lt;span class="math">\(X_{(1)},X_{(2)},\dotsb,X_{(n)}\)&lt;/span>为该&lt;strong>样本的次序统计量&lt;/strong>，特别的，&lt;span class="math">\(X_{(1)}=\min(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最小次序统计量&lt;/strong>，&lt;span class="math">\(X_{(n)}=\max(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最大次序统计量&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>次序统计量引申出来的概念有最小次序统计量、最大次序统计量、极差、中位数、P分位数。次序统计量作为随机变量也是有概率分布的，用的不多，等用到的时候再补充。&lt;/p>
 &lt;h2 id="充分统计量">充分统计量&lt;/h2>
-&lt;p>充分统计量的概念比较难理解，但十分重要。由于我看得是茆诗松的《数理统计学》，这本书里的定义包括了分布族的充分统计量，这和其他资料上的充分统计量有一个巨大的区别，就是一般资料上充分统计量都是和分布的某个参数&lt;span class="math">\(\theta\)&lt;/span>相关的，我也更倾向这样定义（更实用）。&lt;/p>
+&lt;p>充分统计量的概念比较难理解，但十分重要。由于我看得是茆诗松的《数理统计学》，这本书里的定义包括了分布族的充分统计量，这和其他资料上的充分统计量有一个区别，就是一般资料上充分统计量都是和分布的某个参数&lt;span class="math">\(\theta\)&lt;/span>相关的，我也更倾向这样定义（更实用主义）。&lt;/p>
 &lt;blockquote>
-&lt;p>充分统计量：假如&lt;span class="math">\(\mathcal{F}=\{F_\theta,\theta\in \varTheta\}\)&lt;/span>是参数分布族（&lt;span class="math">\(\theta\)&lt;/span>可以是向量），在给定&lt;span class="math">\(T=t\)&lt;/span>下，样本&lt;span class="math">\(x\)&lt;/span>（n维随机变量）的条件分布与&lt;span class="math">\(\theta\)&lt;/span>无关，则称&lt;span class="math">\(T\)&lt;/span>&lt;strong>为参数&lt;span class="math">\(\theta\)&lt;/span>的充分统计量&lt;/strong>。 &lt;span class="math">\[P(X=x\mid T(X)=t,\,\theta )=P(X=x\mid T(X)=t)\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>充分统计量&lt;/strong>：假如&lt;span class="math">\(\mathcal{F}=\{F_\theta,\theta\in \varTheta\}\)&lt;/span>是参数分布族（&lt;span class="math">\(\theta\)&lt;/span>可以是向量），在给定&lt;span class="math">\(T=t\)&lt;/span>下，样本&lt;span class="math">\(x\)&lt;/span>（n维随机变量）的条件分布与&lt;span class="math">\(\theta\)&lt;/span>无关，则称&lt;span class="math">\(T\)&lt;/span>&lt;strong>为参数&lt;span class="math">\(\theta\)&lt;/span>的充分统计量&lt;/strong>。 &lt;span class="math">\[P(X=x\mid T(X)=t,\,\theta )=P(X=x\mid T(X)=t)\]&lt;/span>&lt;/p>
 &lt;/blockquote>
 &lt;p>从上面这个式子中，我们两边同时乘以&lt;span class="math">\(P(\theta)\)&lt;/span>，有 &lt;span class="math">\[
 P(X=x\mid T(X)=t,\,\theta)P(\theta)=P(X=x,\theta\mid T(X)=t)\\
 =P(X=x\mid T(X)=t)P(\theta)
-\]&lt;/span> 显然，有&lt;span class="math">\(P(X=x\mid T(X)=t),P(\theta)\)&lt;/span>二者独立。当我们已知&lt;span class="math">\(T(x)\)&lt;/span>以后，&lt;span class="math">\(\theta\)&lt;/span>的概率就不重要了，或者说&lt;span class="math">\(T(x)\)&lt;/span>完全包含了&lt;span class="math">\(\theta\)&lt;/span>对&lt;span class="math">\(X\)&lt;/span>有影响的信息。我们也可以换个角度来说明充分统计量不损失有关&lt;span class="math">\(\theta\)&lt;/span>信息，比如你已经抽样的1000个数据全都写在了一张纸上，这些数据是给你写论文用的。突然有一天你的狗把你这张写满数据的纸吃掉了，这个时候假如你的数据满足指数分布，且你已经提前把这些数据的的&lt;span class="math">\(\hat\lambda\)&lt;/span>算了出来，那你的狗也没坏了什么大事——因为这个充分统计量包含了这1000个数据的所有有用信息。你可以设计一个指数分布且&lt;span class="math">\(\lambda=\hat\lambda\)&lt;/span>的随机试验重新获得样本，这个新样本和过去的样本可能不完全一样，但它和老样本有相同的分布，当样本容量趋于无穷，新老两个样本应是等效的。&lt;/p>
+\]&lt;/span> 显然，有&lt;span class="math">\(P(X=x\mid T(X)=t),P(\theta)\)&lt;/span>二者独立。当我们已知&lt;span class="math">\(T(x)=t_0\)&lt;/span>以后，样本的联合概率函数中不含有&lt;span class="math">\(\theta\)&lt;/span>项，或者说&lt;span class="math">\(T(x)\)&lt;/span>完全包含了&lt;span class="math">\(\theta\)&lt;/span>对&lt;span class="math">\(X\)&lt;/span>有影响的信息。例子如下：&lt;/p>
+&lt;p>设&lt;span class="math">\(x_1,x_2,\dotsb,x_n\)&lt;/span>是来自两点分布&lt;span class="math">\(b(1,p)\)&lt;/span>的一个样本，其中&lt;span class="math">\(p\in(0,1),n&amp;gt;2\)&lt;/span>，考察以下两个统计量是否为充分统计量： &lt;span class="math">\[
+T_1=\sum_{i=1}^n x_i,\qquad T_2=x_1+x_2
+\]&lt;/span> 首先，该样本的联合分布是： &lt;span class="math">\[
+P(X_1=x_1,X_2=x_2,\dotsb,X_n=x_n)=p^{\sum_{i=1}^n x_i}(1-p)^{n-\sum_{i=1}^n x_i}
+\]&lt;/span> 其中，&lt;span class="math">\(x_i\)&lt;/span>非0即1。统计量&lt;span class="math">\(T_1=\sum_{i=1}^n x_i\)&lt;/span>的分布为二项分布&lt;span class="math">\(b(n,p)\)&lt;/span>，即 &lt;span class="math">\[
+P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
+\]&lt;/span> 在给定&lt;span class="math">\(T_1=t\)&lt;/span>下，样本的条件分布为： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;P(X_1=x_1,X_2=x_2,\dotsb,X_n=x_n|T_1=t)\\
+&amp;amp;=\frac{P(X_1=x_1,X_2=x_2,\dotsb,X_n=t-\sum_{i=1}^{n-1}x_i)}{P(T_1=t)}\\
+&amp;amp;=\frac{p^t(1-p)^{n-t}}{{n\choose t}p^t(1-p)^{n-t}}\\
+&amp;amp;=\frac{1}{{n\choose t}}
+\end{aligned}
+\]&lt;/span> 计算结果表明，这个条件分布与参数&lt;span class="math">\(p\)&lt;/span>无关，即他不含参数&lt;span class="math">\(p\)&lt;/span>的信息，这意味着样本中有关&lt;span class="math">\(p\)&lt;/span>的信息都含在统计量&lt;span class="math">\(T_1\)&lt;/span>中。&lt;/p>
+&lt;p>在统计量&lt;span class="math">\(T_2=x_1+x_2\)&lt;/span>的分布为&lt;span class="math">\(b(2,p)\)&lt;/span>,在&lt;span class="math">\(T_2=t\)&lt;/span>下，样本的条件分布为： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;P(X_1=x_1,X_2=x_2,\dotsb,X_n=x_n|T_2=t)\\
+&amp;amp;=\frac{P(X_1=x_1,X_2=t-x_1,\dotsb,X_n=x_n)}{P(T_2=t)}\\
+&amp;amp;=\frac{p^{t+\sum_{i=3}^n x_i}(1-p)^{n-t-\sum_{i=3}^n x_i}}{{2\choose t}p^t(1-p)^{2-t}}\\
+&amp;amp;=\frac{p^{\sum_{i=3}^n x_i}(1-p)^{n-2-\sum_{i=3}^n x_i}}{{2\choose t}}
+\end{aligned}
+\]&lt;/span> 显然此条件分布与参数&lt;span class="math">\(p\)&lt;/span>有关，即它还有参数&lt;span class="math">\(p\)&lt;/span>的信息，而样本中关于&lt;span class="math">\(p\)&lt;/span>的信息没有完全包含在统计量&lt;span class="math">\(T_2\)&lt;/span>中。&lt;/p>
+&lt;p>可以设想为： &lt;span class="math">\[
+\left\{样本\mathbf{x}中所含有有关\theta的信息\right\}=\\
+\left\{t统计量T中含有有关\theta的信息\right\}+\left\{当T取值为t后，样本\mathbf{x}中还含有有关\theta的信息\right\}
+\]&lt;/span> 如果后一项为0，那么统计量&lt;span class="math">\(T\)&lt;/span>即为充分统计量。&lt;/p>
+&lt;p>我们再从统计量定义的角度反过来看，统计量是一组样本为自变量的函数。样本中包含了未知参数&lt;span class="math">\(\theta\)&lt;/span>部分信息的，&lt;span class="math">\(\theta\)&lt;/span>的统计量是将样本中的关于&lt;span class="math">\(\theta\)&lt;/span>的信息提取出来，如果我们构造这个函数（统计量）能够把样本中所有&lt;span class="math">\(\theta\)&lt;/span>信息都提取出来，那么对于估计未知参数&lt;span class="math">\(\theta\)&lt;/span>而言，样本和该关于&lt;span class="math">\(\theta\)&lt;/span>统计量效果是一样的，此时的统计量就是充分统计量。&lt;/p>
+&lt;p>我们举个例子来说明充分统计量不损失有关&lt;span class="math">\(\theta\)&lt;/span>信息，比如你已经抽样的1000个数据全都写在了一张纸上，这些数据是给你写论文用的。突然有一天你的狗把你这张写满数据的纸吃掉了，这个时候假如你的数据满足指数分布，只有参数&lt;span class="math">\(\lambda\)&lt;/span>未知，且你已经提前把这些数据的的&lt;span class="math">\(\hat\lambda\)&lt;/span>算了出来，那你的狗也没坏了什么大事——因为这个充分统计量包含了这1000个数据的所有有用信息。你可以设计一个指数分布且&lt;span class="math">\(\lambda=\hat\lambda\)&lt;/span>的随机试验重新获得样本，这个新样本和过去的样本可能不完全一样，但它和老样本有相同的分布，当样本容量趋于无穷，新老两个样本应是等效的。&lt;/p>
 &lt;blockquote>
 &lt;p>从信息论的角度来说，就是&lt;span class="math">\(X,T(X)\)&lt;/span>中包含关于&lt;span class="math">\(\theta\)&lt;/span>的信息相同，即&lt;strong>互信息相同&lt;/strong>： &lt;span class="math">\[I{\bigl (}\theta ;T(X){\bigr )}=I(\theta ;X)\]&lt;/span>&lt;/p>
 &lt;/blockquote>
@@ -172,19 +206,65 @@ P(X=x\mid T(X)=t,\,\theta)P(\theta)=P(X=x,\theta\mid T(X)=t)\\
 &lt;h3 id="因子分解定理">因子分解定理&lt;/h3>
 &lt;p>虽然我们说的很好听，但是实际情况下通过条件概率方式的验证并不是特别容易。因此我们给出一个叫作因子分解定理的东西。它的证明并不需要掌握，而其用法又很简单，所以这个计算的难度就大大降低了。&lt;/p>
 &lt;blockquote>
-&lt;p>因子分解定理（费希尔分解定理）：设总体概率函数（分布列或密度函数）为&lt;span class="math">\(f(x;\theta)\)&lt;/span>,&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>为样本，那么&lt;span class="math">\(T=T(X_1,X_2,\dotsb,X_n)\)&lt;/span>为充分统计量的充要条件为：存在函数&lt;span class="math">\(g(t,\theta)\)&lt;/span>与&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>使得对任意的&lt;span class="math">\(\theta\)&lt;/span>和任意一组的观测值&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>，都有 &lt;span class="math">\[f(x_1,\dotsb,x_n;\theta)=g(T(x_1,\dotsb,x_n),\theta)h(x_1,\dotsb,x_n)\]&lt;/span> 其中，&lt;span class="math">\(g(t,\theta)\)&lt;/span>只通过统计量&lt;span class="math">\(T(x_1,\dotsb,x_n)\)&lt;/span>的取值二依赖于样本。&lt;/p>
+&lt;p>&lt;strong>因子分解定理（费希尔分解定理）&lt;/strong>：设总体概率函数（分布列或密度函数）为&lt;span class="math">\(f(x;\theta)\)&lt;/span>,&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>为样本，那么&lt;span class="math">\(T=T(X_1,X_2,\dotsb,X_n)\)&lt;/span>为充分统计量的&lt;strong>充要条件&lt;/strong>为：存在函数&lt;span class="math">\(g(t,\theta)\)&lt;/span>与&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>使得对任意的&lt;span class="math">\(\theta\)&lt;/span>和任意一组的观测值&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>，都有 &lt;span class="math">\[f(x_1,\dotsb,x_n;\theta)=g(T(x_1,\dotsb,x_n),\theta)h(x_1,\dotsb,x_n)\]&lt;/span> 其中，&lt;span class="math">\(g(t,\theta)\)&lt;/span>只通过统计量&lt;span class="math">\(T(x_1,\dotsb,x_n)\)&lt;/span>的取值二依赖于样本。&lt;/p>
 &lt;/blockquote>
-&lt;p>这个定理把抽样的样本发生的联合概率密度分成两个部分，一是只和&lt;span class="math">\(t,\theta\)&lt;/span>相关的&lt;span class="math">\(g(t,\theta)\)&lt;/span>，另一个是只和&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>相关的&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>，比条件概率的方法容易了许多。有一个一般性的情况是通常&lt;span class="math">\(h(x_1,\dotsb,x_n)=c\)&lt;/span>，即它通常是一个常数。&lt;/p>
+&lt;p>这个定理把抽样的样本发生的联合概率密度分成两个部分，一是只和&lt;span class="math">\(t,\theta\)&lt;/span>相关的&lt;span class="math">\(g(t,\theta)\)&lt;/span>，其中&lt;span class="math">\(t\)&lt;/span>可以用样本&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>表示；另一个是只和&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>相关的&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>。因子分解定理比条件概率的方法容易了许多。有一个一般性的情况是通常&lt;span class="math">\(h(x_1,\dotsb,x_n)=c\)&lt;/span>，即它通常是一个常数。然后把样本的概率函数用统计量&lt;span class="math">\(t\)&lt;/span>和&lt;span class="math">\(\theta\)&lt;/span>表示出来。&lt;/p>
 &lt;h3 id="最小充分统计量">最小充分统计量&lt;/h3>
 &lt;p>充分统计量做到了“用已知刻画未知”。那么更进一步的，我们当然希望充分统计量越简单，越精细越好。所以这其实就是极小充分统计量的定义。&lt;/p>
 &lt;blockquote>
-&lt;p>最小充分统计量：若一个充分统计量是任何其他充分统计量的函数，则称其是一个最小充分统计量。即，统计量&lt;span class="math">\(S(X)\)&lt;/span>是最小充分统计量当且仅当&lt;/p>
+&lt;p>&lt;strong>最小充分统计量&lt;/strong>：若一个充分统计量是任何其他充分统计量的函数，则称其是一个最小充分统计量。即，统计量&lt;span class="math">\(S(X)\)&lt;/span>是最小充分统计量当且仅当&lt;/p>
 &lt;ul>
 &lt;li>&lt;span class="math">\(S(X)\)&lt;/span>是充分统计量，&lt;/li>
 &lt;li>如果&lt;span class="math">\(T(X)\)&lt;/span>是一个充分统计量，那么存在一个函数&lt;span class="math">\(f\)&lt;/span>使得&lt;span class="math">\(S(X)= f(T(X))\)&lt;/span>。&lt;/li>
 &lt;/ul>
 &lt;/blockquote>
 &lt;p>如果任何一个充分统计量&lt;span class="math">\(T\)&lt;/span>都可以通过加工得到&lt;span class="math">\(S\)&lt;/span>，这就说明&lt;span class="math">\(S\)&lt;/span>一定是更精细的（或者更严谨地说，一定不会变得更粗糙）充分统计量，而“任何一个”保证了最小性。我们也可以通过数据处理不等于来理解加工只可能减少信息量这一事实。一般而言，最小充分统计量不太好证出来，而且最小充分统计量也不是唯一的，只要与最小充分统计量有一一对应关系的统计量，都是最小充分统计量。&lt;/p>
+&lt;p>可以证明：&lt;/p>
+&lt;blockquote>
+&lt;p>一个&lt;strong>充分完全统计量&lt;/strong>必是最小充分统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>下面我们来解释什么是完全统计量。&lt;/p>
+&lt;h3 id="完全完备统计量">完全（完备）统计量&lt;/h3>
+&lt;p>完全统计量，又称完备统计量。打个不大恰当的比方，完全统计量类似充分必要条件中的必要条件。我们首先定义一个辅助统计量来帮助理解完全统计量：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>辅助(ancillary)统计量&lt;/strong>:一个统计&lt;span class="math">\(V(x)\)&lt;/span>是辅助统计量，当且仅当其概率分布不依赖与任何未知量。&lt;/p>
+&lt;/blockquote>
+&lt;p>一个典型但没啥用的辅助统计量就是常数，即&lt;span class="math">\(V(x)\equiv C\)&lt;/span>。&lt;strong>常数是不含有任何概率分布信息的。&lt;/strong>再举一个典型例子（位移族）：&lt;/p>
+&lt;blockquote>
+&lt;p>已知某一概率密度函数&lt;span class="math">\(f(x)\)&lt;/span>，对其沿&lt;span class="math">\(x\)&lt;/span>轴向右平移一段未知距离&lt;span class="math">\(\mu\)&lt;/span>，则新的pdf为&lt;span class="math">\(f(x-\mu)\)&lt;/span>，现在从平移后的pdf中抽样得到i.i.d的样本&lt;span class="math">\(x_1,x_2,\dotsb,x_n\)&lt;/span>，我们想从样本估计参数&lt;span class="math">\(\mu\)&lt;/span>。如果我们构造一个统计量&lt;span class="math">\(V(x)=x_{(k)}-x_{(l)}\)&lt;/span>，其中&lt;span class="math">\(x_{(k)},x_{(l)}\)&lt;/span>是次序统计量，那么&lt;span class="math">\(V(x)\)&lt;/span>的pdf只会和&lt;span class="math">\(f(x)\)&lt;/span>有关，与&lt;span class="math">\(\mu\)&lt;/span>无关，即为辅助统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>这是一个过于严格的要求，下面再给出一个放松的定义：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>一阶辅助统计量&lt;/strong>：一个统计&lt;span class="math">\(V(x)\)&lt;/span>是一阶辅助统计量，当且仅当其期望&lt;span class="math">\(E[V(x)]\)&lt;/span>不依赖与任何未知量。&lt;/p>
+&lt;/blockquote>
+&lt;p>显然，辅助统计量必然是一阶辅助统计量。需要指出，ancillary一词的翻译辅助，有附加、附属的意思，不一定是指辅助做了什么事。&lt;/p>
+&lt;p>如果对一个统计量&lt;span class="math">\(T\)&lt;/span>能找到一个非平凡（不是常函数）的辅助统计量&lt;span class="math">\(V\)&lt;/span>，使得&lt;span class="math">\(V(T(x))\neq C\)&lt;/span>，也就是说&lt;span class="math">\(V(x&amp;#39;)\)&lt;/span>可以从统计量&lt;span class="math">\(T(x)\)&lt;/span>中再提取一些和带估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息出来。那么说明，统计量&lt;span class="math">\(T(x)\)&lt;/span>中除了含有&lt;span class="math">\(\theta\)&lt;/span>的信息之外，还有其他冗余的信息，可以进一步压缩，&lt;strong>此时我们就不能称&lt;span class="math">\(T\)&lt;/span>是完全统计量&lt;/strong>。完全统计量是纯粹性的体现，意味着不包含其他与参数估计无关的信息。统计量可以是完全但不充分的，这意味再样本信息压缩过程中，不仅仅把和待估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息剔除掉，甚至与&lt;span class="math">\(\theta\)&lt;/span>有关的信息也可能去掉了一些，属于“有损压缩”。由此，我们给出完全统计量定义：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>完全（完备）统计量&lt;/strong>：设&lt;span class="math">\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)&lt;/span>为一分布族，&lt;span class="math">\(\varTheta\)&lt;/span>是参数空间，设统计量&lt;span class="math">\(T=T(x)\)&lt;/span>，若对任何辅助统计量&lt;span class="math">\(\varphi(T(x))\)&lt;/span>，当 &lt;span class="math">\[E[\varphi(T(x))]=0\]&lt;/span> 都有 &lt;span class="math">\[P(\varphi(T(x))=0)=1\]&lt;/span> 则称&lt;span class="math">\(T(x)\)&lt;/span>是一完全（完备）统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>注意，辅助统计量是和待估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的随机数，因此也可以说是对&lt;span class="math">\(\forall \theta\in\varTheta\)&lt;/span>都成立。&lt;span class="math">\(P(\varphi(T(x))=0)=1\)&lt;/span>表示以1的概率为0，其实等于其他常数也无所谓，只有将常数移到另一边就可以了，都不含分布信息，效果一样的。简单的说，如果以统计量&lt;span class="math">\(T\)&lt;/span>为自变量的辅助统计量的期望为0，那么它就是常数0。&lt;/p>
+&lt;p>关于统计量的充分性、完全性还可以参考网页资料文件加中的&lt;a href="../../网页资料/概率论数理统计随机过程-关于充分完全统计量的一点儿思考.html">《概率论数理统计随机过程-关于充分完全统计量的一点儿思考.html》&lt;/a>一文。&lt;/p>
+&lt;p>有函数处理的信息不增特性可知，若&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量，则它任一函数&lt;span class="math">\(\delta(T)\)&lt;/span>也是完全统计量。&lt;/p>
+&lt;h4 id="指数族中统计量的完全性">指数族中统计量的完全性&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>定理&lt;/strong>：设样本&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的概率函数 &lt;span class="math">\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]&lt;/span> 为指数族的自然形式。令&lt;span class="math">\(T(x)=(T_1(x),\dotsb,T_k(x))\)&lt;/span>，且自然参数空间&lt;span class="math">\(\varTheta^\star\)&lt;/span>作为&lt;span class="math">\(R_k\)&lt;/span>的自己有内点，则&lt;span class="math">\(T(x)\)&lt;/span>是充分统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>首先，该定理一个充分条件，只适用于判别指数族的完全性。&lt;span class="math">\(\theta_j\)&lt;/span>是可以是其他参数的函数，其结果作为&lt;span class="math">\(\varTheta^\star\)&lt;/span>的空间一维。&lt;/p>
+&lt;p>其次，有内点意味着&lt;span class="math">\(\varTheta^\star\)&lt;/span>不可以是K维空间的超平面，即&lt;span class="math">\(\theta=(\theta_1,\dotsb,\theta_k)\)&lt;/span>是满秩的。&lt;/p>
+&lt;p>最后，即使没有内点，统计量也不一定是不完全的，需要用定义或其他方法进一步判别。&lt;/p>
+&lt;h4 id="最小充分统计量与完备性关系">最小充分统计量与完备性关系&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>定理&lt;/strong>：如果最小充分统计量存在，那么任何充分完全统计量都是最小充分统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>这是一个充分条件，而非充要条件。最小充分统计量可能是不完全的，即其可能包含无法分离出去的冗余内容。&lt;/p>
+&lt;h4 id="有界完全统计量及其性质">有界完全统计量及其性质&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>有界完全（完备）统计量&lt;/strong>：设&lt;span class="math">\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)&lt;/span>为一分布族，&lt;span class="math">\(\varTheta\)&lt;/span>是参数空间，设统计量&lt;span class="math">\(T=T(x)\)&lt;/span>，若对任何&lt;strong>有界或a.s.有界&lt;/strong>辅助统计量&lt;span class="math">\(\varphi(T(x))\)&lt;/span>，当 &lt;span class="math">\[E[\varphi(T(x))]=0\]&lt;/span> 都有 &lt;span class="math">\[P(\varphi(T(x))=0)=1\]&lt;/span> 则称&lt;span class="math">\(T(x)\)&lt;/span>是一有界完全（完备）统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>有界完全统计量是对完全统计量的放松，只是给辅助统计量的函数&lt;strong>添加了有界这一条件&lt;/strong>。因此，一个完全统计量（严要求）必为有界完全统计量（松要求）。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Basu定理&lt;/strong>：&lt;span class="math">\(x\)&lt;/span>是分布中抽取的一个样本，如果&lt;span class="math">\(T(x)\)&lt;/span>是一个&lt;strong>充分，且有界完全&lt;/strong>统计量，那么&lt;span class="math">\(T(x)\)&lt;/span>独立于所有的辅助统计量。&lt;/p>
+&lt;/blockquote>
 &lt;h2 id="常用概率分布与特征数表">常用概率分布与特征数表&lt;/h2>
 &lt;div class="figure">
 &lt;img src="../../images/常用概率分布族.png" alt="常用概率分布族" />&lt;p class="caption">常用概率分布族&lt;/p>

@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概率统计随机过程 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/</link><description>Recent content in 概率统计随机过程 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 12 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之抽样的分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</link><pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概率统计随机过程 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/</link><description>Recent content in 概率统计随机过程 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 18 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之条件期望与重期望公式</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/</link><pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/</guid><description>
+&lt;h2 id="概率统计随机过程之条件期望与重期望公式">概率统计随机过程之条件期望与重期望公式&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#条件数学期望">条件数学期望&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#重期望公式">重期望公式&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="条件数学期望">条件数学期望&lt;/h2>
+&lt;h2 id="重期望公式">重期望公式&lt;/h2></description></item><item><title>概率统计随机过程之抽样的分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</link><pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</guid><description>
 &lt;h2 id="概率统计随机过程之抽样的分布统计量的分布">概率统计随机过程之抽样的分布（统计量的分布）&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#样本均值的抽样分布正态分布">样本均值的抽样分布——正态分布&lt;/a>&lt;/li>
@@ -200,6 +207,12 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;li>&lt;a href="#充分统计量">充分统计量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#因子分解定理">因子分解定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#最小充分统计量">最小充分统计量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#完全完备统计量">完全（完备）统计量&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#指数族中统计量的完全性">指数族中统计量的完全性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最小充分统计量与完备性关系">最小充分统计量与完备性关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有界完全统计量及其性质">有界完全统计量及其性质&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
 &lt;li>&lt;a href="#常用概率分布与特征数表">常用概率分布与特征数表&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="总体与样本">总体与样本&lt;/h2>
@@ -252,7 +265,7 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;/ul>
 &lt;h2 id="统计量与估计量">统计量与估计量&lt;/h2>
 &lt;blockquote>
-&lt;p>统计量：通过&lt;strong>样本构造&lt;/strong>出的&lt;strong>不含任何未知量&lt;/strong>的函数（样本函数），称此函数为统计量。&lt;/p>
+&lt;p>&lt;strong>统计量&lt;/strong>：通过&lt;strong>样本构造&lt;/strong>出的&lt;strong>不含任何未知量&lt;/strong>的函数（样本函数），称此函数为统计量。&lt;/p>
 &lt;/blockquote>
 &lt;p>统计量通过构造函数把分散在样品中的反应总体的信息按人们的要求提取出来。需要强调的是由于样本是N维随机变量，因此其构造的函数（统计量）也是随机变量（大多数是一维）。我们通过观测，得到样本观察值后，立即可算得统计量的值。&lt;/p>
 &lt;p>关于统计量有以下几点说明：&lt;/p>
@@ -263,7 +276,7 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;li>统计量可以简单理解为&lt;strong>随机变量的函数&lt;/strong>。&lt;/li>
 &lt;/ul>
 &lt;blockquote>
-&lt;p>估计量：在参数估计大类的点估计中，那么用于估计未知参数的&lt;strong>统计量&lt;/strong>称为&lt;strong>点估计(量)&lt;/strong>，简称为&lt;strong>估计(量)&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>估计量&lt;/strong>：在参数估计大类的点估计中，那么用于估计未知参数的&lt;strong>统计量&lt;/strong>称为&lt;strong>点估计(量)&lt;/strong>，简称为&lt;strong>估计(量)&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>从上面的定义中，我们注意以下几点：&lt;/p>
 &lt;ul>
@@ -273,18 +286,18 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;li>由于构造出来以估计参数的函数不止一种，因此一个参数的估计量也不止一个。&lt;/li>
 &lt;/ul>
 &lt;h3 id="估计量的评价指标">估计量的评价指标&lt;/h3>
-&lt;p>（1）无偏性（小样本性质）/渐进无偏性（大样本性质）：表示的是无系统偏差，虽然每次的估计值与参数会有随即偏差，但这些随即偏差期望为0；&lt;/p>
+&lt;p>（1）无偏性（小样本性质）/渐进无偏性（大样本性质）：表示的是无系统偏差，虽然每次的估计值与参数会有随机偏差，但这些随机偏差期望为0；&lt;/p>
 &lt;p>无偏估计&lt;strong>不具有变换不变性&lt;/strong>，典型的例子就是无偏样本方差&lt;span class="math">\(s^2=\frac{\sum (x_i-\bar{x})^2}{n-1}\)&lt;/span>的平方根&lt;span class="math">\(s\)&lt;/span>（样本标准差）是总体标准差的有偏估计。但是如果变换是&lt;strong>线性变换&lt;/strong>，那么无偏估计还是无偏的。&lt;/p>
 &lt;p>（2）有效性：之前指出估计量也是随机变量，如果这个估计的期望等于位置参数则为无偏；在&lt;strong>无偏估计的基础上&lt;/strong>，我们希望每次观测得出估计值尽量差距小，这就用&lt;strong>估计量的方差&lt;/strong>来表示。方差越小（即偏离无偏估计参数的概率越小），有效性越高。&lt;/p>
 &lt;p>通常，我们希望在&lt;strong>无偏估计的基础上，估计量的方差尽量小&lt;/strong>，这就是&lt;strong>一致最小方差无偏估计&lt;/strong>，简称为&lt;strong>UMVUE&lt;/strong>。&lt;/p>
 &lt;p>（3）相合性（大样本性质）：当样本容量增加时，随机变量&lt;span class="math">\(\hat{\theta}\)&lt;/span>收敛于&lt;span class="math">\(\theta\)&lt;/span>，直观的讲就是随着样本容量的增大，一个估计量的值能够稳定（以很大概率）在待估参数真值的附近，这就是估计量的相合性的要求。&lt;/p>
 &lt;p>根据随机变量收敛性的强弱，又可分为弱相合（&lt;span class="math">\(\hat{\theta}\overset{P}{\rightarrow}\theta\)&lt;/span>），强相合（&lt;span class="math">\(\hat{\theta}\overset{a.s.}{\rightarrow}\theta\)&lt;/span>）,r阶矩相合（&lt;span class="math">\(\hat{\theta}\overset{r}{\rightarrow}\theta\)&lt;/span>）。理论基础时&lt;strong>大数定理&lt;/strong>。相合性也可等效于无偏（或渐进无偏）+ 方差（弱、强、r阶矩）收敛到0。&lt;/p>
-&lt;p>（4）渐进正态性（大样本性质）：估计量的渐进正态性来源于&lt;strong>中心极限定理&lt;/strong>，若统计量在样本容量&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列&lt;span class="math">\(\{\sigma_n^2\}\)&lt;/span>，满足&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)&lt;/span>，则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，&lt;span class="math">\(\sigma_n^2\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。&lt;/p>
-&lt;p>暂时我还没有搞清楚渐进正态性的意义与用处。&lt;/p>
+&lt;p>（4）渐进正态性（大样本性质）：估计量的渐进正态性来源于&lt;strong>中心极限定理&lt;/strong>，若统计量在样本容量&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列&lt;span class="math">\(\{\sigma_n^2\}\)&lt;/span>，满足&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)&lt;/span>，则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，&lt;span class="math">\(\sigma_n^2\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。从&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\)&lt;/span>来看，分子项依概率收敛于&lt;span class="math">\(\theta\)&lt;/span>的速度与分母项&lt;span class="math">\(\sigma_n(\theta)\)&lt;/span>趋近于0的速度相同时，其比值才会稳定与正态分布。因此，&lt;span class="math">\(\hat\theta_n\)&lt;/span>收敛速度与渐近方差直接相关，渐近方差越小，收敛越快。&lt;/p>
+&lt;p>渐进正态性和相合性的关系类似于中心极限定理和大数定律。相合性是对估计的一种较低要求，它只要求估计序列&lt;span class="math">\(\{\hat\theta_n\}\)&lt;/span>在样本数量&lt;span class="math">\(n\)&lt;/span>增加的时候也趋近于&lt;span class="math">\(\theta\)&lt;/span>，但是并没有指出趋近的速度（例如是&lt;span class="math">\(1/n,1/\sqrt{n}\)&lt;/span>或&lt;span class="math">\(1/\ln n\)&lt;/span>）。而渐进正态性补充了这一点，收敛速度与渐进方差相关。&lt;strong>经验来看，大多数渐进正态估计都是以&lt;span class="math">\(1/\sqrt{n}\)&lt;/span>的速度收敛于被估参数的&lt;/strong>。&lt;/p>
 &lt;h3 id="样本的经验分布函数和样本矩">样本的经验分布函数和样本矩&lt;/h3>
 &lt;p>经验分布函数部分可参考笔记《概率统计随机过程之经验函数分布》。&lt;/p>
 &lt;blockquote>
-&lt;p>样本矩：样本的经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>的各阶矩统称为样本矩，又称矩统计量。&lt;/p>
+&lt;p>&lt;strong>样本矩&lt;/strong>：样本的经验分布函数&lt;span class="math">\(F_n(x)\)&lt;/span>的各阶矩统称为样本矩，又称矩统计量。&lt;/p>
 &lt;/blockquote>
 &lt;p>这个说法太形式化了，直白的说，经验分布函数的概率质量函数都是&lt;span class="math">\(\frac{1}{n}\)&lt;/span>，样本矩就是以&lt;span class="math">\(p=\frac{1}{n}\)&lt;/span>为概率的各种期望。矩统计量我们心里默默替换成用样本构造的矩相关的函数来理解就行了。大体就这下面两种：&lt;/p>
 &lt;p>&lt;span class="math">\[\begin{aligned}
@@ -296,7 +309,7 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;p>所谓矩估计，就是用这些样本矩构造（凑）出特定的参数，例如偏度系数&lt;span class="math">\(\hat{\beta}=B_3/B_2^{\frac{3}{2}}\)&lt;/span>。如果需要估计的未知参数没法用样本矩构造出来，则认为此参数的矩估计不存在；相对的，如果可以用多种方法构造出来，那么就有多种矩估计，可以通过有效性，无偏性再进行进一步筛选。&lt;/p>
 &lt;h2 id="抽样分布">抽样分布&lt;/h2>
 &lt;blockquote>
-&lt;p>抽样分布：统计量作为一个随机变量，其概率分布称为抽样分布，也称统计量分布、随机变量函数分布。&lt;/p>
+&lt;p>&lt;strong>抽样分布&lt;/strong>：统计量作为一个随机变量，其概率分布称为抽样分布，也称统计量分布、随机变量函数分布。&lt;/p>
 &lt;/blockquote>
 &lt;p>抽样分布就是寻求特定样本的函数（统计函数）的分布，大体分为以下三类：&lt;/p>
 &lt;ol style="list-style-type: decimal">
@@ -309,7 +322,7 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;p>见笔记《概率统计随机过程之抽样的分布》&lt;/p>
 &lt;h2 id="概率分布族">概率分布族&lt;/h2>
 &lt;blockquote>
-&lt;p>分布族：&lt;strong>分布类型&lt;/strong>和&lt;strong>参数空间&lt;/strong>组成一个（概率）参数分布族。此外，分布/概率和特定条件组成，且不能由该特定条件确定具体分布的分布族成为非参数分布族。&lt;/p>
+&lt;p>&lt;strong>分布族&lt;/strong>：&lt;strong>分布类型&lt;/strong>和&lt;strong>参数空间&lt;/strong>组成一个（概率）参数分布族。此外，分布/概率和特定条件组成，且不能由该特定条件确定具体分布的分布族成为非参数分布族。&lt;/p>
 &lt;/blockquote>
 &lt;p>分布族是一个看似很高端，其实就是某一类概率分布的统称，比如常见的参数分布族可写成：&lt;/p>
 &lt;ul>
@@ -330,7 +343,7 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;h3 id="指数型分布族">指数型分布族&lt;/h3>
 &lt;p>区别于指数分布族，指数型分布族是指数分布族的推广，更是囊括了正态分布族、二项分布族、伽马分布族、多项分布族等等。&lt;/p>
 &lt;blockquote>
-&lt;p>指数型分布族：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}h(x)\]&lt;/span> 其中，k为自然数；分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}h(x)\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
 &lt;/blockquote>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>，其中主要有两条：一条是“分布的支撑与&lt;span class="math">\(\theta\)&lt;/span>无关”；另一条是“&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关”，若其间线性相关，如&lt;span class="math">\(T_1(x)=2T_2(x)+3T_3(x)\)&lt;/span>，则把&lt;span class="math">\(T_1(x)\)&lt;/span>归拢到&lt;span class="math">\(T_2(x),T_3(x)\)&lt;/span>中即可。&lt;/p>
 &lt;p>下面这张截图就是将3个常见分布族改写成指数型分布族的例子。&lt;/p>
@@ -339,18 +352,46 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;/div>
 &lt;h2 id="次序统计量">次序统计量&lt;/h2>
 &lt;blockquote>
-&lt;p>次序统计量：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的一个样本，&lt;span class="math">\(X_{(k)}\)&lt;/span>称为该样本的的第k个次序统计量，假如每当获得样本观测值后将其&lt;strong>从小到大排序可得如下有序样本&lt;/strong>： &lt;span class="math">\[x_{(1)}≤x_{(2)}≤x_{(3)}≤\dotsb≤x_{(k)}≤\dotsb≤x_{(n)}\]&lt;/span> 其中，第k个观测值&lt;span class="math">\(x_{(k)}\)&lt;/span>就是&lt;span class="math">\(X_{(k)}\)&lt;/span>的取值，并称&lt;span class="math">\(X_{(1)},X_{(2)},\dotsb,X_{(n)}\)&lt;/span>为该&lt;strong>样本的次序统计量&lt;/strong>，特别的，&lt;span class="math">\(X_{(1)}=\min(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最小次序统计量&lt;/strong>，&lt;span class="math">\(X_{(n)}=\max(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最大次序统计量&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>次序统计量&lt;/strong>：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的一个样本，&lt;span class="math">\(X_{(k)}\)&lt;/span>称为该样本的的第k个次序统计量，假如每当获得样本观测值后将其&lt;strong>从小到大排序可得如下有序样本&lt;/strong>： &lt;span class="math">\[x_{(1)}≤x_{(2)}≤x_{(3)}≤\dotsb≤x_{(k)}≤\dotsb≤x_{(n)}\]&lt;/span> 其中，第k个观测值&lt;span class="math">\(x_{(k)}\)&lt;/span>就是&lt;span class="math">\(X_{(k)}\)&lt;/span>的取值，并称&lt;span class="math">\(X_{(1)},X_{(2)},\dotsb,X_{(n)}\)&lt;/span>为该&lt;strong>样本的次序统计量&lt;/strong>，特别的，&lt;span class="math">\(X_{(1)}=\min(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最小次序统计量&lt;/strong>，&lt;span class="math">\(X_{(n)}=\max(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最大次序统计量&lt;/strong>。&lt;/p>
 &lt;/blockquote>
 &lt;p>次序统计量引申出来的概念有最小次序统计量、最大次序统计量、极差、中位数、P分位数。次序统计量作为随机变量也是有概率分布的，用的不多，等用到的时候再补充。&lt;/p>
 &lt;h2 id="充分统计量">充分统计量&lt;/h2>
-&lt;p>充分统计量的概念比较难理解，但十分重要。由于我看得是茆诗松的《数理统计学》，这本书里的定义包括了分布族的充分统计量，这和其他资料上的充分统计量有一个巨大的区别，就是一般资料上充分统计量都是和分布的某个参数&lt;span class="math">\(\theta\)&lt;/span>相关的，我也更倾向这样定义（更实用）。&lt;/p>
+&lt;p>充分统计量的概念比较难理解，但十分重要。由于我看得是茆诗松的《数理统计学》，这本书里的定义包括了分布族的充分统计量，这和其他资料上的充分统计量有一个区别，就是一般资料上充分统计量都是和分布的某个参数&lt;span class="math">\(\theta\)&lt;/span>相关的，我也更倾向这样定义（更实用主义）。&lt;/p>
 &lt;blockquote>
-&lt;p>充分统计量：假如&lt;span class="math">\(\mathcal{F}=\{F_\theta,\theta\in \varTheta\}\)&lt;/span>是参数分布族（&lt;span class="math">\(\theta\)&lt;/span>可以是向量），在给定&lt;span class="math">\(T=t\)&lt;/span>下，样本&lt;span class="math">\(x\)&lt;/span>（n维随机变量）的条件分布与&lt;span class="math">\(\theta\)&lt;/span>无关，则称&lt;span class="math">\(T\)&lt;/span>&lt;strong>为参数&lt;span class="math">\(\theta\)&lt;/span>的充分统计量&lt;/strong>。 &lt;span class="math">\[P(X=x\mid T(X)=t,\,\theta )=P(X=x\mid T(X)=t)\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>充分统计量&lt;/strong>：假如&lt;span class="math">\(\mathcal{F}=\{F_\theta,\theta\in \varTheta\}\)&lt;/span>是参数分布族（&lt;span class="math">\(\theta\)&lt;/span>可以是向量），在给定&lt;span class="math">\(T=t\)&lt;/span>下，样本&lt;span class="math">\(x\)&lt;/span>（n维随机变量）的条件分布与&lt;span class="math">\(\theta\)&lt;/span>无关，则称&lt;span class="math">\(T\)&lt;/span>&lt;strong>为参数&lt;span class="math">\(\theta\)&lt;/span>的充分统计量&lt;/strong>。 &lt;span class="math">\[P(X=x\mid T(X)=t,\,\theta )=P(X=x\mid T(X)=t)\]&lt;/span>&lt;/p>
 &lt;/blockquote>
 &lt;p>从上面这个式子中，我们两边同时乘以&lt;span class="math">\(P(\theta)\)&lt;/span>，有 &lt;span class="math">\[
 P(X=x\mid T(X)=t,\,\theta)P(\theta)=P(X=x,\theta\mid T(X)=t)\\
 =P(X=x\mid T(X)=t)P(\theta)
-\]&lt;/span> 显然，有&lt;span class="math">\(P(X=x\mid T(X)=t),P(\theta)\)&lt;/span>二者独立。当我们已知&lt;span class="math">\(T(x)\)&lt;/span>以后，&lt;span class="math">\(\theta\)&lt;/span>的概率就不重要了，或者说&lt;span class="math">\(T(x)\)&lt;/span>完全包含了&lt;span class="math">\(\theta\)&lt;/span>对&lt;span class="math">\(X\)&lt;/span>有影响的信息。我们也可以换个角度来说明充分统计量不损失有关&lt;span class="math">\(\theta\)&lt;/span>信息，比如你已经抽样的1000个数据全都写在了一张纸上，这些数据是给你写论文用的。突然有一天你的狗把你这张写满数据的纸吃掉了，这个时候假如你的数据满足指数分布，且你已经提前把这些数据的的&lt;span class="math">\(\hat\lambda\)&lt;/span>算了出来，那你的狗也没坏了什么大事——因为这个充分统计量包含了这1000个数据的所有有用信息。你可以设计一个指数分布且&lt;span class="math">\(\lambda=\hat\lambda\)&lt;/span>的随机试验重新获得样本，这个新样本和过去的样本可能不完全一样，但它和老样本有相同的分布，当样本容量趋于无穷，新老两个样本应是等效的。&lt;/p>
+\]&lt;/span> 显然，有&lt;span class="math">\(P(X=x\mid T(X)=t),P(\theta)\)&lt;/span>二者独立。当我们已知&lt;span class="math">\(T(x)=t_0\)&lt;/span>以后，样本的联合概率函数中不含有&lt;span class="math">\(\theta\)&lt;/span>项，或者说&lt;span class="math">\(T(x)\)&lt;/span>完全包含了&lt;span class="math">\(\theta\)&lt;/span>对&lt;span class="math">\(X\)&lt;/span>有影响的信息。例子如下：&lt;/p>
+&lt;p>设&lt;span class="math">\(x_1,x_2,\dotsb,x_n\)&lt;/span>是来自两点分布&lt;span class="math">\(b(1,p)\)&lt;/span>的一个样本，其中&lt;span class="math">\(p\in(0,1),n&amp;gt;2\)&lt;/span>，考察以下两个统计量是否为充分统计量： &lt;span class="math">\[
+T_1=\sum_{i=1}^n x_i,\qquad T_2=x_1+x_2
+\]&lt;/span> 首先，该样本的联合分布是： &lt;span class="math">\[
+P(X_1=x_1,X_2=x_2,\dotsb,X_n=x_n)=p^{\sum_{i=1}^n x_i}(1-p)^{n-\sum_{i=1}^n x_i}
+\]&lt;/span> 其中，&lt;span class="math">\(x_i\)&lt;/span>非0即1。统计量&lt;span class="math">\(T_1=\sum_{i=1}^n x_i\)&lt;/span>的分布为二项分布&lt;span class="math">\(b(n,p)\)&lt;/span>，即 &lt;span class="math">\[
+P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
+\]&lt;/span> 在给定&lt;span class="math">\(T_1=t\)&lt;/span>下，样本的条件分布为： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;P(X_1=x_1,X_2=x_2,\dotsb,X_n=x_n|T_1=t)\\
+&amp;amp;=\frac{P(X_1=x_1,X_2=x_2,\dotsb,X_n=t-\sum_{i=1}^{n-1}x_i)}{P(T_1=t)}\\
+&amp;amp;=\frac{p^t(1-p)^{n-t}}{{n\choose t}p^t(1-p)^{n-t}}\\
+&amp;amp;=\frac{1}{{n\choose t}}
+\end{aligned}
+\]&lt;/span> 计算结果表明，这个条件分布与参数&lt;span class="math">\(p\)&lt;/span>无关，即他不含参数&lt;span class="math">\(p\)&lt;/span>的信息，这意味着样本中有关&lt;span class="math">\(p\)&lt;/span>的信息都含在统计量&lt;span class="math">\(T_1\)&lt;/span>中。&lt;/p>
+&lt;p>在统计量&lt;span class="math">\(T_2=x_1+x_2\)&lt;/span>的分布为&lt;span class="math">\(b(2,p)\)&lt;/span>,在&lt;span class="math">\(T_2=t\)&lt;/span>下，样本的条件分布为： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;P(X_1=x_1,X_2=x_2,\dotsb,X_n=x_n|T_2=t)\\
+&amp;amp;=\frac{P(X_1=x_1,X_2=t-x_1,\dotsb,X_n=x_n)}{P(T_2=t)}\\
+&amp;amp;=\frac{p^{t+\sum_{i=3}^n x_i}(1-p)^{n-t-\sum_{i=3}^n x_i}}{{2\choose t}p^t(1-p)^{2-t}}\\
+&amp;amp;=\frac{p^{\sum_{i=3}^n x_i}(1-p)^{n-2-\sum_{i=3}^n x_i}}{{2\choose t}}
+\end{aligned}
+\]&lt;/span> 显然此条件分布与参数&lt;span class="math">\(p\)&lt;/span>有关，即它还有参数&lt;span class="math">\(p\)&lt;/span>的信息，而样本中关于&lt;span class="math">\(p\)&lt;/span>的信息没有完全包含在统计量&lt;span class="math">\(T_2\)&lt;/span>中。&lt;/p>
+&lt;p>可以设想为： &lt;span class="math">\[
+\left\{样本\mathbf{x}中所含有有关\theta的信息\right\}=\\
+\left\{t统计量T中含有有关\theta的信息\right\}+\left\{当T取值为t后，样本\mathbf{x}中还含有有关\theta的信息\right\}
+\]&lt;/span> 如果后一项为0，那么统计量&lt;span class="math">\(T\)&lt;/span>即为充分统计量。&lt;/p>
+&lt;p>我们再从统计量定义的角度反过来看，统计量是一组样本为自变量的函数。样本中包含了未知参数&lt;span class="math">\(\theta\)&lt;/span>部分信息的，&lt;span class="math">\(\theta\)&lt;/span>的统计量是将样本中的关于&lt;span class="math">\(\theta\)&lt;/span>的信息提取出来，如果我们构造这个函数（统计量）能够把样本中所有&lt;span class="math">\(\theta\)&lt;/span>信息都提取出来，那么对于估计未知参数&lt;span class="math">\(\theta\)&lt;/span>而言，样本和该关于&lt;span class="math">\(\theta\)&lt;/span>统计量效果是一样的，此时的统计量就是充分统计量。&lt;/p>
+&lt;p>我们举个例子来说明充分统计量不损失有关&lt;span class="math">\(\theta\)&lt;/span>信息，比如你已经抽样的1000个数据全都写在了一张纸上，这些数据是给你写论文用的。突然有一天你的狗把你这张写满数据的纸吃掉了，这个时候假如你的数据满足指数分布，只有参数&lt;span class="math">\(\lambda\)&lt;/span>未知，且你已经提前把这些数据的的&lt;span class="math">\(\hat\lambda\)&lt;/span>算了出来，那你的狗也没坏了什么大事——因为这个充分统计量包含了这1000个数据的所有有用信息。你可以设计一个指数分布且&lt;span class="math">\(\lambda=\hat\lambda\)&lt;/span>的随机试验重新获得样本，这个新样本和过去的样本可能不完全一样，但它和老样本有相同的分布，当样本容量趋于无穷，新老两个样本应是等效的。&lt;/p>
 &lt;blockquote>
 &lt;p>从信息论的角度来说，就是&lt;span class="math">\(X,T(X)\)&lt;/span>中包含关于&lt;span class="math">\(\theta\)&lt;/span>的信息相同，即&lt;strong>互信息相同&lt;/strong>： &lt;span class="math">\[I{\bigl (}\theta ;T(X){\bigr )}=I(\theta ;X)\]&lt;/span>&lt;/p>
 &lt;/blockquote>
@@ -359,19 +400,65 @@ P(X=x\mid T(X)=t,\,\theta)P(\theta)=P(X=x,\theta\mid T(X)=t)\\
 &lt;h3 id="因子分解定理">因子分解定理&lt;/h3>
 &lt;p>虽然我们说的很好听，但是实际情况下通过条件概率方式的验证并不是特别容易。因此我们给出一个叫作因子分解定理的东西。它的证明并不需要掌握，而其用法又很简单，所以这个计算的难度就大大降低了。&lt;/p>
 &lt;blockquote>
-&lt;p>因子分解定理（费希尔分解定理）：设总体概率函数（分布列或密度函数）为&lt;span class="math">\(f(x;\theta)\)&lt;/span>,&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>为样本，那么&lt;span class="math">\(T=T(X_1,X_2,\dotsb,X_n)\)&lt;/span>为充分统计量的充要条件为：存在函数&lt;span class="math">\(g(t,\theta)\)&lt;/span>与&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>使得对任意的&lt;span class="math">\(\theta\)&lt;/span>和任意一组的观测值&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>，都有 &lt;span class="math">\[f(x_1,\dotsb,x_n;\theta)=g(T(x_1,\dotsb,x_n),\theta)h(x_1,\dotsb,x_n)\]&lt;/span> 其中，&lt;span class="math">\(g(t,\theta)\)&lt;/span>只通过统计量&lt;span class="math">\(T(x_1,\dotsb,x_n)\)&lt;/span>的取值二依赖于样本。&lt;/p>
+&lt;p>&lt;strong>因子分解定理（费希尔分解定理）&lt;/strong>：设总体概率函数（分布列或密度函数）为&lt;span class="math">\(f(x;\theta)\)&lt;/span>,&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>为样本，那么&lt;span class="math">\(T=T(X_1,X_2,\dotsb,X_n)\)&lt;/span>为充分统计量的&lt;strong>充要条件&lt;/strong>为：存在函数&lt;span class="math">\(g(t,\theta)\)&lt;/span>与&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>使得对任意的&lt;span class="math">\(\theta\)&lt;/span>和任意一组的观测值&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>，都有 &lt;span class="math">\[f(x_1,\dotsb,x_n;\theta)=g(T(x_1,\dotsb,x_n),\theta)h(x_1,\dotsb,x_n)\]&lt;/span> 其中，&lt;span class="math">\(g(t,\theta)\)&lt;/span>只通过统计量&lt;span class="math">\(T(x_1,\dotsb,x_n)\)&lt;/span>的取值二依赖于样本。&lt;/p>
 &lt;/blockquote>
-&lt;p>这个定理把抽样的样本发生的联合概率密度分成两个部分，一是只和&lt;span class="math">\(t,\theta\)&lt;/span>相关的&lt;span class="math">\(g(t,\theta)\)&lt;/span>，另一个是只和&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>相关的&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>，比条件概率的方法容易了许多。有一个一般性的情况是通常&lt;span class="math">\(h(x_1,\dotsb,x_n)=c\)&lt;/span>，即它通常是一个常数。&lt;/p>
+&lt;p>这个定理把抽样的样本发生的联合概率密度分成两个部分，一是只和&lt;span class="math">\(t,\theta\)&lt;/span>相关的&lt;span class="math">\(g(t,\theta)\)&lt;/span>，其中&lt;span class="math">\(t\)&lt;/span>可以用样本&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>表示；另一个是只和&lt;span class="math">\(x_1,\dotsb,x_n\)&lt;/span>相关的&lt;span class="math">\(h(x_1,\dotsb,x_n)\)&lt;/span>。因子分解定理比条件概率的方法容易了许多。有一个一般性的情况是通常&lt;span class="math">\(h(x_1,\dotsb,x_n)=c\)&lt;/span>，即它通常是一个常数。然后把样本的概率函数用统计量&lt;span class="math">\(t\)&lt;/span>和&lt;span class="math">\(\theta\)&lt;/span>表示出来。&lt;/p>
 &lt;h3 id="最小充分统计量">最小充分统计量&lt;/h3>
 &lt;p>充分统计量做到了“用已知刻画未知”。那么更进一步的，我们当然希望充分统计量越简单，越精细越好。所以这其实就是极小充分统计量的定义。&lt;/p>
 &lt;blockquote>
-&lt;p>最小充分统计量：若一个充分统计量是任何其他充分统计量的函数，则称其是一个最小充分统计量。即，统计量&lt;span class="math">\(S(X)\)&lt;/span>是最小充分统计量当且仅当&lt;/p>
+&lt;p>&lt;strong>最小充分统计量&lt;/strong>：若一个充分统计量是任何其他充分统计量的函数，则称其是一个最小充分统计量。即，统计量&lt;span class="math">\(S(X)\)&lt;/span>是最小充分统计量当且仅当&lt;/p>
 &lt;ul>
 &lt;li>&lt;span class="math">\(S(X)\)&lt;/span>是充分统计量，&lt;/li>
 &lt;li>如果&lt;span class="math">\(T(X)\)&lt;/span>是一个充分统计量，那么存在一个函数&lt;span class="math">\(f\)&lt;/span>使得&lt;span class="math">\(S(X)= f(T(X))\)&lt;/span>。&lt;/li>
 &lt;/ul>
 &lt;/blockquote>
 &lt;p>如果任何一个充分统计量&lt;span class="math">\(T\)&lt;/span>都可以通过加工得到&lt;span class="math">\(S\)&lt;/span>，这就说明&lt;span class="math">\(S\)&lt;/span>一定是更精细的（或者更严谨地说，一定不会变得更粗糙）充分统计量，而“任何一个”保证了最小性。我们也可以通过数据处理不等于来理解加工只可能减少信息量这一事实。一般而言，最小充分统计量不太好证出来，而且最小充分统计量也不是唯一的，只要与最小充分统计量有一一对应关系的统计量，都是最小充分统计量。&lt;/p>
+&lt;p>可以证明：&lt;/p>
+&lt;blockquote>
+&lt;p>一个&lt;strong>充分完全统计量&lt;/strong>必是最小充分统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>下面我们来解释什么是完全统计量。&lt;/p>
+&lt;h3 id="完全完备统计量">完全（完备）统计量&lt;/h3>
+&lt;p>完全统计量，又称完备统计量。打个不大恰当的比方，完全统计量类似充分必要条件中的必要条件。我们首先定义一个辅助统计量来帮助理解完全统计量：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>辅助(ancillary)统计量&lt;/strong>:一个统计&lt;span class="math">\(V(x)\)&lt;/span>是辅助统计量，当且仅当其概率分布不依赖与任何未知量。&lt;/p>
+&lt;/blockquote>
+&lt;p>一个典型但没啥用的辅助统计量就是常数，即&lt;span class="math">\(V(x)\equiv C\)&lt;/span>。&lt;strong>常数是不含有任何概率分布信息的。&lt;/strong>再举一个典型例子（位移族）：&lt;/p>
+&lt;blockquote>
+&lt;p>已知某一概率密度函数&lt;span class="math">\(f(x)\)&lt;/span>，对其沿&lt;span class="math">\(x\)&lt;/span>轴向右平移一段未知距离&lt;span class="math">\(\mu\)&lt;/span>，则新的pdf为&lt;span class="math">\(f(x-\mu)\)&lt;/span>，现在从平移后的pdf中抽样得到i.i.d的样本&lt;span class="math">\(x_1,x_2,\dotsb,x_n\)&lt;/span>，我们想从样本估计参数&lt;span class="math">\(\mu\)&lt;/span>。如果我们构造一个统计量&lt;span class="math">\(V(x)=x_{(k)}-x_{(l)}\)&lt;/span>，其中&lt;span class="math">\(x_{(k)},x_{(l)}\)&lt;/span>是次序统计量，那么&lt;span class="math">\(V(x)\)&lt;/span>的pdf只会和&lt;span class="math">\(f(x)\)&lt;/span>有关，与&lt;span class="math">\(\mu\)&lt;/span>无关，即为辅助统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>这是一个过于严格的要求，下面再给出一个放松的定义：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>一阶辅助统计量&lt;/strong>：一个统计&lt;span class="math">\(V(x)\)&lt;/span>是一阶辅助统计量，当且仅当其期望&lt;span class="math">\(E[V(x)]\)&lt;/span>不依赖与任何未知量。&lt;/p>
+&lt;/blockquote>
+&lt;p>显然，辅助统计量必然是一阶辅助统计量。需要指出，ancillary一词的翻译辅助，有附加、附属的意思，不一定是指辅助做了什么事。&lt;/p>
+&lt;p>如果对一个统计量&lt;span class="math">\(T\)&lt;/span>能找到一个非平凡（不是常函数）的辅助统计量&lt;span class="math">\(V\)&lt;/span>，使得&lt;span class="math">\(V(T(x))\neq C\)&lt;/span>，也就是说&lt;span class="math">\(V(x&amp;#39;)\)&lt;/span>可以从统计量&lt;span class="math">\(T(x)\)&lt;/span>中再提取一些和带估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息出来。那么说明，统计量&lt;span class="math">\(T(x)\)&lt;/span>中除了含有&lt;span class="math">\(\theta\)&lt;/span>的信息之外，还有其他冗余的信息，可以进一步压缩，&lt;strong>此时我们就不能称&lt;span class="math">\(T\)&lt;/span>是完全统计量&lt;/strong>。完全统计量是纯粹性的体现，意味着不包含其他与参数估计无关的信息。统计量可以是完全但不充分的，这意味再样本信息压缩过程中，不仅仅把和待估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息剔除掉，甚至与&lt;span class="math">\(\theta\)&lt;/span>有关的信息也可能去掉了一些，属于“有损压缩”。由此，我们给出完全统计量定义：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>完全（完备）统计量&lt;/strong>：设&lt;span class="math">\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)&lt;/span>为一分布族，&lt;span class="math">\(\varTheta\)&lt;/span>是参数空间，设统计量&lt;span class="math">\(T=T(x)\)&lt;/span>，若对任何辅助统计量&lt;span class="math">\(\varphi(T(x))\)&lt;/span>，当 &lt;span class="math">\[E[\varphi(T(x))]=0\]&lt;/span> 都有 &lt;span class="math">\[P(\varphi(T(x))=0)=1\]&lt;/span> 则称&lt;span class="math">\(T(x)\)&lt;/span>是一完全（完备）统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>注意，辅助统计量是和待估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的随机数，因此也可以说是对&lt;span class="math">\(\forall \theta\in\varTheta\)&lt;/span>都成立。&lt;span class="math">\(P(\varphi(T(x))=0)=1\)&lt;/span>表示以1的概率为0，其实等于其他常数也无所谓，只有将常数移到另一边就可以了，都不含分布信息，效果一样的。简单的说，如果以统计量&lt;span class="math">\(T\)&lt;/span>为自变量的辅助统计量的期望为0，那么它就是常数0。&lt;/p>
+&lt;p>关于统计量的充分性、完全性还可以参考网页资料文件加中的&lt;a href="../../网页资料/概率论数理统计随机过程-关于充分完全统计量的一点儿思考.html">《概率论数理统计随机过程-关于充分完全统计量的一点儿思考.html》&lt;/a>一文。&lt;/p>
+&lt;p>有函数处理的信息不增特性可知，若&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量，则它任一函数&lt;span class="math">\(\delta(T)\)&lt;/span>也是完全统计量。&lt;/p>
+&lt;h4 id="指数族中统计量的完全性">指数族中统计量的完全性&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>定理&lt;/strong>：设样本&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的概率函数 &lt;span class="math">\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]&lt;/span> 为指数族的自然形式。令&lt;span class="math">\(T(x)=(T_1(x),\dotsb,T_k(x))\)&lt;/span>，且自然参数空间&lt;span class="math">\(\varTheta^\star\)&lt;/span>作为&lt;span class="math">\(R_k\)&lt;/span>的自己有内点，则&lt;span class="math">\(T(x)\)&lt;/span>是充分统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>首先，该定理一个充分条件，只适用于判别指数族的完全性。&lt;span class="math">\(\theta_j\)&lt;/span>是可以是其他参数的函数，其结果作为&lt;span class="math">\(\varTheta^\star\)&lt;/span>的空间一维。&lt;/p>
+&lt;p>其次，有内点意味着&lt;span class="math">\(\varTheta^\star\)&lt;/span>不可以是K维空间的超平面，即&lt;span class="math">\(\theta=(\theta_1,\dotsb,\theta_k)\)&lt;/span>是满秩的。&lt;/p>
+&lt;p>最后，即使没有内点，统计量也不一定是不完全的，需要用定义或其他方法进一步判别。&lt;/p>
+&lt;h4 id="最小充分统计量与完备性关系">最小充分统计量与完备性关系&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>定理&lt;/strong>：如果最小充分统计量存在，那么任何充分完全统计量都是最小充分统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>这是一个充分条件，而非充要条件。最小充分统计量可能是不完全的，即其可能包含无法分离出去的冗余内容。&lt;/p>
+&lt;h4 id="有界完全统计量及其性质">有界完全统计量及其性质&lt;/h4>
+&lt;blockquote>
+&lt;p>&lt;strong>有界完全（完备）统计量&lt;/strong>：设&lt;span class="math">\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)&lt;/span>为一分布族，&lt;span class="math">\(\varTheta\)&lt;/span>是参数空间，设统计量&lt;span class="math">\(T=T(x)\)&lt;/span>，若对任何&lt;strong>有界或a.s.有界&lt;/strong>辅助统计量&lt;span class="math">\(\varphi(T(x))\)&lt;/span>，当 &lt;span class="math">\[E[\varphi(T(x))]=0\]&lt;/span> 都有 &lt;span class="math">\[P(\varphi(T(x))=0)=1\]&lt;/span> 则称&lt;span class="math">\(T(x)\)&lt;/span>是一有界完全（完备）统计量。&lt;/p>
+&lt;/blockquote>
+&lt;p>有界完全统计量是对完全统计量的放松，只是给辅助统计量的函数&lt;strong>添加了有界这一条件&lt;/strong>。因此，一个完全统计量（严要求）必为有界完全统计量（松要求）。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Basu定理&lt;/strong>：&lt;span class="math">\(x\)&lt;/span>是分布中抽取的一个样本，如果&lt;span class="math">\(T(x)\)&lt;/span>是一个&lt;strong>充分，且有界完全&lt;/strong>统计量，那么&lt;span class="math">\(T(x)\)&lt;/span>独立于所有的辅助统计量。&lt;/p>
+&lt;/blockquote>
 &lt;h2 id="常用概率分布与特征数表">常用概率分布与特征数表&lt;/h2>
 &lt;div class="figure">
 &lt;img src="../../images/常用概率分布族.png" alt="常用概率分布族" />&lt;p class="caption">常用概率分布族&lt;/p>
@@ -959,7 +1046,7 @@ p_{_X}[h(y)]\times h&amp;#39;(y),&amp;amp;a&amp;lt;y&amp;lt;b\\
 &lt;p>这个解释初一听，还是非常有道理的。但是Fisher提出：按照贝叶斯假设某一随机变量&lt;span class="math">\(\theta\)&lt;/span>的先验分布属于均匀分布，因为我们对其一无所知。那么对于随机变量&lt;span class="math">\(\beta=\theta^2\)&lt;/span>，我们对&lt;span class="math">\(\beta\)&lt;/span>也同样一无所知，那么&lt;span class="math">\(\beta\)&lt;/span>是不是应该也是均匀分布？两者同时是均匀分布显然是不可能的。（注1证明）。&lt;strong>到底谁应该是取均匀分布&lt;/strong>?这一悖论被Fisher用来反对贝叶斯学派的可靠性。&lt;/p>
 &lt;blockquote>
 &lt;p>注1：如果一随机变量&lt;span class="math">\(X\thicksim U(0,1)\)&lt;/span>，那么它的平方&lt;span class="math">\(Y=X^2\)&lt;/span>的概率密度函数pdf并不是均匀分布。&lt;/p>
-&lt;p>证明：&lt;span class="math">\(X\in [0,1]\Rightarrow Y\in [0,1]. \)&lt;/span> 累积分布函数CDF:&lt;span class="math">\(F_X(x) = x\)&lt;/span>. &lt;span class="math">\(F_Y(Y)=P(Y\le y)=P(X^2\le y)=P(-\sqrt{y}\le X\le\sqrt{y})\)&lt;/span>。因为&lt;span class="math">\(X\in [0,1]\)&lt;/span>，所以&lt;span class="math">\(P(-\sqrt{y}\le X\le\sqrt{y})=P(X\le\sqrt{y})=F_X(\sqrt{y})=\sqrt{y}\Rightarrow F_Y(y)=\sqrt{y}\)&lt;/span>。因此 &lt;span class="math">\[f_Y(y)=\begin{cases}\frac{1}{2\sqrt{y}},y\in [0,1]\\0,\text{others}\end{cases}\]&lt;/span> 显然&lt;span class="math">\(Y\)&lt;/span>并不是均匀分布。&lt;/p>
+&lt;p>证明：&lt;span class="math">\(X\in [0,1]\Rightarrow Y\in [0,1]\)&lt;/span> 累积分布函数CDF:&lt;span class="math">\(F_X(x) = x\)&lt;/span>. &lt;span class="math">\(F_Y(Y)=P(Y\le y)=P(X^2\le y)=P(-\sqrt{y}\le X\le\sqrt{y})\)&lt;/span>。因为&lt;span class="math">\(X\in [0,1]\)&lt;/span>，所以&lt;span class="math">\(P(-\sqrt{y}\le X\le\sqrt{y})=P(X\le\sqrt{y})=F_X(\sqrt{y})=\sqrt{y}\Rightarrow F_Y(y)=\sqrt{y}\)&lt;/span>。因此 &lt;span class="math">\[f_Y(y)=\begin{cases}\frac{1}{2\sqrt{y}},y\in [0,1]\\0,\text{others}\end{cases}\]&lt;/span> 显然&lt;span class="math">\(Y\)&lt;/span>并不是均匀分布。&lt;/p>
 &lt;/blockquote>
 &lt;h4 id="当gx为其他形式时">当&lt;span class="math">\(g(x)\)&lt;/span>为其他形式时&lt;/h4>
 &lt;p>当&lt;code>定理1&lt;/code>不适用时，我们可以从最基础的&lt;strong>分布函数&lt;/strong>（&lt;span class="math">\(F_Y(y)=P(g(X)≤y)\)&lt;/span>）入手，就像证明&lt;code>定理1&lt;/code>中使用的方法那样。具体可见下面例子&lt;/p>
@@ -996,7 +1083,7 @@ p_{_X}[h(y)]\times h&amp;#39;(y),&amp;amp;a&amp;lt;y&amp;lt;b\\
 &lt;p>其实回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布&lt;span class="math">\(B(N,p)\)&lt;/span>，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在&lt;span class="math">\(\lambda=np\)&lt;/span>为定值时, &lt;span class="math">\(p\rightarrow 0, n\rightarrow\infty\)&lt;/span>的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（&lt;span class="math">\(e\)&lt;/span>是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。&lt;/p>
 &lt;p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是&lt;strong>指数分布&lt;span class="math">\(X\thicksim \exp(\lambda)\)&lt;/span>的和&lt;/strong>，k个指数分布&lt;span class="math">\(X_i\thicksim \exp(\lambda),i\in\{1,2,\dotsb,k\}\)&lt;/span>相加是Erlang分布 &lt;span class="math">\[
 X_{i}\sim \exp (\lambda ),\\
-\sum _{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum _{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
+\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
 p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1
 \]&lt;/span> 它和指数分布的参数&lt;span class="math">\(\lambda\)&lt;/span>是一样的，参数&lt;span class="math">\(k\)&lt;/span>是指由&lt;span class="math">\(k\)&lt;/span>个指数分布相加。其实际含义可以指代&lt;span class="math">\(k\)&lt;/span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将&lt;span class="math">\(k\rightarrow \alpha\)&lt;/span>延拓到正实数域，就是Gamma分布&lt;span class="math">\(X\sim \Gamma(\alpha,\lambda)\)&lt;/span>。 &lt;span class="math">\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x&amp;gt;0\quad \alpha ,\lambda &amp;gt;0\]&lt;/span> 其中,&lt;span class="math">\(\Gamma(\alpha)\)&lt;/span>是Gamma函数而卡方分布又是Gamma分布的特例，即&lt;span class="math">\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)&lt;/span>， &lt;span class="math">\[
 p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}
@@ -1275,7 +1362,17 @@ v&amp;amp;u\\
 &lt;li>&lt;a href="#矩估计的一般步骤">矩估计的一般步骤&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#矩估的特点">矩估的特点&lt;/a>&lt;/li>
 &lt;/ul>&lt;/li>
-&lt;li>&lt;a href="#极大似然估计">极大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#极大似然估计">极大似然估计&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#最大似然估计的不变原理">最大似然估计的不变原理&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#点估计的有效性详解">点估计的有效性详解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一致最小方差无偏估计">一致最小方差无偏估计&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#零无偏估计法">零无偏估计法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#充分完全统计量法">充分完全统计量法&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#cramer-rao不等式与界">Cramer-Rao不等式与界&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#区间估计">区间估计&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#置信区间与枢轴变量">置信区间与枢轴变量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#一个正态总体的期望和方差的区间估计">一个正态总体的期望和方差的区间估计&lt;/a>&lt;/li>
@@ -1308,10 +1405,11 @@ v&amp;amp;u\\
 &lt;ol start="2" style="list-style-type: decimal">
 &lt;li>有效性。估计值的方差越小越好。&lt;span class="math">\(D(\hat\theta_1)\leq D(\hat\theta_2)\)&lt;/span>则&lt;span class="math">\(\hat\theta_1\)&lt;/span>更好。波动性小，无偏情况下，更可能接近于真实值。&lt;/li>
 &lt;li>相合性（一致性）。&lt;span class="math">\(\lim_{n\rightarrow \infty} P(|\hat\theta-\theta|&amp;lt;\varepsilon)=1\)&lt;/span>，取的样本越多，越趋近于真实值。&lt;/li>
-&lt;li>渐进正态性（大样本性质）&lt;/li>
+&lt;li>渐进正态性（大样本性质）。体现了估计量随样本数量趋近于真实值的速度。&lt;/li>
 &lt;/ol>
 &lt;p>说明1：样本方差&lt;span class="math">\(S^2\)&lt;/span>是&lt;span class="math">\(\sigma^2\)&lt;/span>的无偏估计，但是&lt;span class="math">\(\sqrt{(S^2)}\)&lt;/span>不是&lt;span class="math">\(\sqrt{\sigma^2}\)&lt;/span>的无偏估计。&lt;/p>
 &lt;p>说明2：无偏性+有效性（尽量小方差）=一致最小方差无偏估计（UMVUE）&lt;/p>
+&lt;p>说明3：无偏性和相合性是两个方面的性质，无偏性是概率性质，相合性是统计性质，无偏不一定相合。&lt;/p>
 &lt;p>具体可参见笔记&lt;a href="概率统计随机过程之数理统计常用概念.md">《概率统计随机过程之数理统计常用概念》&lt;/a>中估计量的评价指标那一小节。&lt;/p>
 &lt;h3 id="矩估计">矩估计&lt;/h3>
 &lt;p>核心思想：近似替代。&lt;strong>用样本的矩代替总体的矩，用样本矩的函数估计总体矩的相应函数&lt;/strong>。就把样本当总体。&lt;/p>
@@ -1379,11 +1477,64 @@ v&amp;amp;u\\
 &lt;p>&lt;strong>似然函数取对数的原因&lt;/strong>:&lt;/p>
 &lt;ol style="list-style-type: decimal">
 &lt;li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。&lt;/li>
-&lt;li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。&lt;/li>
+&lt;li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一s个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。&lt;/li>
 &lt;/ol>
 &lt;p>需要指出的是：&lt;strong>取对数不影响单调性&lt;/strong>。 &lt;span class="math">\[
 p(x|\theta_1)&amp;gt;p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))&amp;gt;\ln(p(x|\theta_2))
 \]&lt;/span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。&lt;/p>
+&lt;h4 id="最大似然估计的不变原理">最大似然估计的不变原理&lt;/h4>
+&lt;p>我们介绍一个致使最大似然估计得到广泛应用的定理：&lt;/p>
+&lt;blockquote>
+&lt;p>不变定理：设&lt;span class="math">\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)&lt;/span>，若&lt;span class="math">\(\theta\)&lt;/span>的最大似然估计为&lt;span class="math">\(\hat\theta\)&lt;/span>，则对任意函数&lt;span class="math">\(\gamma=g(\theta)\)&lt;/span>，&lt;span class="math">\(\gamma\)&lt;/span>的最大似然估计为&lt;span class="math">\(\hat\gamma=g(\hat\theta)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个定理的条件很宽，致使最大似然估计的应用也会广泛。在函数&lt;span class="math">\(g(\theta)\)&lt;/span>非单调的时候，它的证明需要测度论的内容，暂时不予证明。&lt;/p>
+&lt;h3 id="点估计的有效性详解">点估计的有效性详解&lt;/h3>
+&lt;p>我们在前面提到过可以用估计值的方差来代表估计的有效性，但是这有一个前提条件：&lt;strong>需要该估计为无偏估计&lt;/strong>。这样估计值才能紧密散布在真值周围，如果是估计值偏差较大，方差很小，那只会猜到一个错误的位置。如果用图像表示无偏与方差的关系，如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/点估计偏差与方差.jpg" alt="点估计偏差与方差" />&lt;p class="caption">点估计偏差与方差&lt;/p>
+&lt;/div>
+&lt;p>从上图中，我们可以看出：第一幅子图中，当无偏估计且方差很小时，估计点密布在真值周围，我们可以用取平均的方法贴近真实值；如果像第二个子图中，是有偏估计，而方差又很小，那么我们有很大可能会得到一个错误的估计。第二行的两个子图是方差较大的情况，我们可以观察到，无偏估计在方差较大时，点比较散，因此会增大估计误差；而有偏估计在方差较大时，反而可能比小方差时表现的更好。&lt;/p>
+&lt;p>下面我们给出无偏估计有效性的精确定义：&lt;/p>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(\hat\theta_1=\hat\theta_1(x_1,x_2,\dotsb,x_n)\)&lt;/span>与&lt;span class="math">\(\hat\theta_2=\hat\theta_2(x_1,x_2,\dotsb,x_n)\)&lt;/span>都是参数&lt;span class="math">\(\theta\)&lt;/span>的无偏估计，如果： &lt;span class="math">\[\mathrm{Var}(\hat\theta_1)\leq \mathrm{Var}(\hat\theta_2),\forall \theta\in \varTheta\]&lt;/span> 且至少对一个&lt;span class="math">\(\theta_0\in\varTheta\)&lt;/span>，有严格不等号成立，则称&lt;span class="math">\(\hat\theta_1\)&lt;/span>比&lt;span class="math">\(\hat\theta_2\)&lt;/span>有效。&lt;/p>
+&lt;/blockquote>
+&lt;p>那么对于&lt;strong>有偏估计&lt;/strong>，我们要如何评价它的优劣呢？有偏估计与无偏估计相比，除了随机散布造成的方差时存在的，还有与真实值之间的系统性&lt;strong>偏差&lt;/strong>。由于随机造成的误差有正有负，因此我们用&lt;strong>平方的方式&lt;/strong>来去除正负的影响（用绝对值也可以叫平均绝对误差，不过平方有更好的运算性质）。&lt;/p>
+&lt;p>在此，我们定义有偏估计的有效性：&lt;/p>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(\hat\theta_1=\hat\theta_1(x_1,x_2,\dotsb,x_n)\)&lt;/span>与&lt;span class="math">\(\hat\theta_2=\hat\theta_2(x_1,x_2,\dotsb,x_n)\)&lt;/span>都是参数&lt;span class="math">\(\theta\)&lt;/span>的估计量，如果： &lt;span class="math">\[E(\hat\theta_1-\theta)^2\leq E(\hat\theta_2-\theta)^2,\forall \theta\in \varTheta\]&lt;/span> 且至少对一个&lt;span class="math">\(\theta_0\in\varTheta\)&lt;/span>，有严格不等号成立，则称在&lt;strong>均方误差&lt;/strong>意义下&lt;span class="math">\(\hat\theta_1\)&lt;/span>优于&lt;span class="math">\(\hat\theta_2\)&lt;/span>。其中，&lt;span class="math">\(E(\hat\theta_i-\theta)^2\)&lt;/span>称为&lt;span class="math">\(\theta_i\)&lt;/span>d的&lt;strong>均方误差&lt;/strong>，常记为&lt;span class="math">\(MSE(\hat\theta_i)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>根据定义不难发现，如果&lt;span class="math">\(\hat\theta_i\)&lt;/span>是无偏估计，那么均方误差等于方差，即&lt;span class="math">\(MSE(\hat\theta)=Var(\hat\theta)\)&lt;/span>。我们可以将均方误差的式子做如下变换： &lt;span class="math">\[\begin{aligned}
+MSE(\hat\theta)&amp;amp;=E(\hat\theta-\theta)^2=E\{[\hat\theta-E(\hat\theta)]+[E(\hat\theta)-\theta]\}^2\\
+&amp;amp;=E[(\hat\theta-E(\hat\theta))^2]+[E(\hat\theta)-\theta]^2\\
+&amp;amp;=\mathrm{Var}(\hat\theta)+\delta^2
+\end{aligned}
+\]&lt;/span> 其中，我们将&lt;span class="math">\(\delta=|E(\hat\theta)-\theta|\)&lt;/span>称为（绝对）偏差，它体现了估计&lt;span class="math">\(\hat\theta\)&lt;/span>与真实值&lt;span class="math">\(\theta\)&lt;/span>之间的系统误差。由此可见，均方误差&lt;span class="math">\(MSE(\hat\theta_i)\)&lt;/span>可以分解成&lt;strong>系统误差和随机误差两部分&lt;/strong>两部分组成。无偏性可以让偏差&lt;span class="math">\(\delta\)&lt;/span>为0，有效性指标等同于要求方差最小化，而有偏估计则要求二者之和越小越好。假如有一个有偏估计其均方误差比任一个无偏估计的方差还小，则此种有偏估计应予以肯定。如下例子所示：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/有偏估计MSE例子.png" alt="有偏估计MSE例子.png" />&lt;p class="caption">有偏估计MSE例子.png&lt;/p>
+&lt;/div>
+&lt;p>可惜的是，参数的一切可能估计组成的估计类中一致最小均方误差估计不存在。&lt;/p>
+&lt;p>思想实验：为什么参数的一切可能估计组成的估计类中一致最小均方误差估计不存在？&lt;/p>
+&lt;blockquote>
+&lt;p>如果一个估计&lt;span class="math">\(\theta^*\)&lt;/span>为一致最小均方误差，那么对于其他任意对于&lt;span class="math">\(\theta\)&lt;/span>的估计方法&lt;span class="math">\(\tilde{\theta}\)&lt;/span>在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上都有&lt;span class="math">\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)&lt;/span>。问题就出自两个任意上，一是任意估计方法，二是&lt;span class="math">\(\forall\theta\in\varTheta\)&lt;/span>；这两个要求太严格了。我们来设计这样一个场景：参数的真值为&lt;span class="math">\(\theta_0\)&lt;/span>，有一个奇葩的估计方式&lt;span class="math">\(\tilde{\theta}_0\)&lt;/span>，无论给出什么样本，其估计结果都是&lt;span class="math">\(\theta_0\)&lt;/span>（固定值完全消除了样本随机性带来的随机性，导致方差为0）。尽管这个估计方式对于&lt;span class="math">\(\varTheta\)&lt;/span>中除了真实值为&lt;span class="math">\(\theta_0\)&lt;/span>的情况，一无是处，但是我们不能否认在真实值为&lt;span class="math">\(\theta_0\)&lt;/span>，这个估计很完美（绝对误差为0）。此时，&lt;span class="math">\(MSE(\tilde{\theta}_0)=0\)&lt;/span>。而一致最小均方误差&lt;span class="math">\(\theta^*\)&lt;/span>要满足&lt;span class="math">\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)&lt;/span>，那么&lt;span class="math">\(\theta^*\)&lt;/span>必须是方差为0，偏差为0，那么只能让&lt;span class="math">\(\theta^*=\tilde{\theta}_0\)&lt;/span>。那么对于&lt;span class="math">\(\varTheta\)&lt;/span>中的任意&lt;span class="math">\(\theta_i\)&lt;/span>都可以构造类似的奇葩估计：无论给出什么样本，其估计结果都是&lt;span class="math">\(\theta_i\)&lt;/span>。根据&lt;span class="math">\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)&lt;/span>，又必须让&lt;span class="math">\(\theta^*=\tilde\theta_i\)&lt;/span>。那么对于不同&lt;span class="math">\(\theta_i\)&lt;/span>，一致最小均方误差估计&lt;span class="math">\(\theta^*\)&lt;/span>根本不是同一个估计方式，所以一致最小均方误差估计不存在。&lt;/p>
+&lt;/blockquote>
+&lt;p>对此，我们的处理方式是将需要将估计方式范围缩小一些，做出一些限制，例如要求估计方法都必须是无偏的。此时产生一类非常重要的估计类：一致最小方差无偏估计，简称UMVUE。&lt;/p>
+&lt;h3 id="一致最小方差无偏估计">一致最小方差无偏估计&lt;/h3>
+&lt;p>我们前面已经分析过，均方误差在无偏估计中会简化为方差，此时一致最小均方误差估计简化为一致最小方差无偏估计。仿照前面的形式，我们给出一致最小方差无偏估计的定义：&lt;/p>
+&lt;blockquote>
+&lt;p>一致最小方差无偏估计：在参数估计&lt;span class="math">\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)&lt;/span>中，如果&lt;span class="math">\(\hat\theta\)&lt;/span>是参数&lt;span class="math">\(\theta\)&lt;/span>的&lt;strong>无偏估计&lt;/strong>，如果对另外任意一个&lt;span class="math">\(\theta\)&lt;/span>的&lt;strong>无偏估计&lt;/strong>&lt;span class="math">\(\tilde{\theta}\)&lt;/span>，在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上都有： &lt;span class="math">\[\mathrm{Var}(\hat\theta)\leq \mathrm{Var}(\tilde{\theta})\]&lt;/span> 则称&lt;span class="math">\(\hat{\theta}\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的&lt;strong>一致最小方差无偏估计，简记为UMVUE(Uniformly minimum variance unbiased estimation)&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>需要指出，有些参数可能不存在无偏估计，即UMVUE可能也不存在。如果参数的无偏估计存在，我们称此参数为&lt;strong>可估参数&lt;/strong>。为什么加上无偏之后，一致最小方差估计就可以存在了呢？前面我们提到两个任意上，一是任意估计方法，二是&lt;span class="math">\(\forall\theta\in\varTheta\)&lt;/span>，这两个要求太严格。无偏其实是对第一个任意的限制，缩小了估计类范围，把很多奇葩的估计方法（如上文提到的&lt;span class="math">\(\tilde{\theta}_0\)&lt;/span>方法）排除在外。&lt;/p>
+&lt;p>显然，在给定样本数量后，从无偏性和有效性两个角度，UMVUE是最优解，下面我们给出三个求UMVUE的方法。第一个是零无偏估计法，第二个是充分完全统计量法，第三个用了C-R不等式（单拎出来介绍）。下面我们分别介绍：&lt;/p>
+&lt;h4 id="零无偏估计法">零无偏估计法&lt;/h4>
+&lt;p>假设我们已经知道了一个无偏估计，有没有办法能够逐渐优化它，从而达到UMVUE呢？这个思路是可以的，我们先介绍一种改进无偏估计的方法，Rao–Blackwell定理：&lt;/p>
+&lt;blockquote>
+&lt;p>Rao–Blackwell定理：设&lt;span class="math">\(T=T(x)\)&lt;/span>是样本&lt;span class="math">\(x\)&lt;/span>关于参数&lt;span class="math">\(\theta\)&lt;/span>的充分统计量，&lt;span class="math">\(\hat\theta(x)\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的一个无偏估计，则 &lt;span class="math">\[h(T)=E[\hat\theta(x)|T]\]&lt;/span> 是&lt;span class="math">\(\theta\)&lt;/span>的无偏估计，并且 &lt;span class="math">\[D[h(T)]\leq D[\hat\theta(x)]\]&lt;/span> 其中当且仅当&lt;span class="math">\(P(\hat\theta(x))=h(T)=1\)&lt;/span>，即&lt;span class="math">\(h(T)=\hat\theta(x)\)&lt;/span>，a.s. P成立。&lt;/p>
+&lt;/blockquote>
+&lt;p>我们先解释下&lt;span class="math">\(h(T)=E[\hat\theta(x)|T]\)&lt;/span>，从条件期望的&lt;span class="math">\(E(X|Y)\)&lt;/span>可知，我们是对&lt;span class="math">\(X\)&lt;/span>求期望，会将&lt;span class="math">\(X\)&lt;/span>的随机性抹去，&lt;span class="math">\(E(X|Y)\)&lt;/span>实际上是关于&lt;span class="math">\(Y\)&lt;/span>的随机变量函数，即&lt;span class="math">\(f(Y)=E(X|Y)\)&lt;/span>，当&lt;span class="math">\(Y=y\)&lt;/span>时，函数的值就确定了。因此&lt;span class="math">\(h(T)=E[\hat\theta(x)|T]\)&lt;/span>就是一个关于&lt;span class="math">\(T\)&lt;/span>的随机变量函数&lt;span class="math">\(h(T)\)&lt;/span>。这个定理的关键就是说，这样的复合函数&lt;span class="math">\(h\cdot T\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的无偏估计，且方差比原来的无偏估计&lt;span class="math">\(\hat\theta(x)\)&lt;/span>小。&lt;/p>
+&lt;h4 id="充分完全统计量法">充分完全统计量法&lt;/h4>
+&lt;h3 id="cramer-rao不等式与界">Cramer-Rao不等式与界&lt;/h3>
+&lt;p>从最大似然估计的渐进正态性，我们知道估计始终会使一个概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：&lt;strong>C-R不等式&lt;/strong>，可以说给了统计学理论上的绝望。&lt;/p>
+&lt;p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，也不能可能是逻辑上的真实值！&lt;/p>
 &lt;h2 id="区间估计">区间估计&lt;/h2>
 &lt;p>估计一个&lt;strong>数值范围&lt;/strong>，核心要求：&lt;strong>希望以尽可能大的概率落在尽可能小的区间内&lt;/strong>。&lt;/p>
 &lt;h3 id="置信区间与枢轴变量">置信区间与枢轴变量&lt;/h3>
@@ -1403,17 +1554,241 @@ p(x|\theta_1)&amp;gt;p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))&amp;gt;\ln(
 &lt;p>当我们从一个含有未知参数的正态分布&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>抽样时，可以通过抽样的样本对参数&lt;span class="math">\(\mu,\sigma^2\)&lt;/span>进行区间估计，分为以下四种情况。&lt;/p>
 &lt;div class="figure">
 &lt;img src="../../images/一个正态总体的期望和方差的区间估计.jpg" alt="一个正态总体的期望和方差的区间估计" />&lt;p class="caption">一个正态总体的期望和方差的区间估计&lt;/p>
-&lt;/div></description></item><item><title>概率统计随机过程之蒙特卡洛方法</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/</guid><description>
+&lt;/div></description></item><item><title>概率统计随机过程之最大似然估计拓展</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95/</guid><description>
+&lt;h2 id="概率统计随机过程之最大似然估计拓展">概率统计随机过程之最大似然估计拓展&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#最大似然估计概述">最大似然估计概述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最大似然估计的不变原理">最大似然估计的不变原理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最大似然估计服从渐进正态的条件">最大似然估计服从渐进正态的条件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#渐近正态性">渐近正态性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最大似然估计具有正态性定理">最大似然估计具有正态性定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#cramer-rao正则分布族下费雪信息量的另一种表示">Cramer-Rao正则分布族下费雪信息量的另一种表示&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#cramer-rao不等式与界">Cramer-Rao不等式与界&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最大似然估计不具备的性质">最大似然估计不具备的性质&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>最大似然估计是参数点估计中非常常用且有效的估计方法，本文对其相关性质进行拓展介绍，包括渐进正态性，一致最小方差无偏估计，C-R界以及存在隐变量时采用的EM算法。&lt;/p>
+&lt;p>本文阅读需建立在&lt;strong>已经理解最大似然估计基础上&lt;/strong>，首先我们精简的概述最大似然估计。&lt;/p>
+&lt;h2 id="最大似然估计概述">最大似然估计概述&lt;/h2>
+&lt;p>核心思想：概率大的事件比概率小的事件更容易发生。&lt;strong>要估计的参数能够使产生这个样本的概率最大&lt;/strong>。&lt;/p>
+&lt;p>步骤：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>总体的概率/密度函数。&lt;/li>
+&lt;li>写出似然估计函数&lt;span class="math">\(L(\lambda)\)&lt;/span>。&lt;/li>
+&lt;li>两边取&lt;span class="math">\(\ln\)&lt;/span>，即为&lt;span class="math">\(\ln(L(\lambda))\)&lt;/span>。&lt;/li>
+&lt;li>对&lt;span class="math">\(\lambda\)&lt;/span>求导（多参数估计就是偏导），令导数为0。&lt;/li>
+&lt;/ol>
+&lt;p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。&lt;/p>
+&lt;p>&lt;strong>似然函数取对数的原因&lt;/strong>:&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。&lt;/li>
+&lt;li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。&lt;/li>
+&lt;/ol>
+&lt;p>需要指出的是：&lt;strong>取对数不影响单调性&lt;/strong>。 &lt;span class="math">\[
+p(x|\theta_1)&amp;gt;p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))&amp;gt;\ln(p(x|\theta_2))
+\]&lt;/span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。&lt;/p>
+&lt;h3 id="最大似然估计的不变原理">最大似然估计的不变原理&lt;/h3>
+&lt;p>我们介绍一个致使最大似然估计得到广泛应用的定理：&lt;/p>
+&lt;blockquote>
+&lt;p>不变定理：设&lt;span class="math">\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)&lt;/span>，若&lt;span class="math">\(\theta\)&lt;/span>的最大似然估计为&lt;span class="math">\(\hat\theta\)&lt;/span>，则对任意函数&lt;span class="math">\(\gamma=g(\theta)\)&lt;/span>，&lt;span class="math">\(\gamma\)&lt;/span>的最大似然估计为&lt;span class="math">\(\hat\gamma=g(\hat\theta)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="最大似然估计服从渐进正态的条件">最大似然估计服从渐进正态的条件&lt;/h2>
+&lt;p>最大似然估计除了不变原理，还有另一个非常好的性质就是在一定条件下满足渐进正态性，从而保证了样本增加时的参数估计的收敛速度（通常为&lt;span class="math">\(\frac{1}{\sqrt{n}}\)&lt;/span>）。&lt;/p>
+&lt;h3 id="渐近正态性">渐近正态性&lt;/h3>
+&lt;p>渐进正态性（大样本性质）：估计量的渐进正态性来源于&lt;strong>中心极限定理&lt;/strong>，若统计量在样本容量&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，统计量的分布也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列&lt;span class="math">\(\{\sigma_n^2\}\)&lt;/span>，满足&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)&lt;/span>，则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，&lt;span class="math">\(\sigma_n^2\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。&lt;/p>
+&lt;p>严格定义如下：&lt;/p>
+&lt;blockquote>
+&lt;p>渐近正态性：设&lt;span class="math">\(\hat\theta_n=\hat\theta(x_1,x_2,\dotsb,x_n)\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的一个相合估计序列，若存在一个趋于零的正数列&lt;span class="math">\(\sigma_n(\theta)\)&lt;/span>，使得规范变量&lt;span class="math">\(y_n=\frac{\hat\theta_n-\theta}{\sigma_n(\theta)}\)&lt;/span>的概率分布函数&lt;span class="math">\(F_n(y)\)&lt;/span>收敛于标准正态分布函数&lt;span class="math">\(\varPhi(y)\)&lt;/span>，即： &lt;span class="math">\[
+F_n(y)=P(\frac{\hat\theta_n-\theta}{\sigma_n(\theta)}\leq y)\rightarrow \varPhi(y)(n\rightarrow \infty)
+\]&lt;/span> 如果用依分布收敛符号&lt;span class="math">\(L\)&lt;/span>可表示为： &lt;span class="math">\[
+\frac{\hat\theta_n-\theta}{\sigma_n(\theta)}\overset{L}{\rightarrow} N(0,1)(n\rightarrow\infty)
+\]&lt;/span> 则称&lt;span class="math">\(\hat\theta_n\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的渐进正态估计，或称&lt;span class="math">\(\hat\theta_n\)&lt;/span>具有渐进正态性，即： &lt;span class="math">\[
+\hat\theta_n\sim AN(\theta,\sigma^2_n(\theta))
+\]&lt;/span> 其中，&lt;span class="math">\(\sigma^2_n(\theta)\)&lt;/span>称为&lt;span class="math">\(\hat\theta_n\)&lt;/span>的渐进方差。&lt;/p>
+&lt;/blockquote>
+&lt;p>从&lt;span class="math">\((\hat\theta_n-\theta)/\sigma_n(\theta)\)&lt;/span>来看，分子项依概率收敛于&lt;span class="math">\(\theta\)&lt;/span>的速度与分母项&lt;span class="math">\(\sigma_n(\theta)\)&lt;/span>趋近于0的速度相同时，其比值才会稳定与正态分布。因此，&lt;span class="math">\(\hat\theta_n\)&lt;/span>收敛速度与渐近方差直接相关，渐近方差越小，收敛越快。&lt;/p>
+&lt;p>还需要指出，渐进方差并不是唯一的，如果存在另一&lt;span class="math">\(\tau_n(\theta)\)&lt;/span>有&lt;span class="math">\(\frac{\sigma_n(\theta)}{\tau_n(\theta)}\rightarrow 1(n\rightarrow\infty)\)&lt;/span>，根据依概率收敛定义可知&lt;span class="math">\(\tau_n(\theta)\)&lt;/span>也是&lt;span class="math">\(\theta\)&lt;/span>的渐近方差。&lt;/p>
+&lt;p>渐进正态性和相合性的关系类似于中心极限定理和大数定律。相合性是对估计的一种较低要求，它只要求估计序列&lt;span class="math">\(\{\hat\theta_n\}\)&lt;/span>在样本数量&lt;span class="math">\(n\)&lt;/span>增加的时候也趋近于&lt;span class="math">\(\theta\)&lt;/span>，但是并没有指出趋近的速度（例如是&lt;span class="math">\(1/n,1/\sqrt{n}\)&lt;/span>或&lt;span class="math">\(1/\ln n\)&lt;/span>）。而渐进正态性补充了这一点，收敛速度与渐进方差相关。&lt;strong>经验来看，大多数渐进正态估计都是以&lt;span class="math">\(1/\sqrt{n}\)&lt;/span>的速度收敛于被估参数的&lt;/strong>。&lt;/p>
+&lt;h3 id="最大似然估计具有正态性定理">最大似然估计具有正态性定理&lt;/h3>
+&lt;p>在一定条件下，最大似然估计具有渐进正态性。我们将通过如下定理阐释。需要指出的是，定理是以连续分布的形式给出，但是对于离散场景也是适用的。&lt;/p>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(p(x;\theta)\)&lt;/span>是某密度函数，其参数空间&lt;span class="math">\(\varTheta=\{\theta\}\)&lt;/span>是直线上的非退化区间（即不是一个点），假如：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>对一切&lt;span class="math">\(\theta\in\varTheta\)&lt;/span>，&lt;span class="math">\(p(x;\theta)\)&lt;/span>对&lt;span class="math">\(\theta\)&lt;/span>如下偏导都存在：&lt;span class="math">\(\frac{\partial\ln p}{\partial\theta},\frac{\partial^2\ln p}{\partial\theta^2},\frac{\partial^3\ln p}{\partial\theta^3}\)&lt;/span>&lt;/li>
+&lt;li>对一切&lt;span class="math">\(\theta\in\varTheta\)&lt;/span>，有&lt;span class="math">\(|\frac{\partial\ln p}{\partial\theta}|&amp;lt;F_1(x),|\frac{\partial^2\ln p}{\partial\theta^2}|&amp;lt;F_2(x),\frac{\partial^3\ln p}{\partial\theta^3}&amp;lt;H(x)\)&lt;/span>成立，其中&lt;span class="math">\(F_1(x)\)&lt;/span>与&lt;span class="math">\(F_2(x)\)&lt;/span>在实数轴上可积，而&lt;span class="math">\(H(x)\)&lt;/span>满足：&lt;span class="math">\(\int_{-\infty}^\infty H(x)p(x;\theta)&amp;lt;M\)&lt;/span>，这里&lt;span class="math">\(M\)&lt;/span>与&lt;span class="math">\(\theta\)&lt;/span>无关。&lt;/li>
+&lt;li>对一切&lt;span class="math">\(\theta\in\varTheta\)&lt;/span>，有&lt;span class="math">\(0&amp;lt;I(\theta)=E[(\frac{\partial\ln p}{\partial \theta})^2]&amp;lt;+\infty\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>则在参数真值&lt;span class="math">\(\theta\)&lt;/span>为参数空间&lt;span class="math">\(\varTheta\)&lt;/span>内点的情况下，其似然方程有一个解存在，且此解&lt;span class="math">\(\hat\theta_n=\theta(x_1,x_2,\dotsb,x_n)\)&lt;/span>依概率收敛于&lt;span class="math">\(\theta\)&lt;/span>，且： &lt;span class="math">\[
+\hat\theta_n\sim AN(\theta,[nI(\theta)]^{-1})
+\]&lt;/span> 其中，&lt;span class="math">\(I(\theta)\)&lt;/span>为分布&lt;span class="math">\(p(x;\theta)\)&lt;/span>中含有&lt;span class="math">\(\theta\)&lt;/span>的&lt;strong>费雪信息量&lt;/strong>，简称信息量。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个定理的意义在于给定了最大似然分布有渐进正态性的条件，其中渐进方差（体现大样本效率）完全由&lt;strong>样本数量&lt;span class="math">\(n\)&lt;/span>和分布的费雪信息量&lt;span class="math">\(I(\theta)\)&lt;/span>决定&lt;/strong>，且费雪信息量越大（分布中含有&lt;span class="math">\(\theta\)&lt;/span>）的信息越多，渐进方差在同等样本数量下越小，从而最大似然估计效果越好。&lt;/p>
+&lt;p>我们在这个定理中引入了费雪信息量这一概念，因此还要&lt;strong>注意费雪信息量是否存在&lt;/strong>。对此，我们给出一个简单的概要：&lt;strong>Cramer-Rao正则分布族中的分布费雪信息都是存在的&lt;/strong>。Cramer-Rao正则分布族定义如下：&lt;/p>
+&lt;blockquote>
+&lt;p>Cramer-Rao正则分布族：分布&lt;span class="math">\(p(x;\theta)\)&lt;/span>，&lt;span class="math">\(\theta\in\varTheta\)&lt;/span>属于Cramer-Rao正则分布族，则需要满足以下五个条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>参数空间&lt;span class="math">\(\varTheta\)&lt;/span>是直线上的开区间；&lt;/li>
+&lt;li>&lt;span class="math">\(\frac{\partial\ln p}{\partial\theta}\)&lt;/span>对所有&lt;span class="math">\(\theta\in\varTheta\)&lt;/span>都存在；&lt;/li>
+&lt;li>分布的支撑&lt;span class="math">\(\{x:p(x;\theta)&amp;gt;0\}\)&lt;/span>与&lt;span class="math">\(\theta\)&lt;/span>无关；&lt;/li>
+&lt;li>&lt;span class="math">\(p(x;\theta)\)&lt;/span>的微分与积分运算可交换；&lt;/li>
+&lt;li>对所有&lt;span class="math">\(\theta\in\varTheta\)&lt;/span>，期望&lt;span class="math">\(0&amp;lt;E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]&amp;lt;+\infty\)&lt;/span>。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>常用的分布大多数都属于Cramer-Rao正则分布族，但是均匀分布&lt;span class="math">\(U(0,\theta)\)&lt;/span>不是，因为其分布的支撑与&lt;span class="math">\(\theta\)&lt;/span>相关。&lt;/p>
+&lt;h3 id="cramer-rao正则分布族下费雪信息量的另一种表示">Cramer-Rao正则分布族下费雪信息量的另一种表示&lt;/h3>
+&lt;p>若&lt;span class="math">\(p(x;\theta)\)&lt;/span>为Cramer-Rao正则分布族，若其二节偏导数&lt;span class="math">\(\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}\)&lt;/span>对一切&lt;span class="math">\(\theta\)&lt;/span>存在，其费雪信息量还可以写为： &lt;span class="math">\[
+I(\theta)=-E[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}]
+\]&lt;/span> 这种方式可以帮助我们简便计算费雪信息量。此外，这是理解费雪信息量的另一个角度。我们知道二阶导数衡量一个函数的“凸程度”，绝对值越大，越陡峭，说明真值集中性越强。意味着，费雪信息量越大，我们更可能在凸峰出取到真实值附近的值。下面我们证明这两种表示是相等的。&lt;/p>
+&lt;p>&lt;strong>证明&lt;/strong>：由于&lt;span class="math">\(p(x;\theta)\)&lt;/span>为Cramer-Rao正则分布族，且其二阶偏导数总是存在，对于定积分 &lt;span class="math">\[
+1=\int_{-\infty}^{+\infty}p(x;\theta)\mathrm{d}x
+\]&lt;/span> 两侧对&lt;span class="math">\(\theta\)&lt;/span>求偏导，由于定积分是个常数，因此导数必为0： &lt;span class="math">\[
+0=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}p(x;\theta)\mathrm{d}x
+\]&lt;/span> 根据Cramer-Rao正则分布族的第4条定义，我们交换上式中积分与微分的顺序： &lt;span class="math">\[
+0=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}p(x;\theta)\mathrm{d}x=\int_{-\infty}^{+\infty}\frac{\partial p(x;\theta)}{\partial\theta}\mathrm{d}x
+\]&lt;/span> 下面用到了一个计算技巧：&lt;span class="math">\(\frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\)&lt;/span>，代入其中有： &lt;span class="math">\[
+0=\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x=E[\frac{\partial\ln p(x;\theta)}{\partial\theta}]
+\]&lt;/span> 我们得到一个副结论：Log似然函数的一阶导期望为0。但我们还没有得到的结论，结论中需要二阶导，所以我们再对&lt;span class="math">\(\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x\)&lt;/span>求&lt;span class="math">\(\theta\)&lt;/span>的偏导有： &lt;span class="math">\[
+\begin{aligned}
+0&amp;amp;=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x(交互积分微分顺序)\\
+&amp;amp;=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+\frac{\partial\ln p(x;\theta)}{\partial\theta}\frac{\partial p(x;\theta)}{\partial\theta}]\mathrm{d}x\\
+&amp;amp;\because \frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\\
+0&amp;amp;=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x\\
+0&amp;amp;=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x+\underbrace{\int_{-\infty}^{+\infty}(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x}_{I(\theta)=E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]}\\
+\end{aligned}
+\]&lt;/span> 从而有： &lt;span class="math">\[
+\begin{aligned}
+I(\theta)&amp;amp;=0-\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x\\
+&amp;amp;=-E[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}]
+\end{aligned}
+\]&lt;/span> 得证。&lt;/p>
+&lt;h2 id="cramer-rao不等式与界">Cramer-Rao不等式与界&lt;/h2>
+&lt;p>从最大似然估计的渐进正态性，我们知道估计始终会使一个概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：&lt;strong>C-R不等式&lt;/strong>，可以说给了统计学理论上的绝望。&lt;/p>
+&lt;p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，也不能可能是逻辑上的真实值！&lt;/p>
+&lt;h2 id="最大似然估计不具备的性质">最大似然估计不具备的性质&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>最大似然估计不一定是无偏的。&lt;/li>
+&lt;li>当待估计参数与自变量&lt;span class="math">\(x\)&lt;/span>相关时，无法用求导的方式求解。我们需要回到最大似然估计的基本定义，既让似然函数概率最大，来考虑问题。&lt;/li>
+&lt;/ol></description></item><item><title>概率统计随机过程之蒙特卡洛方法</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#蒙特卡洛求定积分的基本方法">蒙特卡洛求定积分的基本方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#随机投点法">随机投点法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#样本平均值法">样本平均值法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#重要性采样">重要性采样&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#分层抽样法">分层抽样法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最大期望算法expectation-maximum-em算法">最大期望算法（Expectation Maximum, EM）算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#马尔科夫链蒙特卡洛mcmc">马尔科夫链蒙特卡洛MCMC&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h2 id="概率统计随机过程之蒙特卡洛方法">概率统计随机过程之蒙特卡洛方法&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>蒙特卡洛简称MC，本质是随机抽样。&lt;/p>
-&lt;h2 id="蒙特卡洛求定积分">蒙特卡洛求定积分&lt;/h2>
+&lt;p>蒙特卡方法洛（Monte Carlo Method）简称MC，又叫随机模拟方法，本质是随机抽样。MC方法的使用框架一般为&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>针对实际问题建立一个便于实现的概率统计模型，使所求解恰好是所建模型的概率分布或其某个数字特征，比如某个事件的概率或期望值。&lt;/li>
+&lt;li>对模型中随机变量建立抽样，在计算机上进行随机试验，抽取足够的随机数，并对有关事件进行统计；&lt;/li>
+&lt;li>对模拟实验结果加以分析，&lt;strong>给出所求解的估计及精度（方差）的估计&lt;/strong>；&lt;/li>
+&lt;li>必要时，还应改进模型以降低估计方差和减少实验复杂度，提供模拟计算效率。&lt;/li>
+&lt;/ol>
+&lt;h2 id="蒙特卡洛求定积分的基本方法">蒙特卡洛求定积分的基本方法&lt;/h2>
+&lt;p>蒙特卡洛方法近年来受到了广泛运用，不少统计问题到最后到可以归结为定积分的计算，如计算概率、各阶矩、贝叶斯机器学习等，因此我们首先介绍定积分的蒙特卡洛计算。考虑定积分的一个通用形式：&lt;/p>
 &lt;p>&lt;span class="math">\[
-E(g(X))=\int_{-\infty}^{\infty}g(x)p(x)\mathrm{d}x={1\over N}\sum_{i=1}^Ng(x_i)
-\]&lt;/span> 其中，&lt;span class="math">\(p(x)\)&lt;/span>是随机变量&lt;span class="math">\(X\)&lt;/span>的概率密度函数,&lt;span class="math">\(x_i\)&lt;/span>是随机变量&lt;span class="math">\(X\)&lt;/span>依分布&lt;span class="math">\(p(x)\)&lt;/span>抽样出来的样本。我们&lt;strong>用多次随机抽样去近似概率分布&lt;/strong>。&lt;/p>
-&lt;p>有一个图描述了蒙特卡洛求定积分的思想：&lt;/p>
+\theta=\int_a^b f(x) \mathrm{d}x\tag{1}
+\]&lt;/span>&lt;/p>
+&lt;p>我们先考虑两种基础的蒙特卡洛积分方法，然后再给出一些给复杂而有效的办法。&lt;/p>
+&lt;h3 id="随机投点法">随机投点法&lt;/h3>
+&lt;p>随机投点法底层原理是伯努利大数定理（用频率接近概率），可以简单理解成几何概型的应用。简单起见，假设&lt;span class="math">\(a,b\)&lt;/span>有限，式（1）中的函数满足&lt;span class="math">\(0\leq f(x)\leq M\)&lt;/span>，令&lt;span class="math">\(\Omega=\{(x,y):a\leq x\leq b,0\leq y\leq M\}\)&lt;/span>。那么根据几何概型，在&lt;span class="math">\(\Omega\)&lt;/span>内取均匀分布的点，该点落在&lt;span class="math">\(f(x)\)&lt;/span>下方的概率为&lt;span class="math">\(p=\frac{S(\Omega)}{\theta}\)&lt;/span>，其中&lt;span class="math">\(S(\Omega)\)&lt;/span>是整体的面积，值为&lt;span class="math">\(M(b-a)\)&lt;/span>，&lt;span class="math">\(\theta\)&lt;/span>是&lt;span class="math">\(f(x)\)&lt;/span>函数下方的面积，根据积分的定义可知&lt;span class="math">\(\theta=\int_a^b f(x) \mathrm{d}x\)&lt;/span>。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/随机投点法.png" alt="随机投点法" />&lt;p class="caption">随机投点法&lt;/p>
+&lt;/div>
+&lt;p>显然，这就是高中学过的几何概型，概率等于面积的比值，由此，我们也可以反推&lt;span class="math">\(f(x)\)&lt;/span>下方的面积，即积分的值为： &lt;span class="math">\[
+\theta=\int_a^b f(x) \mathrm{d}x=M(b-a)p\tag{2}
+\]&lt;/span> 现在不知道的就是概率&lt;span class="math">\(p\)&lt;/span>。根据大数定律，如果我们往&lt;span class="math">\(\Omega\)&lt;/span>中投很多点&lt;span class="math">\(n\)&lt;/span>，若有&lt;span class="math">\(n_0\)&lt;/span>个点落在&lt;span class="math">\(f(x)\)&lt;/span>下方，那么可以通过频率逼近概率，即&lt;span class="math">\(\hat p=\frac{n_0}{n}\rightarrow p (a.s.\; n\rightarrow\infty)\)&lt;/span>，代入式（2）中有 &lt;span class="math">\[
+\hat{\theta}=M(b-a)\frac{n_0}{n}\rightarrow \theta(a.s.\; n\rightarrow\infty) \tag{3}
+\]&lt;/span> 上述思想是容易实现的，步骤如下&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>独立地产生&lt;span class="math">\(n\)&lt;/span>对服从&lt;span class="math">\(U(0,1)\)&lt;/span>的独立随机数&lt;span class="math">\((u_i,v_i),i=1,2,\dotsb,n\)&lt;/span>；&lt;/li>
+&lt;li>根据随机变量的函数关系有&lt;span class="math">\(x_i=a+u_i(b-a),y_i=Mv_i\)&lt;/span>；&lt;/li>
+&lt;li>统计&lt;span class="math">\(y_i\leq f(x_i)\)&lt;/span>的个数&lt;span class="math">\(n_0\)&lt;/span>(该点落在&lt;span class="math">\(f(x)\)&lt;/span>下方)；&lt;/li>
+&lt;li>使用式（3）估算积分值。&lt;/li>
+&lt;/ol>
+&lt;p>随机投点法用了类似于舍选法的做法， 在非随机问题中引入随机性时用了二维均匀分布和二项分布，靠求二项分布概率来估计积分，随机投点法容易理解，但是效率较低。&lt;/p>
+&lt;p>那么，&lt;strong>随机投点法精度提高一位数需要多大的代价呢&lt;/strong>？&lt;/p>
+&lt;p>我们看每次投点的结果其实都是服从伯努利分布（也叫0-1分布），&lt;span class="math">\(b(1,p)\)&lt;/span>，而&lt;span class="math">\(n\)&lt;/span>次投点结果&lt;span class="math">\(n_0\)&lt;/span>则服从二项分布&lt;span class="math">\(b(n,p)\)&lt;/span>。显然，&lt;span class="math">\(\hat\theta\)&lt;/span>是&lt;span class="math">\(\theta\)&lt;/span>的无偏估计: &lt;span class="math">\[
+E(\hat\theta)=E[M(b-a)\frac{n_0}{n}]=\frac{M(b-a)}{n}E[n_0]\\
+=\frac{M(b-a)}{n}\times np=M(b-a)p=\theta\tag{4}
+\]&lt;/span> 在无偏的情况下，我们可以用方差衡量精度： &lt;span class="math">\[
+\begin{aligned}
+Var(\hat\theta)&amp;amp;=Var[M(b-a)\frac{n_0}{n}]=\frac{M^2(b-a)^2}{n^2}Var(n_0)\\
+&amp;amp;=\frac{M^2(b-a)^2}{n^2}\times np(1-p),其中p=\frac{\theta}{M(b-a)}\\
+&amp;amp;=\frac{1}{n}\theta[M(b-a)-\theta]
+\end{aligned}\tag{5}
+\]&lt;/span> 其中，&lt;span class="math">\(\theta, M, b, a\)&lt;/span>都是定值，只有&lt;span class="math">\(n\)&lt;/span>是我们能够影响的数。也就是说，模拟次数&lt;span class="math">\(n\)&lt;/span>提高到&lt;span class="math">\(n\)&lt;/span>倍，方差缩小到&lt;span class="math">\(1/n\)&lt;/span>，如果看和精度直接相关的标准差形如（&lt;span class="math">\(E[x]\plusmn \mathrm{std}(x)\)&lt;/span>），那么精度每增加一位小数，实验量需要增加100倍。&lt;/p>
+&lt;p>&lt;strong>随机模拟积分的精度一般都服从这样的规律&lt;/strong>。&lt;/p>
+&lt;h3 id="样本平均值法">样本平均值法&lt;/h3>
+&lt;p>随机投点法是一种很直觉，但是效率不高的方法，另一种效率更高的方法是利用&lt;strong>期望值(矩)的估计&lt;/strong>。取随机变量&lt;span class="math">\(U\sim U(a,b)\)&lt;/span>，则将&lt;span class="math">\(U\)&lt;/span>代入&lt;span class="math">\(f(x)\)&lt;/span>，得到一个随机数&lt;span class="math">\(Y=f(U)\)&lt;/span>： &lt;span class="math">\[
+E[Y]=E[f(U)]=\int_a^b f(u) \frac{1}{b-a} \mathrm{d}u=\frac{\theta}{b-a}\\
+\Rightarrow\theta=(b-a)E[Y]=(b-a)E[f(U)]\tag{6}
+\]&lt;/span> 在范围&lt;span class="math">\(b-a\)&lt;/span>已知的情况下，我们需要知道&lt;span class="math">\(f(U)\)&lt;/span>的期望即可。我们知道&lt;strong>一个随机变量的期望即为一阶原点矩（一阶矩）&lt;/strong>，因此我们可以用&lt;strong>矩估计&lt;/strong>的方法来近似计算。一阶矩的估计方式很简单，&lt;strong>就是采样多个点，求函数均值，用样本均值代替一阶矩（总体期望）&lt;/strong>。&lt;/p>
+&lt;p>我们取服从均匀分布&lt;span class="math">\(U(a,b)\)&lt;/span>的独立的随机变量&lt;span class="math">\(\{U_i,i=1,2,\dotsb,n\}\)&lt;/span>，则&lt;span class="math">\(Y=f(U)\)&lt;/span>的n个采样值为&lt;span class="math">\(\{Y_i=f(U_i),i=1,2,\dotsb,n\}\)&lt;/span>，根据矩估计方法， &lt;span class="math">\[
+\hat Y={1\over n}\sum_{i=1}^nf(U_i) \rightarrow E[Y]=E[f(U)]\ a.s. n\rightarrow \infty\tag{7}
+\]&lt;/span> 代入式（6）可得： &lt;span class="math">\[
+\hat\theta=(b-a)\hat Y=\frac{b-a}{n}\sum_{i=1}^nf(U_i) \rightarrow (b-a)E[f(U)]=\theta\ a.s. n\rightarrow\infty\tag{8}
+\]&lt;/span>&lt;/p>
+&lt;p>简单来说，就是从&lt;span class="math">\(f(x)\)&lt;/span>上取足够多的点，用采样点的平均值代替函数值的均值，再乘以定义域长度，得到面积（积分值）。用一个图描述了蒙特卡洛求定积分的思想：&lt;/p>
 &lt;div class="figure">
 &lt;img src="../../images/蒙特卡洛求定积分.png" alt="蒙特卡洛求定积分.png" />&lt;p class="caption">蒙特卡洛求定积分.png&lt;/p>
 &lt;/div>
+&lt;p>显然，样本平均值法也是无偏估计。我们也可以用方差计算其精度。为了方便比较，我们令随机投点法的积分估计值为&lt;span class="math">\(\hat\theta_1\)&lt;/span>，样本平均值法的估计值为&lt;span class="math">\(\hat\theta_2\)&lt;/span>。那么可以计算&lt;span class="math">\(\mathrm{Var}(\hat\theta_2)\)&lt;/span>，根据式（8），有： &lt;span class="math">\[
+\begin{aligned}
+\mathrm{Var}(\hat\theta_2)&amp;amp;=\mathrm{Var}[\frac{b-a}{n}\sum_{i=1}^nf(U_i)]=(\frac{b-a}{n})^2\mathrm{Var}[\sum_{i=1}^nf(U_i)]\\
+&amp;amp;\because U_i\quad i.i.d\quad \therefore 根据独立随机变量和的方差性质有：\\
+&amp;amp;=(\frac{b-a}{n})^2\times n \times \mathrm{Var}[f(U)]\\
+&amp;amp;=\frac{(b-a)^2}{n}\times \int_a^b (f(U)-E[f(U)])^2 \frac{1}{b-a} \mathrm{d}U\\
+&amp;amp;\because E[f(U)]=\frac{\theta}{b-a}\\
+&amp;amp;=\frac{1}{n}[(b-a)^2\int_a^b f^2(U)\frac{1}{b-a}\mathrm{d}U-\theta^2]\\
+&amp;amp;=\frac{1}{n}[(b-a)\int_a^b f^2(U)\mathrm{d}U-\theta^2]
+\end{aligned}\tag{9}
+\]&lt;/span>&lt;/p>
+&lt;p>直观来看无法比较随机投点法和样本均值法的差异，我们将&lt;span class="math">\(\hat\theta_1,\hat\theta_2\)&lt;/span>做差，进行比较，在&lt;span class="math">\(0\leq f(x) \leq M\)&lt;/span>时（随机投点法要求），可以证明&lt;span class="math">\(\mathrm{Var}(\hat\theta_1)\geq \mathrm{Var}(\hat\theta_2)\)&lt;/span>，二者相减结果如下：&lt;/p>
+&lt;p>&lt;span class="math">\[
+\begin{aligned}
+\mathrm{Var}(\hat\theta_1)-\mathrm{Var}(\hat\theta_2)&amp;amp;=\frac{1}{n}\theta[M(b-a)]-\\
+&amp;amp;=\frac{1}{n}[(b-a)\int_a^bf^2(U)\mathrm{d}U-\theta^2]\\
+&amp;amp;=\frac{M(b-a)}{n}[\theta-\int_a^b \frac{f^2(U)}{M}\mathrm{d}U]\\
+&amp;amp;\because 0\leq f(x) \leq M \therefore 0&amp;lt;\frac{f(U)}{M}\leq 1\\
+&amp;amp;\geq \frac{M(b-a)}{n}[\theta-\int_a^b f(U)\mathrm{d}U]=0\\
+\end{aligned}
+\]&lt;/span> 由此可见，只要&lt;span class="math">\(\{U:f(U)&amp;lt;M\}\)&lt;/span>不是零测集，就有&lt;span class="math">\(\mathrm{Var}(\hat\theta_1)&amp;gt;\mathrm{Var}(\hat\theta_2)\)&lt;/span>。由此，样本均值法比随机投点法方差更小，更有效。此外，样本均值法不要求&lt;span class="math">\(f(x)\)&lt;/span>有上界&lt;span class="math">\(M\)&lt;/span>，可以推广至一般情形。&lt;/p>
+&lt;h2 id="重要性采样">重要性采样&lt;/h2>
+&lt;p>我们根据随机投点法和样本均值法已经能够进行蒙特卡洛积分的无偏估计，并且随着采样次数的增加最终能以&lt;span class="math">\(O(n^{-1/2})\)&lt;/span>收敛。我们现在需要的是优化蒙特卡洛积分的计算方法，使&lt;strong>估计的方差尽量小&lt;/strong>。&lt;/p>
+&lt;p>我们再回看式（1），对他进行适当变形： &lt;span class="math">\[
+\theta=\int_a^b f(x) \mathrm{d}x=\int_a^b \frac{f(x)}{g(x)} g(x) \mathrm{d}x=E[\frac{f(X)}{g(X)}]\\
+g(x)\neq 0;x\in[a,b]\tag{10}
+\]&lt;/span> 其中，&lt;span class="math">\(g(x)\)&lt;/span>是一个概率密度函数。那么原来的积分问题就变成了求期望，若有来自&lt;span class="math">\(g(x)\)&lt;/span>的样本（随机数）&lt;span class="math">\(\{x_1,x_2,\dotsb,x_n\}\)&lt;/span>（服从&lt;span class="math">\(g(x)\)&lt;/span>的分布），则&lt;span class="math">\(\theta\)&lt;/span>的估计可以用一阶矩估计来实现： &lt;span class="math">\[
+\hat\theta=\frac{1}{n}\sum_{i=1}^n \frac{f(x_i)}{g(x_i)}\tag{11}
+\]&lt;/span> 我们对&lt;span class="math">\(\hat\theta\)&lt;/span>求期望易知此估计式无偏的，其方差为： &lt;span class="math">\[
+\mathrm{Var}(\hat\theta)=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-\theta^2]\tag{12}
+\]&lt;/span> 那么根据式（12），&lt;strong>除了增加采样的次数，我们又多了一个可以用来降低方差的工具&lt;/strong>&lt;span class="math">\(g(x)\)&lt;/span>，我们可以通过合理设计&lt;span class="math">\(g(x)\)&lt;/span>使蒙特卡洛积分的效率更高。理论上来看，当&lt;span class="math">\(g(x)=\frac{f(x)}{\int_a^b f(x) \mathrm{d}x}\)&lt;/span>时，有&lt;span class="math">\(\mathrm{Var}(\hat\theta)=0\)&lt;/span>，此时结果最优，但是这个&lt;span class="math">\(g(x)\)&lt;/span>中必须已知式（1）&lt;span class="math">\(\int_a^b f(x) \mathrm{d}x\)&lt;/span>的结果，显然是无法直接使用的。不过，他也给我们一个启示，即&lt;span class="math">\(g(x)\)&lt;/span>与&lt;span class="math">\(f(x)\)&lt;/span>应该在形状相近的情况下，估计的方差更小。下面我们举一个例子： &lt;span class="math">\[
+f(x)=-x^2+2x\quad x\in[0,2]\\
+g_1(x)=\frac{1}{2};g_2(x)=e^{-x};g_3(x)=\frac{1}{\sqrt{2\pi}\times 0.5}e^{-\frac{(x-1)^2}{2\times 0.5^2}}
+\]&lt;/span> 分别用3个&lt;span class="math">\(g(x)\)&lt;/span>函数，作为重要性采用的概率密度函数。首先，我们易算出&lt;span class="math">\(f(x)=-x^2+2x\quad x\in[0,2]\)&lt;/span>的积分结果为&lt;span class="math">\(\frac{4}{3}\)&lt;/span>，我们画出各个函数的图像以及&lt;span class="math">\(\frac{f(x)}{g(x)}\)&lt;/span>的图像。&lt;/p>
+&lt;p>&lt;img src="../../images/importance_sampling1.png" alt="importance sampling" /> &lt;img src="../../images/importance_sampling2.png" alt="importance sampling" />&lt;/p>
+&lt;p>可以从第二个图中看出，如果&lt;span class="math">\(g(x)\)&lt;/span>与&lt;span class="math">\(f(x)\)&lt;/span>的形状相似，相除之后的函数图像更加贴近积分结果&lt;span class="math">\(\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})\)&lt;/span>，这样我们在抽样时结果接近&lt;span class="math">\(\theta\)&lt;/span>的概率也更大；如果形状相差太大，如&lt;span class="math">\(g_2(x)\)&lt;/span>积分的结果反而会变得更加不好统计。我们使用matlab分别计算三个重要性采样的方差有（取&lt;span class="math">\(n=10\)&lt;/span>）： &lt;span class="math">\[
+\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_1(x)})=0.03556\\
+\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_2(x)})=0.1335\\
+\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_3(x)})=0.01205
+\]&lt;/span> 确实是&lt;span class="math">\(g_3(x)\)&lt;/span>能够缩减方差，而与&lt;span class="math">\(f(x)\)&lt;/span>形状差异大的&lt;span class="math">\(g_2(x)\)&lt;/span>反而使方差更大了。&lt;/p>
+&lt;p>综合来说，&lt;strong>重要性采样让新的函数值&lt;span class="math">\(h(x)=\frac{f(x)}{g(x)}\)&lt;/span>取到接近于积分结果的概率变大了&lt;/strong>。我们现在的问题就转变成了&lt;strong>如何找到一个和&lt;span class="math">\(f(x)\)&lt;/span>形状相似的函数&lt;/strong>。&lt;/p>
+&lt;h3 id="分层抽样法">分层抽样法&lt;/h3>
+&lt;p>在重要性采样的结论中，我们知道当&lt;span class="math">\(f(x)\)&lt;/span>与&lt;span class="math">\(g(x)\)&lt;/span>比值为常数时，可以得到理解最小的方差0，那么我们可不可以近似的构造一个这样的函数呢？基于这个思想，我们有了分层抽样法。&lt;/p>
+&lt;p>分层抽样法首先把样本空间&lt;span class="math">\(D\)&lt;/span>分成一些小区间&lt;span class="math">\(D_1,\dotsb,D_m\)&lt;/span>，且诸&lt;span class="math">\(D_i\)&lt;/span>不交，&lt;span class="math">\(\cup D_i =D\)&lt;/span>，然后在各小区间内的抽样数由其“贡献”大小决定。这里的“贡献”我们定义为在小区间&lt;span class="math">\(D_i\)&lt;/span>内的积分值，即 &lt;span class="math">\[p_i=\int_{D_i}f(x)\mathrm{d}x\tag{13}\]&lt;/span> 在区间&lt;span class="math">\(D_i\)&lt;/span>抽样数与&lt;span class="math">\(p_i\)&lt;/span>成正比。显然，分层抽样法是利用小区间构造一个离散的形状类似于原函数&lt;span class="math">\(f(x)\)&lt;/span>的&lt;strong>分段函数&lt;/strong>。&lt;/p>
+&lt;p>我们继续以上个例子&lt;span class="math">\(f(x)=-x^2+2x\)&lt;/span>来说明，我们把积分区间&lt;span class="math">\([0,2]\)&lt;/span>划分成十等分，根据式（13）有以下表格： |区间|积分值&lt;span class="math">\(p_i\)&lt;/span>|归一化比例| |:-:|:-:|:-:| |[0,0.2)|0.0373|0.0280| |[0.2,0.4)|0.1013|0.0760| |[0.4,0.6)|0.1493|0.1120| |[0.6,0.8)|0.1813|0.1360| |[0.8,1.0)|0.1973|0.1480| |[1.0,1.2)|0.1973|0.1480| |[1.2,1.4)|0.1813|0.1360| |[1.4,1.6)|0.1493|0.1120| |[1.6,1.8)|0.1013|0.0760| |[1.8,2.0]|0.0373|0.0280&lt;/p>
+&lt;p>我们将归一化&lt;span class="math">\(p_i\)&lt;/span>值与&lt;span class="math">\(f(x)\)&lt;/span>画到一张图上(图中黄线与红线)。此外，为了表现构造的分段函数与原函数形状是相似的，我们将分段函数线性放大6倍（蓝线）。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/分层抽样1.png" alt="分层抽样1" />&lt;p class="caption">分层抽样1&lt;/p>
+&lt;/div>
+&lt;p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数最优方式为: &lt;span class="math">\[
+n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
+\]&lt;/span> 其中，&lt;span class="math">\(n_i\)&lt;/span>是区间&lt;span class="math">\(D_i\)&lt;/span>的抽样数，&lt;span class="math">\(n\)&lt;/span>为总抽样数，&lt;span class="math">\(m\)&lt;/span>为总区间数目，&lt;span class="math">\(l_i\)&lt;/span>是区间&lt;span class="math">\(D_i\)&lt;/span>的长度，&lt;span class="math">\(\sigma_i\)&lt;/span>是区间&lt;span class="math">\(D_i\)&lt;/span>的标准差，此时方差最小，为&lt;span class="math">\(\frac{1}{n}(\sum_{i=1}^m l_i\sigma_i)^2\)&lt;/span>。然而实际计算中，每个区间的标准差&lt;span class="math">\(\sigma_i\)&lt;/span>总是未知的，式(14)无法直接使用。即使如此，最简单的分配方案&lt;span class="math">\(n_i=nl_i/\sum l_i\)&lt;/span>方差也比样本均值法低。&lt;/p>
+&lt;p>此外，其他缩减方差技术还有关联抽样法、控制变量法、对立变量法、条件期望法等等。&lt;/p>
+&lt;h2 id="最大期望算法expectation-maximum-em算法">最大期望算法（Expectation Maximum, EM）算法&lt;/h2>
+&lt;p>我们在参数估计中常用最大似然估计，不过实际问题中，除了需要估计的未知参数，还有别的&lt;/p>
 &lt;h2 id="马尔科夫链蒙特卡洛mcmc">马尔科夫链蒙特卡洛MCMC&lt;/h2>
 &lt;p>马尔可夫链蒙特卡洛（英语：Markov chain Monte Carlo，MCMC）方法（含随机游走蒙特卡洛方法）是一组用&lt;strong>马氏链从随机分布取样的算法&lt;/strong>，之前步骤的作为底本。&lt;strong>步数越多，结果越好&lt;/strong>。&lt;/p></description></item><item><title>概率统计随机过程之马尔可夫过程转移矩阵（随机矩阵）</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B%E8%BD%AC%E7%A7%BB%E7%9F%A9%E9%98%B5%E9%9A%8F%E6%9C%BA%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B%E8%BD%AC%E7%A7%BB%E7%9F%A9%E9%98%B5%E9%9A%8F%E6%9C%BA%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;h2 id="概率统计随机过程之转移矩阵随机矩阵">概率统计随机过程之转移矩阵（随机矩阵）&lt;!-- omit in toc -->&lt;/h2>
