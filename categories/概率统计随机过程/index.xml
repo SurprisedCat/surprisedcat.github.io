@@ -1,11 +1,62 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概率统计随机过程 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/</link><description>Recent content in 概率统计随机过程 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 18 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之条件期望与重期望公式</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/</link><pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/</guid><description>
 &lt;h2 id="概率统计随机过程之条件期望与重期望公式">概率统计随机过程之条件期望与重期望公式&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>之前对条件期望的理解有一些偏差，现在重新看了下条件期望的内容与重期望公式。注意（X|Y）的条件期望实际上是关于Y的函数，而重期望公式则与分区加权求和有着本质联系，提供了求X期望的另一种方式。&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="#条件数学期望">条件数学期望&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#重期望公式">重期望公式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#随机个随机变量和的数学期望">随机个随机变量和的数学期望&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="条件数学期望">条件数学期望&lt;/h2>
-&lt;h2 id="重期望公式">重期望公式&lt;/h2></description></item><item><title>概率统计随机过程之抽样的分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</link><pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</guid><description>
+&lt;p>如果我们对条件分布求期望，则称为&lt;strong>条件数学期望&lt;/strong>。在离散分布列和连续密度函数的定义方式如下，以二维举例：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(X\)&lt;/span>关于&lt;span class="math">\(Y=y\)&lt;/span>的条件期望： &lt;span class="math">\[E(X|Y=y)=\begin{cases}\sum\limits_i x_iP(X=x_i|Y=y),\qquad(X,Y)为二维离散随机变量\\
+\int_{-\infty}^{\infty}xp(x|y)\mathrm{d}x,\qquad(X,Y)为二维连续随机变量\end{cases}\tag{1}\]&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(Y\)&lt;/span>关于&lt;span class="math">\(X=x\)&lt;/span>的条件期望： &lt;span class="math">\[E(Y|X=x)=\begin{cases}\sum\limits_i y_iP(Y=y_i|X=x),\qquad(X,Y)为二维离散随机变量\\
+\int_{-\infty}^{\infty}yp(y|x)\mathrm{d}y,\qquad(X,Y)为二维连续随机变量\end{cases}\tag{2}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>注意，&lt;span class="math">\(E(X|Y=y)\)&lt;/span>是在&lt;span class="math">\(y\)&lt;/span>为特定值时，对&lt;span class="math">\(x\)&lt;/span>求和/积分，抹去了&lt;span class="math">\(x\)&lt;/span>的随机性，得到一个关于&lt;span class="math">\(y\)&lt;/span>的函数。同理，&lt;span class="math">\(E(Y|X=x)\)&lt;/span>抹去的是&lt;span class="math">\(y\)&lt;/span>的随机性，得到一个关于&lt;span class="math">\(x\)&lt;/span>的函数。&lt;/p>
+&lt;p>条件期望&lt;span class="math">\(E(X|Y=y)\)&lt;/span>和无条件期望&lt;span class="math">\(E(X)\)&lt;/span>的一大区别是，&lt;span class="math">\(E(X)\)&lt;/span>是一个数，而条件期望&lt;span class="math">\(E(X|Y)\)&lt;/span>是一个函数&lt;span class="math">\(g(y)\)&lt;/span>。&lt;/p>
+&lt;p>举个例子，如用&lt;span class="math">\(X\)&lt;/span>表示中国成年人的身高，则&lt;span class="math">\(E(X)=170\)&lt;/span>表示中国成年人的平均身高为170 cm，是一个具体的数字。若用&lt;span class="math">\(Y\)&lt;/span>表示中国成年人的足长，则&lt;span class="math">\(E(X|Y=y)\)&lt;/span>表示足长为&lt;span class="math">\(y\)&lt;/span>的中国成年人的平均身高，根据研究可知 &lt;span class="math">\[
+E(X|Y=y)=6.876y
+\]&lt;/span> 这显然是一个与&lt;span class="math">\(y\)&lt;/span>相关的函数，对&lt;span class="math">\(y\)&lt;/span>的不同取值，条件期望的取值也在变化。可以记： &lt;span class="math">\[
+g(y)=E(X|Y=y)
+\]&lt;/span> 进一步，还可以将条件期望看成是随机变量&lt;span class="math">\(Y\)&lt;/span>的函数，即&lt;span class="math">\(E(X|Y)=g(Y)\)&lt;/span>，而将&lt;span class="math">\(E(X|Y=y)\)&lt;/span>看成是&lt;span class="math">\(Y=y\)&lt;/span>时&lt;span class="math">\(E(X|Y)\)&lt;/span>的一个取值。从这个角度来看，&lt;strong>&lt;span class="math">\(E(X|Y)\)&lt;/span>也是一个随机变量&lt;/strong>。&lt;/p>
+&lt;p>如果条件期望也是一个随机数，那么条件期望的期望是什么呢？下面就用重期望公式做进一步说明。&lt;/p>
+&lt;h2 id="重期望公式">重期望公式&lt;/h2>
+&lt;p>前面提到，&lt;span class="math">\(g(Y)=E(X|Y)\)&lt;/span>也是一个随机变量，如果我们对其求期望，以连续函数为例,注意随机变量是&lt;span class="math">\(Y\)&lt;/span>： &lt;span class="math">\[
+E[g(Y)]=\int_{-\infty}^\infty E(X|Y=y) p_Y(y)\mathrm{d}y
+\]&lt;/span> 我们将条件期望的定义（1）式代入可得： &lt;span class="math">\[
+\begin{aligned}
+E[g(Y)]&amp;amp;=\int_{-\infty}^\infty[\int_{-\infty}^\infty xp(x|Y=y)\mathrm{d}x]\;p_{_Y}(y)\mathrm{d}y\\
+(全概率公式)&amp;amp;=\int_{-\infty}^\infty\int_{-\infty}^\infty xp(x,y)\mathrm{d}x\mathrm{d}y\\
+（提出x）&amp;amp;=\int_{-\infty}^\infty x\{\int_{-\infty}^\infty p(x,y)\mathrm{d}y\}\mathrm{d}x\\
+(求x的边际pdf)&amp;amp;=\int_{-\infty}^\infty xp_{_X}(x)\mathrm{d}x\\
+&amp;amp;=E(X)
+\end{aligned}\tag{3}
+\]&lt;/span> 我们“惊讶”的发现，条件期望的期望竟然是&lt;span class="math">\(X\)&lt;/span>的无条件期望！由此，我们给出重期望公式：&lt;/p>
+&lt;blockquote>
+&lt;p>定理：（重期望公式）设&lt;span class="math">\((X,Y)\)&lt;/span>是二维随机变量，且&lt;span class="math">\(E(X)\)&lt;/span>存在，则&lt;/p>
+&lt;p>&lt;span class="math">\[E(X)=E[E(X|Y)]\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>重期望公式是概率论中比较深刻的一个结论。我们也可以换个角度理解：我们找到一个与&lt;span class="math">\(X\)&lt;/span>相关的量&lt;span class="math">\(Y\)&lt;/span>，用&lt;span class="math">\(Y\)&lt;/span>的不同取值（要互斥）把&lt;span class="math">\(X\)&lt;/span>划分成若干小区域（场景），现在小区域上求&lt;span class="math">\(X\)&lt;/span>的期望或均值，然后再根据&lt;span class="math">\(Y\)&lt;/span>的出现概率对各个小区域的期望&lt;span class="math">\(E(X_{y_i})\)&lt;/span>求加权平均，即可求出整体&lt;span class="math">\(X\)&lt;/span>的期望。&lt;/p>
+&lt;p>具体一些，重期望公式也可以写成如下形式： &lt;span class="math">\[
+E(X)=\begin{cases}\sum\limits_i E(X|Y=y_i)P(Y=y_i),\qquad 离散场景\\
+\int_{-\infty}^\infty E(X|Y=y)P_{_Y}(y)\mathrm{d}y,\qquad 连续场景\end{cases}
+\]&lt;/span>&lt;/p>
+&lt;h3 id="随机个随机变量和的数学期望">随机个随机变量和的数学期望&lt;/h3>
+&lt;p>设&lt;span class="math">\(X_1,X_2,\dotsb\)&lt;/span>为一系列独立同分布的随机变量，随机变量&lt;span class="math">\(N\)&lt;/span>只取正整数值，且&lt;span class="math">\(N\)&lt;/span>与&lt;span class="math">\(\{X_n\}\)&lt;/span>独立，证明： &lt;span class="math">\[
+E(\sum_{i=1}^N X_i)=E(X_1)E(N)
+\]&lt;/span>&lt;/p>
+&lt;p>证明：由重期望公式可知： &lt;span class="math">\[
+\begin{aligned}
+E(\sum_{i=1}^N X_i)&amp;amp;=E[E(\sum_{i=1}^N X_i | N)]\\
+&amp;amp;=\sum_{i=1}^\infty E(\sum_{i=1}^N X_i | N=n)P(N=n)\\
+（\{X_n\}与N独立）&amp;amp;=\sum_{i=1}^\infty E(\sum_{i=1}^n X_i)P(N=n)\\
+（\{X_n\}i.i.d）&amp;amp;=\sum_{i=1}^\infty nE(X_1)P(N=n)\\
+&amp;amp;=E(X_1)\sum_{i=1}^\infty nP(N=n)\\
+&amp;amp;=E(X_1)E(N)
+\end{aligned}
+\]&lt;/span>&lt;/p></description></item><item><title>概率统计随机过程之抽样的分布</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</link><pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8A%BD%E6%A0%B7%E7%9A%84%E5%88%86%E5%B8%83/</guid><description>
 &lt;h2 id="概率统计随机过程之抽样的分布统计量的分布">概率统计随机过程之抽样的分布（统计量的分布）&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#样本均值的抽样分布正态分布">样本均值的抽样分布——正态分布&lt;/a>&lt;/li>
