@@ -1,24 +1,22 @@
-<!doctype html><html lang=zh-cn data-figures class=home>
+<!doctype html><html lang=zh-cn data-figures=true class=page>
 <head>
-<meta name=generator content="Hugo 0.89.4">
-<title>SurprisedCat</title>
+<title>概率统计随机过程之C-R不等式 | SurprisedCat</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
 <meta property="og:locale" content="zh-cn">
-<meta property="og:type" content="website">
-<meta name=description content="A theme based on VMware's Clarity Design System for publishing technical blogs with Hugo.">
-<meta property="og:url" content="https://surprisedcat.github.io/">
-<meta property="og:title" content>
-<meta property="og:description" content="A theme based on VMware's Clarity Design System for publishing technical blogs with Hugo.">
-<meta property="og:image" content="https://surprisedcat.github.io/images/thumbnail.png">
+<meta property="og:type" content="article">
+<meta name=description content="概率统计随机过程之C-R不等式 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/">
+<meta property="og:title" content="概率统计随机过程之C-R不等式">
+<meta property="og:description" content="概率统计随机过程之C-R不等式 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/Asymptotically-Efficient-Estimators.png">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
-<link rel=canonical href=https://surprisedcat.github.io/>
-<link rel=alternate type=application/rss+xml href=https://surprisedcat.github.io/index.xml title=SurprisedCat>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/>
 <link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
 <link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
 <link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
@@ -32,7 +30,7 @@
 </div>
 </a>
 <div class="nav_body nav_body_left">
-<div class="nav_parent nav_active">
+<div class=nav_parent>
 <a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
 </div>
 <div class=nav_parent>
@@ -73,389 +71,122 @@
 </header>
 <main>
 <div class="grid-inverse wrap content">
-<ul class=posts id=posts>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B/ title=概率统计随机过程之马尔可夫过程>概率统计随机过程之马尔可夫过程</a>
-</h3>
+<article class=post_content>
+<h1 class=post_title>概率统计随机过程之C-R不等式</h1>
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
-May 9, 2021</span>
+May 4, 2022</span>
 <span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
 </a>
 </span>
 <span class=page_only>&nbsp;·
 <div class=post_share>
 分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
 </a>
 </div>
 </span>
 </div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE%E5%91%A8%E6%9C%9F%E6%80%A7.jpg alt=概率统计随机过程之马尔可夫过程>
-</div>
-<div>
-<p class=pale>
-在概率论及统计学中，马尔可夫过程（英语：Markov process）是一个具备了马尔可夫性质的随机过程，因为俄国数学家安德雷·马尔可夫得名。马尔可夫过程是不具备记忆特质的（memorylessness）。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E4%B9%8Bpnpnpc%E5%92%8Cnp-hard/ title=算法理论之P，NP，NPC和NP-hard>算法理论之P，NP，NPC和NP-hard</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 19, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA title=算法理论 class="post_tag button button_translucent">算法理论
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E4%B9%8Bpnpnpc%E5%92%8Cnp-hard/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/P_np_np-complete_np-hard.svg alt=算法理论之P，NP，NPC和NP-hard>
-</div>
-<div>
-<p class=pale>
-转自Matrix67的博客《什么是P问题、NP问题和NPC问题》。这或许是众多OIer最大的误区之一。你会经常看到网上出现“这怎么做，这不是NP问题吗”、“这个只有搜了，这已经被证明是NP问题了”之类的话。你要知道，大多数人此时所说的NP问题其实都是指的NPC问题。他们没有搞清楚NP问题和NPC问题的概念。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E4%B9%8Bpnpnpc%E5%92%8Cnp-hard/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E8%B4%AA%E5%BF%83/ title=算法导论-贪心>算法导论-贪心</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 18, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA title=算法理论 class="post_tag button button_translucent">算法理论
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E8%B4%AA%E5%BF%83/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E7%AE%97%E6%B3%95%E5%9B%9B%E7%A7%8D%E6%80%9D%E6%83%B3.png alt=算法导论-贪心>
-</div>
-<div>
-<p class=pale>
-贪心算法通常是自顶向下设计的。也需要具有最优子结构。贪心算法也是一种启发式算法，并不能一定保证是最优解。从动态规划到贪心算法的转化中，我们通常经理如下步骤：……
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E8%B4%AA%E5%BF%83/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7/ title=算法导论-渐进记号>算法导论-渐进记号</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 17, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA title=算法理论 class="post_tag button button_translucent">算法理论
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7%E5%85%B3%E7%B3%BB.png alt=算法导论-渐进记号>
-</div>
-<div>
-<p class=pale>
-来自：https://blog.csdn.net/so_geili/article/details/53353593 版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/ title=概率统计随机过程之假设检验>概率统计随机过程之假设检验</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 16, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E4%B8%A4%E4%B8%AA%E6%AD%A3%E6%80%81%E6%80%BB%E4%BD%93%E7%9A%84%E5%8F%82%E6%95%B0%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C1.png alt=概率统计随机过程之假设检验>
-</div>
-<div>
-<p class=pale>
-假设检验问题：总体分布未知：对总体分布的“某种推断”--》“假设”：分布类型未知：非参数假设，例如假设服从正态分布，均匀分布……这类一般很难。参数未知：参数假设。假设检验：通过抽样的样本进行对假设进行检验：参数的假设检验（重点）非参数的假设检验
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/ title=概率统计随机过程之参数估计>概率统计随机过程之参数估计</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 16, 2021</span>
-<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1.jpg alt=概率统计随机过程之参数估计>
-</div>
-<div>
-<p class=pale>
-统计推断三大内容：抽样分布、参数估计（点估计、区间估计）与假设检验。参数估计的核心思想：用抽样出来的样本构造函数（统计量）来尝试近似实际分布的参数。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95/ title=概率统计随机过程之最大似然估计拓展>概率统计随机过程之最大似然估计拓展</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 16, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1.jpg alt=概率统计随机过程之最大似然估计拓展>
-</div>
-<div>
-<p class=pale>
-最大似然估计是参数点估计中非常常用且有效的估计方法，本文对其相关性质进行拓展介绍，包括渐进正态性，一致最小方差无偏估计，C-R界以及存在隐变量时采用的EM算法。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/ title=概率统计随机过程之蒙特卡洛方法>概率统计随机过程之蒙特卡洛方法</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 16, 2021</span>
-<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%B1%82%E5%AE%9A%E7%A7%AF%E5%88%86.png alt=概率统计随机过程之蒙特卡洛方法>
-</div>
-<div>
-<p class=pale>
-蒙特卡洛简称MC，本质是随机抽样。蒙特卡洛求定积分。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%96%B9%E6%B3%95/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E5%88%86%E6%B2%BB/ title=算法导论-分治>算法导论-分治</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 16, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA title=算法理论 class="post_tag button button_translucent">算法理论
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E5%88%86%E6%B2%BB/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E7%AE%97%E6%B3%95%E5%9B%9B%E7%A7%8D%E6%80%9D%E6%83%B3.png alt=算法导论-分治>
-</div>
-<div>
-<p class=pale>
-分治算法的三个步骤：分开-解决-合并
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E5%88%86%E6%B2%BB/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li class=post_item>
-<div class=excerpt>
-<div class=excerpt_header>
-<h3 class=post_link>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-dp/ title=算法导论-DP>算法导论-DP</a>
-</h3>
-<div class=post_meta>
-<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
-<span class=post_date>
-Apr 15, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA title=算法理论 class="post_tag button button_translucent">算法理论
-</a>
-</span>
-<span class=page_only>&nbsp;·
-<div class=post_share>
-分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-dp/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
-</a>
-</div>
-</span>
-</div>
-</div>
-<div class="excerpt_footer partition">
-<div class=excerpt_thumbnail>
-<img src=https://surprisedcat.github.io/images/%E7%AE%97%E6%B3%95%E5%9B%9B%E7%A7%8D%E6%80%9D%E6%83%B3.png alt=算法导论-DP>
-</div>
-<div>
-<p class=pale>
-动态规划和分治算法的区别在于，分治算法将问题分成不重叠的几个子问题，分别求解；而动态规划的子问题是重叠的，每次求解子问题后会把子问题保存起来（例如表格），避免了重复计算。
-</p>
-<a href=https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-dp/ title=更多 class="excerpt_more button">更多</a>
-</div>
-</div>
-</div>
-</li>
-<li>
-<ul class="pagination pagination-default">
-<li class=page-item>
-<a href=../../ aria-label=First class=page-link role=button><span aria-hidden=true>&#171;&#171;</span></a>
-</li>
-<li class=page-item>
-<a href=../../page/3/ aria-label=Previous class=page-link role=button><span aria-hidden=true>&#171;</span></a>
-</li>
-<li class=page-item>
-<a href=../../page/2/ aria-label="Page 2" class=page-link role=button>2</a>
-</li>
-<li class=page-item>
-<a href=../../page/3/ aria-label="Page 3" class=page-link role=button>3</a>
-</li>
-<li class="page-item active">
-<a href=# aria-current=page aria-label="Page 4" class=page-link role=button>4</a>
-</li>
-<li class=page-item>
-<a href=../../page/5/ aria-label="Page 5" class=page-link role=button>5</a>
-</li>
-<li class=page-item>
-<a href=../../page/6/ aria-label="Page 6" class=page-link role=button>6</a>
-</li>
-<li class=page-item>
-<a href=../../page/5/ aria-label=Next class=page-link role=button><span aria-hidden=true>&#187;</span></a>
-</li>
-<li class=page-item>
-<a href=../../page/19/ aria-label=Last class=page-link role=button><span aria-hidden=true>&#187;&#187;</span></a>
-</li>
+<h2 id=概率统计随机过程之c-r不等式>概率统计随机过程之C-R不等式</h2>
+<ul>
+<li><a href=#前置条件>前置条件</a></li>
+<li><a href=#单参数c-r正则分布族>单参数C-R正则分布族</a></li>
+<li><a href=#费舍尔信息量>费舍尔信息量</a></li>
+<li><a href=#c-r不等式>C-R不等式</a></li>
+<li><a href=#单参数c-r不等式>单参数C-R不等式</a></li>
+<li><a href=#单参数c-r不等式等号成立条件>单参数C-R不等式等号成立条件</a></li>
+<li><a href=#多参数c-r不等式>多参数C-R不等式</a></li>
+<li><a href=#c-r不等式应用>C-R不等式应用</a></li>
+<li><a href=#求umvue>求UMVUE</a></li>
+<li><a href=#估计的效率和有效性>估计的效率和有效性</a></li>
+<li><a href=#在渐进正态性中的应用>在渐进正态性中的应用</a></li>
 </ul>
-</li>
+<p>Cramer-Rao不等式是另一个判别无偏估计是否为UMVUE的方法，但是Cramer-Rao不等式有更深层的含义。</p>
+<p>我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费舍尔信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
+<p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！</p>
+<p>回到C-R不等式和UMVUE的关系上来，其思想如下：设<span class=math>\(\mathcal{U}_g\)</span>是<span class=math>\(\theta\)</span>的一切无偏估计构成的集合，所有的这些<span class=math>\(\mathcal{U}_g\)</span>中的无偏估计的方差必有一个下界（一定非负），这个下界称为C-R下界。如果<span class=math>\(\mathcal{U}_g\)</span>中某一个估计量<span class=math>\(\hat g\)</span>的方差达到了这个下界，则<span class=math>\(\hat{g}\)</span>就一定是参数的UMVUE，当然会对样本分布族和<span class=math>\(\hat{g}\)</span>有一些正则条件。当时，使用这种下界的方法，都一个缺点，即<strong>C-R不等式给出的下界经常比实际的下界更小一些</strong>。这一情况下，C-R不等式就无法判断UMVUE的存在性。此外，C-R不等式还有其他一些用处，比如计算估计的效率、有效估计等等。</p>
+<h2 id=前置条件>前置条件</h2>
+<p>C-R不等式成立需要样本分布族满足一些正则条件，适合这些条件的分布族称为<strong>C-R正则分布族</strong>。</p>
+<h3 id=单参数c-r正则分布族>单参数C-R正则分布族</h3>
+<blockquote>
+<p>定义1：单参数Cramer-Rao正则分布族：若单参数概率分布族<span class=math>\(p(x;\theta)\)</span>，<span class=math>\(\theta\in\varTheta\)</span>属于Cramer-Rao正则分布族，则需要满足以下五个条件：</p>
+<ol style=list-style-type:decimal>
+<li>参数空间<span class=math>\(\varTheta\)</span>是直线上的开区间；</li>
+<li><span class=math>\(\frac{\partial p(x;\theta)}{\partial\theta}\)</span>对所有<span class=math>\(\theta\in\varTheta\)</span>都存在；</li>
+<li>分布的支撑<span class=math>\(\{x:p(x;\theta)>0\}\)</span>与<span class=math>\(\theta\)</span>无关，即分布族具有共同的支撑；</li>
+<li><span class=math>\(p(x;\theta)\)</span>的微分与积分运算可交换；</li>
+<li>对所有<span class=math>\(\theta\in\varTheta\)</span>，期望 <span class=math>\[0&lt;I(\theta)=E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]&lt;+\infty\tag{1}\]</span> 其中，<span class=math>\(I(\theta)\)</span>为分布<span class=math>\(p(x;\theta)\)</span>中含有<span class=math>\(\theta\)</span>的<strong>费舍尔信息量</strong>，简称信息量。</li>
+</ol>
+</blockquote>
+<h3 id=费舍尔信息量>费舍尔信息量</h3>
+<p>上面，我们用式（1）定义了费舍尔信息量。其具体解释可以理解为样本中关于<span class=math>\(\theta\)</span>有多少信息。<span class=math>\(I(\theta)\)</span>越大，意味着样本中含有位置参数<span class=math>\(\theta\)</span>的信息越多，该参数越容易估计。<span class=math>\(I(\theta)\)</span>也可解释成<strong>单个样品</strong>提供的信息量，由于简单抽样中，各个样品是i.i.d的，故每个样品提供的信息量<span class=math>\(I(\theta)\)</span>也是一样多的，即整个样本<span class=math>\((X_1,\dotsb,X_n)\)</span>所含信息量为<span class=math>\(nI(\theta)\)</span>。</p>
+<h2 id=c-r不等式>C-R不等式</h2>
+<h3 id=单参数c-r不等式>单参数C-R不等式</h3>
+<blockquote>
+<p>定理1：设<span class=math>\(\mathcal{F}=\{f(x;\theta),\theta\in\varTheta\}\)</span>是C-R正则分布族，<span class=math>\(g(\theta)\)</span>是定义在参数空间<span class=math>\(\varTheta\)</span>上的可微函数，设<span class=math>\(X=(X_1,X_2,\dotsb,X_n)\)</span>是由总体<span class=math>\(f(x;\theta)\in\mathcal{F}\)</span>中抽取的简单随机样本，<span class=math>\(\hat g(X)\)</span>是<span class=math>\(g(\theta)\)</span>的任一无偏估计，且满足下列条件： <span class=math>\[\int\dotsb\int \hat{g}(\bm{x})f(\bm{x},\theta)\mathrm{d}\bm{x}\]</span> 可在积分号下对<span class=math>\(\theta\)</span>求导数，此出<span class=math>\(\mathrm{d}\bm{x}=\mathrm{d}x_1\dotsb\mathrm{d}x_n\)</span>，则有： <span class=math>\[D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{nI(\theta)},\forall \theta\in \varTheta\tag{2}\]</span> 其中,<span class=math>\(I(\theta)\)</span>为Fisher信息量。</p>
+</blockquote>
+<p>特别地，当<span class=math>\(\hat g(\theta)=\theta\)</span>时，式(2)变成 ><span class=math>\[D[\hat{g}(X)]\geq \frac{1}{nI(\theta)},\forall \theta\in \varTheta\tag{3}\]</span> 当<span class=math>\(f(x;\theta)\)</span>为离散概率分布列时，式（2）变成 ><span class=math>\[D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{n\sum\limits_i\left\{[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]^2f(x_i;\theta)\right\}},\forall \theta\in \varTheta\tag{4}\]</span></p>
+<p>证明：C-R不等式的证明本质上是柯西-施瓦茨不等式的应用。</p>
+<blockquote>
+<p>首先，在概率论中，柯西-施瓦茨不等式形式为： <span class=math>\[\mathrm{Var}(X)\cdot\mathrm{Var}(Y)\geq[\mathrm{Cov}(X,Y)]^2\]</span> 我们再来看看C-R不等式，式（2）： <span class=math>\[D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{nI(\theta)},\forall \theta\in \varTheta\]</span> 和柯西施瓦茨不等式对比下，<span class=math>\(D[\hat{g}(X)]\)</span>是方差。根据<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>笔记中的内容，可知<span class=math>\(nI(\theta)\)</span>其实是<strong>分数函数的方差</strong>。前面多了一个<span class=math>\(n\)</span>是因为，此时有<span class=math>\(n\)</span>个i.i.d简单抽样出来的随机变量，是多维随机变量场景。</p>
+<p>为了阐述清晰，在这里我们在写一遍关于分数函数<span class=math>\(S(\bm{x})\)</span>的相关证明。由于随机样本中每一样品都是i.i.d的，所以有<span class=math>\(f(\bm{x};\theta)=\prod\limits_{i=1}^n f(x_i;\theta)\)</span>，那么分数函数可记 <span class=math>\[S(\bm{x};\theta)=\frac{\partial\log{f(\bm{x};\theta)}}{\partial\theta}=\sum_{i=1}^n \frac{\partial\log{f(x_i;\theta)}}{\partial\theta}\tag{5}\]</span> 使用和<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>中一样的方法，可知： <span class=math>\[\begin{aligned}
+E[S(\bm{x};\theta)]&=\sum_{i=1}^n E[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]=\sum_{i=1}^n \int\frac{1}{f(x_i;\theta)}\frac{\partial f(x_i;\theta)}{\partial\theta}\cdot f(x_i;\theta)\mathrm{d}x_i\\
+&=\sum_{i=1}^n \int\frac{\partial f(x_i;\theta)}{\partial\theta}\mathrm{d}x_i=\sum_{i=1}^n \frac{\partial }{\partial\theta}\int f(x_i;\theta)\mathrm{d}x_i=\sum_{i=1}^n \frac{\partial 1}{\partial\theta}=0
+\end{aligned}\]</span> 注意，C-R正则族的条件（2）保证了导数的存在，条件（4）保证了积分、微分顺序可交换。由于分数函数的期望为0，因此分数函数的方差为 <span class=math>\[\begin{aligned}
+D[S(\bm{x};\theta)]&=D[\sum_{i=1}^n \frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]=\sum_{i=1}^n D[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]\\
+&=\sum_{i=1}^n \{E[(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})^2]-(\underbrace{E[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]}_{=0})^2\}\\
+(x_i都是i.i.d)&=n\cdot E[(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})^2]=nI(\theta)
+\end{aligned}\]</span> 由上可知，<span class=math>\(nI(\theta)\)</span>是分数函数的方差。那么式（2）可转换为要证： <span class=math>\[D[\hat{g}(X)]\cdot D[S(X;\theta)]\geq (\hat g'(\theta))^2,\forall \theta\in \varTheta\]</span> 再将上式和柯西-施瓦茨不等式对比下，发现区别就是将<span class=math>\(\hat g'(\theta)\)</span>换成<span class=math>\(\hat g(X)\)</span>与<span class=math>\(S(X;\theta)\)</span>的相关系数。注意，<span class=math>\(\hat g'(\theta)\)</span>是关于<span class=math>\(\theta\)</span>的函数，而<span class=math>\(\hat g(X)\)</span>与<span class=math>\(S(X;\theta)\)</span>的相关系数会将<span class=math>\(X\)</span>消掉，只剩下<span class=math>\(\theta\)</span>。下面我们就来验证这一点： <span class=math>\[\begin{aligned}
+\mathrm{Cov}(\hat{g}(X),S(X;\theta))&=E[\hat{g}(X)\cdot S(X;\theta)]-E[\hat{g}(X)]\underbrace{E[S(X;\theta)}_{=0}]\\
+&=E[\hat{g}(X)\cdot S(X;\theta)]\\
+&=\int\dotsb\int \hat{g}(\bm{x})(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})f(\bm{x};\theta)\mathrm{d}\bm{x}\\
+&=\int\dotsb\int \hat{g}(\bm{x})\frac{\partial f(\bm{x};\theta)}{\partial \theta}\mathrm{d}\bm{x}\\
+&=\frac{\partial}{\partial \theta}\underbrace{\int\dotsb\int \hat{g}(\bm{x})f(\bm{x};\theta)\mathrm{d}\bm{x}}_{E[\hat{g}(X)]}\\
+&\because \hat g(X)是g(\theta)的任一无偏估计\\
+&\therefore E[\hat g(X)]=g(\theta)\\
+&=\frac{\partial{g(\theta)}}{\partial{\theta}}=g'(\theta)
+\end{aligned}\]</span> 即，<span class=math>\(\mathrm{Cov}(\hat{g}(X),S(X;\theta))=g'(\theta)\)</span>。这样C-R不等式就完全转变成了柯西-施瓦茨不等式的形式。C-R不等式得证。</p>
+</blockquote>
+<p>C-R不等式表明，<strong>在给定分布族、样本后，我们的估计能力是有限的</strong>，无论用什么估计方式，其方差最小也是C-R不等式给出的结果。如果希望方差无限小，唯一的途径就是样本数量无限大。</p>
+<h3 id=单参数c-r不等式等号成立条件>单参数C-R不等式等号成立条件</h3>
+<ol style=list-style-type:decimal>
+<li>若样本分布族<strong>非指数族</strong>，任何<span class=math>\(g(\theta)\)</span>的任何无偏估计，其方差不能处处达到C-R不等式下界。这意味着，非指数族就没法用C-R不等式来求证UMVUE。</li>
+<li>即使样本的总体是指数族，<span class=math>\(f(\bm{x};\theta)=C(\theta)\exp{Q(\theta)T(\bm x)}h(\bm x)\)</span>，也不是让和<span class=math>\(g(\theta)\)</span>都能找到无偏估计<span class=math>\(\hat{g}(X)\)</span>，使其方差处处达到C-R下界。唯有<span class=math>\(g(\theta)=E[aT(X)+b]\)</span>时才有，即<span class=math>\(\hat{g}(X)=aT(X)+b\)</span>（线性函数）的情形才有，此处<span class=math>\(a\neq 0,b\)</span>与<span class=math>\(X\)</span>无关，但可以是<span class=math>\(\theta\)</span>的函数。</li>
+</ol>
+<p>从上面两个条件，我们不能发现：<strong>用C-R不等于求UMVUE是很受限的</strong>。</p>
+<h3 id=多参数c-r不等式>多参数C-R不等式</h3>
+<p>TODO用到时再说。</p>
+<h2 id=c-r不等式应用>C-R不等式应用</h2>
+<h3 id=求umvue>求UMVUE</h3>
+<p>当分布族满足正则分布族条件时，我们可以计算<span class=math>\(\frac{g'(\theta)}{nI(\theta)}\)</span>。然后再计算估计量的方差<span class=math>\(D[\hat g(X)]\)</span>。如果二者相等，且估计量是无偏估计，那么此估计量就是UMVUE。</p>
+<p>这个方法对于指数族都是很好用的，因为指数族都是C-R正则分布族，而且可以求出费舍尔信息。但是，其缺点也很明显。一是因为很多分布族不满足C-R正则条件；二是一些UMVUE的实际方差确实比C-R不等式给出的更大，因此即使一个估计量方差大于C-R下界，那它也可能是UMVUE。即C-R不等式是必要条件，不是充分条件。</p>
+<h3 id=估计的效率和有效性>估计的效率和有效性</h3>
+<p>无偏估计的效率定义很简单，就是C-R界与估计方差的比值：</p>
+<blockquote>
+<p>定义2:<strong>无偏估计的效率</strong>。设<span class=math>\(\hat{g}(X)\)</span>为<span class=math>\(g(\theta)\)</span>的无偏估计，比值 <span class=math>\[e_{\hat{g}}(\theta)=\frac{[g'(\theta)]^2/nI(\theta)}{D[\hat{g}(X)]}\]</span> 称为无偏估计<span class=math>\(\hat{g}(X)\)</span>的效率。</p>
+</blockquote>
+<p>显然，根据C-R不等式必有<span class=math>\(0&lt;e_{\hat{g}}(\theta)\leq 1\)</span>。</p>
+<ul>
+<li>当<span class=math>\(e_{\hat{g}}(\theta)=1\)</span>，则称<span class=math>\(\hat{g}(X)\)</span>是<span class=math>\(g(\theta)\)</span>的<strong>有效估计</strong>（UMVUE）（有效估计是UMVUE，但是UMVUE不一定是有效估计）；</li>
+<li>若<span class=math>\(\hat{g}(X)\)</span>不是<span class=math>\(g(\theta)\)</span>的有效估计，但是<span class=math>\(\lim\limits_{n\rightarrow \infty}e_{\hat{g}}(\theta)=1\)</span>，则称<span class=math>\(\hat{g}(X)\)</span>是<span class=math>\(g(\theta)\)</span>的<strong>渐进有效估计</strong>。</li>
 </ul>
+<p>虽然有效估计是无偏估计中最好的，但是从常用分布来看有效估计并不多，渐进有效估计不少。</p>
+<h3 id=在渐进正态性中的应用>在渐进正态性中的应用</h3>
+<p>在一定条件下，最大似然估计具有渐进正态性。我们将通过如下定理阐释。需要指出的是，定理是以连续分布的形式给出，但是对于离散场景也是适用的。</p>
+<blockquote>
+<p>设<span class=math>\(p(x;\theta)\)</span>是某密度函数，其参数空间<span class=math>\(\varTheta=\{\theta\}\)</span>是直线上的非退化区间（即不是一个点），假如：</p>
+<ol style=list-style-type:decimal>
+<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，<span class=math>\(p(x;\theta)\)</span>对<span class=math>\(\theta\)</span>如下偏导都存在：<span class=math>\(\frac{\partial\ln p}{\partial\theta},\frac{\partial^2\ln p}{\partial\theta^2},\frac{\partial^3\ln p}{\partial\theta^3}\)</span></li>
+<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，有<span class=math>\(|\frac{\partial\ln p}{\partial\theta}|&lt;F_1(x),|\frac{\partial^2\ln p}{\partial\theta^2}|&lt;F_2(x),\frac{\partial^3\ln p}{\partial\theta^3}&lt;H(x)\)</span>成立，其中<span class=math>\(F_1(x)\)</span>与<span class=math>\(F_2(x)\)</span>在实数轴上可积，而<span class=math>\(H(x)\)</span>满足：<span class=math>\(\int_{-\infty}^\infty H(x)p(x;\theta)&lt;M\)</span>，这里<span class=math>\(M\)</span>与<span class=math>\(\theta\)</span>无关。</li>
+<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，有<span class=math>\(0&lt;I(\theta)=E[(\frac{\partial\ln p}{\partial \theta})^2]&lt;+\infty\)</span></li>
+</ol>
+<p>则在参数真值<span class=math>\(\theta\)</span>为参数空间<span class=math>\(\varTheta\)</span>内点的情况下，其似然方程有一个解存在，且此解<span class=math>\(\hat\theta_n=\theta(x_1,x_2,\dotsb,x_n)\)</span>依概率收敛于<span class=math>\(\theta\)</span>，且： <span class=math>\[
+\hat\theta_n\sim AN(\theta,[nI(\theta)]^{-1})
+\]</span></p>
+</blockquote>
+<p>这个定理的意义在于给定了最大似然分布有渐进正态性的条件，其中渐进方差（体现大样本效率）完全由<strong>样本数量<span class=math>\(n\)</span>和分布的费舍尔信息量<span class=math>\(I(\theta)\)</span>决定</strong>，且费舍尔信息量越大（分布中含有<span class=math>\(\theta\)</span>）的信息越多，渐进方差在同等样本数量下越小，从而最大似然估计效果越好。</p>
+</article>
 <aside class=sidebar>
 <section class=sidebar_inner>
 <div class=author_header>
@@ -604,13 +335,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
-</li>
-<li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/ class=nav-link title=shell-骨干流程3——命令展开>shell-骨干流程3——命令展开</a>
 </li>
 </ul>
 <div>

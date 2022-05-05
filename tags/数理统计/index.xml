@@ -229,7 +229,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 &lt;blockquote>
 &lt;p>&lt;strong>辅助(ancillary)统计量&lt;/strong>:一个统计&lt;span class="math">\(V(x)\)&lt;/span>是辅助统计量，当且仅当其概率分布不依赖与任何未知量。&lt;/p>
 &lt;/blockquote>
-&lt;p>一个典型但没啥用的辅助统计量就是常数，即&lt;span class="math">\(V(x)\equiv C\)&lt;/span>。&lt;strong>常数是不含有任何概率分布信息的。&lt;/strong>再举一个典型例子（位移族）：&lt;/p>
+&lt;p>一个典型但没啥用的辅助统计量就是常数，即&lt;span class="math">\(V(x)\equiv C\)&lt;/span>。&lt;strong>常数是不含有任何概率分布信息的&lt;/strong>。再举一个典型例子（位移族）：&lt;/p>
 &lt;blockquote>
 &lt;p>已知某一概率密度函数&lt;span class="math">\(f(x)\)&lt;/span>，对其沿&lt;span class="math">\(x\)&lt;/span>轴向右平移一段未知距离&lt;span class="math">\(\mu\)&lt;/span>，则新的pdf为&lt;span class="math">\(f(x-\mu)\)&lt;/span>，现在从平移后的pdf中抽样得到i.i.d的样本&lt;span class="math">\(x_1,x_2,\dotsb,x_n\)&lt;/span>，我们想从样本估计参数&lt;span class="math">\(\mu\)&lt;/span>。如果我们构造一个统计量&lt;span class="math">\(V(x)=x_{(k)}-x_{(l)}\)&lt;/span>，其中&lt;span class="math">\(x_{(k)},x_{(l)}\)&lt;/span>是次序统计量，那么&lt;span class="math">\(V(x)\)&lt;/span>的pdf只会和&lt;span class="math">\(f(x)\)&lt;/span>有关，与&lt;span class="math">\(\mu\)&lt;/span>无关，即为辅助统计量。&lt;/p>
 &lt;/blockquote>
@@ -238,7 +238,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 &lt;p>&lt;strong>一阶辅助统计量&lt;/strong>：一个统计&lt;span class="math">\(V(x)\)&lt;/span>是一阶辅助统计量，当且仅当其期望&lt;span class="math">\(E[V(x)]\)&lt;/span>不依赖与任何未知量。&lt;/p>
 &lt;/blockquote>
 &lt;p>显然，辅助统计量必然是一阶辅助统计量。需要指出，ancillary一词的翻译辅助，有附加、附属的意思，不一定是指辅助做了什么事。&lt;/p>
-&lt;p>如果对一个统计量&lt;span class="math">\(T\)&lt;/span>能找到一个非平凡（不是常函数）的辅助统计量&lt;span class="math">\(V\)&lt;/span>，使得&lt;span class="math">\(V(T(x))\neq C\)&lt;/span>，也就是说&lt;span class="math">\(V(x&amp;#39;)\)&lt;/span>可以从统计量&lt;span class="math">\(T(x)\)&lt;/span>中再提取一些和带估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息出来。那么说明，统计量&lt;span class="math">\(T(x)\)&lt;/span>中除了含有&lt;span class="math">\(\theta\)&lt;/span>的信息之外，还有其他冗余的信息，可以进一步压缩，&lt;strong>此时我们就不能称&lt;span class="math">\(T\)&lt;/span>是完全统计量&lt;/strong>。完全统计量是纯粹性的体现，意味着不包含其他与参数估计无关的信息。统计量可以是完全但不充分的，这意味再样本信息压缩过程中，不仅仅把和待估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息剔除掉，甚至与&lt;span class="math">\(\theta\)&lt;/span>有关的信息也可能去掉了一些，属于“有损压缩”。由此，我们给出完全统计量定义：&lt;/p>
+&lt;p>如果对一个统计量&lt;span class="math">\(T\)&lt;/span>能找到(存在)一个非平凡（不是常函数）的辅助统计量&lt;span class="math">\(V\)&lt;/span>，使得&lt;span class="math">\(V(T(x))\neq C\)&lt;/span>，也就是说&lt;span class="math">\(V(x&amp;#39;)\)&lt;/span>可以从统计量&lt;span class="math">\(T(x)\)&lt;/span>中再提取一些和带估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息出来。那么说明，统计量&lt;span class="math">\(T(x)\)&lt;/span>中除了含有&lt;span class="math">\(\theta\)&lt;/span>的信息之外，还有其他冗余的信息，可以进一步压缩，&lt;strong>此时我们就不能称&lt;span class="math">\(T\)&lt;/span>是完全统计量&lt;/strong>。完全统计量是纯粹性的体现，意味着不包含其他与参数估计无关的信息。统计量可以是完全但不充分的，这意味再样本信息压缩过程中，不仅仅把和待估计参数&lt;span class="math">\(\theta\)&lt;/span>无关的信息剔除掉，甚至与&lt;span class="math">\(\theta\)&lt;/span>有关的信息也可能去掉了一些，属于“有损压缩”。由此，我们给出完全统计量定义：&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>完全（完备）统计量&lt;/strong>：设&lt;span class="math">\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)&lt;/span>为一分布族，&lt;span class="math">\(\varTheta\)&lt;/span>是参数空间，设统计量&lt;span class="math">\(T=T(x)\)&lt;/span>，若对任何辅助统计量&lt;span class="math">\(\varphi(T(x))\)&lt;/span>，当 &lt;span class="math">\[E[\varphi(T(x))]=0\]&lt;/span> 都有 &lt;span class="math">\[P(\varphi(T(x))=0)=1\]&lt;/span> 则称&lt;span class="math">\(T(x)\)&lt;/span>是一完全（完备）统计量。&lt;/p>
 &lt;/blockquote>
@@ -247,7 +247,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 &lt;p>有函数处理的信息不增特性可知，若&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量，则它任一函数&lt;span class="math">\(\delta(T)\)&lt;/span>也是完全统计量。&lt;/p>
 &lt;h4 id="指数族中统计量的完全性">指数族中统计量的完全性&lt;/h4>
 &lt;blockquote>
-&lt;p>&lt;strong>定理&lt;/strong>：设样本&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的概率函数 &lt;span class="math">\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]&lt;/span> 为指数族的自然形式。令&lt;span class="math">\(T(x)=(T_1(x),\dotsb,T_k(x))\)&lt;/span>，且自然参数空间&lt;span class="math">\(\varTheta^\star\)&lt;/span>作为&lt;span class="math">\(R_k\)&lt;/span>的自己有内点，则&lt;span class="math">\(T(x)\)&lt;/span>是充分统计量。&lt;/p>
+&lt;p>&lt;strong>定理&lt;/strong>：设样本&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的概率函数 &lt;span class="math">\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]&lt;/span> 为指数族的自然形式。令&lt;span class="math">\(T(x)=(T_1(x),\dotsb,T_k(x))\)&lt;/span>，且自然参数空间&lt;span class="math">\(\varTheta^\star\)&lt;/span>作为&lt;span class="math">\(R_k\)&lt;/span>的自己有内点，则&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量。&lt;/p>
 &lt;/blockquote>
 &lt;p>首先，该定理一个充分条件，只适用于判别指数族的完全性。&lt;span class="math">\(\theta_j\)&lt;/span>是可以是其他参数的函数，其结果作为&lt;span class="math">\(\varTheta^\star\)&lt;/span>的空间一维。&lt;/p>
 &lt;p>其次，有内点意味着&lt;span class="math">\(\varTheta^\star\)&lt;/span>不可以是K维空间的超平面，即&lt;span class="math">\(\theta=(\theta_1,\dotsb,\theta_k)\)&lt;/span>是满秩的。&lt;/p>

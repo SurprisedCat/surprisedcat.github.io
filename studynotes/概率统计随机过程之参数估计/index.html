@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Apr 16, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -105,10 +105,11 @@ Apr 16, 2021</span>
 <li><a href=#点估计的有效性详解>点估计的有效性详解</a></li>
 <li><a href=#一致最小方差无偏估计>一致最小方差无偏估计</a>
 <ul>
+<li><a href=#改进一个无偏估计>改进一个无偏估计</a></li>
 <li><a href=#零无偏估计法>零无偏估计法</a></li>
 <li><a href=#充分完全统计量法>充分完全统计量法</a></li>
 </ul></li>
-<li><a href=#cramer-rao不等式与界>Cramer-Rao不等式与界</a></li>
+<li><a href=#cramer-raoc-r不等式与界>Cramer-Rao（C-R）不等式与界</a></li>
 <li><a href=#区间估计>区间估计</a></li>
 <li><a href=#置信区间与枢轴变量>置信区间与枢轴变量</a></li>
 <li><a href=#一个正态总体的期望和方差的区间估计>一个正态总体的期望和方差的区间估计</a></li>
@@ -219,9 +220,9 @@ Apr 16, 2021</span>
 p(x|\theta_1)>p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))>\ln(p(x|\theta_2))
 \]</span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。</p>
 <h4 id=最大似然估计的不变原理>最大似然估计的不变原理</h4>
-<p>我们介绍一个致使最大似然估计得到广泛应用的定理：</p>
+<p>我们介绍一个致使最大似然估计得到广泛应用的定理。</p>
 <blockquote>
-<p>不变定理：设<span class=math>\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)</span>，若<span class=math>\(\theta\)</span>的最大似然估计为<span class=math>\(\hat\theta\)</span>，则对任意函数<span class=math>\(\gamma=g(\theta)\)</span>，<span class=math>\(\gamma\)</span>的最大似然估计为<span class=math>\(\hat\gamma=g(\hat\theta)\)</span>。</p>
+<p>定理1（不变定理）：设<span class=math>\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)</span>，若<span class=math>\(\theta\)</span>的最大似然估计为<span class=math>\(\hat\theta\)</span>，则对任意函数<span class=math>\(\gamma=g(\theta)\)</span>，<span class=math>\(\gamma\)</span>的最大似然估计为<span class=math>\(\hat\gamma=g(\hat\theta)\)</span>。</p>
 </blockquote>
 <p>这个定理的条件很宽，致使最大似然估计的应用也会广泛。在函数<span class=math>\(g(\theta)\)</span>非单调的时候，它的证明需要测度论的内容，暂时不予证明。</p>
 <h3 id=点估计的有效性详解>点估计的有效性详解</h3>
@@ -260,17 +261,98 @@ MSE(\hat\theta)&=E(\hat\theta-\theta)^2=E\{[\hat\theta-E(\hat\theta)]+[E(\hat\th
 <p>一致最小方差无偏估计：在参数估计<span class=math>\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)</span>中，如果<span class=math>\(\hat\theta\)</span>是参数<span class=math>\(\theta\)</span>的<strong>无偏估计</strong>，如果对另外任意一个<span class=math>\(\theta\)</span>的<strong>无偏估计</strong><span class=math>\(\tilde{\theta}\)</span>，在参数空间<span class=math>\(\varTheta\)</span>上都有： <span class=math>\[\mathrm{Var}(\hat\theta)\leq \mathrm{Var}(\tilde{\theta})\]</span> 则称<span class=math>\(\hat{\theta}\)</span>是<span class=math>\(\theta\)</span>的<strong>一致最小方差无偏估计，简记为UMVUE(Uniformly minimum variance unbiased estimation)</strong>。</p>
 </blockquote>
 <p>需要指出，有些参数可能不存在无偏估计，即UMVUE可能也不存在。如果参数的无偏估计存在，我们称此参数为<strong>可估参数</strong>。为什么加上无偏之后，一致最小方差估计就可以存在了呢？前面我们提到两个任意上，一是任意估计方法，二是<span class=math>\(\forall\theta\in\varTheta\)</span>，这两个要求太严格。无偏其实是对第一个任意的限制，缩小了估计类范围，把很多奇葩的估计方法（如上文提到的<span class=math>\(\tilde{\theta}_0\)</span>方法）排除在外。</p>
-<p>显然，在给定样本数量后，从无偏性和有效性两个角度，UMVUE是最优解，下面我们给出三个求UMVUE的方法。第一个是零无偏估计法，第二个是充分完全统计量法，第三个用了C-R不等式（单拎出来介绍）。下面我们分别介绍：</p>
-<h4 id=零无偏估计法>零无偏估计法</h4>
-<p>假设我们已经知道了一个无偏估计，有没有办法能够逐渐优化它，从而达到UMVUE呢？这个思路是可以的，我们先介绍一种改进无偏估计的方法，Rao–Blackwell定理：</p>
+<p>显然，在给定样本数量后，从无偏性和有效性两个角度，UMVUE是最优解，下面我们给出三个求UMVUE的方法。第一个是零无偏估计法，第二个是充分完全统计量法，第三个用了C-R不等式（单拎出来介绍）。下面我们分别介绍。</p>
+<h4 id=改进一个无偏估计>改进一个无偏估计</h4>
+<p>假设我们已经知道了一个无偏估计，有没有办法能够优化它的方差呢？我们先介绍一种改进无偏估计的方法——Rao–Blackwell定理。</p>
 <blockquote>
-<p>Rao–Blackwell定理：设<span class=math>\(T=T(x)\)</span>是样本<span class=math>\(x\)</span>关于参数<span class=math>\(\theta\)</span>的充分统计量，<span class=math>\(\hat\theta(x)\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，则 <span class=math>\[h(T)=E[\hat\theta(x)|T]\]</span> 是<span class=math>\(\theta\)</span>的无偏估计，并且 <span class=math>\[D[h(T)]\leq D[\hat\theta(x)]\]</span> 其中当且仅当<span class=math>\(P(\hat\theta(x))=h(T)=1\)</span>，即<span class=math>\(h(T)=\hat\theta(x)\)</span>，a.s. P成立。</p>
+<p>定理2（Rao–Blackwell定理）：设<span class=math>\(T=T(x)\)</span>是样本<span class=math>\(x\)</span>关于参数<span class=math>\(\theta\)</span>的<strong>充分统计量</strong>，<span class=math>\(\hat\theta(x)\)</span>是<span class=math>\(\theta\)</span>的一个<strong>无偏估计</strong>，即<span class=math>\(E[\hat\theta(x)]=\theta\)</span>，则 <span class=math>\[h(T)=E[\hat\theta(x)|T]\]</span> 是<span class=math>\(\theta\)</span>的无偏估计，并且 <span class=math>\[D[h(T)]\leq D[\hat\theta(x)]\]</span> 其中当且仅当<span class=math>\(P(\hat\theta(x))=h(T)=1\)</span>，即<span class=math>\(h(T)=\hat\theta(x)\)</span>，a.s. P成立。</p>
 </blockquote>
 <p>我们先解释下<span class=math>\(h(T)=E[\hat\theta(x)|T]\)</span>，从条件期望的<span class=math>\(E(X|Y)\)</span>可知，我们是对<span class=math>\(X\)</span>求期望，会将<span class=math>\(X\)</span>的随机性抹去，<span class=math>\(E(X|Y)\)</span>实际上是关于<span class=math>\(Y\)</span>的随机变量函数，即<span class=math>\(f(Y)=E(X|Y)\)</span>，当<span class=math>\(Y=y\)</span>时，函数的值就确定了。因此<span class=math>\(h(T)=E[\hat\theta(x)|T]\)</span>就是一个关于<span class=math>\(T\)</span>的随机变量函数<span class=math>\(h(T)\)</span>。这个定理的关键就是说，这样的复合函数<span class=math>\(h\cdot T\)</span>是<span class=math>\(\theta\)</span>的无偏估计，且方差比原来的无偏估计<span class=math>\(\hat\theta(x)\)</span>小。</p>
+<p><span class=math>\(h\cdot T\)</span>是<span class=math>\(\theta\)</span>的无偏估计这点用重期望公式可以证明： <span class=math>\[
+E[h(T)]=E[E(\hat\theta(x)|T)]=E[\hat\theta(x)]
+\]</span> 由于<span class=math>\(\hat\theta(x)\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，所以<span class=math>\(E[h(T)]=E[\hat\theta(x)]=\theta\)</span>，即<span class=math>\(E[h(T)]\)</span>也是<span class=math>\(\theta\)</span>的一个无偏估计。</p>
+<p>对于方差的证明，我们需要用一个小技巧： <span class=math>\[
+\begin{aligned}
+D[\hat\theta(x)]&=E\{\hat\theta(x)-E[\hat\theta(x)]\}^2\\
+&=E\{\hat\theta(x)\underbrace{-h(T)+h(T)}_{引入h(T)}-\underbrace{E[\hat\theta(x)]}_\theta\}^2\\
+&=E[\hat\theta(x)-h(T)]^2+\underbrace{E[h(T)-\theta]^2}_{D[h(T)]}+2\{E[h(T)-\theta][\hat\theta(x)-h(T)]\}
+\end{aligned}
+\]</span> 前面两项好理解，需要处理一下交叉相乘的最后一项。我们可以根据重期望公式将其换种写法： <span class=math>\[
+E\{[h(T)-\theta][\hat\theta(x)-h(T)]\}=E_T\{E[(h(T)-\theta)(\hat\theta(x)-h(T))|T]\}\\
+当T=t为给定的条件时，h(T)为一常数\\
+原式=E_T\{(h(T)-\theta)E[\hat\theta(x)-h(T)|T]\}=E_T\{(h(T)-\theta)\{E[\hat\theta(x)|T]-h(T)\}\}\\
+\]</span> 在式子的最后，我们发现有一项<span class=math>\(E[\hat\theta(x)|T]\)</span>，而这正是<span class=math>\(h(T)\)</span>的定义啊，所以必有 <span class=math>\[
+E_T\{(h(T)-\theta)\underbrace{\{E[\hat\theta(x)|T]-h(T)\}}_{E[\hat\theta(x)|T]=h(T)}\}=0
+\]</span> 因此，<span class=math>\(2\{E[h(T)-\theta][\hat\theta(x)-h(T)]\}=0\)</span>，<span class=math>\(D[\hat\theta(x)]\)</span>可以写成： <span class=math>\[
+D[\hat\theta(x)]=E[\hat\theta(x)-h(T)]^2+D[h(T)]\geq D[h(T)],\forall \theta \in \varTheta
+\]</span> 并且等号成立的条件是<span class=math>\(E[\hat\theta(x)-h(T)]^2=0\)</span>，即<span class=math>\(\hat\theta(x)=h(T)\)</span>。这里再多解释一句，充分统计量<span class=math>\(T\)</span>也是<span class=math>\(x\)</span>的函数，所以前式具体应写为<span class=math>\(\hat\theta(x)=h(T(x))\)</span>或<span class=math>\(\hat\theta=h\cdot T\)</span>。</p>
+<p>Rao–Blackwell定理的意义在于，<strong>如果我们能够找到一个充分统计量，那么就用<span class=math>\(E[\hat\theta(x)|T]\)</span>可以改进任何<span class=math>\(\theta\)</span>的无偏估计，得到<span class=math>\(h(T(x))\)</span></strong>。且在<strong>充分统计量存在</strong>的情况下，UMVUE一定是充分统计量的函数（除非相等），否则我们可以通过<span class=math>\(h(T)\)</span>构造一个方差更小的无偏估计。</p>
+<p>举个例子：设<span class=math>\(X=(X_1,\dotsb,X_n)\)</span>是从两点分布族<span class=math>\(\{b(1,p):0&lt;p&lt;1\}\)</span>中抽取的简单样本。显然<span class=math>\(X_1\)</span>是<span class=math>\(p\)</span>的一个无偏估计，从前文可知<span class=math>\(T(X)=\sum_{i=1}^n X_i\)</span>是<span class=math>\(p\)</span>的充分统计量，试利用<span class=math>\(T\)</span>构造一个比<span class=math>\(X_1\)</span>方差更小的无偏估计。</p>
+<p>利用Rao–Blackwell定理可知，通过条件期望构造的无偏估计如下： <span class=math>\[
+h(t)=E[X_1|T=t]=1\times P(X_1=1|T=t)+0\times P(X_1=0|T=t)\\
+=E[X_1|T=t]=1\times P(X_1=1|T=t)=\frac{P(X_1=1,T=t)}{P(T=t)}\\
+=\frac{P(X_1=1,X_2+\dots+X_n={t-1})}{P(T=t)}=\frac{p\cdot{n-1\choose{t-1}}p^{t-1}(1-p)^{n-t}}{{n\choose{t}}p^{t}(1-p)^{n-t}}\\
+=\frac{t}{n}=\frac{\sum_{i=1}^n X_i}{n}=\bar{X}
+\]</span> 显然，样本均值<span class=math>\(h(T)=\bar{X}\)</span>也是<span class=math>\(p\)</span>的无偏估计，且方差为<span class=math>\(p(1-p)/n\)</span>，而<span class=math>\(X_1\)</span>的方差为<span class=math>\(p(1-p)\)</span>，只要当<span class=math>\(n\geq 2\)</span>时，<span class=math>\(\bar{X}\)</span>的方差就会小于<span class=math>\(X_1\)</span>。然而，Rao-Blackwell定理能够通过充分统计量改进无偏估计统计量，却并没有告诉我们改进后的估计是否为UMVUE或者如何改进成UMVUE。为了判断一个统计量是否为UMVUE，我们先介绍一些判别方法。</p>
+<h4 id=零无偏估计法>零无偏估计法</h4>
+<blockquote>
+<p>定理3：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自某总体的一个样本，<span class=math>\(\hat\theta(X)\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，<span class=math>\(D[\hat\theta(X)]&lt;\infty\)</span>，则<span class=math>\(\hat\theta\)</span>是<span class=math>\(\theta\)</span>的UMVUE的<strong>充要条件</strong>是：</p>
+<p>对任意一个满足<span class=math>\(E[\varphi(X)]=0\)</span>且<span class=math>\(\mathrm{Var}[\varphi(X)]&lt;\infty\)</span>的<span class=math>\(\varphi(X)\)</span>，都有 <span class=math>\[\mathrm{Cov}(\hat\theta,\varphi)=0,\forall\theta\in\varTheta\]</span></p>
+</blockquote>
+<p>其中，<span class=math>\(\varphi(X)\)</span>是一个统计量，其期望为0，可称为零的无偏估计，这也是这个方法名字的由来。这个定理的常用解释为：<span class=math>\(\theta\)</span>的UMVUE必与任何零的无偏估计<strong>线性不相关</strong>。反之，与任何零的无偏估计<strong>线性不相关</strong>的估计量，必然是<span class=math>\(\theta\)</span>的UMVUE。</p>
+<blockquote>
+<p>我们先证明这个定理的<strong>充分性</strong>，即<span class=math>\(\Rightarrow\)</span> UMVUE</p>
+<p>设有另一个<span class=math>\(\theta\)</span>的无偏估计<span class=math>\(\tilde{\theta}(X)\)</span>，那么构造函数<span class=math>\(\varphi(X)=\hat\theta(X)-\tilde{\theta}(X)\)</span>，其期望为 <span class=math>\[E[\varphi(X)]=E[\hat\theta(X)-\tilde{\theta}(X)]=E[\hat\theta(X)]-E[\tilde{\theta}(X)]=\theta-\theta=0\]</span> 方差为： <span class=math>\[\mathrm{Var}[\tilde\theta(X)]=E[\tilde\theta(X)-\theta]^2=E[(\tilde{\theta}(X)-\hat\theta(X))+(\hat\theta(X)-\theta)]^2\\
+=\underbrace{E[(\tilde{\theta}(X)-\hat\theta(X))^2]}_{E(\varphi^2(X))}+\underbrace{E[(\hat\theta(X)-\theta)^2]}_{\mathrm{Var}(\hat\theta)}+2\underbrace{\mathrm{Cov}(\varphi(X),\hat\theta(X))}_{定理充分性体现：=0}\\
+=\underbrace{E(\varphi^2(X))}_{\geq 0}+\mathrm{Var}(\hat\theta)\geq \mathrm{Var}(\hat\theta)\]</span> 这表明，<span class=math>\(\hat\theta\)</span>在<span class=math>\(\theta\)</span>的无偏估计中方差最小，即为UMVUE。</p>
+<p>我们再证明定理的<strong>必要性</strong>，即UMVUE<span class=math>\(\Rightarrow \mathrm{Cov}(\hat\theta,\varphi)=0,\forall\theta\in\varTheta\)</span>。我们采用反证法证明必要性。</p>
+<p>设<span class=math>\(\hat\theta(X)\)</span>是<span class=math>\(\theta\)</span>的UMVUE，存在一个<span class=math>\(\varphi(X)\)</span>满足<span class=math>\(E[\varphi(X)]=0\)</span>且<span class=math>\(\mathrm{Var}[\varphi(X)]&lt;\infty\)</span>。假设，在参数空间<span class=math>\(\varTheta\)</span>中存在一个<span class=math>\(\theta_0\)</span>使得<span class=math>\(\mathrm{Cov}(\varphi(X),\hat\theta(X))=a\neq 0\)</span>。下面就是一系列神仙操作，令： <span class=math>\[
+b=-\frac{\mathrm{Cov}(\varphi(X),\hat\theta(X))}{\mathrm{Var}[\varphi(X)])}=-\frac{a}{\mathrm{Var}[\varphi(X)])}\neq 0
+\]</span> 现在，构造一个<span class=math>\(X\)</span>的估计<span class=math>\(\tilde{\theta}=\hat{\theta}+b\varphi(X)\)</span>，对其求期望可得<span class=math>\(E[\tilde{\theta}]=E[\hat{\theta}+b\varphi(X)]=E[\hat{\theta}]+bE[\varphi(X)]\)</span>，由于<span class=math>\(\varphi(X)\)</span>期望为0，所以<span class=math>\(E[\tilde{\theta}]=\theta\)</span>，也是一个无偏估计，然而其方差为： <span class=math>\[\begin{aligned}\mathrm{Var}(\tilde{\theta})&=E[\hat{\theta}+b\varphi(X)-\theta]^2\\
+&=E(\hat{\theta}-\theta)^2+b^2E[\varphi^2(X)]+2bE[(\hat{\theta}-\theta)\varphi(X)]\\
+\because E(\hat{\theta}-\theta)^2&=\mathrm{Var}(\hat{\theta});E[\varphi^2(X)]=\mathrm{Var}[\varphi(X)]\\
+\because E[(\hat{\theta}-\theta)\varphi(X)]&=E[(\hat{\theta}-\theta)(\varphi(X)-0)]= \mathrm{Cov}[\varphi(X),\hat\theta(X)]=a\\
+原式&=\mathrm{Var}(\hat{\theta})+b^2\mathrm{Var}[\varphi(X)]+2ab\end{aligned}\]</span> 由于<span class=math>\(b=-\frac{a}{\mathrm{Var}[\varphi(X)])}\)</span>，因此<span class=math>\(b^2\mathrm{Var}[\varphi(x)]=\frac{a^2}{\mathrm{Var}[\varphi(x)]},\quad 2ab=\frac{-2a^2}{\mathrm{Var}[\varphi(x)]}\)</span>。因此上式可化简为： <span class=math>\[
+原式=\mathrm{Var}(\hat{\theta})-\frac{a^2}{\mathrm{Var}[\varphi(X)]}&lt;\mathrm{Var}(\hat{\theta})
+\]</span> 显然，此时<span class=math>\(\mathrm{Var}(\tilde{\theta})&lt;\mathrm{Var}(\hat{\theta})\)</span>，即<span class=math>\(\hat\theta(X)\)</span>并不是<span class=math>\(\theta\)</span>的UMVUE，与前提矛盾。所以必有<span class=math>\(\mathrm{Cov}(\varphi(X),\hat\theta(X))=0\)</span>。</p>
+<p>得证。</p>
+</blockquote>
+<p>对于统计量<span class=math>\(\hat\theta(X)\)</span>，我们必须对任意的零无偏估计统计量<span class=math>\(\varphi(x)\)</span>都要有<span class=math>\(\mathrm{Cov}(\hat{\theta},\varphi)=0\)</span>，这在证明时需要很多技巧，而且很多时候很难证明。但如果，我们能够证明这个统计量是个<strong>充分统计量</strong>，那么就可以有以下推论：</p>
+<blockquote>
+<p>推论3-1：设<span class=math>\(T=T(X)\)</span>是<span class=math>\(\theta\)</span>的充分统计量，<span class=math>\(h(T(X))\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，且方差<span class=math>\(D[h(T(X))]&lt;\infty\)</span>。对任何充分统计量<span class=math>\(T\)</span>的函数<span class=math>\(\delta(T)\)</span>，如果<span class=math>\(E[\delta(T)]=0\)</span>，必有 <span class=math>\[\mathrm{Cov}[h(T),\delta(T)]=E[h(T)\times\delta(T)]=0\]</span> 那么，<span class=math>\(h(T(X))\)</span>是<span class=math>\(\theta\)</span>的UMVUE。</p>
+</blockquote>
+<p>此推论在充分统计量的条件下，将所有的零无偏估计缩小到零无偏的充分统计函数的函数。</p>
 <h4 id=充分完全统计量法>充分完全统计量法</h4>
-<h3 id=cramer-rao不等式与界>Cramer-Rao不等式与界</h3>
-<p>从最大似然估计的渐进正态性，我们知道估计始终会使一个概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
-<p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，也不能可能是逻辑上的真实值！</p>
+<p>充分完全统计量法的核心是LS定理，它不仅给出了UMVUE的充分条件，还给出了唯一性和如何构造UMVUE的线索。</p>
+<blockquote>
+<p>定理4（Lehmann-Scheff定理，简称LS定理）：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自总体<span class=math>\(\{f(x,\theta),\theta\in\varTheta\}\)</span>的一个样本，<span class=math>\(\varTheta\)</span>为参数空间，<span class=math>\(T(X)\)</span>是参数<span class=math>\(\theta\)</span>的<strong>充分完全统计量</strong>，若<span class=math>\(\hat{g}(T(X))\)</span>为<span class=math>\(\theta\)</span>的一个无偏估计，则<span class=math>\(\hat{g}(T(X))\)</span>是<span class=math>\(\theta\)</span>的<strong>唯一的UMVUE</strong>。</p>
+</blockquote>
+<p>注意，此处唯一是依概率1的唯一，即设<span class=math>\(\hat{g},\hat{g}_1\)</span>是<span class=math>\(\theta\)</span>的两个估计量，若<span class=math>\(P(\hat{g}=\hat{g}_1)=1\)</span>，对一切<span class=math>\(\theta\in\varTheta\)</span>，则视<span class=math>\(\hat{g},\hat{g}_1\)</span>为同一个估计量。</p>
+<p>定理的证明：</p>
+<blockquote>
+<p>先证利用统计量的完全性证明唯一性。</p>
+<p>设<span class=math>\(\hat{g}_1(T(X))\)</span>为<span class=math>\(\theta\)</span>的任一无偏估计，令<span class=math>\(\delta(T(X))=\hat{g}(T(X))-\hat{g}_1(T(X))\)</span>，则<span class=math>\(E[\delta(T(X))]=E[\hat{g}(T(X))]-E[\hat{g}_1(T(X))]=0, \theta\in\varTheta\)</span>。由于<span class=math>\(T(X)\)</span>是完全统计量，而<span class=math>\(\delta(T(X))\)</span>是其函数，根据信息处理过程中的信息量不增定理，<span class=math>\(\delta(T(X))\)</span>也是完全统计量。</p>
+<p>根据完全统计量的定义，<span class=math>\(E[\delta(T(X))]=0\)</span>，几乎处处成立（a.s.）时，<span class=math>\(\delta(T(X))=0\)</span>，即<span class=math>\(\hat{g}(T(X))=\hat{g}_1(T(X))\)</span>几乎处处成立（a.s.）。又由于<span class=math>\(\hat{g}_1(T(X))\)</span>的任意性，唯一性得证。</p>
+<p>在唯一性得证的基础上，我们使用充分性证明方差最小。设<span class=math>\(\varphi(X)\)</span>为<span class=math>\(\theta\)</span>的<strong>任一</strong>无偏估计，令<span class=math>\(h(T(X))=E[\varphi(X)|T]\)</span>，由于<span class=math>\(T(X)\)</span>时充分统计量，因此<span class=math>\(p(\varphi(X)|T)\)</span>的概率分布与<span class=math>\(\theta\)</span>无关，那么其期望<span class=math>\(h(T(X))=E[\varphi(X)|T]\)</span>也与待估计参数无关，因此<span class=math>\(h(T(X))\)</span>也是一个统计量。而由定理2，Rao–Blackwell定理可知： <span class=math>\[
+E[h(T(X))]=E[E[\varphi(X)|T]]=E[\varphi(X)]=\theta,\forall \theta\in\varTheta\\
+D[h(T(X))]\leq D[\varphi(X)],\forall \theta\in\varTheta
+\]</span> 又因为由充分完全统计量构造出来的无偏估计是唯一的（唯一性），因此对任一<span class=math>\(\varphi(X)\)</span>构造出来的<span class=math>\(h(T(X))=E[\varphi(X)|T]\)</span>，都等于<span class=math>\(\hat{g}(T(X))\)</span>。综上可知有： <span class=math>\[\hat{g}(T(X)) \leq D[\varphi(X)],\forall \theta\in\varTheta\]</span> 最小方差特性得证。</p>
+</blockquote>
+<p>这个方法的<strong>核心是先找到个一个充分完全统计量</strong>，比如可以通过因子分解定理，指数族概率函数特性，定义等方式获得。当有了充分完全统计量后，可以有两个方法求UMVUE。</p>
+<ol style=list-style-type:decimal>
+<li>使用Rao–Blackwell定理。首先找个一个无偏估计<span class=math>\(\varphi(X)\)</span>，然后通过条件期望<span class=math>\(h(T)=E[\varphi(x)|T]\)</span>，得到充分统计量<span class=math>\(T\)</span>的函数，且根据Rao–Blackwell定理，<span class=math>\(h(T)\)</span>是无偏的。</li>
+<li>直接使用充分统计量，构造<span class=math>\(\theta\)</span>无偏估计的函数。适用于充分统计量与无偏估计关系比较简单的情形。</li>
+</ol>
+<blockquote>
+<p>推论4-1：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自指数族总体 <span class=math>\[f(\bm{x},\bm{\theta})=c(\bm\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\bm\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]</span> 令<span class=math>\(T(x)=(T_1(x),\dotsb,T_k(x))\)</span>，且自然参数空间<span class=math>\(\varTheta^\star\)</span>作为<span class=math>\(R_k\)</span>的自己有内点，且<span class=math>\(g(T(X))\)</span>为<span class=math>\(\theta\)</span>的无偏估计，则<span class=math>\(g(T(X))\)</span>为<span class=math>\(\theta\)</span>的唯一的UMVUE。</p>
+</blockquote>
+<p>其实，根据指数族分布的性质可知，<span class=math>\(T(X)\)</span>实际上就是充分完全统计量，因此只有找到一个函数<span class=math>\(g\)</span>使<span class=math>\(g(T(X))\)</span>无偏，那么根据定理4，它就是参数<span class=math>\(\theta\)</span>的唯一的UMVUE。</p>
+<h3 id=cramer-raoc-r不等式与界>Cramer-Rao（C-R）不等式与界</h3>
+<p>Cramer-Rao不等式是另一个判别无偏估计是否为UMVUE的方法，但是Cramer-Rao不等式有更深层的含义。</p>
+<p>我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
+<p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！</p>
+<p>回到C-R不等式和UMVUE的关系上来，其思想如下：设<span class=math>\(\mathcal{U}_g\)</span>是<span class=math>\(\theta\)</span>的一切无偏估计构成的集合，所有的这些<span class=math>\(\mathcal{U}_g\)</span>中的无偏估计的方差必有一个下界（一定非负），这个下界称为C-R下界。如果<span class=math>\(\mathcal{U}_g\)</span>中某一个估计量<span class=math>\(\hat g\)</span>的方差达到了这个下界，则<span class=math>\(\hat{g}\)</span>就一定是参数的UMVUE，当然会对样本分布族和<span class=math>\(\hat{g}\)</span>有一些正则条件。当时，使用这种下界的方法，都一个缺点，即<strong>C-R不等式给出的下界经常比实际的下界更小一些</strong>。这一情况下，C-R不等式就无法判断UMVUE的存在性。此外，C-R不等式还有其他一些用处，比如计算估计的效率、有效估计等等。</p>
+<p>具体C-R不等式的细节，见笔记<a href=概率统计随机过程之C-R不等式.md>《概率统计随机过程之C-R不等式》</a></p>
 <h2 id=区间估计>区间估计</h2>
 <p>估计一个<strong>数值范围</strong>，核心要求：<strong>希望以尽可能大的概率落在尽可能小的区间内</strong>。</p>
 <h3 id=置信区间与枢轴变量>置信区间与枢轴变量</h3>
@@ -310,7 +392,7 @@ MSE(\hat\theta)&=E(\hat\theta-\theta)^2=E\{[\hat\theta-E(\hat\theta)]+[E(\hat\th
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
@@ -394,7 +476,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=17 title=概率统计随机过程>概率统计随机过程<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -440,13 +522,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/ class=nav-link title=shell-骨干流程3——命令展开>shell-骨干流程3——命令展开</a>
 </li>
 </ul>
 <div>
@@ -458,7 +540,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
@@ -556,7 +638,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=17 title=概率统计随机过程>概率统计随机过程<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>

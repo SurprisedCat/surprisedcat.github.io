@@ -319,7 +319,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 <blockquote>
 <p><strong>辅助(ancillary)统计量</strong>:一个统计<span class=math>\(V(x)\)</span>是辅助统计量，当且仅当其概率分布不依赖与任何未知量。</p>
 </blockquote>
-<p>一个典型但没啥用的辅助统计量就是常数，即<span class=math>\(V(x)\equiv C\)</span>。<strong>常数是不含有任何概率分布信息的。</strong>再举一个典型例子（位移族）：</p>
+<p>一个典型但没啥用的辅助统计量就是常数，即<span class=math>\(V(x)\equiv C\)</span>。<strong>常数是不含有任何概率分布信息的</strong>。再举一个典型例子（位移族）：</p>
 <blockquote>
 <p>已知某一概率密度函数<span class=math>\(f(x)\)</span>，对其沿<span class=math>\(x\)</span>轴向右平移一段未知距离<span class=math>\(\mu\)</span>，则新的pdf为<span class=math>\(f(x-\mu)\)</span>，现在从平移后的pdf中抽样得到i.i.d的样本<span class=math>\(x_1,x_2,\dotsb,x_n\)</span>，我们想从样本估计参数<span class=math>\(\mu\)</span>。如果我们构造一个统计量<span class=math>\(V(x)=x_{(k)}-x_{(l)}\)</span>，其中<span class=math>\(x_{(k)},x_{(l)}\)</span>是次序统计量，那么<span class=math>\(V(x)\)</span>的pdf只会和<span class=math>\(f(x)\)</span>有关，与<span class=math>\(\mu\)</span>无关，即为辅助统计量。</p>
 </blockquote>
@@ -328,7 +328,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 <p><strong>一阶辅助统计量</strong>：一个统计<span class=math>\(V(x)\)</span>是一阶辅助统计量，当且仅当其期望<span class=math>\(E[V(x)]\)</span>不依赖与任何未知量。</p>
 </blockquote>
 <p>显然，辅助统计量必然是一阶辅助统计量。需要指出，ancillary一词的翻译辅助，有附加、附属的意思，不一定是指辅助做了什么事。</p>
-<p>如果对一个统计量<span class=math>\(T\)</span>能找到一个非平凡（不是常函数）的辅助统计量<span class=math>\(V\)</span>，使得<span class=math>\(V(T(x))\neq C\)</span>，也就是说<span class=math>\(V(x')\)</span>可以从统计量<span class=math>\(T(x)\)</span>中再提取一些和带估计参数<span class=math>\(\theta\)</span>无关的信息出来。那么说明，统计量<span class=math>\(T(x)\)</span>中除了含有<span class=math>\(\theta\)</span>的信息之外，还有其他冗余的信息，可以进一步压缩，<strong>此时我们就不能称<span class=math>\(T\)</span>是完全统计量</strong>。完全统计量是纯粹性的体现，意味着不包含其他与参数估计无关的信息。统计量可以是完全但不充分的，这意味再样本信息压缩过程中，不仅仅把和待估计参数<span class=math>\(\theta\)</span>无关的信息剔除掉，甚至与<span class=math>\(\theta\)</span>有关的信息也可能去掉了一些，属于“有损压缩”。由此，我们给出完全统计量定义：</p>
+<p>如果对一个统计量<span class=math>\(T\)</span>能找到(存在)一个非平凡（不是常函数）的辅助统计量<span class=math>\(V\)</span>，使得<span class=math>\(V(T(x))\neq C\)</span>，也就是说<span class=math>\(V(x')\)</span>可以从统计量<span class=math>\(T(x)\)</span>中再提取一些和带估计参数<span class=math>\(\theta\)</span>无关的信息出来。那么说明，统计量<span class=math>\(T(x)\)</span>中除了含有<span class=math>\(\theta\)</span>的信息之外，还有其他冗余的信息，可以进一步压缩，<strong>此时我们就不能称<span class=math>\(T\)</span>是完全统计量</strong>。完全统计量是纯粹性的体现，意味着不包含其他与参数估计无关的信息。统计量可以是完全但不充分的，这意味再样本信息压缩过程中，不仅仅把和待估计参数<span class=math>\(\theta\)</span>无关的信息剔除掉，甚至与<span class=math>\(\theta\)</span>有关的信息也可能去掉了一些，属于“有损压缩”。由此，我们给出完全统计量定义：</p>
 <blockquote>
 <p><strong>完全（完备）统计量</strong>：设<span class=math>\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)</span>为一分布族，<span class=math>\(\varTheta\)</span>是参数空间，设统计量<span class=math>\(T=T(x)\)</span>，若对任何辅助统计量<span class=math>\(\varphi(T(x))\)</span>，当 <span class=math>\[E[\varphi(T(x))]=0\]</span> 都有 <span class=math>\[P(\varphi(T(x))=0)=1\]</span> 则称<span class=math>\(T(x)\)</span>是一完全（完备）统计量。</p>
 </blockquote>
@@ -337,7 +337,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 <p>有函数处理的信息不增特性可知，若<span class=math>\(T(x)\)</span>是完全统计量，则它任一函数<span class=math>\(\delta(T)\)</span>也是完全统计量。</p>
 <h4 id=指数族中统计量的完全性>指数族中统计量的完全性</h4>
 <blockquote>
-<p><strong>定理</strong>：设样本<span class=math>\(x=(x_1,x_2,\dotsb,x_n)\)</span>的概率函数 <span class=math>\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]</span> 为指数族的自然形式。令<span class=math>\(T(x)=(T_1(x),\dotsb,T_k(x))\)</span>，且自然参数空间<span class=math>\(\varTheta^\star\)</span>作为<span class=math>\(R_k\)</span>的自己有内点，则<span class=math>\(T(x)\)</span>是充分统计量。</p>
+<p><strong>定理</strong>：设样本<span class=math>\(x=(x_1,x_2,\dotsb,x_n)\)</span>的概率函数 <span class=math>\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]</span> 为指数族的自然形式。令<span class=math>\(T(x)=(T_1(x),\dotsb,T_k(x))\)</span>，且自然参数空间<span class=math>\(\varTheta^\star\)</span>作为<span class=math>\(R_k\)</span>的自己有内点，则<span class=math>\(T(x)\)</span>是完全统计量。</p>
 </blockquote>
 <p>首先，该定理一个充分条件，只适用于判别指数族的完全性。<span class=math>\(\theta_j\)</span>是可以是其他参数的函数，其结果作为<span class=math>\(\varTheta^\star\)</span>的空间一维。</p>
 <p>其次，有内点意味着<span class=math>\(\varTheta^\star\)</span>不可以是K维空间的超平面，即<span class=math>\(\theta=(\theta_1,\dotsb,\theta_k)\)</span>是满秩的。</p>
@@ -378,7 +378,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
@@ -462,7 +462,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=17 title=概率统计随机过程>概率统计随机过程<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -508,13 +508,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/ class=nav-link title=shell-骨干流程3——命令展开>shell-骨干流程3——命令展开</a>
 </li>
 </ul>
 <div>
@@ -526,7 +526,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
@@ -624,7 +624,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=16 title=概率统计随机过程>概率统计随机过程<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=17 title=概率统计随机过程>概率统计随机过程<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
