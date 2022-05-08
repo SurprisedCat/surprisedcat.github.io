@@ -182,18 +182,20 @@ E[Y]=E[f(U)]=\int_a^b f(u) \frac{1}{b-a} \mathrm{d}u=\frac{\theta}{b-a}\\
 g(x)\neq 0;x\in[a,b]\tag{10}
 \]</span> 其中，<span class=math>\(g(x)\)</span>是一个概率密度函数。那么原来的积分问题就变成了求期望，若有来自<span class=math>\(g(x)\)</span>的样本（随机数）<span class=math>\(\{x_1,x_2,\dotsb,x_n\}\)</span>（服从<span class=math>\(g(x)\)</span>的分布），则<span class=math>\(\theta\)</span>的估计可以用一阶矩估计来实现： <span class=math>\[
 \hat\theta=\frac{1}{n}\sum_{i=1}^n \frac{f(x_i)}{g(x_i)}\tag{11}
-\]</span> 我们对<span class=math>\(\hat\theta\)</span>求期望易知此估计式无偏的，其方差为： <span class=math>\[
-\mathrm{Var}(\hat\theta)=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-\theta^2]\tag{12}
+\]</span> 显然，如果当<span class=math>\(g(x)=\frac{1}{b-a}\)</span>时，这种方法就是样本均值法，也可以说<strong>样本均值法是此类方法的一个特例</strong>。</p>
+<p>估计量<span class=math>\(\hat{\theta}\)</span>的<strong>构造是很简单的，说白了就是一阶原点矩估计</strong>。我们对<span class=math>\(\hat\theta\)</span>求期望易知此估计式无偏的，即<span class=math>\(E[\hat{\theta}]=\theta\)</span>。而其方差为： <span class=math>\[
+\mathrm{Var}(\hat\theta)=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-E^2(\frac{f(x)}{g(x)})]=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-\theta^2]\tag{12}
 \]</span> 那么根据式（12），<strong>除了增加采样的次数，我们又多了一个可以用来降低方差的工具</strong><span class=math>\(g(x)\)</span>，我们可以通过合理设计<span class=math>\(g(x)\)</span>使蒙特卡洛积分的效率更高。理论上来看，当<span class=math>\(g(x)=\frac{f(x)}{\int_a^b f(x) \mathrm{d}x}\)</span>时，有<span class=math>\(\mathrm{Var}(\hat\theta)=0\)</span>，此时结果最优，但是这个<span class=math>\(g(x)\)</span>中必须已知式（1）<span class=math>\(\int_a^b f(x) \mathrm{d}x\)</span>的结果，显然是无法直接使用的。不过，他也给我们一个启示，即<span class=math>\(g(x)\)</span>与<span class=math>\(f(x)\)</span>应该在形状相近的情况下，估计的方差更小。下面我们举一个例子： <span class=math>\[
 f(x)=-x^2+2x\quad x\in[0,2]\\
 g_1(x)=\frac{1}{2};g_2(x)=e^{-x};g_3(x)=\frac{1}{\sqrt{2\pi}\times 0.5}e^{-\frac{(x-1)^2}{2\times 0.5^2}}
 \]</span> 分别用3个<span class=math>\(g(x)\)</span>函数，作为重要性采用的概率密度函数。首先，我们易算出<span class=math>\(f(x)=-x^2+2x\quad x\in[0,2]\)</span>的积分结果为<span class=math>\(\frac{4}{3}\)</span>，我们画出各个函数的图像以及<span class=math>\(\frac{f(x)}{g(x)}\)</span>的图像。</p>
 <p><img src=../../images/importance_sampling1.png alt="importance sampling"> <img src=../../images/importance_sampling2.png alt="importance sampling"></p>
-<p>可以从第二个图中看出，如果<span class=math>\(g(x)\)</span>与<span class=math>\(f(x)\)</span>的形状相似，相除之后的函数图像更加贴近积分结果<span class=math>\(\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})\)</span>，这样我们在抽样时结果接近<span class=math>\(\theta\)</span>的概率也更大；如果形状相差太大，如<span class=math>\(g_2(x)\)</span>积分的结果反而会变得更加不好统计。我们使用matlab分别计算三个重要性采样的方差有（取<span class=math>\(n=10\)</span>）： <span class=math>\[
+<p>我们使用matlab分别计算三个重要性采样的方差有（取<span class=math>\(n=10\)</span>）： <span class=math>\[
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_1(x)})=0.03556\\
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_2(x)})=0.1335\\
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_3(x)})=0.01205
-\]</span> 确实是<span class=math>\(g_3(x)\)</span>能够缩减方差，而与<span class=math>\(f(x)\)</span>形状差异大的<span class=math>\(g_2(x)\)</span>反而使方差更大了。</p>
+\]</span> matlab计算结果显示<span class=math>\(g_3(x)\)</span>能够缩减方差，而与<span class=math>\(f(x)\)</span>形状差异大的<span class=math>\(g_2(x)\)</span>反而使方差更大了。</p>
+<p>可以从第二个图中看出，如果<span class=math>\(g(x)\)</span>与<span class=math>\(f(x)\)</span>的形状相似，相除之后的函数图像更加贴近积分结果<span class=math>\(\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})\)</span>，这样我们在抽样时结果接近<span class=math>\(\theta\)</span>的概率也更大；如果形状相差太大，如<span class=math>\(g_2(x)\)</span>积分的结果反而会变得更加不好统计。</p>
 <p>综合来说，<strong>重要性采样让新的函数值<span class=math>\(h(x)=\frac{f(x)}{g(x)}\)</span>取到接近于积分结果的概率变大了</strong>。我们现在的问题就转变成了<strong>如何找到一个和<span class=math>\(f(x)\)</span>形状相似的函数</strong>。</p>
 <h3 id=分层抽样法>分层抽样法</h3>
 <p>在重要性采样的结论中，我们知道当<span class=math>\(f(x)\)</span>与<span class=math>\(g(x)\)</span>比值为常数时，可以得到理解最小的方差0，那么我们可不可以近似的构造一个这样的函数呢？基于这个思想，我们有了分层抽样法。</p>
@@ -203,7 +205,7 @@ g_1(x)=\frac{1}{2};g_2(x)=e^{-x};g_3(x)=\frac{1}{\sqrt{2\pi}\times 0.5}e^{-\frac
 <div class=figure>
 <img src=../../images/分层抽样1.png alt=分层抽样1><p class=caption>分层抽样1</p>
 </div>
-<p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数最优方式为: <span class=math>\[
+<p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数<strong>最优方式</strong>为: <span class=math>\[
 n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
 \]</span> 其中，<span class=math>\(n_i\)</span>是区间<span class=math>\(D_i\)</span>的抽样数，<span class=math>\(n\)</span>为总抽样数，<span class=math>\(m\)</span>为总区间数目，<span class=math>\(l_i\)</span>是区间<span class=math>\(D_i\)</span>的长度，<span class=math>\(\sigma_i\)</span>是区间<span class=math>\(D_i\)</span>的标准差，此时方差最小，为<span class=math>\(\frac{1}{n}(\sum_{i=1}^m l_i\sigma_i)^2\)</span>。然而实际计算中，每个区间的标准差<span class=math>\(\sigma_i\)</span>总是未知的，式(14)无法直接使用。即使如此，最简单的分配方案<span class=math>\(n_i=nl_i/\sum l_i\)</span>方差也比样本均值法低。</p>
 <p>此外，其他缩减方差技术还有关联抽样法、控制变量法、对立变量法、条件期望法等等。</p>
@@ -234,7 +236,7 @@ n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
-<span class=button_tally>15</span>
+<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -328,7 +330,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=15 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>15</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -342,6 +344,9 @@ SHELL
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 <li>
@@ -353,20 +358,17 @@ SHELL
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程0——流程总述">Shell 骨干流程0——流程总述</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
+</li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 </ul>
 <div>
@@ -382,7 +384,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
-<span class=button_tally>15</span>
+<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -490,7 +492,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=15 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>15</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>

@@ -1,4 +1,120 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>线性代数与矩阵 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/</link><description>Recent content in 线性代数与矩阵 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 01 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/index.xml" rel="self" type="application/rss+xml"/><item><title>线性代数与矩阵之正交矩阵与酉矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5%E4%B8%8E%E9%85%89%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5%E4%B8%8E%E9%85%89%E7%9F%A9%E9%98%B5/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>线性代数与矩阵 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/</link><description>Recent content in 线性代数与矩阵 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sun, 08 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/index.xml" rel="self" type="application/rss+xml"/><item><title>线性代数与矩阵之逆矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/</link><pubDate>Sun, 08 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#逆矩阵">逆矩阵&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充了解广义逆">补充了解：广义逆&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#逆矩阵存在条件">逆矩阵存在条件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#逆矩阵的求法">逆矩阵的求法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#初等变换法">初等变换法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#伴随矩阵求逆矩阵">伴随矩阵求逆矩阵&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩阵分解法">矩阵分解法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特殊矩阵的逆">特殊矩阵的逆&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#逆矩阵的性质">逆矩阵的性质&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="线性代数与矩阵之逆矩阵">线性代数与矩阵之逆矩阵&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>逆矩阵，是线性代数和矩阵分析中非常常见也是非常关键的一个问题。本笔记将根据自己常遇到的逆矩阵相关问题，整理有关逆矩阵定义、常用求法、存在条件以及常用性质等相关内容，并对广义逆做简单介绍。&lt;/p>
+&lt;h2 id="逆矩阵">逆矩阵&lt;/h2>
+&lt;blockquote>
+&lt;p>逆矩阵（inverse matrix），又称乘法反方阵、反矩阵。在线性代数中，给定一个&lt;span class="math">\(n\)&lt;/span>阶方阵&lt;span class="math">\(\mathbf {A}\)&lt;/span>，若存在一&lt;span class="math">\(n\)&lt;/span>阶方阵&lt;span class="math">\(\mathbf{B}\)&lt;/span>，使得&lt;span class="math">\(\mathbf{AB}=\mathbf{BA}=\mathbf{I}_n\)&lt;/span>，其中&lt;span class="math">\(\mathbf{I}_n\)&lt;/span>为&lt;span class="math">\(n\)&lt;/span>阶单位矩阵，则称&lt;span class="math">\(\mathbf{A}\)&lt;/span>是可逆的，且&lt;span class="math">\(\mathbf{B}\)&lt;/span>是&lt;span class="math">\(\mathbf{A}\)&lt;/span>的&lt;strong>逆矩阵&lt;/strong>，记作&lt;span class="math">\(\mathbf {A} ^{-1}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>注意：我们在谈论一般的逆矩阵时只针对&lt;strong>方阵&lt;/strong>，非方阵不存在逆矩阵，但是可以有广义逆矩阵。&lt;/p>
+&lt;blockquote>
+&lt;p>可逆矩阵：如果&lt;span class="math">\(A\)&lt;/span>有逆矩阵，我们称为可逆矩阵，或非奇异矩阵。不可逆的矩阵也叫做奇异矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="补充了解广义逆">补充了解：广义逆&lt;/h3>
+&lt;blockquote>
+&lt;p>广义逆（Generalized inverse），是线性代数中针对矩阵的一种运算。一个矩阵&lt;span class="math">\(A\)&lt;/span>的广义逆叫做&lt;span class="math">\(A\)&lt;/span>的广义逆阵，是指具有部分逆矩阵的特性，但是不一定具有逆矩阵的所有特性的另一矩阵。假设一矩阵&lt;span class="math">\(A\in \mathbb {R} ^{n\times m}\)&lt;/span>及另一矩阵&lt;span class="math">\(A^{\mathrm {g} }\in \mathbb {R} ^{m\times n}\)&lt;/span>，若&lt;span class="math">\(A^{\mathrm {g} }\)&lt;/span>满足&lt;span class="math">\(AA^{\mathrm {g} }A=A\)&lt;/span>，则&lt;span class="math">\(A^{\mathrm {g} }\)&lt;/span>即为&lt;span class="math">\(A\)&lt;/span>的广义逆阵。&lt;/p>
+&lt;/blockquote>
+&lt;p>广义逆也称为伪逆（pseudoinverse），有些时候，伪逆特指&lt;strong>摩尔－彭若斯广义逆&lt;/strong>。此外，还有针对非方阵的单边逆矩阵，如左逆矩阵、右逆矩阵等。&lt;/p>
+&lt;h2 id="逆矩阵存在条件">逆矩阵存在条件&lt;/h2>
+&lt;p>矩阵&lt;span class="math">\(A_{n\times n}\)&lt;/span>可逆的核心是&lt;strong>不能降维&lt;/strong>，即&lt;span class="math">\(A_{n\times n}\)&lt;/span>必须&lt;span class="math">\(n\)&lt;/span>维空间的一个表示。其等效表述有：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\det(A)\neq 0\)&lt;/span>。行列式不为0，表明&lt;span class="math">\(n\)&lt;/span>维体积不等于0，若有一个维度消失，那么其高维体积必是0。&lt;/li>
+&lt;li>&lt;span class="math">\(\mathrm{Rank}(A)=n\)&lt;/span>。这个好理解，矩阵的秩就是可描述空间的维度。&lt;/li>
+&lt;li>存在初等变换矩阵&lt;span class="math">\(P\)&lt;/span>，使得&lt;span class="math">\(PA=I\)&lt;/span>。我们知道初等变换不会增加维度，而单位矩阵&lt;span class="math">\(I\)&lt;/span>的维度是&lt;span class="math">\(n\)&lt;/span>，这也意味着矩阵&lt;span class="math">\(A，I\)&lt;/span>秩相等。&lt;/li>
+&lt;li>&lt;span class="math">\(A\)&lt;/span>的所有特征值都不为0。特征值等效于该矩阵&lt;span class="math">\(n\)&lt;/span>维特征基的尺度变换，如果其中某个特征值为0，必然使得该特征向量所在维度坍缩，从而降维。&lt;/li>
+&lt;li>齐次线性方程组&lt;span class="math">\(Ax=0\)&lt;/span>仅有零解或非齐次线性方程组&lt;span class="math">\(Ax=b\)&lt;/span>有唯一解。零空间维0维，等效于列空间为&lt;span class="math">\(n\)&lt;/span>维。&lt;/li>
+&lt;li>&lt;span class="math">\(A\)&lt;/span>的行（列）向量组线性无关。最大线性无关组中的向量个数即为空间维数。&lt;/li>
+&lt;li>任一&lt;span class="math">\(n\)&lt;/span>维向量可由&lt;span class="math">\(A\)&lt;/span>的行（列）向量组线性表示。这表明&lt;span class="math">\(A\)&lt;/span>的最大线性无关组至少为&lt;span class="math">\(n\)&lt;/span>。&lt;/li>
+&lt;li>&lt;span class="math">\(A\)&lt;/span>可表示成有限个初等矩阵的乘积。&lt;/li>
+&lt;/ul>
+&lt;p>我们在这一小结，开头说了可逆的核心是&lt;strong>不能降维&lt;/strong>，这又是什么理由呢？从变换的角度可逆矩阵是将&lt;span class="math">\(n\)&lt;/span>维空间中点从一个位置，&lt;strong>一一对应的变换到另一个位置&lt;/strong>。其中不能有多个点变换到同一个点上（通常是降维），也不能有一个点变换到多个点情况（这个一般不会）。当多个点变换到同一个点上时，我们无法从变换后的点（像）精确、唯一的找到到底原来时哪一个点（原）变过来的，也就意味着无法找到一个变换方法把像点变回去，这就是不可逆的变换，即为不可逆矩阵。&lt;/p>
+&lt;h2 id="逆矩阵的求法">逆矩阵的求法&lt;/h2>
+&lt;p>除了使用定义求矩阵的逆外，常见的逆矩阵的直接求法包含&lt;strong>初等变换法&lt;/strong>和&lt;strong>伴随矩阵法&lt;/strong>。此外，&lt;strong>矩阵分解&lt;/strong>对矩阵求逆也有很大的帮助。&lt;/p>
+&lt;p>求逆矩阵一直是矩阵研究中的一个重点问题，也是计算量非常大的一个问题。因此，也有很多逆矩阵的技巧，例如分块矩阵求逆，利用性质求逆等等，我们在本文中不再详述。&lt;/p>
+&lt;h3 id="初等变换法">初等变换法&lt;/h3>
+&lt;p>求逆矩阵最基本的方法是初等变换法。如果要求方阵&lt;span class="math">\(A\)&lt;/span>的逆矩阵，用初等变换法是：&lt;/p>
+&lt;blockquote>
+&lt;p>将矩阵&lt;span class="math">\(A\)&lt;/span>与单位矩阵&lt;span class="math">\(I\)&lt;/span>排成一个新的矩阵&lt;span class="math">\((A \quad I)\)&lt;/span>，称为增广矩阵，将此增广矩阵&lt;span class="math">\((A\quad I)\)&lt;/span>做初等行变换，将它化成&lt;span class="math">\((I\quad B)\)&lt;/span>的形式，则 &lt;span class="math">\[B=A^{-1}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>举个例子。&lt;/p>
+&lt;p>例1：求矩阵&lt;span class="math">\(A\)&lt;/span>的逆矩阵。 &lt;span class="math">\[A= \begin{bmatrix} 1&amp;amp;0&amp;amp;-2\\ -3&amp;amp;1&amp;amp;4\\ 2&amp;amp;-3&amp;amp;4\end{bmatrix} \]&lt;/span> 这是一个三阶的矩阵，最简便有效的方法是初等变换法。我们将矩阵与单位矩阵排在一起，然后做初等变换。 &lt;span class="math">\[\begin{aligned}(A\quad I)&amp;amp;=\begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;\vdots&amp;amp;1&amp;amp;0&amp;amp;0\\ -3&amp;amp;1&amp;amp;4 &amp;amp;\vdots&amp;amp; 0&amp;amp;1&amp;amp;0\\ 2&amp;amp;-3&amp;amp;4 &amp;amp;\vdots&amp;amp; 0&amp;amp;0&amp;amp;1\end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;\vdots&amp;amp;1&amp;amp;0&amp;amp;0\\ 0&amp;amp;1&amp;amp;-2 &amp;amp;\vdots&amp;amp; 3&amp;amp;1&amp;amp;0\\ 0&amp;amp;-3&amp;amp;8 &amp;amp;\vdots&amp;amp; -2&amp;amp;0&amp;amp;1\end{bmatrix}\\ &amp;amp;\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;\vdots&amp;amp;1&amp;amp;0&amp;amp;0\\ 0&amp;amp;1&amp;amp;-2 &amp;amp;\vdots&amp;amp; 3&amp;amp;1&amp;amp;0\\ 0&amp;amp;0&amp;amp;2 &amp;amp;\vdots&amp;amp; 7&amp;amp;3&amp;amp;1\end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;0&amp;amp;\vdots&amp;amp;8&amp;amp;3&amp;amp;1\\ 0&amp;amp;1&amp;amp;0 &amp;amp;\vdots&amp;amp; 10&amp;amp;4&amp;amp;1\\ 0&amp;amp;0&amp;amp;2 &amp;amp;\vdots&amp;amp; 7&amp;amp;3&amp;amp;1\end{bmatrix}\\&amp;amp;\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;0&amp;amp;\vdots&amp;amp;8&amp;amp;3&amp;amp;1\\ 0&amp;amp;1&amp;amp;0 &amp;amp;\vdots&amp;amp; 10&amp;amp;4&amp;amp;1\\ 0&amp;amp;0&amp;amp;1 &amp;amp;\vdots&amp;amp; \frac{7}{2}&amp;amp;\frac{3}{2}&amp;amp;\frac{1}{2}\end{bmatrix} \end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>所以我们得到&lt;/p>
+&lt;p>&lt;span class="math">\[A^{-1}= \begin{bmatrix} 8&amp;amp;3&amp;amp;1\\ 10&amp;amp;4&amp;amp;1\\\frac{7}{2}&amp;amp;\frac{3}{2}&amp;amp;\frac{1}{2}\end{bmatrix} \]&lt;/span>&lt;/p>
+&lt;p>我们再来看一个四阶矩阵的逆矩阵。&lt;/p>
+&lt;p>例2：求矩阵&lt;span class="math">\(A\)&lt;/span>的逆矩阵。 &lt;span class="math">\[A=\begin{bmatrix}1&amp;amp;2&amp;amp;3&amp;amp;4\\ 2&amp;amp;3&amp;amp;1&amp;amp;2\\ 1&amp;amp;1&amp;amp;1&amp;amp;-1\\ 1&amp;amp;0&amp;amp;-2&amp;amp;-6\end{bmatrix}\]&lt;/span> 我们将下述矩阵做初等变换&lt;/p>
+&lt;p>&lt;span class="math">\[ \begin{aligned} (A\quad I)&amp;amp;= \begin{bmatrix}1&amp;amp;2&amp;amp;3&amp;amp;4 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;0&amp;amp;0\\ 2&amp;amp;3&amp;amp;1&amp;amp;2 &amp;amp;\vdots &amp;amp;0&amp;amp;1&amp;amp;0&amp;amp;0\\ 1&amp;amp;1&amp;amp;1&amp;amp;-1 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;0\\ 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\\ 2&amp;amp;3&amp;amp;1&amp;amp;2 &amp;amp;\vdots &amp;amp;0&amp;amp;1&amp;amp;0&amp;amp;0\\ 1&amp;amp;1&amp;amp;1&amp;amp;-1 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;0\\ 1&amp;amp;2&amp;amp;3&amp;amp;4 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;0&amp;amp;0 \end{bmatrix} \\&amp;amp; \sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\\ 0&amp;amp;3&amp;amp;5&amp;amp;14 &amp;amp;\vdots &amp;amp;0&amp;amp;1&amp;amp;0&amp;amp;-2\\ 0&amp;amp;1&amp;amp;3&amp;amp;5 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;-1\\ 0&amp;amp;2&amp;amp;5&amp;amp;10 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;0&amp;amp;-1 \end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\\ 0&amp;amp;1&amp;amp;3&amp;amp;5 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;-1 \\ 0&amp;amp;3&amp;amp;5&amp;amp;14 &amp;amp;\vdots &amp;amp;0&amp;amp;1&amp;amp;0&amp;amp;-2 \\ 0&amp;amp;2&amp;amp;5&amp;amp;10 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;0&amp;amp;-1 \end{bmatrix}\\&amp;amp;\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\\ 0&amp;amp;1&amp;amp;3&amp;amp;5 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;-1 \\ 0&amp;amp;0&amp;amp;-4&amp;amp;-1 &amp;amp;\vdots &amp;amp;0&amp;amp;1&amp;amp;-3&amp;amp;1 \\ 0&amp;amp;0&amp;amp;-1&amp;amp;0 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;-2&amp;amp;1 \end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\\ 0&amp;amp;1&amp;amp;3&amp;amp;5 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;-1 \\ 0&amp;amp;0&amp;amp;-1&amp;amp;0 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;-2&amp;amp;1 \\ 0&amp;amp;0&amp;amp;-4&amp;amp;-1 &amp;amp;\vdots &amp;amp;0&amp;amp;1&amp;amp;-3&amp;amp;1 \end{bmatrix}\\&amp;amp;\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;-6 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;0&amp;amp;1\\ 0&amp;amp;1&amp;amp;3&amp;amp;5 &amp;amp;\vdots &amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;-1 \\ 0&amp;amp;0&amp;amp;-1&amp;amp;0 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;-2&amp;amp;1 \\ 0&amp;amp;0&amp;amp;0&amp;amp;-1 &amp;amp;\vdots &amp;amp;-4&amp;amp;1&amp;amp;5&amp;amp;-3 \end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;-2&amp;amp;0 &amp;amp;\vdots &amp;amp;24&amp;amp;-6&amp;amp;-30&amp;amp;19\\ 0&amp;amp;1&amp;amp;3&amp;amp;0 &amp;amp;\vdots &amp;amp;-20&amp;amp;5&amp;amp;26&amp;amp;-16 \\ 0&amp;amp;0&amp;amp;-1&amp;amp;0 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;-2&amp;amp;1 \\ 0&amp;amp;0&amp;amp;0&amp;amp;-1 &amp;amp;\vdots &amp;amp;-4&amp;amp;1&amp;amp;5&amp;amp;-3 \end{bmatrix} \\ &amp;amp;\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;0&amp;amp;0 &amp;amp;\vdots &amp;amp;22&amp;amp;-6&amp;amp;-26&amp;amp;17\\ 0&amp;amp;1&amp;amp;0&amp;amp;0 &amp;amp;\vdots &amp;amp;-17&amp;amp;5&amp;amp;20&amp;amp;-13 \\ 0&amp;amp;0&amp;amp;-1&amp;amp;0 &amp;amp;\vdots &amp;amp;1&amp;amp;0&amp;amp;-2&amp;amp;1 \\ 0&amp;amp;0&amp;amp;0&amp;amp;-1 &amp;amp;\vdots &amp;amp;-4&amp;amp;1&amp;amp;5&amp;amp;-3 \end{bmatrix}\sim \begin{bmatrix} 1&amp;amp;0&amp;amp;0&amp;amp;0 &amp;amp;\vdots &amp;amp;22&amp;amp;-6&amp;amp;-26&amp;amp;17\\ 0&amp;amp;1&amp;amp;0&amp;amp;0 &amp;amp;\vdots &amp;amp;-17&amp;amp;5&amp;amp;20&amp;amp;-13 \\ 0&amp;amp;0&amp;amp;1&amp;amp;0 &amp;amp;\vdots &amp;amp;-1&amp;amp;0&amp;amp;2&amp;amp;-1 \\ 0&amp;amp;0&amp;amp;0&amp;amp;1 &amp;amp;\vdots &amp;amp;4&amp;amp;-1&amp;amp;-5&amp;amp;3 \end{bmatrix} \end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>所以，我们得到 &lt;span class="math">\[A^{-1}= \begin{bmatrix} 22&amp;amp;-6&amp;amp;-26&amp;amp;17\\ -17&amp;amp;5&amp;amp;20&amp;amp;-13 \\ -1&amp;amp;0&amp;amp;2&amp;amp;-1 \\ 4&amp;amp;-1&amp;amp;-5&amp;amp;3 \end{bmatrix} \]&lt;/span>&lt;/p>
+&lt;h3 id="伴随矩阵求逆矩阵">伴随矩阵求逆矩阵&lt;/h3>
+&lt;p>用伴随矩阵求逆的公式很简单： &lt;span class="math">\[A^{-1}=\frac{1}{\det(A)}A^\ast=\frac{1}{\det(A)}C^T\]&lt;/span> 其中，&lt;span class="math">\(\det(A)\)&lt;/span>表示矩阵&lt;span class="math">\(A\)&lt;/span>的行列式，&lt;span class="math">\(A^\ast\)&lt;/span>表示伴随矩阵，&lt;span class="math">\(C\)&lt;/span>表示余子矩阵。显然&lt;span class="math">\(C^T=A^\ast\)&lt;/span>&lt;/p>
+&lt;p>矩阵的行列式我们都知道，那么余子矩阵和伴随矩阵又是什么呢？我们接下来介绍相关内容。首先，从代数余子式开始。&lt;/p>
+&lt;blockquote>
+&lt;p>元素&lt;span class="math">\(a_{ij}\)&lt;/span>代数余子式：在矩阵&lt;span class="math">\(A_{n\times n}\)&lt;/span>所对应的&lt;span class="math">\(n\)&lt;/span>阶行列式中，划去元素&lt;span class="math">\(a_{ij}\)&lt;/span>所在的第&lt;span class="math">\(i\)&lt;/span>行与第&lt;span class="math">\(j\)&lt;/span>列的元素，剩下的元素不改变原来的顺序所构成的n-1阶&lt;strong>行列式&lt;/strong>称为&lt;strong>元素&lt;span class="math">\(a_{ij}\)&lt;/span>的余子式&lt;/strong>。数学表示上计作&lt;span class="math">\(M_{ij}\)&lt;/span>。&lt;span class="math">\(a_{ij}\)&lt;/span>的&lt;strong>代数余子式&lt;/strong>：&lt;span class="math">\(c_{ij}= (-1)^{i+j} M_{ij}\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>余子式和代数余子式都是&lt;span class="math">\(n-1\)&lt;/span>维行列式，也是一个简简单单的数字。区别就在于有没有乘以&lt;span class="math">\((-1)^{i+j}\)&lt;/span>。&lt;/p>
+&lt;p>例如对矩阵 &lt;span class="math">\[\begin{bmatrix}\,\,\,1&amp;amp;4&amp;amp;7\\\,\,\,3&amp;amp;0&amp;amp;5\\-1&amp;amp;9&amp;amp;\!11\\\end{bmatrix}\]&lt;/span> 要计算代数余子式&lt;span class="math">\(c_{23}\)&lt;/span>。首先计算余子式&lt;span class="math">\(M_{23}\)&lt;/span>，也就是原矩阵去掉第2行和第3列后的子矩阵的行列式： &lt;span class="math">\[\begin{vmatrix}\,\,1&amp;amp;4&amp;amp;\Box \,\\\,\Box &amp;amp;\Box &amp;amp;\Box \,\\-1&amp;amp;9&amp;amp;\Box \,\\\end{vmatrix},即\begin{vmatrix}\,\,\,1&amp;amp;4\,\\-1&amp;amp;9\,\\\end{vmatrix}=9-(-4)=13\]&lt;/span> 因此，&lt;span class="math">\(c_{23}\)&lt;/span>等于&lt;span class="math">\((-1)^{2+3}M_{23}=-13\)&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(A\)&lt;/span>的余子矩阵是指将&lt;span class="math">\(A\)&lt;/span>的&lt;span class="math">\((i, j)\)&lt;/span>项代数余子式&lt;span class="math">\(c_{ij}\)&lt;/span>摆在第i行第j列所得到的矩阵，记为&lt;span class="math">\(C\)&lt;/span>。 &lt;span class="math">\[C=\begin{bmatrix}\,\,c_{11}&amp;amp;\dotsb&amp;amp;c_{1n} \,\\\,\vdots &amp;amp;\vdots &amp;amp;\vdots \,\\c_{n1}&amp;amp;\dotsb&amp;amp;c_{nn} \,\\\end{bmatrix}\]&lt;/span> 其中，&lt;span class="math">\(c_{ij}\)&lt;/span>是元素&lt;span class="math">\(a_{ij}\)&lt;/span>的代数余子式&lt;/p>
+&lt;p>余子矩阵&lt;span class="math">\(C\)&lt;/span>的&lt;strong>转置&lt;/strong>矩阵称为&lt;span class="math">\(A\)&lt;/span>的伴随矩阵&lt;span class="math">\(A^\ast\)&lt;/span>。 &lt;span class="math">\[
+A^\ast=C^T
+\]&lt;/span> 伴随矩阵与逆矩阵联系密切，并且当A可逆时可以用来计算它的逆矩阵。 &lt;span class="math">\[A^{-1}=\frac{1}{\det(A)}A^\ast=\frac{1}{\det(A)}C^T\]&lt;/span>&lt;/p>
+&lt;p>例3：设&lt;span class="math">\(A=A=\begin{pmatrix}2&amp;amp;3&amp;amp;4\\ 2&amp;amp;1&amp;amp;1\\ -1&amp;amp;1&amp;amp;2\end{pmatrix}\)&lt;/span>，求&lt;span class="math">\(A^{-1}\)&lt;/span>。&lt;/p>
+&lt;p>我们先求行列式： &lt;span class="math">\[
+|A|=\begin{vmatrix}2&amp;amp;3&amp;amp;4\\ 2&amp;amp;1&amp;amp;1\\ -1&amp;amp;1&amp;amp;2\end{vmatrix}=\begin{vmatrix}0&amp;amp;5&amp;amp;8\\ 0&amp;amp;3&amp;amp;5\\ -1&amp;amp;1&amp;amp;2\end{vmatrix}=(-1)(-1)^{3+1}\begin{vmatrix}5&amp;amp;8\\ 3&amp;amp;5\end{vmatrix}=-1
+\]&lt;/span> 所以矩阵可逆。现在我们来求伴随矩阵。 &lt;span class="math">\[
+c_{11}=\begin{vmatrix}1&amp;amp;1\\1&amp;amp;2\end{vmatrix}=1,\quad c_{12}=(-1)^{1+2}\begin{vmatrix}2&amp;amp;1\\ -1&amp;amp;2\end{vmatrix}=-5,\quad c_{13}=\begin{vmatrix}2&amp;amp;1\\-1&amp;amp;1\end{vmatrix}=3\\
+c_{21}=(-1)^{2+1}\begin{vmatrix}3&amp;amp;4\\1&amp;amp;2\end{vmatrix}=-2,\quad c_{22}=\begin{vmatrix}2&amp;amp;4\\ -1&amp;amp;2\end{vmatrix}=8,\quad c_{23}=(-1)^{2+3}=\begin{vmatrix}2&amp;amp;2\\-1&amp;amp;1\end{vmatrix}=-5\\
+c_{31}=\begin{vmatrix}3&amp;amp;4\\1&amp;amp;1\end{vmatrix}=-1,\quad c_{32}=(-1)^{3+2}\begin{vmatrix}2&amp;amp;4\\ 2&amp;amp;1\end{vmatrix}=6,\quad c_{33}=\begin{vmatrix}2&amp;amp;3\\2&amp;amp;1\end{vmatrix}=-4\\
+C=\begin{pmatrix}1&amp;amp;-5&amp;amp;3\\ -2&amp;amp;8&amp;amp;-5\\ -1&amp;amp;6&amp;amp;-4\end{pmatrix}
+\]&lt;/span> 所以 &lt;span class="math">\[
+A^\ast=C^T=\begin{pmatrix}1&amp;amp;-2&amp;amp;-1\\ -5&amp;amp;8&amp;amp;6\\ 3&amp;amp;-5&amp;amp;-4\end{pmatrix}\\
+A^{-1}=\frac{1}{|A|}A^*=-1\begin{pmatrix}1&amp;amp;-2&amp;amp;-1\\ -5&amp;amp;8&amp;amp;6\\ 3&amp;amp;-5&amp;amp;-4\end{pmatrix}=\begin{pmatrix}-1&amp;amp;2&amp;amp;1\\ 5&amp;amp;-8&amp;amp;-6\\ -3&amp;amp;5&amp;amp;4\end{pmatrix}
+\]&lt;/span>&lt;/p>
+&lt;h3 id="矩阵分解法">矩阵分解法&lt;/h3>
+&lt;p>矩阵分解是矩阵求逆非常有效的方式，可以根据不同的分解方式衍生出不同的求逆公式。我们下面列出几种矩阵分解的求逆公式。&lt;/p>
+&lt;ul>
+&lt;li>LU分解求逆：&lt;span class="math">\(A=LU, A^{-1}=U^{-1}L^{-1}\)&lt;/span>，由于三角矩阵逆容易求，由此简化了求逆计算。&lt;/li>
+&lt;li>QR分解求逆：&lt;span class="math">\(A=QR, A^{-1}=R^{-1}Q^{T}\)&lt;/span>，其中两个矩阵分别为正交矩阵&lt;span class="math">\(Q\)&lt;/span>和上三角矩阵&lt;span class="math">\(R\)&lt;/span>。正交矩阵的逆等于转置。&lt;/li>
+&lt;li>SVD分解求逆：&lt;span class="math">\(A=UDV^T, A^{-1}=VD^{-1}U^T\)&lt;/span>，其中&lt;span class="math">\(U,V\)&lt;/span>为正交矩阵、&lt;span class="math">\(D\)&lt;/span>为对角矩阵。正交矩阵的逆等于转置。对角矩阵逆为各个元素倒数。&lt;/li>
+&lt;/ul>
+&lt;p>当然，矩阵分解的具体步骤超出了本文的叙述范围，需要了解的读者可以自行查找矩阵分解的相关内容。&lt;/p>
+&lt;h2 id="特殊矩阵的逆">特殊矩阵的逆&lt;/h2>
+&lt;p>对角矩阵的逆： &lt;span class="math">\[
+\Lambda=\begin{bmatrix}
+a_{11}&amp;amp;0&amp;amp;\dotsb&amp;amp;0\\0&amp;amp;a_{22}&amp;amp;\dotsb&amp;amp;0\\\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots\\0&amp;amp;0&amp;amp;\dotsb&amp;amp;a_{nn}
+\end{bmatrix}\Rightarrow
+\Lambda^{-1}=\begin{bmatrix}
+\frac{1}{a_{11}}&amp;amp;0&amp;amp;\dotsb&amp;amp;0\\0&amp;amp;\frac{1}{a_{22}}&amp;amp;\dotsb&amp;amp;0\\\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots\\0&amp;amp;0&amp;amp;\dotsb&amp;amp;\frac{1}{a_{nn}}
+\end{bmatrix}
+\]&lt;/span> 正交矩阵的逆： &lt;span class="math">\[
+Q^{-1}=Q^T
+\]&lt;/span> 分块矩阵： &lt;span class="math">\[
+U=\begin{bmatrix}A&amp;amp;C\\0&amp;amp;B\end{bmatrix}\Rightarrow U^{-1}=\begin{bmatrix}A^{-1}&amp;amp;-A^{-1}CB^{-1}\\0&amp;amp;B^{-1}\end{bmatrix}\\
+L=\begin{bmatrix}A&amp;amp;0\\C&amp;amp;B\end{bmatrix}\Rightarrow L^{-1}=\begin{bmatrix}A^{-1}&amp;amp;0\\-B^{-1}CA^{-1}&amp;amp;B^{-1}\end{bmatrix}\\
+\]&lt;/span>&lt;/p>
+&lt;h2 id="逆矩阵的性质">逆矩阵的性质&lt;/h2>
+&lt;ul>
+&lt;li>若矩阵&lt;span class="math">\(A\)&lt;/span>存在逆矩阵&lt;span class="math">\(A^{-1}\)&lt;/span>，则&lt;span class="math">\(A^{-1}\)&lt;/span>唯一。反证法可得。&lt;/li>
+&lt;li>&lt;span class="math">\((A^{-1})^{-1}=A\)&lt;/span>，显然。&lt;/li>
+&lt;li>&lt;span class="math">\((kA)^{-1}=k^{-1}A^{-1}\)&lt;/span>，其中&lt;span class="math">\(k\)&lt;/span>是常数。显然。&lt;/li>
+&lt;li>&lt;span class="math">\(\det(A^{-1})=(\det(A))^{-1}\)&lt;/span>。行列式可以看做是有向面积或体积的概念在一般的欧几里得空间中的推广。或者说，在欧几里得空间中，行列式描述的是一个线性变换对“体积”所造成的影响。因此，&lt;span class="math">\(A^{-1}\)&lt;/span>相当于是将体积变换回去，导致其行列式为原来的倒数。&lt;/li>
+&lt;li>&lt;span class="math">\((A_1A_2\dotsb A_k)^{-1}=A_k^{-1}\dotsb A_2^{-1}A_1^{-1}\)&lt;/span>，矩阵乘法结合律+逆矩阵唯一性可证。&lt;/li>
+&lt;li>矩阵转置的逆矩阵。&lt;span class="math">\((A^T)^{-1}=(A^{-1})^T\)&lt;/span>。注意，转置和求逆可交换不像是指数的相互交换。其可交换性是一种美妙的巧合。&lt;/li>
+&lt;/ul>
+&lt;p>证明：矩阵求逆、转置的可交换性。 &lt;span class="math">\[
+AA^{-1}=I\\
+(AA^{-1})^T=I^T=I\\
+\Rightarrow (A^{-1})^TA^T=I\\
+\Rightarrow (A^T)^{-1}=(A^{-1})^T
+\]&lt;/span>&lt;/p></description></item><item><title>线性代数与矩阵之正交矩阵与酉矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5%E4%B8%8E%E9%85%89%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E7%9F%A9%E9%98%B5%E4%B8%8E%E9%85%89%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;h2 id="线性代数与矩阵之正交矩阵与酉矩阵">线性代数与矩阵之正交矩阵与酉矩阵&lt;!-- omit in toc -->&lt;/h2>
 &lt;h2 id="正交矩阵">正交矩阵&lt;/h2>
 &lt;p>在矩阵论中，正交矩阵（英语：orthogonal matrix）是一个方块矩阵&lt;span class="math">\(Q\)&lt;/span>，其&lt;strong>元素为实数&lt;/strong>，而且&lt;strong>行向量与列向量皆为正交的单位向量&lt;/strong>，使得该矩阵的转&lt;strong>置矩阵为其逆矩阵&lt;/strong>： &lt;span class="math">\[Q^{T}=Q^{-1}\Leftrightarrow Q^{T}Q=QQ^{T}=I.\]&lt;/span>&lt;/p>
@@ -524,7 +640,7 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;h3 id="cholesky分解">Cholesky分解&lt;/h3>
 &lt;p>Cholesky分解是正定埃尔米特矩阵的LU分解。&lt;/p>
 &lt;p>Cholesky分解是指将一个&lt;strong>正定的埃尔米特矩阵&lt;/strong>分解成一个&lt;strong>下三角矩阵与其共轭转置之乘积&lt;/strong>。 &lt;span class="math">\[\mathbf A=\mathbf L\mathbf L^\ast\]&lt;/span> 当矩阵&lt;span class="math">\(\mathbf{A}\)&lt;/span>是一个&lt;strong>半正定&lt;/strong>的埃尔米特矩阵，若允许&lt;span class="math">\(\mathbf {L}\)&lt;/span>的对角线元素为&lt;strong>零&lt;/strong>，则&lt;span class="math">\(\mathbf{A}\)&lt;/span>也存在上述形式的分解。&lt;/p>
-&lt;p>当&lt;span class="math">\(\mathbf{A}\)&lt;/span>为实数矩阵，则&lt;span class="math">\(\mathbf {L}\)&lt;/span>也为实数矩阵且Cholesky分解可改写成 &lt;span class="math">\[\mathbf {A} =\mathbf {LL} ^{\mathbf {T} }\]&lt;/span>。&lt;/p>
+&lt;p>当&lt;span class="math">\(\mathbf{A}\)&lt;/span>为实数矩阵，则&lt;span class="math">\(\mathbf {L}\)&lt;/span>也为实数矩阵且Cholesky分解可改写成 &lt;span class="math">\[\mathbf {A} =\mathbf {LL} ^{\mathbf {T} }\]&lt;/span>&lt;/p>
 &lt;h4 id="分解唯一性">分解唯一性&lt;/h4>
 &lt;p>当&lt;span class="math">\(\mathbf{A}\)&lt;/span>是&lt;strong>正定&lt;/strong>矩阵时，Cholesky分解是&lt;strong>唯一&lt;/strong>的，即只存在一个对角元素均严格大于零的下三角矩阵，使&lt;span class="math">\(\mathbf {A} =\mathbf {LL} ^{*}\)&lt;/span>成立。然而，当&lt;span class="math">\(\mathbf{A}\)&lt;/span>是&lt;strong>半正定&lt;/strong>时，分解则&lt;strong>不一定&lt;/strong>是唯一的。&lt;/p>
 &lt;p>定理的逆命题自然成立：对于某些可逆矩阵&lt;span class="math">\(\mathbf {L}\)&lt;/span>（下三角矩阵或其他矩阵），如果&lt;span class="math">\(\mathbf{A}\)&lt;/span>可被写成&lt;span class="math">\(\mathbf {LL} ^{*}\)&lt;/span>，则&lt;span class="math">\(\mathbf{A}\)&lt;/span>是一个正定的埃尔米特矩阵。&lt;/p>

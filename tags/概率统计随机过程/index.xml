@@ -2021,18 +2021,20 @@ E[Y]=E[f(U)]=\int_a^b f(u) \frac{1}{b-a} \mathrm{d}u=\frac{\theta}{b-a}\\
 g(x)\neq 0;x\in[a,b]\tag{10}
 \]&lt;/span> 其中，&lt;span class="math">\(g(x)\)&lt;/span>是一个概率密度函数。那么原来的积分问题就变成了求期望，若有来自&lt;span class="math">\(g(x)\)&lt;/span>的样本（随机数）&lt;span class="math">\(\{x_1,x_2,\dotsb,x_n\}\)&lt;/span>（服从&lt;span class="math">\(g(x)\)&lt;/span>的分布），则&lt;span class="math">\(\theta\)&lt;/span>的估计可以用一阶矩估计来实现： &lt;span class="math">\[
 \hat\theta=\frac{1}{n}\sum_{i=1}^n \frac{f(x_i)}{g(x_i)}\tag{11}
-\]&lt;/span> 我们对&lt;span class="math">\(\hat\theta\)&lt;/span>求期望易知此估计式无偏的，其方差为： &lt;span class="math">\[
-\mathrm{Var}(\hat\theta)=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-\theta^2]\tag{12}
+\]&lt;/span> 显然，如果当&lt;span class="math">\(g(x)=\frac{1}{b-a}\)&lt;/span>时，这种方法就是样本均值法，也可以说&lt;strong>样本均值法是此类方法的一个特例&lt;/strong>。&lt;/p>
+&lt;p>估计量&lt;span class="math">\(\hat{\theta}\)&lt;/span>的&lt;strong>构造是很简单的，说白了就是一阶原点矩估计&lt;/strong>。我们对&lt;span class="math">\(\hat\theta\)&lt;/span>求期望易知此估计式无偏的，即&lt;span class="math">\(E[\hat{\theta}]=\theta\)&lt;/span>。而其方差为： &lt;span class="math">\[
+\mathrm{Var}(\hat\theta)=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-E^2(\frac{f(x)}{g(x)})]=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-\theta^2]\tag{12}
 \]&lt;/span> 那么根据式（12），&lt;strong>除了增加采样的次数，我们又多了一个可以用来降低方差的工具&lt;/strong>&lt;span class="math">\(g(x)\)&lt;/span>，我们可以通过合理设计&lt;span class="math">\(g(x)\)&lt;/span>使蒙特卡洛积分的效率更高。理论上来看，当&lt;span class="math">\(g(x)=\frac{f(x)}{\int_a^b f(x) \mathrm{d}x}\)&lt;/span>时，有&lt;span class="math">\(\mathrm{Var}(\hat\theta)=0\)&lt;/span>，此时结果最优，但是这个&lt;span class="math">\(g(x)\)&lt;/span>中必须已知式（1）&lt;span class="math">\(\int_a^b f(x) \mathrm{d}x\)&lt;/span>的结果，显然是无法直接使用的。不过，他也给我们一个启示，即&lt;span class="math">\(g(x)\)&lt;/span>与&lt;span class="math">\(f(x)\)&lt;/span>应该在形状相近的情况下，估计的方差更小。下面我们举一个例子： &lt;span class="math">\[
 f(x)=-x^2+2x\quad x\in[0,2]\\
 g_1(x)=\frac{1}{2};g_2(x)=e^{-x};g_3(x)=\frac{1}{\sqrt{2\pi}\times 0.5}e^{-\frac{(x-1)^2}{2\times 0.5^2}}
 \]&lt;/span> 分别用3个&lt;span class="math">\(g(x)\)&lt;/span>函数，作为重要性采用的概率密度函数。首先，我们易算出&lt;span class="math">\(f(x)=-x^2+2x\quad x\in[0,2]\)&lt;/span>的积分结果为&lt;span class="math">\(\frac{4}{3}\)&lt;/span>，我们画出各个函数的图像以及&lt;span class="math">\(\frac{f(x)}{g(x)}\)&lt;/span>的图像。&lt;/p>
 &lt;p>&lt;img src="../../images/importance_sampling1.png" alt="importance sampling" /> &lt;img src="../../images/importance_sampling2.png" alt="importance sampling" />&lt;/p>
-&lt;p>可以从第二个图中看出，如果&lt;span class="math">\(g(x)\)&lt;/span>与&lt;span class="math">\(f(x)\)&lt;/span>的形状相似，相除之后的函数图像更加贴近积分结果&lt;span class="math">\(\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})\)&lt;/span>，这样我们在抽样时结果接近&lt;span class="math">\(\theta\)&lt;/span>的概率也更大；如果形状相差太大，如&lt;span class="math">\(g_2(x)\)&lt;/span>积分的结果反而会变得更加不好统计。我们使用matlab分别计算三个重要性采样的方差有（取&lt;span class="math">\(n=10\)&lt;/span>）： &lt;span class="math">\[
+&lt;p>我们使用matlab分别计算三个重要性采样的方差有（取&lt;span class="math">\(n=10\)&lt;/span>）： &lt;span class="math">\[
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_1(x)})=0.03556\\
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_2(x)})=0.1335\\
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_3(x)})=0.01205
-\]&lt;/span> 确实是&lt;span class="math">\(g_3(x)\)&lt;/span>能够缩减方差，而与&lt;span class="math">\(f(x)\)&lt;/span>形状差异大的&lt;span class="math">\(g_2(x)\)&lt;/span>反而使方差更大了。&lt;/p>
+\]&lt;/span> matlab计算结果显示&lt;span class="math">\(g_3(x)\)&lt;/span>能够缩减方差，而与&lt;span class="math">\(f(x)\)&lt;/span>形状差异大的&lt;span class="math">\(g_2(x)\)&lt;/span>反而使方差更大了。&lt;/p>
+&lt;p>可以从第二个图中看出，如果&lt;span class="math">\(g(x)\)&lt;/span>与&lt;span class="math">\(f(x)\)&lt;/span>的形状相似，相除之后的函数图像更加贴近积分结果&lt;span class="math">\(\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})\)&lt;/span>，这样我们在抽样时结果接近&lt;span class="math">\(\theta\)&lt;/span>的概率也更大；如果形状相差太大，如&lt;span class="math">\(g_2(x)\)&lt;/span>积分的结果反而会变得更加不好统计。&lt;/p>
 &lt;p>综合来说，&lt;strong>重要性采样让新的函数值&lt;span class="math">\(h(x)=\frac{f(x)}{g(x)}\)&lt;/span>取到接近于积分结果的概率变大了&lt;/strong>。我们现在的问题就转变成了&lt;strong>如何找到一个和&lt;span class="math">\(f(x)\)&lt;/span>形状相似的函数&lt;/strong>。&lt;/p>
 &lt;h3 id="分层抽样法">分层抽样法&lt;/h3>
 &lt;p>在重要性采样的结论中，我们知道当&lt;span class="math">\(f(x)\)&lt;/span>与&lt;span class="math">\(g(x)\)&lt;/span>比值为常数时，可以得到理解最小的方差0，那么我们可不可以近似的构造一个这样的函数呢？基于这个思想，我们有了分层抽样法。&lt;/p>
@@ -2042,7 +2044,7 @@ g_1(x)=\frac{1}{2};g_2(x)=e^{-x};g_3(x)=\frac{1}{\sqrt{2\pi}\times 0.5}e^{-\frac
 &lt;div class="figure">
 &lt;img src="../../images/分层抽样1.png" alt="分层抽样1" />&lt;p class="caption">分层抽样1&lt;/p>
 &lt;/div>
-&lt;p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数最优方式为: &lt;span class="math">\[
+&lt;p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数&lt;strong>最优方式&lt;/strong>为: &lt;span class="math">\[
 n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
 \]&lt;/span> 其中，&lt;span class="math">\(n_i\)&lt;/span>是区间&lt;span class="math">\(D_i\)&lt;/span>的抽样数，&lt;span class="math">\(n\)&lt;/span>为总抽样数，&lt;span class="math">\(m\)&lt;/span>为总区间数目，&lt;span class="math">\(l_i\)&lt;/span>是区间&lt;span class="math">\(D_i\)&lt;/span>的长度，&lt;span class="math">\(\sigma_i\)&lt;/span>是区间&lt;span class="math">\(D_i\)&lt;/span>的标准差，此时方差最小，为&lt;span class="math">\(\frac{1}{n}(\sum_{i=1}^m l_i\sigma_i)^2\)&lt;/span>。然而实际计算中，每个区间的标准差&lt;span class="math">\(\sigma_i\)&lt;/span>总是未知的，式(14)无法直接使用。即使如此，最简单的分配方案&lt;span class="math">\(n_i=nl_i/\sum l_i\)&lt;/span>方差也比样本均值法低。&lt;/p>
 &lt;p>此外，其他缩减方差技术还有关联抽样法、控制变量法、对立变量法、条件期望法等等。&lt;/p>

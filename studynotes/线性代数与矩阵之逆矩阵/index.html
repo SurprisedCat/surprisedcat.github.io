@@ -1,6 +1,6 @@
 <!doctype html><html lang=zh-cn data-figures=true class=page>
 <head>
-<title>数学分析-等幂求和公式 | SurprisedCat</title>
+<title>线性代数与矩阵之逆矩阵 | SurprisedCat</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
@@ -8,15 +8,15 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
 <meta property="og:locale" content="zh-cn">
 <meta property="og:type" content="article">
-<meta name=description content="数学分析-等幂求和公式 description.">
-<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E7%AD%89%E5%B9%82%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F/">
-<meta property="og:title" content="数学分析-等幂求和公式">
-<meta property="og:description" content="数学分析-等幂求和公式 description.">
-<meta property="og:image" content="https://surprisedcat.github.io/images/%E6%95%B0%E5%AD%A6%E6%80%BB%E4%BD%93.jpg">
+<meta name=description content="线性代数与矩阵之逆矩阵 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/">
+<meta property="og:title" content="线性代数与矩阵之逆矩阵">
+<meta property="og:description" content="线性代数与矩阵之逆矩阵 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0.png">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
-<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E7%AD%89%E5%B9%82%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F/>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/>
 <link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
 <link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
 <link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
@@ -72,96 +72,138 @@
 <main>
 <div class="grid-inverse wrap content">
 <article class=post_content>
-<h1 class=post_title>数学分析-等幂求和公式</h1>
+<h1 class=post_title>线性代数与矩阵之逆矩阵</h1>
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
-Mar 2, 2020</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90 title=数学分析 class="post_tag button button_translucent">数学分析
+May 8, 2022</span>
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
 </a>
 </span>
 <span class=page_only>&nbsp;·
 <div class=post_share>
 分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90-%E7%AD%89%E5%B9%82%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
 </a>
 </div>
 </span>
 </div>
-<h2 id=等幂求和公式>等幂求和公式</h2>
-<h2 id=一阶求和公式>一阶求和公式</h2>
-<p>一阶求和公式就是我们熟知的高斯求和公式 <span class=math>\[
-S_1(n) = 1+2+3+\dotsb+n=\frac{n(n+1)}{2}
+<ul>
+<li><a href=#逆矩阵>逆矩阵</a></li>
+<li><a href=#补充了解广义逆>补充了解：广义逆</a></li>
+<li><a href=#逆矩阵存在条件>逆矩阵存在条件</a></li>
+<li><a href=#逆矩阵的求法>逆矩阵的求法</a></li>
+<li><a href=#初等变换法>初等变换法</a></li>
+<li><a href=#伴随矩阵求逆矩阵>伴随矩阵求逆矩阵</a></li>
+<li><a href=#矩阵分解法>矩阵分解法</a></li>
+<li><a href=#特殊矩阵的逆>特殊矩阵的逆</a></li>
+<li><a href=#逆矩阵的性质>逆矩阵的性质</a></li>
+</ul>
+<h2 id=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</h2>
+<p>逆矩阵，是线性代数和矩阵分析中非常常见也是非常关键的一个问题。本笔记将根据自己常遇到的逆矩阵相关问题，整理有关逆矩阵定义、常用求法、存在条件以及常用性质等相关内容，并对广义逆做简单介绍。</p>
+<h2 id=逆矩阵>逆矩阵</h2>
+<blockquote>
+<p>逆矩阵（inverse matrix），又称乘法反方阵、反矩阵。在线性代数中，给定一个<span class=math>\(n\)</span>阶方阵<span class=math>\(\mathbf {A}\)</span>，若存在一<span class=math>\(n\)</span>阶方阵<span class=math>\(\mathbf{B}\)</span>，使得<span class=math>\(\mathbf{AB}=\mathbf{BA}=\mathbf{I}_n\)</span>，其中<span class=math>\(\mathbf{I}_n\)</span>为<span class=math>\(n\)</span>阶单位矩阵，则称<span class=math>\(\mathbf{A}\)</span>是可逆的，且<span class=math>\(\mathbf{B}\)</span>是<span class=math>\(\mathbf{A}\)</span>的<strong>逆矩阵</strong>，记作<span class=math>\(\mathbf {A} ^{-1}\)</span>。</p>
+</blockquote>
+<p>注意：我们在谈论一般的逆矩阵时只针对<strong>方阵</strong>，非方阵不存在逆矩阵，但是可以有广义逆矩阵。</p>
+<blockquote>
+<p>可逆矩阵：如果<span class=math>\(A\)</span>有逆矩阵，我们称为可逆矩阵，或非奇异矩阵。不可逆的矩阵也叫做奇异矩阵。</p>
+</blockquote>
+<h3 id=补充了解广义逆>补充了解：广义逆</h3>
+<blockquote>
+<p>广义逆（Generalized inverse），是线性代数中针对矩阵的一种运算。一个矩阵<span class=math>\(A\)</span>的广义逆叫做<span class=math>\(A\)</span>的广义逆阵，是指具有部分逆矩阵的特性，但是不一定具有逆矩阵的所有特性的另一矩阵。假设一矩阵<span class=math>\(A\in \mathbb {R} ^{n\times m}\)</span>及另一矩阵<span class=math>\(A^{\mathrm {g} }\in \mathbb {R} ^{m\times n}\)</span>，若<span class=math>\(A^{\mathrm {g} }\)</span>满足<span class=math>\(AA^{\mathrm {g} }A=A\)</span>，则<span class=math>\(A^{\mathrm {g} }\)</span>即为<span class=math>\(A\)</span>的广义逆阵。</p>
+</blockquote>
+<p>广义逆也称为伪逆（pseudoinverse），有些时候，伪逆特指<strong>摩尔－彭若斯广义逆</strong>。此外，还有针对非方阵的单边逆矩阵，如左逆矩阵、右逆矩阵等。</p>
+<h2 id=逆矩阵存在条件>逆矩阵存在条件</h2>
+<p>矩阵<span class=math>\(A_{n\times n}\)</span>可逆的核心是<strong>不能降维</strong>，即<span class=math>\(A_{n\times n}\)</span>必须<span class=math>\(n\)</span>维空间的一个表示。其等效表述有：</p>
+<ul>
+<li><span class=math>\(\det(A)\neq 0\)</span>。行列式不为0，表明<span class=math>\(n\)</span>维体积不等于0，若有一个维度消失，那么其高维体积必是0。</li>
+<li><span class=math>\(\mathrm{Rank}(A)=n\)</span>。这个好理解，矩阵的秩就是可描述空间的维度。</li>
+<li>存在初等变换矩阵<span class=math>\(P\)</span>，使得<span class=math>\(PA=I\)</span>。我们知道初等变换不会增加维度，而单位矩阵<span class=math>\(I\)</span>的维度是<span class=math>\(n\)</span>，这也意味着矩阵<span class=math>\(A，I\)</span>秩相等。</li>
+<li><span class=math>\(A\)</span>的所有特征值都不为0。特征值等效于该矩阵<span class=math>\(n\)</span>维特征基的尺度变换，如果其中某个特征值为0，必然使得该特征向量所在维度坍缩，从而降维。</li>
+<li>齐次线性方程组<span class=math>\(Ax=0\)</span>仅有零解或非齐次线性方程组<span class=math>\(Ax=b\)</span>有唯一解。零空间维0维，等效于列空间为<span class=math>\(n\)</span>维。</li>
+<li><span class=math>\(A\)</span>的行（列）向量组线性无关。最大线性无关组中的向量个数即为空间维数。</li>
+<li>任一<span class=math>\(n\)</span>维向量可由<span class=math>\(A\)</span>的行（列）向量组线性表示。这表明<span class=math>\(A\)</span>的最大线性无关组至少为<span class=math>\(n\)</span>。</li>
+<li><span class=math>\(A\)</span>可表示成有限个初等矩阵的乘积。</li>
+</ul>
+<p>我们在这一小结，开头说了可逆的核心是<strong>不能降维</strong>，这又是什么理由呢？从变换的角度可逆矩阵是将<span class=math>\(n\)</span>维空间中点从一个位置，<strong>一一对应的变换到另一个位置</strong>。其中不能有多个点变换到同一个点上（通常是降维），也不能有一个点变换到多个点情况（这个一般不会）。当多个点变换到同一个点上时，我们无法从变换后的点（像）精确、唯一的找到到底原来时哪一个点（原）变过来的，也就意味着无法找到一个变换方法把像点变回去，这就是不可逆的变换，即为不可逆矩阵。</p>
+<h2 id=逆矩阵的求法>逆矩阵的求法</h2>
+<p>除了使用定义求矩阵的逆外，常见的逆矩阵的直接求法包含<strong>初等变换法</strong>和<strong>伴随矩阵法</strong>。此外，<strong>矩阵分解</strong>对矩阵求逆也有很大的帮助。</p>
+<p>求逆矩阵一直是矩阵研究中的一个重点问题，也是计算量非常大的一个问题。因此，也有很多逆矩阵的技巧，例如分块矩阵求逆，利用性质求逆等等，我们在本文中不再详述。</p>
+<h3 id=初等变换法>初等变换法</h3>
+<p>求逆矩阵最基本的方法是初等变换法。如果要求方阵<span class=math>\(A\)</span>的逆矩阵，用初等变换法是：</p>
+<blockquote>
+<p>将矩阵<span class=math>\(A\)</span>与单位矩阵<span class=math>\(I\)</span>排成一个新的矩阵<span class=math>\((A \quad I)\)</span>，称为增广矩阵，将此增广矩阵<span class=math>\((A\quad I)\)</span>做初等行变换，将它化成<span class=math>\((I\quad B)\)</span>的形式，则 <span class=math>\[B=A^{-1}\]</span></p>
+</blockquote>
+<p>举个例子。</p>
+<p>例1：求矩阵<span class=math>\(A\)</span>的逆矩阵。 <span class=math>\[A= \begin{bmatrix} 1&0&-2\\ -3&1&4\\ 2&-3&4\end{bmatrix} \]</span> 这是一个三阶的矩阵，最简便有效的方法是初等变换法。我们将矩阵与单位矩阵排在一起，然后做初等变换。 <span class=math>\[\begin{aligned}(A\quad I)&=\begin{bmatrix} 1&0&-2&\vdots&1&0&0\\ -3&1&4 &\vdots& 0&1&0\\ 2&-3&4 &\vdots& 0&0&1\end{bmatrix}\sim \begin{bmatrix} 1&0&-2&\vdots&1&0&0\\ 0&1&-2 &\vdots& 3&1&0\\ 0&-3&8 &\vdots& -2&0&1\end{bmatrix}\\ &\sim \begin{bmatrix} 1&0&-2&\vdots&1&0&0\\ 0&1&-2 &\vdots& 3&1&0\\ 0&0&2 &\vdots& 7&3&1\end{bmatrix}\sim \begin{bmatrix} 1&0&0&\vdots&8&3&1\\ 0&1&0 &\vdots& 10&4&1\\ 0&0&2 &\vdots& 7&3&1\end{bmatrix}\\&\sim \begin{bmatrix} 1&0&0&\vdots&8&3&1\\ 0&1&0 &\vdots& 10&4&1\\ 0&0&1 &\vdots& \frac{7}{2}&\frac{3}{2}&\frac{1}{2}\end{bmatrix} \end{aligned}\]</span></p>
+<p>所以我们得到</p>
+<p><span class=math>\[A^{-1}= \begin{bmatrix} 8&3&1\\ 10&4&1\\\frac{7}{2}&\frac{3}{2}&\frac{1}{2}\end{bmatrix} \]</span></p>
+<p>我们再来看一个四阶矩阵的逆矩阵。</p>
+<p>例2：求矩阵<span class=math>\(A\)</span>的逆矩阵。 <span class=math>\[A=\begin{bmatrix}1&2&3&4\\ 2&3&1&2\\ 1&1&1&-1\\ 1&0&-2&-6\end{bmatrix}\]</span> 我们将下述矩阵做初等变换</p>
+<p><span class=math>\[ \begin{aligned} (A\quad I)&= \begin{bmatrix}1&2&3&4 &\vdots &1&0&0&0\\ 2&3&1&2 &\vdots &0&1&0&0\\ 1&1&1&-1 &\vdots &0&0&1&0\\ 1&0&-2&-6 &\vdots &0&0&0&1\end{bmatrix}\sim \begin{bmatrix} 1&0&-2&-6 &\vdots &0&0&0&1\\ 2&3&1&2 &\vdots &0&1&0&0\\ 1&1&1&-1 &\vdots &0&0&1&0\\ 1&2&3&4 &\vdots &1&0&0&0 \end{bmatrix} \\& \sim \begin{bmatrix} 1&0&-2&-6 &\vdots &0&0&0&1\\ 0&3&5&14 &\vdots &0&1&0&-2\\ 0&1&3&5 &\vdots &0&0&1&-1\\ 0&2&5&10 &\vdots &1&0&0&-1 \end{bmatrix}\sim \begin{bmatrix} 1&0&-2&-6 &\vdots &0&0&0&1\\ 0&1&3&5 &\vdots &0&0&1&-1 \\ 0&3&5&14 &\vdots &0&1&0&-2 \\ 0&2&5&10 &\vdots &1&0&0&-1 \end{bmatrix}\\&\sim \begin{bmatrix} 1&0&-2&-6 &\vdots &0&0&0&1\\ 0&1&3&5 &\vdots &0&0&1&-1 \\ 0&0&-4&-1 &\vdots &0&1&-3&1 \\ 0&0&-1&0 &\vdots &1&0&-2&1 \end{bmatrix}\sim \begin{bmatrix} 1&0&-2&-6 &\vdots &0&0&0&1\\ 0&1&3&5 &\vdots &0&0&1&-1 \\ 0&0&-1&0 &\vdots &1&0&-2&1 \\ 0&0&-4&-1 &\vdots &0&1&-3&1 \end{bmatrix}\\&\sim \begin{bmatrix} 1&0&-2&-6 &\vdots &0&0&0&1\\ 0&1&3&5 &\vdots &0&0&1&-1 \\ 0&0&-1&0 &\vdots &1&0&-2&1 \\ 0&0&0&-1 &\vdots &-4&1&5&-3 \end{bmatrix}\sim \begin{bmatrix} 1&0&-2&0 &\vdots &24&-6&-30&19\\ 0&1&3&0 &\vdots &-20&5&26&-16 \\ 0&0&-1&0 &\vdots &1&0&-2&1 \\ 0&0&0&-1 &\vdots &-4&1&5&-3 \end{bmatrix} \\ &\sim \begin{bmatrix} 1&0&0&0 &\vdots &22&-6&-26&17\\ 0&1&0&0 &\vdots &-17&5&20&-13 \\ 0&0&-1&0 &\vdots &1&0&-2&1 \\ 0&0&0&-1 &\vdots &-4&1&5&-3 \end{bmatrix}\sim \begin{bmatrix} 1&0&0&0 &\vdots &22&-6&-26&17\\ 0&1&0&0 &\vdots &-17&5&20&-13 \\ 0&0&1&0 &\vdots &-1&0&2&-1 \\ 0&0&0&1 &\vdots &4&-1&-5&3 \end{bmatrix} \end{aligned}\]</span></p>
+<p>所以，我们得到 <span class=math>\[A^{-1}= \begin{bmatrix} 22&-6&-26&17\\ -17&5&20&-13 \\ -1&0&2&-1 \\ 4&-1&-5&3 \end{bmatrix} \]</span></p>
+<h3 id=伴随矩阵求逆矩阵>伴随矩阵求逆矩阵</h3>
+<p>用伴随矩阵求逆的公式很简单： <span class=math>\[A^{-1}=\frac{1}{\det(A)}A^\ast=\frac{1}{\det(A)}C^T\]</span> 其中，<span class=math>\(\det(A)\)</span>表示矩阵<span class=math>\(A\)</span>的行列式，<span class=math>\(A^\ast\)</span>表示伴随矩阵，<span class=math>\(C\)</span>表示余子矩阵。显然<span class=math>\(C^T=A^\ast\)</span></p>
+<p>矩阵的行列式我们都知道，那么余子矩阵和伴随矩阵又是什么呢？我们接下来介绍相关内容。首先，从代数余子式开始。</p>
+<blockquote>
+<p>元素<span class=math>\(a_{ij}\)</span>代数余子式：在矩阵<span class=math>\(A_{n\times n}\)</span>所对应的<span class=math>\(n\)</span>阶行列式中，划去元素<span class=math>\(a_{ij}\)</span>所在的第<span class=math>\(i\)</span>行与第<span class=math>\(j\)</span>列的元素，剩下的元素不改变原来的顺序所构成的n-1阶<strong>行列式</strong>称为<strong>元素<span class=math>\(a_{ij}\)</span>的余子式</strong>。数学表示上计作<span class=math>\(M_{ij}\)</span>。<span class=math>\(a_{ij}\)</span>的<strong>代数余子式</strong>：<span class=math>\(c_{ij}= (-1)^{i+j} M_{ij}\)</span></p>
+</blockquote>
+<p>余子式和代数余子式都是<span class=math>\(n-1\)</span>维行列式，也是一个简简单单的数字。区别就在于有没有乘以<span class=math>\((-1)^{i+j}\)</span>。</p>
+<p>例如对矩阵 <span class=math>\[\begin{bmatrix}\,\,\,1&4&7\\\,\,\,3&0&5\\-1&9&\!11\\\end{bmatrix}\]</span> 要计算代数余子式<span class=math>\(c_{23}\)</span>。首先计算余子式<span class=math>\(M_{23}\)</span>，也就是原矩阵去掉第2行和第3列后的子矩阵的行列式： <span class=math>\[\begin{vmatrix}\,\,1&4&\Box \,\\\,\Box &\Box &\Box \,\\-1&9&\Box \,\\\end{vmatrix},即\begin{vmatrix}\,\,\,1&4\,\\-1&9\,\\\end{vmatrix}=9-(-4)=13\]</span> 因此，<span class=math>\(c_{23}\)</span>等于<span class=math>\((-1)^{2+3}M_{23}=-13\)</span></p>
+<p><span class=math>\(A\)</span>的余子矩阵是指将<span class=math>\(A\)</span>的<span class=math>\((i, j)\)</span>项代数余子式<span class=math>\(c_{ij}\)</span>摆在第i行第j列所得到的矩阵，记为<span class=math>\(C\)</span>。 <span class=math>\[C=\begin{bmatrix}\,\,c_{11}&\dotsb&c_{1n} \,\\\,\vdots &\vdots &\vdots \,\\c_{n1}&\dotsb&c_{nn} \,\\\end{bmatrix}\]</span> 其中，<span class=math>\(c_{ij}\)</span>是元素<span class=math>\(a_{ij}\)</span>的代数余子式</p>
+<p>余子矩阵<span class=math>\(C\)</span>的<strong>转置</strong>矩阵称为<span class=math>\(A\)</span>的伴随矩阵<span class=math>\(A^\ast\)</span>。 <span class=math>\[
+A^\ast=C^T
+\]</span> 伴随矩阵与逆矩阵联系密切，并且当A可逆时可以用来计算它的逆矩阵。 <span class=math>\[A^{-1}=\frac{1}{\det(A)}A^\ast=\frac{1}{\det(A)}C^T\]</span></p>
+<p>例3：设<span class=math>\(A=A=\begin{pmatrix}2&3&4\\ 2&1&1\\ -1&1&2\end{pmatrix}\)</span>，求<span class=math>\(A^{-1}\)</span>。</p>
+<p>我们先求行列式： <span class=math>\[
+|A|=\begin{vmatrix}2&3&4\\ 2&1&1\\ -1&1&2\end{vmatrix}=\begin{vmatrix}0&5&8\\ 0&3&5\\ -1&1&2\end{vmatrix}=(-1)(-1)^{3+1}\begin{vmatrix}5&8\\ 3&5\end{vmatrix}=-1
+\]</span> 所以矩阵可逆。现在我们来求伴随矩阵。 <span class=math>\[
+c_{11}=\begin{vmatrix}1&1\\1&2\end{vmatrix}=1,\quad c_{12}=(-1)^{1+2}\begin{vmatrix}2&1\\ -1&2\end{vmatrix}=-5,\quad c_{13}=\begin{vmatrix}2&1\\-1&1\end{vmatrix}=3\\
+c_{21}=(-1)^{2+1}\begin{vmatrix}3&4\\1&2\end{vmatrix}=-2,\quad c_{22}=\begin{vmatrix}2&4\\ -1&2\end{vmatrix}=8,\quad c_{23}=(-1)^{2+3}=\begin{vmatrix}2&2\\-1&1\end{vmatrix}=-5\\
+c_{31}=\begin{vmatrix}3&4\\1&1\end{vmatrix}=-1,\quad c_{32}=(-1)^{3+2}\begin{vmatrix}2&4\\ 2&1\end{vmatrix}=6,\quad c_{33}=\begin{vmatrix}2&3\\2&1\end{vmatrix}=-4\\
+C=\begin{pmatrix}1&-5&3\\ -2&8&-5\\ -1&6&-4\end{pmatrix}
+\]</span> 所以 <span class=math>\[
+A^\ast=C^T=\begin{pmatrix}1&-2&-1\\ -5&8&6\\ 3&-5&-4\end{pmatrix}\\
+A^{-1}=\frac{1}{|A|}A^*=-1\begin{pmatrix}1&-2&-1\\ -5&8&6\\ 3&-5&-4\end{pmatrix}=\begin{pmatrix}-1&2&1\\ 5&-8&-6\\ -3&5&4\end{pmatrix}
 \]</span></p>
-<h2 id=二阶求和公式>二阶求和公式</h2>
-<p><span class=math>\[
-S_2(n) = 1^2+2^2+3^2+\dotsb+n^2=\frac{n(n+1)(2n+1)}{6}
+<h3 id=矩阵分解法>矩阵分解法</h3>
+<p>矩阵分解是矩阵求逆非常有效的方式，可以根据不同的分解方式衍生出不同的求逆公式。我们下面列出几种矩阵分解的求逆公式。</p>
+<ul>
+<li>LU分解求逆：<span class=math>\(A=LU, A^{-1}=U^{-1}L^{-1}\)</span>，由于三角矩阵逆容易求，由此简化了求逆计算。</li>
+<li>QR分解求逆：<span class=math>\(A=QR, A^{-1}=R^{-1}Q^{T}\)</span>，其中两个矩阵分别为正交矩阵<span class=math>\(Q\)</span>和上三角矩阵<span class=math>\(R\)</span>。正交矩阵的逆等于转置。</li>
+<li>SVD分解求逆：<span class=math>\(A=UDV^T, A^{-1}=VD^{-1}U^T\)</span>，其中<span class=math>\(U,V\)</span>为正交矩阵、<span class=math>\(D\)</span>为对角矩阵。正交矩阵的逆等于转置。对角矩阵逆为各个元素倒数。</li>
+</ul>
+<p>当然，矩阵分解的具体步骤超出了本文的叙述范围，需要了解的读者可以自行查找矩阵分解的相关内容。</p>
+<h2 id=特殊矩阵的逆>特殊矩阵的逆</h2>
+<p>对角矩阵的逆： <span class=math>\[
+\Lambda=\begin{bmatrix}
+a_{11}&0&\dotsb&0\\0&a_{22}&\dotsb&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\dotsb&a_{nn}
+\end{bmatrix}\Rightarrow
+\Lambda^{-1}=\begin{bmatrix}
+\frac{1}{a_{11}}&0&\dotsb&0\\0&\frac{1}{a_{22}}&\dotsb&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\dotsb&\frac{1}{a_{nn}}
+\end{bmatrix}
+\]</span> 正交矩阵的逆： <span class=math>\[
+Q^{-1}=Q^T
+\]</span> 分块矩阵： <span class=math>\[
+U=\begin{bmatrix}A&C\\0&B\end{bmatrix}\Rightarrow U^{-1}=\begin{bmatrix}A^{-1}&-A^{-1}CB^{-1}\\0&B^{-1}\end{bmatrix}\\
+L=\begin{bmatrix}A&0\\C&B\end{bmatrix}\Rightarrow L^{-1}=\begin{bmatrix}A^{-1}&0\\-B^{-1}CA^{-1}&B^{-1}\end{bmatrix}\\
 \]</span></p>
-<p>二阶求和公式在高中也学过，但当时使用的是猜测加数学归纳法，公式的推导过程不够直观。下面，我们用一个直观的构造法来推导二阶求和公式。</p>
-<p>构造直到<span class=math>\(2n\)</span>的平方和： <span class=math>\[
-\begin{aligned}
-S_2(2n)&=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\\
-&=\underbrace{1^2+2^2+3^2+\dotsb+n^2}_{S_2(n)}+(n^2+2n+1^2)+\dotsb+(n^2+2n\times n+n^2)\\
-&=S_2(n)+n\times n^2 + 2n\underbrace{(1+2+3+\dotsb+n)}_{S_1(n)}+\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}\\
-&=2S_2(n)+n^3+2n\times \frac{n(n+1)}{2}\\
-&=2S_2(n)+2n^3+n^2 \dotsb(1)\\
-\end{aligned}
-\]</span> 另一个方面，我们可以将<span class=math>\(S_2(2n)\)</span>根据奇偶性拆分： <span class=math>\[
-\begin{aligned}
-S_2(2n)&=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\\
-&=1^2+3^2+\dotsb+(2n-1)^2+2^2+4^2+\dotsb+(2n)^2\\
-&=(2\times 1-1)^2+(2\times 2-1)^2+\dotsb+(2\times n-1)^2+4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_(n)}\\
-&=(2^2\times 1^2 - 2\times 2\times 1 + 1^2)+(2^2\times 2^2 - 2\times 2\times 2 + 1^2)+\dotsb\\
-&+(2^2\times n^2 - 2\times 2\times n + 1^2)+4S_2(n)\\
-&=4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-4(1+2+\dotsb+n)+n+4S_2(n)\\
-&=8S_2(n)-4\frac{n(n+1)}{2}+n=8S_2(n)-2n^2-n\dotsb(2)
-\end{aligned}
-\]</span> 显然公式<span class=math>\((1)\)</span>等于公式<span class=math>\((2)\)</span>，因此有： <span class=math>\[
-2S_2(n)+2n^3+n^2=8S_2(n)-2n^2-n\\
-\Rightarrow S_2(n)=\frac{n(n+1)(2n+1)}{6}
+<h2 id=逆矩阵的性质>逆矩阵的性质</h2>
+<ul>
+<li>若矩阵<span class=math>\(A\)</span>存在逆矩阵<span class=math>\(A^{-1}\)</span>，则<span class=math>\(A^{-1}\)</span>唯一。反证法可得。</li>
+<li><span class=math>\((A^{-1})^{-1}=A\)</span>，显然。</li>
+<li><span class=math>\((kA)^{-1}=k^{-1}A^{-1}\)</span>，其中<span class=math>\(k\)</span>是常数。显然。</li>
+<li><span class=math>\(\det(A^{-1})=(\det(A))^{-1}\)</span>。行列式可以看做是有向面积或体积的概念在一般的欧几里得空间中的推广。或者说，在欧几里得空间中，行列式描述的是一个线性变换对“体积”所造成的影响。因此，<span class=math>\(A^{-1}\)</span>相当于是将体积变换回去，导致其行列式为原来的倒数。</li>
+<li><span class=math>\((A_1A_2\dotsb A_k)^{-1}=A_k^{-1}\dotsb A_2^{-1}A_1^{-1}\)</span>，矩阵乘法结合律+逆矩阵唯一性可证。</li>
+<li>矩阵转置的逆矩阵。<span class=math>\((A^T)^{-1}=(A^{-1})^T\)</span>。注意，转置和求逆可交换不像是指数的相互交换。其可交换性是一种美妙的巧合。</li>
+</ul>
+<p>证明：矩阵求逆、转置的可交换性。 <span class=math>\[
+AA^{-1}=I\\
+(AA^{-1})^T=I^T=I\\
+\Rightarrow (A^{-1})^TA^T=I\\
+\Rightarrow (A^T)^{-1}=(A^{-1})^T
 \]</span></p>
-<h2 id=三阶求和公式>三阶求和公式</h2>
-<p><span class=math>\[
-S_3(n)=\left[{\frac {n(n+1)}{2}}\right]^{{2}}
-\]</span> 三阶求和公式也需要一个构造，这个构造利用了对称性，比二阶求和公式好懂一些。 <span class=math>\[
-S_3(n)=1^3 +2^3 +3^3 +\dotsb+n^3\\
-S_3(n)=n^3+(n-1)^3+(n-2)^3+\dotsb+1^3
-\]</span> 两者相加有： <span class=math>\[
-\begin{aligned}
-2S_3(n)&=n^3+1^3+(n-1)^3+2^3+(n-2)^3+3^3+\dotsb+1^3+n^3\\
-&根据立方和公式a^3+b^3=(a+b)(a^2-ab+b^2)有：\\
-2S_3(n)&=(n+1)(n^2-n+1)+[n+1]((n-1)^2-2(n-1)+2^2)\\
-&+[n+1]((n-2)^2-3(n-2)+3^2)+\dotsb+[n+1](1^2-n+n^2)\\
-&=[n+1](2\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-(1\times n+2(n-1)+3(n-2)+\dotsb+n\times (n-(n-1)))\\
-&=[n+1](2S_2(n)-n\underbrace{(1+2+\dotsb+n)}_{S_1(n)}+2\times 1+3\times 2+\dotsb+n\times(n-1))\\
-&=[n+1](2S_2(n)-nS_1(n)+1^2+1+2^2+2+\dotsb+(n-1)^2+(n-1))\\
-&=[n+1](2S_2(n)-nS_1(n)+(S_2(n)-n^2)+(S_1(n)-n))\\
-&=[n+1](3S_2(n)-(n-1)S_1(n)-n^2-n)\\
-&代入S_1(n),S_2(n)结果可得：\\
-&=[n+1](\frac{n(n+1)(2n+1)}{2}-\frac{(n-1)n(n+1)}{2}-n(n+1))\\
-&={1\over 2}(n+1)^2[n(2n+1)-(n-1)n-2n]=\frac{1}{2}n^2(n+1)^2\\
-\Rightarrow S_3(n)&=\frac{1}{4}n^2(n+1)^2=[\frac{n(n+1)}{2}]^2
-\end{aligned}
-\]</span></p>
-<h2 id=等幂求和公式推断>等幂求和公式推断</h2>
-<p>我们根据1~3阶的求和公式发现，<span class=math>\(m\)</span>阶<span class=math>\(n\)</span>个连续自然数的和是<strong>一个和<span class=math>\(n\)</span>相关的<span class=math>\(m+1\)</span>阶多项式(且没有0阶项)</strong>，因此可以猜测，<span class=math>\(m\)</span>阶<span class=math>\(n\)</span>个连续自然数和的形式为: <span class=math>\[
-a_{m+1} n^{m+1}+a_{m} n^{m}+\dotsb+a_1 n^1
-\]</span> 这样我们可以先找出<span class=math>\(m+1\)</span>个初始条件，然后以待定系数法求得求和公式。以2阶求和公式为例： <span class=math>\[
-\begin{aligned}
-1^2 = 1 &= 1^3 a_3+ 1^2 a_2 + 1^1 a_1 \\
-1^2 +2^2 = 5&= 2^3 a_3+ 2^2 a_2 + 2^1 a_1\\
-1^2 +2^2 + 3^2= 14&= 3^3 a_3+ 3^2 a_2 + 3^1 a_1
-\end{aligned}
-\]</span> 根据高斯消元法或者克莱姆法则可知： <span class=math>\[
-\begin{cases}
-a_1=\frac{1}{3}\\
-a_2=\frac{1}{2}\\
-a_3=\frac{1}{6}\\
-\end{cases}
-\]</span> 即2阶求和公式为<span class=math>\(S_2(n)=\frac{1}{3}n^3+\frac{1}{2}n^2+\frac{1}{6}n\)</span>。</p>
-<p>当然这只是通过推断得出的结论，没有直接的证明。下面直接给出等幂求和公式 <span class=math>\[
-S_m(n)={1 \over {m+1}}\sum_{{i=0}}^{m}{m+1 \choose {i}}B_{i}(n+1)^{{m+1-i}}\tag{3}
-\]</span> 其中<span class=math>\(B_i\)</span>是伯努利数。关于伯努利数请参考维基百科<a href=https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0>https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0</a>.</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -293,9 +335,6 @@ SHELL
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
-</li>
-<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 <li>
@@ -307,17 +346,20 @@ SHELL
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
 </li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程0——流程总述">Shell 骨干流程0——流程总述</a>
+</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
-</li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 </ul>
 <div>
