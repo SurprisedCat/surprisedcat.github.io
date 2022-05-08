@@ -106,7 +106,7 @@ L=\begin{bmatrix}A&amp;amp;0\\C&amp;amp;B\end{bmatrix}\Rightarrow L^{-1}=\begin{
 &lt;li>&lt;span class="math">\((A^{-1})^{-1}=A\)&lt;/span>，显然。&lt;/li>
 &lt;li>&lt;span class="math">\((kA)^{-1}=k^{-1}A^{-1}\)&lt;/span>，其中&lt;span class="math">\(k\)&lt;/span>是常数。显然。&lt;/li>
 &lt;li>&lt;span class="math">\(\det(A^{-1})=(\det(A))^{-1}\)&lt;/span>。行列式可以看做是有向面积或体积的概念在一般的欧几里得空间中的推广。或者说，在欧几里得空间中，行列式描述的是一个线性变换对“体积”所造成的影响。因此，&lt;span class="math">\(A^{-1}\)&lt;/span>相当于是将体积变换回去，导致其行列式为原来的倒数。&lt;/li>
-&lt;li>&lt;span class="math">\((A_1A_2\dotsb A_k)^{-1}=A_k^{-1}\dotsb A_2^{-1}A_1^{-1}\)&lt;/span>，矩阵乘法结合律+逆矩阵唯一性可证。&lt;/li>
+&lt;li>&lt;span class="math">\((A_1A_2\dotsb A_k)^{-1}=A_k^{-1}\dotsb A_2^{-1}A_1^{-1}\)&lt;/span>，矩阵乘法结合律+逆矩阵唯一性可证。特别地，若矩阵&lt;span class="math">\(A_1=A_2=\dotsb=A_n\)&lt;/span>，有&lt;span class="math">\((A^n)^{-1}=(A^{-1})^n\)&lt;/span>&lt;/li>
 &lt;li>矩阵转置的逆矩阵。&lt;span class="math">\((A^T)^{-1}=(A^{-1})^T\)&lt;/span>。注意，转置和求逆可交换不像是指数的相互交换。其可交换性是一种美妙的巧合。&lt;/li>
 &lt;/ul>
 &lt;p>证明：矩阵求逆、转置的可交换性。 &lt;span class="math">\[
