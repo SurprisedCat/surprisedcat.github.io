@@ -88,298 +88,246 @@ Aug 30, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之概率母函数矩母函数和特征函数---omit-in-toc--->概率统计随机过程之概率母函数、矩母函数和特征函数</h2>
+<h2 id=概率统计随机过程之概率母函数矩母函数和特征函数>概率统计随机过程之概率母函数、矩母函数和特征函数</h2>
 <ul>
-<li><a href=#%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0>概率母函数</a>
+<li><a href=#概率母函数>概率母函数</a></li>
+<li><a href=#性质>性质</a></li>
+<li><a href=#例子>例子</a>
 <ul>
-<li><a href=#%E6%80%A7%E8%B4%A8>性质</a></li>
-<li><a href=#%E4%BE%8B%E5%AD%90>例子</a>
+<li><a href=#二项分布概率母函数>二项分布概率母函数</a></li>
+<li><a href=#泊松分布概率母函数>泊松分布概率母函数</a></li>
+<li><a href=#几何分布概率母函数>几何分布概率母函数</a></li>
+</ul></li>
+<li><a href=#求概率>求概率</a></li>
+<li><a href=#推广二维概率母函数>推广——二维概率母函数</a></li>
+<li><a href=#局限>局限</a></li>
+<li><a href=#矩母函数>矩母函数</a></li>
+<li><a href=#矩母函数性质>矩母函数性质</a></li>
+<li><a href=#矩母函数例子>矩母函数例子</a>
 <ul>
-<li><a href=#%E4%BA%8C%E9%A1%B9%E5%88%86%E5%B8%83%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0>二项分布概率母函数</a></li>
-<li><a href=#%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0>泊松分布概率母函数</a></li>
-<li><a href=#%E5%87%A0%E4%BD%95%E5%88%86%E5%B8%83%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0>几何分布概率母函数</a></li>
-</ul>
-</li>
-<li><a href=#%E6%B1%82%E6%A6%82%E7%8E%87>求概率</a></li>
-<li><a href=#%E6%8E%A8%E5%B9%BF%E4%BA%8C%E7%BB%B4%E6%A6%82%E7%8E%87%E6%AF%8D%E5%87%BD%E6%95%B0>推广——二维概率母函数</a></li>
-<li><a href=#%E5%B1%80%E9%99%90>局限</a></li>
-</ul>
-</li>
-<li><a href=#%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0>矩母函数</a>
+<li><a href=#离散型矩母函数>离散型矩母函数</a></li>
+<li><a href=#指数分布矩母函数>指数分布矩母函数</a></li>
+<li><a href=#正态分布矩母函数>正态分布矩母函数</a></li>
+<li><a href=#复合随机变量>复合随机变量</a></li>
+</ul></li>
+<li><a href=#推广随机向量的矩母函数>推广——随机向量的矩母函数</a></li>
+<li><a href=#局限性>局限性</a></li>
+<li><a href=#特征函数>特征函数</a></li>
+<li><a href=#特征函数性质>特征函数性质</a></li>
+<li><a href=#特征函数例子>特征函数例子</a>
 <ul>
-<li><a href=#%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8>矩母函数性质</a></li>
-<li><a href=#%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0%E4%BE%8B%E5%AD%90>矩母函数例子</a>
-<ul>
-<li><a href=#%E7%A6%BB%E6%95%A3%E5%9E%8B%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0>离散型矩母函数</a></li>
-<li><a href=#%E6%8C%87%E6%95%B0%E5%88%86%E5%B8%83%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0>指数分布矩母函数</a></li>
-<li><a href=#%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0>正态分布矩母函数</a></li>
-<li><a href=#%E5%A4%8D%E5%90%88%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F>复合随机变量</a></li>
-</ul>
-</li>
-<li><a href=#%E6%8E%A8%E5%B9%BF%E9%9A%8F%E6%9C%BA%E5%90%91%E9%87%8F%E7%9A%84%E7%9F%A9%E6%AF%8D%E5%87%BD%E6%95%B0>推广——随机向量的矩母函数</a></li>
-<li><a href=#%E5%B1%80%E9%99%90%E6%80%A7>局限性</a></li>
-</ul>
-</li>
-<li><a href=#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>特征函数</a>
-<ul>
-<li><a href=#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8>特征函数性质</a></li>
-<li><a href=#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E4%BE%8B%E5%AD%90>特征函数例子</a>
-<ul>
-<li><a href=#%E4%BA%8C%E9%A1%B9%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>二项分布特征函数</a></li>
-<li><a href=#%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>泊松分布特征函数</a></li>
-<li><a href=#%E5%87%A0%E4%BD%95%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>几何分布特征函数</a></li>
-<li><a href=#%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>正态分布特征函数</a></li>
-<li><a href=#%E5%9D%87%E5%8C%80%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>均匀分布特征函数</a></li>
-<li><a href=#%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>柯西分布特征函数</a></li>
-<li><a href=#%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%88%86%E5%B8%83%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>拉普拉斯分布特征函数</a></li>
-</ul>
-</li>
-<li><a href=#%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%80%A7%E8%B4%A8>更多的性质</a></li>
-<li><a href=#%E6%9C%89%E8%B6%A3%E7%9A%84%E4%BE%8B%E9%A2%98>有趣的例题</a></li>
-</ul>
-</li>
+<li><a href=#二项分布特征函数>二项分布特征函数</a></li>
+<li><a href=#泊松分布特征函数>泊松分布特征函数</a></li>
+<li><a href=#几何分布特征函数>几何分布特征函数</a></li>
+<li><a href=#正态分布特征函数>正态分布特征函数</a></li>
+<li><a href=#均匀分布特征函数>均匀分布特征函数</a></li>
+<li><a href=#柯西分布特征函数>柯西分布特征函数</a></li>
+<li><a href=#拉普拉斯分布特征函数>拉普拉斯分布特征函数</a></li>
+</ul></li>
+<li><a href=#更多的性质>更多的性质</a></li>
+<li><a href=#有趣的例题>有趣的例题</a></li>
 </ul>
 <h2 id=概率母函数>概率母函数</h2>
 <blockquote>
-<p>定义：设$X$是非负整数的随机变量，定义其概率母函数 (probability-generating function)为
-$$g(s)=\mathbb{E}[s^X]=\sum_{j=0}^{\infty} s^j\mathbb{P}[X=j], s\in[-1,1]$$</p>
+<p>定义：设<span class=math>\(X\)</span>是非负整数的随机变量，定义其概率母函数 (probability-generating function)为 <span class=math>\[g(s)=\mathbb{E}[s^X]=\sum_{j=0}^{\infty} s^j\mathbb{P}[X=j], s\in[-1,1]\]</span></p>
 </blockquote>
-<p>其中约定 $0^0=1$。显然 $g(s)$ 在 $[-1,1]$ 绝对收敛</p>
+<p>其中约定 <span class=math>\(0^0=1\)</span>。显然 <span class=math>\(g(s)\)</span> 在 <span class=math>\([-1,1]\)</span> 绝对收敛</p>
 <h3 id=性质>性质</h3>
 <ul>
-<li>$\mathbb{P}[X=k]=\frac{g^{(k)}(0)}{k!},\ k=0,1,\ldots$，这说明概率母函数和概率分布列一一对应</li>
-<li>$\mathbb{E}<input checked disabled type=checkbox> =g^{(1)}(1)$</li>
-<li>若 $\mathbb{E}<input checked disabled type=checkbox> &lt;\infty$，则 $\mathrm{Var}<input checked disabled type=checkbox> =g^{(2)}(1)+g^{(1)}(1)-[g^{(1)}(1)]^2$</li>
-<li>若 $X_1,\ldots,X_n$ 相互独立，$Y=X_1+\cdots+X_n$，则 $g_Y(s)=g_{X_1}(s)\cdots g_{X_n}(s),s\in[-1,1]$</li>
-<li>$X_1,X_2,\ldots$ 是<strong>独立同分布</strong>的非负整数随机变量，概率母函数为 $\psi(x)$; $N$ 为取正整数值的随机变量且独立于 $X_i$，概率母函数为 $G(s)$。则 $Y=X_1+\cdots+X_N$ 的概率母函数为 $H(s)=G[\psi(s)]$</li>
+<li><span class=math>\(\mathbb{P}[X=k]=\frac{g^{(k)}(0)}{k!},\ k=0,1,\ldots\)</span>，这说明概率母函数和概率分布列一一对应</li>
+<li><span class=math>\(\mathbb{E}[X]=g^{(1)}(1)\)</span></li>
+<li>若 <span class=math>\(\mathbb{E}[X]&lt;\infty\)</span>，则 <span class=math>\(\mathrm{Var}[X]=g^{(2)}(1)+g^{(1)}(1)-[g^{(1)}(1)]^2\)</span></li>
+<li>若 <span class=math>\(X_1,\ldots,X_n\)</span> 相互独立，<span class=math>\(Y=X_1+\cdots+X_n\)</span>，则 <span class=math>\(g_Y(s)=g_{X_1}(s)\cdots g_{X_n}(s),s\in[-1,1]\)</span></li>
+<li><span class=math>\(X_1,X_2,\ldots\)</span> 是<strong>独立同分布</strong>的非负整数随机变量，概率母函数为 <span class=math>\(\psi(x)\)</span>; <span class=math>\(N\)</span> 为取正整数值的随机变量且独立于 <span class=math>\(X_i\)</span>，概率母函数为 <span class=math>\(G(s)\)</span>。则 <span class=math>\(Y=X_1+\cdots+X_N\)</span> 的概率母函数为 <span class=math>\(H(s)=G[\psi(s)]\)</span></li>
 </ul>
-<p>只给出性质五的证明
-$$\begin{aligned}
-H(s)&=\mathbb{E}[\mathbb{E}[S^W\mid Y]]\
-&=\sum_{n=1}^{\infty}\mathbb{E}[s^{X_1+\cdots+X_n}]\mathbb{P}[Y=n]\
+<p>只给出性质五的证明 <span class=math>\[\begin{aligned}
+H(s)&=\mathbb{E}[\mathbb{E}[S^W\mid Y]]\\
+&=\sum_{n=1}^{\infty}\mathbb{E}[s^{X_1+\cdots+X_n}]\mathbb{P}[Y=n]\\
 &=\sum_{n=1}^{\infty}[\psi(s)]^n\mathbb{P}[Y=n]=G[\psi(s)]
-\end{aligned}$$</p>
+\end{aligned}\]</span></p>
 <h3 id=例子>例子</h3>
 <h4 id=二项分布概率母函数>二项分布概率母函数</h4>
-<p>二项分布 $B(n,p)$ 的概率母函数为 $g(s)=(sp+q)^n$</p>
-<p>由此立得若 $X_i,\ldots,X_m$ 独立，且$X_i\sim B(n_i,p)$，则$Y=X_1+\cdots+X_m\sim B(n_1+\cdots+n_m,p)$</p>
+<p>二项分布 <span class=math>\(B(n,p)\)</span> 的概率母函数为 <span class=math>\(g(s)=(sp+q)^n\)</span></p>
+<p>由此立得若 <span class=math>\(X_i,\ldots,X_m\)</span> 独立，且<span class=math>\(X_i\sim B(n_i,p)\)</span>，则<span class=math>\(Y=X_1+\cdots+X_m\sim B(n_1+\cdots+n_m,p)\)</span></p>
 <h4 id=泊松分布概率母函数>泊松分布概率母函数</h4>
-<p>泊松分布 $\mathcal{P}(\lambda)$ 的概率母函数为 $g(s)=e^{\lambda(s-1)}$</p>
-<p>由此立得若 $X_i,\ldots,X_m$ 独立，且$X_i\sim \mathcal{P}(\lambda_i)$，则$Y=X_1+\cdots+X_m\sim \mathcal{P}(\lambda_1+\cdots+\lambda_m)$</p>
+<p>泊松分布 <span class=math>\(\mathcal{P}(\lambda)\)</span> 的概率母函数为 <span class=math>\(g(s)=e^{\lambda(s-1)}\)</span></p>
+<p>由此立得若 <span class=math>\(X_i,\ldots,X_m\)</span> 独立，且<span class=math>\(X_i\sim \mathcal{P}(\lambda_i)\)</span>，则<span class=math>\(Y=X_1+\cdots+X_m\sim \mathcal{P}(\lambda_1+\cdots+\lambda_m)\)</span></p>
 <h4 id=几何分布概率母函数>几何分布概率母函数</h4>
-<p>几何分布 $G(p)$ 的概率母函数为 $g(s)=\frac{sp}{1-sq}$</p>
-<p>由此立得若 $X_i,\ldots,X_m$ 独立，且$X_i\sim G(p)$，则$S_m=X_1+\cdots+X_m$ 有概率母函数
-$$\begin{aligned}
-g_{S_m}(s)&=\left(\frac{sp}{1-sq}\right)^m\
-&=(sp)^m\sum_{j=0}^{\infty}\frac{m(m+1)\cdots(m+j-1)}{j!}(sq)^j\
-&=(sp)^m\sum_{j=0}^{\infty}\binom{m+j-1}{j}(sq)^j\
-&=\sum_{k=m}^{\infty}\binom{k-1}{m-1}p^mq^{k-m}s^k\end{aligned}$$</p>
-<p>于是得 Pascal 分布
-$$\mathbb{E}[S_m=k]=\binom{k-1}{m-1}p^mq^{k-m}$$</p>
+<p>几何分布 <span class=math>\(G(p)\)</span> 的概率母函数为 <span class=math>\(g(s)=\frac{sp}{1-sq}\)</span></p>
+<p>由此立得若 <span class=math>\(X_i,\ldots,X_m\)</span> 独立，且<span class=math>\(X_i\sim G(p)\)</span>，则<span class=math>\(S_m=X_1+\cdots+X_m\)</span> 有概率母函数 <span class=math>\[\begin{aligned}
+g_{S_m}(s)&=\left(\frac{sp}{1-sq}\right)^m\\
+&=(sp)^m\sum_{j=0}^{\infty}\frac{m(m+1)\cdots(m+j-1)}{j!}(sq)^j\\
+&=(sp)^m\sum_{j=0}^{\infty}\binom{m+j-1}{j}(sq)^j\\
+&=\sum_{k=m}^{\infty}\binom{k-1}{m-1}p^mq^{k-m}s^k\end{aligned}\]</span></p>
+<p>于是得 Pascal 分布 <span class=math>\[\mathbb{E}[S_m=k]=\binom{k-1}{m-1}p^mq^{k-m}\]</span></p>
 <h3 id=求概率>求概率</h3>
-<p>求扔三颗骰子，总点数为 9 的概率。 记 $X_i$ 为第 $i$ 颗骰子的点数，其概率母函数</p>
-<p>$$g(s)=\mathbb{E}[s^{X_1}]=\frac{1}{6}(s+s^2+\cdots+s^6)=\frac{1}{6}\frac{s(1-s^6)}{1-s}$$</p>
-<p>则 $Y=X_1+X_2+X_3$ 的概率母函数为</p>
-<p>$$g_Y(s)=[g_X(s)]^3=\frac{s^3(1-s^6)^3}{6^3(1-s)^s}=\frac{1}{6^3}(s^3)(1-3s^6+3s^{12}-s^{18})\sum_{k=0}^{\infty}\binom{k+2}{2}s^k$$</p>
-<p>则 $s^9$ 的系数为
-$$\mathbb{P}(Y=9)=\frac{1}{6^3}[\binom{6+2}{2}-3]=\frac{25}{216}$$</p>
+<p>求扔三颗骰子，总点数为 9 的概率。 记 <span class=math>\(X_i\)</span> 为第 <span class=math>\(i\)</span> 颗骰子的点数，其概率母函数</p>
+<p><span class=math>\[g(s)=\mathbb{E}[s^{X_1}]=\frac{1}{6}(s+s^2+\cdots+s^6)=\frac{1}{6}\frac{s(1-s^6)}{1-s}\]</span></p>
+<p>则 <span class=math>\(Y=X_1+X_2+X_3\)</span> 的概率母函数为</p>
+<p><span class=math>\[g_Y(s)=[g_X(s)]^3=\frac{s^3(1-s^6)^3}{6^3(1-s)^s}=\frac{1}{6^3}(s^3)(1-3s^6+3s^{12}-s^{18})\sum_{k=0}^{\infty}\binom{k+2}{2}s^k\]</span></p>
+<p>则 <span class=math>\(s^9\)</span> 的系数为 <span class=math>\[\mathbb{P}(Y=9)=\frac{1}{6^3}[\binom{6+2}{2}-3]=\frac{25}{216}\]</span></p>
 <h3 id=推广二维概率母函数>推广——二维概率母函数</h3>
 <blockquote>
-<p>设 $(X,Y)$ 是二维取非负整数值的随机向量，记 $p_{ik}=\mathbb{P}[X=i,Y=k]$，则其二维概率母函数为
-$$g(s,t)=\mathbb{E}[s^Xt^Y]=\sum_{i=0}^{\infty}\sum_{k=0}^{\infty}p_{ik}s^it^k,\quad s,t\in[-1,1]$$</p>
+<p>设 <span class=math>\((X,Y)\)</span> 是二维取非负整数值的随机向量，记 <span class=math>\(p_{ik}=\mathbb{P}[X=i,Y=k]\)</span>，则其二维概率母函数为 <span class=math>\[g(s,t)=\mathbb{E}[s^Xt^Y]=\sum_{i=0}^{\infty}\sum_{k=0}^{\infty}p_{ik}s^it^k,\quad s,t\in[-1,1]\]</span></p>
 </blockquote>
 <p>其有如下性质</p>
 <ul>
-<li>$\lvert g(s,t)\rvert\leq g(1,1)=1,\lvert s\rvert\leq 1,\lvert t\rvert\leq 1$</li>
-<li>$g_{aX+bY+c}(s)=s^cg(s^a,s^b)$</li>
-<li>若 $X,Y$ 独立，则 $g(s,t)=g_X(s)g_Y(t)$</li>
-<li>$g(s,1)=g_X(s),g(1,t)=g_Y(t)$</li>
-<li>若 $\mathbb{E}<input checked disabled type=checkbox> &lt;\infty,\mathbb{E}[Y]&lt;\infty$，则
-$$\mathbb{E}<input checked disabled type=checkbox> =\frac{\partial g(s,t)}{\partial s}\big|<em>{s=t=1},\mathbb{E}[Y]=\frac{\partial g(s,t)}{\partial t}\big|</em>{s=t=1}$$</li>
-<li>若 $\mathbb{E}[X^2]&lt;\infty,\mathbb{E}[Y^2]&lt;\infty$，则
-$$\mathbb{E}[X^2]=\frac{\partial^2 g(s,t)}{\partial s^2}\big|<em>{s=t=1},\mathbb{E}[Y^2]=\frac{\partial^2 g(s,t)}{\partial t^2}\big|</em>{s=t=1},\mathbb{E}[XY]=\frac{\partial^2 g(s,t)}{\partial s\partial t}\big|_{s=t=1}$$</li>
-<li>$p_{ik}=\frac{1}{i!k!}\frac{\partial^{i+k}g(s,t)}{\partial s^i\partial t^k}\big |_{s=t=0},\ i,k=0,1,\ldots$</li>
+<li><span class=math>\(\lvert g(s,t)\rvert\leq g(1,1)=1,\lvert s\rvert\leq 1,\lvert t\rvert\leq 1\)</span></li>
+<li><span class=math>\(g_{aX+bY+c}(s)=s^cg(s^a,s^b)\)</span></li>
+<li>若 <span class=math>\(X,Y\)</span> 独立，则 <span class=math>\(g(s,t)=g_X(s)g_Y(t)\)</span></li>
+<li><span class=math>\(g(s,1)=g_X(s),g(1,t)=g_Y(t)\)</span></li>
+<li>若 <span class=math>\(\mathbb{E}[X]&lt;\infty,\mathbb{E}[Y]&lt;\infty\)</span>，则 <span class=math>\[\mathbb{E}[X]=\frac{\partial g(s,t)}{\partial s}\big|_{s=t=1},\mathbb{E}[Y]=\frac{\partial g(s,t)}{\partial t}\big|_{s=t=1}\]</span></li>
+<li>若 <span class=math>\(\mathbb{E}[X^2]&lt;\infty,\mathbb{E}[Y^2]&lt;\infty\)</span>，则 <span class=math>\[\mathbb{E}[X^2]=\frac{\partial^2 g(s,t)}{\partial s^2}\big|_{s=t=1},\mathbb{E}[Y^2]=\frac{\partial^2 g(s,t)}{\partial t^2}\big|_{s=t=1},\mathbb{E}[XY]=\frac{\partial^2 g(s,t)}{\partial s\partial t}\big|_{s=t=1}\]</span></li>
+<li><span class=math>\(p_{ik}=\frac{1}{i!k!}\frac{\partial^{i+k}g(s,t)}{\partial s^i\partial t^k}\big |_{s=t=0},\ i,k=0,1,\ldots\)</span></li>
 </ul>
 <h3 id=局限>局限</h3>
 <p>只能对取<strong>非负整数值</strong>的随机变量定义</p>
 <h2 id=矩母函数>矩母函数</h2>
 <blockquote>
-<p>定义:设 $X$ 是随机变量，定义其矩母函数 (moment-generating function)为
-$$M_X(s)=\mathbb{E}[e^{sX}]$$
-仅当 $\mathbb{E}[e^{sX}]&lt;\infty$ 时，我们称 $M_X(s)$ 存在</p>
+<p>定义:设 <span class=math>\(X\)</span> 是随机变量，定义其矩母函数 (moment-generating function)为 <span class=math>\[M_X(s)=\mathbb{E}[e^{sX}]\]</span> 仅当 <span class=math>\(\mathbb{E}[e^{sX}]&lt;\infty\)</span> 时，我们称 <span class=math>\(M_X(s)\)</span> 存在</p>
 </blockquote>
 <h3 id=矩母函数性质>矩母函数性质</h3>
 <ul>
-<li>$M_{aX+b}(s)=e^{sb}M(sa)$</li>
-<li>$\mathbb{E}[X^k]=M^{(k)}(0),k=1,2,\ldots$</li>
-<li>$M(0)=1$</li>
-<li>可逆性：若$\exists a>0,\forall s\in[-a,a], M(s)&lt;\infty$，则 $M(s)$ 唯一地决定了 $X$ 的分布函数</li>
-<li>若 $X_1,\ldots,X_n$ 独立，$Y=X_1+\cdots+X_n$，则$M_{Y}(s)=M_{X_1}(s)\cdots M_{X_n}(s)$</li>
-<li>$X_1,X_2,\ldots$ 独立同分布，矩母函数为 $M_X(s)$; $N$ 为取正整数值的随机变量，矩母函数为 $M_N(s)$。则 $Y=X_1+\cdots+X_Y$ 的矩母函数为 $M_Y(s)=\mathbb{E}[\mathbb{E}[e^{sY}\mid N=n]]=\mathbb{E}[(M_X(s))^n]=\sum_{n=1}^{\infty}(M_X(s))^n\mathbb{P}[N=n]$</li>
+<li><span class=math>\(M_{aX+b}(s)=e^{sb}M(sa)\)</span></li>
+<li><span class=math>\(\mathbb{E}[X^k]=M^{(k)}(0),k=1,2,\ldots\)</span></li>
+<li><span class=math>\(M(0)=1\)</span></li>
+<li>可逆性：若<span class=math>\(\exists a>0,\forall s\in[-a,a], M(s)&lt;\infty\)</span>，则 <span class=math>\(M(s)\)</span> 唯一地决定了 <span class=math>\(X\)</span> 的分布函数</li>
+<li>若 <span class=math>\(X_1,\ldots,X_n\)</span> 独立，<span class=math>\(Y=X_1+\cdots+X_n\)</span>，则<span class=math>\(M_{Y}(s)=M_{X_1}(s)\cdots M_{X_n}(s)\)</span></li>
+<li><span class=math>\(X_1,X_2,\ldots\)</span> 独立同分布，矩母函数为 <span class=math>\(M_X(s)\)</span>; <span class=math>\(N\)</span> 为取正整数值的随机变量，矩母函数为 <span class=math>\(M_N(s)\)</span>。则 <span class=math>\(Y=X_1+\cdots+X_Y\)</span> 的矩母函数为 <span class=math>\(M_Y(s)=\mathbb{E}[\mathbb{E}[e^{sY}\mid N=n]]=\mathbb{E}[(M_X(s))^n]=\sum_{n=1}^{\infty}(M_X(s))^n\mathbb{P}[N=n]\)</span></li>
 </ul>
-<p>而 $M_N(s)=\sum_{n=1}^{\infty}[e^s]^n\mathbb{P}[N=n]$ 二者有紧密的联系：将 $M_N(s)$ 中出现的 $e^s$ 替换为 $M_X(s)$ 即可</p>
+<p>而 <span class=math>\(M_N(s)=\sum_{n=1}^{\infty}[e^s]^n\mathbb{P}[N=n]\)</span> 二者有紧密的联系：将 <span class=math>\(M_N(s)\)</span> 中出现的 <span class=math>\(e^s\)</span> 替换为 <span class=math>\(M_X(s)\)</span> 即可</p>
 <h3 id=矩母函数例子>矩母函数例子</h3>
 <h4 id=离散型矩母函数>离散型矩母函数</h4>
 <table>
 <thead>
-<tr>
-<th>X</th>
-<th>2</th>
-<th>3</th>
-<th>5</th>
+<tr class=header>
+<th align=left>X</th>
+<th align=left>2</th>
+<th align=left>3</th>
+<th align=left>5</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td>$\mathbb{P}$</td>
-<td>1/2</td>
-<td>1/6</td>
-<td>1/3</td>
+<tr class=odd>
+<td align=left><span class=math>\(\mathbb{P}\)</span></td>
+<td align=left>1/2</td>
+<td align=left>1/6</td>
+<td align=left>1/3</td>
 </tr>
 </tbody>
 </table>
-<p>$$M(s)=\frac{1}{2}e^{2s}+\frac{1}{6}e^{3s}+\frac{1}{3}e^{5s}$$</p>
-<p>$$\mathbb{E}[X]=M^{(1)}(0)=(\frac{1}{2}2e^{2s}+\frac{1}{6}3e^{3s}+\frac{1}{3}5e^{5s})|_{s=0}=\frac{19}{6}$$</p>
-<p>$\mathbb{E}[X^2]=M^{(2)}(0)=(\frac{1}{2}4e^{2s}+\frac{1}{6}9e^{3s}+\frac{1}{3}25e^{5s})|_{s=0}=\frac{71}{6}$</p>
+<p><span class=math>\[M(s)=\frac{1}{2}e^{2s}+\frac{1}{6}e^{3s}+\frac{1}{3}e^{5s}\]</span></p>
+<p><span class=math>\[\mathbb{E}[X]=M^{(1)}(0)=(\frac{1}{2}2e^{2s}+\frac{1}{6}3e^{3s}+\frac{1}{3}5e^{5s})|_{s=0}=\frac{19}{6}\]</span></p>
+<p><span class=math>\(\mathbb{E}[X^2]=M^{(2)}(0)=(\frac{1}{2}4e^{2s}+\frac{1}{6}9e^{3s}+\frac{1}{3}25e^{5s})|_{s=0}=\frac{71}{6}\)</span></p>
 <h4 id=指数分布矩母函数>指数分布矩母函数</h4>
-<p>设 $X\sim \mathcal{E}(\lambda)$，则当 $s&lt;\lambda$ 时，有
-$$M(s)=\lambda\int_0^\infty e^{sx}e^{-\lambda x},\mathrm{d}x=\frac{\lambda}{s-\lambda}e^{(s-\lambda)x}|{x=0}^{\infty}=\frac{\lambda}{\lambda-s}$$</p>
-<p>而当 $s\ge\lambda$ 时 $M(s)$ 不存在</p>
-<p>$$\mathbb{E}[X]=M^{(1)}(0)=\frac{\lambda}{(\lambda-s)^2}|<em>{s=0}=\frac{1}{\lambda}$$
-$$\mathbb{E}[X]=M^{(2)}(0)=\frac{2\lambda}{(\lambda-s)^3}|</em>{s=0}=\frac{2}{\lambda^2}$$</p>
+<p>设 <span class=math>\(X\sim \mathcal{E}(\lambda)\)</span>，则当 <span class=math>\(s&lt;\lambda\)</span> 时，有 <span class=math>\[M(s)=\lambda\int_0^\infty e^{sx}e^{-\lambda x}\,\mathrm{d}x=\frac{\lambda}{s-\lambda}e^{(s-\lambda)x}|{x=0}^{\infty}=\frac{\lambda}{\lambda-s}\]</span></p>
+<p>而当 <span class=math>\(s\ge\lambda\)</span> 时 <span class=math>\(M(s)\)</span> 不存在</p>
+<p><span class=math>\[\mathbb{E}[X]=M^{(1)}(0)=\frac{\lambda}{(\lambda-s)^2}|_{s=0}=\frac{1}{\lambda}\]</span> <span class=math>\[\mathbb{E}[X]=M^{(2)}(0)=\frac{2\lambda}{(\lambda-s)^3}|_{s=0}=\frac{2}{\lambda^2}\]</span></p>
 <h4 id=正态分布矩母函数>正态分布矩母函数</h4>
-<p>$X\sim\mathcal{N}({\mu_1,\sigma_1^2}),Y\sim\mathcal{N}(\mu_2,\sigma_2^2), X,Y$ 相互独立，求 $Z=X+Y$ 的分布</p>
-<p>先计算标准正态分布的矩母函数，由定义求得 $M(s)=e^{s^2/2}$</p>
-<p>根据矩母函数的性质，有
-$$M_X(s)=e^{\mu_1 s}e^{\sigma_1^2s^2/2},\
-M_Y(s)=e^{\mu_2 s}e^{\sigma_2^2s^2/2},\
-M_Z(s)=e^{(\mu_1+\mu_2) s}e^{(\sigma_1^2+\sigma_2^2)s^2/2}$$</p>
-<p>于是 $Z\sim\mathcal{N}(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$</p>
+<p><span class=math>\(X\sim\mathcal{N}({\mu_1,\sigma_1^2}),Y\sim\mathcal{N}(\mu_2,\sigma_2^2), X,Y\)</span> 相互独立，求 <span class=math>\(Z=X+Y\)</span> 的分布</p>
+<p>先计算标准正态分布的矩母函数，由定义求得 <span class=math>\(M(s)=e^{s^2/2}\)</span></p>
+<p>根据矩母函数的性质，有 <span class=math>\[M_X(s)=e^{\mu_1 s}e^{\sigma_1^2s^2/2},\\
+M_Y(s)=e^{\mu_2 s}e^{\sigma_2^2s^2/2},\\
+M_Z(s)=e^{(\mu_1+\mu_2) s}e^{(\sigma_1^2+\sigma_2^2)s^2/2}\]</span></p>
+<p>于是 <span class=math>\(Z\sim\mathcal{N}(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)</span></p>
 <h4 id=复合随机变量>复合随机变量</h4>
-<p>不断进行成功概率为 $p$ 的伯努利实验直至成功，每次实验的耗时服从参数 $\lambda$ 的指数分布，且完全独立。 求总耗时的分布</p>
-<p>首先 $X_i\sim\mathcal{E}(\lambda), N\sim G(p), Y=X_1+\cdots+X_N$ , 当 $s&lt;\lambda$ 时有
-$$M_{X_i}(s)=\frac{\lambda}{\lambda-s}$$
-而
-$$M_N(s)=\frac{pe^s}{1-qe^s}$$
-故
-$$M_Y(s)=\frac{p M_X(s)}{1-qM_X(s)}=\frac{p\lambda}{\lambda-s-q\lambda}=\frac{p\lambda}{p\lambda-s}$$</p>
+<p>不断进行成功概率为 <span class=math>\(p\)</span> 的伯努利实验直至成功，每次实验的耗时服从参数 <span class=math>\(\lambda\)</span> 的指数分布，且完全独立。 求总耗时的分布</p>
+<p>首先 <span class=math>\(X_i\sim\mathcal{E}(\lambda), N\sim G(p), Y=X_1+\cdots+X_N\)</span> , 当 <span class=math>\(s&lt;\lambda\)</span> 时有 <span class=math>\[M_{X_i}(s)=\frac{\lambda}{\lambda-s}\]</span> 而 <span class=math>\[M_N(s)=\frac{pe^s}{1-qe^s}\]</span> 故 <span class=math>\[M_Y(s)=\frac{p M_X(s)}{1-qM_X(s)}=\frac{p\lambda}{\lambda-s-q\lambda}=\frac{p\lambda}{p\lambda-s}\]</span></p>
 <h3 id=推广随机向量的矩母函数>推广——随机向量的矩母函数</h3>
-<p>设$\vec{X}=(X_1,X_2,\ldots,X_n)^\intercal$，则其矩母函数定义为</p>
-<p>$$M_{\vec{X}}(\vec{s})=\mathbb{E}[e^{\vec{s}^\intercal\vec{X}}]=\mathbb{E}[e^{s_1X_1+\cdots+s_nX_n}] $$</p>
+<p>设<span class=math>\(\vec{X}=(X_1,X_2,\ldots,X_n)^\intercal\)</span>，则其矩母函数定义为</p>
+<p><span class=math>\[M_{\vec{X}}(\vec{s})=\mathbb{E}[e^{\vec{s}^\intercal\vec{X}}]=\mathbb{E}[e^{s_1X_1+\cdots+s_nX_n}] \]</span></p>
 <h3 id=局限性>局限性</h3>
 <p>有些分布的<strong>矩母函数不存在</strong>，因为<strong>其积分发散</strong>，如 Cauchy 分布。为此我们引入特征函数来保证可积性。</p>
 <h2 id=特征函数>特征函数</h2>
 <blockquote>
-<p>定义：对随机变量 $X$ ，定义其特征函数 (characteristic function) 为
-$$\phi(t)=\mathbb{E}[e^{itX}]=\mathbb{E}[\cos(tX)]+i\mathbb{E}[\sin(tX)], t\in \mathbb{R}$$</p>
+<p>定义：对随机变量 <span class=math>\(X\)</span> ，定义其特征函数 (characteristic function) 为 <span class=math>\[\phi(t)=\mathbb{E}[e^{itX}]=\mathbb{E}[\cos(tX)]+i\mathbb{E}[\sin(tX)], t\in \mathbb{R}\]</span></p>
 </blockquote>
 <h3 id=特征函数性质>特征函数性质</h3>
 <ul>
-<li>$\lvert \phi(t)\rvert\leq \phi(0)=1,\quad\phi(-t)=\overline{\phi(t)}$</li>
-<li>$\phi(t)$ 在 $(-\infty,\infty)$ 一致连续
-v若 $\mathbb{E}[\lvert X\rvert^k]&lt;\infty$，则 $\phi^{(k)}(t)=i^k\mathbb{E}[X^k e^{itX}],\phi^{(k)}(0)=i^k\mathbb{E}[X^k]$</li>
-<li>非负定性：$\forall t_1,\ldots,t_n\in\mathbb{R},\forall z_1,\ldots,z_n\in\mathbb{C},\sum_{k=1}^{n}\sum_{j=1}^{n}\phi(t_k-t_j)z_k\bar{z}_j\ge 0$</li>
-<li>若 $X_1,\ldots,X_n$ 相互独立， $X_k$ 特征函数为 $\phi_k(t)$，则 $Y=X_1+\cdots+X_n$ 的特征函数为 $\phi_Y(t)=\phi_1(t)\cdots\phi_{k}(t)$。注意，逆命题不成立，后面给出了例子。</li>
+<li><span class=math>\(\lvert \phi(t)\rvert\leq \phi(0)=1,\quad\phi(-t)=\overline{\phi(t)}\)</span></li>
+<li><span class=math>\(\phi(t)\)</span> 在 <span class=math>\((-\infty,\infty)\)</span> 一致连续 v若 <span class=math>\(\mathbb{E}[\lvert X\rvert^k]&lt;\infty\)</span>，则 <span class=math>\(\phi^{(k)}(t)=i^k\mathbb{E}[X^k e^{itX}],\phi^{(k)}(0)=i^k\mathbb{E}[X^k]\)</span></li>
+<li>非负定性：<span class=math>\(\forall t_1,\ldots,t_n\in\mathbb{R},\forall z_1,\ldots,z_n\in\mathbb{C},\sum_{k=1}^{n}\sum_{j=1}^{n}\phi(t_k-t_j)z_k\bar{z}_j\ge 0\)</span></li>
+<li>若 <span class=math>\(X_1,\ldots,X_n\)</span> 相互独立， <span class=math>\(X_k\)</span> 特征函数为 <span class=math>\(\phi_k(t)\)</span>，则 <span class=math>\(Y=X_1+\cdots+X_n\)</span> 的特征函数为 <span class=math>\(\phi_Y(t)=\phi_1(t)\cdots\phi_{k}(t)\)</span>。注意，逆命题不成立，后面给出了例子。</li>
 </ul>
 <h3 id=特征函数例子>特征函数例子</h3>
 <h4 id=二项分布特征函数>二项分布特征函数</h4>
-<p>二项分布 $B(n,p)$ 的特征函数为 $\phi(t)=(e^{it}p+q)^n$</p>
-<p>(对比其概率母函数 $g(s)=(sp+q)^n$)</p>
+<p>二项分布 <span class=math>\(B(n,p)\)</span> 的特征函数为 <span class=math>\(\phi(t)=(e^{it}p+q)^n\)</span></p>
+<p>(对比其概率母函数 <span class=math>\(g(s)=(sp+q)^n\)</span>)</p>
 <h4 id=泊松分布特征函数>泊松分布特征函数</h4>
-<p>泊松分布 $\mathcal{P}(\lambda)$ 的特征函数为 $\phi(t)=e^{\lambda(e^{it}-1)}$</p>
-<p>(对比其概率母函数 $g(s)=e^{\lambda(s-1)}$)</p>
+<p>泊松分布 <span class=math>\(\mathcal{P}(\lambda)\)</span> 的特征函数为 <span class=math>\(\phi(t)=e^{\lambda(e^{it}-1)}\)</span></p>
+<p>(对比其概率母函数 <span class=math>\(g(s)=e^{\lambda(s-1)}\)</span>)</p>
 <h4 id=几何分布特征函数>几何分布特征函数</h4>
-<p>几何分布 $G(p)$ 的特征函数为 $\phi(t)=\frac{pe^{it}}{1-qe^{it}}$</p>
-<p>(对比其概率母函数 $g(s)=\frac{sp}{1-sq}$)</p>
+<p>几何分布 <span class=math>\(G(p)\)</span> 的特征函数为 <span class=math>\(\phi(t)=\frac{pe^{it}}{1-qe^{it}}\)</span></p>
+<p>(对比其概率母函数 <span class=math>\(g(s)=\frac{sp}{1-sq}\)</span>)</p>
 <h4 id=正态分布特征函数>正态分布特征函数</h4>
-<p>正态分布 $\mathcal{N}(\mu,\sigma^2)$ 有特征函数 $\phi(t)=e^{i\mu t}e^{-\frac{1}{2}\sigma^2t^2}$</p>
-<p>(对比其矩母函数 $M(s)=e^{\mu s}e^{\sigma^2s^2/2}$)</p>
-<p>先考察标准正态分布。正态分布的特征函数推导不太容易，一种不太严谨的做法是做形式化运算，将 $i$ 视为常数，则</p>
-<p>$\phi(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}e^{-x^2/2},\mathrm{d}x=e^{-t^2/2}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-(x-it)^2/2},\mathrm{d}x=e^{-t^2/2}$</p>
+<p>正态分布 <span class=math>\(\mathcal{N}(\mu,\sigma^2)\)</span> 有特征函数 <span class=math>\(\phi(t)=e^{i\mu t}e^{-\frac{1}{2}\sigma^2t^2}\)</span></p>
+<p>(对比其矩母函数 <span class=math>\(M(s)=e^{\mu s}e^{\sigma^2s^2/2}\)</span>)</p>
+<p>先考察标准正态分布。正态分布的特征函数推导不太容易，一种不太严谨的做法是做形式化运算，将 <span class=math>\(i\)</span> 视为常数，则</p>
+<p><span class=math>\(\phi(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}e^{-x^2/2}\,\mathrm{d}x=e^{-t^2/2}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{-(x-it)^2/2}\,\mathrm{d}x=e^{-t^2/2}\)</span></p>
 <p>严格的数学推导需要一定复变函数的背景知识。</p>
-<p>首先
-$$\phi(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}e^{-x^2/2},\mathrm{d}x=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty \cos(tx)e^{-x^2/2},\mathrm{d}x$$</p>
-<p>对 $t$ 求导得
-$$\begin{aligned}\phi'(t)&=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty x\sin(tx)e^{-x^2/2},\mathrm{d}x\&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}\sin(tx),\mathrm{d}e^{-x^2/2}\&=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty t\cos(tx)e^{-x^2/2},\mathrm{d}x\&=-t\phi(t)\end{aligned}$$</p>
-<p>即 $\frac{\mathrm{d}}{\mathrm{d}t}[\phi(t)e^{t^2/2}]=0$，则 $\phi(t)e^{t^2/2}=C=\phi(0)=1$，得 $\phi(t)=e^{-t^2/2}$</p>
+<p>首先 <span class=math>\[\phi(t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty e^{itx}e^{-x^2/2}\,\mathrm{d}x=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty \cos(tx)e^{-x^2/2}\,\mathrm{d}x\]</span></p>
+<p>对 <span class=math>\(t\)</span> 求导得 <span class=math>\[\begin{aligned}\phi'(t)&=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty x\sin(tx)e^{-x^2/2}\,\mathrm{d}x\\&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}\sin(tx)\,\mathrm{d}e^{-x^2/2}\\&=-\frac{1}{\sqrt{2\pi}}\int_{-\infty}^\infty t\cos(tx)e^{-x^2/2}\,\mathrm{d}x\\&=-t\phi(t)\end{aligned}\]</span></p>
+<p>即 <span class=math>\(\frac{\mathrm{d}}{\mathrm{d}t}[\phi(t)e^{t^2/2}]=0\)</span>，则 <span class=math>\(\phi(t)e^{t^2/2}=C=\phi(0)=1\)</span>，得 <span class=math>\(\phi(t)=e^{-t^2/2}\)</span></p>
 <p>由此再求一般正态的特征函数</p>
-<p>$\mathbb{E}[e^{it(\mu+\sigma X)}]=e^{it\mu}\mathbb{E}[e^{it\sigma X}]=e^{it\mu}e^{-\sigma^2t^2/2}$</p>
-<p>同时，若 $X_1,\ldots,X_m$ 相互独立，$X_j\sim\mathcal{\mu_j,\sigma_j^2}$，则</p>
-<p>$Y=X_1+\cdots+X_m\sim\mathcal{N}(\sum_{j=1}^{m}\mu_j,\sum_{j=1}^{m}\sigma_j^2)$</p>
+<p><span class=math>\(\mathbb{E}[e^{it(\mu+\sigma X)}]=e^{it\mu}\mathbb{E}[e^{it\sigma X}]=e^{it\mu}e^{-\sigma^2t^2/2}\)</span></p>
+<p>同时，若 <span class=math>\(X_1,\ldots,X_m\)</span> 相互独立，<span class=math>\(X_j\sim\mathcal{\mu_j,\sigma_j^2}\)</span>，则</p>
+<p><span class=math>\(Y=X_1+\cdots+X_m\sim\mathcal{N}(\sum_{j=1}^{m}\mu_j,\sum_{j=1}^{m}\sigma_j^2)\)</span></p>
 <h4 id=均匀分布特征函数>均匀分布特征函数</h4>
-<p>均匀分布 $\mathcal{U}(a,b)$ 的特征函数为 $\phi(t)=\frac{e^{itb}-e^{ita}}{it(b-a)}$</p>
-<p>指数分布
-指数分布 $\mathcal{E}(\lambda)$ 的特征函数为 $\phi(t)=(1-\frac{it}{\lambda})^{-1}$</p>
-<p>(与矩母函数 $M(s)=\frac{\lambda}{\lambda-s}=\frac{1}{1-s/\lambda}=(1-s/\lambda)^{-1}$ 对比)</p>
+<p>均匀分布 <span class=math>\(\mathcal{U}(a,b)\)</span> 的特征函数为 <span class=math>\(\phi(t)=\frac{e^{itb}-e^{ita}}{it(b-a)}\)</span></p>
+<p>指数分布 指数分布 <span class=math>\(\mathcal{E}(\lambda)\)</span> 的特征函数为 <span class=math>\(\phi(t)=(1-\frac{it}{\lambda})^{-1}\)</span></p>
+<p>(与矩母函数 <span class=math>\(M(s)=\frac{\lambda}{\lambda-s}=\frac{1}{1-s/\lambda}=(1-s/\lambda)^{-1}\)</span> 对比)</p>
 <h4 id=柯西分布特征函数>柯西分布特征函数</h4>
-<p>$f(x)=\frac{1}{\pi(1+x^2)}$，其特征函数为 $\phi(t)=e^{-\lvert t\rvert}$</p>
-<p>取 $Y=aX,(a>0)$，则 $\phi_Y(t)=\mathbb{E}[e^{i(at)X}]=e^{-a\lvert t\rvert}$，此时</p>
-<p>$\phi_{X+Y}(t)=\mathbb{E}[e^{it(1+a)X}]=e^{-(1+a)\lvert t\rvert}=\phi_X(t)\phi_Y(t)$，但显然 $X,Y$ 不独立</p>
+<p><span class=math>\(f(x)=\frac{1}{\pi(1+x^2)}\)</span>，其特征函数为 <span class=math>\(\phi(t)=e^{-\lvert t\rvert}\)</span></p>
+<p>取 <span class=math>\(Y=aX,(a>0)\)</span>，则 <span class=math>\(\phi_Y(t)=\mathbb{E}[e^{i(at)X}]=e^{-a\lvert t\rvert}\)</span>，此时</p>
+<p><span class=math>\(\phi_{X+Y}(t)=\mathbb{E}[e^{it(1+a)X}]=e^{-(1+a)\lvert t\rvert}=\phi_X(t)\phi_Y(t)\)</span>，但显然 <span class=math>\(X,Y\)</span> 不独立</p>
 <h4 id=拉普拉斯分布特征函数>拉普拉斯分布特征函数</h4>
-<p>$f(x)=\frac{1}{2}e^{-\lvert x\rvert}$ ，其特征函数为 $\phi(t)=\frac{1}{1+t^2}$</p>
+<p><span class=math>\(f(x)=\frac{1}{2}e^{-\lvert x\rvert}\)</span> ，其特征函数为 <span class=math>\(\phi(t)=\frac{1}{1+t^2}\)</span></p>
 <p>注意它和柯西分布的“对称性”</p>
 <h3 id=更多的性质>更多的性质</h3>
 <ul>
-<li>
-<p>若 $\mathbb{E}[\lvert X\rvert^n]&lt;\infty$，则 $\phi(t)=\sum_{m=0}^{n}\frac{\mathbb{E}[(itX)^m]}{m!}+o(t^n)$</p>
-<p>特别的，若二阶矩存在，则 $\phi(t)=1+it\mathbb{E}[X]-\frac{1}{2}t^2\mathbb{E}[X^2]+o(t^2)$</p>
-</li>
-<li>
-<p>逆转公式：若累积分布函数 $F(x)$ 在 $(a,b)$ 连续，则
-$$\frac{1}{2\pi}\lim\limits_{T\rightarrow\infty}\int_{-T}^T\frac{e^{-ita}-e^{-itb}}{it}\phi(t),\mathrm{d}t=F(b)-F(a)$$
-若 $\int_{-\infty}^{\infty}\lvert\phi(t)\rvert,\mathrm{d}t&lt;\infty$，则 $X$ 有有界连续密度函数 $f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-itx}\phi(t),\mathrm{d}t$</p>
-<p>这些说明了随机变量和分布函数相互唯一决定</p>
-</li>
-<li>
-<p>先介绍收敛性：设 $X$ 有分布函数 $F(x)$， $X_n$ 有分布函数 $F_n(x)$。若在 $F(x)$ 的连续点 $x$ 处，有 $\lim\limits_{n\rightarrow\infty}F_n(x)=F(x)$，则称 $X_n$ 依分布收敛 (convergence in distribution) 到 $X$，记为 $X_n\overset{d}{\rightarrow} X$;或称 $F_n$ 弱收敛 (weak convergence) 到 $F$，记为 $F_n\overset{w}{\rightarrow}F$</p>
-<p>连续性定理指出，$X_n$ 依分布收敛到 $X$ 的充分必要条件是，其对应的特征函数满足
-$$\lim\limits_{n\rightarrow\infty}\phi_n(t)=\phi(t),\quad\forall t\in\mathbb{R}$$</p>
-</li>
-<li>
-<p>判定一个函数是否为特征函数有如下定理</p>
-<ul>
-<li>
-<p>S. Bochner-Khintchine 定理</p>
-<p>设 $\phi(t),t\in\mathbb{R}$ 是连续函数且 $\phi(0)=1$，其是特征函数的充要条件是他是非负定的，即 $\forall t_1,\ldots,t_n\in\mathbb{R},\forall z_1,\ldots,z_n\in\mathbb{C},\sum_{k=1}^{n}\sum_{j=1}^{n}\phi(t_k-t_j)z_k\bar{z}_j\ge 0$</p>
-</li>
-<li>
-<p>Polya 定理</p>
-<p>设 $\phi(t)$ 是连续函数、偶函数，在 $(0,\infty)$ 是凸函数，且满足$\phi(t)\ge 0$,$\phi(0)=1$,$\phi(t)\rightarrow 0,(t\rightarrow\infty)$ 则其是特征函数。</p>
-</li>
-<li>
-<p>J. Marcinkiewiez 定理</p>
-<p>若 $\phi(t)$ 具有形式 $e^{P(t)}$，其中 $P(t)$ 是多项式，则其系数不能大于 2</p>
-</li>
+<li>若 <span class=math>\(\mathbb{E}[\lvert X\rvert^n]&lt;\infty\)</span>，则 <span class=math>\(\phi(t)=\sum_{m=0}^{n}\frac{\mathbb{E}[(itX)^m]}{m!}+o(t^n)\)</span></li>
 </ul>
-</li>
+<p>特别的，若二阶矩存在，则 <span class=math>\(\phi(t)=1+it\mathbb{E}[X]-\frac{1}{2}t^2\mathbb{E}[X^2]+o(t^2)\)</span></p>
+<ul>
+<li><p>逆转公式：若累积分布函数 <span class=math>\(F(x)\)</span> 在 <span class=math>\((a,b)\)</span> 连续，则 <span class=math>\[\frac{1}{2\pi}\lim\limits_{T\rightarrow\infty}\int_{-T}^T\frac{e^{-ita}-e^{-itb}}{it}\phi(t)\,\mathrm{d}t=F(b)-F(a)\]</span> 若 <span class=math>\(\int_{-\infty}^{\infty}\lvert\phi(t)\rvert\,\mathrm{d}t&lt;\infty\)</span>，则 <span class=math>\(X\)</span> 有有界连续密度函数 <span class=math>\(f(x)=\frac{1}{2\pi}\int_{-\infty}^{\infty}e^{-itx}\phi(t)\,\mathrm{d}t\)</span></p>
+这些说明了随机变量和分布函数相互唯一决定</li>
+<li><p>先介绍收敛性：设 <span class=math>\(X\)</span> 有分布函数 <span class=math>\(F(x)\)</span>， <span class=math>\(X_n\)</span> 有分布函数 <span class=math>\(F_n(x)\)</span>。若在 <span class=math>\(F(x)\)</span> 的连续点 <span class=math>\(x\)</span> 处，有 <span class=math>\(\lim\limits_{n\rightarrow\infty}F_n(x)=F(x)\)</span>，则称 <span class=math>\(X_n\)</span> 依分布收敛 (convergence in distribution) 到 <span class=math>\(X\)</span>，记为 <span class=math>\(X_n\overset{d}{\rightarrow} X\)</span>;或称 <span class=math>\(F_n\)</span> 弱收敛 (weak convergence) 到 <span class=math>\(F\)</span>，记为 <span class=math>\(F_n\overset{w}{\rightarrow}F\)</span></p>
+连续性定理指出，<span class=math>\(X_n\)</span> 依分布收敛到 <span class=math>\(X\)</span> 的充分必要条件是，其对应的特征函数满足 <span class=math>\[\lim\limits_{n\rightarrow\infty}\phi_n(t)=\phi(t),\quad\forall t\in\mathbb{R}\]</span></li>
+<li>判定一个函数是否为特征函数有如下定理</li>
+<li><p>S. Bochner-Khintchine 定理</p>
+<p>设 <span class=math>\(\phi(t),t\in\mathbb{R}\)</span> 是连续函数且 <span class=math>\(\phi(0)=1\)</span>，其是特征函数的充要条件是他是非负定的，即 <span class=math>\(\forall t_1,\ldots,t_n\in\mathbb{R},\forall z_1,\ldots,z_n\in\mathbb{C},\sum_{k=1}^{n}\sum_{j=1}^{n}\phi(t_k-t_j)z_k\bar{z}_j\ge 0\)</span></p></li>
+<li><p>Polya 定理</p>
+<p>设 <span class=math>\(\phi(t)\)</span> 是连续函数、偶函数，在 <span class=math>\((0,\infty)\)</span> 是凸函数，且满足<span class=math>\(\phi(t)\ge 0\)</span>,<span class=math>\(\phi(0)=1\)</span>,<span class=math>\(\phi(t)\rightarrow 0\,(t\rightarrow\infty)\)</span> 则其是特征函数。</p></li>
+<li><p>J. Marcinkiewiez 定理</p>
+<p>若 <span class=math>\(\phi(t)\)</span> 具有形式 <span class=math>\(e^{P(t)}\)</span>，其中 <span class=math>\(P(t)\)</span> 是多项式，则其系数不能大于 2</p></li>
 </ul>
 <h3 id=有趣的例题>有趣的例题</h3>
-<p>（1）$\phi(t)$ 是特征函数，证明 $\bar{\phi},\phi^2,\lvert\phi\rvert^2,Re[\phi]$ 都是特征函数</p>
-<p>设 $X,Y$独立同分布且特征函数为 $\phi$，则前三个分别为 $-X,X+Y,X-Y$</p>
-<p>第四个构造独立于 $X$ 的随机变量 $Z$ 且 $\mathbb{P}[Z=\pm 1]=0.5$，则$XZ$ 的特征函数为 $Re[\phi]$</p>
-<p>（2）$\phi(t)$ 是特征函数，则 $\lvert\phi(t)\rvert$ 未必是特征函数</p>
-<p>设 $X\sim B(1,1/3)$，$\phi(t)=\frac{2}{3}+\frac{1}{3}e^{it}$ 。设 $Y$ 的特征函数为 $\psi(t)=\lvert\phi(t)\rvert$,则 $\psi^2(t)=\phi(t)\phi(-t)$，即 $Y_1+Y_2$ 和 $X_1-X_2$ 同分布。其中 $Y_1,Y_2$ 与 $Y$ 独立同分布，$X_1,X_2$ 与 $X$ 独立同分布。由于 $X_1-X_2\in{-1,0,1}$，则 $Y_i\in{-0.5,0.5}$，记 $\mathbb{P}[Y_1=0.5]=\alpha$。则</p>
-<p>$\mathbb{P}[Y_1+Y_2=1]=\alpha^2=\mathbb{P}[X_1-X_2=1]=2/9$</p>
-<p>$\mathbb{P}[Y_1+Y_2=-11]=(1-\alpha)^2=\mathbb{P}[X_2-X_1=1]=2/9$</p>
-<p>此时 $\alpha$ 无解</p>
-<p>（3）$X_1,\ldots,X_4$ 独立同标准正态分布，则</p>
-<ol>
-<li>$X_1X_2$的特征函数为 $\frac{1}{\sqrt{1+t^2}}$</li>
-<li>$X_1X_2+X_3X_4$ 的特征函数为 $\frac{1}{1+t^2}$，即服从拉普拉斯分布</li>
+<p>（1）<span class=math>\(\phi(t)\)</span> 是特征函数，证明 <span class=math>\(\bar{\phi},\phi^2,\lvert\phi\rvert^2,Re[\phi]\)</span> 都是特征函数</p>
+<p>设 <span class=math>\(X,Y\)</span>独立同分布且特征函数为 <span class=math>\(\phi\)</span>，则前三个分别为 <span class=math>\(-X,X+Y,X-Y\)</span></p>
+<p>第四个构造独立于 <span class=math>\(X\)</span> 的随机变量 <span class=math>\(Z\)</span> 且 <span class=math>\(\mathbb{P}[Z=\pm 1]=0.5\)</span>，则<span class=math>\(XZ\)</span> 的特征函数为 <span class=math>\(Re[\phi]\)</span></p>
+<p>（2）<span class=math>\(\phi(t)\)</span> 是特征函数，则 <span class=math>\(\lvert\phi(t)\rvert\)</span> 未必是特征函数</p>
+<p>设 <span class=math>\(X\sim B(1,1/3)\)</span>，<span class=math>\(\phi(t)=\frac{2}{3}+\frac{1}{3}e^{it}\)</span> 。设 <span class=math>\(Y\)</span> 的特征函数为 <span class=math>\(\psi(t)=\lvert\phi(t)\rvert\)</span>,则 <span class=math>\(\psi^2(t)=\phi(t)\phi(-t)\)</span>，即 <span class=math>\(Y_1+Y_2\)</span> 和 <span class=math>\(X_1-X_2\)</span> 同分布。其中 <span class=math>\(Y_1,Y_2\)</span> 与 <span class=math>\(Y\)</span> 独立同分布，<span class=math>\(X_1,X_2\)</span> 与 <span class=math>\(X\)</span> 独立同分布。由于 <span class=math>\(X_1-X_2\in\{-1,0,1\}\)</span>，则 <span class=math>\(Y_i\in\{-0.5,0.5\}\)</span>，记 <span class=math>\(\mathbb{P}[Y_1=0.5]=\alpha\)</span>。则</p>
+<p><span class=math>\(\mathbb{P}[Y_1+Y_2=1]=\alpha^2=\mathbb{P}[X_1-X_2=1]=2/9\)</span></p>
+<p><span class=math>\(\mathbb{P}[Y_1+Y_2=-11]=(1-\alpha)^2=\mathbb{P}[X_2-X_1=1]=2/9\)</span></p>
+<p>此时 <span class=math>\(\alpha\)</span> 无解</p>
+<p>（3）<span class=math>\(X_1,\ldots,X_4\)</span> 独立同标准正态分布，则</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(X_1X_2\)</span>的特征函数为 <span class=math>\(\frac{1}{\sqrt{1+t^2}}\)</span></li>
+<li><span class=math>\(X_1X_2+X_3X_4\)</span> 的特征函数为 <span class=math>\(\frac{1}{1+t^2}\)</span>，即服从拉普拉斯分布</li>
 </ol>
-<p>（4）$X,Y$独立同标准正态分布，$U,V$独立于 $X,Y$，则$Z=\frac{UX+VY}{\sqrt{U^2+V^2}}\sim\mathcal{N}(0,1)$</p>
-<p>（5）利用已知结果若 $a>0,b>0$，则$I(a,b)=\int_0^\infty\exp{-a^2u^2-b^2u^{-2}},\mathrm{d}u=\frac{e^{-2ab}\sqrt{\pi}}{2a}$</p>
-<p>证明若 $f(x)=\frac{1}{2\pi x^3}\exp(-\frac{1}{2x}),x>0$， 则 $\mathbb{E}[e^{-tX}]=\exp(-\sqrt{2t})$</p>
-<p>（6）$X,Y,Z$独立同标准正态分布，则</p>
-<ol>
-<li>$X/Y$服从柯西分布</li>
-<li>$1/X^2$的概率密度函数为 5. 中结果</li>
-<li>$(XYZ)/\sqrt{X^2Y^2+Y^2Z^2+Z^2X^2}\sim\mathcal{N}(0,1/9)$</li>
+<p>（4）<span class=math>\(X,Y\)</span>独立同标准正态分布，<span class=math>\(U,V\)</span>独立于 <span class=math>\(X,Y\)</span>，则<span class=math>\(Z=\frac{UX+VY}{\sqrt{U^2+V^2}}\sim\mathcal{N}(0,1)\)</span></p>
+<p>（5）利用已知结果若 <span class=math>\(a>0,b>0\)</span>，则<span class=math>\(I(a,b)=\int_0^\infty\exp\{-a^2u^2-b^2u^{-2}\}\,\mathrm{d}u=\frac{e^{-2ab}\sqrt{\pi}}{2a}\)</span></p>
+<p>证明若 <span class=math>\(f(x)=\frac{1}{2\pi x^3}\exp(-\frac{1}{2x}),x>0\)</span>， 则 <span class=math>\(\mathbb{E}[e^{-tX}]=\exp(-\sqrt{2t})\)</span></p>
+<p>（6）<span class=math>\(X,Y,Z\)</span>独立同标准正态分布，则</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(X/Y\)</span>服从柯西分布</li>
+<li><span class=math>\(1/X^2\)</span>的概率密度函数为 5. 中结果</li>
+<li><span class=math>\((XYZ)/\sqrt{X^2Y^2+Y^2Z^2+Z^2X^2}\sim\mathcal{N}(0,1/9)\)</span></li>
 </ol>
-<p>（7）$X_n$ 有分布函数 $F_n(x)=x-\frac{\sin(2n\pi x)}{2n\pi},0\leq x\leq 1$</p>
-<ol>
-<li>$X_n$ 有密度函数 $f_n(x)=1-\cos(2n\pi x),0\leq x\leq 1$</li>
-<li>$F_n(x)$ 弱收敛于 $\mathcal{U}[0,1]$，但 $f_n(x)$ 不收敛</li>
+<p>（7）<span class=math>\(X_n\)</span> 有分布函数 <span class=math>\(F_n(x)=x-\frac{\sin(2n\pi x)}{2n\pi},0\leq x\leq 1\)</span></p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(X_n\)</span> 有密度函数 <span class=math>\(f_n(x)=1-\cos(2n\pi x),0\leq x\leq 1\)</span></li>
+<li><span class=math>\(F_n(x)\)</span> 弱收敛于 <span class=math>\(\mathcal{U}[0,1]\)</span>，但 <span class=math>\(f_n(x)\)</span> 不收敛</li>
 </ol>
 </article>
 <aside class=sidebar>

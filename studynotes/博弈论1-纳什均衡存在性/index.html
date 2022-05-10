@@ -88,40 +88,42 @@ Jan 4, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=博弈论1-纳什均衡存在性---omit-in-toc--->博弈论1-纳什均衡存在性</h2>
+<h2 id=博弈论1-纳什均衡存在性>博弈论1-纳什均衡存在性</h2>
 <p>对于有限非合作博弈的纳什均衡的存在性具有普遍性，其证明主要用到了布劳尔(Brouwer)不动点定理和角谷静夫(Kakutani)不动点定理，这两个定理的证明用到了复杂的数学工具，在这里不给出证明。</p>
 <h2 id=不动点定理>不动点定理</h2>
 <p>所有的纳什均衡存在性定理证明都采用了不动点定理，这是因为，纳什均衡的概念在数学上就是一个不动点的概念。在给出存在性定理及其证明之前，我们先来说<strong>明不动点的概念和给出不动点定理</strong>。</p>
-<p>什么是“不动点”呢？考虑一个<strong>方程(不是函数)</strong>$f(x)=x$，其中$x$为方程的解。</p>
-<p>我们将$f(\cdot)$视为一种“变换”，即$f(\cdot)$是将$x$对应为$y=f(x)$的变换，其中$x$和$y$分别是属于集合$X$和$Y$的两个元素，$x\in X$，$y\in Y$。如果$X=Y$，则方程$f(x)=x$的几何意义就是：变换$f(\cdot)$将$x$变为自己，即$x$在$f(\cdot)$变换下是不变的，故称$f(x)=x$的<strong>解</strong>为变换$f(\cdot)$的不动点。</p>
-<p>一般地，我们可以将所有的方程都写为$f(x,y)=0$的形式，比如$f(x)=x$可以写成$f(x)-x=0$。<strong>这样求不动点问题就和方程求根问题联系起来</strong>。</p>
-<p>对于这样一种非常一般地的问题，数学家们感到十分高兴的是居然在不太严格的条件下$f(x,y)=0$存在解，即不动点是<strong>较为广泛地存在的</strong>。</p>
-<p>譬如，图1表明不动点是曲线$f(\cdot)$与$45\degree$线的交点。当函数$f(x)$定义在$x\in[0,1]$区间上且因变量$y=f(x)$的值域也为$[0,1]$区间时，如果$f(x)$是连续的，则必然存在不动点。</p>
-<p><img src=../../images/%E4%B8%8D%E5%8A%A8%E7%82%B9%E7%A4%BA%E6%84%8F%E5%9B%BE.png alt=不动点示意图.png></p>
-<center>图1 [0,1]区间上的自变换函数的不动点</center>
+<p>什么是“不动点”呢？考虑一个<strong>方程(不是函数)</strong><span class=math>\(f(x)=x\)</span>，其中<span class=math>\(x\)</span>为方程的解。</p>
+<p>我们将<span class=math>\(f(\cdot)\)</span>视为一种“变换”，即<span class=math>\(f(\cdot)\)</span>是将<span class=math>\(x\)</span>对应为<span class=math>\(y=f(x)\)</span>的变换，其中<span class=math>\(x\)</span>和<span class=math>\(y\)</span>分别是属于集合<span class=math>\(X\)</span>和<span class=math>\(Y\)</span>的两个元素，<span class=math>\(x\in X\)</span>，<span class=math>\(y\in Y\)</span>。如果<span class=math>\(X=Y\)</span>，则方程<span class=math>\(f(x)=x\)</span>的几何意义就是：变换<span class=math>\(f(\cdot)\)</span>将<span class=math>\(x\)</span>变为自己，即<span class=math>\(x\)</span>在<span class=math>\(f(\cdot)\)</span>变换下是不变的，故称<span class=math>\(f(x)=x\)</span>的<strong>解</strong>为变换<span class=math>\(f(\cdot)\)</span>的不动点。</p>
+<p>一般地，我们可以将所有的方程都写为<span class=math>\(f(x,y)=0\)</span>的形式，比如<span class=math>\(f(x)=x\)</span>可以写成<span class=math>\(f(x)-x=0\)</span>。<strong>这样求不动点问题就和方程求根问题联系起来</strong>。</p>
+<p>对于这样一种非常一般地的问题，数学家们感到十分高兴的是居然在不太严格的条件下<span class=math>\(f(x,y)=0\)</span>存在解，即不动点是<strong>较为广泛地存在的</strong>。</p>
+<p>譬如，图1表明不动点是曲线<span class=math>\(f(\cdot)\)</span>与<span class=math>\(45\degree\)</span>线的交点。当函数<span class=math>\(f(x)\)</span>定义在<span class=math>\(x\in[0,1]\)</span>区间上且因变量<span class=math>\(y=f(x)\)</span>的值域也为<span class=math>\([0,1]\)</span>区间时，如果<span class=math>\(f(x)\)</span>是连续的，则必然存在不动点。</p>
+<img src=../../images/不动点示意图.png alt=不动点示意图.png>
+<center>
+图1 [0,1]区间上的自变换函数的不动点
+</center>
 <p>那么，这种现象到底具有多大的一般性意义呢？数学家Brouwer在很久以前就注意到这一现象，他得出了如下的一般性定理，即著名的Brouwer不动点定理。</p>
 <blockquote>
-<p>定理1(Brouwer不动点定理)：设$f(x)$是定义在集合$X\subset \mathbf{R^n}$上的实函数，且$f(x)\in X, \forall x\in X$。如果$f(x)$是<strong>连续</strong>的，$X$为一<strong>非空的有界凸闭集(非空紧凸集)</strong>，则至少存在一个$x^\star \in X$使$f(x^\star)=x^\star$。即$f(x)$至少存在一个不动点$^{[1]}$。</p>
+<p>定理1(Brouwer不动点定理)：设<span class=math>\(f(x)\)</span>是定义在集合<span class=math>\(X\subset \mathbf{R^n}\)</span>上的实函数，且<span class=math>\(f(x)\in X, \forall x\in X\)</span>。如果<span class=math>\(f(x)\)</span>是<strong>连续</strong>的，<span class=math>\(X\)</span>为一<strong>非空的有界凸闭集(非空紧凸集)</strong>，则至少存在一个<span class=math>\(x^\star \in X\)</span>使<span class=math>\(f(x^\star)=x^\star\)</span>。即<span class=math>\(f(x)\)</span>至少存在一个不动点<span class=math>\(^{[1]}\)</span>。</p>
 </blockquote>
-<p>有意思的是，Brouwer不动点定理存在很强的几何直观$^{[2]}$，但其数学证明却十分艰深，需要动用代数拓扑这类就是职业数学家也感到望而生畏的超级抽象数学工具$^{[3]}$。在此，我们不给出Brouwer不动点定理的证明。</p>
+<p>有意思的是，Brouwer不动点定理存在很强的几何直观<span class=math>\(^{[2]}\)</span>，但其数学证明却十分艰深，需要动用代数拓扑这类就是职业数学家也感到望而生畏的超级抽象数学工具<span class=math>\(^{[3]}\)</span>。在此，我们不给出Brouwer不动点定理的证明。</p>
 <p><strong>直接用来证明纳什存在性定理的不动点定理还不是Brouwer不动点定理，而是角谷静夫(Kakutani)不动点定理</strong>，而后者的证明只是前者的一个相对简单的运用。</p>
 <p>我们所以要引用角谷静夫不动点定理，是因为在纳什均衡存在性证明中所遇到的<strong>反应函数一般是多个因变量函数</strong>，即所谓<strong>对应(correspondence)</strong>，而角谷静夫不动点定理正好描述的是对应的一种性质。角谷静夫不动点定理是Brouwer不动点定理的推广，但其自身的证明要用到Brouwer不动点定理。我们在这里不打算给出这两个不动点定理的证明，因为这类证明只是一种纯数学过程，但我们将给出纳什存在性定理的一种证明，因为了解存在性定理的证明过程有助于我们更好地理解纳什均衡。</p>
 <p>为了解读角谷静夫不动点定理，我们先来准备一下一些有关的数学概念。</p>
 <h3 id=角谷静夫不动点定理>角谷静夫不动点定理</h3>
-<p>对于任一有限集$M$，我们用$R^M$表示形如$x=(x_m)_{m\in M}$的所有$M$维向量组成的集合，其中对$M$中每一个$m$，第$m$个分量$x_m$是实数域$\mathcal R$的一个元素。为方便计，我们也可将$R^M$等价地理解为$M$到$\mathcal R$上的<strong>所有函数</strong>组成的集合，这时$R^M$中$x$的$m$分量$x_m$也可被记为$x(m)$。</p>
+<p>对于任一有限集<span class=math>\(M\)</span>，我们用<span class=math>\(R^M\)</span>表示形如<span class=math>\(x=(x_m)_{m\in M}\)</span>的所有<span class=math>\(M\)</span>维向量组成的集合，其中对<span class=math>\(M\)</span>中每一个<span class=math>\(m\)</span>，第<span class=math>\(m\)</span>个分量<span class=math>\(x_m\)</span>是实数域<span class=math>\(\mathcal R\)</span>的一个元素。为方便计，我们也可将<span class=math>\(R^M\)</span>等价地理解为<span class=math>\(M\)</span>到<span class=math>\(\mathcal R\)</span>上的<strong>所有函数</strong>组成的集合，这时<span class=math>\(R^M\)</span>中<span class=math>\(x\)</span>的<span class=math>\(m\)</span>分量<span class=math>\(x_m\)</span>也可被记为<span class=math>\(x(m)\)</span>。</p>
 <h2 id=纳什存在性定理及其证明>纳什存在性定理及其证明</h2>
 <h2 id=其它的纳什均衡存在性定理>其它的纳什均衡存在性定理</h2>
 <h2 id=注释>注释</h2>
-<p>【1】 这个定理的表述中隐含了$X$为一个度量空间，所谓度量空间，即在空间$X$上定义了一个“距离”函数$||\cdot||$，使得对任意的$x_1,x_2\in X$都有</p>
-<ol>
-<li>三角不等式$||x_1+x_2||\leq ||x_1||+||x_2||$，(意思是三角形的两边之和大于第三边)</li>
-<li>$||x||\geq 0, \forall x\in X$；同时还有$||x||=0$当且仅当$x=0$</li>
+<p>【1】 这个定理的表述中隐含了<span class=math>\(X\)</span>为一个度量空间，所谓度量空间，即在空间<span class=math>\(X\)</span>上定义了一个“距离”函数<span class=math>\(||\cdot||\)</span>，使得对任意的<span class=math>\(x_1,x_2\in X\)</span>都有</p>
+<ol style=list-style-type:decimal>
+<li>三角不等式<span class=math>\(||x_1+x_2||\leq ||x_1||+||x_2||\)</span>，(意思是三角形的两边之和大于第三边)</li>
+<li><span class=math>\(||x||\geq 0, \forall x\in X\)</span>；同时还有<span class=math>\(||x||=0\)</span>当且仅当<span class=math>\(x=0\)</span></li>
 </ol>
-<p>当然，这种定义又要求在空间$X$上首先定义了一种加法“+”和“零”元素。一般地，度量空间的形式化定义为：集合$X$上的“距离”指$X\times X$到实数轴$\mathcal R$上的一个函数 ，满足：对$X$中任意的$x,y$和$z$，有：</p>
-<ol>
-<li>(对称性)$\delta(x,y)=\delta(y,x)$</li>
-<li>(非负性)$\delta(x,y)=0$当且仅当$x=y$</li>
-<li>(三角不等式)$\delta(x,y)+\delta(y,z)\geq \delta(x,z)$</li>
+<p>当然，这种定义又要求在空间<span class=math>\(X\)</span>上首先定义了一种加法“+”和“零”元素。一般地，度量空间的形式化定义为：集合<span class=math>\(X\)</span>上的“距离”指<span class=math>\(X\times X\)</span>到实数轴<span class=math>\(\mathcal R\)</span>上的一个函数 ，满足：对<span class=math>\(X\)</span>中任意的<span class=math>\(x,y\)</span>和<span class=math>\(z\)</span>，有：</p>
+<ol style=list-style-type:decimal>
+<li>(对称性)<span class=math>\(\delta(x,y)=\delta(y,x)\)</span></li>
+<li>(非负性)<span class=math>\(\delta(x,y)=0\)</span>当且仅当<span class=math>\(x=y\)</span></li>
+<li>(三角不等式)<span class=math>\(\delta(x,y)+\delta(y,z)\geq \delta(x,z)\)</span></li>
 </ol>
 <p>【2】 一些几何例子比如：取两张一样大小的白纸，在上面画好垂直的坐标系以及纵横的方格。将一张纸平铺在桌面，而另外一张随意揉成一个形状（但不能撕裂），放在第一张白纸之上，不超出第一张的边界。那么第二张纸上一定有一点正好就在第一张纸的对应点的正上方。一个更简单的说法是：将一张白纸平铺在桌面上，再将它揉成一团（不撕裂），放在原来白纸所在的地方，那么只要它不超出原来白纸平铺时的边界，那么白纸上一定有一点在水平方向上没有移动过。这个断言的根据就是布劳威尔不动点定理在二维欧几里得空间（欧几里得平面）的情况，因为把纸揉皱是一个连续的变换过程。</p>
 <p>另一个例子是大商场等地方可以看到的平面地图，上面标有“您在此处”的红点。如果标注足够精确，那么这个点就是把实际地形射到地图的连续函数的不动点。</p>

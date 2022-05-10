@@ -88,11 +88,11 @@ Apr 27, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=线性代数与矩阵之特征值分解与jordan标准型与jordan分解---omit-in-toc--->线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解</h2>
+<h2 id=线性代数与矩阵之特征值分解与jordan标准型与jordan分解>线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解</h2>
 <p>可对角化条件：</p>
 <p>可对角化的矩阵一定是正规矩阵吗？</p>
 <p>不一定。</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>矩阵可对角化，意思就是矩阵与对角阵相似。</li>
 <li>矩阵与对角阵相似，分为正交（酉）相似、和非正交（酉）相似。</li>
 <li>正交（酉）相似于对角阵，当且仅当是正规矩阵。</li>
@@ -100,24 +100,16 @@ Apr 27, 2020</span>
 </ol>
 <p>关于正交相似：在线性代数中，实对称矩阵一定可以对角化，而且是正交对角化，也叫正交相似于对角阵。</p>
 <h2 id=奇异值分解与特征值分解的联系>奇异值分解与特征值分解的联系</h2>
-<p>奇异值分解能够用于任意$m\times n$矩阵，而特征分解只能适用于特定类型的方阵，故奇异值分解的适用范围更广。不过，这两个分解之间是有关联的。给定一个$M$的奇异值分解，根据上面的论述，两者的关系式如下：</p>
-<p>$$
-M^{<em>} M = V \Sigma^{</em>} U^{<em>}, U \Sigma V^{</em>} =
-V (\Sigma^{<em>} \Sigma) V^{</em>},$$
-$$M M^{<em>} = U \Sigma V^{</em>} , V \Sigma^{<em>} U^{</em>} =
-U (\Sigma \Sigma^{<em>}) U^{</em>},$$
-关系式的右边描述了关系式左边的特征值分解。于是：</p>
-<p>$V$的列向量（右奇异向量）是$M^{*}M$的特征向量。</p>
-<p>$U$的列向量（左奇异向量）是$MM^{*}$的特征向量。</p>
-<p>$\Sigma$的非零对角元（非零奇异值）是$M^{<em>}M$或者$MM^{</em>}$的非零特征值的平方根。</p>
-<p>特殊情况下，当$M$是一个<strong>正规矩阵</strong>（因而必须是方阵）根据谱定理，M可以被一组特征向量酉对角化，所以它可以表为：
-$$M = U D U^\ast$$
-其中$U$为一个酉矩阵，$D$为一个对角阵。如果$M$是半正定的，$M = U D U^\ast$的分解也是一个奇异值分解。</p>
-<p>然而，一般矩阵的特征分解跟奇异值分解不同。特征分解如下：
-$$M=UDU^{-1}$$
-其中$U$是不需要是酉的，$D$也不需要是半正定的。而奇异值分解如下：
-$$M=U\Sigma V^\ast$$
-其中$\Sigma$是对角半正定矩阵，$U$和$V$是酉矩阵，两者除了通过矩阵$M$没有必然的联系。</p>
+<p>奇异值分解能够用于任意<span class=math>\(m\times n\)</span>矩阵，而特征分解只能适用于特定类型的方阵，故奇异值分解的适用范围更广。不过，这两个分解之间是有关联的。给定一个<span class=math>\(M\)</span>的奇异值分解，根据上面的论述，两者的关系式如下：</p>
+<p><span class=math>\[
+M^{*} M = V \Sigma^{*} U^{*}\, U \Sigma V^{*} =
+V (\Sigma^{*} \Sigma) V^{*}\,\]</span> <span class=math>\[M M^{*} = U \Sigma V^{*} \, V \Sigma^{*} U^{*} =
+U (\Sigma \Sigma^{*}) U^{*}\,\]</span> 关系式的右边描述了关系式左边的特征值分解。于是：</p>
+<p><span class=math>\(V\)</span>的列向量（右奇异向量）是<span class=math>\(M^{*}M\)</span>的特征向量。</p>
+<p><span class=math>\(U\)</span>的列向量（左奇异向量）是<span class=math>\(MM^{*}\)</span>的特征向量。</p>
+<p><span class=math>\(\Sigma\)</span>的非零对角元（非零奇异值）是<span class=math>\(M^{*}M\)</span>或者<span class=math>\(MM^{*}\)</span>的非零特征值的平方根。</p>
+<p>特殊情况下，当<span class=math>\(M\)</span>是一个<strong>正规矩阵</strong>（因而必须是方阵）根据谱定理，M可以被一组特征向量酉对角化，所以它可以表为： <span class=math>\[M = U D U^\ast\]</span> 其中<span class=math>\(U\)</span>为一个酉矩阵，<span class=math>\(D\)</span>为一个对角阵。如果<span class=math>\(M\)</span>是半正定的，<span class=math>\(M = U D U^\ast\)</span>的分解也是一个奇异值分解。</p>
+<p>然而，一般矩阵的特征分解跟奇异值分解不同。特征分解如下： <span class=math>\[M=UDU^{-1}\]</span> 其中<span class=math>\(U\)</span>是不需要是酉的，<span class=math>\(D\)</span>也不需要是半正定的。而奇异值分解如下： <span class=math>\[M=U\Sigma V^\ast\]</span> 其中<span class=math>\(\Sigma\)</span>是对角半正定矩阵，<span class=math>\(U\)</span>和<span class=math>\(V\)</span>是酉矩阵，两者除了通过矩阵<span class=math>\(M\)</span>没有必然的联系。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

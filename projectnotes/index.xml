@@ -2662,7 +2662,7 @@
 &lt;span class="ln">8&lt;/span>
 &lt;span class="ln">9&lt;/span>&lt;span class="gu">## H1 title&amp;lt;!-- omit in toc --&amp;gt;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样在渲染成网页的时候，两个大标题会夹着目录，因此会美观一些。如果hugo能提供自动把一级标题当元信息，或者VS Code能够markdown能够渲染yaml头信息就不同这么麻烦。此外，我将H1 title前面变成二级标题，可以在不改变&lt;code>.markdownlint.json&lt;/code>文件的情况下在VS Code中不报错。&lt;/p>
-&lt;p>问题7解决：在有大量公式的文章中，不要使用hugo自带的golden编译器，替换成pandoc。pandoc的安装方法可在网上查到。我们还需要在该文章的头部信息中加入&lt;code>markup: &amp;quot;pandoc --tab-stop 2&amp;quot;&lt;/code>这一条。&lt;/p>
+&lt;p>问题7解决：在有大量公式的文章中，不要使用hugo自带的golden编译器，替换成pandoc。pandoc的安装方法可在网上查到。我们还需要在该文章的头部信息中加入&lt;code>markup: &amp;quot;pandoc&amp;quot;&lt;/code>这一条。&lt;/p>
 &lt;h3 id="修改hugo博客的clarity主题">修改Hugo博客的clarity主题&lt;/h3>
 &lt;p>我的博客是基于&lt;a href="https://github.com/chipzoller/hugo-clarity">clarity&lt;/a>主题修改而来，基本改动有&lt;/p>
 &lt;ul>

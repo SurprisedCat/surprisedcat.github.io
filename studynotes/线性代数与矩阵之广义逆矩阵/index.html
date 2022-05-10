@@ -88,41 +88,39 @@ Apr 21, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=广义逆矩阵---omit-in-toc--->广义逆矩阵</h2>
-<p>广义逆（Generalized inverse），是线性代数中针对矩阵的一种运算。一个矩阵$A$的广义逆叫做$A$的广义逆阵，是指具有部分逆矩阵的特性，但是不一定具有逆矩阵的所有特性的另一矩阵。假设一矩阵$A\in \mathbb {R} ^{n\times m}$及另一矩阵$A^{\mathrm {g} }\in \mathbb {R} ^{m\times n}$，若$A^{\mathrm {g} }$满足$AA^{\mathrm {g} }A=A$，则$A^{\mathrm {g} }$即为$A$的广义逆阵。</p>
+<h2 id=广义逆矩阵>广义逆矩阵</h2>
+<p>广义逆（Generalized inverse），是线性代数中针对矩阵的一种运算。一个矩阵<span class=math>\(A\)</span>的广义逆叫做<span class=math>\(A\)</span>的广义逆阵，是指具有部分逆矩阵的特性，但是不一定具有逆矩阵的所有特性的另一矩阵。假设一矩阵<span class=math>\(A\in \mathbb {R} ^{n\times m}\)</span>及另一矩阵<span class=math>\(A^{\mathrm {g} }\in \mathbb {R} ^{m\times n}\)</span>，若<span class=math>\(A^{\mathrm {g} }\)</span>满足<span class=math>\(AA^{\mathrm {g} }A=A\)</span>，则<span class=math>\(A^{\mathrm {g} }\)</span>即为<span class=math>\(A\)</span>的广义逆阵。</p>
 <p>广义逆也称为伪逆（pseudoinverse），有些时候，伪逆特指<strong>摩尔－彭若斯广义逆</strong>。</p>
 <h2 id=摩尔彭若斯广义逆>摩尔－彭若斯广义逆</h2>
-<p>彭若斯条件可以用来定义不同的广义逆阵：针对$A\in \mathbb {R} ^{n\times m}$及$A^{\mathrm {g} }\in \mathbb {R} ^{m\times n}$，</p>
-<ol>
-<li>${\displaystyle AA^{\mathrm {g} }A=A}$</li>
-<li>$\displaystyle A^{\mathrm {g} }AA^{\mathrm {g} }=A^{\mathrm {g}}$</li>
-<li>${\displaystyle (AA^{\mathrm {g} })^{\mathrm {T} }=AA^{\mathrm {g}}}$</li>
-<li>${\displaystyle (A^{\mathrm {g} }A)^{\mathrm {T} }=A^{\mathrm {g} }A}$</li>
+<p>彭若斯条件可以用来定义不同的广义逆阵：针对<span class=math>\(A\in \mathbb {R} ^{n\times m}\)</span>及<span class=math>\(A^{\mathrm {g} }\in \mathbb {R} ^{m\times n}\)</span>，</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\({\displaystyle AA^{\mathrm {g} }A=A}\)</span></li>
+<li><span class=math>\(\displaystyle A^{\mathrm {g} }AA^{\mathrm {g} }=A^{\mathrm {g}}\)</span></li>
+<li><span class=math>\({\displaystyle (AA^{\mathrm {g} })^{\mathrm {T} }=AA^{\mathrm {g}}}\)</span></li>
+<li><span class=math>\({\displaystyle (A^{\mathrm {g} }A)^{\mathrm {T} }=A^{\mathrm {g} }A}\)</span></li>
 </ol>
-<p>若${\displaystyle A^{\mathrm {g} }}$满足条件(1)，即为$A$的广义逆阵，若满足条件(1)和(2)，则为$A$的广义反身逆阵（generalized reflexive inverse），若四个条件都满足，则为$A$的摩尔－彭若斯广义逆。</p>
+<p>若<span class=math>\({\displaystyle A^{\mathrm {g} }}\)</span>满足条件(1)，即为<span class=math>\(A\)</span>的广义逆阵，若满足条件(1)和(2)，则为<span class=math>\(A\)</span>的广义反身逆阵（generalized reflexive inverse），若四个条件都满足，则为<span class=math>\(A\)</span>的摩尔－彭若斯广义逆。</p>
 <p>广义逆矩阵可以通过满秩分解或者SVD分解求得，虽然方法不同，满秩分解也不是唯一的，但是计算出的广义逆矩阵是一样的。</p>
-<p>假设$A=BC$为任一满秩分解，则$A^g=C^H(CC^H)^{-1}(B^HB)^{-1}B^H$</p>
-<p>假设$A=U\Sigma V^T$为SVD分解，则$A^g=V\Sigma^gU^T$，其中$\Sigma^g$中元素为对应$\Sigma$中非零元素的倒数。</p>
+<p>假设<span class=math>\(A=BC\)</span>为任一满秩分解，则<span class=math>\(A^g=C^H(CC^H)^{-1}(B^HB)^{-1}B^H\)</span></p>
+<p>假设<span class=math>\(A=U\Sigma V^T\)</span>为SVD分解，则<span class=math>\(A^g=V\Sigma^gU^T\)</span>，其中<span class=math>\(\Sigma^g\)</span>中元素为对应<span class=math>\(\Sigma\)</span>中非零元素的倒数。</p>
 <h2 id=单边逆矩阵>单边逆矩阵</h2>
-<p>单边逆矩阵（左逆矩阵或是右逆矩阵）若矩阵$A$的维度是$n\times m$且为(行或列)满秩，若$n>m$则用左逆矩阵，若$n&lt;m$则用右逆矩阵。</p>
-<p>左逆矩阵为$A_{\mathrm {left} }^{-1}=\left(A^{\mathrm {T} }A\right)^{-1}A^{\mathrm {T} }$，也就是$A_{\mathrm {left} }^{-1}A=I_{m}$，其中$I_{m}$为$m\times m$单位矩阵。</p>
-<p>右逆矩阵为$A_{\mathrm {right} }^{-1}=A^{\mathrm {T} }\left(AA^{\mathrm {T} }\right)^{-1}$，也就是$AA_{\mathrm {right} }^{-1}=I_{n}$，其中$I_n$为$n\times n$单位矩阵。</p>
+<p>单边逆矩阵（左逆矩阵或是右逆矩阵）若矩阵<span class=math>\(A\)</span>的维度是<span class=math>\(n\times m\)</span>且为(行或列)满秩，若<span class=math>\(n>m\)</span>则用左逆矩阵，若<span class=math>\(n&lt;m\)</span>则用右逆矩阵。</p>
+<p>左逆矩阵为<span class=math>\(A_{\mathrm {left} }^{-1}=\left(A^{\mathrm {T} }A\right)^{-1}A^{\mathrm {T} }\)</span>，也就是<span class=math>\(A_{\mathrm {left} }^{-1}A=I_{m}\)</span>，其中<span class=math>\(I_{m}\)</span>为<span class=math>\(m\times m\)</span>单位矩阵。</p>
+<p>右逆矩阵为<span class=math>\(A_{\mathrm {right} }^{-1}=A^{\mathrm {T} }\left(AA^{\mathrm {T} }\right)^{-1}\)</span>，也就是<span class=math>\(AA_{\mathrm {right} }^{-1}=I_{n}\)</span>，其中<span class=math>\(I_n\)</span>为<span class=math>\(n\times n\)</span>单位矩阵。</p>
 <h2 id=性质>性质</h2>
-<ol>
-<li>可逆矩阵有$(AB)^{-1}=B^{-1}A^{-1}$，但是广义逆$(AB)^g$与$B^gA^g$一般不相等。</li>
-<li>$(A^g)^g=A$</li>
-<li>$(A^H)^g=(A^g)^H$</li>
-<li>$k\in R$，则有$(kA^g)=k^gA^g，k^g=\begin{cases}k^{-1}，k\neq 0\0，k=0\end{cases}$</li>
-<li>区别于性质1，有$(A^H A)^g=A^g(A^H)^g$</li>
-<li>$A^g=(A^HA)^gA^H=A^H(AA^H)^g$</li>
-<li>对于酉矩阵$U,V$，则$(UAV)^g=V^HA^gU^H$。从这点也可以看出用SVD分解求广义逆的方法。</li>
-<li>$A^gAB=A^gAC\Leftrightarrow AB=AC$</li>
+<ol style=list-style-type:decimal>
+<li>可逆矩阵有<span class=math>\((AB)^{-1}=B^{-1}A^{-1}\)</span>，但是广义逆<span class=math>\((AB)^g\)</span>与<span class=math>\(B^gA^g\)</span>一般不相等。</li>
+<li><span class=math>\((A^g)^g=A\)</span></li>
+<li><span class=math>\((A^H)^g=(A^g)^H\)</span></li>
+<li><span class=math>\(k\in R\)</span>，则有<span class=math>\((kA^g)=k^gA^g，k^g=\begin{cases}k^{-1}，k\neq 0\\0，k=0\end{cases}\)</span></li>
+<li>区别于性质1，有<span class=math>\((A^H A)^g=A^g(A^H)^g\)</span></li>
+<li><span class=math>\(A^g=(A^HA)^gA^H=A^H(AA^H)^g\)</span></li>
+<li>对于酉矩阵<span class=math>\(U,V\)</span>，则<span class=math>\((UAV)^g=V^HA^gU^H\)</span>。从这点也可以看出用SVD分解求广义逆的方法。</li>
+<li><span class=math>\(A^gAB=A^gAC\Leftrightarrow AB=AC\)</span></li>
 </ol>
 <h2 id=广义逆矩阵的应用>广义逆矩阵的应用</h2>
-<p>当$Ax=b$无解时可以用广义逆矩阵求近似解，实际是就是求$||Ax-b||_2$最小。</p>
-<p>其通解为
-$$x=A^gb+(I-A^gA)y，y\in C^n$$
-其中，$A^gb$是唯一的极小最小二乘解。极小指长度（范数）最小。</p>
+<p>当<span class=math>\(Ax=b\)</span>无解时可以用广义逆矩阵求近似解，实际是就是求<span class=math>\(||Ax-b||_2\)</span>最小。</p>
+<p>其通解为 <span class=math>\[x=A^gb+(I-A^gA)y，y\in C^n\]</span> 其中，<span class=math>\(A^gb\)</span>是唯一的极小最小二乘解。极小指长度（范数）最小。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

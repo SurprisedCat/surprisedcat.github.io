@@ -88,14 +88,14 @@ Oct 19, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=一维优化综述---omit-in-toc--->一维优化综述</h2>
+<h2 id=一维优化综述>一维优化综述</h2>
 <p>摘自：<a href=https://www.longzf.com/optimization/2/line_search/>https://www.longzf.com/optimization/2/line_search/</a></p>
 <p>注1：本文讨论需要优化的函数都是单峰函数（或单谷函数）。</p>
 <p>一维优化技术又称为<strong>线性搜索技术</strong>。因为一维空间直观的表现就是一条直线，而在这条线上找最优值，就是线性搜索。</p>
 <p>线搜索技术是多变量函数优化的基础，它包括<strong>精确线搜索技术</strong>和<strong>非精确线搜索技术</strong>。常见的精确线搜索技术可分为<strong>分割方法和插值方法</strong>两大类：分割方法有二分法、黄金分割法、斐波那契法等；插值方法有一点二次插值法（牛顿法）、二点二次插值法（包括割线法）、三点二次插值法、二点三次插值法等。非精确线搜索技术基于<strong>非精确线搜索准则</strong>，常用的准则有 Armijo-Goldstein 准则、Wolfe-Powell 准则、强 Wolfe-Powell 准则和简单准则。这里特别指出精确与非精确是指对<strong>步长搜索的精确性</strong>。</p>
-<p>什么是线搜索呢？我们知道最优化算法的基本框架就是依据<strong>迭代公式$\vec x_{k+1}=\vec x_k+\alpha_k\vec d_k$不断产生下一个迭代点</strong>，直到满足某些终止条件。迭代公式的确定涉及搜索方向$\vec d_k$和搜索步长$\alpha_k$的确定，其中$\alpha_k$的确定过程就是所谓线搜索的过程。</p>
-<p>精确线搜索的精确有两种理解。第一，对于分割法，精确搜索每次使得搜索空间有固定比例的缩小。例如$l_k$是第$k$次搜索空间大小，则第$k+1$次搜索空间就是$\alpha l_k(\alpha ∈ (0,1))$，第二，对于插值法，求使得近似（多项式）函数$p(\vec x_k+\alpha_k\vec d_k)$取到最小值时对应的$\alpha$，换句话说：精确线搜索求使得目标函数沿搜索方向$\vec d_k$下降最多的搜索步长。</p>
-<p>非精确线搜索则只求使得目标函数沿搜索方向$\vec d_k$有一定下降的搜索步长，这个步长甚至可能会导致偏离搜索目标（比如梯度下降法中学习率过大的情况）。</p>
+<p>什么是线搜索呢？我们知道最优化算法的基本框架就是依据<strong>迭代公式<span class=math>\(\vec x_{k+1}=\vec x_k+\alpha_k\vec d_k\)</span>不断产生下一个迭代点</strong>，直到满足某些终止条件。迭代公式的确定涉及搜索方向<span class=math>\(\vec d_k\)</span>和搜索步长<span class=math>\(\alpha_k\)</span>的确定，其中<span class=math>\(\alpha_k\)</span>的确定过程就是所谓线搜索的过程。</p>
+<p>精确线搜索的精确有两种理解。第一，对于分割法，精确搜索每次使得搜索空间有固定比例的缩小。例如<span class=math>\(l_k\)</span>是第<span class=math>\(k\)</span>次搜索空间大小，则第<span class=math>\(k+1\)</span>次搜索空间就是<span class=math>\(\alpha l_k(\alpha ∈ (0,1))\)</span>，第二，对于插值法，求使得近似（多项式）函数<span class=math>\(p(\vec x_k+\alpha_k\vec d_k)\)</span>取到最小值时对应的<span class=math>\(\alpha\)</span>，换句话说：精确线搜索求使得目标函数沿搜索方向<span class=math>\(\vec d_k\)</span>下降最多的搜索步长。</p>
+<p>非精确线搜索则只求使得目标函数沿搜索方向<span class=math>\(\vec d_k\)</span>有一定下降的搜索步长，这个步长甚至可能会导致偏离搜索目标（比如梯度下降法中学习率过大的情况）。</p>
 <p>需要指出的是，非精确搜索和精确搜索不是完全互斥的，一些精确搜索方法也满足非精确线搜索准则。</p>
 <p>实际计算中，<strong>通常采用非精确线搜索技术</strong>，这是因为精确线搜索技术耗费大量的计算资源，而且对于多变量函数的优化，许多算法的收敛速度并不取决于是否采用精确线搜索技术。</p>
 </article>

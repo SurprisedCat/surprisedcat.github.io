@@ -88,121 +88,120 @@ Apr 17, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=算法导论-渐进记号---omit-in-toc--->算法导论-渐进记号</h2>
+<h2 id=算法导论-渐进记号>算法导论-渐进记号</h2>
 <blockquote>
-<p>来自：<a href=https://blog.csdn.net/so_geili/article/details/53353593>https://blog.csdn.net/so_geili/article/details/53353593</a>
-版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。</p>
+<p>来自：<a href=https://blog.csdn.net/so_geili/article/details/53353593>https://blog.csdn.net/so_geili/article/details/53353593</a> 版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。</p>
 </blockquote>
 <ul>
-<li><a href=#%E6%B8%90%E8%BF%91%E7%B4%A7%E7%A1%AE%E7%95%8C%E8%AE%B0%E5%8F%B7%CE%B8big-theta>渐近紧确界记号：$Θ$(big-theta)</a></li>
-<li><a href=#%E6%B8%90%E8%BF%9B%E4%B8%8A%E7%95%8C%E8%AE%B0%E5%8F%B7obig-oh>渐进上界记号：$O$(big-oh)</a>
-<ul>
-<li><a href=#%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%85%B3%E7%B3%BB>几种常见的复杂度关系</a></li>
-<li><a href=#%E7%AC%A6%E5%8F%B7%E7%94%A8%E6%B3%95%E6%B5%8B%E8%AF%95%E7%B4%A0%E6%95%B0%E6%B5%8B%E8%AF%95>符号用法测试：素数测试</a></li>
+<li><a href=#渐近紧确界记号θbig-theta>渐近紧确界记号：<span class=math>\(Θ\)</span>(big-theta)</a></li>
+<li><a href=#渐进上界记号obig-oh>渐进上界记号：<span class=math>\(O\)</span>(big-oh)</a></li>
+<li><a href=#几种常见的复杂度关系>几种常见的复杂度关系</a></li>
+<li><a href=#符号用法测试素数测试>符号用法测试：素数测试</a></li>
+<li><a href=#渐进下界记号omegabig-omega>渐进下界记号：<span class=math>\(\Omega\)</span>(big-omega)</a></li>
+<li><a href=#非渐进紧确上界osmall-oh>非渐进紧确上界：<span class=math>\(o\)</span>(small-oh)</a></li>
+<li><a href=#非渐进紧确下界omegasmall-omega>非渐进紧确下界：<span class=math>\(\omega\)</span>(small-omega)</a></li>
+<li><a href=#渐近记号θοoωω关系>渐近记号<span class=math>\(Θ、Ο、o、Ω、ω\)</span>关系</a></li>
 </ul>
-</li>
-<li><a href=#%E6%B8%90%E8%BF%9B%E4%B8%8B%E7%95%8C%E8%AE%B0%E5%8F%B7omegabig-omega>渐进下界记号：$\Omega$(big-omega)</a></li>
-<li><a href=#%E9%9D%9E%E6%B8%90%E8%BF%9B%E7%B4%A7%E7%A1%AE%E4%B8%8A%E7%95%8Cosmall-oh>非渐进紧确上界：$o$(small-oh)</a></li>
-<li><a href=#%E9%9D%9E%E6%B8%90%E8%BF%9B%E7%B4%A7%E7%A1%AE%E4%B8%8B%E7%95%8Comegasmall-omega>非渐进紧确下界：$\omega$(small-omega)</a></li>
-<li><a href=#%E6%B8%90%E8%BF%91%E8%AE%B0%E5%8F%B7%CE%B8%CE%BFo%CF%89%CF%89%E5%85%B3%E7%B3%BB>渐近记号$Θ、Ο、o、Ω、ω$关系</a></li>
-</ul>
-<h2 id=渐近紧确界记号θbig-theta>渐近紧确界记号：$Θ$(big-theta)</h2>
-<p>假设算法A的运行时间表达式$T_1(n)$为：$T_1(n)=30n^4+20n^3+40n^2+46n+100$</p>
-<p>假设算法B的运行时间表达式$T_2(n)$为：$T_2(n)=1000n^3+50n^2+78n+10$</p>
-<p>当问题规模足够大的时候，例如$n=1,000,000$，算法的运行时间将主要取决于时间表达式的第一项，其它项的执行时间只有它的几十万分之一，可以忽略不计。第一项的常数系数，随着$n$的增大，对算法的执行时间也变得不重要了。</p>
-<p>于是，算法A的运行时间可以记为$T_1(n)≈n^4$，记为$T_1(n)=Θ(n^4)$；算法B的运行时间可以记为：$T_2(n)≈n^3$，记为$T_2(n)=Θ(n^3)$。</p>
+<h2 id=渐近紧确界记号θbig-theta>渐近紧确界记号：<span class=math>\(Θ\)</span>(big-theta)</h2>
+<p>假设算法A的运行时间表达式<span class=math>\(T_1(n)\)</span>为：<span class=math>\(T_1(n)=30n^4+20n^3+40n^2+46n+100\)</span></p>
+<p>假设算法B的运行时间表达式<span class=math>\(T_2(n)\)</span>为：<span class=math>\(T_2(n)=1000n^3+50n^2+78n+10\)</span></p>
+<p>当问题规模足够大的时候，例如<span class=math>\(n=1,000,000\)</span>，算法的运行时间将主要取决于时间表达式的第一项，其它项的执行时间只有它的几十万分之一，可以忽略不计。第一项的常数系数，随着<span class=math>\(n\)</span>的增大，对算法的执行时间也变得不重要了。</p>
+<p>于是，算法A的运行时间可以记为<span class=math>\(T_1(n)≈n^4\)</span>，记为<span class=math>\(T_1(n)=Θ(n^4)\)</span>；算法B的运行时间可以记为：<span class=math>\(T_2(n)≈n^3\)</span>，记为<span class=math>\(T_2(n)=Θ(n^3)\)</span>。</p>
 <blockquote>
 <p>Θ的数学含义</p>
-<p>方式一：设$f(n)$和$g(n)$是定义域为自然数集合的函数。如果$\lim\limits_{n\rightarrow ∞}\dfrac{f(n)}{g(n)}$存在，并且等于某个常数$c(c>0)$，那么$f(n)=Θ(g(n))$。通俗理解为$f(n)和g(n)$同阶，$Θ$用来表示算法的精确阶。</p>
-<p>方式二：$Θ(g(n))={f(n)$：存在正常量$c_1、c_2和n_0$，使得对所有$n≥n_0$，有$0≤c_1g(n)≤f(n)≤c_2g(n)$，若存在正常量$c_1、c_2$，使得对于足够大的$n$，函数$f(n)$能“夹入”$c_1g(n)与c_2g(n)$之间，则$f(n)$属于集合$Θ(g(n))$，记作$f(n)∈Θ(g(n))$。作为代替，我们通常记“$f(n)=Θ(g(n))$”。</p>
+<p>方式一：设<span class=math>\(f(n)\)</span>和<span class=math>\(g(n)\)</span>是定义域为自然数集合的函数。如果<span class=math>\(\lim\limits_{n\rightarrow ∞}\dfrac{f(n)}{g(n)}\)</span>存在，并且等于某个常数<span class=math>\(c(c>0)\)</span>，那么<span class=math>\(f(n)=Θ(g(n))\)</span>。通俗理解为<span class=math>\(f(n)和g(n)\)</span>同阶，<span class=math>\(Θ\)</span>用来表示算法的精确阶。</p>
+<p>方式二：<span class=math>\(Θ(g(n))=\{f(n)\)</span>：存在正常量<span class=math>\(c_1、c_2和n_0\)</span>，使得对所有<span class=math>\(n≥n_0\)</span>，有<span class=math>\(0≤c_1g(n)≤f(n)≤c_2g(n)\)</span>，若存在正常量<span class=math>\(c_1、c_2\)</span>，使得对于足够大的<span class=math>\(n\)</span>，函数<span class=math>\(f(n)\)</span>能“夹入”<span class=math>\(c_1g(n)与c_2g(n)\)</span>之间，则<span class=math>\(f(n)\)</span>属于集合<span class=math>\(Θ(g(n))\)</span>，记作<span class=math>\(f(n)∈Θ(g(n))\)</span>。作为代替，我们通常记“<span class=math>\(f(n)=Θ(g(n))\)</span>”。</p>
 </blockquote>
-<p>由下图中左侧$f(n)=Θ(g(n))$图可以看出，对所有$n>n_0$时，函数$f(n)$乘一个常量因子可等于$g(n)$，我们称$g(n)$是$f(n)$的一个<strong>渐近紧确界</strong>。$Θ$记号在五个记号中，<strong>要求是最严格的</strong>，因为$g(n)$即可以表示上界也可以表示下界。</p>
-<p><img src=../../images/%E6%B8%90%E8%BF%9B%E7%B4%A7%E7%A1%AE%E7%95%8C.jpg alt=渐进紧确界></p>
-<p>需要注意的是：$Θ(g(n)$的定义要求每个成员$f(n)∈Θ(g(n))$均<strong>渐近非负</strong>，即当$n$足够大时，$f(n)$非负。<strong>渐近正函数</strong>就是对所有足够大的$n$均为正的函数。</p>
-<h2 id=渐进上界记号obig-oh>渐进上界记号：$O$(big-oh)</h2>
+<p>由下图中左侧<span class=math>\(f(n)=Θ(g(n))\)</span>图可以看出，对所有<span class=math>\(n>n_0\)</span>时，函数<span class=math>\(f(n)\)</span>乘一个常量因子可等于<span class=math>\(g(n)\)</span>，我们称<span class=math>\(g(n)\)</span>是<span class=math>\(f(n)\)</span>的一个<strong>渐近紧确界</strong>。<span class=math>\(Θ\)</span>记号在五个记号中，<strong>要求是最严格的</strong>，因为<span class=math>\(g(n)\)</span>即可以表示上界也可以表示下界。</p>
+<div class=figure>
+<img src=../../images/渐进紧确界.jpg alt=渐进紧确界><p class=caption>渐进紧确界</p>
+</div>
+<p>需要注意的是：<span class=math>\(Θ(g(n)\)</span>的定义要求每个成员<span class=math>\(f(n)∈Θ(g(n))\)</span>均<strong>渐近非负</strong>，即当<span class=math>\(n\)</span>足够大时，<span class=math>\(f(n)\)</span>非负。<strong>渐近正函数</strong>就是对所有足够大的<span class=math>\(n\)</span>均为正的函数。</p>
+<h2 id=渐进上界记号obig-oh>渐进上界记号：<span class=math>\(O\)</span>(big-oh)</h2>
 <blockquote>
-<p>定义：设$f(n)和g(n)$是定义域为自然数集$N$上的函数。若存在正数$c$和$n_0$使得对一切$n≥n_0$都有$0≤f(n)≤cg(n)$成立，则称$f(n)$的渐进的上界是$g(n)$，记作$f(n)=O(g(n))$。通俗的说$n$满足一定条件范围内，函数$f(n)$的阶<strong>不高于</strong>函数$g(n)$。</p>
+<p>定义：设<span class=math>\(f(n)和g(n)\)</span>是定义域为自然数集<span class=math>\(N\)</span>上的函数。若存在正数<span class=math>\(c\)</span>和<span class=math>\(n_0\)</span>使得对一切<span class=math>\(n≥n_0\)</span>都有<span class=math>\(0≤f(n)≤cg(n)\)</span>成立，则称<span class=math>\(f(n)\)</span>的渐进的上界是<span class=math>\(g(n)\)</span>，记作<span class=math>\(f(n)=O(g(n))\)</span>。通俗的说<span class=math>\(n\)</span>满足一定条件范围内，函数<span class=math>\(f(n)\)</span>的阶<strong>不高于</strong>函数<span class=math>\(g(n)\)</span>。</p>
 </blockquote>
-<p>根据符号$O$的定义，用它评估算法的复杂度得到的只是问题规模<strong>充分大时的一个上界</strong>。这个上界的阶越低，评估越精确，越有价值。</p>
+<p>根据符号<span class=math>\(O\)</span>的定义，用它评估算法的复杂度得到的只是问题规模<strong>充分大时的一个上界</strong>。这个上界的阶越低，评估越精确，越有价值。</p>
 <blockquote>
-<p>例如：设$f(n)=n^2+n$，则</p>
-<p>$f(n)=O(n^2)$,取$c=2,n_0=1$即可</p>
-<p>$f(n)=O(n^3)$,取$c=2,n_0=2$即可。显然，$O(n^2)$作为上界更为精确。</p>
+<p>例如：设<span class=math>\(f(n)=n^2+n\)</span>，则</p>
+<p><span class=math>\(f(n)=O(n^2)\)</span>,取<span class=math>\(c=2,n_0=1\)</span>即可</p>
+<p><span class=math>\(f(n)=O(n^3)\)</span>,取<span class=math>\(c=2,n_0=2\)</span>即可。显然，<span class=math>\(O(n^2)\)</span>作为上界更为精确。</p>
 </blockquote>
 <h3 id=几种常见的复杂度关系>几种常见的复杂度关系</h3>
-<p>$$O(1)&lt;O(log(n))&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)$$
-需要注意的是：对数函数在没有底数时，默认底数为2；如$\lg n=\log n=\log_2 n$。因为计算机中很多程序是用二分法实现的。</p>
+<p><span class=math>\[O(1)&lt;O(log(n))&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)\]</span> 需要注意的是：对数函数在没有底数时，默认底数为2；如<span class=math>\(\lg n=\log n=\log_2 n\)</span>。因为计算机中很多程序是用二分法实现的。</p>
 <h3 id=符号用法测试素数测试>符号用法测试：素数测试</h3>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-C data-lang=C><span class=ln>1</span><span class=kt>int</span> <span class=nf>isprime</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span> <span class=p>{</span>
-<span class=ln>2</span>    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span><span class=o>=</span><span class=mi>2</span><span class=p>;</span> <span class=n>i</span><span class=o>&lt;=</span><span class=p>(</span><span class=kt>int</span><span class=p>)</span><span class=n>sqrt</span><span class=p>(</span><span class=n>n</span><span class=p>);</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=p>{</span>
-<span class=ln>3</span>        <span class=k>if</span><span class=p>(</span><span class=n>n</span><span class=o>%</span><span class=n>i</span><span class=o>==</span><span class=mi>0</span><span class=p>)</span> <span class=p>{</span> 
-<span class=ln>4</span>            <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
-<span class=ln>5</span>        <span class=p>}</span>
-<span class=ln>6</span>    <span class=p>}</span>
-<span class=ln>7</span>    <span class=k>return</span> <span class=mi>1</span><span class=p>;</span>
-<span class=ln>8</span><span class=p>}</span>
-</code></pre></div><p>在上面这个素数测试的例子中，基本运算是整除；时间复杂度$T(n)=O(n^{\frac{1}{2}})$是正确的。当被测的数$n$为偶数时，基本运算一次也没执行，所以$T(n)=Θ(n^{\frac{1}{2}})$是错误的，因为没有办法证明$T(n)$的下界是$Ω(n^{\frac{1}{2}})$。</p>
-<h2 id=渐进下界记号omegabig-omega>渐进下界记号：$\Omega$(big-omega)</h2>
-<p>定义：设$f(n)和g(n)$是定义域为自然数集$N$上的函数。若存在正数$c和n_0$，使得对一切$n≥n_0$都有$0≤cg(n)≤f(n)$成立，则称$f(n)$的渐进的下界是$g(n)$，记作$f(n)=Ω(g(n))$。通俗的说$n$满足一定条件范围内，函数$f(n)$的阶<strong>不低于</strong>函数$g(n)$。</p>
-<p>据符号$Ω$的定义，用它评估算法的复杂度得到的只是问题规模充分大时的一个下界。这个下界的阶越高，评估越精确，越有价值。</p>
+<pre class="sourceCode C"><code class="sourceCode c"><span class=dt>int</span> isprime(<span class=dt>int</span> n) {
+    <span class=kw>for</span>(<span class=dt>int</span> i=<span class=dv>2</span>; i&lt;=(<span class=dt>int</span>)sqrt(n); i++) {
+        <span class=kw>if</span>(n%i==<span class=dv>0</span>) { 
+            <span class=kw>return</span> <span class=dv>0</span>;
+        }
+    }
+    <span class=kw>return</span> <span class=dv>1</span>;
+}</code></pre>
+<p>在上面这个素数测试的例子中，基本运算是整除；时间复杂度<span class=math>\(T(n)=O(n^{\frac{1}{2}})\)</span>是正确的。当被测的数<span class=math>\(n\)</span>为偶数时，基本运算一次也没执行，所以<span class=math>\(T(n)=Θ(n^{\frac{1}{2}})\)</span>是错误的，因为没有办法证明<span class=math>\(T(n)\)</span>的下界是<span class=math>\(Ω(n^{\frac{1}{2}})\)</span>。</p>
+<h2 id=渐进下界记号omegabig-omega>渐进下界记号：<span class=math>\(\Omega\)</span>(big-omega)</h2>
+<p>定义：设<span class=math>\(f(n)和g(n)\)</span>是定义域为自然数集<span class=math>\(N\)</span>上的函数。若存在正数<span class=math>\(c和n_0\)</span>，使得对一切<span class=math>\(n≥n_0\)</span>都有<span class=math>\(0≤cg(n)≤f(n)\)</span>成立，则称<span class=math>\(f(n)\)</span>的渐进的下界是<span class=math>\(g(n)\)</span>，记作<span class=math>\(f(n)=Ω(g(n))\)</span>。通俗的说<span class=math>\(n\)</span>满足一定条件范围内，函数<span class=math>\(f(n)\)</span>的阶<strong>不低于</strong>函数<span class=math>\(g(n)\)</span>。</p>
+<p>据符号<span class=math>\(Ω\)</span>的定义，用它评估算法的复杂度得到的只是问题规模充分大时的一个下界。这个下界的阶越高，评估越精确，越有价值。</p>
 <blockquote>
-<p>例如：设$f(n)=n^2+n$,则</p>
-<p>$f(n)=Ω(n^2)，取c=1n_0=1即可$</p>
-<p>$f(n)=Ω(100n)，取c=1/100n_0=1即可$</p>
+<p>例如：设<span class=math>\(f(n)=n^2+n\)</span>,则</p>
+<p><span class=math>\(f(n)=Ω(n^2)，取c=1n_0=1即可\)</span></p>
+<p><span class=math>\(f(n)=Ω(100n)，取c=1/100n_0=1即可\)</span></p>
 </blockquote>
-<p>显然，$Ω(n^2)$作为下界更为精确。</p>
-<h2 id=非渐进紧确上界osmall-oh>非渐进紧确上界：$o$(small-oh)</h2>
+<p>显然，<span class=math>\(Ω(n^2)\)</span>作为下界更为精确。</p>
+<h2 id=非渐进紧确上界osmall-oh>非渐进紧确上界：<span class=math>\(o\)</span>(small-oh)</h2>
 <blockquote>
-<p>定义1：设$f(n)和g(n)$是定义域为自然数集$N$上的函数。若对于任意正数$c，都存在n_0$，使得对一切$n≥n_0$都有$0≤f(n)&lt;cg(n)$。</p>
+<p>定义1：设<span class=math>\(f(n)和g(n)\)</span>是定义域为自然数集<span class=math>\(N\)</span>上的函数。若对于任意正数<span class=math>\(c，都存在n_0\)</span>，使得对一切<span class=math>\(n≥n_0\)</span>都有<span class=math>\(0≤f(n)&lt;cg(n)\)</span>。</p>
 </blockquote>
-<p>由$O$记号提供的渐近上界<strong>可能是渐近紧确的，也可能是非紧确的</strong>。（如：$n^2=O(n^2)$是渐近紧确的，而$2n=O(n^2)$是非紧确上界。）</p>
+<p>由<span class=math>\(O\)</span>记号提供的渐近上界<strong>可能是渐近紧确的，也可能是非紧确的</strong>。（如：<span class=math>\(n^2=O(n^2)\)</span>是渐近紧确的，而<span class=math>\(2n=O(n^2)\)</span>是非紧确上界。）</p>
 <blockquote>
-<p>例子：$f(n)=n^2+n$，则$f(n)=o(n^3)$</p>
+<p>例子：<span class=math>\(f(n)=n^2+n\)</span>，则<span class=math>\(f(n)=o(n^3)\)</span></p>
 </blockquote>
-<h2 id=非渐进紧确下界omegasmall-omega>非渐进紧确下界：$\omega$(small-omega)</h2>
+<h2 id=非渐进紧确下界omegasmall-omega>非渐进紧确下界：<span class=math>\(\omega\)</span>(small-omega)</h2>
 <blockquote>
-<p>定义1：设$f(n)和g(n)$是定义域为自然数集$N$上的函数。若对于任意正数$c，都存在n_0$，使得对一切$n≥n_0$都有$0≤cg(n)&lt;f(n)$。</p>
+<p>定义1：设<span class=math>\(f(n)和g(n)\)</span>是定义域为自然数集<span class=math>\(N\)</span>上的函数。若对于任意正数<span class=math>\(c，都存在n_0\)</span>，使得对一切<span class=math>\(n≥n_0\)</span>都有<span class=math>\(0≤cg(n)&lt;f(n)\)</span>。</p>
 </blockquote>
-<p>$ω$记号与$Ω$的关系类似于$o和O$记号的关系。我们用$ω$表示一个<strong>非渐近紧确的下界</strong>。</p>
-<p>例子：$f(n)=n^2+n$，则$f(n)=ω(n)$是正确的。$f(n)=ω(n^2)$则是错误的，$f(n)=Ω(n^2)$是正确的。</p>
-<h2 id=渐近记号θοoωω关系>渐近记号$Θ、Ο、o、Ω、ω$关系</h2>
+<p><span class=math>\(ω\)</span>记号与<span class=math>\(Ω\)</span>的关系类似于<span class=math>\(o和O\)</span>记号的关系。我们用<span class=math>\(ω\)</span>表示一个<strong>非渐近紧确的下界</strong>。</p>
+<p>例子：<span class=math>\(f(n)=n^2+n\)</span>，则<span class=math>\(f(n)=ω(n)\)</span>是正确的。<span class=math>\(f(n)=ω(n^2)\)</span>则是错误的，<span class=math>\(f(n)=Ω(n^2)\)</span>是正确的。</p>
+<h2 id=渐近记号θοoωω关系>渐近记号<span class=math>\(Θ、Ο、o、Ω、ω\)</span>关系</h2>
 <table>
 <thead>
-<tr>
-<th style=text-align:center>记号</th>
-<th style=text-align:center>含义</th>
-<th style=text-align:center>通俗理解</th>
+<tr class=header>
+<th align=center>记号</th>
+<th align=center>含义</th>
+<th align=center>通俗理解</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style=text-align:center>(1)Θ（西塔）</td>
-<td style=text-align:center>紧确界</td>
-<td style=text-align:center>相当于"="</td>
+<tr class=odd>
+<td align=center>(1)Θ（西塔）</td>
+<td align=center>紧确界</td>
+<td align=center>相当于"="</td>
 </tr>
-<tr>
-<td style=text-align:center>(2)O （大欧）</td>
-<td style=text-align:center>上界</td>
-<td style=text-align:center>相当于"&lt;="</td>
+<tr class=even>
+<td align=center>(2)O （大欧）</td>
+<td align=center>上界</td>
+<td align=center>相当于"&lt;="</td>
 </tr>
-<tr>
-<td style=text-align:center>(3)o（小欧）</td>
-<td style=text-align:center>非紧的上界</td>
-<td style=text-align:center>相当于"&lt;"</td>
+<tr class=odd>
+<td align=center>(3)o（小欧）</td>
+<td align=center>非紧的上界</td>
+<td align=center>相当于"&lt;"</td>
 </tr>
-<tr>
-<td style=text-align:center>(4)Ω（大欧米伽）</td>
-<td style=text-align:center>下界</td>
-<td style=text-align:center>相当于">="</td>
+<tr class=even>
+<td align=center>(4)Ω（大欧米伽）</td>
+<td align=center>下界</td>
+<td align=center>相当于">="</td>
 </tr>
-<tr>
-<td style=text-align:center>(5)ω（小欧米伽）</td>
-<td style=text-align:center>非紧的下界</td>
-<td style=text-align:center>相当于">"</td>
+<tr class=odd>
+<td align=center>(5)ω（小欧米伽）</td>
+<td align=center>非紧的下界</td>
+<td align=center>相当于">"</td>
 </tr>
 </tbody>
 </table>
-<p><img src=../../images/%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7%E5%85%B3%E7%B3%BB.png alt=渐进记号关系.png></p>
+<div class=figure>
+<img src=../../images/渐进记号关系.png alt=渐进记号关系.png><p class=caption>渐进记号关系.png</p>
+</div>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

@@ -88,14 +88,14 @@ Nov 2, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=单纯行法---omit-in-toc--->单纯行法</h2>
+<h2 id=单纯行法>单纯行法</h2>
 <ul>
-<li><a href=#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3>核心思想</a></li>
-<li><a href=#%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%96%B9%E6%B3%95%E5%8E%9F%E7%90%86>单纯形方法原理</a></li>
-<li><a href=#%E4%B8%80%E8%88%AC%E8%AE%A1%E7%AE%97%E6%AD%A5%E9%AA%A4>一般计算步骤</a></li>
-<li><a href=#%E6%94%B6%E6%95%9B%E6%80%A7>收敛性</a></li>
-<li><a href=#%E4%BD%BF%E7%94%A8%E8%A1%A8%E6%A0%BC%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%96%B9%E6%B3%95>使用表格形式的单纯形方法</a></li>
-<li><a href=#%E9%80%80%E5%8C%96%E6%83%85%E5%BD%A2>退化情形</a></li>
+<li><a href=#核心思想>核心思想</a></li>
+<li><a href=#单纯形方法原理>单纯形方法原理</a></li>
+<li><a href=#一般计算步骤>一般计算步骤</a></li>
+<li><a href=#收敛性>收敛性</a></li>
+<li><a href=#使用表格形式的单纯形方法>使用表格形式的单纯形方法</a></li>
+<li><a href=#退化情形>退化情形</a></li>
 </ul>
 <h2 id=核心思想>核心思想</h2>
 <p>由优化理论可知，如果线性规划中的最优解，那么这个最优解必是最优基本可行解。因此线性规划的核心就变成了求<strong>最优基本可行解</strong>。这构成了单纯形法的基础。</p>
@@ -107,128 +107,90 @@ Nov 2, 2019</span>
 </ul>
 <p>因此，大方向可以分为两个：1.找一个初时基本可行；2.改进基本可行解。对于第一个问题，用二阶段法或者大M法，第二个问题则需要考虑退化情形。</p>
 <h2 id=单纯形方法原理>单纯形方法原理</h2>
-<p>考虑线性规划问题
-$$
+<p>考虑线性规划问题 <span class=math>\[
 \begin{aligned}
-\min\ &f \overset{\mathop{def}}{=} \boldsymbol{c}^T\boldsymbol{x}\
-\mathop{s.t.}\ &\boldsymbol{A}\boldsymbol{x}=\boldsymbol{b},\
+\min\ &f \overset{\mathop{def}}{=} \boldsymbol{c}^T\boldsymbol{x}\\
+\mathop{s.t.}\ &\boldsymbol{A}\boldsymbol{x}=\boldsymbol{b},\\
 &\boldsymbol{x}\geq 0
 \end{aligned}\tag{1.1}
-$$
-其中，$\boldsymbol{A}$是$m×n$矩阵，秩为$m$。$\boldsymbol{c}^T$是n维行向量，$\boldsymbol{b}≥0$是m维列向量(每个分量都大于等于0)。我们以列向量来表示$\boldsymbol{A}$
-$$
+\]</span> 其中，<span class=math>\(\boldsymbol{A}\)</span>是<span class=math>\(m×n\)</span>矩阵，秩为<span class=math>\(m\)</span>。<span class=math>\(\boldsymbol{c}^T\)</span>是n维行向量，<span class=math>\(\boldsymbol{b}≥0\)</span>是m维列向量(每个分量都大于等于0)。我们以列向量来表示<span class=math>\(\boldsymbol{A}\)</span> <span class=math>\[
 \boldsymbol{A}=(\boldsymbol{p_1},\boldsymbol{p_2},\dotsb,\boldsymbol{p_n})
-$$
-显然$\boldsymbol{A}\boldsymbol{x}$可表示为：
-$$
+\]</span> 显然<span class=math>\(\boldsymbol{A}\boldsymbol{x}\)</span>可表示为： <span class=math>\[
 \boldsymbol{A}\boldsymbol{x}=\sum_{j=1}^n x_j\boldsymbol{p_j}
-$$
-$x_j$可以看成是列向量$\boldsymbol{p_j}$线性组合的系数。现将$\boldsymbol{A}$分解成$(\boldsymbol{B},\boldsymbol{N})$（可能经过列调换），使得其中$\boldsymbol{B}$是基矩阵，$\boldsymbol{N}$是非基矩阵。在此分解下，我们假设能得到一个基本可行解：
-$$
+\]</span> <span class=math>\(x_j\)</span>可以看成是列向量<span class=math>\(\boldsymbol{p_j}\)</span>线性组合的系数。现将<span class=math>\(\boldsymbol{A}\)</span>分解成<span class=math>\((\boldsymbol{B},\boldsymbol{N})\)</span>（可能经过列调换），使得其中<span class=math>\(\boldsymbol{B}\)</span>是基矩阵，<span class=math>\(\boldsymbol{N}\)</span>是非基矩阵。在此分解下，我们假设能得到一个基本可行解： <span class=math>\[
 \boldsymbol{x^{(0)}}=\begin{bmatrix}
-\boldsymbol{B^{-1}b}\
-\boldsymbol{0}\
+\boldsymbol{B^{-1}b}\\
+\boldsymbol{0}\\
 \end{bmatrix}
-$$
-这个基本可行解对应了线性规划的某个极点，在点$\boldsymbol{x^{(0)}}$处的目标函数值是
-$$
+\]</span> 这个基本可行解对应了线性规划的某个极点，在点<span class=math>\(\boldsymbol{x^{(0)}}\)</span>处的目标函数值是 <span class=math>\[
 f_0=\boldsymbol{c}^T\boldsymbol{x^{(0)}}=(\boldsymbol{c_B^T,c_N^T})\begin{bmatrix}
-\boldsymbol{B^{-1}b}\
-\boldsymbol{0}\
-\end{bmatrix}\
+\boldsymbol{B^{-1}b}\\
+\boldsymbol{0}\\
+\end{bmatrix}\\
 =\boldsymbol{c_B^T B^{-1}b}\tag{1.2}
-$$
-其中，$\boldsymbol{c^T_B}$是$\boldsymbol{c}^T$中与<strong>基变量</strong>对应的分量组成的m维行向量，$\boldsymbol{c^T_N}$是$\boldsymbol{c}^T$中与<strong>非基变量</strong>对应的分量组成的n-m维行向量（因为为了让$\boldsymbol{B}$的秩为m，可能对$\boldsymbol{A}$中的列变量进行过变换，对应的$\boldsymbol{x,c}$都要变换）。</p>
-<p>现在我们从这个基本可行解$\boldsymbol{x^{(0)}}$出发，利用非基变量得出一个改进的基本可行解。设
-$$
+\]</span> 其中，<span class=math>\(\boldsymbol{c^T_B}\)</span>是<span class=math>\(\boldsymbol{c}^T\)</span>中与<strong>基变量</strong>对应的分量组成的m维行向量，<span class=math>\(\boldsymbol{c^T_N}\)</span>是<span class=math>\(\boldsymbol{c}^T\)</span>中与<strong>非基变量</strong>对应的分量组成的n-m维行向量（因为为了让<span class=math>\(\boldsymbol{B}\)</span>的秩为m，可能对<span class=math>\(\boldsymbol{A}\)</span>中的列变量进行过变换，对应的<span class=math>\(\boldsymbol{x,c}\)</span>都要变换）。</p>
+<p>现在我们从这个基本可行解<span class=math>\(\boldsymbol{x^{(0)}}\)</span>出发，利用非基变量得出一个改进的基本可行解。设 <span class=math>\[
 \boldsymbol{x}=\begin{bmatrix}
-\boldsymbol{x_B}\
+\boldsymbol{x_B}\\
 \boldsymbol{x_N}
 \end{bmatrix}
-$$
-是任一个可行解，则由$\boldsymbol{Ax=b}$可得：
-$$
+\]</span> 是任一个可行解，则由<span class=math>\(\boldsymbol{Ax=b}\)</span>可得： <span class=math>\[
 \boldsymbol{x_B}=\boldsymbol{B^{-1}b-B^{-1}Nx_N}\tag{1.3}
-$$
-在此点处的目标函数值是
-$$
+\]</span> 在此点处的目标函数值是 <span class=math>\[
 \begin{aligned}
-f&=\boldsymbol{c^Tx}=(\boldsymbol{c^T_B,c^T_N})\begin{bmatrix}\boldsymbol{x_B}\\boldsymbol{x_N}\end{bmatrix}\
-&=\boldsymbol{c^T_B x_B}+\boldsymbol{c^T_N x_N}\
-&=\boldsymbol{c^T_B(B^{-1}b-B^{-1}Nx_N)}+\boldsymbol{c^T_N x_N}\
-&=\underbrace{\boldsymbol{c^T_B B^{-1}b}}<em>{基本可行解函数值}-\boldsymbol{(c^T_B B^{-1}N-c^T_N)x_N}\
-&=f_0 - \sum</em>{j\in R}(\underbrace{\boldsymbol{c^T_B B^{-1}p_j}}<em>{z_j}-c_j)x_j,\ R为非基变量下标集\
-&=f_0 - \sum</em>{j ∈ R}(z_j-c_j)x_j
+f&=\boldsymbol{c^Tx}=(\boldsymbol{c^T_B,c^T_N})\begin{bmatrix}\boldsymbol{x_B}\\\boldsymbol{x_N}\end{bmatrix}\\
+&=\boldsymbol{c^T_B x_B}+\boldsymbol{c^T_N x_N}\\
+&=\boldsymbol{c^T_B(B^{-1}b-B^{-1}Nx_N)}+\boldsymbol{c^T_N x_N}\\
+&=\underbrace{\boldsymbol{c^T_B B^{-1}b}}_{基本可行解函数值}-\boldsymbol{(c^T_B B^{-1}N-c^T_N)x_N}\\
+&=f_0 - \sum_{j\in R}(\underbrace{\boldsymbol{c^T_B B^{-1}p_j}}_{z_j}-c_j)x_j,\ R为非基变量下标集\\
+&=f_0 - \sum_{j ∈ R}(z_j-c_j)x_j
 \end{aligned}\tag{1.4}
-$$
-由于$\boldsymbol{c^T_B}$是m维行向量，$\boldsymbol{B^{-1}}$是$m×m$维矩阵，$\boldsymbol{p_j}$是m维列向量，因此它们的积是一个数字。由$(1.4)$可知，适当的选择非基变量的值$x_j$，可以使得
-$$
+\]</span> 由于<span class=math>\(\boldsymbol{c^T_B}\)</span>是m维行向量，<span class=math>\(\boldsymbol{B^{-1}}\)</span>是<span class=math>\(m×m\)</span>维矩阵，<span class=math>\(\boldsymbol{p_j}\)</span>是m维列向量，因此它们的积是一个数字。由<span class=math>\((1.4)\)</span>可知，适当的选择非基变量的值<span class=math>\(x_j\)</span>，可以使得 <span class=math>\[
 \sum_{j ∈ R}(z_j-c_j)x_j>0\tag{1.5}
-$$
-例如，当$z_j-c_j&lt;0\Rightarrow x_j=0$；当$z_j-c_j≥0\Rightarrow x_j>0$。<strong>从而得到使目标函数的值减少的新的基本可行解</strong>。为了方便，我们不妨令$n-m-1$个非基变量取0，一个非基变量，比如$x_k$大于0。需要注意的是，这个$x_k$的系数$z_j-c_j$应该是大于0的。</p>
-<p>根据$(1.4)$，<strong>正</strong>系数$z_j-c_j$越大，目标函数下降越快，我们不妨用<strong>贪心法</strong>，选择$x_k$，使
-$$
-z_k-c_k=\max_{j\in R}{z_j-c_j}>0\tag{1.6}
-$$
-$x_k$由0变成正数后，得到方程组$\boldsymbol{Ax=b}$的另一个解：
-$$
+\]</span> 例如，当<span class=math>\(z_j-c_j&lt;0\Rightarrow x_j=0\)</span>；当<span class=math>\(z_j-c_j≥0\Rightarrow x_j>0\)</span>。<strong>从而得到使目标函数的值减少的新的基本可行解</strong>。为了方便，我们不妨令<span class=math>\(n-m-1\)</span>个非基变量取0，一个非基变量，比如<span class=math>\(x_k\)</span>大于0。需要注意的是，这个<span class=math>\(x_k\)</span>的系数<span class=math>\(z_j-c_j\)</span>应该是大于0的。</p>
+<p>根据<span class=math>\((1.4)\)</span>，<strong>正</strong>系数<span class=math>\(z_j-c_j\)</span>越大，目标函数下降越快，我们不妨用<strong>贪心法</strong>，选择<span class=math>\(x_k\)</span>，使 <span class=math>\[
+z_k-c_k=\max_{j\in R}\{z_j-c_j\}>0\tag{1.6}
+\]</span> <span class=math>\(x_k\)</span>由0变成正数后，得到方程组<span class=math>\(\boldsymbol{Ax=b}\)</span>的另一个解： <span class=math>\[
 \begin{aligned}
-\boldsymbol{x_B}&=\boldsymbol{B^{-1}b-B^{-1}Nx_N}\
-&=\boldsymbol{\underbrace{B^{-1}b}<em>{\bar b}-\underbrace{B^{-1}p_k}</em>{y_k}}x_k\
+\boldsymbol{x_B}&=\boldsymbol{B^{-1}b-B^{-1}Nx_N}\\
+&=\boldsymbol{\underbrace{B^{-1}b}_{\bar b}-\underbrace{B^{-1}p_k}_{y_k}}x_k\\
 &=\boldsymbol{\bar b}- \boldsymbol{y_k}x_k
 \end{aligned}\tag{1.7}
-$$
-其中，$\boldsymbol{\bar b, y_k}$都是m维列向量，$x_k$是标量。我们知道标准形式下的可行解要求$\boldsymbol{x_B}≥0$，若我们把新得到的解$\boldsymbol{x_B}$按分量写出，即
-$$
-\boldsymbol{x_B}=\begin{bmatrix}x_{B_1}\x_{B_2}\ \vdots \x_{B_m}\end{bmatrix}=\begin{bmatrix}\bar{b}<em>1\\bar{b}<em>2\ \vdots \\bar{b}<em>m\end{bmatrix}-\begin{bmatrix}y</em>{k_1}\y</em>{k_2}\ \vdots \y</em>{k_m}\end{bmatrix}x_k ≥0 \tag{1.8}
-$$
-$$
+\]</span> 其中，<span class=math>\(\boldsymbol{\bar b, y_k}\)</span>都是m维列向量，<span class=math>\(x_k\)</span>是标量。我们知道标准形式下的可行解要求<span class=math>\(\boldsymbol{x_B}≥0\)</span>，若我们把新得到的解<span class=math>\(\boldsymbol{x_B}\)</span>按分量写出，即 <span class=math>\[
+\boldsymbol{x_B}=\begin{bmatrix}x_{B_1}\\x_{B_2}\\ \vdots \\x_{B_m}\end{bmatrix}=\begin{bmatrix}\bar{b}_1\\\bar{b}_2\\ \vdots \\\bar{b}_m\end{bmatrix}-\begin{bmatrix}y_{k_1}\\y_{k_2}\\ \vdots \\y_{k_m}\end{bmatrix}x_k ≥0 \tag{1.8}
+\]</span> <span class=math>\[
 \boldsymbol{x_N}=(0,0,\dotsb,0,x_k,0,\dotsb,0)^T\tag{1.9}
-$$
-在新得到的点，目标函数的函数值为
-$$
+\]</span> 在新得到的点，目标函数的函数值为 <span class=math>\[
 f=f_0-(z_k-c_k)x_k\tag{1.10}
-$$
-再来，我们分析怎样确定$x_k$的取值。根据$(1.8)$的可行性限制条件(非负)，我们不难得出，对$\forall i ∈ {1,2,\dotsb,m}且y_{k_i}>0$.：
-$$
+\]</span> 再来，我们分析怎样确定<span class=math>\(x_k\)</span>的取值。根据<span class=math>\((1.8)\)</span>的可行性限制条件(非负)，我们不难得出，对<span class=math>\(\forall i ∈ \{1,2,\dotsb,m\}且y_{k_i}>0\)</span>.： <span class=math>\[
 x_{B_i}=\bar b_i -y_{k_i}x_k≥0\Rightarrow x_k≤\frac{\bar b_i}{y_{k_i}}
-$$
-因为若$y_{k_i}$为负，$x_k$为正，这一分量不会成为破坏非负限制条件的分量。为了保证非负限制条件，我们必须有
-$$
-x_k≤\min\big{\frac{\bar b_i}{y_{k_i}}\big |y_{k_i}>0\big}
-$$
-同时，为了让$f$尽可能减少，我们希望$x_k$尽量取大的值，所以有
-$$
-x_k=\min\big{\frac{\bar b_i}{y_{k_i}}\big |y_{k_i}>0\big}=\frac{\bar b_r}{y_{k_r}}\tag{1.11}
-$$
-认为第$r$项即为最小值。回顾一下刚刚的步骤，在目标函数中，因为$x_i$是未定变量，因此我们先简单的使用贪心法，选择正系数最大的$(z_k-c_k)$；接下来，再判断$(z_k-c_k)$对应的变量$x_k$的取值范围，得到其最大值。</p>
-<p>根据$(1.8)$和$(1.11)$，我们得到了一个改进可行解，其$x_r\rightarrow 0, x_k\rightarrow\frac{\bar b_r}{y_{k_r}}$，即
-$$
+\]</span> 因为若<span class=math>\(y_{k_i}\)</span>为负，<span class=math>\(x_k\)</span>为正，这一分量不会成为破坏非负限制条件的分量。为了保证非负限制条件，我们必须有 <span class=math>\[
+x_k≤\min\big\{\frac{\bar b_i}{y_{k_i}}\big |y_{k_i}>0\big\}
+\]</span> 同时，为了让<span class=math>\(f\)</span>尽可能减少，我们希望<span class=math>\(x_k\)</span>尽量取大的值，所以有 <span class=math>\[
+x_k=\min\big\{\frac{\bar b_i}{y_{k_i}}\big |y_{k_i}>0\big\}=\frac{\bar b_r}{y_{k_r}}\tag{1.11}
+\]</span> 认为第<span class=math>\(r\)</span>项即为最小值。回顾一下刚刚的步骤，在目标函数中，因为<span class=math>\(x_i\)</span>是未定变量，因此我们先简单的使用贪心法，选择正系数最大的<span class=math>\((z_k-c_k)\)</span>；接下来，再判断<span class=math>\((z_k-c_k)\)</span>对应的变量<span class=math>\(x_k\)</span>的取值范围，得到其最大值。</p>
+<p>根据<span class=math>\((1.8)\)</span>和<span class=math>\((1.11)\)</span>，我们得到了一个改进可行解，其<span class=math>\(x_r\rightarrow 0, x_k\rightarrow\frac{\bar b_r}{y_{k_r}}\)</span>，即 <span class=math>\[
 \boldsymbol{x_B'}=(x_{B_1},x_{B_2},\dotsb,x_{B_{r-1}},0,x_{B_{r+1}},\dotsb,x_{B_m},0,\dotsb,x_k,\dotsb,0)^T
-$$</p>
-<p><strong>这个可行解一定是基本可行解</strong>。这是因为原来的基矩中，
-$$
+\]</span></p>
+<p><strong>这个可行解一定是基本可行解</strong>。这是因为原来的基矩中， <span class=math>\[
 \boldsymbol{B}=(\boldsymbol{p_{B_1},p_{B_2},\dotsb,p_{B_m}})
-$$
-中的m个列是线性无关的，其中不包含原属于$\boldsymbol{N}$中的列$\boldsymbol{p_{k}}$。根据$(1.7)$，有$\boldsymbol{y_{k}}=\boldsymbol{B^{-1}p_k}\Rightarrow \boldsymbol{p_k}=\boldsymbol{By_k}=\sum_{i=1}^m y_{k_i}\boldsymbol{p_{B_i}}$，即$\boldsymbol{p_k}$是线性无关向量组$(\boldsymbol{p_{B_1},p_{B_2},\dotsb,p_{B_m}})$的线性组合，且至少存在一个非0系数$y_{k_r}$.根据<strong>替换定理</strong>，用$\boldsymbol{p_{k}}$来替代$\boldsymbol{p_{B_r}}$得到如下向量组依然是<strong>线性无关的</strong>。
-$$
+\]</span> 中的m个列是线性无关的，其中不包含原属于<span class=math>\(\boldsymbol{N}\)</span>中的列<span class=math>\(\boldsymbol{p_{k}}\)</span>。根据<span class=math>\((1.7)\)</span>，有<span class=math>\(\boldsymbol{y_{k}}=\boldsymbol{B^{-1}p_k}\Rightarrow \boldsymbol{p_k}=\boldsymbol{By_k}=\sum_{i=1}^m y_{k_i}\boldsymbol{p_{B_i}}\)</span>，即<span class=math>\(\boldsymbol{p_k}\)</span>是线性无关向量组<span class=math>\((\boldsymbol{p_{B_1},p_{B_2},\dotsb,p_{B_m}})\)</span>的线性组合，且至少存在一个非0系数<span class=math>\(y_{k_r}\)</span>.根据<strong>替换定理</strong>，用<span class=math>\(\boldsymbol{p_{k}}\)</span>来替代<span class=math>\(\boldsymbol{p_{B_r}}\)</span>得到如下向量组依然是<strong>线性无关的</strong>。 <span class=math>\[
 \boldsymbol{B}=(\boldsymbol{p_{B_1},p_{B_2},\dotsb,p_{B_r}\rightarrow p_{k},\dotsb,p_{B_m}})
-$$
-这样可以组成新的基矩阵$\boldsymbol{B'}$，并得到新的基解$\boldsymbol{x_B'}$，而从$(1.8)和(1.11)$，我们确定$\boldsymbol{x_B'}$满足每一个分量非负的条件，因此其必然是一个基本可行解。</p>
-<p>经过上述转换，$x_k$由原来的非基变量变成了基变量，而原来的基变量$x_{B_r}$变成了非基变量，同时目标函数值比原来减少了$(z_k-c_k)x_k>0$。重复以上过程，进一步改进基本可行解，直到式$(1.6)$的结果只能为非正数，以致任何一个非基变量取正值都无法再使得目标函数值降低，此时即为最优解。</p>
+\]</span> 这样可以组成新的基矩阵<span class=math>\(\boldsymbol{B'}\)</span>，并得到新的基解<span class=math>\(\boldsymbol{x_B'}\)</span>，而从<span class=math>\((1.8)和(1.11)\)</span>，我们确定<span class=math>\(\boldsymbol{x_B'}\)</span>满足每一个分量非负的条件，因此其必然是一个基本可行解。</p>
+<p>经过上述转换，<span class=math>\(x_k\)</span>由原来的非基变量变成了基变量，而原来的基变量<span class=math>\(x_{B_r}\)</span>变成了非基变量，同时目标函数值比原来减少了<span class=math>\((z_k-c_k)x_k>0\)</span>。重复以上过程，进一步改进基本可行解，直到式<span class=math>\((1.6)\)</span>的结果只能为非正数，以致任何一个非基变量取正值都无法再使得目标函数值降低，此时即为最优解。</p>
 <blockquote>
-<p>总结定理1：若在极小化问题中，对于某个基本可行解，所有$(z_j-c_j)≤0$，则这个这个基本可行解是最优解；</p>
-<p>若在极大化问题中，对于某个基本可行解，所有$(z_j-c_j)≥0$，则这个这个基本可行解是最优解；</p>
-<p>其中，$z_j-c_j=\boldsymbol{c_B^T B^{-1} p_j}-c_j,\ j=1,\dotsb,n$</p>
+<p>总结定理1：若在极小化问题中，对于某个基本可行解，所有<span class=math>\((z_j-c_j)≤0\)</span>，则这个这个基本可行解是最优解；</p>
+<p>若在极大化问题中，对于某个基本可行解，所有<span class=math>\((z_j-c_j)≥0\)</span>，则这个这个基本可行解是最优解；</p>
+<p>其中，<span class=math>\(z_j-c_j=\boldsymbol{c_B^T B^{-1} p_j}-c_j,\ j=1,\dotsb,n\)</span></p>
 </blockquote>
-<p>在线性规划中，通常称$z_j-c_j$为<strong>判别数或检验数</strong>。</p>
+<p>在线性规划中，通常称<span class=math>\(z_j-c_j\)</span>为<strong>判别数或检验数</strong>。</p>
 <h2 id=一般计算步骤>一般计算步骤</h2>
-<ol start=0>
-<li>首先，我们要获得一个初始基本可行解（可通过直接计算，大M法，两阶段法获得），设初始基矩阵为$\boldsymbol{B}$</li>
-<li>在限制条件$\boldsymbol{Ax}=\bigl[\boldsymbol{B}\ \boldsymbol{N}\bigr] \bigl[ \begin{smallmatrix} \boldsymbol{x_B} \ \boldsymbol{x_N} \end{smallmatrix} \bigr]=\boldsymbol{b}$中，令非基变量$\boldsymbol{x_N=0}$，则$\boldsymbol{Bx_B=b}\Rightarrow \boldsymbol{x_B}=\boldsymbol{B^{-1}b}=\boldsymbol{\bar b}$，计算目标函数值$f=\boldsymbol{c^T_Bx_B}$</li>
-<li>对于此基矩阵的解集，求<strong>单纯形乘子</strong>$\boldsymbol{w^T=c_B^T B^{-1}}$（m维行向量）。对于所有非基变量，计算判别数$\boldsymbol{c_B^T B^{-1}p_j}-c_j=\boldsymbol{w^T p_j}-c_j=z_j-c_j$，求得$z_k-c_k=\max\limits_{j\in R}{z_j-c_j}$。若$z_k-c_k≤0$，停止计算，目前基本可行解是最优解。否则，进行步骤（3）</li>
-<li>$\boldsymbol{x_B'}=\boldsymbol{\underbrace{B^{-1}b}<em>{\bar b}-\underbrace{B^{-1}p_k}</em>{y_k}}x_k$。若$\boldsymbol{y_k}≤0$，即每一个分量都不大于0，则停止计算，问题不存在有限最优解；否则，进行步骤（4）</li>
-<li>确定下标$r$，使得$x_k=\frac{\bar b_r}{y_{k_r}}=\min\big{\frac{\bar b_i}{y_{k_i}}\big |y_{k_i}>0\big}$。$x_{B_r}$为离基变量，$x_k$为进基变量，用$\boldsymbol{p_k}$替代变量$p_{B_r}$得到新的基矩阵$\boldsymbol{B'\rightarrow B}$，返回步骤（1）</li>
+<ol start=0 style=list-style-type:decimal>
+<li>首先，我们要获得一个初始基本可行解（可通过直接计算，大M法，两阶段法获得），设初始基矩阵为<span class=math>\(\boldsymbol{B}\)</span></li>
+<li>在限制条件<span class=math>\(\boldsymbol{Ax}=\bigl[\boldsymbol{B}\ \boldsymbol{N}\bigr] \bigl[ \begin{smallmatrix} \boldsymbol{x_B} \\ \boldsymbol{x_N} \end{smallmatrix} \bigr]=\boldsymbol{b}\)</span>中，令非基变量<span class=math>\(\boldsymbol{x_N=0}\)</span>，则<span class=math>\(\boldsymbol{Bx_B=b}\Rightarrow \boldsymbol{x_B}=\boldsymbol{B^{-1}b}=\boldsymbol{\bar b}\)</span>，计算目标函数值<span class=math>\(f=\boldsymbol{c^T_Bx_B}\)</span></li>
+<li>对于此基矩阵的解集，求<strong>单纯形乘子</strong><span class=math>\(\boldsymbol{w^T=c_B^T B^{-1}}\)</span>（m维行向量）。对于所有非基变量，计算判别数<span class=math>\(\boldsymbol{c_B^T B^{-1}p_j}-c_j=\boldsymbol{w^T p_j}-c_j=z_j-c_j\)</span>，求得<span class=math>\(z_k-c_k=\max\limits_{j\in R}\{z_j-c_j\}\)</span>。若<span class=math>\(z_k-c_k≤0\)</span>，停止计算，目前基本可行解是最优解。否则，进行步骤（3）</li>
+<li><span class=math>\(\boldsymbol{x_B'}=\boldsymbol{\underbrace{B^{-1}b}_{\bar b}-\underbrace{B^{-1}p_k}_{y_k}}x_k\)</span>。若<span class=math>\(\boldsymbol{y_k}≤0\)</span>，即每一个分量都不大于0，则停止计算，问题不存在有限最优解；否则，进行步骤（4）</li>
+<li>确定下标<span class=math>\(r\)</span>，使得<span class=math>\(x_k=\frac{\bar b_r}{y_{k_r}}=\min\big\{\frac{\bar b_i}{y_{k_i}}\big |y_{k_i}>0\big\}\)</span>。<span class=math>\(x_{B_r}\)</span>为离基变量，<span class=math>\(x_k\)</span>为进基变量，用<span class=math>\(\boldsymbol{p_k}\)</span>替代变量<span class=math>\(p_{B_r}\)</span>得到新的基矩阵<span class=math>\(\boldsymbol{B'\rightarrow B}\)</span>，返回步骤（1）</li>
 </ol>
 <h2 id=收敛性>收敛性</h2>
 <p>对于非退化情形，单纯形法有优秀的结论：</p>
@@ -236,12 +198,12 @@ $$
 <p>定理2：对于非退化问题，单纯形方法经过有限次迭代后，<strong>能达到最优解或得出无界的结论</strong>。在此条件下，单纯形法是收敛的。</p>
 </blockquote>
 <p>证明：</p>
-<p><img src=../../images/%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%B3%95%E6%94%B6%E6%95%9B%E6%80%A7%E9%9D%9E%E9%80%80%E5%8C%96.png alt=单纯形法收敛性非退化></p>
-<p>对于非退化情形，每次迭代都有
-$$
+<div class=figure>
+<img src=../../images/单纯形法收敛性非退化.png alt=单纯形法收敛性非退化><p class=caption>单纯形法收敛性非退化</p>
+</div>
+<p>对于非退化情形，每次迭代都有 <span class=math>\[
 \boldsymbol{x_B=B^{-1}b=\bar b}>0
-$$
-此时能保证$x_r=\frac{b_r}{y_{k_r}}>0$。因此经迭代，目标函数值减小，并且由此可知，各次迭代得到的基本可行解互不相同。由于基本可行解的个数有限，因此经有限次迭代必能达到最优解。<strong>对于退化情形，我们在后面将要证明，如果最优解存在，只要采取一定的措施，也能做到有限步收敛</strong>。</p>
+\]</span> 此时能保证<span class=math>\(x_r=\frac{b_r}{y_{k_r}}>0\)</span>。因此经迭代，目标函数值减小，并且由此可知，各次迭代得到的基本可行解互不相同。由于基本可行解的个数有限，因此经有限次迭代必能达到最优解。<strong>对于退化情形，我们在后面将要证明，如果最优解存在，只要采取一定的措施，也能做到有限步收敛</strong>。</p>
 <h2 id=使用表格形式的单纯形方法>使用表格形式的单纯形方法</h2>
 <p>用单纯形方法求解线性规划问题的过程，实际上就是解线性方程组。只是在每次迭代中，要按一定规则选择自由未知量，以便能够得到改进的基本可行解。这个求解过程可以通过变换单纯形表来实现。具体做法可见《最优化理论与算法（第2版）》第3.1.4节。</p>
 <h2 id=退化情形>退化情形</h2>

@@ -88,142 +88,104 @@ Nov 3, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=线性规划的对偶的互补松弛定理---omit-in-toc--->线性规划的对偶的互补松弛定理</h2>
+<h2 id=线性规划的对偶的互补松弛定理>线性规划的对偶的互补松弛定理</h2>
 <ul>
-<li><a href=#%E5%89%8D%E6%83%85%E6%8F%90%E8%A6%81>前情提要</a>
-<ul>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89>对称形式对偶问题定义</a></li>
-<li><a href=#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89>非对称形式对偶问题定义</a></li>
-<li><a href=#%E5%AF%B9%E5%81%B6%E5%AE%9A%E7%90%86>对偶定理</a></li>
-</ul>
-</li>
-<li><a href=#%E4%BA%92%E8%A1%A5%E6%9D%BE%E5%BC%9B%E6%80%A7%E8%B4%A8>互补松弛性质</a>
-<ul>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F>对称形式</a></li>
-<li><a href=#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F>非对称形式</a></li>
-</ul>
-</li>
-<li><a href=#%E5%BC%BA%E4%BA%92%E8%A1%A5%E6%9D%BE%E5%BC%9B%E5%AE%9A%E7%90%86>强互补松弛定理</a></li>
+<li><a href=#前情提要>前情提要</a></li>
+<li><a href=#对称形式对偶问题定义>对称形式对偶问题定义</a></li>
+<li><a href=#非对称形式对偶问题定义>非对称形式对偶问题定义</a></li>
+<li><a href=#对偶定理>对偶定理</a></li>
+<li><a href=#互补松弛性质>互补松弛性质</a></li>
+<li><a href=#对称形式>对称形式</a></li>
+<li><a href=#非对称形式>非对称形式</a></li>
+<li><a href=#强互补松弛定理>强互补松弛定理</a></li>
 </ul>
 <h2 id=前情提要>前情提要</h2>
 <h3 id=对称形式对偶问题定义>对称形式对偶问题定义</h3>
-<p>原问题
-$$
+<p>原问题 <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{Ax≥b}（注意这里是≥）\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{Ax≥b}（注意这里是≥）\\
 &\boldsymbol{x≥0}
 \end{aligned}\tag{1.1}
-$$
-对偶问题
-$$
+\]</span> 对偶问题 <span class=math>\[
 \begin{aligned}
-\max\quad&\boldsymbol{w^Tb}\
-\mathop{s.t.}\quad&\boldsymbol{w^TA≤c^T}（注意这里是≤）\
+\max\quad&\boldsymbol{w^Tb}\\
+\mathop{s.t.}\quad&\boldsymbol{w^TA≤c^T}（注意这里是≤）\\
 &\boldsymbol{w^T≥0}
 \end{aligned}\tag{1.2}
-$$
-其中，$\boldsymbol{A=(p_1,p_2,\dotsb,p_n)}$是$m×n$矩阵，$\boldsymbol{b}=(b_1,b_2,\dotsb,b_m)^T$是<strong>m维列</strong>向量，$\boldsymbol{c^T}=(c_1,c_2,\dotsb,c_n)$是<strong>n维行</strong>向量，$\boldsymbol{x}=(x_1,x_2,\dotsb,x_n)^T$是原问题的变量组成的<strong>n维列</strong>向量，$\boldsymbol{w^T}=(w_1,w_2,\dotsb,w_m)$是由对偶问题变量组成的<strong>m维行</strong>向量。</p>
+\]</span> 其中，<span class=math>\(\boldsymbol{A=(p_1,p_2,\dotsb,p_n)}\)</span>是<span class=math>\(m×n\)</span>矩阵，<span class=math>\(\boldsymbol{b}=(b_1,b_2,\dotsb,b_m)^T\)</span>是<strong>m维列</strong>向量，<span class=math>\(\boldsymbol{c^T}=(c_1,c_2,\dotsb,c_n)\)</span>是<strong>n维行</strong>向量，<span class=math>\(\boldsymbol{x}=(x_1,x_2,\dotsb,x_n)^T\)</span>是原问题的变量组成的<strong>n维列</strong>向量，<span class=math>\(\boldsymbol{w^T}=(w_1,w_2,\dotsb,w_m)\)</span>是由对偶问题变量组成的<strong>m维行</strong>向量。</p>
 <h3 id=非对称形式对偶问题定义>非对称形式对偶问题定义</h3>
-<p>原问题
-$$
+<p>原问题 <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{Ax=b}\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{Ax=b}\\
 &\boldsymbol{x≥0}
 \end{aligned}\tag{1.3}
-$$
-对偶问题
-$$
+\]</span> 对偶问题 <span class=math>\[
 \begin{aligned}
-\max\quad&\boldsymbol{w^Tb}\
-\mathop{s.t.}\quad&\boldsymbol{w^TA}≤\boldsymbol{c}\
+\max\quad&\boldsymbol{w^Tb}\\
+\mathop{s.t.}\quad&\boldsymbol{w^TA}≤\boldsymbol{c}\\
 \end{aligned}\tag{1.5}
-$$</p>
+\]</span></p>
 <h3 id=对偶定理>对偶定理</h3>
-<p><strong>定理1.1</strong> 设$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是$(1.1),(1.2)$式的可行解,则$\boldsymbol{c^Tx^{(0)}}≥\boldsymbol{w^{(0)T}b}$</p>
-<p><strong>推论1：</strong> 若$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的可行解，且$\boldsymbol{c^Tx^{(0)}=w^{(0)T}b}$，则$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的最优解。($\boldsymbol{c^{(0)T}x≥w^{(0)T}b}$<strong>恒成立</strong>因此相等的情况分别是二者的最优解)</p>
-<p><strong>定理1.2：<strong>设原问题$(1.1)$和对偶问题$(1.2)$中</strong>有一个问题存在最优解， 则另一个问题也存在最优解</strong>，且两个问题的目标函数的<strong>最优值相等</strong>。</p>
+<p><strong>定理1.1</strong> 设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是<span class=math>\((1.1),(1.2)\)</span>式的可行解,则<span class=math>\(\boldsymbol{c^Tx^{(0)}}≥\boldsymbol{w^{(0)T}b}\)</span></p>
+<p><strong>推论1：</strong> 若<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的可行解，且<span class=math>\(\boldsymbol{c^Tx^{(0)}=w^{(0)T}b}\)</span>，则<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的最优解。(<span class=math>\(\boldsymbol{c^{(0)T}x≥w^{(0)T}b}\)</span><strong>恒成立</strong>因此相等的情况分别是二者的最优解)</p>
+<p><strong>定理1.2：</strong>设原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>中<strong>有一个问题存在最优解， 则另一个问题也存在最优解</strong>，且两个问题的目标函数的<strong>最优值相等</strong>。</p>
 <h2 id=互补松弛性质>互补松弛性质</h2>
 <p>利用对偶定理可以证明原问题和对偶问题的最优解满足重要的互补松弛关系。<strong>互补松弛定理可以了解到变量在限制条件中是否取等号或者是取上下限值</strong>。</p>
 <h3 id=对称形式>对称形式</h3>
 <blockquote>
-<p><strong>定理1.3</strong>：设$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的可行解，那么$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$都是最优解的充要条件是，对所有$i和j$，下列关系成立：</p>
+<p><strong>定理1.3</strong>：设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的可行解，那么<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>都是最优解的充要条件是，对所有<span class=math>\(i和j\)</span>，下列关系成立：</p>
 <blockquote>
-<ol>
-<li>如果$x^{(0)}_j>0$，就有$\boldsymbol{w^{(0)T}p_j}=c_j$;</li>
-<li>如果$\boldsymbol{w^{(0)T}p_j}&lt;c_j$，就有$x^{(0)}_j=0$;</li>
-<li>如果$w^{(0)}_i>0$，就有$\boldsymbol{A_i x^{(0)}}=b_i$;</li>
-<li>如果$\boldsymbol{A_i x^{(0)}}>b_i$，就有$w^{(0)}_i=0$;</li>
+<ol style=list-style-type:decimal>
+<li>如果<span class=math>\(x^{(0)}_j>0\)</span>，就有<span class=math>\(\boldsymbol{w^{(0)T}p_j}=c_j\)</span>;</li>
+<li>如果<span class=math>\(\boldsymbol{w^{(0)T}p_j}&lt;c_j\)</span>，就有<span class=math>\(x^{(0)}_j=0\)</span>;</li>
+<li>如果<span class=math>\(w^{(0)}_i>0\)</span>，就有<span class=math>\(\boldsymbol{A_i x^{(0)}}=b_i\)</span>;</li>
+<li>如果<span class=math>\(\boldsymbol{A_i x^{(0)}}>b_i\)</span>，就有<span class=math>\(w^{(0)}_i=0\)</span>;</li>
 </ol>
 </blockquote>
-<p>其中$\boldsymbol{p_j}$是$\boldsymbol{A}$的第$j$列，$\boldsymbol{A_i}$是$\boldsymbol{A}$的第$i$行。</p>
+<p>其中<span class=math>\(\boldsymbol{p_j}\)</span>是<span class=math>\(\boldsymbol{A}\)</span>的第<span class=math>\(j\)</span>列，<span class=math>\(\boldsymbol{A_i}\)</span>是<span class=math>\(\boldsymbol{A}\)</span>的第<span class=math>\(i\)</span>行。</p>
 </blockquote>
-<p>证明：先证必要性。最优解$\Rightarrow$ (1,2,3,4)</p>
-<p>设$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的最优解。由于$\boldsymbol{c^T≥w^{(0)T}A}$以及$\boldsymbol{x^{(0)}≥0}$，则有
-$$
+<p>证明：先证必要性。最优解<span class=math>\(\Rightarrow\)</span> (1,2,3,4)</p>
+<p>设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的最优解。由于<span class=math>\(\boldsymbol{c^T≥w^{(0)T}A}\)</span>以及<span class=math>\(\boldsymbol{x^{(0)}≥0}\)</span>，则有 <span class=math>\[
 \boldsymbol{c^T x^{(0)}}≥\boldsymbol{w^{(0)T}A x^{(0)}}\tag{1.16}
-$$
-由于$\boldsymbol{Ax^{(0)}≥b}$和$\boldsymbol{w^{(0)T}≥0}$，则
-$$
+\]</span> 由于<span class=math>\(\boldsymbol{Ax^{(0)}≥b}\)</span>和<span class=math>\(\boldsymbol{w^{(0)T}≥0}\)</span>，则 <span class=math>\[
 \boldsymbol{w^{(0)T}A x^{(0)}}≥\boldsymbol{w^{(0)T}b}\tag{1.17}
-$$
-由于$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的最优解，根据<code>定理1.2</code>必有：
-$$
+\]</span> 由于<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的最优解，根据<code>定理1.2</code>必有： <span class=math>\[
 \boldsymbol{c^T x^{(0)}}=\boldsymbol{w^{(0)T}b}\tag{1.18}
-$$
-用$(1.18)$夹逼$(1.16),(1.17)$可得
-$$
-\boldsymbol{c^T x^{(0)}}=\boldsymbol{w^{(0)T}A x^{(0)}}=\boldsymbol{w^{(0)T}b} \tag{1.19}\
-$$
-$$
-\boldsymbol{(c^T-w^{(0)T}A) x^{(0)}}=0 \tag{1.20}\
-$$
-$$
-\boldsymbol{w^{(0)T}(A x^{(0)}-b)}=0\tag{1.21}\
-$$
-由于$\boldsymbol{c^T-w^{(0)T}A≥0}，\boldsymbol{x^{(0)}≥0}$，因此对于两项分量非0时都为正，因此对于每一个分量都有
-$$
+\]</span> 用<span class=math>\((1.18)\)</span>夹逼<span class=math>\((1.16),(1.17)\)</span>可得 <span class=math>\[
+\boldsymbol{c^T x^{(0)}}=\boldsymbol{w^{(0)T}A x^{(0)}}=\boldsymbol{w^{(0)T}b} \tag{1.19}\\
+\]</span> <span class=math>\[
+\boldsymbol{(c^T-w^{(0)T}A) x^{(0)}}=0 \tag{1.20}\\
+\]</span> <span class=math>\[
+\boldsymbol{w^{(0)T}(A x^{(0)}-b)}=0\tag{1.21}\\
+\]</span> 由于<span class=math>\(\boldsymbol{c^T-w^{(0)T}A≥0}，\boldsymbol{x^{(0)}≥0}\)</span>，因此对于两项分量非0时都为正，因此对于每一个分量都有 <span class=math>\[
 (c_j-\boldsymbol{w^{0T}p_j})x_j^{(0)}=0,\quad j=1,2,\dotsb,n
-$$
-故<code>定理1.3</code>中关系（1）（2）成立。</p>
-<p>由于$\boldsymbol{Ax^{(0)}-b≥0}，\boldsymbol{w^{(0)}≥0}$，因此对于两项分量非0时都为正，因此对于每一个分量都有
-$$
+\]</span> 故<code>定理1.3</code>中关系（1）（2）成立。</p>
+<p>由于<span class=math>\(\boldsymbol{Ax^{(0)}-b≥0}，\boldsymbol{w^{(0)}≥0}\)</span>，因此对于两项分量非0时都为正，因此对于每一个分量都有 <span class=math>\[
 w_i^{(0)}(\boldsymbol{A_ix^{(0)}}-b_i)=0,\quad i=1,2,\dotsb,m
-$$
-故<code>定理1.3</code>中关系（3）（4）成立。必要性得证。</p>
-<p>再证充分性。最优解$\Leftarrow$ (1,2,3,4)</p>
-<p>设$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的可行解，且关系（1）（2）（3）（4）成立。</p>
-<p>由于关系（1）和（2）成立，则对每一个$j$，有
-$$
+\]</span> 故<code>定理1.3</code>中关系（3）（4）成立。必要性得证。</p>
+<p>再证充分性。最优解<span class=math>\(\Leftarrow\)</span> (1,2,3,4)</p>
+<p>设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的可行解，且关系（1）（2）（3）（4）成立。</p>
+<p>由于关系（1）和（2）成立，则对每一个<span class=math>\(j\)</span>，有 <span class=math>\[
 (c_j-\boldsymbol{w^{0T}p_j})x_j^{(0)}=0,\quad j=1,2,\dotsb,n\tag{1.22}
-$$
-由此可推出$\boldsymbol{(w^{(0)T}A-c^T)x^{(0)}=0}$，即
-$$
+\]</span> 由此可推出<span class=math>\(\boldsymbol{(w^{(0)T}A-c^T)x^{(0)}=0}\)</span>，即 <span class=math>\[
 \boldsymbol{c^T x^{(0)}}=\boldsymbol{w^{(0)T}A x^{(0)}}\tag{1.23}
-$$
-由于关系（3）（4）成立，则对于每一个$i$，有
-$$
+\]</span> 由于关系（3）（4）成立，则对于每一个<span class=math>\(i\)</span>，有 <span class=math>\[
 w_i^{(0)}(\boldsymbol{A_ix^{(0)}}-b_i)=0,\quad i=1,2,\dotsb,m\tag{1.24}
-$$
-由此可以看出$\boldsymbol{w^{(0)T}(A x^{(0)}-b)}=0$，即
-$$
+\]</span> 由此可以看出<span class=math>\(\boldsymbol{w^{(0)T}(A x^{(0)}-b)}=0\)</span>，即 <span class=math>\[
 \boldsymbol{w^{(0)T}A x^{(0)}}=\boldsymbol{w^{(0)T}b} \tag{1.25}
-$$
-由$(1.23)$和$(1.25)$可以得到
-$$
+\]</span> 由<span class=math>\((1.23)\)</span>和<span class=math>\((1.25)\)</span>可以得到 <span class=math>\[
 \boldsymbol{c^T x^{(0)}}=\boldsymbol{w^{(0)T}b}
-$$
-由<code>定理1.1</code>的<code>推论1</code>可知，$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的最优解。</p>
+\]</span> 由<code>定理1.1</code>的<code>推论1</code>可知，<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的最优解。</p>
 <h3 id=非对称形式>非对称形式</h3>
-<p>对于非对称形式的对偶规划，由于在原问题中约束条件是$\boldsymbol{Ax=b}$，而对偶变量无正负
-限制。因此互补松弛性质叙述如下</p>
+<p>对于非对称形式的对偶规划，由于在原问题中约束条件是<span class=math>\(\boldsymbol{Ax=b}\)</span>，而对偶变量无正负 限制。因此互补松弛性质叙述如下</p>
 <blockquote>
-<p><strong>定理1.4</strong>：设$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.3)$和对偶问题$(1.5)$的可行解，那么$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$都是最优解的充要条件是，对于所有$j$，下列关系成立：</p>
+<p><strong>定理1.4</strong>：设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.3)\)</span>和对偶问题<span class=math>\((1.5)\)</span>的可行解，那么<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>都是最优解的充要条件是，对于所有<span class=math>\(j\)</span>，下列关系成立：</p>
 <blockquote>
-<ol>
-<li>如果$x^{(0)}_j>0$，就有$\boldsymbol{w^{(0)T}p_j}=c_j$;</li>
-<li>如果$\boldsymbol{w^{(0)T}p_j}&lt;c_j$，就有$x^{(0)}_j=0$;</li>
+<ol style=list-style-type:decimal>
+<li>如果<span class=math>\(x^{(0)}_j>0\)</span>，就有<span class=math>\(\boldsymbol{w^{(0)T}p_j}=c_j\)</span>;</li>
+<li>如果<span class=math>\(\boldsymbol{w^{(0)T}p_j}&lt;c_j\)</span>，就有<span class=math>\(x^{(0)}_j=0\)</span>;</li>
 </ol>
 </blockquote>
 </blockquote>

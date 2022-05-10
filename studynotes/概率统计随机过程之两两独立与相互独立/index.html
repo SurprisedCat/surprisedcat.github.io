@@ -88,41 +88,23 @@ Aug 30, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之两两独立与相互独立---omit-in-toc--->概率统计随机过程之两两独立与相互独立</h2>
-<p>$A,B,C$互相独立，说明$A,B,C$间无关联，是互相独立的，但两两独立指$A$和$B$间独立，$B$和$C$之间独立，$A$和$C$间独立，但三者放在一起，并不能判断他们是无关的。</p>
+<h2 id=概率统计随机过程之两两独立与相互独立>概率统计随机过程之两两独立与相互独立</h2>
+<p><span class=math>\(A,B,C\)</span>互相独立，说明<span class=math>\(A,B,C\)</span>间无关联，是互相独立的，但两两独立指<span class=math>\(A\)</span>和<span class=math>\(B\)</span>间独立，<span class=math>\(B\)</span>和<span class=math>\(C\)</span>之间独立，<span class=math>\(A\)</span>和<span class=math>\(C\)</span>间独立，但三者放在一起，并不能判断他们是无关的。</p>
 <p>所以，<strong>两两独立不一定相互独立，相互独立必然两两独立。</strong></p>
-<p>例如：有三个随机变量$A,B,C$如果他们两两独立，
-那么：
-$$P(AB)=P(A)P(B)\
-P(AC)=P(A)P(C)\
-P(BC)=P(B)P(C)$$</p>
-<p>但是$P(ABC)$不一定等于$P(A)P(B)P(C)$，</p>
+<p>例如：有三个随机变量<span class=math>\(A,B,C\)</span>如果他们两两独立， 那么： <span class=math>\[P(AB)=P(A)P(B)\\
+P(AC)=P(A)P(C)\\
+P(BC)=P(B)P(C)\]</span></p>
+<p>但是<span class=math>\(P(ABC)\)</span>不一定等于<span class=math>\(P(A)P(B)P(C)\)</span>，</p>
 <p>如果相互独立的话，那么上式就是成立的。</p>
 <p><strong>请看下例</strong>:</p>
 <blockquote>
-<p>例1：设有四张外型一样的卡片,上分别写 有数字$2,3,5,30$今从中任取一张观察其上数字:
-$$A={取到是2的倍数};\B={取到是3的倍数};\C={取到是5的倍数};$$
-则$A,B,C$是两两独立而不是相互独立.</p>
-<p>因为:
-$$A={2,30}; B={3,30}; C={5,30};\AB=AC=BC=ABC={30}$$
-所以: $P(A)=P(B)=P(C)=2/4=1/2;P(AB)=P(A)P(B)=(1/2)*(1/2)=0.25,$</p>
-<p>类似$P(BC)=P(B)P(C))=0.25; P(AC)=P(A)P(C))=0.25$</p>
-<p>而$P(ABC)=(1/2)<em>(1/2)</em>(1/2)=0.125,$</p>
-<p>但$P(A)P(B)P(C)=0.5<em>0.5</em>0.5=0.125$两者不等.</p>
+<p>例1：设有四张外型一样的卡片,上分别写 有数字<span class=math>\(2,3,5,30\)</span>今从中任取一张观察其上数字: <span class=math>\[A=\{取到是2的倍数\};\\B=\{取到是3的倍数\};\\C=\{取到是5的倍数\};\]</span> 则<span class=math>\(A,B,C\)</span>是两两独立而不是相互独立.</p>
+<p>因为: <span class=math>\[A=\{2,30\}; B=\{3,30\}; C=\{5,30\};\\AB=AC=BC=ABC=\{30\}\]</span> 所以: <span class=math>\(P(A)=P(B)=P(C)=2/4=1/2;P(AB)=P(A)P(B)=(1/2)*(1/2)=0.25,\)</span></p>
+<p>类似<span class=math>\(P(BC)=P(B)P(C))=0.25; P(AC)=P(A)P(C))=0.25\)</span></p>
+<p>而<span class=math>\(P(ABC)=(1/2)*(1/2)*(1/2)=0.125,\)</span></p>
+<p>但<span class=math>\(P(A)P(B)P(C)=0.5*0.5*0.5=0.125\)</span>两者不等.</p>
 </blockquote>
-<p>下面这个例子来自维基百科：</p>
-<blockquote>
-<p>例2： Suppose $X$ and $Y$ are two independent tosses of a fair coin, where we designate 1 for heads and 0 for tails. Let the third random variable $Z$ be equal to 1 if exactly one of those coin tosses resulted in "heads", and 0 otherwise(异或). Then jointly the triple $(X, Y, Z)$ has the following probability distribution:
-$$(X,Y,Z)=\left{{\begin{matrix}(0,0,0)&{\text{with probability}}\ 1/4,\(0,1,1)&{\text{with probability}}\ 1/4,\(1,0,1)&{\text{with probability}}\ 1/4,\(1,1,0)&{\text{with probability}}\ 1/4.\end{matrix}}\right.$$
-Here the marginal probability distributions are identical: $f_{X}(0)=f_{Y}(0)=f_{Z}(0)=1/2$, and $f_{X}(1)=f_{Y}(1)=f_{Z}(1)=1/2$. The bivariate distributions also agree: $f_{{X,Y}}=f_{{X,Z}}=f_{{Y,Z}}$, where $f_{{X,Y}}(0,0)=f_{{X,Y}}(0,1)=f_{{X,Y}}(1,0)=f_{{X,Y}}(1,1)=1/4$.</p>
-<p>Since each of the pairwise joint distributions equals the product of their respective marginal distributions, the variables are pairwise independent:</p>
-<ul>
-<li>X and Y are independent, and</li>
-<li>X and Z are independent, and</li>
-<li>Y and Z are independent.</li>
-</ul>
-<p>However, $X, Y$, and $Z$ are <strong>not mutually independent</strong>, since ${\displaystyle f_{X,Y,Z}(x,y,z)\neq f_{X}(x)f_{Y}(y)f_{Z}(z),}$ the left side equalling for example 1/4 for $(x, y, z) = (0, 0, 0)$ while the right side equals 1/8 for $(x, y, z) = (0, 0, 0)$. In fact, any of ${X,Y,Z}$ is completely determined by the other two (any of $X, Y, Z$ is the sum (modulo(模) 2) of the others). That is as far from independence as random variables can get.</p>
-</blockquote>
+<p>下面这个例子来自维基百科： >例2： Suppose <span class=math>\(X\)</span> and <span class=math>\(Y\)</span> are two independent tosses of a fair coin, where we designate 1 for heads and 0 for tails. Let the third random variable <span class=math>\(Z\)</span> be equal to 1 if exactly one of those coin tosses resulted in "heads", and 0 otherwise(异或). Then jointly the triple <span class=math>\((X, Y, Z)\)</span> has the following probability distribution: ><span class=math>\[(X,Y,Z)=\left\{{\begin{matrix}(0,0,0)&{\text{with probability}}\ 1/4,\\(0,1,1)&{\text{with probability}}\ 1/4,\\(1,0,1)&{\text{with probability}}\ 1/4,\\(1,1,0)&{\text{with probability}}\ 1/4.\end{matrix}}\right.\]</span> >Here the marginal probability distributions are identical: <span class=math>\(f_{X}(0)=f_{Y}(0)=f_{Z}(0)=1/2\)</span>, and <span class=math>\(f_{X}(1)=f_{Y}(1)=f_{Z}(1)=1/2\)</span>. The bivariate distributions also agree: <span class=math>\(f_{{X,Y}}=f_{{X,Z}}=f_{{Y,Z}}\)</span>, where <span class=math>\(f_{{X,Y}}(0,0)=f_{{X,Y}}(0,1)=f_{{X,Y}}(1,0)=f_{{X,Y}}(1,1)=1/4\)</span>. > >Since each of the pairwise joint distributions equals the product of their respective marginal distributions, the variables are pairwise independent: > >- X and Y are independent, and >- X and Z are independent, and >- Y and Z are independent. > >However, <span class=math>\(X, Y\)</span>, and <span class=math>\(Z\)</span> are <strong>not mutually independent</strong>, since <span class=math>\({\displaystyle f_{X,Y,Z}(x,y,z)\neq f_{X}(x)f_{Y}(y)f_{Z}(z),}\)</span> the left side equalling for example 1/4 for <span class=math>\((x, y, z) = (0, 0, 0)\)</span> while the right side equals 1/8 for <span class=math>\((x, y, z) = (0, 0, 0)\)</span>. In fact, any of <span class=math>\(\{X,Y,Z\}\)</span> is completely determined by the other two (any of <span class=math>\(X, Y, Z\)</span> is the sum (modulo(模) 2) of the others). That is as far from independence as random variables can get.</p>
 <p>总的来说，有些随机变量可以由其他随机变量决定，因此，两两独立的随机变量之间可形成组合和其他随机变量形成联系。</p>
 </article>
 <aside class=sidebar>

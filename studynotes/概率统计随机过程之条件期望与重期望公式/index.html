@@ -88,110 +88,90 @@ Apr 18, 2022</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之条件期望与重期望公式---omit-in-toc--->概率统计随机过程之条件期望与重期望公式</h2>
+<h2 id=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</h2>
 <p>之前对条件期望的理解有一些偏差，现在重新看了下条件期望的内容与重期望公式。注意（X|Y）的条件期望实际上是关于Y的函数，而重期望公式则与分区加权求和有着本质联系，提供了求X期望的另一种方式。</p>
 <ul>
-<li><a href=#%E6%9D%A1%E4%BB%B6%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B>条件数学期望</a></li>
-<li><a href=#%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F>重期望公式</a>
-<ul>
-<li><a href=#%E9%9A%8F%E6%9C%BA%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%92%8C%E7%9A%84%E6%95%B0%E5%AD%A6%E6%9C%9F%E6%9C%9B>随机个随机变量和的数学期望</a></li>
-</ul>
-</li>
-<li><a href=#%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E7%9A%84%E5%85%B6%E4%BB%96%E6%8E%A8%E8%AE%BA>条件期望的其他推论</a></li>
+<li><a href=#条件数学期望>条件数学期望</a></li>
+<li><a href=#重期望公式>重期望公式</a></li>
+<li><a href=#随机个随机变量和的数学期望>随机个随机变量和的数学期望</a></li>
+<li><a href=#条件期望的其他推论>条件期望的其他推论</a></li>
 </ul>
 <h2 id=条件数学期望>条件数学期望</h2>
 <p>如果我们对条件分布求期望，则称为<strong>条件数学期望</strong>。在离散分布列和连续密度函数的定义方式如下，以二维举例：</p>
 <blockquote>
-<p>$X$关于$Y=y$的条件期望：
-$$E(X|Y=y)=\begin{cases}\sum\limits_i x_iP(X=x_i|Y=y),\qquad(X,Y)为二维离散随机变量\
-\int_{-\infty}^{\infty}xp(x|y)\mathrm{d}x,\qquad(X,Y)为二维连续随机变量\end{cases}\tag{1}$$</p>
-<p>$Y$关于$X=x$的条件期望：
-$$E(Y|X=x)=\begin{cases}\sum\limits_i y_iP(Y=y_i|X=x),\qquad(X,Y)为二维离散随机变量\
-\int_{-\infty}^{\infty}yp(y|x)\mathrm{d}y,\qquad(X,Y)为二维连续随机变量\end{cases}\tag{2}$$</p>
+<p><span class=math>\(X\)</span>关于<span class=math>\(Y=y\)</span>的条件期望： <span class=math>\[E(X|Y=y)=\begin{cases}\sum\limits_i x_iP(X=x_i|Y=y),\qquad(X,Y)为二维离散随机变量\\
+\int_{-\infty}^{\infty}xp(x|y)\mathrm{d}x,\qquad(X,Y)为二维连续随机变量\end{cases}\tag{1}\]</span></p>
+<p><span class=math>\(Y\)</span>关于<span class=math>\(X=x\)</span>的条件期望： <span class=math>\[E(Y|X=x)=\begin{cases}\sum\limits_i y_iP(Y=y_i|X=x),\qquad(X,Y)为二维离散随机变量\\
+\int_{-\infty}^{\infty}yp(y|x)\mathrm{d}y,\qquad(X,Y)为二维连续随机变量\end{cases}\tag{2}\]</span></p>
 </blockquote>
-<p>注意，$E(X|Y=y)$是在$y$为特定值时，对$x$求和/积分，抹去了$x$的随机性，得到一个关于$y$的函数。同理，$E(Y|X=x)$抹去的是$y$的随机性，得到一个关于$x$的函数。</p>
-<p>条件期望$E(X|Y=y)$和无条件期望$E(X)$的一大区别是，$E(X)$是一个数，而条件期望$E(X|Y)$是一个函数$g(y)$。</p>
-<p>举个例子，如用$X$表示中国成年人的身高，则$E(X)=170$表示中国成年人的平均身高为170 cm，是一个具体的数字。若用$Y$表示中国成年人的足长，则$E(X|Y=y)$表示足长为$y$的中国成年人的平均身高，根据研究可知
-$$
+<p>注意，<span class=math>\(E(X|Y=y)\)</span>是在<span class=math>\(y\)</span>为特定值时，对<span class=math>\(x\)</span>求和/积分，抹去了<span class=math>\(x\)</span>的随机性，得到一个关于<span class=math>\(y\)</span>的函数。同理，<span class=math>\(E(Y|X=x)\)</span>抹去的是<span class=math>\(y\)</span>的随机性，得到一个关于<span class=math>\(x\)</span>的函数。</p>
+<p>条件期望<span class=math>\(E(X|Y=y)\)</span>和无条件期望<span class=math>\(E(X)\)</span>的一大区别是，<span class=math>\(E(X)\)</span>是一个数，而条件期望<span class=math>\(E(X|Y)\)</span>是一个函数<span class=math>\(g(y)\)</span>。</p>
+<p>举个例子，如用<span class=math>\(X\)</span>表示中国成年人的身高，则<span class=math>\(E(X)=170\)</span>表示中国成年人的平均身高为170 cm，是一个具体的数字。若用<span class=math>\(Y\)</span>表示中国成年人的足长，则<span class=math>\(E(X|Y=y)\)</span>表示足长为<span class=math>\(y\)</span>的中国成年人的平均身高，根据研究可知 <span class=math>\[
 E(X|Y=y)=6.876y
-$$
-这显然是一个与$y$相关的函数，对$y$的不同取值，条件期望的取值也在变化。可以记：
-$$
+\]</span> 这显然是一个与<span class=math>\(y\)</span>相关的函数，对<span class=math>\(y\)</span>的不同取值，条件期望的取值也在变化。可以记： <span class=math>\[
 g(y)=E(X|Y=y)
-$$
-进一步，还可以将条件期望看成是随机变量$Y$的函数，即$E(X|Y)=g(Y)$，而将$E(X|Y=y)$看成是$Y=y$时$E(X|Y)$的一个取值。从这个角度来看，<strong>$E(X|Y)$也是一个随机变量</strong>。</p>
+\]</span> 进一步，还可以将条件期望看成是随机变量<span class=math>\(Y\)</span>的函数，即<span class=math>\(E(X|Y)=g(Y)\)</span>，而将<span class=math>\(E(X|Y=y)\)</span>看成是<span class=math>\(Y=y\)</span>时<span class=math>\(E(X|Y)\)</span>的一个取值。从这个角度来看，<strong><span class=math>\(E(X|Y)\)</span>也是一个随机变量</strong>。</p>
 <p>如果条件期望也是一个随机数，那么条件期望的期望是什么呢？下面就用重期望公式做进一步说明。</p>
 <h2 id=重期望公式>重期望公式</h2>
-<p>前面提到，$g(Y)=E(X|Y)$也是一个随机变量，如果我们对其求期望，以连续函数为例,注意随机变量是$Y$：
-$$
+<p>前面提到，<span class=math>\(g(Y)=E(X|Y)\)</span>也是一个随机变量，如果我们对其求期望，以连续函数为例,注意随机变量是<span class=math>\(Y\)</span>： <span class=math>\[
 E[g(Y)]=\int_{-\infty}^\infty E(X|Y=y) p_Y(y)\mathrm{d}y
-$$
-我们将条件期望的定义（1）式代入可得：
-$$
+\]</span> 我们将条件期望的定义（1）式代入可得： <span class=math>\[
 \begin{aligned}
-E[g(Y)]&=\int_{-\infty}^\infty[\int_{-\infty}^\infty xp(x|Y=y)\mathrm{d}x];p_{<em>Y}(y)\mathrm{d}y\
-(全概率公式)&=\int</em>{-\infty}^\infty\int_{-\infty}^\infty xp(x,y)\mathrm{d}x\mathrm{d}y\
-（提出x）&=\int_{-\infty}^\infty x{\int_{-\infty}^\infty p(x,y)\mathrm{d}y}\mathrm{d}x\
-(求x的边际pdf)&=\int_{-\infty}^\infty xp_{_X}(x)\mathrm{d}x\
+E[g(Y)]&=\int_{-\infty}^\infty[\int_{-\infty}^\infty xp(x|Y=y)\mathrm{d}x]\;p_{_Y}(y)\mathrm{d}y\\
+(全概率公式)&=\int_{-\infty}^\infty\int_{-\infty}^\infty xp(x,y)\mathrm{d}x\mathrm{d}y\\
+（提出x）&=\int_{-\infty}^\infty x\{\int_{-\infty}^\infty p(x,y)\mathrm{d}y\}\mathrm{d}x\\
+(求x的边际pdf)&=\int_{-\infty}^\infty xp_{_X}(x)\mathrm{d}x\\
 &=E(X)
 \end{aligned}\tag{3}
-$$
-我们“惊讶”的发现，条件期望的期望竟然是$X$的无条件期望！由此，我们给出重期望公式：</p>
+\]</span> 我们“惊讶”的发现，条件期望的期望竟然是<span class=math>\(X\)</span>的无条件期望！由此，我们给出重期望公式：</p>
 <blockquote>
-<p>定理：（重期望公式）设$(X,Y)$是二维随机变量，且$E(X)$存在，则</p>
-<p>$$E(X)=E[E(X|Y)]$$</p>
+<p>定理：（重期望公式）设<span class=math>\((X,Y)\)</span>是二维随机变量，且<span class=math>\(E(X)\)</span>存在，则</p>
+<p><span class=math>\[E(X)=E[E(X|Y)]\]</span></p>
 </blockquote>
-<p>重期望公式是概率论中比较深刻的一个结论。我们也可以换个角度理解：我们找到一个与$X$相关的量$Y$，用$Y$的不同取值（要互斥）把$X$划分成若干小区域（场景），现在小区域上求$X$的期望或均值，然后再根据$Y$的出现概率对各个小区域的期望$E(X_{y_i})$求加权平均，即可求出整体$X$的期望。</p>
-<p>具体一些，重期望公式也可以写成如下形式：
-$$
-E(X)=\begin{cases}\sum\limits_i E(X|Y=y_i)P(Y=y_i),\qquad 离散场景\
+<p>重期望公式是概率论中比较深刻的一个结论。我们也可以换个角度理解：我们找到一个与<span class=math>\(X\)</span>相关的量<span class=math>\(Y\)</span>，用<span class=math>\(Y\)</span>的不同取值（要互斥）把<span class=math>\(X\)</span>划分成若干小区域（场景），现在小区域上求<span class=math>\(X\)</span>的期望或均值，然后再根据<span class=math>\(Y\)</span>的出现概率对各个小区域的期望<span class=math>\(E(X_{y_i})\)</span>求加权平均，即可求出整体<span class=math>\(X\)</span>的期望。</p>
+<p>具体一些，重期望公式也可以写成如下形式： <span class=math>\[
+E(X)=\begin{cases}\sum\limits_i E(X|Y=y_i)P(Y=y_i),\qquad 离散场景\\
 \int_{-\infty}^\infty E(X|Y=y)P_{_Y}(y)\mathrm{d}y,\qquad 连续场景\end{cases}
-$$</p>
+\]</span></p>
 <h3 id=随机个随机变量和的数学期望>随机个随机变量和的数学期望</h3>
-<p>设$X_1,X_2,\dotsb$为一系列独立同分布的随机变量，随机变量$N$只取正整数值，且$N$与${X_n}$独立，证明：
-$$
+<p>设<span class=math>\(X_1,X_2,\dotsb\)</span>为一系列独立同分布的随机变量，随机变量<span class=math>\(N\)</span>只取正整数值，且<span class=math>\(N\)</span>与<span class=math>\(\{X_n\}\)</span>独立，证明： <span class=math>\[
 E(\sum_{i=1}^N X_i)=E(X_1)E(N)
-$$</p>
-<p>证明：由重期望公式可知：
-$$
+\]</span></p>
+<p>证明：由重期望公式可知： <span class=math>\[
 \begin{aligned}
-E(\sum_{i=1}^N X_i)&=E[E(\sum_{i=1}^N X_i | N)]\
-&=\sum_{i=1}^\infty E(\sum_{i=1}^N X_i | N=n)P(N=n)\
-（{X_n}与N独立）&=\sum_{i=1}^\infty E(\sum_{i=1}^n X_i)P(N=n)\
-（{X_n}i.i.d）&=\sum_{i=1}^\infty nE(X_1)P(N=n)\
-&=E(X_1)\sum_{i=1}^\infty nP(N=n)\
+E(\sum_{i=1}^N X_i)&=E[E(\sum_{i=1}^N X_i | N)]\\
+&=\sum_{i=1}^\infty E(\sum_{i=1}^N X_i | N=n)P(N=n)\\
+（\{X_n\}与N独立）&=\sum_{i=1}^\infty E(\sum_{i=1}^n X_i)P(N=n)\\
+（\{X_n\}i.i.d）&=\sum_{i=1}^\infty nE(X_1)P(N=n)\\
+&=E(X_1)\sum_{i=1}^\infty nP(N=n)\\
 &=E(X_1)E(N)
 \end{aligned}
-$$</p>
+\]</span></p>
 <h2 id=条件期望的其他推论>条件期望的其他推论</h2>
 <ul>
-<li>$\mathrm{Var}(X)=E[\mathrm{Var}(X|Y)]+\mathrm{Var}[E(X|Y)]$</li>
+<li><span class=math>\(\mathrm{Var}(X)=E[\mathrm{Var}(X|Y)]+\mathrm{Var}[E(X|Y)]\)</span></li>
 </ul>
-<p>证明：
-$$
+<p>证明： <span class=math>\[
 \left .
 \begin{aligned}
-&E[\mathrm{Var}(X|Y)]=E{E(X^2|Y)-[E(X|Y)]^2}=E(X^2)-E[E^2(X|Y)]\
-\
+&E[\mathrm{Var}(X|Y)]=E\{E(X^2|Y)-[E(X|Y)]^2\}=E(X^2)-E[E^2(X|Y)]\\
+\\
 &\mathrm{Var}[E(X|Y)]=E[E^2(X|Y)]-[\underbrace{E\cdot E(X|Y)}_{E(X)}]^2=E[E^2(X|Y)]-[E(X)]^2
 \end{aligned}
-\right}\Rightarrow\
-E[\mathrm{Var}(X|Y)]+\mathrm{Var}[E(X|Y)]=E(X^2)-E[E^2(X|Y)]+E[E^2(X|Y)]-[E(X)]^2\
+\right\}\Rightarrow\\
+E[\mathrm{Var}(X|Y)]+\mathrm{Var}[E(X|Y)]=E(X^2)-E[E^2(X|Y)]+E[E^2(X|Y)]-[E(X)]^2\\
 =E(X^2)-E^2(X)=\mathrm{Var}(X)
-$$</p>
+\]</span></p>
 <ul>
-<li>$E[f(Y)|Y]=f(Y)$</li>
+<li><span class=math>\(E[f(Y)|Y]=f(Y)\)</span></li>
 </ul>
-<p>证明：
-当随机变量$Y$取到固定值$y$时（$Y=y$），就不存在随机性了。所以对于$\forall Y=y$，有
-$$
+<p>证明： 当随机变量<span class=math>\(Y\)</span>取到固定值<span class=math>\(y\)</span>时（<span class=math>\(Y=y\)</span>），就不存在随机性了。所以对于<span class=math>\(\forall Y=y\)</span>，有 <span class=math>\[
 E[f(Y)|Y=y]=E[f(Y=y)|Y=y]=E[f(y)]=f(y)
-$$
-所以，有$E[f(Y)|Y]=f(Y)$。</p>
+\]</span> 所以，有<span class=math>\(E[f(Y)|Y]=f(Y)\)</span>。</p>
 <ul>
-<li>$E[g(X)\cdot Y|X]=g(X)E[Y|X]$</li>
-<li>$E(XY)=E[X\cdot E(Y|X)]$</li>
-<li>$\mathrm{Cov}[X,E(Y|X)]=\mathrm{Cov}(X,Y)$</li>
+<li><span class=math>\(E[g(X)\cdot Y|X]=g(X)E[Y|X]\)</span></li>
+<li><span class=math>\(E(XY)=E[X\cdot E(Y|X)]\)</span></li>
+<li><span class=math>\(\mathrm{Cov}[X,E(Y|X)]=\mathrm{Cov}(X,Y)\)</span></li>
 </ul>
 </article>
 <aside class=sidebar>

@@ -88,60 +88,42 @@ Apr 22, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=海森矩阵校正---omit-in-toc--->海森矩阵校正</h2>
+<h2 id=海森矩阵校正>海森矩阵校正</h2>
 <ul>
-<li><a href=#%E6%B5%B7%E6%A3%AE%E7%9F%A9%E9%98%B5%E6%A0%A1%E6%AD%A3%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%80%9D%E8%B7%AF>海森矩阵校正的两种思路</a></li>
-<li><a href=#modified_cholesky%E5%88%86%E8%A7%A3>Modified_Cholesky分解</a></li>
+<li><a href=#海森矩阵校正的两种思路>海森矩阵校正的两种思路</a></li>
+<li><a href=#modified_cholesky分解>Modified_Cholesky分解</a></li>
 </ul>
 <h2 id=海森矩阵校正的两种思路>海森矩阵校正的两种思路</h2>
-<p>解决海森矩阵不正定问题的方法称为海森校正（Hessian Modification）。思路是让海森矩阵加上一个微小的量，使其正定，相当于用$B_k=\nabla^2f(x_k)+E_k$替代$\nabla^2f(x_k)$。其中，$E_k$为修正矩阵，需要尽可能小，以避免修改后的方向$d_k=-B_k^{-1}g_k$与牛顿方向$-H_k^{-1}g_k$相差太远。</p>
-<p>我们知道令$B_k=\nabla^2f(x_k)+v_kI$，当 $v_k>|\lambda_1|$时，$B_k$正定。其中$\lambda_1$是$\nabla^2f(x_k)$最小的特征值。因此可以得到$E_k=\tau I$，其中$\tau=\max{0,\delta-\lambda_1}$，<strong>$\delta$是一个略大于零的常数</strong>。这样原矩阵加上了一个标量乘以单位矩阵，所有特征值都大于零，$B_k$正定。</p>
-<p>但是这种方法不是改动最小的方案，如果我们做的更精细一些：对于任意对称矩阵$A$，可以将其分解为$A=Q\Lambda Q^T$，其中$\Lambda$是由$A$的特征值组成的对角矩阵。如果我们令$A'=Q(\Lambda+\mathop{diag(\tau_i)})Q^T$，其中$\tau_i$由$\lambda_i$确定，并满足
-$$\tau_i=\begin{cases}
-0,&\lambda_i>\delta\
+<p>解决海森矩阵不正定问题的方法称为海森校正（Hessian Modification）。思路是让海森矩阵加上一个微小的量，使其正定，相当于用<span class=math>\(B_k=\nabla^2f(x_k)+E_k\)</span>替代<span class=math>\(\nabla^2f(x_k)\)</span>。其中，<span class=math>\(E_k\)</span>为修正矩阵，需要尽可能小，以避免修改后的方向<span class=math>\(d_k=-B_k^{-1}g_k\)</span>与牛顿方向<span class=math>\(-H_k^{-1}g_k\)</span>相差太远。</p>
+<p>我们知道令<span class=math>\(B_k=\nabla^2f(x_k)+v_kI\)</span>，当 <span class=math>\(v_k>|\lambda_1|\)</span>时，<span class=math>\(B_k\)</span>正定。其中<span class=math>\(\lambda_1\)</span>是<span class=math>\(\nabla^2f(x_k)\)</span>最小的特征值。因此可以得到<span class=math>\(E_k=\tau I\)</span>，其中<span class=math>\(\tau=\max\{0,\delta-\lambda_1\}\)</span>，<strong><span class=math>\(\delta\)</span>是一个略大于零的常数</strong>。这样原矩阵加上了一个标量乘以单位矩阵，所有特征值都大于零，<span class=math>\(B_k\)</span>正定。</p>
+<p>但是这种方法不是改动最小的方案，如果我们做的更精细一些：对于任意对称矩阵<span class=math>\(A\)</span>，可以将其分解为<span class=math>\(A=Q\Lambda Q^T\)</span>，其中<span class=math>\(\Lambda\)</span>是由<span class=math>\(A\)</span>的特征值组成的对角矩阵。如果我们令<span class=math>\(A'=Q(\Lambda+\mathop{diag(\tau_i)})Q^T\)</span>，其中<span class=math>\(\tau_i\)</span>由<span class=math>\(\lambda_i\)</span>确定，并满足 <span class=math>\[\tau_i=\begin{cases}
+0,&\lambda_i>\delta\\
 \delta-\lambda_i,&\lambda_i&lt;\delta
-\end{cases}$$
-这意味着直接修改$A$的特征值，将所有小于$\delta$的特征值调整到$\delta$，从而保证$A'$的正定性。该方法相当于令$E_k=Q\mathop{diag(\tau_i)}Q^T$。</p>
-<p>这两种方法都是根据特征值确定$E_k$，哪种更好呢？</p>
-<p>其实说不上哪个更好，本质上，他们是<strong>在不同范数约束下的最优结果</strong>。前面提到，我们希望$E_k$越小越好，因此可以用矩阵范数来衡量$E_k$的大小。第一种方案其实是在欧氏范数下的最小改动，因为$||E_k||=||\tau I||=\tau$，不存在使$||E_k||$更小的其它$\tau$。第二种方案则是在Frobenius范数下的最小改动。Frobenius范数定义为
-$$||A||<em>F=\bigg(\sum</em>{i=1}^m\sum_{j=1}^na_{ij}^2\bigg)^{1/2}$$
-即所有矩阵元素的平方和再开根号，该范数刻画了矩阵所有元素值的大小。在该定义下，
-$$||E_k||_F=||Q\mathop{diag(\tau_i)}Q^T||_F\
-=||\mathop{diag(\tau_i)}||_F=\sqrt{\sum_i^N \tau_i^2}$$
-第二行去掉了矩阵$Q$和$Q^T$，因为实对称矩阵的特征向量构成的矩阵$Q$是正交矩阵，而正交矩阵相当于旋转，不改变Frobenius范数。容易验证，第一种方案的Frobenius范数为$||\tau I||_F=\sqrt{N}\tau$，做个简单的放缩就能发现$\sqrt{\sum_i^N \tau_i^2}≤\sqrt{N}\tau$，所以第二种方案是Frobenius范数下的最小改动。</p>
-<p>了解上面两种方法，其实并不能在实际中帮上忙。<strong>因为海森矩阵的特征值我们根本无从得知，那是一个需要花大代价才能知道的数字</strong>。在实际中，我们一般采取$E_k=\tau I$这种方案，但不通过特征向量确定$\tau$，而是以迭代的方式<strong>把可行的$\tau$试出来</strong>。</p>
-<p>具体怎么做呢？我们可以先从一个稍小的数开始尝试，比如令$\tau_0=||A||_F/2$，在每次迭代中对校正后的海森矩阵进行Cholesky分解，
-$$LL^T=A+\tau_k I=B_k$$
-如果分解成功，那么分解的结果$L$就可以用来快速求解式$B_kd_k=-g_k$。如果分解失败，那么将$\tau_k$扩大一倍，进入下一次尝试，直到分解成功。</p>
+\end{cases}\]</span> 这意味着直接修改<span class=math>\(A\)</span>的特征值，将所有小于<span class=math>\(\delta\)</span>的特征值调整到<span class=math>\(\delta\)</span>，从而保证<span class=math>\(A'\)</span>的正定性。该方法相当于令<span class=math>\(E_k=Q\mathop{diag(\tau_i)}Q^T\)</span>。</p>
+<p>这两种方法都是根据特征值确定<span class=math>\(E_k\)</span>，哪种更好呢？</p>
+<p>其实说不上哪个更好，本质上，他们是<strong>在不同范数约束下的最优结果</strong>。前面提到，我们希望<span class=math>\(E_k\)</span>越小越好，因此可以用矩阵范数来衡量<span class=math>\(E_k\)</span>的大小。第一种方案其实是在欧氏范数下的最小改动，因为<span class=math>\(||E_k||=||\tau I||=\tau\)</span>，不存在使<span class=math>\(||E_k||\)</span>更小的其它<span class=math>\(\tau\)</span>。第二种方案则是在Frobenius范数下的最小改动。Frobenius范数定义为 <span class=math>\[||A||_F=\bigg(\sum_{i=1}^m\sum_{j=1}^na_{ij}^2\bigg)^{1/2}\]</span> 即所有矩阵元素的平方和再开根号，该范数刻画了矩阵所有元素值的大小。在该定义下， <span class=math>\[||E_k||_F=||Q\mathop{diag(\tau_i)}Q^T||_F\\
+=||\mathop{diag(\tau_i)}||_F=\sqrt{\sum_i^N \tau_i^2}\]</span> 第二行去掉了矩阵<span class=math>\(Q\)</span>和<span class=math>\(Q^T\)</span>，因为实对称矩阵的特征向量构成的矩阵<span class=math>\(Q\)</span>是正交矩阵，而正交矩阵相当于旋转，不改变Frobenius范数。容易验证，第一种方案的Frobenius范数为<span class=math>\(||\tau I||_F=\sqrt{N}\tau\)</span>，做个简单的放缩就能发现<span class=math>\(\sqrt{\sum_i^N \tau_i^2}≤\sqrt{N}\tau\)</span>，所以第二种方案是Frobenius范数下的最小改动。</p>
+<p>了解上面两种方法，其实并不能在实际中帮上忙。<strong>因为海森矩阵的特征值我们根本无从得知，那是一个需要花大代价才能知道的数字</strong>。在实际中，我们一般采取<span class=math>\(E_k=\tau I\)</span>这种方案，但不通过特征向量确定<span class=math>\(\tau\)</span>，而是以迭代的方式<strong>把可行的<span class=math>\(\tau\)</span>试出来</strong>。</p>
+<p>具体怎么做呢？我们可以先从一个稍小的数开始尝试，比如令<span class=math>\(\tau_0=||A||_F/2\)</span>，在每次迭代中对校正后的海森矩阵进行Cholesky分解， <span class=math>\[LL^T=A+\tau_k I=B_k\]</span> 如果分解成功，那么分解的结果<span class=math>\(L\)</span>就可以用来快速求解式<span class=math>\(B_kd_k=-g_k\)</span>。如果分解失败，那么将<span class=math>\(\tau_k\)</span>扩大一倍，进入下一次尝试，直到分解成功。</p>
 <h2 id=modified_cholesky分解>Modified_Cholesky分解</h2>
 <p>对海森矩阵进行校正，即叠加一个小矩阵，使其正定。但是海森校正苦于无法得知特征值的大小，只能多试几次，试的次数越多，浪费的时间就越多。</p>
 <p>但问题难不倒聪明的研究者，有人提出了一种新的海森校正方法，称为<strong>modified Cholesky分解，可以在做Cholesky分解的过程中调整原矩阵的值，不需要迭代，不需要试错，分解完毕后直接得到新的正定海森矩阵</strong>。让我们看看这种方法是如何实现的。</p>
-<p>对于任意一个正定对称矩阵，一定可以分解为如下形式
-$$A=LDL^T$$
-其中，$L$是对角线元素全为1的下三角矩阵，$D$是对角矩阵。为了直观地解释分解的过程，我们以3×3对称矩阵为例
-$$\begin{bmatrix}
-a_{11}&a_{21}&a_{31}\
-a_{21}&a_{22}&a_{32}\
+<p>对于任意一个正定对称矩阵，一定可以分解为如下形式 <span class=math>\[A=LDL^T\]</span> 其中，<span class=math>\(L\)</span>是对角线元素全为1的下三角矩阵，<span class=math>\(D\)</span>是对角矩阵。为了直观地解释分解的过程，我们以3×3对称矩阵为例 <span class=math>\[\begin{bmatrix}
+a_{11}&a_{21}&a_{31}\\
+a_{21}&a_{22}&a_{32}\\
 a_{31}&a_{32}&a_{33}
 \end{bmatrix}=
-\begin{bmatrix}1&0&0\l_{21}&1&0\l_{31}&l_{32}&1\end{bmatrix}
-\begin{bmatrix}d_1&0&0\0&d_2&0\0&0&d_3\end{bmatrix}
-\begin{bmatrix}1&l_{21}&l_{31}\0&1&l_{32}\0&0&1\end{bmatrix}\
-=\begin{bmatrix}d_1&l_{21}d_1&l_{31}d_1\l_{21}d_1&l_{21}^2d_1+d_2&l_{31}l_{21}d_1+l_{32}d_2\l_{31}d_1&l_{31}l_{21}d_1+l_{32}d_2&l_{31}^2d_1+l_{32}^2d_2+d_3\end{bmatrix}$$
-令等号左右第一列相等，可以得到
-$$d_1=a_{11}\
-l_{21}=a_{21}/d_1\
-l_{31}=a_{31}/d_1$$
-再令第二列、第三列相等，可以得到
-$$d_2=a_{22}-l_{21}^2d_1\
-l_{32}=(a_{32}-l_{31}l_{21}d_1)/d_2\
-d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2$$</p>
-<p>如果矩阵$A$不正定，那么计算出的$d_i$很可能是负的，同时导致$L$矩阵的元素值不稳定，很可能过大。也就是说，分解成$LDL^T$形式后再修改$d_i$的值已经来不及了，我们需要在分解的过程中随时修改$d_i$。以上面的例子为例，如果$d_1$和$d_2$都是正数，而$d_3$是个负数，那么我们就直接把$d_3$替换为一个正数。由于$d_3$是最后一步算出来的，所以它的改变不影响其它分解结果。但假设另一种情况，$d_1$是正数，$d_2$就已经是负数了，这时我们仍然直接把$d_2$替换为正数，不过这会影响下一步$l_{32}$的计算，所以这种情况下$L$矩阵会随之改变。</p>
-<p>为什么要这样做呢？回到我们最初的目标，如果$A$不正定，我们想要找到一个正定矩阵$A'=A+E$来替代$A$，这样一来，虽然$A=LDL^T$可能不存在，但我们可以找到使$A'=L'D'L'^T$成立的$A'$。上面的分解步骤相当于找到了一个$A'=L'(D+diag(\tau_i))L'^T$，其中$\tau_i=\begin{cases}
-0,&d_i>\delta\
-\delta-d_i,&d_i&lt;\delta
-\end{cases}$。</p>
-<p>到这里还没完，这一方法有一个神奇的性质，$L'D'L'^T=LDL^T+diag(\tau_i)$恒成立，即$A'=A+diag(\tau_i)$。我们在$D$的对角线元素上的改动竟然直接相当于修改$A$的对角线元素，同时保持非对角线元素不变。这个性质非常完美，可以最大限度地保留$A$本身的值，只对某些对角线元素做微小的修改，它的改动最小，也最高效。至于为什么会存在这样的性质，观察上面的推导，可以发现$A$的非对角线元素都包含$l_{ij}d_i$项，而这一项在整个推导过程中其实是不变的。</p>
+\begin{bmatrix}1&0&0\\l_{21}&1&0\\l_{31}&l_{32}&1\end{bmatrix}
+\begin{bmatrix}d_1&0&0\\0&d_2&0\\0&0&d_3\end{bmatrix}
+\begin{bmatrix}1&l_{21}&l_{31}\\0&1&l_{32}\\0&0&1\end{bmatrix}\\
+=\begin{bmatrix}d_1&l_{21}d_1&l_{31}d_1\\l_{21}d_1&l_{21}^2d_1+d_2&l_{31}l_{21}d_1+l_{32}d_2\\l_{31}d_1&l_{31}l_{21}d_1+l_{32}d_2&l_{31}^2d_1+l_{32}^2d_2+d_3\end{bmatrix}\]</span> 令等号左右第一列相等，可以得到 <span class=math>\[d_1=a_{11}\\
+l_{21}=a_{21}/d_1\\
+l_{31}=a_{31}/d_1\]</span> 再令第二列、第三列相等，可以得到 <span class=math>\[d_2=a_{22}-l_{21}^2d_1\\
+l_{32}=(a_{32}-l_{31}l_{21}d_1)/d_2\\
+d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]</span></p>
+<p>如果矩阵<span class=math>\(A\)</span>不正定，那么计算出的<span class=math>\(d_i\)</span>很可能是负的，同时导致<span class=math>\(L\)</span>矩阵的元素值不稳定，很可能过大。也就是说，分解成<span class=math>\(LDL^T\)</span>形式后再修改<span class=math>\(d_i\)</span>的值已经来不及了，我们需要在分解的过程中随时修改<span class=math>\(d_i\)</span>。以上面的例子为例，如果<span class=math>\(d_1\)</span>和<span class=math>\(d_2\)</span>都是正数，而<span class=math>\(d_3\)</span>是个负数，那么我们就直接把<span class=math>\(d_3\)</span>替换为一个正数。由于<span class=math>\(d_3\)</span>是最后一步算出来的，所以它的改变不影响其它分解结果。但假设另一种情况，<span class=math>\(d_1\)</span>是正数，<span class=math>\(d_2\)</span>就已经是负数了，这时我们仍然直接把<span class=math>\(d_2\)</span>替换为正数，不过这会影响下一步<span class=math>\(l_{32}\)</span>的计算，所以这种情况下<span class=math>\(L\)</span>矩阵会随之改变。</p>
+<p>为什么要这样做呢？回到我们最初的目标，如果<span class=math>\(A\)</span>不正定，我们想要找到一个正定矩阵<span class=math>\(A'=A+E\)</span>来替代<span class=math>\(A\)</span>，这样一来，虽然<span class=math>\(A=LDL^T\)</span>可能不存在，但我们可以找到使<span class=math>\(A'=L'D'L'^T\)</span>成立的<span class=math>\(A'\)</span>。上面的分解步骤相当于找到了一个<span class=math>\(A'=L'(D+diag(\tau_i))L'^T\)</span>，其中<span class=math>\(\tau_i=\begin{cases} 0,&d_i>\delta\\ \delta-d_i,&d_i&lt;\delta \end{cases}\)</span>。</p>
+<p>到这里还没完，这一方法有一个神奇的性质，<span class=math>\(L'D'L'^T=LDL^T+diag(\tau_i)\)</span>恒成立，即<span class=math>\(A'=A+diag(\tau_i)\)</span>。我们在<span class=math>\(D\)</span>的对角线元素上的改动竟然直接相当于修改<span class=math>\(A\)</span>的对角线元素，同时保持非对角线元素不变。这个性质非常完美，可以最大限度地保留<span class=math>\(A\)</span>本身的值，只对某些对角线元素做微小的修改，它的改动最小，也最高效。至于为什么会存在这样的性质，观察上面的推导，可以发现<span class=math>\(A\)</span>的非对角线元素都包含<span class=math>\(l_{ij}d_i\)</span>项，而这一项在整个推导过程中其实是不变的。</p>
 <p>由于篇幅有限，modified Cholesky的实际操作上的细节我们就不展开讲了。</p>
 </article>
 <aside class=sidebar>

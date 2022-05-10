@@ -88,78 +88,60 @@ Apr 19, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=线性代数与矩阵之对称矩阵---omit-in-toc--->线性代数与矩阵之对称矩阵</h2>
+<h2 id=线性代数与矩阵之对称矩阵>线性代数与矩阵之对称矩阵</h2>
 <ul>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5>对称矩阵</a></li>
-<li><a href=#%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8>简单性质</a></li>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E7%9A%84%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F>对称矩阵的特征值与特征向量</a></li>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E7%9A%84%E5%88%86%E8%A7%A3>对称矩阵的分解</a>
+<li><a href=#对称矩阵>对称矩阵</a></li>
+<li><a href=#简单性质>简单性质</a></li>
+<li><a href=#对称矩阵的特征值与特征向量>对称矩阵的特征值与特征向量</a></li>
+<li><a href=#对称矩阵的分解>对称矩阵的分解</a></li>
+<li><a href=#一定可以谱分解>一定可以谱分解</a></li>
+<li><a href=#cholesky分解>Cholesky分解</a>
 <ul>
-<li><a href=#%E4%B8%80%E5%AE%9A%E5%8F%AF%E4%BB%A5%E8%B0%B1%E5%88%86%E8%A7%A3>一定可以谱分解</a></li>
-<li><a href=#cholesky%E5%88%86%E8%A7%A3>Cholesky分解</a>
-<ul>
-<li><a href=#%E5%88%86%E8%A7%A3%E5%94%AF%E4%B8%80%E6%80%A7>分解唯一性</a></li>
-<li><a href=#%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95>分解方法</a></li>
-</ul>
-</li>
-<li><a href=#cholesky%E5%88%86%E8%A7%A3%E5%8F%98%E5%BD%A2ldl%E5%88%86%E8%A7%A3>Cholesky分解变形——LDL分解</a></li>
-</ul>
-</li>
-<li><a href=#svd%E5%88%86%E8%A7%A3%E7%AD%89%E4%BA%8E%E8%B0%B1%E5%88%86%E8%A7%A3>SVD分解等于谱分解</a></li>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E7%9A%84%E5%90%88%E5%90%8C%E6%80%A7>对称矩阵的合同性</a></li>
-<li><a href=#%E6%AD%A3%E5%AE%9A%E6%80%A7>正定性</a></li>
-<li><a href=#%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5%E7%9A%84%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F%E4%B8%A4%E4%B8%A4%E6%AD%A3%E4%BA%A4%E7%9A%84%E8%AF%81%E6%98%8E>对称矩阵的特征向量两两正交的证明</a></li>
+<li><a href=#分解唯一性>分解唯一性</a></li>
+<li><a href=#分解方法>分解方法</a></li>
+</ul></li>
+<li><a href=#cholesky分解变形ldl分解>Cholesky分解变形——LDL分解</a></li>
+<li><a href=#svd分解等于谱分解>SVD分解等于谱分解</a></li>
+<li><a href=#对称矩阵的合同性>对称矩阵的合同性</a></li>
+<li><a href=#正定性>正定性</a></li>
+<li><a href=#对称矩阵的特征向量两两正交的证明>对称矩阵的特征向量两两正交的证明</a></li>
 </ul>
 <h2 id=对称矩阵>对称矩阵</h2>
-<p>在线性代数中，对称矩阵（英语：symmetric matrix）是一个方形矩阵，其<strong>转置矩阵和自身相等</strong>。
-$$A = A^{\textrm{T}}$$
-对称矩阵中的右上至左下方向元素以主对角线（左上至右下）为轴进行对称。若将其写作$A = (a_{ij})$，则对所有的$i和j$，
-$$a_{ij}=a_{ji}.$$
-下列是3×3的对称矩阵：
-$$\begin{bmatrix}
-1 & 2 & 3\
-2 & 4 & -5\
-3 & -5 & 6\end{bmatrix}$$
-下列是<strong>斜对称矩阵</strong>（英语：skew-symmetric matrix，又称<strong>反对称矩阵</strong>，英语：antisymmetric matrix）：
-$$\begin{bmatrix}
-0 & -3 & 4\
-3 & 0 & -5\
--4 & 5 & 0\end{bmatrix}$$</p>
+<p>在线性代数中，对称矩阵（英语：symmetric matrix）是一个方形矩阵，其<strong>转置矩阵和自身相等</strong>。 <span class=math>\[A = A^{\textrm{T}}\]</span> 对称矩阵中的右上至左下方向元素以主对角线（左上至右下）为轴进行对称。若将其写作<span class=math>\(A = (a_{ij})\)</span>，则对所有的<span class=math>\(i和j\)</span>， <span class=math>\[a_{ij}=a_{ji}.\]</span> 下列是3×3的对称矩阵： <span class=math>\[\begin{bmatrix}
+1 & 2 & 3\\
+2 & 4 & -5\\
+3 & -5 & 6\end{bmatrix}\]</span> 下列是<strong>斜对称矩阵</strong>（英语：skew-symmetric matrix，又称<strong>反对称矩阵</strong>，英语：antisymmetric matrix）： <span class=math>\[\begin{bmatrix}
+0 & -3 & 4\\
+3 & 0 & -5\\
+-4 & 5 & 0\end{bmatrix}\]</span></p>
 <h2 id=简单性质>简单性质</h2>
 <ul>
-<li>对于任何方形矩阵$X$，$X+X^T$是对称矩阵。（此外，对称矩阵的和也是对称矩阵。）</li>
-<li>$A$为方形矩阵是$A$为对称矩阵的<strong>必要条件</strong>，即对称矩阵行数必等于列数（显而易见）。</li>
+<li>对于任何方形矩阵<span class=math>\(X\)</span>，<span class=math>\(X+X^T\)</span>是对称矩阵。（此外，对称矩阵的和也是对称矩阵。）</li>
+<li><span class=math>\(A\)</span>为方形矩阵是<span class=math>\(A\)</span>为对称矩阵的<strong>必要条件</strong>，即对称矩阵行数必等于列数（显而易见）。</li>
 <li>对角矩阵都是对称矩阵（显而易见）。</li>
 <li>每个实方形矩阵都可写作<strong>两个实对称矩阵的积</strong>，每个复方形矩阵都可写作<strong>两个复对称矩阵的积</strong>。（神奇，未曾自己证明）</li>
-<li>若对称矩阵$A$的每个元素均为<strong>实数</strong>，$A$是实对称矩阵。</li>
+<li>若对称矩阵<span class=math>\(A\)</span>的每个元素均为<strong>实数</strong>，<span class=math>\(A\)</span>是实对称矩阵。</li>
 <li>一个矩阵同时为对称矩阵及斜对称矩阵当且仅当所有元素都是零。（显而易见）</li>
-<li>如果X是对称矩阵，那么$AXA^T$ 也是对称矩阵.证明：$(AXA^T)^T=(A^T)^TX^TA^T=AX^TA^T;\because X^T=X;\therefore AX^TA^T=AXA^T.$</li>
+<li>如果X是对称矩阵，那么<span class=math>\(AXA^T\)</span> 也是对称矩阵.证明：<span class=math>\((AXA^T)^T=(A^T)^TX^TA^T=AX^TA^T;\because X^T=X;\therefore AX^TA^T=AXA^T.\)</span></li>
 </ul>
 <h2 id=对称矩阵的特征值与特征向量>对称矩阵的特征值与特征向量</h2>
 <h2 id=对称矩阵的分解>对称矩阵的分解</h2>
 <h3 id=一定可以谱分解>一定可以谱分解</h3>
 <h3 id=cholesky分解>Cholesky分解</h3>
 <p>Cholesky分解是正定埃尔米特矩阵的LU分解。</p>
-<p>Cholesky分解是指将一个<strong>正定的埃尔米特矩阵</strong>分解成一个<strong>下三角矩阵与其共轭转置之乘积</strong>。
-$$\mathbf A=\mathbf L\mathbf L^\ast$$
-当矩阵$\mathbf{A}$是一个<strong>半正定</strong>的埃尔米特矩阵，若允许$\mathbf {L}$的对角线元素为<strong>零</strong>，则$\mathbf{A}$也存在上述形式的分解。</p>
-<p>当$\mathbf{A}$为实数矩阵，则$\mathbf {L}$也为实数矩阵且Cholesky分解可改写成
-$$\mathbf {A} =\mathbf {LL} ^{\mathbf {T} }$$</p>
+<p>Cholesky分解是指将一个<strong>正定的埃尔米特矩阵</strong>分解成一个<strong>下三角矩阵与其共轭转置之乘积</strong>。 <span class=math>\[\mathbf A=\mathbf L\mathbf L^\ast\]</span> 当矩阵<span class=math>\(\mathbf{A}\)</span>是一个<strong>半正定</strong>的埃尔米特矩阵，若允许<span class=math>\(\mathbf {L}\)</span>的对角线元素为<strong>零</strong>，则<span class=math>\(\mathbf{A}\)</span>也存在上述形式的分解。</p>
+<p>当<span class=math>\(\mathbf{A}\)</span>为实数矩阵，则<span class=math>\(\mathbf {L}\)</span>也为实数矩阵且Cholesky分解可改写成 <span class=math>\[\mathbf {A} =\mathbf {LL} ^{\mathbf {T} }\]</span></p>
 <h4 id=分解唯一性>分解唯一性</h4>
-<p>当$\mathbf{A}$是<strong>正定</strong>矩阵时，Cholesky分解是<strong>唯一</strong>的，即只存在一个对角元素均严格大于零的下三角矩阵，使$\mathbf {A} =\mathbf {LL} ^{*}$成立。然而，当$\mathbf{A}$是<strong>半正定</strong>时，分解则<strong>不一定</strong>是唯一的。</p>
-<p>定理的逆命题自然成立：对于某些可逆矩阵$\mathbf {L}$（下三角矩阵或其他矩阵），如果$\mathbf{A}$可被写成$\mathbf {LL} ^{*}$，则$\mathbf{A}$是一个正定的埃尔米特矩阵。</p>
+<p>当<span class=math>\(\mathbf{A}\)</span>是<strong>正定</strong>矩阵时，Cholesky分解是<strong>唯一</strong>的，即只存在一个对角元素均严格大于零的下三角矩阵，使<span class=math>\(\mathbf {A} =\mathbf {LL} ^{*}\)</span>成立。然而，当<span class=math>\(\mathbf{A}\)</span>是<strong>半正定</strong>时，分解则<strong>不一定</strong>是唯一的。</p>
+<p>定理的逆命题自然成立：对于某些可逆矩阵<span class=math>\(\mathbf {L}\)</span>（下三角矩阵或其他矩阵），如果<span class=math>\(\mathbf{A}\)</span>可被写成<span class=math>\(\mathbf {LL} ^{*}\)</span>，则<span class=math>\(\mathbf{A}\)</span>是一个正定的埃尔米特矩阵。</p>
 <h4 id=分解方法>分解方法</h4>
 <p>Cholesky分解是LU分解的高斯消元法改进。</p>
 <p>这种分解方式在提高代数运算效率、蒙特卡罗方法等场合中十分有用。实数矩阵的Cholesky分解由安德烈·路易·科列斯基（英语：André-Louis Cholesky）最先发明。实际应用中，Cholesky分解在求解线性方程组中的效率约两倍于LU分解。</p>
 <h3 id=cholesky分解变形ldl分解>Cholesky分解变形——LDL分解</h3>
-<p>经典Cholesky分解的一个变形是LDL分解，即
-$$\mathbf {A} =\mathbf {LDL} ^{*}$$
-其中，$\mathbf {L}$是一个单位下三角矩阵，$\mathbf {D}$是一个对角矩阵。</p>
+<p>经典Cholesky分解的一个变形是LDL分解，即 <span class=math>\[\mathbf {A} =\mathbf {LDL} ^{*}\]</span> 其中，<span class=math>\(\mathbf {L}\)</span>是一个单位下三角矩阵，<span class=math>\(\mathbf {D}\)</span>是一个对角矩阵。</p>
 <p>该分解与经典Cholesky分解犹有关系，如下：</p>
-<p>$$\mathbf {A} =\mathbf {LDL} ^{<em>}=\mathbf {LD} ^{\frac {1}{2}}(\mathbf {D} ^{\frac {1}{2}})^{</em>}\mathbf {L} ^{<em>}=\mathbf {LD} ^{\frac {1}{2}}(\mathbf {LD} ^{\frac {1}{2}})^{</em>}$$</p>
-<p>LDL变形如果得以有效运行，构造及使用时所需求的空间及计算的复杂性与经典Cholesky分解是相同的，但是可避免提取平方根。某些不存在Cholesky分解的不定矩阵，也可以运行LDL分解，$\mathbf {D}$中会出现负数元素。因此人们更倾向于使用LDL分解。对于实数矩阵，该种分解的形式可被改写成
-$$\mathbf {A} =\mathbf {LDL} ^{\mathbf {T} }$$
-此形式通常称为LDLT分解（或LDLT分解）。它与实对称矩阵的特征分解密切相关，因为对于实对称矩阵，存在特征分解$\mathbf {A} =\mathbf {Q\Lambda Q}^T$。</p>
+<p><span class=math>\[\mathbf {A} =\mathbf {LDL} ^{*}=\mathbf {LD} ^{\frac {1}{2}}(\mathbf {D} ^{\frac {1}{2}})^{*}\mathbf {L} ^{*}=\mathbf {LD} ^{\frac {1}{2}}(\mathbf {LD} ^{\frac {1}{2}})^{*}\]</span></p>
+<p>LDL变形如果得以有效运行，构造及使用时所需求的空间及计算的复杂性与经典Cholesky分解是相同的，但是可避免提取平方根。某些不存在Cholesky分解的不定矩阵，也可以运行LDL分解，<span class=math>\(\mathbf {D}\)</span>中会出现负数元素。因此人们更倾向于使用LDL分解。对于实数矩阵，该种分解的形式可被改写成 <span class=math>\[\mathbf {A} =\mathbf {LDL} ^{\mathbf {T} }\]</span> 此形式通常称为LDLT分解（或LDLT分解）。它与实对称矩阵的特征分解密切相关，因为对于实对称矩阵，存在特征分解<span class=math>\(\mathbf {A} =\mathbf {Q\Lambda Q}^T\)</span>。</p>
 <h2 id=svd分解等于谱分解>SVD分解等于谱分解</h2>
 <h2 id=对称矩阵的合同性>对称矩阵的合同性</h2>
 <h2 id=正定性>正定性</h2>

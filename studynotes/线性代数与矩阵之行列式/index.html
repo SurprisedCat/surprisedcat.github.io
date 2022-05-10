@@ -88,47 +88,34 @@ Apr 23, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=行列式---omit-in-toc--->行列式</h2>
+<h2 id=行列式>行列式</h2>
 <ul>
-<li><a href=#%E8%A1%8C%E5%88%97%E5%BC%8F%E7%9A%84%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89>行列式的几何意义</a></li>
-<li><a href=#%E8%A1%8C%E5%88%97%E5%BC%8F%E8%AE%A1%E7%AE%97>行列式计算</a>
-<ul>
-<li><a href=#k%E9%98%B6%E5%AD%90%E5%BC%8F>K阶子式</a></li>
-<li><a href=#k%E9%98%B6%E4%B8%BB%E5%AD%90%E5%BC%8F>K阶主子式</a></li>
-<li><a href=#%E9%A1%BA%E5%BA%8F%E4%B8%BB%E5%AD%90%E5%BC%8F>顺序主子式</a></li>
-<li><a href=#%E4%BD%99%E5%AD%90%E5%BC%8F%E5%92%8C%E4%BB%A3%E6%95%B0%E4%BD%99%E5%AD%90%E5%BC%8F>余子式和代数余子式</a></li>
-<li><a href=#%E4%BD%99%E5%9B%A0%E5%AD%90%E7%9F%A9%E9%98%B5%E4%B8%8E%E4%BC%B4%E9%9A%8F%E7%9F%A9%E9%98%B5>余因子矩阵与伴随矩阵</a></li>
-</ul>
-</li>
+<li><a href=#行列式的几何意义>行列式的几何意义</a></li>
+<li><a href=#行列式计算>行列式计算</a></li>
+<li><a href=#k阶子式>K阶子式</a></li>
+<li><a href=#k阶主子式>K阶主子式</a></li>
+<li><a href=#顺序主子式>顺序主子式</a></li>
+<li><a href=#余子式和代数余子式>余子式和代数余子式</a></li>
+<li><a href=#余因子矩阵与伴随矩阵>余因子矩阵与伴随矩阵</a></li>
 </ul>
 <h2 id=行列式的几何意义>行列式的几何意义</h2>
 <p>行列式看起来计算非常复杂，但是有十分明确的几何意义。行列式可以看做是有向面积或体积的概念在一般的欧几里得空间中的推广。或者说，在欧几里得空间中，行列式描述的是一个线性变换对“体积”所造成的影响。</p>
-<p>当作为一个N维空间的标准基$E=(\vec{e_1},\vec{e_2},\dotsb,\vec{e_N})$，其中$\vec{e_i}$是N维单位列向量，经过一个线性变换矩阵$M$后，其单位“体积”有原来的1变成了$\det(M)$。即行列式反映了矩阵对线性空间的拉伸效果。此外，行列式也等同于矩阵$M$的各个分向量$M=(\vec{m_1},\vec{m_2},\dotsb,\vec{m_N})$所围成的N维方体的“体积”，其中$\vec{m_i}$是N维列向量。</p>
-<p>在二维空间中，行列式的值是2个2维向量组成的平行四边形的面积。$\det (M_{2\times 2})=\vec{m_1}\times \vec{m_2}=||\vec{m_1}||_2||\vec{m_2}||<em>2\sin\theta$，其中$\times$表示叉乘或外积，$\theta$是向量$\vec{m_1}$逆时针转到$\vec{m_2}$的角度。显然，有$\vec{m_1}\times \vec{m_2}=-\vec{m_2}\times \vec{m_1}$。这其实有些不准确，因为叉乘的结果是一个垂直于此二维平面的向量，面积大小等于$\det (M</em>{2\times 2})$。疑问：这还是二维空间向量吗？</p>
-<p>在三维空间中，行列式的值是3个3维向量组成的平行六面体的体积。$\det (M_{3\times 3})=(\vec{m_1}\times \vec{m_2})\cdot \vec{m_3}$，其中$\times$表示叉乘或外积，$\cdot$表示点积或内积，在一起称为<strong>混合积</strong>。从几何角度很好理解混合积，就是求体积。前面的叉乘的计算出大小是组成的平行六面体底面积大小，其向量方向就是平行六面体高的方向，后面的点积是第三个向量在高上的投影，计算结果最终就是：底面积×高=平行六面体的体积。</p>
+<p>当作为一个N维空间的标准基<span class=math>\(E=(\vec{e_1},\vec{e_2},\dotsb,\vec{e_N})\)</span>，其中<span class=math>\(\vec{e_i}\)</span>是N维单位列向量，经过一个线性变换矩阵<span class=math>\(M\)</span>后，其单位“体积”有原来的1变成了<span class=math>\(\det(M)\)</span>。即行列式反映了矩阵对线性空间的拉伸效果。此外，行列式也等同于矩阵<span class=math>\(M\)</span>的各个分向量<span class=math>\(M=(\vec{m_1},\vec{m_2},\dotsb,\vec{m_N})\)</span>所围成的N维方体的“体积”，其中<span class=math>\(\vec{m_i}\)</span>是N维列向量。</p>
+<p>在二维空间中，行列式的值是2个2维向量组成的平行四边形的面积。<span class=math>\(\det (M_{2\times 2})=\vec{m_1}\times \vec{m_2}=||\vec{m_1}||_2||\vec{m_2}||_2\sin\theta\)</span>，其中<span class=math>\(\times\)</span>表示叉乘或外积，<span class=math>\(\theta\)</span>是向量<span class=math>\(\vec{m_1}\)</span>逆时针转到<span class=math>\(\vec{m_2}\)</span>的角度。显然，有<span class=math>\(\vec{m_1}\times \vec{m_2}=-\vec{m_2}\times \vec{m_1}\)</span>。这其实有些不准确，因为叉乘的结果是一个垂直于此二维平面的向量，面积大小等于<span class=math>\(\det (M_{2\times 2})\)</span>。疑问：这还是二维空间向量吗？</p>
+<p>在三维空间中，行列式的值是3个3维向量组成的平行六面体的体积。<span class=math>\(\det (M_{3\times 3})=(\vec{m_1}\times \vec{m_2})\cdot \vec{m_3}\)</span>，其中<span class=math>\(\times\)</span>表示叉乘或外积，<span class=math>\(\cdot\)</span>表示点积或内积，在一起称为<strong>混合积</strong>。从几何角度很好理解混合积，就是求体积。前面的叉乘的计算出大小是组成的平行六面体底面积大小，其向量方向就是平行六面体高的方向，后面的点积是第三个向量在高上的投影，计算结果最终就是：底面积×高=平行六面体的体积。</p>
 <h2 id=行列式计算>行列式计算</h2>
-<p>版权声明：以下文章为CSDN博主「PoemK」的原创文章，遵循 cc 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：<a href=https://blog.csdn.net/yskyskyer123/java/article/details/87891051>https://blog.csdn.net/yskyskyer123/java/article/details/87891051</a></p>
+<p>版权声明：以下文章为CSDN博主「PoemK」的原创文章，遵循 cc 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。 原文链接：<a href=https://blog.csdn.net/yskyskyer123/java/article/details/87891051>https://blog.csdn.net/yskyskyer123/java/article/details/87891051</a></p>
 <h3 id=k阶子式>K阶子式</h3>
 <p>以3阶行列式为例：</p>
-<p>$$\begin{vmatrix} a_1 & a_2 & a_3 \ b_1 & b_2 & b_3\ c_1 & c_2 & c_3 \end{vmatrix}$$
-则它的3阶子式是它本身。</p>
-<p>它的2阶子式有 第1、2行和第1、2列相交处元素组成的行列式：
-$$\begin{vmatrix} a_1 & a_2 \ b_1 & b_2 \end{vmatrix}$$
-第1、2行和第1、3列相交处元素组成的行列式：
-$$\begin{vmatrix} a_1 & a_3 \ b_1 & b_3 \end{vmatrix}$$
-等等。行列式的每一项都是一个一阶子式。</p>
-<p>方法就是选取$k$行再选取$k$列 可以试着划出$2k$条线 然后相交处的元素组成的新的行列式就是$k$阶子式。</p>
+<p><span class=math>\[\begin{vmatrix} a_1 & a_2 & a_3 \\ b_1 & b_2 & b_3\\ c_1 & c_2 & c_3 \end{vmatrix}\]</span> 则它的3阶子式是它本身。</p>
+<p>它的2阶子式有 第1、2行和第1、2列相交处元素组成的行列式： <span class=math>\[\begin{vmatrix} a_1 & a_2 \\ b_1 & b_2 \end{vmatrix}\]</span> 第1、2行和第1、3列相交处元素组成的行列式： <span class=math>\[\begin{vmatrix} a_1 & a_3 \\ b_1 & b_3 \end{vmatrix}\]</span> 等等。行列式的每一项都是一个一阶子式。</p>
+<p>方法就是选取<span class=math>\(k\)</span>行再选取<span class=math>\(k\)</span>列 可以试着划出<span class=math>\(2k\)</span>条线 然后相交处的元素组成的新的行列式就是<span class=math>\(k\)</span>阶子式。</p>
 <h3 id=k阶主子式>K阶主子式</h3>
 <p>在子式的基础上，要求子式包含的<strong>行序数和包含的列序数相同</strong>。详细说来：在n 阶行列式中，选取行号（例如 1、3、7行），再选取相同行号的列号（1、3、7 列），则有行和列都为i个的行列式即为n阶行列式的r阶主子式，也可以说由上述选取的行列交汇处的元素所组成的新的行列式就称为“n 阶行列式的一个r阶主子式”。</p>
-<p>举个例子：
-$$A=\begin{vmatrix} -3&1&-3\20&3&10\2&-2&4\end{vmatrix}$$
-其一阶主子式就是$-3，3，4$。二阶主子式是
-$$\begin{vmatrix} -3&1\20 &3\end{vmatrix}=-29,
-\begin{vmatrix} 3&10\-2&4\end{vmatrix}=32,
-\begin{vmatrix} -3&-3\2&4\end{vmatrix}=-6.$$
-三阶主子式是行列式本身$det(A)=-18$</p>
-<p>主子式是从n个元素中挑出r个，因此r阶主子式共有$c_n^{r}=\frac{n!}{r!(n-r)!}$个。</p>
+<p>举个例子： <span class=math>\[A=\begin{vmatrix} -3&1&-3\\20&3&10\\2&-2&4\end{vmatrix}\]</span> 其一阶主子式就是<span class=math>\(-3，3，4\)</span>。二阶主子式是 <span class=math>\[\begin{vmatrix} -3&1\\20 &3\end{vmatrix}=-29,
+\begin{vmatrix} 3&10\\-2&4\end{vmatrix}=32,
+\begin{vmatrix} -3&-3\\2&4\end{vmatrix}=-6.\]</span> 三阶主子式是行列式本身<span class=math>\(det(A)=-18\)</span></p>
+<p>主子式是从n个元素中挑出r个，因此r阶主子式共有<span class=math>\(c_n^{r}=\frac{n!}{r!(n-r)!}\)</span>个。</p>
 <h3 id=顺序主子式>顺序主子式</h3>
 <p>由第1→r行和第1→r列所确定的子式即为“n 阶行列式的r阶<strong>顺序主子式</strong>”。</p>
 <p>例如：</p>
@@ -140,23 +127,14 @@ $$\begin{vmatrix} -3&1\20 &3\end{vmatrix}=-29,
 </ul>
 <p>实际上，主子式的主对角线元素是原 n 阶行列式的主对角线元素的一部分，且顺序相同。值得注意的是，根据定义，r阶主子式是<strong>不唯一</strong>的，而r阶<strong>顺序主子式是唯一</strong>的。</p>
 <h3 id=余子式和代数余子式>余子式和代数余子式</h3>
-<p>一个矩阵$A$的余子式（又称余因式，英语：minor）是指将$A$的某些行与列去掉之后所余下的方阵的行列式。相应的方阵有时被称为余子阵。</p>
-<p>在$n$阶行列式中，划去元$a_{ij}$所在的第i行与第j列的元，剩下的元不改变原来的顺序所构成的n-1阶行列式称为<strong>元$a_{ij}$的余子式</strong>。数学表示上计作$M_{ij}$。</p>
-<p>$a_{ij}$的<strong>代数余子式</strong>：$c_{ij}= (-1)^{i+j} M_{ij}$</p>
-<p>对矩阵
-$$\begin{pmatrix},,,1&4&7\,,,3&0&5\-1&9&!11\\end{pmatrix}$$
-要计算代数余子式$c_{23}$。首先计算余子式$M_{23}$，也就是原矩阵去掉第2行和第3列后的子矩阵的行列式：
-$$\begin{vmatrix},,1&4&\Box ,\,\Box &\Box &\Box ,\-1&9&\Box ,\\end{vmatrix},即\begin{vmatrix},,,1&4,\-1&9,\\end{vmatrix}=9-(-4)=13$$
-因此，$c_{23}$等于$(-1)^{2+3}M_{23}=-13$</p>
-<p>其某一行列式$\det A$可以用余因子表示：
-$$\det(A)=a_{{1j}}c_{{1j}}+a_{{2j}}c_{{2j}}+a_{{3j}}c_{{3j}}+...+a_{{nj}}c_{{nj}}$$
-（对第 j 纵行的余因子分解）
-$$\det(A)=a_{{i1}}c_{{i1}}+a_{{i2}}c_{{i2}}+a_{{i3}}c_{{i3}}+...+a_{{in}}c_{{in}}$$
-（对第 i 横列的余因子分解）</p>
+<p>一个矩阵<span class=math>\(A\)</span>的余子式（又称余因式，英语：minor）是指将<span class=math>\(A\)</span>的某些行与列去掉之后所余下的方阵的行列式。相应的方阵有时被称为余子阵。</p>
+<p>在<span class=math>\(n\)</span>阶行列式中，划去元<span class=math>\(a_{ij}\)</span>所在的第i行与第j列的元，剩下的元不改变原来的顺序所构成的n-1阶行列式称为<strong>元<span class=math>\(a_{ij}\)</span>的余子式</strong>。数学表示上计作<span class=math>\(M_{ij}\)</span>。</p>
+<p><span class=math>\(a_{ij}\)</span>的<strong>代数余子式</strong>：<span class=math>\(c_{ij}= (-1)^{i+j} M_{ij}\)</span></p>
+<p>对矩阵 <span class=math>\[\begin{pmatrix}\,\,\,1&4&7\\\,\,\,3&0&5\\-1&9&\!11\\\end{pmatrix}\]</span> 要计算代数余子式<span class=math>\(c_{23}\)</span>。首先计算余子式<span class=math>\(M_{23}\)</span>，也就是原矩阵去掉第2行和第3列后的子矩阵的行列式： <span class=math>\[\begin{vmatrix}\,\,1&4&\Box \,\\\,\Box &\Box &\Box \,\\-1&9&\Box \,\\\end{vmatrix},即\begin{vmatrix}\,\,\,1&4\,\\-1&9\,\\\end{vmatrix}=9-(-4)=13\]</span> 因此，<span class=math>\(c_{23}\)</span>等于<span class=math>\((-1)^{2+3}M_{23}=-13\)</span></p>
+<p>其某一行列式<span class=math>\(\det A\)</span>可以用余因子表示： <span class=math>\[\det(A)=a_{{1j}}c_{{1j}}+a_{{2j}}c_{{2j}}+a_{{3j}}c_{{3j}}+...+a_{{nj}}c_{{nj}}\]</span> （对第 j 纵行的余因子分解） <span class=math>\[\det(A)=a_{{i1}}c_{{i1}}+a_{{i2}}c_{{i2}}+a_{{i3}}c_{{i3}}+...+a_{{in}}c_{{in}}\]</span> （对第 i 横列的余因子分解）</p>
 <h3 id=余因子矩阵与伴随矩阵>余因子矩阵与伴随矩阵</h3>
-<p>$A$的余子矩阵是指将$A$的$(i, j)$项代数余子式$c_{ij}$摆在第i行第j列所得到的矩阵，记为$C$。</p>
-<p>余子矩阵$C$的<strong>转置</strong>矩阵称为$A$的伴随矩阵$A^\ast$，伴随矩阵类似于逆矩阵，并且当A可逆时可以用来计算它的逆矩阵。
-$$A^{-1}=\frac{1}{\det(A)}A^\ast=\frac{1}{\det(A)}C^T$$</p>
+<p><span class=math>\(A\)</span>的余子矩阵是指将<span class=math>\(A\)</span>的<span class=math>\((i, j)\)</span>项代数余子式<span class=math>\(c_{ij}\)</span>摆在第i行第j列所得到的矩阵，记为<span class=math>\(C\)</span>。</p>
+<p>余子矩阵<span class=math>\(C\)</span>的<strong>转置</strong>矩阵称为<span class=math>\(A\)</span>的伴随矩阵<span class=math>\(A^\ast\)</span>，伴随矩阵类似于逆矩阵，并且当A可逆时可以用来计算它的逆矩阵。 <span class=math>\[A^{-1}=\frac{1}{\det(A)}A^\ast=\frac{1}{\det(A)}C^T\]</span></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

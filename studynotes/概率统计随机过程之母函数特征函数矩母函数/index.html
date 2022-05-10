@@ -88,164 +88,123 @@ Nov 7, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之母函数特征函数矩母函数---omit-in-toc--->概率统计随机过程之母函数特征函数矩母函数</h2>
+<h2 id=概率统计随机过程之母函数特征函数矩母函数>概率统计随机过程之母函数特征函数矩母函数</h2>
 <p>为什么要引入母函数、特征函数（矩母函数）？因为它们是处理概率论问题的有力工具。它们能把寻求独立随机变量法和的分布的卷积运算（积分运算）转换成函数的乘法运算，还能把求分布的各阶原点矩运算变成函数的微分运算，特别的，它能把寻求随机变量序列的极限分布转换成一般的函数极限问题。为概率论提供了数学分析方面的强大武器。</p>
 <ul>
-<li><a href=#%E6%AF%8D%E5%87%BD%E6%95%B0%E5%8F%AA%E9%80%82%E7%94%A8%E4%BA%8E%E9%9D%9E%E8%B4%9F%E6%95%B4%E6%95%B0%E7%A6%BB%E6%95%A3%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F>母函数（只适用于非负整数离散随机变量）</a>
-<ul>
-<li><a href=#%E5%B8%B8%E8%A7%81%E9%9D%9E%E8%B4%9F%E7%A6%BB%E6%95%A3%E5%88%86%E5%B8%83%E7%9A%84%E6%AF%8D%E5%87%BD%E6%95%B0>常见非负离散分布的母函数</a></li>
-<li><a href=#%E7%A6%BB%E6%95%A3%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%92%8C%E7%9A%84%E5%88%86%E5%B8%83%E4%B8%8E%E6%AF%8D%E5%87%BD%E6%95%B0%E5%85%B3%E7%B3%BB>离散随机变量和的分布与母函数关系</a></li>
-<li><a href=#%E6%AF%8D%E5%87%BD%E6%95%B0%E4%B8%8E%E6%95%B0%E5%AD%97%E7%89%B9%E5%BE%81%E5%85%B3%E7%B3%BB>母函数与数字特征关系</a></li>
-</ul>
-</li>
-<li><a href=#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>特征函数</a>
-<ul>
-<li><a href=#%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83%E7%9A%84%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0>几种常见分布的特征函数</a></li>
-<li><a href=#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E6%80%A7%E8%B4%A8>特征函数性质</a></li>
-<li><a href=#%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E5%94%AF%E4%B8%80%E5%86%B3%E5%AE%9A%E5%88%86%E5%B8%83%E5%87%BD%E6%95%B0>特征函数唯一决定分布函数</a></li>
-</ul>
-</li>
+<li><a href=#母函数只适用于非负整数离散随机变量>母函数（只适用于非负整数离散随机变量）</a></li>
+<li><a href=#常见非负离散分布的母函数>常见非负离散分布的母函数</a></li>
+<li><a href=#离散随机变量和的分布与母函数关系>离散随机变量和的分布与母函数关系</a></li>
+<li><a href=#母函数与数字特征关系>母函数与数字特征关系</a></li>
+<li><a href=#特征函数>特征函数</a></li>
+<li><a href=#几种常见分布的特征函数>几种常见分布的特征函数</a></li>
+<li><a href=#特征函数性质>特征函数性质</a></li>
+<li><a href=#特征函数唯一决定分布函数>特征函数唯一决定分布函数</a></li>
 </ul>
 <h2 id=母函数只适用于非负整数离散随机变量>母函数（只适用于非负整数离散随机变量）</h2>
 <p>为何要定义概率母函数？概率论起步的时候由于其研究不确定性的特点，难以找到系统的方法，<strong>设计一个包含某一随机变量所有信息的函数使其具有解析性</strong>便成为处理概率问题的一种方法。</p>
 <blockquote>
 <p>定义：非负整值随机变量的母函数：一个离散随机变量的概率母函数是指该随机变量的概率质量函数的幂级数表达式。</p>
 <p>单变量情形</p>
-<p>如果$X$是在非负整数域${0,1, ...}$上取值的离散随机变量,那么$X$的概率母函数定义为
-$$G(z)=\operatorname {E} (z^{X})=\sum _{x=0}^{\infty }p(x)z^{x},$$
-其中$p$是$X$的概率质量函数。</p>
+<p>如果<span class=math>\(X\)</span>是在非负整数域<span class=math>\(\{0,1, ...\}\)</span>上取值的离散随机变量,那么<span class=math>\(X\)</span>的概率母函数定义为 <span class=math>\[G(z)=\operatorname {E} (z^{X})=\sum _{x=0}^{\infty }p(x)z^{x},\]</span> 其中<span class=math>\(p\)</span>是<span class=math>\(X\)</span>的概率质量函数。</p>
 <p>多变量情形</p>
-<p>如果$X = (X1,...,Xd )$是在$d-$非负整数格${0,1, ...}^d$上取值的离散随机变量, 那么$X$的概率母函数定义为
-$$G(z)=G(z_{1},\ldots ,z_{d})=\operatorname {E} {\bigl (}z_{1}^{X_{1}}\cdots z_{d}^{X_{d}}{\bigr )}=\
-\sum <em>{x</em>{1},\ldots ,x_{d}=0}^{\infty }p(x_{1},\ldots ,x_{d})z_{1}^{x_{1}}\cdots z_{d}^{x_{d}},$$
-其中$p$是$X$的概率质量函数。</p>
+<p>如果<span class=math>\(X = (X1,...,Xd )\)</span>是在<span class=math>\(d-\)</span>非负整数格<span class=math>\(\{0,1, ...\}^d\)</span>上取值的离散随机变量, 那么<span class=math>\(X\)</span>的概率母函数定义为 <span class=math>\[G(z)=G(z_{1},\ldots ,z_{d})=\operatorname {E} {\bigl (}z_{1}^{X_{1}}\cdots z_{d}^{X_{d}}{\bigr )}=\\
+\sum _{x_{1},\ldots ,x_{d}=0}^{\infty }p(x_{1},\ldots ,x_{d})z_{1}^{x_{1}}\cdots z_{d}^{x_{d}},\]</span> 其中<span class=math>\(p\)</span>是<span class=math>\(X\)</span>的概率质量函数。</p>
 </blockquote>
-<p>由于$\forall p(x)，有0≤p(x)≤1，\sum p(x)=1$。所以概率母函数的收敛半径≥1。引进母函数的好处是它有很好的分析性质，而一旦知道了$X$的母函数，那么$X$的分布列可以通过下式获得：
-$$p_k=\frac{g^{(k)}(0)}{k!}，k=0,1,2,\dotsb$$
-分布列和母函数的项是<strong>一一对应的</strong>。</p>
+<p>由于<span class=math>\(\forall p(x)，有0≤p(x)≤1，\sum p(x)=1\)</span>。所以概率母函数的收敛半径≥1。引进母函数的好处是它有很好的分析性质，而一旦知道了<span class=math>\(X\)</span>的母函数，那么<span class=math>\(X\)</span>的分布列可以通过下式获得： <span class=math>\[p_k=\frac{g^{(k)}(0)}{k!}，k=0,1,2,\dotsb\]</span> 分布列和母函数的项是<strong>一一对应的</strong>。</p>
 <h3 id=常见非负离散分布的母函数>常见非负离散分布的母函数</h3>
-<p>注：以下各式中$p+q=1，P(X=0)=q$</p>
+<p>注：以下各式中<span class=math>\(p+q=1，P(X=0)=q\)</span></p>
 <ul>
-<li>伯努利分布(0-1分布)：$X\sim B(1,p)$
-$$g(z)=q+pz$$</li>
-<li>二项分布：$X\sim B(n,p)$
-$$g(z)=\sum_{k=0}^∞ C_n^kp^kq^{n-k}z^k\
-=(q+pz)^n$$
-0-1分布和二项分布的关系也体现出独立同分布概率联合概率的关系。</li>
-<li>泊松分布：$X\sim P(\lambda)$
-$$g(z)=\sum_{k=0}^∞\frac{\lambda^k}{k!}e^{-\lambda}z^k\
-=e^{\lambda(z-1)}$$</li>
-<li>几何分布：：$X\sim Geo(p)$
-$$g(z)=\sum_{k=1}^∞ q^{k-1}p z^k=pz\sum_{k=1}^∞ q^{k-1}z^{k-1}\
-\because -1&lt;qz&lt;1\
-=pz\times \frac{1}{1-qz}=\frac{pz}{1-qz}$$</li>
+<li>伯努利分布(0-1分布)：<span class=math>\(X\sim B(1,p)\)</span> <span class=math>\[g(z)=q+pz\]</span></li>
+<li>二项分布：<span class=math>\(X\sim B(n,p)\)</span> <span class=math>\[g(z)=\sum_{k=0}^∞ C_n^kp^kq^{n-k}z^k\\
+=(q+pz)^n\]</span> 0-1分布和二项分布的关系也体现出独立同分布概率联合概率的关系。</li>
+<li>泊松分布：<span class=math>\(X\sim P(\lambda)\)</span> <span class=math>\[g(z)=\sum_{k=0}^∞\frac{\lambda^k}{k!}e^{-\lambda}z^k\\
+=e^{\lambda(z-1)}\]</span></li>
+<li>几何分布：：<span class=math>\(X\sim Geo(p)\)</span> <span class=math>\[g(z)=\sum_{k=1}^∞ q^{k-1}p z^k=pz\sum_{k=1}^∞ q^{k-1}z^{k-1}\\
+\because -1&lt;qz&lt;1\\
+=pz\times \frac{1}{1-qz}=\frac{pz}{1-qz}\]</span></li>
 </ul>
 <h3 id=离散随机变量和的分布与母函数关系>离散随机变量和的分布与母函数关系</h3>
 <blockquote>
-<p>定理：设非负整值随机变量$X_1,X_2,\dots,X_n$相互独立，而$g_1,g_2,\dots,g_n$分别是他们的母函数，那么$Y=\sum\limits_1^n X_k$的母函数为
-$$g(z)=g_1(z)g_2(z)\dotsb g_n(z)$$</p>
+<p>定理：设非负整值随机变量<span class=math>\(X_1,X_2,\dots,X_n\)</span>相互独立，而<span class=math>\(g_1,g_2,\dots,g_n\)</span>分别是他们的母函数，那么<span class=math>\(Y=\sum\limits_1^n X_k\)</span>的母函数为 <span class=math>\[g(z)=g_1(z)g_2(z)\dotsb g_n(z)\]</span></p>
 </blockquote>
 <h3 id=母函数与数字特征关系>母函数与数字特征关系</h3>
-<p>期望：$E(X)=g'(1)=\sum\limits_{k=1}^∞ kp_kz^{k-1}|<em>{z=1}$。
-相仿的，$E(z^X)=\sum\limits</em>{k=0}^∞ z^kp_k=g(z)$。从这里，我们可以看出<strong>母函数实际上是$z^X$的期望。</strong></p>
-<p>方差：$Var(x)=g''(1)+g'(1)-g'(1)^2$</p>
+<p>期望：<span class=math>\(E(X)=g'(1)=\sum\limits_{k=1}^∞ kp_kz^{k-1}|_{z=1}\)</span>。 相仿的，<span class=math>\(E(z^X)=\sum\limits_{k=0}^∞ z^kp_k=g(z)\)</span>。从这里，我们可以看出<strong>母函数实际上是<span class=math>\(z^X\)</span>的期望。</strong></p>
+<p>方差：<span class=math>\(Var(x)=g''(1)+g'(1)-g'(1)^2\)</span></p>
 <h2 id=特征函数>特征函数</h2>
 <p>母函数为我们处理概率提供了数学分析的角度与方法，极大方便了概率的处理，但是并不是所有随机变量都是有母函数的（只有离散的非负整数随机变量才有母函数），对于一般的随机变量是否具有类似的东西呢？<strong>这就是特征函数</strong>。</p>
 <blockquote>
-<p>定义：对任一随机变量$X$，称
-$$\varphi_X(t)=E(e^{itX})=\int_{-∞}^∞ e^{itx}p(x) \mathrm{d}x，-∞&lt;t&lt;+∞$$
-为随机变量$X$的特征函数。</p>
+<p>定义：对任一随机变量<span class=math>\(X\)</span>，称 <span class=math>\[\varphi_X(t)=E(e^{itX})=\int_{-∞}^∞ e^{itx}p(x) \mathrm{d}x，-∞&lt;t&lt;+∞\]</span> 为随机变量<span class=math>\(X\)</span>的特征函数。</p>
 </blockquote>
 <p>说明：</p>
-<ol>
-<li>规定$E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(E^{itX})=E(\cos tX)+iE(\sin tX)$</li>
-<li>由于$|e^{itX}|=1$，所以对任一随机变量都有特征函数。对于离散随机变量，其为求和形式；对于连续随机变量为积分形式。</li>
-<li>特征函数$\varphi(t)$都是实变复值的。</li>
-<li>$\varphi(0)=1$</li>
+<ol style=list-style-type:decimal>
+<li>规定<span class=math>\(E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(E^{itX})=E(\cos tX)+iE(\sin tX)\)</span></li>
+<li>由于<span class=math>\(|e^{itX}|=1\)</span>，所以对任一随机变量都有特征函数。对于离散随机变量，其为求和形式；对于连续随机变量为积分形式。</li>
+<li>特征函数<span class=math>\(\varphi(t)\)</span>都是实变复值的。</li>
+<li><span class=math>\(\varphi(0)=1\)</span></li>
 </ol>
 <h3 id=几种常见分布的特征函数>几种常见分布的特征函数</h3>
-<p>注：以下各式中$p+q=1，P(X=0)=q$</p>
+<p>注：以下各式中<span class=math>\(p+q=1，P(X=0)=q\)</span></p>
 <ul>
-<li>伯努利分布(0-1分布)：$X\sim B(1,p)$
-$$\varphi(t)=q+pe^{it}$$</li>
-<li>二项分布：$X\sim B(n,p)$，0-1分布和二项分布的关系也体现出独立同分布概率联合概率的关系。
-$$\varphi(t)=(q+pe^{it})^n$$</li>
-<li>泊松分布：$X\sim P(\lambda)$
-$$\varphi(t)=\sum_{k=0}^∞\frac{\lambda^k}{k!}e^{-\lambda}e^{\lambda e^{it}}\
-=e^{\lambda(e^{it}-1)}$$</li>
-<li>几何分布：：$X\sim Geo(p)$
-$$\varphi(t)=\frac{pe^{it}}{1-qe^{it}}$$</li>
-<li>均匀分布：$X \sim U(a,b)$
-$$\varphi(t)=\frac{e^{ibt}-e^{iat}}{i(b−a)t}$$</li>
-<li>正态分布：$X\sim N(\mu,\sigma^2)$
-$$\varphi(t)=e^{iut-\frac{\sigma^2t^2}{2}}$$</li>
-<li>指数分布：$X \sim \exp(\lambda)$
-$$\varphi(t)=(1-\frac{it}{\lambda})^{-1}$$</li>
-<li>gamma分布：$X \sim Ga(\alpha,\lambda)$
-$$\varphi(t)=(1-\frac{it}{\lambda})^{-\alpha}$$</li>
+<li>伯努利分布(0-1分布)：<span class=math>\(X\sim B(1,p)\)</span> <span class=math>\[\varphi(t)=q+pe^{it}\]</span></li>
+<li>二项分布：<span class=math>\(X\sim B(n,p)\)</span>，0-1分布和二项分布的关系也体现出独立同分布概率联合概率的关系。 <span class=math>\[\varphi(t)=(q+pe^{it})^n\]</span></li>
+<li>泊松分布：<span class=math>\(X\sim P(\lambda)\)</span> <span class=math>\[\varphi(t)=\sum_{k=0}^∞\frac{\lambda^k}{k!}e^{-\lambda}e^{\lambda e^{it}}\\
+=e^{\lambda(e^{it}-1)}\]</span></li>
+<li>几何分布：：<span class=math>\(X\sim Geo(p)\)</span> <span class=math>\[\varphi(t)=\frac{pe^{it}}{1-qe^{it}}\]</span></li>
+<li>均匀分布：<span class=math>\(X \sim U(a,b)\)</span> <span class=math>\[\varphi(t)=\frac{e^{ibt}-e^{iat}}{i(b−a)t}\]</span></li>
+<li>正态分布：<span class=math>\(X\sim N(\mu,\sigma^2)\)</span> <span class=math>\[\varphi(t)=e^{iut-\frac{\sigma^2t^2}{2}}\]</span></li>
+<li>指数分布：<span class=math>\(X \sim \exp(\lambda)\)</span> <span class=math>\[\varphi(t)=(1-\frac{it}{\lambda})^{-1}\]</span></li>
+<li>gamma分布：<span class=math>\(X \sim Ga(\alpha,\lambda)\)</span> <span class=math>\[\varphi(t)=(1-\frac{it}{\lambda})^{-\alpha}\]</span></li>
 </ul>
 <p>其他分布的特征函数可见茆诗松《概率论与数理统计教程 第二版》P219</p>
 <h3 id=特征函数性质>特征函数性质</h3>
 <blockquote>
-<p>性质1：$|\varphi(t)|\leq \varphi(0)=1$。</p>
+<p>性质1：<span class=math>\(|\varphi(t)|\leq \varphi(0)=1\)</span>。</p>
 </blockquote>
-<p>证明：
-$$
-|\varphi(t)|=|\int_{-∞}^∞ e^{itx}p(x) \mathrm{d}x|\overset{\text{柯西不等式}}{\le}\int_{-∞}^∞ |e^{itx}|p(x) \mathrm{d}x\
-|e^{itx}|=\sqrt{\cos^2(tx)+\sin^2(tx)}=1=e^{ix\cdot 0}\
+<p>证明： <span class=math>\[
+|\varphi(t)|=|\int_{-∞}^∞ e^{itx}p(x) \mathrm{d}x|\overset{\text{柯西不等式}}{\le}\int_{-∞}^∞ |e^{itx}|p(x) \mathrm{d}x\\
+|e^{itx}|=\sqrt{\cos^2(tx)+\sin^2(tx)}=1=e^{ix\cdot 0}\\
 \Rightarrow|\varphi(t)|=\int_{-∞}^∞ 1\cdot p(x) \mathrm{d}x=\varphi(0)=1
-$$</p>
+\]</span></p>
 <blockquote>
-<p>性质2：$\varphi(-t)=\overline{\varphi(t)}$，其中$\overline{\varphi(t)}$表示$\varphi(t)$的复共轭。</p>
+<p>性质2：<span class=math>\(\varphi(-t)=\overline{\varphi(t)}\)</span>，其中<span class=math>\(\overline{\varphi(t)}\)</span>表示<span class=math>\(\varphi(t)\)</span>的复共轭。</p>
 </blockquote>
-<p>证明：
-$$\varphi(-t)=\int_{-∞}^∞ e^{-itx}p(x) \mathrm{d}x=\int_{-∞}^∞ \overline{e^{itx}}p(x) \mathrm{d}x$$
-由于$p(x)$是非负实数，不影响虚数，所以$\int_{-∞}^∞ \overline{e^{itx}}p(x) \mathrm{d}x=\overline{\int_{-∞}^∞ e^{itx}p(x)}\mathrm{d}x=\overline{\varphi(t)}$，所以$\varphi(-t)=\overline{\varphi(t)}$。</p>
+<p>证明： <span class=math>\[\varphi(-t)=\int_{-∞}^∞ e^{-itx}p(x) \mathrm{d}x=\int_{-∞}^∞ \overline{e^{itx}}p(x) \mathrm{d}x\]</span> 由于<span class=math>\(p(x)\)</span>是非负实数，不影响虚数，所以<span class=math>\(\int_{-∞}^∞ \overline{e^{itx}}p(x) \mathrm{d}x=\overline{\int_{-∞}^∞ e^{itx}p(x)}\mathrm{d}x=\overline{\varphi(t)}\)</span>，所以<span class=math>\(\varphi(-t)=\overline{\varphi(t)}\)</span>。</p>
 <blockquote>
-<p>性质3：$X$的特征函数为$\varphi(t)$，则$Y=aX+b$的特征函数为$e^{itb}\varphi(at)$.</p>
+<p>性质3：<span class=math>\(X\)</span>的特征函数为<span class=math>\(\varphi(t)\)</span>，则<span class=math>\(Y=aX+b\)</span>的特征函数为<span class=math>\(e^{itb}\varphi(at)\)</span>.</p>
 </blockquote>
-<p>证明：
-$$\varphi_Y(t)=E(e^{itY})=E(e^{it(aX+b)})=E(e^{itaX})\cdot e^{itb}$$
-如果我们将$ta$作为变量整体，则有$E(e^{itaX})=\varphi(at)$，综上所述有$\varphi_Y(t)=e^{itb}\varphi(at)$。</p>
+<p>证明： <span class=math>\[\varphi_Y(t)=E(e^{itY})=E(e^{it(aX+b)})=E(e^{itaX})\cdot e^{itb}\]</span> 如果我们将<span class=math>\(ta\)</span>作为变量整体，则有<span class=math>\(E(e^{itaX})=\varphi(at)\)</span>，综上所述有<span class=math>\(\varphi_Y(t)=e^{itb}\varphi(at)\)</span>。</p>
 <blockquote>
-<p>性质4：独立随机变量的和的特征函数为每个随机变量的特征函数的积，即设$X_1,X_2,\dotsb X_n$相互独立，则$Y=\sum_{k=1}^n X_k$有
-$$\varphi_{Y}(t)=\prod_{k=1}^n \varphi_{X_k}(t)$$</p>
+<p>性质4：独立随机变量的和的特征函数为每个随机变量的特征函数的积，即设<span class=math>\(X_1,X_2,\dotsb X_n\)</span>相互独立，则<span class=math>\(Y=\sum_{k=1}^n X_k\)</span>有 <span class=math>\[\varphi_{Y}(t)=\prod_{k=1}^n \varphi_{X_k}(t)\]</span></p>
 </blockquote>
-<p>证明：因为$X_1,X_2,\dotsb,X_n$相互独立，所以其随机变量的函数$E(e^{itX_1}),E(e^{itX_2}),\dotsb,E(e^{itX_n})$也是相互独立的，从而有
-$$\begin{aligned}
-\varphi_{Y}(t)&=E(e^{itY})=E(e^{it\sum_{k=1}^n X_i})=E(\prod_{k=1}^n e^{itX_k})\
+<p>证明：因为<span class=math>\(X_1,X_2,\dotsb,X_n\)</span>相互独立，所以其随机变量的函数<span class=math>\(E(e^{itX_1}),E(e^{itX_2}),\dotsb,E(e^{itX_n})\)</span>也是相互独立的，从而有 <span class=math>\[\begin{aligned}
+\varphi_{Y}(t)&=E(e^{itY})=E(e^{it\sum_{k=1}^n X_i})=E(\prod_{k=1}^n e^{itX_k})\\
 &\overset{\text{独立性}}{=}\prod_{k=1}^n E(e^{itX_k})=\prod_{k=1}^n \varphi_{X_k}(t)
-\end{aligned}$$</p>
+\end{aligned}\]</span></p>
 <blockquote>
-<p>性质5：若$E(X^l)$存在，则$X$的特征函数$\varphi(t)$可$l$次求导，且对$1\leq k \leq l$，有
-$$\varphi^{(k)}(0)=i^kE(X^k)$$</p>
+<p>性质5：若<span class=math>\(E(X^l)\)</span>存在，则<span class=math>\(X\)</span>的特征函数<span class=math>\(\varphi(t)\)</span>可<span class=math>\(l\)</span>次求导，且对<span class=math>\(1\leq k \leq l\)</span>，有 <span class=math>\[\varphi^{(k)}(0)=i^kE(X^k)\]</span></p>
 </blockquote>
-<p>证明可以从特征函数的积分式进行微分即可。从性质5我们也可以用以下方式求期望和方差：
-$$
+<p>证明可以从特征函数的积分式进行微分即可。从性质5我们也可以用以下方式求期望和方差： <span class=math>\[
 E(X)=\frac{\varphi'(0)}{i},\text{Var}(X)=-\varphi''(0)+(\varphi'(0))^2
-$$</p>
+\]</span></p>
 <blockquote>
-<p>性质6：一致连续性。随机变量$X$的特征函数$\varphi(t)$在$(-\infty,\infty)$上一致连续。</p>
+<p>性质6：一致连续性。随机变量<span class=math>\(X\)</span>的特征函数<span class=math>\(\varphi(t)\)</span>在<span class=math>\((-\infty,\infty)\)</span>上一致连续。</p>
 </blockquote>
 <p>证明略。</p>
 <blockquote>
-<p>性质7：非负定性。随机变量$X$的特征函数$\varphi(t)$是非负定的，即对任意正整数$n$及$n$个实数$t_1,t_2,\dotsb,t_n$和$n$个复数$z_1,z_2,\dotsb,z_n$，有
-$$\sum_{k=1}^n\sum_{j=1}^n \varphi(t_k-t_j)z_k\bar{z_j}\geq 0$$</p>
+<p>性质7：非负定性。随机变量<span class=math>\(X\)</span>的特征函数<span class=math>\(\varphi(t)\)</span>是非负定的，即对任意正整数<span class=math>\(n\)</span>及<span class=math>\(n\)</span>个实数<span class=math>\(t_1,t_2,\dotsb,t_n\)</span>和<span class=math>\(n\)</span>个复数<span class=math>\(z_1,z_2,\dotsb,z_n\)</span>，有 <span class=math>\[\sum_{k=1}^n\sum_{j=1}^n \varphi(t_k-t_j)z_k\bar{z_j}\geq 0\]</span></p>
 </blockquote>
 <p>证明略。</p>
 <h3 id=特征函数唯一决定分布函数>特征函数唯一决定分布函数</h3>
 <p>由特征函数的定义可知，随机变量的分布唯一地确定了它的特征函数。我们也可以同样推出特征函数完全决定了分布，也就是说，<strong>两个分布函数相等当且仅当它们所对应的特征函数相等</strong>。我们不加具体证明给出如下定理：</p>
 <blockquote>
-<p>定理：随机变量的分布函数由其特征函数<strong>唯一决定</strong>。且当$X$为连续随机变量，其密度函数为$p(x)$，特征函数为$\varphi(t)$，如果$\int_{-\infty}^\infty |\varphi(t)|\mathrm{d}t&lt;\infty$，则
-$$p(x)=\frac{1}{2\pi} \int_{-\infty}^\infty e^{itx}\varphi(t)\mathrm{d}t$$</p>
+<p>定理：随机变量的分布函数由其特征函数<strong>唯一决定</strong>。且当<span class=math>\(X\)</span>为连续随机变量，其密度函数为<span class=math>\(p(x)\)</span>，特征函数为<span class=math>\(\varphi(t)\)</span>，如果<span class=math>\(\int_{-\infty}^\infty |\varphi(t)|\mathrm{d}t&lt;\infty\)</span>，则 <span class=math>\[p(x)=\frac{1}{2\pi} \int_{-\infty}^\infty e^{itx}\varphi(t)\mathrm{d}t\]</span></p>
 </blockquote>
-<p>我们可以称由分布转换为特征函数的过程为傅里叶变换，由特征函数转换成分布的过程为傅里叶逆变换。需要指出：这里定义的傅里叶正逆变换和我们通常在通信、复变函数中定义的傅里叶变换<strong>在$e$的指数上相差了一个负号</strong>。</p>
+<p>我们可以称由分布转换为特征函数的过程为傅里叶变换，由特征函数转换成分布的过程为傅里叶逆变换。需要指出：这里定义的傅里叶正逆变换和我们通常在通信、复变函数中定义的傅里叶变换<strong>在<span class=math>\(e\)</span>的指数上相差了一个负号</strong>。</p>
 <p>由于分布函数和特征函数的一一对应关系，我们可以把随机变量序列的收敛问题和函数的收敛问题联系起来，从而有以下定理：</p>
 <blockquote>
-<p>定理：分布函数序列${F_n(x)}$弱收敛于分布函数$F(x)$的充要条件是${F_n(x)}$的特征函数序列${\varphi_n(t)}$收敛于$F(x)$的特征函数$\varphi(t)$。</p>
+<p>定理：分布函数序列<span class=math>\(\{F_n(x)\}\)</span>弱收敛于分布函数<span class=math>\(F(x)\)</span>的充要条件是<span class=math>\(\{F_n(x)\}\)</span>的特征函数序列<span class=math>\(\{\varphi_n(t)\}\)</span>收敛于<span class=math>\(F(x)\)</span>的特征函数<span class=math>\(\varphi(t)\)</span>。</p>
 </blockquote>
-<p>例题：
-<img src=../../images/%E7%89%B9%E5%BE%81%E5%87%BD%E6%95%B0%E5%88%97%E6%94%B6%E6%95%9B.png alt=特征函数列收敛></p>
+<p>例题： <img src=../../images/特征函数列收敛.png alt=特征函数列收敛></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

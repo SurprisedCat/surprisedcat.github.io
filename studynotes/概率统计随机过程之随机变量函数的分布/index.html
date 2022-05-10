@@ -88,456 +88,368 @@ Nov 3, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之随机变量函数的分布---omit-in-toc--->概率统计随机过程之随机变量函数的分布</h2>
+<h2 id=概率统计随机过程之随机变量函数的分布>概率统计随机过程之随机变量函数的分布</h2>
 <p>概率论与数理统计－－茆诗松（第二版）随机变量函数的分布内容总结</p>
 <p>写在最前面：在随机变量的学习中，我们一定要明确知晓，<strong>概率分布函数和随机变量的定义密切相关</strong>。概率密度函数是概率分布函数的衍生结论，因此，我们在处理问题时优先考虑概率分布函数。</p>
-<p>现有随机变量$X$定义在$(\Omega,\mathcal{F},P)$上。设存在一个定义在$\Omega$上的函数$y=g(x)$，若使用随机变量$X$作为函数$g$的自变量，则$Y=g(X)$显然也是一个随机变量。那么，问题来了：已知随机变量$X$的分布，如何求出另一个随机变量$Y=g(X)$的分布呢？</p>
+<p>现有随机变量<span class=math>\(X\)</span>定义在<span class=math>\((\Omega,\mathcal{F},P)\)</span>上。设存在一个定义在<span class=math>\(\Omega\)</span>上的函数<span class=math>\(y=g(x)\)</span>，若使用随机变量<span class=math>\(X\)</span>作为函数<span class=math>\(g\)</span>的自变量，则<span class=math>\(Y=g(X)\)</span>显然也是一个随机变量。那么，问题来了：已知随机变量<span class=math>\(X\)</span>的分布，如何求出另一个随机变量<span class=math>\(Y=g(X)\)</span>的分布呢？</p>
 <p>多维随机变量其实就是多个随机变量的意思，这些个随机变量之间可能存在关联性（破坏了独立性），导致多维随机变量的分布有时很不直观。这里也只是介绍了一部分多维随机变量的场景（和、商、最大值最小值等），很多多维随机变量的函数没有解析的结果。</p>
 <ul>
-<li><a href=#%E5%8D%95%E4%B8%AA%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83>单个随机变量函数的分布</a>
+<li><a href=#单个随机变量函数的分布>单个随机变量函数的分布</a></li>
+<li><a href=#单个离散型随机变量函数的分布>单个离散型随机变量函数的分布</a></li>
+<li><a href=#单个连续型随机变量函数的分布>单个连续型随机变量函数的分布</a>
 <ul>
-<li><a href=#%E5%8D%95%E4%B8%AA%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83>单个离散型随机变量函数的分布</a></li>
-<li><a href=#%E5%8D%95%E4%B8%AA%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83>单个连续型随机变量函数的分布</a>
+<li><a href=#当gx严格单调时>当<span class=math>\(g(x)\)</span>严格单调时</a></li>
+<li><a href=#单个连续型随机变量函数的几个常用命题>单个连续型随机变量函数的几个常用命题</a></li>
+<li><a href=#贝叶斯假设的一个悖论>贝叶斯假设的一个悖论</a></li>
+<li><a href=#当gx为其他形式时>当<span class=math>\(g(x)\)</span>为其他形式时</a></li>
+</ul></li>
+<li><a href=#多维随机变量函数的分布>多维随机变量函数的分布</a></li>
+<li><a href=#多维离散型随机变量函数的分布>多维离散型随机变量函数的分布</a>
 <ul>
-<li><a href=#%E5%BD%93gx%E4%B8%A5%E6%A0%BC%E5%8D%95%E8%B0%83%E6%97%B6>当$g(x)$严格单调时</a></li>
-<li><a href=#%E5%8D%95%E4%B8%AA%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%A0%E4%B8%AA%E5%B8%B8%E7%94%A8%E5%91%BD%E9%A2%98>单个连续型随机变量函数的几个常用命题</a></li>
-<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%81%87%E8%AE%BE%E7%9A%84%E4%B8%80%E4%B8%AA%E6%82%96%E8%AE%BA>贝叶斯假设的一个悖论</a></li>
-<li><a href=#%E5%BD%93gx%E4%B8%BA%E5%85%B6%E4%BB%96%E5%BD%A2%E5%BC%8F%E6%97%B6>当$g(x)$为其他形式时</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href=#%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83>多维随机变量函数的分布</a>
+<li><a href=#离散型随机变量和的分布与卷积公式>离散型随机变量和的分布与卷积公式</a></li>
+<li><a href=#思考分布可加性的本质>思考：分布可加性的本质</a></li>
+</ul></li>
+<li><a href=#多维随机变量的最大最小值分布>多维随机变量的最大最小值分布</a>
 <ul>
-<li><a href=#%E5%A4%9A%E7%BB%B4%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83>多维离散型随机变量函数的分布</a>
+<li><a href=#最大值分布>最大值分布</a></li>
+<li><a href=#最小值分布>最小值分布</a></li>
+</ul></li>
+<li><a href=#多维连续型随机变量函数的分布>多维连续型随机变量函数的分布</a>
 <ul>
-<li><a href=#%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%92%8C%E7%9A%84%E5%88%86%E5%B8%83%E4%B8%8E%E5%8D%B7%E7%A7%AF%E5%85%AC%E5%BC%8F>离散型随机变量和的分布与卷积公式</a></li>
-<li><a href=#%E6%80%9D%E8%80%83%E5%88%86%E5%B8%83%E5%8F%AF%E5%8A%A0%E6%80%A7%E7%9A%84%E6%9C%AC%E8%B4%A8>思考：分布可加性的本质</a></li>
-</ul>
-</li>
-<li><a href=#%E5%A4%9A%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%9A%84%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E5%80%BC%E5%88%86%E5%B8%83>多维随机变量的最大最小值分布</a>
+<li><a href=#连续型随机变量和的分布与卷积公式>连续型随机变量和的分布与卷积公式</a></li>
+</ul></li>
+<li><a href=#变量变换法>变量变换法</a>
 <ul>
-<li><a href=#%E6%9C%80%E5%A4%A7%E5%80%BC%E5%88%86%E5%B8%83>最大值分布</a></li>
-<li><a href=#%E6%9C%80%E5%B0%8F%E5%80%BC%E5%88%86%E5%B8%83>最小值分布</a></li>
-</ul>
-</li>
-<li><a href=#%E5%A4%9A%E7%BB%B4%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83>多维连续型随机变量函数的分布</a>
+<li><a href=#box-muller变换>Box-muller变换</a></li>
+</ul></li>
+<li><a href=#增补变量法>增补变量法</a>
 <ul>
-<li><a href=#%E8%BF%9E%E7%BB%AD%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%92%8C%E7%9A%84%E5%88%86%E5%B8%83%E4%B8%8E%E5%8D%B7%E7%A7%AF%E5%85%AC%E5%BC%8F>连续型随机变量和的分布与卷积公式</a></li>
-</ul>
-</li>
-<li><a href=#%E5%8F%98%E9%87%8F%E5%8F%98%E6%8D%A2%E6%B3%95>变量变换法</a>
-<ul>
-<li><a href=#box-muller%E5%8F%98%E6%8D%A2>Box-muller变换</a></li>
-</ul>
-</li>
-<li><a href=#%E5%A2%9E%E8%A1%A5%E5%8F%98%E9%87%8F%E6%B3%95>增补变量法</a>
-<ul>
-<li><a href=#%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E7%A7%AF%E7%9A%84%E5%88%86%E5%B8%83>二维随机变量积的分布</a></li>
-<li><a href=#%E4%BA%8C%E7%BB%B4%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%95%86%E7%9A%84%E5%88%86%E5%B8%83>二维随机变量商的分布</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href=#二维随机变量积的分布>二维随机变量积的分布</a></li>
+<li><a href=#二维随机变量商的分布>二维随机变量商的分布</a></li>
+</ul></li>
 </ul>
 <h2 id=单个随机变量函数的分布>单个随机变量函数的分布</h2>
 <h3 id=单个离散型随机变量函数的分布>单个离散型随机变量函数的分布</h3>
 <p>离散型随机变量函数的分布时<strong>比较容易</strong>的，主要是因为离散型随机变量的函数变换结果是离散固定的。其一般方法如下：</p>
-<p>设$X$是离散型随机变量，X的分布列为</p>
+<p>设<span class=math>\(X\)</span>是离散型随机变量，X的分布列为</p>
 <table>
 <thead>
-<tr>
-<th style=text-align:center>$X$</th>
-<th style=text-align:center>$x_1$</th>
-<th style=text-align:center>$x_2$</th>
-<th style=text-align:center>$\dotsb$</th>
-<th style=text-align:center>$x_n$</th>
-<th style=text-align:center>$\dotsb$</th>
+<tr class=header>
+<th align=center><span class=math>\(X\)</span></th>
+<th align=center><span class=math>\(x_1\)</span></th>
+<th align=center><span class=math>\(x_2\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
+<th align=center><span class=math>\(x_n\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style=text-align:center>$P$</td>
-<td style=text-align:center>$p(x_1)$</td>
-<td style=text-align:center>$p(x_2)$</td>
-<td style=text-align:center>$\dotsb$</td>
-<td style=text-align:center>$p(x_n)$</td>
-<td style=text-align:center>$\dotsb$</td>
+<tr class=odd>
+<td align=center><span class=math>\(P\)</span></td>
+<td align=center><span class=math>\(p(x_1)\)</span></td>
+<td align=center><span class=math>\(p(x_2)\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p(x_n)\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>则$Y=g(X)$也是一个离散型随机变量，且此时$Y$的分布列相应可表示为</p>
+<p>则<span class=math>\(Y=g(X)\)</span>也是一个离散型随机变量，且此时<span class=math>\(Y\)</span>的分布列相应可表示为</p>
 <table>
 <thead>
-<tr>
-<th style=text-align:center>$Y$</th>
-<th style=text-align:center>$g(x_1)$</th>
-<th style=text-align:center>$g(x_2)$</th>
-<th style=text-align:center>$\dotsb$</th>
-<th style=text-align:center>$g(x_n)$</th>
-<th style=text-align:center>$\dotsb$</th>
+<tr class=header>
+<th align=center><span class=math>\(Y\)</span></th>
+<th align=center><span class=math>\(g(x_1)\)</span></th>
+<th align=center><span class=math>\(g(x_2)\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
+<th align=center><span class=math>\(g(x_n)\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style=text-align:center>$P$</td>
-<td style=text-align:center>$p(x_1)$</td>
-<td style=text-align:center>$p(x_2)$</td>
-<td style=text-align:center>$\dotsb$</td>
-<td style=text-align:center>$p(x_n)$</td>
-<td style=text-align:center>$\dotsb$</td>
+<tr class=odd>
+<td align=center><span class=math>\(P\)</span></td>
+<td align=center><span class=math>\(p(x_1)\)</span></td>
+<td align=center><span class=math>\(p(x_2)\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p(x_n)\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
 </tr>
 </tbody>
 </table>
-<p><strong>注意</strong>：当函数值$g(x_1),g(x_2),\dotsb$有相等值时，则把那些相等的值分别合并，并把对应的概率相加。</p>
+<p><strong>注意</strong>：当函数值<span class=math>\(g(x_1),g(x_2),\dotsb\)</span>有相等值时，则把那些相等的值分别合并，并把对应的概率相加。</p>
 <p>以下是几个例题：</p>
-<p><img src=../../images/%E5%8D%95%E4%B8%AA%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83.png alt=单个离散型随机变量函数的分布></p>
+<div class=figure>
+<img src=../../images/单个离散型随机变量函数的分布.png alt=单个离散型随机变量函数的分布><p class=caption>单个离散型随机变量函数的分布</p>
+</div>
 <h3 id=单个连续型随机变量函数的分布>单个连续型随机变量函数的分布</h3>
-<p>找出离散型随机变量函数分布相对简单，只要按步骤求出对应随机变量值就可以了。而对连续性随机变量$X$，我们需要分两种情况讨论。</p>
-<h4 id=当gx严格单调时>当$g(x)$严格单调时</h4>
+<p>找出离散型随机变量函数分布相对简单，只要按步骤求出对应随机变量值就可以了。而对连续性随机变量<span class=math>\(X\)</span>，我们需要分两种情况讨论。</p>
+<h4 id=当gx严格单调时>当<span class=math>\(g(x)\)</span>严格单调时</h4>
 <blockquote>
-<p><strong>定理1</strong>:设$X$是连续性随机变量，其密度函数为$p_{<em>X}(x)$.$Y=g(X)$是另一个随机变量。若$y=g(x)$严格单调，其反函数$h(y)$有连续导函数，则$Y=g(X)$的密度函数为
-$$p</em>{<em>Y}(y)=\begin{cases}
-p</em>{_X}(h(y))|h'(y)|, &a&lt;y&lt;b\
+<p><strong>定理1</strong>:设<span class=math>\(X\)</span>是连续性随机变量，其密度函数为<span class=math>\(p_{_X}(x)\)</span>.<span class=math>\(Y=g(X)\)</span>是另一个随机变量。若<span class=math>\(y=g(x)\)</span>严格单调，其反函数<span class=math>\(h(y)\)</span>有连续导函数，则<span class=math>\(Y=g(X)\)</span>的密度函数为 <span class=math>\[p_{_Y}(y)=\begin{cases}
+p_{_X}(h(y))|h'(y)|, &a&lt;y&lt;b\\
 0,&\text{otherwise}
-\end{cases}\tag{1}$$
-其中，$a=\min{g(-∞),g(∞)},b=\max{g(-∞),g(∞)}$，即$a，b$为边界。</p>
+\end{cases}\tag{1}\]</span> 其中，<span class=math>\(a=\min\{g(-∞),g(∞)\},b=\max\{g(-∞),g(∞)\}\)</span>，即<span class=math>\(a，b\)</span>为边界。</p>
 </blockquote>
 <p>证明：</p>
 <blockquote>
-<p>不妨设$g(x)$为严格单调递增函数，这时它的反函数$h(y)$也是严格单调递增的,有$y\in (a,b)$，且$h'(y)>0$。
-对于随机变量$Y$，由于其取值范围为$(a,b)$,当</p>
+<p>不妨设<span class=math>\(g(x)\)</span>为严格单调递增函数，这时它的反函数<span class=math>\(h(y)\)</span>也是严格单调递增的,有<span class=math>\(y\in (a,b)\)</span>，且<span class=math>\(h'(y)>0\)</span>。 对于随机变量<span class=math>\(Y\)</span>，由于其取值范围为<span class=math>\((a,b)\)</span>,当</p>
 <ul>
-<li>当$y&lt;a$时，$F_Y(y)=P(Y≤y)=0$</li>
-<li>当$y>b$时，$F_Y(y)=P(Y≤y)=1$</li>
-<li>当$a≤y≤b$时，$F_Y(y)=P(Y≤y)=P(g(X)≤y)=P(X≤h(y))=\int_{-\infty}^{h(y)}p_{_X}(x)\mathrm{d}x$</li>
+<li>当<span class=math>\(y&lt;a\)</span>时，<span class=math>\(F_Y(y)=P(Y≤y)=0\)</span></li>
+<li>当<span class=math>\(y>b\)</span>时，<span class=math>\(F_Y(y)=P(Y≤y)=1\)</span></li>
+<li>当<span class=math>\(a≤y≤b\)</span>时，<span class=math>\(F_Y(y)=P(Y≤y)=P(g(X)≤y)=P(X≤h(y))=\int_{-\infty}^{h(y)}p_{_X}(x)\mathrm{d}x\)</span></li>
 </ul>
-<p>由此可得$Y$的概率密度函数为
-$$p_{<em>Y}(y)=\begin{cases}
-p</em>{_X}[h(y)]\times h'(y),&a&lt;y&lt;b\
+<p>由此可得<span class=math>\(Y\)</span>的概率密度函数为 <span class=math>\[p_{_Y}(y)=\begin{cases}
+p_{_X}[h(y)]\times h'(y),&a&lt;y&lt;b\\
 0,&\text{others}
-\end{cases}\tag{2}$$
-$$\stackrel{\text{加绝对值符号无所谓}}{\Longrightarrow}式(1)$$
-当$g(x)$时严格单调递减函数时，这时它的反函数$h(y)$也是严格单调递减的,有$y\in (a,b)$，且$h'(y)&lt;0$。</p>
-<p>对于随机变量$Y$，由于其取值范围为$(a,b)$,当</p>
+\end{cases}\tag{2}\]</span> <span class=math>\[\stackrel{\text{加绝对值符号无所谓}}{\Longrightarrow}式(1)\]</span> 当<span class=math>\(g(x)\)</span>时严格单调递减函数时，这时它的反函数<span class=math>\(h(y)\)</span>也是严格单调递减的,有<span class=math>\(y\in (a,b)\)</span>，且<span class=math>\(h'(y)&lt;0\)</span>。</p>
+<p>对于随机变量<span class=math>\(Y\)</span>，由于其取值范围为<span class=math>\((a,b)\)</span>,当</p>
 <ul>
-<li>当$y&lt;a$时，$F_Y(y)=P(Y≤y)=0$(这一项和单调递增函数一样)</li>
-<li>当$y>b$时，$F_Y(y)=P(Y≤y)=1$(这一项和单调递增函数一样)</li>
-<li>当$a≤y≤b$时，$F_Y(y)=P(Y≤y)=P(g(X)≤y){\color{red}=P(X≥h(y))}$。由于$g(x)$是减函数，所以自变量符号应从“≤”变成“≥”。而$P(X≥h(y))=1-P(X≤h(y))=1-\int_{-\infty}^{h(y)}p_{_X}(x)\mathrm{d}x$。</li>
+<li>当<span class=math>\(y&lt;a\)</span>时，<span class=math>\(F_Y(y)=P(Y≤y)=0\)</span>(这一项和单调递增函数一样)</li>
+<li>当<span class=math>\(y>b\)</span>时，<span class=math>\(F_Y(y)=P(Y≤y)=1\)</span>(这一项和单调递增函数一样)</li>
+<li>当<span class=math>\(a≤y≤b\)</span>时，<span class=math>\(F_Y(y)=P(Y≤y)=P(g(X)≤y){\color{red}=P(X≥h(y))}\)</span>。由于<span class=math>\(g(x)\)</span>是减函数，所以自变量符号应从“≤”变成“≥”。而<span class=math>\(P(X≥h(y))=1-P(X≤h(y))=1-\int_{-\infty}^{h(y)}p_{_X}(x)\mathrm{d}x\)</span>。</li>
 </ul>
-<p>由于$h(y)$是单调递减函数，所以$h'(y)&lt;0$。由此可得$Y$的概率密度函数为
-$$p_{<em>Y}(y)=\begin{cases}
--p</em>{_X}[h(y)]\times h'(y),&a&lt;y&lt;b\
+<p>由于<span class=math>\(h(y)\)</span>是单调递减函数，所以<span class=math>\(h'(y)&lt;0\)</span>。由此可得<span class=math>\(Y\)</span>的概率密度函数为 <span class=math>\[p_{_Y}(y)=\begin{cases}
+-p_{_X}[h(y)]\times h'(y),&a&lt;y&lt;b\\
 0,&\text{others}
-\end{cases}\tag{3}$$
-$$\stackrel{\text{h'(y)≤0}}{\Longrightarrow}式(1)$$</p>
+\end{cases}\tag{3}\]</span> <span class=math>\[\stackrel{\text{h'(y)≤0}}{\Longrightarrow}式(1)\]</span></p>
 </blockquote>
-<p>特别的，当$g(X)$的表达式为随机变量$X$的累积分布函数（CDF）$F_{_X}(X)$时，我们有以下命题：</p>
+<p>特别的，当<span class=math>\(g(X)\)</span>的表达式为随机变量<span class=math>\(X\)</span>的累积分布函数（CDF）<span class=math>\(F_{_X}(X)\)</span>时，我们有以下命题：</p>
 <blockquote>
-<p><strong>命题1-1</strong>：设存在一随机变量$X$，另一随机变量$Z=F(X)$，其中$F(\cdot)$是$X$的分布函数，那么$Z\thicksim U(0,1)$</p>
-<p><strong>命题1-2</strong>：令$Z\thicksim U(0,1)$，$F^{-1}$是随机变量$X$分布函数$F$的反函数，那么$X=F^{-1}(Z)$</p>
+<p><strong>命题1-1</strong>：设存在一随机变量<span class=math>\(X\)</span>，另一随机变量<span class=math>\(Z=F(X)\)</span>，其中<span class=math>\(F(\cdot)\)</span>是<span class=math>\(X\)</span>的分布函数，那么<span class=math>\(Z\thicksim U(0,1)\)</span></p>
+<p><strong>命题1-2</strong>：令<span class=math>\(Z\thicksim U(0,1)\)</span>，<span class=math>\(F^{-1}\)</span>是随机变量<span class=math>\(X\)</span>分布函数<span class=math>\(F\)</span>的反函数，那么<span class=math>\(X=F^{-1}(Z)\)</span></p>
 </blockquote>
-<p>这一对命题证明比较容易，借助<code>定理1</code>同样的证明方法就能证明。<strong>本质上这一对命题是<code>定理1</code>的一个特例</strong>。但是一开始这个结论令我很不解，主要是我没有分清累积分布函数和随机变量函数的关系。这里的$F$只是随机变量的函数恰好等于累积分布函数，$X$经过$F$变换的得到随机变量$Z=F(X)$。而在累积分布函数CDF中，$F(x)$(注意这里写正确了，一定是$x$)求的是随机变量$X≤x$的概率值，是一个固定值。这二者看着相似，实有根本区别。</p>
-<p>此外，这对命题在计算机产生各种分布随机变量时有很大作用。因为我们只要能产生均匀分布的随机变量$Z\thicksim U(0,1)$就可以通过随机变量$X$的CDF的反函数$F^{-1}(Z)$，得到一个服从累计分布函数$F$的随机变量$X$。事实上，计算机中大多数常用分布随机变量都是通过这个方式产生的,这也是计算机进行随机模拟法（又称蒙特卡洛法）的基础。（有趣的是最常见的正态分布却不用这个方法产生，因为正态分布的CDF不好求，其CDF的反函数更不好求。正态分布随机变量可以以均匀分布随机变量用Box-Muller算法或其改进算法生成。）</p>
+<p>这一对命题证明比较容易，借助<code>定理1</code>同样的证明方法就能证明。<strong>本质上这一对命题是<code>定理1</code>的一个特例</strong>。但是一开始这个结论令我很不解，主要是我没有分清累积分布函数和随机变量函数的关系。这里的<span class=math>\(F\)</span>只是随机变量的函数恰好等于累积分布函数，<span class=math>\(X\)</span>经过<span class=math>\(F\)</span>变换的得到随机变量<span class=math>\(Z=F(X)\)</span>。而在累积分布函数CDF中，<span class=math>\(F(x)\)</span>(注意这里写正确了，一定是<span class=math>\(x\)</span>)求的是随机变量<span class=math>\(X≤x\)</span>的概率值，是一个固定值。这二者看着相似，实有根本区别。</p>
+<p>此外，这对命题在计算机产生各种分布随机变量时有很大作用。因为我们只要能产生均匀分布的随机变量<span class=math>\(Z\thicksim U(0,1)\)</span>就可以通过随机变量<span class=math>\(X\)</span>的CDF的反函数<span class=math>\(F^{-1}(Z)\)</span>，得到一个服从累计分布函数<span class=math>\(F\)</span>的随机变量<span class=math>\(X\)</span>。事实上，计算机中大多数常用分布随机变量都是通过这个方式产生的,这也是计算机进行随机模拟法（又称蒙特卡洛法）的基础。（有趣的是最常见的正态分布却不用这个方法产生，因为正态分布的CDF不好求，其CDF的反函数更不好求。正态分布随机变量可以以均匀分布随机变量用Box-Muller算法或其改进算法生成。）</p>
 <h4 id=单个连续型随机变量函数的几个常用命题>单个连续型随机变量函数的几个常用命题</h4>
 <blockquote>
-<p>命题2-1：设随机变量$X$服从正态分布$N(\mu,\sigma^2)$，当$a\neq 0$时，有$Y=aX+b\thicksim N(a\mu+b,a^2\sigma^2)$。</p>
-<p>命题2-2：对数正态分布，设随机变量$X$服从正态分布$N(\mu,\sigma^2)$，则$Y=e^X$的概率密度函数为：
-$$p_Y(y)=\begin{cases}
-\frac{1}{\sqrt{2\pi}y\sigma}e^{-\frac{(\ln y -\mu)^2}{2\sigma^2}},&y>0\
+<p>命题2-1：设随机变量<span class=math>\(X\)</span>服从正态分布<span class=math>\(N(\mu,\sigma^2)\)</span>，当<span class=math>\(a\neq 0\)</span>时，有<span class=math>\(Y=aX+b\thicksim N(a\mu+b,a^2\sigma^2)\)</span>。</p>
+<p>命题2-2：对数正态分布，设随机变量<span class=math>\(X\)</span>服从正态分布<span class=math>\(N(\mu,\sigma^2)\)</span>，则<span class=math>\(Y=e^X\)</span>的概率密度函数为： <span class=math>\[p_Y(y)=\begin{cases}
+\frac{1}{\sqrt{2\pi}y\sigma}e^{-\frac{(\ln y -\mu)^2}{2\sigma^2}},&y>0\\
 0, &y \le 0
-\end{cases}$$
-即这个分布为对数正态分布$LN(\mu,\sigma^2)$</p>
-<p>命题2-3：随机变量$X$服从伽马分布$Ga(\alpha,\lambda)$，则当$k>0$时，有$Y=kX\thicksim Ga(\alpha,\lambda/k)$</p>
+\end{cases}\]</span> 即这个分布为对数正态分布<span class=math>\(LN(\mu,\sigma^2)\)</span></p>
+<p>命题2-3：随机变量<span class=math>\(X\)</span>服从伽马分布<span class=math>\(Ga(\alpha,\lambda)\)</span>，则当<span class=math>\(k>0\)</span>时，有<span class=math>\(Y=kX\thicksim Ga(\alpha,\lambda/k)\)</span></p>
 </blockquote>
 <p>以上三个命题都是单调函数变换，可以用<code>定理1</code>证明。</p>
 <h4 id=贝叶斯假设的一个悖论>贝叶斯假设的一个悖论</h4>
 <p>随机变量函数的分布还曾被Fisher（发明F分布、Fisher信息量等，频率学派大佬）用来举例反对贝叶斯学派。迫使贝叶斯学派重新找角度解释先验分布的合理性。</p>
 <p>事情大体是这样的，贝叶斯学派在求解概率问题时，<strong>先要规定主观规定一个先验分布，然后获取样本，再通过样本和条件概率修正先验分布，得到后验分布</strong>。其中，后面两步都是有扎实的数学理论支撑的，唯有第一步选取先验分布是一个凭个人主观推测的事情。贝叶斯采取了这样一个假设（贝叶斯假设）：<em>如果我们对某一个统计量没有任何了解，那么我们就不应该对任何值有偏好，所以在统计量的空间里，选取均匀分布作为先验分布</em>。</p>
-<p>这个解释初一听，还是非常有道理的。但是Fisher提出：按照贝叶斯假设某一随机变量$\theta$的先验分布属于均匀分布，因为我们对其一无所知。那么对于随机变量$\beta=\theta^2$，我们对$\beta$也同样一无所知，那么$\beta$是不是应该也是均匀分布？两者同时是均匀分布显然是不可能的。（注1证明）。<strong>到底谁应该是取均匀分布</strong>?这一悖论被Fisher用来反对贝叶斯学派的可靠性。</p>
+<p>这个解释初一听，还是非常有道理的。但是Fisher提出：按照贝叶斯假设某一随机变量<span class=math>\(\theta\)</span>的先验分布属于均匀分布，因为我们对其一无所知。那么对于随机变量<span class=math>\(\beta=\theta^2\)</span>，我们对<span class=math>\(\beta\)</span>也同样一无所知，那么<span class=math>\(\beta\)</span>是不是应该也是均匀分布？两者同时是均匀分布显然是不可能的。（注1证明）。<strong>到底谁应该是取均匀分布</strong>?这一悖论被Fisher用来反对贝叶斯学派的可靠性。</p>
 <blockquote>
-<p>注1：如果一随机变量$X\thicksim U(0,1)$，那么它的平方$Y=X^2$的概率密度函数pdf并不是均匀分布。</p>
-<p>证明：$X\in [0,1]\Rightarrow Y\in [0,1]$ 累积分布函数CDF:$F_X(x) = x$.
-$F_Y(Y)=P(Y\le y)=P(X^2\le y)=P(-\sqrt{y}\le X\le\sqrt{y})$。因为$X\in [0,1]$，所以$P(-\sqrt{y}\le X\le\sqrt{y})=P(X\le\sqrt{y})=F_X(\sqrt{y})=\sqrt{y}\Rightarrow F_Y(y)=\sqrt{y}$。因此
-$$f_Y(y)=\begin{cases}\frac{1}{2\sqrt{y}},y\in [0,1]\0,\text{others}\end{cases}$$
-显然$Y$并不是均匀分布。</p>
+<p>注1：如果一随机变量<span class=math>\(X\thicksim U(0,1)\)</span>，那么它的平方<span class=math>\(Y=X^2\)</span>的概率密度函数pdf并不是均匀分布。</p>
+<p>证明：<span class=math>\(X\in [0,1]\Rightarrow Y\in [0,1]\)</span> 累积分布函数CDF:<span class=math>\(F_X(x) = x\)</span>. <span class=math>\(F_Y(Y)=P(Y\le y)=P(X^2\le y)=P(-\sqrt{y}\le X\le\sqrt{y})\)</span>。因为<span class=math>\(X\in [0,1]\)</span>，所以<span class=math>\(P(-\sqrt{y}\le X\le\sqrt{y})=P(X\le\sqrt{y})=F_X(\sqrt{y})=\sqrt{y}\Rightarrow F_Y(y)=\sqrt{y}\)</span>。因此 <span class=math>\[f_Y(y)=\begin{cases}\frac{1}{2\sqrt{y}},y\in [0,1]\\0,\text{others}\end{cases}\]</span> 显然<span class=math>\(Y\)</span>并不是均匀分布。</p>
 </blockquote>
-<h4 id=当gx为其他形式时>当$g(x)$为其他形式时</h4>
-<p>当<code>定理1</code>不适用时，我们可以从最基础的<strong>分布函数</strong>（$F_Y(y)=P(g(X)≤y)$）入手，就像证明<code>定理1</code>中使用的方法那样。具体可见下面例子</p>
-<p><img src=../../images/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83%E4%BE%8B3.jpg alt=随机变量函数的分布例3></p>
-<p>对照$\chi^2$分布的密度函数，可以看出$Y\thicksim \chi^2(1)$。（因为$\chi^2(n)$正是n个服从正态分布随机变量的平方和的分布）</p>
-<p><img src=../../images/%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83%E4%BE%8B4.jpg alt=随机变量函数的分布例4></p>
+<h4 id=当gx为其他形式时>当<span class=math>\(g(x)\)</span>为其他形式时</h4>
+<p>当<code>定理1</code>不适用时，我们可以从最基础的<strong>分布函数</strong>（<span class=math>\(F_Y(y)=P(g(X)≤y)\)</span>）入手，就像证明<code>定理1</code>中使用的方法那样。具体可见下面例子</p>
+<div class=figure>
+<img src=../../images/随机变量函数的分布例3.jpg alt=随机变量函数的分布例3><p class=caption>随机变量函数的分布例3</p>
+</div>
+<p>对照<span class=math>\(\chi^2\)</span>分布的密度函数，可以看出<span class=math>\(Y\thicksim \chi^2(1)\)</span>。（因为<span class=math>\(\chi^2(n)\)</span>正是n个服从正态分布随机变量的平方和的分布）</p>
+<div class=figure>
+<img src=../../images/随机变量函数的分布例4.jpg alt=随机变量函数的分布例4><p class=caption>随机变量函数的分布例4</p>
+</div>
 <h2 id=多维随机变量函数的分布>多维随机变量函数的分布</h2>
-<p>设$X_1,X_2,\dotsb,X_n$为n维随机变量，则$X_1,X_2,\dotsb,X_n$的函数$Y=g(X_1,X_2,\dotsb,X_n)$时一维随机变量。现在问题是如何由$(X_1,X_2,\dotsb,X_n)$的联合分布，求出$Y$的分布。这是一类技巧性很强的工作，不仅对离散场合和连续场合由不同的方法，而且对不同形式的函数$g(X_1,X_2,\dotsb,X_n)$要采用不同的方法，甚至有些方法只对特殊形式的$g(\cdot)$适用。下面就几个常见的场景做介绍。</p>
+<p>设<span class=math>\(X_1,X_2,\dotsb,X_n\)</span>为n维随机变量，则<span class=math>\(X_1,X_2,\dotsb,X_n\)</span>的函数<span class=math>\(Y=g(X_1,X_2,\dotsb,X_n)\)</span>时一维随机变量。现在问题是如何由<span class=math>\((X_1,X_2,\dotsb,X_n)\)</span>的联合分布，求出<span class=math>\(Y\)</span>的分布。这是一类技巧性很强的工作，不仅对离散场合和连续场合由不同的方法，而且对不同形式的函数<span class=math>\(g(X_1,X_2,\dotsb,X_n)\)</span>要采用不同的方法，甚至有些方法只对特殊形式的<span class=math>\(g(\cdot)\)</span>适用。下面就几个常见的场景做介绍。</p>
 <blockquote>
-<p>补充定义1：n维随机变量（向量）：如果$X_1(\omega),X_2(\omega),\dotsb,X_n(\omega)$是定义在<strong>同一个样本空间</strong>$\Omega={\omega}$上的n个随机变量，则称
-$$X(\omega)=(X_1(\omega),X_2(\omega),\dotsb,X_n(\omega))$$
-为n维随机变量（向量）。</p>
+<p>补充定义1：n维随机变量（向量）：如果<span class=math>\(X_1(\omega),X_2(\omega),\dotsb,X_n(\omega)\)</span>是定义在<strong>同一个样本空间</strong><span class=math>\(\Omega=\{\omega\}\)</span>上的n个随机变量，则称 <span class=math>\[X(\omega)=(X_1(\omega),X_2(\omega),\dotsb,X_n(\omega))\]</span> 为n维随机变量（向量）。</p>
 </blockquote>
-<p>注意，多维随机变量的关键是定义在<strong>同一个样本空间</strong>，对于不同样本空间$\Omega_1,\Omega_2$上的两个随机变量。我们只能在其乘机空间$\Omega_1\times\Omega_2={(\omega_1,\omega_2):\omega_1\in \Omega_1,\omega_2\in\Omega_2}$及其事件域上讨论。以下多维随机变量默认遵从这一点。</p>
+<p>注意，多维随机变量的关键是定义在<strong>同一个样本空间</strong>，对于不同样本空间<span class=math>\(\Omega_1,\Omega_2\)</span>上的两个随机变量。我们只能在其乘机空间<span class=math>\(\Omega_1\times\Omega_2=\{(\omega_1,\omega_2):\omega_1\in \Omega_1,\omega_2\in\Omega_2\}\)</span>及其事件域上讨论。以下多维随机变量默认遵从这一点。</p>
 <h3 id=多维离散型随机变量函数的分布>多维离散型随机变量函数的分布</h3>
-<p>首先，如果离散随机变量概率空间比较小，可将$Y$的取值一一求出再合并得到分布列表。这是最直观最基本的方法。见下例：</p>
-<p><img src=../../images/%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83%E4%BE%8B5.jpg alt=多维离散型随机变量分布例5></p>
+<p>首先，如果离散随机变量概率空间比较小，可将<span class=math>\(Y\)</span>的取值一一求出再合并得到分布列表。这是最直观最基本的方法。见下例：</p>
+<div class=figure>
+<img src=../../images/离散型随机变量函数的分布例5.jpg alt=多维离散型随机变量分布例5><p class=caption>多维离散型随机变量分布例5</p>
+</div>
 <h4 id=离散型随机变量和的分布与卷积公式>离散型随机变量和的分布与卷积公式</h4>
 <p>下面我们讨论一种比较常见的情景，即多维离散型随机变量和的分布。我们先讨论两维随机变量，然后在拓展到多维。</p>
-<p>设随机变量$Z=X+Y$，其中$X,Y$都是在同一样本空间$\Omega$的一维离散型随机变量，事件${Z=k}$可以由如下诸互不相容事件
-$${X=i,Y=k-i}, i\in \Omega$$
-的并集组成，再考虑到$X,Y$的独立性，则对$\forall k \in \Omega_Z$，有
-$$P(Z=k)=\sum_{i\in\Omega}P(X=i)P(Y=k-i)\tag{4}$$
-这个概率等式被称为离散场合下的<strong>卷积公式</strong>。我们在这里让$P(X=i)$的$i\in\Omega$，而对$P(Y=k-i)$则要求所有超出样本空间的值的概率都为0。</p>
-<p>从二维到多维的变换可以看出是一个逐步的过程，两两逐渐相加即可。$N$维离散随机变量的和在一般需要$N-1$次求和（本质是对和的$N-1$次分解）。</p>
+<p>设随机变量<span class=math>\(Z=X+Y\)</span>，其中<span class=math>\(X,Y\)</span>都是在同一样本空间<span class=math>\(\Omega\)</span>的一维离散型随机变量，事件<span class=math>\(\{Z=k\}\)</span>可以由如下诸互不相容事件 <span class=math>\[\{X=i,Y=k-i\}, i\in \Omega\]</span> 的并集组成，再考虑到<span class=math>\(X,Y\)</span>的独立性，则对<span class=math>\(\forall k \in \Omega_Z\)</span>，有 <span class=math>\[P(Z=k)=\sum_{i\in\Omega}P(X=i)P(Y=k-i)\tag{4}\]</span> 这个概率等式被称为离散场合下的<strong>卷积公式</strong>。我们在这里让<span class=math>\(P(X=i)\)</span>的<span class=math>\(i\in\Omega\)</span>，而对<span class=math>\(P(Y=k-i)\)</span>则要求所有超出样本空间的值的概率都为0。</p>
+<p>从二维到多维的变换可以看出是一个逐步的过程，两两逐渐相加即可。<span class=math>\(N\)</span>维离散随机变量的和在一般需要<span class=math>\(N-1\)</span>次求和（本质是对和的<span class=math>\(N-1\)</span>次分解）。</p>
 <h4 id=思考分布可加性的本质>思考：分布可加性的本质</h4>
 <p>通过离散场合下的卷积公式，我们可以证明如下三个命题：</p>
 <blockquote>
-<p>命题3-1：<strong>泊松分布的可加性</strong>。设随机变量$X\thicksim P(\lambda_1),X_2\thicksim P(\lambda_2)$，且$X,Y$独立，则$Z=X+Y\thicksim P(\lambda_1+\lambda_2)$</p>
-<p>命题3-2：<strong>二项分布的可加性</strong>。设随机变量$X\thicksim P(n,p),X_2\thicksim P(m,p)$，且$X,Y$独立，则$Z=X+Y\thicksim P(m+n,p)$</p>
-<p>命题3-3：<strong>负二项分布的可加性</strong>。设随机变量$X\thicksim Nb(n,p),X_2\thicksim Nb(m,p)$，且$X,Y$独立，则$Z=X+Y\thicksim Nb(m+n,p)$</p>
+<p>命题3-1：<strong>泊松分布的可加性</strong>。设随机变量<span class=math>\(X\thicksim P(\lambda_1),X_2\thicksim P(\lambda_2)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\thicksim P(\lambda_1+\lambda_2)\)</span></p>
+<p>命题3-2：<strong>二项分布的可加性</strong>。设随机变量<span class=math>\(X\thicksim P(n,p),X_2\thicksim P(m,p)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\thicksim P(m+n,p)\)</span></p>
+<p>命题3-3：<strong>负二项分布的可加性</strong>。设随机变量<span class=math>\(X\thicksim Nb(n,p),X_2\thicksim Nb(m,p)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\thicksim Nb(m+n,p)\)</span></p>
 </blockquote>
 <p>卷积显然和直接相加差别很大。那为什么有些分布能满足可加性呢？我们除了用形式化的数学方法证明，有什么本质能够理解本质的方法吗？</p>
-<p>其实回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布$B(N,p)$，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在$\lambda=np$为定值时, $p\rightarrow 0, n\rightarrow\infty$的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布$n\rightarrow \infty$的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（$e$是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。</p>
-<p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是<strong>指数分布$X\thicksim \exp(\lambda)$的和</strong>，k个指数分布$X_i\thicksim \exp(\lambda),i\in{1,2,\dotsb,k}$相加是Erlang分布
-$$
-X_{i}\sim \exp (\lambda ),\
-\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\
+<p>其实回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布<span class=math>\(B(N,p)\)</span>，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在<span class=math>\(\lambda=np\)</span>为定值时, <span class=math>\(p\rightarrow 0, n\rightarrow\infty\)</span>的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布<span class=math>\(n\rightarrow \infty\)</span>的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（<span class=math>\(e\)</span>是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。</p>
+<p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是<strong>指数分布<span class=math>\(X\thicksim \exp(\lambda)\)</span>的和</strong>，k个指数分布<span class=math>\(X_i\thicksim \exp(\lambda),i\in\{1,2,\dotsb,k\}\)</span>相加是Erlang分布 <span class=math>\[
+X_{i}\sim \exp (\lambda ),\\
+\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
 p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1
-$$
-它和指数分布的参数$\lambda$是一样的，参数$k$是指由$k$个指数分布相加。其实际含义可以指代$k$个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将$k\rightarrow \alpha$延拓到正实数域，就是Gamma分布$X\sim \Gamma(\alpha,\lambda)$。
-$$p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x>0\quad \alpha ,\lambda >0$$
-其中,$\Gamma(\alpha)$是Gamma函数而卡方分布又是Gamma分布的特例，即$X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})$，
-$$
+\]</span> 它和指数分布的参数<span class=math>\(\lambda\)</span>是一样的，参数<span class=math>\(k\)</span>是指由<span class=math>\(k\)</span>个指数分布相加。其实际含义可以指代<span class=math>\(k\)</span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将<span class=math>\(k\rightarrow \alpha\)</span>延拓到正实数域，就是Gamma分布<span class=math>\(X\sim \Gamma(\alpha,\lambda)\)</span>。 <span class=math>\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x>0\quad \alpha ,\lambda >0\]</span> 其中,<span class=math>\(\Gamma(\alpha)\)</span>是Gamma函数而卡方分布又是Gamma分布的特例，即<span class=math>\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)</span>， <span class=math>\[
 p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}
-$$
-因此这两种分布(Gamma分布、卡方分布)也不出意外的有可加性。还有一种满足可加性的分布，柯西分布，对它我了解不多，暂不描述。</p>
+\]</span> 因此这两种分布(Gamma分布、卡方分布)也不出意外的有可加性。还有一种满足可加性的分布，柯西分布，对它我了解不多，暂不描述。</p>
 <h3 id=多维随机变量的最大最小值分布>多维随机变量的最大最小值分布</h3>
 <p>最大值最小值的分布利用了分布函数和多个随机变量间的独立性，是利用定义就能搞定的多维分布。</p>
 <h4 id=最大值分布>最大值分布</h4>
 <blockquote>
-<p>命题4：设$X_1,X_2,\dotsb,X_n$是相互独立的n个随机变量，若$Y=\max{X_1,X_2,\dotsb,X_n}$。则对于$Y$的分布有：</p>
-<ol>
-<li>$X_i\sim F_i(x)，,i=1,2,\dotsb,n, Y\sim \prod\limits_{i=1}^n F_i(y)$;</li>
-<li>若诸$X_i$i.i.d，即$X_i\sim F(x)$，则有$Y\sim [F(y)]^n$</li>
-<li>若诸$X_i$为连续随机变量，且i.i.d，则$Y$的概率密度函数是$P_Y(y)=n[F(y)]^{n-1}p(y)$</li>
-<li>若诸$X_i$都服从$X\sim \exp(\lambda)$，则$Y$的概率密度函数是
-$$p_Y(y)=\begin{cases}0,&y&lt;0\n(1-e^{-\lambda y})^{n-1}\lambda e^{-\lambda y},&y\ge 0\end{cases}$$</li>
+<p>命题4：设<span class=math>\(X_1,X_2,\dotsb,X_n\)</span>是相互独立的n个随机变量，若<span class=math>\(Y=\max\{X_1,X_2,\dotsb,X_n\}\)</span>。则对于<span class=math>\(Y\)</span>的分布有：</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(X_i\sim F_i(x)，,i=1,2,\dotsb,n, Y\sim \prod\limits_{i=1}^n F_i(y)\)</span>;</li>
+<li>若诸<span class=math>\(X_i\)</span>i.i.d，即<span class=math>\(X_i\sim F(x)\)</span>，则有<span class=math>\(Y\sim [F(y)]^n\)</span></li>
+<li>若诸<span class=math>\(X_i\)</span>为连续随机变量，且i.i.d，则<span class=math>\(Y\)</span>的概率密度函数是<span class=math>\(P_Y(y)=n[F(y)]^{n-1}p(y)\)</span></li>
+<li>若诸<span class=math>\(X_i\)</span>都服从<span class=math>\(X\sim \exp(\lambda)\)</span>，则<span class=math>\(Y\)</span>的概率密度函数是 <span class=math>\[p_Y(y)=\begin{cases}0,&y&lt;0\\n(1-e^{-\lambda y})^{n-1}\lambda e^{-\lambda y},&y\ge 0\end{cases}\]</span></li>
 </ol>
 </blockquote>
-<p>证明：
-(1) 有$Y=\max{X_1,X_2,\dotsb,X_n}$，则$F_Y(y)=P(max{X_1,X_2,\dotsb,X_n}≤y)=P(X_1≤y,X_2≤y,\dotsb,X_n≤y)\stackrel{\text{独立性}}{=}P(X_1≤y)P(X_2≤y)\dotsb P(X_n≤y)=\prod\limits_{i=1}^n F_i(y)$。即$Y\sim \prod\limits_{i=1}^n F_i(y)$</p>
-<p>(2)因为诸$X_i$i.i.d，所以$\prod\limits_{i=1}^n F_i(y)=[F(y)]^n$，即$Y \sim [F(y)]^{n}$
-(3)将结果(2)的求导即可得证。
-(4)指数分布符合(3)的前提，可以直接带入(3)的公式可证。</p>
+<p>证明： (1) 有<span class=math>\(Y=\max\{X_1,X_2,\dotsb,X_n\}\)</span>，则<span class=math>\(F_Y(y)=P(max\{X_1,X_2,\dotsb,X_n\}≤y)=P(X_1≤y,X_2≤y,\dotsb,X_n≤y)\stackrel{\text{独立性}}{=}P(X_1≤y)P(X_2≤y)\dotsb P(X_n≤y)=\prod\limits_{i=1}^n F_i(y)\)</span>。即<span class=math>\(Y\sim \prod\limits_{i=1}^n F_i(y)\)</span></p>
+<p>(2)因为诸<span class=math>\(X_i\)</span>i.i.d，所以<span class=math>\(\prod\limits_{i=1}^n F_i(y)=[F(y)]^n\)</span>，即<span class=math>\(Y \sim [F(y)]^{n}\)</span> (3)将结果(2)的求导即可得证。 (4)指数分布符合(3)的前提，可以直接带入(3)的公式可证。</p>
 <h4 id=最小值分布>最小值分布</h4>
 <blockquote>
-<p>命题5：设$X_1,X_2,\dotsb,X_n$是相互独立的n个随机变量，若$Y=\min{X_1,X_2,\dotsb,X_n}$。则对于$Y$的分布有：</p>
-<ol>
-<li>$X_i\sim F_i(x)，,i=1,2,\dotsb,n, Y\sim 1-\prod\limits_{i=1}^n [1-F_i(y)]$;</li>
-<li>若诸$X_i$i.i.d，即$X_i\sim F(x)$，则有$Y\sim 1-[1-F(y)]^n$</li>
-<li>若诸$X_i$为连续随机变量，且i.i.d，则$Y$的概率密度函数是$P_Y(y)=n[1-F(y)]^{n-1}p(y)$</li>
-<li>若诸$X_i$都服从$X\sim \exp(\lambda)$，则$Y$的概率密度函数是
-$$p_Y(y)=\begin{cases}0,&y&lt;0\n\lambda e^{-n\lambda y},&y\ge 0\end{cases}$$</li>
+<p>命题5：设<span class=math>\(X_1,X_2,\dotsb,X_n\)</span>是相互独立的n个随机变量，若<span class=math>\(Y=\min\{X_1,X_2,\dotsb,X_n\}\)</span>。则对于<span class=math>\(Y\)</span>的分布有：</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(X_i\sim F_i(x)，,i=1,2,\dotsb,n, Y\sim 1-\prod\limits_{i=1}^n [1-F_i(y)]\)</span>;</li>
+<li>若诸<span class=math>\(X_i\)</span>i.i.d，即<span class=math>\(X_i\sim F(x)\)</span>，则有<span class=math>\(Y\sim 1-[1-F(y)]^n\)</span></li>
+<li>若诸<span class=math>\(X_i\)</span>为连续随机变量，且i.i.d，则<span class=math>\(Y\)</span>的概率密度函数是<span class=math>\(P_Y(y)=n[1-F(y)]^{n-1}p(y)\)</span></li>
+<li>若诸<span class=math>\(X_i\)</span>都服从<span class=math>\(X\sim \exp(\lambda)\)</span>，则<span class=math>\(Y\)</span>的概率密度函数是 <span class=math>\[p_Y(y)=\begin{cases}0,&y&lt;0\\n\lambda e^{-n\lambda y},&y\ge 0\end{cases}\]</span></li>
 </ol>
 </blockquote>
-<p>证明：
-(1)由于$Y=\min{X_1,X_2,\dotsb,X_n}$，因此$F_Y(y)=P(\min{X_1,X_2,\dotsb X_n}≤y)=1-P(\min{X_1,X_2,\dotsb X_n}>y)=1-P(X_1>y,X_2>y,\dotsb,X_n>y)\stackrel{\text{独立性了}}{=}1-P(X_1>y)P(X_2>y)\dotsb P(X_n>y)=1-\prod\limits_{i=1}^n[1-F_i(y)]$
-(2)因为诸$X_i$i.i.d，即$X_i\sim F(x)$，代入(1)的结果则有$Y\sim 1-[1-F(y)]^n$
-(3)将结果(2)的求导即可得证。
-(4)指数分布符合(3)的前提，可以直接带入(3)的公式可证。</p>
+<p>证明： (1)由于<span class=math>\(Y=\min\{X_1,X_2,\dotsb,X_n\}\)</span>，因此<span class=math>\(F_Y(y)=P(\min\{X_1,X_2,\dotsb X_n\}≤y)=1-P(\min\{X_1,X_2,\dotsb X_n\}>y)=1-P(X_1>y,X_2>y,\dotsb,X_n>y)\stackrel{\text{独立性了}}{=}1-P(X_1>y)P(X_2>y)\dotsb P(X_n>y)=1-\prod\limits_{i=1}^n[1-F_i(y)]\)</span> (2)因为诸<span class=math>\(X_i\)</span>i.i.d，即<span class=math>\(X_i\sim F(x)\)</span>，代入(1)的结果则有<span class=math>\(Y\sim 1-[1-F(y)]^n\)</span> (3)将结果(2)的求导即可得证。 (4)指数分布符合(3)的前提，可以直接带入(3)的公式可证。</p>
 <h3 id=多维连续型随机变量函数的分布>多维连续型随机变量函数的分布</h3>
 <h4 id=连续型随机变量和的分布与卷积公式>连续型随机变量和的分布与卷积公式</h4>
 <p>我们之前已经研究了离散型多维随机变量的卷积公式，对于连续型多维随机变量，我们采用类似的方式推导，只是把求和换成积分。</p>
 <blockquote>
-<p>连续型随机变量的卷积公式：设$X,Y$是两个连续且独立的随机变量，其密度函数分别是$p_{<em>X}(x),p</em>{<em>Y}(y)$，则其和$Z=X+Y$的概率密度函数为：
-$$\begin{aligned}p</em>{<em>Z}(z)&=\int</em>{-\infty}^\infty p_{<em>X}(x)p</em>{<em>Y}(z-x)dx\
-&=\int</em>{-\infty}^\infty p_{<em>X}(z-y)p</em>{_Y}(y)dy
-\end{aligned}\tag{5}$$
-上式被称为连续随机变量的卷积公式。</p>
+<p>连续型随机变量的卷积公式：设<span class=math>\(X,Y\)</span>是两个连续且独立的随机变量，其密度函数分别是<span class=math>\(p_{_X}(x),p_{_Y}(y)\)</span>，则其和<span class=math>\(Z=X+Y\)</span>的概率密度函数为： <span class=math>\[\begin{aligned}p_{_Z}(z)&=\int_{-\infty}^\infty p_{_X}(x)p_{_Y}(z-x)dx\\
+&=\int_{-\infty}^\infty p_{_X}(z-y)p_{_Y}(y)dy
+\end{aligned}\tag{5}\]</span> 上式被称为连续随机变量的卷积公式。</p>
 </blockquote>
-<p>证明：
-$Z=X+Y$的分布函数按照定义为
-$$\begin{aligned}
-F_Z(z)&=P(X+Y≤Z)=\iint_{x+y≤z}p_{<em>X}(x)p</em>{<em>Y}(y)dxdy\
-&=\int</em>{-\infty}^\infty{\int_{-\infty}^{z-y}p_{<em>X}(x)dx}p</em>{<em>Y}(y)dy\
-&\xlongequal{变量替换}\int</em>{-\infty}^\infty\int_{-\infty}^z p_{<em>X}(t-y)p</em>{<em>Y}(y)dtdy\
-\Rightarrow F</em>{Z}(z)&=\int_{-\infty}^z(\int_{-\infty}^∞ p_{<em>X}(t-y)p</em>{<em>Y}(y)dy)dt
+<p>证明： <span class=math>\(Z=X+Y\)</span>的分布函数按照定义为 <span class=math>\[\begin{aligned}
+F_Z(z)&=P(X+Y≤Z)=\iint_{x+y≤z}p_{_X}(x)p_{_Y}(y)dxdy\\
+&=\int_{-\infty}^\infty\{\int_{-\infty}^{z-y}p_{_X}(x)dx\}p_{_Y}(y)dy\\
+&\xlongequal{变量替换}\int_{-\infty}^\infty\int_{-\infty}^z p_{_X}(t-y)p_{_Y}(y)dtdy\\
+\Rightarrow F_{Z}(z)&=\int_{-\infty}^z(\int_{-\infty}^∞ p_{_X}(t-y)p_{_Y}(y)dy)dt
 \end{aligned}
-$$
-对$F</em>{Z}(z)$以$z$求导，可得
-$$
-p_{<em>Z}(z)=\int</em>{-\infty}^∞ p_{<em>X}(z-y)p</em>{<em>Y}(y)dy
-$$
-令上式积分中$y=z-x$则可得：
-$$
-p</em>{<em>Z}(z)=\int</em>{-\infty}^∞ p_{<em>X}(x)p</em>{_Y}(z-x)dx
-$$
-得证。</p>
-<p>在之前<a href=#%E6%80%9D%E8%80%83%E5%88%86%E5%B8%83%E5%8F%AF%E5%8A%A0%E6%80%A7%E7%9A%84%E6%9C%AC%E8%B4%A8>思考：分布可加性的本质</a>章节中我们已经讨论了为什么有些分布具有可加性，也涉及了部分连续性随机分布，这里我们给出详细命题：</p>
+\]</span> 对<span class=math>\(F_{Z}(z)\)</span>以<span class=math>\(z\)</span>求导，可得 <span class=math>\[
+p_{_Z}(z)=\int_{-\infty}^∞ p_{_X}(z-y)p_{_Y}(y)dy
+\]</span> 令上式积分中<span class=math>\(y=z-x\)</span>则可得： <span class=math>\[
+p_{_Z}(z)=\int_{-\infty}^∞ p_{_X}(x)p_{_Y}(z-x)dx
+\]</span> 得证。</p>
+<p>在之前<a href=#思考分布可加性的本质>思考：分布可加性的本质</a>章节中我们已经讨论了为什么有些分布具有可加性，也涉及了部分连续性随机分布，这里我们给出详细命题：</p>
 <blockquote>
-<p>命题6-1：<strong>正态分布的可加性</strong>。设随机变量$X\sim N(\mu_1,\sigma_1^2),Y\sim N(\mu_2,\sigma_2^2)$，且$X,Y$独立，则$Z=X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)$
-命题6-2：<strong>伽马分布的可加性</strong>。设随机变量$X\sim Ga(\alpha_1,\lambda),Y\sim Ga(\alpha_2,\lambda)$，且$X,Y$独立，则$Z=X+Y\sim Ga(\alpha_1+\alpha_2,\lambda)$
-命题6-3：<strong>卡方分布的可加性</strong>。设随机变量$X\sim \chi^2(m),Y\sim \chi^2(n)$，且$X,Y$独立，则$Z=X+Y\sim \chi^2(m+n)$</p>
+<p>命题6-1：<strong>正态分布的可加性</strong>。设随机变量<span class=math>\(X\sim N(\mu_1,\sigma_1^2),Y\sim N(\mu_2,\sigma_2^2)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)</span> 命题6-2：<strong>伽马分布的可加性</strong>。设随机变量<span class=math>\(X\sim Ga(\alpha_1,\lambda),Y\sim Ga(\alpha_2,\lambda)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim Ga(\alpha_1+\alpha_2,\lambda)\)</span> 命题6-3：<strong>卡方分布的可加性</strong>。设随机变量<span class=math>\(X\sim \chi^2(m),Y\sim \chi^2(n)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim \chi^2(m+n)\)</span></p>
 </blockquote>
-<p>证明：
-(1):正态分布的可加性。首先$Z=X+Y$的定义域依然是$(-∞,∞)$,利用连续随机变量的卷积公式$(5)$可得：
-$$
+<p>证明： (1):正态分布的可加性。首先<span class=math>\(Z=X+Y\)</span>的定义域依然是<span class=math>\((-∞,∞)\)</span>,利用连续随机变量的卷积公式<span class=math>\((5)\)</span>可得： <span class=math>\[
 \begin{aligned}
-p_{<em>Z}(z)&=\int</em>{-∞}^∞\frac{1}{2\pi\sigma_1\sigma_2}\exp\left{ -\frac{1}{2}\left[\frac{(z-y-\mu_1)^2}{\sigma_1^2}+\frac{(y-\mu_2)^2}{\sigma_2^2} \right]\right}dy\
-&\xlongequal[u=y-\mu_2]{v=z-(\mu_1+\mu_2)}\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left{\frac{1}{2}\left[\frac{(v-u)^2}{\sigma_1^2}+\frac{u^2}{\sigma_2^2} \right]\right}dy\
-&=\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left{\frac{1}{2}\left[\frac{(v-u)^2}{\sigma_1^2}+\frac{u^2}{\sigma_2^2} \right]\right}du\
+p_{_Z}(z)&=\int_{-∞}^∞\frac{1}{2\pi\sigma_1\sigma_2}\exp\left\{ -\frac{1}{2}\left[\frac{(z-y-\mu_1)^2}{\sigma_1^2}+\frac{(y-\mu_2)^2}{\sigma_2^2} \right]\right\}dy\\
+&\xlongequal[u=y-\mu_2]{v=z-(\mu_1+\mu_2)}\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{\frac{1}{2}\left[\frac{(v-u)^2}{\sigma_1^2}+\frac{u^2}{\sigma_2^2} \right]\right\}dy\\
+&=\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{\frac{1}{2}\left[\frac{(v-u)^2}{\sigma_1^2}+\frac{u^2}{\sigma_2^2} \right]\right\}du\\
 \end{aligned}
-$$
-由于变量$v$与概率密度函数自变量$z$有关，而与积分变量$y$无关，因此，我们将与$u$无关的$v$从积分符号中提取出来，再把$u$凑成平方项，方可化腐朽为神奇 。同时，$u=y-\mu_1\in(-∞,∞)$，积分区间未变。
-$$
+\]</span> 由于变量<span class=math>\(v\)</span>与概率密度函数自变量<span class=math>\(z\)</span>有关，而与积分变量<span class=math>\(y\)</span>无关，因此，我们将与<span class=math>\(u\)</span>无关的<span class=math>\(v\)</span>从积分符号中提取出来，再把<span class=math>\(u\)</span>凑成平方项，方可化腐朽为神奇 。同时，<span class=math>\(u=y-\mu_1\in(-∞,∞)\)</span>，积分区间未变。 <span class=math>\[
 \begin{aligned}
-p_{<em>Z}(z)&=\frac{1}{2\pi\sigma_1\sigma_2}\int</em>{-∞}^∞\exp\left{-\frac{1}{2}\left[\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2\sigma_2^2}u^2-\frac{2}{\sigma_1^2}uv+\frac{v^2}{\sigma_1^2} \right]\right}du\
-\overset{u凑平方}{=}&\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left{-\frac{1}{2}\left[\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2\sigma_2^2}u^2-\frac{2}{\sigma_1^2}uv+\frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2+\sigma_2^2)}v^2\right.\right. \
-&\left.\left.-\frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2+\sigma_2^2)}v^2+\frac{v^2}{\sigma_1^2} \right]\right}du\
-&=\frac{1}{2\pi\sigma_1\sigma_2}\exp\left{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right}\
-&\cdot\int_{-∞}^∞\exp\left{-\frac{1}{2}\left(\frac{\sqrt{\sigma_1^2+\sigma_2^2}}{\sigma_1\sigma_2}u-\frac{\sigma_2}{\sigma_1\sqrt{\sigma_1^2+\sigma_2^2}}v\right)^2\right}du
+p_{_Z}(z)&=\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{-\frac{1}{2}\left[\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2\sigma_2^2}u^2-\frac{2}{\sigma_1^2}uv+\frac{v^2}{\sigma_1^2} \right]\right\}du\\
+\overset{u凑平方}{=}&\frac{1}{2\pi\sigma_1\sigma_2}\int_{-∞}^∞\exp\left\{-\frac{1}{2}\left[\frac{\sigma_1^2+\sigma_2^2}{\sigma_1^2\sigma_2^2}u^2-\frac{2}{\sigma_1^2}uv+\frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2+\sigma_2^2)}v^2\right.\right. \\
+&\left.\left.-\frac{\sigma_2^2}{\sigma_1^2(\sigma_1^2+\sigma_2^2)}v^2+\frac{v^2}{\sigma_1^2} \right]\right\}du\\
+&=\frac{1}{2\pi\sigma_1\sigma_2}\exp\left\{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right\}\\
+&\cdot\int_{-∞}^∞\exp\left\{-\frac{1}{2}\left(\frac{\sqrt{\sigma_1^2+\sigma_2^2}}{\sigma_1\sigma_2}u-\frac{\sigma_2}{\sigma_1\sqrt{\sigma_1^2+\sigma_2^2}}v\right)^2\right\}du
 \end{aligned}
-$$
-令$t=\frac{\sqrt{\sigma_1^2+\sigma_2^2}}{\sigma_1\sigma_2}u-\frac{\sigma_2}{\sigma_1\sqrt{\sigma_1^2+\sigma_2^2}}v$，显然$v$无论取什么值，在$u\in(-\infty,\infty)$时，都有$t\in (-\infty,\infty)$。同时，$du=\frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}dt$。因此：
-$$
+\]</span> 令<span class=math>\(t=\frac{\sqrt{\sigma_1^2+\sigma_2^2}}{\sigma_1\sigma_2}u-\frac{\sigma_2}{\sigma_1\sqrt{\sigma_1^2+\sigma_2^2}}v\)</span>，显然<span class=math>\(v\)</span>无论取什么值，在<span class=math>\(u\in(-\infty,\infty)\)</span>时，都有<span class=math>\(t\in (-\infty,\infty)\)</span>。同时，<span class=math>\(du=\frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}dt\)</span>。因此： <span class=math>\[
 \begin{aligned}
-p_{<em>Z}(z)&=\frac{1}{2\pi\sigma_1\sigma_2}\exp\left{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right}\int</em>{-\infty}^\infty\exp {-\frac{1}{2}t^2}\frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}dt\
-&=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right}\int_{-\infty}^\infty\exp {-\frac{1}{2}t^2}dt
+p_{_Z}(z)&=\frac{1}{2\pi\sigma_1\sigma_2}\exp\left\{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right\}\int_{-\infty}^\infty\exp \{-\frac{1}{2}t^2\}\frac{\sigma_1\sigma_2}{\sqrt{\sigma_1^2+\sigma_2^2}}dt\\
+&=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left\{-\frac{1}{2}\frac{v^2}{\sigma_1^2+\sigma_2^2}\right\}\int_{-\infty}^\infty\exp \{-\frac{1}{2}t^2\}dt
 \end{aligned}
-$$
-根据高斯积分有$\int_{-\infty}^\infty\exp {-\frac{1}{2}t^2}dt=\sqrt{2\pi}$，代入上式，并恢复$v=z-(\mu_1+\mu_2)$，则有
-$$
+\]</span> 根据高斯积分有<span class=math>\(\int_{-\infty}^\infty\exp \{-\frac{1}{2}t^2\}dt=\sqrt{2\pi}\)</span>，代入上式，并恢复<span class=math>\(v=z-(\mu_1+\mu_2)\)</span>，则有 <span class=math>\[
 \begin{aligned}
-p_{_Z}(z)&=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left{-\frac{1}{2}\frac{(z-\mu_1-\mu_2)^2}{\sigma_1^2+\sigma_2^2}\right}\cdot \sqrt{2\pi}\
-&=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left{-\frac{(z-\mu_1-\mu_2)^2}{2(\sigma_1^2+\sigma_2^2)}\right}\
+p_{_Z}(z)&=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left\{-\frac{1}{2}\frac{(z-\mu_1-\mu_2)^2}{\sigma_1^2+\sigma_2^2}\right\}\cdot \sqrt{2\pi}\\
+&=\frac{1}{2\pi\sqrt{\sigma_1^2+\sigma_2^2}}\exp\left\{-\frac{(z-\mu_1-\mu_2)^2}{2(\sigma_1^2+\sigma_2^2)}\right\}\\
 &\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)
 \end{aligned}
-$$
-得证。此命题还可扩展成线性可加性：</p>
+\]</span> 得证。此命题还可扩展成线性可加性：</p>
 <blockquote>
-<p>命题6-4：任意n个相互独立的正态随机变量的线性组合仍是正态随机变量。即若$X_i\sim N(\mu_i,\sigma_i^2),i=1,2,\dotsb,n$，则$Y=\sum_{i=1}^n a_i X_i +b \sim N(\sum_{i=1}^n a_i \mu_i +b,\sum_{i=1}^n a_i^2 \sigma_i^2)$</p>
+<p>命题6-4：任意n个相互独立的正态随机变量的线性组合仍是正态随机变量。即若<span class=math>\(X_i\sim N(\mu_i,\sigma_i^2),i=1,2,\dotsb,n\)</span>，则<span class=math>\(Y=\sum_{i=1}^n a_i X_i +b \sim N(\sum_{i=1}^n a_i \mu_i +b,\sum_{i=1}^n a_i^2 \sigma_i^2)\)</span></p>
 </blockquote>
-<p>(2)：证明伽马分布的可加性。首先指出$Z=X+Y$的取值范围仍然在$(0,∞)$,所以当$z&lt;0$时，有$p_{<em>Z}(z)=0$。而当$z>0$时，可用卷积公式，此时被积函数$p</em>{<em>X}(z-y)p</em>{<em>Y}(y)$的非零区域为$0&lt;y&lt;z$,故
-$$
+<p>(2)：证明伽马分布的可加性。首先指出<span class=math>\(Z=X+Y\)</span>的取值范围仍然在<span class=math>\((0,∞)\)</span>,所以当<span class=math>\(z&lt;0\)</span>时，有<span class=math>\(p_{_Z}(z)=0\)</span>。而当<span class=math>\(z>0\)</span>时，可用卷积公式，此时被积函数<span class=math>\(p_{_X}(z-y)p_{_Y}(y)\)</span>的非零区域为<span class=math>\(0&lt;y&lt;z\)</span>,故 <span class=math>\[
 \begin{aligned}
-p</em>{<em>Z}(z)&=\int</em>{-\infty}^\infty p_{<em>Y}(y)p</em>{<em>X}(z-y)dy\
-&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int_0^z (z-y)^{\alpha_1-1}e^{-\lambda(z-y)}y^{\alpha_2-1}e^{-\lambda y} dy \
-&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\lambda z} \int_0^z(z-y)^{\alpha_1-1}y^{\alpha_2-1}dy\
+p_{_Z}(z)&=\int_{-\infty}^\infty p_{_Y}(y)p_{_X}(z-y)dy\\
+&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int_0^z (z-y)^{\alpha_1-1}e^{-\lambda(z-y)}y^{\alpha_2-1}e^{-\lambda y} dy \\
+&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\lambda z} \int_0^z(z-y)^{\alpha_1-1}y^{\alpha_2-1}dy\\
 \end{aligned}
-$$
-令$y=zt,t\in(0,1)$，则$dy=zdt$带入原式可得
-$$
-p</em>{<em>Z}(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\lambda z} z^{\alpha_1+\alpha_2-1}\underbrace{\int_0^1(1-t)^{\alpha_1-1}t^{\alpha_2-1}dt}</em>{\text{贝塔函数}}
-$$
-我们看到这个积分的式子和贝塔函数是一模一样的，贝塔函数$B(\alpha_1,\alpha_2)=\frac{\Gamma(\alpha_1)\Gamma(\alpha_2)}{\Gamma(\alpha_1+\alpha_2)}$。最后，相乘我们得到：
-$$
+\]</span> 令<span class=math>\(y=zt,t\in(0,1)\)</span>，则<span class=math>\(dy=zdt\)</span>带入原式可得 <span class=math>\[
+p_{_Z}(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\lambda z} z^{\alpha_1+\alpha_2-1}\underbrace{\int_0^1(1-t)^{\alpha_1-1}t^{\alpha_2-1}dt}_{\text{贝塔函数}}
+\]</span> 我们看到这个积分的式子和贝塔函数是一模一样的，贝塔函数<span class=math>\(B(\alpha_1,\alpha_2)=\frac{\Gamma(\alpha_1)\Gamma(\alpha_2)}{\Gamma(\alpha_1+\alpha_2)}\)</span>。最后，相乘我们得到： <span class=math>\[
 p_{_Z}(z)=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1+\alpha_2)} z^{\alpha_1+\alpha_2-1}e^{-\lambda z}\sim Ga(\alpha_1+\alpha_2,\lambda)
-$$
-显然，这个结论可以推广到有限个尺度参数相同的独立伽马变量之和上。此外，在Gamma分布中，当我们令$\alpha=1$时，有$Ga(1,\lambda)=\exp(\lambda)$，那么我们可以做出如下命题：</p>
+\]</span> 显然，这个结论可以推广到有限个尺度参数相同的独立伽马变量之和上。此外，在Gamma分布中，当我们令<span class=math>\(\alpha=1\)</span>时，有<span class=math>\(Ga(1,\lambda)=\exp(\lambda)\)</span>，那么我们可以做出如下命题：</p>
 <blockquote>
-<p>命题6-5：n个独立同分布的指数分布随机变量$X_i\sim \exp(\lambda),i=1,2,\dotsb,n$之和为Gamma分布，即$\sum_{i=1}^nX_i\sim \underbrace{\exp(\lambda)<em>\exp(\lambda)</em>\dotsb*\exp(\lambda)}<em>{n个}=Ga(\underbrace{1+1+\dotsb+1}</em>{n个},\lambda)=Ga(n,\lambda)$</p>
+<p>命题6-5：n个独立同分布的指数分布随机变量<span class=math>\(X_i\sim \exp(\lambda),i=1,2,\dotsb,n\)</span>之和为Gamma分布，即<span class=math>\(\sum_{i=1}^nX_i\sim \underbrace{\exp(\lambda)*\exp(\lambda)*\dotsb*\exp(\lambda)}_{n个}=Ga(\underbrace{1+1+\dotsb+1}_{n个},\lambda)=Ga(n,\lambda)\)</span></p>
 </blockquote>
-<p>(3)：由于卡方分布时伽马分布$\alpha=\frac{n}{2},\lambda=\frac{1}{2}$时的特例，因此有(2)的证明可知命题6-3也成立。</p>
+<p>(3)：由于卡方分布时伽马分布<span class=math>\(\alpha=\frac{n}{2},\lambda=\frac{1}{2}\)</span>时的特例，因此有(2)的证明可知命题6-3也成立。</p>
 <h3 id=变量变换法>变量变换法</h3>
-<p>变量变换法是对于从$n\rightarrow n$个随机变量函数变换的概率分布的描述，和单个随机变量函数分布一样，也是<strong>利用了反函数的特性，只不过求导变成了求多个偏导的雅各布行列式</strong>。在此我们仅介绍二维随机变量的变量变换的方法，更高维的方法也是类似的。</p>
-<p>设二维随机变量$(X,Y)$的联合密度函数为$p(x,y)$,那么如果函数
-$$
-\begin{cases} u = g_1(x,y)\ v=g_2(x,y)\end{cases}
-$$
-有连续偏导数，且存在唯一的反函数：
-$$
-\begin{cases} x = x(u,v)\ y=y(x,y)\end{cases}
-$$
-然后我们可以列出雅克比行列式（其中的第二项倒数也告诉我们如果一方的偏导数不好求，可以求其反函数的偏导数雅克布行列式再取倒数）：
-$$
+<p>变量变换法是对于从<span class=math>\(n\rightarrow n\)</span>个随机变量函数变换的概率分布的描述，和单个随机变量函数分布一样，也是<strong>利用了反函数的特性，只不过求导变成了求多个偏导的雅各布行列式</strong>。在此我们仅介绍二维随机变量的变量变换的方法，更高维的方法也是类似的。</p>
+<p>设二维随机变量<span class=math>\((X,Y)\)</span>的联合密度函数为<span class=math>\(p(x,y)\)</span>,那么如果函数 <span class=math>\[
+\begin{cases} u = g_1(x,y)\\ v=g_2(x,y)\end{cases}
+\]</span> 有连续偏导数，且存在唯一的反函数： <span class=math>\[
+\begin{cases} x = x(u,v)\\ y=y(x,y)\end{cases}
+\]</span> 然后我们可以列出雅克比行列式（其中的第二项倒数也告诉我们如果一方的偏导数不好求，可以求其反函数的偏导数雅克布行列式再取倒数）： <span class=math>\[
 J= \frac{\partial(x,y)}{\partial(u,v)}=(\frac{\partial(u,v)}{\partial(x,y)})^{-1}=\begin{vmatrix}
-\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
 \frac{\partial y}{\partial u} & \frac{\partial y}{\partial x}
 \end{vmatrix}\neq 0
-$$
-则二维随机变量$(U,V)$的联合密度函数为
-$$
+\]</span> 则二维随机变量<span class=math>\((U,V)\)</span>的联合密度函数为 <span class=math>\[
 p(u,v)=p(x(u,v),y(u,v))|J|\tag{6}
-$$
-此法为二维随机变量的变量变换法，其证明可参阅二重积分的坐标变换法。</p>
+\]</span> 此法为二维随机变量的变量变换法，其证明可参阅二重积分的坐标变换法。</p>
 <h4 id=box-muller变换>Box-muller变换</h4>
 <p>Box-muller变换在计算机领域是一个重要的变换，它能够用两个均匀分布生成正态分布，其数学原理就是变量变换法。我们通过证明以下命题：</p>
 <blockquote>
-<p>命题7：若两个独立的随机变量$U_1,U_2$都服从均匀分布$U(0,1)$，则其组成二维函数组的二维随机变量
-$$\begin{cases}
-X=\cos(2\pi U_1)\sqrt{-2\ln U_2}\
+<p>命题7：若两个独立的随机变量<span class=math>\(U_1,U_2\)</span>都服从均匀分布<span class=math>\(U(0,1)\)</span>，则其组成二维函数组的二维随机变量 <span class=math>\[\begin{cases}
+X=\cos(2\pi U_1)\sqrt{-2\ln U_2}\\
 Y=\sin(2\pi U_1)\sqrt{-2\ln U_2}
-\end{cases}$$
-都服从标准正态分布$N(0,1)$，即$X,Y\sim N(0,1)$。</p>
+\end{cases}\]</span> 都服从标准正态分布<span class=math>\(N(0,1)\)</span>，即<span class=math>\(X,Y\sim N(0,1)\)</span>。</p>
 </blockquote>
 <p>证明：</p>
-<p>根据公式$(6)$，根据二维均匀分布的概率密度函数有：
-$$
+<p>根据公式<span class=math>\((6)\)</span>，根据二维均匀分布的概率密度函数有： <span class=math>\[
 \begin{aligned}
-p(x,y)&=p(u_1(x,y),u_2(x,y))|J|\
+p(x,y)&=p(u_1(x,y),u_2(x,y))|J|\\
 &= 1 \times |\begin{vmatrix}
-\frac{\partial u_1}{\partial x}&\frac{\partial u_1}{\partial y}\
+\frac{\partial u_1}{\partial x}&\frac{\partial u_1}{\partial y}\\
 \frac{\partial u_2}{\partial x}&\frac{\partial u_2}{\partial y}
 \end{vmatrix}|
 \end{aligned}
-$$
-而根据$(X,Y)$的表达式，其反函数为：
-$$
+\]</span> 而根据<span class=math>\((X,Y)\)</span>的表达式，其反函数为： <span class=math>\[
 \begin{cases}
-U_1=\frac{1}{2\pi}\arctan(Y/X)\
-U_2=e^{-\frac{X^2+Y^2}{2}}\
+U_1=\frac{1}{2\pi}\arctan(Y/X)\\
+U_2=e^{-\frac{X^2+Y^2}{2}}\\
 \end{cases}
-$$
-将其代入雅可比行列式为有：
-$$
+\]</span> 将其代入雅可比行列式为有： <span class=math>\[
 \begin{aligned}
 p(x,y)&=|\begin{vmatrix}
-\frac{\partial u_1}{\partial x}&\frac{\partial u_1}{\partial y}\
+\frac{\partial u_1}{\partial x}&\frac{\partial u_1}{\partial y}\\
 \frac{\partial u_2}{\partial x}&\frac{\partial u_2}{\partial y}
-\end{vmatrix}|\
+\end{vmatrix}|\\
 &=|\begin{vmatrix}
-\frac{1}{2\pi}\frac{-y}{x^2+y^2}&\frac{1}{2\pi}\frac{x}{x^2+y^2}\
--xe^{-\frac{x^2+y^2}{2}}&-ye^{-\frac{x^2+y^2}{2}}\
-\end{vmatrix}|\
-&=\frac{y^2}{2\pi(x^2+y^2)}e^{-\frac{x^2+y^2}{2}}+\frac{y^2}{2\pi(x^2+y^2)}e^{-\frac{x^2+y^2}{2}}\
+\frac{1}{2\pi}\frac{-y}{x^2+y^2}&\frac{1}{2\pi}\frac{x}{x^2+y^2}\\
+-xe^{-\frac{x^2+y^2}{2}}&-ye^{-\frac{x^2+y^2}{2}}\\
+\end{vmatrix}|\\
+&=\frac{y^2}{2\pi(x^2+y^2)}e^{-\frac{x^2+y^2}{2}}+\frac{y^2}{2\pi(x^2+y^2)}e^{-\frac{x^2+y^2}{2}}\\
 &=\frac{1}{2\pi}e^{-\frac{x^2+y^2}{2}}=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}\cdot\frac{1}{\sqrt{2\pi}}e^{-\frac{y^2}{2}}
 \end{aligned}
-$$
-分别求$x,y$的边际分布可证$X,Y\sim N(0,1)$。注意，本次证明省略了定义域的说明，不过由其函数关系可知$X,Y\in(-∞,∞)$。</p>
+\]</span> 分别求<span class=math>\(x,y\)</span>的边际分布可证<span class=math>\(X,Y\sim N(0,1)\)</span>。注意，本次证明省略了定义域的说明，不过由其函数关系可知<span class=math>\(X,Y\in(-∞,∞)\)</span>。</p>
 <p>得到标准正态分布函数后，可以通过正态分布的线性变换得到其他参数的正态分布函数随机变量。</p>
 <h3 id=增补变量法>增补变量法</h3>
-<p>增补变量本质是变量变换法的一个推广：为了求出二维连续随机变量$(X,Y)$只有一个函数$U=g(X,Y)$的密度函数，增补一个新的随机变量$V=h(X,Y)$，转化成变量变换法的场景，在通过一般的变量变换法解决。为了方便求解，我们通常令$V=X$或$V=Y$。先用变量变换法求出$(U,V)$的联合密度函数$p(u,v)$，再对$p(u,v)$关于$v$积分，从而得出关于$U$的边际密度函数。</p>
+<p>增补变量本质是变量变换法的一个推广：为了求出二维连续随机变量<span class=math>\((X,Y)\)</span>只有一个函数<span class=math>\(U=g(X,Y)\)</span>的密度函数，增补一个新的随机变量<span class=math>\(V=h(X,Y)\)</span>，转化成变量变换法的场景，在通过一般的变量变换法解决。为了方便求解，我们通常令<span class=math>\(V=X\)</span>或<span class=math>\(V=Y\)</span>。先用变量变换法求出<span class=math>\((U,V)\)</span>的联合密度函数<span class=math>\(p(u,v)\)</span>，再对<span class=math>\(p(u,v)\)</span>关于<span class=math>\(v\)</span>积分，从而得出关于<span class=math>\(U\)</span>的边际密度函数。</p>
 <h4 id=二维随机变量积的分布>二维随机变量积的分布</h4>
 <blockquote>
-<p>二维随机变量积的公式：设随机变量$X,Y$相互独立，其密度函数分别为$p_{<em>X}(x),p</em>{<em>Y}(y)$，则$U=XY$的密度函数为：
-$$p</em>{<em>U}(u)=\int</em>{-∞}^∞p_{<em>X}(\frac{u}{v})p</em>{_Y}(v)\frac{1}{|v|}dv$$</p>
+<p>二维随机变量积的公式：设随机变量<span class=math>\(X,Y\)</span>相互独立，其密度函数分别为<span class=math>\(p_{_X}(x),p_{_Y}(y)\)</span>，则<span class=math>\(U=XY\)</span>的密度函数为： <span class=math>\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(\frac{u}{v})p_{_Y}(v)\frac{1}{|v|}dv\]</span></p>
 </blockquote>
 <p>证明：</p>
-<p>第一步：增补变量，记$V=Y$，则$\begin{cases}u=xy\v=y\end{cases}$，其反函数为$\begin{cases}x=u/v\y=v\end{cases}$</p>
-<p>第二步：通过变量变换法求出$(U,V)$的联合密度函数。记住雅可比行列式要取绝对值。
-$$
-p(u,v)=p_{<em>X}(\frac{u}{v})p</em>{<em>Y}(v)|\begin{vmatrix}
-\frac{1}{v}&\frac{-u}{v^2}\
+<p>第一步：增补变量，记<span class=math>\(V=Y\)</span>，则<span class=math>\(\begin{cases}u=xy\\v=y\end{cases}\)</span>，其反函数为<span class=math>\(\begin{cases}x=u/v\\y=v\end{cases}\)</span></p>
+<p>第二步：通过变量变换法求出<span class=math>\((U,V)\)</span>的联合密度函数。记住雅可比行列式要取绝对值。 <span class=math>\[
+p(u,v)=p_{_X}(\frac{u}{v})p_{_Y}(v)|\begin{vmatrix}
+\frac{1}{v}&\frac{-u}{v^2}\\
 0&1
-\end{vmatrix}|=p</em>{<em>X}(\frac{u}{v})p</em>{_Y}(v)\frac{1}{|v|}
-$$</p>
-<p>第三步：对$v$积分，求$u$的边际分布：
-$$p_{<em>U}(u)=\int</em>{-∞}^∞p_{<em>X}(\frac{u}{v})p</em>{_Y}(v)\frac{1}{|v|}dv$$
-得证。</p>
+\end{vmatrix}|=p_{_X}(\frac{u}{v})p_{_Y}(v)\frac{1}{|v|}
+\]</span></p>
+<p>第三步：对<span class=math>\(v\)</span>积分，求<span class=math>\(u\)</span>的边际分布： <span class=math>\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(\frac{u}{v})p_{_Y}(v)\frac{1}{|v|}dv\]</span> 得证。</p>
 <h4 id=二维随机变量商的分布>二维随机变量商的分布</h4>
 <blockquote>
-<p>二维随机变量商的公式：设随机变量$X,Y$相互独立，其密度函数分别为$p_{<em>X}(x),p</em>{<em>Y}(y)$，则$U=X/Y$的密度函数为：
-$$p</em>{<em>U}(u)=\int</em>{-∞}^∞p_{<em>X}(uv)p</em>{_Y}(v)|v|dv$$</p>
+<p>二维随机变量商的公式：设随机变量<span class=math>\(X,Y\)</span>相互独立，其密度函数分别为<span class=math>\(p_{_X}(x),p_{_Y}(y)\)</span>，则<span class=math>\(U=X/Y\)</span>的密度函数为： <span class=math>\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(uv)p_{_Y}(v)|v|dv\]</span></p>
 </blockquote>
 <p>证明：</p>
-<p>第一步：增补变量，记$V=Y$，则$\begin{cases}u=x/y\v=y\end{cases}$，其反函数为$\begin{cases}x=uv\y=v\end{cases}$</p>
-<p>第二步：通过变量变换法求出$(U,V)$的联合密度函数。记住雅可比行列式要取绝对值。
-$$
-p(u,v)=p_{<em>X}(uv)p</em>{<em>Y}(v)|\begin{vmatrix}
-v&u\
+<p>第一步：增补变量，记<span class=math>\(V=Y\)</span>，则<span class=math>\(\begin{cases}u=x/y\\v=y\end{cases}\)</span>，其反函数为<span class=math>\(\begin{cases}x=uv\\y=v\end{cases}\)</span></p>
+<p>第二步：通过变量变换法求出<span class=math>\((U,V)\)</span>的联合密度函数。记住雅可比行列式要取绝对值。 <span class=math>\[
+p(u,v)=p_{_X}(uv)p_{_Y}(v)|\begin{vmatrix}
+v&u\\
 0&1
-\end{vmatrix}|=p</em>{<em>X}(uv)p</em>{_Y}(v){|v|}
-$$</p>
-<p>第三步：对$v$积分，求$u$的边际分布：
-$$p_{<em>U}(u)=\int</em>{-∞}^∞p_{<em>X}(uv)p</em>{_Y}(v){|v|}dv$$
-得证。</p>
+\end{vmatrix}|=p_{_X}(uv)p_{_Y}(v){|v|}
+\]</span></p>
+<p>第三步：对<span class=math>\(v\)</span>积分，求<span class=math>\(u\)</span>的边际分布： <span class=math>\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(uv)p_{_Y}(v){|v|}dv\]</span> 得证。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

@@ -88,38 +88,27 @@ Oct 22, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=一维精确优化---omit-in-toc--->一维精确优化</h2>
+<h2 id=一维精确优化>一维精确优化</h2>
 <p>注1：本文讨论需要优化的函数都是单峰函数（或单谷函数）。</p>
 <ul>
-<li><a href=#%E4%B8%80%E7%BB%B4%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95>一维优化方法</a></li>
-<li><a href=#%E6%90%9C%E7%B4%A2%E6%B3%95>搜索法</a>
+<li><a href=#一维优化方法>一维优化方法</a></li>
+<li><a href=#搜索法>搜索法</a></li>
+<li><a href=#二分搜索>二分搜索</a></li>
+<li><a href=#黄金分割搜索>黄金分割搜索</a></li>
+<li><a href=#斐波那契搜索>斐波那契搜索</a></li>
+<li><a href=#近似法>近似法</a></li>
+<li><a href=#二次插值法>二次插值法</a>
 <ul>
-<li><a href=#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2>二分搜索</a></li>
-<li><a href=#%E9%BB%84%E9%87%91%E5%88%86%E5%89%B2%E6%90%9C%E7%B4%A2>黄金分割搜索</a></li>
-<li><a href=#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%90%9C%E7%B4%A2>斐波那契搜索</a></li>
-</ul>
-</li>
-<li><a href=#%E8%BF%91%E4%BC%BC%E6%B3%95>近似法</a>
+<li><a href=#一点二次插值即牛顿法>一点二次插值（即牛顿法）</a></li>
+<li><a href=#二点二次插值>二点二次插值</a></li>
+<li><a href=#三点二次插值>三点二次插值</a></li>
+</ul></li>
+<li><a href=#三次插值法>三次插值法</a>
 <ul>
-<li><a href=#%E4%BA%8C%E6%AC%A1%E6%8F%92%E5%80%BC%E6%B3%95>二次插值法</a>
-<ul>
-<li><a href=#%E4%B8%80%E7%82%B9%E4%BA%8C%E6%AC%A1%E6%8F%92%E5%80%BC%E5%8D%B3%E7%89%9B%E9%A1%BF%E6%B3%95>一点二次插值（即牛顿法）</a></li>
-<li><a href=#%E4%BA%8C%E7%82%B9%E4%BA%8C%E6%AC%A1%E6%8F%92%E5%80%BC>二点二次插值</a></li>
-<li><a href=#%E4%B8%89%E7%82%B9%E4%BA%8C%E6%AC%A1%E6%8F%92%E5%80%BC>三点二次插值</a></li>
-</ul>
-</li>
-<li><a href=#%E4%B8%89%E6%AC%A1%E6%8F%92%E5%80%BC%E6%B3%95>三次插值法</a>
-<ul>
-<li><a href=#%E4%BA%8C%E7%82%B9%E4%B8%89%E6%AC%A1%E6%8F%92%E5%80%BC%E6%B3%95cubic-interpolation-method-with-two-points>二点三次插值法（Cubic Interpolation Method with Two-Points）</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href=#%E7%BB%BC%E5%90%88%E6%96%B9%E6%B3%95>综合方法</a>
-<ul>
-<li><a href=#dsc%E6%B3%95>D.S.C.法</a></li>
-</ul>
-</li>
+<li><a href=#二点三次插值法cubic-interpolation-method-with-two-points>二点三次插值法（Cubic Interpolation Method with Two-Points）</a></li>
+</ul></li>
+<li><a href=#综合方法>综合方法</a></li>
+<li><a href=#dsc法>D.S.C.法</a></li>
 </ul>
 <h2 id=一维优化方法>一维优化方法</h2>
 <h2 id=搜索法>搜索法</h2>
@@ -129,43 +118,28 @@ Oct 22, 2019</span>
 <h2 id=近似法>近似法</h2>
 <p>插值法是一类重要的一维搜索方法。其基本思想是在搜索区间中不断用低次多项式来近似目标函数，并逐步用插值多项式的极小点来逼近一维搜索问题的极小点。当函数具有较好的<strong>解析性质时</strong>，插值法比搜索法效果更好。伟大的泰勒！泰勒展开，多项式！</p>
 <p>常见的插值方法有一点二次插值法、二点二次插值法、三点二次插值法和二点三次插值法。其中一点二次插值法就是牛顿法，二点二次插值法中的一种就是割线法。</p>
-<p>几次插值法就是插值多项式的最高阶数，几点就是选用几个点。比如二次插值法，插值多项式为$q(x)=ax^2+bx+c$有3个待定系数，可以从两个方面来确定系数，一是用点的值，二是用点的导数。</p>
+<p>几次插值法就是插值多项式的最高阶数，几点就是选用几个点。比如二次插值法，插值多项式为<span class=math>\(q(x)=ax^2+bx+c\)</span>有3个待定系数，可以从两个方面来确定系数，一是用点的值，二是用点的导数。</p>
 <h3 id=二次插值法>二次插值法</h3>
-<p>二次插值法就是不断构造二次插值多项式$q(x)=ax^2+bx+c$来近似目标函数$f(x)$并将最后一步构造的二次插值多项式的极小值点作为目标函数极小值点的方法，不同二次插值法的区别在于构造二次插值多项式时使用的信息不同。（注：以下介绍各方法基本原理时，$x_k$均指第$k$步迭代中构造的插值多项式的极小值点）</p>
+<p>二次插值法就是不断构造二次插值多项式<span class=math>\(q(x)=ax^2+bx+c\)</span>来近似目标函数<span class=math>\(f(x)\)</span>并将最后一步构造的二次插值多项式的极小值点作为目标函数极小值点的方法，不同二次插值法的区别在于构造二次插值多项式时使用的信息不同。（注：以下介绍各方法基本原理时，<span class=math>\(x_k\)</span>均指第<span class=math>\(k\)</span>步迭代中构造的插值多项式的极小值点）</p>
 <h4 id=一点二次插值即牛顿法>一点二次插值（即牛顿法）</h4>
-<p>一点二次插值在第$(k+1)$步构造二次插值多项式时使用 1 个函数、1 个一阶导数和 1 个二阶导数信息。一点，最高阶为2次，名字由来。
-$$\begin{aligned}
-q(x_k)=&ax_k^2+bx_k+c&=f(x_k)\
-q'(x_k)=&2ax_k+b&=f'(x_k)\
+<p>一点二次插值在第<span class=math>\((k+1)\)</span>步构造二次插值多项式时使用 1 个函数、1 个一阶导数和 1 个二阶导数信息。一点，最高阶为2次，名字由来。 <span class=math>\[\begin{aligned}
+q(x_k)=&ax_k^2+bx_k+c&=f(x_k)\\
+q'(x_k)=&2ax_k+b&=f'(x_k)\\
 q''(x_k)=&2a&=f''(x_k)
-\end{aligned}$$
-求关于$a,b,c$的解方程组：
-$$a=\frac{\begin{vmatrix}f(x_k)&x_k&1\f'(x_k)&1&0\f''(x_k)&0&0\end{vmatrix}}
-{\begin{vmatrix}x_k^2&x_k&1\2x_k&1&0\2&0&0\end{vmatrix}}=\frac{f''(x_k)}{2}$$
-$$b=\frac{\begin{vmatrix}x_k^2&f(x_k)&1\2x_k&f'(x_k)&0\2&f''(x_k)&0\end{vmatrix}}
-{\begin{vmatrix}x_k^2&x_k&1\2x_k&1&0\2&0&0\end{vmatrix}}=f'(x_k)-x_kf''(x_k)$$
-要求$q'(x)=f'(x)=0$，所以此时$x_{k+1}=x_k-\frac{f'(x)}{f''(x)}$。从原理上来看，牛顿法只是求导数为0的点，这个点可能是极大值也可能是极小值。</p>
+\end{aligned}\]</span> 求关于<span class=math>\(a,b,c\)</span>的解方程组： <span class=math>\[a=\frac{\begin{vmatrix}f(x_k)&x_k&1\\f'(x_k)&1&0\\f''(x_k)&0&0\end{vmatrix}}
+{\begin{vmatrix}x_k^2&x_k&1\\2x_k&1&0\\2&0&0\end{vmatrix}}=\frac{f''(x_k)}{2}\]</span> <span class=math>\[b=\frac{\begin{vmatrix}x_k^2&f(x_k)&1\\2x_k&f'(x_k)&0\\2&f''(x_k)&0\end{vmatrix}}
+{\begin{vmatrix}x_k^2&x_k&1\\2x_k&1&0\\2&0&0\end{vmatrix}}=f'(x_k)-x_kf''(x_k)\]</span> 要求<span class=math>\(q'(x)=f'(x)=0\)</span>，所以此时<span class=math>\(x_{k+1}=x_k-\frac{f'(x)}{f''(x)}\)</span>。从原理上来看，牛顿法只是求导数为0的点，这个点可能是极大值也可能是极小值。</p>
 <h4 id=二点二次插值>二点二次插值</h4>
-<p>二点二次插值法（割线法, Secant Method）在第$\left(k+1 \right )$步构造二次插值多项式时使用 1 个函数和 2 个一阶导数信息
-$$q\left(x_{k-1} \right ) = f \left(x_{k-1} \right ),\ q'\left(x_{k-1} \right ) = f' \left(x_{k-1} \right ),\ q'\left(x_k \right ) = f' \left(x_k \right )$$
-由此导出二点二次插值法（割线法）的迭代公式为：
-$$x_{k+1} = x_k - \frac{f' \left(x_k \right )}{\frac{f' \left(x_k \right ) - f' \left(x_{k-1} \right )}{x_k - x_{k-1}}} = x_k - \frac{x_k - x_{k-1}}{f'\left(x_k \right )-f'\left(x_{k-1} \right )}f'\left(x_k \right )$$
-而二点二次插值法（非割线法, Quadratic Interpolation Method with Two-Points）则使用 2 个函数和 1 个一阶导数信息
-$$q\left(x_{k-1} \right ) = f \left(x_{k-1} \right ),\ q'\left(x_{k-1} \right ) = f' \left(x_{k-1} \right ),\ q\left(x_k \right ) = f \left(x_k \right )$$
-由此导出二点二次插值法（非割线法）的迭代公式为：
-$$x_{k+1} = x_k + \frac{1}{2}\frac{x_k - x_{k-1}}{\frac{f \left(x_k \right ) - f \left(x_{k-1} \right )}{f'\left(x_k \right )\left(x_k - x_{k-1} \right )} - 1} = x_k - \frac{1}{2}\frac{x_k-x_{k-1}}{f'\left(x_k \right )-\frac{f\left(x_k \right )-f\left(x_{k-1} \right )}{x_k - x_{k-1}}}f'\left(x_k \right )$$</p>
+<p>二点二次插值法（割线法, Secant Method）在第<span class=math>\(\left(k+1 \right )\)</span>步构造二次插值多项式时使用 1 个函数和 2 个一阶导数信息 <span class=math>\[q\left(x_{k-1} \right ) = f \left(x_{k-1} \right ),\ q'\left(x_{k-1} \right ) = f' \left(x_{k-1} \right ),\ q'\left(x_k \right ) = f' \left(x_k \right )\]</span> 由此导出二点二次插值法（割线法）的迭代公式为： <span class=math>\[x_{k+1} = x_k - \frac{f' \left(x_k \right )}{\frac{f' \left(x_k \right ) - f' \left(x_{k-1} \right )}{x_k - x_{k-1}}} = x_k - \frac{x_k - x_{k-1}}{f'\left(x_k \right )-f'\left(x_{k-1} \right )}f'\left(x_k \right )\]</span> 而二点二次插值法（非割线法, Quadratic Interpolation Method with Two-Points）则使用 2 个函数和 1 个一阶导数信息 <span class=math>\[q\left(x_{k-1} \right ) = f \left(x_{k-1} \right ),\ q'\left(x_{k-1} \right ) = f' \left(x_{k-1} \right ),\ q\left(x_k \right ) = f \left(x_k \right )\]</span> 由此导出二点二次插值法（非割线法）的迭代公式为： <span class=math>\[x_{k+1} = x_k + \frac{1}{2}\frac{x_k - x_{k-1}}{\frac{f \left(x_k \right ) - f \left(x_{k-1} \right )}{f'\left(x_k \right )\left(x_k - x_{k-1} \right )} - 1} = x_k - \frac{1}{2}\frac{x_k-x_{k-1}}{f'\left(x_k \right )-\frac{f\left(x_k \right )-f\left(x_{k-1} \right )}{x_k - x_{k-1}}}f'\left(x_k \right )\]</span></p>
 <p>二点二次插值法具有1.618斐波那契的超线性收敛速度。</p>
 <h4 id=三点二次插值>三点二次插值</h4>
 <h3 id=三次插值法>三次插值法</h3>
-<p>类似地，三次插值法就是不断构造三次插值多项式$p \left(x \right ) = ax^3 + bx^2 + cx + d$来近似目标函数 $f \left(x \right )$ 并将最后构造的三次插值多项式的极小值点作为目标函数极小值点的方法。</p>
+<p>类似地，三次插值法就是不断构造三次插值多项式<span class=math>\(p \left(x \right ) = ax^3 + bx^2 + cx + d\)</span>来近似目标函数 <span class=math>\(f \left(x \right )\)</span> 并将最后构造的三次插值多项式的极小值点作为目标函数极小值点的方法。</p>
 <h4 id=二点三次插值法cubic-interpolation-method-with-two-points>二点三次插值法（Cubic Interpolation Method with Two-Points）</h4>
-<p>在第 $k$ 步构造三次插值多项式时使用 2 个函数和 2 个一阶导数信息
-$$p \left(a_k \right ) = f \left(a_k \right ), p'\left(a_k \right ) = f'\left(a_k \right ), p \left(b_k \right ) = f \left(b_k \right ), p'\left(b_k \right ) = f'\left(b_k \right )$$
-$a_k &lt; b_k$ 的值根据 $f' \left(x_k \right )$ 与 $0$ 的大小关系，从 $a_{k-1},\ b_{k-1},\ x_k$ 中选取。由上述信息得到的第 $\left(k+1 \right )$ 步迭代中构造的三次插值多项式的极小值点公式为：
-$$\begin{aligned} &x_{k+1} = a_k + \frac{\eta_k-f'\left(a_k \right )-\omega_k}{2\eta_k-f'\left(a_k \right )+f'\left(b_k \right )}\left(b_k-a_k \right ) \ &\eta_k = \sqrt{\omega_k^2-f'\left(a_k \right )f'\left(b_k \right )} \ &\omega_k = \frac{3\left[f\left(b_k \right )-f\left(a_k \right ) \right ]}{b_k-a_k}-f'\left(a_k \right )f'\left(b_k \right ) \end{aligned}$$</p>
+<p>在第 <span class=math>\(k\)</span> 步构造三次插值多项式时使用 2 个函数和 2 个一阶导数信息 <span class=math>\[p \left(a_k \right ) = f \left(a_k \right ), p'\left(a_k \right ) = f'\left(a_k \right ), p \left(b_k \right ) = f \left(b_k \right ), p'\left(b_k \right ) = f'\left(b_k \right )\]</span> <span class=math>\(a_k &lt; b_k\)</span> 的值根据 <span class=math>\(f' \left(x_k \right )\)</span> 与 <span class=math>\(0\)</span> 的大小关系，从 <span class=math>\(a_{k-1},\ b_{k-1},\ x_k\)</span> 中选取。由上述信息得到的第 <span class=math>\(\left(k+1 \right )\)</span> 步迭代中构造的三次插值多项式的极小值点公式为： <span class=math>\[\begin{aligned} &x_{k+1} = a_k + \frac{\eta_k-f'\left(a_k \right )-\omega_k}{2\eta_k-f'\left(a_k \right )+f'\left(b_k \right )}\left(b_k-a_k \right ) \\ &\eta_k = \sqrt{\omega_k^2-f'\left(a_k \right )f'\left(b_k \right )} \\ &\omega_k = \frac{3\left[f\left(b_k \right )-f\left(a_k \right ) \right ]}{b_k-a_k}-f'\left(a_k \right )f'\left(b_k \right ) \end{aligned}\]</span></p>
 <p>二点三次插值法的收敛速度为2阶。</p>
 <h2 id=综合方法>综合方法</h2>
-<h3 id=dsc法>D.S.C.法</h3>
+<h3 id=d.s.c.法>D.S.C.法</h3>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

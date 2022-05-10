@@ -88,28 +88,24 @@ Sep 16, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=lebesgue-stieltjes测度---omit-in-toc--->Lebesgue-Stieltjes测度</h2>
+<h2 id=lebesgue-stieltjes测度>Lebesgue-Stieltjes测度</h2>
 <ul>
-<li><a href=#%E5%AE%9A%E4%B9%89lebesgue-stieltjes%E6%B5%8B%E5%BA%A6>定义Lebesgue-Stieltjes测度</a></li>
-<li><a href=#%E4%BB%8E%E5%A4%96%E6%B5%8B%E5%BA%A6%E5%88%B0lebesgue-stieltjes%E6%B5%8B%E5%BA%A6>从外测度到Lebesgue-Stieltjes测度</a></li>
+<li><a href=#定义lebesgue-stieltjes测度>定义Lebesgue-Stieltjes测度</a></li>
+<li><a href=#从外测度到lebesgue-stieltjes测度>从外测度到Lebesgue-Stieltjes测度</a></li>
 </ul>
 <h2 id=定义lebesgue-stieltjes测度>定义Lebesgue-Stieltjes测度</h2>
 <blockquote>
-<p>设$F$为$R$上的<strong>右连续增函数</strong>, 则在$B(R)$有<strong>唯一</strong>的$σ$有限测度$µ_F$
-满足:
-$$µ_F((a, b]) = F(b) − F(a), a, b ∈ R, a ≤ b.$$
-$µ_F$称为由$F$决定的$R$上的<strong>Lebesgue-Stieltjes测度</strong>.</p>
-<p>特殊的，如果$F(x)=x$，则为Lebesgue测度。</p>
+<p>设<span class=math>\(F\)</span>为<span class=math>\(R\)</span>上的<strong>右连续增函数</strong>, 则在<span class=math>\(B(R)\)</span>有<strong>唯一</strong>的<span class=math>\(σ\)</span>有限测度<span class=math>\(µ_F\)</span> 满足: <span class=math>\[µ_F((a, b]) = F(b) − F(a), a, b ∈ R, a ≤ b.\]</span> <span class=math>\(µ_F\)</span>称为由<span class=math>\(F\)</span>决定的<span class=math>\(R\)</span>上的<strong>Lebesgue-Stieltjes测度</strong>.</p>
+<p>特殊的，如果<span class=math>\(F(x)=x\)</span>，则为Lebesgue测度。</p>
 </blockquote>
 <h2 id=从外测度到lebesgue-stieltjes测度>从外测度到Lebesgue-Stieltjes测度</h2>
-<p>令$X=\mathbb{R}$，令$\mathcal{C}$是由<strong>左开右闭</strong>区间$(a,b]$构成的集合系 (其实就是半环)。$\alpha(x)$是一个<strong>单调递增的右连续函数</strong> (注：这个右连续其实跟左开右闭区间是有一种默契的。 比如，若右边也是开，那么右连续的函数，跳开的地方就很难精准的测量了)；于是$\alpha$满足：$x&lt;y \Rightarrow \alpha(x)≤\alpha(y)，\lim\limits_{z→x^+}\alpha(z)=\alpha(x)$。 这里并不要求$\alpha$严格单调递增。</p>
+<p>令<span class=math>\(X=\mathbb{R}\)</span>，令<span class=math>\(\mathcal{C}\)</span>是由<strong>左开右闭</strong>区间<span class=math>\((a,b]\)</span>构成的集合系 (其实就是半环)。<span class=math>\(\alpha(x)\)</span>是一个<strong>单调递增的右连续函数</strong> (注：这个右连续其实跟左开右闭区间是有一种默契的。 比如，若右边也是开，那么右连续的函数，跳开的地方就很难精准的测量了)；于是<span class=math>\(\alpha\)</span>满足：<span class=math>\(x&lt;y \Rightarrow \alpha(x)≤\alpha(y)，\lim\limits_{z→x^+}\alpha(z)=\alpha(x)\)</span>。 这里并不要求<span class=math>\(\alpha\)</span>严格单调递增。</p>
 <blockquote>
-<p>定义集合映射：$l((a,b)])=\alpha(b)-\alpha(a)$。根据通用的外测度构造方法，设定外测度为
-$$m^\ast(E)=\inf\biggl{\sum_{i=1}^∞ l(A_i):A_i ∈ \mathcal{C}，E\subset \bigcup_{i=1}^∞ A_i\biggl}$$</p>
+<p>定义集合映射：<span class=math>\(l((a,b)])=\alpha(b)-\alpha(a)\)</span>。根据通用的外测度构造方法，设定外测度为 <span class=math>\[m^\ast(E)=\inf\biggl\{\sum_{i=1}^∞ l(A_i):A_i ∈ \mathcal{C}，E\subset \bigcup_{i=1}^∞ A_i\biggl\}\]</span></p>
 </blockquote>
-<p>由Caratheodory's定理可知，$m^\ast$定义在$m^\ast$可测集上是一个测度。注意到若$K=(a,b]，L=(b,c]，K\cup L =(a,c]$，且$l(K)+l(L)=[\alpha(b)-\alpha(a)]+[\alpha(c)-\alpha(b)]=\alpha(c)-\alpha(a)=l(K\cup L)$</p>
+<p>由Caratheodory's定理可知，<span class=math>\(m^\ast\)</span>定义在<span class=math>\(m^\ast\)</span>可测集上是一个测度。注意到若<span class=math>\(K=(a,b]，L=(b,c]，K\cup L =(a,c]\)</span>，且<span class=math>\(l(K)+l(L)=[\alpha(b)-\alpha(a)]+[\alpha(c)-\alpha(b)]=\alpha(c)-\alpha(a)=l(K\cup L)\)</span></p>
 <blockquote>
-<p>定理：任一$\mathbb R$上Borel-$\sigma$-代数中的集合都是$m^\ast$可测的。</p>
+<p>定理：任一<span class=math>\(\mathbb R\)</span>上Borel-<span class=math>\(\sigma\)</span>-代数中的集合都是<span class=math>\(m^\ast\)</span>可测的。</p>
 </blockquote>
 </article>
 <aside class=sidebar>

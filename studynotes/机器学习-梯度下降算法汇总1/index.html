@@ -88,57 +88,48 @@ Oct 12, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=梯度下降算法1---omit-in-toc--->梯度下降算法（1）</h2>
+<h2 id=梯度下降算法1>梯度下降算法（1）</h2>
 <ul>
-<li><a href=#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E4%B8%8E%E6%A2%AF%E5%BA%A6%E8%AE%A1%E7%AE%97>梯度下降法与梯度计算</a>
-<ul>
-<li><a href=#%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6%E9%80%9A%E8%BF%87%E6%9C%89%E9%99%90%E5%B7%AE%E5%80%BC%E7%9A%84%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6%E8%BF%91%E4%BC%BC%E6%A2%AF%E5%BA%A6%E5%8F%AF%E4%BB%A5%E9%80%82%E7%94%A8%E4%BA%8E%E6%9C%89%E4%BA%9B%E4%B8%8D%E8%83%BD%E5%BE%AE%E5%88%86%E7%9A%84%E5%87%BD%E6%95%B0>计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）</a></li>
-<li><a href=#%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6%E9%80%9A%E8%BF%87%E5%BE%AE%E7%A7%AF%E5%88%86%E8%AE%A1%E7%AE%97%E8%A7%A3%E6%9E%90%E6%A2%AF%E5%BA%A6>计算梯度②通过微积分计算解析梯度</a></li>
-</ul>
-</li>
-<li><a href=#%E5%90%84%E7%A7%8D%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95>各种梯度下降法</a>
-<ul>
+<li><a href=#梯度下降法与梯度计算>梯度下降法与梯度计算</a></li>
+<li><a href=#计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数>计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）</a></li>
+<li><a href=#计算梯度通过微积分计算解析梯度>计算梯度②通过微积分计算解析梯度</a></li>
+<li><a href=#各种梯度下降法>各种梯度下降法</a></li>
 <li><a href=#batch_gradient_descent>Batch_gradient_descent</a></li>
 <li><a href=#stochastic_gradient_descent>Stochastic_gradient_descent</a></li>
 <li><a href=#mini-batch_gradient_descent>Mini-batch_gradient_descent</a></li>
-</ul>
-</li>
-<li><a href=#%E6%8C%91%E6%88%98>挑战</a></li>
-<li><a href=#%E6%A2%AF%E5%BA%A6%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95>梯度优化算法</a>
-<ul>
+<li><a href=#挑战>挑战</a></li>
+<li><a href=#梯度优化算法>梯度优化算法</a></li>
 <li><a href=#momentum>Momentum</a></li>
-<li><a href=#nesterov%E5%8A%A0%E9%80%9F%E6%A2%AF%E5%BA%A6%E6%B3%95>Nesterov加速梯度法</a></li>
-</ul>
-</li>
-<li><a href=#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD>未完待续</a></li>
+<li><a href=#nesterov加速梯度法>Nesterov加速梯度法</a></li>
+<li><a href=#未完待续>未完待续</a></li>
 </ul>
 <p>本文首先查看了多种梯度下降算法，并总结了数据训练过程中遇到的挑战。接下来，我们介绍了最常用的梯度优化算法，并指出它们做出这些算法优化的缘由。我们还会简要的说明如何在并行与分布式场景下优化梯度下降算法。最后，我们会追加一些优化梯度下降算法的有用策略。</p>
 <h3 id=梯度下降法与梯度计算>梯度下降法与梯度计算</h3>
 <p>从最基本的来说，梯度下降算法是一个通过向负梯度方向(-∇θJ(θ))，更新参数θ来最小化目标函数J(θ)的方法。还有超参数学习率η决定我们向（本地）最优移动的步长。计算梯度，可以有两种办法，①缓慢、近似但是最简单的办法（数值梯度）②快速、精确但是更易于出错的微积分方法（解析梯度）。我们分别介绍：</p>
 <h4 id=计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数>计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）</h4>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=ln> 1</span><span class=k>def</span> <span class=nf>eval_numerical_gradient</span><span class=p>(</span><span class=n>f</span><span class=p>,</span> <span class=n>x</span><span class=p>):</span>
-<span class=ln> 2</span>    <span class=s2>&#34;&#34;&#34;
-</span><span class=ln> 3</span><span class=s2>    a naive implementation of numerical gradient of f at x
-</span><span class=ln> 4</span><span class=s2>    - f should be a function that takes a single argument
-</span><span class=ln> 5</span><span class=s2>    - x is the point (numpy array) to evaluate the gradient at
-</span><span class=ln> 6</span><span class=s2>    &#34;&#34;&#34;</span>
-<span class=ln> 7</span>    <span class=n>fx</span> <span class=o>=</span> <span class=n>f</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=c1># evaluate function value at original point</span>
-<span class=ln> 8</span>    <span class=n>grad</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>zeros</span><span class=p>(</span><span class=n>x</span><span class=o>.</span><span class=n>shape</span><span class=p>)</span>
-<span class=ln> 9</span>    <span class=n>h</span> <span class=o>=</span> <span class=mf>0.00001</span>
-<span class=ln>10</span>    <span class=c1># iterate over all indexes in x</span>
-<span class=ln>11</span>    <span class=n>it</span> <span class=o>=</span> <span class=n>np</span><span class=o>.</span><span class=n>nditer</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=n>flags</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;multi_index&#39;</span><span class=p>],</span> <span class=n>op_flags</span><span class=o>=</span><span class=p>[</span><span class=s1>&#39;readwrite&#39;</span><span class=p>])</span>
-<span class=ln>12</span>    <span class=k>while</span> <span class=ow>not</span> <span class=n>it</span><span class=o>.</span><span class=n>finished</span><span class=p>:</span>
-<span class=ln>13</span>    <span class=c1># evaluate function at x+h</span>
-<span class=ln>14</span>    <span class=n>ix</span> <span class=o>=</span> <span class=n>it</span><span class=o>.</span><span class=n>multi_index</span>
-<span class=ln>15</span>    <span class=n>old_value</span> <span class=o>=</span> <span class=n>x</span><span class=p>[</span><span class=n>ix</span><span class=p>]</span>
-<span class=ln>16</span>    <span class=n>x</span><span class=p>[</span><span class=n>ix</span><span class=p>]</span> <span class=o>=</span> <span class=n>old_value</span> <span class=o>+</span> <span class=n>h</span> <span class=c1># increment by h</span>
-<span class=ln>17</span>    <span class=n>fxh</span> <span class=o>=</span> <span class=n>f</span><span class=p>(</span><span class=n>x</span><span class=p>)</span> <span class=c1># evalute f(x + h)</span>
-<span class=ln>18</span>    <span class=n>x</span><span class=p>[</span><span class=n>ix</span><span class=p>]</span> <span class=o>=</span> <span class=n>old_value</span> <span class=c1># restore to previous value (very important!)</span>
-<span class=ln>19</span>    <span class=c1># compute the partial derivative</span>
-<span class=ln>20</span>    <span class=n>grad</span><span class=p>[</span><span class=n>ix</span><span class=p>]</span> <span class=o>=</span> <span class=p>(</span><span class=n>fxh</span> <span class=o>-</span> <span class=n>fx</span><span class=p>)</span> <span class=o>/</span> <span class=n>h</span> <span class=c1># the slope</span>
-<span class=ln>21</span>    <span class=n>it</span><span class=o>.</span><span class=n>iternext</span><span class=p>()</span> <span class=c1># step to next dimension</span>
-<span class=ln>22</span>    <span class=k>return</span>
-</code></pre></div><p>grad这个函数在每一个维度上前进了一小步（h=0.00001）,并近似计算出每一个维度的偏导数，最后组成梯度。实际上，更好的方式是使用<strong>中心差分公式</strong>作为偏导数计算：$[f(x+h)−f(x−h)]/2h$。解释在:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class=kw>def</span> eval_numerical_gradient(f, x):
+    <span class=co>&quot;&quot;&quot;</span>
+<span class=co>    a naive implementation of numerical gradient of f at x</span>
+<span class=co>    - f should be a function that takes a single argument</span>
+<span class=co>    - x is the point (numpy array) to evaluate the gradient at</span>
+<span class=co>    &quot;&quot;&quot;</span>
+    fx = f(x) <span class=co># evaluate function value at original point</span>
+    grad = np.zeros(x.shape)
+    h = <span class=fl>0.00001</span>
+    <span class=co># iterate over all indexes in x</span>
+    it = np.nditer(x, flags=[<span class=st>&#39;multi_index&#39;</span>], op_flags=[<span class=st>&#39;readwrite&#39;</span>])
+    <span class=kw>while</span> not it.finished:
+    <span class=co># evaluate function at x+h</span>
+    ix = it.multi_index
+    old_value = x[ix]
+    x[ix] = old_value + h <span class=co># increment by h</span>
+    fxh = f(x) <span class=co># evalute f(x + h)</span>
+    x[ix] = old_value <span class=co># restore to previous value (very important!)</span>
+    <span class=co># compute the partial derivative</span>
+    grad[ix] = (fxh - fx) / h <span class=co># the slope</span>
+    it.iternext() <span class=co># step to next dimension</span>
+    <span class=kw>return</span></code></pre>
+<p>grad这个函数在每一个维度上前进了一小步（h=0.00001）,并近似计算出每一个维度的偏导数，最后组成梯度。实际上，更好的方式是使用<strong>中心差分公式</strong>作为偏导数计算：<span class=math>\([f(x+h)−f(x−h)]/2h\)</span>。解释在:</p>
 <p><a href=https://en.wikipedia.org/wiki/Numerical_differentiation>https://en.wikipedia.org/wiki/Numerical_differentiation</a></p>
 <p>需要指出的是超参数步长（学习率）的设置是什么重要（也是十分令人头疼的步骤），步长小收敛的速度慢，步长大容易直接跳到极值点的另一侧。</p>
 <p>基于数值的梯度计算方法需要计算很多次目标函数，参数有多少个维度，就要计算多少次偏导，就要计算多少次目标函数，十分低效。对于现代神经网络动辄有成千上万的维度，计算一次梯度就要花费那么大计算量，十分不值得。而且每次计算梯度，只能获得h（步长）的收益，更使得计算量难以估计。</p>
@@ -148,70 +139,46 @@ Oct 12, 2019</span>
 <p>有三种梯度下降法的变种，差别在于我们使用<strong>多少数据</strong>来计算目标函数的梯度。根据数据量，我们在参数的精度和所花的时间之间做权衡。</p>
 <h4 id=batch_gradient_descent>Batch_gradient_descent</h4>
 <p>Batch gradient descent（Vanilla gradient descent，批量梯度下降，BGD），这就是最基本的梯度下降法，每次运行梯度运算会把所有的训练数据都带入计算，所以它的运行速度十分缓慢，并且在大数据寄情况下，能够导致内存溢出。同时，BGD不允许我们在线更新模型，因为它要把所有数据都跑一遍。总的来说，代码如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=ln>1</span><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>nb_epochs</span><span class=p>):</span>
-<span class=ln>2</span><span class=n>params_grad</span> <span class=o>=</span> <span class=n>evaluate_gradient</span><span class=p>(</span><span class=n>loss_function</span><span class=p>,</span> <span class=n>data</span><span class=p>,</span> <span class=n>params</span><span class=p>)</span>
-<span class=ln>3</span><span class=n>params</span> <span class=o>=</span> <span class=n>params</span> <span class=o>-</span> <span class=n>learning_rate</span> <span class=o>*</span> <span class=n>params_grad</span>
-</code></pre></div><p>在给定的循环次数内，我们首先要计算损失函数在整个数据集(data)上的梯度向量，来更新我们的参数向量params。现在很多深度学习库都提供自动差分计算能力，来求解梯度。如果你自己求解梯度，需要注意进行梯度检查。
-我们接下来会根据整体数据集的负梯度和学习率来更新参数。BGD对于凸的目标函数有收敛的全局最优解，对于非凸函数有局部最优解。</p>
-<p><img src=../../images/bgd.png alt="图1 BGD"></p>
-<center>图1 BGD</center>
+<pre class="sourceCode python"><code class="sourceCode python"><span class=kw>for</span> i in <span class=dt>range</span>(nb_epochs):
+params_grad = evaluate_gradient(loss_function, data, params)
+params = params - learning_rate * params_grad</code></pre>
+<p>在给定的循环次数内，我们首先要计算损失函数在整个数据集(data)上的梯度向量，来更新我们的参数向量params。现在很多深度学习库都提供自动差分计算能力，来求解梯度。如果你自己求解梯度，需要注意进行梯度检查。 我们接下来会根据整体数据集的负梯度和学习率来更新参数。BGD对于凸的目标函数有收敛的全局最优解，对于非凸函数有局部最优解。</p>
+<img src=../../images/bgd.png alt="图1 BGD">
+<center>
+图1 BGD
+</center>
 <h4 id=stochastic_gradient_descent>Stochastic_gradient_descent</h4>
-<p>随机梯度下降，SGD。与此相反，随机梯度下降只根据每一个（？？）训练数据进行一次参数更新。
-$$θ=θ−η⋅∇θJ(θ;x(i);y(i)).$$
-BGD对于大数据集做了许多冗余的运算（我觉得不能叫冗余，而是信价比很低），因为它在更新参数之前，重复计算了很多相似数据的梯度。SGD通过每次只做一次更新来原理这种冗余。所以，SGD会快很多，且常常被用于在线学习。
-SGD会以较高的方差频繁的更新，导致目标函数的抖动十分剧烈，如图2所示。</p>
-<p><img src=../../images/sgd_fluc.png alt="图2: SGD抖动"></p>
-<center>图2: SGD抖动</center>
+<p>随机梯度下降，SGD。与此相反，随机梯度下降只根据每一个（？？）训练数据进行一次参数更新。 <span class=math>\[θ=θ−η⋅∇θJ(θ;x(i);y(i)).\]</span> BGD对于大数据集做了许多冗余的运算（我觉得不能叫冗余，而是信价比很低），因为它在更新参数之前，重复计算了很多相似数据的梯度。SGD通过每次只做一次更新来原理这种冗余。所以，SGD会快很多，且常常被用于在线学习。 SGD会以较高的方差频繁的更新，导致目标函数的抖动十分剧烈，如图2所示。</p>
+<img src=../../images/sgd_fluc.png alt="图2: SGD抖动">
+<center>
+图2: SGD抖动
+</center>
 <p>不同于BGD稳定地向目标函数最小值前进，SGD的抖动从另一个角度来说使它有机会跳出局部最优找到更好的局部解（甚至最优解，参考模拟退火）。但是，这给收敛带来了很大问题。解决的方案就是<strong>逐步降低学习率</strong>，这使得SGD有着和BGD相似的收敛能力。代码如下所示：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=ln>1</span><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>nb_epochs</span><span class=p>):</span>
-<span class=ln>2</span>    <span class=n>np</span><span class=o>.</span><span class=n>random</span><span class=o>.</span><span class=n>shuffle</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
-<span class=ln>3</span><span class=k>for</span> <span class=n>example</span> <span class=ow>in</span> <span class=n>data</span><span class=p>:</span>
-<span class=ln>4</span>    <span class=n>params_grad</span> <span class=o>=</span> <span class=n>evaluate_gradient</span><span class=p>(</span><span class=n>loss_function</span><span class=p>,</span> <span class=n>example</span><span class=p>,</span><span class=n>params</span><span class=p>)</span>
-<span class=ln>5</span>    <span class=n>params</span> <span class=o>=</span> <span class=n>params</span> <span class=o>-</span> <span class=n>learning_rate</span> <span class=o>*</span> <span class=n>params_grad</span>
-</code></pre></div><p><img src=../../images/sgd.png alt="图3 SGD"></p>
-<center>图3 SGD</center>
+<pre class="sourceCode python"><code class="sourceCode python"><span class=kw>for</span> i in <span class=dt>range</span>(nb_epochs):
+    np.random.shuffle(data)
+<span class=kw>for</span> example in data:
+    params_grad = evaluate_gradient(loss_function, example,params)
+    params = params - learning_rate * params_grad</code></pre>
+<img src=../../images/sgd.png alt="图3 SGD">
+<center>
+图3 SGD
+</center>
 <h4 id=mini-batch_gradient_descent>Mini-batch_gradient_descent</h4>
-<p>最小batch梯度下降，MBGD综合了两种（BGD\SGD）的策略，每次选取一组最小batch（n个数据）进行训练。
-$$θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）$$
-这个办法a)降低了每次更新的抖动，更加容易收敛；b）计算效率高。通常最小batch的范围在50-256之间。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=ln>1</span><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>nb_epochs</span><span class=p>):</span>
-<span class=ln>2</span>    <span class=n>np</span><span class=o>.</span><span class=n>random</span><span class=o>.</span><span class=n>shuffle</span><span class=p>(</span><span class=n>data</span><span class=p>)</span>
-<span class=ln>3</span>    <span class=k>for</span> <span class=n>batch</span> <span class=ow>in</span> <span class=n>get_batches</span><span class=p>(</span><span class=n>data</span><span class=p>,</span> <span class=n>batch_size</span><span class=o>=</span><span class=mi>50</span><span class=p>):</span>
-<span class=ln>4</span>        <span class=n>params_grad</span> <span class=o>=</span> <span class=n>evaluate_gradient</span><span class=p>(</span><span class=n>loss_function</span><span class=p>,</span> <span class=n>batch</span><span class=p>,</span> <span class=n>params</span><span class=p>)</span>
-<span class=ln>5</span>        <span class=n>params</span> <span class=o>=</span> <span class=n>params</span> <span class=o>-</span> <span class=n>learning_rate</span> <span class=o>*</span> <span class=n>params_grad</span>
-</code></pre></div><p><img src=../../images/mbgd.png alt="图4 MBGD"></p>
-<center>图4 MBGD</center>
+<p>最小batch梯度下降，MBGD综合了两种（BGD）的策略，每次选取一组最小batch（n个数据）进行训练。 <span class=math>\[θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）\]</span> 这个办法a)降低了每次更新的抖动，更加容易收敛；b）计算效率高。通常最小batch的范围在50-256之间。</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class=kw>for</span> i in <span class=dt>range</span>(nb_epochs):
+    np.random.shuffle(data)
+    <span class=kw>for</span> batch in get_batches(data, batch_size=<span class=dv>50</span>):
+        params_grad = evaluate_gradient(loss_function, batch, params)
+        params = params - learning_rate * params_grad</code></pre>
+<img src=../../images/mbgd.png alt="图4 MBGD">
+<center>
+图4 MBGD
+</center>
 <p>总结表格，各种算法实现：</p>
-<p><a href=https://github.com/tsycnh/mlbasic>https://github.com/tsycnh/mlbasic</a></p>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>梯度下降算法</th>
-<th style=text-align:center>优点</th>
-<th style=text-align:center>缺点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>BGD</td>
-<td style=text-align:center>凸优化全局最优</td>
-<td style=text-align:center>计算量大，迭代速度慢，训练速度慢</td>
-</tr>
-<tr>
-<td style=text-align:center>SGD</td>
-<td style=text-align:center>训练速度快，支持在线学习</td>
-<td style=text-align:center>准确度下降，有噪声，非全局最优</td>
-</tr>
-<tr>
-<td style=text-align:center>MBGD</td>
-<td style=text-align:center>1. 训练速度较快, 取决于小批量的数目 2. 支持在线学习</td>
-<td style=text-align:center>准确度不如 BGD, 仍然有噪声, 非全局最优解</td>
-</tr>
-</tbody>
-</table>
+<p><a href=https://github.com/tsycnh/mlbasic>https://github.com/tsycnh/mlbasic</a> |梯度下降算法|优点|缺点| |:-:|:-:|:-:| |BGD|凸优化全局最优|计算量大，迭代速度慢，训练速度慢 |SGD|训练速度快，支持在线学习|准确度下降，有噪声，非全局最优 |MBGD|1. 训练速度较快, 取决于小批量的数目 2. 支持在线学习|准确度不如 BGD, 仍然有噪声, 非全局最优解</p>
 <h3 id=挑战>挑战</h3>
 <p>从上面可以看出，在优化中MBGD无疑是折衷下最佳方案。但是单纯的MBGD算法没有办法确保收敛，并且提供了一系列需要解决的问题：</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>选择一个<strong>合适的学习</strong>率非常困难。小的收敛慢，大的可能不收敛，或者在最小值周边浮动。</li>
 <li>学习率规划尝试在训练中调节学习率，例如退火：根据一个预定的机制或目标变动之低于一个门限，就降低学习率。但是，这个调节机制或门限需要预先设定，并且不能够根据数据集特点自适应。</li>
 <li>此外，相同的学习率被应用于所有的参数更新。但是如果我们的数据是稀疏的，同时特点有非常不同的频率，我们可能希望更新的程度是相当不同的，比如对于一个很少发生的事情一次性做一个大幅度的更新。</li>
@@ -221,30 +188,38 @@ $$θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）$$
 <p>在接下来的文章中，我们将概述一些被深度学习社区广泛使用的算法来处理上述挑战。我们不会讨论在高维数据集的实际计算中不可行的算法，例如二阶方法，如牛顿法。</p>
 <h4 id=momentum>Momentum</h4>
 <p>Momentum，动量法。SGD对避开“沟壑”有问题，例如，通常在局部最优附近，某一维度会远比其他维度陡峭。在这些情况下，SGD在沟谷的斜坡上振荡，而只在底部向局部最优方向缓慢前进，如图5所示：</p>
-<p><img src=../../images/sgd_without_momentum.png alt=图5：不加动量的SGD></p>
-<center>图5：不加动量的SGD</center>
-<p>动量是一种在相关方向上加速SGD并抑制振荡的方法，如图6所示。它通过将过去的一部分分量，加到当前更新矢量来实现。
-$$v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta)$$
-$$\theta = \theta - v_t$$</p>
-<p><img src=../../images/momentum_vector.png alt=图6：动量法矢量示意图></p>
-<center>图6：动量法矢量示意图</center>
-<p><img src=../../images/sgd_with_momentum.png alt="图7： 加动量的SGD"></p>
-<center>图7： 加动量的SGD</center>
-γ通常是0.9，或者相似的值。
+<img src=../../images/sgd_without_momentum.png alt=图5：不加动量的SGD>
+<center>
+图5：不加动量的SGD
+</center>
+<p>动量是一种在相关方向上加速SGD并抑制振荡的方法，如图6所示。它通过将过去的一部分分量，加到当前更新矢量来实现。 <span class=math>\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta)\]</span> <span class=math>\[\theta = \theta - v_t\]</span></p>
+<img src=../../images/momentum_vector.png alt=图6：动量法矢量示意图>
+<center>
+图6：动量法矢量示意图
+</center>
+<img src=../../images/sgd_with_momentum.png alt="图7： 加动量的SGD">
+<center>
+图7： 加动量的SGD
+</center>
+<p>γ通常是0.9，或者相似的值。</p>
 <p>本质上，当使用动量时，我们把球推下山。当球滚下山时，它积累了动量，在途中变得越来越快。同样的事情也发生在我们的参数更新上：动量项对于梯度指向相同方向的维度增加，对于梯度改变方向的维度减少更新。因此，我们获得更快的收敛速度和减少振荡。（<strong>通过仿真，确实降低振动，收敛更快</strong>）</p>
-<p><img src=../../images/momentum.png alt="图8 Momentum动量法"></p>
-<center>图8 Momentum动量法</center>
+<img src=../../images/momentum.png alt="图8 Momentum动量法">
+<center>
+图8 Momentum动量法
+</center>
 <h4 id=nesterov加速梯度法>Nesterov加速梯度法</h4>
 <p>Nesterov accelerated gradient修正动量，不让动量冲的太猛。</p>
 <p>然而，当一个球滚下山坡从而带有一个初始动量之后，这个动量在其他位置就是盲目的，表现并不能令人满意。现在我们假设有一个智能球，知道这个初始动量将会把它带到何处，这样就可以提前做出一些修正，而不是仅仅用当前点的梯度来作为接下来动量的增量。</p>
-<p>Nesterov加速梯度法，是一种能够提升动量精确性的方法。我们知道，在参数θ处，会带有一个初始动量γvt-1 。如果我们直接计算θ-γvt-1 处的梯度（这是估计的梯度），然后将这个梯度作为修正值来叠加在原始动量上，可以获得更加优良的效果。公式如下所示:（γ一般取0.9）
-$$v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} )$$
-$$\theta = \theta - v_t $$</p>
+<p>Nesterov加速梯度法，是一种能够提升动量精确性的方法。我们知道，在参数θ处，会带有一个初始动量γvt-1 。如果我们直接计算θ-γvt-1 处的梯度（这是估计的梯度），然后将这个梯度作为修正值来叠加在原始动量上，可以获得更加优良的效果。公式如下所示:（γ一般取0.9） <span class=math>\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} )\]</span> <span class=math>\[\theta = \theta - v_t \]</span></p>
 <p>根据动量法和NAG法，我们可以通过图9进行对比。动量法（Momentum）首先会计算当前位置的梯度（第一段蓝线），然后加上之前累计的初始动量（第二段蓝线），总的矢量和即为走的最终路线。而NAG方法，首先根据之前累计的初始动量前进（棕色的线），然后估计在经过这个动量之后位置的梯度（红线）作为修正，实际走的是二者之和（绿线）。NAG波动也小了很多。<strong>实际上NAG方法用到了二阶信息，所以才会有这么好的结果。</strong></p>
-<p><img src=../../images/momentum_vs_nag.png alt="图9 动量法（蓝线） vs NAG法（棕，红，绿）"></p>
-<center>图9 动量法（蓝线） vs NAG法（棕，红，绿）</center>
-<p><img src=../../images/momentum_nag.png alt="图10 Momentum_NAG"></p>
-<center>图10 Nesterov加速梯度法</center>
+<img src=../../images/momentum_vs_nag.png alt="图9 动量法（蓝线） vs NAG法（棕，红，绿）">
+<center>
+图9 动量法（蓝线） vs NAG法（棕，红，绿）
+</center>
+<img src=../../images/momentum_nag.png alt="图10 Momentum_NAG">
+<center>
+图10 Nesterov加速梯度法
+</center>
 <h3 id=未完待续>未完待续</h3>
 <p>既然我们能够使得我们的更新适应误差函数的斜率以相应地加速SGD，我们同样也想要使得我们的更新能够适应每一个单独参数，以根据每个参数的重要性决定大的或者小的更新。下一章将说明如何自适应更新参数。（Adagrad、RMSprop、Adadelta、Adam、MaxAdam等等）</p>
 </article>

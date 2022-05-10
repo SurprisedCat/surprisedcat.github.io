@@ -88,229 +88,182 @@ Nov 3, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=线性规划的对偶原理---omit-in-toc--->线性规划的对偶原理</h2>
+<h2 id=线性规划的对偶原理>线性规划的对偶原理</h2>
 <ul>
-<li><a href=#%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E8%A1%A8%E8%BE%BE>对偶问题的表达</a>
-<ul>
-<li><a href=#1%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%AF%B9%E5%81%B6>（1）对称形式的对偶</a></li>
-<li><a href=#2%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%BD%A2%E5%BC%8F%E7%9A%84%E5%AF%B9%E5%81%B6>（2）非对称形式的对偶</a></li>
-<li><a href=#3%E4%B8%80%E8%88%AC%E6%83%85%E5%BD%A2>（3）一般情形</a></li>
-</ul>
-</li>
-<li><a href=#%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%AF%B9%E5%81%B6%E6%98%AF%E5%8E%9F%E9%97%AE%E9%A2%98>对偶问题的对偶是原问题</a></li>
-<li><a href=#%E5%AF%B9%E5%81%B6%E8%A7%84%E5%88%92%E7%9A%84%E4%B8%80%E8%88%AC%E8%A7%84%E5%88%99%E9%87%8D%E8%A6%81>对偶规划的一般规则（重要）</a></li>
-<li><a href=#%E5%AF%B9%E5%81%B6%E5%AE%9A%E7%90%86>对偶定理</a></li>
+<li><a href=#对偶问题的表达>对偶问题的表达</a></li>
+<li><a href=#1对称形式的对偶>（1）对称形式的对偶</a></li>
+<li><a href=#2非对称形式的对偶>（2）非对称形式的对偶</a></li>
+<li><a href=#3一般情形>（3）一般情形</a></li>
+<li><a href=#对偶问题的对偶是原问题>对偶问题的对偶是原问题</a></li>
+<li><a href=#对偶规划的一般规则重要>对偶规划的一般规则（重要）</a></li>
+<li><a href=#对偶定理>对偶定理</a></li>
 </ul>
 <h2 id=对偶问题的表达>对偶问题的表达</h2>
 <p>线性规划中的对偶可以概括为<strong>三种形式</strong>：</p>
-<h3 id=1对称形式的对偶>（1）对称形式的对偶</h3>
-<p>原问题
-$$
+<h3 id=对称形式的对偶>（1）对称形式的对偶</h3>
+<p>原问题 <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{Ax≥b}（注意这里是≥）\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{Ax≥b}（注意这里是≥）\\
 &\boldsymbol{x≥0}
 \end{aligned}\tag{1.1}
-$$
-对偶问题
-$$
+\]</span> 对偶问题 <span class=math>\[
 \begin{aligned}
-\max\quad&\boldsymbol{w^Tb}\
-\mathop{s.t.}\quad&\boldsymbol{w^TA≤c^T}（注意这里是≤）\
+\max\quad&\boldsymbol{w^Tb}\\
+\mathop{s.t.}\quad&\boldsymbol{w^TA≤c^T}（注意这里是≤）\\
 &\boldsymbol{w^T≥0}
 \end{aligned}\tag{1.2}
-$$
-其中，$\boldsymbol{A=(p_1,p_2,\dotsb,p_n)}$是$m×n$矩阵，$\boldsymbol{b}=(b_1,b_2,\dotsb,b_m)^T$是<strong>m维列</strong>向量，$\boldsymbol{c^T}=(c_1,c_2,\dotsb,c_n)$是<strong>n维行</strong>向量，$\boldsymbol{x}=(x_1,x_2,\dotsb,x_n)^T$是原问题的变量组成的<strong>n维列</strong>向量，$\boldsymbol{w^T}=(w_1,w_2,\dotsb,w_m)$是由对偶问题变量组成的<strong>m维行</strong>向量。</p>
-<p>在原问题$(1.1)$中，目标函数是$\boldsymbol{c^T}$和$x$的内积，$\boldsymbol{Ax≥b}$包含m个不等式约束，若其中每个不等式约束记作$\boldsymbol{A_ix≥}b_i$，$\boldsymbol{A_i}$是$\boldsymbol{A}$的第i行，变量$\boldsymbol{x}$有非负限制。</p>
-<p>在对偶问题中$(1.2)$中，目标函数是$\boldsymbol{b^T}$和$\boldsymbol{w}$的内积，$\boldsymbol{w^TA≤c^T}$包含n个不等式约束，每个约束条件记作$\boldsymbol{w^Tp_j}≤c_j$，对偶变量$w_i$也有非负限制。</p>
-<p>根据对称对偶的定义，原问题中约束条件$\boldsymbol{A_ix≥}b_i$个数，敲好等于对偶变量的个数；原问题中变量的个数，恰好等于对偶问题中约束条件$\boldsymbol{w^Tp_j}≤c_j$的个数。</p>
-<p>$$
+\]</span> 其中，<span class=math>\(\boldsymbol{A=(p_1,p_2,\dotsb,p_n)}\)</span>是<span class=math>\(m×n\)</span>矩阵，<span class=math>\(\boldsymbol{b}=(b_1,b_2,\dotsb,b_m)^T\)</span>是<strong>m维列</strong>向量，<span class=math>\(\boldsymbol{c^T}=(c_1,c_2,\dotsb,c_n)\)</span>是<strong>n维行</strong>向量，<span class=math>\(\boldsymbol{x}=(x_1,x_2,\dotsb,x_n)^T\)</span>是原问题的变量组成的<strong>n维列</strong>向量，<span class=math>\(\boldsymbol{w^T}=(w_1,w_2,\dotsb,w_m)\)</span>是由对偶问题变量组成的<strong>m维行</strong>向量。</p>
+<p>在原问题<span class=math>\((1.1)\)</span>中，目标函数是<span class=math>\(\boldsymbol{c^T}\)</span>和<span class=math>\(x\)</span>的内积，<span class=math>\(\boldsymbol{Ax≥b}\)</span>包含m个不等式约束，若其中每个不等式约束记作<span class=math>\(\boldsymbol{A_ix≥}b_i\)</span>，<span class=math>\(\boldsymbol{A_i}\)</span>是<span class=math>\(\boldsymbol{A}\)</span>的第i行，变量<span class=math>\(\boldsymbol{x}\)</span>有非负限制。</p>
+<p>在对偶问题中<span class=math>\((1.2)\)</span>中，目标函数是<span class=math>\(\boldsymbol{b^T}\)</span>和<span class=math>\(\boldsymbol{w}\)</span>的内积，<span class=math>\(\boldsymbol{w^TA≤c^T}\)</span>包含n个不等式约束，每个约束条件记作<span class=math>\(\boldsymbol{w^Tp_j}≤c_j\)</span>，对偶变量<span class=math>\(w_i\)</span>也有非负限制。</p>
+<p>根据对称对偶的定义，原问题中约束条件<span class=math>\(\boldsymbol{A_ix≥}b_i\)</span>个数，敲好等于对偶变量的个数；原问题中变量的个数，恰好等于对偶问题中约束条件<span class=math>\(\boldsymbol{w^Tp_j}≤c_j\)</span>的个数。</p>
+<p><span class=math>\[
 \begin{aligned}
-对称形式：&原问题约束条件\rightarrow 对偶变量\
+对称形式：&原问题约束条件\rightarrow 对偶变量\\
 &原问题变量\rightarrow 对偶约束\end{aligned}
-$$</p>
-<p>对于对偶问题引入理解，<a href=../%E6%96%87%E6%A1%A3/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/%E4%B8%BA%E4%BD%95%E5%BC%95%E5%85%A5%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98.pdf>为何引入对偶问题</a>从经济学和数学两个方面给出了解释。（但是强对偶性即原问题最优解=对偶问题最优解，并没有被证明）。以下非对称形式对可以转换成对称形式，因此引入他们的根本理由都可以通过对称问题的对偶理解。</p>
-<h3 id=2非对称形式的对偶>（2）非对称形式的对偶</h3>
-<p>考虑具有<strong>等式约束条件</strong>的线性规划问题（这个反而是线性规划的标准形式）
-$$
+\]</span></p>
+<p>对于对偶问题引入理解，<a href=../文档/优化理论/为何引入对偶问题.pdf>为何引入对偶问题</a>从经济学和数学两个方面给出了解释。（但是强对偶性即原问题最优解=对偶问题最优解，并没有被证明）。以下非对称形式对可以转换成对称形式，因此引入他们的根本理由都可以通过对称问题的对偶理解。</p>
+<h3 id=非对称形式的对偶>（2）非对称形式的对偶</h3>
+<p>考虑具有<strong>等式约束条件</strong>的线性规划问题（这个反而是线性规划的标准形式） <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{Ax=b}\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{Ax=b}\\
 &\boldsymbol{x≥0}
 \end{aligned}\tag{1.3}
-$$
-我们已经引入了对称形式的对偶问题，现在我们可以通过一个trick将其<strong>转换成对称形式</strong>：$=\Leftrightarrow ≥ && ≤$
-$$
+\]</span> 我们已经引入了对称形式的对偶问题，现在我们可以通过一个trick将其<strong>转换成对称形式</strong>：<span class=math>\(=\Leftrightarrow ≥ \&\& ≤\)</span> <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{Ax≥b}\
-\quad&\boldsymbol{Ax≤b\Rightarrow -Ax≥-b}\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{Ax≥b}\\
+\quad&\boldsymbol{Ax≤b\Rightarrow -Ax≥-b}\\
 &\boldsymbol{x≥0}
 \end{aligned}\tag{1.4}
-$$
-其中对前两行限制条件做一下变形：
-$$
+\]</span> 其中对前两行限制条件做一下变形： <span class=math>\[
 \left . \begin{aligned}
-\quad&\boldsymbol{Ax≥b}\
-\quad&\boldsymbol{-Ax≥-b}\end{aligned} \right }\Rightarrow \begin{bmatrix}\boldsymbol{A} \ \boldsymbol{-A}\end{bmatrix}\boldsymbol{x}≥\begin{bmatrix}\boldsymbol{b} \ \boldsymbol{-b}\end{bmatrix}
-$$
-现在一个有$2m$个限制条件，因此对偶问题有$2m$个变量记为$\boldsymbol{[w'^T,w''^T]},其中\boldsymbol{w'^T,w''^T}$都是m维行向量。依照对称形式对偶问题的模样，我们可以写出$(1.4)$的对偶形式
-$$
+\quad&\boldsymbol{Ax≥b}\\
+\quad&\boldsymbol{-Ax≥-b}\end{aligned} \right \}\Rightarrow \begin{bmatrix}\boldsymbol{A} \\ \boldsymbol{-A}\end{bmatrix}\boldsymbol{x}≥\begin{bmatrix}\boldsymbol{b} \\ \boldsymbol{-b}\end{bmatrix}
+\]</span> 现在一个有<span class=math>\(2m\)</span>个限制条件，因此对偶问题有<span class=math>\(2m\)</span>个变量记为<span class=math>\(\boldsymbol{[w'^T,w''^T]},其中\boldsymbol{w'^T,w''^T}\)</span>都是m维行向量。依照对称形式对偶问题的模样，我们可以写出<span class=math>\((1.4)\)</span>的对偶形式 <span class=math>\[
 \begin{aligned}
-\max\quad&\boldsymbol{[w'^T,w''^T]}\begin{bmatrix}\boldsymbol{b} \ \boldsymbol{-b}\end{bmatrix}=\boldsymbol{(w'^T-w''^T)b}\
-\mathop{s.t.}\quad&\boldsymbol{[w'^T,w''^T]}\begin{bmatrix}\boldsymbol{A} \ \boldsymbol{-A}\end{bmatrix}=\boldsymbol{(w'^T-w''^T)A}≤\boldsymbol{c}\
+\max\quad&\boldsymbol{[w'^T,w''^T]}\begin{bmatrix}\boldsymbol{b} \\ \boldsymbol{-b}\end{bmatrix}=\boldsymbol{(w'^T-w''^T)b}\\
+\mathop{s.t.}\quad&\boldsymbol{[w'^T,w''^T]}\begin{bmatrix}\boldsymbol{A} \\ \boldsymbol{-A}\end{bmatrix}=\boldsymbol{(w'^T-w''^T)A}≤\boldsymbol{c}\\
 &\boldsymbol{w'^T,w''^T≥0}
 \end{aligned}
-$$
-如果我们令$\boldsymbol{w^T=w'^T-w''^T}$，我们可以得到和对称形式结构类似的对偶问题，变量数量也从$2m\rightarrow m$，但是<strong>非负限制条件没有了</strong>：
-$$
+\]</span> 如果我们令<span class=math>\(\boldsymbol{w^T=w'^T-w''^T}\)</span>，我们可以得到和对称形式结构类似的对偶问题，变量数量也从<span class=math>\(2m\rightarrow m\)</span>，但是<strong>非负限制条件没有了</strong>： <span class=math>\[
 \begin{aligned}
-\max\quad&\boldsymbol{w^Tb}\
-\mathop{s.t.}\quad&\boldsymbol{w^TA}≤\boldsymbol{c}\
+\max\quad&\boldsymbol{w^Tb}\\
+\mathop{s.t.}\quad&\boldsymbol{w^TA}≤\boldsymbol{c}\\
 \end{aligned}\tag{1.5}
-$$
-到此，$(1.5)$是$(1.3)$的对偶问题。<strong>他们的结构很相似，唯一的不同在于原问题的m个等式约束对应的对偶问题的m个变量没有正负号限制，它们称为非对称对偶</strong>。</p>
-<h3 id=3一般情形>（3）一般情形</h3>
-<p>实际问题中，线性规划问题常常同时含有$≥，≤，=$多种限制条件，它们组成的原问题为：
-$$
+\]</span> 到此，<span class=math>\((1.5)\)</span>是<span class=math>\((1.3)\)</span>的对偶问题。<strong>他们的结构很相似，唯一的不同在于原问题的m个等式约束对应的对偶问题的m个变量没有正负号限制，它们称为非对称对偶</strong>。</p>
+<h3 id=一般情形>（3）一般情形</h3>
+<p>实际问题中，线性规划问题常常同时含有<span class=math>\(≥，≤，=\)</span>多种限制条件，它们组成的原问题为： <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{A_1x≥b_1}\
-\quad&\boldsymbol{A_2x=b_2}\
-\quad&\boldsymbol{A_3x≤b_3}\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{A_1x≥b_1}\\
+\quad&\boldsymbol{A_2x=b_2}\\
+\quad&\boldsymbol{A_3x≤b_3}\\
 &\boldsymbol{x≥0}
 \end{aligned}\tag{1.6}
-$$
-其中，$\boldsymbol{A_1}$是$m_1×n$矩阵，$\boldsymbol{A_2}$是$m_2×n$矩阵，$\boldsymbol{A_3}$是$m_3×n$矩阵，$\boldsymbol{b_1,b_2,b_3}$分别是$m_1,m_2,m_3$维列向量，$\boldsymbol{c^T}$是n维行向量，$\boldsymbol{x}$是n维列向量。</p>
-<p>显然，我们可以使用<strong>添加松弛变量的方式将一般形式$(1.6)$转换为非对称形式$(1.3)$</strong>，即
-$$
+\]</span> 其中，<span class=math>\(\boldsymbol{A_1}\)</span>是<span class=math>\(m_1×n\)</span>矩阵，<span class=math>\(\boldsymbol{A_2}\)</span>是<span class=math>\(m_2×n\)</span>矩阵，<span class=math>\(\boldsymbol{A_3}\)</span>是<span class=math>\(m_3×n\)</span>矩阵，<span class=math>\(\boldsymbol{b_1,b_2,b_3}\)</span>分别是<span class=math>\(m_1,m_2,m_3\)</span>维列向量，<span class=math>\(\boldsymbol{c^T}\)</span>是n维行向量，<span class=math>\(\boldsymbol{x}\)</span>是n维列向量。</p>
+<p>显然，我们可以使用<strong>添加松弛变量的方式将一般形式<span class=math>\((1.6)\)</span>转换为非对称形式<span class=math>\((1.3)\)</span></strong>，即 <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{A_1 x-x_s=b_1}\
-\quad&\boldsymbol{A_2x=b_2}\
-\quad&\boldsymbol{A_3 x+-x_t=b_3}\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{A_1 x-x_s=b_1}\\
+\quad&\boldsymbol{A_2x=b_2}\\
+\quad&\boldsymbol{A_3 x+-x_t=b_3}\\
 &\boldsymbol{x≥0}
 \end{aligned}
-$$
-其中，$\boldsymbol{x_s}$是由$m_1$个松弛变量组成的$m_1$维列向量，$\boldsymbol{x_t}$是由$m_3$个松弛变量组成的$m_3$维列向量，如果用矩阵方式描述上述问题可写为
-$$
+\]</span> 其中，<span class=math>\(\boldsymbol{x_s}\)</span>是由<span class=math>\(m_1\)</span>个松弛变量组成的<span class=math>\(m_1\)</span>维列向量，<span class=math>\(\boldsymbol{x_t}\)</span>是由<span class=math>\(m_3\)</span>个松弛变量组成的<span class=math>\(m_3\)</span>维列向量，如果用矩阵方式描述上述问题可写为 <span class=math>\[
 \begin{aligned}
-\min \quad & \boldsymbol{c^Tx+0\cdot x_s+0\cdot x_t}\
-\mathop{s.t.} \quad & \begin{bmatrix}\boldsymbol{A_1} & \boldsymbol{-I_{m_1}} & \boldsymbol{0}\
-\boldsymbol{A_2} & \boldsymbol{0} & \boldsymbol{0}\
-\boldsymbol{A_3} & \boldsymbol{0} & \boldsymbol{I_{m_3}}\ \end{bmatrix}
-\begin{bmatrix}\boldsymbol{x}\ \boldsymbol{x_s}\ \boldsymbol{x_t}\end{bmatrix}=
-\begin{bmatrix}\boldsymbol{b_1}\ \boldsymbol{b_2}\ \boldsymbol{b_3}\end{bmatrix},\
+\min \quad & \boldsymbol{c^Tx+0\cdot x_s+0\cdot x_t}\\
+\mathop{s.t.} \quad & \begin{bmatrix}\boldsymbol{A_1} & \boldsymbol{-I_{m_1}} & \boldsymbol{0}\\
+\boldsymbol{A_2} & \boldsymbol{0} & \boldsymbol{0}\\
+\boldsymbol{A_3} & \boldsymbol{0} & \boldsymbol{I_{m_3}}\\ \end{bmatrix}
+\begin{bmatrix}\boldsymbol{x}\\ \boldsymbol{x_s}\\ \boldsymbol{x_t}\end{bmatrix}=
+\begin{bmatrix}\boldsymbol{b_1}\\ \boldsymbol{b_2}\\ \boldsymbol{b_3}\end{bmatrix},\\
 \quad & \boldsymbol{x,x_s,x_t≥0},
 \end{aligned}\tag{1.7}
-$$
-按照非对称形式的对偶套路，$(1.7)$的对偶问题可以描述为：
-$$
+\]</span> 按照非对称形式的对偶套路，<span class=math>\((1.7)\)</span>的对偶问题可以描述为： <span class=math>\[
 \begin{aligned}
-\max \quad & \boldsymbol{w^T b}=\boldsymbol{w^T_1 b_1+w^T_2 b_2+w^T_3 b_3}\
+\max \quad & \boldsymbol{w^T b}=\boldsymbol{w^T_1 b_1+w^T_2 b_2+w^T_3 b_3}\\
 \mathop{s.t.} \quad & \boldsymbol{[w^T_1,w^T_2,w^T_3]}
-\begin{bmatrix}\boldsymbol{A_1} & \boldsymbol{-I_{m_1}} & \boldsymbol{0}\
-\boldsymbol{A_2} & \boldsymbol{0} & \boldsymbol{0}\
-\boldsymbol{A_3} & \boldsymbol{0} & \boldsymbol{I_{m_3}}\ \end{bmatrix} ≤ \boldsymbol{[c^T,0,0]}
+\begin{bmatrix}\boldsymbol{A_1} & \boldsymbol{-I_{m_1}} & \boldsymbol{0}\\
+\boldsymbol{A_2} & \boldsymbol{0} & \boldsymbol{0}\\
+\boldsymbol{A_3} & \boldsymbol{0} & \boldsymbol{I_{m_3}}\\ \end{bmatrix} ≤ \boldsymbol{[c^T,0,0]}
 \end{aligned}
-$$
-我们把矩阵的内容展开可得
-$$
+\]</span> 我们把矩阵的内容展开可得 <span class=math>\[
 \begin{aligned}
-\max \quad & \boldsymbol{w^T_1 b_1+w^T_2 b_2+w^T_3 b_3}\
-\mathop{s.t.} \quad & \boldsymbol{w^T_1A_1+w^T_2A_2+w^T_3A_3≤c^T},\
-\quad & \boldsymbol{w_1≥0},\
-\quad & \boldsymbol{w_3≤0},\
-\quad & \boldsymbol{w_2}无限制,\
+\max \quad & \boldsymbol{w^T_1 b_1+w^T_2 b_2+w^T_3 b_3}\\
+\mathop{s.t.} \quad & \boldsymbol{w^T_1A_1+w^T_2A_2+w^T_3A_3≤c^T},\\
+\quad & \boldsymbol{w_1≥0},\\
+\quad & \boldsymbol{w_3≤0},\\
+\quad & \boldsymbol{w_2}无限制,\\
 \end{aligned}\tag{1.8}
-$$
-其中，$\boldsymbol{w_1,w_2,w_3}$分别是由对偶变量组成的$m_1$维，$m_2$维，$m_3$维行向量。定义$(1.8)$式为$(1.6)$式的对偶问题。</p>
-<p>由$(1.8)$式可知，原问题中的约束$\boldsymbol{A_1 x≥b_1}$所对应的对偶变量$\boldsymbol{w_1}$有<strong>非负限制</strong>，$\boldsymbol{A_2 x=b_2}$所对应的对偶变量$\boldsymbol{w_2}$<strong>无正负限制</strong>，$\boldsymbol{A_3 x≤b_3}$所对应的对偶变量$\boldsymbol{w_3}$有<strong>非正限制</strong>。从矩阵形式的对偶描述我们可以发现对偶变量的正负限制来自于<strong>松弛变量的添加</strong>。</p>
+\]</span> 其中，<span class=math>\(\boldsymbol{w_1,w_2,w_3}\)</span>分别是由对偶变量组成的<span class=math>\(m_1\)</span>维，<span class=math>\(m_2\)</span>维，<span class=math>\(m_3\)</span>维行向量。定义<span class=math>\((1.8)\)</span>式为<span class=math>\((1.6)\)</span>式的对偶问题。</p>
+<p>由<span class=math>\((1.8)\)</span>式可知，原问题中的约束<span class=math>\(\boldsymbol{A_1 x≥b_1}\)</span>所对应的对偶变量<span class=math>\(\boldsymbol{w_1}\)</span>有<strong>非负限制</strong>，<span class=math>\(\boldsymbol{A_2 x=b_2}\)</span>所对应的对偶变量<span class=math>\(\boldsymbol{w_2}\)</span><strong>无正负限制</strong>，<span class=math>\(\boldsymbol{A_3 x≤b_3}\)</span>所对应的对偶变量<span class=math>\(\boldsymbol{w_3}\)</span>有<strong>非正限制</strong>。从矩阵形式的对偶描述我们可以发现对偶变量的正负限制来自于<strong>松弛变量的添加</strong>。</p>
 <h2 id=对偶问题的对偶是原问题>对偶问题的对偶是原问题</h2>
 <p><strong>原问题和对偶问题是相对的</strong>，显然原问题的对偶问题也是线性规划，它也有对偶问题，显然它的对偶问题就是原来对偶中的原问题。因此互相对偶的两个问题中，任何一个问题均可以作为原问题，而把另一个问题作为对偶问题。</p>
 <h2 id=对偶规划的一般规则重要>对偶规划的一般规则（重要）</h2>
-<p>为了方便讨论，我们下面所说的约束均指
-$$
+<p>为了方便讨论，我们下面所说的约束均指 <span class=math>\[
 \begin{aligned}
-\boldsymbol{A_ix}&≥b_i\quad 及\quad\boldsymbol{w^T p_j}&≤c_j\
-(&=)&(=)\
-(&≥)&(≥)\
+\boldsymbol{A_ix}&≥b_i\quad 及\quad\boldsymbol{w^T p_j}&≤c_j\\
+(&=)&(=)\\
+(&≥)&(≥)\\
 \end{aligned}
-$$
-型约束，不包含变量非负或非正限制。我们总结的一般规则有：</p>
-<ol>
-<li>若原问题是极大化问题，那么对偶问题就是极小化问题；若原问题是极小化问题，那么对偶问题就是极大化问题。（<strong>极小化$\leftrightarrow$极大化</strong>）</li>
-<li>在原问题和对偶问题中，约束右端变量向量与目标函数中系数向量恰好对换。（<strong>约束向量$\leftrightarrow$系数向量</strong>）</li>
-<li>对于极小化问题的“$≥$”型约束（极大化问题中的“$≤$”型约束），相应的对偶变量有非负限制；对于极小化问题中的“$≤$”型约束（极大化问题中的“$≥$”型约束），相应的对偶变量有非正限制；对于原问题的“$=$”型约束，对应的对偶变量无正负限制。（<strong>这一点可以通过矩阵形式添加的松弛变量体现出来</strong>）</li>
-<li>对于极小化问题的具有非负限制的变量（极大化问题的具有非正限制的变量），在其对偶问题中， 相应的约束为”$≥$“型不等式； 对小极小化问题的具有非正限制的变量（极大化问题的具有非负限制的变量），在其对偶问题中，相应的约束为“$≥$”型不等式；对于原问题中无正负限制的变量，在其对偶问题中，相应的约束为等式。（<strong>根据对偶性，从第3点可以推出</strong>）</li>
+\]</span> 型约束，不包含变量非负或非正限制。我们总结的一般规则有：</p>
+<ol style=list-style-type:decimal>
+<li>若原问题是极大化问题，那么对偶问题就是极小化问题；若原问题是极小化问题，那么对偶问题就是极大化问题。（<strong>极小化<span class=math>\(\leftrightarrow\)</span>极大化</strong>）</li>
+<li>在原问题和对偶问题中，约束右端变量向量与目标函数中系数向量恰好对换。（<strong>约束向量<span class=math>\(\leftrightarrow\)</span>系数向量</strong>）</li>
+<li>对于极小化问题的“<span class=math>\(≥\)</span>”型约束（极大化问题中的“<span class=math>\(≤\)</span>”型约束），相应的对偶变量有非负限制；对于极小化问题中的“<span class=math>\(≤\)</span>”型约束（极大化问题中的“<span class=math>\(≥\)</span>”型约束），相应的对偶变量有非正限制；对于原问题的“<span class=math>\(=\)</span>”型约束，对应的对偶变量无正负限制。（<strong>这一点可以通过矩阵形式添加的松弛变量体现出来</strong>）</li>
+<li>对于极小化问题的具有非负限制的变量（极大化问题的具有非正限制的变量），在其对偶问题中， 相应的约束为”<span class=math>\(≥\)</span>“型不等式； 对小极小化问题的具有非正限制的变量（极大化问题的具有非负限制的变量），在其对偶问题中，相应的约束为“<span class=math>\(≥\)</span>”型不等式；对于原问题中无正负限制的变量，在其对偶问题中，相应的约束为等式。（<strong>根据对偶性，从第3点可以推出</strong>）</li>
 </ol>
-<p>例子$(1.9)$见《最优化理论与算法（第2版）》p126.</p>
+<p>例子<span class=math>\((1.9)\)</span>见《最优化理论与算法（第2版）》p126.</p>
 <h2 id=对偶定理>对偶定理</h2>
 <p>下面研究对偶的基本性质，由于不同形式的对偶问题可以相互转化，<strong>在此仅叙述并证明关于对称对偶的几个重要定理，其结论对于其他形式的对偶仍成立</strong>。</p>
 <blockquote>
-<p><strong>定理1.1</strong> 设$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是$(1.1),(1.2)$式的可行解,则$\boldsymbol{c^Tx^{(0)}}≥\boldsymbol{w^{(0)T}b}$</p>
+<p><strong>定理1.1</strong> 设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是<span class=math>\((1.1),(1.2)\)</span>式的可行解,则<span class=math>\(\boldsymbol{c^Tx^{(0)}}≥\boldsymbol{w^{(0)T}b}\)</span></p>
 </blockquote>
-<p>证明:利用对偶问题和原问题的定义有$\boldsymbol{Ax^{(0)}≥b}$和$\boldsymbol{w^{(0)}≥0}$,则有
-$$
+<p>证明:利用对偶问题和原问题的定义有<span class=math>\(\boldsymbol{Ax^{(0)}≥b}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}≥0}\)</span>,则有 <span class=math>\[
 \boldsymbol{w^{(0)T}Ax^{(0)}≥w^{(0)T}b}\tag{1.10}
-$$
-同时,原问题和对偶问题还需要满足$\boldsymbol{w^{(0)T}A≤c^T}$和$\boldsymbol{x^{(0)T}≥0}$，则有
-$$
+\]</span> 同时,原问题和对偶问题还需要满足<span class=math>\(\boldsymbol{w^{(0)T}A≤c^T}\)</span>和<span class=math>\(\boldsymbol{x^{(0)T}≥0}\)</span>，则有 <span class=math>\[
 \boldsymbol{c^{(0)T}x≥w^{(0)T}Ax^{(0)}}\tag{1.11}
-$$
-由$(1.10),(1.11)$可以推出$\boldsymbol{c^{(0)T}x≥w^{(0)T}b}$<strong>恒成立</strong>。</p>
+\]</span> 由<span class=math>\((1.10),(1.11)\)</span>可以推出<span class=math>\(\boldsymbol{c^{(0)T}x≥w^{(0)T}b}\)</span><strong>恒成立</strong>。</p>
 <p>上述定理表明，就原问题和对偶问题的可行解而言，对于对偶中的两个问题，每一个问题的<strong>任何一个可行解处的目标函数值都给出另一个问题的目标函数值的界</strong>。极小化问题给出极大化问题的目标函数值的上界；极大化问题给出极小化问题的目标函数值的下界。</p>
 <p>由定理1.1可以得到以下几个重要推论：</p>
 <blockquote>
-<p><strong>推论1：</strong> 若$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的可行解，且$\boldsymbol{c^Tx^{(0)}=w^{(0)T}b}$，则$\boldsymbol{x^{(0)}}$和$\boldsymbol{w^{(0)}}$分别是原问题$(1.1)$和对偶问题$(1.2)$的最优解。($\boldsymbol{c^{(0)T}x≥w^{(0)T}b}$<strong>恒成立</strong>因此相等的情况分别是二者的最优解)</p>
-<p><strong>推论2：</strong> 对偶规划$(1.1)$和$(1.2)$有最优解的充要条件是它们同时有可行解。（最优解必然是可行解；可行解里面必然能选出至少一个最优解）</p>
-<p><strong>推论3：</strong> 若原问题$(1.1)$的目标函数值在可行域上<strong>无下界</strong>， 则对偶问题$(1.2)$<strong>无可行解</strong>；反之，若对偶问题$(1.2)$的目标函数值在可行域上<strong>无上界</strong>， 则原问题$(1.1)$<strong>无可行解</strong>。（$(1.1)$无下界说明下界值为$-\infty$，没有比$-\infty$更小的值，所以对偶问题$(1.2)$无解，反之同理）</p>
+<p><strong>推论1：</strong> 若<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的可行解，且<span class=math>\(\boldsymbol{c^Tx^{(0)}=w^{(0)T}b}\)</span>，则<span class=math>\(\boldsymbol{x^{(0)}}\)</span>和<span class=math>\(\boldsymbol{w^{(0)}}\)</span>分别是原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的最优解。(<span class=math>\(\boldsymbol{c^{(0)T}x≥w^{(0)T}b}\)</span><strong>恒成立</strong>因此相等的情况分别是二者的最优解)</p>
+<p><strong>推论2：</strong> 对偶规划<span class=math>\((1.1)\)</span>和<span class=math>\((1.2)\)</span>有最优解的充要条件是它们同时有可行解。（最优解必然是可行解；可行解里面必然能选出至少一个最优解）</p>
+<p><strong>推论3：</strong> 若原问题<span class=math>\((1.1)\)</span>的目标函数值在可行域上<strong>无下界</strong>， 则对偶问题<span class=math>\((1.2)\)</span><strong>无可行解</strong>；反之，若对偶问题<span class=math>\((1.2)\)</span>的目标函数值在可行域上<strong>无上界</strong>， 则原问题<span class=math>\((1.1)\)</span><strong>无可行解</strong>。（<span class=math>\((1.1)\)</span>无下界说明下界值为<span class=math>\(-\infty\)</span>，没有比<span class=math>\(-\infty\)</span>更小的值，所以对偶问题<span class=math>\((1.2)\)</span>无解，反之同理）</p>
 </blockquote>
 <p><code>推论1</code>粗略的阐明了原问题和对偶问题最优解的关系，下面我们通过<code>定理1.2</code>详细证明一下，<code>定理1.2</code>可以说是对偶理论的<strong>核心</strong>。</p>
 <blockquote>
-<p><strong>定理1.2：<strong>设原问题$(1.1)$和对偶问题$(1.2)$中</strong>有一个问题存在最优解， 则另一个问题也存在最优解</strong>，且两个问题的目标函数的<strong>最优值相等</strong>。</p>
+<p><strong>定理1.2：</strong>设原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>中<strong>有一个问题存在最优解， 则另一个问题也存在最优解</strong>，且两个问题的目标函数的<strong>最优值相等</strong>。</p>
 </blockquote>
-<p>证明：设原问题$(1.1)$存在最优解，引进松弛变量，可以把原问题写成等价形式：
-$$
+<p>证明：设原问题<span class=math>\((1.1)\)</span>存在最优解，引进松弛变量，可以把原问题写成等价形式： <span class=math>\[
 \begin{aligned}
-\min\quad&\boldsymbol{c^Tx}\
-\mathop{s.t.}\quad&\boldsymbol{Ax-v=b}\
-&\boldsymbol{x≥0}\
+\min\quad&\boldsymbol{c^Tx}\\
+\mathop{s.t.}\quad&\boldsymbol{Ax-v=b}\\
+&\boldsymbol{x≥0}\\
 &\boldsymbol{v≥0}
 \end{aligned}\tag{1.12}
-$$
-由于线性规则$(1.12)$存在最优解， 因此能够用单纯形方法（包括使用能避免循环发生的摄动法）求出它的一个最优基本可行解，不妨设这个最优解是
-$$
+\]</span> 由于线性规则<span class=math>\((1.12)\)</span>存在最优解， 因此能够用单纯形方法（包括使用能避免循环发生的摄动法）求出它的一个最优基本可行解，不妨设这个最优解是 <span class=math>\[
 \boldsymbol{y^{(0)}}=\begin{bmatrix}
-\boldsymbol{x^{(0)}}\
+\boldsymbol{x^{(0)}}\\
 \boldsymbol{v^{(0)}}
 \end{bmatrix}
-$$
-相应的最优基是$\boldsymbol{B}$。由单纯形法步骤可知，这时所有判别数$z_j-c_j$均非正， 即
-$$\boldsymbol{w^{(0)T}p_j}-c_j≤0\quad\forall j, \tag{1.13}$$
-其中$\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}$，$\boldsymbol{c_B}$是目标函数中基变量（包括松弛变量中的基变量）的系数组成的向量。考虑所有原来变量（不包括松弛变量）在基$\boldsymbol{B}$下的判别数，把它们所满足的条件$(1.13)$用矩阵形式同时写出，得到
-$$
-\boldsymbol{w^{(0)T}A-c^T≤0}\Rightarrow\
+\]</span> 相应的最优基是<span class=math>\(\boldsymbol{B}\)</span>。由单纯形法步骤可知，这时所有判别数<span class=math>\(z_j-c_j\)</span>均非正， 即 <span class=math>\[\boldsymbol{w^{(0)T}p_j}-c_j≤0\quad\forall j, \tag{1.13}\]</span> 其中<span class=math>\(\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}\)</span>，<span class=math>\(\boldsymbol{c_B}\)</span>是目标函数中基变量（包括松弛变量中的基变量）的系数组成的向量。考虑所有原来变量（不包括松弛变量）在基<span class=math>\(\boldsymbol{B}\)</span>下的判别数，把它们所满足的条件<span class=math>\((1.13)\)</span>用矩阵形式同时写出，得到 <span class=math>\[
+\boldsymbol{w^{(0)T}A-c^T≤0}\Rightarrow\\
 \boldsymbol{w^{(0)T}A≤c^T} \tag{1.14}
-$$
-对于松弛变量对应的矩阵列向量$\boldsymbol{p_j}$，只有松弛变量对应元素位置为-1（$\boldsymbol{Ax-v=b}$），其他位置为0，而$(1.13)$对任意$j$成立；同时，松弛变量对应$\boldsymbol{c}$中系数皆为0，所以对任意松弛变量在基$\boldsymbol{B}$下对应的判别数所满足的条件$(1.13)$用矩阵形式表示，得到
-$$
-\boldsymbol{w^{(0)T}(-I_m)≤0}\Rightarrow\
+\]</span> 对于松弛变量对应的矩阵列向量<span class=math>\(\boldsymbol{p_j}\)</span>，只有松弛变量对应元素位置为-1（<span class=math>\(\boldsymbol{Ax-v=b}\)</span>），其他位置为0，而<span class=math>\((1.13)\)</span>对任意<span class=math>\(j\)</span>成立；同时，松弛变量对应<span class=math>\(\boldsymbol{c}\)</span>中系数皆为0，所以对任意松弛变量在基<span class=math>\(\boldsymbol{B}\)</span>下对应的判别数所满足的条件<span class=math>\((1.13)\)</span>用矩阵形式表示，得到 <span class=math>\[
+\boldsymbol{w^{(0)T}(-I_m)≤0}\Rightarrow\\
 \boldsymbol{w^{(0)T}≥0} \tag{1.15}
-$$
-我们惊喜的发现：在单纯形法中构造出来的$\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}$是满足对偶问题$(1.2)$约束$(1.14),(1.15)$的<strong>可行解</strong>！！！</p>
-<p>根据单纯性法步骤，有$\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}$，$\boldsymbol{y_B^{(0)}=B^{-1} b}$，因此有：
-$$
+\]</span> 我们惊喜的发现：在单纯形法中构造出来的<span class=math>\(\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}\)</span>是满足对偶问题<span class=math>\((1.2)\)</span>约束<span class=math>\((1.14),(1.15)\)</span>的<strong>可行解</strong>！！！</p>
+<p>根据单纯性法步骤，有<span class=math>\(\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}\)</span>，<span class=math>\(\boldsymbol{y_B^{(0)}=B^{-1} b}\)</span>，因此有： <span class=math>\[
 \boldsymbol{w^{(0)T}b=c^T_B \underbrace{B^{-1} b}_{y_B^{(0)}}=c^T_B y_B^{(0)}}
-$$
-由于非基变量取值为零及目标函数中松弛变量的系数为零，因此
-$$
+\]</span> 由于非基变量取值为零及目标函数中松弛变量的系数为零，因此 <span class=math>\[
 \boldsymbol{c^T_B y_B^{(0)}=c^Tx^{(0)}}
-$$
-这里$\boldsymbol{y^{(0)}_B}$表示$\boldsymbol{y^{(0)}}$中基变量的取值，其余非基变量都是0.根据<code>定理1.1</code>的<code>推论1</code>:$\boldsymbol{w^{(0)}}$是对偶问题$(1.2)$最优解，且原问题$(1.1)$和对偶问题$(1.2)$的目标函数的最优值相等。类似的，可以证明，如果对偶问题$(1.2)$存在最优解，则原问题$(1.1)$也存在最优解，且两个问题目标函数的最优值相等。（定理1.2也常用凸集分离定理证明）</p>
+\]</span> 这里<span class=math>\(\boldsymbol{y^{(0)}_B}\)</span>表示<span class=math>\(\boldsymbol{y^{(0)}}\)</span>中基变量的取值，其余非基变量都是0.根据<code>定理1.1</code>的<code>推论1</code>:<span class=math>\(\boldsymbol{w^{(0)}}\)</span>是对偶问题<span class=math>\((1.2)\)</span>最优解，且原问题<span class=math>\((1.1)\)</span>和对偶问题<span class=math>\((1.2)\)</span>的目标函数的最优值相等。类似的，可以证明，如果对偶问题<span class=math>\((1.2)\)</span>存在最优解，则原问题<span class=math>\((1.1)\)</span>也存在最优解，且两个问题目标函数的最优值相等。（定理1.2也常用凸集分离定理证明）</p>
 <p>由上述定理的证明过程可以得到下面一个推论：</p>
 <blockquote>
-<p><strong>推论4</strong>：若线性规划$(1.1)$存在一个对应基$\boldsymbol{B}$的最优基本可行解， 则单纯形乘子$\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}$是对偶问题$(1.2)$的一个最优解。</p>
+<p><strong>推论4</strong>：若线性规划<span class=math>\((1.1)\)</span>存在一个对应基<span class=math>\(\boldsymbol{B}\)</span>的最优基本可行解， 则单纯形乘子<span class=math>\(\boldsymbol{w^{(0)T}}=\boldsymbol{c_B^T B^{-1}}\)</span>是对偶问题<span class=math>\((1.2)\)</span>的一个最优解。</p>
 </blockquote>
 <p>根据这个推论，我们能够<strong>从原问题的最优单纯形表中直接获得对偶问题的一个最优解</strong>。</p>
 </article>

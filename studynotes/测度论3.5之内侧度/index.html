@@ -88,30 +88,20 @@ Sep 15, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=内测度---omit-in-toc--->内测度</h2>
+<h2 id=内测度>内测度</h2>
 <p>有外测度，那有没有内测度 (inner measure)呢？还真有，但是在测度的构造中，内测度不是必须的，这边简单介绍一下。外测度试图从集合的外面向内逼近，而内测度则是从集合的里面向外逼近。</p>
 <blockquote>
-<p>定义：内测度是一个对某个集合$X$的所有子集有定义的一个函数$\varphi :2^{X}\rightarrow [0,\infty ],$
-满足下列条件:</p>
+<p>定义：内测度是一个对某个集合<span class=math>\(X\)</span>的所有子集有定义的一个函数<span class=math>\(\varphi :2^{X}\rightarrow [0,\infty ],\)</span> 满足下列条件:</p>
 <ul>
-<li>空集: 空集的内测度为0。$\varphi (\varnothing )=0$</li>
-<li>超加性：对两个交集为空的集合A和B，有$\varphi (A\cup B)\geq \varphi (A)+\varphi (B).$</li>
-<li>集合降链的极限：对一个集合序列$A_{j}$，若对于所有的$j$满足$A_{j}\supseteq A_{j+1}$，且$\varphi (A_{1})&lt;\infty$，则$\varphi \left(\bigcap <em>{j=1}^{\infty }A</em>{j}\right)=\lim <em>{j\to \infty }\varphi (A</em>{j})$</li>
-<li>若集合$A$满足$\varphi (A)=\infty$，则对所有正数$c$, 存在$A$的一个子集$B$，使得$c\leq \varphi (B)&lt;\infty$</li>
+<li>空集: 空集的内测度为0。<span class=math>\(\varphi (\varnothing )=0\)</span></li>
+<li>超加性：对两个交集为空的集合A和B，有<span class=math>\(\varphi (A\cup B)\geq \varphi (A)+\varphi (B).\)</span></li>
+<li>集合降链的极限：对一个集合序列<span class=math>\(A_{j}\)</span>，若对于所有的<span class=math>\(j\)</span>满足<span class=math>\(A_{j}\supseteq A_{j+1}\)</span>，且<span class=math>\(\varphi (A_{1})&lt;\infty\)</span>，则<span class=math>\(\varphi \left(\bigcap _{j=1}^{\infty }A_{j}\right)=\lim _{j\to \infty }\varphi (A_{j})\)</span></li>
+<li>若集合<span class=math>\(A\)</span>满足<span class=math>\(\varphi (A)=\infty\)</span>，则对所有正数<span class=math>\(c\)</span>, 存在<span class=math>\(A\)</span>的一个子集<span class=math>\(B\)</span>，使得<span class=math>\(c\leq \varphi (B)&lt;\infty\)</span></li>
 </ul>
 </blockquote>
-<p>另外一个定义可以从外测度诱导出来：</p>
-<blockquote>
-<p>定义2：令$X$为一集合，$\mu^\ast$是$X$上的一个外测度。定义内测度$\mu_*(A):=\mu^\ast(A)-\mu^\ast(A^c)$</p>
-</blockquote>
-<p>内测度可以从测度中构造出来：</p>
-<blockquote>
-<p>定义3：令$(X,\mathcal{M},\mu)$为一测度空间, 定义内侧度$\mu_*(E):=\sup{\mu(S):S\in\mathcal{A}，S\subset E}$</p>
-</blockquote>
-<p>还有以下定理</p>
-<blockquote>
-<p>定理：令$\mu$是$\mathbb{R}^n$上的 Lebesgue 测度，$\mu_*(A)=\mu^\ast(A)$当且仅当$A$为$\mu$-可测。</p>
-</blockquote>
+<p>另外一个定义可以从外测度诱导出来： >定义2：令<span class=math>\(X\)</span>为一集合，<span class=math>\(\mu^\ast\)</span>是<span class=math>\(X\)</span>上的一个外测度。定义内测度<span class=math>\(\mu_*(A):=\mu^\ast(A)-\mu^\ast(A^c)\)</span></p>
+<p>内测度可以从测度中构造出来： >定义3：令<span class=math>\((X,\mathcal{M},\mu)\)</span>为一测度空间, 定义内侧度<span class=math>\(\mu_*(E):=\sup\{\mu(S):S\in\mathcal{A}，S\subset E\}\)</span></p>
+<p>还有以下定理 >定理：令<span class=math>\(\mu\)</span>是<span class=math>\(\mathbb{R}^n\)</span>上的 Lebesgue 测度，<span class=math>\(\mu_*(A)=\mu^\ast(A)\)</span>当且仅当<span class=math>\(A\)</span>为<span class=math>\(\mu\)</span>-可测。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

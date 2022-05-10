@@ -88,67 +88,57 @@ Apr 28, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=特征值估计---omit-in-toc--->特征值估计</h2>
+<h2 id=特征值估计>特征值估计</h2>
 <h2 id=盖尔圆方法>盖尔圆方法</h2>
-<p>设$A=(a_{ij})<em>{n*n}$，称$A$的特征值集合为$A$的谱，特征值中模最大的为$A$的谱半径，记为$\rho(A)$
-$$\rho(A)=\max_i(\lambda_i)$$
-记
-$$R_i=|a</em>{i1}|+\dotsb+|a_{ii-1}|+|a_{ii+1}|+\dotsb+|a_{in}|（行和）\
-C_i={z||z-a_{ii}|≤R_i}$$
-称为$A$的第$i$个盖尔圆。可以看出，第$i$个盖尔圆以$a_{ii}$为圆心，$R_i$为半径。所有盖尔圆组成$A$的盖尔圆系
-$$G=\bigcup_{i=1}^n C_i$$</p>
+<p>设<span class=math>\(A=(a_{ij})_{n*n}\)</span>，称<span class=math>\(A\)</span>的特征值集合为<span class=math>\(A\)</span>的谱，特征值中模最大的为<span class=math>\(A\)</span>的谱半径，记为<span class=math>\(\rho(A)\)</span> <span class=math>\[\rho(A)=\max_i(\lambda_i)\]</span> 记 <span class=math>\[R_i=|a_{i1}|+\dotsb+|a_{ii-1}|+|a_{ii+1}|+\dotsb+|a_{in}|（行和）\\
+C_i=\{z||z-a_{ii}|≤R_i\}\]</span> 称为<span class=math>\(A\)</span>的第<span class=math>\(i\)</span>个盖尔圆。可以看出，第<span class=math>\(i\)</span>个盖尔圆以<span class=math>\(a_{ii}\)</span>为圆心，<span class=math>\(R_i\)</span>为半径。所有盖尔圆组成<span class=math>\(A\)</span>的盖尔圆系 <span class=math>\[G=\bigcup_{i=1}^n C_i\]</span></p>
 <blockquote>
-<p>定理：矩阵$A$的特征值必定在$A$的盖尔圆系中。</p>
+<p>定理：矩阵<span class=math>\(A\)</span>的特征值必定在<span class=math>\(A\)</span>的盖尔圆系中。</p>
 </blockquote>
-<p>需要注意的是并不是每一个盖尔圆中都有特征值，但是在盖尔圆外必无特征值，例如
-$$A=\begin{bmatrix}
--4&-10\1&6
-\end{bmatrix}$$
-第一个盖尔圆$C_1$为-4为圆心，10为半径的盖尔圆，第二个盖尔圆$C_2$为6为圆心，1为半径的盖尔圆。特征值为$\lambda=-1\plusmn\sqrt{15}$。$C_1$中有两个特征值，而$C_2$中没有特征值。</p>
+<p>需要注意的是并不是每一个盖尔圆中都有特征值，但是在盖尔圆外必无特征值，例如 <span class=math>\[A=\begin{bmatrix}
+-4&-10\\1&6
+\end{bmatrix}\]</span> 第一个盖尔圆<span class=math>\(C_1\)</span>为-4为圆心，10为半径的盖尔圆，第二个盖尔圆<span class=math>\(C_2\)</span>为6为圆心，1为半径的盖尔圆。特征值为<span class=math>\(\lambda=-1\plusmn\sqrt{15}\)</span>。<span class=math>\(C_1\)</span>中有两个特征值，而<span class=math>\(C_2\)</span>中没有特征值。</p>
 <p>这样来看，盖尔圆和特征值之间的关系很弱，还是没法估计特征值，因此我们需要进一步探讨盖尔圆和特征值的关系。</p>
 <blockquote>
-<p>定义：设$A\in C^{n*n}$，在$A$的$n$个盖尔圆中，有$k$个圆构成一个连通区（相切也算连通）但与其余$n-k$个盖尔圆都不相交，则称这个连通区域为$k-区$。</p>
+<p>定义：设<span class=math>\(A\in C^{n*n}\)</span>，在<span class=math>\(A\)</span>的<span class=math>\(n\)</span>个盖尔圆中，有<span class=math>\(k\)</span>个圆构成一个连通区（相切也算连通）但与其余<span class=math>\(n-k\)</span>个盖尔圆都不相交，则称这个连通区域为<span class=math>\(k-区\)</span>。</p>
 </blockquote>
 <p>我们为什么要考虑连通区域呢？这是因为特征值个数和连通区包含的盖尔圆个数是对应的：</p>
 <blockquote>
-<p>定理：$A$的盖尔圆的k-区中<strong>有且仅有</strong>$A$的k个特征值。</p>
+<p>定理：<span class=math>\(A\)</span>的盖尔圆的k-区中<strong>有且仅有</strong><span class=math>\(A\)</span>的k个特征值。</p>
 </blockquote>
-<p>例如：
-$$A=\begin{bmatrix}
-2&1&0\1&4&0\0&1&2
+<p>例如： <span class=math>\[A=\begin{bmatrix}
+2&1&0\\1&4&0\\0&1&2
 \end{bmatrix}，
 B=\begin{bmatrix}
-0&1.2&0\0&4&0.5\0&0.5&1\end{bmatrix}$$</p>
-<p><img src=../../images/%E7%9B%96%E5%B0%94%E5%9C%861.png alt=盖尔圆1></p>
-<center>3-区：特征值：2.0000，4.4142，1.5858</center>
-<p><img src=../../images/%E7%9B%96%E5%B0%94%E5%9C%862.png alt=盖尔圆2></p>
-<center>2区：特征值0.00000，0.91886；1区：特征值4.08114</center>
+0&1.2&0\\0&4&0.5\\0&0.5&1\end{bmatrix}\]</span></p>
+<img src=../../images/盖尔圆1.png alt=盖尔圆1>
+<center>
+3-区：特征值：2.0000，4.4142，1.5858
+</center>
+<img src=../../images/盖尔圆2.png alt=盖尔圆2>
+<center>
+2区：特征值0.00000，0.91886；1区：特征值4.08114
+</center>
 <blockquote>
 <p>推论：</p>
-<ol>
-<li>如果$A$的n个盖尔圆互不相交，则$A$有n个互不相等的特征值。</li>
-<li>如果$A$的n个盖尔圆互不相交，则$A$一定对角相似。</li>
-<li>如果$A$的n个盖尔圆互不相交，则$A$的特征值都是实数。</li>
-<li>由于转置不改变特征值，又综合$A^T$的盖尔圆综合判断。</li>
+<ol style=list-style-type:decimal>
+<li>如果<span class=math>\(A\)</span>的n个盖尔圆互不相交，则<span class=math>\(A\)</span>有n个互不相等的特征值。</li>
+<li>如果<span class=math>\(A\)</span>的n个盖尔圆互不相交，则<span class=math>\(A\)</span>一定对角相似。</li>
+<li>如果<span class=math>\(A\)</span>的n个盖尔圆互不相交，则<span class=math>\(A\)</span>的特征值都是实数。</li>
+<li>由于转置不改变特征值，又综合<span class=math>\(A^T\)</span>的盖尔圆综合判断。</li>
 </ol>
 </blockquote>
 <h3 id=谱半径估计>谱半径估计</h3>
 <blockquote>
-<p>定理：谱半径（谱范数）小于等于任一范数。简单的可以用行和范数和列和范数估计其上界。
-设$A=(a_{ij})<em>{n*n}$，
-$$\rho_1=\max</em>{1≤i≤n}{\sum_{j=1}^n|a_{ij}|}，\rho_2=\max_{1≤j≤n}{\sum_{i=1}^n|a_{ij}|}$$
-则$\rho(A)≤\min(\rho_1,\rho_2)$</p>
+<p>定理：谱半径（谱范数）小于等于任一范数。简单的可以用行和范数和列和范数估计其上界。 设<span class=math>\(A=(a_{ij})_{n*n}\)</span>， <span class=math>\[\rho_1=\max_{1≤i≤n}\{\sum_{j=1}^n|a_{ij}|\}，\rho_2=\max_{1≤j≤n}\{\sum_{i=1}^n|a_{ij}|\}\]</span> 则<span class=math>\(\rho(A)≤\min(\rho_1,\rho_2)\)</span></p>
 </blockquote>
 <h2 id=hermite矩阵的rayleigh商方法>Hermite矩阵的Rayleigh商方法</h2>
 <blockquote>
-<p>定义：设$A$是n阶Hermite矩阵，则$\forall x ∈C^n，x^HAx ∈ R$，可以定义一复变量的实值函数：
-$$R(x)=\frac{x^HAx}{x^Hx},\forall x \neq 0,x ∈ c^n$$
-称此函数为$A$的Rayleigh商。</p>
+<p>定义：设<span class=math>\(A\)</span>是n阶Hermite矩阵，则<span class=math>\(\forall x ∈C^n，x^HAx ∈ R\)</span>，可以定义一复变量的实值函数： <span class=math>\[R(x)=\frac{x^HAx}{x^Hx},\forall x \neq 0,x ∈ c^n\]</span> 称此函数为<span class=math>\(A\)</span>的Rayleigh商。</p>
 </blockquote>
-<p>需要指出的是Rayleigh商的定义、定理只适用于Hermite矩阵。因为Hermite矩阵$A\in C^{n*n}$的特征值均为实数，所以可以把他们记作（按照大小进行排序）：$\lambda_{min}=\lambda_n≤\lambda_{n-1}\dotsb≤\lambda_2≤\lambda_1=\lambda_{max}$。</p>
+<p>需要指出的是Rayleigh商的定义、定理只适用于Hermite矩阵。因为Hermite矩阵<span class=math>\(A\in C^{n*n}\)</span>的特征值均为实数，所以可以把他们记作（按照大小进行排序）：<span class=math>\(\lambda_{min}=\lambda_n≤\lambda_{n-1}\dotsb≤\lambda_2≤\lambda_1=\lambda_{max}\)</span>。</p>
 <blockquote>
-<p>定理：$\lambda_{min}$是Rayleigh商的最小值，$\lambda_{max}$是Rayleigh商的最大值。
-$$\lambda_{min}=\min_{x\in C^n,x\neq 0}R(x),\lambda_{max}=\max_{x\in C^n,x\neq 0}R(x)$$</p>
+<p>定理：<span class=math>\(\lambda_{min}\)</span>是Rayleigh商的最小值，<span class=math>\(\lambda_{max}\)</span>是Rayleigh商的最大值。 <span class=math>\[\lambda_{min}=\min_{x\in C^n,x\neq 0}R(x),\lambda_{max}=\max_{x\in C^n,x\neq 0}R(x)\]</span></p>
 </blockquote>
 </article>
 <aside class=sidebar>

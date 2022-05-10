@@ -88,12 +88,12 @@ Oct 20, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=一维不精确优化---omit-in-toc--->一维不精确优化</h2>
+<h2 id=一维不精确优化>一维不精确优化</h2>
 <p>注1：本文讨论需要优化的函数都是单峰函数（或单谷函数）。</p>
-<p>精确一维搜索方法往往需要花费很大的时间，特别当迭代点远离问题的解时，精确求解通常不十分有效。另外，实际上很多最优化方法，如牛顿法和拟牛顿法，其收敛速度并不依赖于精确一维搜索过程。因此，只要保证目标函数$f(x)$在每一次迭代有满意的下降，可大大节省计算量。</p>
+<p>精确一维搜索方法往往需要花费很大的时间，特别当迭代点远离问题的解时，精确求解通常不十分有效。另外，实际上很多最优化方法，如牛顿法和拟牛顿法，其收敛速度并不依赖于精确一维搜索过程。因此，只要保证目标函数<span class=math>\(f(x)\)</span>在每一次迭代有满意的下降，可大大节省计算量。</p>
 <p>我们在这里再次说明，不做特殊说明下，我们的目标是求函数的极小值。</p>
-<p>$$\min_{x ∈ D} f(x)\
-D为n维约束集$$</p>
+<p><span class=math>\[\min_{x ∈ D} f(x)\\
+D为n维约束集\]</span></p>
 <p>不精确搜索一般而言主要有两种准则<strong>Armijo-Goldstein 准则、Wolfe-Powell 准则</strong>，还有基于两大准则的推广，例如强 Wolfe-Powell 准则和简单准则。它们的出发点都是保证搜索步长不太大或不太小。不精确一维搜索方法总体希望收敛快，每一步不要求达到精确最小，速度快，虽然步数增加，则整个收敛过程更快速。</p>
 <p>为什么要遵循这些准则？</p>
 <p>由于采用了不精确的一维搜索，所以，为了能让算法收敛（即：求得极小值），人们逐渐发现、证明了一些规律，当你遵循这些规律的时候，算法就<strong>很有可能</strong>收敛。因此，为了达到<strong>让算法收敛</strong>的目的，我们就要遵循这些准则。如果你不愿意遵循这些已经公认有效的准则，而是要按自己的准则来设计算法，那么恭喜你，如果你能证明你的做法是有效的，未来若干年后，书本里可能也会出现你的名字。</p>
@@ -101,56 +101,46 @@ D为n维约束集$$</p>
 <h3 id=试探法backtracking-approach>试探法（Backtracking Approach）</h3>
 <p>如果备选的步长合适，那么通过试探法，我们可以只用充分下降条件来做终止条件，同时选出一个不错的步长。（因为这时候 α 是从大往小变化，所以不可能变得太小）。其算法的具体步骤如下：</p>
 <blockquote>
-<p>初始化：一般选择$\gamma∈[0.5,0.8] ,c∈(0,1)$<br>
-依据以下步骤从$\vec x_{old}$更新到$\vec x_{new}$:<br>
-Step1：计算后向跟踪步长
-$$\begin{aligned}\alpha^\ast&:= \max \gamma^v\
-s.t. \quad & v ∈{0,1,2,\dots}\
-&f(\vec x_{old}+\gamma^v\vec d)≤f(x_{old})+c\gamma^v f'(\vec x_{old},\vec d)\end{aligned}$$
-其中$\gamma^v$是几何序列（等比序列）。<br>
-Step2： $\vec x_{new}=\vec x_{old}+\alpha^\ast\vec d$</p>
+<p>初始化：一般选择<span class=math>\(\gamma∈[0.5,0.8] ,c∈(0,1)\)</span><br>依据以下步骤从<span class=math>\(\vec x_{old}\)</span>更新到<span class=math>\(\vec x_{new}\)</span>:<br>Step1：计算后向跟踪步长 <span class=math>\[\begin{aligned}\alpha^\ast&:= \max \gamma^v\\
+s.t. \quad & v ∈\{0,1,2,\dots\}\\
+&f(\vec x_{old}+\gamma^v\vec d)≤f(x_{old})+c\gamma^v f'(\vec x_{old},\vec d)\end{aligned}\]</span> 其中<span class=math>\(\gamma^v\)</span>是几何序列（等比序列）。<br>Step2： <span class=math>\(\vec x_{new}=\vec x_{old}+\alpha^\ast\vec d\)</span></p>
 </blockquote>
 <p>试探法是大多数线性搜索方法的基础。基于这个算法，我们来详细谈谈它的拓展。</p>
 <h2 id=充分下降准则简单准则>充分下降准则(简单准则)</h2>
 <p>我们要求目标函数的最小值，最重要的就是要让函数有<strong>足够</strong>的下降。足够这个词，是希望一种发散的下降，而不是会收敛到某一点的下降，举个反例：</p>
-<p>$$\min f(x)=(x+1)^2\
-x(k)=5/k,k=1,2,3,\dotsb$$
-这个$x$序列确实一直让函数值在下降，但是不够充分，每次下降的越来越小，直到收敛到点$(0,1)$。无穷的收敛性有时候很好，也有时候令人恼怒。因此，我们需要指定一个充分下降条件。当迭代到第$k$次时：</p>
-<p>$$f(\vec x_k+\alpha\vec d_k)≤f(\vec x_k)+\alpha c\nabla f(\vec x_k)\vec d_k\quad PS:f'(\vec x_k;\vec d_k)=\nabla f(\vec x_k)\vec d_k$$</p>
-<p>这个不等式如何保证呢？首先我们需要找到一个严格下降方向$\vec d$，其方向导数是负数，即
-$$\lim_{\alpha→0}\frac{f(\vec x_{old}+\alpha\vec d)-f({x_{old})}}{\alpha}=f'(x_{old};\vec d)&lt;0\quad \alpha\in(0,\bar \alpha)$$
-取一个$c ∈(0,1)$，那么
-$$\lim_{\alpha→0}\frac{f(\vec x_{old}+\alpha\vec d)-f({x_{old})}}{\alpha}=f'(x_{old};\vec d)&lt;cf'(x_{old};\vec d)&lt;0\
-\Rightarrow f(\vec x_{old}+\alpha\vec d)≤f(x_{old})+\alpha cf'(x_{old};\vec d)$$
-一般而言，$c$是一个小量$[0.0001,0.1]$，其作用是放缓曲线，下图举了个例子</p>
-<p><img src=../../images/%E5%85%85%E5%88%86%E4%B8%8B%E9%99%8D%E5%87%86%E5%88%99.png alt=充分下降准则.png></p>
-<p>如果直接使用$\nabla f(x)^Td$则有可能导致没有可行的步长，因此使用一个平缓参数$c$。$c$一般是一个小数，把直线图像抬起来，有的时候$c=0.0001$，那么$f(x_{old})+\alpha cf'(x_{old};\vec d)$基本差不多是一条水平线了。但是$c$是一个定值，保证了下降过程不会收敛。</p>
+<p><span class=math>\[\min f(x)=(x+1)^2\\
+x(k)=5/k,k=1,2,3,\dotsb\]</span> 这个<span class=math>\(x\)</span>序列确实一直让函数值在下降，但是不够充分，每次下降的越来越小，直到收敛到点<span class=math>\((0,1)\)</span>。无穷的收敛性有时候很好，也有时候令人恼怒。因此，我们需要指定一个充分下降条件。当迭代到第<span class=math>\(k\)</span>次时：</p>
+<p><span class=math>\[f(\vec x_k+\alpha\vec d_k)≤f(\vec x_k)+\alpha c\nabla f(\vec x_k)\vec d_k\quad PS:f'(\vec x_k;\vec d_k)=\nabla f(\vec x_k)\vec d_k\]</span></p>
+<p>这个不等式如何保证呢？首先我们需要找到一个严格下降方向<span class=math>\(\vec d\)</span>，其方向导数是负数，即 <span class=math>\[\lim_{\alpha→0}\frac{f(\vec x_{old}+\alpha\vec d)-f({x_{old})}}{\alpha}=f'(x_{old};\vec d)&lt;0\quad \alpha\in(0,\bar \alpha)\]</span> 取一个<span class=math>\(c ∈(0,1)\)</span>，那么 <span class=math>\[\lim_{\alpha→0}\frac{f(\vec x_{old}+\alpha\vec d)-f({x_{old})}}{\alpha}=f'(x_{old};\vec d)&lt;cf'(x_{old};\vec d)&lt;0\\
+\Rightarrow f(\vec x_{old}+\alpha\vec d)≤f(x_{old})+\alpha cf'(x_{old};\vec d)\]</span> 一般而言，<span class=math>\(c\)</span>是一个小量<span class=math>\([0.0001,0.1]\)</span>，其作用是放缓曲线，下图举了个例子</p>
+<div class=figure>
+<img src=../../images/充分下降准则.png alt=充分下降准则.png><p class=caption>充分下降准则.png</p>
+</div>
+<p>如果直接使用<span class=math>\(\nabla f(x)^Td\)</span>则有可能导致没有可行的步长，因此使用一个平缓参数<span class=math>\(c\)</span>。<span class=math>\(c\)</span>一般是一个小数，把直线图像抬起来，有的时候<span class=math>\(c=0.0001\)</span>，那么<span class=math>\(f(x_{old})+\alpha cf'(x_{old};\vec d)\)</span>基本差不多是一条水平线了。但是<span class=math>\(c\)</span>是一个定值，保证了下降过程不会收敛。</p>
 <p>此外，如果只满足充分下降准则，也可以称之满足于简单准则。</p>
 <h2 id=wolfe-powell准则>Wolfe-Powell准则</h2>
-<p>仅靠充分下降条件并不能保证算法每一步都能有很好的进步（make reasonable progress）。事实上，我们可以发现，当$α$充分小时，充分下降条件总是满足的。所以，算法可能会常常产生令人无法接受的小步长。为了避免这种情况，我们引入另一个条件，称为曲率条件，即需要$α_k$满足
-$$\nabla f(x_k+\alpha_k d_k)^T p_k\ge c_2\nabla f_k^T d_k$$
-其中$c_2∈(0,1)$为一常数。</p>
+<p>仅靠充分下降条件并不能保证算法每一步都能有很好的进步（make reasonable progress）。事实上，我们可以发现，当<span class=math>\(α\)</span>充分小时，充分下降条件总是满足的。所以，算法可能会常常产生令人无法接受的小步长。为了避免这种情况，我们引入另一个条件，称为曲率条件，即需要<span class=math>\(α_k\)</span>满足 <span class=math>\[\nabla f(x_k+\alpha_k d_k)^T p_k\ge c_2\nabla f_k^T d_k\]</span> 其中<span class=math>\(c_2∈(0,1)\)</span>为一常数。</p>
 <p>因此， Wolfe-Powell准则归结为</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>充分下降准则</li>
 <li>曲率条件</li>
 </ol>
-<p><img src=../../images/Wolfe%E6%9D%A1%E4%BB%B6.png alt=Wolfe条件></p>
+<div class=figure>
+<img src=../../images/Wolfe条件.png alt=Wolfe条件><p class=caption>Wolfe条件</p>
+</div>
 <h2 id=armijo-goldstein准则>Armijo-Goldstein准则</h2>
 <p>Armijo-Goldstein准则的核心内容有两条：</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>充分下降准则</li>
 <li>搜索的步长不应该太小</li>
 </ol>
-<p>$$1:f(\vec x_k+\alpha\vec d_k)≤f(\vec x_k)+\alpha c\nabla f(\vec x_k)\vec d_k$$
-$$2:f(\vec x_k+\alpha\vec d_k)≥f(\vec x_k)+\alpha (1-c)\nabla f(\vec x_k)\vec d_k$$
-其中，$c ∈ (0,0.5)$</p>
-<p><img src=../../images/Armijo-Goldstein.png alt=Armijo-Goldstein></p>
+<p><span class=math>\[1:f(\vec x_k+\alpha\vec d_k)≤f(\vec x_k)+\alpha c\nabla f(\vec x_k)\vec d_k\]</span> <span class=math>\[2:f(\vec x_k+\alpha\vec d_k)≥f(\vec x_k)+\alpha (1-c)\nabla f(\vec x_k)\vec d_k\]</span> 其中，<span class=math>\(c ∈ (0,0.5)\)</span></p>
+<div class=figure>
+<img src=../../images/Armijo-Goldstein.png alt=Armijo-Goldstein><p class=caption>Armijo-Goldstein</p>
+</div>
 <h2 id=推广强wolfe-powell准则>推广：强Wolfe-Powell准则</h2>
-<p>强Wolfe条件对$α_k$的限制为
-$$\begin{array}{c}f(x_k+\alpha_k p_k)\le f(x_k)+c_1\alpha_k\nabla f_k^T p_k \ |\nabla f(x_k+\alpha_k p_k)^T p_k|\le c_2|\nabla f_k^T p_k| \end{array}$$
-注意到，这个条件比Wolfe条件只多了绝对值符号。强Wolfe条件实际上限制了$ϕ′(α_k)$不能为一个很大的正数，即可行的$α$不能离最低点太远。</p>
-<p>这个笔记并不完整，一些内容可见<a href=http://keson96.github.io/2016/12/08/2016-12-08-Line-Search/>http://keson96.github.io/2016/12/08/2016-12-08-Line-Search/</a>，我在这上面花了不少时间，但是不知道是否值得，现在先暂停下。</p>
+<p>强Wolfe条件对<span class=math>\(α_k\)</span>的限制为 <span class=math>\[\begin{array}{c}f(x_k+\alpha_k p_k)\le f(x_k)+c_1\alpha_k\nabla f_k^T p_k \\ |\nabla f(x_k+\alpha_k p_k)^T p_k|\le c_2|\nabla f_k^T p_k| \end{array}\]</span> 注意到，这个条件比Wolfe条件只多了绝对值符号。强Wolfe条件实际上限制了<span class=math>\(ϕ′(α_k)\)</span>不能为一个很大的正数，即可行的<span class=math>\(α\)</span>不能离最低点太远。</p>
+<p>这个笔记并不完整，一些内容可见<http://keson96.github.io/2016/12/08/2016-12-08-line-search>，我在这上面花了不少时间，但是不知道是否值得，现在先暂停下。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

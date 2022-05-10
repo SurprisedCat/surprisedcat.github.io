@@ -88,87 +88,66 @@ Sep 5, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=拉格朗日余项与误差---omit-in-toc--->拉格朗日余项与误差</h2>
+<h2 id=拉格朗日余项与误差>拉格朗日余项与误差</h2>
 <ul>
-<li><a href=#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%BD%99%E9%A1%B9>拉格朗日余项</a></li>
-<li><a href=#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E8%AF%AF%E5%B7%AE%E7%95%8C>拉格朗日误差界</a></li>
-<li><a href=#%E4%BE%8B%E9%A2%98>例题</a></li>
-<li><a href=#%E4%BA%A4%E9%94%99%E7%BA%A7%E6%95%B0>交错级数</a></li>
-<li><a href=#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E4%BD%99%E9%A1%B9>拉格朗日插值余项</a>
-](#拉格朗日插值余项
-)</li>
+<li><a href=#拉格朗日余项>拉格朗日余项</a></li>
+<li><a href=#拉格朗日误差界>拉格朗日误差界</a></li>
+<li><a href=#例题>例题</a></li>
+<li><a href=#交错级数>交错级数</a></li>
+<li><a href=#拉格朗日插值余项>拉格朗日插值余项</a> ](#拉格朗日插值余项 )</li>
 </ul>
 <h2 id=拉格朗日余项>拉格朗日余项</h2>
-<p>拉格朗日余项和泰勒公式密不可分。泰勒技术的全形如下：
-$$
+<p>拉格朗日余项和泰勒公式密不可分。泰勒技术的全形如下： <span class=math>\[
 \begin{aligned}
-f(x)&=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+\dotsb \
+f(x)&=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+\dotsb \\
 &=\sum^{\inf}_{n=0}\frac{f^{(n)}(a)}{n!}(x-a)^n
-\end{aligned}$$
-其中，前n项可以称为函数在点$x=a$处的n阶泰勒展开式。<strong>所谓的阶，是指x的幂次；n阶就是x的最高次幂为n，而不是展开到第n项。</strong></p>
-<p>但是，泰勒展开能够无限地逼近原函数，是以n趋向于无穷为前提条件的。如果我们只是将函数展开到n阶，则后面的部分（我们称为<strong>余项</strong>, remainder）就被省略了，这必然会产生误差。记余项的表达式为$R_n(x)$，用它表示n项之后的余项（<strong>注意下标是 n 而不是 n+1</strong>），我们可以将泰勒展开写成如下形式:
-$$
+\end{aligned}\]</span> 其中，前n项可以称为函数在点<span class=math>\(x=a\)</span>处的n阶泰勒展开式。<strong>所谓的阶，是指x的幂次；n阶就是x的最高次幂为n，而不是展开到第n项。</strong></p>
+<p>但是，泰勒展开能够无限地逼近原函数，是以n趋向于无穷为前提条件的。如果我们只是将函数展开到n阶，则后面的部分（我们称为<strong>余项</strong>, remainder）就被省略了，这必然会产生误差。记余项的表达式为<span class=math>\(R_n(x)\)</span>，用它表示n项之后的余项（<strong>注意下标是 n 而不是 n+1</strong>），我们可以将泰勒展开写成如下形式: <span class=math>\[
 f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+R_n(x)
-$$
-或者说
-$$f(x)=P_n(x)+R_n(x)$$
-这式子的意思是原函数可以分解为两个部分，一部分是 n 阶泰勒展开，另一部分就是拉格朗日余项。那么，做一个移项，就可以有：$R_n(x)=f(x)-P_n(x)$。</p>
-<p>这就是说，用n阶幂级数来逼近原函数，其误差就是这一余项。而拉格朗日余项就是表达这些被省略部分的一个公式，我们可以用它来估计误差。为此，我们先写出函数的第 n+1 阶展开式：
-$$\frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}$$
-而<strong>拉格朗日余项</strong>（在具体题目中，我们也称为<strong>拉格朗日误差界</strong> Lagrange Error Bound）
-在形式上就类似于函数的第 n+1 阶，其表达式如下：
-$$R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1},c在x与a之间。$$
-需要注意的是，c只是在x与a之间，可能是$x\le c\le a$，也可能是$a\le c\le x$。同时，拉格朗日余项定理像微分中值定理（Mean Value Theorem）、介值定理（Intermediate Value Theorem）一样，都是存在性定理，即只能告知值的存在（我们知道有这样一个值），但不能告知其具体位置（但不知道它到底是多少）。如果我们使用麦克劳林式（Maclaurin Series，即$a = 0$时的特殊形式），就可以将拉格朗日余项变成较简单的形式:
-$$R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},c在x与0之间。$$</p>
+\]</span> 或者说 <span class=math>\[f(x)=P_n(x)+R_n(x)\]</span> 这式子的意思是原函数可以分解为两个部分，一部分是 n 阶泰勒展开，另一部分就是拉格朗日余项。那么，做一个移项，就可以有：<span class=math>\(R_n(x)=f(x)-P_n(x)\)</span>。</p>
+<p>这就是说，用n阶幂级数来逼近原函数，其误差就是这一余项。而拉格朗日余项就是表达这些被省略部分的一个公式，我们可以用它来估计误差。为此，我们先写出函数的第 n+1 阶展开式： <span class=math>\[\frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}\]</span> 而<strong>拉格朗日余项</strong>（在具体题目中，我们也称为<strong>拉格朗日误差界</strong> Lagrange Error Bound） 在形式上就类似于函数的第 n+1 阶，其表达式如下： <span class=math>\[R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1},c在x与a之间。\]</span> 需要注意的是，c只是在x与a之间，可能是<span class=math>\(x\le c\le a\)</span>，也可能是<span class=math>\(a\le c\le x\)</span>。同时，拉格朗日余项定理像微分中值定理（Mean Value Theorem）、介值定理（Intermediate Value Theorem）一样，都是存在性定理，即只能告知值的存在（我们知道有这样一个值），但不能告知其具体位置（但不知道它到底是多少）。如果我们使用麦克劳林式（Maclaurin Series，即<span class=math>\(a = 0\)</span>时的特殊形式），就可以将拉格朗日余项变成较简单的形式: <span class=math>\[R_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1},c在x与0之间。\]</span></p>
 <h2 id=拉格朗日误差界>拉格朗日误差界</h2>
-<p>观察拉格朗日余项定理的形式，对于给定$a、n和x$的情况下，如果要确定这个余项的界限，唯一要确定的就是前面的这个第 n+1 阶导数的取值范围。若令有<strong>正数</strong>$M=|f^{(n+1)}(c)|$，则只需要确定M的范围，那么，整个余项的范围也就唯一给定了。由于误差值可能为正，也可能为负，为便利讨论，我们一般都取其绝对值进行考查，即
-$$\begin{aligned}
-|R_n(x)|&=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \
+<p>观察拉格朗日余项定理的形式，对于给定<span class=math>\(a、n和x\)</span>的情况下，如果要确定这个余项的界限，唯一要确定的就是前面的这个第 n+1 阶导数的取值范围。若令有<strong>正数</strong><span class=math>\(M=|f^{(n+1)}(c)|\)</span>，则只需要确定M的范围，那么，整个余项的范围也就唯一给定了。由于误差值可能为正，也可能为负，为便利讨论，我们一般都取其绝对值进行考查，即 <span class=math>\[\begin{aligned}
+|R_n(x)|&=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \\
 &=\frac{M}{(n+1)!}|(x-a)^{n+1}|
-\end{aligned}$$
-而对于麦克劳林式，我们就变成考查：
-$$\begin{aligned}
-|R_n(x)|&=|\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1}| \
+\end{aligned}\]</span> 而对于麦克劳林式，我们就变成考查： <span class=math>\[\begin{aligned}
+|R_n(x)|&=|\frac{f^{(n+1)}(c)}{(n+1)!}x^{n+1}| \\
 &=\frac{M}{(n+1)!}|x^{n+1}|
-\end{aligned}$$
-这时我们就要介绍一个基本定理，即拉格朗日余项定理：</p>
+\end{aligned}\]</span> 这时我们就要介绍一个基本定理，即拉格朗日余项定理：</p>
 <blockquote>
-<p>若存在正数Max，使得对任意$\xi$，如果$a \le \xi \le x$或$x \le \xi \le a$，均有$|f^{(n+1)}(\xi)|\le Max$，则:
-$$|R_n(x)|=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \le \frac{Max}{(n+1)!}|(x-a)^{n+1}|$$
-也就是说Max的取值范围其实就由$|f^{(n+1)}(\xi)|,(a \le \xi \le x$或$x \le \xi \le a)$唯一给定。这一不等式也叫<strong>泰勒不等式</strong>。这是我们进行余项范围估计的主要理论基础。</p>
+<p>若存在正数Max，使得对任意<span class=math>\(\xi\)</span>，如果<span class=math>\(a \le \xi \le x\)</span>或<span class=math>\(x \le \xi \le a\)</span>，均有<span class=math>\(|f^{(n+1)}(\xi)|\le Max\)</span>，则: <span class=math>\[|R_n(x)|=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \le \frac{Max}{(n+1)!}|(x-a)^{n+1}|\]</span> 也就是说Max的取值范围其实就由<span class=math>\(|f^{(n+1)}(\xi)|,(a \le \xi \le x\)</span>或<span class=math>\(x \le \xi \le a)\)</span>唯一给定。这一不等式也叫<strong>泰勒不等式</strong>。这是我们进行余项范围估计的主要理论基础。</p>
 </blockquote>
 <h2 id=例题>例题</h2>
-<p><strong>例1</strong> 将$y=sin(x)$展开成麦克劳林式，并估计其误差：</p>
-<p>根据基本公式：$sin(x)=x-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\dotsb+(-1)^n\frac{x^{2n+1}}{(2n+1)!}+\dotsb$，很容易得出5阶麦克劳林式：$sin(x)\approx x-\frac{1}{3!}x^3+\frac{1}{5!}x^5$</p>
-<p>其余项按照拉格朗日余项定理，可以写成（注意：<strong>5阶的余项是6次方</strong>）：
-$$R_5(x)=\frac{f^6(c)}{6!}x^6,c在0和x之间$$
-而$|f^6(x)|=|-sin(x)| \le 1$，所以$R_5(x) \le \frac{x^6}{6!}$。</p>
-<p><strong>例2</strong> 将$y=sin(x)$展开成麦克劳林式，据此估计sin 0.2的值，并计算其误差。</p>
-<p>使用例1结论：$sin(0.2)\approx 0.2-\frac{1}{3!}(0.2)^3+\frac{1}{5!}(0.2)^5 \approx 0.1986693333$</p>
-<p>同时，$R_5(0.2) \le \frac{0.2^6}{6!}=8.888889*10^{-8}$</p>
+<p><strong>例1</strong> 将<span class=math>\(y=sin(x)\)</span>展开成麦克劳林式，并估计其误差：</p>
+<p>根据基本公式：<span class=math>\(sin(x)=x-\frac{1}{3!}x^3+\frac{1}{5!}x^5-\frac{1}{7!}x^7+\dotsb+(-1)^n\frac{x^{2n+1}}{(2n+1)!}+\dotsb\)</span>，很容易得出5阶麦克劳林式：<span class=math>\(sin(x)\approx x-\frac{1}{3!}x^3+\frac{1}{5!}x^5\)</span></p>
+<p>其余项按照拉格朗日余项定理，可以写成（注意：<strong>5阶的余项是6次方</strong>）： <span class=math>\[R_5(x)=\frac{f^6(c)}{6!}x^6,c在0和x之间\]</span> 而<span class=math>\(|f^6(x)|=|-sin(x)| \le 1\)</span>，所以<span class=math>\(R_5(x) \le \frac{x^6}{6!}\)</span>。</p>
+<p><strong>例2</strong> 将<span class=math>\(y=sin(x)\)</span>展开成麦克劳林式，据此估计sin 0.2的值，并计算其误差。</p>
+<p>使用例1结论：<span class=math>\(sin(0.2)\approx 0.2-\frac{1}{3!}(0.2)^3+\frac{1}{5!}(0.2)^5 \approx 0.1986693333\)</span></p>
+<p>同时，<span class=math>\(R_5(0.2) \le \frac{0.2^6}{6!}=8.888889*10^{-8}\)</span></p>
 <h2 id=交错级数>交错级数</h2>
 <p>在一些情况下，使用交错级数计算误差相对简单，其基本定理如下：</p>
 <blockquote>
-<p>若交错级数$\sum^{\infty}\limits_{n=0}u_n=\sum^{\infty}\limits_{n=0}(-1)^{n+1}(v_{n})$满足以下条件：</p>
-<ol>
-<li>正项递减，即$0\le v_{n+1} \le v_n;$</li>
-<li>正项趋零，即$\lim\limits_{x \to +\infty}v_n=0$</li>
+<p>若交错级数<span class=math>\(\sum^{\infty}\limits_{n=0}u_n=\sum^{\infty}\limits_{n=0}(-1)^{n+1}(v_{n})\)</span>满足以下条件：</p>
+<ol style=list-style-type:decimal>
+<li>正项递减，即<span class=math>\(0\le v_{n+1} \le v_n;\)</span></li>
+<li>正项趋零，即<span class=math>\(\lim\limits_{x \to +\infty}v_n=0\)</span></li>
 </ol>
-<p>则必有其余项的范围$|R_n(x)|=|S-S_n|&lt;|u_{n+1}|=v_{n+1}$</p>
+<p>则必有其余项的范围<span class=math>\(|R_n(x)|=|S-S_n|&lt;|u_{n+1}|=v_{n+1}\)</span></p>
 </blockquote>
-<p>其中，S表示全部和，$S_n$表示部分和，也就是我们高中数学里习惯说的前n项和。简单的讲，<strong>交错级数前n项和的余项，不会超过接下来这一项的绝对值，这就是交错级数的余项公式。</strong></p>
+<p>其中，S表示全部和，<span class=math>\(S_n\)</span>表示部分和，也就是我们高中数学里习惯说的前n项和。简单的讲，<strong>交错级数前n项和的余项，不会超过接下来这一项的绝对值，这就是交错级数的余项公式。</strong></p>
 <h2 id=拉格朗日插值余项>拉格朗日插值余项</h2>
-<p>在插值过程中，有一个拓展概念叫拉格朗日插值余项。取插值结点：$a≤x0&lt;x1&lt;······&lt;xn≤b$
-满足$L_n(x_k)=f(x_k)$的 n 次多项式插值余项：
-$$R_n(x)=f(x)-L_n(x) \
-=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}\omega_{n+1}(x)$$
-其中，$\omega_{n+1}(x)=(x-x_0)(x-x_1)\dotsb (x-x_n)$。选取：$x_0,x_1,\dotsb,x_n$，使$\underset{a\le x \le b}{max}|\omega_{n+1}(x)|=min$</p>
-<p>结论:选取切比雪夫多项式$T_{n+1}(x)$的全部零点。</p>
-<p>使用切比雪夫节点插值和等距插值对函数$f(x)=\frac{1}{1+x^2}$模拟：</p>
-<p><img src=../../images/chebyshev_point.bmp alt=切比雪夫结点插值></p>
-<center>插值函数L10(x)取切比雪夫结点插值</center>
-<p><img src=../../images/equal_distance_point.png alt=等距结点插值></p>
-<center>插值函数L10(x)取等距结点插值</center>
+<p>在插值过程中，有一个拓展概念叫拉格朗日插值余项。取插值结点：<span class=math>\(a≤x0&lt;x1&lt;······&lt;xn≤b\)</span> 满足<span class=math>\(L_n(x_k)=f(x_k)\)</span>的 n 次多项式插值余项： <span class=math>\[R_n(x)=f(x)-L_n(x) \\
+=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}\omega_{n+1}(x)\]</span> 其中，<span class=math>\(\omega_{n+1}(x)=(x-x_0)(x-x_1)\dotsb (x-x_n)\)</span>。选取：<span class=math>\(x_0,x_1,\dotsb,x_n\)</span>，使<span class=math>\(\underset{a\le x \le b}{max}|\omega_{n+1}(x)|=min\)</span></p>
+<p>结论:选取切比雪夫多项式<span class=math>\(T_{n+1}(x)\)</span>的全部零点。</p>
+<p>使用切比雪夫节点插值和等距插值对函数<span class=math>\(f(x)=\frac{1}{1+x^2}\)</span>模拟：</p>
+<img src=../../images/chebyshev_point.bmp alt=切比雪夫结点插值>
+<center>
+插值函数L10(x)取切比雪夫结点插值
+</center>
+<img src=../../images/equal_distance_point.png alt=等距结点插值>
+<center>
+插值函数L10(x)取等距结点插值
+</center>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

@@ -88,164 +88,110 @@ Nov 4, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=牛顿法---omit-in-toc--->牛顿法</h2>
+<h2 id=牛顿法>牛顿法</h2>
 <ul>
-<li><a href=#%E5%9F%BA%E7%A1%80%E7%89%9B%E9%A1%BF%E6%B3%95>基础牛顿法</a>
+<li><a href=#基础牛顿法>基础牛顿法</a></li>
+<li><a href=#牛顿法求解函数根>牛顿法求解函数根</a></li>
+<li><a href=#函数最优值与求根>函数最优值与求根</a>
 <ul>
-<li><a href=#%E7%89%9B%E9%A1%BF%E6%B3%95%E6%B1%82%E8%A7%A3%E5%87%BD%E6%95%B0%E6%A0%B9>牛顿法求解函数根</a></li>
-<li><a href=#%E5%87%BD%E6%95%B0%E6%9C%80%E4%BC%98%E5%80%BC%E4%B8%8E%E6%B1%82%E6%A0%B9>函数最优值与求根</a>
+<li><a href=#一元函数情况>一元函数情况</a></li>
+<li><a href=#多元函数的情况>多元函数的情况</a></li>
+</ul></li>
+<li><a href=#实现算法>实现算法</a></li>
+<li><a href=#牛顿法修正>牛顿法修正</a></li>
+<li><a href=#goldstein-price修正法g-p法>Goldstein-Price修正法(G-P法)</a></li>
+<li><a href=#负曲率方向法>负曲率方向法</a></li>
+<li><a href=#goldfeld修正>Goldfeld修正</a></li>
+<li><a href=#gill-murray改进cholesky分解法的稳定牛顿法>Gill-Murray改进Cholesky分解法的稳定牛顿法</a></li>
+<li><a href=#信赖域法>信赖域法</a>
 <ul>
-<li><a href=#%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E6%83%85%E5%86%B5>一元函数情况</a></li>
-<li><a href=#%E5%A4%9A%E5%85%83%E5%87%BD%E6%95%B0%E7%9A%84%E6%83%85%E5%86%B5>多元函数的情况</a></li>
-</ul>
-</li>
-<li><a href=#%E5%AE%9E%E7%8E%B0%E7%AE%97%E6%B3%95>实现算法</a></li>
-</ul>
-</li>
-<li><a href=#%E7%89%9B%E9%A1%BF%E6%B3%95%E4%BF%AE%E6%AD%A3>牛顿法修正</a>
-<ul>
-<li><a href=#goldstein-price%E4%BF%AE%E6%AD%A3%E6%B3%95g-p%E6%B3%95>Goldstein-Price修正法(G-P法)</a></li>
-<li><a href=#%E8%B4%9F%E6%9B%B2%E7%8E%87%E6%96%B9%E5%90%91%E6%B3%95>负曲率方向法</a></li>
-<li><a href=#goldfeld%E4%BF%AE%E6%AD%A3>Goldfeld修正</a></li>
-<li><a href=#gill-murray%E6%94%B9%E8%BF%9Bcholesky%E5%88%86%E8%A7%A3%E6%B3%95%E7%9A%84%E7%A8%B3%E5%AE%9A%E7%89%9B%E9%A1%BF%E6%B3%95>Gill-Murray改进Cholesky分解法的稳定牛顿法</a></li>
-<li><a href=#%E4%BF%A1%E8%B5%96%E5%9F%9F%E6%B3%95>信赖域法</a>
-<ul>
-<li><a href=#%E4%BF%A1%E8%B5%96%E5%9F%9F%E7%AE%97%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3>信赖域算法的基本思想</a></li>
-<li><a href=#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E8%B5%96%E5%9F%9F%E6%B3%95>基本信赖域法</a></li>
-<li><a href=#levenbergmarquardt%E6%B3%95>Levenberg–Marquardt法</a></li>
-<li><a href=#dogleg%E6%B3%95>Dogleg法</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href=#%E6%8B%9F%E7%89%9B%E9%A1%BF%E6%B3%95>拟牛顿法</a>
-<ul>
-<li><a href=#dfp%E7%AE%97%E6%B3%95>DFP算法</a></li>
-<li><a href=#sr1%E7%AE%97%E6%B3%95>SR1算法</a></li>
-<li><a href=#bfgs%E7%AE%97%E6%B3%95>BFGS算法</a></li>
-<li><a href=#l-bfgs%E7%AE%97%E6%B3%95>L-BFGS算法</a></li>
-</ul>
-</li>
-<li><a href=#%E5%85%B1%E8%BD%AD%E6%A2%AF%E5%BA%A6%E6%B3%95>共轭梯度法</a></li>
-<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
-<li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE>参考文献</a></li>
+<li><a href=#信赖域算法的基本思想>信赖域算法的基本思想</a></li>
+<li><a href=#基本信赖域法>基本信赖域法</a></li>
+<li><a href=#levenbergmarquardt法>Levenberg–Marquardt法</a></li>
+<li><a href=#dogleg法>Dogleg法</a></li>
+</ul></li>
+<li><a href=#拟牛顿法>拟牛顿法</a></li>
+<li><a href=#dfp算法>DFP算法</a></li>
+<li><a href=#sr1算法>SR1算法</a></li>
+<li><a href=#bfgs算法>BFGS算法</a></li>
+<li><a href=#l-bfgs算法>L-BFGS算法</a></li>
+<li><a href=#共轭梯度法>共轭梯度法</a></li>
+<li><a href=#总结>总结</a></li>
+<li><a href=#参考文献>参考文献</a></li>
 </ul>
 <p>牛顿法和梯度下降法都是求解非线性<strong>无约束</strong>最优化问题的常用方法，但是效果速度比梯度法更好（但是计算量增加了，需要二阶信息）。牛顿法是<strong>迭代算法</strong>，每一步需要求解目标函数的 Hessian 矩阵的逆矩阵，计算过程复杂。虽然牛顿法收敛速度很快，但是有两个很难处理的问题。一是要保证Hessian 矩阵正定。二是求Hessian 矩阵是很耗计算量的。因此，有许多<strong>修正牛顿法</strong>来保证矩阵正定或是在矩阵不正定时提供候选方向。同时为了简化计算，诞生了<strong>拟牛顿法</strong>通过正定矩阵近似 Hessian 矩阵的逆矩阵或 Hessian 矩阵，简化计算过程。DFP方法、BFGS方法和L-BFGS方法都属于拟牛顿法。</p>
-<p>牛顿法、修正的牛顿法和拟牛顿法解决的问题可以用如下<strong>无约束最小化</strong>问题概括：
-$$\mathop{min}\limits_{x}\quad f(x)$$
-其中，$x=(x_1，x_2，\ldots，x_N)^T\in\mathbb{R}^N$。由于本文不讨论收敛性，没有特殊说明时，假设$f$为<strong>凸函数，且两阶连续可微</strong>，此外，记极小问题的解是$x^\ast$。</p>
+<p>牛顿法、修正的牛顿法和拟牛顿法解决的问题可以用如下<strong>无约束最小化</strong>问题概括： <span class=math>\[\mathop{min}\limits_{x}\quad f(x)\]</span> 其中，<span class=math>\(x=(x_1，x_2，\ldots，x_N)^T\in\mathbb{R}^N\)</span>。由于本文不讨论收敛性，没有特殊说明时，假设<span class=math>\(f\)</span>为<strong>凸函数，且两阶连续可微</strong>，此外，记极小问题的解是<span class=math>\(x^\ast\)</span>。</p>
 <h2 id=基础牛顿法>基础牛顿法</h2>
 <h3 id=牛顿法求解函数根>牛顿法求解函数根</h3>
-<p>牛顿法最核心的功能是<strong>迭代求函数根</strong>，其他函数优化功能都是从这里衍生出去的。我们知道并不是所有的方程都有求根公式，或者求根公式很复杂，导致求解困难。利用牛顿法，可以<strong>迭代求解</strong>。
-原理是利用泰勒公式。我们将任一函数在$x_0$处展开，且展开到一阶，即：
-$$f(x)=f(x_0)+(x–x_0)f'(x_0)$$
-要求解方程$f(x)=0$，即是$f(x_0)+(x–x_0)f'(x_0)=0$，解为：
-$$x=x_1=x_0–f(x_0)/f'(x_0)$$
-因为这是利用泰勒公式的一阶展开，所以$f(x)与f(x_0)+(x–x_0)f'(x_0)$在$x_1$并不是完全相等，而是近似相等。因此，这里求得的$x_1$并不能让$f(x)=0$，只能说$f(x_1)$的值比$f(x_0)$更接近$f(x)=0$，于是乎，迭代求解的想法就很自然了，可以进而推出
-$$x_{n+1}=x_n–f(x_n)/f'(x_n)$$
-通过迭代，这个式子必然在$f(x^∗)=0$的时候收敛. 整个过程如下图：</p>
-<p><img src=../../images/newton_root.gif alt=newton_root.gif></p>
-<center>图1牛顿法求根</center>
+<p>牛顿法最核心的功能是<strong>迭代求函数根</strong>，其他函数优化功能都是从这里衍生出去的。我们知道并不是所有的方程都有求根公式，或者求根公式很复杂，导致求解困难。利用牛顿法，可以<strong>迭代求解</strong>。 原理是利用泰勒公式。我们将任一函数在<span class=math>\(x_0\)</span>处展开，且展开到一阶，即： <span class=math>\[f(x)=f(x_0)+(x–x_0)f'(x_0)\]</span> 要求解方程<span class=math>\(f(x)=0\)</span>，即是<span class=math>\(f(x_0)+(x–x_0)f'(x_0)=0\)</span>，解为： <span class=math>\[x=x_1=x_0–f(x_0)/f'(x_0)\]</span> 因为这是利用泰勒公式的一阶展开，所以<span class=math>\(f(x)与f(x_0)+(x–x_0)f'(x_0)\)</span>在<span class=math>\(x_1\)</span>并不是完全相等，而是近似相等。因此，这里求得的<span class=math>\(x_1\)</span>并不能让<span class=math>\(f(x)=0\)</span>，只能说<span class=math>\(f(x_1)\)</span>的值比<span class=math>\(f(x_0)\)</span>更接近<span class=math>\(f(x)=0\)</span>，于是乎，迭代求解的想法就很自然了，可以进而推出 <span class=math>\[x_{n+1}=x_n–f(x_n)/f'(x_n)\]</span> 通过迭代，这个式子必然在<span class=math>\(f(x^∗)=0\)</span>的时候收敛. 整个过程如下图：</p>
+<img src=../../images/newton_root.gif alt=newton_root.gif>
+<center>
+图1牛顿法求根
+</center>
 <h3 id=函数最优值与求根>函数最优值与求根</h3>
 <h4 id=一元函数情况>一元函数情况</h4>
-<p>从简单的一元函数开始，我们先列出函数的二阶泰勒展开式：
-$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{1}{2}f''(x_0)(x-x_0)^2$$</p>
-<p>然后，我们再来讨论我们的问题，求函数最优值。我们知道一个可微函数的最值点，一定是它的驻点（<em>或边界点，假设定义域范围暂不考虑</em>）。那我们就要求驻点，即$f'(x)=0$的点。我们如果对$f(x)$和其二阶泰勒展开式求导：
-$$f'(x)=f'(x_0)+f''(x_0)(x-x_0)$$
-根据驻点性质，要求$f'(x)=0$，则根据上一节<strong>牛顿法求解函数根</strong>可知：
-$$x_1=x_0-\frac{f'(x_0)}{f''(x_0)}$$
-这样我们就得到了下一点的位置$x_1$。$f'(x_1)$比$f'(x_0)$更接近0。接下来重复这个过程，直到到达导数为0的点，由此得到求极值的牛顿法的迭代公式：
-$$x_{n+1}=x_n-\frac{f'(x_n)}{f''(x_n)}$$
-给定初始迭代点$x_0$，反复用上面的公式进行迭代，直到达到导数为0的点或者达到最大迭代次数。</p>
+<p>从简单的一元函数开始，我们先列出函数的二阶泰勒展开式： <span class=math>\[f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{1}{2}f''(x_0)(x-x_0)^2\]</span></p>
+<p>然后，我们再来讨论我们的问题，求函数最优值。我们知道一个可微函数的最值点，一定是它的驻点（<em>或边界点，假设定义域范围暂不考虑</em>）。那我们就要求驻点，即<span class=math>\(f'(x)=0\)</span>的点。我们如果对<span class=math>\(f(x)\)</span>和其二阶泰勒展开式求导： <span class=math>\[f'(x)=f'(x_0)+f''(x_0)(x-x_0)\]</span> 根据驻点性质，要求<span class=math>\(f'(x)=0\)</span>，则根据上一节<strong>牛顿法求解函数根</strong>可知： <span class=math>\[x_1=x_0-\frac{f'(x_0)}{f''(x_0)}\]</span> 这样我们就得到了下一点的位置<span class=math>\(x_1\)</span>。<span class=math>\(f'(x_1)\)</span>比<span class=math>\(f'(x_0)\)</span>更接近0。接下来重复这个过程，直到到达导数为0的点，由此得到求极值的牛顿法的迭代公式： <span class=math>\[x_{n+1}=x_n-\frac{f'(x_n)}{f''(x_n)}\]</span> 给定初始迭代点<span class=math>\(x_0\)</span>，反复用上面的公式进行迭代，直到达到导数为0的点或者达到最大迭代次数。</p>
 <h4 id=多元函数的情况>多元函数的情况</h4>
-<p>下面推广到多元函数的情况，根据多元函数的泰勒展开公式（<em>参考矩阵论教材</em>），我们对目标函数在$x_0$点处做二阶泰勒展开，有：
-$$f(x)=f(x_0)+\nabla f(x_0)^T(x-x_0)+\frac{1}{2}(x-x_0)^T\nabla^2f(x_0)(x-x_0)$$
-其中，$\nabla^2f(x_0)$为多元实值函数$f(x)$在$x_0$处的海森矩阵（Hessian Matrix），我们以后用$H$表示。那么如果函数梯度为0，且海森矩阵$H$可逆，则有：
-$$\nabla f(x)=\vec{0} \Rightarrow \
-\nabla f(x_0)+\nabla^2f(x_0)(x-x_0)=\vec{0}\Rightarrow \
-x_1=x_0-(\nabla^2f(x_0))^{-1}\nabla f(x_0)\Rightarrow \
-x_1=x_0-H^{-1}[f(x_0)]\nabla f(x_0)$$
-注意矩阵左右乘不可颠倒,$H^{-1}[f(x_0)]$，为海森矩阵的逆矩阵。<strong>特别地，若是极小值点则Hessian是正定矩阵</strong>。同理，我们可以得到如下递推公式：
-$$x_{n+1}=x_n-H^{-1}[f(x_n)]\nabla f(x_n) \
-可简写为：x_{n+1}=x_n-H^{-1}_n{g_n}$$
-最终会到达函数的驻点处。其中$-H^{-1}g$称为<strong>牛顿方向</strong>。迭代终止的条件是梯度的模接近于0，或者函数值下降小于指定阈值。</p>
+<p>下面推广到多元函数的情况，根据多元函数的泰勒展开公式（<em>参考矩阵论教材</em>），我们对目标函数在<span class=math>\(x_0\)</span>点处做二阶泰勒展开，有： <span class=math>\[f(x)=f(x_0)+\nabla f(x_0)^T(x-x_0)+\frac{1}{2}(x-x_0)^T\nabla^2f(x_0)(x-x_0)\]</span> 其中，<span class=math>\(\nabla^2f(x_0)\)</span>为多元实值函数<span class=math>\(f(x)\)</span>在<span class=math>\(x_0\)</span>处的海森矩阵（Hessian Matrix），我们以后用<span class=math>\(H\)</span>表示。那么如果函数梯度为0，且海森矩阵<span class=math>\(H\)</span>可逆，则有： <span class=math>\[\nabla f(x)=\vec{0} \Rightarrow \\
+\nabla f(x_0)+\nabla^2f(x_0)(x-x_0)=\vec{0}\Rightarrow \\
+x_1=x_0-(\nabla^2f(x_0))^{-1}\nabla f(x_0)\Rightarrow \\
+x_1=x_0-H^{-1}[f(x_0)]\nabla f(x_0)\]</span> 注意矩阵左右乘不可颠倒,<span class=math>\(H^{-1}[f(x_0)]\)</span>，为海森矩阵的逆矩阵。<strong>特别地，若是极小值点则Hessian是正定矩阵</strong>。同理，我们可以得到如下递推公式： <span class=math>\[x_{n+1}=x_n-H^{-1}[f(x_n)]\nabla f(x_n) \\
+可简写为：x_{n+1}=x_n-H^{-1}_n{g_n}\]</span> 最终会到达函数的驻点处。其中<span class=math>\(-H^{-1}g\)</span>称为<strong>牛顿方向</strong>。迭代终止的条件是梯度的模接近于0，或者函数值下降小于指定阈值。</p>
 <p>注意，我们目前默认牛顿法的步长是1，这样可以保证2阶收敛速度，但是并不是对所有函数都有效。现不加证明的指出，带步长的牛顿法是收敛的。</p>
 <h3 id=实现算法>实现算法</h3>
-<p>1.给定初始值$x_0$和精度阈值$\epsilon$，设置$k = 0$</p>
-<p>2.计算梯度$g_k$和矩阵$H_k$</p>
-<p>3.如果$|g_k|&lt;\epsilon$即在此点处梯度的值接近于0，则达到极值点处，停止迭代</p>
-<p>4.计算搜索方向$d_k=-H^{-1}_k{g_k}$</p>
-<p>5.计算新的迭代点$x_{k+1}=x_k-\alpha H^{-1}_k{g_k}$(一般可以取$\alpha=1$)</p>
-<p>6.令$k = k + 1$，返回步骤2</p>
-<p>其中$\epsilon$是一个人工设定的接近于0的常数，和梯度下降法一样，需要这个参数的原因是保证$x_{k+1}$在$x_k$的邻域内，从而可以忽略泰勒展开的高次项。如果目标函数是二次函数，Hessian矩阵是一个常数矩阵，对于任意给定的初始点，牛顿法只需要一步迭代就可以收敛到极值点。</p>
+<p>1.给定初始值<span class=math>\(x_0\)</span>和精度阈值<span class=math>\(\epsilon\)</span>，设置<span class=math>\(k = 0\)</span></p>
+<p>2.计算梯度<span class=math>\(g_k\)</span>和矩阵<span class=math>\(H_k\)</span></p>
+<p>3.如果<span class=math>\(\|g_k\|&lt;\epsilon\)</span>即在此点处梯度的值接近于0，则达到极值点处，停止迭代</p>
+<p>4.计算搜索方向<span class=math>\(d_k=-H^{-1}_k{g_k}\)</span></p>
+<p>5.计算新的迭代点<span class=math>\(x_{k+1}=x_k-\alpha H^{-1}_k{g_k}\)</span>(一般可以取<span class=math>\(\alpha=1\)</span>)</p>
+<p>6.令<span class=math>\(k = k + 1\)</span>，返回步骤2</p>
+<p>其中<span class=math>\(\epsilon\)</span>是一个人工设定的接近于0的常数，和梯度下降法一样，需要这个参数的原因是保证<span class=math>\(x_{k+1}\)</span>在<span class=math>\(x_k\)</span>的邻域内，从而可以忽略泰勒展开的高次项。如果目标函数是二次函数，Hessian矩阵是一个常数矩阵，对于任意给定的初始点，牛顿法只需要一步迭代就可以收敛到极值点。</p>
 <p>牛顿法收敛速度快，具有二阶收敛性。但是和梯度下降法一样，牛顿法寻找的也是导数为0的点，这不一定是极值点，因此会面临局部极小值和鞍点问题。另外，它需要Hessian矩阵，计算量大，并且Hessian矩阵并不是一直能够求出。因此出现了一些<strong>降低计算量</strong>得<strong>拟牛顿法</strong>。</p>
-<p>除此之外，牛顿法在每次迭代时序列$x_i$可能不会收敛到一个最优解，它甚至不能保证函数值会按照这个序列递减。解决第一个问题可以通过<strong>调整牛顿方向的步长</strong>来实现，目前常用的方法有两种：直线搜索和可信区域法。加了步长搜索的牛顿法也叫<strong>阻尼牛顿法</strong>。</p>
+<p>除此之外，牛顿法在每次迭代时序列<span class=math>\(x_i\)</span>可能不会收敛到一个最优解，它甚至不能保证函数值会按照这个序列递减。解决第一个问题可以通过<strong>调整牛顿方向的步长</strong>来实现，目前常用的方法有两种：直线搜索和可信区域法。加了步长搜索的牛顿法也叫<strong>阻尼牛顿法</strong>。</p>
 <h2 id=牛顿法修正>牛顿法修正</h2>
-<p>牛顿法的一大困难在于某一k步的Hessian 矩阵$H_k$可能不正定。这时二次型模型不一定有极小点，甚至没有平稳点。此时，牛顿方向$-H_k^{-1}g_k$不一定会让目标函数值下降。对应的各种改进方案应运而生，各位接着往下看。</p>
+<p>牛顿法的一大困难在于某一k步的Hessian 矩阵<span class=math>\(H_k\)</span>可能不正定。这时二次型模型不一定有极小点，甚至没有平稳点。此时，牛顿方向<span class=math>\(-H_k^{-1}g_k\)</span>不一定会让目标函数值下降。对应的各种改进方案应运而生，各位接着往下看。</p>
 <h3 id=goldstein-price修正法g-p法>Goldstein-Price修正法(G-P法)</h3>
-<p>针对$G_k$可能不正定的问题，如其不正定，就用“最速下降方向”来作为搜索方向。
-$$d_{k+1}=\begin{cases}-H_kg_k，H_k正定\-g_k，H_k非正定
-\end{cases}$$
-确定方向后，采用下列精确一维搜索（Armijo-Goldstein准则）（PS：其他准则也可以）
-$$1:f(\vec x_k+\alpha\vec d_k)≤f(\vec x_k)+\alpha c\nabla f(\vec x_k)\vec d_k$$
-$$2:f(\vec x_k+\alpha\vec d_k)≥f(\vec x_k)+\alpha (1-c)\nabla f(\vec x_k)\vec d_k$$
-其中，$c ∈ (0,0.5)$</p>
-<p>在一定条件下，G-P法全局收敛。但当海森矩阵$H$非正定情况较多时，收敛速度降为接近线性（梯度法）。</p>
+<p>针对<span class=math>\(G_k\)</span>可能不正定的问题，如其不正定，就用“最速下降方向”来作为搜索方向。 <span class=math>\[d_{k+1}=\begin{cases}-H_kg_k，H_k正定\\-g_k，H_k非正定
+\end{cases}\]</span> 确定方向后，采用下列精确一维搜索（Armijo-Goldstein准则）（PS：其他准则也可以） <span class=math>\[1:f(\vec x_k+\alpha\vec d_k)≤f(\vec x_k)+\alpha c\nabla f(\vec x_k)\vec d_k\]</span> <span class=math>\[2:f(\vec x_k+\alpha\vec d_k)≥f(\vec x_k)+\alpha (1-c)\nabla f(\vec x_k)\vec d_k\]</span> 其中，<span class=math>\(c ∈ (0,0.5)\)</span></p>
+<p>在一定条件下，G-P法全局收敛。但当海森矩阵<span class=math>\(H\)</span>非正定情况较多时，收敛速度降为接近线性（梯度法）。</p>
 <h3 id=负曲率方向法>负曲率方向法</h3>
 <p>在鞍点处，我们有梯度为0，同时H矩阵不定，G-P等修正牛顿法无法在鞍点处继续，需要额外的方式：采用<strong>负曲率方向</strong>作为搜索方向，可使目标函数值下降。</p>
-<p>负曲率方向，即$d^T_k∇_2f(x_k)d_k&lt;0$。这里涉及到负曲率方向的定义，在张贤达的《矩阵分析与应用》中说到，当矩阵H是非线性函数$f(x)$的Hessian矩阵时，称满足$p^HHp>0$ 的向量$p$为函数$f$的正曲率方向，满足$p^HHp&lt;0$的向量$p$为函数$f$的负曲率方向。标量$p^HHp$称为函数$f$沿着方向$p$的曲率。沿着负曲率方向进行一维搜索必能使目标函数值下降。</p>
+<p>负曲率方向，即<span class=math>\(d^T_k∇_2f(x_k)d_k&lt;0\)</span>。这里涉及到负曲率方向的定义，在张贤达的《矩阵分析与应用》中说到，当矩阵H是非线性函数<span class=math>\(f(x)\)</span>的Hessian矩阵时，称满足<span class=math>\(p^HHp>0\)</span> 的向量<span class=math>\(p\)</span>为函数<span class=math>\(f\)</span>的正曲率方向，满足<span class=math>\(p^HHp&lt;0\)</span>的向量<span class=math>\(p\)</span>为函数<span class=math>\(f\)</span>的负曲率方向。标量<span class=math>\(p^HHp\)</span>称为函数<span class=math>\(f\)</span>沿着方向<span class=math>\(p\)</span>的曲率。沿着负曲率方向进行一维搜索必能使目标函数值下降。</p>
 <h3 id=goldfeld修正>Goldfeld修正</h3>
-<p>与上面的Goldstein-Price修正的思路不同，Goldfeld在1966年也提出了一种方法，他的方法虽然还是在搜索方向$d_k$ 上动手，但是当$G_k$ 不正定时，他不是用最速下降方向$-g_k$来作为搜索方向，而是将$d_k$修正成下降方向——用下面的式子：
-$${d_k} = - B_k^{ - 1}{g_k}$$
-其中，${B_k} = {G_k} + {E_k}$是一个正定矩阵，$E_k$称为修正矩阵。在$E_k$满足一定条件的时候，（Goldfeld修正）牛顿法具有整体收敛性。</p>
-<p>我们可以设$E_k=v_kI$，使得使得$G_k+v_kI$正定。比较理想的是，$v_k$为使$G_k+v_kI$正定的最小$v$。特征值的估计可以用盖尔圆盘定理或者Rayleigh商方法。</p>
+<p>与上面的Goldstein-Price修正的思路不同，Goldfeld在1966年也提出了一种方法，他的方法虽然还是在搜索方向<span class=math>\(d_k\)</span> 上动手，但是当<span class=math>\(G_k\)</span> 不正定时，他不是用最速下降方向<span class=math>\(-g_k\)</span>来作为搜索方向，而是将<span class=math>\(d_k\)</span>修正成下降方向——用下面的式子： <span class=math>\[{d_k} = - B_k^{ - 1}{g_k}\]</span> 其中，<span class=math>\({B_k} = {G_k} + {E_k}\)</span>是一个正定矩阵，<span class=math>\(E_k\)</span>称为修正矩阵。在<span class=math>\(E_k\)</span>满足一定条件的时候，（Goldfeld修正）牛顿法具有整体收敛性。</p>
+<p>我们可以设<span class=math>\(E_k=v_kI\)</span>，使得使得<span class=math>\(G_k+v_kI\)</span>正定。比较理想的是，<span class=math>\(v_k\)</span>为使<span class=math>\(G_k+v_kI\)</span>正定的最小<span class=math>\(v\)</span>。特征值的估计可以用盖尔圆盘定理或者Rayleigh商方法。</p>
 <h3 id=gill-murray改进cholesky分解法的稳定牛顿法>Gill-Murray改进Cholesky分解法的稳定牛顿法</h3>
-<p>前一个小节里说过加上一个$v_kI$使修正的Hessian矩阵正定，本节具体介绍一种高效稳定方法。Gill-Murray改进Cholesky分解法的稳定牛顿法可以说是<strong>修正牛顿法中的集大成</strong>。基本思想是当$G_k$不定矩阵时，采用修改holesky分解强迫矩阵正定；当$g_k$趋于0时，采用负曲率方向使函数值下降。如果矩阵正定且负曲率方向不存在，则是最优解。其大体流程如下</p>
+<p>前一个小节里说过加上一个<span class=math>\(v_kI\)</span>使修正的Hessian矩阵正定，本节具体介绍一种高效稳定方法。Gill-Murray改进Cholesky分解法的稳定牛顿法可以说是<strong>修正牛顿法中的集大成</strong>。基本思想是当<span class=math>\(G_k\)</span>不定矩阵时，采用修改holesky分解强迫矩阵正定；当<span class=math>\(g_k\)</span>趋于0时，采用负曲率方向使函数值下降。如果矩阵正定且负曲率方向不存在，则是最优解。其大体流程如下</p>
 <blockquote>
-<ol>
-<li>给定初始点$x_0,\varepsilon>0,k=1$</li>
-<li>计算$g_k,G_k$</li>
-<li>对$G_k$进行修改cholesky分解强迫矩阵正定，$L_kD_kL_k^\ast=G_k+E_k$</li>
-<li>若$||g_k||>\varepsilon$（梯度不为0的计算机表达），则解方程$L_kD_kL_k^\astd_k=-g_k\Rightarrow d_k=-(G_k+E_k)^{-1}g_k$，转步骤6</li>
-<li>若$||g_k||>\varepsilon\approx0$，构造负曲率方向，如果构造不出负曲率方向，<strong>得到局部最优</strong>。</li>
-<li>一维搜 索步长，可用精确法或不精确准则得到步长$\alpha_k$，令$x_{k+1}=x_k+\alpha_k d_k$</li>
-<li>若第5步满足终止条件，则OK；否则$k=k+1$，转2.</li>
+<ol style=list-style-type:decimal>
+<li>给定初始点<span class=math>\(x_0,\varepsilon>0,k=1\)</span></li>
+<li>计算<span class=math>\(g_k,G_k\)</span></li>
+<li>对<span class=math>\(G_k\)</span>进行修改cholesky分解强迫矩阵正定，<span class=math>\(L_kD_kL_k^\ast=G_k+E_k\)</span></li>
+<li>若<span class=math>\(||g_k||>\varepsilon\)</span>（梯度不为0的计算机表达），则解方程<span class=math>\(L_kD_kL_k^\astd_k=-g_k\Rightarrow d_k=-(G_k+E_k)^{-1}g_k\)</span>，转步骤6</li>
+<li>若<span class=math>\(||g_k||>\varepsilon\approx0\)</span>，构造负曲率方向，如果构造不出负曲率方向，<strong>得到局部最优</strong>。</li>
+<li>一维搜 索步长，可用精确法或不精确准则得到步长<span class=math>\(\alpha_k\)</span>，令<span class=math>\(x_{k+1}=x_k+\alpha_k d_k\)</span></li>
+<li>若第5步满足终止条件，则OK；否则<span class=math>\(k=k+1\)</span>，转2.</li>
 </ol>
 </blockquote>
 <p>可以证明该方法总体收敛。现在还有其中最重要的一步：<strong>修正的Cholesky分解</strong>，请看笔记《海森矩阵校正》，更加详细的关于修正的Cholesky分解可见教程《Modified Cholesky Decomposition and Applications》</p>
 <h3 id=信赖域法>信赖域法</h3>
-<p>信赖域和line search同为最优化算法的基础算法，但是，从“Trust Region”这个名字你就可以看出，它是没有line search过程的，它是直接在一个region中“search”。
-在一维搜索中，从$x_k$点移动到下一个点的过程，可以描述为：$x_k + α_k d_k$，此处$α_k d_k$就是在$d_k$方向上的位移，可以记$s_k$，总的来说，<strong>线搜索把复杂问题改编成一系列简单的一维优化问题</strong>。而信赖域算法是根据一定的原则，直接确定位移$s_k$，同时，与一维搜索不同的是，它并没有先确定搜索方向$d_k$。如果根据“<strong>某种原则</strong>”确定的位移能使目标函数值充分下降，则扩大信赖域；若不能使目标函数值充分下降，则缩小信赖域。如此迭代下去，直到收敛。总的来说，<strong>信赖域方法是把复杂问题转化为一系列相对简单的局部优化问题</strong>。</p>
+<p>信赖域和line search同为最优化算法的基础算法，但是，从“Trust Region”这个名字你就可以看出，它是没有line search过程的，它是直接在一个region中“search”。 在一维搜索中，从<span class=math>\(x_k\)</span>点移动到下一个点的过程，可以描述为：<span class=math>\(x_k + α_k d_k\)</span>，此处<span class=math>\(α_k d_k\)</span>就是在<span class=math>\(d_k\)</span>方向上的位移，可以记<span class=math>\(s_k\)</span>，总的来说，<strong>线搜索把复杂问题改编成一系列简单的一维优化问题</strong>。而信赖域算法是根据一定的原则，直接确定位移<span class=math>\(s_k\)</span>，同时，与一维搜索不同的是，它并没有先确定搜索方向<span class=math>\(d_k\)</span>。如果根据“<strong>某种原则</strong>”确定的位移能使目标函数值充分下降，则扩大信赖域；若不能使目标函数值充分下降，则缩小信赖域。如此迭代下去，直到收敛。总的来说，<strong>信赖域方法是把复杂问题转化为一系列相对简单的局部优化问题</strong>。</p>
 <h4 id=信赖域算法的基本思想>信赖域算法的基本思想</h4>
-<p>在每次迭代中给出一个信赖域，这个信赖域一般是当前迭代点 的一个小邻域。然后，在这个邻域内求解一个子问题，得到<strong>试探步长（trial step）$s_k$</strong>，接着用某一<strong>评价函数</strong>来决定是否接受该试探步以及确定下一次迭代的信赖域。
-如果试探步长被接受，则：$x_{k+1}=x_k+s_k$，否则，$x_{k+1}=x_k$。
-新的信赖域的大小取决于试探步的好坏，<em>粗略地说，如果试探步较好，在下一步信赖域扩大或者保持不变，否则减小信赖域</em>。</p>
+<p>在每次迭代中给出一个信赖域，这个信赖域一般是当前迭代点 的一个小邻域。然后，在这个邻域内求解一个子问题，得到<strong>试探步长（trial step）<span class=math>\(s_k\)</span></strong>，接着用某一<strong>评价函数</strong>来决定是否接受该试探步以及确定下一次迭代的信赖域。 如果试探步长被接受，则：<span class=math>\(x_{k+1}=x_k+s_k\)</span>，否则，<span class=math>\(x_{k+1}=x_k\)</span>。 新的信赖域的大小取决于试探步的好坏，<em>粗略地说，如果试探步较好，在下一步信赖域扩大或者保持不变，否则减小信赖域</em>。</p>
 <h4 id=基本信赖域法>基本信赖域法</h4>
-<p>设当前点$x_k$的邻域定义为：$\Omega_k$，其中， 称为信赖域半径。
-目标函数在极值点附近近似一个二次函数，因此对于无约束优化问题，利用二次逼近，构造如下信赖域子问题：
-设当前点$x_k$的邻域定义为：$\Omega_k={x ∈ R^n|\Vert x-x_k\Vert≤\Delta_k}$，其中，$\Delta_k$称为信赖域半径。
-目标函数在极值点附近<strong>近似一个二次函数</strong>(有点类似插值法)，因此对于无约束优化问题，利用二次逼近，构造如下<strong>信赖域子问题</strong>：
-$$\min q^{(k)}(s)=f(x_k)+g_k^Ts+\frac{1}{2}(s^TB_ks)\
-s.t. \quad |s|_2≤\Delta_k$$
-其中，$s=x-s_k$，$g_k$是目标函数$f(x)$在当前迭代点$x_k$处的梯度，$B_k ∈ R^{n*n}$对称，是$f(x)$在$x_k$处Hessian矩阵或Hessian矩阵的近似。</p>
-<p>设$s_k$是信赖域子问题的解。目标函数$f(x)$在第k步的实际下降量（真实下降量）：
-$$Ared_k=f(x_k)-f(x_k+s_k)$$
-二次模型函数$q^{(k)}(s)$的下降量（预测下降量）：
-$$Pred_k=q^{(k)}(0)-q^{(k)}(s_k)>0$$
-定义比值：
-$$r=\frac{Ared_k}{Pred_k}$$
-它衡量了二次模型与目标函数的逼近程度，$r_k$越接近于1，表明接近程度越好。因此，我们也用这个量来确定下次迭代的信赖域半径。</p>
+<p>设当前点<span class=math>\(x_k\)</span>的邻域定义为：<span class=math>\(\Omega_k\)</span>，其中， 称为信赖域半径。 目标函数在极值点附近近似一个二次函数，因此对于无约束优化问题，利用二次逼近，构造如下信赖域子问题： 设当前点<span class=math>\(x_k\)</span>的邻域定义为：<span class=math>\(\Omega_k=\{x ∈ R^n|\Vert x-x_k\Vert≤\Delta_k\}\)</span>，其中，<span class=math>\(\Delta_k\)</span>称为信赖域半径。 目标函数在极值点附近<strong>近似一个二次函数</strong>(有点类似插值法)，因此对于无约束优化问题，利用二次逼近，构造如下<strong>信赖域子问题</strong>： <span class=math>\[\min q^{(k)}(s)=f(x_k)+g_k^Ts+\frac{1}{2}(s^TB_ks)\\
+s.t. \quad \|s\|_2≤\Delta_k\]</span> 其中，<span class=math>\(s=x-s_k\)</span>，<span class=math>\(g_k\)</span>是目标函数<span class=math>\(f(x)\)</span>在当前迭代点<span class=math>\(x_k\)</span>处的梯度，<span class=math>\(B_k ∈ R^{n*n}\)</span>对称，是<span class=math>\(f(x)\)</span>在<span class=math>\(x_k\)</span>处Hessian矩阵或Hessian矩阵的近似。</p>
+<p>设<span class=math>\(s_k\)</span>是信赖域子问题的解。目标函数<span class=math>\(f(x)\)</span>在第k步的实际下降量（真实下降量）： <span class=math>\[Ared_k=f(x_k)-f(x_k+s_k)\]</span> 二次模型函数<span class=math>\(q^{(k)}(s)\)</span>的下降量（预测下降量）： <span class=math>\[Pred_k=q^{(k)}(0)-q^{(k)}(s_k)>0\]</span> 定义比值： <span class=math>\[r=\frac{Ared_k}{Pred_k}\]</span> 它衡量了二次模型与目标函数的逼近程度，<span class=math>\(r_k\)</span>越接近于1，表明接近程度越好。因此，我们也用这个量来确定下次迭代的信赖域半径。</p>
 <ul>
-<li>越接近与1，表明接近程度越好。这时可以增大$\Delta_k$以扩大信赖域；</li>
-<li>$r_k>0$但是不接近于1，保持$\Delta_k$不变；</li>
-<li>如果$r_k$接近于0，减小$\Delta_k$，缩小信赖域。
-<a href=https://www.codelast.com/%E5%8E%9F%E5%88%9B%E4%BF%A1%E8%B5%96%E5%9F%9Ftrust-region%E7%AE%97%E6%B3%95%E6%98%AF%E6%80%8E%E4%B9%88%E4%B8%80%E5%9B%9E%E4%BA%8B/>https://www.codelast.com/%E5%8E%9F%E5%88%9B%E4%BF%A1%E8%B5%96%E5%9F%9Ftrust-region%E7%AE%97%E6%B3%95%E6%98%AF%E6%80%8E%E4%B9%88%E4%B8%80%E5%9B%9E%E4%BA%8B/</a></li>
+<li>越接近与1，表明接近程度越好。这时可以增大<span class=math>\(\Delta_k\)</span>以扩大信赖域；</li>
+<li><span class=math>\(r_k>0\)</span>但是不接近于1，保持<span class=math>\(\Delta_k\)</span>不变；</li>
+<li>如果<span class=math>\(r_k\)</span>接近于0，减小<span class=math>\(\Delta_k\)</span>，缩小信赖域。 <a href=https://www.codelast.com/%E5%8E%9F%E5%88%9B%E4%BF%A1%E8%B5%96%E5%9F%9Ftrust-region%E7%AE%97%E6%B3%95%E6%98%AF%E6%80%8E%E4%B9%88%E4%B8%80%E5%9B%9E%E4%BA%8B/>https://www.codelast.com/%E5%8E%9F%E5%88%9B%E4%BF%A1%E8%B5%96%E5%9F%9Ftrust-region%E7%AE%97%E6%B3%95%E6%98%AF%E6%80%8E%E4%B9%88%E4%B8%80%E5%9B%9E%E4%BA%8B/</a></li>
 </ul>
 <h4 id=levenbergmarquardt法>Levenberg–Marquardt法</h4>
 <p><a href=https://www.codelast.com/%e5%8e%9f%e5%88%9blm%e7%ae%97%e6%b3%95%e7%9a%84%e5%ae%9e%e7%8e%b0/>https://www.codelast.com/%e5%8e%9f%e5%88%9blm%e7%ae%97%e6%b3%95%e7%9a%84%e5%ae%9e%e7%8e%b0/</a></p>
 <h4 id=dogleg法>Dogleg法</h4>
-<p><a href=https://zhuanlan.zhihu.com/p/99392484>https://zhuanlan.zhihu.com/p/99392484</a>
-<a href=https://zhuanlan.zhihu.com/p/101124802>https://zhuanlan.zhihu.com/p/101124802</a></p>
+<p><a href=https://zhuanlan.zhihu.com/p/99392484>https://zhuanlan.zhihu.com/p/99392484</a> <a href=https://zhuanlan.zhihu.com/p/101124802>https://zhuanlan.zhihu.com/p/101124802</a></p>
 <h2 id=拟牛顿法>拟牛顿法</h2>
 <p>拟牛顿法是求解非线性优化问题最有效的方法之一，于20世纪50年代由美国Argonne国家实验室的物理学家W.C.Davidon所提出来。Davidon设计的这种算法在当时看来是非线性优化领域最具创造性的发明之一。不久R. Fletcher和M. J. D. Powell证实了这种新的算法远比其他方法快速和可靠，使得非线性优化这门学科在一夜之间突飞猛进。</p>
 <p>拟牛顿法的本质思想是<strong>改善牛顿法每次需要求解复杂的Hessian矩阵的逆矩阵的缺陷，它使用正定矩阵来近似Hessian矩阵的逆，从而简化了运算的复杂度</strong>。拟牛顿法和最速下降法一样只要求每一步迭代时知道目标函数的梯度。通过测量梯度的变化，构造一个目标函数的模型使之足以产生超线性收敛性。这类方法大大优于最速下降法，尤其对于困难的问题。另外，因为拟牛顿法不需要二阶导数的信息，所以有时比牛顿法更为有效。如今，优化软件中包含了大量的拟牛顿算法用来解决无约束，约束，和大规模的优化问题。</p>
@@ -253,7 +199,9 @@ $$r=\frac{Ared_k}{Pred_k}$$
 <h3 id=sr1算法>SR1算法</h3>
 <h3 id=bfgs算法>BFGS算法</h3>
 <h3 id=l-bfgs算法>L-BFGS算法</h3>
-<p><img src=../../images/%E6%8B%9F%E7%89%9B%E9%A1%BF%E6%B3%95%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%85%AC%E5%BC%8F.jpg alt=拟牛顿法的迭代公式></p>
+<div class=figure>
+<img src=../../images/拟牛顿法的迭代公式.jpg alt=拟牛顿法的迭代公式><p class=caption>拟牛顿法的迭代公式</p>
+</div>
 <h2 id=共轭梯度法>共轭梯度法</h2>
 <h2 id=总结>总结</h2>
 <h2 id=参考文献>参考文献</h2>

@@ -88,29 +88,22 @@ Mar 15, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=数学分析之连续性---omit-in-toc--->数学分析之连续性</h2>
-<p>设有一个$f:\mathcal R^n→\mathcal R^m$的映射。</p>
+<h2 id=数学分析之连续性>数学分析之连续性</h2>
+<p>设有一个<span class=math>\(f:\mathcal R^n→\mathcal R^m\)</span>的映射。</p>
 <blockquote>
-<p>点的连续性：$f$称为在$x_0\in \mathcal R^n$处<strong>连续</strong>，若$\forall \varepsilon>0, \exists \delta>0$，$s.t. \forall x\in \mathcal R^n$，若$\Vert x-x_0\Vert&lt;\delta$，则有$\Vert f(x)-f(x_0)\Vert &lt;\varepsilon$。</p>
+<p>点的连续性：<span class=math>\(f\)</span>称为在<span class=math>\(x_0\in \mathcal R^n\)</span>处<strong>连续</strong>，若<span class=math>\(\forall \varepsilon>0, \exists \delta>0\)</span>，<span class=math>\(s.t. \forall x\in \mathcal R^n\)</span>，若<span class=math>\(\Vert x-x_0\Vert&lt;\delta\)</span>，则有<span class=math>\(\Vert f(x)-f(x_0)\Vert &lt;\varepsilon\)</span>。</p>
 </blockquote>
-<p>如果我们用开球（又称邻域）$B(x_0;r)={x\in \mathcal{R^n} \big\vert \Vert x-x_0\Vert &lt;r}$，来描述连续性：</p>
-<blockquote>
-<p>$\forall \varepsilon>0, \exists \delta>0有f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)$</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>映射的连续性：$f:\mathcal R^n→\mathcal R^m$称为连续映射，若$\forall x_0 \in \mathcal R^n$，$f$在$x_0$出连续。</p>
-</blockquote>
+<p>如果我们用开球（又称邻域）<span class=math>\(B(x_0;r)=\{x\in \mathcal{R^n} \big\vert \Vert x-x_0\Vert &lt;r\}\)</span>，来描述连续性： ><span class=math>\(\forall \varepsilon>0, \exists \delta>0有f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\)</span> ---------------------------------------- >映射的连续性：<span class=math>\(f:\mathcal R^n→\mathcal R^m\)</span>称为连续映射，若<span class=math>\(\forall x_0 \in \mathcal R^n\)</span>，<span class=math>\(f\)</span>在<span class=math>\(x_0\)</span>出连续。</p>
 <h2 id=连续与开集的关系>连续与开集的关系</h2>
-<p>设开集为$U$，若对于$\forall U \underset{open}{\subset} \mathcal{R^m}$</p>
-<p><strong>$f$连续$\Rightarrow$开集的原像是开集</strong></p>
-<p>考虑$U$的原像$f^{-1}(U),\forall x_0\in f^{-1}(U),f(x_0)\in U$。</p>
-<p>由于$U$是开集，对于其中的点$f(x_0)，\exist \varepsilon>0. s.t. B(f(x_0);\varepsilon)\subset U$</p>
-<p>又因为$f$在$x_0$出连续，则$\exist \delta>0$使得$f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\Rightarrow B(x_0;\delta)\subset f^{-1}(B(f(x_0);\varepsilon))\subset f^{-1}(U)$。对于$U$中每一点都成立，所以$f^{-1}(U)$为$\mathcal{R^n}$中开集。</p>
-<p><strong>开集的原像是开集$\Rightarrow f$连续</strong></p>
-<p>$\forall x_0 \in \mathcal{R^n}$，先证$f$在任一点$x_0$出连续。</p>
-<p>$\forall \varepsilon>0$，考虑$B(f(x_0);\varepsilon)$,由于条件开集的原像为开集，开球的原像$f^{-1}(B(f(x_0);\varepsilon))$也是开集，即$x_0\in f^{-1}(B(f(x_0);\varepsilon))且\exist\delta>0$，s.t. $B(x_0;\delta)\subset f^{-1}(B(f(x_0);\varepsilon))\Rightarrow f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\Rightarrow f$在$x_0$出连续。由于对任意$x_0$都成立，所以映射$f$连续。</p>
-<p>总结：<strong>$f:\mathcal{R^n}→\mathcal{R^m}$连续映射$\Leftrightarrow$在$f$下，开集的原像为开集</strong>。这样我们可以<strong>仅通过开集的概念来验证映射的连续性</strong>。</p>
+<p>设开集为<span class=math>\(U\)</span>，若对于<span class=math>\(\forall U \underset{open}{\subset} \mathcal{R^m}\)</span></p>
+<p><strong><span class=math>\(f\)</span>连续<span class=math>\(\Rightarrow\)</span>开集的原像是开集</strong></p>
+<p>考虑<span class=math>\(U\)</span>的原像<span class=math>\(f^{-1}(U),\forall x_0\in f^{-1}(U),f(x_0)\in U\)</span>。</p>
+<p>由于<span class=math>\(U\)</span>是开集，对于其中的点<span class=math>\(f(x_0)，\exist \varepsilon>0. s.t. B(f(x_0);\varepsilon)\subset U\)</span></p>
+<p>又因为<span class=math>\(f\)</span>在<span class=math>\(x_0\)</span>出连续，则<span class=math>\(\exist \delta>0\)</span>使得<span class=math>\(f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\Rightarrow B(x_0;\delta)\subset f^{-1}(B(f(x_0);\varepsilon))\subset f^{-1}(U)\)</span>。对于<span class=math>\(U\)</span>中每一点都成立，所以<span class=math>\(f^{-1}(U)\)</span>为<span class=math>\(\mathcal{R^n}\)</span>中开集。</p>
+<p><strong>开集的原像是开集<span class=math>\(\Rightarrow f\)</span>连续</strong></p>
+<p><span class=math>\(\forall x_0 \in \mathcal{R^n}\)</span>，先证<span class=math>\(f\)</span>在任一点<span class=math>\(x_0\)</span>出连续。</p>
+<p><span class=math>\(\forall \varepsilon>0\)</span>，考虑<span class=math>\(B(f(x_0);\varepsilon)\)</span>,由于条件开集的原像为开集，开球的原像<span class=math>\(f^{-1}(B(f(x_0);\varepsilon))\)</span>也是开集，即<span class=math>\(x_0\in f^{-1}(B(f(x_0);\varepsilon))且\exist\delta>0\)</span>，s.t. <span class=math>\(B(x_0;\delta)\subset f^{-1}(B(f(x_0);\varepsilon))\Rightarrow f(B(x_0;\delta))\subset B(f(x_0);\varepsilon)\Rightarrow f\)</span>在<span class=math>\(x_0\)</span>出连续。由于对任意<span class=math>\(x_0\)</span>都成立，所以映射<span class=math>\(f\)</span>连续。</p>
+<p>总结：<strong><span class=math>\(f:\mathcal{R^n}→\mathcal{R^m}\)</span>连续映射<span class=math>\(\Leftrightarrow\)</span>在<span class=math>\(f\)</span>下，开集的原像为开集</strong>。这样我们可以<strong>仅通过开集的概念来验证映射的连续性</strong>。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

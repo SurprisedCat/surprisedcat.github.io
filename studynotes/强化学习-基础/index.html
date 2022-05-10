@@ -88,38 +88,28 @@ Oct 12, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=强化基础---omit-in-toc--->强化基础</h2>
+<h2 id=强化基础>强化基础</h2>
 <ul>
-<li><a href=#%E5%88%86%E7%B1%BB>分类</a></li>
-<li><a href=#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E6%A8%A1%E5%9E%8B%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96>强化学习基础模型马尔可夫决策</a>
-<ul>
-<li><a href=#%E7%8A%B6%E6%80%81%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0%E4%B8%8E%E8%A1%8C%E4%B8%BA%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0>状态价值函数与行为价值函数</a></li>
-<li><a href=#bellman%E6%96%B9%E7%A8%8B%E9%80%92%E6%8E%A8%E5%85%AC%E5%BC%8F>Bellman方程递推公式</a></li>
-</ul>
-</li>
-<li><a href=#%E4%B8%8D%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E9%A2%84%E6%B5%8Bvs>不基于模型的预测($V(s)$)</a>
-<ul>
-<li><a href=#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E4%BB%B7%E5%80%BC%E6%9B%B4%E6%96%B0>蒙特卡洛价值更新</a></li>
-<li><a href=#%E6%97%B6%E9%97%B4%E5%B7%AE%E5%88%86%E4%BB%B7%E5%80%BC%E6%9B%B4%E6%96%B0>时间差分价值更新</a></li>
-</ul>
-</li>
-<li><a href=#%E4%B8%8D%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8E%A7%E5%88%B6qsa>不基于模型的控制($Q(s,a)$)</a>
-<ul>
+<li><a href=#分类>分类</a></li>
+<li><a href=#强化学习基础模型马尔可夫决策>强化学习基础模型马尔可夫决策</a></li>
+<li><a href=#状态价值函数与行为价值函数>状态价值函数与行为价值函数</a></li>
+<li><a href=#bellman方程递推公式>Bellman方程递推公式</a></li>
+<li><a href=#不基于模型的预测vs>不基于模型的预测(<span class=math>\(V(s)\)</span>)</a></li>
+<li><a href=#蒙特卡洛价值更新>蒙特卡洛价值更新</a></li>
+<li><a href=#时间差分价值更新>时间差分价值更新</a></li>
+<li><a href=#不基于模型的控制qsa>不基于模型的控制(<span class=math>\(Q(s,a)\)</span>)</a></li>
 <li><a href=#on-policy-vs-off-policy>On-policy VS Off-policy</a></li>
-<li><a href=#%CE%B5-greedy%E7%AD%96%E7%95%A5>ε-greedy策略</a></li>
-<li><a href=#on-policy-%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9Bmc%E6%8E%A7%E5%88%B6>On-policy 蒙特卡洛（MC）控制</a></li>
-<li><a href=#on-policy-td-control--sarsasarsalambda>On-policy TD control —— SARSA,SARSA($\lambda$)</a>
+<li><a href=#ε-greedy策略>ε-greedy策略</a></li>
+<li><a href=#on-policy-蒙特卡洛mc控制>On-policy 蒙特卡洛（MC）控制</a></li>
+<li><a href=#on-policy-td-control--sarsasarsalambda>On-policy TD control —— SARSA,SARSA(<span class=math>\(\lambda\)</span>)</a>
 <ul>
-<li><a href=#td0%E6%9B%B4%E6%96%B0%E7%9A%84sarsa>TD(0)更新的SARSA</a></li>
-<li><a href=#tdlambda%E6%9B%B4%E6%96%B0%E7%9A%84sarsalambda>TD($\lambda$)更新的SARSA($\lambda$)</a></li>
-</ul>
-</li>
-<li><a href=#%E4%B8%BA%E4%BB%80%E4%B9%88off-policy-mc-control%E4%B8%8D%E5%A5%BD>为什么Off-policy MC control不好</a></li>
+<li><a href=#td0更新的sarsa>TD(0)更新的SARSA</a></li>
+<li><a href=#tdlambda更新的sarsalambda>TD(<span class=math>\(\lambda\)</span>)更新的SARSA(<span class=math>\(\lambda\)</span>)</a></li>
+</ul></li>
+<li><a href=#为什么off-policy-mc-control不好>为什么Off-policy MC control不好</a></li>
 <li><a href=#off-policy-td-control--q-learning>Off-policy TD control —— Q-learning</a></li>
-<li><a href=#td%E4%B8%8Edp%E7%9A%84%E5%85%B3%E7%B3%BB>TD与DP的关系</a></li>
-</ul>
-</li>
-<li><a href=#%E7%89%B9%E7%82%B9>特点</a></li>
+<li><a href=#td与dp的关系>TD与DP的关系</a></li>
+<li><a href=#特点>特点</a></li>
 </ul>
 <h2 id=分类>分类</h2>
 <ul>
@@ -134,209 +124,162 @@ Oct 12, 2019</span>
 <h2 id=强化学习基础模型马尔可夫决策>强化学习基础模型马尔可夫决策</h2>
 <p>MDP-->动态规划（策略迭代，值迭代）</p>
 <h3 id=状态价值函数与行为价值函数>状态价值函数与行为价值函数</h3>
-<p>在给定策略$\pi$下，状态转移概率与即时收获期望（这两项其实都是概率平均即期望）：
-$$
+<p>在给定策略<span class=math>\(\pi\)</span>下，状态转移概率与即时收获期望（这两项其实都是概率平均即期望）： <span class=math>\[
 P_{s,s'}^{\pi}=\sum_{a\in A}\pi(a|s)P_{s,s'}^a \tag{1}
-$$
-$$
+\]</span> <span class=math>\[
 R_{s}^{\pi} = \sum_{a\in A}\pi(a|s)R_s^a\tag{2}
-$$
-其中，$\pi(a|s)$表示给定策略$\pi$下，在状态$s$时，选用动作$a$的概率。$P_{s,s'}^a$表示在状态$s$时，选用动作$a$后，转移到目标状态$s'$的概率。</p>
+\]</span> 其中，<span class=math>\(\pi(a|s)\)</span>表示给定策略<span class=math>\(\pi\)</span>下，在状态<span class=math>\(s\)</span>时，选用动作<span class=math>\(a\)</span>的概率。<span class=math>\(P_{s,s'}^a\)</span>表示在状态<span class=math>\(s\)</span>时，选用动作<span class=math>\(a\)</span>后，转移到目标状态<span class=math>\(s'\)</span>的概率。</p>
 <blockquote>
-<p>状态价值函数：表示从状态$s$开始，遵循当前策略$pi$时所获得的收获的期望，即$v_\pi (s) = E[G_t | S_t = s]$</p>
-<p>行为价值函数(状态行为对价值函数)：遵循当前策略$pi$时，对当前状态$s$执行某一具体行为$a$，所能获得的收获的期望，即$q_\pi(s,a) = E[G_t | S_t = s, A_t = a]$</p>
+<p>状态价值函数：表示从状态<span class=math>\(s\)</span>开始，遵循当前策略<span class=math>\(pi\)</span>时所获得的收获的期望，即<span class=math>\(v_\pi (s) = E[G_t | S_t = s]\)</span></p>
+<p>行为价值函数(状态行为对价值函数)：遵循当前策略<span class=math>\(pi\)</span>时，对当前状态<span class=math>\(s\)</span>执行某一具体行为<span class=math>\(a\)</span>，所能获得的收获的期望，即<span class=math>\(q_\pi(s,a) = E[G_t | S_t = s, A_t = a]\)</span></p>
 </blockquote>
 <h3 id=bellman方程递推公式>Bellman方程递推公式</h3>
-<p>我们根据定义可以推到出现在具体状态$s$与下一可能状态$S_{t+1}$的关系。注意$S_{t+1}$是一个随机变量，是$t+1$时刻状态的随机变量。
-$$
+<p>我们根据定义可以推到出现在具体状态<span class=math>\(s\)</span>与下一可能状态<span class=math>\(S_{t+1}\)</span>的关系。注意<span class=math>\(S_{t+1}\)</span>是一个随机变量，是<span class=math>\(t+1\)</span>时刻状态的随机变量。 <span class=math>\[
 \begin{aligned}
-v(s) &= E[G_t | S_t = s]\
-&=E[R_{t+1}+\gamma R_{t+2} + \gamma^2 R_{t+3} + \dotsb | S_t = s]\
-&=E[R_{t+1} + \gamma(R_{t+2} + \gamma R_{t+3} + \dotsb)| S_t = s]\
-&=E[R_{t+1} + \gamma G_{t+1} | S_t = s]\
+v(s) &= E[G_t | S_t = s]\\
+&=E[R_{t+1}+\gamma R_{t+2} + \gamma^2 R_{t+3} + \dotsb | S_t = s]\\
+&=E[R_{t+1} + \gamma(R_{t+2} + \gamma R_{t+3} + \dotsb)| S_t = s]\\
+&=E[R_{t+1} + \gamma G_{t+1} | S_t = s]\\
 &=E[R_{t+1} + \gamma v(S_{t+1}) | S_t =s]
 \end{aligned}\tag{3}
-$$
-其中，$E[v(S_{t+1})|S_t = s]$表示此时状态为s时，$t+1$时刻状态价值函数的期望。简而言之，我们有
-$$
+\]</span> 其中，<span class=math>\(E[v(S_{t+1})|S_t = s]\)</span>表示此时状态为s时，<span class=math>\(t+1\)</span>时刻状态价值函数的期望。简而言之，我们有 <span class=math>\[
 v_\pi(s) = E[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s]\tag{4}
-$$
-同理可得：
-$$
+\]</span> 同理可得： <span class=math>\[
 q_\pi(s,a) = E[R_{t+1} + \gamma q_\pi(S_{t+1},A_{t+1}) | S_t = s, A_t = a ]\tag{5}
-$$
-由于行为是连接状态转换的桥梁，一个行为的价值与状态的价值关系紧密，我们可以用下式来表达
-$$
+\]</span> 由于行为是连接状态转换的桥梁，一个行为的价值与状态的价值关系紧密，我们可以用下式来表达 <span class=math>\[
 v_\pi(s)=\sum_{a\in A}\pi(a|s)q_\pi(s,a)\tag{6}
-$$
-状态的价值是相关行为价值的概率加权平均。类似的，一个行为价值可以用该行为所能到达的后续状态的价值概率加权平均来表达：
-$$
-q_\pi(s,a) = \underbrace{R_s^a}<em>{即时回报}+\underbrace{\gamma\sum</em>{s'\in S}P_{s,s'}^a v_\pi(s')}<em>{下一步状态价值的期望}\tag{7}
-$$
-联立$(6)(7)$两式，可以得到如下两递推公式：
-$$
-v</em>\pi(s)=\sum_{a\in A}\pi(a|s)\big(R_s^a+\gamma\sum_{s'\in S}P_{s,s'}^a v_\pi(s')\big)\tag{8}
-$$
-$$
+\]</span> 状态的价值是相关行为价值的概率加权平均。类似的，一个行为价值可以用该行为所能到达的后续状态的价值概率加权平均来表达： <span class=math>\[
+q_\pi(s,a) = \underbrace{R_s^a}_{即时回报}+\underbrace{\gamma\sum_{s'\in S}P_{s,s'}^a v_\pi(s')}_{下一步状态价值的期望}\tag{7}
+\]</span> 联立<span class=math>\((6)(7)\)</span>两式，可以得到如下两递推公式： <span class=math>\[
+v_\pi(s)=\sum_{a\in A}\pi(a|s)\big(R_s^a+\gamma\sum_{s'\in S}P_{s,s'}^a v_\pi(s')\big)\tag{8}
+\]</span> <span class=math>\[
 q_\pi(s,a) = R_s^a+\gamma\sum_{s'\in S}P_{s,s'}^a \big(\sum_{a\in A}\pi(a'|s')q_\pi(s',a')\big)\tag{9}
-$$
-这两个地推公式的迭代（策略迭代，价值迭代）就可以得出收敛的价值函数。</p>
-<p>策略迭代：根据公式$(8)$迭代更新状态价值，通过贪婪法迭代获得策略。最终能够收敛（压缩映射定理证明）</p>
-<p>值迭代：根据公式$v_<em>(s)=\max\limits_{a\in A}(R_s^a + \gamma \sum\limits_{s'\in S}P_{s,s'}^a v_</em>(s'))$，逐步迭代更新。</p>
-<h2 id=不基于模型的预测vs>不基于模型的预测($V(s)$)</h2>
+\]</span> 这两个地推公式的迭代（策略迭代，价值迭代）就可以得出收敛的价值函数。</p>
+<p>策略迭代：根据公式<span class=math>\((8)\)</span>迭代更新状态价值，通过贪婪法迭代获得策略。最终能够收敛（压缩映射定理证明）</p>
+<p>值迭代：根据公式<span class=math>\(v_*(s)=\max\limits_{a\in A}(R_s^a + \gamma \sum\limits_{s'\in S}P_{s,s'}^a v_*(s'))\)</span>，逐步迭代更新。</p>
+<h2 id=不基于模型的预测vs>不基于模型的预测(<span class=math>\(V(s)\)</span>)</h2>
 <p>蒙特卡洛方法 MC；时间差分 TD；动态规划DP</p>
 <h3 id=蒙特卡洛价值更新>蒙特卡洛价值更新</h3>
-<p><strong>MC法更新</strong>：<strong>基础是累进更新平均值</strong>。在这种方法中，我们只需要直到上次状态值和此次新加入的值。
-$$
+<p><strong>MC法更新</strong>：<strong>基础是累进更新平均值</strong>。在这种方法中，我们只需要直到上次状态值和此次新加入的值。 <span class=math>\[
 \begin{aligned}
-\mu_k &= \frac{1}{k}\sum_{j=1}^k x_j\
-&=\frac{1}{k}(x_k+\sum_{j=1}^{k-1} x_j)\
-&=\frac{1}{k}(x_k+(k-1)\mu_{k-1})\
+\mu_k &= \frac{1}{k}\sum_{j=1}^k x_j\\
+&=\frac{1}{k}(x_k+\sum_{j=1}^{k-1} x_j)\\
+&=\frac{1}{k}(x_k+(k-1)\mu_{k-1})\\
 &=u_{k-1}+\frac{1}{k}(x_k-\mu_{k-1})
 \end{aligned}
-$$
-具体到蒙特卡洛法更新状态价值就是：
-$$
-N(S_t)\leftarrow N(S_t)+1\
-V(S_t)\leftarrow \underbrace{V(S_t)}<em>{\mu</em>{k-1}}+\frac{1}{\underbrace{N(S_t)}<em>{k}}(\underbrace{G_t}</em>{x_k}-\underbrace{V(S_t)}<em>{\mu</em>{k-1}})\tag{10}
-$$
-在一些<strong>实时或者无法准确统计状态被访问次数时</strong>，可以用一个系数$\alpha$来代替状态计数的倒数$\frac{1}{N(S_t)}$，此时公式$(10)$可以简化为：
-$$
+\]</span> 具体到蒙特卡洛法更新状态价值就是： <span class=math>\[
+N(S_t)\leftarrow N(S_t)+1\\
+V(S_t)\leftarrow \underbrace{V(S_t)}_{\mu_{k-1}}+\frac{1}{\underbrace{N(S_t)}_{k}}(\underbrace{G_t}_{x_k}-\underbrace{V(S_t)}_{\mu_{k-1}})\tag{10}
+\]</span> 在一些<strong>实时或者无法准确统计状态被访问次数时</strong>，可以用一个系数<span class=math>\(\alpha\)</span>来代替状态计数的倒数<span class=math>\(\frac{1}{N(S_t)}\)</span>，此时公式<span class=math>\((10)\)</span>可以简化为： <span class=math>\[
 \color{red}{\star V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))}\tag{11}
-$$
-公式$(11)$<strong>是以后所有更新公式的一个基础</strong>。</p>
+\]</span> 公式<span class=math>\((11)\)</span><strong>是以后所有更新公式的一个基础</strong>。</p>
 <h3 id=时间差分价值更新>时间差分价值更新</h3>
-<p><strong>TD法更新</strong>：MC法更新中，$G_t=R_{t+1}+\gamma R_{t+2} + \dotsb + \gamma^{T-1} R_{t+T}$是一个完整的episode。而TD方法是用不完整的轨迹序列完成更新，是使用bootstrapping的方法。
-$$
-V(S_t) \leftarrow V(S_t) + \alpha(\underbrace{\underbrace{R_{t+1}+\gamma V(S_{t+1}}<em>{TD目标值\rightarrow G_t})-V(S_t)}</em>{TD误差})\tag{12}
-$$
-其中$G_t\approx R_{t+1}+\gamma V(S_{t+1})$，如果$V(S_{t+1})$是真实值，那么$G_t$就是无偏估计，但实际上$V(S_{t+1})$是采样累进更新来的，所以TD法的更新可能会有偏差。</p>
-<p><strong>TD-n更新</strong>：TD法本质上用了下一步的即时收获和状态价值。我们可以使用n步来预测。
-$$
-G_t^{(n)}= R_{t+1}+\gamma R_{t+2} + \dotsb + \gamma^{n-1} R_{t+n}+\gamma^n V(S_{t+n})\
+<p><strong>TD法更新</strong>：MC法更新中，<span class=math>\(G_t=R_{t+1}+\gamma R_{t+2} + \dotsb + \gamma^{T-1} R_{t+T}\)</span>是一个完整的episode。而TD方法是用不完整的轨迹序列完成更新，是使用bootstrapping的方法。 <span class=math>\[
+V(S_t) \leftarrow V(S_t) + \alpha(\underbrace{\underbrace{R_{t+1}+\gamma V(S_{t+1}}_{TD目标值\rightarrow G_t})-V(S_t)}_{TD误差})\tag{12}
+\]</span> 其中<span class=math>\(G_t\approx R_{t+1}+\gamma V(S_{t+1})\)</span>，如果<span class=math>\(V(S_{t+1})\)</span>是真实值，那么<span class=math>\(G_t\)</span>就是无偏估计，但实际上<span class=math>\(V(S_{t+1})\)</span>是采样累进更新来的，所以TD法的更新可能会有偏差。</p>
+<p><strong>TD-n更新</strong>：TD法本质上用了下一步的即时收获和状态价值。我们可以使用n步来预测。 <span class=math>\[
+G_t^{(n)}= R_{t+1}+\gamma R_{t+2} + \dotsb + \gamma^{n-1} R_{t+n}+\gamma^n V(S_{t+n})\\
 V(S_t) \leftarrow V(S_t) + \alpha(G_t^{(n)}-V(S_t))\tag{13}
-$$
-当$n=1$时，即为TD法更新，当$n=T or\infty$时，即为MC法。</p>
-<p><strong>TD(λ)更新</strong>：在TD-n中，n是一个离散的超参数，为了能够简化计算并<strong>综合考虑所有步数n的影响</strong>，我们引入了一个带<strong>λ</strong>的加权求和方法。
-$$
-G_t^{(\lambda)}= (1-\lambda)\sum_{n=1}^{T-t-1}\lambda^{n-1}G_t^{(n)} + \lambda^{T-t-1}G_t^{T-t}\
-\approx (1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_t^{(n)}(T\rightarrow\infty) \
+\]</span> 当<span class=math>\(n=1\)</span>时，即为TD法更新，当<span class=math>\(n=T or\infty\)</span>时，即为MC法。</p>
+<p><strong>TD(λ)更新</strong>：在TD-n中，n是一个离散的超参数，为了能够简化计算并<strong>综合考虑所有步数n的影响</strong>，我们引入了一个带<strong>λ</strong>的加权求和方法。 <span class=math>\[
+G_t^{(\lambda)}= (1-\lambda)\sum_{n=1}^{T-t-1}\lambda^{n-1}G_t^{(n)} + \lambda^{T-t-1}G_t^{T-t}\\
+\approx (1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_t^{(n)}(T\rightarrow\infty) \\
 V(S_t) \leftarrow V(S_t) + \alpha(G_t^{(\lambda)}-V(S_t))\tag{14}
-$$</p>
+\]</span></p>
 <p>他们之间的关系可以参考笔记《强化学习之 DP、MC、TD》</p>
-<h2 id=不基于模型的控制qsa>不基于模型的控制($Q(s,a)$)</h2>
+<h2 id=不基于模型的控制qsa>不基于模型的控制(<span class=math>\(Q(s,a)\)</span>)</h2>
 <p>从已知模型的、基于全宽度采样的动态规划学习转至模型未知、基于采样的蒙特卡洛或时序差分学习进行控制是朝着高效解决中等规模实际问题的一个突破。</p>
 <p>不基于模型的控制无法得知整体的状态价值和状态转移概率，因此我们需要脚踏实地，从当前状态的<strong>行为状态价值对</strong>出发。因此，<strong>在不基于模型的控制中，行为价值函数很重要</strong>。</p>
-<p><strong>即我们现在更关注$Q(s,a)$而非$V(s)$</strong>。</p>
+<p><strong>即我们现在更关注<span class=math>\(Q(s,a)\)</span>而非<span class=math>\(V(s)\)</span></strong>。</p>
 <h3 id=on-policy-vs-off-policy>On-policy VS Off-policy</h3>
 <ul>
 <li>行为策略：指导个体和环境进行实际交互的策略</li>
 <li>目标策略：评价状态价值、行为价值或者待优化的策略</li>
-<li>如果$行为策略 == 目标策略\rightarrow on-policy$（现时策略、同策略）</li>
-<li>如果$行为策略 \neq 目标策略\rightarrow off-policy$（借鉴策略、异策略）</li>
+<li>如果<span class=math>\(行为策略 == 目标策略\rightarrow on-policy\)</span>（现时策略、同策略）</li>
+<li>如果<span class=math>\(行为策略 \neq 目标策略\rightarrow off-policy\)</span>（借鉴策略、异策略）</li>
 </ul>
 <p>在off-policy下，产生行为序列的策略和评价状态价值的策略时两个策略。</p>
 <h3 id=ε-greedy策略>ε-greedy策略</h3>
-<p>假设我们在状态$s$有$m$个可以选择的动作。
-$$
+<p>假设我们在状态<span class=math>\(s\)</span>有<span class=math>\(m\)</span>个可以选择的动作。 <span class=math>\[
 \pi(a|s) = \begin{cases}
-\varepsilon/m + 1- \varepsilon, a^\ast = \argmax_{a\in A} Q(s,a)\
+\varepsilon/m + 1- \varepsilon, a^\ast = \argmax_{a\in A} Q(s,a)\\
 \varepsilon/m, Others
 \end{cases}\tag{15}
-$$
-可以证明，ε-greedy方法可以提升原有的策略$\pi$。</p>
+\]</span> 可以证明，ε-greedy方法可以提升原有的策略<span class=math>\(\pi\)</span>。</p>
 <h3 id=on-policy-蒙特卡洛mc控制>On-policy 蒙特卡洛（MC）控制</h3>
 <p>on-policy MC 控制 = MC+ε-greedy方法</p>
-<ol>
-<li>初始化一系列状态价值$Q(S_0,A_0)$，ε-greedy策略选择动作</li>
-<li>依照策略和环境交互，得到一组（或几组）轨迹，根据MC更新方法（公式$(10),(11)$），更新状态价值。
+<ol style=list-style-type:decimal>
+<li>初始化一系列状态价值<span class=math>\(Q(S_0,A_0)\)</span>，ε-greedy策略选择动作</li>
+<li>依照策略和环境交互，得到一组（或几组）轨迹，根据MC更新方法（公式<span class=math>\((10),(11)\)</span>），更新状态价值。</li>
+</ol>
 <ul>
-<li>需要注意，区别于公式(10)现在更新的不是$V(S_t)$,而是
-$$\color{red}{Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\frac{1}{N(S_t,A_t)}(G_t-Q(S_t,A_t))}\tag{16}$$</li>
+<li>需要注意，区别于公式(10)现在更新的不是<span class=math>\(V(S_t)\)</span>,而是 <span class=math>\[\color{red}{Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\frac{1}{N(S_t,A_t)}(G_t-Q(S_t,A_t))}\tag{16}\]</span></li>
 </ul>
-</li>
+<ol start=3 style=list-style-type:decimal>
 <li>回到步骤1</li>
 </ol>
 <p><strong>公式(16)也是接下来工作的基础</strong>。注意，并不需要每次交互都要更新状态价值，可以多跑几组数据来更新状态价值。<strong>但是实际中，我们通常仅得到一个完整状态序列就进行一次策略迭代以加速更新</strong>。</p>
 <blockquote>
 <p>GLIE定理(Greedy in the Limit with Infinite Exploration)：</p>
-<ol>
-<li>所有状态行为对会被无数次探索：$\lim\limits_{k\rightarrow \infty} N_k(s,a)=\infty$</li>
-<li>随着采样次数趋近于无穷，策略最终收敛至一个贪婪策略:$\lim\limits_{k\rightarrow \infty}\pi_k(a|s) = 1(a = \argmax\limits_{a'\in A}Q_k(s,a'))$</li>
+<ol style=list-style-type:decimal>
+<li>所有状态行为对会被无数次探索：<span class=math>\(\lim\limits_{k\rightarrow \infty} N_k(s,a)=\infty\)</span></li>
+<li>随着采样次数趋近于无穷，策略最终收敛至一个贪婪策略:<span class=math>\(\lim\limits_{k\rightarrow \infty}\pi_k(a|s) = 1(a = \argmax\limits_{a'\in A}Q_k(s,a'))\)</span></li>
 </ol>
-<p>那么MC控制能够<strong>收敛到最优的状态行为价值函数</strong>，即$Q_k(s,a)\xrightarrow{k\rightarrow\infty} q^\ast(s,a)$</p>
+<p>那么MC控制能够<strong>收敛到最优的状态行为价值函数</strong>，即<span class=math>\(Q_k(s,a)\xrightarrow{k\rightarrow\infty} q^\ast(s,a)\)</span></p>
 </blockquote>
 <p>显然，<strong>当我们无限采样且使ε-greedy策略中，ε=1/k，其中k是完整的采样次数</strong>。这个策略就满足GLIE定理。</p>
-<h3 id=on-policy-td-control--sarsasarsalambda>On-policy TD control —— SARSA,SARSA($\lambda$)</h3>
+<h3 id=on-policy-td-control-sarsasarsalambda>On-policy TD control —— SARSA,SARSA(<span class=math>\(\lambda\)</span>)</h3>
 <h4 id=td0更新的sarsa>TD(0)更新的SARSA</h4>
-<p>在每一个采样序列中，<strong>每一个时间步</strong>，在状态$S$下采取一个行为$A$到达状态$S'$后，都要更新状态行为对$(S,A)$的价值$Q(S,A)$，交互过程和评价过程都使用ε-greedy策略（on-policy）。</p>
-<p><strong>关键——行为价值函数更新过程</strong>：
-$$
+<p>在每一个采样序列中，<strong>每一个时间步</strong>，在状态<span class=math>\(S\)</span>下采取一个行为<span class=math>\(A\)</span>到达状态<span class=math>\(S'\)</span>后，都要更新状态行为对<span class=math>\((S,A)\)</span>的价值<span class=math>\(Q(S,A)\)</span>，交互过程和评价过程都使用ε-greedy策略（on-policy）。</p>
+<p><strong>关键——行为价值函数更新过程</strong>： <span class=math>\[
 Q(S,A)\leftarrow Q(S,A)+\alpha(R+\gamma Q(S',A')-Q(S,A))\tag{17}
-$$
-<img src=../../images/sarsa.png alt=sarsa></p>
+\]</span> <img src=../../images/sarsa.png alt=sarsa></p>
 <blockquote>
-<p>算法的收敛性。当行为策略满足GLIE定理，且学习率$\alpha$满足
-$$\sum_{t=1}^\infty \alpha_t=\infty, \text{and} \sum_{t=1}^\infty \alpha_t^2&lt;\infty$$
-SARSA算法将收敛至最优策略和最优价值函数。</p>
+<p>算法的收敛性。当行为策略满足GLIE定理，且学习率<span class=math>\(\alpha\)</span>满足 <span class=math>\[\sum_{t=1}^\infty \alpha_t=\infty, \text{and} \sum_{t=1}^\infty \alpha_t^2&lt;\infty\]</span> SARSA算法将收敛至最优策略和最优价值函数。</p>
 </blockquote>
-<h4 id=tdlambda更新的sarsalambda>TD($\lambda$)更新的SARSA($\lambda$)</h4>
-<p>和TD-n法更新价值函数一样，我们可以定义n步Q收获
-$$
+<h4 id=tdlambda更新的sarsalambda>TD(<span class=math>\(\lambda\)</span>)更新的SARSA(<span class=math>\(\lambda\)</span>)</h4>
+<p>和TD-n法更新价值函数一样，我们可以定义n步Q收获 <span class=math>\[
 q_t^{(n)}=R_{t+1}+\gamma R_{t+2}+\dotsb+\gamma^{n-1} R_{t+n}+\gamma^nQ(S_t,A_t)
-$$
-类似的，我们根据n步Q收获可以定义**SARSA(n)**的行为价值更新函数：
-$$
+\]</span> 类似的，我们根据n步Q收获可以定义<strong>SARSA(n)</strong>的行为价值更新函数： <span class=math>\[
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha(q_t^{(n)}-Q(S_t,A_t))\tag{18-1}
-$$
-和TD(n)一样，$n$是一个需要条件的超参数，为了计算的方便，我们模仿$TD(\lambda)$的加权方式给$q^{(n)}<em>t$进行加权求和,结合所有n步Q收获：
-$$
-q_t^\lambda = (1-\lambda)\sum</em>{n=1}^\infty \lambda^{n-1} q_t^{(n)}
-$$
-我们可以用$q_t^\lambda$代替公式$(18)$中的$q_t^{(n)}$。这就是SARSA$(\lambda)$的夹着更新公式。
-$$
+\]</span> 和TD(n)一样，<span class=math>\(n\)</span>是一个需要条件的超参数，为了计算的方便，我们模仿<span class=math>\(TD(\lambda)\)</span>的加权方式给<span class=math>\(q^{(n)}_t\)</span>进行加权求和,结合所有n步Q收获： <span class=math>\[
+q_t^\lambda = (1-\lambda)\sum_{n=1}^\infty \lambda^{n-1} q_t^{(n)}
+\]</span> 我们可以用<span class=math>\(q_t^\lambda\)</span>代替公式<span class=math>\((18)\)</span>中的<span class=math>\(q_t^{(n)}\)</span>。这就是SARSA<span class=math>\((\lambda)\)</span>的夹着更新公式。 <span class=math>\[
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha(q_t^{\lambda}-Q(S_t,A_t))\tag{18-2}
-$$</p>
-<p>但是，<strong>迭代一次Q值，需要完整的一次episode</strong>。为了解决这个问题，引入<strong>效用迹</strong>的概念，实现增量更新。效用迹针对的状态行为对。
-$$
-E_0(s,a)=0(初始化为0)\
+\]</span></p>
+<p>但是，<strong>迭代一次Q值，需要完整的一次episode</strong>。为了解决这个问题，引入<strong>效用迹</strong>的概念，实现增量更新。效用迹针对的状态行为对。 <span class=math>\[
+E_0(s,a)=0(初始化为0)\\
 E_t(s,a)=\gamma\lambda E_{t-1}(s,a)+\mathbf{1}(S_t=s,A_t=a),\gamma,\lambda\in[0,1]\tag{19}
-$$
-其中，$\mathbf{1}$是判别函数，成立为1，不成立为0。它体现的是一个结果与某一个状态行为对的因果关系，与得到该结果<strong>最近的</strong>状态行为对，以及那些在此之前<strong>频繁发生的</strong>状态行为对得到这个结果的影响最大。引入<strong>效用迹</strong>后，Q值的更新公式为：
-$$
-\delta_t = R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_{t},A_{t})\
+\]</span> 其中，<span class=math>\(\mathbf{1}\)</span>是判别函数，成立为1，不成立为0。它体现的是一个结果与某一个状态行为对的因果关系，与得到该结果<strong>最近的</strong>状态行为对，以及那些在此之前<strong>频繁发生的</strong>状态行为对得到这个结果的影响最大。引入<strong>效用迹</strong>后，Q值的更新公式为： <span class=math>\[
+\delta_t = R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_{t},A_{t})\\
 Q(s,a)\leftarrow Q(s,a)+\alpha\delta_t E_t(s,a)\tag{20}
-$$
-可以证明在$\lambda\in(0,1)$时，公式(20)与公式(18-2)是等效的（一个是前向认识，一个是反向认识），但是公式(20)中的数据学习完即可丢弃，<strong>在线学习更有效</strong>。</p>
-<p><img src=../../images/sarsa_lambda.png alt=sarsa_lambda.png></p>
-<p>这里要提及一下的是$E(s,a)$在<strong>每浏览完一个状态序列后需要重新置0</strong>，这体现了效用迹仅在一个状态序列中发挥作用；其次要提及的是算法更新$Q$和$E$的时候针对的不是某个状态序列里的$Q$或$E$，而是针对<strong>个体掌握的</strong>整个状态空间和行为空间产生的$Q$和$E$。</p>
+\]</span> 可以证明在<span class=math>\(\lambda\in(0,1)\)</span>时，公式(20)与公式(18-2)是等效的（一个是前向认识，一个是反向认识），但是公式(20)中的数据学习完即可丢弃，<strong>在线学习更有效</strong>。</p>
+<div class=figure>
+<img src=../../images/sarsa_lambda.png alt=sarsa_lambda.png><p class=caption>sarsa_lambda.png</p>
+</div>
+<p>这里要提及一下的是<span class=math>\(E(s,a)\)</span>在<strong>每浏览完一个状态序列后需要重新置0</strong>，这体现了效用迹仅在一个状态序列中发挥作用；其次要提及的是算法更新<span class=math>\(Q\)</span>和<span class=math>\(E\)</span>的时候针对的不是某个状态序列里的<span class=math>\(Q\)</span>或<span class=math>\(E\)</span>，而是针对<strong>个体掌握的</strong>整个状态空间和行为空间产生的<span class=math>\(Q\)</span>和<span class=math>\(E\)</span>。</p>
 <h3 id=为什么off-policy-mc-control不好>为什么Off-policy MC control不好</h3>
-<p>根据重要性采样，在off-policy MC更新下，收获函数应为
-$$
-G_t^{\pi/\mu}=\underbrace{\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}\frac{\pi(A_{t+1}|S_{t+1})}{\mu(A_{t+1}|S_{t+1})}\dotsb\frac{\pi(A_T|S_T)}{\mu(A_T|S_T)}}_{方差被放的很大}G_t\
+<p>根据重要性采样，在off-policy MC更新下，收获函数应为 <span class=math>\[
+G_t^{\pi/\mu}=\underbrace{\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}\frac{\pi(A_{t+1}|S_{t+1})}{\mu(A_{t+1}|S_{t+1})}\dotsb\frac{\pi(A_T|S_T)}{\mu(A_T|S_T)}}_{方差被放的很大}G_t\\
 V(S_t) = V(S_t)+\alpha(G_t^{\pi/\mu}-V(S_t))\tag{21}
-$$
-其中，$\mu(a|s)$是行为策略，$\pi(a|s)$是目标策略。但是$G_t^{\pi/\mu}$的方差会特别大，使得估计偏差大到无法使用，且$\mu(a|s)=0$时无法使用。因此基于蒙特卡洛的借鉴策略学习目前认为仅有理论上的研究价值，在实际中用处不大。</p>
-<h3 id=off-policy-td-control--q-learning>Off-policy TD control —— Q-learning</h3>
-<p>相较于off-policy MC更新中多个步骤的概率商相乘，<strong>TD更新只用修正一次概率</strong>，方差还是可以接受的。
-$$
+\]</span> 其中，<span class=math>\(\mu(a|s)\)</span>是行为策略，<span class=math>\(\pi(a|s)\)</span>是目标策略。但是<span class=math>\(G_t^{\pi/\mu}\)</span>的方差会特别大，使得估计偏差大到无法使用，且<span class=math>\(\mu(a|s)=0\)</span>时无法使用。因此基于蒙特卡洛的借鉴策略学习目前认为仅有理论上的研究价值，在实际中用处不大。</p>
+<h3 id=off-policy-td-control-q-learning>Off-policy TD control —— Q-learning</h3>
+<p>相较于off-policy MC更新中多个步骤的概率商相乘，<strong>TD更新只用修正一次概率</strong>，方差还是可以接受的。 <span class=math>\[
 G_t^{\pi/\mu}=\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}G_t
-$$</p>
-<p>Q-learning是一个典型的off-policy TD控制方案。行为策略$µ$是基于行为价值函数$Q(s,a)$<strong>ϵ-贪婪策略</strong>，借鉴策略$π$则是基于$Q(s，a)$的<strong>完全贪婪策略</strong>。需要指出，Q-learning没有用到重要性采样。Q-learning的价值更新公式如下：
-$$
+\]</span></p>
+<p>Q-learning是一个典型的off-policy TD控制方案。行为策略<span class=math>\(µ\)</span>是基于行为价值函数<span class=math>\(Q(s,a)\)</span><strong>ϵ-贪婪策略</strong>，借鉴策略<span class=math>\(π\)</span>则是基于<span class=math>\(Q(s，a)\)</span>的<strong>完全贪婪策略</strong>。需要指出，Q-learning没有用到重要性采样。Q-learning的价值更新公式如下： <span class=math>\[
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha({\color{red}R_{t+1}+\gamma Q(S_{t+1},A')}-Q(S_t,A_t))\tag{22}
-$$
-注意：红色部分的TD目标是基于借鉴策略$π$（贪婪策略）产生的行为$A’$得到的$Q$值。而每次的交互使用的是策略$\mu$（ϵ-贪婪策略），状态$S_t$依据$\mu$得到行为$A_t$并朝着$S_{t+1}$前进。</p>
-<p>由于$A'$是根据贪婪策略选出来的，所以公式（22）可以简化为：
-$$
+\]</span> 注意：红色部分的TD目标是基于借鉴策略<span class=math>\(π\)</span>（贪婪策略）产生的行为<span class=math>\(A’\)</span>得到的<span class=math>\(Q\)</span>值。而每次的交互使用的是策略<span class=math>\(\mu\)</span>（ϵ-贪婪策略），状态<span class=math>\(S_t\)</span>依据<span class=math>\(\mu\)</span>得到行为<span class=math>\(A_t\)</span>并朝着<span class=math>\(S_{t+1}\)</span>前进。</p>
+<p>由于<span class=math>\(A'\)</span>是根据贪婪策略选出来的，所以公式（22）可以简化为： <span class=math>\[
 Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha({\color{red}R_{t+1}+\gamma \max_{a'}Q(S_{t+1},a')}-Q(S_t,A_t))\tag{23}
-$$</p>
-<p><img src=../../images/Q-learning.png alt=Q-learning></p>
+\]</span></p>
+<div class=figure>
+<img src=../../images/Q-learning.png alt=Q-learning><p class=caption>Q-learning</p>
+</div>
 <h3 id=td与dp的关系>TD与DP的关系</h3>
-<p><img src=../../images/DP%E4%B8%8ETD%E5%85%B3%E7%B3%BB1.jpg alt=DP与TD关系1>
-<img src=../../images/DP%E4%B8%8ETD%E5%85%B3%E7%B3%BB2.jpg alt=DP与TD关系2></p>
+<p><img src=../../images/DP与TD关系1.jpg alt=DP与TD关系1> <img src=../../images/DP与TD关系2.jpg alt=DP与TD关系2></p>
 <h2 id=特点>特点</h2>
-<ol>
+<ol style=list-style-type:decimal>
 <li>explore and exploit</li>
 <li>Delayed reward</li>
 <li>Time critical(时间处理实现)</li>

@@ -88,31 +88,25 @@ Nov 3, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=优化理论最优化条件---omit-in-toc--->优化理论最优化条件</h2>
+<h2 id=优化理论最优化条件>优化理论最优化条件</h2>
 <ul>
-<li><a href=#%E6%9C%80%E4%BC%98%E8%A7%A3%E7%9A%84%E5%AD%98%E5%9C%A8%E6%80%A7>最优解的存在性</a></li>
-<li><a href=#%E6%97%A0%E7%BA%A6%E6%9D%9F%E9%97%AE%E9%A2%98%E6%9C%80%E4%BC%98%E5%8C%96%E6%9D%A1%E4%BB%B6>无约束问题最优化条件</a></li>
-<li><a href=#%E6%9C%89%E7%BA%A6%E6%9D%9F%E9%97%AE%E9%A2%98%E6%9C%80%E4%BC%98%E5%8C%96%E6%9D%A1%E4%BB%B6>有约束问题最优化条件</a>
+<li><a href=#最优解的存在性>最优解的存在性</a></li>
+<li><a href=#无约束问题最优化条件>无约束问题最优化条件</a></li>
+<li><a href=#有约束问题最优化条件>有约束问题最优化条件</a></li>
+<li><a href=#有约束数值优化一阶条件>有约束数值优化一阶条件</a>
 <ul>
-<li><a href=#%E6%9C%89%E7%BA%A6%E6%9D%9F%E6%95%B0%E5%80%BC%E4%BC%98%E5%8C%96%E4%B8%80%E9%98%B6%E6%9D%A1%E4%BB%B6>有约束数值优化一阶条件</a>
+<li><a href=#可行方向法>可行方向法</a></li>
+<li><a href=#切锥下的一阶条件>切锥下的一阶条件</a></li>
+</ul></li>
+<li><a href=#kkt点>KKT点</a></li>
+<li><a href=#有约束数值优化二阶条件>有约束数值优化二阶条件</a>
 <ul>
-<li><a href=#%E5%8F%AF%E8%A1%8C%E6%96%B9%E5%90%91%E6%B3%95>可行方向法</a></li>
-<li><a href=#%E5%88%87%E9%94%A5%E4%B8%8B%E7%9A%84%E4%B8%80%E9%98%B6%E6%9D%A1%E4%BB%B6>切锥下的一阶条件</a></li>
+<li><a href=#二阶必要条件>二阶必要条件</a></li>
+<li><a href=#二阶充分条件>二阶充分条件</a></li>
+</ul></li>
 </ul>
-</li>
-<li><a href=#kkt%E7%82%B9>KKT点</a></li>
-<li><a href=#%E6%9C%89%E7%BA%A6%E6%9D%9F%E6%95%B0%E5%80%BC%E4%BC%98%E5%8C%96%E4%BA%8C%E9%98%B6%E6%9D%A1%E4%BB%B6>有约束数值优化二阶条件</a>
-<ul>
-<li><a href=#%E4%BA%8C%E9%98%B6%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6>二阶必要条件</a></li>
-<li><a href=#%E4%BA%8C%E9%98%B6%E5%85%85%E5%88%86%E6%9D%A1%E4%BB%B6>二阶充分条件</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>我们在本文主要谈论最小化：
-$$f:\mathbb{R}^n→R，f为连续函数。对于f的可行域\Omega，求\
-\min_{x ∈ \Omega} f(x)$$</p>
+<p>我们在本文主要谈论最小化： <span class=math>\[f:\mathbb{R}^n→R，f为连续函数。对于f的可行域\Omega，求\\
+\min_{x ∈ \Omega} f(x)\]</span></p>
 <h2 id=最优解的存在性>最优解的存在性</h2>
 <p>我们需要指出的是，函数并没有指出在可行域内有最优解。即使有最优解，也未必在可行域内。因此，我们需要明确哪些情况最优解是一定存在的。</p>
 <p>根据基本的维尔思特拉斯极值定理有</p>
@@ -121,115 +115,93 @@ $$f:\mathbb{R}^n→R，f为连续函数。对于f的可行域\Omega，求\
 </blockquote>
 <p>在此基础上，我们介绍一个更深的定理，但是现阶段不太会用到：</p>
 <blockquote>
-<p>定理2： 若函数$f$在n维闭区域$S$上连续并且向正无穷发散(coercive，即如果$lim||x||⇒∞,f(x)=+∞$)，那么$f$在$S$上一定有全局最小值。</p>
+<p>定理2： 若函数<span class=math>\(f\)</span>在n维闭区域<span class=math>\(S\)</span>上连续并且向正无穷发散(coercive，即如果<span class=math>\(lim||x||⇒∞,f(x)=+∞\)</span>)，那么<span class=math>\(f\)</span>在<span class=math>\(S\)</span>上一定有全局最小值。</p>
 </blockquote>
 <p>以上定理只能保证最小值<strong>存在</strong>，没有建立最小值和极小值之间的关系。但是，对于一类特殊的函数，它在一定区域内的极小值一定是最小值，这类函数即<strong>凸函数</strong>。凸函数为定义在凸区间上的一种函数，它满足任意两点的连线位于抽象的函数曲面之下；而凸区间则满足任意两点连线仍然在区间中。定义在凸区间内的严格凸函数有唯一的极小值，该极小值为该函数在该区间上的最小值。</p>
 <h2 id=无约束问题最优化条件>无约束问题最优化条件</h2>
-<p>本节研究无约束问题：（基于费马引理）
-$$\min f(x),x\in R^n（1）$$
-的最优性条件，包括一阶条件和二阶条件。</p>
+<p>本节研究无约束问题：（基于费马引理） <span class=math>\[\min f(x),x\in R^n（1）\]</span> 的最优性条件，包括一阶条件和二阶条件。</p>
 <p>应该指出，实际上我们只是求一个局部（局部严格）极小点，而非总体最小点。尽管我们也会考虑总体最小值的情况，但是一般来说这是一个相当困难的任务。在很多实际应用中，求局部最小值已经满足了问题的要求。因此本文章所指的极小值是指局部极小值。仅当问题具有某种凸性质，局部最小值才是总体最小值。</p>
-<p>设$f$的一阶导数和二阶导数存在，且分别表示为：
-$$g(x)=\nabla f(x),G(x)=\nabla^2f(x),$$
-则我们有以下三个定理：</p>
+<p>设<span class=math>\(f\)</span>的一阶导数和二阶导数存在，且分别表示为： <span class=math>\[g(x)=\nabla f(x),G(x)=\nabla^2f(x),\]</span> 则我们有以下三个定理：</p>
 <blockquote>
-<p><strong>定理1：</strong>（一阶必要条件） 设$f:D\subset R^n\rightarrow R^1$在开集D上连续可微，若$x^\ast\in D$是（1）上的局部极小点，则
-$$g(x^\ast)=0(2)$$</p>
+<p><strong>定理1：</strong>（一阶必要条件） 设<span class=math>\(f:D\subset R^n\rightarrow R^1\)</span>在开集D上连续可微，若<span class=math>\(x^\ast\in D\)</span>是（1）上的局部极小点，则 <span class=math>\[g(x^\ast)=0(2)\]</span></p>
 </blockquote>
 <p><strong>证明1：</strong> 反证法</p>
-<p>假定$g(x^\ast)\neq0$，即存在非0梯度，那么取下降的负梯度$d=-g(x^\ast)$，则
-$$g(x^\ast)^Td=-g(x^\ast)^Tg(x^\ast)&lt;0$$
-由于d是下降法向，从而在以$x^\ast$为中心邻域存在$\delta>0$，使得
-$$f(x^\ast+\alpha d)&lt;f(x^\ast),\forall\alpha\in(0,\delta).$$
-那我们可以取$\overline{\delta}=\delta|d|$，因$\alpha&lt;\delta$，故有：
-$$|\alpha d|=\alpha|d|=\overline{\delta}$$
-因此，存在$x^\ast+\alpha d\in N(x^\ast)$，使得
-$$f(x^\ast+\alpha d)&lt;f(x^\ast)，$$
-这与$x^\ast$是局部极小点矛盾。</p>
+<p>假定<span class=math>\(g(x^\ast)\neq0\)</span>，即存在非0梯度，那么取下降的负梯度<span class=math>\(d=-g(x^\ast)\)</span>，则 <span class=math>\[g(x^\ast)^Td=-g(x^\ast)^Tg(x^\ast)&lt;0\]</span> 由于d是下降法向，从而在以<span class=math>\(x^\ast\)</span>为中心邻域存在<span class=math>\(\delta>0\)</span>，使得 <span class=math>\[f(x^\ast+\alpha d)&lt;f(x^\ast),\forall\alpha\in(0,\delta).\]</span> 那我们可以取<span class=math>\(\overline{\delta}=\delta\|d\|\)</span>，因<span class=math>\(\alpha&lt;\delta\)</span>，故有： <span class=math>\[\|\alpha d\|=\alpha\|d\|=\overline{\delta}\]</span> 因此，存在<span class=math>\(x^\ast+\alpha d\in N(x^\ast)\)</span>，使得 <span class=math>\[f(x^\ast+\alpha d)&lt;f(x^\ast)，\]</span> 这与<span class=math>\(x^\ast\)</span>是局部极小点矛盾。</p>
 <p>证明1完。</p>
 <p>我们也可以用费马引理来更简单的说明这个定理：</p>
 <blockquote>
-<p>引理1：费马引理：设函数$f(x)$在点$x_0$的某邻域$U(x_0)$内有定义，并且在$x_0$处可导，如果对任意的$x\in U(x_0)$，有
-$$f(x)\le f(x_0)或f(x)\ge f(x_0)$$
-那么$f^\prime(x_0)=0$。</p>
-<p>推论1：函数$f$在定义域$\Omega$内的最大值和最小值只能在<strong>边界上，不可导的点，或驻点</strong>取得。</p>
+<p>引理1：费马引理：设函数<span class=math>\(f(x)\)</span>在点<span class=math>\(x_0\)</span>的某邻域<span class=math>\(U(x_0)\)</span>内有定义，并且在<span class=math>\(x_0\)</span>处可导，如果对任意的<span class=math>\(x\in U(x_0)\)</span>，有 <span class=math>\[f(x)\le f(x_0)或f(x)\ge f(x_0)\]</span> 那么<span class=math>\(f^\prime(x_0)=0\)</span>。</p>
+<p>推论1：函数<span class=math>\(f\)</span>在定义域<span class=math>\(\Omega\)</span>内的最大值和最小值只能在<strong>边界上，不可导的点，或驻点</strong>取得。</p>
 </blockquote>
 <p>因此，对于连续可微函数，我们只需要在驻点和端点查找最小值即可。驻点即为一阶导数为0的点。</p>
 <p>如果只是一阶导数是0，那么到底能不能确定这个点是极小值点呢？这就需要二阶导数。如果二阶导数的海森矩阵半正定那就是极小值点，半负定就是极大值点，不定就是鞍点。</p>
 <blockquote>
-<p><strong>定理2：</strong>（二阶必要条件）设$f:D\subset R^n\rightarrow R^1$在开集$D$上二阶连续可微，若$x^\ast\in D$是（1）的局部极小点，则：
-$$g(x^\ast)=0\quad G(x^\ast)\geq0 (3)$$</p>
+<p><strong>定理2：</strong>（二阶必要条件）设<span class=math>\(f:D\subset R^n\rightarrow R^1\)</span>在开集<span class=math>\(D\)</span>上二阶连续可微，若<span class=math>\(x^\ast\in D\)</span>是（1）的局部极小点，则： <span class=math>\[g(x^\ast)=0\quad G(x^\ast)\geq0 (3)\]</span></p>
 </blockquote>
 <p><strong>证明2：</strong> 反证法</p>
-<p>(3)的前半部分已经在<strong>证明1</strong>得证。为了证明第二部分，即半正定，我们先假设$G(x^\ast)$不定，并设$N_\delta(x^\ast)$是$x^\ast$的邻域。有连续性可知，对所有$x\in N_\delta(x^\ast)$，$G(x)$不定。今选择$\epsilon$和向量d，使得$x^\ast+\epsilon d\in N_\delta(x^\ast)$，且满足$d^TG(x^\ast+\epsilon d)d&lt;0$。利用$g(x^\ast)=0$，有$f(x+\epsilon d)$在$x^\ast$处的泰勒展开式：
-$$f(x^\ast+\epsilon d)=f(x^\ast)+\frac{1}{2}\epsilon^2d^TG(x^\ast+\theta\epsilon d)d$$
-其中，$0\leq\theta\leq1$，从而，$f(x^\ast+\epsilon d)&lt;f(x^\ast)$。这与$x^\ast$是局部极小点矛盾。所以$G(x^\ast)$在邻域内必须大于等于0，即半正定。</p>
-<p>满足$g(x^\ast)=0$的点$x^\ast$称为函数$f$的平稳点或驻点。如果$g(x^\ast)=0$，则有可能是极小点，也可能是极大点，也可能不是极值点，即鞍点。</p>
+<p>(3)的前半部分已经在<strong>证明1</strong>得证。为了证明第二部分，即半正定，我们先假设<span class=math>\(G(x^\ast)\)</span>不定，并设<span class=math>\(N_\delta(x^\ast)\)</span>是<span class=math>\(x^\ast\)</span>的邻域。有连续性可知，对所有<span class=math>\(x\in N_\delta(x^\ast)\)</span>，<span class=math>\(G(x)\)</span>不定。今选择<span class=math>\(\epsilon\)</span>和向量d，使得<span class=math>\(x^\ast+\epsilon d\in N_\delta(x^\ast)\)</span>，且满足<span class=math>\(d^TG(x^\ast+\epsilon d)d&lt;0\)</span>。利用<span class=math>\(g(x^\ast)=0\)</span>，有<span class=math>\(f(x+\epsilon d)\)</span>在<span class=math>\(x^\ast\)</span>处的泰勒展开式： <span class=math>\[f(x^\ast+\epsilon d)=f(x^\ast)+\frac{1}{2}\epsilon^2d^TG(x^\ast+\theta\epsilon d)d\]</span> 其中，<span class=math>\(0\leq\theta\leq1\)</span>，从而，<span class=math>\(f(x^\ast+\epsilon d)&lt;f(x^\ast)\)</span>。这与<span class=math>\(x^\ast\)</span>是局部极小点矛盾。所以<span class=math>\(G(x^\ast)\)</span>在邻域内必须大于等于0，即半正定。</p>
+<p>满足<span class=math>\(g(x^\ast)=0\)</span>的点<span class=math>\(x^\ast\)</span>称为函数<span class=math>\(f\)</span>的平稳点或驻点。如果<span class=math>\(g(x^\ast)=0\)</span>，则有可能是极小点，也可能是极大点，也可能不是极值点，即鞍点。</p>
 <blockquote>
-<p><strong>定理3：</strong>（二阶充分条件）设$f:D\subset R^n\rightarrow R^1$在开集$D$上二阶连续可微，则$x^\ast\in D$是$f$的一个严格局部极小点的充分条件是：
-$$g(x^\ast)=0 且G(x^\ast)是正定矩阵(4)$$</p>
+<p><strong>定理3：</strong>（二阶充分条件）设<span class=math>\(f:D\subset R^n\rightarrow R^1\)</span>在开集<span class=math>\(D\)</span>上二阶连续可微，则<span class=math>\(x^\ast\in D\)</span>是<span class=math>\(f\)</span>的一个严格局部极小点的充分条件是： <span class=math>\[g(x^\ast)=0 且G(x^\ast)是正定矩阵(4)\]</span></p>
 </blockquote>
 <p>一般地，目标函数的平稳点不一定是极小值点。但若目标函数是凸函数，则其平稳点就是其极小点，且为最小点。</p>
 <blockquote>
-<p><strong>定理4：</strong>（凸充分条件）设$f:D\subset R^n\rightarrow R^1$在开集$D$上为凸函数，且$f\in C^1$，则$x^\ast$是总体极小点的充分必要条件是：$g(x^\ast)=0$</p>
+<p><strong>定理4：</strong>（凸充分条件）设<span class=math>\(f:D\subset R^n\rightarrow R^1\)</span>在开集<span class=math>\(D\)</span>上为凸函数，且<span class=math>\(f\in C^1\)</span>，则<span class=math>\(x^\ast\)</span>是总体极小点的充分必要条件是：<span class=math>\(g(x^\ast)=0\)</span></p>
 </blockquote>
 <h2 id=有约束问题最优化条件>有约束问题最优化条件</h2>
-<p>有约束条件的可行域不再是整个空间$R^n$，我们记可行域是$\Omega$，即
-$$\min_{\vec x} f(\vec x)\
-subject\quad to:\quad \vec x ∈ \Omega$$
-我们假定$f$是连续可微函数，并且可行域是非空闭集。</p>
+<p>有约束条件的可行域不再是整个空间<span class=math>\(R^n\)</span>，我们记可行域是<span class=math>\(\Omega\)</span>，即 <span class=math>\[\min_{\vec x} f(\vec x)\\
+subject\quad to:\quad \vec x ∈ \Omega\]</span> 我们假定<span class=math>\(f\)</span>是连续可微函数，并且可行域是非空闭集。</p>
 <h3 id=有约束数值优化一阶条件>有约束数值优化一阶条件</h3>
 <h4 id=可行方向法>可行方向法</h4>
 <p>我们在研究无约束优化一阶条件的基础上，特别想知道有哪些结论可以直接用到有约束情况下的。首先我们考虑可行方向：</p>
 <blockquote>
-<p>定义1：可行方向：对于可行域$\Omega \subset R^n$，有一个点$\vec x∈ \Omega$，我们说向量$\vec d$是<strong>可行方向</strong>，如果存在一个步长$\bar t>0，\forall t ∈[0,\bar t]，\vec x+t\vec d ∈ \Omega$.</p>
+<p>定义1：可行方向：对于可行域<span class=math>\(\Omega \subset R^n\)</span>，有一个点<span class=math>\(\vec x∈ \Omega\)</span>，我们说向量<span class=math>\(\vec d\)</span>是<strong>可行方向</strong>，如果存在一个步长<span class=math>\(\bar t>0，\forall t ∈[0,\bar t]，\vec x+t\vec d ∈ \Omega\)</span>.</p>
 </blockquote>
 <p>对于存在可行方向的点，我们存在以下定理</p>
 <blockquote>
-<p>定理5：有可行方向的有约束一阶条件：对于一个局部最优点$\vec x$，在这个点所有存在的可行方向$f'(\vec x+t\vec d)$，我们都有$f'(\vec x+t\vec d)≥0$.</p>
+<p>定理5：有可行方向的有约束一阶条件：对于一个局部最优点<span class=math>\(\vec x\)</span>，在这个点所有存在的可行方向<span class=math>\(f'(\vec x+t\vec d)\)</span>，我们都有<span class=math>\(f'(\vec x+t\vec d)≥0\)</span>.</p>
 </blockquote>
-<p>显然这个定理是无约束条件的类比版，只不过可行方向受到可行域限制。对于凸多边形，可行方向法是充分的，我觉得单纯性法就是可行方向法的一个应用。但是对于很多曲线，可行方向法就不适用了，例如：
-$$\Omega={(x_1,x_2):x_1^2+x_2^2=1}$$
-每个点的可行方向都是$\vec 0$，这就没法做了。</p>
+<p>显然这个定理是无约束条件的类比版，只不过可行方向受到可行域限制。对于凸多边形，可行方向法是充分的，我觉得单纯性法就是可行方向法的一个应用。但是对于很多曲线，可行方向法就不适用了，例如： <span class=math>\[\Omega=\{(x_1,x_2):x_1^2+x_2^2=1\}\]</span> 每个点的可行方向都是<span class=math>\(\vec 0\)</span>，这就没法做了。</p>
 <h4 id=切锥下的一阶条件>切锥下的一阶条件</h4>
 <p>为了克服可行方向法的弊端，我们使引入切锥。切锥是通过序列极限定义的：</p>
 <blockquote>
-<p>定义2：切锥：给定非空闭集$C \subset R^n$。如果在$C$内，存在收敛到$\vec x$的序列${\vec x^k}$和收敛到$0$的正数序列${\tau^k}$，使得向量$\vec d^k=(\vec x^k-x)/\tau^k→\vec d$。那么$\vec d$就是点$\vec x$的切线方向。点$\vec x$所有的切线方向组成的锥，就是切锥。
-$$T_c(\vec x)={\vec d ∈ R^n:\exists{\vec x^k}∈ C}和{\tau^k}→0,d=\lim_{k→ ∞}\frac{\vec x^k-\vec x}{\tau^k}}$$</p>
+<p>定义2：切锥：给定非空闭集<span class=math>\(C \subset R^n\)</span>。如果在<span class=math>\(C\)</span>内，存在收敛到<span class=math>\(\vec x\)</span>的序列<span class=math>\(\{\vec x^k\}\)</span>和收敛到<span class=math>\(0\)</span>的正数序列<span class=math>\(\{\tau^k\}\)</span>，使得向量<span class=math>\(\vec d^k=(\vec x^k-x)/\tau^k→\vec d\)</span>。那么<span class=math>\(\vec d\)</span>就是点<span class=math>\(\vec x\)</span>的切线方向。点<span class=math>\(\vec x\)</span>所有的切线方向组成的锥，就是切锥。 <span class=math>\[T_c(\vec x)=\{\vec d ∈ R^n:\exists\{\vec x^k\}∈ C\}和\{\tau^k\}→0,d=\lim_{k→ ∞}\frac{\vec x^k-\vec x}{\tau^k}\}\]</span></p>
 </blockquote>
-<p>这个定义主要在说什么呢？假设有一个闭集，然后有一点$\vec x$在闭集内，与此同时闭集内还有一组逐渐收敛于$\vec x点的序列。在点$\vec x附近（neighborhood）所有可以收敛的方向都是这个点的tangent direction。看完这个定义会发现，点$\vec x在该闭集上的tangent cone一般来讲是从该点作切线，并包含闭集内部的向外延伸的锥。下图是几个例子：</p>
-<p><img src=../../images/%E5%88%87%E9%94%A5.jpg alt=切锥></p>
+<p>这个定义主要在说什么呢？假设有一个闭集，然后有一点<span class=math>\(\vec x\)</span>在闭集内，与此同时闭集内还有一组逐渐收敛于<span class=math>\(\vec x点的序列。在点\)</span>x附近（neighborhood）所有可以收敛的方向都是这个点的tangent direction。看完这个定义会发现，点$x在该闭集上的tangent cone一般来讲是从该点作切线，并包含闭集内部的向外延伸的锥。下图是几个例子：</p>
+<div class=figure>
+<img src=../../images/切锥.jpg alt=切锥><p class=caption>切锥</p>
+</div>
 <p>可行方向的约束作用在一些情况下略显严格，会导致空集的产生（例如非凸集合）。因此，我们需要适当放宽这个约束。因此，我们考虑用切锥来替代。在约束条件是<strong>凸集</strong>的情况下，切锥等同于可行方向，而对于非凸情况，切锥避免了空集的产生。因此，我们可以放宽<strong>定理5</strong>：</p>
 <blockquote>
-<p>定理6：切锥下的有约束一阶条件：对于一个局部最优点$\vec x$，有
-$$\nabla f(\vec x)^T\vec d≥0,\forall d ∈ T(\vec x|\Omega)$$</p>
+<p>定理6：切锥下的有约束一阶条件：对于一个局部最优点<span class=math>\(\vec x\)</span>，有 <span class=math>\[\nabla f(\vec x)^T\vec d≥0,\forall d ∈ T(\vec x|\Omega)\]</span></p>
 </blockquote>
 <p>显然，无约束一阶条件是定理6的特殊情况。</p>
 <h3 id=kkt点>KKT点</h3>
 <p>详见《KKT与拉格朗日》</p>
 <h3 id=有约束数值优化二阶条件>有约束数值优化二阶条件</h3>
-<p>我们知道，满足$p^T∇f(x^⋆)>0$的方向$p$可以使函数值增大，满足$p^T∇f(x^⋆)&lt;0$的方向$p$可以使函数值减小，但对于$p^T∇f(x^⋆)=0$的方向$p$，我们不知道它到底使函数值增大还是减小。如下图所示，$p^T∇f(x^⋆)=0$可以使函数值增大、减小或不变。</p>
-<p><img src=../../images/IXMRBAL.png alt=IXMRBAL.png></p>
-<p>将这些模棱两可的方向的集合称为“关键锥”（critical cone）
-$$\mathcal{C}(x^{\star},\gamma)={w\in\mathcal{F}(x)|\nabla d_j(x^{\star})^Tw=0,\forall j\in\mathcal{A}(x^{\star})\text{ with }\lambda_j>0}$$
-其中
-$$\mathcal{F}(x)=\left{p|p \text{ 满足 }\begin{cases}\nabla c_i(x)^Tp=0\quad \forall i \ \nabla d_j(x)^Tp\ge 0 \quad\forall d_j\in\mathcal{A}(x)\end{cases}\right}$$</p>
+<p>我们知道，满足<span class=math>\(p^T∇f(x^⋆)>0\)</span>的方向<span class=math>\(p\)</span>可以使函数值增大，满足<span class=math>\(p^T∇f(x^⋆)&lt;0\)</span>的方向<span class=math>\(p\)</span>可以使函数值减小，但对于<span class=math>\(p^T∇f(x^⋆)=0\)</span>的方向<span class=math>\(p\)</span>，我们不知道它到底使函数值增大还是减小。如下图所示，<span class=math>\(p^T∇f(x^⋆)=0\)</span>可以使函数值增大、减小或不变。</p>
+<div class=figure>
+<img src=../../images/IXMRBAL.png alt=IXMRBAL.png><p class=caption>IXMRBAL.png</p>
+</div>
+<p>将这些模棱两可的方向的集合称为“关键锥”（critical cone） <span class=math>\[\mathcal{C}(x^{\star},\gamma)=\{w\in\mathcal{F}(x)|\nabla d_j(x^{\star})^Tw=0,\forall j\in\mathcal{A}(x^{\star})\text{ with }\lambda_j>0\}\]</span> 其中 <span class=math>\[\mathcal{F}(x)=\left\{p|p \text{ 满足 }\begin{cases}\nabla c_i(x)^Tp=0\quad \forall i \\ \nabla d_j(x)^Tp\ge 0 \quad\forall d_j\in\mathcal{A}(x)\end{cases}\right\}\]</span></p>
 <h4 id=二阶必要条件>二阶必要条件</h4>
 <ul>
 <li>D1. 满足KKT条件</li>
-<li>D2. $p^T\nabla^2\mathcal{L}(x^{\star},\gamma)p\ge 0 \quad \forall p\in\mathcal{C}(x^{\star},\gamma)$</li>
+<li>D2. <span class=math>\(p^T\nabla^2\mathcal{L}(x^{\star},\gamma)p\ge 0 \quad \forall p\in\mathcal{C}(x^{\star},\gamma)\)</span></li>
 </ul>
 <h4 id=二阶充分条件>二阶充分条件</h4>
 <ul>
 <li>E1. 满足KKT条件</li>
-<li>E2. $p^T\nabla^2\mathcal{L}(x^{\star},\gamma)p\gt 0 \quad \forall p\in\mathcal{C}(x^{\star},\gamma)$</li>
+<li>E2. <span class=math>\(p^T\nabla^2\mathcal{L}(x^{\star},\gamma)p\gt 0 \quad \forall p\in\mathcal{C}(x^{\star},\gamma)\)</span></li>
 </ul>
 <p>类似于无约束的二阶条件，只不过约束问题的二阶条件是“有选择地”正定（或半正定）即可。</p>
-<p><img src=../../images/%E6%9C%80%E4%BC%98%E5%8C%96%E4%BA%8C%E9%98%B6%E6%9D%A1%E4%BB%B6.png alt=最优化二阶条件></p>
+<div class=figure>
+<img src=../../images/最优化二阶条件.png alt=最优化二阶条件><p class=caption>最优化二阶条件</p>
+</div>
 <ul>
-<li>在Case I中，$f(x)$的斜率变化快于$d_1(x)$，所以拉格朗日函数的二次型严格大于零</li>
-<li>在Case II中，$f(x)$的斜率变化等于$d_1(x)$，所以拉格朗日函数的二次型等于零</li>
-<li>在Case III中，$f(x)$的斜率变化慢于$d_1(x)$，所以拉格朗日函数的二次型严格小于零</li>
+<li>在Case I中，<span class=math>\(f(x)\)</span>的斜率变化快于<span class=math>\(d_1(x)\)</span>，所以拉格朗日函数的二次型严格大于零</li>
+<li>在Case II中，<span class=math>\(f(x)\)</span>的斜率变化等于<span class=math>\(d_1(x)\)</span>，所以拉格朗日函数的二次型等于零</li>
+<li>在Case III中，<span class=math>\(f(x)\)</span>的斜率变化慢于<span class=math>\(d_1(x)\)</span>，所以拉格朗日函数的二次型严格小于零</li>
 </ul>
 </article>
 <aside class=sidebar>

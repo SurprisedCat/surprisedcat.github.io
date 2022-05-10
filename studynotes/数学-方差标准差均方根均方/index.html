@@ -88,123 +88,123 @@ May 23, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=统计估计概念方差标准差均方误差均方根误差平均绝对误差协方差等等---omit-in-toc--->统计/估计概念（方差、标准差、均方误差、均方根误差、平均绝对误差、协方差等等）</h2>
+<h2 id=统计估计概念方差标准差均方误差均方根误差平均绝对误差协方差等等>统计/估计概念（方差、标准差、均方误差、均方根误差、平均绝对误差、协方差等等）</h2>
 <p>说明：</p>
 <ul>
-<li>均值$\mu = E(X)$</li>
-<li>样本均值$\bar{\mu} = \frac{1}{N}\sum^N_{n=1}{x_n}(N个样本的均值)$</li>
+<li>均值<span class=math>\(\mu = E(X)\)</span></li>
+<li>样本均值<span class=math>\(\bar{\mu} = \frac{1}{N}\sum^N_{n=1}{x_n}(N个样本的均值)\)</span></li>
 <li>有偏估计：由样本值求得的估计值与待估参数的真值之间有系统误差，其期望值不是待估参数的真值。</li>
 <li>无偏估计：估计量的数学期望等于被估计参数的真实值。</li>
 <li>补充：范数是一种定义在向量或矩阵上的“距离”，表格中所列的是向量范式定义。</li>
 </ul>
 <table>
 <thead>
-<tr>
-<th style=text-align:center>名称</th>
-<th style=text-align:center>英文名</th>
-<th style=text-align:center>公式</th>
-<th style=text-align:center>意义</th>
-<th style=text-align:center>注释</th>
+<tr class=header>
+<th align=center>名称</th>
+<th align=center>英文名</th>
+<th align=center>公式</th>
+<th align=center>意义</th>
+<th align=center>注释</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style=text-align:center>方差</td>
-<td style=text-align:center>VAR</td>
-<td style=text-align:center>$D(x)=E{\sum[X-E(X)]^2}$</td>
-<td style=text-align:center>随机变量或统计数据与均值的偏离程度</td>
-<td style=text-align:center>描述数据集本身性质</td>
+<tr class=odd>
+<td align=center>方差</td>
+<td align=center>VAR</td>
+<td align=center><span class=math>\(D(x)=E\{\sum[X-E(X)]^2\}\)</span></td>
+<td align=center>随机变量或统计数据与均值的偏离程度</td>
+<td align=center>描述数据集本身性质</td>
 </tr>
-<tr>
-<td style=text-align:center>样本方差</td>
-<td style=text-align:center>Sample VAR</td>
-<td style=text-align:center>$s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{x})^2}$，其中$\bar{x}$为样本均值</td>
-<td style=text-align:center>依据所给样本对随机变量的方差做出的一个估计</td>
-<td style=text-align:center>底数$N-1$，无偏估计，统计性质，大于总体方差</td>
+<tr class=even>
+<td align=center>样本方差</td>
+<td align=center>Sample VAR</td>
+<td align=center><span class=math>\(s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{x})^2}\)</span>，其中<span class=math>\(\bar{x}\)</span>为样本均值</td>
+<td align=center>依据所给样本对随机变量的方差做出的一个估计</td>
+<td align=center>底数<span class=math>\(N-1\)</span>，无偏估计，统计性质，大于总体方差</td>
 </tr>
-<tr>
-<td style=text-align:center>总体方差</td>
-<td style=text-align:center>Population VAR</td>
-<td style=text-align:center>$s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}$，其中$\mu$为总体均值</td>
-<td style=text-align:center>依据所给样本对随机变量的方差做出的一个估计</td>
-<td style=text-align:center>底数$N$，<strong>有偏估计</strong>，统计性质，小于样本方差</td>
+<tr class=odd>
+<td align=center>总体方差</td>
+<td align=center>Population VAR</td>
+<td align=center><span class=math>\(s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)</span>，其中<span class=math>\(\mu\)</span>为总体均值</td>
+<td align=center>依据所给样本对随机变量的方差做出的一个估计</td>
+<td align=center>底数<span class=math>\(N\)</span>，<strong>有偏估计</strong>，统计性质，小于样本方差</td>
 </tr>
-<tr>
-<td style=text-align:center>标准差</td>
-<td style=text-align:center>SD</td>
-<td style=text-align:center>$\sigma=\sqrt{D(X)}$</td>
-<td style=text-align:center>反映组内个体间的离散程度,量纲与统计对象相同</td>
-<td style=text-align:center>数据集本身性质</td>
+<tr class=even>
+<td align=center>标准差</td>
+<td align=center>SD</td>
+<td align=center><span class=math>\(\sigma=\sqrt{D(X)}\)</span></td>
+<td align=center>反映组内个体间的离散程度,量纲与统计对象相同</td>
+<td align=center>数据集本身性质</td>
 </tr>
-<tr>
-<td style=text-align:center>均方差</td>
-<td style=text-align:center>SD</td>
-<td style=text-align:center>$\sigma=\sqrt{D(X)}$</td>
-<td style=text-align:center>反映组内个体间的离散程度,量纲与统计对象相同</td>
-<td style=text-align:center><strong>就是标准差</strong>，数据集本身性质</td>
+<tr class=odd>
+<td align=center>均方差</td>
+<td align=center>SD</td>
+<td align=center><span class=math>\(\sigma=\sqrt{D(X)}\)</span></td>
+<td align=center>反映组内个体间的离散程度,量纲与统计对象相同</td>
+<td align=center><strong>就是标准差</strong>，数据集本身性质</td>
 </tr>
-<tr>
-<td style=text-align:center>均方误差</td>
-<td style=text-align:center>MSE</td>
-<td style=text-align:center>$MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}$</td>
-<td style=text-align:center>它是“误差”的平方的期望值。误差就是估计值与被估计量的差。</td>
-<td style=text-align:center>估计（预测）的性质</td>
+<tr class=even>
+<td align=center>均方误差</td>
+<td align=center>MSE</td>
+<td align=center><span class=math>\(MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)</span></td>
+<td align=center>它是“误差”的平方的期望值。误差就是估计值与被估计量的差。</td>
+<td align=center>估计（预测）的性质</td>
 </tr>
-<tr>
-<td style=text-align:center>均方根误差</td>
-<td style=text-align:center>RMSE</td>
-<td style=text-align:center>$RMSE(\hat{x})=\sqrt{MSE(\hat{x}_n})$</td>
-<td style=text-align:center>代表预测的值和观察到的值之差的样本标准差</td>
-<td style=text-align:center>估计（预测）的性质</td>
+<tr class=odd>
+<td align=center>均方根误差</td>
+<td align=center>RMSE</td>
+<td align=center><span class=math>\(RMSE(\hat{x})=\sqrt{MSE(\hat{x}_n})\)</span></td>
+<td align=center>代表预测的值和观察到的值之差的样本标准差</td>
+<td align=center>估计（预测）的性质</td>
 </tr>
-<tr>
-<td style=text-align:center>均方根值</td>
-<td style=text-align:center>RMS</td>
-<td style=text-align:center>$RMS=\sqrt{\frac{\sum^N_{n=1}x^2_n}{N}}$</td>
-<td style=text-align:center>在数据统计分析中，将所有值平方求和，求其均值，再开平方</td>
-<td style=text-align:center>又称有效值，防止正负数平均后减小，例如计算交流电功率，统计性质</td>
+<tr class=even>
+<td align=center>均方根值</td>
+<td align=center>RMS</td>
+<td align=center><span class=math>\(RMS=\sqrt{\frac{\sum^N_{n=1}x^2_n}{N}}\)</span></td>
+<td align=center>在数据统计分析中，将所有值平方求和，求其均值，再开平方</td>
+<td align=center>又称有效值，防止正负数平均后减小，例如计算交流电功率，统计性质</td>
 </tr>
-<tr>
-<td style=text-align:center>平均绝对误差</td>
-<td style=text-align:center>MAE</td>
-<td style=text-align:center>$MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\mu \vert}$</td>
-<td style=text-align:center>所有单个观测值与算术平均值的偏差的绝对值的平均</td>
-<td style=text-align:center>防止正负值抵消，估计(预测)性质</td>
+<tr class=odd>
+<td align=center>平均绝对误差</td>
+<td align=center>MAE</td>
+<td align=center><span class=math>\(MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\mu \vert}\)</span></td>
+<td align=center>所有单个观测值与算术平均值的偏差的绝对值的平均</td>
+<td align=center>防止正负值抵消，估计(预测)性质</td>
 </tr>
-<tr>
-<td style=text-align:center>平均绝对百分比误差</td>
-<td style=text-align:center>MAPE</td>
-<td style=text-align:center>$MAPE(\hat{x})=\frac{100%}{N}\sum^N_{n=1}{\vert \frac{x_n-\mu}{x_n}\vert}$</td>
-<td style=text-align:center>MAE指标的百分比化。MAPE为0%表示完美模型，MAPE大于100 %则表示劣质模型。当真实值有数据等于0时，存在分母0除问题，该公式不可用！</td>
-<td style=text-align:center>平均绝对值误差的相对化，剔除数值范围影响，估计(预测)性质</td>
+<tr class=even>
+<td align=center>平均绝对百分比误差</td>
+<td align=center>MAPE</td>
+<td align=center><span class=math>\(MAPE(\hat{x})=\frac{100\%}{N}\sum^N_{n=1}{\vert \frac{x_n-\mu}{x_n}\vert}\)</span></td>
+<td align=center>MAE指标的百分比化。MAPE为0%表示完美模型，MAPE大于100 %则表示劣质模型。当真实值有数据等于0时，存在分母0除问题，该公式不可用！</td>
+<td align=center>平均绝对值误差的相对化，剔除数值范围影响，估计(预测)性质</td>
 </tr>
-<tr>
-<td style=text-align:center>协方差</td>
-<td style=text-align:center>Covariance</td>
-<td style=text-align:center>$cov(X,Y)=E{{[X-E(X)][Y-E(Y)]}}$</td>
-<td style=text-align:center>协方差表示的是两个变量的总体的误差。如果两个变量的变化趋势一致，也就是说如果其中一个大于自身的期望值，另外一个也大于自身的期望值，那么两个变量之间的协方差就是正值。 如果两个变量的变化趋势相反，即其中一个大于自身的期望值，另外一个却小于自身的期望值，那么两个变量之间的协方差就是负值。如果X 与Y 是统计独立的，那么二者之间的协方差就是0（反之不成立）</td>
-<td style=text-align:center>衡量两个变量之间的<strong>线性关系</strong>，同增同减正相关，一增一减负相关，0是不相关</td>
+<tr class=odd>
+<td align=center>协方差</td>
+<td align=center>Covariance</td>
+<td align=center><span class=math>\(cov(X,Y)=E\{{[X-E(X)][Y-E(Y)]\}}\)</span></td>
+<td align=center>协方差表示的是两个变量的总体的误差。如果两个变量的变化趋势一致，也就是说如果其中一个大于自身的期望值，另外一个也大于自身的期望值，那么两个变量之间的协方差就是正值。 如果两个变量的变化趋势相反，即其中一个大于自身的期望值，另外一个却小于自身的期望值，那么两个变量之间的协方差就是负值。如果X 与Y 是统计独立的，那么二者之间的协方差就是0（反之不成立）</td>
+<td align=center>衡量两个变量之间的<strong>线性关系</strong>，同增同减正相关，一增一减负相关，0是不相关</td>
 </tr>
-<tr>
-<td style=text-align:center>$L1$范数</td>
-<td style=text-align:center>L1 Norm</td>
-<td style=text-align:center>$|x|<em>1=\sum^N</em>{n=1}\vert x_n \vert$</td>
-<td style=text-align:center>向量或矩阵元素的绝对值之和</td>
-<td style=text-align:center>用于向量或矩阵，曼哈顿距离、最小绝对误差等，属于L-P范数</td>
+<tr class=even>
+<td align=center><span class=math>\(L1\)</span>范数</td>
+<td align=center>L1 Norm</td>
+<td align=center><span class=math>\(\|x\|_1=\sum^N_{n=1}\vert x_n \vert\)</span></td>
+<td align=center>向量或矩阵元素的绝对值之和</td>
+<td align=center>用于向量或矩阵，曼哈顿距离、最小绝对误差等，属于L-P范数</td>
 </tr>
-<tr>
-<td style=text-align:center>$L2$范数</td>
-<td style=text-align:center>L2 Norm</td>
-<td style=text-align:center>$|x|<em>2=\sqrt{\sum^N</em>{n=1}x^2_n}$</td>
-<td style=text-align:center>向量或矩阵元素的平方和再开平方</td>
-<td style=text-align:center>用于向量或矩阵，欧氏距离，属于L-P范数</td>
+<tr class=odd>
+<td align=center><span class=math>\(L2\)</span>范数</td>
+<td align=center>L2 Norm</td>
+<td align=center><span class=math>\(\|x\|_2=\sqrt{\sum^N_{n=1}x^2_n}\)</span></td>
+<td align=center>向量或矩阵元素的平方和再开平方</td>
+<td align=center>用于向量或矩阵，欧氏距离，属于L-P范数</td>
 </tr>
-<tr>
-<td style=text-align:center>$L\infty$范数</td>
-<td style=text-align:center>$L\infty$ Norm</td>
-<td style=text-align:center>$|x|<em>\infty=\sqrt[\infty]{\sum^N</em>{n=1}x^\infty_n}=max(X)$</td>
-<td style=text-align:center>主要被用来度量所有元素的最大值</td>
-<td style=text-align:center>用于向量或矩阵，属于L-P范数</td>
+<tr class=even>
+<td align=center><span class=math>\(L\infty\)</span>范数</td>
+<td align=center><span class=math>\(L\infty\)</span> Norm</td>
+<td align=center><span class=math>\(\|x\|_\infty=\sqrt[\infty]{\sum^N_{n=1}x^\infty_n}=max(X)\)</span></td>
+<td align=center>主要被用来度量所有元素的最大值</td>
+<td align=center>用于向量或矩阵，属于L-P范数</td>
 </tr>
 </tbody>
 </table>

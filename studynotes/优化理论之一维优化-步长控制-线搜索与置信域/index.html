@@ -88,43 +88,41 @@ Oct 23, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=步长控制-线搜索与置信域---omit-in-toc--->步长控制-线搜索与置信域</h2>
+<h2 id=步长控制-线搜索与置信域>步长控制-线搜索与置信域</h2>
 <p>注1：本文讨论需要优化的函数都是单峰函数（或单谷函数）。</p>
 <p>在最优化(optimization)问题中，线搜索(line search)和置信域(trust region)方法是寻找局部最小值(local minimum)基本迭代方法(iterative approach)。</p>
 <ul>
-<li><a href=#%E7%BA%BF%E6%90%9C%E7%B4%A2line-search>线搜索(Line search)</a>
-<ul>
-<li><a href=#%E7%B2%BE%E7%A1%AE%E7%BA%BF%E6%90%9C%E7%B4%A2%E6%AD%A5%E9%95%BF>精确线搜索步长</a></li>
-<li><a href=#%E9%9D%9E%E7%B2%BE%E7%A1%AE%E7%BA%BF%E6%90%9C%E7%B4%A2%E6%AD%A5%E9%95%BF>非精确线搜索步长</a>
+<li><a href=#线搜索line-search>线搜索(Line search)</a></li>
+<li><a href=#精确线搜索步长>精确线搜索步长</a></li>
+<li><a href=#非精确线搜索步长>非精确线搜索步长</a>
 <ul>
 <li><a href=#wolfe-conditions>Wolfe conditions</a></li>
 <li><a href=#armijo-conditions>Armijo conditions</a></li>
-</ul>
-</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h3 id=线搜索line-search>线搜索(Line search)</h3>
 <p>以f(x)为例，线搜索会先找一个使f(x)下降的方向，接着计算一个步长，步长决定了x改变的大小。</p>
 <p>下降方向:可以通过梯度下降，牛顿法，拟牛顿法等计算。</p>
 <p>步长:有精确(exact)和非精确(inexact)两种，精确方法就是找出导数为零的极值点，例如共轭梯度法conjugate gradient method;非精确方法没有找出导数为零的点，而是使f(x)有一个充分的下降(sufficient descent)，例如backtracking，wolfe conditions，goldstein conditions</p>
 <p>线搜索流程:</p>
-<ol>
-<li>计算线搜索方向$\vec{p}_k$，使得该方向满足$\nabla f^T_k\vec{p}_k&lt;0，\nabla f_k\ne\vec{0}$。（满足上述不等式则该方向为下降法向，因为$\nabla f_k$是方向上升方向，其夹角只有大于180度才会为负）</li>
-<li>计算步长$\alpha_k>0$，使得$f(x_k+\alpha_k*p_k)&lt;f(x_k)$</li>
-<li>更新$x:x_{k+1}=x_k+\alpha_k*p_k$</li>
+<ol style=list-style-type:decimal>
+<li>计算线搜索方向<span class=math>\(\vec{p}_k\)</span>，使得该方向满足<span class=math>\(\nabla f^T_k\vec{p}_k&lt;0，\nabla f_k\ne\vec{0}\)</span>。（满足上述不等式则该方向为下降法向，因为<span class=math>\(\nabla f_k\)</span>是方向上升方向，其夹角只有大于180度才会为负）</li>
+<li>计算步长<span class=math>\(\alpha_k>0\)</span>，使得<span class=math>\(f(x_k+\alpha_k*p_k)&lt;f(x_k)\)</span></li>
+<li>更新<span class=math>\(x:x_{k+1}=x_k+\alpha_k*p_k\)</span></li>
 </ol>
 <p>(完全囊括了梯度算法和牛顿类算法的框架，如图1所示。)</p>
-<p><img src=../../images/Line_search_alogorithm_chart.png alt=Line_search_alogorithm_chart.png></p>
-<center>图1 线搜索算法流程图</center>
+<img src=../../images/Line_search_alogorithm_chart.png alt=Line_search_alogorithm_chart.png>
+<center>
+图1 线搜索算法流程图
+</center>
 <h4 id=精确线搜索步长>精确线搜索步长</h4>
-<p>如何确定合适的步长呢？如果我们从表达式上来看，令步长$\alpha$为自变量：
-$$\phi(\alpha)=f(x_k+\alpha*p_k),\alpha>0$$
-在方向$\vec{p}_k$已经确定的情况下，$\alpha$的最佳选择无疑是使$\phi(\alpha)$的值最小，即使得在给定方向上下降最大的距离。但是，这计算起来有些不切实际，因为计算$\phi$函数的最小值增加了大量计算量，尤其是$\phi$函数有不少局部最小值和稳定点的时候，如图2所示：</p>
-<p><img src=../../images/Step_length_image.png alt=发现理想步长的复杂度></p>
-<center>图2 发现理想步长的复杂度 (Nocedal & Wright)</center>
+<p>如何确定合适的步长呢？如果我们从表达式上来看，令步长<span class=math>\(\alpha\)</span>为自变量： <span class=math>\[\phi(\alpha)=f(x_k+\alpha*p_k),\alpha>0\]</span> 在方向<span class=math>\(\vec{p}_k\)</span>已经确定的情况下，<span class=math>\(\alpha\)</span>的最佳选择无疑是使<span class=math>\(\phi(\alpha)\)</span>的值最小，即使得在给定方向上下降最大的距离。但是，这计算起来有些不切实际，因为计算<span class=math>\(\phi\)</span>函数的最小值增加了大量计算量，尤其是<span class=math>\(\phi\)</span>函数有不少局部最小值和稳定点的时候，如图2所示：</p>
+<img src=../../images/Step_length_image.png alt=发现理想步长的复杂度>
+<center>
+图2 发现理想步长的复杂度 (Nocedal & Wright)
+</center>
 <p>常见精确搜索方法（在导数不可求得情况下用的）：</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>二分搜索</li>
 <li>斐波那契搜索</li>
 <li>黄金分割搜索</li>
@@ -132,9 +130,7 @@ $$\phi(\alpha)=f(x_k+\alpha*p_k),\alpha>0$$
 <li>三次插值法</li>
 <li>D.S.C.法</li>
 </ol>
-<p>精确搜索法的核心是<strong>找到到达函数最小值的步长</strong>。但是一个实用的正常寻找合适步长的法子比找到$\phi$函数最小值要容易的多，只要使目标函数的值下降即可（不会震荡到函数值更高的点），用表达式来说就是：
-$$f(x_k+\alpha*p_k)&lt;f(x_k)$$
-该方法不能保证收敛到函数的最小值，因此我们可以添加两个<strong>条件</strong>，来要求在每次迭代过程中都要显著地减小目标函数。</p>
+<p>精确搜索法的核心是<strong>找到到达函数最小值的步长</strong>。但是一个实用的正常寻找合适步长的法子比找到<span class=math>\(\phi\)</span>函数最小值要容易的多，只要使目标函数的值下降即可（不会震荡到函数值更高的点），用表达式来说就是： <span class=math>\[f(x_k+\alpha*p_k)&lt;f(x_k)\]</span> 该方法不能保证收敛到函数的最小值，因此我们可以添加两个<strong>条件</strong>，来要求在每次迭代过程中都要显著地减小目标函数。</p>
 <h4 id=非精确线搜索步长>非精确线搜索步长</h4>
 <h5 id=wolfe-conditions>Wolfe conditions</h5>
 <p>Wolfe conditions 由 Armijo conditions和Curvature conditions构成,先分别介绍Armijo conditions和Curvature conditions</p>

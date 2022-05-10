@@ -88,36 +88,33 @@ Nov 3, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=对偶单纯行法---omit-in-toc--->对偶单纯行法</h2>
+<h2 id=对偶单纯行法>对偶单纯行法</h2>
 <ul>
-<li><a href=#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87>前期准备</a></li>
-<li><a href=#%E5%AF%B9%E5%81%B6%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3>对偶单纯形法的基本思想</a></li>
+<li><a href=#前期准备>前期准备</a></li>
+<li><a href=#对偶单纯形法的基本思想>对偶单纯形法的基本思想</a></li>
 </ul>
 <h2 id=前期准备>前期准备</h2>
-<p>线性规划标准形式
-$$
+<p>线性规划标准形式 <span class=math>\[
 \begin{aligned}
-\min ; &\sum_{j=1}^n c_jx_j\
-\mathop{s.t.}; &\sum_{j=1}^n \alpha_{ij}x_j=b_i,\ &i=1,\dotsb,m\
-&x_j\geq 0,\ &j=1,\dotsb,n\
+\min \; &\sum_{j=1}^n c_jx_j\\
+\mathop{s.t.}\; &\sum_{j=1}^n \alpha_{ij}x_j=b_i,\ &i=1,\dotsb,m\\
+&x_j\geq 0,\ &j=1,\dotsb,n\\
 \end{aligned}
-$$
-用矩阵表示为：
-$$
+\]</span> 用矩阵表示为： <span class=math>\[
 \begin{aligned}
-\min ; &\boldsymbol c^T \boldsymbol x\
-\mathop{s.t.}; &\boldsymbol A \boldsymbol x = \boldsymbol b\
-&\boldsymbol x \geq \boldsymbol 0\
+\min \; &\boldsymbol c^T \boldsymbol x\\
+\mathop{s.t.}\; &\boldsymbol A \boldsymbol x = \boldsymbol b\\
+&\boldsymbol x \geq \boldsymbol 0\\
 \end{aligned}\tag{2.1}
-$$</p>
+\]</span></p>
 <h2 id=对偶单纯形法的基本思想>对偶单纯形法的基本思想</h2>
-<p>前面用单纯形法求解问题$(2.1)$时，往往需要引进人工变量，通过解一阶段问题求初始基本可行解。现在利用<strong>对偶性质</strong>给出一种<strong>不需引进人工变量</strong>的求解方法，这就是<strong>对偶单纯形法</strong>。为介绍这种方法的基本思想，先引入<strong>对偶可行的基本解</strong>的概念。</p>
+<p>前面用单纯形法求解问题<span class=math>\((2.1)\)</span>时，往往需要引进人工变量，通过解一阶段问题求初始基本可行解。现在利用<strong>对偶性质</strong>给出一种<strong>不需引进人工变量</strong>的求解方法，这就是<strong>对偶单纯形法</strong>。为介绍这种方法的基本思想，先引入<strong>对偶可行的基本解</strong>的概念。</p>
 <blockquote>
-<p><strong>对偶可行的基本解</strong>:设$\boldsymbol{x^{(0)}}$是$(2.1)$式的一个基本解（不一定是可行解），它对应的基矩阵为$\boldsymbol{B}$，若其对应的单纯性乘子$\boldsymbol{w^T=c^T_B B^{-1}}$是$(2.1)$式的对偶问题的<strong>可行解</strong>，即对所有$j$，$\boldsymbol{w^T p_j}-c_j\leq 0$成立，则称$\boldsymbol{x^{(0)}}$为<strong>原问题的‘对偶可行’的基本解</strong>。</p>
+<p><strong>对偶可行的基本解</strong>:设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>是<span class=math>\((2.1)\)</span>式的一个基本解（不一定是可行解），它对应的基矩阵为<span class=math>\(\boldsymbol{B}\)</span>，若其对应的单纯性乘子<span class=math>\(\boldsymbol{w^T=c^T_B B^{-1}}\)</span>是<span class=math>\((2.1)\)</span>式的对偶问题的<strong>可行解</strong>，即对所有<span class=math>\(j\)</span>，<span class=math>\(\boldsymbol{w^T p_j}-c_j\leq 0\)</span>成立，则称<span class=math>\(\boldsymbol{x^{(0)}}\)</span>为<strong>原问题的‘对偶可行’的基本解</strong>。</p>
 </blockquote>
 <p>显然，<strong>对偶可行的基本解不一定是原问题的可行解</strong>。当对偶可行的基本解<strong>是</strong>原问题的可行解时，由于<strong>判别数均小于或等于零</strong>，因此它就是原问题的<strong>最优解</strong>。即对偶可行的基本解如果是原问题的可行解，那么它是最优解。</p>
 <p>对偶单纯形法的基本思想是，<strong>从原问题的一个对偶可行的基本解出发</strong>，求改进的对偶可行的基本解，当得到的对偶可行的基本解是原问题的可行解时，就达到最优解。那么现在有两个问题</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>如何先找到一个对偶可行的基本解（<strong>解扩充问题</strong>）</li>
 <li>如何改进这个对偶可行的基本解使得其在原问题可行（<strong>改进对偶问题</strong>）</li>
 </ol>

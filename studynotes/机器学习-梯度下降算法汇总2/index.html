@@ -88,119 +88,63 @@ Oct 12, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=梯度下降算法2---omit-in-toc--->梯度下降算法（2）</h2>
+<h2 id=梯度下降算法2>梯度下降算法（2）</h2>
 <ul>
-<li><a href=#%E6%A2%AF%E5%BA%A6%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95>梯度优化算法</a>
-<ul>
+<li><a href=#梯度优化算法>梯度优化算法</a></li>
 <li><a href=#adagrad>Adagrad</a></li>
-<li><a href=#rmsprop%E5%9D%87%E6%96%B9%E6%A0%B9%E4%BC%A0%E6%92%AD>RMSprop(均方根传播)</a></li>
+<li><a href=#rmsprop均方根传播>RMSprop(均方根传播)</a></li>
 <li><a href=#adadelta>Adadelta</a></li>
 <li><a href=#adam>Adam</a>
 <ul>
-<li><a href=#%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AE%9E%E9%AA%8C%E5%88%B0%E8%BF%99%E9%87%8C%E9%80%9F%E5%BA%A6%E5%BE%88%E6%85%A2%E4%BA%86%E6%A0%B9%E6%9C%AC%E5%88%B0%E4%B8%8D%E4%BA%86%E4%B8%80%E4%B8%AA%E7%90%86%E6%83%B3%E5%80%BC>我自己的实验到这里速度很慢了，根本到不了一个理想值</a></li>
-</ul>
-</li>
+<li><a href=#我自己的实验到这里速度很慢了根本到不了一个理想值>我自己的实验到这里速度很慢了，根本到不了一个理想值</a></li>
+</ul></li>
 <li><a href=#adamax>AdaMax</a></li>
 <li><a href=#nadam>Nadam</a></li>
 <li><a href=#amsgrad>AMSGrad</a></li>
-<li><a href=#lookahead%E6%96%B0%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95>Lookahead(新优化算法)</a></li>
-<li><a href=#%E7%AE%97%E6%B3%95%E5%8F%AF%E8%A7%86%E5%8C%96%E5%9B%BE>算法可视化图</a></li>
-<li><a href=#%E4%BC%98%E5%8C%96%E5%99%A8%E9%80%89%E6%8B%A9>优化器选择</a></li>
-</ul>
-</li>
-<li><a href=#%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8Fsgd>并行与分布式SGD</a>
-<ul>
+<li><a href=#lookahead新优化算法>Lookahead(新优化算法)</a></li>
+<li><a href=#算法可视化图>算法可视化图</a></li>
+<li><a href=#优化器选择>优化器选择</a></li>
+<li><a href=#并行与分布式sgd>并行与分布式SGD</a></li>
 <li><a href=#hogwild>Hogwild</a></li>
 <li><a href=#downpour_sgd>Downpour_SGD</a></li>
 <li><a href=#delay-tolerant_algorithms_for_sgd>Delay-tolerant_Algorithms_for_SGD</a></li>
 <li><a href=#tensorflow>TensorFlow</a></li>
 <li><a href=#elastic_averaging_sgd>Elastic_Averaging_SGD</a></li>
-</ul>
-</li>
-<li><a href=#%E4%BC%98%E5%8C%96sgd%E7%9A%84%E5%85%B6%E4%BB%96%E7%AD%96%E7%95%A5>优化SGD的其他策略</a>
-<ul>
-<li><a href=#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%B4%97%E7%89%8C%E5%92%8C%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0>数据集的洗牌和课程学习</a></li>
-<li><a href=#%E6%89%B9%E9%87%8F%E5%BD%92%E4%B8%80%E5%8C%96>批量归一化</a></li>
+<li><a href=#优化sgd的其他策略>优化SGD的其他策略</a></li>
+<li><a href=#数据集的洗牌和课程学习>数据集的洗牌和课程学习</a></li>
+<li><a href=#批量归一化>批量归一化</a></li>
 <li><a href=#early_stopping>Early_stopping</a></li>
-<li><a href=#%E6%A2%AF%E5%BA%A6%E5%99%AA%E9%9F%B3>梯度噪音</a></li>
-</ul>
-</li>
-<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
+<li><a href=#梯度噪音>梯度噪音</a></li>
+<li><a href=#总结>总结</a></li>
 </ul>
 <p>上一篇文章我们理解到了Adagrad算法，即一个逐渐降低学习率的算法。它带来一个弊端，学习率可能过早的太小，以致于离最优点还很远就收敛了。因此有人提出了RMSprop算法来缓解这个问题，我们这篇文章从这里开始讲起。原文中先将Adadelta，但是我觉得原文这里有些难以理解，所以先从RMSprop说起。</p>
 <h3 id=梯度优化算法>梯度优化算法</h3>
 <h4 id=adagrad>Adagrad</h4>
 <p>Adagrad在原来基础上，做了这样一个优化：让学习率适应参数，对于出现次数较少的特征，我们对其采用更大的学习率，对于出现次数较多的特征，我们对其采用较小的学习率。因此，Adagrad非常适合处理稀疏数据。</p>
-<p>之前的方法中，我们对于所有的参数$\boldsymbol{\theta}$，都是用相同的学习速率η。而在Adagrade算法中，对于每一个维度的参数${\theta}<em>i$，采用不同的学习速率。我们先看看${\theta}<em>i$每一个维度的更新过程，然后再把它向量化。简单来看，我们使用$\boldsymbol{g_t}$来表示t时刻的梯度向量，$g</em>{t,i}$表示某一维度参数${\theta}<em>i$在t时刻的<strong>偏导数</strong>。
-$$g</em>{t,i}=\frac{{\partial}J(\boldsymbol{\theta_t)}}{d\theta</em>{t,i}}$$
-对于一般SGD算法，每一个周期t内，$\theta_{i}$在更新是采用相同的学习率：$\theta_{t+1,i}=\theta_{t,i}-\eta\cdot{g_{t,i}}$.
-但是对于Adagrad算法，学习率的更新的规则如下所示：
-$$\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}}+\epsilon}\cdot g_{t,i}$$
-其中，$\boldsymbol{G_t}$是d*d的对角矩阵，其中元素$G_{t,ii}$表示表示之前此维度偏导数的平方和。而$\epsilon$的存在是为了防止分母为0，一般取值为1e-8.有意思的是，如果没有平方根这个算法的效果会很差。
-由于参数$G_t$包含过去梯度的平方和，我们可以向量化这个表达式：
-$$\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}$$
-其中，$\odot$表示矩阵和向量的积。这样随着矩阵$\boldsymbol{G_t}$元素逐渐变大，学习率η会逐渐减少。Adagrad算法最大的问题在于：由于每增加一个正项，在整个训练过程中，累加的和会持续增长。这会导致学习率变小以至于最终变得无限小，在学习率无限小时，Adagrad算法将无法取得额外的信息，导致算法停止。尤其是初始值的梯度很大，导致算法提前收敛。接下来的算法旨在解决这个不足。</p>
-<p><img src=../../images/adagrad.png alt="Adagrad based MBGD"></p>
-<center>图1 Adagrad效果(batch=5)Adagrad算法提前停止</center>
+<p>之前的方法中，我们对于所有的参数<span class=math>\(\boldsymbol{\theta}\)</span>，都是用相同的学习速率η。而在Adagrade算法中，对于每一个维度的参数<span class=math>\({\theta}_i\)</span>，采用不同的学习速率。我们先看看<span class=math>\({\theta}_i\)</span>每一个维度的更新过程，然后再把它向量化。简单来看，我们使用<span class=math>\(\boldsymbol{g_t}\)</span>来表示t时刻的梯度向量，<span class=math>\(g_{t,i}\)</span>表示某一维度参数<span class=math>\({\theta}_i\)</span>在t时刻的<strong>偏导数</strong>。 <span class=math>\[g_{t,i}=\frac{{\partial}J(\boldsymbol{\theta_t)}}{d\theta_{t,i}}\]</span> 对于一般SGD算法，每一个周期t内，<span class=math>\(\theta_{i}\)</span>在更新是采用相同的学习率：<span class=math>\(\theta_{t+1,i}=\theta_{t,i}-\eta\cdot{g_{t,i}}\)</span>. 但是对于Adagrad算法，学习率的更新的规则如下所示： <span class=math>\[\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}}+\epsilon}\cdot g_{t,i}\]</span> 其中，<span class=math>\(\boldsymbol{G_t}\)</span>是d*d的对角矩阵，其中元素<span class=math>\(G_{t,ii}\)</span>表示表示之前此维度偏导数的平方和。而<span class=math>\(\epsilon\)</span>的存在是为了防止分母为0，一般取值为1e-8.有意思的是，如果没有平方根这个算法的效果会很差。 由于参数<span class=math>\(G_t\)</span>包含过去梯度的平方和，我们可以向量化这个表达式： <span class=math>\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]</span> 其中，<span class=math>\(\odot\)</span>表示矩阵和向量的积。这样随着矩阵<span class=math>\(\boldsymbol{G_t}\)</span>元素逐渐变大，学习率η会逐渐减少。Adagrad算法最大的问题在于：由于每增加一个正项，在整个训练过程中，累加的和会持续增长。这会导致学习率变小以至于最终变得无限小，在学习率无限小时，Adagrad算法将无法取得额外的信息，导致算法停止。尤其是初始值的梯度很大，导致算法提前收敛。接下来的算法旨在解决这个不足。</p>
+<img src=../../images/adagrad.png alt="Adagrad based MBGD">
+<center>
+图1 Adagrad效果(batch=5)Adagrad算法提前停止
+</center>
 <h4 id=rmsprop均方根传播>RMSprop(均方根传播)</h4>
-<p>RMSprop算法对学习率的自适应做出了修改。之前Adagrad算法中，学习率是一只下降的，为了避免过早收敛，Geoff Hinton 提出了一种新的学习率自动更新方式，类似TCP协议中平滑计算RTT的方式：
-$$TCP的平均RTT : SRTT = \alpha \times SRTT + (1-\alpha)\times RTT$$
-$$RMSprop 学习率自适应参数: E[g^2]<em>t = \gamma E[g^2]</em>{t-1} + (1-\gamma)g^2_t$$
-通常，$\gamma$取0.9，基础学习率$\eta$取0.001。我在实际使用中发现用0.001收敛的速度很慢，可以尝试使用0.2。而且损失函数的曲线明显平滑了许多。$E[g^2]_{t}$是0->t时刻梯度的平滑值。综上所述，RMSprop的梯度更新算法为：
-$${\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t$$
-另一个重要的建议是<strong>mini-batch的值选区的大一些，否在防止震荡不收敛</strong>。</p>
-<p><img src=../../images/rmsprop.png alt="RMSprop based MBGD"></p>
-<center>图2 RMSprop效果(batch=5)</center>
+<p>RMSprop算法对学习率的自适应做出了修改。之前Adagrad算法中，学习率是一只下降的，为了避免过早收敛，Geoff Hinton 提出了一种新的学习率自动更新方式，类似TCP协议中平滑计算RTT的方式： <span class=math>\[TCP的平均RTT : SRTT = \alpha \times SRTT + (1-\alpha)\times RTT\]</span> <span class=math>\[RMSprop 学习率自适应参数: E[g^2]_t = \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t\]</span> 通常，<span class=math>\(\gamma\)</span>取0.9，基础学习率<span class=math>\(\eta\)</span>取0.001。我在实际使用中发现用0.001收敛的速度很慢，可以尝试使用0.2。而且损失函数的曲线明显平滑了许多。<span class=math>\(E[g^2]_{t}\)</span>是0->t时刻梯度的平滑值。综上所述，RMSprop的梯度更新算法为： <span class=math>\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]</span> 另一个重要的建议是<strong>mini-batch的值选区的大一些，否在防止震荡不收敛</strong>。</p>
+<img src=../../images/rmsprop.png alt="RMSprop based MBGD">
+<center>
+图2 RMSprop效果(batch=5)
+</center>
 <h4 id=adadelta>Adadelta</h4>
-<p>Adadelta算法是Adagrad算法的拓展,它能够降低Adagrad算法在学习率上单项的过度下降。相对于一直累加过去所有的梯度的平方，Adadelta算法管理了一个窗口,将过去梯度相加的个数固定为$\omega$。</p>
-<p>但是相较于低效率地存储前$\omega$个梯度的平方，“梯度的和”被递归定义为逐渐衰减的之前所有梯度平方的和。这个定义有点像TCP协议中计算RTT的方式：
-$$E[g^2]<em>t=\gamma E[g^2]</em>{t-1}+(1-\gamma)g^2_t$$
-在t时刻的实时平均$E[g^2]<em>{t}$只取决于之前的均值和当前的梯度。$\gamma$的作用和RMSprop中的类似，一般可以取0.9。为了清楚起见，我们重新写一般SGD算法的参数更新过程：
-$${\Delta}{\theta}<em>t = -{\eta}{\cdot}g</em>{t,i}$$
-$${\theta}</em>{t+1} = {\theta}<em>t + {\Delta}{\theta}<em>t$$
-然后，我们再重写下Adagrad更新参数向量的公式：
-$$\boldsymbol{\theta</em>{t+1}}=\boldsymbol{\theta</em>{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}$$
-现在，我们只要把对角矩阵$G_t$换成逐渐衰减的梯度平方的均值${E[g^2]_t}$:
-$${\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t$$
-如果我们认为${\sqrt{E[g^2]_t+{\epsilon}}}$近似等于均方根值RMS，也可以用下式表示：
-$$\Delta\theta_t=-\frac{\eta}{RMS[g]_t}g_t$$
-到这里读者一定会很奇怪，这不是RMSprop算法吗？到这里如果把$\gamma$设置为0.9，确实和RMSprop算法一样，所以下面才说的Adadelta的独创。</p>
-<p>我们看到目前的部分还存在两个明显问题，第一超参数学习率$\eta$还得手动设置；第二表达式的量纲不统一。我们假设$\theta$的单位是$x$。那么BGD、SGD、Momentum、NAG的量纲就是$1/x$。
-$$\Delta\theta单位\propto \boldsymbol{g}某一维度单位\propto\frac{\partial{f}}{\partial{\theta_i}}\propto\frac{1}{x}$$
-而Adagrad的$\Delta\theta$是无量纲数。如果我们想要获得匹配的量纲，必须使用二阶信息例如使用Hessian信息（或其他近似）的牛顿法：
-$$\Delta\theta单位\propto \frac{\boldsymbol{g}}{\boldsymbol{H}}\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\propto{x}$$
-我们知道二阶的牛顿是正确的（这点先不去证明，反正是对的），但是二阶信息的计算量大大增加了，所以我们考虑如下变化：
-$$\Delta\theta\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\Rightarrow\frac{\Delta\theta}{{\frac{\partial{f}}{\partial{\theta_i}}}}\propto\frac{1}{\frac{\partial^2f}{\partial{\theta^2}}}\propto\frac{1}{\boldsymbol{{H}}}\propto{x^2}$$
-再根据：
-$$\frac{1}{\boldsymbol{H}}\cdot\boldsymbol{g}\propto{x}$$
-$\boldsymbol{g}$即为当前梯度，分母中的$\frac{\partial{f}}{\partial{\theta_i}}$就是$RMS[g]<em>t$。关键分子还缺少一个$\Delta\theta$。Adadelta算法使用了平滑的均方根值$RMS[\Delta\theta]</em>{t-1}$来作为分子代替$\eta$，即：
-$$\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]<em>t}g_t$$
-$$其中：RMS[\Delta \theta]</em>{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}$$
-$$其中：E[\Delta \theta^2]<em>t = \gamma E[\Delta \theta^2]</em>{t-1} + (1 - \gamma) \Delta \theta^2_t$$
-这样，Adadelta算法不用再设置超参数学习率，量纲也得到了统一。
-<img src=../../images/Adadelta.png alt="Adadelta based MBGD"></p>
-<center>图3 RMSprop效果(batch=5)</center>
+<p>Adadelta算法是Adagrad算法的拓展,它能够降低Adagrad算法在学习率上单项的过度下降。相对于一直累加过去所有的梯度的平方，Adadelta算法管理了一个窗口,将过去梯度相加的个数固定为<span class=math>\(\omega\)</span>。</p>
+<p>但是相较于低效率地存储前<span class=math>\(\omega\)</span>个梯度的平方，“梯度的和”被递归定义为逐渐衰减的之前所有梯度平方的和。这个定义有点像TCP协议中计算RTT的方式： <span class=math>\[E[g^2]_t=\gamma E[g^2]_{t-1}+(1-\gamma)g^2_t\]</span> 在t时刻的实时平均<span class=math>\(E[g^2]_{t}\)</span>只取决于之前的均值和当前的梯度。<span class=math>\(\gamma\)</span>的作用和RMSprop中的类似，一般可以取0.9。为了清楚起见，我们重新写一般SGD算法的参数更新过程： <span class=math>\[{\Delta}{\theta}_t = -{\eta}{\cdot}g_{t,i}\]</span> <span class=math>\[{\theta}_{t+1} = {\theta}_t + {\Delta}{\theta}_t\]</span> 然后，我们再重写下Adagrad更新参数向量的公式： <span class=math>\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]</span> 现在，我们只要把对角矩阵<span class=math>\(G_t\)</span>换成逐渐衰减的梯度平方的均值<span class=math>\({E[g^2]_t}\)</span>: <span class=math>\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]</span> 如果我们认为<span class=math>\({\sqrt{E[g^2]_t+{\epsilon}}}\)</span>近似等于均方根值RMS，也可以用下式表示： <span class=math>\[\Delta\theta_t=-\frac{\eta}{RMS[g]_t}g_t\]</span> 到这里读者一定会很奇怪，这不是RMSprop算法吗？到这里如果把<span class=math>\(\gamma\)</span>设置为0.9，确实和RMSprop算法一样，所以下面才说的Adadelta的独创。</p>
+我们看到目前的部分还存在两个明显问题，第一超参数学习率<span class=math>\(\eta\)</span>还得手动设置；第二表达式的量纲不统一。我们假设<span class=math>\(\theta\)</span>的单位是<span class=math>\(x\)</span>。那么BGD、SGD、Momentum、NAG的量纲就是<span class=math>\(1/x\)</span>。 <span class=math>\[\Delta\theta单位\propto \boldsymbol{g}某一维度单位\propto\frac{\partial{f}}{\partial{\theta_i}}\propto\frac{1}{x}\]</span> 而Adagrad的<span class=math>\(\Delta\theta\)</span>是无量纲数。如果我们想要获得匹配的量纲，必须使用二阶信息例如使用Hessian信息（或其他近似）的牛顿法： <span class=math>\[\Delta\theta单位\propto \frac{\boldsymbol{g}}{\boldsymbol{H}}\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\propto{x}\]</span> 我们知道二阶的牛顿是正确的（这点先不去证明，反正是对的），但是二阶信息的计算量大大增加了，所以我们考虑如下变化： <span class=math>\[\Delta\theta\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\Rightarrow\frac{\Delta\theta}{{\frac{\partial{f}}{\partial{\theta_i}}}}\propto\frac{1}{\frac{\partial^2f}{\partial{\theta^2}}}\propto\frac{1}{\boldsymbol{{H}}}\propto{x^2}\]</span> 再根据： <span class=math>\[\frac{1}{\boldsymbol{H}}\cdot\boldsymbol{g}\propto{x}\]</span> <span class=math>\(\boldsymbol{g}\)</span>即为当前梯度，分母中的<span class=math>\(\frac{\partial{f}}{\partial{\theta_i}}\)</span>就是<span class=math>\(RMS[g]_t\)</span>。关键分子还缺少一个<span class=math>\(\Delta\theta\)</span>。Adadelta算法使用了平滑的均方根值<span class=math>\(RMS[\Delta\theta]_{t-1}\)</span>来作为分子代替<span class=math>\(\eta\)</span>，即： <span class=math>\[\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]_t}g_t\]</span> <span class=math>\[其中：RMS[\Delta \theta]_{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}\]</span> <span class=math>\[其中：E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^2_t\]</span> 这样，Adadelta算法不用再设置超参数学习率，量纲也得到了统一。 <img src=../../images/Adadelta.png alt="Adadelta based MBGD">
+<center>
+图3 RMSprop效果(batch=5)
+</center>
 <h4 id=adam>Adam</h4>
 <p>自适应矩算法（Adaptive monent），是一种对随机目标函数执行一阶梯度优化的算法。其主要利用了<strong>自适应性低阶矩估计</strong>。Adam 算法很容易实现，并且有很高的计算效率和较低的内存需求。Adam 算法梯度的对角缩放（diagonal rescaling）具有不变性，因此很适合求解带有大规模数据或参数的问题。该算法同样适用于解决大噪声和稀疏梯度的非稳态（non-stationary）问题。超参数可以很直观地解释，并只需要少量调整。</p>
-<p>Adam算法的核心更新规律是：
-$$\theta_{t+1} = \theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t$$
-和过去一样，$\eta$是学习率，$\hat m_t$是梯度的一阶矩，$\hat v_t$是梯度的二阶矩。我们用$g_t$表示t时刻的梯度。那么一阶矩$\hat m_t$和二阶矩$\hat v_t$分别可以指数移动平均表示：
-$$m_t \leftarrow \beta_1\cdot m_{t-1}+(1-\beta_1)\cdot g_t$$
-$$v_t \leftarrow \beta_2\cdot v_{t-1}+(1-\beta_2)\cdot g_t^2$$
-但是，再初始的时候，一阶矩$m_0$和$v_0$都是从0开始，因此矩估计会偏向0（因为$1-\beta$接近0，所以初始阶段矩大约都接近0），因此我们在初始阶段需要用它除以一个<strong>小数</strong>：
-$$\hat m_t = \frac{m_t}{1-\beta_1^t}$$
-$$\hat v_t = \frac{v_t}{1-\beta_2^t}$$
-t表示参数$\beta_1$、$\beta_2$的t次方，在编程中表示t次迭代，这样在最开始的时候$1-\beta$是一个小数，可以抵消最开始移动平均矩很小的缺点，随着迭代次数t增加，$1-\beta^t$逐渐趋近于1，实际的移动平均矩会逐渐占据更新过程的主导权。
-论文作者建议超参数取值：$\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}$。</p>
+<p>Adam算法的核心更新规律是： <span class=math>\[\theta_{t+1} = \theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t\]</span> 和过去一样，<span class=math>\(\eta\)</span>是学习率，<span class=math>\(\hat m_t\)</span>是梯度的一阶矩，<span class=math>\(\hat v_t\)</span>是梯度的二阶矩。我们用<span class=math>\(g_t\)</span>表示t时刻的梯度。那么一阶矩<span class=math>\(\hat m_t\)</span>和二阶矩<span class=math>\(\hat v_t\)</span>分别可以指数移动平均表示： <span class=math>\[m_t \leftarrow \beta_1\cdot m_{t-1}+(1-\beta_1)\cdot g_t\]</span> <span class=math>\[v_t \leftarrow \beta_2\cdot v_{t-1}+(1-\beta_2)\cdot g_t^2\]</span> 但是，再初始的时候，一阶矩<span class=math>\(m_0\)</span>和<span class=math>\(v_0\)</span>都是从0开始，因此矩估计会偏向0（因为<span class=math>\(1-\beta\)</span>接近0，所以初始阶段矩大约都接近0），因此我们在初始阶段需要用它除以一个<strong>小数</strong>： <span class=math>\[\hat m_t = \frac{m_t}{1-\beta_1^t}\]</span> <span class=math>\[\hat v_t = \frac{v_t}{1-\beta_2^t}\]</span> t表示参数<span class=math>\(\beta_1\)</span>、<span class=math>\(\beta_2\)</span>的t次方，在编程中表示t次迭代，这样在最开始的时候<span class=math>\(1-\beta\)</span>是一个小数，可以抵消最开始移动平均矩很小的缺点，随着迭代次数t增加，<span class=math>\(1-\beta^t\)</span>逐渐趋近于1，实际的移动平均矩会逐渐占据更新过程的主导权。 论文作者建议超参数取值：<span class=math>\(\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}\)</span>。</p>
 <h5 id=我自己的实验到这里速度很慢了根本到不了一个理想值>我自己的实验到这里速度很慢了，根本到不了一个理想值</h5>
 <h4 id=adamax>AdaMax</h4>
-<p>Adamax是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。从Adam算法可以算是二范数的比较，如果我们把二范数变成无穷范数，那么：
-$$v_t \leftarrow \beta_2^p\cdot v_{t-1}+(1-\beta_2^p)\cdot g_t^p \ where\quad p\rightarrow\infty$$
-为了防止混淆，我们用$u_t$代替$v_t$,通过无穷范数是最大值性质，我们可以推得：
-$$u_t = max(\beta_2\cdot u_{t-1},|g_t|)$$
-相应的，更新公式为：
-$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t$$
-其中，$\eta = 0.002,\beta_1=0.9,\beta_2=0.999$。</p>
+<p>Adamax是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。从Adam算法可以算是二范数的比较，如果我们把二范数变成无穷范数，那么： <span class=math>\[v_t \leftarrow \beta_2^p\cdot v_{t-1}+(1-\beta_2^p)\cdot g_t^p \\ where\quad p\rightarrow\infty\]</span> 为了防止混淆，我们用<span class=math>\(u_t\)</span>代替<span class=math>\(v_t\)</span>,通过无穷范数是最大值性质，我们可以推得： <span class=math>\[u_t = max(\beta_2\cdot u_{t-1},|g_t|)\]</span> 相应的，更新公式为： <span class=math>\[\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t\]</span> 其中，<span class=math>\(\eta = 0.002,\beta_1=0.9,\beta_2=0.999\)</span>。</p>
 <h4 id=nadam>Nadam</h4>
 <p>Nadam可以看作是Nesterov和Adam方法的结合。Nadam对学习率有了更强的约束，同时对梯度的更新也有更直接的影响。一般而言，在想使用带动量的RMSprop，或者Adam的地方，大多可以使用Nadam取得更好的效果。</p>
 <h4 id=amsgrad>AMSGrad</h4>
@@ -234,11 +178,7 @@ $$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t$$
 <h4 id=early_stopping>Early_stopping</h4>
 <p>如Geoff Hinton所说：“Early Stopping是美丽好免费午餐”（NIPS 2015 Tutorial slides）。你因此必须在训练的过程中时常在验证集上监测误差，在验证集上如果损失函数不再显著地降低，那么应该提前结束训练。</p>
 <h4 id=梯度噪音>梯度噪音</h4>
-<p>Neelakantan等人[12]在每个梯度更新中增加满足高斯分布$N(0,σ^2_t)$的噪音：
-$$g_{t,i}=g_{t,i}+N(0,σ_t^2)$$
-高斯分布的方差需要根据如下的策略退火：
-$$σ_t^2=\frac{η}{(1+t)^γ}$$
-他们指出增加了噪音，使得网络对不好的初始化更加鲁棒，同时对深层的和复杂的网络的训练特别有益。他们猜测增加的噪音使得模型更优机会逃离当前的局部最优点，以发现新的局部最优点，这在更深层的模型中更加常见。</p>
+<p>Neelakantan等人[12]在每个梯度更新中增加满足高斯分布<span class=math>\(N(0,σ^2_t)\)</span>的噪音： <span class=math>\[g_{t,i}=g_{t,i}+N(0,σ_t^2)\]</span> 高斯分布的方差需要根据如下的策略退火： <span class=math>\[σ_t^2=\frac{η}{(1+t)^γ}\]</span> 他们指出增加了噪音，使得网络对不好的初始化更加鲁棒，同时对深层的和复杂的网络的训练特别有益。他们猜测增加的噪音使得模型更优机会逃离当前的局部最优点，以发现新的局部最优点，这在更深层的模型中更加常见。</p>
 <h3 id=总结>总结</h3>
 <p>在这篇博客文章中，我们初步研究了梯度下降的三个变形形式，其中，小批量梯度下降是最受欢迎的。 然后我们研究了最常用于优化SGD的算法：动量法，Nesterov加速梯度，Adagrad，Adadelta，RMSprop，Adam以及不同的优化异步SGD的算法。 最后，我们已经考虑其他一些改善SGD的策略，如洗牌和课程学习，批量归一化和early stopping。</p>
 </article>

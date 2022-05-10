@@ -88,153 +88,103 @@ Nov 5, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=拉格朗日乘子法lagrange-multiplier-和kkt条件---omit-in-toc--->拉格朗日乘子法（Lagrange Multiplier) 和KKT条件</h2>
+<h2 id=拉格朗日乘子法lagrange-multiplier-和kkt条件>拉格朗日乘子法（Lagrange Multiplier) 和KKT条件</h2>
 <ul>
-<li><a href=#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%8F%8A%E4%BD%BF%E7%94%A8>应用场景及使用</a></li>
-<li><a href=#%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95%E4%B8%8E%E7%AD%89%E5%BC%8F%E6%9D%A1%E4%BB%B6>拉格朗日乘子法与等式条件</a></li>
-<li><a href=#kkt%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BC%BA%E5%AF%B9%E5%81%B6>KKT条件与强对偶</a>
-<ul>
-<li><a href=#%E5%8E%9F%E5%A7%8B%E9%97%AE%E9%A2%98>原始问题</a></li>
-<li><a href=#%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98>对偶问题</a></li>
-<li><a href=#%E5%8E%9F%E5%A7%8B%E9%97%AE%E9%A2%98%E4%B8%8E%E5%AF%B9%E5%81%B6%E9%97%AE%E9%A2%98%E7%9A%84%E5%85%B3%E7%B3%BB>原始问题与对偶问题的关系</a></li>
-<li><a href=#kkt%E6%9D%A1%E4%BB%B6>KKT条件</a></li>
-</ul>
-</li>
-<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
+<li><a href=#应用场景及使用>应用场景及使用</a></li>
+<li><a href=#拉格朗日乘子法与等式条件>拉格朗日乘子法与等式条件</a></li>
+<li><a href=#kkt条件与强对偶>KKT条件与强对偶</a></li>
+<li><a href=#原始问题>原始问题</a></li>
+<li><a href=#对偶问题>对偶问题</a></li>
+<li><a href=#原始问题与对偶问题的关系>原始问题与对偶问题的关系</a></li>
+<li><a href=#kkt条件>KKT条件</a></li>
+<li><a href=#总结>总结</a></li>
 </ul>
 <h2 id=应用场景及使用>应用场景及使用</h2>
 <p>拉格朗日乘子法（Lagrange Multiplier) 和KKT条件是求解有约束优化问题非常重要的两个求取方法。对于等式约束的优化问题，可以应用拉格朗日乘子法去求取最优值；如果含有不等式约束，可以应用KKT条件去求取。当然，这两个方法求出的点只满足必要条件（也就是常说的极值点不一定是最值点，但最值点一定是极值点），当目标函数是凸函数时可转化为充分必要条件。（凸函数对应min类优化问题）</p>
 <p>通常我们需要求解的最优化问题有如下几类：</p>
-<p>（1）无约束优化问题，形如
-$$\min f(x)$$
-（2）有等式约束的优化问题，形如
-$$\min f(x)\
-s.t.\quad h_i(x)=0;i=1,2,\dotsb$$
-（3）有不等式约束的优化问题，形如
-$$\min f(x)\
-s.t.\quad h_i(x)=0;i=1,2,\dotsb\
-\qquad g_j(x)\le 0;j=1,2,\dotsb\$$</p>
-<p>对于第(1)类的优化问题，常常使用的方法就是Fermat引理，即使用求取$f(x)$的导数，然后令其为零，可以求得候选最优值，再在这些候选值中验证；如果是凸函数，可以保证是最优解。</p>
-<p>对于第(2)类问题，利用拉格朗日系数将约束与目标函数按如下形式组合：
-$$L(a,x)=f(x)+\sum_{i=1}^n a_i h_i(x),其中x是向量$$
-然后求取最优值，
-$L(a,x)对x$求导取零，联立$h_i(x)=0(a_i≠0)$进行求取，这个在高等数学里面有讲，但是没有讲为什么这么做就可以，在后面，将简要介绍其思想。</p>
-<p>对于第(3)类问题，同样将所有条件和目标函数写成一个式子：
-$$L(a,b,x)=f(x)+\sum_{i=1}^m a_i g_i(x)+\sum_{j=1}^n b_j h_j(x)$$
-利用KKT条件求解最优值，</p>
-<ol>
-<li>$L(a,b,x)$对$x$求导为0</li>
-<li>$h_j(x)=0;j=1,2,\dotsb$</li>
-<li>$g_i(x)\le 0;i=1,2,\dotsb$</li>
-<li>$a_i \ge 0;b_j \neq 0$</li>
-<li>$a_i g_i(x)=0$(互补松弛)</li>
+<p>（1）无约束优化问题，形如 <span class=math>\[\min f(x)\]</span> （2）有等式约束的优化问题，形如 <span class=math>\[\min f(x)\\
+s.t.\quad h_i(x)=0;i=1,2,\dotsb\]</span> （3）有不等式约束的优化问题，形如 <span class=math>\[\min f(x)\\
+s.t.\quad h_i(x)=0;i=1,2,\dotsb\\
+\qquad g_j(x)\le 0;j=1,2,\dotsb\\\]</span></p>
+<p>对于第(1)类的优化问题，常常使用的方法就是Fermat引理，即使用求取<span class=math>\(f(x)\)</span>的导数，然后令其为零，可以求得候选最优值，再在这些候选值中验证；如果是凸函数，可以保证是最优解。</p>
+<p>对于第(2)类问题，利用拉格朗日系数将约束与目标函数按如下形式组合： <span class=math>\[L(a,x)=f(x)+\sum_{i=1}^n a_i h_i(x),其中x是向量\]</span> 然后求取最优值， <span class=math>\(L(a,x)对x\)</span>求导取零，联立<span class=math>\(h_i(x)=0(a_i≠0)\)</span>进行求取，这个在高等数学里面有讲，但是没有讲为什么这么做就可以，在后面，将简要介绍其思想。</p>
+<p>对于第(3)类问题，同样将所有条件和目标函数写成一个式子： <span class=math>\[L(a,b,x)=f(x)+\sum_{i=1}^m a_i g_i(x)+\sum_{j=1}^n b_j h_j(x)\]</span> 利用KKT条件求解最优值，</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(L(a,b,x)\)</span>对<span class=math>\(x\)</span>求导为0</li>
+<li><span class=math>\(h_j(x)=0;j=1,2,\dotsb\)</span></li>
+<li><span class=math>\(g_i(x)\le 0;i=1,2,\dotsb\)</span></li>
+<li><span class=math>\(a_i \ge 0;b_j \neq 0\)</span></li>
+<li><span class=math>\(a_i g_i(x)=0\)</span>(互补松弛)</li>
 </ol>
 <p>其中第4个式子是SVM很多重要性质的来源，如支持向量的概念。</p>
 <h2 id=拉格朗日乘子法与等式条件>拉格朗日乘子法与等式条件</h2>
 <p>为什么拉格朗日乘子法（Lagrange Multiplier)能够得到最优值？</p>
-<p>设我们的目标函数为$z=f(x)$，$x$为向量，将$z$投影到自变量$x$构成的平面上，即形成等高线。如下图，目标函数是$f(x,y)$，这里$x，y$是标量，虚线是等高线，箭头为导数方向，显然范围越小的等高线越接近无约束条件下的最值。现在假设我们的约束$g(x)=0$，$x$是向量，在$x$构成的平面或者曲面上是一条曲线，假设$g(x)$与等高线相交，交点就是同时满足等式约束条件和目标函数的可行域的值。但肯定不是最优值，<strong>因为相交意味着肯定还存在其它的等高线在该条等高线的内部或者外部，使得新的等高线与约束函数的交点的值更大或者更小</strong>，也就是存在两种变化方向的可能性。而只有当等高线与约束条件<strong>相切</strong>时，可能取值最优值，即此时单向不可更优。如下图1所示，等高线与约束函数的曲线在该点的法向量必须有相同方向，所以最优点满足：$f(x)的梯度=a_i∗g_i(x)的梯度;i=1,…,n$</p>
-<p><img src=../../images/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95.jpg alt=拉格朗日乘子法原理></p>
-<center>图1 拉格朗日乘子法原理</center>
+<p>设我们的目标函数为<span class=math>\(z=f(x)\)</span>，<span class=math>\(x\)</span>为向量，将<span class=math>\(z\)</span>投影到自变量<span class=math>\(x\)</span>构成的平面上，即形成等高线。如下图，目标函数是<span class=math>\(f(x,y)\)</span>，这里<span class=math>\(x，y\)</span>是标量，虚线是等高线，箭头为导数方向，显然范围越小的等高线越接近无约束条件下的最值。现在假设我们的约束<span class=math>\(g(x)=0\)</span>，<span class=math>\(x\)</span>是向量，在<span class=math>\(x\)</span>构成的平面或者曲面上是一条曲线，假设<span class=math>\(g(x)\)</span>与等高线相交，交点就是同时满足等式约束条件和目标函数的可行域的值。但肯定不是最优值，<strong>因为相交意味着肯定还存在其它的等高线在该条等高线的内部或者外部，使得新的等高线与约束函数的交点的值更大或者更小</strong>，也就是存在两种变化方向的可能性。而只有当等高线与约束条件<strong>相切</strong>时，可能取值最优值，即此时单向不可更优。如下图1所示，等高线与约束函数的曲线在该点的法向量必须有相同方向，所以最优点满足：<span class=math>\(f(x)的梯度=a_i∗g_i(x)的梯度;i=1,…,n\)</span></p>
+<img src=../../images/拉格朗日乘子法.jpg alt=拉格朗日乘子法原理>
+<center>
+图1 拉格朗日乘子法原理
+</center>
 <h2 id=kkt条件与强对偶>KKT条件与强对偶</h2>
 <p>KKT条件是满足强对偶条件的优化问题的必要条件，需要结合拉格朗日对偶（Lagrange duality）进行理解。</p>
 <h3 id=原始问题>原始问题</h3>
-<p>假设$f(x),c_i(x),h_j(x)$是定义在$R^n$上的连续可微函数（为什么要求连续可微呢，后面再说，这里不用多想），考虑约束最优化问题：
-$$\min_{x\in R^n} f(x)\
-s.t.\quad c_i(x)\le 0;i=1,2,\dotsb,k\
-\qquad h_j(x)=0;j=1,2,\dotsb,l\$$
-称为约束最优化问题的原始问题。</p>
-<p>现在<strong>如果不考虑约束条件</strong>，原始问题就是：
-$$\min_{x\in R^n} f(x)$$
-因为假设其连续可微，利用高中的知识，对$f(x)$求导数，然后令导数为0，就可解出最优解，很easy. 那么，问题来了（呵呵。。。），偏偏有约束条件，好烦啊，要是能想办法把<strong>约束条件去掉</strong>就好了，bingo! 拉格朗日函数就是干这个的。</p>
-<p>引进<strong>广义拉格朗日函数</strong>（generalized Lagrange function）:
-$$L(x,\alpha,\beta)=f(x)+\sum_{i=1}^k\alpha_i c_i(x)+\sum_{j=1}^l\beta_j h_j(x)\
-x=(x^{(1)},x^{(2)},\dotsb,x^{(n)})^T\in R^n$$
-不要怕这个式子，也不要被拉格朗日这个高大上的名字给唬住了，让我们慢慢剖析！这里$\alpha_i,\beta_j$是拉格朗日乘子（名字高大上，其实就是上面函数中的参数而已），特别要求$\alpha_i>0$。</p>
-<p>现在，<strong>如果把$L(x,\alpha,\beta)$看作是关于$\alpha_i,\beta_j$的函数</strong>，要求其最大值，即
-$$\max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)$$
-再次注意$L(x,\alpha,\beta)$是一个关于$\alpha_i,\beta_j$的函数，经过我们优化（不要管什么方法），就是确定$\alpha_i,\beta_j$的值使得$L(x,\alpha,\beta)$取得最大值（此过程中把$x$看做常量），确定了$\alpha_i,\beta_j$的值，就可以得到$L(x,\alpha,\beta)$的最大值，因为$\alpha_i,\beta_j$<strong>已经确定</strong>，显然最大值$\max\limits_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)$就是<strong>只和$x$有关的函数</strong>，定义这个函数为：
-$$\theta_p(x)=\max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)$$</p>
-<p>对于原式
-$$L(x,\alpha,\beta)=f(x)+\sum_{i=1}^k\alpha_i c_i(x)+\sum_{j=1}^l\beta_j h_j(x)$$
-通过$x$是否满足约束条件两方面来分析这个函数:</p>
-<p>(1).<strong>考虑某个$x$违反了原始的约束</strong>，即$c_i(x)>0$或者$h_j(x)\neq 0$，那么：
-$$\theta_p(x)=\max\limits_{\alpha,\beta,\alpha_i>0}[f(x)+\sum_{i=1}^k\alpha_i c_i(x)\
-+\sum_{j=1}^l\beta_j h_j(x)]=+\infty$$
-注意中间的最大化式子就是确定$\alpha_i,\beta_j$的之后的结果，若$c_i(x)>0$，则令$\alpha_i\rightarrow+\infty$，如果$h_j(x)\neq 0$，很容易取值$\beta_j$使得$\beta_j h_j(x)\rightarrow +\infty$。</p>
-<p>(2).<strong>考虑$x$满足原始的约束</strong>，$c_i(x)$都是小于等于0的。如果$c_i(x)$严格小于0，那么我们必要让$\alpha_i$等于0，这时才能取最大值。等于0的情况就无所谓了，所以对于满足原始约束的情况，$\alpha_ic_i(x)=0，$即互补松弛条件。因此，$\theta_p(x)=\max\limits_{\alpha,\beta,\alpha_i>0}[f(x)]=f(x)$，注意中间的最大化是确定$\alpha_i,\beta_j$的过程，$f(x)$就是个常量，常量的最大值显然是本身。</p>
-<p>通过上面两条分析可以得出：
-$$\theta_p(x)=
+<p>假设<span class=math>\(f(x),c_i(x),h_j(x)\)</span>是定义在<span class=math>\(R^n\)</span>上的连续可微函数（为什么要求连续可微呢，后面再说，这里不用多想），考虑约束最优化问题： <span class=math>\[\min_{x\in R^n} f(x)\\
+s.t.\quad c_i(x)\le 0;i=1,2,\dotsb,k\\
+\qquad h_j(x)=0;j=1,2,\dotsb,l\\\]</span> 称为约束最优化问题的原始问题。</p>
+<p>现在<strong>如果不考虑约束条件</strong>，原始问题就是： <span class=math>\[\min_{x\in R^n} f(x)\]</span> 因为假设其连续可微，利用高中的知识，对<span class=math>\(f(x)\)</span>求导数，然后令导数为0，就可解出最优解，很easy. 那么，问题来了（呵呵。。。），偏偏有约束条件，好烦啊，要是能想办法把<strong>约束条件去掉</strong>就好了，bingo! 拉格朗日函数就是干这个的。</p>
+<p>引进<strong>广义拉格朗日函数</strong>（generalized Lagrange function）: <span class=math>\[L(x,\alpha,\beta)=f(x)+\sum_{i=1}^k\alpha_i c_i(x)+\sum_{j=1}^l\beta_j h_j(x)\\
+x=(x^{(1)},x^{(2)},\dotsb,x^{(n)})^T\in R^n\]</span> 不要怕这个式子，也不要被拉格朗日这个高大上的名字给唬住了，让我们慢慢剖析！这里<span class=math>\(\alpha_i,\beta_j\)</span>是拉格朗日乘子（名字高大上，其实就是上面函数中的参数而已），特别要求<span class=math>\(\alpha_i>0\)</span>。</p>
+<p>现在，<strong>如果把<span class=math>\(L(x,\alpha,\beta)\)</span>看作是关于<span class=math>\(\alpha_i,\beta_j\)</span>的函数</strong>，要求其最大值，即 <span class=math>\[\max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\]</span> 再次注意<span class=math>\(L(x,\alpha,\beta)\)</span>是一个关于<span class=math>\(\alpha_i,\beta_j\)</span>的函数，经过我们优化（不要管什么方法），就是确定<span class=math>\(\alpha_i,\beta_j\)</span>的值使得<span class=math>\(L(x,\alpha,\beta)\)</span>取得最大值（此过程中把<span class=math>\(x\)</span>看做常量），确定了<span class=math>\(\alpha_i,\beta_j\)</span>的值，就可以得到<span class=math>\(L(x,\alpha,\beta)\)</span>的最大值，因为<span class=math>\(\alpha_i,\beta_j\)</span><strong>已经确定</strong>，显然最大值<span class=math>\(\max\limits_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\)</span>就是<strong>只和<span class=math>\(x\)</span>有关的函数</strong>，定义这个函数为： <span class=math>\[\theta_p(x)=\max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\]</span></p>
+<p>对于原式 <span class=math>\[L(x,\alpha,\beta)=f(x)+\sum_{i=1}^k\alpha_i c_i(x)+\sum_{j=1}^l\beta_j h_j(x)\]</span> 通过<span class=math>\(x\)</span>是否满足约束条件两方面来分析这个函数:</p>
+<p>(1).<strong>考虑某个<span class=math>\(x\)</span>违反了原始的约束</strong>，即<span class=math>\(c_i(x)>0\)</span>或者<span class=math>\(h_j(x)\neq 0\)</span>，那么： <span class=math>\[\theta_p(x)=\max\limits_{\alpha,\beta,\alpha_i>0}[f(x)+\sum_{i=1}^k\alpha_i c_i(x)\\
++\sum_{j=1}^l\beta_j h_j(x)]=+\infty\]</span> 注意中间的最大化式子就是确定<span class=math>\(\alpha_i,\beta_j\)</span>的之后的结果，若<span class=math>\(c_i(x)>0\)</span>，则令<span class=math>\(\alpha_i\rightarrow+\infty\)</span>，如果<span class=math>\(h_j(x)\neq 0\)</span>，很容易取值<span class=math>\(\beta_j\)</span>使得<span class=math>\(\beta_j h_j(x)\rightarrow +\infty\)</span>。</p>
+<p>(2).<strong>考虑<span class=math>\(x\)</span>满足原始的约束</strong>，<span class=math>\(c_i(x)\)</span>都是小于等于0的。如果<span class=math>\(c_i(x)\)</span>严格小于0，那么我们必要让<span class=math>\(\alpha_i\)</span>等于0，这时才能取最大值。等于0的情况就无所谓了，所以对于满足原始约束的情况，<span class=math>\(\alpha_ic_i(x)=0，\)</span>即互补松弛条件。因此，<span class=math>\(\theta_p(x)=\max\limits_{\alpha,\beta,\alpha_i>0}[f(x)]=f(x)\)</span>，注意中间的最大化是确定<span class=math>\(\alpha_i,\beta_j\)</span>的过程，<span class=math>\(f(x)\)</span>就是个常量，常量的最大值显然是本身。</p>
+<p>通过上面两条分析可以得出： <span class=math>\[\theta_p(x)=
 \begin{cases}
-f(x), &x\text{满足原始问题约束}\
+f(x), &x\text{满足原始问题约束}\\
 +\infty, &\text{其他}
-\end{cases}$$
-那么在满足约束条件下：
-$$\min_x\theta_p(x)=\min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\
-=\min_x f(x)\quad$$
-即$\min\limits_x\theta_p(x)$与原始优化问题等价,所以常用$\min\limits_x\theta_p(x)$代表原始问题，下标$p$表示原始问题，定义<strong>原始问题的最优值</strong>：
-$$p^\ast=\min_x\theta_p(x)$$
-原始问题讨论就到这里，做一个总结：<strong>通过拉格朗日这位大神的办法重新定义一个无约束问题（大家都喜欢无拘无束），这个无约束问题等价于原来的约束优化问题，从而将约束问题无约束化！</strong></p>
+\end{cases}\]</span> 那么在满足约束条件下： <span class=math>\[\min_x\theta_p(x)=\min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\\
+=\min_x f(x)\quad\]</span> 即<span class=math>\(\min\limits_x\theta_p(x)\)</span>与原始优化问题等价,所以常用<span class=math>\(\min\limits_x\theta_p(x)\)</span>代表原始问题，下标<span class=math>\(p\)</span>表示原始问题，定义<strong>原始问题的最优值</strong>： <span class=math>\[p^\ast=\min_x\theta_p(x)\]</span> 原始问题讨论就到这里，做一个总结：<strong>通过拉格朗日这位大神的办法重新定义一个无约束问题（大家都喜欢无拘无束），这个无约束问题等价于原来的约束优化问题，从而将约束问题无约束化！</strong></p>
 <p>到这里，如果原问题是可解的，那么我们就可以使用求导的方式，求解问题。</p>
 <h3 id=对偶问题>对偶问题</h3>
-<p>现在我们先将$x$看做参数，定义关于$\alpha,\beta$的函数
-$$θ_D(\alpha,\beta)=\min_x L(x,\alpha,\beta)$$
-注意等式右边是关于$x$的函数的最小化，$x$确定以后，最小值就只与$\alpha,\beta$有关，所以是一个关于$\alpha,\beta$的函数。</p>
-<p>考虑极大化$θ_D(\alpha,\beta)=\min\limits_x L(x,\alpha,\beta)$，即
-$$\max_{\alpha,\beta:\alpha_i \ge0}θ_D(\alpha,\beta)=\max_{\alpha,\beta:\alpha_i \ge0}\min\limits_x L(x,\alpha,\beta)$$
-这就是原始问题的对偶问题，再把原始问题写出来：
-$$\min_x\theta_p(x)=\min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)$$
-形式上可以看出很对称，只不过原始问题是先固定$L(x,\alpha,\beta)$中的$x$，优化出参数$\alpha,\beta$，再优化最优$x$，而对偶问题是先固定$\alpha,\beta$，优化出最优$x$，然后再确定参数$\alpha,\beta$。</p>
-<p>定义对偶问题的最优值：
-$$d^\ast=\max_{\alpha,\beta:\alpha_i \ge0}θ_D(\alpha,\beta)$$</p>
+<p>现在我们先将<span class=math>\(x\)</span>看做参数，定义关于<span class=math>\(\alpha,\beta\)</span>的函数 <span class=math>\[θ_D(\alpha,\beta)=\min_x L(x,\alpha,\beta)\]</span> 注意等式右边是关于<span class=math>\(x\)</span>的函数的最小化，<span class=math>\(x\)</span>确定以后，最小值就只与<span class=math>\(\alpha,\beta\)</span>有关，所以是一个关于<span class=math>\(\alpha,\beta\)</span>的函数。</p>
+<p>考虑极大化<span class=math>\(θ_D(\alpha,\beta)=\min\limits_x L(x,\alpha,\beta)\)</span>，即 <span class=math>\[\max_{\alpha,\beta:\alpha_i \ge0}θ_D(\alpha,\beta)=\max_{\alpha,\beta:\alpha_i \ge0}\min\limits_x L(x,\alpha,\beta)\]</span> 这就是原始问题的对偶问题，再把原始问题写出来： <span class=math>\[\min_x\theta_p(x)=\min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\]</span> 形式上可以看出很对称，只不过原始问题是先固定<span class=math>\(L(x,\alpha,\beta)\)</span>中的<span class=math>\(x\)</span>，优化出参数<span class=math>\(\alpha,\beta\)</span>，再优化最优<span class=math>\(x\)</span>，而对偶问题是先固定<span class=math>\(\alpha,\beta\)</span>，优化出最优<span class=math>\(x\)</span>，然后再确定参数<span class=math>\(\alpha,\beta\)</span>。</p>
+<p>定义对偶问题的最优值： <span class=math>\[d^\ast=\max_{\alpha,\beta:\alpha_i \ge0}θ_D(\alpha,\beta)\]</span></p>
 <h3 id=原始问题与对偶问题的关系>原始问题与对偶问题的关系</h3>
 <blockquote>
-<p>定理：若原始问题与对偶问题都有最优值，则
-$$d^\ast=\max_{\alpha,\beta:\alpha_i \ge0}\min\limits_x L(x,\alpha,\beta)\
-\le \min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)=p^\ast$$</p>
+<p>定理：若原始问题与对偶问题都有最优值，则 <span class=math>\[d^\ast=\max_{\alpha,\beta:\alpha_i \ge0}\min\limits_x L(x,\alpha,\beta)\\
+\le \min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)=p^\ast\]</span></p>
 </blockquote>
-<p>证明：对于任意的$\alpha,\beta,x$，有
-$$θ_D(\alpha,\beta)=\min_xL(x,\alpha,\beta) \le L(x,\alpha,\beta)\
-\le \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)=\theta_p(x)\
-\Rightarrow θ_D(\alpha,\beta)\le \theta_p(x)恒成立$$
-由于原始问题与对偶问题都有最优值，所以
-$$\max_{\alpha,\beta:\alpha_i \ge0}θ_D(\alpha,\beta) \le \min_x \theta_p(x)$$
-即
-$$d^\ast=\max_{\alpha,\beta:\alpha_i \ge0}\min\limits_x L(x,\alpha,\beta)\
-\le \min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)=p^\ast$$
-也就是说<strong>原始问题的最优值不小于对偶问题的最优值</strong>，但是我们要通过对偶问题来求解原始问题，就必须使得<strong>原始问题的最优值与对偶问题的最优值相等</strong>，于是可以得出下面的推论：</p>
+<p>证明：对于任意的<span class=math>\(\alpha,\beta,x\)</span>，有 <span class=math>\[θ_D(\alpha,\beta)=\min_xL(x,\alpha,\beta) \le L(x,\alpha,\beta)\\
+\le \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)=\theta_p(x)\\
+\Rightarrow θ_D(\alpha,\beta)\le \theta_p(x)恒成立\]</span> 由于原始问题与对偶问题都有最优值，所以 <span class=math>\[\max_{\alpha,\beta:\alpha_i \ge0}θ_D(\alpha,\beta) \le \min_x \theta_p(x)\]</span> 即 <span class=math>\[d^\ast=\max_{\alpha,\beta:\alpha_i \ge0}\min\limits_x L(x,\alpha,\beta)\\
+\le \min_x \max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)=p^\ast\]</span> 也就是说<strong>原始问题的最优值不小于对偶问题的最优值</strong>，但是我们要通过对偶问题来求解原始问题，就必须使得<strong>原始问题的最优值与对偶问题的最优值相等</strong>，于是可以得出下面的推论：</p>
 <blockquote>
-<p>推论：设$x^\ast,\alpha^\ast,\beta^\ast$分别是原始问题和对偶问题的可行解，如果$d^\ast=p^\ast$，那么$x^\ast,\alpha^\ast,\beta^\ast$分别是原始问题和对偶问题的最优解。</p>
+<p>推论：设<span class=math>\(x^\ast,\alpha^\ast,\beta^\ast\)</span>分别是原始问题和对偶问题的可行解，如果<span class=math>\(d^\ast=p^\ast\)</span>，那么<span class=math>\(x^\ast,\alpha^\ast,\beta^\ast\)</span>分别是原始问题和对偶问题的最优解。</p>
 </blockquote>
-<p>所以，当原始问题和对偶问题的最优值相等：$d^\ast=p^\ast$时，可以用<strong>求解对偶问题来求解原始问题</strong>（当然是对偶问题求解比直接求解原始问题简单的情况下），但是到底满足什么样的条件才能使得$d^\ast=p^\ast$呢，这就是下面要阐述的<strong>KKT</strong>条件。</p>
+<p>所以，当原始问题和对偶问题的最优值相等：<span class=math>\(d^\ast=p^\ast\)</span>时，可以用<strong>求解对偶问题来求解原始问题</strong>（当然是对偶问题求解比直接求解原始问题简单的情况下），但是到底满足什么样的条件才能使得<span class=math>\(d^\ast=p^\ast\)</span>呢，这就是下面要阐述的<strong>KKT</strong>条件。</p>
 <h3 id=kkt条件>KKT条件</h3>
-<p>强对偶性：存在$a^∗,b^∗,x^\ast$使得$d^∗=p^∗$</p>
+<p>强对偶性：存在<span class=math>\(a^∗,b^∗,x^\ast\)</span>使得<span class=math>\(d^∗=p^∗\)</span></p>
 <blockquote>
-<p>定理：对于原始问题和对偶问题，假设函数$f(x)$和$c_i(x)$是凸函数，$h_j(x)$是仿射函数（即由一阶多项式构成的函数，$f(x)=Ax+b$,$A$是矩阵，$x,b$是向量）；并且假设不等式约束$c_i(x)$是严格可行的，即存在$x$，对所有$i$有$c_i(x)&lt;0$，则存在$x^\ast,\alpha^\ast,\beta^\ast$，使得$x^\ast$是原始问题的最优解，$\alpha^\ast,\beta^\ast$是对偶问题的最优解，并且
-$$d^\ast=p^\ast=L(x^\ast,\alpha^\ast,\beta^\ast)$$</p>
+<p>定理：对于原始问题和对偶问题，假设函数<span class=math>\(f(x)\)</span>和<span class=math>\(c_i(x)\)</span>是凸函数，<span class=math>\(h_j(x)\)</span>是仿射函数（即由一阶多项式构成的函数，<span class=math>\(f(x)=Ax+b\)</span>,<span class=math>\(A\)</span>是矩阵，<span class=math>\(x,b\)</span>是向量）；并且假设不等式约束<span class=math>\(c_i(x)\)</span>是严格可行的，即存在<span class=math>\(x\)</span>，对所有<span class=math>\(i\)</span>有<span class=math>\(c_i(x)&lt;0\)</span>，则存在<span class=math>\(x^\ast,\alpha^\ast,\beta^\ast\)</span>，使得<span class=math>\(x^\ast\)</span>是原始问题的最优解，<span class=math>\(\alpha^\ast,\beta^\ast\)</span>是对偶问题的最优解，并且 <span class=math>\[d^\ast=p^\ast=L(x^\ast,\alpha^\ast,\beta^\ast)\]</span></p>
 </blockquote>
-<p>如果简单点说要求$x^\ast,\alpha^\ast,\beta^\ast$分别是原始问题和对偶问题的最优解的<strong>充分必要条件</strong>是$x^\ast,\alpha^\ast,\beta^\ast$满足下面的Karush-Kuhn-Tucker(KKT)条件:
-$$
-\nabla_x L(x^\ast,\alpha^\ast,\beta^\ast)=0\
-\alpha_i^\ast\ge 0;i=1,2,\dotsb,k\
-h_j(x^\ast)=0;j=1,2,\dotsb,l\
-\alpha_i^\ast c_i(x^\ast)=0;i=1,2,\dotsb,k$$</p>
+<p>如果简单点说要求<span class=math>\(x^\ast,\alpha^\ast,\beta^\ast\)</span>分别是原始问题和对偶问题的最优解的<strong>充分必要条件</strong>是<span class=math>\(x^\ast,\alpha^\ast,\beta^\ast\)</span>满足下面的Karush-Kuhn-Tucker(KKT)条件: <span class=math>\[
+\nabla_x L(x^\ast,\alpha^\ast,\beta^\ast)=0\\
+\alpha_i^\ast\ge 0;i=1,2,\dotsb,k\\
+h_j(x^\ast)=0;j=1,2,\dotsb,l\\
+\alpha_i^\ast c_i(x^\ast)=0;i=1,2,\dotsb,k\]</span></p>
 <p>关于KKT 条件的理解：前面三个条件是由解析函数的知识，对于各个变量的偏导数为0（这就解释了一开始为什么假设三个函数连续可微，如果不连续可微的话，这里的偏导数存不存在就不能保证），后面四个条件就是原始问题的约束条件以及拉格朗日乘子需要满足的约束。</p>
-<p>特别注意,最后一个条件称为<strong>KKT对偶互补条件</strong>。当$\alpha_i^\ast>0$时，由KKT对偶互补条件可知：$c_i(x^\ast)=0$。</p>
-<p>证明：关于互补松弛条件，我们可以回顾一下这样一个式子：
-$$\begin{aligned}
-\theta_p(x)&=\max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\
-&=f(x)+\max_{\alpha,:\alpha_i \ge0}\sum_{i=1}^k\alpha_i c_i(x)+\max_{\beta}\sum_{j=1}^l\beta_j h_j(x)\
+<p>特别注意,最后一个条件称为<strong>KKT对偶互补条件</strong>。当<span class=math>\(\alpha_i^\ast>0\)</span>时，由KKT对偶互补条件可知：<span class=math>\(c_i(x^\ast)=0\)</span>。</p>
+<p>证明：关于互补松弛条件，我们可以回顾一下这样一个式子： <span class=math>\[\begin{aligned}
+\theta_p(x)&=\max_{\alpha,\beta:\alpha_i \ge0}L(x,\alpha,\beta)\\
+&=f(x)+\max_{\alpha,:\alpha_i \ge0}\sum_{i=1}^k\alpha_i c_i(x)+\max_{\beta}\sum_{j=1}^l\beta_j h_j(x)\\
 &=f(x)
-\end{aligned}$$
-显然$\sum\limits_{i=1}^k\alpha_i c_i(x)=0$时取得最大，因此这也是隐含的$d^∗=p^∗$时的条件。
-这个知识点会在 SVM 的推导中用到。</p>
+\end{aligned}\]</span> 显然<span class=math>\(\sum\limits_{i=1}^k\alpha_i c_i(x)=0\)</span>时取得最大，因此这也是隐含的<span class=math>\(d^∗=p^∗\)</span>时的条件。 这个知识点会在 SVM 的推导中用到。</p>
 <p>最后说明一下</p>
-<p>slater条件：存在$x$，使得不等式约束$c(x)&lt;=0$严格成立(不取等号)。</p>
+<p>slater条件：存在<span class=math>\(x\)</span>，使得不等式约束<span class=math>\(c(x)&lt;=0\)</span>严格成立(不取等号)。</p>
 <p>slater条件性质： slater条件是原问题可以等价于对偶问题的一个充分条件，满足他就说明存在最优解。</p>
 <h2 id=总结>总结</h2>
 <p>一句话，某些条件下，把原始的约束问题通过拉格朗日函数转化为无约束问题，如果原始问题求解棘手，在满足KKT的条件下用求解对偶问题来代替求解原始问题，使得问题求解更加容易。</p>
-<p>其他参考资料：
-<a href=http://xiaoyc.com/duality-theory-for-optimization/#citem_30>优化问题中的对偶性理论</a>，强烈推荐看一看</p>
+<p>其他参考资料： <a href=http://xiaoyc.com/duality-theory-for-optimization/#citem_30>优化问题中的对偶性理论</a>，强烈推荐看一看</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

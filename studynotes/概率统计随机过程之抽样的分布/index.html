@@ -88,242 +88,193 @@ Nov 12, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之抽样的分布统计量的分布---omit-in-toc--->概率统计随机过程之抽样的分布（统计量的分布）</h2>
+<h2 id=概率统计随机过程之抽样的分布统计量的分布>概率统计随机过程之抽样的分布（统计量的分布）</h2>
 <ul>
-<li><a href=#%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83>样本均值的抽样分布——正态分布</a></li>
-<li><a href=#%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83>样本方差的抽样分布</a>
+<li><a href=#样本均值的抽样分布正态分布>样本均值的抽样分布——正态分布</a></li>
+<li><a href=#样本方差的抽样分布>样本方差的抽样分布</a></li>
+<li><a href=#卡方分布>卡方分布</a></li>
+<li><a href=#样本方差的抽样分布服从chi2n分布>样本方差的抽样分布服从<span class=math>\(\chi^2(n)\)</span>分布</a></li>
+<li><a href=#样本均值与样本方差比值的分布>样本均值与样本方差比值的分布</a></li>
+<li><a href=#t分布>t分布</a>
 <ul>
-<li><a href=#%E5%8D%A1%E6%96%B9%E5%88%86%E5%B8%83>卡方分布</a></li>
-<li><a href=#%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83%E6%9C%8D%E4%BB%8Echi2n%E5%88%86%E5%B8%83>样本方差的抽样分布服从$\chi^2(n)$分布</a></li>
-</ul>
-</li>
-<li><a href=#%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E4%B8%8E%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E6%AF%94%E5%80%BC%E7%9A%84%E5%88%86%E5%B8%83>样本均值与样本方差比值的分布</a>
-<ul>
-<li><a href=#t%E5%88%86%E5%B8%83>t分布</a>
-<ul>
-<li><a href=#tips%E5%90%8D%E5%AD%97%E6%9D%A5%E6%BA%90>TIPS名字来源</a></li>
-<li><a href=#t%E5%88%86%E5%B8%83%E4%BB%8B%E7%BB%8D>t分布介绍</a></li>
-</ul>
-</li>
-<li><a href=#%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E4%B8%8E%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E6%AF%94%E5%80%BC%E6%9C%8D%E4%BB%8Et%E5%88%86%E5%B8%83>样本均值与样本方差比值服从t分布</a></li>
-</ul>
-</li>
-<li><a href=#%E4%B8%A4%E4%B8%AA%E7%8B%AC%E7%AB%8B%E6%AD%A3%E6%80%81%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E6%AF%94%E7%9A%84%E5%88%86%E5%B8%83>两个独立正态样本方差比的分布</a>
-<ul>
-<li><a href=#f%E5%88%86%E5%B8%83>F分布</a></li>
-<li><a href=#%E4%B8%A4%E4%B8%AA%E7%8B%AC%E7%AB%8B%E6%AD%A3%E6%80%81%E6%A0%B7%E6%9C%AC%E6%96%B9%E5%B7%AE%E6%AF%94%E7%9A%84%E6%9C%8D%E4%BB%8Ef%E5%88%86%E5%B8%83>两个独立正态样本方差比的服从F分布</a></li>
-</ul>
-</li>
-<li><a href=#%E6%AD%A3%E6%80%81%E6%80%BB%E4%BD%93%E4%B8%8B%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83%E6%80%BB%E7%BB%93>正态总体下的抽样分布总结</a></li>
-<li><a href=#%E9%99%84%E5%BD%95>附录</a>
-<ul>
-<li><a href=#%E9%99%84%E5%BD%951-gamma%E5%88%86%E5%B8%83%E5%8F%AF%E5%8A%A0%E6%80%A7%E8%AF%81%E6%98%8E>附录1-Gamma分布可加性证明</a></li>
-</ul>
-</li>
+<li><a href=#tips名字来源>TIPS名字来源</a></li>
+<li><a href=#t分布介绍>t分布介绍</a></li>
+</ul></li>
+<li><a href=#样本均值与样本方差比值服从t分布>样本均值与样本方差比值服从t分布</a></li>
+<li><a href=#两个独立正态样本方差比的分布>两个独立正态样本方差比的分布</a></li>
+<li><a href=#f分布>F分布</a></li>
+<li><a href=#两个独立正态样本方差比的服从f分布>两个独立正态样本方差比的服从F分布</a></li>
+<li><a href=#正态总体下的抽样分布总结>正态总体下的抽样分布总结</a></li>
+<li><a href=#附录>附录</a></li>
+<li><a href=#附录1-gamma分布可加性证明>附录1-Gamma分布可加性证明</a></li>
 </ul>
 <h2 id=样本均值的抽样分布正态分布>样本均值的抽样分布——正态分布</h2>
 <p>样本均值的分布问题是被最早研究的问题，关于它的研究为中心极限定理的出现提供了巨大帮助。</p>
 <blockquote>
-<p>定理1：设${x_1,x_2,\dotsb,x_n}$是来自某个总体的样本,$\bar{x}$为其样本均值：</p>
-<p>(1)若总体分布为$N(\mu,\sigma^2)$，则$\bar{x}$的精确（抽样）分布为$N(\mu,\sigma^2/n)$;</p>
-<p>(2)若总体的分布未知或不是正态分布，但$E(x)=\mu,Var(x)=\sigma^2$存在，则$n$较大时$\bar{x}$的渐进分布为$N(\mu,\sigma^2/n)$，常记为$\bar{x}\dot{\sim} N(\mu,\sigma^2/n)$。</p>
+<p>定理1：设<span class=math>\(\{x_1,x_2,\dotsb,x_n\}\)</span>是来自某个总体的样本,<span class=math>\(\bar{x}\)</span>为其样本均值：</p>
+<p>(1)若总体分布为<span class=math>\(N(\mu,\sigma^2)\)</span>，则<span class=math>\(\bar{x}\)</span>的精确（抽样）分布为<span class=math>\(N(\mu,\sigma^2/n)\)</span>;</p>
+<p>(2)若总体的分布未知或不是正态分布，但<span class=math>\(E(x)=\mu,Var(x)=\sigma^2\)</span>存在，则<span class=math>\(n\)</span>较大时<span class=math>\(\bar{x}\)</span>的渐进分布为<span class=math>\(N(\mu,\sigma^2/n)\)</span>，常记为<span class=math>\(\bar{x}\dot{\sim} N(\mu,\sigma^2/n)\)</span>。</p>
 </blockquote>
 <p>证明：</p>
-<p>（1）样本中的每个样品都是独立同分布的随机变量且服从$x_i\sim N(\mu,\sigma^2)$，则根据正态分布的线性性质，n个i.i.d的正态随机变量和为$N(n\mu,n\sigma^2)$。同样根据正态分布的线性性质，和再除以$1/n$，有$\bar{x}\sim N(\mu,\sigma^2/n)$。</p>
+<p>（1）样本中的每个样品都是独立同分布的随机变量且服从<span class=math>\(x_i\sim N(\mu,\sigma^2)\)</span>，则根据正态分布的线性性质，n个i.i.d的正态随机变量和为<span class=math>\(N(n\mu,n\sigma^2)\)</span>。同样根据正态分布的线性性质，和再除以<span class=math>\(1/n\)</span>，有<span class=math>\(\bar{x}\sim N(\mu,\sigma^2/n)\)</span>。</p>
 <p>（2）就是独立同分布的中心极限定理（林德伯格-莱维中心极限定理）的结果。证明的话是用随机变量分布列的特征函数收敛到正态分布的特征函数的思路。</p>
 <h2 id=样本方差的抽样分布>样本方差的抽样分布</h2>
 <h3 id=卡方分布>卡方分布</h3>
 <blockquote>
-<p>定义1：卡方分布$\chi^2(n)$的概率密度是
-$$f(x)=\begin{cases}
-\frac{1}{2^{n/2}\Gamma(n/2)}x^{{n\over2} -1}e^{-x\over 2},&x>0\
+<p>定义1：卡方分布<span class=math>\(\chi^2(n)\)</span>的概率密度是 <span class=math>\[f(x)=\begin{cases}
+\frac{1}{2^{n/2}\Gamma(n/2)}x^{{n\over2} -1}e^{-x\over 2},&x>0\\
 0,&\text{其他}
-\end{cases}$$
-其中参数$n$称为自由度，$\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t} \mathrm{d}t$为伽马函数。</p>
+\end{cases}\]</span> 其中参数<span class=math>\(n\)</span>称为自由度，<span class=math>\(\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t} \mathrm{d}t\)</span>为伽马函数。</p>
 </blockquote>
-<p><img src=../../images/%E5%8D%A1%E6%96%B9%E5%88%86%E5%B8%83.png alt=卡方分布.png></p>
+<div class=figure>
+<img src=../../images/卡方分布.png alt=卡方分布.png><p class=caption>卡方分布.png</p>
+</div>
 <p>一些没用的观察：</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>自由度为2时，卡方分布就是一个的指数分布。</li>
-<li>$n>2$，单峰曲线，且在$x=n-2$时取最大值。</li>
-<li>卡方分布不对称，但是$n$越大越对称，且趋向于正态分布。</li>
+<li><span class=math>\(n>2\)</span>，单峰曲线，且在<span class=math>\(x=n-2\)</span>时取最大值。</li>
+<li>卡方分布不对称，但是<span class=math>\(n\)</span>越大越对称，且趋向于正态分布。</li>
 </ol>
 <blockquote>
-<p>定理2（服从卡方分布）：如果随机变量$x_1,x_2,\dotsb,x_n$独立，且服从$N(0,1)$分布，那么
-$$
+<p>定理2（服从卡方分布）：如果随机变量<span class=math>\(x_1,x_2,\dotsb,x_n\)</span>独立，且服从<span class=math>\(N(0,1)\)</span>分布，那么 <span class=math>\[
 \sum_{i=1}^n x_i^2 \sim \chi^2(n)
-$$
-即标准正态分布的<strong>平方和</strong>是卡方分布，自由度是$n$表示加数的个数。</p>
+\]</span> 即标准正态分布的<strong>平方和</strong>是卡方分布，自由度是<span class=math>\(n\)</span>表示加数的个数。</p>
 </blockquote>
-<p>证明：令$y=x_i^2 ≥ 0$，其分布函数为$F_{y}(y)$，所以当$y≤0$时有$F_{y}(y)=0$，当$y>0$时有
-$$\begin{aligned}
-F_{y}(y)&=P(x_i^2≤y)=P(-\sqrt{y}≤x≤\sqrt{y})\
-&=\int_{-\sqrt{y}}^0 p_x(x) dx + \int_{0}^{\sqrt{y}} p_x(x) dx\
+<p>证明：令<span class=math>\(y=x_i^2 ≥ 0\)</span>，其分布函数为<span class=math>\(F_{y}(y)\)</span>，所以当<span class=math>\(y≤0\)</span>时有<span class=math>\(F_{y}(y)=0\)</span>，当<span class=math>\(y>0\)</span>时有 <span class=math>\[\begin{aligned}
+F_{y}(y)&=P(x_i^2≤y)=P(-\sqrt{y}≤x≤\sqrt{y})\\
+&=\int_{-\sqrt{y}}^0 p_x(x) dx + \int_{0}^{\sqrt{y}} p_x(x) dx\\
 &=F_x(\sqrt{y}) - F_x(-\sqrt{y})
-\end{aligned}$$
-我们把上式对$y$求导，有：
-$$\begin{aligned}
-p_y(y)&=F_y'(y)=F'_x(\sqrt{y}) - F'_x(-\sqrt{y})\
-&=p_x(\sqrt{y})\cdot (\sqrt{y})'-p_x(-\sqrt{y})\cdot (-\sqrt{y})'\
-&=[p_x(\sqrt{y})+p_x(-\sqrt{y})]/(2\sqrt{y})\
-&=\frac{1}{\sqrt{2\pi}}y^{-1/2}e^{-y/2},y>0\
-&=\frac{(1/2)^{1/2}}{\Gamma(1/2)}y^{\frac{1}{2}-1}e^{-\frac{1}{2}y}=Ga(\frac{1}{2},\frac{1}{2})\end{aligned}$$
-即单个标准正态分布的平方服从$Ga(\frac{1}{2},\frac{1}{2})$。而Gamma分布是有可加性的（证明见<a href=#%E9%99%84%E5%BD%951-gamma%E5%88%86%E5%B8%83%E5%8F%AF%E5%8A%A0%E6%80%A7%E8%AF%81%E6%98%8E>附录1-Gamma分布可加性证明</a>）。因此，n个标准正态分布的平方的和服从$Ga(\frac{n}{2},\frac{1}{2})$。将$Ga(\frac{n}{2},\frac{1}{2})$写出可发现就等于$\chi^2(n)$。得证。</p>
-<p>卡方分布性质:若$X\sim \chi^2(n)$，则有：</p>
-<ol>
-<li>$E(X)=n,D(X)=2n$。分部积分可得，或者直接用特征函数求。</li>
-<li>由中心极限定理可知，$X\sim \chi^2(n)$，$n$充分大，$\frac{X-n}{\sqrt{2n}}\overset{近似}{\sim} N(0,1)$。参见中心极限定理的林德伯格－列维形式。</li>
-<li>卡方分布可加性：$X\sim \chi^2(n),Y\sim \chi^2(m),X,Y$独立，则$X+Y\sim \chi^2(m+n)$。
+\end{aligned}\]</span> 我们把上式对<span class=math>\(y\)</span>求导，有： <span class=math>\[\begin{aligned}
+p_y(y)&=F_y'(y)=F'_x(\sqrt{y}) - F'_x(-\sqrt{y})\\
+&=p_x(\sqrt{y})\cdot (\sqrt{y})'-p_x(-\sqrt{y})\cdot (-\sqrt{y})'\\
+&=[p_x(\sqrt{y})+p_x(-\sqrt{y})]/(2\sqrt{y})\\
+&=\frac{1}{\sqrt{2\pi}}y^{-1/2}e^{-y/2},y>0\\
+&=\frac{(1/2)^{1/2}}{\Gamma(1/2)}y^{\frac{1}{2}-1}e^{-\frac{1}{2}y}=Ga(\frac{1}{2},\frac{1}{2})\end{aligned}\]</span> 即单个标准正态分布的平方服从<span class=math>\(Ga(\frac{1}{2},\frac{1}{2})\)</span>。而Gamma分布是有可加性的（证明见<a href=#附录1-gamma分布可加性证明>附录1-Gamma分布可加性证明</a>）。因此，n个标准正态分布的平方的和服从<span class=math>\(Ga(\frac{n}{2},\frac{1}{2})\)</span>。将<span class=math>\(Ga(\frac{n}{2},\frac{1}{2})\)</span>写出可发现就等于<span class=math>\(\chi^2(n)\)</span>。得证。</p>
+<p>卡方分布性质:若<span class=math>\(X\sim \chi^2(n)\)</span>，则有：</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(E(X)=n,D(X)=2n\)</span>。分部积分可得，或者直接用特征函数求。</li>
+<li>由中心极限定理可知，<span class=math>\(X\sim \chi^2(n)\)</span>，<span class=math>\(n\)</span>充分大，<span class=math>\(\frac{X-n}{\sqrt{2n}}\overset{近似}{\sim} N(0,1)\)</span>。参见中心极限定理的林德伯格－列维形式。</li>
+<li>卡方分布可加性：<span class=math>\(X\sim \chi^2(n),Y\sim \chi^2(m),X,Y\)</span>独立，则<span class=math>\(X+Y\sim \chi^2(m+n)\)</span>。</li>
+</ol>
 <ul>
-<li>推论：$X_i\sim \chi^2(m_i)$，各个$X_i$独立，则$\sum_{i=1}^n X_i\sim \chi^2(\sum_{i=1}^n m_i)$</li>
-<li>简单论证：$\chi^2$分布是特殊的Gamma分布（即$Ga(\frac{n}{2},\frac{1}{2})$），而Gamma分布有可加性，所以$\chi^2$分布也有可加性。也可以从$\chi^2$分布的构成来看，它是由多个随机变量$X_i\sim N(0,1)$加出来，因此卡方分布的相加无非就是多几个标准正态分布相加的事，因此不改变分布类型，只改变分布参数。</li>
+<li>推论：<span class=math>\(X_i\sim \chi^2(m_i)\)</span>，各个<span class=math>\(X_i\)</span>独立，则<span class=math>\(\sum_{i=1}^n X_i\sim \chi^2(\sum_{i=1}^n m_i)\)</span></li>
+<li>简单论证：<span class=math>\(\chi^2\)</span>分布是特殊的Gamma分布（即<span class=math>\(Ga(\frac{n}{2},\frac{1}{2})\)</span>），而Gamma分布有可加性，所以<span class=math>\(\chi^2\)</span>分布也有可加性。也可以从<span class=math>\(\chi^2\)</span>分布的构成来看，它是由多个随机变量<span class=math>\(X_i\sim N(0,1)\)</span>加出来，因此卡方分布的相加无非就是多几个标准正态分布相加的事，因此不改变分布类型，只改变分布参数。</li>
 </ul>
-</li>
-</ol>
-<h3 id=样本方差的抽样分布服从chi2n分布>样本方差的抽样分布服从$\chi^2(n)$分布</h3>
+<h3 id=样本方差的抽样分布服从chi2n分布>样本方差的抽样分布服从<span class=math>\(\chi^2(n)\)</span>分布</h3>
 <blockquote>
-<p>引理1： N维随机变量线性变换的分布。设在两个n随机变量$X=(x_1,x_2,\dotsb,x_n)'$与$Y=(<em>1,y_2,\dotsb,y_n)'$间存在一个线性变换关系$Y=AX$，其中$A=(a</em>{ij})$为一个$n\times n$的n阶方阵，则它们的期望向量和方差（协方差）矩阵之间有如下关系：
-$$E(Y)=AE(X)\Var(Y)=AVar(X)A'$$</p>
+<p>引理1： N维随机变量线性变换的分布。设在两个n随机变量<span class=math>\(X=(x_1,x_2,\dotsb,x_n)'\)</span>与<span class=math>\(Y=(_1,y_2,\dotsb,y_n)'\)</span>间存在一个线性变换关系<span class=math>\(Y=AX\)</span>，其中<span class=math>\(A=(a_{ij})\)</span>为一个<span class=math>\(n\times n\)</span>的n阶方阵，则它们的期望向量和方差（协方差）矩阵之间有如下关系： <span class=math>\[E(Y)=AE(X)\\Var(Y)=AVar(X)A'\]</span></p>
 </blockquote>
 <p>证明：</p>
-<p>（1）首先矩阵变换是一种线性变换，求期望（无论是积分还是求和）也是线性变换，有$E(Y)=E(AX)$，$A$都是常数，所以可以把它当成线性变换的系数提出来，就有了$E(Y)=AE(X)$。</p>
-<p>（2）由于方差（协方差）运算中有变量之间的乘法，所以不是线性运算。我们老实根据定义求解，根据协方差矩阵的定义有：
-$$\begin{aligned}
-Var(Y)&=E[(Y-E(Y))(Y-E(Y))']\
-&\overset{Y=AX}{=}E[AX-E(AX)(AX-E(AX))']\
-&=E[AX-AE(X)(AX-AE(X))']\
-&\overset{\text{结合律}}{=}E[A(X-E(X))(A(X-E(X)))']\
-&\overset{(AB)'=B'A'}{=}E[A(X-E(X))(X-E(X))'A']\
-&=AE[(X-E(X))(X-E(X))']A'\
+<p>（1）首先矩阵变换是一种线性变换，求期望（无论是积分还是求和）也是线性变换，有<span class=math>\(E(Y)=E(AX)\)</span>，<span class=math>\(A\)</span>都是常数，所以可以把它当成线性变换的系数提出来，就有了<span class=math>\(E(Y)=AE(X)\)</span>。</p>
+<p>（2）由于方差（协方差）运算中有变量之间的乘法，所以不是线性运算。我们老实根据定义求解，根据协方差矩阵的定义有： <span class=math>\[\begin{aligned}
+Var(Y)&=E[(Y-E(Y))(Y-E(Y))']\\
+&\overset{Y=AX}{=}E[AX-E(AX)(AX-E(AX))']\\
+&=E[AX-AE(X)(AX-AE(X))']\\
+&\overset{\text{结合律}}{=}E[A(X-E(X))(A(X-E(X)))']\\
+&\overset{(AB)'=B'A'}{=}E[A(X-E(X))(X-E(X))'A']\\
+&=AE[(X-E(X))(X-E(X))']A'\\
 &=AVar(X)A'
-\end{aligned}$$</p>
+\end{aligned}\]</span></p>
 <blockquote>
-<p>定理3：设$X=(x_1,x_2,\dotsb,x_n)$是来自正态分布$N(\mu,\sigma^2)$的样本，其样本均值和样本方差分别为$\bar{x}$和$s^2$，则有</p>
-<ol>
-<li>$\frac{(n-1)s^2}{\sigma^2}\sim \chi^2(n-1)$</li>
-<li>$\bar{x},s^2$相互独立。</li>
+<p>定理3：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自正态分布<span class=math>\(N(\mu,\sigma^2)\)</span>的样本，其样本均值和样本方差分别为<span class=math>\(\bar{x}\)</span>和<span class=math>\(s^2\)</span>，则有</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(\frac{(n-1)s^2}{\sigma^2}\sim \chi^2(n-1)\)</span></li>
+<li><span class=math>\(\bar{x},s^2\)</span>相互独立。</li>
 </ol>
 </blockquote>
 <p>证明：</p>
-<p>首先对于n维随机变量$X$，期望$E(X)=\underbrace{(\mu,\mu,\dotsb,\mu)'}_{n个}$；n维随机变量的自协方差矩阵为$Var(X)=\sigma^2I$，因为各维度之间是独立的（$\Rightarrow$不相关），所以只有对角线上的元素$conv(x_i,x_i)=\sigma^2$，其他$conv(x_i,x_j)=0,i\neq j$。（conv表示协方差）。</p>
-<p>我们看
-$$(n-1)s^2=\sum_{i=1}^n (x-\bar{x})^2=\sum_{i=1}^n x_i^2 - 2\underbrace{\sum_{i=1}^n x_i}<em>{=n\bar{x}}\bar{x}+n\bar{x}^2=(\sum</em>{i=1}^n x_i^2)- n\bar{x}^2$$</p>
-<p>我们在处理样本方差的时候，最需要注意的一点就是<strong>样本样品和样本均值不独立</strong>，此外，<strong>一般分布都是看可加性，而上式是两个随机变量相减</strong>。所以我们需要通过<code>引理1</code>构造一组不相关的随机变量相加，再通过正态分布不相关=独立的性质进行计算。证明<code>定理3</code>最精巧的一步在于构造的统计量为$Y=AX$，$A$是个正交矩阵($AA'=I$)，因为根据<code>引理1</code>的方差公式，正交矩阵不改变$Var(X)$，既
-$$Var(Y)=AVar(X)A'=A\sigma^2I A'=\sigma^2I$$
-由于$Y$各元素是独立的正态分布随机变量${x_i}$的线性组合，即$Y$各维度也服从正态分布;而$Y$的协方差矩阵为$I$，说明各维度之间不相关，又因为正态分布的不相关和独立等价，所以$Y=(y_1,y_2,\dotsb,y_n)'$的各个分量相互独立，且其方差都是$\sigma^2$。</p>
-<p>如果我们想把$(n-1)s^2$往$\chi^2(n-1)$分布上靠，首先就要把其变换成<strong>独立的正态分布平方的和</strong>。同时正交矩阵$A$不改变原n维向量的模（的平方），即$\sum_{i=1}^n y_i^2=Y'Y=(AX)'AX=X'(A'A)X=X'X=\sum_{i=1}^n x_i^2$。这正是$(n-1)s^2$的前半部分。下一步关键是如果改造$\bar{x}$，由于$\sum_{i=1}^n y_i^2=\sum_{i=1}^n x_i^2$都很像自由度为n的$\chi^2(n)$分布（只是“像”）。我们希望$n\bar{x}^2$变成某个$y_k^2$，这样就可以正好减掉一个自由度，变成$\chi^2(n-1)$，这就需要更精细的构造矩阵$A$。先来看看$n\bar{x}^2$的构成：
-$$n\bar{x}^2=n\times (\frac{1}{n}\sum_{i=1}^n x)^2=(\sum_{i=1}^n\frac{1}{\sqrt{n}}x_i)^2$$
-如果我们令$A$的第$k$行为$(\frac{1}{\sqrt{n}},\frac{1}{\sqrt{n}},\dotsb,\frac{1}{\sqrt{n}})$且$A_k(A_k)'=1$，那么$y_k=A_{k}X=\sqrt{n}\bar{x}$，即$n\bar{x}^2 = y_k^2$。这样，就使得
-$$(n-1)s^2=(\sum_{i=1}^n x_i^2)- n\bar{x}^2=(\sum_{i=1}^n y_i^2)-y_k^2,k\in{1,2,\dotsb,n}$$
-不失一般性，我们不妨让$k=1$，则
-$$(n-1)s^2=\sum_{i=2}^n y_i^2$$
-我们发现，$(n-1)s^2$已经变成了$n-1$个正态分布随机变量的和，但是还不是标准正态随机变量。而根据要证的$\frac{(n-1)s^2}{\sigma^2}$和已知的$Y$各维度元素方差都是$\sigma^2$，因此有
-$$\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2$$
-其中，$\frac{y_i}{\sigma}\sim N(\frac{\mu_i}{\sigma},1),i=2,3,\dotsb,n,\mu_i$为$y_i$的均值。我们希望$\sum_{i=2}^n (\frac{y_i}{\sigma})^2$则需要$\frac{y_i}{\sigma}\sim N(0,1)$，现在还差$\mu_i=0$，还需要进一步构造$A$的第$2\sim n$行,由于$x_i$是i.i.d的，即$x_i$的均值都是$\mu$，而$\mu_k=E(y_k)=\mu\sum_{i=1}^n a_{ki}$。要让$\mu_k=0$，则需要让$\sum_{i=1}^n a_{ki}=0$，也就是说$A$的第$2\sim n$行的和都为0，又需要$A$是正交矩阵，我们因此构造如下矩阵：
-$$
+<p>首先对于n维随机变量<span class=math>\(X\)</span>，期望<span class=math>\(E(X)=\underbrace{(\mu,\mu,\dotsb,\mu)'}_{n个}\)</span>；n维随机变量的自协方差矩阵为<span class=math>\(Var(X)=\sigma^2I\)</span>，因为各维度之间是独立的（<span class=math>\(\Rightarrow\)</span>不相关），所以只有对角线上的元素<span class=math>\(conv(x_i,x_i)=\sigma^2\)</span>，其他<span class=math>\(conv(x_i,x_j)=0,i\neq j\)</span>。（conv表示协方差）。</p>
+<p>我们看 <span class=math>\[(n-1)s^2=\sum_{i=1}^n (x-\bar{x})^2=\sum_{i=1}^n x_i^2 - 2\underbrace{\sum_{i=1}^n x_i}_{=n\bar{x}}\bar{x}+n\bar{x}^2=(\sum_{i=1}^n x_i^2)- n\bar{x}^2\]</span></p>
+<p>我们在处理样本方差的时候，最需要注意的一点就是<strong>样本样品和样本均值不独立</strong>，此外，<strong>一般分布都是看可加性，而上式是两个随机变量相减</strong>。所以我们需要通过<code>引理1</code>构造一组不相关的随机变量相加，再通过正态分布不相关=独立的性质进行计算。证明<code>定理3</code>最精巧的一步在于构造的统计量为<span class=math>\(Y=AX\)</span>，<span class=math>\(A\)</span>是个正交矩阵(<span class=math>\(AA'=I\)</span>)，因为根据<code>引理1</code>的方差公式，正交矩阵不改变<span class=math>\(Var(X)\)</span>，既 <span class=math>\[Var(Y)=AVar(X)A'=A\sigma^2I A'=\sigma^2I\]</span> 由于<span class=math>\(Y\)</span>各元素是独立的正态分布随机变量<span class=math>\(\{x_i\}\)</span>的线性组合，即<span class=math>\(Y\)</span>各维度也服从正态分布;而<span class=math>\(Y\)</span>的协方差矩阵为<span class=math>\(I\)</span>，说明各维度之间不相关，又因为正态分布的不相关和独立等价，所以<span class=math>\(Y=(y_1,y_2,\dotsb,y_n)'\)</span>的各个分量相互独立，且其方差都是<span class=math>\(\sigma^2\)</span>。</p>
+<p>如果我们想把<span class=math>\((n-1)s^2\)</span>往<span class=math>\(\chi^2(n-1)\)</span>分布上靠，首先就要把其变换成<strong>独立的正态分布平方的和</strong>。同时正交矩阵<span class=math>\(A\)</span>不改变原n维向量的模（的平方），即<span class=math>\(\sum_{i=1}^n y_i^2=Y'Y=(AX)'AX=X'(A'A)X=X'X=\sum_{i=1}^n x_i^2\)</span>。这正是<span class=math>\((n-1)s^2\)</span>的前半部分。下一步关键是如果改造<span class=math>\(\bar{x}\)</span>，由于<span class=math>\(\sum_{i=1}^n y_i^2=\sum_{i=1}^n x_i^2\)</span>都很像自由度为n的<span class=math>\(\chi^2(n)\)</span>分布（只是“像”）。我们希望<span class=math>\(n\bar{x}^2\)</span>变成某个<span class=math>\(y_k^2\)</span>，这样就可以正好减掉一个自由度，变成<span class=math>\(\chi^2(n-1)\)</span>，这就需要更精细的构造矩阵<span class=math>\(A\)</span>。先来看看<span class=math>\(n\bar{x}^2\)</span>的构成： <span class=math>\[n\bar{x}^2=n\times (\frac{1}{n}\sum_{i=1}^n x)^2=(\sum_{i=1}^n\frac{1}{\sqrt{n}}x_i)^2\]</span> 如果我们令<span class=math>\(A\)</span>的第<span class=math>\(k\)</span>行为<span class=math>\((\frac{1}{\sqrt{n}},\frac{1}{\sqrt{n}},\dotsb,\frac{1}{\sqrt{n}})\)</span>且<span class=math>\(A_k(A_k)'=1\)</span>，那么<span class=math>\(y_k=A_{k}X=\sqrt{n}\bar{x}\)</span>，即<span class=math>\(n\bar{x}^2 = y_k^2\)</span>。这样，就使得 <span class=math>\[(n-1)s^2=(\sum_{i=1}^n x_i^2)- n\bar{x}^2=(\sum_{i=1}^n y_i^2)-y_k^2,k\in\{1,2,\dotsb,n\}\]</span> 不失一般性，我们不妨让<span class=math>\(k=1\)</span>，则 <span class=math>\[(n-1)s^2=\sum_{i=2}^n y_i^2\]</span> 我们发现，<span class=math>\((n-1)s^2\)</span>已经变成了<span class=math>\(n-1\)</span>个正态分布随机变量的和，但是还不是标准正态随机变量。而根据要证的<span class=math>\(\frac{(n-1)s^2}{\sigma^2}\)</span>和已知的<span class=math>\(Y\)</span>各维度元素方差都是<span class=math>\(\sigma^2\)</span>，因此有 <span class=math>\[\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\]</span> 其中，<span class=math>\(\frac{y_i}{\sigma}\sim N(\frac{\mu_i}{\sigma},1),i=2,3,\dotsb,n,\mu_i\)</span>为<span class=math>\(y_i\)</span>的均值。我们希望<span class=math>\(\sum_{i=2}^n (\frac{y_i}{\sigma})^2\)</span>则需要<span class=math>\(\frac{y_i}{\sigma}\sim N(0,1)\)</span>，现在还差<span class=math>\(\mu_i=0\)</span>，还需要进一步构造<span class=math>\(A\)</span>的第<span class=math>\(2\sim n\)</span>行,由于<span class=math>\(x_i\)</span>是i.i.d的，即<span class=math>\(x_i\)</span>的均值都是<span class=math>\(\mu\)</span>，而<span class=math>\(\mu_k=E(y_k)=\mu\sum_{i=1}^n a_{ki}\)</span>。要让<span class=math>\(\mu_k=0\)</span>，则需要让<span class=math>\(\sum_{i=1}^n a_{ki}=0\)</span>，也就是说<span class=math>\(A\)</span>的第<span class=math>\(2\sim n\)</span>行的和都为0，又需要<span class=math>\(A\)</span>是正交矩阵，我们因此构造如下矩阵： <span class=math>\[
 A=\begin{bmatrix}
-\frac{1}{\sqrt{n}}&\frac{1}{\sqrt{n}}&\frac{1}{\sqrt{n}}&\dotsb&\frac{1}{\sqrt{n}}\
-\frac{1}{\sqrt{2\cdot 1}}&-\frac{1}{\sqrt{2\cdot 1}}&0&\dotsb&0\
-\frac{1}{\sqrt{3\cdot 2}}&\frac{1}{\sqrt{3\cdot 2}}&-\frac{2}{\sqrt{3\cdot 2}}&\dotsb&0\
-\vdots&\vdots&\vdots&\ddots&\vdots&\
-\frac{1}{\sqrt{n\cdot (n-1))}}&\frac{1}{\sqrt{n\cdot (n-1))}}&\frac{1}{\sqrt{n\cdot (n-1))}}&\dotsb&-\frac{n-1}{\sqrt{n\cdot (n-1))}}\
+\frac{1}{\sqrt{n}}&\frac{1}{\sqrt{n}}&\frac{1}{\sqrt{n}}&\dotsb&\frac{1}{\sqrt{n}}\\
+\frac{1}{\sqrt{2\cdot 1}}&-\frac{1}{\sqrt{2\cdot 1}}&0&\dotsb&0\\
+\frac{1}{\sqrt{3\cdot 2}}&\frac{1}{\sqrt{3\cdot 2}}&-\frac{2}{\sqrt{3\cdot 2}}&\dotsb&0\\
+\vdots&\vdots&\vdots&\ddots&\vdots&\\
+\frac{1}{\sqrt{n\cdot (n-1))}}&\frac{1}{\sqrt{n\cdot (n-1))}}&\frac{1}{\sqrt{n\cdot (n-1))}}&\dotsb&-\frac{n-1}{\sqrt{n\cdot (n-1))}}\\
 \end{bmatrix}
-$$
-这时有$\frac{y_i}{\sigma}\sim N(0,1),i=2,3,\dotsb,n;y_1=\sqrt{n}\bar{x}$，且
-$$\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\sim \chi^2(n-1)$$
-样本方差的抽样分布服从$\chi^2(n)$分布得证。</p>
-<p>通过构造的矩阵$A$，我们还发现$\bar{x}$只和$y_1$有关，而$s^2$只和$y_2,\dotsb,y_n$有关，同时$y_i$之间是相互独立的，因此$\bar{x},s^2$也是相互独立的。</p>
+\]</span> 这时有<span class=math>\(\frac{y_i}{\sigma}\sim N(0,1),i=2,3,\dotsb,n;y_1=\sqrt{n}\bar{x}\)</span>，且 <span class=math>\[\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\sim \chi^2(n-1)\]</span> 样本方差的抽样分布服从<span class=math>\(\chi^2(n)\)</span>分布得证。</p>
+<p>通过构造的矩阵<span class=math>\(A\)</span>，我们还发现<span class=math>\(\bar{x}\)</span>只和<span class=math>\(y_1\)</span>有关，而<span class=math>\(s^2\)</span>只和<span class=math>\(y_2,\dotsb,y_n\)</span>有关，同时<span class=math>\(y_i\)</span>之间是相互独立的，因此<span class=math>\(\bar{x},s^2\)</span>也是相互独立的。</p>
 <h2 id=样本均值与样本方差比值的分布>样本均值与样本方差比值的分布</h2>
 <h3 id=t分布>t分布</h3>
 <h4 id=tips名字来源>TIPS名字来源</h4>
 <p>t，为Student简写，则是William Sealy Gosset（戈塞特）的笔名。他当年在爱尔兰都柏林的一家酒厂工作，设计了一种后来被称为t检验的方法来评价酒的质量。因为行业机密，酒厂不允许他的工作内容外泄，所以当他后来将其发表到至今仍十分著名的一本杂志《Biometrika》时，就署了student的笔名。所以现在很多人知道student，知道t，却不知道Gosset。</p>
 <h4 id=t分布介绍>t分布介绍</h4>
-<p>表达式：t分布的概率密度为
-$$
-p(x)=\frac{\Gamma \left(\frac{n+1}{2} \right)} {\sqrt{n\pi},\Gamma \left(\frac{n}{2} \right)} \left(1+\frac{x^2}{n} \right)^{-\frac{n+1}{2}}
-$$
-其中参数$n$称为自由度，$\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t} \mathrm{d}t$为伽马函数。</p>
-<p><img src=../../images/TStudent%E5%88%86%E5%B8%83.png alt=TStudent分布.png></p>
+<p>表达式：t分布的概率密度为 <span class=math>\[
+p(x)=\frac{\Gamma \left(\frac{n+1}{2} \right)} {\sqrt{n\pi}\,\Gamma \left(\frac{n}{2} \right)} \left(1+\frac{x^2}{n} \right)^{-\frac{n+1}{2}}
+\]</span> 其中参数<span class=math>\(n\)</span>称为自由度，<span class=math>\(\Gamma(x)=\int_0^{\infty}t^{x-1}e^{-t} \mathrm{d}t\)</span>为伽马函数。</p>
+<div class=figure>
+<img src=../../images/TStudent分布.png alt=TStudent分布.png><p class=caption>TStudent分布.png</p>
+</div>
 <p>一些观察：</p>
-<ol>
+<ol style=list-style-type:decimal>
 <li>t分布是比正态分布“宽容”分布，像正态分布但是集中度没有正态分布强。在描述重尾分布时更好。</li>
-<li>当$n=1$时，t分布为柯西分布，它的期望、方差都不存在。</li>
-<li>t分布是关于y轴对称的，所以$X\sim t(n),E(X)=0(n>1)$。当$n>2$时，t分布的方差存在，为$n/(n-2)$。</li>
-<li>当$n\geq 30$时，t分布于正态分布差别很小。</li>
+<li>当<span class=math>\(n=1\)</span>时，t分布为柯西分布，它的期望、方差都不存在。</li>
+<li>t分布是关于y轴对称的，所以<span class=math>\(X\sim t(n),E(X)=0(n>1)\)</span>。当<span class=math>\(n>2\)</span>时，t分布的方差存在，为<span class=math>\(n/(n-2)\)</span>。</li>
+<li>当<span class=math>\(n\geq 30\)</span>时，t分布于正态分布差别很小。</li>
 <li>t分布被广泛应用于<strong>小样本假设检验</strong>。虽然是很小的样本，但是，却强大到可以轻松的排除异常值的干扰，准确把握住数据的特征（集中趋势和离散趋势）</li>
 </ol>
 <h3 id=样本均值与样本方差比值服从t分布>样本均值与样本方差比值服从t分布</h3>
 <blockquote>
-<p>定理4（相互独立的标准正态分布与卡方分布之比服从t分布）：$X\sim N(0,1),Y\sim \chi^2(n),X,Y独立$，则$\frac{X}{\sqrt{Y/n}}\sim t(n)$，其中$t(n)$是自由度为n的分布。</p>
+<p>定理4（相互独立的标准正态分布与卡方分布之比服从t分布）：<span class=math>\(X\sim N(0,1),Y\sim \chi^2(n),X,Y独立\)</span>，则<span class=math>\(\frac{X}{\sqrt{Y/n}}\sim t(n)\)</span>，其中<span class=math>\(t(n)\)</span>是自由度为n的分布。</p>
 </blockquote>
-<p>证明：思路先求$\sqrt{Y/n}$的分布，然后再通过<strong>独立</strong>随机变量商的分布求$\frac{X}{\sqrt{Y/n}}$。</p>
-<p>令$z=g(y)=\sqrt{y/n}(y\geq 0)$，则其反函数为$y=h(z)=nz^2(z\geq 0)$。卡方分布在$y&lt;0$时都等于0，因此有$F_{z}(z)=0,z&lt;0$。当$y,z>0$时，根据随机变量的单调函数分布定理有：
-$$
-p_{<em>Z}(z)=p</em>{<em>Y}(h(z))h'(z)=p</em>{<em>Y}(nz^2)(2nz)\
+<p>证明：思路先求<span class=math>\(\sqrt{Y/n}\)</span>的分布，然后再通过<strong>独立</strong>随机变量商的分布求<span class=math>\(\frac{X}{\sqrt{Y/n}}\)</span>。</p>
+<p>令<span class=math>\(z=g(y)=\sqrt{y/n}(y\geq 0)\)</span>，则其反函数为<span class=math>\(y=h(z)=nz^2(z\geq 0)\)</span>。卡方分布在<span class=math>\(y&lt;0\)</span>时都等于0，因此有<span class=math>\(F_{z}(z)=0,z&lt;0\)</span>。当<span class=math>\(y,z>0\)</span>时，根据随机变量的单调函数分布定理有： <span class=math>\[
+p_{_Z}(z)=p_{_Y}(h(z))h'(z)=p_{_Y}(nz^2)(2nz)\\
 =\frac{1}{2^{\frac{n}{2}-1}\Gamma(\frac{n}{2})}n^{\frac{n}{2}}z^{n-1}e^{-\frac{nz^2}{2}}
-$$
-由于$X,Y$相互独立，所以$X,Z$也是独立的。联合概率密度$p(x,z)$就是$X,Z$两个概率密度的乘积，因此我们可以通过随机变量商的密度函数公式（参见笔记：<a href=%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%86%E5%B8%83.md>概率统计随机过程之随机变量函数的分布.md</a>）可得$T=X/Z$的密度函数为：
-$$
+\]</span> 由于<span class=math>\(X,Y\)</span>相互独立，所以<span class=math>\(X,Z\)</span>也是独立的。联合概率密度<span class=math>\(p(x,z)\)</span>就是<span class=math>\(X,Z\)</span>两个概率密度的乘积，因此我们可以通过随机变量商的密度函数公式（参见笔记：<a href=概率统计随机过程之随机变量函数的分布.md>概率统计随机过程之随机变量函数的分布.md</a>）可得<span class=math>\(T=X/Z\)</span>的密度函数为： <span class=math>\[
 \begin{aligned}
-p</em>{<em>T}(t;n)&=\int</em>{-\infty}^\infty p_{<em>Z}(z)p</em>{<em>X}(zt) |z| \mathrm{d}z (z>0)\
-&=\int</em>{0}^\infty \frac{1}{2^{\frac{n}{2}-1}\Gamma(\frac{n}{2})}n^{\frac{n}{2}}z^{n-1}e^{-\frac{nz^2}{2}}\cdot\frac{1}{\sqrt{2\pi}}e^{-\frac{(zt)^2}{2}}z \mathrm{d}z\
-\overset{\text{提出非积分项}}{=}&\frac{n^{\frac{n}{2}}}{\sqrt{\pi}2^{\frac{n-1}{2}}\Gamma(\frac{n}{2})}\int_{0}^\infty z^{n}e^{-\frac{z^2}{2}(n+t^2)}\mathrm{d}z\
-\overset{u=\frac{z^2}{2}(n+t^2)}{=}&\frac{1}{\sqrt{n\pi}\Gamma(\frac{n}{2})(1+\frac{t^2}{n})^{\frac{n+1}{2}}}\int_{0}^\infty u^{\frac{n+1}{2}-1}e^{-u}\mathrm{d}u\
-&=\frac{\Gamma \left(\frac{n+1}{2} \right)} {\sqrt{n\pi},\Gamma \left(\frac{n}{2} \right)} \left(1+\frac{t^2}{n} \right)^{-\frac{n+1}{2}}
+p_{_T}(t;n)&=\int_{-\infty}^\infty p_{_Z}(z)p_{_X}(zt) |z| \mathrm{d}z (z>0)\\
+&=\int_{0}^\infty \frac{1}{2^{\frac{n}{2}-1}\Gamma(\frac{n}{2})}n^{\frac{n}{2}}z^{n-1}e^{-\frac{nz^2}{2}}\cdot\frac{1}{\sqrt{2\pi}}e^{-\frac{(zt)^2}{2}}z \mathrm{d}z\\
+\overset{\text{提出非积分项}}{=}&\frac{n^{\frac{n}{2}}}{\sqrt{\pi}2^{\frac{n-1}{2}}\Gamma(\frac{n}{2})}\int_{0}^\infty z^{n}e^{-\frac{z^2}{2}(n+t^2)}\mathrm{d}z\\
+\overset{u=\frac{z^2}{2}(n+t^2)}{=}&\frac{1}{\sqrt{n\pi}\Gamma(\frac{n}{2})(1+\frac{t^2}{n})^{\frac{n+1}{2}}}\int_{0}^\infty u^{\frac{n+1}{2}-1}e^{-u}\mathrm{d}u\\
+&=\frac{\Gamma \left(\frac{n+1}{2} \right)} {\sqrt{n\pi}\,\Gamma \left(\frac{n}{2} \right)} \left(1+\frac{t^2}{n} \right)^{-\frac{n+1}{2}}
 \end{aligned}
-$$
-得证。</p>
+\]</span> 得证。</p>
 <blockquote>
-<p>定理5：样本均值与样本方差比值服从t分布。设$X=(x_1,x_2,\dotsb,x_n)$是来自正态分布$N(\mu,\sigma^2)$的样本，其样本均值和样本方差分别为$\bar{x}$和$s^2$，则有
-$$t=\frac{\sqrt{n}(\bar{x}-\mu)}{s}\sim t(n-1)$$</p>
+<p>定理5：样本均值与样本方差比值服从t分布。设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自正态分布<span class=math>\(N(\mu,\sigma^2)\)</span>的样本，其样本均值和样本方差分别为<span class=math>\(\bar{x}\)</span>和<span class=math>\(s^2\)</span>，则有 <span class=math>\[t=\frac{\sqrt{n}(\bar{x}-\mu)}{s}\sim t(n-1)\]</span></p>
 </blockquote>
-<p>证明：首先根据<code>定理3</code>，$\bar{x},s^2$是独立的，所以$\bar{x},s$也是独立的。根据<code>定理1</code>有$\bar{x}\sim N(\mu,\sigma^2/n)$，则$\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\sim N(0,1)$，而根据<code>定理3</code>有$\frac{(n-1)s^2}{\sigma^2}\sim \chi^2(n-1)$。仿照<code>定理5</code>的结构，我们可以构造：
-$$\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\bigg / \sqrt{\frac{(n-1)s^2}{\sigma^2}\big /(n-1)}\sim t(n-1)$$
-化简后即可得：
-$$t=\frac{\sqrt{n}(\bar{x}-\mu)}{s}\sim t(n-1)$$</p>
+<p>证明：首先根据<code>定理3</code>，<span class=math>\(\bar{x},s^2\)</span>是独立的，所以<span class=math>\(\bar{x},s\)</span>也是独立的。根据<code>定理1</code>有<span class=math>\(\bar{x}\sim N(\mu,\sigma^2/n)\)</span>，则<span class=math>\(\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\sim N(0,1)\)</span>，而根据<code>定理3</code>有<span class=math>\(\frac{(n-1)s^2}{\sigma^2}\sim \chi^2(n-1)\)</span>。仿照<code>定理5</code>的结构，我们可以构造： <span class=math>\[\frac{\bar{x}-\mu}{\sigma/\sqrt{n}}\bigg / \sqrt{\frac{(n-1)s^2}{\sigma^2}\big /(n-1)}\sim t(n-1)\]</span> 化简后即可得： <span class=math>\[t=\frac{\sqrt{n}(\bar{x}-\mu)}{s}\sim t(n-1)\]</span></p>
 <h2 id=两个独立正态样本方差比的分布>两个独立正态样本方差比的分布</h2>
 <h3 id=f分布>F分布</h3>
 <p>F分布是1924年英国统计学家Ronald.A.Fisher爵士提出，并以其姓氏的第一个字母命名的。</p>
-<p>F分布的PDF表达式：
-$$
+<p>F分布的PDF表达式： <span class=math>\[
 p(x,n_1,n_2)=\begin{cases}
-\frac{(n1/n2)^{n_1 \over 2}}{B(n_1/2,n_2/2)}x^{{n_1\over 2}-1}(1+{n_1\over n_2}x)^{-{n_1+n_2 \over 2}},x>0\
+\frac{(n1/n2)^{n_1 \over 2}}{B(n_1/2,n_2/2)}x^{{n_1\over 2}-1}(1+{n_1\over n_2}x)^{-{n_1+n_2 \over 2}},x>0\\
 0,x\leq 0
 \end{cases}
-$$
-其中，$n_1,n_2$都是自由度，$B(n_1/2,n_2/2)$是BETA函数，$B(m,n)=\frac{\Gamma(m)\Gamma(n)}{\Gamma(m+n)}$。</p>
-<p>自由度为$m, n$的F 分布的密度函数如下图：
-<img src=../../images/F%E5%88%86%E5%B8%83.png alt=F分布.png></p>
+\]</span> 其中，<span class=math>\(n_1,n_2\)</span>都是自由度，<span class=math>\(B(n_1/2,n_2/2)\)</span>是BETA函数，<span class=math>\(B(m,n)=\frac{\Gamma(m)\Gamma(n)}{\Gamma(m+n)}\)</span>。</p>
+<p>自由度为<span class=math>\(m, n\)</span>的F 分布的密度函数如下图： <img src=../../images/F分布.png alt=F分布.png></p>
 <p>一些观察：</p>
-<ol>
-<li>$F\sim F(n_1,n_2)$，则$\frac{1}{F}\sim F(n_2,n_1)$;</li>
-<li>当$n_2>2$时，F分布存在数学期望$n_2/(n_2-2)$;</li>
-<li>当$n_2>4$时，F分布存在方差$\frac{2n_2^2(n_1+n_2-2)}{n_1(n_2-2)^2(n_2-4)}$</li>
-<li>若$t\sim t(n)$，则$t^2\sim F(1,n)$</li>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(F\sim F(n_1,n_2)\)</span>，则<span class=math>\(\frac{1}{F}\sim F(n_2,n_1)\)</span>;</li>
+<li>当<span class=math>\(n_2>2\)</span>时，F分布存在数学期望<span class=math>\(n_2/(n_2-2)\)</span>;</li>
+<li>当<span class=math>\(n_2>4\)</span>时，F分布存在方差<span class=math>\(\frac{2n_2^2(n_1+n_2-2)}{n_1(n_2-2)^2(n_2-4)}\)</span></li>
+<li>若<span class=math>\(t\sim t(n)\)</span>，则<span class=math>\(t^2\sim F(1,n)\)</span></li>
 </ol>
 <h3 id=两个独立正态样本方差比的服从f分布>两个独立正态样本方差比的服从F分布</h3>
 <blockquote>
-<p>定理6（两个独立的卡方分布之比服从F分布）：$X\sim \chi^2(n_1),Y\sim \chi^2(n_2),X,Y$独立，则$\frac{X/n_1}{Y/n_2}\sim F(n_1.n_2)$。</p>
+<p>定理6（两个独立的卡方分布之比服从F分布）：<span class=math>\(X\sim \chi^2(n_1),Y\sim \chi^2(n_2),X,Y\)</span>独立，则<span class=math>\(\frac{X/n_1}{Y/n_2}\sim F(n_1.n_2)\)</span>。</p>
 </blockquote>
-<p>证明：首先通过两独立随机变量的商的分布得到$\frac{X}{Y}$的分布，然后再通过随机变量的单调函数的分布得到$\frac{n_2}{n_1}\frac{X}{Y}$的分布。证明不难，但是比较繁琐，我直接贴图片了。</p>
-<p><img src=../../images/F%E5%88%86%E5%B8%83%E5%BD%A2%E5%BC%8F%E8%AF%81%E6%98%8E.png alt=F分布形式证明></p>
+<p>证明：首先通过两独立随机变量的商的分布得到<span class=math>\(\frac{X}{Y}\)</span>的分布，然后再通过随机变量的单调函数的分布得到<span class=math>\(\frac{n_2}{n_1}\frac{X}{Y}\)</span>的分布。证明不难，但是比较繁琐，我直接贴图片了。</p>
+<div class=figure>
+<img src=../../images/F分布形式证明.png alt=F分布形式证明><p class=caption>F分布形式证明</p>
+</div>
 <blockquote>
-<p>定理7：两个独立正态样本方差比的服从F分布。设$X,Y$是分别来自正态分布$N(\mu_1,\sigma_1^2),N(\mu_2,\sigma_2^2)$的容量为$n_1,n_2$样本,，样本方差分别为$s_1^2,s_2^2$，则有
-$$\frac{X_1/(n_1-1)}{X_2/(n_2-1)}=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\sim F(n_1-1,n_2-1)$$</p>
+<p>定理7：两个独立正态样本方差比的服从F分布。设<span class=math>\(X,Y\)</span>是分别来自正态分布<span class=math>\(N(\mu_1,\sigma_1^2),N(\mu_2,\sigma_2^2)\)</span>的容量为<span class=math>\(n_1,n_2\)</span>样本,，样本方差分别为<span class=math>\(s_1^2,s_2^2\)</span>，则有 <span class=math>\[\frac{X_1/(n_1-1)}{X_2/(n_2-1)}=\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}\sim F(n_1-1,n_2-1)\]</span></p>
 </blockquote>
-<p>证明：由<code>定理3</code>可知样本方差$s_1^2,s_2^2$的线性变换$X_1=(n_1-1)s_1^2/\sigma_1^2,X_2=(n_2-1)s_2^2/\sigma_2^2$的分布分别服从$\chi^2(n_1-1),\chi^2(n_2-1)$，且相互独立。在将分子分母的自由度分别代入<code>定理6</code>，可得$\frac{X_1/(n_1-1)}{X_2/(n_2-1)}\sim F(n_1-1,n_2-1)$，<code>定理7</code>得证。</p>
+<p>证明：由<code>定理3</code>可知样本方差<span class=math>\(s_1^2,s_2^2\)</span>的线性变换<span class=math>\(X_1=(n_1-1)s_1^2/\sigma_1^2,X_2=(n_2-1)s_2^2/\sigma_2^2\)</span>的分布分别服从<span class=math>\(\chi^2(n_1-1),\chi^2(n_2-1)\)</span>，且相互独立。在将分子分母的自由度分别代入<code>定理6</code>，可得<span class=math>\(\frac{X_1/(n_1-1)}{X_2/(n_2-1)}\sim F(n_1-1,n_2-1)\)</span>，<code>定理7</code>得证。</p>
 <h2 id=正态总体下的抽样分布总结>正态总体下的抽样分布总结</h2>
-<p><img src=../../images/%E6%AD%A3%E6%80%81%E6%80%BB%E4%BD%93%E4%B8%8B%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83.jpg alt=正态总体下的抽样分布.jpg></p>
+<div class=figure>
+<img src=../../images/正态总体下的抽样分布.jpg alt=正态总体下的抽样分布.jpg><p class=caption>正态总体下的抽样分布.jpg</p>
+</div>
 <h2 id=附录>附录</h2>
 <h3 id=附录1-gamma分布可加性证明>附录1-Gamma分布可加性证明</h3>
-<p>可以利用Gamma分布的特征函数快速证明。记Gamma分布为$Ga(\alpha_i,\lambda)$，则其特征函数为
-$$
+<p>可以利用Gamma分布的特征函数快速证明。记Gamma分布为<span class=math>\(Ga(\alpha_i,\lambda)\)</span>，则其特征函数为 <span class=math>\[
 \varphi_i(t)=(1-\frac{it}{\lambda})^{-\alpha_i}
-$$
-当$\lambda$相同时，有
-$$Ga(\alpha_i,\lambda)+Ga(\alpha_j,\lambda)=\varphi_i(t)*\varphi_j(t)\
-=(1-\frac{it}{\lambda})^{-(\alpha_i+\alpha_j)}=Ga(\alpha_i+\alpha_j,\lambda)$$
-得证。</p>
+\]</span> 当<span class=math>\(\lambda\)</span>相同时，有 <span class=math>\[Ga(\alpha_i,\lambda)+Ga(\alpha_j,\lambda)=\varphi_i(t)*\varphi_j(t)\\
+=(1-\frac{it}{\lambda})^{-(\alpha_i+\alpha_j)}=Ga(\alpha_i+\alpha_j,\lambda)\]</span> 得证。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

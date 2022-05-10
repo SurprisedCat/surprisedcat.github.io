@@ -88,43 +88,39 @@ Dec 2, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=多项式算法与伪多项式算法---omit-in-toc--->多项式算法与伪多项式算法</h2>
+<h2 id=多项式算法与伪多项式算法>多项式算法与伪多项式算法</h2>
 <p>为了理解多项式算法和为伪多项式算法的区别，我们先要明确什么是<strong>多项式算法</strong>。</p>
-<p>多项式时间算法的一个常见的直觉就是对于某一$k$，时间复杂度伪$O(n^k)$。例如，<code>选择排序算法</code>的时间运行时间为$O(n^2)$，就是多项式时间的。然而，使用暴力计算<code>TSP</code>问题需要的时间为$O(n\cdot n!)$，就不是多项式时间的。</p>
-<p>这些运行时间都和一个变量，表示数据的输入规模的$n$有关。例如在选择排序算法中，n表示输入数组中元素的数量，而在TSP问题中，n表示图中节点的个数。但是，这些所谓的输入规模，仅仅是直观的定义，并不足够严谨。为了标准化这些$n$，在计算标准时间复杂度时，我们给出了输入规模的标准定义：</p>
+<p>多项式时间算法的一个常见的直觉就是对于某一<span class=math>\(k\)</span>，时间复杂度伪<span class=math>\(O(n^k)\)</span>。例如，<code>选择排序算法</code>的时间运行时间为<span class=math>\(O(n^2)\)</span>，就是多项式时间的。然而，使用暴力计算<code>TSP</code>问题需要的时间为<span class=math>\(O(n\cdot n!)\)</span>，就不是多项式时间的。</p>
+<p>这些运行时间都和一个变量，表示数据的输入规模的<span class=math>\(n\)</span>有关。例如在选择排序算法中，n表示输入数组中元素的数量，而在TSP问题中，n表示图中节点的个数。但是，这些所谓的输入规模，仅仅是直观的定义，并不足够严谨。为了标准化这些<span class=math>\(n\)</span>，在计算标准时间复杂度时，我们给出了输入规模的标准定义：</p>
 <blockquote>
 <p>一个问题的输入规模是保存输入数据所需要的bit位数。</p>
 </blockquote>
-<p>比如，如果排序算法的输入是一个32-bit整数数组，那么输入规模就是$32n$，$n$是指数组中元素的个数。对于一个带有n个节点、m条边的图，,假设每一个点或边用32-bit来存储，需要的bit位数就是$\Omega(32(n+m))$。</p>
+<p>比如，如果排序算法的输入是一个32-bit整数数组，那么输入规模就是<span class=math>\(32n\)</span>，<span class=math>\(n\)</span>是指数组中元素的个数。对于一个带有n个节点、m条边的图，,假设每一个点或边用32-bit来存储，需要的bit位数就是<span class=math>\(\Omega(32(n+m))\)</span>。</p>
 <p>了解了输入规模的定义，我们来看“多项式时间”的标准定义：</p>
 <blockquote>
-<p>对于一个问题，在输入规模为$x$的情况下(即需要$x$ bits来表示问题的输入)，对于某一常数$k$，如果一个算法能够在$O(x^k)$时间内解决此问题，则我们称此算法是多项式时间的。</p>
+<p>对于一个问题，在输入规模为<span class=math>\(x\)</span>的情况下(即需要<span class=math>\(x\)</span> bits来表示问题的输入)，对于某一常数<span class=math>\(k\)</span>，如果一个算法能够在<span class=math>\(O(x^k)\)</span>时间内解决此问题，则我们称此算法是多项式时间的。</p>
 </blockquote>
-<p>当我们处理一些图论、链表、数组、树等问题时，这个<strong>标准定义下的多项式时间和我们传统的多项式时间</strong>相差无几。还是以选择算法为例，对元素个数为$n$的数组进行排序时，传统时间复杂度为$O(n^2)$。那么如何将数组中的元素个数和输入规模的比特数联系起来呢？之前我们提到过，如果用32-bit表示一个元素，那么有$x=32n$，那么用$x$替换$n$就有$O((32x)^2)=O(x^2)$，仍然是多项式时间。</p>
-<p>类似的，假设在带有$n$个节点、$m$条边的图中做<code>DFS(深度优先搜索)</code>，传统时间复杂度为$O(m+n)$。数据规模$x=\Theta(m+n)$，因此，标准时间复杂度是$O(x)$，仍是多项式时间的。</p>
+<p>当我们处理一些图论、链表、数组、树等问题时，这个<strong>标准定义下的多项式时间和我们传统的多项式时间</strong>相差无几。还是以选择算法为例，对元素个数为<span class=math>\(n\)</span>的数组进行排序时，传统时间复杂度为<span class=math>\(O(n^2)\)</span>。那么如何将数组中的元素个数和输入规模的比特数联系起来呢？之前我们提到过，如果用32-bit表示一个元素，那么有<span class=math>\(x=32n\)</span>，那么用<span class=math>\(x\)</span>替换<span class=math>\(n\)</span>就有<span class=math>\(O((32x)^2)=O(x^2)\)</span>，仍然是多项式时间。</p>
+<p>类似的，假设在带有<span class=math>\(n\)</span>个节点、<span class=math>\(m\)</span>条边的图中做<code>DFS(深度优先搜索)</code>，传统时间复杂度为<span class=math>\(O(m+n)\)</span>。数据规模<span class=math>\(x=\Theta(m+n)\)</span>，因此，标准时间复杂度是<span class=math>\(O(x)\)</span>，仍是多项式时间的。</p>
 <p>然而，当我们处理一些与<strong>数有关的问题</strong>时，事情就不太乐观了。现在我们来讨论判断一个整数是否为素数的算法，下面是一个简单的判断素数算法：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln>1</span><span class=kd>function</span> <span class=nx>isPrime</span><span class=p>(</span><span class=nx>n</span><span class=p>)</span><span class=o>:</span>
-<span class=ln>2</span>    <span class=k>for</span> <span class=nx>i</span> <span class=nx>from</span> <span class=mi>2</span> <span class=nx>to</span> <span class=nx>n</span> <span class=o>-</span> <span class=mi>1</span><span class=o>:</span>
-<span class=ln>3</span>        <span class=k>if</span> <span class=p>(</span><span class=nx>n</span> <span class=nx>mod</span> <span class=nx>i</span><span class=p>)</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=k>return</span> <span class=kc>false</span>
-<span class=ln>4</span>    <span class=k>return</span> <span class=kc>true</span>
-</code></pre></div><p>这段代码的时间复杂度是什么？首先看函数显然循环了$O(n)$次，内部的<code>n mod i</code>复杂度，我们不妨设<em>一个很保守的上界</em>$O(n^3)$，因此这个算法的整体复杂度为$O(n^4)$。（由于求模运算会比$O(n^3)$更快，所以实际上没有$n^4$那么高的复杂度）。</p>
+<pre class="sourceCode javascript"><code class="sourceCode javascript"><span class=kw>function</span> <span class=fu>isPrime</span>(n):
+    <span class=kw>for</span> i from <span class=dv>2</span> to n - <span class=dv>1</span>:
+        <span class=kw>if</span> (n mod i) = <span class=dv>0</span>, <span class=kw>return</span> <span class=kw>false</span>
+    <span class=kw>return</span> <span class=kw>true</span></code></pre>
+<p>这段代码的时间复杂度是什么？首先看函数显然循环了<span class=math>\(O(n)\)</span>次，内部的<code>n mod i</code>复杂度，我们不妨设<em>一个很保守的上界</em><span class=math>\(O(n^3)\)</span>，因此这个算法的整体复杂度为<span class=math>\(O(n^4)\)</span>。（由于求模运算会比<span class=math>\(O(n^3)\)</span>更快，所以实际上没有<span class=math>\(n^4\)</span>那么高的复杂度）。</p>
 <p>有意思的是，直到2004年，三位计算机科学才发表了一篇具有<strong>里程碑意义的文章</strong>:<a href=https://annals.math.princeton.edu/2004/160-2/p12>PRIMES is in p</a>，<em>这篇文章给出了一个测定任意一个数是否是质数的多项式算法</em>。</p>
 <p>可能有读者在想，这算什么？我们刚刚不是很轻松的给出了一个多项式时间内判断一个数为素数的算法了吗？</p>
-<p>不幸的是，<strong>上面那个简单的算法并没有在多项式时间内得出结果</strong>。回忆一下，我们正式定义时间复杂度的时候用的算法输入规模是如何衡量的？是<strong>输入的比特数</strong>。我们的简单的判断素数的算法关于n的复杂度是$O(n^4)$，但是它的输入规模是多少呢？显然，输入大小为n的数需要$x=O(\log_2 n)$比特，即$n=\Theta(2^x)$。所以用标准的输入规模$x$表示，我们的那个简单算法的实际算法复杂度变成了$O(2^{4x})$，这已经成了指数时间复杂度了！</p>
-<p><strong>这里就是多项式时间算法和伪多项式时间算法的核心区别</strong>。一方面，我们的简单算法看上去是多项式复杂度的$O(n^4)$，另一方面，在标准输入规模的定义下，却不是多项式时间复杂度。</p>
-<p>我们可以从下面这个例子中直观感受一下简单判断素数算法的指数时间的增长速度。对于一个二进制串：
-$$10001010101011$$
-我们记指数时间复杂度算法运行时间为$T$。然后，我们在二进制串后面仅仅增加一位：
-$$100010101010111$$
-这时，算法运行时间会变为$2T$(至少)！因此，我们仅仅增加几个bit 就会使得算法运行时间成倍成倍的增长。(相当于数字$\times 2$，上面 提到的简单素数判断算法的计算量也$\times 2$)</p>
+<p>不幸的是，<strong>上面那个简单的算法并没有在多项式时间内得出结果</strong>。回忆一下，我们正式定义时间复杂度的时候用的算法输入规模是如何衡量的？是<strong>输入的比特数</strong>。我们的简单的判断素数的算法关于n的复杂度是<span class=math>\(O(n^4)\)</span>，但是它的输入规模是多少呢？显然，输入大小为n的数需要<span class=math>\(x=O(\log_2 n)\)</span>比特，即<span class=math>\(n=\Theta(2^x)\)</span>。所以用标准的输入规模<span class=math>\(x\)</span>表示，我们的那个简单算法的实际算法复杂度变成了<span class=math>\(O(2^{4x})\)</span>，这已经成了指数时间复杂度了！</p>
+<p><strong>这里就是多项式时间算法和伪多项式时间算法的核心区别</strong>。一方面，我们的简单算法看上去是多项式复杂度的<span class=math>\(O(n^4)\)</span>，另一方面，在标准输入规模的定义下，却不是多项式时间复杂度。</p>
+<p>我们可以从下面这个例子中直观感受一下简单判断素数算法的指数时间的增长速度。对于一个二进制串： <span class=math>\[10001010101011\]</span> 我们记指数时间复杂度算法运行时间为<span class=math>\(T\)</span>。然后，我们在二进制串后面仅仅增加一位： <span class=math>\[100010101010111\]</span> 这时，算法运行时间会变为<span class=math>\(2T\)</span>(至少)！因此，我们仅仅增加几个bit 就会使得算法运行时间成倍成倍的增长。(相当于数字<span class=math>\(\times 2\)</span>，上面 提到的简单素数判断算法的计算量也<span class=math>\(\times 2\)</span>)</p>
 <p>最后我们来说伪多项式时间的定义：</p>
 <blockquote>
 <p>如果一个算法的复杂度以<strong>数字大小</strong>记是<strong>多项式时间</strong>的，而<strong>标准时间复杂度不是多项式时间</strong>的，则我们称这个算法是<strong>伪多项式时间</strong>的。</p>
 <p>也可以理解为：算法的复杂度与<strong>输入规模</strong>呈<strong>指数</strong>关系，与输入的<strong>数值大小</strong>呈<strong>多项式</strong>关系。</p>
 </blockquote>
-<p>一个具有伪多项式时间复杂度的NP完全问题称之为<strong>弱NP完全问题</strong>，而在$P!=NP$的情况下，若一个NP完全问题被证明没有伪多项式时间复杂度的解，则称之为<strong>强NP完全问题</strong>。</p>
+<p>一个具有伪多项式时间复杂度的NP完全问题称之为<strong>弱NP完全问题</strong>，而在<span class=math>\(P!=NP\)</span>的情况下，若一个NP完全问题被证明没有伪多项式时间复杂度的解，则称之为<strong>强NP完全问题</strong>。</p>
 <h2 id=附言>附言</h2>
-<p><a href=https://annals.math.princeton.edu/2004/160-2/p12>PRIMES is in p</a>这篇文章证明了可以使用$O(\log^{12} n)即O(x^{12})$的算法来判断一个数是不是素数，因此是一个多项式时间复杂度算法。</p>
+<p><a href=https://annals.math.princeton.edu/2004/160-2/p12>PRIMES is in p</a>这篇文章证明了可以使用<span class=math>\(O(\log^{12} n)即O(x^{12})\)</span>的算法来判断一个数是不是素数，因此是一个多项式时间复杂度算法。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

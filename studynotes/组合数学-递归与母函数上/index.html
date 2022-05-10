@@ -88,125 +88,75 @@ Apr 17, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=递归与母函数上---omit-in-toc--->递归与母函数（上）</h2>
+<h2 id=递归与母函数上>递归与母函数（上）</h2>
 <p>递推关系是计数的一个强有力的工具，特别是在做算法分析时是必需的。递推关系的求解主要是利用母函数。当然母函数尚有其他用处，但这主要是介绍解递推关系上的应用。</p>
-<p>通常序列$a_0,a_1,\dotsb,a_n,\dotsb$与某个问题序列$P_0,P_1,\dotsb,P_n,\dotsb$的计数问题相对应，若已知序列的母函数，则可确定该序列，从而可以解决相应的计数问题。</p>
+<p>通常序列<span class=math>\(a_0,a_1,\dotsb,a_n,\dotsb\)</span>与某个问题序列<span class=math>\(P_0,P_1,\dotsb,P_n,\dotsb\)</span>的计数问题相对应，若已知序列的母函数，则可确定该序列，从而可以解决相应的计数问题。</p>
 <p>注意：<strong>母函数==生成函数</strong></p>
 <ul>
-<li><a href=#%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%E5%BC%95%E5%AD%90>组合数学引子</a>
-<ul>
-<li><a href=#%E6%9C%89%E9%87%8D%E5%A4%8D%E7%BB%84%E5%90%88%E5%85%AC%E5%BC%8F%E5%8F%8A%E5%85%B6%E8%AF%81%E6%98%8E%E6%96%B9%E6%B3%95>有重复组合公式及其证明方法</a></li>
-</ul>
-</li>
-<li><a href=#%E6%AF%8D%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89>母函数定义</a>
-<ul>
-<li><a href=#%E6%99%AE%E9%80%9A%E6%AF%8D%E5%87%BD%E6%95%B0ordinary-generating-functionogf>普通母函数(Ordinary generating function，OGF)</a></li>
-<li><a href=#%E6%8C%87%E6%95%B0%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0exponential-generating-functionegf>指数生成函数(Exponential generating function，EGF)</a></li>
-<li><a href=#%E6%B3%8A%E6%9D%BE%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0>泊松生成函数</a></li>
-</ul>
-</li>
-<li><a href=#%E6%99%AE%E9%80%9A%E6%AF%8D%E5%87%BD%E6%95%B0%E4%B8%BE%E4%BE%8B>普通母函数举例</a></li>
-<li><a href=#%E6%AF%8D%E5%87%BD%E6%95%B0%E7%9A%84%E6%80%A7%E8%B4%A8>母函数的性质</a></li>
-<li><a href=#%E6%95%B4%E6%95%B0%E7%9A%84%E6%8B%86%E5%88%86>整数的拆分</a></li>
-<li><a href=#%E6%8C%87%E6%95%B0%E5%9E%8B%E6%AF%8D%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3>指数型母函数详解</a></li>
-<li><a href=#%E9%80%92%E6%8E%A8%E5%85%B3%E7%B3%BB>递推关系</a>
-<ul>
-<li><a href=#%E6%B1%89%E8%AF%BA%E5%A1%94>汉诺塔</a></li>
-<li><a href=#%E6%B1%82n%E4%BD%8D%E5%8D%81%E8%BF%9B%E5%88%B6%E6%95%B0%E4%B8%AD%E5%87%BA%E7%8E%B0%E5%81%B6%E6%95%B0%E4%B8%AA5%E7%9A%84%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0>求n位十进制数中出现偶数个5的数的个数</a></li>
-<li><a href=#%E4%BB%8En%E4%B8%AA%E5%85%83%E7%B4%A0%E4%B8%AD%E5%8F%96r%E4%B8%AA%E8%BF%9B%E8%A1%8C%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E7%9A%84%E7%BB%84%E5%90%88>从n个元素中取r个进行允许重复的组合</a></li>
-<li><a href=#fibonacci%E6%95%B0%E5%88%97>Fibonacci数列</a></li>
-</ul>
-</li>
+<li><a href=#组合数学引子>组合数学引子</a></li>
+<li><a href=#有重复组合公式及其证明方法>有重复组合公式及其证明方法</a></li>
+<li><a href=#母函数定义>母函数定义</a></li>
+<li><a href=#普通母函数ordinary-generating-functionogf>普通母函数(Ordinary generating function，OGF)</a></li>
+<li><a href=#指数生成函数exponential-generating-functionegf>指数生成函数(Exponential generating function，EGF)</a></li>
+<li><a href=#泊松生成函数>泊松生成函数</a></li>
+<li><a href=#普通母函数举例>普通母函数举例</a></li>
+<li><a href=#母函数的性质>母函数的性质</a></li>
+<li><a href=#整数的拆分>整数的拆分</a></li>
+<li><a href=#指数型母函数详解>指数型母函数详解</a></li>
+<li><a href=#递推关系>递推关系</a></li>
+<li><a href=#汉诺塔>汉诺塔</a></li>
+<li><a href=#求n位十进制数中出现偶数个5的数的个数>求n位十进制数中出现偶数个5的数的个数</a></li>
+<li><a href=#从n个元素中取r个进行允许重复的组合>从n个元素中取r个进行允许重复的组合</a></li>
+<li><a href=#fibonacci数列>Fibonacci数列</a></li>
 </ul>
 <h2 id=组合数学引子>组合数学引子</h2>
 <h3 id=有重复组合公式及其证明方法>有重复组合公式及其证明方法</h3>
-<p>从n个不同元素中取出m的元素（方法是从n个元素中每次取出一个后，放回，再取另外一个，直到取出m个元素），并成一组，叫做n个不同元素的一个m-可重组合。n个不同元素的m-可重组合数为$C(m,n+m-1)$，$m$可以是任意的正整数。</p>
-<p>证明：实际上大家还应该注意到一点，就是有重复组合不考虑取出的元素的顺序，通俗来说，你第一次取出一号元素第二次取出三号元素和你第一次取出三号元素第二次取出一号元素是一样的情况。可以把该过程看作是一个“放球模型”；n个不同的元素看作是n个格子，去掉头尾之后中间一共有$(n-1)$块相同的隔板；用m个相同的小球代表取m次；则原问题可以简化为将m个不加区别的小球放进n个格子里面，问有多少种放法；</p>
-<p>注意到格子的头尾两块隔板无论什么情况下位置都是不变的，故去掉不用考虑；相当于$m$个相同的小球和$(n-1)$块相同的隔板先进行全排列：一共有$(m+n-1)!$种排法，再由于m个小球和$(n-1)$块隔板是分别不加以区分的，所以除以重复的情况：$m!*(n-1)!$；</p>
-<p>于是答案就是：$\frac{(m+n-1)!}{m!*(n-1)!}=C(m,n+m-1)$。</p>
+<p>从n个不同元素中取出m的元素（方法是从n个元素中每次取出一个后，放回，再取另外一个，直到取出m个元素），并成一组，叫做n个不同元素的一个m-可重组合。n个不同元素的m-可重组合数为<span class=math>\(C(m,n+m-1)\)</span>，<span class=math>\(m\)</span>可以是任意的正整数。</p>
+<p>证明：实际上大家还应该注意到一点，就是有重复组合不考虑取出的元素的顺序，通俗来说，你第一次取出一号元素第二次取出三号元素和你第一次取出三号元素第二次取出一号元素是一样的情况。可以把该过程看作是一个“放球模型”；n个不同的元素看作是n个格子，去掉头尾之后中间一共有<span class=math>\((n-1)\)</span>块相同的隔板；用m个相同的小球代表取m次；则原问题可以简化为将m个不加区别的小球放进n个格子里面，问有多少种放法；</p>
+<p>注意到格子的头尾两块隔板无论什么情况下位置都是不变的，故去掉不用考虑；相当于<span class=math>\(m\)</span>个相同的小球和<span class=math>\((n-1)\)</span>块相同的隔板先进行全排列：一共有<span class=math>\((m+n-1)!\)</span>种排法，再由于m个小球和<span class=math>\((n-1)\)</span>块隔板是分别不加以区分的，所以除以重复的情况：<span class=math>\(m!*(n-1)!\)</span>；</p>
+<p>于是答案就是：<span class=math>\(\frac{(m+n-1)!}{m!*(n-1)!}=C(m,n+m-1)\)</span>。</p>
 <h2 id=母函数定义>母函数定义</h2>
 <p>母函数的是形式化的函数，是一种形式幂级数，其每一项的系数可以提供关于这个序列的信息。母函数可分为很多种，包括普通母函数、指数母函数、L级数、贝尔级数和狄利克雷级数。对每个序列都可以写出以上每个类型的一个母函数。构造母函数的目的一般是为了解决某个特定的问题，因此选用何种母函数视乎序列本身的特性和问题的类型。</p>
 <p>注意母函数本身并不是一个从某个定义域射到某个上域的函数，名字中的“函数”只是出于历史原因而保留。</p>
 <h3 id=普通母函数ordinary-generating-functionogf>普通母函数(Ordinary generating function，OGF)</h3>
-<p>对于序列$a_n$，其OGF定义为：
-$$G(a_n;x)=\sum_{n=0}^\infty(a_n x^n) \tag{1.1}$$
-当没有特别之处是哪一种生成函数的时候，通常就用OGF。如果$a_n$是概率密度函数或者离散随机变量，那么OGF可以成为概率生成函数（PGF）。对于多维生成函数可以用多个变量表示，例如：
-$$G(a_{m,n};x,y)=\sum_{m,n=0}^\infty a_{m,n}x^m y^n\tag{1.2}$$</p>
+<p>对于序列<span class=math>\(a_n\)</span>，其OGF定义为： <span class=math>\[G(a_n;x)=\sum_{n=0}^\infty(a_n x^n) \tag{1.1}\]</span> 当没有特别之处是哪一种生成函数的时候，通常就用OGF。如果<span class=math>\(a_n\)</span>是概率密度函数或者离散随机变量，那么OGF可以成为概率生成函数（PGF）。对于多维生成函数可以用多个变量表示，例如： <span class=math>\[G(a_{m,n};x,y)=\sum_{m,n=0}^\infty a_{m,n}x^m y^n\tag{1.2}\]</span></p>
 <h3 id=指数生成函数exponential-generating-functionegf>指数生成函数(Exponential generating function，EGF)</h3>
-<p>$$\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{1.3}.$$
-在组合枚举问题中EGF一般比OGF更方便使用。</p>
+<p><span class=math>\[\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{1.3}.\]</span> 在组合枚举问题中EGF一般比OGF更方便使用。</p>
 <h3 id=泊松生成函数>泊松生成函数</h3>
-<p>$$\operatorname{PG}(a_{n};x)=\sum_{n=0}^{\infty}a_{n}e^{-x}{\frac{x^{n}}{n!}}=e^{-x}\operatorname {EG} (a_{n};x)\tag{1.4}.$$</p>
+<p><span class=math>\[\operatorname{PG}(a_{n};x)=\sum_{n=0}^{\infty}a_{n}e^{-x}{\frac{x^{n}}{n!}}=e^{-x}\operatorname {EG} (a_{n};x)\tag{1.4}.\]</span></p>
 <h2 id=普通母函数举例>普通母函数举例</h2>
-<p>一个关键的生成函数是对于常序列1，1，1，1，1，1，……，它的生成函数是几何级数：
-$$\sum_{n=0}^\infty x^n=\frac{1}{1-x}\quad x\in(-1,1) \tag{2.1}$$
-证明方法可以1，左边是右边的Maclaurin级数。2，用等比级数求和公式。从这个母函数，我们可以轻易的推导出其他母函数。</p>
-<p>序列：$1,a,a^2,a^3,a^4,\dotsb$
-$$\sum_{n=0}^{\infty}{(ax)}^{n}=\frac{1}{1-ax}\tag{2.2}$$
-序列：$1,-1,1,-1,1,\dotsb$(a=-1)
-$$\sum_{n=0}^{\infty}(-1)^n x^n=\frac{1}{1+x}\tag{2.3}$$
-序列：$1,0,1,0,1,\dotsb$(a=-1)
-$$\sum_{n=0}^{\infty}x^{2n}=\frac{1}{1-x^2}\tag{2.4}$$
-序列：$1,2,3,4,5,\dotsb$,可以看成是原始级数的导数：
-$$\bigg [\sum_{n=0}^\infty x^n\bigg ]'=\sum_{n=0}^\infty (n+1)x^n\
-=\bigg [\frac{1}{1-x}\bigg ]'=\frac{1}{(1-x)^2}\tag{2.5}$$
-递推：
-$$1+\sum_{k=1}^\infty\frac{n(n+1)\dotsb(n+k-1)}{k!}x^k=\frac{1}{(1-x)^n}\tag{2.6}$$
-序列：$C(n,0),C(n,1),\dotsb,C(n,n)$，展开式公式。
-$$\sum_{i=0}^{n}C(n,i)x^i=(1+x)^n\tag{2.7}$$
-对公式两边求导：
-$$C(n,1)+2C(n,2)x+\dotsb+nC(n,n)x^{n-1}=n(1+x)^{n-1}\tag{2.8}$$
-再令x=1得：
-$$C(n,1)+2C(n,2)+\dotsb+nC(n,n)=n2^{n-1}\tag{2.9}$$
-如果对等式$(2.7)$两边同时乘以$x$，
-$$C(n,1)x+2C(n,2)x^2+\dotsb+nC(n,n)x^n=nx(1+x)^{n-1}\tag{2.10}$$
-然后再对等式的两边求导得：
-$$C(n,1)+2^2 C(n,2)x+\dotsb+n^2 C(n,n)x^{n-1}\
-=n(1+x)^{n-1}+n(n-1)x(1+x)^{n-2}\tag{2.11}$$
-再令x=1得：
-$$C(n,1)+2^2 C(n,2)+\dotsb+n^2 C(n,n)\=n2^{n-1}+n(n-1)x2^{n-2}=n(n+1)2^{n-2}
-\tag{2.12}$$
-递推：牛顿二项式公式
-$$(1\plusmn x)^\alpha=\sum_{k=0}^\infty C(\alpha,k)(\plusmn x)^k$$
-当$\alpha&lt;0$时，</p>
+<p>一个关键的生成函数是对于常序列1，1，1，1，1，1，……，它的生成函数是几何级数： <span class=math>\[\sum_{n=0}^\infty x^n=\frac{1}{1-x}\quad x\in(-1,1) \tag{2.1}\]</span> 证明方法可以1，左边是右边的Maclaurin级数。2，用等比级数求和公式。从这个母函数，我们可以轻易的推导出其他母函数。</p>
+<p>序列：<span class=math>\(1,a,a^2,a^3,a^4,\dotsb\)</span> <span class=math>\[\sum_{n=0}^{\infty}{(ax)}^{n}=\frac{1}{1-ax}\tag{2.2}\]</span> 序列：<span class=math>\(1,-1,1,-1,1,\dotsb\)</span>(a=-1) <span class=math>\[\sum_{n=0}^{\infty}(-1)^n x^n=\frac{1}{1+x}\tag{2.3}\]</span> 序列：<span class=math>\(1,0,1,0,1,\dotsb\)</span>(a=-1) <span class=math>\[\sum_{n=0}^{\infty}x^{2n}=\frac{1}{1-x^2}\tag{2.4}\]</span> 序列：<span class=math>\(1,2,3,4,5,\dotsb\)</span>,可以看成是原始级数的导数： <span class=math>\[\bigg [\sum_{n=0}^\infty x^n\bigg ]'=\sum_{n=0}^\infty (n+1)x^n\\
+=\bigg [\frac{1}{1-x}\bigg ]'=\frac{1}{(1-x)^2}\tag{2.5}\]</span> 递推： <span class=math>\[1+\sum_{k=1}^\infty\frac{n(n+1)\dotsb(n+k-1)}{k!}x^k=\frac{1}{(1-x)^n}\tag{2.6}\]</span> 序列：<span class=math>\(C(n,0),C(n,1),\dotsb,C(n,n)\)</span>，展开式公式。 <span class=math>\[\sum_{i=0}^{n}C(n,i)x^i=(1+x)^n\tag{2.7}\]</span> 对公式两边求导： <span class=math>\[C(n,1)+2C(n,2)x+\dotsb+nC(n,n)x^{n-1}=n(1+x)^{n-1}\tag{2.8}\]</span> 再令x=1得： <span class=math>\[C(n,1)+2C(n,2)+\dotsb+nC(n,n)=n2^{n-1}\tag{2.9}\]</span> 如果对等式<span class=math>\((2.7)\)</span>两边同时乘以<span class=math>\(x\)</span>， <span class=math>\[C(n,1)x+2C(n,2)x^2+\dotsb+nC(n,n)x^n=nx(1+x)^{n-1}\tag{2.10}\]</span> 然后再对等式的两边求导得： <span class=math>\[C(n,1)+2^2 C(n,2)x+\dotsb+n^2 C(n,n)x^{n-1}\\
+=n(1+x)^{n-1}+n(n-1)x(1+x)^{n-2}\tag{2.11}\]</span> 再令x=1得： <span class=math>\[C(n,1)+2^2 C(n,2)+\dotsb+n^2 C(n,n)\\=n2^{n-1}+n(n-1)x2^{n-2}=n(n+1)2^{n-2}
+\tag{2.12}\]</span> 递推：牛顿二项式公式 <span class=math>\[(1\plusmn x)^\alpha=\sum_{k=0}^\infty C(\alpha,k)(\plusmn x)^k\]</span> 当<span class=math>\(\alpha&lt;0\)</span>时，</p>
 <h2 id=母函数的性质>母函数的性质</h2>
 <blockquote>
-<p>位移性质：设${x_k},{y_k}$为两个序列，其相应的母函数为$A(x),B(x)$。若
-$$b_k=\begin{cases}0 &k&lt;l\
-a_{k-l} & k \ge l\end{cases} \tag{3.1}$$
-则$B(x)=x^lA(x)$</p>
+<p>位移性质：设<span class=math>\({x_k},{y_k}\)</span>为两个序列，其相应的母函数为<span class=math>\(A(x),B(x)\)</span>。若 <span class=math>\[b_k=\begin{cases}0 &k&lt;l\\
+a_{k-l} & k \ge l\end{cases} \tag{3.1}\]</span> 则<span class=math>\(B(x)=x^lA(x)\)</span></p>
 </blockquote>
-<p>简单证明：
-$$\begin{aligned}B(x)&=b_0+b_1 x+b_2 x^2+\dotsb+b_{l-1}x^{l-1}+b_{l}x^{l}+b_{l+1}x^{l+1}+\dotsb \
-&=0+0+\dotsb+0+a_0 x^l+a_1 x^{l+1}+\dotsb \tag{3.2}\
+<p>简单证明： <span class=math>\[\begin{aligned}B(x)&=b_0+b_1 x+b_2 x^2+\dotsb+b_{l-1}x^{l-1}+b_{l}x^{l}+b_{l+1}x^{l+1}+\dotsb \\
+&=0+0+\dotsb+0+a_0 x^l+a_1 x^{l+1}+\dotsb \tag{3.2}\\
 &=x^l(a_0+a_1 x+\dotsb)=x^l A(x)
-\end{aligned}$$
-总结来说类似于傅里叶变换的向右移位。</p>
-<p>推论：若$b_k=a_{k+l}$，则
-$$B(x)=[A(x)-\sum_{k=0}^{l-1}a_k x^k]/x^l\tag{3.3}$$</p>
+\end{aligned}\]</span> 总结来说类似于傅里叶变换的向右移位。</p>
+<p>推论：若<span class=math>\(b_k=a_{k+l}\)</span>，则 <span class=math>\[B(x)=[A(x)-\sum_{k=0}^{l-1}a_k x^k]/x^l\tag{3.3}\]</span></p>
 <blockquote>
-<p>若$b_k=\sum\limits_{i=0}^k a_i$，则
-$$B(x)=\frac{A(x)}{1-x}\tag{3.4}$$</p>
+<p>若<span class=math>\(b_k=\sum\limits_{i=0}^k a_i\)</span>，则 <span class=math>\[B(x)=\frac{A(x)}{1-x}\tag{3.4}\]</span></p>
 </blockquote>
 <p>进一步引申：</p>
 <blockquote>
-<p>若$\sum\limits_{k=0}^\infty a_k$收敛，$b_k=\sum\limits_{i=0}^k a_i$，则
-$$B(x)=\frac{A(1)-xA(x)}{1-x}\tag{3.5}$$</p>
+<p>若<span class=math>\(\sum\limits_{k=0}^\infty a_k\)</span>收敛，<span class=math>\(b_k=\sum\limits_{i=0}^k a_i\)</span>，则 <span class=math>\[B(x)=\frac{A(1)-xA(x)}{1-x}\tag{3.5}\]</span></p>
 </blockquote>
 <p>类似于：等比数列求和公式</p>
 <blockquote>
-<p>若$b_k=ka_k$，则
-$$B(x)=xA'(x)\tag{3.6}$$</p>
+<p>若<span class=math>\(b_k=ka_k\)</span>，则 <span class=math>\[B(x)=xA'(x)\tag{3.6}\]</span></p>
 </blockquote>
-<p>简单证明：
-$$A'(x)=\frac{d}{dx}(\sum_{k=0}^\infty a_k x^k) \
-=\sum_{k=1}^\infty k a_k x^{k-1}$$
-$$xA'(x)=x\sum_{k=1}^\infty k a_k x^{k-1}\
-=\sum_{k=1}^\infty k a_k x^k \quad\text{(添加k=0项无影响)}\
-=\sum_{k=0}^\infty (k a_k) x^k=\sum_{k=0}^\infty b_k x^k=B(x)$$</p>
+<p>简单证明： <span class=math>\[A'(x)=\frac{d}{dx}(\sum_{k=0}^\infty a_k x^k) \\
+=\sum_{k=1}^\infty k a_k x^{k-1}\]</span> <span class=math>\[xA'(x)=x\sum_{k=1}^\infty k a_k x^{k-1}\\
+=\sum_{k=1}^\infty k a_k x^k \quad\text{(添加k=0项无影响)}\\
+=\sum_{k=0}^\infty (k a_k) x^k=\sum_{k=0}^\infty b_k x^k=B(x)\]</span></p>
 <blockquote>
-<p>推论：若$b_k=\frac{a_k}{k+1}$，则
-$$B(x)=\frac{1}{x}\int_0^x A(x)dx\tag{3.7}$$</p>
+<p>推论：若<span class=math>\(b_k=\frac{a_k}{k+1}\)</span>，则 <span class=math>\[B(x)=\frac{1}{x}\int_0^x A(x)dx\tag{3.7}\]</span></p>
 </blockquote>
 <h2 id=整数的拆分>整数的拆分</h2>
 <blockquote>
@@ -214,172 +164,134 @@ $$B(x)=\frac{1}{x}\int_0^x A(x)dx\tag{3.7}$$</p>
 </blockquote>
 <p>可以用Ferrers图像和描述性质。</p>
 <h2 id=指数型母函数详解>指数型母函数详解</h2>
-<p>问题：设有n个元素，其中元素$a_1$重复了$n_1$次，$a_2$重复了$n_2$次，...，$a_k$重复了$n_k$次，$n_1+n_2+\dotsb+n_k=n$，从中取出r个排列，一共有多少种<strong>排列</strong>？</p>
+<p>问题：设有n个元素，其中元素<span class=math>\(a_1\)</span>重复了<span class=math>\(n_1\)</span>次，<span class=math>\(a_2\)</span>重复了<span class=math>\(n_2\)</span>次，...，<span class=math>\(a_k\)</span>重复了<span class=math>\(n_k\)</span>次，<span class=math>\(n_1+n_2+\dotsb+n_k=n\)</span>，从中取出r个排列，一共有多少种<strong>排列</strong>？</p>
 <blockquote>
-<p>简化定理5.1:设$S={n_1a_1,n_2a_2,\dotsb,n_ka_k}$为一多重集，其中$n_1+n_2+\dotsb+n_k=n$，那么从S中取n个元素的<strong>排列数</strong>为：
-$$\frac{n!}{n_1!n_2!\dotsb n_k!}\tag{5.1}$$
-证明:
-$$C(n,n_1)C(n-n_1,n_2)\dotsb C(n-n_1-\dotsb-n_{k-1},n_k)\
-=\frac{n!}{n_1!n_2!\dotsb n_k!}$$</p>
+<p>简化定理5.1:设<span class=math>\(S={n_1a_1,n_2a_2,\dotsb,n_ka_k}\)</span>为一多重集，其中<span class=math>\(n_1+n_2+\dotsb+n_k=n\)</span>，那么从S中取n个元素的<strong>排列数</strong>为： <span class=math>\[\frac{n!}{n_1!n_2!\dotsb n_k!}\tag{5.1}\]</span> 证明: <span class=math>\[C(n,n_1)C(n-n_1,n_2)\dotsb C(n-n_1-\dotsb-n_{k-1},n_k)\\
+=\frac{n!}{n_1!n_2!\dotsb n_k!}\]</span></p>
 </blockquote>
-<p>定义：对于序列$a_0，a_1，...，a_n，...$
-$$\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{5.2}.$$
-为序列的指数型母函数（EGF）。</p>
-<p>例如：序列$1,1,...$的EGF为：
-$$1+\frac{x}{1!}+\frac{x^2}{2!}+\dotsb=e^x$$</p>
-<p>例如：序列$0!,1!,2!,...,k!,\dotsb$的EGF为：
-$$0!+1!\frac{x}{1!}+2!\frac{x^2}{2!}+\dotsb+k!\frac{x^k}{k!}\
-=1+x+x^2+\dotsb=\frac{1}{1-x}$$</p>
+<p>定义：对于序列<span class=math>\(a_0，a_1，...，a_n，...\)</span> <span class=math>\[\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{5.2}.\]</span> 为序列的指数型母函数（EGF）。</p>
+<p>例如：序列<span class=math>\(1,1,...\)</span>的EGF为： <span class=math>\[1+\frac{x}{1!}+\frac{x^2}{2!}+\dotsb=e^x\]</span></p>
+<p>例如：序列<span class=math>\(0!,1!,2!,...,k!,\dotsb\)</span>的EGF为： <span class=math>\[0!+1!\frac{x}{1!}+2!\frac{x^2}{2!}+\dotsb+k!\frac{x^k}{k!}\\
+=1+x+x^2+\dotsb=\frac{1}{1-x}\]</span></p>
 <blockquote>
-<p>定理5.2：设$S={n_1 b_1,n_2 b_2,\dotsb,n_k b_k}$为一多重集，并设$a_r(r=0,1,2,\dotsb)$为S的r排列，则${a_r}$的指数型母函数为：
-$$G_e(x)=\
-(1+\frac{x}{1!}+\dotsb+\frac{x^{n_1}}{n_1!})(1+\frac{x}{1!}+\dotsb+\frac{x^{n_2}}{n_2!})\dotsb(1+\frac{x}{1!}+\dotsb+\frac{x^{n_k}}{n_k!})\tag{5.3}$$</p>
+<p>定理5.2：设<span class=math>\(S=\{n_1 b_1,n_2 b_2,\dotsb,n_k b_k\}\)</span>为一多重集，并设<span class=math>\(a_r(r=0,1,2,\dotsb)\)</span>为S的r排列，则<span class=math>\({a_r}\)</span>的指数型母函数为： <span class=math>\[G_e(x)=\\
+(1+\frac{x}{1!}+\dotsb+\frac{x^{n_1}}{n_1!})(1+\frac{x}{1!}+\dotsb+\frac{x^{n_2}}{n_2!})\dotsb(1+\frac{x}{1!}+\dotsb+\frac{x^{n_k}}{n_k!})\tag{5.3}\]</span></p>
 </blockquote>
 <h2 id=递推关系>递推关系</h2>
 <h3 id=汉诺塔>汉诺塔</h3>
-<p><img src=../../images/%E6%B1%89%E8%AF%BA%E5%A1%94.png alt=汉诺塔></p>
-<p>算法的分析：设$h_n$为将n个圆盘从塔座A移动到塔座B上所需要的移动次数。我们要如何计算$h_n$呢？</p>
-<p>首先我们假设我们已经掌握了将$h_{n-1}$个圆盘挪动的方法。那么我们先将n-1个圆盘移动到中介柱子C，需要$h_{n-1}$步；然后把最下面的第n层放到B柱子，需要一步；最后把C柱子的n-1个圆盘移动到B柱子，有需要$h_{n-1}$步。因此共需要$2h_{n-1}+1$步。用递推公式表达：
-$$\begin{cases}h_n=2h_{n-1}+1 &n>1 \
-h_1=1 &n=1\end{cases}\tag{6.1}$$</p>
-<p>解法1：
-$$\begin{aligned}
-h_n&=2h_{n-1}+1=2(2h_{n-2}+1)+1\
-&=2^2h_{n-2}+2+1=2^2(2h_{n-3}+1)+2+1\
-&=2^3h_{n-3}+2^2+2+1\
-&=2^{n-1}h_1+2^{n-2}+\dotsb+2+1\
+<div class=figure>
+<img src=../../images/汉诺塔.png alt=汉诺塔><p class=caption>汉诺塔</p>
+</div>
+<p>算法的分析：设<span class=math>\(h_n\)</span>为将n个圆盘从塔座A移动到塔座B上所需要的移动次数。我们要如何计算<span class=math>\(h_n\)</span>呢？</p>
+<p>首先我们假设我们已经掌握了将<span class=math>\(h_{n-1}\)</span>个圆盘挪动的方法。那么我们先将n-1个圆盘移动到中介柱子C，需要<span class=math>\(h_{n-1}\)</span>步；然后把最下面的第n层放到B柱子，需要一步；最后把C柱子的n-1个圆盘移动到B柱子，有需要<span class=math>\(h_{n-1}\)</span>步。因此共需要<span class=math>\(2h_{n-1}+1\)</span>步。用递推公式表达： <span class=math>\[\begin{cases}h_n=2h_{n-1}+1 &n>1 \\
+h_1=1 &n=1\end{cases}\tag{6.1}\]</span></p>
+<p>解法1： <span class=math>\[\begin{aligned}
+h_n&=2h_{n-1}+1=2(2h_{n-2}+1)+1\\
+&=2^2h_{n-2}+2+1=2^2(2h_{n-3}+1)+2+1\\
+&=2^3h_{n-3}+2^2+2+1\\
+&=2^{n-1}h_1+2^{n-2}+\dotsb+2+1\\
 &=2^n-1
-\end{aligned}$$</p>
-<p>解法2：OGF母函数求解
-$$\begin{aligned}
-H(x)&=h_1 x+h_2 x^2+\dotsb+h_n x^n+\dotsb\
--2xH(x)&=-2h_1 x^2-\dotsb-2h_{n-1}x^n+\dotsb\
-\hline\
-\because h_n&=2h_{n-1}+1\
+\end{aligned}\]</span></p>
+<p>解法2：OGF母函数求解 <span class=math>\[\begin{aligned}
+H(x)&=h_1 x+h_2 x^2+\dotsb+h_n x^n+\dotsb\\
+-2xH(x)&=-2h_1 x^2-\dotsb-2h_{n-1}x^n+\dotsb\\
+\hline\\
+\because h_n&=2h_{n-1}+1\\
 (1-2x)H(x)&=x+x^2+\dotsb+x^n+\dotsb=\frac{x}{1-x}
-\end{aligned}$$
-$$H(x)=\frac{x}{(1-x)(1-2x)}\
-=\frac{1}{1-2x}-\frac{1}{1-x}\
-=\sum_{n=0}^\infty(2^n-1)x^n\
-\Rightarrow h(n)=2^n-1$$</p>
+\end{aligned}\]</span> <span class=math>\[H(x)=\frac{x}{(1-x)(1-2x)}\\
+=\frac{1}{1-2x}-\frac{1}{1-x}\\
+=\sum_{n=0}^\infty(2^n-1)x^n\\
+\Rightarrow h(n)=2^n-1\]</span></p>
 <h3 id=求n位十进制数中出现偶数个5的数的个数>求n位十进制数中出现偶数个5的数的个数</h3>
-<p>设：$a_n=n$位十进制数中出现偶数个5的数的个数，</p>
-<p>$b_n=n$位十进制数中出现奇数个5的数的个数。</p>
-<p>则有：
-$$\begin{cases}
-a_n=9a_{n-1}+b_{n-1}, & n>1 \
-b_n=9b_{n-1}+a_{n-1}, & n>1\tag{6.2A}\
+<p>设：<span class=math>\(a_n=n\)</span>位十进制数中出现偶数个5的数的个数，</p>
+<p><span class=math>\(b_n=n\)</span>位十进制数中出现奇数个5的数的个数。</p>
+<p>则有： <span class=math>\[\begin{cases}
+a_n=9a_{n-1}+b_{n-1}, & n>1 \\
+b_n=9b_{n-1}+a_{n-1}, & n>1\tag{6.2A}\\
 a_1=8,b_1=1
-\end{cases}$$
-解释：n位中，5为偶数个的个数$a_n$可以看成两组：1.在n-1位数中，5为偶数个的个数$a_{n-1}$，这样第n位可以选除了5的任意数字，有9种；2.在n-1位数中，5为奇数个的个数$b_{n-1}$，这样第n位只可以选5，有1种；共有$a_n=9a_{n-1}+b_{n-1}$种。奇数$b_n$同理。首位不能为0。</p>
-<p>解法1：设序列${a_n}$和序列${b_n}$的母函数分别为$A(x),B(x)$。
-$$A(x)=a_1 x+a_2 x^2+\dotsb+a_n x^n+\dotsb\
-B(x)=b_1 x+b_2 x^2+\dotsb+b_n x^n+\dotsb$$
-$$\begin{aligned}
-A(x)=a_1 x+a_2 x^2&+\dotsb+a_n x^n+\dotsb\
--9xA(x)=\quad-9a_1 x^2&-\dotsb-9a_{n-1}x^n-\dotsb\
--xB(x)=\quad-b_1 x^2&-\dotsb-b_{n-1}x^n-\dotsb\
-\hline\
+\end{cases}\]</span> 解释：n位中，5为偶数个的个数<span class=math>\(a_n\)</span>可以看成两组：1.在n-1位数中，5为偶数个的个数<span class=math>\(a_{n-1}\)</span>，这样第n位可以选除了5的任意数字，有9种；2.在n-1位数中，5为奇数个的个数<span class=math>\(b_{n-1}\)</span>，这样第n位只可以选5，有1种；共有<span class=math>\(a_n=9a_{n-1}+b_{n-1}\)</span>种。奇数<span class=math>\(b_n\)</span>同理。首位不能为0。</p>
+<p>解法1：设序列<span class=math>\(\{a_n\}\)</span>和序列<span class=math>\(\{b_n\}\)</span>的母函数分别为<span class=math>\(A(x),B(x)\)</span>。 <span class=math>\[A(x)=a_1 x+a_2 x^2+\dotsb+a_n x^n+\dotsb\\
+B(x)=b_1 x+b_2 x^2+\dotsb+b_n x^n+\dotsb\]</span> <span class=math>\[\begin{aligned}
+A(x)=a_1 x+a_2 x^2&+\dotsb+a_n x^n+\dotsb\\
+-9xA(x)=\quad-9a_1 x^2&-\dotsb-9a_{n-1}x^n-\dotsb\\
+-xB(x)=\quad-b_1 x^2&-\dotsb-b_{n-1}x^n-\dotsb\\
+\hline\\
 (1-9x)A(x)-xB(x)&=a_1 x=8x
 \end{aligned}
-$$
-类似地，可得：
-$$(1-9x)B(x)-xA(x)=b_1 x=x$$
-联立方程
-$$\begin{cases}
-(1-9x)A(x)-xB(x)=8x \
+\]</span> 类似地，可得： <span class=math>\[(1-9x)B(x)-xA(x)=b_1 x=x\]</span> 联立方程 <span class=math>\[\begin{cases}
+(1-9x)A(x)-xB(x)=8x \\
 (1-9x)B(x)-xA(x)=x
-\end{cases}$$
-用克莱姆法则求解：
-$$\begin{aligned}
+\end{cases}\]</span> 用克莱姆法则求解： <span class=math>\[\begin{aligned}
 A(x)&=\frac{\begin{vmatrix}
-8x&-x\
+8x&-x\\
 x&(1-9x)
 \end{vmatrix}}{\begin{vmatrix}
-(1-9x)&-x\
+(1-9x)&-x\\
 -x&(1-9x)
-\end{vmatrix}}\
-&=\frac{-71x^2+8x}{(1-8x)(1-10x)}\
-&=\frac{x}{2}(\frac{7}{1-8x}+\frac{9}{1-10x})\
-&=\frac{1}{2}\sum_{n=0}^\infty(7<em>8^n+9</em>10^n)x^{n+1}\
-&\Rightarrow a_n=\frac{1}{2}(7<em>8^{n-1}+9</em>10^{n-1})
-\end{aligned}$$</p>
-<p>解法2：设序列${a_n}$和序列${b_n}$的母函数分别为$A(x),B(x)$。
-$$\begin{cases}
-a_n=9a_{n-1}+b_{n-1}, & n>1 \
-b_{n-1}=9<em>10^{n-2}-a_{n-1}, & n>2\tag{6.2B}\
+\end{vmatrix}}\\
+&=\frac{-71x^2+8x}{(1-8x)(1-10x)}\\
+&=\frac{x}{2}(\frac{7}{1-8x}+\frac{9}{1-10x})\\
+&=\frac{1}{2}\sum_{n=0}^\infty(7*8^n+9*10^n)x^{n+1}\\
+&\Rightarrow a_n=\frac{1}{2}(7*8^{n-1}+9*10^{n-1})
+\end{aligned}\]</span></p>
+<p>解法2：设序列<span class=math>\(\{a_n\}\)</span>和序列<span class=math>\(\{b_n\}\)</span>的母函数分别为<span class=math>\(A(x),B(x)\)</span>。 <span class=math>\[\begin{cases}
+a_n=9a_{n-1}+b_{n-1}, & n>1 \\
+b_{n-1}=9*10^{n-2}-a_{n-1}, & n>2\tag{6.2B}\\
 a_1=8,b_1=1
-\end{cases}$$
-这一步是因为在所有n位数中，5有奇数个和偶数个的和必为所有n位数。
-式${6.2B}$可以推得$a_n=8a_{n-1}+9</em>10^{n-2}(n>1)$
-$$\begin{aligned}
-A(x)=a_1 x+a_2 x^2&+\dotsb+a_n x^n+\dotsb\
--8xA(x)=\quad-8a_1 x^2&-\dotsb-8a_{n-1}x^n-\dotsb\
-\hline\
-(1-8x)A(x)=a_1 x+9*&10^0 x^2+9<em>10x^3+\dotsb\
+\end{cases}\]</span> 这一步是因为在所有n位数中，5有奇数个和偶数个的和必为所有n位数。 式<span class=math>\({6.2B}\)</span>可以推得<span class=math>\(a_n=8a_{n-1}+9*10^{n-2}(n>1)\)</span> <span class=math>\[\begin{aligned}
+A(x)=a_1 x+a_2 x^2&+\dotsb+a_n x^n+\dotsb\\
+-8xA(x)=\quad-8a_1 x^2&-\dotsb-8a_{n-1}x^n-\dotsb\\
+\hline\\
+(1-8x)A(x)=a_1 x+9*&10^0 x^2+9*10x^3+\dotsb\\
 =8x+\frac{9x^2}{1-10x}&=\frac{8x-71x^2}{1-10x}
 \end{aligned}
-$$
-接下来依据解法1可得$a_n=\frac{1}{2}(7</em>8^{n-1}+9*10^{n-1})$。</p>
+\]</span> 接下来依据解法1可得<span class=math>\(a_n=\frac{1}{2}(7*8^{n-1}+9*10^{n-1})\)</span>。</p>
 <h3 id=从n个元素中取r个进行允许重复的组合>从n个元素中取r个进行允许重复的组合</h3>
 <p>这是对引子的另一种证明方法。</p>
-<p>假定允许重复的组合数用$C^\ast(n,r)$表示，那么有以下递推关系：
-$$\begin{cases}
-C^\ast(n,r)=C^\ast(n,r-1)+C^\ast(n-1,r)\tag{6.3}\
+<p>假定允许重复的组合数用<span class=math>\(C^\ast(n,r)\)</span>表示，那么有以下递推关系： <span class=math>\[\begin{cases}
+C^\ast(n,r)=C^\ast(n,r-1)+C^\ast(n-1,r)\tag{6.3}\\
 C^\ast(n,0)=1
 \end{cases}
-$$
-凑单解法：
-$$\begin{aligned}
-G_n(x)&=C^\ast(n,0)+C^\ast(n,1)x+C^\ast(n,2)x^2+\dotsb\
--xG_n(x)&=\qquad\qquad\quad C^\ast(n,0)x+C^\ast(n,1)x^2+\dotsb\
--G_{n-1}(x)&=C^\ast(n-1,0)+C^\ast(n-1,1)x+C^\ast(n-1,2)x^2+\dotsb\
-\hline\
-&(1-x)G_n(x)-G_{n-1}(x)=0\
-\end{aligned}$$
-可以获得$G_n(x)$的递推公式：
-$$\begin{aligned}
-G_n(x)&=\frac{1}{1-x}G_{n-1}(x)\
-&=\dotsb\
-&=\frac{1}{(1-x)^{n-1}}G_1(x)\
-&=\frac{1}{(1-x)^{n-1}}[C^\ast(1,0)+C^\ast(1,1)x+C^\ast(1,2)x^2+\dotsb]\
-&=\frac{1}{(1-x)^{n-1}}[1+x+x^2+\dotsb]\
-&=\frac{1}{(1-x)^n}\
-\end{aligned}$$
-从$(1-x)^n$的对于序列来看：
-$$\begin{aligned}
-(1-x)^{-n}&=\sum_{r=0}^\infty C(-n,r)(-x)^r\
-&=\sum_{r=0}^\infty\frac{(-n)(-n-1)\dotsb(-n-r+1)}{r!}(-x)^r\
-&=\sum_{r=0}^\infty\frac{n(n+1)\dotsb(n+r-1)}{r!}x^r\
-&=\sum_{r=0}^\infty C(n+r-1,r)x^r\
-&\Rightarrow C^\ast(n,r)=C(n+r-1,r)\
-\end{aligned}$$</p>
+\]</span> 凑单解法： <span class=math>\[\begin{aligned}
+G_n(x)&=C^\ast(n,0)+C^\ast(n,1)x+C^\ast(n,2)x^2+\dotsb\\
+-xG_n(x)&=\qquad\qquad\quad C^\ast(n,0)x+C^\ast(n,1)x^2+\dotsb\\
+-G_{n-1}(x)&=C^\ast(n-1,0)+C^\ast(n-1,1)x+C^\ast(n-1,2)x^2+\dotsb\\
+\hline\\
+&(1-x)G_n(x)-G_{n-1}(x)=0\\
+\end{aligned}\]</span> 可以获得<span class=math>\(G_n(x)\)</span>的递推公式： <span class=math>\[\begin{aligned}
+G_n(x)&=\frac{1}{1-x}G_{n-1}(x)\\
+&=\dotsb\\
+&=\frac{1}{(1-x)^{n-1}}G_1(x)\\
+&=\frac{1}{(1-x)^{n-1}}[C^\ast(1,0)+C^\ast(1,1)x+C^\ast(1,2)x^2+\dotsb]\\
+&=\frac{1}{(1-x)^{n-1}}[1+x+x^2+\dotsb]\\
+&=\frac{1}{(1-x)^n}\\
+\end{aligned}\]</span> 从<span class=math>\((1-x)^n\)</span>的对于序列来看： <span class=math>\[\begin{aligned}
+(1-x)^{-n}&=\sum_{r=0}^\infty C(-n,r)(-x)^r\\
+&=\sum_{r=0}^\infty\frac{(-n)(-n-1)\dotsb(-n-r+1)}{r!}(-x)^r\\
+&=\sum_{r=0}^\infty\frac{n(n+1)\dotsb(n+r-1)}{r!}x^r\\
+&=\sum_{r=0}^\infty C(n+r-1,r)x^r\\
+&\Rightarrow C^\ast(n,r)=C(n+r-1,r)\\
+\end{aligned}\]</span></p>
 <h3 id=fibonacci数列>Fibonacci数列</h3>
-<p>典型的Fibonacci数列的递推公式如下所示：
-$$\begin{cases}
-F_n=F_{n-1}+F_{n-2}\tag{6.4}\
-F_1=1,F_2=2\
-\end{cases}$$
-假设$F_n$的递推公式为$G(x)$:
-$$\begin{aligned}
-G(x)&=F_1x+F_2x^2+F_3x^3+\dotsb+F_nx^n+\dotsb\
--xG(x)&=\qquad -F_1x^2-F_2x^3-\dotsb-F_{n-1}x^n-\dotsb\
--x^2G(x)&=\qquad\qquad\quad-F_1x^3-\dotsb-F_{n-2}x^n-\dotsb\
-\hline\
-&(1-x-x^2)G(x)=F_1x=x\
+<p>典型的Fibonacci数列的递推公式如下所示： <span class=math>\[\begin{cases}
+F_n=F_{n-1}+F_{n-2}\tag{6.4}\\
+F_1=1,F_2=2\\
+\end{cases}\]</span> 假设<span class=math>\(F_n\)</span>的递推公式为<span class=math>\(G(x)\)</span>: <span class=math>\[\begin{aligned}
+G(x)&=F_1x+F_2x^2+F_3x^3+\dotsb+F_nx^n+\dotsb\\
+-xG(x)&=\qquad -F_1x^2-F_2x^3-\dotsb-F_{n-1}x^n-\dotsb\\
+-x^2G(x)&=\qquad\qquad\quad-F_1x^3-\dotsb-F_{n-2}x^n-\dotsb\\
+\hline\\
+&(1-x-x^2)G(x)=F_1x=x\\
 \Rightarrow G(x)&=\frac{x}{1-x-x^2}=\frac{x}{(1-\frac{1+\sqrt{5}}{2}x)(1-\frac{1-\sqrt{5}}{2}x)}
-\end{aligned}$$
-通过解方程的因式分解得：
-$$\begin{aligned}
-G(x)&=\frac{1}{\sqrt{5}}[\frac{1}{1-(1+\sqrt{5})x/2}-\frac{1}{1-(1-\sqrt{5})x/2}]\
-&=\frac{1}{\sqrt{5}}\sum_{n=0}^\infty[(\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n]x^n\
+\end{aligned}\]</span> 通过解方程的因式分解得： <span class=math>\[\begin{aligned}
+G(x)&=\frac{1}{\sqrt{5}}[\frac{1}{1-(1+\sqrt{5})x/2}-\frac{1}{1-(1-\sqrt{5})x/2}]\\
+&=\frac{1}{\sqrt{5}}\sum_{n=0}^\infty[(\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n]x^n\\
 &\Rightarrow F_n=\frac{1}{\sqrt{5}}[(\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n]
-\end{aligned}$$
-其他一些性质：</p>
+\end{aligned}\]</span> 其他一些性质：</p>
 <ul>
-<li>$F_1+F_2+\dotsb+F_n=F_{n+2}-1$</li>
-<li>$F_1+F_3+\dotsb+F_{2n-1}=F_{2n}$</li>
-<li>$F_1^2+F_2^2+\dotsb+F_n^2=F_nF_{n+1}$</li>
+<li><span class=math>\(F_1+F_2+\dotsb+F_n=F_{n+2}-1\)</span></li>
+<li><span class=math>\(F_1+F_3+\dotsb+F_{2n-1}=F_{2n}\)</span></li>
+<li><span class=math>\(F_1^2+F_2^2+\dotsb+F_n^2=F_nF_{n+1}\)</span></li>
 </ul>
 <p>这些都可以通过累加法证明。</p>
 </article>
