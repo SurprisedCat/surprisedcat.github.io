@@ -13590,7 +13590,7 @@ $$C(n,n_1)C(n-n_1,n_2)\dotsb C(n-n_1-\dotsb-n_{k-1},n_k)\
 =\frac{n!}{n_1!n_2!\dotsb n_k!}$$&lt;/p>
 &lt;/blockquote>
 &lt;p>定义：对于序列$a_0，a_1，...，a_n，...$
-$$\operatorname {EG} (a_{n};x)=\sum _{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{5.2}.$$
+$$\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{5.2}.$$
 为序列的指数型母函数（EGF）。&lt;/p>
 &lt;p>例如：序列$1,1,...$的EGF为：
 $$1+\frac{x}{1!}+\frac{x^2}{2!}+\dotsb=e^x$$&lt;/p>
