@@ -1,37 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>优化理论 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/</link><description>Recent content in 优化理论 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 20 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>优化理论之-凸优化-拟凸函数</title><link>https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B-%E5%87%B8%E4%BC%98%E5%8C%96-%E6%8B%9F%E5%87%B8%E5%87%BD%E6%95%B0/</link><pubDate>Wed, 20 Nov 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B-%E5%87%B8%E4%BC%98%E5%8C%96-%E6%8B%9F%E5%87%B8%E5%87%BD%E6%95%B0/</guid><description>
-&lt;h2 id="拟凸函数">拟凸函数&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="拟凸函数---omit-in-toc---">拟凸函数&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%B8%8B%E6%B0%B4%E5%B9%B3%E9%9B%86%E4%B8%8E%E4%B8%8A%E6%B0%B4%E5%B9%B3%E9%9B%86">下水平集与上水平集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%8B%9F%E5%87%B8%E5%87%BD%E6%95%B0%E5%BC%95%E5%85%A5">拟凸函数引入&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%8B%9F%E5%87%B8%E5%87%BD%E6%95%B0%E4%B8%8E%E5%87%B8%E5%87%BD%E6%95%B0%E8%81%94%E7%B3%BB">拟凸函数与凸函数联系&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%89%A9%E5%B1%95%E6%8B%9F%E5%87%B9%E5%87%BD%E6%95%B0%E6%8B%9F%E7%BA%BF%E6%80%A7%E5%87%BD%E6%95%B0">扩展：拟凹函数，拟线性函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%8B%9F%E5%87%B8%E5%87%BD%E6%95%B0%E4%B8%8Ejensen%E4%B8%8D%E7%AD%89%E5%BC%8F">拟凸函数与Jensen不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%8B%9F%E5%87%B8%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98">拟凸优化问题&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;p>我也有&lt;strong>全局最小值&lt;/strong>呦~~&lt;/p>
 &lt;h2 id="下水平集与上水平集">下水平集与上水平集&lt;/h2>
 &lt;blockquote>
-&lt;p>&lt;span class="math">\(\alpha-\)&lt;/span>下水平集(sub-level set)：&lt;span class="math">\(f:R^n→R, C_\alpha-=\{x|x\in \mathop{dom}f \cap f(x)\leq \alpha\}\)&lt;/span>&lt;/p>
-&lt;p>&lt;span class="math">\(\alpha-\)&lt;/span>上水平集(super-level set)：&lt;span class="math">\(f:R^n→R, S_\alpha=\{x|x\in \mathop{dom}f \cap f(x)\geq \alpha\}\)&lt;/span>&lt;/p>
+&lt;p>$\alpha-$下水平集(sub-level set)：$f:R^n→R, C_\alpha-={x|x\in \mathop{dom}f \cap f(x)\leq \alpha}$&lt;/p>
+&lt;p>$\alpha-$上水平集(super-level set)：$f:R^n→R, S_\alpha={x|x\in \mathop{dom}f \cap f(x)\geq \alpha}$&lt;/p>
 &lt;/blockquote>
-&lt;p>如果函数&lt;span class="math">\(f\)&lt;/span>是&lt;strong>凸&lt;/strong>函数，则&lt;span class="math">\(f\)&lt;/span>的&lt;span class="math">\(\alpha-\)&lt;/span>&lt;strong>下水平集是凸集&lt;/strong>。对应的，如果函数&lt;span class="math">\(f\)&lt;/span>是&lt;strong>凹&lt;/strong>函数，则&lt;span class="math">\(f\)&lt;/span>的&lt;span class="math">\(\alpha-\)&lt;/span>&lt;strong>上水平集是凸集&lt;/strong>。&lt;/p>
-&lt;p>逆命题不成立，例如：&lt;span class="math">\(f(x)=-e^x\)&lt;/span>的&lt;span class="math">\(\alpha-\)&lt;/span>下水平集是凸集，但是&lt;span class="math">\(f(x)=-e^x\)&lt;/span>是凹函数。&lt;/p>
+&lt;p>如果函数$f$是&lt;strong>凸&lt;/strong>函数，则$f$的$\alpha-$&lt;strong>下水平集是凸集&lt;/strong>。对应的，如果函数$f$是&lt;strong>凹&lt;/strong>函数，则$f$的$\alpha-$&lt;strong>上水平集是凸集&lt;/strong>。&lt;/p>
+&lt;p>逆命题不成立，例如：$f(x)=-e^x$的$\alpha-$下水平集是凸集，但是$f(x)=-e^x$是凹函数。&lt;/p>
 &lt;h2 id="拟凸函数引入">拟凸函数引入&lt;/h2>
 &lt;blockquote>
-&lt;p>标准定义（定义1）&lt;span class="math">\(f:R^n→R, \mathop{dom}f\)&lt;/span>是凸集，&lt;span class="math">\(\alpha-\)&lt;/span>下水平集是凸集，则&lt;span class="math">\(f(x)\)&lt;/span>为拟凸函数。即 &lt;span class="math">\[f:R^n→R,s.t.\, S_\alpha=\{x\in \mathop{dom} f| f(x)\geq \alpha\}为凸集\]&lt;/span>&lt;/p>
+&lt;p>标准定义（定义1）$f:R^n→R, \mathop{dom}f$是凸集，$\alpha-$下水平集是凸集，则$f(x)$为拟凸函数。即
+$$f:R^n→R,s.t., S_\alpha={x\in \mathop{dom} f| f(x)\geq \alpha}为凸集$$&lt;/p>
 &lt;/blockquote>
-&lt;p>解释:对于任意的&lt;span class="math">\(\alpha\)&lt;/span>一下的值(像),其对应的原像集合都是凸集。根据第一节中的例子，我们发现&lt;strong>凹函数也可能是拟凸的&lt;/strong>。&lt;/p>
-&lt;img src="../../images/Quasiconvex_function.png" alt="Quasiconvex_function.png" />
-&lt;center>
-这个函数不是凸的，但是是拟凸的
-&lt;/center>
+&lt;p>解释:对于任意的$\alpha$一下的值(像),其对应的原像集合都是凸集。根据第一节中的例子，我们发现&lt;strong>凹函数也可能是拟凸的&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="../../images/Quasiconvex_function.png" alt="Quasiconvex_function.png">&lt;/p>
+&lt;center>这个函数不是凸的，但是是拟凸的&lt;/center>
 &lt;p>观察上图二维图像：&lt;/p>
-&lt;ol style="list-style-type: decimal">
-&lt;li>&lt;span class="math">\(f(x)\)&lt;/span>既不是非增也不是非减&lt;/li>
+&lt;ol>
+&lt;li>$f(x)$既不是非增也不是非减&lt;/li>
 &lt;li>有全局最小值时（可能是点也可能是集合），&lt;strong>左侧非增，右侧非减&lt;/strong>。&lt;/li>
 &lt;/ol>
 &lt;h3 id="拟凸函数与凸函数联系">拟凸函数与凸函数联系&lt;/h3>
-&lt;p>凸函数&lt;span class="math">\(\Rightarrow\)&lt;/span>拟凸函数&lt;/p>
+&lt;p>凸函数$\Rightarrow$拟凸函数&lt;/p>
 &lt;p>拟凸函数&lt;strong>不一定&lt;/strong>是凸函数，甚至可能是凹函数。&lt;/p>
 &lt;h2 id="扩展拟凹函数拟线性函数">扩展：拟凹函数，拟线性函数&lt;/h2>
 &lt;blockquote>
-&lt;p>&lt;span class="math">\(f\)&lt;/span>是拟凸函数，我们称&lt;span class="math">\(-f\)&lt;/span>为&lt;strong>拟凹&lt;/strong>函数,拟凹函数的&lt;span class="math">\(\alpha-\)&lt;/span>&lt;strong>上水平集是凸集&lt;/strong>。&lt;/p>
+&lt;p>$f$是拟凸函数，我们称$-f$为&lt;strong>拟凹&lt;/strong>函数,拟凹函数的$\alpha-$&lt;strong>上水平集是凸集&lt;/strong>。&lt;/p>
 &lt;/blockquote>
-&lt;hr />
+&lt;hr>
 &lt;blockquote>
-&lt;p>拟线性函数：既是拟凸也是拟凹。等同于&lt;span class="math">\(f:R^n→R,s.t.\, S_\alpha=\{x\in \mathop{dom} f| f(x)=\alpha\}为凸集\)&lt;/span>（类似线性函数是既凸又凹）&lt;/p>
+&lt;p>拟线性函数：既是拟凸也是拟凹。等同于$f:R^n→R,s.t., S_\alpha={x\in \mathop{dom} f| f(x)=\alpha}为凸集$（类似线性函数是既凸又凹）&lt;/p>
 &lt;/blockquote>
 &lt;p>一般情况下，拟线性函数是一个非增或非减函数。&lt;/p>
 &lt;h2 id="拟凸函数与jensen不等式">拟凸函数与Jensen不等式&lt;/h2>

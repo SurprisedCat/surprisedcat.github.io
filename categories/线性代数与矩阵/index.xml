@@ -287,6 +287,11 @@ AA^{-1}=I\\
 \Rightarrow (A^T)^{-1}=(A^{-1})^T
 \]&lt;/span>&lt;/p></description></item><item><title>线性代数与矩阵之正规矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E8%A7%84%E7%9F%A9%E9%98%B5/</link><pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E8%A7%84%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;h2 id="正规矩阵">正规矩阵&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#例子">例子&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#性质">性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#相似对角化">相似对角化&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;p>在数学中，正规矩阵（英语：normal matrix）&lt;span class="math">\(\mathbf {A}\)&lt;/span>是与自己的共轭转置满足交换律的复系数方块矩阵，也就是说，&lt;span class="math">\(\mathbf {A}\)&lt;/span>满足 &lt;span class="math">\[\mathbf{A}^\ast\mathbf{A} = \mathbf{A} \mathbf{A}^\ast\]&lt;/span> 其中&lt;span class="math">\(\mathbf{A}^\ast\)&lt;/span>是&lt;span class="math">\(\mathbf{A}\)&lt;/span>的共轭转置。&lt;/p>
 &lt;p>如果&lt;span class="math">\(\mathbf{A}\)&lt;/span>是实系数矩阵，则&lt;span class="math">\(\mathbf{A}^\ast = \mathbf{A}^T\)&lt;/span>，从而条件简化为&lt;span class="math">\(\mathbf {A} ^{T}\mathbf {A} =\mathbf {A} \mathbf {A} ^{T}\)&lt;/span>其中&lt;span class="math">\(\mathbf{A}^T\)&lt;/span>是&lt;span class="math">\(\mathbf{A}\)&lt;/span>的转置矩阵。&lt;/p>
 &lt;p>任何一个正规矩阵，都是某个正规算子在一组标准正交基下的矩阵；反之，任一正规算子在一组标准正交基下的矩阵都为正规矩阵。&lt;/p>
