@@ -24,148 +24,132 @@ A^TA\Theta=A^Tb\Rightarrow \hat{\Theta}=(A^TA)^{-1}A^Tb
 &lt;h2 id="投影矩阵和最小二乘法">投影矩阵和最小二乘法&lt;/h2>
 &lt;h2 id="不可逆的处理">不可逆的处理&lt;/h2>
 &lt;p>两个字：伪逆&lt;/p></description></item><item><title>线性代数与矩阵之四类空间</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/</link><pubDate>Mon, 09 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/</guid><description>
-&lt;h2 id="线性代数与矩阵之四类空间---omit-in-toc---">线性代数与矩阵之四类空间&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="线性代数与矩阵之四类空间">线性代数与矩阵之四类空间&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E5%88%97%E7%A9%BA%E9%97%B4%E4%B8%8E%E8%A1%8C%E7%A9%BA%E9%97%B4">矩阵的列空间与行空间&lt;/a>
+&lt;li>&lt;a href="#矩阵的列空间与行空间">矩阵的列空间与行空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#列空间与线性方程组的解">列空间与线性方程组的解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩阵的零空间与左零空间">矩阵的零空间与左零空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#零空间与线性方程组的通解">零空间与线性方程组的通解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#各空间关系">各空间关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#秩的关系">秩的关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正交关系">正交关系&lt;/a>
 &lt;ul>
-&lt;li>&lt;a href="#%E5%88%97%E7%A9%BA%E9%97%B4%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E8%A7%A3">列空间与线性方程组的解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#子空间互补">子空间互补&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#四类空间与线性方程组的可解性">四类空间与线性方程组的可解性&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;/li>
-&lt;li>&lt;a href="#%E7%9F%A9%E9%98%B5%E7%9A%84%E9%9B%B6%E7%A9%BA%E9%97%B4%E4%B8%8E%E5%B7%A6%E9%9B%B6%E7%A9%BA%E9%97%B4">矩阵的零空间与左零空间&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#%E9%9B%B6%E7%A9%BA%E9%97%B4%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E9%80%9A%E8%A7%A3">零空间与线性方程组的通解&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;a href="#%E5%90%84%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB">各空间关系&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#%E7%A7%A9%E7%9A%84%E5%85%B3%E7%B3%BB">秩的关系&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#%E6%AD%A3%E4%BA%A4%E5%85%B3%E7%B3%BB">正交关系&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#%E5%AD%90%E7%A9%BA%E9%97%B4%E4%BA%92%E8%A1%A5">子空间互补&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;a href="#%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4%E4%B8%8E%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%E7%9A%84%E5%8F%AF%E8%A7%A3%E6%80%A7">四类空间与线性方程组的可解性&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;p>对于一个$m×n$的矩阵$A$
-$$
+&lt;p>对于一个&lt;span class="math">\(m×n\)&lt;/span>的矩阵&lt;span class="math">\(A\)&lt;/span>， &lt;span class="math">\[
 A=\begin{bmatrix}
-a_{11}&amp;amp;a_{12}&amp;amp;a_{13}&amp;amp;\dotsb&amp;amp;a_{1n}\
-a_{21}&amp;amp;a_{22}&amp;amp;a_{23}&amp;amp;\dotsb&amp;amp;a_{2n}\
-a_{31}&amp;amp;a_{32}&amp;amp;a_{33}&amp;amp;\dotsb&amp;amp;a_{3n}\
-\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots\
-a_{n1}&amp;amp;a_{n2}&amp;amp;a_{n3}&amp;amp;\dotsb&amp;amp;a_{nn}\
+a_{11}&amp;amp;a_{12}&amp;amp;a_{13}&amp;amp;\dotsb&amp;amp;a_{1n}\\
+a_{21}&amp;amp;a_{22}&amp;amp;a_{23}&amp;amp;\dotsb&amp;amp;a_{2n}\\
+a_{31}&amp;amp;a_{32}&amp;amp;a_{33}&amp;amp;\dotsb&amp;amp;a_{3n}\\
+\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots\\
+a_{n1}&amp;amp;a_{n2}&amp;amp;a_{n3}&amp;amp;\dotsb&amp;amp;a_{nn}\\
 \end{bmatrix}
-$$
-皆有四类空间，即矩阵的&lt;strong>列向量组成的列空间（Column Space）&lt;/strong>、矩阵&lt;strong>行向量组成的行空间（Row Space）&lt;/strong>、零空间（Null Space）以及左零空间（Left Null Space）。&lt;/p>
-&lt;p>注：&lt;strong>本文在没有特殊说明的时候，矩阵$A$都是此$m\times n$矩阵&lt;/strong>。&lt;/p>
+\]&lt;/span> 皆有四类空间，即矩阵的&lt;strong>列向量组成的列空间（Column Space）&lt;/strong>、矩阵&lt;strong>行向量组成的行空间（Row Space）&lt;/strong>、零空间（Null Space）以及左零空间（Left Null Space）。&lt;/p>
+&lt;p>注：&lt;strong>本文在没有特殊说明的时候，矩阵&lt;span class="math">\(A\)&lt;/span>都是此&lt;span class="math">\(m\times n\)&lt;/span>矩阵&lt;/strong>。&lt;/p>
 &lt;h2 id="矩阵的列空间与行空间">矩阵的列空间与行空间&lt;/h2>
-&lt;p>矩阵$A_{m\times n}$根据横向和纵向，我们可以将其分成列向量组或行向量组&lt;/p>
-&lt;p>&lt;img src="./images/bordermatrix.png" alt="bordermatrix">&lt;/p>
-&lt;p>其中，列向量组表示$A=(c_1,c_2\dotsb,c_n)$，行向量组表示$A=(r_1,r_2,\dotsb,r_m)^T$。&lt;/p>
+&lt;p>矩阵&lt;span class="math">\(A_{m\times n}\)&lt;/span>根据横向和纵向，我们可以将其分成列向量组或行向量组&lt;/p>
+&lt;div class="figure">
+&lt;img src="./images/bordermatrix.png" alt="bordermatrix" />&lt;p class="caption">bordermatrix&lt;/p>
+&lt;/div>
+&lt;p>其中，列向量组表示&lt;span class="math">\(A=(c_1,c_2\dotsb,c_n)\)&lt;/span>，行向量组表示&lt;span class="math">\(A=(r_1,r_2,\dotsb,r_m)^T\)&lt;/span>。&lt;/p>
 &lt;blockquote>
-&lt;p>列（行）空间：用$A$的所有列向量所张成的空间，称为列空间，记作$C(A)或Col(A)$；用$A$的所有行向量所张成的空间，称为行空间，记作$R(A)或Raw(A)$。&lt;/p>
+&lt;p>列（行）空间：用&lt;span class="math">\(A\)&lt;/span>的所有列向量所张成的空间，称为列空间，记作&lt;span class="math">\(C(A)或Col(A)\)&lt;/span>；用&lt;span class="math">\(A\)&lt;/span>的所有行向量所张成的空间，称为行空间，记作&lt;span class="math">\(R(A)或Raw(A)\)&lt;/span>。&lt;/p>
 &lt;/blockquote>
-&lt;p>向量组张成空间的概念参见笔记&lt;a href="%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%90%86%E8%A7%A3%E5%90%91%E9%87%8F%E3%80%81%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95.md">线性代数与矩阵之理解向量、线性变换与矩阵乘法&lt;/a>。每一个$c_i$是$m\times 1$向量，因此列空间必是$R^m$空间的子空间，同理行空间是$R^n$空间的子空间。&lt;/p>
-&lt;p>如果从矩阵乘以向量$Ax=y$的角度来看列空间，我们可以发现，$Ax$的结果是列向量组$(c_1,c_2\dotsb,c_n)$的线性组合，即$y$必然是列空间的向量。这表明列空间等同于该矩阵左乘向量的值域空间。同理，行空间是$x^TA=y^T$的值域空间。&lt;/p>
+&lt;p>向量组张成空间的概念参见笔记&lt;a href="线性代数与矩阵之理解向量、线性变换与矩阵乘法.md">线性代数与矩阵之理解向量、线性变换与矩阵乘法&lt;/a>。每一个&lt;span class="math">\(c_i\)&lt;/span>是&lt;span class="math">\(m\times 1\)&lt;/span>向量，因此列空间必是&lt;span class="math">\(R^m\)&lt;/span>空间的子空间，同理行空间是&lt;span class="math">\(R^n\)&lt;/span>空间的子空间。&lt;/p>
+&lt;p>如果从矩阵乘以向量&lt;span class="math">\(Ax=y\)&lt;/span>的角度来看列空间，我们可以发现，&lt;span class="math">\(Ax\)&lt;/span>的结果是列向量组&lt;span class="math">\((c_1,c_2\dotsb,c_n)\)&lt;/span>的线性组合，即&lt;span class="math">\(y\)&lt;/span>必然是列空间的向量。这表明列空间等同于该矩阵左乘向量的值域空间。同理，行空间是&lt;span class="math">\(x^TA=y^T\)&lt;/span>的值域空间。&lt;/p>
 &lt;h3 id="列空间与线性方程组的解">列空间与线性方程组的解&lt;/h3>
-&lt;p>如果将线性方程组写成矩阵的形式$Ax=b$，如果要求此方程有解，那么向量$b$必须要在矩阵$A$的列空间中。&lt;/p>
+&lt;p>如果将线性方程组写成矩阵的形式&lt;span class="math">\(Ax=b\)&lt;/span>，如果要求此方程有解，那么向量&lt;span class="math">\(b\)&lt;/span>必须要在矩阵&lt;span class="math">\(A\)&lt;/span>的列空间中。&lt;/p>
 &lt;h2 id="矩阵的零空间与左零空间">矩阵的零空间与左零空间&lt;/h2>
 &lt;blockquote>
-&lt;p>零空间：所有满足$Ax=0$的向量$x$的集合就称之为矩阵$A$的零空间，记为$N(A)或Null(A)$。&lt;/p>
+&lt;p>零空间：所有满足&lt;span class="math">\(Ax=0\)&lt;/span>的向量&lt;span class="math">\(x\)&lt;/span>的集合就称之为矩阵&lt;span class="math">\(A\)&lt;/span>的零空间，记为&lt;span class="math">\(N(A)或Null(A)\)&lt;/span>。&lt;/p>
 &lt;/blockquote>
-&lt;p>如果矩阵A的各列线性无关，则$x$就只有零向量这个唯一解，如果$A$的各列线性相关(意味着降维了，进一步是行列式值为零)，那么$x$就有非零解。由于解$x$是$n\times 1$向量，因此零空间是$R^n$空间的子空间(通常小于$n$)。&lt;/p>
+&lt;p>如果矩阵A的各列线性无关，则&lt;span class="math">\(x\)&lt;/span>就只有零向量这个唯一解，如果&lt;span class="math">\(A\)&lt;/span>的各列线性相关(意味着降维了，进一步是行列式值为零)，那么&lt;span class="math">\(x\)&lt;/span>就有非零解。由于解&lt;span class="math">\(x\)&lt;/span>是&lt;span class="math">\(n\times 1\)&lt;/span>向量，因此零空间是&lt;span class="math">\(R^n\)&lt;/span>空间的子空间(通常小于&lt;span class="math">\(n\)&lt;/span>)。&lt;/p>
 &lt;blockquote>
-&lt;p>左零空间：所有满足$y^TA=A^Ty=0$的向量$y^T或y$的集合就称之为矩阵$A$的左零空间，记为$N(A^T)或Null(A^T)$。&lt;/p>
+&lt;p>左零空间：所有满足&lt;span class="math">\(y^TA=A^Ty=0\)&lt;/span>的向量&lt;span class="math">\(y^T或y\)&lt;/span>的集合就称之为矩阵&lt;span class="math">\(A\)&lt;/span>的左零空间，记为&lt;span class="math">\(N(A^T)或Null(A^T)\)&lt;/span>。&lt;/p>
 &lt;/blockquote>
-&lt;p>显然，左零空间就是因为$y^T$向量在矩阵左侧。由于解$y$是$m\times 1$向量，因此左零空间是$R^m$空间的子空间(通常小于$m$)。&lt;/p>
+&lt;p>显然，左零空间就是因为&lt;span class="math">\(y^T\)&lt;/span>向量在矩阵左侧。由于解&lt;span class="math">\(y\)&lt;/span>是&lt;span class="math">\(m\times 1\)&lt;/span>向量，因此左零空间是&lt;span class="math">\(R^m\)&lt;/span>空间的子空间(通常小于&lt;span class="math">\(m\)&lt;/span>)。&lt;/p>
 &lt;h3 id="零空间与线性方程组的通解">零空间与线性方程组的通解&lt;/h3>
-&lt;p>无论是零空间还是左零空间都是&lt;strong>解&lt;/strong>的特性。利用零空间和方程的一个特解，我们可以构造方程的通解。
-$$
-Ax=b\Rightarrow Ax^\ast+Ax'=b
-$$
-其中，$Ax^\ast=0$，$x^\ast$是零空间的仍一元素，而$x'$是方程组的任一个特解。$x^\ast$可以用零空间的一组基来表示，即
-$$
+&lt;p>无论是零空间还是左零空间都是&lt;strong>解&lt;/strong>的特性。利用零空间和方程的一个特解，我们可以构造方程的通解。 &lt;span class="math">\[
+Ax=b\Rightarrow Ax^\ast+Ax&amp;#39;=b
+\]&lt;/span> 其中，&lt;span class="math">\(Ax^\ast=0\)&lt;/span>，&lt;span class="math">\(x^\ast\)&lt;/span>是零空间的仍一元素，而&lt;span class="math">\(x&amp;#39;\)&lt;/span>是方程组的任一个特解。&lt;span class="math">\(x^\ast\)&lt;/span>可以用零空间的一组基来表示，即 &lt;span class="math">\[
 x^\ast=(z_1,z_2,\dotsb,z_r)\begin{bmatrix}
-x_1\x_2\\dotsb\z_r
+x_1\\x_2\\\dotsb\\z_r
 \end{bmatrix}
-$$
-其中，$(z_1,z_2,\dotsb,z_r)$表示零空间的一组基，$z_i$为$n\times 1$维向量，下标$r$为零空间的维度。&lt;/p>
-&lt;p>对于$Ax=0$的通解，还可以使用简化列阶梯形矩阵来求解，Matlab正是用此方法进行求解的。&lt;/p>
+\]&lt;/span> 其中，&lt;span class="math">\((z_1,z_2,\dotsb,z_r)\)&lt;/span>表示零空间的一组基，&lt;span class="math">\(z_i\)&lt;/span>为&lt;span class="math">\(n\times 1\)&lt;/span>维向量，下标&lt;span class="math">\(r\)&lt;/span>为零空间的维度。&lt;/p>
+&lt;p>对于&lt;span class="math">\(Ax=0\)&lt;/span>的通解，还可以使用简化列阶梯形矩阵来求解，Matlab正是用此方法进行求解的。&lt;/p>
 &lt;blockquote>
 &lt;p>简化列阶梯形矩阵：简化列阶梯形矩阵或简约行梯形式矩阵（reduced row echelon form），也称作行规范形矩阵（row canonical form），如果满足额外的条件：每个首项系数是1，且是其所在列的唯一的非零元素。&lt;/p>
 &lt;/blockquote>
-&lt;p>例如：
-$${\displaystyle \left[{\begin{array}{ccccc}1&amp;amp;0&amp;amp;a_{1}&amp;amp;0&amp;amp;b_{1}\0&amp;amp;1&amp;amp;a_{2}&amp;amp;0&amp;amp;b_{2}\0&amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;b_{3}\end{array}}\right]}$$&lt;/p>
-&lt;p>简化列阶梯形矩阵与线性方程组的通解有关系，如果我们将所有基本列放到一起，如上例中是一个$I_{3\times 3}$，剩下的自由列为$F=\begin{bmatrix}a_1&amp;amp;b_1\a_2&amp;amp;b_2\0&amp;amp;b_3\end{bmatrix}$。在求解$Ax=0$时，我们分别把自由列（第3，5）列取（1，0）和（0，1）可得，零空间的一组基为：
-$$
-k_1\begin{bmatrix}-a_1\-a_2\1\0\0\end{bmatrix}+k_2\begin{bmatrix}
--b_1\-b_2\0\-b_3\1\end{bmatrix}
-$$&lt;/p>
+&lt;p>例如： &lt;span class="math">\[{\displaystyle \left[{\begin{array}{ccccc}1&amp;amp;0&amp;amp;a_{1}&amp;amp;0&amp;amp;b_{1}\\0&amp;amp;1&amp;amp;a_{2}&amp;amp;0&amp;amp;b_{2}\\0&amp;amp;0&amp;amp;0&amp;amp;1&amp;amp;b_{3}\end{array}}\right]}\]&lt;/span>&lt;/p>
+&lt;p>简化列阶梯形矩阵与线性方程组的通解有关系，如果我们将所有基本列放到一起，如上例中是一个&lt;span class="math">\(I_{3\times 3}\)&lt;/span>，剩下的自由列为&lt;span class="math">\(F=\begin{bmatrix}a_1&amp;amp;b_1\\a_2&amp;amp;b_2\\0&amp;amp;b_3\end{bmatrix}\)&lt;/span>。在求解&lt;span class="math">\(Ax=0\)&lt;/span>时，我们分别把自由列（第3，5）列取（1，0）和（0，1）可得，零空间的一组基为： &lt;span class="math">\[
+k_1\begin{bmatrix}-a_1\\-a_2\\1\\0\\0\end{bmatrix}+k_2\begin{bmatrix}
+-b_1\\-b_2\\0\\-b_3\\1\end{bmatrix}
+\]&lt;/span>&lt;/p>
 &lt;h2 id="各空间关系">各空间关系&lt;/h2>
-&lt;p>对于一个矩阵$A_{m\times n}$，其四个空间为&lt;/p>
+&lt;p>对于一个矩阵&lt;span class="math">\(A_{m\times n}\)&lt;/span>，其四个空间为&lt;/p>
 &lt;ul>
-&lt;li>列空间$C(A)$，是空间$R^m$的子空间，秩$r$为$A$的基本列个数，或$C(A)$的维度。&lt;/li>
-&lt;li>零空间$N(A)$，是空间$R^n$的子空间，秩$n-r$为$A$的自由列个数，或$N(A)$的维度。&lt;/li>
-&lt;li>行空间$C(A^T)=R(A)$，是空间$R^n$的子空间，秩$r$为$A^T$的基本列个数，或$R(A)$的维度。&lt;/li>
-&lt;li>左零空间$N(A^T)$，是空间$R^m$的子空间，秩$m-r$为$A^T$的自由列个数，或$C(A^T)$的维度。&lt;/li>
+&lt;li>列空间&lt;span class="math">\(C(A)\)&lt;/span>，是空间&lt;span class="math">\(R^m\)&lt;/span>的子空间，秩&lt;span class="math">\(r\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>的基本列个数，或&lt;span class="math">\(C(A)\)&lt;/span>的维度。&lt;/li>
+&lt;li>零空间&lt;span class="math">\(N(A)\)&lt;/span>，是空间&lt;span class="math">\(R^n\)&lt;/span>的子空间，秩&lt;span class="math">\(n-r\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>的自由列个数，或&lt;span class="math">\(N(A)\)&lt;/span>的维度。&lt;/li>
+&lt;li>行空间&lt;span class="math">\(C(A^T)=R(A)\)&lt;/span>，是空间&lt;span class="math">\(R^n\)&lt;/span>的子空间，秩&lt;span class="math">\(r\)&lt;/span>为&lt;span class="math">\(A^T\)&lt;/span>的基本列个数，或&lt;span class="math">\(R(A)\)&lt;/span>的维度。&lt;/li>
+&lt;li>左零空间&lt;span class="math">\(N(A^T)\)&lt;/span>，是空间&lt;span class="math">\(R^m\)&lt;/span>的子空间，秩&lt;span class="math">\(m-r\)&lt;/span>为&lt;span class="math">\(A^T\)&lt;/span>的自由列个数，或&lt;span class="math">\(C(A^T)\)&lt;/span>的维度。&lt;/li>
 &lt;/ul>
 &lt;p>各空间的关系总结如下图：&lt;/p>
-&lt;p>&lt;img src="./images/four-linear-subspaces.png" alt="four-linear-subspaces.png">&lt;/p>
+&lt;div class="figure">
+&lt;img src="./images/four-linear-subspaces.png" alt="four-linear-subspaces.png" />&lt;p class="caption">four-linear-subspaces.png&lt;/p>
+&lt;/div>
 &lt;h3 id="秩的关系">秩的关系&lt;/h3>
-&lt;p>一个基本的秩的结论是列空间维度等于行空间维度，即$Rank(A)=Rank(A^T)$。这个结论太过显然，很多时候我们都未自习思考过。&lt;/p>
-&lt;p>我们再来看列空间和零空间之间秩的关系。在$A_{m\times n}$中，列向量组中向量个数有$n$个，其中有$r_c$个线性无关的向量，那么根据线性无关向量个数和子空间维度的关系，我们可以知道列空间$C(A)$的秩为$r_c$。（算是矩阵值域的特性）&lt;/p>
-&lt;p>而当我们在看方程组$Ax=0$时，当通过高斯消元法，可以得到一个上三角矩阵，但是主对角线元素不一定都是非0的，我们将主对角线非0的列叫基本列，主对角线等于0的自由列。根据三角矩阵秩与主对角元素的关系可知，基本列个数为$r_c$，那么自由列个数就是$n-c_r$。&lt;/p>
-&lt;p>在解方程$x$过程中，我们给自由列任一的系数，而基本变量用自由变量来表示；也就是说，自由变量确定了一个值，基本变量也就随之确定了一个值。上面这个解集形式也被称为方程组的“通解”，因为它给出了方程组所有解的显示表示。自由列的个数解决了自由变量的个数，也就决定了零空间的维度，因此零空间维度是$n-r_c$。&lt;/p>
-&lt;p>综上所述：$Rank(C(A))+Rank(N(A))=n$。同理，有$Rank(R(A))+Rank(N(A^T))=m$。这二者是从线性方程组与解的关系得来的。&lt;/p>
+&lt;p>一个基本的秩的结论是列空间维度等于行空间维度，即&lt;span class="math">\(Rank(A)=Rank(A^T)\)&lt;/span>。这个结论太过显然，很多时候我们都未自习思考过。&lt;/p>
+&lt;p>我们再来看列空间和零空间之间秩的关系。在&lt;span class="math">\(A_{m\times n}\)&lt;/span>中，列向量组中向量个数有&lt;span class="math">\(n\)&lt;/span>个，其中有&lt;span class="math">\(r_c\)&lt;/span>个线性无关的向量，那么根据线性无关向量个数和子空间维度的关系，我们可以知道列空间&lt;span class="math">\(C(A)\)&lt;/span>的秩为&lt;span class="math">\(r_c\)&lt;/span>。（算是矩阵值域的特性）&lt;/p>
+&lt;p>而当我们在看方程组&lt;span class="math">\(Ax=0\)&lt;/span>时，当通过高斯消元法，可以得到一个上三角矩阵，但是主对角线元素不一定都是非0的，我们将主对角线非0的列叫基本列，主对角线等于0的自由列。根据三角矩阵秩与主对角元素的关系可知，基本列个数为&lt;span class="math">\(r_c\)&lt;/span>，那么自由列个数就是&lt;span class="math">\(n-c_r\)&lt;/span>。&lt;/p>
+&lt;p>在解方程&lt;span class="math">\(x\)&lt;/span>过程中，我们给自由列任一的系数，而基本变量用自由变量来表示；也就是说，自由变量确定了一个值，基本变量也就随之确定了一个值。上面这个解集形式也被称为方程组的“通解”，因为它给出了方程组所有解的显示表示。自由列的个数解决了自由变量的个数，也就决定了零空间的维度，因此零空间维度是&lt;span class="math">\(n-r_c\)&lt;/span>。&lt;/p>
+&lt;p>综上所述：&lt;span class="math">\(Rank(C(A))+Rank(N(A))=n\)&lt;/span>。同理，有&lt;span class="math">\(Rank(R(A))+Rank(N(A^T))=m\)&lt;/span>。这二者是从线性方程组与解的关系得来的。&lt;/p>
 &lt;h3 id="正交关系">正交关系&lt;/h3>
-&lt;p>先说结论：&lt;strong>列空间与左零空间是$R^m$的子空间，且二者正交；行空间与零空间是$R^n$的子空间，且二者正交&lt;/strong>。&lt;/p>
+&lt;p>先说结论：&lt;strong>列空间与左零空间是&lt;span class="math">\(R^m\)&lt;/span>的子空间，且二者正交；行空间与零空间是&lt;span class="math">\(R^n\)&lt;/span>的子空间，且二者正交&lt;/strong>。&lt;/p>
 &lt;p>再看看其中的关键词：&lt;strong>正交&lt;/strong>，准确的说是&lt;strong>子空间正交&lt;/strong>。那么什么是子空间正交呢？&lt;/p>
 &lt;blockquote>
-&lt;p>子空间正交：子空间$S$与子空间$T$正交，则$S$中的&lt;strong>任意&lt;/strong>一个向量都和T中的&lt;strong>任意&lt;/strong>向量正交。&lt;/p>
+&lt;p>子空间正交：子空间&lt;span class="math">\(S\)&lt;/span>与子空间&lt;span class="math">\(T\)&lt;/span>正交，则&lt;span class="math">\(S\)&lt;/span>中的&lt;strong>任意&lt;/strong>一个向量都和T中的&lt;strong>任意&lt;/strong>向量正交。&lt;/p>
 &lt;/blockquote>
-&lt;p>什么是向量正交，这个就太基本了，不再赘述。如果两个子空间正交，那么他们一定只能相交于零向量。因为，如果他们相较于某个非零向量$\vec{v}$，那么$\vec{v}\in S\cap T$，则要求$\vec{v}$必须和自己正交，而和自己正交的向量只有零向量，与假设矛盾。&lt;/p>
+&lt;p>什么是向量正交，这个就太基本了，不再赘述。如果两个子空间正交，那么他们一定只能相交于零向量。因为，如果他们相较于某个非零向量&lt;span class="math">\(\vec{v}\)&lt;/span>，那么&lt;span class="math">\(\vec{v}\in S\cap T\)&lt;/span>，则要求&lt;span class="math">\(\vec{v}\)&lt;/span>必须和自己正交，而和自己正交的向量只有零向量，与假设矛盾。&lt;/p>
 &lt;p>但是，按照如上定义如果我们要验证子空间的正交性，那么需要验证任意的向量，是很麻烦的。根据线性空间与基的关系，我们可以有如下推论：&lt;/p>
 &lt;blockquote>
 &lt;p>推论：如果向量和（子）空间的一组基正交，那么该向量和（子）空间正交。&lt;/p>
 &lt;/blockquote>
-&lt;p>根据此推论，我们再来看看式子$Ax=0$，显然$x_{n\times 1}$是零空间的任意向量。我们将矩阵$A$写成行向量组的形式，即
-$$
+&lt;p>根据此推论，我们再来看看式子&lt;span class="math">\(Ax=0\)&lt;/span>，显然&lt;span class="math">\(x_{n\times 1}\)&lt;/span>是零空间的任意向量。我们将矩阵&lt;span class="math">\(A\)&lt;/span>写成行向量组的形式，即 &lt;span class="math">\[
 Ax=\begin{bmatrix}
-r_1\r_2\ \vdots\r_m
+r_1\\r_2\\ \vdots\\r_m
 \end{bmatrix} x_{n\times 1}=\begin{bmatrix}
-0\0\ \vdots\0
+0\\0\\ \vdots\\0
 \end{bmatrix}_{m\times 1}
-$$
-注意，此处每一个$r_i$是一个$1\times n$的行向量。根据行空间的定义，它是由行向量组张成的空间，&lt;strong>因此这些行向量必然包含行空间的一组基&lt;/strong>。&lt;/p>
-&lt;p>同时，由于$r_i x=0,i\in {1,2,\cdots,m}$，因此任一行向量与零空间的向量$x$都是正交的。又因为行向量必然包含行空间的一组基，那么零空间中的向量$x$正交于行空间的一组基，推得$x$正交于行空间。同时，$x$又是零空间中的任意向量，因此零空间是正交于行空间的。&lt;/p>
-&lt;p>虽然有些啰嗦，但是我们再来阐述下列空间与左零空间的正交性。我们看式子$y^TA=0$，显然$y_{m\times 1}$是左零空间任意向量。我们将矩阵$A$写成列向量组的形式，即
-$$
+\]&lt;/span> 注意，此处每一个&lt;span class="math">\(r_i\)&lt;/span>是一个&lt;span class="math">\(1\times n\)&lt;/span>的行向量。根据行空间的定义，它是由行向量组张成的空间，&lt;strong>因此这些行向量必然包含行空间的一组基&lt;/strong>。&lt;/p>
+&lt;p>同时，由于&lt;span class="math">\(r_i x=0,i\in \{1,2,\cdots,m\}\)&lt;/span>，因此任一行向量与零空间的向量&lt;span class="math">\(x\)&lt;/span>都是正交的。又因为行向量必然包含行空间的一组基，那么零空间中的向量&lt;span class="math">\(x\)&lt;/span>正交于行空间的一组基，推得&lt;span class="math">\(x\)&lt;/span>正交于行空间。同时，&lt;span class="math">\(x\)&lt;/span>又是零空间中的任意向量，因此零空间是正交于行空间的。&lt;/p>
+&lt;p>虽然有些啰嗦，但是我们再来阐述下列空间与左零空间的正交性。我们看式子&lt;span class="math">\(y^TA=0\)&lt;/span>，显然&lt;span class="math">\(y_{m\times 1}\)&lt;/span>是左零空间任意向量。我们将矩阵&lt;span class="math">\(A\)&lt;/span>写成列向量组的形式，即 &lt;span class="math">\[
 y^TA=y^T\begin{bmatrix}
 c_1&amp;amp;c_2&amp;amp;\cdots&amp;amp;c_n
 \end{bmatrix}=\begin{bmatrix}
 0&amp;amp;0&amp;amp; \cdots&amp;amp;0
 \end{bmatrix}_{1\times n}
-$$
-注意，此处每一个$c_j$是一个$m\times 1$的列向量。根据列空间的定义，它是由列向量组张成的空间，&lt;strong>因此这些列向量必然包含列空间的一组基&lt;/strong>。&lt;/p>
-&lt;p>同时，由于$y^T c_j=0,j\in {1,2,\cdots,n}$，因此任一列向量与左零空间的向量$y^T$都是正交的。又因为列向量必然包含列空间的一组基，那么左零空间中的向量$y^T$正交于列空间的一组基，推得$y^T$正交于列空间。同时，$y^T$又是左零空间中的任意向量，因此左零空间是正交于列空间的。&lt;/p>
+\]&lt;/span> 注意，此处每一个&lt;span class="math">\(c_j\)&lt;/span>是一个&lt;span class="math">\(m\times 1\)&lt;/span>的列向量。根据列空间的定义，它是由列向量组张成的空间，&lt;strong>因此这些列向量必然包含列空间的一组基&lt;/strong>。&lt;/p>
+&lt;p>同时，由于&lt;span class="math">\(y^T c_j=0,j\in \{1,2,\cdots,n\}\)&lt;/span>，因此任一列向量与左零空间的向量&lt;span class="math">\(y^T\)&lt;/span>都是正交的。又因为列向量必然包含列空间的一组基，那么左零空间中的向量&lt;span class="math">\(y^T\)&lt;/span>正交于列空间的一组基，推得&lt;span class="math">\(y^T\)&lt;/span>正交于列空间。同时，&lt;span class="math">\(y^T\)&lt;/span>又是左零空间中的任意向量，因此左零空间是正交于列空间的。&lt;/p>
 &lt;h4 id="子空间互补">子空间互补&lt;/h4>
 &lt;p>我们再联系四个空间秩的关系，有&lt;/p>
 &lt;ul>
-&lt;li>$Rank(Raw(A))+Rank(N(A^T))=Rank(Col(A))+Rank(N(A^T))=m$可知，$R^m$被切割成$R^r$的列空间和$R^{m-r}$的左零空间。也可以说在$R^m$中列空间和左零空间&lt;strong>互补&lt;/strong>。&lt;/li>
-&lt;li>$Rank(Col(A))+Rank(N(A))=Rank(Raw(A))+Rank(N(A))=n$可知，$R^n$被切割成$R^r$的行空间和$R^{n-r}$的零空间。也可以说在$R^n$中行空间和零空间&lt;strong>互补&lt;/strong>。&lt;/li>
+&lt;li>&lt;span class="math">\(Rank(Raw(A))+Rank(N(A^T))=Rank(Col(A))+Rank(N(A^T))=m\)&lt;/span>可知，&lt;span class="math">\(R^m\)&lt;/span>被切割成&lt;span class="math">\(R^r\)&lt;/span>的列空间和&lt;span class="math">\(R^{m-r}\)&lt;/span>的左零空间。也可以说在&lt;span class="math">\(R^m\)&lt;/span>中列空间和左零空间&lt;strong>互补&lt;/strong>。&lt;/li>
+&lt;li>&lt;span class="math">\(Rank(Col(A))+Rank(N(A))=Rank(Raw(A))+Rank(N(A))=n\)&lt;/span>可知，&lt;span class="math">\(R^n\)&lt;/span>被切割成&lt;span class="math">\(R^r\)&lt;/span>的行空间和&lt;span class="math">\(R^{n-r}\)&lt;/span>的零空间。也可以说在&lt;span class="math">\(R^n\)&lt;/span>中行空间和零空间&lt;strong>互补&lt;/strong>。&lt;/li>
 &lt;/ul>
 &lt;h2 id="四类空间与线性方程组的可解性">四类空间与线性方程组的可解性&lt;/h2>
 &lt;p>MIT著名的线性代数课程是从线性方程组的解的角度引出四类空间的。会看最初的定义&lt;/p>
-&lt;p>矩阵$A_{m\times n}$根据横向和纵向，我们可以将其分成列向量组或行向量组&lt;/p>
-&lt;p>&lt;img src="./images/bordermatrix.png" alt="bordermatrix">&lt;/p>
-&lt;p>其中，列向量组表示$A=(c_1,c_2\dotsb,c_n)$，行向量组表示$A=(r_1,r_2,\dotsb,r_m)^T$。&lt;/p>
-&lt;p>在矩阵$A$与向量$x$的乘积$Ax=(c_1,c_2\dotsb,c_n)x=b$中，$b$是值，体现的是列向量的线性组合，所有可能的$b$组成了列空间即为值域，也就是说只有$b$是列空间的元素，方程才有解。同理，$y^TA=b^T$也只有当$b^T$是行空间的元素时，$y^T$才有解。&lt;/p>
-&lt;p>当矩阵为列满秩，即$Rank(A)=n\leq m$时，方程只可能有0个或1个解。$b$在列空间中，只有一个解；不在时没有解。&lt;/p>
-&lt;p>线性方程组$Ax=0$是特殊的值0，所有让此方程组成立的$x$组成了$A$的零空间。在此方程中，零向量总是方程的解。当$Rank(A)=n\leq m$时，有且只有一个解：零向量。只有当$Rank(A)&amp;lt;n$时，才存在非零解，非零解一旦存在，就不是一个，而是一个解空间，即零空间，且零空间与列空间维度和为$n$。&lt;/p>
-&lt;p>如果对于方程$Ax=b$有解，且$Ax=0$存在非零向量解$x_n$，那么$Ax=b$的解就是一个解系，其组成为任一个特解$x_p$与零空间中向量的任意线性组合，即$x=x_p+任意一组N(A)中的向量和$。因为$A(x_p+x_n)=Ax_p+Ax_n=b+0=b,; x_n=k_1x_{n1}+k_2x_{n2}+\cdots,;x_{ni}\in N(A)$。&lt;/p>
-&lt;p>这里都只讨论$Ax=b$有解的情形，四个空间也有可解性密切相关。当$Ax=b$不可解，即$b$不在列空间中，我们是否可以求出$x$的最优或最近似解呢？这就会涉及到向量与矩阵的投影。&lt;/p></description></item><item><title>线性代数与矩阵之逆矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/</link><pubDate>Sun, 08 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/</guid><description>
+&lt;p>矩阵&lt;span class="math">\(A_{m\times n}\)&lt;/span>根据横向和纵向，我们可以将其分成列向量组或行向量组&lt;/p>
+&lt;div class="figure">
+&lt;img src="./images/bordermatrix.png" alt="bordermatrix" />&lt;p class="caption">bordermatrix&lt;/p>
+&lt;/div>
+&lt;p>其中，列向量组表示&lt;span class="math">\(A=(c_1,c_2\dotsb,c_n)\)&lt;/span>，行向量组表示&lt;span class="math">\(A=(r_1,r_2,\dotsb,r_m)^T\)&lt;/span>。&lt;/p>
+&lt;p>在矩阵&lt;span class="math">\(A\)&lt;/span>与向量&lt;span class="math">\(x\)&lt;/span>的乘积&lt;span class="math">\(Ax=(c_1,c_2\dotsb,c_n)x=b\)&lt;/span>中，&lt;span class="math">\(b\)&lt;/span>是值，体现的是列向量的线性组合，所有可能的&lt;span class="math">\(b\)&lt;/span>组成了列空间即为值域，也就是说只有&lt;span class="math">\(b\)&lt;/span>是列空间的元素，方程才有解。同理，&lt;span class="math">\(y^TA=b^T\)&lt;/span>也只有当&lt;span class="math">\(b^T\)&lt;/span>是行空间的元素时，&lt;span class="math">\(y^T\)&lt;/span>才有解。&lt;/p>
+&lt;p>当矩阵为列满秩，即&lt;span class="math">\(Rank(A)=n\leq m\)&lt;/span>时，方程只可能有0个或1个解。&lt;span class="math">\(b\)&lt;/span>在列空间中，只有一个解；不在时没有解。&lt;/p>
+&lt;p>线性方程组&lt;span class="math">\(Ax=0\)&lt;/span>是特殊的值0，所有让此方程组成立的&lt;span class="math">\(x\)&lt;/span>组成了&lt;span class="math">\(A\)&lt;/span>的零空间。在此方程中，零向量总是方程的解。当&lt;span class="math">\(Rank(A)=n\leq m\)&lt;/span>时，有且只有一个解：零向量。只有当&lt;span class="math">\(Rank(A)&amp;lt;n\)&lt;/span>时，才存在非零解，非零解一旦存在，就不是一个，而是一个解空间，即零空间，且零空间与列空间维度和为&lt;span class="math">\(n\)&lt;/span>。&lt;/p>
+&lt;p>如果对于方程&lt;span class="math">\(Ax=b\)&lt;/span>有解，且&lt;span class="math">\(Ax=0\)&lt;/span>存在非零向量解&lt;span class="math">\(x_n\)&lt;/span>，那么&lt;span class="math">\(Ax=b\)&lt;/span>的解就是一个解系，其组成为任一个特解&lt;span class="math">\(x_p\)&lt;/span>与零空间中向量的任意线性组合，即&lt;span class="math">\(x=x_p+任意一组N(A)中的向量和\)&lt;/span>。因为&lt;span class="math">\(A(x_p+x_n)=Ax_p+Ax_n=b+0=b,\; x_n=k_1x_{n1}+k_2x_{n2}+\cdots,\;x_{ni}\in N(A)\)&lt;/span>。&lt;/p>
+&lt;p>这里都只讨论&lt;span class="math">\(Ax=b\)&lt;/span>有解的情形，四个空间也有可解性密切相关。当&lt;span class="math">\(Ax=b\)&lt;/span>不可解，即&lt;span class="math">\(b\)&lt;/span>不在列空间中，我们是否可以求出&lt;span class="math">\(x\)&lt;/span>的最优或最近似解呢？这就会涉及到向量与矩阵的投影。&lt;/p></description></item><item><title>线性代数与矩阵之逆矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/</link><pubDate>Sun, 08 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#逆矩阵">逆矩阵&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#补充了解广义逆">补充了解：广义逆&lt;/a>&lt;/li>
