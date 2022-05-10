@@ -91,7 +91,7 @@ Apr 24, 2020</span>
 <h2 id=线性代数与矩阵论之矩阵分解>线性代数与矩阵论之矩阵分解</h2>
 <ul>
 <li><a href=#三角分解>三角分解</a></li>
-<li><a href=#lr分解>LR分解</a></li>
+<li><a href=#lu分解>LU分解</a></li>
 <li><a href=#crout分解>Crout分解</a></li>
 <li><a href=#doolittle分解>Doolittle分解</a></li>
 <li><a href=#舒尔分解>舒尔分解</a></li>
@@ -103,24 +103,31 @@ Apr 24, 2020</span>
 <li><a href=#svd分解>SVD分解</a></li>
 </ul>
 <h2 id=三角分解>三角分解</h2>
-<h3 id=lr分解>LR分解</h3>
+<h3 id=lu分解>LU分解</h3>
 <p>在线性代数与数值分析中，LU分解是矩阵分解的一种，将一个矩阵分解为一个<strong>下三角矩阵和一个上三角矩阵的乘积</strong>，<strong>有时需要再乘上一个置换矩阵</strong>。LU分解可以被视为高斯消元法的矩阵形式。在数值计算上，LU分解经常被用来解线性方程组、且在求逆矩阵和计算行列式中都是一个关键的步骤。</p>
-<p>对于方阵<span class=math>\(A\)</span>，<span class=math>\(A\)</span>的LU分解是将它分解成一个下三角矩阵<span class=math>\(L\)</span>与上三角矩阵<span class=math>\(U\)</span> 的乘积，也就是 <span class=math>\[A=LU\]</span> 如果适当的改变<span class=math>\(A\)</span>的行的顺序或列的顺序，就可以将<span class=math>\(A\)</span>做LU分解。</p>
+<p>对于方阵<span class=math>\(A\)</span>，<span class=math>\(A\)</span>的LU分解是将它分解成一个下三角矩阵<span class=math>\(L\)</span>与上三角矩阵<span class=math>\(U\)</span> 的乘积，也就是 <span class=math>\[A=LU\]</span> 通常，我们需要让<span class=math>\(L\)</span>矩阵的对角线元素为1，如果矩阵<span class=math>\(A\)</span>的对角线上出现0元素，我们应适当的改变<span class=math>\(A\)</span>的行的顺序，在此尝试将<span class=math>\(A\)</span>做LU分解。</p>
 <p>举例来说一个<span class=math>\(3\times 3\)</span>的矩阵<span class=math>\(A\)</span>，其 LU 分解会写成下面的形式： <span class=math>\[A={\begin{bmatrix}
 a_{11}&a_{12}&a_{13}\\
 a_{21}&a_{22}&a_{23}\\
 a_{31}&a_{32}&a_{33}\\
 \end{bmatrix}}=
 {\begin{bmatrix}
-l_{11}&0&0\\
-l_{21}&l_{22}&0\\
-l_{31}&l_{32}&l_{33}\\
+1&0&0\\
+l_{21}&1&0\\
+l_{31}&l_{32}&1\\
 \end{bmatrix}}
 {\begin{bmatrix}
 u_{11}&u_{12}&u_{13}\\
 0&u_{22}&u_{23}\\
 0&0&u_{33}\\
-\end{bmatrix}}\]</span> 事实上，并不是每个矩阵都有 LU 分解。例如，从上式可知<span class=math>\(a_{11}=l_{11}u_{11}\)</span>，若<span class=math>\(a_{11}=0\)</span>，则<span class=math>\(l_{11}\)</span>或<span class=math>\(u_{11}\)</span>等于 0，故<span class=math>\(L\)</span>或<span class=math>\(U\)</span>是不可逆矩阵，<span class=math>\(A\)</span>必须也是不可逆矩阵。然而，存在着可逆矩阵<span class=math>\(A\)</span>满足<span class=math>\(a_{11}=0\)</span>，这些<span class=math>\(A\)</span>就是没有<span class=math>\(LU\)</span>分解的例子。该问题可借由排列<span class=math>\(A\)</span>的各行顺序来解决，最终会得到一个<span class=math>\(A\)</span>的<span class=math>\(PLU\)</span>分解，其中<span class=math>\(P\)</span>是置换矩阵。</p>
+\end{bmatrix}}\]</span> 事实上，并不是每个矩阵都有 LU 分解。例如，从上式可知<span class=math>\(a_{11}=u_{11}\)</span>，若<span class=math>\(a_{11}=0\)</span>，则<span class=math>\(u_{11}\)</span>等于 0，故<span class=math>\(L\)</span>或<span class=math>\(U\)</span>是不可逆矩阵，<span class=math>\(A\)</span>必然也是不可逆矩阵。</p>
+<p>然而，存在着可逆矩阵<span class=math>\(A\)</span>不可LU分解的情况。例如，主对角线元素<span class=math>\(a_{11}=0\)</span>，如果按照LU分解的一般步骤，<span class=math>\(A\)</span>就是没有<span class=math>\(LU\)</span>分解的例子。该问题可借由置换<span class=math>\(A\)</span>的各行顺序来解决，最终会得到一个<span class=math>\(A\)</span>的<span class=math>\(PLU\)</span>分解，其中<span class=math>\(P\)</span>是置换矩阵。</p>
+<p>LU分解的具体步骤和<strong>高斯消元法是相同</strong>的。我们以一个例子来进行说明：</p>
+<blockquote>
+<p>将一个简单的3×3矩阵A进行LU分解： <span class=math>\[A={\begin{bmatrix}1&2&3\\2&5&7\\3&5&3\\\end{bmatrix}}\]</span> 先将矩阵第一列元素中<span class=math>\(a_{11}\)</span>以下的所有元素变为0，即 <span class=math>\[L_{{1}}A={\begin{bmatrix}1&0&0\\-2&1&0\\-3&0&1\\\end{bmatrix}}\times {\begin{bmatrix}1&2&3\\2&5&7\\3&5&3\\\end{bmatrix}}={\begin{bmatrix}1&2&3\\0&1&1\\0&-1&-6\\\end{bmatrix}}\]</span> 再将矩阵第二列元素中a22以下的所有元素变为0，即 <span class=math>\[L_{{2}}(L_{{1}}A)={\begin{bmatrix}1&0&0\\0&1&0\\0&1&1\\\end{bmatrix}}\times {\begin{bmatrix}1&2&3\\0&1&1\\0&-1&-6\\\end{bmatrix}}={\begin{bmatrix}1&2&3\\0&1&1\\0&0&-5\\\end{bmatrix}}=U\]</span> 显然，<span class=math>\(L=(L_1^{-1}L_2^{-1})\)</span>，根据<a href=线性代数与矩阵之逆矩阵.md>矩阵求逆笔记</a>可知，消元矩阵的逆矩阵是主对角线元素不变，其他元素取反，则有： <span class=math>\[L_{1}^{-1}L_{2}^{-1}={\begin{bmatrix}1&0&0\\2&1&0\\3&0&1\\\end{bmatrix}} {\begin{bmatrix}1&0&0\\0&1&0\\0&-1&1\\\end{bmatrix}}\Rightarrow\\
+L={\begin{bmatrix}1&0&0\\2&1&0\\3&-1&1\\\end{bmatrix}}\]</span> 因此有 <span class=math>\[A=LU={\begin{bmatrix}1&0&0\\2&1&0\\3&-1&1\\\end{bmatrix}}{\begin{bmatrix}1&2&3\\0&1&1\\0&0&-5\\\end{bmatrix}}\]</span></p>
+</blockquote>
+<p>如果存在主对角线元素为0时，则使用一个置换矩阵，把下面的一个非0元素换上来，如果该列元素都为0，则说明此矩阵不可逆。（但是也能进行LU分解，不管这一行，继续从下行开始消元分解。）</p>
 <h3 id=crout分解>Crout分解</h3>
 <h3 id=doolittle分解>Doolittle分解</h3>
 <h3 id=舒尔分解>舒尔分解</h3>
@@ -186,13 +193,13 @@ O
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
 <span class=button_tally>17</span>
-</a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
-线性代数与矩阵
-<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -286,7 +293,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -300,6 +307,9 @@ SHELL
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
 </li>
 <li>
@@ -311,20 +321,17 @@ SHELL
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程2——复合命令与控制流程">Shell 骨干流程2——复合命令与控制流程</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
 </li>
 </ul>
 <div>
@@ -334,13 +341,13 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
 <span class=button_tally>17</span>
-</a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
-线性代数与矩阵
-<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -448,7 +455,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>

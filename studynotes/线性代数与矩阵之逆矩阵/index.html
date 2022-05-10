@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 May 8, 2022</span>
-<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
+<span class=post_time> · 3 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -97,6 +97,9 @@ May 8, 2022</span>
 <li><a href=#伴随矩阵求逆矩阵>伴随矩阵求逆矩阵</a></li>
 <li><a href=#矩阵分解法>矩阵分解法</a></li>
 <li><a href=#特殊矩阵的逆>特殊矩阵的逆</a></li>
+<li><a href=#对角矩阵的逆>对角矩阵的逆</a></li>
+<li><a href=#正交矩阵的逆>正交矩阵的逆</a></li>
+<li><a href=#分块矩阵的逆>分块矩阵的逆</a></li>
 <li><a href=#逆矩阵的性质>逆矩阵的性质</a></li>
 </ul>
 <h2 id=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</h2>
@@ -176,19 +179,36 @@ A^{-1}=\frac{1}{|A|}A^*=-1\begin{pmatrix}1&-2&-1\\ -5&8&6\\ 3&-5&-4\end{pmatrix}
 </ul>
 <p>当然，矩阵分解的具体步骤超出了本文的叙述范围，需要了解的读者可以自行查找矩阵分解的相关内容。</p>
 <h2 id=特殊矩阵的逆>特殊矩阵的逆</h2>
-<p>对角矩阵的逆： <span class=math>\[
+<p>我们知道矩阵的初等变换有三种，</p>
+<ol style=list-style-type:decimal>
+<li>换行(列)变换：交换两行（列）。</li>
+<li>倍法变换：将行列式的某一行（列）的所有元素同乘以数k。</li>
+<li>消法变换：把行列式的某一行（列）的所有元素乘以一个数k并加到另一行（列）的对应元素上。</li>
+</ol>
+<p>而这三种变换分别对应了三种矩阵，即对角矩阵、置换矩阵和消元矩阵。巧的是，这三种矩阵的逆矩阵都有十分简便的求法。以下分别说明。</p>
+<h3 id=对角矩阵的逆>对角矩阵的逆</h3>
+<p>对角矩阵的逆矩阵是最容易、直观的，即对角元素取倒数即可。 <span class=math>\[
 \Lambda=\begin{bmatrix}
 a_{11}&0&\dotsb&0\\0&a_{22}&\dotsb&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\dotsb&a_{nn}
 \end{bmatrix}\Rightarrow
 \Lambda^{-1}=\begin{bmatrix}
 \frac{1}{a_{11}}&0&\dotsb&0\\0&\frac{1}{a_{22}}&\dotsb&0\\\vdots&\vdots&\ddots&\vdots\\0&0&\dotsb&\frac{1}{a_{nn}}
 \end{bmatrix}
-\]</span> 正交矩阵的逆： <span class=math>\[
+\]</span> 因为对角矩阵对应线性变换中的<strong>缩放变换</strong>，右乘对应相应列的缩放，左乘对应相应行的缩放。其逆矩阵就相当于把缩放的倍数变回来，即缩放大小的倒数。</p>
+<h3 id=正交矩阵的逆>正交矩阵的逆</h3>
+<p>由于正交矩阵定义为<span class=math>\(QQ^T=I\)</span>，所以显然有： <span class=math>\[
 Q^{-1}=Q^T
-\]</span> 分块矩阵： <span class=math>\[
+\]</span> 利用正交矩阵的逆可以快速计算置换矩阵（permutation matrix）的逆矩阵。</p>
+<blockquote>
+<p>置换矩阵：是一种系数只由0和1组成的方块矩阵。置换矩阵的每一行和每一列都恰好有一个1，其余元素都是0。</p>
+</blockquote>
+<p>在线性代数中，每个n阶的置换矩阵都代表了一个对n个元素（n维空间的基）的置换。当一个矩阵乘上一个置换矩阵时，所得到的是原来矩阵的横行（置换矩阵在左）或纵列（置换矩阵在右）经过置换后得到的矩阵。一个置换矩阵<span class=math>\(P_π\)</span>必然是<strong>正交矩阵</strong>（即满足<span class=math>\(P_{{\pi }}P_{{\pi }}^{{T}}=I\)</span>），并且它的逆也是置换矩阵： <span class=math>\[P_{{\pi }}^{{-1}}=P_{{\pi ^{{-1}}}}=P_{{\pi }}^{{T}}\]</span></p>
+<h3 id=分块矩阵的逆>分块矩阵的逆</h3>
+<p>分块矩阵逆的两种常用情形如下，分别是上三角分块矩阵和下三角分块矩阵。其他分块模式需要考虑各分块是否可逆，具体可参见维基百科：<a href=https://en.wikipedia.org/wiki/Block_matrix#Block_matrix_inversion>分块矩阵求逆</a>。 <span class=math>\[
 U=\begin{bmatrix}A&C\\0&B\end{bmatrix}\Rightarrow U^{-1}=\begin{bmatrix}A^{-1}&-A^{-1}CB^{-1}\\0&B^{-1}\end{bmatrix}\\
 L=\begin{bmatrix}A&0\\C&B\end{bmatrix}\Rightarrow L^{-1}=\begin{bmatrix}A^{-1}&0\\-B^{-1}CA^{-1}&B^{-1}\end{bmatrix}\\
-\]</span></p>
+\]</span> 在初等变换中的消法变换（只考虑一次消去一个行或列）在消去特定行（列）其他元素时，如果按照从上到下的顺序消元，那么每一个消元矩阵都是一个下三角矩阵。虽然消元矩阵不完全符合上面给出的两个分块矩阵求逆公式，但是可以根据维基百科中的其他公式求出：消元矩阵<span class=math>\(C\)</span>的逆为<strong>对角线元素不变，其他元素取反</strong>。</p>
+<p>从线性方程组消元的角度可以很快理解这个逆的，消去的元素需要取反再加回来，即能恢复原样。</p>
 <h2 id=逆矩阵的性质>逆矩阵的性质</h2>
 <ul>
 <li>若矩阵<span class=math>\(A\)</span>存在逆矩阵<span class=math>\(A^{-1}\)</span>，则<span class=math>\(A^{-1}\)</span>唯一。反证法可得。</li>
@@ -221,13 +241,13 @@ AA^{-1}=I\\
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
 <span class=button_tally>17</span>
-</a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
-线性代数与矩阵
-<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -321,7 +341,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -335,6 +355,9 @@ SHELL
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 <li>
@@ -346,20 +369,17 @@ SHELL
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B1%E5%BD%A2%E6%88%90%E5%88%9D%E6%AD%A5%E5%91%BD%E4%BB%A4/ class=nav-link title="Shell 骨干流程1——形成初步命令">Shell 骨干流程1——形成初步命令</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B0%E5%A4%A7%E4%BD%93%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程0——流程总述">Shell 骨干流程0——流程总述</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9D%A1%E4%BB%B6%E6%9C%9F%E6%9C%9B%E4%B8%8E%E9%87%8D%E6%9C%9F%E6%9C%9B%E5%85%AC%E5%BC%8F/ class=nav-link title=概率统计随机过程之条件期望与重期望公式>概率统计随机过程之条件期望与重期望公式</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
 </li>
 </ul>
 <div>
@@ -369,13 +389,13 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
 <span class=button_tally>17</span>
-</a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
-线性代数与矩阵
-<span class=button_tally>16</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -483,7 +503,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
