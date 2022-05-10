@@ -88,91 +88,122 @@ Jan 10, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=完全信息静态博弈贝叶斯博弈>完全信息静态博弈（贝叶斯博弈）</h2>
+<h2 id=完全信息静态博弈贝叶斯博弈---omit-in-toc--->完全信息静态博弈（贝叶斯博弈）</h2>
 <ul>
-<li><a href=#信息分割和信息函数>信息分割和信息函数</a></li>
-<li><a href=#补充知识函数>补充：知识函数</a></li>
-<li><a href=#奥曼模型>奥曼模型</a></li>
-<li><a href=#贝叶斯纯策略>贝叶斯纯策略</a></li>
-<li><a href=#贝叶斯行为策略类似于混合策略>贝叶斯行为策略（类似于混合策略）</a></li>
-<li><a href=#贝叶斯博弈的收益计算>贝叶斯博弈的收益计算</a></li>
-<li><a href=#贝叶斯行为策略均衡>贝叶斯行为策略均衡</a></li>
-<li><a href=#代理人博弈>代理人博弈</a></li>
-<li><a href=#贝叶斯混合策略>贝叶斯混合策略</a></li>
-<li><a href=#贝叶斯混合均衡>贝叶斯混合均衡</a></li>
-<li><a href=#哈萨尼模型>哈萨尼模型</a></li>
+<li><a href=#%E4%BF%A1%E6%81%AF%E5%88%86%E5%89%B2%E5%92%8C%E4%BF%A1%E6%81%AF%E5%87%BD%E6%95%B0>信息分割和信息函数</a>
+<ul>
+<li><a href=#%E8%A1%A5%E5%85%85%E7%9F%A5%E8%AF%86%E5%87%BD%E6%95%B0>补充：知识函数</a></li>
+</ul>
+</li>
+<li><a href=#%E5%A5%A5%E6%9B%BC%E6%A8%A1%E5%9E%8B>奥曼模型</a>
+<ul>
+<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BA%AF%E7%AD%96%E7%95%A5>贝叶斯纯策略</a></li>
+<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E8%A1%8C%E4%B8%BA%E7%AD%96%E7%95%A5%E7%B1%BB%E4%BC%BC%E4%BA%8E%E6%B7%B7%E5%90%88%E7%AD%96%E7%95%A5>贝叶斯行为策略（类似于混合策略）</a></li>
+<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%8D%9A%E5%BC%88%E7%9A%84%E6%94%B6%E7%9B%8A%E8%AE%A1%E7%AE%97>贝叶斯博弈的收益计算</a></li>
+<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E8%A1%8C%E4%B8%BA%E7%AD%96%E7%95%A5%E5%9D%87%E8%A1%A1>贝叶斯行为策略均衡</a></li>
+<li><a href=#%E4%BB%A3%E7%90%86%E4%BA%BA%E5%8D%9A%E5%BC%88>代理人博弈</a></li>
+</ul>
+</li>
+<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B7%B7%E5%90%88%E7%AD%96%E7%95%A5>贝叶斯混合策略</a></li>
+<li><a href=#%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%B7%B7%E5%90%88%E5%9D%87%E8%A1%A1>贝叶斯混合均衡</a></li>
+<li><a href=#%E5%93%88%E8%90%A8%E5%B0%BC%E6%A8%A1%E5%9E%8B>哈萨尼模型</a></li>
 </ul>
 <h2 id=信息分割和信息函数>信息分割和信息函数</h2>
 <blockquote>
-<p>信息分割：对于全集<span class=math>\(\Omega\)</span>,集系<span class=math>\(\mathcal{H}\subseteq 2^{\Omega}\setminus \varnothing\)</span>是<span class=math>\(\Omega\)</span>的一个分割，如果它是<span class=math>\(\Omega\)</span>互不相交的子集的集合（即为集系）且这些子集的并是<span class=math>\(\Omega\)</span>。</p>
-<p>形式化定义：<span class=math>\(\bigcup_{h_i\in\mathcal{H}}h_i=\Omega;\forall h_i,h_j\in \mathcal{H},h_i\cap h_j=\varnothing(i\neq j)\)</span></p>
+<p>信息分割：对于全集$\Omega$,集系$\mathcal{H}\subseteq 2^{\Omega}\setminus \varnothing$是$\Omega$的一个分割，如果它是$\Omega$互不相交的子集的集合（即为集系）且这些子集的并是$\Omega$。</p>
+<p>形式化定义：$\bigcup_{h_i\in\mathcal{H}}h_i=\Omega;\forall h_i,h_j\in \mathcal{H},h_i\cap h_j=\varnothing(i\neq j)$</p>
 </blockquote>
-<p>直观的看，信息分割就是把全集<span class=math>\(\Omega\)</span>分成互不相交的几份。</p>
+<p>直观的看，信息分割就是把全集$\Omega$分成互不相交的几份。</p>
 <p>信息分割出来的每一个片段称之为<strong>信息集</strong>。对每一局中人来说，<strong>其无法区分同一信息集中的元素</strong>，即局中人只能直到是哪个信息集，但是不知道是该信息集中的哪一个元素。</p>
 <blockquote>
-<p>信息分割<span class=math>\(\xlongequal{等价于}\)</span>信息函数。<br>信息函数：映射<span class=math>\(H:\Omega→2^\Omega\)</span>满足：<br>(i)<span class=math>\(\forall \omega\in\Omega, \omega\in H(\omega)\)</span><br>(ii)<span class=math>\(\forall \omega\in\Omega,\forall \omega'\in H(\omega), H(\omega')=H(\omega)\)</span></p>
+<p>信息分割$\xlongequal{等价于}$信息函数。<br>
+信息函数：映射$H:\Omega→2^\Omega$满足：<br>
+(i)$\forall \omega\in\Omega, \omega\in H(\omega)$<br>
+(ii)$\forall \omega\in\Omega,\forall \omega'\in H(\omega), H(\omega')=H(\omega)$</p>
 </blockquote>
-<p>信息函数意义在于给出任一个元素<span class=math>\(\omega\)</span>得出它在哪一个信息集（分割）中。由于信息集两两不互相交，因此两个元素要么都在同一个信息集中要么不在同一个信息集中。信息函数是构成贝叶斯博弈的重要组成部分。</p>
+<p>信息函数意义在于给出任一个元素$\omega$得出它在哪一个信息集（分割）中。由于信息集两两不互相交，因此两个元素要么都在同一个信息集中要么不在同一个信息集中。信息函数是构成贝叶斯博弈的重要组成部分。</p>
 <h3 id=补充知识函数>补充：知识函数</h3>
 <blockquote>
-<p>知识函数：映射<span class=math>\(K:2^\Omega→2^\Omega\)</span>使得<span class=math>\(\forall E\in 2^\Omega, K(E)=\{\omega∈ \Omega|H(\omega)\subseteq E\}\)</span></p>
+<p>知识函数：映射$K:2^\Omega→2^\Omega$使得$\forall E\in 2^\Omega, K(E)={\omega∈ \Omega|H(\omega)\subseteq E}$</p>
 </blockquote>
-<p>若<span class=math>\(\omega∈ K(E)\Rightarrow \omega\)</span>发生，那么事件E也发生了。知识函数可以通过一个线索<span class=math>\(\omega\)</span>，推断事件E是否发生。</p>
+<p>若$\omega∈ K(E)\Rightarrow \omega$发生，那么事件E也发生了。知识函数可以通过一个线索$\omega$，推断事件E是否发生。</p>
 <h2 id=奥曼模型>奥曼模型</h2>
-<p>使用奥曼模型表示贝叶斯博弈为<span class=math>\(G=(N,A,{\color{red}{\Omega,H,P}},u)\)</span>。其中：</p>
+<p>使用奥曼模型表示贝叶斯博弈为$G=(N,A,{\color{red}{\Omega,H,P}},u)$。其中：</p>
 <ul>
-<li>局中人集合<span class=math>\(N=\{1,2,3,\dotsb,n\}\)</span>和静态博弈中一样</li>
-<li>策略/动作空间：<span class=math>\(A=A_1×A_2×\dotsb×A_n\)</span>和和静态博弈中一样</li>
-<li><strong>状态空间<span class=math>\({\color{red}{\Omega}}\)</span></strong>：非空有限集合。状态空间描述了贝叶斯博弈中的状态，即存在多少种的博弈，每一种博弈以一定的概率出现。</li>
-<li><strong>信息函数<span class=math>\({\color{red}{H}}\)</span></strong>：这是一个关键概念。它描述的是每一位局中人对此贝叶斯博弈的了解程度。首先，每一个局中人都有自己的信息函数即<span class=math>\(H=(H_1,H_2,\dotsb,H_n)\)</span>；若局中人观察到某一元素发生，那他可以推到该元素属于的信息集发生了。局中人对博弈了解越清晰，其信息集越小，不确定也就越小。（对于完美信息博弈，信息集都是单元素集）</li>
-<li><strong>共同先验信息<span class=math>\({\color{red}{P}}\)</span></strong>：首先<span class=math>\(P\)</span>描述了状态空间的概率分布，即<span class=math>\(\Omega→[0,1]\)</span>。显然，有<span class=math>\(\sum_{\omega \in \Omega}P(\omega)=1\)</span>。同时要求每一局中人的信息集也大于0，即<span class=math>\(\forall i∈ N,\forall \omega\in\Omega,P(H_i(\omega))>0\)</span></li>
-<li>收益<span class=math>\(u=(u_1,u_2,\dotsb,u_n)\)</span>：定义和完全信息静态博弈一样，但是其<strong>原像空间多了状态可供选择</strong>：<span class=math>\(u_i→A×\Omega→\mathbb{R}\)</span>，即动作确定后，还需要知道目前处于哪个状态（那一个博弈）。</li>
+<li>局中人集合$N={1,2,3,\dotsb,n}$和静态博弈中一样</li>
+<li>策略/动作空间：$A=A_1×A_2×\dotsb×A_n$和和静态博弈中一样</li>
+<li><strong>状态空间${\color{red}{\Omega}}$</strong>：非空有限集合。状态空间描述了贝叶斯博弈中的状态，即存在多少种的博弈，每一种博弈以一定的概率出现。</li>
+<li><strong>信息函数${\color{red}{H}}$</strong>：这是一个关键概念。它描述的是每一位局中人对此贝叶斯博弈的了解程度。首先，每一个局中人都有自己的信息函数即$H=(H_1,H_2,\dotsb,H_n)$；若局中人观察到某一元素发生，那他可以推到该元素属于的信息集发生了。局中人对博弈了解越清晰，其信息集越小，不确定也就越小。（对于完美信息博弈，信息集都是单元素集）</li>
+<li><strong>共同先验信息${\color{red}{P}}$</strong>：首先$P$描述了状态空间的概率分布，即$\Omega→[0,1]$。显然，有$\sum_{\omega \in \Omega}P(\omega)=1$。同时要求每一局中人的信息集也大于0，即$\forall i∈ N,\forall \omega\in\Omega,P(H_i(\omega))>0$</li>
+<li>收益$u=(u_1,u_2,\dotsb,u_n)$：定义和完全信息静态博弈一样，但是其<strong>原像空间多了状态可供选择</strong>：$u_i→A×\Omega→\mathbb{R}$，即动作确定后，还需要知道目前处于哪个状态（那一个博弈）。</li>
 </ul>
 <p>对于信息函数有：</p>
 <ul>
-<li><span class=math>\(\forall E\subseteq \Omega,P(E)=\sum_{\omega\in E}P(\omega)\)</span></li>
-<li><span class=math>\(\forall \omega\in \Omega,\forall \omega'\in H_i(\omega)有P(\omega'|H_i(\omega))=\frac{P(\omega')}{P(H_i(\omega))}\)</span></li>
+<li>$\forall E\subseteq \Omega,P(E)=\sum_{\omega\in E}P(\omega)$</li>
+<li>$\forall \omega\in \Omega,\forall \omega'\in H_i(\omega)有P(\omega'|H_i(\omega))=\frac{P(\omega')}{P(H_i(\omega))}$</li>
 </ul>
 <h3 id=贝叶斯纯策略>贝叶斯纯策略</h3>
-<p>贝叶斯纯策略不再是单纯的一个动作，而是<strong>一个与状态相关的函数</strong>。对于局中人<span class=math>\(i\)</span>其纯策略空间也不再是<span class=math>\(A_i\)</span>，而是一个<strong>函数的集合</strong>： <span class=math>\[
-S_i=\{s_i:\Omega→A_i |\;\forall\omega,\omega'\in\Omega[H_i(\omega)=H_i(\omega')]\Rightarrow [s_i(\omega)=s_i(\omega')]\}
-\]</span> 其中，每一个函数<span class=math>\(s_i\)</span>要做的就是当知道现在状态<span class=math>\(\omega\)</span>的时候，给出对应的动作<span class=math>\(a_i\)</span>（在状态和动作都有限的情况下，这种映射应该是有限的，个人意见）。在贝叶斯纯策略中，<strong>如果状态<span class=math>\(\omega\)</span>给定，那么局中人的动作也是确定的</strong>。但是这类函数需要满足一个限制条件，<strong>由于局中人无法分辨其同一信息集中的不同元素，因此对于同一信息集下的所有元素，在特定状态<span class=math>\(\omega\)</span>下，其给出的动作是一样的</strong>。</p>
+<p>贝叶斯纯策略不再是单纯的一个动作，而是<strong>一个与状态相关的函数</strong>。对于局中人$i$其纯策略空间也不再是$A_i$，而是一个<strong>函数的集合</strong>：
+$$
+S_i={s_i:\Omega→A_i |;\forall\omega,\omega'\in\Omega[H_i(\omega)=H_i(\omega')]\Rightarrow [s_i(\omega)=s_i(\omega')]}
+$$
+其中，每一个函数$s_i$要做的就是当知道现在状态$\omega$的时候，给出对应的动作$a_i$（在状态和动作都有限的情况下，这种映射应该是有限的，个人意见）。在贝叶斯纯策略中，<strong>如果状态$\omega$给定，那么局中人的动作也是确定的</strong>。但是这类函数需要满足一个限制条件，<strong>由于局中人无法分辨其同一信息集中的不同元素，因此对于同一信息集下的所有元素，在特定状态$\omega$下，其给出的动作是一样的</strong>。</p>
 <h3 id=贝叶斯行为策略类似于混合策略>贝叶斯行为策略（类似于混合策略）</h3>
-<p>和贝叶斯纯策略集类似，贝叶斯行为策略也是一个<strong>函数</strong>，定义域还是状态空间，但是至于不再限于单个动作集<span class=math>\(A\)</span>，可以是混合策略，记局中人的混合策略空间为<span class=math>\(M=M_1×M_2×\dotsb×M_n\)</span>，其中局中人<span class=math>\(i\)</span>的混合策略空间为<span class=math>\(M_i\)</span>，则局中人<span class=math>\(i\)</span>的一个贝叶斯行为策略为 <span class=math>\[
-b_i:\Omega→M_i |\;\forall\omega,\omega'\in\Omega[H_i(\omega)=H_i(\omega')]\Rightarrow [s_i(\omega)=s_i(\omega')]
-\]</span> 其中，每一个函数<span class=math>\(b_i\)</span>要做的就是当知道现在状态<span class=math>\(\omega\)</span>的时候，给出对应的混合策略<span class=math>\(m_i\)</span>（<span class=math>\(m_i\)</span>是在<span class=math>\(A_i\)</span>是的一个概率组合，由于混合策略集是无限多，这种映射当然也是无穷的）。在贝叶斯行为策略中，<strong>如果状态<span class=math>\(\omega\)</span>给定，那么局中人的混合策略（动作的概率分布）也是确定的</strong>。同样，也需要满足和贝叶斯纯策略中一样的信息集限制，这里不再赘述。</p>
-<p>综合所有这样的函数，得到局中人<span class=math>\(i\)</span>的贝叶斯行为策略空间 <span class=math>\[
-B_i=\{b_i:\Omega→M_i |\;\forall\omega,\omega'\in\Omega[H_i(\omega)=H_i(\omega')]\Rightarrow [s_i(\omega)=s_i(\omega')]\}
-\]</span> 那么整体贝叶斯行为策略描述为<span class=math>\(B=B_1×B_2×\dotsb×B_n\)</span></p>
+<p>和贝叶斯纯策略集类似，贝叶斯行为策略也是一个<strong>函数</strong>，定义域还是状态空间，但是至于不再限于单个动作集$A$，可以是混合策略，记局中人的混合策略空间为$M=M_1×M_2×\dotsb×M_n$，其中局中人$i$的混合策略空间为$M_i$，则局中人$i$的一个贝叶斯行为策略为
+$$
+b_i:\Omega→M_i |;\forall\omega,\omega'\in\Omega[H_i(\omega)=H_i(\omega')]\Rightarrow [s_i(\omega)=s_i(\omega')]
+$$
+其中，每一个函数$b_i$要做的就是当知道现在状态$\omega$的时候，给出对应的混合策略$m_i$（$m_i$是在$A_i$是的一个概率组合，由于混合策略集是无限多，这种映射当然也是无穷的）。在贝叶斯行为策略中，<strong>如果状态$\omega$给定，那么局中人的混合策略（动作的概率分布）也是确定的</strong>。同样，也需要满足和贝叶斯纯策略中一样的信息集限制，这里不再赘述。</p>
+<p>综合所有这样的函数，得到局中人$i$的贝叶斯行为策略空间
+$$
+B_i={b_i:\Omega→M_i |;\forall\omega,\omega'\in\Omega[H_i(\omega)=H_i(\omega')]\Rightarrow [s_i(\omega)=s_i(\omega')]}
+$$
+那么整体贝叶斯行为策略描述为$B=B_1×B_2×\dotsb×B_n$</p>
 <h3 id=贝叶斯博弈的收益计算>贝叶斯博弈的收益计算</h3>
-<p>在纯策略中，每一个贝叶斯纯策略<span class=math>\(s_i\)</span>的收益是该纯策略在<strong>不同状态<span class=math>\(\omega\)</span>下，所给定的每一个动作收益的期望</strong>。有两点需要注意：</p>
-<ol style=list-style-type:decimal>
+<p>在纯策略中，每一个贝叶斯纯策略$s_i$的收益是该纯策略在<strong>不同状态$\omega$下，所给定的每一个动作收益的期望</strong>。有两点需要注意：</p>
+<ol>
 <li>局中人在应对不同信息集时，给出的动作可能是不一样的</li>
-<li>在同一状态<span class=math>\(\omega\)</span>下，局中人<span class=math>\(i\)</span>的收益不仅仅和自己的动作<span class=math>\(s_i(\omega)\)</span>有关，也和其他人在状态<span class=math>\(\omega\)</span>下的动作<span class=math>\(s_{-i}(\omega)\)</span>有关（这和完全信息静态博弈一个道理）。需要指出，在状态<span class=math>\(\omega\)</span>给定（即信息集给定）时，其他局中人<span class=math>\({-i}\)</span>的动作也是确定的，即<span class=math>\(s_{-i}(\omega)\)</span>是一个唯一确定的<span class=math>\(n-1\)</span>维向量。</li>
+<li>在同一状态$\omega$下，局中人$i$的收益不仅仅和自己的动作$s_i(\omega)$有关，也和其他人在状态$\omega$下的动作$s_{-i}(\omega)$有关（这和完全信息静态博弈一个道理）。需要指出，在状态$\omega$给定（即信息集给定）时，其他局中人${-i}$的动作也是确定的，即$s_{-i}(\omega)$是一个唯一确定的$n-1$维向量。</li>
 </ol>
-<p>总结，收益由三个要素决定：状态，状态下局中人的动作，状态下其他局中人的动作，可记为： <span class=math>\[
+<p>总结，收益由三个要素决定：状态，状态下局中人的动作，状态下其他局中人的动作，可记为：
+$$
 u_i(s)=\sum_{\omega\in\Omega}P(\omega)u_i(s_i(\omega),s_{-i}(\omega),\omega)
-\]</span></p>
-<p>在贝叶斯行为策略中，我们可以仿照纯策略写出贝叶斯行为策略的收益表达式： <span class=math>\[
+$$</p>
+<p>在贝叶斯行为策略中，我们可以仿照纯策略写出贝叶斯行为策略的收益表达式：
+$$
 u_i(b)=\sum_{\omega\in\Omega}P(\omega)u_i(b_i(\omega),b_{-i}(\omega),\omega),\forall b\in B
-\]</span> 到这一步与纯策略的收益只有<span class=math>\(s\rightarrow b\)</span>这点不同。对于某一具体的状态<span class=math>\(\omega\)</span>，由于<span class=math>\(b_i(\omega)\)</span>是混合策略，因此该状态下的收益是混合策略中各个动作收益的期望，即 <span class=math>\[
+$$
+到这一步与纯策略的收益只有$s\rightarrow b$这点不同。对于某一具体的状态$\omega$，由于$b_i(\omega)$是混合策略，因此该状态下的收益是混合策略中各个动作收益的期望，即
+$$
 u_i(b_i(\omega),b_{-i}(\omega),\omega)=\sum_{a\in A}\prod_{j\in N}b_j(\omega)(a_j) u_i(a,\omega)
-\]</span> 需指出，<span class=math>\(a\in A\)</span>是一个N维向量，表示N个局中人各自的动作（纯策略）。 <span class=math>\(u_i(a,\omega)\)</span>就是在状态<span class=math>\(\omega\)</span>下执行纯策略<span class=math>\(a\)</span>的收益。那么每一个纯策略发生的概率是多少呢？就是这一项<span class=math>\(\prod_{j\in N}b_j(\omega)(a_j)\)</span>其中<span class=math>\(b_j(\omega)(a_j)\)</span>是在状态<span class=math>\(\omega\)</span>下，局中人<span class=math>\(j\)</span>执行<span class=math>\(a\)</span>中自身动作<span class=math>\(a_j\)</span>的概率，N个局中人连乘就是纯策略<span class=math>\(a\)</span>的发生概率，在对所有的<span class=math>\(a\in A\)</span>求和，即为求混合策略的收益期望。在对所有的状态的概率求期望： <span class=math>\[
+$$
+需指出，$a\in A$是一个N维向量，表示N个局中人各自的动作（纯策略）。 $u_i(a,\omega)$就是在状态$\omega$下执行纯策略$a$的收益。那么每一个纯策略发生的概率是多少呢？就是这一项$\prod_{j\in N}b_j(\omega)(a_j)$其中$b_j(\omega)(a_j)$是在状态$\omega$下，局中人$j$执行$a$中自身动作$a_j$的概率，N个局中人连乘就是纯策略$a$的发生概率，在对所有的$a\in A$求和，即为求混合策略的收益期望。在对所有的状态的概率求期望：
+$$
 u_i(b)=\sum_{\omega\in\Omega}P(\omega)\sum_{a\in A}\prod_{j\in N}b_j(\omega)(a_j) u_i(a,\omega)
-\]</span> 就是混合策略<span class=math>\(b\in B\)</span>的收益。我们可以发现，者本质上是求 两次期望，一次是状态概率下的期望，一次是动作发生概率下的期望。</p>
+$$
+就是混合策略$b\in B$的收益。我们可以发现，者本质上是求 两次期望，一次是状态概率下的期望，一次是动作发生概率下的期望。</p>
 <h3 id=贝叶斯行为策略均衡>贝叶斯行为策略均衡</h3>
-<p>其定义和完美信息博弈是类似的，都是用最优反应来定义。 >贝叶斯行动策略均衡：对于一个贝叶斯行为策略<span class=math>\(b\in B\)</span>，如果<span class=math>\(\forall i \in N,\forall b'_i\in B_i\)</span>都有 ><span class=math>\[
->u_i(b_i,b_-i{})\geq u_i(b_i',b_{-i})
->\]</span> >则贝叶斯行为策略<span class=math>\(b\in B\)</span>是一个<strong>贝叶斯行为均衡</strong>。</p>
+<p>其定义和完美信息博弈是类似的，都是用最优反应来定义。</p>
+<blockquote>
+<p>贝叶斯行动策略均衡：对于一个贝叶斯行为策略$b\in B$，如果$\forall i \in N,\forall b'<em>i\in B_i$都有
+$$
+u_i(b_i,b</em>-i{})\geq u_i(b_i',b_{-i})
+$$
+则贝叶斯行为策略$b\in B$是一个<strong>贝叶斯行为均衡</strong>。</p>
+</blockquote>
 <p>为了计算方便，我们有以下定理：</p>
 <blockquote>
-<p>定理1：贝叶斯混合策略是一个贝叶斯行为均衡当且仅当<span class=math>\(\forall i\in N,\forall \omega\in \Omega,\forall m_i\in M_i\)</span>有 <span class=math>\[
-\sum_{\omega'\in H_i(\omega)}P(\omega')u_i(b_i(\omega'),b_{-i}(\omega'),\omega')\geq\sum_{\omega'\in H_i(\omega)}P(\omega')u_i(m_i,b_{-i}(\omega'),\omega')\]</span> 且仅当<span class=math>\(\forall i\in N,\forall \omega\in \Omega,\forall m_i\in M_i\)</span>有 <span class=math>\[
+<p>定理1：贝叶斯混合策略是一个贝叶斯行为均衡当且仅当$\forall i\in N,\forall \omega\in \Omega,\forall m_i\in M_i$有
+$$
+\sum_{\omega'\in H_i(\omega)}P(\omega')u_i(b_i(\omega'),b_{-i}(\omega'),\omega')\geq\sum_{\omega'\in H_i(\omega)}P(\omega')u_i(m_i,b_{-i}(\omega'),\omega')$$
+且仅当$\forall i\in N,\forall \omega\in \Omega,\forall m_i\in M_i$有
+$$
 \sum_{\omega'\in H_i(\omega)}P(\omega'|H_i(\omega))u_i(b_i(\omega'),b_{-i}(\omega'),\omega')\geq\sum_{\omega'\in H_i(\omega)}P(\omega'|H_i(\omega))u_i(m_i,b_{-i}(\omega'),\omega')
-\]</span> 多个信息集的不等式可以求出每个信息集中作为最佳相应的贝叶斯行为策略的在纯策略上的概率分布。</p>
+$$
+多个信息集的不等式可以求出每个信息集中作为最佳相应的贝叶斯行为策略的在纯策略上的概率分布。</p>
 </blockquote>
-<p>我们来理解一下这个定理。先看这个定理的第一部分，它和贝叶斯行为均衡的区别仅在于概率求和的范围不同。贝叶斯行为均衡的定义是对所有状态下收益函数求期望即<span class=math>\(\sum_{\omega\in\Omega}P(\omega)\dotsb\)</span>而定理中缩减了范围，由于我们知道，贝叶斯博弈中的行为策略是针对每一信息集的，信息集中的元素无法区分，因此只要<strong>针对每一信息集其贝叶斯行为策略是最优的，那么整体的行为策略也会是最有的</strong>，所以就有<span class=math>\(\forall \omega\in\Omega,\sum_{\omega'\in H(\omega)}P(\omega')\dotsb\)</span></p>
-<p>定理的第2部分是第1部分的扩展，实际上就是两边同时乘以了一个大于0的数:<span class=math>\(\frac{P(H_i(\omega)|\omega')}{P(H_i(\omega))}\)</span>。由于<span class=math>\(\omega'\in H(\omega)\)</span>，所以分子<span class=math>\(P(H_i(\omega)|\omega')=1\)</span>，只要信息集<span class=math>\(P(H_i(\omega))>0\)</span>，定理的第一部分和第二部分就是等价的。第二部分定理给出了我们一个考虑贝叶斯博弈的另一个思路，<strong>即在每一个信息集中，可以独立考虑如何进行动作/策略选择</strong>，信息集之间的策略选择是没有互相影响的。接下来我们介绍基于这个思想的代理人博弈。</p>
+<p>我们来理解一下这个定理。先看这个定理的第一部分，它和贝叶斯行为均衡的区别仅在于概率求和的范围不同。贝叶斯行为均衡的定义是对所有状态下收益函数求期望即$\sum_{\omega\in\Omega}P(\omega)\dotsb$而定理中缩减了范围，由于我们知道，贝叶斯博弈中的行为策略是针对每一信息集的，信息集中的元素无法区分，因此只要<strong>针对每一信息集其贝叶斯行为策略是最优的，那么整体的行为策略也会是最有的</strong>，所以就有$\forall \omega\in\Omega,\sum_{\omega'\in H(\omega)}P(\omega')\dotsb$</p>
+<p>定理的第2部分是第1部分的扩展，实际上就是两边同时乘以了一个大于0的数:$\frac{P(H_i(\omega)|\omega')}{P(H_i(\omega))}$。由于$\omega'\in H(\omega)$，所以分子$P(H_i(\omega)|\omega')=1$，只要信息集$P(H_i(\omega))>0$，定理的第一部分和第二部分就是等价的。第二部分定理给出了我们一个考虑贝叶斯博弈的另一个思路，<strong>即在每一个信息集中，可以独立考虑如何进行动作/策略选择</strong>，信息集之间的策略选择是没有互相影响的。接下来我们介绍基于这个思想的代理人博弈。</p>
 <h3 id=代理人博弈>代理人博弈</h3>
 <p>可以将每一个局中人在每一个信息集下的决策是独立的，即在此信息集下设置一个<strong>代理人</strong>，由这个代理人来实现此信息集的<strong>条件期望最大化</strong>。将贝叶斯博弈转换为代理人博弈的原理是就是<code>定理1</code>的第二部分。</p>
 <blockquote>

@@ -88,89 +88,104 @@ Sep 14, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=测度论之集合的集合>测度论之集合的集合</h2>
+<h2 id=测度论之集合的集合---omit-in-toc--->测度论之集合的集合</h2>
 <ul>
-<li><a href=#集合的集合>集合的集合</a></li>
-<li><a href=#来自拓扑的定义>来自拓扑的定义</a></li>
-<li><a href=#从sigma代数开始>从<span class=math>\(\sigma\)</span>代数开始</a></li>
-<li><a href=#最小sigma代数>最小<span class=math>\(\sigma\)</span>代数</a></li>
-<li><a href=#borel集与borel代数域>Borel集与Borel代数(域)</a></li>
-<li><a href=#单调类定理>单调类定理</a></li>
-<li><a href=#集合序列>集合序列</a></li>
-<li><a href=#单调系>单调系</a></li>
-<li><a href=#一般角度的单调系定理>一般角度的单调系定理</a></li>
-<li><a href=#λ系与π系>λ系与π系</a></li>
-<li><a href=#π系>π系</a></li>
-<li><a href=#λ系>λ系</a></li>
-<li><a href=#λ系π系与sigma代数>λ系π系与<span class=math>\(\sigma\)</span>代数</a></li>
+<li><a href=#%E9%9B%86%E5%90%88%E7%9A%84%E9%9B%86%E5%90%88>集合的集合</a>
+<ul>
+<li><a href=#%E6%9D%A5%E8%87%AA%E6%8B%93%E6%89%91%E7%9A%84%E5%AE%9A%E4%B9%89>来自拓扑的定义</a></li>
+</ul>
+</li>
+<li><a href=#%E4%BB%8Esigma%E4%BB%A3%E6%95%B0%E5%BC%80%E5%A7%8B>从$\sigma$代数开始</a>
+<ul>
+<li><a href=#%E6%9C%80%E5%B0%8Fsigma%E4%BB%A3%E6%95%B0>最小$\sigma$代数</a></li>
+</ul>
+</li>
+<li><a href=#borel%E9%9B%86%E4%B8%8Eborel%E4%BB%A3%E6%95%B0%E5%9F%9F>Borel集与Borel代数(域)</a></li>
+<li><a href=#%E5%8D%95%E8%B0%83%E7%B1%BB%E5%AE%9A%E7%90%86>单调类定理</a>
+<ul>
+<li><a href=#%E9%9B%86%E5%90%88%E5%BA%8F%E5%88%97>集合序列</a></li>
+<li><a href=#%E5%8D%95%E8%B0%83%E7%B3%BB>单调系</a></li>
+<li><a href=#%E4%B8%80%E8%88%AC%E8%A7%92%E5%BA%A6%E7%9A%84%E5%8D%95%E8%B0%83%E7%B3%BB%E5%AE%9A%E7%90%86>一般角度的单调系定理</a></li>
+</ul>
+</li>
+<li><a href=#%CE%BB%E7%B3%BB%E4%B8%8E%CF%80%E7%B3%BB>λ系与π系</a>
+<ul>
+<li><a href=#%CF%80%E7%B3%BB>π系</a></li>
+<li><a href=#%CE%BB%E7%B3%BB>λ系</a></li>
+<li><a href=#%CE%BB%E7%B3%BB%CF%80%E7%B3%BB%E4%B8%8Esigma%E4%BB%A3%E6%95%B0>λ系π系与$\sigma$代数</a></li>
+</ul>
+</li>
 </ul>
 <h2 id=集合的集合>集合的集合</h2>
 <blockquote>
-<p>集类(集合族,集合系)：集合的集合，X的集类表示由X的子集组成的集合。e.g. <span class=math>\(\{\emptyset,\{1,2\},\{1,3,4\},\{R\}\},P(X)(X的幂集)\)</span>。</p>
+<p>集类(集合族,集合系)：集合的集合，X的集类表示由X的子集组成的集合。e.g. ${\emptyset,{1,2},{1,3,4},{R}},P(X)(X的幂集)$。</p>
 </blockquote>
 <h3 id=来自拓扑的定义>来自拓扑的定义</h3>
 <blockquote>
-<p>环--集环<br>设<span class=math>\(X\)</span>为一集合，<span class=math>\(S\)</span>为<span class=math>\(X\)</span>上的一个非空集类。</p>
+<p>环--集环<br>
+设$X$为一集合，$S$为$X$上的一个非空集类。</p>
 <ul>
-<li><span class=math>\(S\)</span>对集合的并和差运算封闭，即<span class=math>\(\forall E,F\in S\implies E\cup F\in S,E-F\in S\)</span></li>
-<li><span class=math>\(S\)</span>对集合的交和对称差运算封闭，即：<span class=math>\(\forall E,F\in S\implies E\cap F\in S,E\triangle F\in S\)</span></li>
-<li><span class=math>\(S\)</span>对集合的交，差以及无交并运算封闭.对称差（<span class=math>\(\triangle\)</span>）</li>
+<li>$S$对集合的并和差运算封闭，即$\forall E,F\in S\implies E\cup F\in S,E-F\in S$</li>
+<li>$S$对集合的交和对称差运算封闭，即：$\forall E,F\in S\implies E\cap F\in S,E\triangle F\in S$</li>
+<li>$S$对集合的交，差以及无交并运算封闭.对称差（$\triangle$）</li>
 </ul>
 </blockquote>
-<p>当且仅当<span class=math>\(S\)</span>满足以上几个条件中<strong>任何一个</strong>时，<span class=math>\(S\)</span>构成一个环，此时<span class=math>\(S\)</span>被称为一个<strong>集环</strong>。三个定义是可以相互推导的，比如利用德摩根律推导。其中对称差是加法，空集是零元，逆元是其自身，交是乘法，全集是幺元。</p>
+<p>当且仅当$S$满足以上几个条件中<strong>任何一个</strong>时，$S$构成一个环，此时$S$被称为一个<strong>集环</strong>。三个定义是可以相互推导的，比如利用德摩根律推导。其中对称差是加法，空集是零元，逆元是其自身，交是乘法，全集是幺元。</p>
 <p>若集环S还满足以下条件：</p>
 <blockquote>
-<p>若<span class=math>\(X \in A\)</span>，则称<span class=math>\(A\)</span>为<span class=math>\(X\)</span>上的一个代数。即代数需要把<span class=math>\(X\)</span>自身包含进去。</p>
+<p>若$X \in A$，则称$A$为$X$上的一个代数。即代数需要把$X$自身包含进去。</p>
 </blockquote>
-<p>若<span class=math>\(A\)</span>对<strong>有限</strong>并运算，<strong>有限</strong>交运算，差运算，余运算封闭，则称<span class=math>\(A\)</span>为代数，<strong>称为<span class=math>\(X\)</span>上的集代数</strong> 。</p>
-<h2 id=从sigma代数开始>从<span class=math>\(\sigma\)</span>代数开始</h2>
-<p>在<strong>集环</strong>的基础上（通常使用<span class=math>\(S\)</span>对集合的并和差运算封闭的定义，即<span class=math>\(\forall E,F\in S\implies E\cup F\in S,E-F\in S\)</span>）加上无限可数并操作的封闭：</p>
+<p>若$A$对<strong>有限</strong>并运算，<strong>有限</strong>交运算，差运算，余运算封闭，则称$A$为代数，<strong>称为$X$上的集代数</strong> 。</p>
+<h2 id=从sigma代数开始>从$\sigma$代数开始</h2>
+<p>在<strong>集环</strong>的基础上（通常使用$S$对集合的并和差运算封闭的定义，即$\forall E,F\in S\implies E\cup F\in S,E-F\in S$）加上无限可数并操作的封闭：</p>
 <blockquote>
-<p>对任意一列集合<span class=math>\(E_i \in A(i=1,2,\dotsb)\)</span>，都有<span class=math>\(\bigcup\limits_{i=1}^{\infty}E_i\in A\)</span>，则称<span class=math>\(A\)</span>为<span class=math>\(X\)</span>上的<strong>一个<span class=math>\(\sigma\)</span>环</strong>。</p>
+<p>对任意一列集合$E_i \in A(i=1,2,\dotsb)$，都有$\bigcup\limits_{i=1}^{\infty}E_i\in A$，则称$A$为$X$上的<strong>一个$\sigma$环</strong>。</p>
 </blockquote>
-<p>从<strong>有限到无限可数（可列，阿列夫零<span class=math>\(\aleph_0\)</span>）的转变</strong>。</p>
-<p>同样的，在<strong>集代数</strong>的基础上，加上<strong>无限可数并</strong>操作的封闭，即是<span class=math>\(\sigma\)</span>代数或<span class=math>\(\sigma\)</span>域。</p>
+<p>从<strong>有限到无限可数（可列，阿列夫零$\aleph_0$）的转变</strong>。</p>
+<p>同样的，在<strong>集代数</strong>的基础上，加上<strong>无限可数并</strong>操作的封闭，即是$\sigma$代数或$\sigma$域。</p>
 <p>完整的定义如下：</p>
 <blockquote>
-<p><span class=math>\(X\)</span>为一集合，假设有集合系<span class=math>\({\mathcal {F}}\subseteq {\mathcal {P}}(X)\)</span>，其中 <span class=math>\({\mathcal {P}}(X)\)</span>代表<span class=math>\(X\)</span>的幂集，若<span class=math>\(\mathcal{F}\)</span>满足下列条件</p>
+<p>$X$为一集合，假设有集合系${\mathcal {F}}\subseteq {\mathcal {P}}(X)$，其中 ${\mathcal {P}}(X)$代表$X$的幂集，若$\mathcal{F}$满足下列条件</p>
 <ul>
-<li><span class=math>\(X\in {\mathcal {F}}\)</span>;</li>
-<li><span class=math>\(A\in {\mathcal {F}}\;\Rightarrow \;A^{c}\in {\mathcal {F}}\)</span>;</li>
-<li><span class=math>\(A_{n}\in {\mathcal {F}},\;\forall n\in \mathbb {N} \;\Rightarrow \;\bigcup_{n=1}^{\infty }A_{n}\in {\mathcal {F}}.\)</span></li>
+<li>$X\in {\mathcal {F}}$;</li>
+<li>$A\in {\mathcal {F}};\Rightarrow ;A^{c}\in {\mathcal {F}}$;</li>
+<li>$A_{n}\in {\mathcal {F}},;\forall n\in \mathbb {N} ;\Rightarrow ;\bigcup_{n=1}^{\infty }A_{n}\in {\mathcal {F}}.$</li>
 </ul>
-<p>则称集合系<span class=math>\(\mathcal{F}\)</span>是<span class=math>\(X\)</span>的<span class=math>\(σ-代数\)</span>。</p>
+<p>则称集合系$\mathcal{F}$是$X$的$σ-代数$。</p>
 </blockquote>
-<p>在测度论里<span class=math>\(\left(X,{\mathcal {F}}\right)\)</span>称为一个<strong>可测空间</strong>。 集合族<span class=math>\(\mathcal{F}\)</span>中的元素，也就是<span class=math>\(X\)</span>的某子集，称为<strong>可测集合</strong>。而在概率论中，这些集合被称为<strong>随机事件</strong>。</p>
+<p>在测度论里$\left(X,{\mathcal {F}}\right)$称为一个<strong>可测空间</strong>。 集合族$\mathcal{F}$中的元素，也就是$X$的某子集，称为<strong>可测集合</strong>。而在概率论中，这些集合被称为<strong>随机事件</strong>。</p>
 <p>例如：</p>
-<ol style=list-style-type:decimal>
-<li>X为任意集， X的至多可数集全体所成的集类 A为一个<span class=math>\(\sigma\)</span>环。当且仅当X为至多可数集时(<span class=math>\(X \in A\)</span>)，A为<span class=math>\(\sigma\)</span>代数。</li>
-<li>设<span class=math>\(A=\{\emptyset,X\}\)</span>，则A是X上的<span class=math>\(\sigma\)</span>代数，且为X上的最小<span class=math>\(\sigma\)</span>代数。</li>
-<li>设<span class=math>\(P(X)\)</span>为X全体子集所成的集类，则<span class=math>\(P(X)\)</span>为X上最大的<span class=math>\(\sigma\)</span>代数。</li>
+<ol>
+<li>X为任意集， X的至多可数集全体所成的集类 A为一个$\sigma$环。当且仅当X为至多可数集时($X \in A$)，A为$\sigma$代数。</li>
+<li>设$A={\emptyset,X}$，则A是X上的$\sigma$代数，且为X上的最小$\sigma$代数。</li>
+<li>设$P(X)$为X全体子集所成的集类，则$P(X)$为X上最大的$\sigma$代数。</li>
 </ol>
-<h3 id=最小sigma代数>最小<span class=math>\(\sigma\)</span>代数</h3>
+<h3 id=最小sigma代数>最小$\sigma$代数</h3>
 <blockquote>
-<p>Lemma：若<span class=math>\(A_\alpha\)</span>是一个<span class=math>\(\sigma代数\)</span>，<span class=math>\(\forall \alpha \in I\)</span>，<span class=math>\(I\)</span>为非空索引集(index set)，那么<span class=math>\(\bigcap_{\alpha \in I}A_\alpha\)</span>也是一个<span class=math>\(\sigma代数\)</span>。</p>
-<p>Proof：以两个为例，多个可以递推。<span class=math>\(A_1,A_2\)</span>是两个<span class=math>\(\sigma代数\)</span>。</p>
+<p>Lemma：若$A_\alpha$是一个$\sigma代数$，$\forall \alpha \in I$，$I$为非空索引集(index set)，那么$\bigcap_{\alpha \in I}A_\alpha$也是一个$\sigma代数$。</p>
+<p>Proof：以两个为例，多个可以递推。$A_1,A_2$是两个$\sigma代数$。</p>
 <ul>
-<li>由于<span class=math>\(\emptyset,X\in A_1;\emptyset,X\in A_2\)</span>，所以<span class=math>\(\emptyset,X\in A_1\cap A_2\)</span>；</li>
-<li>由于集合<span class=math>\(E,E^c \in A_1,A_2\)</span>，所以<span class=math>\(E,E^c \in A_1\cap A_2\)</span>；</li>
-<li>对于可列集合<span class=math>\(\bigcup _{n=1}^{\infty }E_{n}\in A_1,A_2\)</span>，所以<span class=math>\(\bigcup _{n=1}^{\infty }E_{n}\in A_1\cap A_2\)</span></li>
+<li>由于$\emptyset,X\in A_1;\emptyset,X\in A_2$，所以$\emptyset,X\in A_1\cap A_2$；</li>
+<li>由于集合$E,E^c \in A_1,A_2$，所以$E,E^c \in A_1\cap A_2$；</li>
+<li>对于可列集合$\bigcup <em>{n=1}^{\infty }E</em>{n}\in A_1,A_2$，所以$\bigcup <em>{n=1}^{\infty }E</em>{n}\in A_1\cap A_2$</li>
 </ul>
 </blockquote>
-<p>下面我们根据<span class=math>\(\sigma\)</span>代数交的引理定义最小<span class=math>\(\sigma\)</span>代数。</p>
+<p>下面我们根据$\sigma$代数交的引理定义最小$\sigma$代数。</p>
 <blockquote>
-<p>设<span class=math>\(\mathcal C\)</span>是<span class=math>\(X\)</span>上的任意子集类，则存在唯一的一个<span class=math>\(σ代数（σ(\mathcal C)）\)</span>，它是包含<span class=math>\(\mathcal C\)</span>的最小<span class=math>\(σ代数\)</span>，称<span class=math>\(σ(\mathcal C)\)</span>是<span class=math>\(\mathcal C\)</span>生成的<span class=math>\(σ\)</span>代数（<span class=math>\(\mathcal C\)</span>为生成元） <span class=math>\[\sigma(\mathcal C) = {\bigcap} _{\mathcal F'为\sigma代数且\mathcal C \subset \mathcal F'}\mathcal F'\]</span></p>
+<p>设$\mathcal C$是$X$上的任意子集类，则存在唯一的一个$σ代数（σ(\mathcal C)）$，它是包含$\mathcal C$的最小$σ代数$，称$σ(\mathcal C)$是$\mathcal C$生成的$σ$代数（$\mathcal C$为生成元）
+$$\sigma(\mathcal C) = {\bigcap} _{\mathcal F'为\sigma代数且\mathcal C \subset \mathcal F'}\mathcal F'$$</p>
 </blockquote>
-<p>注意满足条件的<span class=math>\(σ\)</span>代数是存在的，因为<span class=math>\(\mathcal{C}⊂P(X)\)</span>。容易看出，若<span class=math>\(\mathcal{C_1}\subset \mathcal{C_2}\)</span>，那么<span class=math>\(\sigma(\mathcal{C_1})\subset \sigma(\mathcal{C_2})\)</span>。 <span class=math>\(\sigma(\sigma(\mathcal{C}))=\sigma(\mathcal{C})\)</span>，因为有上面<span class=math>\(\sigma(\mathcal{C})\)</span>本身是一个<span class=math>\(\sigma\)</span>代数, 再根据定义便可得。</p>
+<p>注意满足条件的$σ$代数是存在的，因为$\mathcal{C}⊂P(X)$。容易看出，若$\mathcal{C_1}\subset \mathcal{C_2}$，那么$\sigma(\mathcal{C_1})\subset \sigma(\mathcal{C_2})$。
+$\sigma(\sigma(\mathcal{C}))=\sigma(\mathcal{C})$，因为有上面$\sigma(\mathcal{C})$本身是一个$\sigma$代数, 再根据定义便可得。</p>
 <h2 id=borel集与borel代数域>Borel集与Borel代数(域)</h2>
-<p>一个拓扑空间的开集全体所生成的<span class=math>\(\sigma代数\)</span>就是borel代数。</p>
-<p>如果我们幸运的能在度量空间或者更广义的拓扑空间<span class=math>\(X\)</span>上定义一些开集，这时我们令<span class=math>\(G\)</span>为<span class=math>\(X\)</span>上<strong>所有开子集</strong>的集合，那么<span class=math>\(\sigma(G)\)</span>就是<span class=math>\(X\)</span>上的 <span class=math>\(Borel(-\sigma-)代数\)</span> ，记为<span class=math>\(B_X\)</span>, 里面的元素就叫 Borel 集。</p>
-<p>令<span class=math>\(X=\mathbb{R}\)</span>，那么<span class=math>\(\mathcal{B}\)</span>可以从以下的集合系的<span class=math>\(\sigma\)</span>代数中生成：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(\mathcal C_1=\{(a,b):a,b ∈ \mathbb{R}\}\)</span></li>
-<li><span class=math>\(\mathcal C_2=\{[a,b]:a,b ∈ \mathbb{R}\}\)</span></li>
-<li><span class=math>\(\mathcal C_1=\{(a,b]:a,b ∈ \mathbb{R}\}\)</span></li>
-<li><span class=math>\(\mathcal C_1=\{(a,∞):a ∈ \mathbb{R}\}\)</span></li>
+<p>一个拓扑空间的开集全体所生成的$\sigma代数$就是borel代数。</p>
+<p>如果我们幸运的能在度量空间或者更广义的拓扑空间$X$上定义一些开集，这时我们令$G$为$X$上<strong>所有开子集</strong>的集合，那么$\sigma(G)$就是$X$上的 $Borel(-\sigma-)代数$ ，记为$B_X$, 里面的元素就叫 Borel 集。</p>
+<p>令$X=\mathbb{R}$，那么$\mathcal{B}$可以从以下的集合系的$\sigma$代数中生成：</p>
+<ol>
+<li>$\mathcal C_1={(a,b):a,b ∈ \mathbb{R}}$</li>
+<li>$\mathcal C_2={[a,b]:a,b ∈ \mathbb{R}}$</li>
+<li>$\mathcal C_1={(a,b]:a,b ∈ \mathbb{R}}$</li>
+<li>$\mathcal C_1={(a,∞):a ∈ \mathbb{R}}$</li>
 </ol>
 <p>博雷尔测度（Borel measure）是σ代数上对区间[a, b]给出值b-a的测度。</p>
 <p>博雷尔测度并不完备，因此习惯使用勒贝格测度：每个博雷尔可测集都是勒贝格可测的，并且它们的测度值吻合。</p>
@@ -178,64 +193,70 @@ Sep 14, 2020</span>
 <h2 id=单调类定理>单调类定理</h2>
 <h3 id=集合序列>集合序列</h3>
 <blockquote>
-<p>不升序列：若对一切<span class=math>\(n \geq 1\)</span>，<span class=math>\(A_n \subseteq A_{n+1}\)</span>，且令<span class=math>\(A=\bigcup\limits_{n=1}^{\infty}A_n\)</span>，则记为<span class=math>\(A_n\nearrow A\)</span>也有写成<span class=math>\(A_n \uparrow A\)</span>.</p>
-<p>不降序列：若对一切<span class=math>\(n \geq 1\)</span>，<span class=math>\(A_n \supseteq A_{n+1}\)</span>，且令<span class=math>\(A=\bigcap\limits_{n=1}^{\infty}A_n\)</span>，则记为<span class=math>\(A_n\searrow A\)</span>也有写成<span class=math>\(A_n \downarrow A\)</span>.</p>
+<p>不升序列：若对一切$n \geq 1$，$A_n \subseteq A_{n+1}$，且令$A=\bigcup\limits_{n=1}^{\infty}A_n$，则记为$A_n\nearrow A$也有写成$A_n \uparrow A$.</p>
+<p>不降序列：若对一切$n \geq 1$，$A_n \supseteq A_{n+1}$，且令$A=\bigcap\limits_{n=1}^{\infty}A_n$，则记为$A_n\searrow A$也有写成$A_n \downarrow A$.</p>
 </blockquote>
-<p><span class=math>\(A_n\nearrow A\)</span>当且仅当<span class=math>\(A_n^c\searrow A^c\)</span>。</p>
+<p>$A_n\nearrow A$当且仅当$A_n^c\searrow A^c$。</p>
 <h3 id=单调系>单调系</h3>
 <blockquote>
-<p>一个单调系(monotone class)是由集合<span class=math>\(X\)</span>的子集构成的<strong>集合系</strong><span class=math>\(\mathcal{M}\)</span>同时满足以下两个条件：</p>
-<ol style=list-style-type:decimal>
-<li>如果集合<span class=math>\(A_i\nearrow A\)</span>，且<span class=math>\(\forall i,A_i\in \mathcal{M}\)</span>，那么<span class=math>\(A \in \mathcal{M}\)</span>，即对不降序列的可数并封闭。</li>
-<li>如果集合<span class=math>\(A_i\searrow A\)</span>，且<span class=math>\(\forall i,A_i\in \mathcal{M}\)</span>，那么<span class=math>\(A \in \mathcal{M}\)</span>，即对不升序列的可数交封闭。</li>
+<p>一个单调系(monotone class)是由集合$X$的子集构成的<strong>集合系</strong>$\mathcal{M}$同时满足以下两个条件：</p>
+<ol>
+<li>如果集合$A_i\nearrow A$，且$\forall i,A_i\in \mathcal{M}$，那么$A \in \mathcal{M}$，即对不降序列的可数并封闭。</li>
+<li>如果集合$A_i\searrow A$，且$\forall i,A_i\in \mathcal{M}$，那么$A \in \mathcal{M}$，即对不升序列的可数交封闭。</li>
 </ol>
 </blockquote>
-<p>单调系的<strong>交集</strong>仍然是单调系。所有包含某个集合系<span class=math>\(\mathcal{C}\)</span>的单调系的交就是包含该集合系的<strong>最小单调系</strong>。 <span class=math>\[\mathcal{M}(\mathcal{C})= {\bigcap} _{\mathcal M'为单调系且\mathcal C \subset \mathcal M'}\mathcal M'\]</span></p>
-<p><span class=math>\(\sigma代数\)</span>与单调系的关系可以通过下面说明。 >引理：<span class=math>\(\sigma代数\Leftrightarrow 代数+单调系\)</span></p>
+<p>单调系的<strong>交集</strong>仍然是单调系。所有包含某个集合系$\mathcal{C}$的单调系的交就是包含该集合系的<strong>最小单调系</strong>。
+$$\mathcal{M}(\mathcal{C})= {\bigcap} _{\mathcal M'为单调系且\mathcal C \subset \mathcal M'}\mathcal M'$$</p>
+<p>$\sigma代数$与单调系的关系可以通过下面说明。</p>
+<blockquote>
+<p>引理：$\sigma代数\Leftrightarrow 代数+单调系$</p>
+</blockquote>
 <p>证明：</p>
-<p><span class=math>\(\sigma代数\Rightarrow 集代数\)</span>，显然<span class=math>\(\sigma代数\)</span>是在集代数的定义上添加无穷可列并封闭的条件得来的。</p>
-<p><span class=math>\(\sigma代数\Rightarrow 单调系\)</span>，<span class=math>\(\sigma代数\)</span>要求可列并和可列交封闭，满足单调系<span class=math>\(\bigcap\limits_{n=1}^{\infty}A_n \in \mathcal{M},\bigcup\limits_{n=1}^{\infty}A_n\in \mathcal{M}\)</span>的定义。</p>
-<p><span class=math>\(代数+单调系\Rightarrow\sigma代数\)</span>，集代数提供了<span class=math>\(\sigma代数\)</span>的<span class=math>\(\emptyset,X\in \mathcal{M}；A\in \mathcal{M}\Rightarrow A^c\in \mathcal{M}\)</span>与有限交、并的封闭性。需要从单调系中推导出无限可数并的封闭性。于是我们对于任意集合系<span class=math>\(A_n\)</span>构造如下集合序列： <span class=math>\[\begin{cases}
-C_1=A_1\\
-C_2=A_1\cup A_2\\
-\vdots\\
-C_n=A_1\cup A_2\dotsb\cup A_n\\
+<p>$\sigma代数\Rightarrow 集代数$，显然$\sigma代数$是在集代数的定义上添加无穷可列并封闭的条件得来的。</p>
+<p>$\sigma代数\Rightarrow 单调系$，$\sigma代数$要求可列并和可列交封闭，满足单调系$\bigcap\limits_{n=1}^{\infty}A_n \in \mathcal{M},\bigcup\limits_{n=1}^{\infty}A_n\in \mathcal{M}$的定义。</p>
+<p>$代数+单调系\Rightarrow\sigma代数$，集代数提供了$\sigma代数$的$\emptyset,X\in \mathcal{M}；A\in \mathcal{M}\Rightarrow A^c\in \mathcal{M}$与有限交、并的封闭性。需要从单调系中推导出无限可数并的封闭性。于是我们对于任意集合系$A_n$构造如下集合序列：
+$$\begin{cases}
+C_1=A_1\
+C_2=A_1\cup A_2\
+\vdots\
+C_n=A_1\cup A_2\dotsb\cup A_n\
 A_n,C_n\subset X
-\end{cases}\\
-A_1\dotsb A_n\dotsb\in \mathcal{M}\\
+\end{cases}\
+A_1\dotsb A_n\dotsb\in \mathcal{M}\
 \bigcup\limits_{n=1}^{\infty}A_n=\bigcup\limits_{n=1}^{\infty}C_n\nearrow C \in \mathcal{M}
-\]</span> 所以无限可数并<span class=math>\(\bigcup\limits_{n=1}^{\infty}A_n \in \mathcal{M}。代数+单调系\Rightarrow\sigma代数\)</span></p>
+$$
+所以无限可数并$\bigcup\limits_{n=1}^{\infty}A_n \in \mathcal{M}。代数+单调系\Rightarrow\sigma代数$</p>
 <p>得证。</p>
 <h3 id=一般角度的单调系定理>一般角度的单调系定理</h3>
 <blockquote>
-<p>单调系定理：令<span class=math>\(\mathcal A_0\)</span>是定义在<span class=math>\(X\)</span>上的一个代数，<span class=math>\(\mathcal A\)</span> 是包含<span class=math>\(\mathcal A_0\)</span>的最小 <span class=math>\(\sigma\)</span>-代数，<span class=math>\(\mathcal M\)</span>是包含<span class=math>\(\mathcal A_0\)</span>的最小单调系，那么<span class=math>\(\mathcal M=\mathcal{A}\)</span>。该定理联系了单调系和<span class=math>\(\sigma\)</span>代数.</p>
-<p>Proof：由以上引理可知，<span class=math>\(\sigma代数\)</span>是一个单调系且包含<span class=math>\(X的子集A_0\)</span>，而<span class=math>\(M\)</span>是包含<span class=math>\(A_0\)</span>的最小单调系。即<span class=math>\(\mathcal{M}\subset\mathcal{A}\)</span>。</p>
-<p>如果我们能接着证明<span class=math>\(\mathcal{A}\subset\mathcal{M}\)</span>，则说明<span class=math>\(\mathcal M=\mathcal{A}\)</span>。</p>
-<p>由以上引理中的证明可知，单调系的定义可以使得集系<span class=math>\(\mathcal{M}\)</span>内对无穷可数并封闭。如果我们能证明最小单调系也是一个集代数(证明略)，那么就用引理：<span class=math>\(\sigma代数\Leftrightarrow 代数+单调系\)</span>推得<span class=math>\(\mathcal{M}\)</span>是一个<span class=math>\(\sigma\)</span>代数。</p>
-<p><span class=math>\(\mathcal{M}\)</span>是一个包含<span class=math>\(A_0的\sigma\)</span>代数，而<span class=math>\(\mathcal A\)</span> 是包含<span class=math>\(\mathcal A_0\)</span>的最小 <span class=math>\(\sigma\)</span>-代数，所以<span class=math>\(\mathcal{A}\subset\mathcal{M}\)</span>。</p>
-<p>综上所述，<span class=math>\(\mathcal{A}\subset\mathcal{M}\)</span>，<span class=math>\(\mathcal{A}\supset\mathcal{M}\)</span>，所以<span class=math>\(\mathcal M=\mathcal{A}\)</span>。</p>
+<p>单调系定理：令$\mathcal A_0$是定义在$X$上的一个代数，$\mathcal A$ 是包含$\mathcal A_0$的最小 $\sigma$-代数，$\mathcal M$是包含$\mathcal A_0$的最小单调系，那么$\mathcal M=\mathcal{A}$。该定理联系了单调系和$\sigma$代数.</p>
+<p>Proof：由以上引理可知，$\sigma代数$是一个单调系且包含$X的子集A_0$，而$M$是包含$A_0$的最小单调系。即$\mathcal{M}\subset\mathcal{A}$。</p>
+<p>如果我们能接着证明$\mathcal{A}\subset\mathcal{M}$，则说明$\mathcal M=\mathcal{A}$。</p>
+<p>由以上引理中的证明可知，单调系的定义可以使得集系$\mathcal{M}$内对无穷可数并封闭。如果我们能证明最小单调系也是一个集代数(证明略)，那么就用引理：$\sigma代数\Leftrightarrow 代数+单调系$推得$\mathcal{M}$是一个$\sigma$代数。</p>
+<p>$\mathcal{M}$是一个包含$A_0的\sigma$代数，而$\mathcal A$ 是包含$\mathcal A_0$的最小 $\sigma$-代数，所以$\mathcal{A}\subset\mathcal{M}$。</p>
+<p>综上所述，$\mathcal{A}\subset\mathcal{M}$，$\mathcal{A}\supset\mathcal{M}$，所以$\mathcal M=\mathcal{A}$。</p>
 </blockquote>
-<p><a href=../../images/sigma代数与单调系.jpg>英文版单调性与单调系定理</a></p>
+<p><a href=../../images/sigma%E4%BB%A3%E6%95%B0%E4%B8%8E%E5%8D%95%E8%B0%83%E7%B3%BB.jpg>英文版单调性与单调系定理</a></p>
 <h2 id=λ系与π系>λ系与π系</h2>
 <h3 id=π系>π系</h3>
 <blockquote>
-<p>定义：若在<span class=math>\(X\)</span>上的非空子集类<span class=math>\(\Pi\)</span>满足：</p>
-<p><span class=math>\(A,B∈\Pi⇒A\cap B∈\Pi\)</span>,则称子集类<span class=math>\(Π为π系\)</span>。</p>
+<p>定义：若在$X$上的非空子集类$\Pi$满足：</p>
+<p>$A,B∈\Pi⇒A\cap B∈\Pi$,则称子集类$Π为π系$。</p>
 </blockquote>
-<p>即它对交运算封闭，<span class=math>\(\sigma\)</span>代数也是<span class=math>\(\pi\)</span>系。<span class=math>\(\pi(A)\)</span>指由<span class=math>\(A\)</span>生成的<span class=math>\(\pi\)</span>-系，是包含 <span class=math>\(A\)</span>的最小的<span class=math>\(\pi\)</span>-系。</p>
+<p>即它对交运算封闭，$\sigma$代数也是$\pi$系。$\pi(A)$指由$A$生成的$\pi$-系，是包含 $A$的最小的$\pi$-系。</p>
 <h3 id=λ系>λ系</h3>
 <blockquote>
-<p>定义：若在<span class=math>\(X\)</span>上的子集类<span class=math>\(\Lambda\)</span>满足：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(X\in \Lambda\)</span></li>
-<li>若<span class=math>\(A\in\Lambda\)</span>，那么<span class=math>\(A^c\in\Lambda\)</span>(注：这条也可等价换成<span class=math>\(A,B\in\Lambda,A\subset B,B-A\subset \Lambda\)</span>)</li>
-<li>如果集合序<span class=math>\(A_1,A_2,A_3,\dotsb,\in \Lambda\)</span>且互不相交，那么<span class=math>\(\bigcup\limits_{n=1}^{\infty}A_n\in \Lambda\)</span></li>
+<p>定义：若在$X$上的子集类$\Lambda$满足：</p>
+<ol>
+<li>$X\in \Lambda$</li>
+<li>若$A\in\Lambda$，那么$A^c\in\Lambda$(注：这条也可等价换成$A,B\in\Lambda,A\subset B,B-A\subset \Lambda$)</li>
+<li>如果集合序$A_1,A_2,A_3,\dotsb,\in \Lambda$且互不相交，那么$\bigcup\limits_{n=1}^{\infty}A_n\in \Lambda$</li>
 </ol>
 </blockquote>
-<p><span class=math>\(\lambda\)</span>系和<span class=math>\(\sigma\)</span>代数的区别是对于无穷可数并的要求<span class=math>\(\lambda\)</span>系更严格，所以<span class=math>\(\sigma\)</span>代数也是<span class=math>\(\lambda\)</span>系。<span class=math>\(\lambda(A)\)</span>指由<span class=math>\(A\)</span>生成的<span class=math>\(\lambda\)</span>-系，是包含 <span class=math>\(A\)</span>的最小的<span class=math>\(\lambda\)</span>-系。</p>
-<h3 id=λ系π系与sigma代数>λ系π系与<span class=math>\(\sigma\)</span>代数</h3>
+<p>$\lambda$系和$\sigma$代数的区别是对于无穷可数并的要求$\lambda$系更严格，所以$\sigma$代数也是$\lambda$系。$\lambda(A)$指由$A$生成的$\lambda$-系，是包含 $A$的最小的$\lambda$-系。</p>
+<h3 id=λ系π系与sigma代数>λ系π系与$\sigma$代数</h3>
 <blockquote>
-<p>若一个集合系<span class=math>\(\mathcal{A}\)</span>既是<span class=math>\(\lambda\)</span>-系又是<span class=math>\(\pi\)</span>-系，那么它也是<span class=math>\(\sigma\)</span>-代数。且<span class=math>\(\lambda(\mathcal{A})=\sigma(\mathcal{A})\)</span>。</p>
+<p>若一个集合系$\mathcal{A}$既是$\lambda$-系又是$\pi$-系，那么它也是$\sigma$-代数。且$\lambda(\mathcal{A})=\sigma(\mathcal{A})$。</p>
 </blockquote>
 </article>
 <aside class=sidebar>

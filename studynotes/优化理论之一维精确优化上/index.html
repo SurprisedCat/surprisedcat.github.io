@@ -88,19 +88,28 @@ Oct 21, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=一维精确优化>一维精确优化</h2>
+<h2 id=一维精确优化---omit-in-toc--->一维精确优化</h2>
 <p>注1：本文讨论需要优化的函数都是单峰函数（或单谷函数）。</p>
 <ul>
-<li><a href=#一维优化方法>一维优化方法</a></li>
-<li><a href=#搜索法>搜索法</a></li>
-<li><a href=#二分搜索>二分搜索</a></li>
-<li><a href=#黄金分割搜索>黄金分割搜索</a></li>
-<li><a href=#斐波那契搜索>斐波那契搜索</a></li>
-<li><a href=#近似法>近似法</a></li>
-<li><a href=#二次插值法>二次插值法</a></li>
-<li><a href=#三次插值法>三次插值法</a></li>
-<li><a href=#综合方法>综合方法</a></li>
-<li><a href=#dsc法>D.S.C.法</a></li>
+<li><a href=#%E4%B8%80%E7%BB%B4%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95>一维优化方法</a></li>
+<li><a href=#%E6%90%9C%E7%B4%A2%E6%B3%95>搜索法</a>
+<ul>
+<li><a href=#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2>二分搜索</a></li>
+<li><a href=#%E9%BB%84%E9%87%91%E5%88%86%E5%89%B2%E6%90%9C%E7%B4%A2>黄金分割搜索</a></li>
+<li><a href=#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%90%9C%E7%B4%A2>斐波那契搜索</a></li>
+</ul>
+</li>
+<li><a href=#%E8%BF%91%E4%BC%BC%E6%B3%95>近似法</a>
+<ul>
+<li><a href=#%E4%BA%8C%E6%AC%A1%E6%8F%92%E5%80%BC%E6%B3%95>二次插值法</a></li>
+<li><a href=#%E4%B8%89%E6%AC%A1%E6%8F%92%E5%80%BC%E6%B3%95>三次插值法</a></li>
+</ul>
+</li>
+<li><a href=#%E7%BB%BC%E5%90%88%E6%96%B9%E6%B3%95>综合方法</a>
+<ul>
+<li><a href=#dsc%E6%B3%95>D.S.C.法</a></li>
+</ul>
+</li>
 </ul>
 <h2 id=一维优化方法>一维优化方法</h2>
 <p>三种常见的非线性优化问题为：</p>
@@ -111,10 +120,10 @@ Oct 21, 2019</span>
 </ul>
 <p>第一种问题是最容易求解的，而第三种是最困难的。在实际应用中，我们通常将多维约束问题简化为多维无约束问题，进而简化为一维无约束问题。事实上，大部分非线性规划问题是基于单变量函数的最小化，并且是无约束的，因此如果我们想构造出有效的多维无约束或约束算法，就需要有效的一维优化算法。</p>
 <p>如果不考虑导数，一维优化方法是<strong>搜索法与近似法</strong>。</p>
-<p>在<strong>搜索法</strong>中，首先构建包含<span class=math>\(x^\ast\)</span>的区间<span class=math>\([x_L,x_U]\)</span>，然后根据函数不断的减小区间，直到<span class=math>\([x_{L,k},x_{U,k}]\)</span>充分小，区间<span class=math>\([x_{L,k},x_{U,k}]\)</span>的中点做为最小值。这种方法可以用于任何函数，函数不一定要可导。</p>
-<p>在<strong>近似法</strong>中，函数用低阶的多项式来近似（泰勒展开），通常选择二阶或三阶，然后用初等微积分分析，推断出<span class=math>\(x^∗\)</span>的近似值，这样就减小了区间，然后重复这个过程直到<span class=math>\(x^∗\)</span>值充分精确。这种方法要求函数<span class=math>\(f(x)\)</span>是连续可导的。</p>
+<p>在<strong>搜索法</strong>中，首先构建包含$x^\ast$的区间$[x_L,x_U]$，然后根据函数不断的减小区间，直到$[x_{L,k},x_{U,k}]$充分小，区间$[x_{L,k},x_{U,k}]$的中点做为最小值。这种方法可以用于任何函数，函数不一定要可导。</p>
+<p>在<strong>近似法</strong>中，函数用低阶的多项式来近似（泰勒展开），通常选择二阶或三阶，然后用初等微积分分析，推断出$x^∗$的近似值，这样就减小了区间，然后重复这个过程直到$x^∗$值充分精确。这种方法要求函数$f(x)$是连续可导的。</p>
 <p>接下来会介绍一些一维优化方法，如下所示：</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>二分搜索</li>
 <li>斐波那契搜索</li>
 <li>黄金分割搜索</li>
@@ -124,97 +133,111 @@ Oct 21, 2019</span>
 </ol>
 <p>前三种是搜索法，第四与第五种是近似法，第六种是一种实用的方法，它结合了搜索法与近似法。</p>
 <h2 id=搜索法>搜索法</h2>
-<p>考虑一个<strong>单峰</strong>函数，在区间<span class=math>\([x_L,x_U]\)</span>内有最小值，这个区间称为不确定范围，通过不断缩小这个不确定范围可以得出<span class=math>\(f(x)\)</span>的最小值<span class=math>\(x^∗\)</span>。在搜索方法中，使用<span class=math>\(f(x)\)</span>在合适点处的值就能确定出来。讨论的函数形如图1.</p>
-<img src=../../images/convex_func.gif alt=函数图像>
-<center>
-图1 函数图像
-</center>
+<p>考虑一个<strong>单峰</strong>函数，在区间$[x_L,x_U]$内有最小值，这个区间称为不确定范围，通过不断缩小这个不确定范围可以得出$f(x)$的最小值$x^∗$。在搜索方法中，使用$f(x)$在合适点处的值就能确定出来。讨论的函数形如图1.</p>
+<p><img src=../../images/convex_func.gif alt=函数图像></p>
+<center>图1 函数图像</center>
 <h3 id=二分搜索>二分搜索</h3>
-<p>如果<span class=math>\(f(x)\)</span>在点<span class=math>\(x_a\)</span>处的值是已知的，其中<span class=math>\(x_L&lt;x_a&lt;x_U\)</span>，那么点<span class=math>\(x^∗\)</span>可能在<span class=math>\(x_L\)</span>与<span class=math>\(x_a\)</span>之间，或者<span class=math>\(x_a\)</span>与<span class=math>\(x_U\)</span>之间，如图2所示，因此获得信息不足以进一步缩小不确定范围。然而，如果我们知道<span class=math>\(f(x)\)</span>在两个点<span class=math>\(x_a,x_b\)</span> 处的值，那就可以缩小了，这时候会有三种情况：</p>
+<p>如果$f(x)$在点$x_a$处的值是已知的，其中$x_L&lt;x_a&lt;x_U$，那么点$x^∗$可能在$x_L$与$x_a$之间，或者$x_a$与$x_U$之间，如图2所示，因此获得信息不足以进一步缩小不确定范围。然而，如果我们知道$f(x)$在两个点$x_a,x_b$ 处的值，那就可以缩小了，这时候会有三种情况：</p>
 <ul>
-<li><span class=math>\(f(x_a)&lt;f(x_b)\)</span></li>
-<li><span class=math>\(f(x_a)>f(x_b)\)</span></li>
-<li><span class=math>\(f(x_a)=f(x_ b)\)</span></li>
+<li>$f(x_a)&lt;f(x_b)$</li>
+<li>$f(x_a)>f(x_b)$</li>
+<li>$f(x_a)=f(x_ b)$</li>
 </ul>
-<p>对于第一种情况，<span class=math>\(x^∗\)</span>的范围可能是<span class=math>\(x_L&lt;x^∗&lt;x_a\)</span>或者<span class=math>\(x_a&lt;x^∗&lt;x_b\)</span>，即<span class=math>\(x_L&lt;x^∗&lt;x_b\)</span>，如图2所示。<span class=math>\(x_b&lt;x^∗&lt;x_U\)</span>的情况被排除了，否则的话<span class=math>\(f(x)\)</span>会有两个极小值：一个在<span class=math>\(x_b\)</span>的左边，一个在<span class=math>\(x_b\)</span>的右边。同样的，对于第二种情况，我们肯定有<span class=math>\(x_a&lt;x^∗&lt;x_U\)</span>，如图3所示。对于第三种情况，我们有<span class=math>\(x_a&lt;x^∗&lt;x_b\)</span>，即不等式<span class=math>\(x_L&lt;x^∗&lt;x_b\)</span>与<span class=math>\(x_a&lt;x^∗&lt;x_U\)</span>都满足，如图4所示。</p>
-<img src=../../images/binary_search1.png alt=binary_search_1>
-<center>
-图2 二分搜索情况1
-</center>
-<img src=../../images/binary_search2.png alt=binary_search_2>
-<center>
-图3 二分搜索情况2
-</center>
-<img src=../../images/binary_search3.png alt=binary_search_3>
-<center>
-图4 二分搜索情况3
-</center>
-<p>知道了这三种关系之后，我们需要逐步缩小<span class=math>\(x_a,x_b\)</span>的范围。如果缩小的尺度没有掌握好，会使得最优值<span class=math>\(x^\ast\)</span>被排除到<span class=math>\(x_a,x_b\)</span>之外。一种缩小不确定范围的基本策略是二分搜索。对于这个方法，我们取初始值<span class=math>\(x_1\)</span>为<span class=math>\(x_L,x_U\)</span>的中点，即<span class=math>\(x_1=\frac{x_L+x_U}{2}\)</span>，并计算<span class=math>\(f(x)\)</span> 在两点<span class=math>\(x_a=x_1−ε/2\)</span>与<span class=math>\(x_b=x1+ε/2\)</span>的值，其中ε是很小的正数，然后根据<span class=math>\(f(x_a)&lt;f(x_b)\)</span>还是<span class=math>\(f(x_a)>f(x_b)\)</span>，判断范围是<span class=math>\(x_L\)</span>到<span class=math>\(x_1+ε/2\)</span>还是<span class=math>\(x_1−ε/2\)</span>到<span class=math>\(x_U\)</span>，如果<span class=math>\(f(x_a)=f(x_b)\)</span>，那么两者都可以。这样范围立刻可以缩小到<span class=math>\(x_1\pm ε/2\)</span>附近，即<span class=math>\(x_L,x_U\)</span>的中点附近，探索范围缩小一半，不断重复这个过程直到满足精度要求。例如，如果二分查找应用到图5所示的函数上，那么不确定范围在四次迭代后从<span class=math>\(0&lt;x^∗&lt;1\)</span>减小到<span class=math>\(9/16+ε/2&lt;x^∗&lt;5/8−ε/2\)</span>(误差范围<span class=math>\(ε\)</span>)。</p>
-<img src=../../images/binary_search_steps.png alt=binary_search_steps>
-<center>
-图4 二分搜索逐步缩小范围
-</center>
+<p>对于第一种情况，$x^∗$的范围可能是$x_L&lt;x^∗&lt;x_a$或者$x_a&lt;x^∗&lt;x_b$，即$x_L&lt;x^∗&lt;x_b$，如图2所示。$x_b&lt;x^∗&lt;x_U$的情况被排除了，否则的话$f(x)$会有两个极小值：一个在$x_b$的左边，一个在$x_b$的右边。同样的，对于第二种情况，我们肯定有$x_a&lt;x^∗&lt;x_U$，如图3所示。对于第三种情况，我们有$x_a&lt;x^∗&lt;x_b$，即不等式$x_L&lt;x^∗&lt;x_b$与$x_a&lt;x^∗&lt;x_U$都满足，如图4所示。</p>
+<p><img src=../../images/binary_search1.png alt=binary_search_1></p>
+<center>图2 二分搜索情况1</center>
+<p><img src=../../images/binary_search2.png alt=binary_search_2></p>
+<center>图3 二分搜索情况2</center>
+<p><img src=../../images/binary_search3.png alt=binary_search_3></p>
+<center>图4 二分搜索情况3</center>
+<p>知道了这三种关系之后，我们需要逐步缩小$x_a,x_b$的范围。如果缩小的尺度没有掌握好，会使得最优值$x^\ast$被排除到$x_a,x_b$之外。一种缩小不确定范围的基本策略是二分搜索。对于这个方法，我们取初始值$x_1$为$x_L,x_U$的中点，即$x_1=\frac{x_L+x_U}{2}$，并计算$f(x)$ 在两点$x_a=x_1−ε/2$与$x_b=x1+ε/2$的值，其中ε是很小的正数，然后根据$f(x_a)&lt;f(x_b)$还是$f(x_a)>f(x_b)$，判断范围是$x_L$到$x_1+ε/2$还是$x_1−ε/2$到$x_U$，如果$f(x_a)=f(x_b)$，那么两者都可以。这样范围立刻可以缩小到$x_1\pm ε/2$附近，即$x_L,x_U$的中点附近，探索范围缩小一半，不断重复这个过程直到满足精度要求。例如，如果二分查找应用到图5所示的函数上，那么不确定范围在四次迭代后从$0&lt;x^∗&lt;1$减小到$9/16+ε/2&lt;x^∗&lt;5/8−ε/2$(误差范围$ε$)。</p>
+<p><img src=../../images/binary_search_steps.png alt=binary_search_steps></p>
+<center>图4 二分搜索逐步缩小范围</center>
 <h3 id=黄金分割搜索>黄金分割搜索</h3>
-<p>我们在使用二分法是，每次切割区间需要计算两次函数值（<span class=math>\(f(x-ε/2),f(x+ε/2)\)</span>）。其中一个值是用来舍弃的。在单峰函数求极值的过程中，始终需要两个试探值，这都是拜这个原则所赐，再来复习下：</p>
+<p>我们在使用二分法是，每次切割区间需要计算两次函数值（$f(x-ε/2),f(x+ε/2)$）。其中一个值是用来舍弃的。在单峰函数求极值的过程中，始终需要两个试探值，这都是拜这个原则所赐，再来复习下：</p>
 <ul>
-<li><span class=math>\(x^\ast,x_a,x_b \in D=[x_L,x_U]\)</span></li>
-<li><span class=math>\(f(x_a) \le f(x_b),x^\ast\in[x_L,x_b]\)</span></li>
-<li><span class=math>\(f(x_a) \ge f(x_b),x^\ast\in[x_a,x_U]\)</span></li>
+<li>$x^\ast,x_a,x_b \in D=[x_L,x_U]$</li>
+<li>$f(x_a) \le f(x_b),x^\ast\in[x_L,x_b]$</li>
+<li>$f(x_a) \ge f(x_b),x^\ast\in[x_a,x_U]$</li>
 </ul>
 <p>如果我们能够合理利用试探点信息，就可以每个迭代周期只用计算一次函数值。我们做出如下两个简单要求：</p>
-<ol style=list-style-type:decimal>
-<li>两个试探点<span class=math>\(\lambda_k,\mu_k\)</span>距离边界<span class=math>\([a_k,b_k]\)</span>距离相等（<span class=math>\(a_0=x_L,b_0=x_U\)</span>）。<span class=math>\(\lambda_k-a_k=b_k-\mu_k\)</span></li>
-<li>每次迭代，搜索空间缩小的比例为常数<span class=math>\(\tau\)</span>。<span class=math>\(b_{k+1}-a_{k+1}=\tau*(b_k-a_k)\)</span></li>
+<ol>
+<li>两个试探点$\lambda_k,\mu_k$距离边界$[a_k,b_k]$距离相等（$a_0=x_L,b_0=x_U$）。$\lambda_k-a_k=b_k-\mu_k$</li>
+<li>每次迭代，搜索空间缩小的比例为常数$\tau$。$b_{k+1}-a_{k+1}=\tau*(b_k-a_k)$</li>
 </ol>
-<p>我们假设试探点<span class=math>\(f(\lambda_k) \le f(\mu_k)\)</span>（在另一种场景<span class=math>\(f(\lambda_k) \ge f(\mu_k)\)</span>可以得到一样的结果），则<span class=math>\(a_{k+1}=a_k,b_{k+1}=\mu_k\)</span>。</p>
-<p>根据要求2，我们带入<span class=math>\(a_{k+1}=a_k,b_{k+1}=\mu_k\)</span>，可得： <span class=math>\[b_{k+1}-a_{k+1}=\mu_k-a_k=\tau(b_k-a_k)\\
-\Rightarrow \mu_k=a_k+\tau(b_k-a_k) \tag{2.1}\]</span> 将<span class=math>\((2.1)\)</span>代入要求1可得： <span class=math>\[\lambda_k-a_k=b_k-\mu_k=b_k-(a_k+\tau(b_k-a_k))\\
-\Rightarrow \lambda_k=a_k+(1-\tau)(b_k-a_k)\tag{2.2}\]</span> 根据<span class=math>\((2.1)\)</span>和<span class=math>\(a_{k+1}=a_k,b_{k+1}=\mu_k\)</span>，进一步推导<span class=math>\(u_{k+1}\)</span>： <span class=math>\[\begin{aligned}
-u_{k+1}&=a_{k+1}+\tau(b_{k+1}-a_{k+1 })\\
-&=a_k+\tau(u_k-a_k)\\
-&=a_k+\tau(a_k+\tau(b_k-a_k)-a_k)\\
+<p>我们假设试探点$f(\lambda_k) \le f(\mu_k)$（在另一种场景$f(\lambda_k) \ge f(\mu_k)$可以得到一样的结果），则$a_{k+1}=a_k,b_{k+1}=\mu_k$。</p>
+<p>根据要求2，我们带入$a_{k+1}=a_k,b_{k+1}=\mu_k$，可得：
+$$b_{k+1}-a_{k+1}=\mu_k-a_k=\tau(b_k-a_k)\
+\Rightarrow \mu_k=a_k+\tau(b_k-a_k) \tag{2.1}$$
+将$(2.1)$代入要求1可得：
+$$\lambda_k-a_k=b_k-\mu_k=b_k-(a_k+\tau(b_k-a_k))\
+\Rightarrow \lambda_k=a_k+(1-\tau)(b_k-a_k)\tag{2.2}$$
+根据$(2.1)$和$a_{k+1}=a_k,b_{k+1}=\mu_k$，进一步推导$u_{k+1}$：
+$$\begin{aligned}
+u_{k+1}&=a_{k+1}+\tau(b_{k+1}-a_{k+1 })\
+&=a_k+\tau(u_k-a_k)\
+&=a_k+\tau(a_k+\tau(b_k-a_k)-a_k)\
 &=a_k+\tau^2(b_k-a_k) \tag{2.3}
-\end{aligned}\]</span> 由于搜索模式限制，我们必须通过计算两个函数点，才能判断出区间。如果能够合理设置数值，我们可以交替的使用上次没用到的试探点作为下一次迭代的试探点。</p>
-<p>在情形<span class=math>\(f(\lambda_k) \le f(\mu_k)\)</span>中，<span class=math>\(b_{k+1}=\mu_k，\lambda_k\)</span>没有用到，因此我们依旧把<span class=math>\(\lambda_k\)</span>作为k+1次迭代的试探点。令： <span class=math>\[\begin{aligned}
-\mu_{k+1}&=\lambda_k\\
-a_k+\tau^2(b_k-a_k)&=a_k+(1-\tau)(b_k-a_k)\\
-\tau^2&=1-\tau(\tau>0)\\
+\end{aligned}$$
+由于搜索模式限制，我们必须通过计算两个函数点，才能判断出区间。如果能够合理设置数值，我们可以交替的使用上次没用到的试探点作为下一次迭代的试探点。</p>
+<p>在情形$f(\lambda_k) \le f(\mu_k)$中，$b_{k+1}=\mu_k，\lambda_k$没有用到，因此我们依旧把$\lambda_k$作为k+1次迭代的试探点。令：
+$$\begin{aligned}
+\mu_{k+1}&=\lambda_k\
+a_k+\tau^2(b_k-a_k)&=a_k+(1-\tau)(b_k-a_k)\
+\tau^2&=1-\tau(\tau>0)\
 \tau&=\frac{\sqrt{5}-1}{2}\approx0.618
-\end{aligned}\]</span> 也就是说，当<span class=math>\(\tau=\frac{\sqrt{5}-1}{2}\approx0.618\)</span>的时候，<span class=math>\(\mu_{k+1}=\lambda_k,f(\mu_{k+1})=f(\lambda_k)\)</span>，每次迭代只需要引入一个新值，计算一次函数值。</p>
-<p>同理，在情形<span class=math>\(f(\lambda_k) \ge f(\mu_k)\)</span>中，<span class=math>\(a_{k+1}=\lambda_k,b_{k+1}=b_k,\lambda_{k+1}=\mu_k,f(\lambda_{k+1})=f(\mu_k)\)</span>。</p>
-<p>黄金分割法的搜索效率不如二分法，缩短率<span class=math>\(\tau=0.618\)</span>，属于线性收敛。但是除了第一次迭代，每次只需要在计算一次函数值，这里效率高一些。</p>
+\end{aligned}$$
+也就是说，当$\tau=\frac{\sqrt{5}-1}{2}\approx0.618$的时候，$\mu_{k+1}=\lambda_k,f(\mu_{k+1})=f(\lambda_k)$，每次迭代只需要引入一个新值，计算一次函数值。</p>
+<p>同理，在情形$f(\lambda_k) \ge f(\mu_k)$中，$a_{k+1}=\lambda_k,b_{k+1}=b_k,\lambda_{k+1}=\mu_k,f(\lambda_{k+1})=f(\mu_k)$。</p>
+<p>黄金分割法的搜索效率不如二分法，缩短率$\tau=0.618$，属于线性收敛。但是除了第一次迭代，每次只需要在计算一次函数值，这里效率高一些。</p>
 <h3 id=斐波那契搜索>斐波那契搜索</h3>
 <p>对于斐波那契搜索，我们把黄金分割搜索的条件放宽，只要求1个：</p>
-<ol style=list-style-type:decimal>
-<li>考虑第k次迭代的搜索空间： 两个试探点<span class=math>\(\lambda_k,\mu_k\)</span>距离边界<span class=math>\([a_k,b_k]\)</span>距离相等（<span class=math>\(a_0=x_L,b_0=x_U\)</span>）。<span class=math>\(\lambda_k-a_k=b_k-\mu_k\)</span>。</li>
+<ol>
+<li>考虑第k次迭代的搜索空间： 两个试探点$\lambda_k,\mu_k$距离边界$[a_k,b_k]$距离相等（$a_0=x_L,b_0=x_U$）。$\lambda_k-a_k=b_k-\mu_k$。</li>
 </ol>
-<p>令第k次迭代的搜索空间为<span class=math>\(I_k=[a_k,b_k]\)</span>。同样根据试探节点的函数值大小，我们有，如果<span class=math>\(f(\lambda_k)&lt;f(\mu_k)\)</span>，则选择左区间： <span class=math>\[I_{k+1}^L=[a_k,\mu_k]\]</span> 如果<span class=math>\(f(\lambda_k)>f(\mu_k)\)</span>，则选择右区间： <span class=math>\[I_{k+1}^R=[\lambda_k,b_k]\]</span></p>
-如果右区间<span class=math>\(I_{k+1}^R\)</span>被选中，那么它将包含最小值，另外还知道点<span class=math>\(\mu_k \rightarrow \lambda_{k+1}\)</span>处的函数值。如果我们知道点<span class=math>\(\mu_{k+1}\)</span>处的值，那么我们就有充分的信息来进一步减小不确定区域，然后不断重复此过程。这种方法每次迭代<strong>只需要估计一个函数值</strong>，计算量相对于二分搜索要小。如图5所示。 <img src=../../images/斐波那契搜索区间.png alt=斐波那契搜索空间>
-<center>
-斐波那契搜索空间
-</center>
-<p>由图5可知 <span class=math>\[I_k=I_{k+1}^L+I_{k+2}^R\]</span> 根据要求1，我们知道左右两个区间大小相等。那么<span class=math>\(I_{k+1}^L=I_{k+1}^R=I_{k+1},I_{k+2}^L=I_{k+2}^R=I_{k+2}\)</span>。由此可得递推公式： <span class=math>\[I_k=I_{k+1}+I_{k+2}\]</span> 如果上面的过程重复多次，那么我们会得到如下的区间序列<span class=math>\({I_1,I_2,…,I_n}\)</span>: <span class=math>\[I_1=I_2+I_3\\
-I_2=I_3+I_4\\
-\dotsb\\
-I_n=I_{n+1}+I_{n+2}\\
-\]</span> 假设<span class=math>\(n+2\)</span>次迭代后区间消失，即<span class=math>\(I_{n+2}=0\)</span>，那么我们就得到斐波那契序列，如果我们令<span class=math>\(k=n\)</span>，可以得到: <span class=math>\[\begin{aligned}
-I_{n+1}&=I_n-I_{n+2}=I_n=F_0 I_n\\
-I_{n}&=I_{n+1}+I_{n+2}=I_n=F_1 I_n\\
-I_{n-1}&=I_{n}+I_{n+1}=2I_n=F_2 I_n\\
-I_{n-2}&=I_{n-1}+I_{n}=3I_n=F_3 I_n\\
-I_{n-3}&=I_{n-2}+I_{n-1}=5I_n=F_4 I_n\\
-\dotsb\\
-I_{1}&=I_2+I_3=F_n I_n\\
-\end{aligned}\]</span> 所生成的序列<span class=math>\(\{1,1,2,3,5,8,13,…\}=\{F_0,F_1,F_2,F_3,F_4,F_5,F_6,…\}\)</span></p>
-<p>如果迭代的总数为<span class=math>\(n\)</span>，那么斐波那契搜索将不确定区间缩小到 <span class=math>\[I_n=\frac{I_1}{F_n}\]</span> 例如如果<span class=math>\(n=11\)</span>，那么<span class=math>\(F_n=144\)</span>，这样的话<span class=math>\(I_n\)</span>将缩小到不足<span class=math>\(I_1\)</span>的1%，其中会有11次迭代。因为每次迭代只需要一个函数估计值，所以一共需要11个函数估计值，如果二分搜索要达到同样的精度需要14个函数估计值，故斐波那契搜索比二分搜索效率更高。事实上，相对于其他几个搜索方法，从计算效率上看它是最高效的。</p>
-<p>斐波那契算法中试探点为： <span class=math>\[\lambda_k=a_k+(1-\frac{F_{n-k}}{F_{n-k+1}})(b_k-a_k)\\
-\mu_k=a_k+\frac{F_{n-k}}{F_{n-k+1}}(b_k-a_k)\\\]</span> 不难看出<span class=math>\(\frac{F_{n-k}}{F_{n-k+1}}\)</span>相当于黄金分割算法中<span class=math>\(\tau\)</span>，为缩短率。缩短率一开始为0.5，后来逐渐趋近于0.618。需要注意的时，斐波那契搜索需要提前知道迭代的次数。如果最后要求的区间不大于<span class=math>\(\sigma\)</span>，则 <span class=math>\[F_n\ge \frac{b_1-a_1}{\sigma}\\
-F_n=\frac{1}{\sqrt{5}}[(\frac{1+\sqrt{5}}{2})^{n+1}-(\frac{1-\sqrt{5}}{2})^{n+1}]\]</span> 可推得n。可以证明斐波那契搜索时分割方法求一维最优化问题的<strong>最优策略</strong>。</p>
+<p>令第k次迭代的搜索空间为$I_k=[a_k,b_k]$。同样根据试探节点的函数值大小，我们有，如果$f(\lambda_k)&lt;f(\mu_k)$，则选择左区间：
+$$I_{k+1}^L=[a_k,\mu_k]$$
+如果$f(\lambda_k)>f(\mu_k)$，则选择右区间：
+$$I_{k+1}^R=[\lambda_k,b_k]$$</p>
+<p>如果右区间$I_{k+1}^R$被选中，那么它将包含最小值，另外还知道点$\mu_k \rightarrow \lambda_{k+1}$处的函数值。如果我们知道点$\mu_{k+1}$处的值，那么我们就有充分的信息来进一步减小不确定区域，然后不断重复此过程。这种方法每次迭代<strong>只需要估计一个函数值</strong>，计算量相对于二分搜索要小。如图5所示。
+<img src=../../images/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%90%9C%E7%B4%A2%E5%8C%BA%E9%97%B4.png alt=斐波那契搜索空间></p>
+<center>斐波那契搜索空间</center>
+<p>由图5可知
+$$I_k=I_{k+1}^L+I_{k+2}^R$$
+根据要求1，我们知道左右两个区间大小相等。那么$I_{k+1}^L=I_{k+1}^R=I_{k+1},I_{k+2}^L=I_{k+2}^R=I_{k+2}$。由此可得递推公式：
+$$I_k=I_{k+1}+I_{k+2}$$
+如果上面的过程重复多次，那么我们会得到如下的区间序列${I_1,I_2,…,I_n}$:
+$$I_1=I_2+I_3\
+I_2=I_3+I_4\
+\dotsb\
+I_n=I_{n+1}+I_{n+2}\
+$$
+假设$n+2$次迭代后区间消失，即$I_{n+2}=0$，那么我们就得到斐波那契序列，如果我们令$k=n$，可以得到:
+$$\begin{aligned}
+I_{n+1}&=I_n-I_{n+2}=I_n=F_0 I_n\
+I_{n}&=I_{n+1}+I_{n+2}=I_n=F_1 I_n\
+I_{n-1}&=I_{n}+I_{n+1}=2I_n=F_2 I_n\
+I_{n-2}&=I_{n-1}+I_{n}=3I_n=F_3 I_n\
+I_{n-3}&=I_{n-2}+I_{n-1}=5I_n=F_4 I_n\
+\dotsb\
+I_{1}&=I_2+I_3=F_n I_n\
+\end{aligned}$$
+所生成的序列${1,1,2,3,5,8,13,…}={F_0,F_1,F_2,F_3,F_4,F_5,F_6,…}$</p>
+<p>如果迭代的总数为$n$，那么斐波那契搜索将不确定区间缩小到
+$$I_n=\frac{I_1}{F_n}$$
+例如如果$n=11$，那么$F_n=144$，这样的话$I_n$将缩小到不足$I_1$的1%，其中会有11次迭代。因为每次迭代只需要一个函数估计值，所以一共需要11个函数估计值，如果二分搜索要达到同样的精度需要14个函数估计值，故斐波那契搜索比二分搜索效率更高。事实上，相对于其他几个搜索方法，从计算效率上看它是最高效的。</p>
+<p>斐波那契算法中试探点为：
+$$\lambda_k=a_k+(1-\frac{F_{n-k}}{F_{n-k+1}})(b_k-a_k)\
+\mu_k=a_k+\frac{F_{n-k}}{F_{n-k+1}}(b_k-a_k)\$$
+不难看出$\frac{F_{n-k}}{F_{n-k+1}}$相当于黄金分割算法中$\tau$，为缩短率。缩短率一开始为0.5，后来逐渐趋近于0.618。需要注意的时，斐波那契搜索需要提前知道迭代的次数。如果最后要求的区间不大于$\sigma$，则
+$$F_n\ge \frac{b_1-a_1}{\sigma}\
+F_n=\frac{1}{\sqrt{5}}[(\frac{1+\sqrt{5}}{2})^{n+1}-(\frac{1-\sqrt{5}}{2})^{n+1}]$$
+可推得n。可以证明斐波那契搜索时分割方法求一维最优化问题的<strong>最优策略</strong>。</p>
 <h2 id=近似法>近似法</h2>
 <h3 id=二次插值法>二次插值法</h3>
 <h3 id=三次插值法>三次插值法</h3>
 <h2 id=综合方法>综合方法</h2>
-<h3 id=d.s.c.法>D.S.C.法</h3>
+<h3 id=dsc法>D.S.C.法</h3>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

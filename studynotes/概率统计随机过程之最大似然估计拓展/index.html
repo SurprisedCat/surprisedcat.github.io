@@ -88,119 +88,149 @@ Apr 16, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之最大似然估计拓展>概率统计随机过程之最大似然估计拓展</h2>
+<h2 id=概率统计随机过程之最大似然估计拓展---omit-in-toc--->概率统计随机过程之最大似然估计拓展</h2>
 <ul>
-<li><a href=#最大似然估计概述>最大似然估计概述</a></li>
-<li><a href=#最大似然估计的不变原理>最大似然估计的不变原理</a></li>
-<li><a href=#最大似然估计服从渐进正态的条件>最大似然估计服从渐进正态的条件</a></li>
-<li><a href=#渐近正态性>渐近正态性</a></li>
-<li><a href=#最大似然估计具有正态性定理>最大似然估计具有正态性定理</a></li>
-<li><a href=#cramer-rao正则分布族下费雪信息量的另一种表示>Cramer-Rao正则分布族下费雪信息量的另一种表示</a></li>
-<li><a href=#cramer-rao不等式与界>Cramer-Rao不等式与界</a></li>
-<li><a href=#最大似然估计不具备的性质>最大似然估计不具备的性质</a></li>
+<li><a href=#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%A6%82%E8%BF%B0>最大似然估计概述</a>
+<ul>
+<li><a href=#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E7%9A%84%E4%B8%8D%E5%8F%98%E5%8E%9F%E7%90%86>最大似然估计的不变原理</a></li>
+</ul>
+</li>
+<li><a href=#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%9C%8D%E4%BB%8E%E6%B8%90%E8%BF%9B%E6%AD%A3%E6%80%81%E7%9A%84%E6%9D%A1%E4%BB%B6>最大似然估计服从渐进正态的条件</a>
+<ul>
+<li><a href=#%E6%B8%90%E8%BF%91%E6%AD%A3%E6%80%81%E6%80%A7>渐近正态性</a></li>
+<li><a href=#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%85%B7%E6%9C%89%E6%AD%A3%E6%80%81%E6%80%A7%E5%AE%9A%E7%90%86>最大似然估计具有正态性定理</a></li>
+<li><a href=#cramer-rao%E6%AD%A3%E5%88%99%E5%88%86%E5%B8%83%E6%97%8F%E4%B8%8B%E8%B4%B9%E9%9B%AA%E4%BF%A1%E6%81%AF%E9%87%8F%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E8%A1%A8%E7%A4%BA>Cramer-Rao正则分布族下费雪信息量的另一种表示</a></li>
+</ul>
+</li>
+<li><a href=#cramer-rao%E4%B8%8D%E7%AD%89%E5%BC%8F%E4%B8%8E%E7%95%8C>Cramer-Rao不等式与界</a></li>
+<li><a href=#%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E4%B8%8D%E5%85%B7%E5%A4%87%E7%9A%84%E6%80%A7%E8%B4%A8>最大似然估计不具备的性质</a></li>
 </ul>
 <p>最大似然估计是参数点估计中非常常用且有效的估计方法，本文对其相关性质进行拓展介绍，包括渐进正态性，一致最小方差无偏估计，C-R界以及存在隐变量时采用的EM算法。</p>
 <p>本文阅读需建立在<strong>已经理解最大似然估计基础上</strong>，首先我们精简的概述最大似然估计。</p>
 <h2 id=最大似然估计概述>最大似然估计概述</h2>
 <p>核心思想：概率大的事件比概率小的事件更容易发生。<strong>要估计的参数能够使产生这个样本的概率最大</strong>。</p>
 <p>步骤：</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>总体的概率/密度函数。</li>
-<li>写出似然估计函数<span class=math>\(L(\lambda)\)</span>。</li>
-<li>两边取<span class=math>\(\ln\)</span>，即为<span class=math>\(\ln(L(\lambda))\)</span>。</li>
-<li>对<span class=math>\(\lambda\)</span>求导（多参数估计就是偏导），令导数为0。</li>
+<li>写出似然估计函数$L(\lambda)$。</li>
+<li>两边取$\ln$，即为$\ln(L(\lambda))$。</li>
+<li>对$\lambda$求导（多参数估计就是偏导），令导数为0。</li>
 </ol>
 <p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。</p>
 <p><strong>似然函数取对数的原因</strong>:</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。</li>
 <li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。</li>
 </ol>
-<p>需要指出的是：<strong>取对数不影响单调性</strong>。 <span class=math>\[
+<p>需要指出的是：<strong>取对数不影响单调性</strong>。
+$$
 p(x|\theta_1)>p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))>\ln(p(x|\theta_2))
-\]</span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。</p>
+$$
+因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。</p>
 <h3 id=最大似然估计的不变原理>最大似然估计的不变原理</h3>
 <p>我们介绍一个致使最大似然估计得到广泛应用的定理：</p>
 <blockquote>
-<p>不变定理：设<span class=math>\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)</span>，若<span class=math>\(\theta\)</span>的最大似然估计为<span class=math>\(\hat\theta\)</span>，则对任意函数<span class=math>\(\gamma=g(\theta)\)</span>，<span class=math>\(\gamma\)</span>的最大似然估计为<span class=math>\(\hat\gamma=g(\hat\theta)\)</span>。</p>
+<p>不变定理：设$X\sim p(x;\theta),;\theta\in\mathcal{\Theta}$，若$\theta$的最大似然估计为$\hat\theta$，则对任意函数$\gamma=g(\theta)$，$\gamma$的最大似然估计为$\hat\gamma=g(\hat\theta)$。</p>
 </blockquote>
 <h2 id=最大似然估计服从渐进正态的条件>最大似然估计服从渐进正态的条件</h2>
-<p>最大似然估计除了不变原理，还有另一个非常好的性质就是在一定条件下满足渐进正态性，从而保证了样本增加时的参数估计的收敛速度（通常为<span class=math>\(\frac{1}{\sqrt{n}}\)</span>）。</p>
+<p>最大似然估计除了不变原理，还有另一个非常好的性质就是在一定条件下满足渐进正态性，从而保证了样本增加时的参数估计的收敛速度（通常为$\frac{1}{\sqrt{n}}$）。</p>
 <h3 id=渐近正态性>渐近正态性</h3>
-<p>渐进正态性（大样本性质）：估计量的渐进正态性来源于<strong>中心极限定理</strong>，若统计量在样本容量<span class=math>\(n\rightarrow \infty\)</span>时，统计量的分布也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列<span class=math>\(\{\sigma_n^2\}\)</span>，满足<span class=math>\((\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)\)</span>，则称<span class=math>\(\hat\theta_n\)</span>是<span class=math>\(\theta\)</span>的渐进正态估计，<span class=math>\(\sigma_n^2\)</span>称为<span class=math>\(\hat\theta_n\)</span>的渐进方差。</p>
+<p>渐进正态性（大样本性质）：估计量的渐进正态性来源于<strong>中心极限定理</strong>，若统计量在样本容量$n\rightarrow \infty$时，统计量的分布也渐近于正态分布，称为渐进正态性。具体可定义为：如果存在一序列${\sigma_n^2}$，满足$(\hat\theta_n-\theta)/\sigma_n(\theta)\overset{L}{\rightarrow}N(0,1)$，则称$\hat\theta_n$是$\theta$的渐进正态估计，$\sigma_n^2$称为$\hat\theta_n$的渐进方差。</p>
 <p>严格定义如下：</p>
 <blockquote>
-<p>渐近正态性：设<span class=math>\(\hat\theta_n=\hat\theta(x_1,x_2,\dotsb,x_n)\)</span>是<span class=math>\(\theta\)</span>的一个相合估计序列，若存在一个趋于零的正数列<span class=math>\(\sigma_n(\theta)\)</span>，使得规范变量<span class=math>\(y_n=\frac{\hat\theta_n-\theta}{\sigma_n(\theta)}\)</span>的概率分布函数<span class=math>\(F_n(y)\)</span>收敛于标准正态分布函数<span class=math>\(\varPhi(y)\)</span>，即： <span class=math>\[
+<p>渐近正态性：设$\hat\theta_n=\hat\theta(x_1,x_2,\dotsb,x_n)$是$\theta$的一个相合估计序列，若存在一个趋于零的正数列$\sigma_n(\theta)$，使得规范变量$y_n=\frac{\hat\theta_n-\theta}{\sigma_n(\theta)}$的概率分布函数$F_n(y)$收敛于标准正态分布函数$\varPhi(y)$，即：
+$$
 F_n(y)=P(\frac{\hat\theta_n-\theta}{\sigma_n(\theta)}\leq y)\rightarrow \varPhi(y)(n\rightarrow \infty)
-\]</span> 如果用依分布收敛符号<span class=math>\(L\)</span>可表示为： <span class=math>\[
+$$
+如果用依分布收敛符号$L$可表示为：
+$$
 \frac{\hat\theta_n-\theta}{\sigma_n(\theta)}\overset{L}{\rightarrow} N(0,1)(n\rightarrow\infty)
-\]</span> 则称<span class=math>\(\hat\theta_n\)</span>是<span class=math>\(\theta\)</span>的渐进正态估计，或称<span class=math>\(\hat\theta_n\)</span>具有渐进正态性，即： <span class=math>\[
+$$
+则称$\hat\theta_n$是$\theta$的渐进正态估计，或称$\hat\theta_n$具有渐进正态性，即：
+$$
 \hat\theta_n\sim AN(\theta,\sigma^2_n(\theta))
-\]</span> 其中，<span class=math>\(\sigma^2_n(\theta)\)</span>称为<span class=math>\(\hat\theta_n\)</span>的渐进方差。</p>
+$$
+其中，$\sigma^2_n(\theta)$称为$\hat\theta_n$的渐进方差。</p>
 </blockquote>
-<p>从<span class=math>\((\hat\theta_n-\theta)/\sigma_n(\theta)\)</span>来看，分子项依概率收敛于<span class=math>\(\theta\)</span>的速度与分母项<span class=math>\(\sigma_n(\theta)\)</span>趋近于0的速度相同时，其比值才会稳定与正态分布。因此，<span class=math>\(\hat\theta_n\)</span>收敛速度与渐近方差直接相关，渐近方差越小，收敛越快。</p>
-<p>还需要指出，渐进方差并不是唯一的，如果存在另一<span class=math>\(\tau_n(\theta)\)</span>有<span class=math>\(\frac{\sigma_n(\theta)}{\tau_n(\theta)}\rightarrow 1(n\rightarrow\infty)\)</span>，根据依概率收敛定义可知<span class=math>\(\tau_n(\theta)\)</span>也是<span class=math>\(\theta\)</span>的渐近方差。</p>
-<p>渐进正态性和相合性的关系类似于中心极限定理和大数定律。相合性是对估计的一种较低要求，它只要求估计序列<span class=math>\(\{\hat\theta_n\}\)</span>在样本数量<span class=math>\(n\)</span>增加的时候也趋近于<span class=math>\(\theta\)</span>，但是并没有指出趋近的速度（例如是<span class=math>\(1/n,1/\sqrt{n}\)</span>或<span class=math>\(1/\ln n\)</span>）。而渐进正态性补充了这一点，收敛速度与渐进方差相关。<strong>经验来看，大多数渐进正态估计都是以<span class=math>\(1/\sqrt{n}\)</span>的速度收敛于被估参数的</strong>。</p>
+<p>从$(\hat\theta_n-\theta)/\sigma_n(\theta)$来看，分子项依概率收敛于$\theta$的速度与分母项$\sigma_n(\theta)$趋近于0的速度相同时，其比值才会稳定与正态分布。因此，$\hat\theta_n$收敛速度与渐近方差直接相关，渐近方差越小，收敛越快。</p>
+<p>还需要指出，渐进方差并不是唯一的，如果存在另一$\tau_n(\theta)$有$\frac{\sigma_n(\theta)}{\tau_n(\theta)}\rightarrow 1(n\rightarrow\infty)$，根据依概率收敛定义可知$\tau_n(\theta)$也是$\theta$的渐近方差。</p>
+<p>渐进正态性和相合性的关系类似于中心极限定理和大数定律。相合性是对估计的一种较低要求，它只要求估计序列${\hat\theta_n}$在样本数量$n$增加的时候也趋近于$\theta$，但是并没有指出趋近的速度（例如是$1/n,1/\sqrt{n}$或$1/\ln n$）。而渐进正态性补充了这一点，收敛速度与渐进方差相关。<strong>经验来看，大多数渐进正态估计都是以$1/\sqrt{n}$的速度收敛于被估参数的</strong>。</p>
 <h3 id=最大似然估计具有正态性定理>最大似然估计具有正态性定理</h3>
 <p>在一定条件下，最大似然估计具有渐进正态性。我们将通过如下定理阐释。需要指出的是，定理是以连续分布的形式给出，但是对于离散场景也是适用的。</p>
 <blockquote>
-<p>设<span class=math>\(p(x;\theta)\)</span>是某密度函数，其参数空间<span class=math>\(\varTheta=\{\theta\}\)</span>是直线上的非退化区间（即不是一个点），假如：</p>
-<ol style=list-style-type:decimal>
-<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，<span class=math>\(p(x;\theta)\)</span>对<span class=math>\(\theta\)</span>如下偏导都存在：<span class=math>\(\frac{\partial\ln p}{\partial\theta},\frac{\partial^2\ln p}{\partial\theta^2},\frac{\partial^3\ln p}{\partial\theta^3}\)</span></li>
-<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，有<span class=math>\(|\frac{\partial\ln p}{\partial\theta}|&lt;F_1(x),|\frac{\partial^2\ln p}{\partial\theta^2}|&lt;F_2(x),\frac{\partial^3\ln p}{\partial\theta^3}&lt;H(x)\)</span>成立，其中<span class=math>\(F_1(x)\)</span>与<span class=math>\(F_2(x)\)</span>在实数轴上可积，而<span class=math>\(H(x)\)</span>满足：<span class=math>\(\int_{-\infty}^\infty H(x)p(x;\theta)&lt;M\)</span>，这里<span class=math>\(M\)</span>与<span class=math>\(\theta\)</span>无关。</li>
-<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，有<span class=math>\(0&lt;I(\theta)=E[(\frac{\partial\ln p}{\partial \theta})^2]&lt;+\infty\)</span></li>
+<p>设$p(x;\theta)$是某密度函数，其参数空间$\varTheta={\theta}$是直线上的非退化区间（即不是一个点），假如：</p>
+<ol>
+<li>对一切$\theta\in\varTheta$，$p(x;\theta)$对$\theta$如下偏导都存在：$\frac{\partial\ln p}{\partial\theta},\frac{\partial^2\ln p}{\partial\theta^2},\frac{\partial^3\ln p}{\partial\theta^3}$</li>
+<li>对一切$\theta\in\varTheta$，有$|\frac{\partial\ln p}{\partial\theta}|&lt;F_1(x),|\frac{\partial^2\ln p}{\partial\theta^2}|&lt;F_2(x),\frac{\partial^3\ln p}{\partial\theta^3}&lt;H(x)$成立，其中$F_1(x)$与$F_2(x)$在实数轴上可积，而$H(x)$满足：$\int_{-\infty}^\infty H(x)p(x;\theta)&lt;M$，这里$M$与$\theta$无关。</li>
+<li>对一切$\theta\in\varTheta$，有$0&lt;I(\theta)=E[(\frac{\partial\ln p}{\partial \theta})^2]&lt;+\infty$</li>
 </ol>
-<p>则在参数真值<span class=math>\(\theta\)</span>为参数空间<span class=math>\(\varTheta\)</span>内点的情况下，其似然方程有一个解存在，且此解<span class=math>\(\hat\theta_n=\theta(x_1,x_2,\dotsb,x_n)\)</span>依概率收敛于<span class=math>\(\theta\)</span>，且： <span class=math>\[
+<p>则在参数真值$\theta$为参数空间$\varTheta$内点的情况下，其似然方程有一个解存在，且此解$\hat\theta_n=\theta(x_1,x_2,\dotsb,x_n)$依概率收敛于$\theta$，且：
+$$
 \hat\theta_n\sim AN(\theta,[nI(\theta)]^{-1})
-\]</span> 其中，<span class=math>\(I(\theta)\)</span>为分布<span class=math>\(p(x;\theta)\)</span>中含有<span class=math>\(\theta\)</span>的<strong>费雪信息量</strong>，简称信息量。</p>
+$$
+其中，$I(\theta)$为分布$p(x;\theta)$中含有$\theta$的<strong>费雪信息量</strong>，简称信息量。</p>
 </blockquote>
-<p>这个定理的意义在于给定了最大似然分布有渐进正态性的条件，其中渐进方差（体现大样本效率）完全由<strong>样本数量<span class=math>\(n\)</span>和分布的费雪信息量<span class=math>\(I(\theta)\)</span>决定</strong>，且费雪信息量越大（分布中含有<span class=math>\(\theta\)</span>）的信息越多，渐进方差在同等样本数量下越小，从而最大似然估计效果越好。</p>
+<p>这个定理的意义在于给定了最大似然分布有渐进正态性的条件，其中渐进方差（体现大样本效率）完全由<strong>样本数量$n$和分布的费雪信息量$I(\theta)$决定</strong>，且费雪信息量越大（分布中含有$\theta$）的信息越多，渐进方差在同等样本数量下越小，从而最大似然估计效果越好。</p>
 <p>我们在这个定理中引入了费雪信息量这一概念，因此还要<strong>注意费雪信息量是否存在</strong>。对此，我们给出一个简单的概要：<strong>Cramer-Rao正则分布族中的分布费雪信息都是存在的</strong>。Cramer-Rao正则分布族定义如下：</p>
 <blockquote>
-<p>Cramer-Rao正则分布族：分布<span class=math>\(p(x;\theta)\)</span>，<span class=math>\(\theta\in\varTheta\)</span>属于Cramer-Rao正则分布族，则需要满足以下五个条件：</p>
-<ol style=list-style-type:decimal>
-<li>参数空间<span class=math>\(\varTheta\)</span>是直线上的开区间；</li>
-<li><span class=math>\(\frac{\partial\ln p}{\partial\theta}\)</span>对所有<span class=math>\(\theta\in\varTheta\)</span>都存在；</li>
-<li>分布的支撑<span class=math>\(\{x:p(x;\theta)>0\}\)</span>与<span class=math>\(\theta\)</span>无关；</li>
-<li><span class=math>\(p(x;\theta)\)</span>的微分与积分运算可交换；</li>
-<li>对所有<span class=math>\(\theta\in\varTheta\)</span>，期望<span class=math>\(0&lt;E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]&lt;+\infty\)</span>。</li>
+<p>Cramer-Rao正则分布族：分布$p(x;\theta)$，$\theta\in\varTheta$属于Cramer-Rao正则分布族，则需要满足以下五个条件：</p>
+<ol>
+<li>参数空间$\varTheta$是直线上的开区间；</li>
+<li>$\frac{\partial\ln p}{\partial\theta}$对所有$\theta\in\varTheta$都存在；</li>
+<li>分布的支撑${x:p(x;\theta)>0}$与$\theta$无关；</li>
+<li>$p(x;\theta)$的微分与积分运算可交换；</li>
+<li>对所有$\theta\in\varTheta$，期望$0&lt;E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]&lt;+\infty$。</li>
 </ol>
 </blockquote>
-<p>常用的分布大多数都属于Cramer-Rao正则分布族，但是均匀分布<span class=math>\(U(0,\theta)\)</span>不是，因为其分布的支撑与<span class=math>\(\theta\)</span>相关。</p>
+<p>常用的分布大多数都属于Cramer-Rao正则分布族，但是均匀分布$U(0,\theta)$不是，因为其分布的支撑与$\theta$相关。</p>
 <h3 id=cramer-rao正则分布族下费雪信息量的另一种表示>Cramer-Rao正则分布族下费雪信息量的另一种表示</h3>
-<p>若<span class=math>\(p(x;\theta)\)</span>为Cramer-Rao正则分布族，若其二节偏导数<span class=math>\(\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}\)</span>对一切<span class=math>\(\theta\)</span>存在，其费雪信息量还可以写为： <span class=math>\[
+<p>若$p(x;\theta)$为Cramer-Rao正则分布族，若其二节偏导数$\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}$对一切$\theta$存在，其费雪信息量还可以写为：
+$$
 I(\theta)=-E[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}]
-\]</span> 这种方式可以帮助我们简便计算费雪信息量。此外，这是理解费雪信息量的另一个角度。我们知道二阶导数衡量一个函数的“凸程度”，绝对值越大，越陡峭，说明真值集中性越强。意味着，费雪信息量越大，我们更可能在凸峰出取到真实值附近的值。下面我们证明这两种表示是相等的。</p>
-<p><strong>证明</strong>：由于<span class=math>\(p(x;\theta)\)</span>为Cramer-Rao正则分布族，且其二阶偏导数总是存在，对于定积分 <span class=math>\[
+$$
+这种方式可以帮助我们简便计算费雪信息量。此外，这是理解费雪信息量的另一个角度。我们知道二阶导数衡量一个函数的“凸程度”，绝对值越大，越陡峭，说明真值集中性越强。意味着，费雪信息量越大，我们更可能在凸峰出取到真实值附近的值。下面我们证明这两种表示是相等的。</p>
+<p><strong>证明</strong>：由于$p(x;\theta)$为Cramer-Rao正则分布族，且其二阶偏导数总是存在，对于定积分
+$$
 1=\int_{-\infty}^{+\infty}p(x;\theta)\mathrm{d}x
-\]</span> 两侧对<span class=math>\(\theta\)</span>求偏导，由于定积分是个常数，因此导数必为0： <span class=math>\[
+$$
+两侧对$\theta$求偏导，由于定积分是个常数，因此导数必为0：
+$$
 0=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}p(x;\theta)\mathrm{d}x
-\]</span> 根据Cramer-Rao正则分布族的第4条定义，我们交换上式中积分与微分的顺序： <span class=math>\[
+$$
+根据Cramer-Rao正则分布族的第4条定义，我们交换上式中积分与微分的顺序：
+$$
 0=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}p(x;\theta)\mathrm{d}x=\int_{-\infty}^{+\infty}\frac{\partial p(x;\theta)}{\partial\theta}\mathrm{d}x
-\]</span> 下面用到了一个计算技巧：<span class=math>\(\frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\)</span>，代入其中有： <span class=math>\[
+$$
+下面用到了一个计算技巧：$\frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)$，代入其中有：
+$$
 0=\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x=E[\frac{\partial\ln p(x;\theta)}{\partial\theta}]
-\]</span> 我们得到一个副结论：Log似然函数的一阶导期望为0。但我们还没有得到的结论，结论中需要二阶导，所以我们再对<span class=math>\(\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x\)</span>求<span class=math>\(\theta\)</span>的偏导有： <span class=math>\[
+$$
+我们得到一个副结论：Log似然函数的一阶导期望为0。但我们还没有得到的结论，结论中需要二阶导，所以我们再对$\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x$求$\theta$的偏导有：
+$$
 \begin{aligned}
-0&=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x(交互积分微分顺序)\\
-&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+\frac{\partial\ln p(x;\theta)}{\partial\theta}\frac{\partial p(x;\theta)}{\partial\theta}]\mathrm{d}x\\
-&\because \frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\\
-0&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x\\
-0&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x+\underbrace{\int_{-\infty}^{+\infty}(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x}_{I(\theta)=E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]}\\
+0&=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x(交互积分微分顺序)\
+&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+\frac{\partial\ln p(x;\theta)}{\partial\theta}\frac{\partial p(x;\theta)}{\partial\theta}]\mathrm{d}x\
+&\because \frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\
+0&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x\
+0&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x+\underbrace{\int_{-\infty}^{+\infty}(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x}<em>{I(\theta)=E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]}\
 \end{aligned}
-\]</span> 从而有： <span class=math>\[
+$$
+从而有：
+$$
 \begin{aligned}
-I(\theta)&=0-\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x\\
+I(\theta)&=0-\int</em>{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x\
 &=-E[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}]
 \end{aligned}
-\]</span> 得证。</p>
-<p>关于副结论：Log似然函数的一阶导期望为0。我们有时候也把<span class=math>\(p\)</span>的Log似然函数称为分数函数，即分数函数的期望为0，而费雪信息量正好是分数函数的二阶原点矩，同时由于其期望为0，二阶原点矩等于二阶中心矩，即<strong>费雪信息量也正好是分数函数的方差</strong>。</p>
+$$
+得证。</p>
+<p>关于副结论：Log似然函数的一阶导期望为0。我们有时候也把$p$的Log似然函数称为分数函数，即分数函数的期望为0，而费雪信息量正好是分数函数的二阶原点矩，同时由于其期望为0，二阶原点矩等于二阶中心矩，即<strong>费雪信息量也正好是分数函数的方差</strong>。</p>
 <h2 id=cramer-rao不等式与界>Cramer-Rao不等式与界</h2>
 <p>从最大似然估计的渐进正态性，我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
 <p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！它有自己估计的上限！</p>
 <h2 id=最大似然估计不具备的性质>最大似然估计不具备的性质</h2>
-<ol style=list-style-type:decimal>
+<ol>
 <li>最大似然估计不一定是无偏的。</li>
-<li>当待估计参数与自变量<span class=math>\(x\)</span>相关时，无法用求导的方式求解。我们需要回到最大似然估计的基本定义，既让似然函数概率最大，来考虑问题。</li>
+<li>当待估计参数与自变量$x$相关时，无法用求导的方式求解。我们需要回到最大似然估计的基本定义，既让似然函数概率最大，来考虑问题。</li>
 </ol>
 </article>
 <aside class=sidebar>

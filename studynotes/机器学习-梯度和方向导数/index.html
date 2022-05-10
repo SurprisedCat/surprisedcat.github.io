@@ -88,14 +88,17 @@ Oct 11, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=梯度和方向导数>梯度和方向导数</h2>
+<h2 id=梯度和方向导数---omit-in-toc--->梯度和方向导数</h2>
 <p>梯度是向量，是输入空间的向量。其方向指向函数值上升最快的方向，模是值函数的陡峭程度。模越大，越陡峭。</p>
-<p>方向导数是标量，指函数值沿着某一方向<span class=math>\(\vec{v}\)</span>的变换率。 <span class=math>\[\nabla_v f(\vec{x})=\lim_{t→∞}\frac{f(\vec x+t\vec v)-f(\vec x)}{t}\]</span></p>
+<p>方向导数是标量，指函数值沿着某一方向$\vec{v}$的变换率。
+$$\nabla_v f(\vec{x})=\lim_{t→∞}\frac{f(\vec x+t\vec v)-f(\vec x)}{t}$$</p>
 <p>单位长度内，<strong>上升最多</strong>的方向是梯度所指的方向，梯度方向的方向导数指是梯度的模。</p>
-<p>沿<span class=math>\(\vec v\)</span>的方向导数和梯度的关系： <span class=math>\[\nabla_v f(\vec{x})=\vec{v}\cdot\nabla f(\vec{x}),\\
-\nabla f(\vec{x})是点\vec x的梯度，\cdot是内积\]</span> 即使某点的梯度不存在，方向导数也可能存在。这时候可以用定义去求。</p>
-<p><span class=math>\(\nabla_v f，f'_v，f'(x;v)，Df_x(v)，\frac{\partial f(x)}{\partial v}\)</span>都是指方向导数，为了省事向量的符号都没有打。</p>
-<p>如果在方向<span class=math>\(\vec v\)</span>上，方向导数小于0，那么在<span class=math>\(\vec v\)</span>上总可以找到一小步<span class=math>\(\bar t\)</span>，使得<span class=math>\(f(\vec x+t\vec v)&lt;f(\vec x)，t ∈(0,\bar t)\)</span>。当方向导数大于0，也有类似的结论。</p>
+<p>沿$\vec v$的方向导数和梯度的关系：
+$$\nabla_v f(\vec{x})=\vec{v}\cdot\nabla f(\vec{x}),\
+\nabla f(\vec{x})是点\vec x的梯度，\cdot是内积$$
+即使某点的梯度不存在，方向导数也可能存在。这时候可以用定义去求。</p>
+<p>$\nabla_v f，f'_v，f'(x;v)，Df_x(v)，\frac{\partial f(x)}{\partial v}$都是指方向导数，为了省事向量的符号都没有打。</p>
+<p>如果在方向$\vec v$上，方向导数小于0，那么在$\vec v$上总可以找到一小步$\bar t$，使得$f(\vec x+t\vec v)&lt;f(\vec x)，t ∈(0,\bar t)$。当方向导数大于0，也有类似的结论。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

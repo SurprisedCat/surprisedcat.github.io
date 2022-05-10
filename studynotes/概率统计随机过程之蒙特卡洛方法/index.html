@@ -89,17 +89,23 @@ Apr 16, 2021</span>
 </span>
 </div>
 <ul>
-<li><a href=#蒙特卡洛求定积分的基本方法>蒙特卡洛求定积分的基本方法</a></li>
-<li><a href=#随机投点法>随机投点法</a></li>
-<li><a href=#样本平均值法>样本平均值法</a></li>
-<li><a href=#重要性采样>重要性采样</a></li>
-<li><a href=#分层抽样法>分层抽样法</a></li>
-<li><a href=#最大期望算法expectation-maximum-em算法>最大期望算法（Expectation Maximum, EM）算法</a></li>
-<li><a href=#马尔科夫链蒙特卡洛mcmc>马尔科夫链蒙特卡洛MCMC</a></li>
+<li><a href=#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%B1%82%E5%AE%9A%E7%A7%AF%E5%88%86%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95>蒙特卡洛求定积分的基本方法</a>
+<ul>
+<li><a href=#%E9%9A%8F%E6%9C%BA%E6%8A%95%E7%82%B9%E6%B3%95>随机投点法</a></li>
+<li><a href=#%E6%A0%B7%E6%9C%AC%E5%B9%B3%E5%9D%87%E5%80%BC%E6%B3%95>样本平均值法</a></li>
 </ul>
-<h2 id=概率统计随机过程之蒙特卡洛方法>概率统计随机过程之蒙特卡洛方法</h2>
+</li>
+<li><a href=#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7>重要性采样</a>
+<ul>
+<li><a href=#%E5%88%86%E5%B1%82%E6%8A%BD%E6%A0%B7%E6%B3%95>分层抽样法</a></li>
+</ul>
+</li>
+<li><a href=#%E6%9C%80%E5%A4%A7%E6%9C%9F%E6%9C%9B%E7%AE%97%E6%B3%95expectation-maximum-em%E7%AE%97%E6%B3%95>最大期望算法（Expectation Maximum, EM）算法</a></li>
+<li><a href=#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E9%93%BE%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9Bmcmc>马尔科夫链蒙特卡洛MCMC</a></li>
+</ul>
+<h2 id=概率统计随机过程之蒙特卡洛方法---omit-in-toc--->概率统计随机过程之蒙特卡洛方法</h2>
 <p>蒙特卡方法洛（Monte Carlo Method）简称MC，又叫随机模拟方法，本质是随机抽样。MC方法的使用框架一般为</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>针对实际问题建立一个便于实现的概率统计模型，使所求解恰好是所建模型的概率分布或其某个数字特征，比如某个事件的概率或期望值。</li>
 <li>对模型中随机变量建立抽样，在计算机上进行随机试验，抽取足够的随机数，并对有关事件进行统计；</li>
 <li>对模拟实验结果加以分析，<strong>给出所求解的估计及精度（方差）的估计</strong>；</li>
@@ -107,107 +113,192 @@ Apr 16, 2021</span>
 </ol>
 <h2 id=蒙特卡洛求定积分的基本方法>蒙特卡洛求定积分的基本方法</h2>
 <p>蒙特卡洛方法近年来受到了广泛运用，不少统计问题到最后到可以归结为定积分的计算，如计算概率、各阶矩、贝叶斯机器学习等，因此我们首先介绍定积分的蒙特卡洛计算。考虑定积分的一个通用形式：</p>
-<p><span class=math>\[
+<p>$$
 \theta=\int_a^b f(x) \mathrm{d}x\tag{1}
-\]</span></p>
+$$</p>
 <p>我们先考虑两种基础的蒙特卡洛积分方法，然后再给出一些给复杂而有效的办法。</p>
 <h3 id=随机投点法>随机投点法</h3>
-<p>随机投点法底层原理是伯努利大数定理（用频率接近概率），可以简单理解成几何概型的应用。简单起见，假设<span class=math>\(a,b\)</span>有限，式（1）中的函数满足<span class=math>\(0\leq f(x)\leq M\)</span>，令<span class=math>\(\Omega=\{(x,y):a\leq x\leq b,0\leq y\leq M\}\)</span>。那么根据几何概型，在<span class=math>\(\Omega\)</span>内取均匀分布的点，该点落在<span class=math>\(f(x)\)</span>下方的概率为<span class=math>\(p=\frac{S(\Omega)}{\theta}\)</span>，其中<span class=math>\(S(\Omega)\)</span>是整体的面积，值为<span class=math>\(M(b-a)\)</span>，<span class=math>\(\theta\)</span>是<span class=math>\(f(x)\)</span>函数下方的面积，根据积分的定义可知<span class=math>\(\theta=\int_a^b f(x) \mathrm{d}x\)</span>。</p>
-<div class=figure>
-<img src=../../images/随机投点法.png alt=随机投点法><p class=caption>随机投点法</p>
-</div>
-<p>显然，这就是高中学过的几何概型，概率等于面积的比值，由此，我们也可以反推<span class=math>\(f(x)\)</span>下方的面积，即积分的值为： <span class=math>\[
+<p>随机投点法底层原理是伯努利大数定理（用频率接近概率），可以简单理解成几何概型的应用。简单起见，假设$a,b$有限，式（1）中的函数满足$0\leq f(x)\leq M$，令$\Omega={(x,y):a\leq x\leq b,0\leq y\leq M}$。那么根据几何概型，在$\Omega$内取均匀分布的点，该点落在$f(x)$下方的概率为$p=\frac{S(\Omega)}{\theta}$，其中$S(\Omega)$是整体的面积，值为$M(b-a)$，$\theta$是$f(x)$函数下方的面积，根据积分的定义可知$\theta=\int_a^b f(x) \mathrm{d}x$。</p>
+<p><img src=../../images/%E9%9A%8F%E6%9C%BA%E6%8A%95%E7%82%B9%E6%B3%95.png alt=随机投点法></p>
+<p>显然，这就是高中学过的几何概型，概率等于面积的比值，由此，我们也可以反推$f(x)$下方的面积，即积分的值为：
+$$
 \theta=\int_a^b f(x) \mathrm{d}x=M(b-a)p\tag{2}
-\]</span> 现在不知道的就是概率<span class=math>\(p\)</span>。根据大数定律，如果我们往<span class=math>\(\Omega\)</span>中投很多点<span class=math>\(n\)</span>，若有<span class=math>\(n_0\)</span>个点落在<span class=math>\(f(x)\)</span>下方，那么可以通过频率逼近概率，即<span class=math>\(\hat p=\frac{n_0}{n}\rightarrow p (a.s.\; n\rightarrow\infty)\)</span>，代入式（2）中有 <span class=math>\[
-\hat{\theta}=M(b-a)\frac{n_0}{n}\rightarrow \theta(a.s.\; n\rightarrow\infty) \tag{3}
-\]</span> 上述思想是容易实现的，步骤如下</p>
-<ol style=list-style-type:decimal>
-<li>独立地产生<span class=math>\(n\)</span>对服从<span class=math>\(U(0,1)\)</span>的独立随机数<span class=math>\((u_i,v_i),i=1,2,\dotsb,n\)</span>；</li>
-<li>根据随机变量的函数关系有<span class=math>\(x_i=a+u_i(b-a),y_i=Mv_i\)</span>；</li>
-<li>统计<span class=math>\(y_i\leq f(x_i)\)</span>的个数<span class=math>\(n_0\)</span>(该点落在<span class=math>\(f(x)\)</span>下方)；</li>
+$$
+现在不知道的就是概率$p$。根据大数定律，如果我们往$\Omega$中投很多点$n$，若有$n_0$个点落在$f(x)$下方，那么可以通过频率逼近概率，即$\hat p=\frac{n_0}{n}\rightarrow p (a.s.; n\rightarrow\infty)$，代入式（2）中有
+$$
+\hat{\theta}=M(b-a)\frac{n_0}{n}\rightarrow \theta(a.s.; n\rightarrow\infty) \tag{3}
+$$
+上述思想是容易实现的，步骤如下</p>
+<ol>
+<li>独立地产生$n$对服从$U(0,1)$的独立随机数$(u_i,v_i),i=1,2,\dotsb,n$；</li>
+<li>根据随机变量的函数关系有$x_i=a+u_i(b-a),y_i=Mv_i$；</li>
+<li>统计$y_i\leq f(x_i)$的个数$n_0$(该点落在$f(x)$下方)；</li>
 <li>使用式（3）估算积分值。</li>
 </ol>
 <p>随机投点法用了类似于舍选法的做法， 在非随机问题中引入随机性时用了二维均匀分布和二项分布，靠求二项分布概率来估计积分，随机投点法容易理解，但是效率较低。</p>
 <p>那么，<strong>随机投点法精度提高一位数需要多大的代价呢</strong>？</p>
-<p>我们看每次投点的结果其实都是服从伯努利分布（也叫0-1分布），<span class=math>\(b(1,p)\)</span>，而<span class=math>\(n\)</span>次投点结果<span class=math>\(n_0\)</span>则服从二项分布<span class=math>\(b(n,p)\)</span>。显然，<span class=math>\(\hat\theta\)</span>是<span class=math>\(\theta\)</span>的无偏估计: <span class=math>\[
-E(\hat\theta)=E[M(b-a)\frac{n_0}{n}]=\frac{M(b-a)}{n}E[n_0]\\
+<p>我们看每次投点的结果其实都是服从伯努利分布（也叫0-1分布），$b(1,p)$，而$n$次投点结果$n_0$则服从二项分布$b(n,p)$。显然，$\hat\theta$是$\theta$的无偏估计:
+$$
+E(\hat\theta)=E[M(b-a)\frac{n_0}{n}]=\frac{M(b-a)}{n}E[n_0]\
 =\frac{M(b-a)}{n}\times np=M(b-a)p=\theta\tag{4}
-\]</span> 在无偏的情况下，我们可以用方差衡量精度： <span class=math>\[
+$$
+在无偏的情况下，我们可以用方差衡量精度：
+$$
 \begin{aligned}
-Var(\hat\theta)&=Var[M(b-a)\frac{n_0}{n}]=\frac{M^2(b-a)^2}{n^2}Var(n_0)\\
-&=\frac{M^2(b-a)^2}{n^2}\times np(1-p),其中p=\frac{\theta}{M(b-a)}\\
+Var(\hat\theta)&=Var[M(b-a)\frac{n_0}{n}]=\frac{M^2(b-a)^2}{n^2}Var(n_0)\
+&=\frac{M^2(b-a)^2}{n^2}\times np(1-p),其中p=\frac{\theta}{M(b-a)}\
 &=\frac{1}{n}\theta[M(b-a)-\theta]
 \end{aligned}\tag{5}
-\]</span> 其中，<span class=math>\(\theta, M, b, a\)</span>都是定值，只有<span class=math>\(n\)</span>是我们能够影响的数。也就是说，模拟次数<span class=math>\(n\)</span>提高到<span class=math>\(n\)</span>倍，方差缩小到<span class=math>\(1/n\)</span>，如果看和精度直接相关的标准差形如（<span class=math>\(E[x]\plusmn \mathrm{std}(x)\)</span>），那么精度每增加一位小数，实验量需要增加100倍。</p>
+$$
+其中，$\theta, M, b, a$都是定值，只有$n$是我们能够影响的数。也就是说，模拟次数$n$提高到$n$倍，方差缩小到$1/n$，如果看和精度直接相关的标准差形如（$E[x]\plusmn \mathrm{std}(x)$），那么精度每增加一位小数，实验量需要增加100倍。</p>
 <p><strong>随机模拟积分的精度一般都服从这样的规律</strong>。</p>
 <h3 id=样本平均值法>样本平均值法</h3>
-<p>随机投点法是一种很直觉，但是效率不高的方法，另一种效率更高的方法是利用<strong>期望值(矩)的估计</strong>。取随机变量<span class=math>\(U\sim U(a,b)\)</span>，则将<span class=math>\(U\)</span>代入<span class=math>\(f(x)\)</span>，得到一个随机数<span class=math>\(Y=f(U)\)</span>： <span class=math>\[
-E[Y]=E[f(U)]=\int_a^b f(u) \frac{1}{b-a} \mathrm{d}u=\frac{\theta}{b-a}\\
+<p>随机投点法是一种很直觉，但是效率不高的方法，另一种效率更高的方法是利用<strong>期望值(矩)的估计</strong>。取随机变量$U\sim U(a,b)$，则将$U$代入$f(x)$，得到一个随机数$Y=f(U)$：
+$$
+E[Y]=E[f(U)]=\int_a^b f(u) \frac{1}{b-a} \mathrm{d}u=\frac{\theta}{b-a}\
 \Rightarrow\theta=(b-a)E[Y]=(b-a)E[f(U)]\tag{6}
-\]</span> 在范围<span class=math>\(b-a\)</span>已知的情况下，我们需要知道<span class=math>\(f(U)\)</span>的期望即可。我们知道<strong>一个随机变量的期望即为一阶原点矩（一阶矩）</strong>，因此我们可以用<strong>矩估计</strong>的方法来近似计算。一阶矩的估计方式很简单，<strong>就是采样多个点，求函数均值，用样本均值代替一阶矩（总体期望）</strong>。</p>
-<p>我们取服从均匀分布<span class=math>\(U(a,b)\)</span>的独立的随机变量<span class=math>\(\{U_i,i=1,2,\dotsb,n\}\)</span>，则<span class=math>\(Y=f(U)\)</span>的n个采样值为<span class=math>\(\{Y_i=f(U_i),i=1,2,\dotsb,n\}\)</span>，根据矩估计方法， <span class=math>\[
+$$
+在范围$b-a$已知的情况下，我们需要知道$f(U)$的期望即可。我们知道<strong>一个随机变量的期望即为一阶原点矩（一阶矩）</strong>，因此我们可以用<strong>矩估计</strong>的方法来近似计算。一阶矩的估计方式很简单，<strong>就是采样多个点，求函数均值，用样本均值代替一阶矩（总体期望）</strong>。</p>
+<p>我们取服从均匀分布$U(a,b)$的独立的随机变量${U_i,i=1,2,\dotsb,n}$，则$Y=f(U)$的n个采样值为${Y_i=f(U_i),i=1,2,\dotsb,n}$，根据矩估计方法，
+$$
 \hat Y={1\over n}\sum_{i=1}^nf(U_i) \rightarrow E[Y]=E[f(U)]\ a.s. n\rightarrow \infty\tag{7}
-\]</span> 代入式（6）可得： <span class=math>\[
+$$
+代入式（6）可得：
+$$
 \hat\theta=(b-a)\hat Y=\frac{b-a}{n}\sum_{i=1}^nf(U_i) \rightarrow (b-a)E[f(U)]=\theta\ a.s. n\rightarrow\infty\tag{8}
-\]</span></p>
-<p>简单来说，就是从<span class=math>\(f(x)\)</span>上取足够多的点，用采样点的平均值代替函数值的均值，再乘以定义域长度，得到面积（积分值）。用一个图描述了蒙特卡洛求定积分的思想：</p>
-<div class=figure>
-<img src=../../images/蒙特卡洛求定积分.png alt=蒙特卡洛求定积分.png><p class=caption>蒙特卡洛求定积分.png</p>
-</div>
-<p>显然，样本平均值法也是无偏估计。我们也可以用方差计算其精度。为了方便比较，我们令随机投点法的积分估计值为<span class=math>\(\hat\theta_1\)</span>，样本平均值法的估计值为<span class=math>\(\hat\theta_2\)</span>。那么可以计算<span class=math>\(\mathrm{Var}(\hat\theta_2)\)</span>，根据式（8），有： <span class=math>\[
+$$</p>
+<p>简单来说，就是从$f(x)$上取足够多的点，用采样点的平均值代替函数值的均值，再乘以定义域长度，得到面积（积分值）。用一个图描述了蒙特卡洛求定积分的思想：</p>
+<p><img src=../../images/%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%B1%82%E5%AE%9A%E7%A7%AF%E5%88%86.png alt=蒙特卡洛求定积分.png></p>
+<p>显然，样本平均值法也是无偏估计。我们也可以用方差计算其精度。为了方便比较，我们令随机投点法的积分估计值为$\hat\theta_1$，样本平均值法的估计值为$\hat\theta_2$。那么可以计算$\mathrm{Var}(\hat\theta_2)$，根据式（8），有：
+$$
 \begin{aligned}
-\mathrm{Var}(\hat\theta_2)&=\mathrm{Var}[\frac{b-a}{n}\sum_{i=1}^nf(U_i)]=(\frac{b-a}{n})^2\mathrm{Var}[\sum_{i=1}^nf(U_i)]\\
-&\because U_i\quad i.i.d\quad \therefore 根据独立随机变量和的方差性质有：\\
-&=(\frac{b-a}{n})^2\times n \times \mathrm{Var}[f(U)]\\
-&=\frac{(b-a)^2}{n}\times \int_a^b (f(U)-E[f(U)])^2 \frac{1}{b-a} \mathrm{d}U\\
-&\because E[f(U)]=\frac{\theta}{b-a}\\
-&=\frac{1}{n}[(b-a)^2\int_a^b f^2(U)\frac{1}{b-a}\mathrm{d}U-\theta^2]\\
+\mathrm{Var}(\hat\theta_2)&=\mathrm{Var}[\frac{b-a}{n}\sum_{i=1}^nf(U_i)]=(\frac{b-a}{n})^2\mathrm{Var}[\sum_{i=1}^nf(U_i)]\
+&\because U_i\quad i.i.d\quad \therefore 根据独立随机变量和的方差性质有：\
+&=(\frac{b-a}{n})^2\times n \times \mathrm{Var}[f(U)]\
+&=\frac{(b-a)^2}{n}\times \int_a^b (f(U)-E[f(U)])^2 \frac{1}{b-a} \mathrm{d}U\
+&\because E[f(U)]=\frac{\theta}{b-a}\
+&=\frac{1}{n}[(b-a)^2\int_a^b f^2(U)\frac{1}{b-a}\mathrm{d}U-\theta^2]\
 &=\frac{1}{n}[(b-a)\int_a^b f^2(U)\mathrm{d}U-\theta^2]
 \end{aligned}\tag{9}
-\]</span></p>
-<p>直观来看无法比较随机投点法和样本均值法的差异，我们将<span class=math>\(\hat\theta_1,\hat\theta_2\)</span>做差，进行比较，在<span class=math>\(0\leq f(x) \leq M\)</span>时（随机投点法要求），可以证明<span class=math>\(\mathrm{Var}(\hat\theta_1)\geq \mathrm{Var}(\hat\theta_2)\)</span>，二者相减结果如下：</p>
-<p><span class=math>\[
+$$</p>
+<p>直观来看无法比较随机投点法和样本均值法的差异，我们将$\hat\theta_1,\hat\theta_2$做差，进行比较，在$0\leq f(x) \leq M$时（随机投点法要求），可以证明$\mathrm{Var}(\hat\theta_1)\geq \mathrm{Var}(\hat\theta_2)$，二者相减结果如下：</p>
+<p>$$
 \begin{aligned}
-\mathrm{Var}(\hat\theta_1)-\mathrm{Var}(\hat\theta_2)&=\frac{1}{n}\theta[M(b-a)]-\\
-&=\frac{1}{n}[(b-a)\int_a^bf^2(U)\mathrm{d}U-\theta^2]\\
-&=\frac{M(b-a)}{n}[\theta-\int_a^b \frac{f^2(U)}{M}\mathrm{d}U]\\
-&\because 0\leq f(x) \leq M \therefore 0&lt;\frac{f(U)}{M}\leq 1\\
-&\geq \frac{M(b-a)}{n}[\theta-\int_a^b f(U)\mathrm{d}U]=0\\
+\mathrm{Var}(\hat\theta_1)-\mathrm{Var}(\hat\theta_2)&=\frac{1}{n}\theta[M(b-a)]-\
+&=\frac{1}{n}[(b-a)\int_a^bf^2(U)\mathrm{d}U-\theta^2]\
+&=\frac{M(b-a)}{n}[\theta-\int_a^b \frac{f^2(U)}{M}\mathrm{d}U]\
+&\because 0\leq f(x) \leq M \therefore 0&lt;\frac{f(U)}{M}\leq 1\
+&\geq \frac{M(b-a)}{n}[\theta-\int_a^b f(U)\mathrm{d}U]=0\
 \end{aligned}
-\]</span> 由此可见，只要<span class=math>\(\{U:f(U)&lt;M\}\)</span>不是零测集，就有<span class=math>\(\mathrm{Var}(\hat\theta_1)>\mathrm{Var}(\hat\theta_2)\)</span>。由此，样本均值法比随机投点法方差更小，更有效。此外，样本均值法不要求<span class=math>\(f(x)\)</span>有上界<span class=math>\(M\)</span>，可以推广至一般情形。</p>
+$$
+由此可见，只要${U:f(U)&lt;M}$不是零测集，就有$\mathrm{Var}(\hat\theta_1)>\mathrm{Var}(\hat\theta_2)$。由此，样本均值法比随机投点法方差更小，更有效。此外，样本均值法不要求$f(x)$有上界$M$，可以推广至一般情形。</p>
 <h2 id=重要性采样>重要性采样</h2>
-<p>我们根据随机投点法和样本均值法已经能够进行蒙特卡洛积分的无偏估计，并且随着采样次数的增加最终能以<span class=math>\(O(n^{-1/2})\)</span>收敛。我们现在需要的是优化蒙特卡洛积分的计算方法，使<strong>估计的方差尽量小</strong>。</p>
-<p>我们再回看式（1），对他进行适当变形： <span class=math>\[
-\theta=\int_a^b f(x) \mathrm{d}x=\int_a^b \frac{f(x)}{g(x)} g(x) \mathrm{d}x=E[\frac{f(X)}{g(X)}]\\
+<p>我们根据随机投点法和样本均值法已经能够进行蒙特卡洛积分的无偏估计，并且随着采样次数的增加最终能以$O(n^{-1/2})$收敛。我们现在需要的是优化蒙特卡洛积分的计算方法，使<strong>估计的方差尽量小</strong>。</p>
+<p>我们再回看式（1），对他进行适当变形：
+$$
+\theta=\int_a^b f(x) \mathrm{d}x=\int_a^b \frac{f(x)}{g(x)} g(x) \mathrm{d}x=E[\frac{f(X)}{g(X)}]\
 g(x)\neq 0;x\in[a,b]\tag{10}
-\]</span> 其中，<span class=math>\(g(x)\)</span>是一个概率密度函数。那么原来的积分问题就变成了求期望，若有来自<span class=math>\(g(x)\)</span>的样本（随机数）<span class=math>\(\{x_1,x_2,\dotsb,x_n\}\)</span>（服从<span class=math>\(g(x)\)</span>的分布），则<span class=math>\(\theta\)</span>的估计可以用一阶矩估计来实现： <span class=math>\[
+$$
+其中，$g(x)$是一个概率密度函数。那么原来的积分问题就变成了求期望，若有来自$g(x)$的样本（随机数）${x_1,x_2,\dotsb,x_n}$（服从$g(x)$的分布），则$\theta$的估计可以用一阶矩估计来实现：
+$$
 \hat\theta=\frac{1}{n}\sum_{i=1}^n \frac{f(x_i)}{g(x_i)}\tag{11}
-\]</span> 显然，如果当<span class=math>\(g(x)=\frac{1}{b-a}\)</span>时，这种方法就是样本均值法，也可以说<strong>样本均值法是此类方法的一个特例</strong>。</p>
-<p>估计量<span class=math>\(\hat{\theta}\)</span>的<strong>构造是很简单的，说白了就是一阶原点矩估计</strong>。我们对<span class=math>\(\hat\theta\)</span>求期望易知此估计式无偏的，即<span class=math>\(E[\hat{\theta}]=\theta\)</span>。而其方差为： <span class=math>\[
+$$
+显然，如果当$g(x)=\frac{1}{b-a}$时，这种方法就是样本均值法，也可以说<strong>样本均值法是此类方法的一个特例</strong>。</p>
+<p>估计量$\hat{\theta}$的<strong>构造是很简单的，说白了就是一阶原点矩估计</strong>。我们对$\hat\theta$求期望易知此估计式无偏的，即$E[\hat{\theta}]=\theta$。而其方差为：
+$$
 \mathrm{Var}(\hat\theta)=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-E^2(\frac{f(x)}{g(x)})]=\frac{1}{n}[E(\frac{f(x)}{g(x)})^2-\theta^2]\tag{12}
-\]</span> 那么根据式（12），<strong>除了增加采样的次数，我们又多了一个可以用来降低方差的工具</strong><span class=math>\(g(x)\)</span>，我们可以通过合理设计<span class=math>\(g(x)\)</span>使蒙特卡洛积分的效率更高。理论上来看，当<span class=math>\(g(x)=\frac{f(x)}{\int_a^b f(x) \mathrm{d}x}\)</span>时，有<span class=math>\(\mathrm{Var}(\hat\theta)=0\)</span>，此时结果最优，但是这个<span class=math>\(g(x)\)</span>中必须已知式（1）<span class=math>\(\int_a^b f(x) \mathrm{d}x\)</span>的结果，显然是无法直接使用的。不过，他也给我们一个启示，即<span class=math>\(g(x)\)</span>与<span class=math>\(f(x)\)</span>应该在形状相近的情况下，估计的方差更小。下面我们举一个例子： <span class=math>\[
-f(x)=-x^2+2x\quad x\in[0,2]\\
+$$
+那么根据式（12），<strong>除了增加采样的次数，我们又多了一个可以用来降低方差的工具</strong>$g(x)$，我们可以通过合理设计$g(x)$使蒙特卡洛积分的效率更高。理论上来看，当$g(x)=\frac{f(x)}{\int_a^b f(x) \mathrm{d}x}$时，有$\mathrm{Var}(\hat\theta)=0$，此时结果最优，但是这个$g(x)$中必须已知式（1）$\int_a^b f(x) \mathrm{d}x$的结果，显然是无法直接使用的。不过，他也给我们一个启示，即$g(x)$与$f(x)$应该在形状相近的情况下，估计的方差更小。下面我们举一个例子：
+$$
+f(x)=-x^2+2x\quad x\in[0,2]\
 g_1(x)=\frac{1}{2};g_2(x)=e^{-x};g_3(x)=\frac{1}{\sqrt{2\pi}\times 0.5}e^{-\frac{(x-1)^2}{2\times 0.5^2}}
-\]</span> 分别用3个<span class=math>\(g(x)\)</span>函数，作为重要性采用的概率密度函数。首先，我们易算出<span class=math>\(f(x)=-x^2+2x\quad x\in[0,2]\)</span>的积分结果为<span class=math>\(\frac{4}{3}\)</span>，我们画出各个函数的图像以及<span class=math>\(\frac{f(x)}{g(x)}\)</span>的图像。</p>
-<p><img src=../../images/importance_sampling1.png alt="importance sampling"> <img src=../../images/importance_sampling2.png alt="importance sampling"></p>
-<p>我们使用matlab分别计算三个重要性采样的方差有（取<span class=math>\(n=10\)</span>）： <span class=math>\[
-\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_1(x)})=0.03556\\
-\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_2(x)})=0.1335\\
+$$
+分别用3个$g(x)$函数，作为重要性采用的概率密度函数。首先，我们易算出$f(x)=-x^2+2x\quad x\in[0,2]$的积分结果为$\frac{4}{3}$，我们画出各个函数的图像以及$\frac{f(x)}{g(x)}$的图像。</p>
+<p><img src=../../images/importance_sampling1.png alt="importance sampling">
+<img src=../../images/importance_sampling2.png alt="importance sampling"></p>
+<p>我们使用matlab分别计算三个重要性采样的方差有（取$n=10$）：
+$$
+\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_1(x)})=0.03556\
+\mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_2(x)})=0.1335\
 \mathrm{Var}(\frac{1}{10}\sum_{i=1}^{10} \frac{f(x)}{g_3(x)})=0.01205
-\]</span> matlab计算结果显示<span class=math>\(g_3(x)\)</span>能够缩减方差，而与<span class=math>\(f(x)\)</span>形状差异大的<span class=math>\(g_2(x)\)</span>反而使方差更大了。</p>
-<p>可以从第二个图中看出，如果<span class=math>\(g(x)\)</span>与<span class=math>\(f(x)\)</span>的形状相似，相除之后的函数图像更加贴近积分结果<span class=math>\(\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})\)</span>，这样我们在抽样时结果接近<span class=math>\(\theta\)</span>的概率也更大；如果形状相差太大，如<span class=math>\(g_2(x)\)</span>积分的结果反而会变得更加不好统计。</p>
-<p>综合来说，<strong>重要性采样让新的函数值<span class=math>\(h(x)=\frac{f(x)}{g(x)}\)</span>取到接近于积分结果的概率变大了</strong>。我们现在的问题就转变成了<strong>如何找到一个和<span class=math>\(f(x)\)</span>形状相似的函数</strong>。</p>
+$$
+matlab计算结果显示$g_3(x)$能够缩减方差，而与$f(x)$形状差异大的$g_2(x)$反而使方差更大了。</p>
+<p>可以从第二个图中看出，如果$g(x)$与$f(x)$的形状相似，相除之后的函数图像更加贴近积分结果$\theta=\frac{4}{3}(\frac{f(x)}{g_3(x)})$，这样我们在抽样时结果接近$\theta$的概率也更大；如果形状相差太大，如$g_2(x)$积分的结果反而会变得更加不好统计。</p>
+<p>综合来说，<strong>重要性采样让新的函数值$h(x)=\frac{f(x)}{g(x)}$取到接近于积分结果的概率变大了</strong>。我们现在的问题就转变成了<strong>如何找到一个和$f(x)$形状相似的函数</strong>。</p>
 <h3 id=分层抽样法>分层抽样法</h3>
-<p>在重要性采样的结论中，我们知道当<span class=math>\(f(x)\)</span>与<span class=math>\(g(x)\)</span>比值为常数时，可以得到理解最小的方差0，那么我们可不可以近似的构造一个这样的函数呢？基于这个思想，我们有了分层抽样法。</p>
-<p>分层抽样法首先把样本空间<span class=math>\(D\)</span>分成一些小区间<span class=math>\(D_1,\dotsb,D_m\)</span>，且诸<span class=math>\(D_i\)</span>不交，<span class=math>\(\cup D_i =D\)</span>，然后在各小区间内的抽样数由其“贡献”大小决定。这里的“贡献”我们定义为在小区间<span class=math>\(D_i\)</span>内的积分值，即 <span class=math>\[p_i=\int_{D_i}f(x)\mathrm{d}x\tag{13}\]</span> 在区间<span class=math>\(D_i\)</span>抽样数与<span class=math>\(p_i\)</span>成正比。显然，分层抽样法是利用小区间构造一个离散的形状类似于原函数<span class=math>\(f(x)\)</span>的<strong>分段函数</strong>。</p>
-<p>我们继续以上个例子<span class=math>\(f(x)=-x^2+2x\)</span>来说明，我们把积分区间<span class=math>\([0,2]\)</span>划分成十等分，根据式（13）有以下表格： |区间|积分值<span class=math>\(p_i\)</span>|归一化比例| |:-:|:-:|:-:| |[0,0.2)|0.0373|0.0280| |[0.2,0.4)|0.1013|0.0760| |[0.4,0.6)|0.1493|0.1120| |[0.6,0.8)|0.1813|0.1360| |[0.8,1.0)|0.1973|0.1480| |[1.0,1.2)|0.1973|0.1480| |[1.2,1.4)|0.1813|0.1360| |[1.4,1.6)|0.1493|0.1120| |[1.6,1.8)|0.1013|0.0760| |[1.8,2.0]|0.0373|0.0280</p>
-<p>我们将归一化<span class=math>\(p_i\)</span>值与<span class=math>\(f(x)\)</span>画到一张图上(图中黄线与红线)。此外，为了表现构造的分段函数与原函数形状是相似的，我们将分段函数线性放大6倍（蓝线）。</p>
-<div class=figure>
-<img src=../../images/分层抽样1.png alt=分层抽样1><p class=caption>分层抽样1</p>
-</div>
-<p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数<strong>最优方式</strong>为: <span class=math>\[
+<p>在重要性采样的结论中，我们知道当$f(x)$与$g(x)$比值为常数时，可以得到理解最小的方差0，那么我们可不可以近似的构造一个这样的函数呢？基于这个思想，我们有了分层抽样法。</p>
+<p>分层抽样法首先把样本空间$D$分成一些小区间$D_1,\dotsb,D_m$，且诸$D_i$不交，$\cup D_i =D$，然后在各小区间内的抽样数由其“贡献”大小决定。这里的“贡献”我们定义为在小区间$D_i$内的积分值，即
+$$p_i=\int_{D_i}f(x)\mathrm{d}x\tag{13}$$
+在区间$D_i$抽样数与$p_i$成正比。显然，分层抽样法是利用小区间构造一个离散的形状类似于原函数$f(x)$的<strong>分段函数</strong>。</p>
+<p>我们继续以上个例子$f(x)=-x^2+2x$来说明，我们把积分区间$[0,2]$划分成十等分，根据式（13）有以下表格：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>区间</th>
+<th style=text-align:center>积分值$p_i$</th>
+<th style=text-align:center>归一化比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>[0,0.2)</td>
+<td style=text-align:center>0.0373</td>
+<td style=text-align:center>0.0280</td>
+</tr>
+<tr>
+<td style=text-align:center>[0.2,0.4)</td>
+<td style=text-align:center>0.1013</td>
+<td style=text-align:center>0.0760</td>
+</tr>
+<tr>
+<td style=text-align:center>[0.4,0.6)</td>
+<td style=text-align:center>0.1493</td>
+<td style=text-align:center>0.1120</td>
+</tr>
+<tr>
+<td style=text-align:center>[0.6,0.8)</td>
+<td style=text-align:center>0.1813</td>
+<td style=text-align:center>0.1360</td>
+</tr>
+<tr>
+<td style=text-align:center>[0.8,1.0)</td>
+<td style=text-align:center>0.1973</td>
+<td style=text-align:center>0.1480</td>
+</tr>
+<tr>
+<td style=text-align:center>[1.0,1.2)</td>
+<td style=text-align:center>0.1973</td>
+<td style=text-align:center>0.1480</td>
+</tr>
+<tr>
+<td style=text-align:center>[1.2,1.4)</td>
+<td style=text-align:center>0.1813</td>
+<td style=text-align:center>0.1360</td>
+</tr>
+<tr>
+<td style=text-align:center>[1.4,1.6)</td>
+<td style=text-align:center>0.1493</td>
+<td style=text-align:center>0.1120</td>
+</tr>
+<tr>
+<td style=text-align:center>[1.6,1.8)</td>
+<td style=text-align:center>0.1013</td>
+<td style=text-align:center>0.0760</td>
+</tr>
+<tr>
+<td style=text-align:center>[1.8,2.0]</td>
+<td style=text-align:center>0.0373</td>
+<td style=text-align:center>0.0280</td>
+</tr>
+</tbody>
+</table>
+<p>我们将归一化$p_i$值与$f(x)$画到一张图上(图中黄线与红线)。此外，为了表现构造的分段函数与原函数形状是相似的，我们将分段函数线性放大6倍（蓝线）。</p>
+<p><img src=../../images/%E5%88%86%E5%B1%82%E6%8A%BD%E6%A0%B71.png alt=分层抽样1></p>
+<p>可以看出，分层抽样构造出的函数与目标积分函数是类似的，我们区间划分的越细，分段函数越相似。根据分段函数比例分配抽样次数，可以大大降低方差。理论上，给定分层抽样函数后，每个区间的分配的抽样数<strong>最优方式</strong>为:
+$$
 n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
-\]</span> 其中，<span class=math>\(n_i\)</span>是区间<span class=math>\(D_i\)</span>的抽样数，<span class=math>\(n\)</span>为总抽样数，<span class=math>\(m\)</span>为总区间数目，<span class=math>\(l_i\)</span>是区间<span class=math>\(D_i\)</span>的长度，<span class=math>\(\sigma_i\)</span>是区间<span class=math>\(D_i\)</span>的标准差，此时方差最小，为<span class=math>\(\frac{1}{n}(\sum_{i=1}^m l_i\sigma_i)^2\)</span>。然而实际计算中，每个区间的标准差<span class=math>\(\sigma_i\)</span>总是未知的，式(14)无法直接使用。即使如此，最简单的分配方案<span class=math>\(n_i=nl_i/\sum l_i\)</span>方差也比样本均值法低。</p>
+$$
+其中，$n_i$是区间$D_i$的抽样数，$n$为总抽样数，$m$为总区间数目，$l_i$是区间$D_i$的长度，$\sigma_i$是区间$D_i$的标准差，此时方差最小，为$\frac{1}{n}(\sum_{i=1}^m l_i\sigma_i)^2$。然而实际计算中，每个区间的标准差$\sigma_i$总是未知的，式(14)无法直接使用。即使如此，最简单的分配方案$n_i=nl_i/\sum l_i$方差也比样本均值法低。</p>
 <p>此外，其他缩减方差技术还有关联抽样法、控制变量法、对立变量法、条件期望法等等。</p>
 <h2 id=最大期望算法expectation-maximum-em算法>最大期望算法（Expectation Maximum, EM）算法</h2>
 <p>我们在参数估计中常用最大似然估计，不过实际问题中，除了需要估计的未知参数，还有别的</p>

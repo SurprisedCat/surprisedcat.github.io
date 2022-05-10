@@ -88,68 +88,82 @@ Apr 17, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=拓扑数学>拓扑数学</h2>
+<h2 id=拓扑数学---omit-in-toc--->拓扑数学</h2>
 <ul>
-<li><a href=#拓扑空间>拓扑空间</a></li>
-<li><a href=#子空间拓扑>子空间拓扑</a></li>
-<li><a href=#度量空间>度量空间</a></li>
-<li><a href=#紧度量空间>紧度量空间</a></li>
-<li><a href=#完备空间>完备空间</a></li>
-<li><a href=#有界与完全有界空间>有界与完全有界空间</a></li>
-<li><a href=#紧致空间>紧致空间</a></li>
-<li><a href=#banach空间>Banach空间</a></li>
-<li><a href=#柯西序列>柯西序列</a></li>
-<li><a href=#子序列>子序列</a></li>
-<li><a href=#空间>空间</a></li>
-<li><a href=#线性空间关系>线性空间关系</a></li>
-<li><a href=#空间关系>空间关系</a></li>
+<li><a href=#%E6%8B%93%E6%89%91%E7%A9%BA%E9%97%B4>拓扑空间</a>
+<ul>
+<li><a href=#%E5%AD%90%E7%A9%BA%E9%97%B4%E6%8B%93%E6%89%91>子空间拓扑</a></li>
+</ul>
+</li>
+<li><a href=#%E5%BA%A6%E9%87%8F%E7%A9%BA%E9%97%B4>度量空间</a>
+<ul>
+<li><a href=#%E7%B4%A7%E5%BA%A6%E9%87%8F%E7%A9%BA%E9%97%B4>紧度量空间</a></li>
+</ul>
+</li>
+<li><a href=#%E5%AE%8C%E5%A4%87%E7%A9%BA%E9%97%B4>完备空间</a></li>
+<li><a href=#%E6%9C%89%E7%95%8C%E4%B8%8E%E5%AE%8C%E5%85%A8%E6%9C%89%E7%95%8C%E7%A9%BA%E9%97%B4>有界与完全有界空间</a></li>
+<li><a href=#%E7%B4%A7%E8%87%B4%E7%A9%BA%E9%97%B4>紧致空间</a></li>
+<li><a href=#banach%E7%A9%BA%E9%97%B4>Banach空间</a></li>
+<li><a href=#%E6%9F%AF%E8%A5%BF%E5%BA%8F%E5%88%97>柯西序列</a>
+<ul>
+<li><a href=#%E5%AD%90%E5%BA%8F%E5%88%97>子序列</a></li>
+</ul>
+</li>
+<li><a href=#%E7%A9%BA%E9%97%B4>空间</a></li>
+<li><a href=#%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB>线性空间关系</a></li>
+<li><a href=#%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB>空间关系</a></li>
 </ul>
 <h2 id=拓扑空间>拓扑空间</h2>
-<p><strong>拓扑空间</strong>是一个集<span class=math>\(X\)</span>和其上定义的拓扑结构<span class=math>\(\tau\)</span>组成的二元组<span class=math>\((X,\tau)\)</span>，简记为<span class=math>\(X\)</span>。<span class=math>\(X\)</span>的元素<span class=math>\(x\)</span>通常称为拓扑空间<span class=math>\((X,\tau )\)</span>的点。而拓扑结构<span class=math>\(\tau\)</span>一词涵盖了<strong>开集，闭集，邻域，开核，闭包，导集，滤子</strong>等若干概念。从这些概念出发，可以给拓扑空间<span class=math>\((X,\tau)\)</span>作出若干种等价的定义。在教科书中最常见的定义是从<strong>开集</strong>开始的。</p>
+<p><strong>拓扑空间</strong>是一个集$X$和其上定义的拓扑结构$\tau$组成的二元组$(X,\tau)$，简记为$X$。$X$的元素$x$通常称为拓扑空间$(X,\tau )$的点。而拓扑结构$\tau$一词涵盖了<strong>开集，闭集，邻域，开核，闭包，导集，滤子</strong>等若干概念。从这些概念出发，可以给拓扑空间$(X,\tau)$作出若干种等价的定义。在教科书中最常见的定义是从<strong>开集</strong>开始的。</p>
 <blockquote>
-<p>开集公理： <span class=math>\(X\)</span>的子集的集合族<span class=math>\({\mathfrak {O}}\)</span>称为<strong>开集系</strong>（其中的元素称为<strong>开集</strong>），当且仅当其满足如下<strong>开集公理</strong>:</p>
+<p>开集公理： $X$的子集的集合族${\mathfrak {O}}$称为<strong>开集系</strong>（其中的元素称为<strong>开集</strong>），当且仅当其满足如下<strong>开集公理</strong>:</p>
 <ul>
-<li><strong>O1</strong>：<span class=math>\(\varnothing \in {\mathfrak {O}}，X\in {\mathfrak {O}}\)</span>。</li>
-<li><strong>O2</strong>:若<span class=math>\(A_{\lambda }\in {\mathfrak {O}}（\lambda \in \Lambda）\)</span>，则<span class=math>\(\bigcup_{{\lambda \in \Lambda }}A_{{\lambda }}\in {\mathfrak {O}}\)</span>（对<strong>任意并</strong>运算封闭）。</li>
-<li><strong>O3</strong>:若<span class=math>\(A,B\in {\mathfrak {O}}\)</span>，则<span class=math>\(A\cap B\in {\mathfrak {O}}\)</span>。（对<strong>有限交</strong>运算封闭）。</li>
+<li><strong>O1</strong>：$\varnothing \in {\mathfrak {O}}，X\in {\mathfrak {O}}$。</li>
+<li><strong>O2</strong>:若$A_{\lambda }\in {\mathfrak {O}}（\lambda \in \Lambda）$，则$\bigcup_{{\lambda \in \Lambda }}A_{{\lambda }}\in {\mathfrak {O}}$（对<strong>任意并</strong>运算封闭）。</li>
+<li><strong>O3</strong>:若$A,B\in {\mathfrak {O}}$，则$A\cap B\in {\mathfrak {O}}$。（对<strong>有限交</strong>运算封闭）。</li>
 </ul>
 </blockquote>
-<p>需要指出的是：以上所有信息构成了<span class=math>\(X\)</span>上拓扑的定义，集合系<span class=math>\(\mathfrak{O}\)</span>中的元素称为开集。集合<span class=math>\(X\)</span>和其上的拓扑结构组成了拓扑空间。</p>
-<p>注：在拓扑空间中，开集是基础性的概念。你可以<strong>从任意集合X出发，再选取<span class=math>\(X\)</span>的某个特定的子集族<span class=math>\(\mathfrak{F}\)</span>，使<span class=math>\(\mathfrak{F}\)</span>中的集合都满足作为开集应有的每一性质</strong>。我们过去说的开集都是度量空间中的开集，实际上，<strong>开集的拓扑定义推广了度量空间定义</strong>。因此自然地，任何度量空间都是拓扑空间。</p>
+<p>需要指出的是：以上所有信息构成了$X$上拓扑的定义，集合系$\mathfrak{O}$中的元素称为开集。集合$X$和其上的拓扑结构组成了拓扑空间。</p>
+<p>注：在拓扑空间中，开集是基础性的概念。你可以<strong>从任意集合X出发，再选取$X$的某个特定的子集族$\mathfrak{F}$，使$\mathfrak{F}$中的集合都满足作为开集应有的每一性质</strong>。我们过去说的开集都是度量空间中的开集，实际上，<strong>开集的拓扑定义推广了度量空间定义</strong>。因此自然地，任何度量空间都是拓扑空间。</p>
 <h3 id=子空间拓扑>子空间拓扑</h3>
 <blockquote>
-<p>设<span class=math>\(X\)</span>为一个拓扑空间，<span class=math>\(Y\subset X\)</span>为<span class=math>\(X\)</span>的一个子集，则<span class=math>\(Y\)</span>上可以如下定义一个拓扑结构： <span class=math>\[\mathfrak{F}=\{U\cap Y\big\vert U\underset{open}{\subset}X\}\]</span> 则<span class=math>\(\mathfrak{F}\)</span>定义了<span class=math>\(Y\)</span>上的一个拓扑空间结构，此结构称为<span class=math>\(X\)</span>在<span class=math>\(Y\)</span>上诱导的拓扑，或称为<span class=math>\(Y\)</span>被赋予子空间拓扑。</p>
+<p>设$X$为一个拓扑空间，$Y\subset X$为$X$的一个子集，则$Y$上可以如下定义一个拓扑结构：
+$$\mathfrak{F}={U\cap Y\big\vert U\underset{open}{\subset}X}$$
+则$\mathfrak{F}$定义了$Y$上的一个拓扑空间结构，此结构称为$X$在$Y$上诱导的拓扑，或称为$Y$被赋予子空间拓扑。</p>
 </blockquote>
 <h2 id=度量空间>度量空间</h2>
-<p><strong>度量空间</strong>是个有序对<span class=math>\((M,d)\)</span>，这里的<span class=math>\(M\)</span>是集合而<span class=math>\(d\)</span>是在<span class=math>\(M\)</span>上的度量(metric)，即为函数<span class=math>\(d:M\times M\rightarrow \mathbb{R}\)</span>。</p>
-<p>使得对于任何在<span class=math>\(M\)</span>内的<span class=math>\(x、y、z\)</span>，下列条件均成立：</p>
+<p><strong>度量空间</strong>是个有序对$(M,d)$，这里的$M$是集合而$d$是在$M$上的度量(metric)，即为函数$d:M\times M\rightarrow \mathbb{R}$。</p>
+<p>使得对于任何在$M$内的$x、y、z$，下列条件均成立：</p>
 <ul>
-<li><span class=math>\(d(x, y) ≥ 0\)</span> (非负性)</li>
-<li><span class=math>\(d(x, y) = 0\)</span> 当且仅当<span class=math>\(x = y\)</span>(不可区分者的同一性)</li>
-<li><span class=math>\(d(x, y) = d(y, x)\)</span>(对称性)</li>
-<li><span class=math>\(d(x, z) ≤ d(x, y) + d(y, z)\)</span>(三角不等式)。</li>
+<li>$d(x, y) ≥ 0$ (非负性)</li>
+<li>$d(x, y) = 0$ 当且仅当$x = y$(不可区分者的同一性)</li>
+<li>$d(x, y) = d(y, x)$(对称性)</li>
+<li>$d(x, z) ≤ d(x, y) + d(y, z)$(三角不等式)。</li>
 </ul>
 <p>条件1可由其他三个条件中导出。条件1做为度量空间的性质更恰当一些，但是很多课本都将其包含于定义之中。（以上四条要求也可以称之为度量，metric）</p>
 <h3 id=紧度量空间>紧度量空间</h3>
 <ul>
-<li>度量空间<span class=math>\(X\)</span>是紧的(compact)<span class=math>\(\Leftrightarrow X\)</span>中的每个序列都有收敛子序列</li>
+<li>度量空间$X$是紧的(compact)$\Leftrightarrow X$中的每个序列都有收敛子序列</li>
 <li>紧闭集而有界</li>
-<li>集合的每一个开覆盖都有有限的子覆盖。</li>
+<li>集合的每一个开覆盖都有有限的子覆盖。
+<ul>
 <li>这个理论强大在于强调<strong>每一个</strong>开覆盖都有有限自覆盖，如果能构造出一个开覆盖没有有限自覆盖则不能称之为紧的(compact)。</li>
 </ul>
+</li>
+</ul>
 <h2 id=完备空间>完备空间</h2>
-<p>度量空间<span class=math>\(M\)</span>称之为完备的，若<strong>每个柯西序列均收敛于<span class=math>\(M\)</span>内</strong>，亦即：若<span class=math>\(d(x_{n},x_{m})\to 0\)</span>，其中<span class=math>\(n\)</span>与<span class=math>\(m\)</span>各自趋近于无限大，则存在某个<span class=math>\(y\in M\)</span>，使得<span class=math>\(d(x_{n},y)\to 0\)</span>。</p>
-<p>每个<strong>欧氏空间</strong>都是完备的，而且该空间的每个闭子集也都是完备空间。使用绝对值度量<span class=math>\(d(x,y) = \vert x - y \vert\)</span>的有理数集合则不是完备的。</p>
+<p>度量空间$M$称之为完备的，若<strong>每个柯西序列均收敛于$M$内</strong>，亦即：若$d(x_{n},x_{m})\to 0$，其中$n$与$m$各自趋近于无限大，则存在某个$y\in M$，使得$d(x_{n},y)\to 0$。</p>
+<p>每个<strong>欧氏空间</strong>都是完备的，而且该空间的每个闭子集也都是完备空间。使用绝对值度量$d(x,y) = \vert x - y \vert$的有理数集合则不是完备的。</p>
 <p>相关定理：</p>
 <ul>
 <li>任一紧致度量空间都是完备的。实际上，一个度量空间是紧致的当且仅当该空间是完备且完全有界的。</li>
 <li>完备空间的任一子空间是完备的当且仅当它是一个闭子集。</li>
 </ul>
 <h2 id=有界与完全有界空间>有界与完全有界空间</h2>
-<p>度量空间<span class=math>\(M\)</span>被称为有界的，如果存在某个数<span class=math>\(r\)</span>，使得对于所有<span class=math>\(M\)</span>中的<span class=math>\(x\)</span>和<span class=math>\(y\)</span>有<span class=math>\(d(x,y)≤r\)</span>。<span class=math>\(r\)</span>最小可能的值称之为 M 的直径。</p>
-<p>空间<span class=math>\(M\)</span>称之为预紧致的或完全有界的，如果对于所有<span class=math>\(r > 0\)</span>存在有限多个半径为<span class=math>\(r\)</span>的开球，其并集覆盖<span class=math>\(M\)</span>。因为这些球为<strong>有限个</strong>，所以该空间的<strong>直径亦为有限值</strong>，从而得出(使用三角不等式)所有完全有界空间都是<strong>有界</strong>的。但逆命题不成立。</p>
+<p>度量空间$M$被称为有界的，如果存在某个数$r$，使得对于所有$M$中的$x$和$y$有$d(x,y)≤r$。$r$最小可能的值称之为 M 的直径。</p>
+<p>空间$M$称之为预紧致的或完全有界的，如果对于所有$r > 0$存在有限多个半径为$r$的开球，其并集覆盖$M$。因为这些球为<strong>有限个</strong>，所以该空间的<strong>直径亦为有限值</strong>，从而得出(使用三角不等式)所有完全有界空间都是<strong>有界</strong>的。但逆命题不成立。</p>
 <h2 id=紧致空间>紧致空间</h2>
-<p>度量空间<span class=math>\(M\)</span>是紧致的，若每个<span class=math>\(M\)</span>内的序列均有个子序列，会收敛于<span class=math>\(M\)</span>内的一点。这称为序列紧致性，且在度量空间（但不是一般拓扑空间）里，这等价于可数紧致与以开覆盖定义之紧致性等拓扑性质。<strong>每个紧致集合的闭子集亦是紧致的</strong>。</p>
+<p>度量空间$M$是紧致的，若每个$M$内的序列均有个子序列，会收敛于$M$内的一点。这称为序列紧致性，且在度量空间（但不是一般拓扑空间）里，这等价于可数紧致与以开覆盖定义之紧致性等拓扑性质。<strong>每个紧致集合的闭子集亦是紧致的</strong>。</p>
 <p>一度量空间为紧致的，当且仅当该空间是<strong>完备</strong>的，且为完全有界的。这即是所谓的海涅－博雷尔定理。须注意，紧致性仅决取于拓扑，而有界性则决取于度量。</p>
 <p>勒贝格数引理表示，对于紧致度量空间 M 内的每个开覆盖，均存在一个“勒贝格数”δ，使得每个 M 内直径 &lt; δ 的子集均会被包含于某些覆盖内。</p>
 <h2 id=banach空间>Banach空间</h2>
@@ -158,7 +172,7 @@ Apr 17, 2020</span>
 <p>柯西列的定义依赖于<strong>距离的定义</strong>，所以只有在<strong>度量空间</strong>中柯西列才有意义。</p>
 <p>在完备空间中，所有的柯西数列都有极限且极限在这空间里。</p>
 <h3 id=子序列>子序列</h3>
-<p>给定序列<span class=math>\(\{x^m\}\)</span>，设有一个严格递增函数<span class=math>\(m(k)\)</span>，他将每个正整数<span class=math>\(k\)</span>分配给一个正整数<span class=math>\(m(k)\)</span>，则序列<span class=math>\(\{x^{m(k)}\}\)</span>称为<span class=math>\(\{x^m\}\)</span>的<strong>子序列</strong>（subsequence）。</p>
+<p>给定序列${x^m}$，设有一个严格递增函数$m(k)$，他将每个正整数$k$分配给一个正整数$m(k)$，则序列${x^{m(k)}}$称为${x^m}$的<strong>子序列</strong>（subsequence）。</p>
 <h2 id=空间>空间</h2>
 <p>空间是附加结构的<strong>集合</strong>。现代数学</p>
 <h2 id=线性空间关系>线性空间关系</h2>
@@ -171,14 +185,11 @@ Apr 17, 2020</span>
 <li>一个向量空间加上双线性算子（定义为向量乘法）则成为域代数。</li>
 </ul>
 <h2 id=空间关系>空间关系</h2>
-<div class=figure>
-<img src=../../images/空间关系维恩图.jpeg alt=空间关系维恩图.jpeg><p class=caption>空间关系维恩图.jpeg</p>
-</div>
-<div class=figure>
-<img src=../../images/空间关系说明表.jpeg alt=空间关系维恩图.jpeg><p class=caption>空间关系维恩图.jpeg</p>
-</div>
+<p><img src=../../images/%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB%E7%BB%B4%E6%81%A9%E5%9B%BE.jpeg alt=空间关系维恩图.jpeg></p>
+<p><img src=../../images/%E7%A9%BA%E9%97%B4%E5%85%B3%E7%B3%BB%E8%AF%B4%E6%98%8E%E8%A1%A8.jpeg alt=空间关系维恩图.jpeg></p>
 <p>现代数学的一个特点就是以集合为研究对象，这样的好处就是可以将很多不同问题的本质抽象出来，变成同一个问题，当然这样的坏处就是描述起来比较抽象，很多人就难以理解了。</p>
-<p>既然是研究集合，每个人感兴趣的角度不同，研究的方向也就不同。为了能有效地研究集合，必须给集合赋予一些“结构”（从一些具体问题抽象出来的结构）。 从数学的本质来看，最基本的集合有两类：线性空间（有线性结构的集合）、度量空间（有度量结构的集合）。</p>
+<p>既然是研究集合，每个人感兴趣的角度不同，研究的方向也就不同。为了能有效地研究集合，必须给集合赋予一些“结构”（从一些具体问题抽象出来的结构）。
+从数学的本质来看，最基本的集合有两类：线性空间（有线性结构的集合）、度量空间（有度量结构的集合）。</p>
 <p>对线性空间而言，主要研究集合的描述，直观地说就是如何清楚地告诉地别人这个集合是什么样子。为了描述清楚，就引入了基（相当于三维空间中的坐标系）的概念，所以对于一个线性空间来说，只要知道其基即可，集合中的元素只要知道其在给定基下的坐标即可。</p>
 <p>但线性空间中的元素没有“长度”（相当于三维空间中线段的长度），为了量化线性空间中的元素，所以又在线性空间引入特殊的“长度”，即范数。赋予了范数的线性空间即称为赋犯线性空间。</p>
 <p>但赋范线性空间中两个元素之间没有角度的概念，为了解决该问题，所以在线性空间中又引入了内积的概念。</p>
@@ -192,7 +203,8 @@ Apr 17, 2020</span>
 <li>希尔伯特空间就是完备的内积空间。</li>
 <li>n维欧式空间是完备的，从而是Banach空间以及希尔伯特空间</li>
 </ul>
-<p>其他阅读材料：如何理解空间，这是最基础的。 <a href=https://www.jianshu.com/p/1a8241cae23f>https://www.jianshu.com/p/1a8241cae23f</a></p>
+<p>其他阅读材料：如何理解空间，这是最基础的。
+<a href=https://www.jianshu.com/p/1a8241cae23f>https://www.jianshu.com/p/1a8241cae23f</a></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

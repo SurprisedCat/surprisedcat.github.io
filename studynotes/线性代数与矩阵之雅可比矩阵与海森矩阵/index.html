@@ -88,56 +88,83 @@ Apr 29, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=jacobian矩阵和hessian矩阵>Jacobian矩阵和Hessian矩阵</h2>
+<h2 id=jacobian矩阵和hessian矩阵---omit-in-toc--->Jacobian矩阵和Hessian矩阵</h2>
 <ul>
-<li><a href=#jacobian>Jacobian</a></li>
-<li><a href=#jacobian矩阵>Jacobian矩阵</a></li>
-<li><a href=#jacobian行列式>Jacobian行列式</a></li>
-<li><a href=#hessian矩阵>Hessian矩阵</a></li>
-<li><a href=#hessian矩阵对驻点影响>Hessian矩阵对驻点影响</a></li>
-<li><a href=#海森矩阵在牛顿法中的应用>海森矩阵在牛顿法中的应用</a></li>
+<li><a href=#jacobian>Jacobian</a>
+<ul>
+<li><a href=#jacobian%E7%9F%A9%E9%98%B5>Jacobian矩阵</a></li>
+<li><a href=#jacobian%E8%A1%8C%E5%88%97%E5%BC%8F>Jacobian行列式</a></li>
+</ul>
+</li>
+<li><a href=#hessian%E7%9F%A9%E9%98%B5>Hessian矩阵</a>
+<ul>
+<li><a href=#hessian%E7%9F%A9%E9%98%B5%E5%AF%B9%E9%A9%BB%E7%82%B9%E5%BD%B1%E5%93%8D>Hessian矩阵对驻点影响</a></li>
+<li><a href=#%E6%B5%B7%E6%A3%AE%E7%9F%A9%E9%98%B5%E5%9C%A8%E7%89%9B%E9%A1%BF%E6%B3%95%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8>海森矩阵在牛顿法中的应用</a></li>
+</ul>
+</li>
 </ul>
 <h2 id=jacobian>Jacobian</h2>
 <p>在向量分析中, 雅可比矩阵是一阶偏导数以一定方式排列成的矩阵, 其行列式称为雅可比行列式. 还有, 在代数几何中, 代数曲线的雅可比量表示雅可比簇：伴随该曲线的一个代数群, 曲线可以嵌入其中。<strong>Jacobian矩阵（行列式）和一阶导数（梯度、偏导数）相关</strong>。</p>
 <h3 id=jacobian矩阵>Jacobian矩阵</h3>
 <p>雅可比矩阵的重要性在于它体现了一个可微方程与给出点的最优线性逼近. 因此, 雅可比矩阵类似于多元函数的导数.</p>
-<p>假设<span class=math>\(F: R_n→R_m\)</span>是一个从欧式n维空间转换到欧式m维空间的函数. 这个函数由m个实函数组成: y1(x1,…,xn), …, ym(x1,…,xn). 这些函数的偏导数(如果存在)可以组成一个m行n列的矩阵(因变量为行，自变量为列), 这就是所谓的雅可比矩阵： <span class=math>\[\begin{bmatrix} \frac{\partial y_1}{\partial x_1} & \cdots & \frac{\partial y_1}{\partial x_n} \\ \vdots & \ddots & \vdots \\ \frac{\partial y_m}{\partial x_1} & \cdots & \frac{\partial y_m}{\partial x_n} \end{bmatrix}\]</span></p>
-<p>此矩阵表示为:<span class=math>\({J_F}({x_1}, \ldots ,{x_n})\)</span>,或者<span class=math>\(\frac{{\partial ({y_1}, \ldots ,{y_m})}}{{\partial ({x_1}, \ldots ,{x_n})}}\)</span></p>
+<p>假设$F: R_n→R_m$是一个从欧式n维空间转换到欧式m维空间的函数. 这个函数由m个实函数组成: y1(x1,…,xn), …, ym(x1,…,xn). 这些函数的偏导数(如果存在)可以组成一个m行n列的矩阵(因变量为行，自变量为列), 这就是所谓的雅可比矩阵：
+$$\begin{bmatrix} \frac{\partial y_1}{\partial x_1} & \cdots & \frac{\partial y_1}{\partial x_n} \ \vdots & \ddots & \vdots \ \frac{\partial y_m}{\partial x_1} & \cdots & \frac{\partial y_m}{\partial x_n} \end{bmatrix}$$</p>
+<p>此矩阵表示为:${J_F}({x_1}, \ldots ,{x_n})$,或者$\frac{{\partial ({y_1}, \ldots ,{y_m})}}{{\partial ({x_1}, \ldots ,{x_n})}}$</p>
 <p>这个矩阵的第i行是由<strong>梯度函数</strong>的转置yi(i=1,…,m)表示的.</p>
-<p>如果<span class=math>\(P\)</span>是<span class=math>\(R_n\)</span>中的一点, <span class=math>\(F\)</span>在<span class=math>\(P\)</span>点可微分, 那么在这一点的导数由<span class=math>\(J_F(p)\)</span>给出(这是求该点导数最简便的方法). 在此情况下, 由<span class=math>\(F(p)\)</span>描述的线性算子即接近点<span class=math>\(P\)</span>的<span class=math>\(F\)</span>的最优线性逼近, <span class=math>\(\mathbf{x}\)</span>逼近于<span class=math>\(P\)</span>,则有: <span class=math>\[F({\bf{x}}) \approx F({\bf{p}}) + {J_F}({\bf{p}}) \cdot ({\bf{x}} – {\bf{p}})\]</span></p>
+<p>如果$P$是$R_n$中的一点, $F$在$P$点可微分, 那么在这一点的导数由$J_F(p)$给出(这是求该点导数最简便的方法). 在此情况下, 由$F(p)$描述的线性算子即接近点$P$的$F$的最优线性逼近, $\mathbf{x}$逼近于$P$,则有:
+$$F({\bf{x}}) \approx F({\bf{p}}) + {J_F}({\bf{p}}) \cdot ({\bf{x}} – {\bf{p}})$$</p>
 <h3 id=jacobian行列式>Jacobian行列式</h3>
-<p>如果m = n, 那么<span class=math>\(F\)</span>是从n维空间到n维空间的函数, 且它的雅可比矩阵是一个方块矩阵. 于是我们可以<strong>取它的行列式</strong>, 称为Jacobian行列式.</p>
-<p>在某个给定点的雅可比行列式提供了 在接近该点时的表现的重要信息. 例如, 如果连续可微函数<span class=math>\(F\)</span>在<span class=math>\(P\)</span>点的雅可比行列式不是零, 那么它在该点附近具有反函数. 这称为反函数定理. 更进一步, 如果<span class=math>\(P\)</span>点的雅可比行列式是正数, 则<span class=math>\(F\)</span>在<span class=math>\(P\)</span>点的取向不变；如果是负数, 则<span class=math>\(F\)</span>的取向相反. 而从雅可比行列式的绝对值, 就可以知道函数<span class=math>\(F\)</span>在<span class=math>\(P\)</span>点的缩放因子；这就是为什么它出现在换元积分法中.</p>
+<p>如果m = n, 那么$F$是从n维空间到n维空间的函数, 且它的雅可比矩阵是一个方块矩阵. 于是我们可以<strong>取它的行列式</strong>, 称为Jacobian行列式.</p>
+<p>在某个给定点的雅可比行列式提供了 在接近该点时的表现的重要信息. 例如, 如果连续可微函数$F$在$P$点的雅可比行列式不是零, 那么它在该点附近具有反函数. 这称为反函数定理. 更进一步, 如果$P$点的雅可比行列式是正数, 则$F$在$P$点的取向不变；如果是负数, 则$F$的取向相反. 而从雅可比行列式的绝对值, 就可以知道函数$F$在$P$点的缩放因子；这就是为什么它出现在换元积分法中.</p>
 <p>对于取向问题可以这么理解, 例如一个物体在平面上匀速运动, 如果施加一个正方向的力F, 即取向相同, 则加速运动, 类比于速度的导数加速度为正；如果施加一个反方向的力F, 即取向相反, 则减速运动, 类比于速度的导数加速度为负.</p>
 <h2 id=hessian矩阵>Hessian矩阵</h2>
-<p>在数学中, 海森矩阵(Hessian matrix或Hessian)是一个自变量为向量的<strong>实值</strong>函数（区别Jacobian矩阵）的二阶偏导数组成的方块矩阵, 此函数如下： <span class=math>\[f(x_1,x_2,\ldots,x_n)\]</span> 如果<span class=math>\(f\)</span>的所有二阶导数都存在, 那么<span class=math>\(f\)</span>的海森矩阵即： <span class=math>\[H{(f)_{ij}}(x) = {D_i}{D_j}f(x)\]</span> 其中<span class=math>\(x=(x_1,x_2,\ldots,x_n)\)</span>，即<span class=math>\(H(f)\)</span>为： <span class=math>\[\begin{bmatrix}\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1\,\partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1\,\partial x_n} \\ \\
-\frac{\partial^2 f}{\partial x_2\,\partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2\,\partial x_n} \\ \\
-\vdots & \vdots & \ddots & \vdots \\ \\
-\frac{\partial^2 f}{\partial x_n\,\partial x_1} & \frac{\partial^2 f}{\partial x_n\,\partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}\end{bmatrix}\]</span> (也有人把海森定义为以上矩阵的行列式)海森矩阵被应用于牛顿法解决的大规模优化问题.</p>
+<p>在数学中, 海森矩阵(Hessian matrix或Hessian)是一个自变量为向量的<strong>实值</strong>函数（区别Jacobian矩阵）的二阶偏导数组成的方块矩阵, 此函数如下：
+$$f(x_1,x_2,\ldots,x_n)$$
+如果$f$的所有二阶导数都存在, 那么$f$的海森矩阵即：
+$$H{(f)_{ij}}(x) = {D_i}{D_j}f(x)$$
+其中$x=(x_1,x_2,\ldots,x_n)$，即$H(f)$为：
+$$\begin{bmatrix}\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1,\partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_1,\partial x_n} \ \
+\frac{\partial^2 f}{\partial x_2,\partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \cdots & \frac{\partial^2 f}{\partial x_2,\partial x_n} \ \
+\vdots & \vdots & \ddots & \vdots \ \
+\frac{\partial^2 f}{\partial x_n,\partial x_1} & \frac{\partial^2 f}{\partial x_n,\partial x_2} & \cdots & \frac{\partial^2 f}{\partial x_n^2}\end{bmatrix}$$
+(也有人把海森定义为以上矩阵的行列式)海森矩阵被应用于牛顿法解决的大规模优化问题.</p>
 <h3 id=hessian矩阵对驻点影响>Hessian矩阵对驻点影响</h3>
 <p>Hessian矩阵我们已经知道是二阶导数矩阵，有时候二阶导数仍然带有未知数，所以求给定点的Hessian矩阵才有意义，给定坐标后，Hessain矩阵变成常数矩阵，然后就可以求其特征值</p>
-<p>1.如果Hessian矩阵所有特征值均为正：开口向上凹的点<br><img src=../../images/hessian_matrix_1.png alt=hessian_matrix_1></p>
-<p>2.如果均为负：开口向下凹的点<br><img src=../../images/hessian_matrix_2.png alt=hessian_matrix_2></p>
-<p>3.如果有正有负：存在鞍点<br><img src=../../images/hessian_matrix_3.png alt=hessian_matrix_3></p>
+<p>1.如果Hessian矩阵所有特征值均为正：开口向上凹的点<br>
+<img src=../../images/hessian_matrix_1.png alt=hessian_matrix_1></p>
+<p>2.如果均为负：开口向下凹的点<br>
+<img src=../../images/hessian_matrix_2.png alt=hessian_matrix_2></p>
+<p>3.如果有正有负：存在鞍点<br>
+<img src=../../images/hessian_matrix_3.png alt=hessian_matrix_3></p>
 <p>4.如果有一项为0：不确定情况。</p>
 <h3 id=海森矩阵在牛顿法中的应用>海森矩阵在牛顿法中的应用</h3>
 <p>一般来说, <strong>牛顿法</strong>主要应用在两个方面, 1, 求方程的根; 2, 最优化.</p>
-<ol style=list-style-type:decimal>
-<li><p>求方程的根</p>
-<p>牛顿法的最初提出是用来求解方程的根问题。并不是所有的方程都有求根公式, 或者求根公式很复杂, 导致求解困难. 利用牛顿法, 可以迭代求解. 原理是利用泰勒公式, 在<span class=math>\(x_0\)</span>处展开, 且展开到一阶, 即<span class=math>\(f(x)=f(x_0)+(x–x_0)f'(x_0)\)</span> 求解方程<span class=math>\(f(x)=0\)</span>, 即<span class=math>\(f(x_0)+(x–x_0)f'(x_0)=0\)</span>, 解<span class=math>\(x=x_1=x_0–f(x_0)/f'(x_0)\)</span>, 因为这是利用泰勒公式的一阶展开.但是<span class=math>\(f(x)与f(x_0)+(x–x_0)f'(x_0)\)</span>处并不是完全相等, 而是近似相等, 这里求得的<span class=math>\(x_1\)</span>并不能让<span class=math>\(f(x)=0\)</span>, 只能说<span class=math>\(f(x_1)\)</span>的值比<span class=math>\(f(x_0)\)</span>更接近<span class=math>\(f(x)=0\)</span>, 于是乎, 迭代求解的想法就很自然了, 可以进而推出<span class=math>\(x_{n+1}=x_n–f(x_n)/f'(x_n)\)</span>, 通过迭代, 这个式子必然在<span class=math>\(f(x∗)=0\)</span>的时候收敛. 整个过程如下图：</p>
-<img src=../../images/newton_root.gif alt=newton_root.gif>
-<center>
-图1牛顿法求根
-</center></li>
-<li><p>最优化</p>
-<p>在最优化的问题中, 线性最优化至少可以使用单纯形法(或称不动点算法)求解, 但对于非线性优化问题, 牛顿法提供了一种求解的办法. 假设任务是优化一个目标函数<span class=math>\(f\)</span>, 求函数<span class=math>\(f\)</span>的极大极小问题, 可以转化为求解函数<span class=math>\(f\)</span>的导数<span class=math>\(f'=0\)</span>的问题, 这样求可以把优化问题看成方程求解问题(<span class=math>\(f'=0\)</span>). 剩下的问题就和第一部分提到的牛顿法函数的根很相似了.</p>
-<p>这次为了求解<span class=math>\(f'=0\)</span>的根, 首先把<span class=math>\(f(x)\)</span>在探索点<span class=math>\(x_n\)</span>处泰勒展开, 展开到2阶形式进行近似： <span class=math>\[f(x) = f({x_n}) + f'({x_n})(x – {x_n}) + \frac{{f''({x_n})}}{2}{(x – {x_n})^2}\]</span> 相对于<span class=math>\(f(x)\)</span>的二阶展开，我们现在求的是<span class=math>\(f'=0\)</span>的根，是<span class=math>\(f'(x)\)</span>的一阶展开，所以用以下展开式： <span class=math>\[f'(x)=f'(x_0)+f''(x_0)(x-x_0)\]</span> 根据牛顿法求解函数的根，我们同理可得到： <span class=math>\[{x_{n + 1}} = {x_n}{\rm{ – }}\frac{{f'({x_n})}}{{f”({x_n})}},n = 0,1,…\]</span> 一般认为牛顿法可以利用到曲线本身的信息, 比梯度下降法更容易收敛（迭代更少次数）, 如下图是一个最小化一个目标方程的例子, 红色曲线是利用牛顿法迭代求解, 绿色曲线是利用梯度下降法求解。</p>
-<div class=figure>
-<img src=../../images/newtonvsgradient.jpg alt=牛顿法vs梯度法><p class=caption>牛顿法vs梯度法</p>
-</div>
+<ol>
+<li>
+<p>求方程的根</p>
+<p>牛顿法的最初提出是用来求解方程的根问题。并不是所有的方程都有求根公式, 或者求根公式很复杂, 导致求解困难. 利用牛顿法, 可以迭代求解.
+原理是利用泰勒公式, 在$x_0$处展开, 且展开到一阶, 即$f(x)=f(x_0)+(x–x_0)f'(x_0)$
+求解方程$f(x)=0$, 即$f(x_0)+(x–x_0)f'(x_0)=0$, 解$x=x_1=x_0–f(x_0)/f'(x_0)$, 因为这是利用泰勒公式的一阶展开.但是$f(x)与f(x_0)+(x–x_0)f'(x_0)$处并不是完全相等, 而是近似相等, 这里求得的$x_1$并不能让$f(x)=0$, 只能说$f(x_1)$的值比$f(x_0)$更接近$f(x)=0$, 于是乎, 迭代求解的想法就很自然了, 可以进而推出$x_{n+1}=x_n–f(x_n)/f'(x_n)$, 通过迭代, 这个式子必然在$f(x∗)=0$的时候收敛. 整个过程如下图：</p>
+<p><img src=../../images/newton_root.gif alt=newton_root.gif></p>
+<center>图1牛顿法求根</center>
+</li>
+<li>
+<p>最优化</p>
+<p>在最优化的问题中, 线性最优化至少可以使用单纯形法(或称不动点算法)求解, 但对于非线性优化问题, 牛顿法提供了一种求解的办法. 假设任务是优化一个目标函数$f$, 求函数$f$的极大极小问题, 可以转化为求解函数$f$的导数$f'=0$的问题, 这样求可以把优化问题看成方程求解问题($f'=0$). 剩下的问题就和第一部分提到的牛顿法函数的根很相似了.</p>
+<p>这次为了求解$f'=0$的根, 首先把$f(x)$在探索点$x_n$处泰勒展开, 展开到2阶形式进行近似：
+$$f(x) = f({x_n}) + f'({x_n})(x – {x_n}) + \frac{{f''({x_n})}}{2}{(x – {x_n})^2}$$
+相对于$f(x)$的二阶展开，我们现在求的是$f'=0$的根，是$f'(x)$的一阶展开，所以用以下展开式：
+$$f'(x)=f'(x_0)+f''(x_0)(x-x_0)$$
+根据牛顿法求解函数的根，我们同理可得到：
+$${x_{n + 1}} = {x_n}{\rm{ – }}\frac{{f'({x_n})}}{{f”({x_n})}},n = 0,1,…$$
+一般认为牛顿法可以利用到曲线本身的信息, 比梯度下降法更容易收敛（迭代更少次数）, 如下图是一个最小化一个目标方程的例子, 红色曲线是利用牛顿法迭代求解, 绿色曲线是利用梯度下降法求解。</p>
+<p><img src=../../images/newtonvsgradient.jpg alt=牛顿法vs梯度法></p>
 <p>图2牛顿法vs梯度法</p>
-<p>在上面讨论的是2维情况, 高维情况的牛顿迭代公式是： <span class=math>\[x_{n+1}=x_n-[Hf(x_n)]^(-1)\nabla f(x_n),n\geqslant 0\]</span> 其中<span class=math>\(H\)</span>是hessian矩阵, 定义见上.</p>
-<p>高维情况依然可以用牛顿迭代求解, 但是问题是Hessian矩阵引入的复杂性, 使得牛顿迭代求解的难度大大增加, 但是已经有了解决这个问题的办法就是Quasi-Newton method, 不再直接计算hessian矩阵, 而是每一步的时候使用梯度向量更新hessian矩阵的近似.</p></li>
+<p>在上面讨论的是2维情况, 高维情况的牛顿迭代公式是：
+$$x_{n+1}=x_n-[Hf(x_n)]^(-1)\nabla f(x_n),n\geqslant 0$$
+其中$H$是hessian矩阵, 定义见上.</p>
+<p>高维情况依然可以用牛顿迭代求解, 但是问题是Hessian矩阵引入的复杂性, 使得牛顿迭代求解的难度大大增加, 但是已经有了解决这个问题的办法就是Quasi-Newton method, 不再直接计算hessian矩阵, 而是每一步的时候使用梯度向量更新hessian矩阵的近似.</p>
+</li>
 </ol>
 </article>
 <aside class=sidebar>

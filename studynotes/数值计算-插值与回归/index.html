@@ -88,101 +88,136 @@ Nov 30, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=插值与回归>插值与回归</h2>
+<h2 id=插值与回归---omit-in-toc--->插值与回归</h2>
 <ul>
-<li><a href=#引言>引言</a></li>
-<li><a href=#魏尔施特拉斯逼近定理>魏尔施特拉斯逼近定理</a></li>
-<li><a href=#逼近-回归-插值>逼近-回归-插值</a></li>
-<li><a href=#插值理论>插值理论</a></li>
-<li><a href=#线性插值最简单>线性插值——最简单</a></li>
-<li><a href=#双线性插值>双线性插值</a></li>
-<li><a href=#多项式插值>多项式插值</a></li>
-<li><a href=#lagrange插值>Lagrange插值</a></li>
-<li><a href=#回归算法>回归算法</a></li>
-<li><a href=#线性回归>线性回归</a></li>
-<li><a href=#多项式回归>多项式回归</a></li>
-<li><a href=#其他>其他</a></li>
-<li><a href=#内插法外推法曲线拟合及回归>内插法、外推法、曲线拟合及回归</a></li>
-<li><a href=#参考文献>参考文献</a></li>
+<li><a href=#%E5%BC%95%E8%A8%80>引言</a>
+<ul>
+<li><a href=#%E9%AD%8F%E5%B0%94%E6%96%BD%E7%89%B9%E6%8B%89%E6%96%AF%E9%80%BC%E8%BF%91%E5%AE%9A%E7%90%86>魏尔施特拉斯逼近定理</a></li>
+<li><a href=#%E9%80%BC%E8%BF%91-%E5%9B%9E%E5%BD%92-%E6%8F%92%E5%80%BC>逼近-回归-插值</a></li>
+</ul>
+</li>
+<li><a href=#%E6%8F%92%E5%80%BC%E7%90%86%E8%AE%BA>插值理论</a>
+<ul>
+<li><a href=#%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC%E6%9C%80%E7%AE%80%E5%8D%95>线性插值——最简单</a></li>
+<li><a href=#%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC>双线性插值</a></li>
+<li><a href=#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC>多项式插值</a></li>
+<li><a href=#lagrange%E6%8F%92%E5%80%BC>Lagrange插值</a></li>
+</ul>
+</li>
+<li><a href=#%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95>回归算法</a>
+<ul>
+<li><a href=#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92>线性回归</a></li>
+<li><a href=#%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%9B%9E%E5%BD%92>多项式回归</a></li>
+<li><a href=#%E5%85%B6%E4%BB%96>其他</a></li>
+</ul>
+</li>
+<li><a href=#%E5%86%85%E6%8F%92%E6%B3%95%E5%A4%96%E6%8E%A8%E6%B3%95%E6%9B%B2%E7%BA%BF%E6%8B%9F%E5%90%88%E5%8F%8A%E5%9B%9E%E5%BD%92>内插法、外推法、曲线拟合及回归</a></li>
+<li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE>参考文献</a></li>
 </ul>
 <h2 id=引言>引言</h2>
 <h3 id=魏尔施特拉斯逼近定理>魏尔施特拉斯逼近定理</h3>
 <p>魏尔施特拉斯逼近定理（Stone–Weierstrass theorem、Weierstrass theorem）共有两个：</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>闭区间上的连续函数可用多项式级数一致逼近。(泰勒级数特例)</li>
-<li>闭区间上周期为<span class=math>\(2\pi\)</span>的连续函数可用三角函数级数一致逼近。（傅里叶级数特例）</li>
+<li>闭区间上周期为$2\pi$的连续函数可用三角函数级数一致逼近。（傅里叶级数特例）</li>
 </ol>
 <h3 id=逼近-回归-插值>逼近-回归-插值</h3>
 <p>在一个闭区间内，多项式可以逼近任何一个连续函数。在这种情况下，研究如何使用<strong>多项式来进行数据的拟合</strong>就成为了一个关键的问题（最小误差）。这就是所谓的多项式的<strong>回归算法</strong>。</p>
 <p>在数值分析中，多项式插值是使用多项式对一组给定的数据来进行插值的过程，也就是说，在给定一组数据的情况下，多项式<strong>插值</strong>的目的就是找到一个多项式，使得它<strong>恰好通过</strong>这些数据点。拉格朗日插值算法可以对实践中的某些物理量进行观测，然后得到一个多项式，从而表示各个结果之间的内在联系。多项式插值算法也是数值积分和数值常微分方程的算法基础。</p>
 <h2 id=插值理论>插值理论</h2>
 <h3 id=线性插值最简单>线性插值——最简单</h3>
-<p>给定两个点<span class=math>\((x_0,y_0),(x_1,y_1)\)</span>，线性插值是一条连接两个点的直线。对于<span class=math>\(x\in(x_0,x_1)\)</span>，y可以通过斜截式给出： <span class=math>\[\frac{y-y_0}{x-x_0}=\frac{y_1-y_0}{x_1-x_0}\implies y=y_0+\frac{y_1-y_0}{x_1-x_0}(x-x_0),x\in(x_0,x_1)\]</span></p>
-<p>对于多个点的线性插值来说，x的值之和最近的两点相关，每个采样点都是用折现连接的（如图1）。其公式可以表达为： <span class=math>\[y=f(x)=y_i+\frac{y_i-y_{i-1}}{x_i-x_{i-1}}(x-x_i),x\in(x_{i-1},x_i)\]</span></p>
-<img src=../../images/linear_interpolation.png alt=线性插值>
-<center>
-图1 线性插值
-</center>
+<p>给定两个点$(x_0,y_0),(x_1,y_1)$，线性插值是一条连接两个点的直线。对于$x\in(x_0,x_1)$，y可以通过斜截式给出：
+$$\frac{y-y_0}{x-x_0}=\frac{y_1-y_0}{x_1-x_0}\implies y=y_0+\frac{y_1-y_0}{x_1-x_0}(x-x_0),x\in(x_0,x_1)$$</p>
+<p>对于多个点的线性插值来说，x的值之和最近的两点相关，每个采样点都是用折现连接的（如图1）。其公式可以表达为：
+$$y=f(x)=y_i+\frac{y_i-y_{i-1}}{x_i-x_{i-1}}(x-x_i),x\in(x_{i-1},x_i)$$</p>
+<p><img src=../../images/linear_interpolation.png alt=线性插值></p>
+<center>图1 线性插值</center>
 <h3 id=双线性插值>双线性插值</h3>
-<p>双线性插值一般用于<span class=math>\(z=f(x,y)\)</span>的2+1维模式，在<strong>平面图形</strong>处理中有广泛应用。其本质上是做<strong>2+1次线性插值</strong>。</p>
+<p>双线性插值一般用于$z=f(x,y)$的2+1维模式，在<strong>平面图形</strong>处理中有广泛应用。其本质上是做<strong>2+1次线性插值</strong>。</p>
 <p>典型的示意图如图2：</p>
-<img src=../../images/bilinear_interpolation.png alt=双线性插值>
-<center>
-图2 双线性插值
-</center>
-<p>在2D网格上，我们给出四个点<span class=math>\((x_1,y_1),(x_1,y_2),(x_2,y_1),(x_2,y_2)\)</span>和四个点的函数值，要求<span class=math>\(x\in(x_1,x_2),y\in(y_1,y_2)\)</span>，双线性插值求<span class=math>\(f(x,y)\)</span>则如下：</p>
-<p><span class=math>\[f(R_1)\approx f(Q_{11})\frac{x_2-x}{x_2-x_1}+f(Q_{21})\frac{x-x_1}{x_2-x_1}\]</span> <span class=math>\[f(R_2)\approx f(Q_{21})\frac{x_2-x}{x_2-x_1}+f(Q_{22})\frac{x-x_1}{x_2-x_1}\]</span> 有点像加权平均。然后将<span class=math>\(R_1,R_2\)</span>再做一次线性插值： <span class=math>\[f(x,y)=f(P)=f(R_1)\frac{y_2-y}{y_2-y_1}+f(R_2)\frac{y-y_1}{y_2-y_1}\]</span> 带入<span class=math>\(f(R_1),f(R_2)\)</span>可得： <span class=math>\[f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}[f(Q_{11})(x_2-x)(y_2-y)+f(Q_{12})(x-x_1)(y_2-y) \\
-+f(Q_{21})(x_2-x)(y-y_1)+f(Q_{22})(x-x_1)(y-y_1)]\]</span> 写成矩阵形式： <span class=math>\[f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}\begin{bmatrix} x_2-x&x-x_1\end{bmatrix}\begin{bmatrix} Q_{11}&Q_{12}\\Q_{21}&Q_{22}\end{bmatrix}\begin{bmatrix} y_2-y\\y-y_1\end{bmatrix}\]</span> 在CV计算中，<span class=math>\(x_2-x_1,y_2-y_1\)</span>经常为1（相邻像素点），因此可直接写成： <span class=math>\[f(x,y)=\begin{bmatrix} x_2-x&x-x_1\end{bmatrix}\begin{bmatrix} Q_{11}&Q_{12}\\Q_{21}&Q_{22}\end{bmatrix}\begin{bmatrix} y_2-y\\y-y_1\end{bmatrix}\]</span></p>
+<p><img src=../../images/bilinear_interpolation.png alt=双线性插值></p>
+<center>图2 双线性插值</center>
+<p>在2D网格上，我们给出四个点$(x_1,y_1),(x_1,y_2),(x_2,y_1),(x_2,y_2)$和四个点的函数值，要求$x\in(x_1,x_2),y\in(y_1,y_2)$，双线性插值求$f(x,y)$则如下：</p>
+<p>$$f(R_1)\approx f(Q_{11})\frac{x_2-x}{x_2-x_1}+f(Q_{21})\frac{x-x_1}{x_2-x_1}$$
+$$f(R_2)\approx f(Q_{21})\frac{x_2-x}{x_2-x_1}+f(Q_{22})\frac{x-x_1}{x_2-x_1}$$
+有点像加权平均。然后将$R_1,R_2$再做一次线性插值：
+$$f(x,y)=f(P)=f(R_1)\frac{y_2-y}{y_2-y_1}+f(R_2)\frac{y-y_1}{y_2-y_1}$$
+带入$f(R_1),f(R_2)$可得：
+$$f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}[f(Q_{11})(x_2-x)(y_2-y)+f(Q_{12})(x-x_1)(y_2-y) \
++f(Q_{21})(x_2-x)(y-y_1)+f(Q_{22})(x-x_1)(y-y_1)]$$
+写成矩阵形式：
+$$f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}\begin{bmatrix} x_2-x&x-x_1\end{bmatrix}\begin{bmatrix} Q_{11}&Q_{12}\Q_{21}&Q_{22}\end{bmatrix}\begin{bmatrix} y_2-y\y-y_1\end{bmatrix}$$
+在CV计算中，$x_2-x_1,y_2-y_1$经常为1（相邻像素点），因此可直接写成：
+$$f(x,y)=\begin{bmatrix} x_2-x&x-x_1\end{bmatrix}\begin{bmatrix} Q_{11}&Q_{12}\Q_{21}&Q_{22}\end{bmatrix}\begin{bmatrix} y_2-y\y-y_1\end{bmatrix}$$</p>
 <h3 id=多项式插值>多项式插值</h3>
-<p>给定（n+1）个数据点<span class=math>\((x_i,y_i),i\in\{0,...,n\}\)</span>，且<strong>任意两个</strong><span class=math>\(x_i\)</span>都不相等。可以用一个p阶多项式<span class=math>\((0\leq p \leq n)\)</span>进行插值，使： <span class=math>\[p(x_i)=y_i,0 \leq i \leq n\]</span> <span class=math>\(p(x)\)</span>具体可以写为： <span class=math>\[p(x)=a_nx^n+a_{n-1}x^{n-1}+\dotsb+a_1x+a_0\]</span> 求解系数<span class=math>\(a_i\)</span>这是一个n+1元一次方程组,写成范德蒙矩阵为： <span class=math>\[\begin{bmatrix}x_0^n&x_0^{n-1}&\dotsb&x_0&1\\
-x_1^n&x_1^{n-1}&\dotsb&x_1&1\\
-\vdots&\vdots&\ddots&\vdots&\vdots\\
-x_n^n&x_n^{n-1}&\dotsb&x_n&1\\
+<p>给定（n+1）个数据点$(x_i,y_i),i\in{0,...,n}$，且<strong>任意两个</strong>$x_i$都不相等。可以用一个p阶多项式$(0\leq p \leq n)$进行插值，使：
+$$p(x_i)=y_i,0 \leq i \leq n$$
+$p(x)$具体可以写为：
+$$p(x)=a_nx^n+a_{n-1}x^{n-1}+\dotsb+a_1x+a_0$$
+求解系数$a_i$这是一个n+1元一次方程组,写成范德蒙矩阵为：
+$$\begin{bmatrix}x_0^n&x_0^{n-1}&\dotsb&x_0&1\
+x_1^n&x_1^{n-1}&\dotsb&x_1&1\
+\vdots&\vdots&\ddots&\vdots&\vdots\
+x_n^n&x_n^{n-1}&\dotsb&x_n&1\
 \end{bmatrix}
-\begin{bmatrix}a_n\\
-a_{n-1}\\
-\vdots\\
-a_0\\
+\begin{bmatrix}a_n\
+a_{n-1}\
+\vdots\
+a_0\
 \end{bmatrix}=
-\begin{bmatrix}y_0\\
-y_1\\
-\vdots\\
-y_n\\
+\begin{bmatrix}y_0\
+y_1\
+\vdots\
+y_n\
 \end{bmatrix}
-\]</span> 可以通过标准方式来求解系数<span class=math>\(a_i\)</span>，由于在范德蒙矩阵中，如果<span class=math>\(\forall x_i,x_j\)</span>两两不同，则范德蒙矩阵的行列式不为0，可以获得<strong>唯一解</strong>。以后的无论是牛顿法还是Lagrange插值法得到的结果和这种方式解出来是一样的，只是加快了计算。</p>
+$$
+可以通过标准方式来求解系数$a_i$，由于在范德蒙矩阵中，如果$\forall x_i,x_j$两两不同，则范德蒙矩阵的行列式不为0，可以获得<strong>唯一解</strong>。以后的无论是牛顿法还是Lagrange插值法得到的结果和这种方式解出来是一样的，只是加快了计算。</p>
 <h3 id=lagrange插值>Lagrange插值</h3>
-<p>同样，给点（n+1）个数据点<span class=math>\((x_i,y_i),i\in\{0,...,n\}\)</span>，且<strong>任意两个</strong><span class=math>\(x_i\)</span>都不相等，可以通过Lagrange插值公式得到多项式，其可以写成： <span class=math>\[L(x)=\sum_{i=0}^{n}l_i(x)y_i\]</span> 其中，<span class=math>\(l_i(x)\)</span>为Lagrange插值系数，表达式为： <span class=math>\[l_i(x)=\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}\]</span> 从表达式中，我们不难得到以下性质：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(i \neq m\)</span>，则<span class=math>\(l_i(x_m)=0\)</span>，因为<span class=math>\(\exist x_m==x_j,\)</span>使得分子为0</li>
-<li><span class=math>\(i=m\)</span>，则<span class=math>\(l_i(x_m)=1\)</span>，因为分子和分母完全相同。</li>
-<li><span class=math>\(L(x)\)</span>的阶数最大为n。<span class=math>\(\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}\)</span>一共有n个x相乘。</li>
+<p>同样，给点（n+1）个数据点$(x_i,y_i),i\in{0,...,n}$，且<strong>任意两个</strong>$x_i$都不相等，可以通过Lagrange插值公式得到多项式，其可以写成：
+$$L(x)=\sum_{i=0}^{n}l_i(x)y_i$$
+其中，$l_i(x)$为Lagrange插值系数，表达式为：
+$$l_i(x)=\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}$$
+从表达式中，我们不难得到以下性质：</p>
+<ol>
+<li>$i \neq m$，则$l_i(x_m)=0$，因为$\exist x_m==x_j,$使得分子为0</li>
+<li>$i=m$，则$l_i(x_m)=1$，因为分子和分母完全相同。</li>
+<li>$L(x)$的阶数最大为n。$\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}$一共有n个x相乘。</li>
 <li>插值多项式是唯一的，和范德蒙矩阵求出来的是一样的。</li>
 </ol>
 <h2 id=回归算法>回归算法</h2>
 <h3 id=线性回归>线性回归</h3>
-<p>线性回归使用一个线性函数（一次函数），调节各个参数，使它尽量满足数据误差最小。 其他笔记中写过，根据最小方差准则计算可逆矩阵回归参数的公式为： <span class=math>\[\vec{\alpha}=(X^TX)^{-1}X^T\vec{y}\]</span></p>
+<p>线性回归使用一个线性函数（一次函数），调节各个参数，使它尽量满足数据误差最小。
+其他笔记中写过，根据最小方差准则计算可逆矩阵回归参数的公式为：
+$$\vec{\alpha}=(X^TX)^{-1}X^T\vec{y}$$</p>
 <h3 id=多项式回归>多项式回归</h3>
-<p>给定n个数据点<span class=math>\((x_i,y_i),i\in\{1,\dots,n\}\)</span>，可以建立一个m阶多项式来预测<span class=math>\(y\)</span>的值，其推到公式如下： <span class=math>\[y=\beta_0+\beta_1 x+\beta_2 x^2+\dotsb+\beta_m x^m+\epsilon\]</span> 对于每一个二元点有： <span class=math>\[y_i=\beta_0+\beta_1 x_i+\beta_2 x_i^2+\dotsb+\beta_m x_i^m+\epsilon_i,1 \leq i \leq n\]</span> 如果把这些点组合成矩阵形式，则有： <span class=math>\[\begin{bmatrix}y_0\\
-y_1\\
-\vdots\\
-y_n\\
+<p>给定n个数据点$(x_i,y_i),i\in{1,\dots,n}$，可以建立一个m阶多项式来预测$y$的值，其推到公式如下：
+$$y=\beta_0+\beta_1 x+\beta_2 x^2+\dotsb+\beta_m x^m+\epsilon$$
+对于每一个二元点有：
+$$y_i=\beta_0+\beta_1 x_i+\beta_2 x_i^2+\dotsb+\beta_m x_i^m+\epsilon_i,1 \leq i \leq n$$
+如果把这些点组合成矩阵形式，则有：
+$$\begin{bmatrix}y_0\
+y_1\
+\vdots\
+y_n\
 \end{bmatrix}=
-\begin{bmatrix}1&x_1&\dotsb&x_1^m\\
-1&x_2&\dotsb&x_2^m\\
-\vdots&\vdots&\ddots&\vdots\\
-1&x_n&\dotsb&x_n^m\\
+\begin{bmatrix}1&x_1&\dotsb&x_1^m\
+1&x_2&\dotsb&x_2^m\
+\vdots&\vdots&\ddots&\vdots\
+1&x_n&\dotsb&x_n^m\
 \end{bmatrix}
-\begin{bmatrix}\beta_0\\
-\beta_1\\
-\vdots\\
-\beta_m\\
+\begin{bmatrix}\beta_0\
+\beta_1\
+\vdots\
+\beta_m\
 \end{bmatrix}+
-\begin{bmatrix}\epsilon_0\\
-\epsilon_1\\
-\vdots\\
-\epsilon_m\\
+\begin{bmatrix}\epsilon_0\
+\epsilon_1\
+\vdots\
+\epsilon_m\
 \end{bmatrix}
-\]</span> 即<span class=math>\(\vec{y}=X\vec{\beta}+\vec{\epsilon}\)</span>，根据最小方差估计，同线性回归可得多项式回归的系数： <span class=math>\[\vec{\beta}=(X^TX)^{-1}X^T\vec{y}(m&lt;n)\]</span></p>
+$$
+即$\vec{y}=X\vec{\beta}+\vec{\epsilon}$，根据最小方差估计，同线性回归可得多项式回归的系数：
+$$\vec{\beta}=(X^TX)^{-1}X^T\vec{y}(m&lt;n)$$</p>
 <h3 id=其他>其他</h3>
 <p>其他回归算法如脊回归，Log回归等有专门笔记记录。</p>
 <h2 id=内插法外推法曲线拟合及回归>内插法、外推法、曲线拟合及回归</h2>

@@ -88,79 +88,94 @@ Jan 6, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=博弈论之合作博弈>博弈论之合作博弈</h2>
+<h2 id=博弈论之合作博弈---omit-in-toc--->博弈论之合作博弈</h2>
 <ul>
-<li><a href=#合作博弈的一般表示形式>合作博弈的一般表示形式</a></li>
-<li><a href=#大联盟博弈>大联盟博弈</a></li>
-<li><a href=#shapley值>Shapley值</a></li>
-<li><a href=#班扎夫权力系数>班扎夫权力系数</a></li>
-<li><a href=#存在小团体的合作博弈>存在小团体的合作博弈</a></li>
-<li><a href=#核>核</a>
+<li><a href=#%E5%90%88%E4%BD%9C%E5%8D%9A%E5%BC%88%E7%9A%84%E4%B8%80%E8%88%AC%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F>合作博弈的一般表示形式</a></li>
+<li><a href=#%E5%A4%A7%E8%81%94%E7%9B%9F%E5%8D%9A%E5%BC%88>大联盟博弈</a>
 <ul>
-<li><a href=#凸博弈>凸博弈</a></li>
-</ul></li>
+<li><a href=#shapley%E5%80%BC>Shapley值</a></li>
+<li><a href=#%E7%8F%AD%E6%89%8E%E5%A4%AB%E6%9D%83%E5%8A%9B%E7%B3%BB%E6%95%B0>班扎夫权力系数</a></li>
+</ul>
+</li>
+<li><a href=#%E5%AD%98%E5%9C%A8%E5%B0%8F%E5%9B%A2%E4%BD%93%E7%9A%84%E5%90%88%E4%BD%9C%E5%8D%9A%E5%BC%88>存在小团体的合作博弈</a>
+<ul>
+<li><a href=#%E6%A0%B8>核</a>
+<ul>
+<li><a href=#%E5%87%B8%E5%8D%9A%E5%BC%88>凸博弈</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id=合作博弈的一般表示形式>合作博弈的一般表示形式</h2>
-<p>在<span class=math>\(n\)</span>人博弈中，参与人的集合用<span class=math>\(I=\{1, 2,...,n\}\)</span>表示，<span class=math>\(I\)</span>的任意子集<span class=math>\(S\)</span>称为一个联盟。</p>
-<p>下面给出<span class=math>\(n\)</span>人博弈的特征函数式：</p>
-<p>设有<span class=math>\(n\)</span>个人参与人的集合<span class=math>\(I=\{1, 2,...,n\}\)</span>，对任一子集<span class=math>\(S\subseteq I\)</span>，定义一个集合到实数的映射（集合函数）<span class=math>\(V(S)\)</span>满足条件：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(V(\varnothing)=0\)</span></li>
-<li>当<span class=math>\(S_1\cap S_2=\varnothing,S_1\subset I, S_2 \subset I\)</span>时，<span class=math>\(V(S_1\cup S_2)≥V(S_1)+V(S_2)\)</span>（称为超可加性，在经济学上称之为协同效应）</li>
+<p>在$n$人博弈中，参与人的集合用$I={1, 2,...,n}$表示，$I$的任意子集$S$称为一个联盟。</p>
+<p>下面给出$n$人博弈的特征函数式：</p>
+<p>设有$n$个人参与人的集合$I={1, 2,...,n}$，对任一子集$S\subseteq I$，定义一个集合到实数的映射（集合函数）$V(S)$满足条件：</p>
+<ol>
+<li>$V(\varnothing)=0$</li>
+<li>当$S_1\cap S_2=\varnothing,S_1\subset I, S_2 \subset I$时，$V(S_1\cup S_2)≥V(S_1)+V(S_2)$（称为超可加性，在经济学上称之为协同效应）</li>
 </ol>
-<p>我们把<span class=math>\([I,V]\)</span>称为一个<span class=math>\(n\)</span>人合作博弈，称<span class=math>\(V(S)\)</span>为这个<span class=math>\(n\)</span>人合作博弈的<font color=red>特征函数</font>，其中<span class=math>\(S\)</span>是<span class=math>\(I\)</span>的任意子集（联盟），<span class=math>\(V(S)\)</span>描述了联盟的<strong>效益</strong>。特征函数式对<span class=math>\(n\)</span>人合作博弈的<strong>每一种可能联盟</strong>都给出了相应的联盟收益，也就是给出了一种集合函数。</p>
+<p>我们把$[I,V]$称为一个$n$人合作博弈，称$V(S)$为这个$n$人合作博弈的<font color=red>特征函数</font>，其中$S$是$I$的任意子集（联盟），$V(S)$描述了联盟的<strong>效益</strong>。特征函数式对$n$人合作博弈的<strong>每一种可能联盟</strong>都给出了相应的联盟收益，也就是给出了一种集合函数。</p>
 <h2 id=大联盟博弈>大联盟博弈</h2>
-<p>参与博弈的<span class=math>\(n\)</span>个人形成一个合作联盟，称此联盟对应的博弈为<strong>n人大联盟合作博弈</strong>。<span class=math>\(n\)</span>人大联盟合作博弈的解是指对大结盟所获利益<span class=math>\(V (I)\)</span>的一个<strong>分配方案</strong>。即大联盟主要研究<font color=red>分配方案</font>（前提是允许局中人之间<font color=red>转移支付</font>）。</p>
-<p>若用<span class=math>\(\varphi_i(V(I)),i\in I\)</span>表示参与人<span class=math>\(i\)</span>从<span class=math>\(n\)</span>人大联盟合作博弈中获得的收益，则<span class=math>\(\varphi_i(V(I))\)</span>至少应该满足：</p>
-<ol style=list-style-type:decimal>
-<li><strong>个体合理性</strong>：<span class=math>\(\varphi_i(V(I))≥V(\{i\}),i\in I\)</span>，即合作至少不比单干差；</li>
-<li><strong>总体合理性</strong>：<span class=math>\(\sum\limits_{i\in I}\varphi_i(V(I))=V(I)\)</span>，即将合作博弈<span class=math>\([I,V]\)</span>中获得的收益<span class=math>\(V(I)\)</span>分光。</li>
+<p>参与博弈的$n$个人形成一个合作联盟，称此联盟对应的博弈为<strong>n人大联盟合作博弈</strong>。$n$人大联盟合作博弈的解是指对大结盟所获利益$V (I)$的一个<strong>分配方案</strong>。即大联盟主要研究<font color=red>分配方案</font>（前提是允许局中人之间<font color=red>转移支付</font>）。</p>
+<p>若用$\varphi_i(V(I)),i\in I$表示参与人$i$从$n$人大联盟合作博弈中获得的收益，则$\varphi_i(V(I))$至少应该满足：</p>
+<ol>
+<li><strong>个体合理性</strong>：$\varphi_i(V(I))≥V({i}),i\in I$，即合作至少不比单干差；</li>
+<li><strong>总体合理性</strong>：$\sum\limits_{i\in I}\varphi_i(V(I))=V(I)$，即将合作博弈$[I,V]$中获得的收益$V(I)$分光。</li>
 </ol>
-<p>因此，解决<span class=math>\(n\)</span>人合作博弈问题的任务是如何获得一个合理的分配方案 <span class=math>\[
+<p>因此，解决$n$人合作博弈问题的任务是如何获得一个合理的分配方案
+$$
 \varPhi(V(I))=(\varphi_1(V(I)),\varphi_2(V(I)),\dotsb,\varphi_n(V(I)))
-\]</span></p>
+$$</p>
 <h3 id=shapley值>Shapley值</h3>
 <p>如果说纳什均衡是非合作博弈中的核心概念，那么 Shapley 值是合作博弈中的最重要的概念，<strong>Shapley 值是合作性博弈的一种解</strong>。</p>
-<p>1953年，美国运筹学家罗伊德·夏普利（Lloyd S. Shapley）采用<strong>逻辑建模方法</strong>归纳出了三条合理分配原则，即在<span class=math>\(n\)</span>人合作博弈<span class=math>\([I,V]\)</span>中，参与人<span class=math>\(i\)</span>从<span class=math>\(n\)</span>人大联盟博弈所获得的收益<span class=math>\(\varphi_i(V)\)</span>应当满足的基本性质（用公理形式表示），进而证明满足这些基本性质的合作博弈解是<font color=red>惟一存在的</font>，从而妥善地解决了某类合作博弈的合理分配问题。</p>
+<p>1953年，美国运筹学家罗伊德·夏普利（Lloyd S. Shapley）采用<strong>逻辑建模方法</strong>归纳出了三条合理分配原则，即在$n$人合作博弈$[I,V]$中，参与人$i$从$n$人大联盟博弈所获得的收益$\varphi_i(V)$应当满足的基本性质（用公理形式表示），进而证明满足这些基本性质的合作博弈解是<font color=red>惟一存在的</font>，从而妥善地解决了某类合作博弈的合理分配问题。</p>
 <p>这三条分配原则是：</p>
-<ol style=list-style-type:decimal>
-<li><strong>对称性原则</strong>。每个参与人获得的分配与他在集合<span class=math>\(I=\{1,2,\dotsb,n\}\)</span>中的排列位置无关。</li>
-<li><strong>有效性原则</strong>。若参与人<span class=math>\(i\)</span>对他所参加的<strong>任一合作</strong>都无贡献,则给他的分配应为<strong>0</strong>。数学表达式为：任意<span class=math>\(i\in S\)</span>，若<span class=math>\(V(S)=V(S\setminus \{i\})\)</span>，则<span class=math>\(\varphi_i(V)=0\)</span>。完全分配：<span class=math>\(\sum\limits_{i\in I}\varphi_i(V)=V(I)\)</span></li>
-<li>可加性原则。对<span class=math>\(I\)</span>上任意两个特征函数<span class=math>\(U\)</span>与<span class=math>\(V\)</span>，<span class=math>\(\varPhi(U+V)=\varPhi(U)+\varPhi(V)\)</span>。可加性原则表明：<span class=math>\(n\)</span>个人同时<strong>进行两项互不影响的合作，则两项合作的分配也应互不影响</strong>，每人的分配额是两项合作单独进行时应分配数的和。</li>
+<ol>
+<li><strong>对称性原则</strong>。每个参与人获得的分配与他在集合$I={1,2,\dotsb,n}$中的排列位置无关。</li>
+<li><strong>有效性原则</strong>。若参与人$i$对他所参加的<strong>任一合作</strong>都无贡献,则给他的分配应为<strong>0</strong>。数学表达式为：任意$i\in S$，若$V(S)=V(S\setminus {i})$，则$\varphi_i(V)=0$。完全分配：$\sum\limits_{i\in I}\varphi_i(V)=V(I)$</li>
+<li>可加性原则。对$I$上任意两个特征函数$U$与$V$，$\varPhi(U+V)=\varPhi(U)+\varPhi(V)$。可加性原则表明：$n$个人同时<strong>进行两项互不影响的合作，则两项合作的分配也应互不影响</strong>，每人的分配额是两项合作单独进行时应分配数的和。</li>
 </ol>
-<p>满足上述三条分配原则的<span class=math>\(\varphi_i(V),i\in I\)</span>,称为<font color=red>Shapley值</font>。夏普利不仅证明了 Shapley 值的<strong>存在惟一性</strong>，而且给出了Shapley值的<strong>计算公式</strong>。下面给出这个重要结果：</p>
-<p>对任一<span class=math>\(n\)</span>人合作博弈<span class=math>\([I,V]\)</span>，Shapley值是惟一存在的，且 <span class=math>\[
-\varphi_i(V)=\sum_{S \subseteq I\setminus \{i\}}W(|S|) [V(S)\cup \{i\}-V(S)],i=1,2,\dotsb,n
-\]</span> 其中，<span class=math>\(W(|S|)=\frac{|S|!(n-|S|-1)!}{n!},|S|\)</span>为集合<span class=math>\(S\)</span>的基数。</p>
+<p>满足上述三条分配原则的$\varphi_i(V),i\in I$,称为<font color=red>Shapley值</font>。夏普利不仅证明了 Shapley 值的<strong>存在惟一性</strong>，而且给出了Shapley值的<strong>计算公式</strong>。下面给出这个重要结果：</p>
+<p>对任一$n$人合作博弈$[I,V]$，Shapley值是惟一存在的，且
+$$
+\varphi_i(V)=\sum_{S \subseteq I\setminus {i}}W(|S|) [V(S)\cup {i}-V(S)],i=1,2,\dotsb,n
+$$
+其中，$W(|S|)=\frac{|S|!(n-|S|-1)!}{n!},|S|$为集合$S$的基数。</p>
 <p>Shapley公式解释：首先Shapley值是用来在<strong>联盟内部</strong>进行收益公平分配的，不考虑联盟以外的成员。分配原则本质上是对共同收益的<strong>加权平均</strong>。</p>
-<p>先看第二项<span class=math>\(V(S)\cup \{i\}-V(S)\)</span>这个说的是有没有用户<span class=math>\(i\)</span>对联盟<span class=math>\(S\)</span>收益（特征函数）的影响，即<span class=math>\(i\)</span>在加入联盟<span class=math>\(S\)</span>的边际收益或者说<span class=math>\(i\)</span>对联盟<span class=math>\(S\cup \{i\}\)</span>的<strong>贡献值</strong>。而系数<span class=math>\(W(|S|)\)</span>是指联盟<span class=math>\(S\)</span>的加权平均系数，以联盟人数<span class=math>\(|S|\)</span>为分组标准，分为组内平均和组间平均。组建平均很好理解，依照联盟的人数，可以分为<span class=math>\(0\rightarrow N-1\)</span>共<span class=math>\(N\)</span>个组，因此平均为<span class=math>\(\frac{1}{N}\)</span>。而从<span class=math>\(N-1\)</span>个剩余成员中挑选人数为<span class=math>\(|S|\)</span>的联盟共有<span class=math>\(\frac{(n-1)!}{|S|!(n-|S|-1)!}\)</span>个，我们简单用其倒数来平均<span class=math>\(i\)</span>的贡献值，组内组间平均综合即为<span class=math>\(W(|S|)\)</span>。</p>
+<p>先看第二项$V(S)\cup {i}-V(S)$这个说的是有没有用户$i$对联盟$S$收益（特征函数）的影响，即$i$在加入联盟$S$的边际收益或者说$i$对联盟$S\cup {i}$的<strong>贡献值</strong>。而系数$W(|S|)$是指联盟$S$的加权平均系数，以联盟人数$|S|$为分组标准，分为组内平均和组间平均。组建平均很好理解，依照联盟的人数，可以分为$0\rightarrow N-1$共$N$个组，因此平均为$\frac{1}{N}$。而从$N-1$个剩余成员中挑选人数为$|S|$的联盟共有$\frac{(n-1)!}{|S|!(n-|S|-1)!}$个，我们简单用其倒数来平均$i$的贡献值，组内组间平均综合即为$W(|S|)$。</p>
 <h3 id=班扎夫权力系数>班扎夫权力系数</h3>
 <p>称为关键参与者的次数紧性归一化即为班扎夫权力指数。</p>
 <h2 id=存在小团体的合作博弈>存在小团体的合作博弈</h2>
-<p>在参与人多于两个的情况下，就可能出现部分参与人联合起来追求小团体利益的行为，但其前提条件是<strong>参与人在小团体中得到的利益大或等于在大联盟中得到的利益</strong>，即存在子集<span class=math>\(S=\{i_1,i_2,\dotsb,i_k\}\subset I\)</span>，相应的总收益为<span class=math>\(V(S)\)</span>，分配方案 <span class=math>\[
+<p>在参与人多于两个的情况下，就可能出现部分参与人联合起来追求小团体利益的行为，但其前提条件是<strong>参与人在小团体中得到的利益大或等于在大联盟中得到的利益</strong>，即存在子集$S={i_1,i_2,\dotsb,i_k}\subset I$，相应的总收益为$V(S)$，分配方案
+$$
 \varPhi(V(S))=(\varphi_{i_1}(V(S)),\varphi_{i_2}(V(S)),\dotsb,\varphi_{i_n}(V(S)))
-\]</span> 满足 <span class=math>\[
+$$
+满足
+$$
 \begin{aligned}
-&\varphi_{i_1}(V(S))≥\varphi_{i_1}(V(I))\\
-&\varphi_{i_2}(V(S))≥\varphi_{i_2}(V(I))\\
-&\dots\dots\\
-&\varphi_{i_k}(V(S))≥\varphi_{i_k}(V(I))\\
+&\varphi_{i_1}(V(S))≥\varphi_{i_1}(V(I))\
+&\varphi_{i_2}(V(S))≥\varphi_{i_2}(V(I))\
+&\dots\dots\
+&\varphi_{i_k}(V(S))≥\varphi_{i_k}(V(I))\
 \end{aligned}
-\]</span> 且其中至少有一个<strong>严格不等式</strong>成立。</p>
-<p>为使记号简便，我们将<span class=math>\(V(\{i\})\)</span>简记为<span class=math>\(V(i)\)</span>，将<span class=math>\(n\)</span>人合作博弈问题的分配方案简记为<span class=math>\(\varPhi(V)=(\varphi_1(V),\varphi_2(V),\dotsb,\varphi_n(V))\)</span>。</p>
+$$
+且其中至少有一个<strong>严格不等式</strong>成立。</p>
+<p>为使记号简便，我们将$V({i})$简记为$V(i)$，将$n$人合作博弈问题的分配方案简记为$\varPhi(V)=(\varphi_1(V),\varphi_2(V),\dotsb,\varphi_n(V))$。</p>
 <h3 id=核>核</h3>
 <p>在一个合作博弈中，满足<strong>帕累托标准</strong>（除非损人才能利己）的联盟结构称为博弈的一个<strong>有效解</strong>，<strong>所有有效解</strong>的集合称为该博弈的<strong>解集</strong>。</p>
-<p>但是解集中的有效解并不都是稳定的。通俗的来说，如果在某一联盟<span class=math>\(V(S)\)</span>中，一部分成员通过组成另一个联盟<span class=math>\(V(S')\)</span>，并且<span class=math>\(S'\)</span>的所有成员按照分配规则<span class=math>\(Φ(V(S'))\)</span>（比如shapley值）能够比在按原来联盟中分配<span class=math>\(Φ(V(S))\)</span>获得更高的收益，那么这些原来联盟的成员就有理由背离联盟<span class=math>\(S\)</span>，使得这个联盟不稳定，从而这个有效解也是不稳定的。</p>
+<p>但是解集中的有效解并不都是稳定的。通俗的来说，如果在某一联盟$V(S)$中，一部分成员通过组成另一个联盟$V(S')$，并且$S'$的所有成员按照分配规则$Φ(V(S'))$（比如shapley值）能够比在按原来联盟中分配$Φ(V(S))$获得更高的收益，那么这些原来联盟的成员就有理由背离联盟$S$，使得这个联盟不稳定，从而这个有效解也是不稳定的。</p>
 <p>如果<strong>一个联盟结构能使得所有参与者都不能从联盟重组中获益</strong>，这个联盟结构就是这个合作博弈的<strong>核</strong>。也就是说在这种联盟结构中所有的参与者都没有改变目前结构的动力。</p>
 <blockquote>
-<p>形式化定义：对于合作博弈中<span class=math>\((I,V)\)</span>的核，核内的成员收益应当且仅当满足 <span class=math>\[
+<p>形式化定义：对于合作博弈中$(I,V)$的核，核内的成员收益应当且仅当满足
+$$
 \forall S\subseteq I, \sum_{i\in S} x_i\geq V(S)
-\]</span></p>
+$$</p>
 </blockquote>
 <p><strong>核不一定存在，如果核存在，则其一定是博弈的有效解</strong>。</p>
 <h4 id=凸博弈>凸博弈</h4>
 <blockquote>
-<p>定义：对于一个博弈<span class=math>\(G=(I,V)\)</span>如果是凸博弈，那么对于<span class=math>\(\forall S,T\subset N,V(S\cup T)\geq V(S)+V(T)-V(S\cap T)\)</span></p>
+<p>定义：对于一个博弈$G=(I,V)$如果是凸博弈，那么对于$\forall S,T\subset N,V(S\cup T)\geq V(S)+V(T)-V(S\cap T)$</p>
 </blockquote>
 <p>凸博弈的要求比超可加性更强。</p>
 <blockquote>

@@ -88,67 +88,86 @@ Mar 4, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=三角函数与三角级数的正交性>三角函数与三角级数的正交性</h2>
+<h2 id=三角函数与三角级数的正交性---omit-in-toc--->三角函数与三角级数的正交性</h2>
 <ul>
-<li><a href=#三角恒等式和差化积与积化和差>三角恒等式——和差化积与积化和差</a></li>
-<li><a href=#三角级数与三角函数系的正交性>三角级数与三角函数系的正交性</a></li>
-<li><a href=#应用傅里叶级数展开>应用——傅里叶级数展开</a></li>
+<li><a href=#%E4%B8%89%E8%A7%92%E6%81%92%E7%AD%89%E5%BC%8F%E5%92%8C%E5%B7%AE%E5%8C%96%E7%A7%AF%E4%B8%8E%E7%A7%AF%E5%8C%96%E5%92%8C%E5%B7%AE>三角恒等式——和差化积与积化和差</a></li>
+<li><a href=#%E4%B8%89%E8%A7%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0%E7%B3%BB%E7%9A%84%E6%AD%A3%E4%BA%A4%E6%80%A7>三角级数与三角函数系的正交性</a></li>
+<li><a href=#%E5%BA%94%E7%94%A8%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80>应用——傅里叶级数展开</a></li>
 </ul>
 <h2 id=三角恒等式和差化积与积化和差>三角恒等式——和差化积与积化和差</h2>
 <table>
 <thead>
-<tr class=header>
-<th align=center>积化和差</th>
-<th align=center>和差化积</th>
+<tr>
+<th style=text-align:center>积化和差</th>
+<th style=text-align:center>和差化积</th>
 </tr>
 </thead>
 <tbody>
-<tr class=odd>
-<td align=center><span class=math>\({\displaystyle \sin \alpha \cos \beta ={\sin(\alpha +\beta )+\sin(\alpha -\beta ) \over 2}}\)</span></td>
-<td align=center><span class=math>\({\displaystyle \sin \alpha +\sin \beta =2\sin {\frac {\alpha +\beta }{2}}\cos {\frac {\alpha -\beta }{2}}}\)</span></td>
+<tr>
+<td style=text-align:center>${\displaystyle \sin \alpha \cos \beta ={\sin(\alpha +\beta )+\sin(\alpha -\beta ) \over 2}}$</td>
+<td style=text-align:center>${\displaystyle \sin \alpha +\sin \beta =2\sin {\frac {\alpha +\beta }{2}}\cos {\frac {\alpha -\beta }{2}}}$</td>
 </tr>
-<tr class=even>
-<td align=center><span class=math>\({\displaystyle \cos \alpha \sin \beta ={\sin(\alpha +\beta )-\sin(\alpha -\beta ) \over 2}}\)</span></td>
-<td align=center><span class=math>\({\displaystyle \sin \alpha -\sin \beta =2\cos {\alpha +\beta \over 2}\sin {\alpha -\beta \over 2}}\)</span></td>
+<tr>
+<td style=text-align:center>${\displaystyle \cos \alpha \sin \beta ={\sin(\alpha +\beta )-\sin(\alpha -\beta ) \over 2}}$</td>
+<td style=text-align:center>${\displaystyle \sin \alpha -\sin \beta =2\cos {\alpha +\beta \over 2}\sin {\alpha -\beta \over 2}}$</td>
 </tr>
-<tr class=odd>
-<td align=center><span class=math>\({\displaystyle \cos \alpha \cos \beta ={\cos(\alpha +\beta )+\cos(\alpha -\beta ) \over 2}}\)</span></td>
-<td align=center><span class=math>\({\displaystyle \cos \alpha +\cos \beta =2\cos {\frac {\alpha +\beta }{2}}\cos {\frac {\alpha -\beta }{2}}}\)</span></td>
+<tr>
+<td style=text-align:center>${\displaystyle \cos \alpha \cos \beta ={\cos(\alpha +\beta )+\cos(\alpha -\beta ) \over 2}}$</td>
+<td style=text-align:center>${\displaystyle \cos \alpha +\cos \beta =2\cos {\frac {\alpha +\beta }{2}}\cos {\frac {\alpha -\beta }{2}}}$</td>
 </tr>
-<tr class=even>
-<td align=center><span class=math>\({\displaystyle \sin \alpha \sin \beta =-{\cos(\alpha +\beta )-\cos(\alpha -\beta ) \over 2}}\)</span></td>
-<td align=center><span class=math>\({\displaystyle \cos \alpha -\cos \beta =-2\sin {\alpha +\beta \over 2}\sin {\alpha -\beta \over 2}}\)</span></td>
+<tr>
+<td style=text-align:center>${\displaystyle \sin \alpha \sin \beta =-{\cos(\alpha +\beta )-\cos(\alpha -\beta ) \over 2}}$</td>
+<td style=text-align:center>${\displaystyle \cos \alpha -\cos \beta =-2\sin {\alpha +\beta \over 2}\sin {\alpha -\beta \over 2}}$</td>
 </tr>
 </tbody>
 </table>
 <h2 id=三角级数与三角函数系的正交性>三角级数与三角函数系的正交性</h2>
 <blockquote>
-<p>定理1： 组成三角级数的函数系 <span class=math>\[1, \sin x, \cos x, \sin 2x, \cos 2x, \dotsb, \sin nx, \cos nx\]</span> 在区间<span class=math>\([-\pi , \pi]或[0, 2\pi]\)</span>上正交，即其中任意两个<strong>不同</strong>函数之积在区间<span class=math>\([-\pi , \pi]或[0, 2\pi]\)</span>积分为0.</p>
+<p>定理1： 组成三角级数的函数系
+$$1, \sin x, \cos x, \sin 2x, \cos 2x, \dotsb, \sin nx, \cos nx$$
+在区间$[-\pi , \pi]或[0, 2\pi]$上正交，即其中任意两个<strong>不同</strong>函数之积在区间$[-\pi , \pi]或[0, 2\pi]$积分为0.</p>
 </blockquote>
 <p><strong>证明</strong>：</p>
-可以用积化和差公式证明，<span class=math>\(\sin kx \cos nx={1 \over 2}[\sin (kx+nx)+\sin (kx-nx)]\)</span>，其中<span class=math>\(k,n\)</span>为整数，且<span class=math>\(k \neq n\)</span>。 $$
-<p><span class=math>\[
-由于对任意**非0**整数$n$，有$\sin nx, \cos nx$在区间$[-\pi , \pi]或[0, 2\pi]$积分为0，所以上式右侧积分为0，即
-\]</span> <em>0^{2}kx nx x = 0 <span class=math>\[
+<p>可以用积化和差公式证明，$\sin kx \cos nx={1 \over 2}[\sin (kx+nx)+\sin (kx-nx)]$，其中$k,n$为整数，且$k \neq n$。
+$$
+\begin{aligned}
+\int_0^{2\pi}\sin kx \cos nx \mathrm{d}x &=\int_0^{2\pi}{1 \over 2}[\sin (kx+nx)+\sin (kx-nx)]\mathrm{d}x\
+&= {1 \over 2}\int_0^{2\pi}\sin (kx+nx)\mathrm{d}x + {1 \over 2}\int_0^{2\pi}\sin (kx-nx)\mathrm{d}x
+\end{aligned}</p>
+<p>$$
+由于对任意<strong>非0</strong>整数$n$，有$\sin nx, \cos nx$在区间$[-\pi , \pi]或[0, 2\pi]$积分为0，所以上式右侧积分为0，即
+$$
+\int_0^{2\pi}\sin kx \cos nx \mathrm{d}x = 0
+$$
 同理可以证明
-\]</span> </em>0^{2}kx nx x = 0\ <em>0^{2}kx nx x = 0\ </em>0^{2}kx nx x = 0 <span class=math>\[
+$$
+\int_0^{2\pi}\sin kx \sin nx \mathrm{d}x = 0\
+\int_0^{2\pi}\cos kx \cos nx \mathrm{d}x = 0\
+\int_0^{2\pi}\cos kx \sin nx \mathrm{d}x = 0
+$$
 需要指出的是三角函数系中相同函数的乘积在在区间$[-\pi , \pi]或[0, 2\pi]$积分不为0，即
-\]</span> <em>0^{2}nx nx x 0\ </em>0^{2}nx nx x 0\ $$ 我们从积化和差公式中也可以窥出原因，即出现了直流项。</p>
+$$
+\int_0^{2\pi}\sin nx \sin nx \mathrm{d}x \neq 0\
+\int_0^{2\pi}\cos nx \cos nx \mathrm{d}x \neq 0\
+$$
+我们从积化和差公式中也可以窥出原因，即出现了直流项。</p>
 <h2 id=应用傅里叶级数展开>应用——傅里叶级数展开</h2>
 <blockquote>
 <p>狄利克雷定理 (傅里叶级数):</p>
-<p>设<span class=math>\(f(x)\)</span>是周期为<span class=math>\(2\pi\)</span>的周期函数，并满足狄利克雷条件：</p>
-<ol style=list-style-type:decimal>
+<p>设$f(x)$是周期为$2\pi$的周期函数，并满足狄利克雷条件：</p>
+<ol>
 <li>在一个周期内连续或只有有限个第一类间断点；</li>
 <li>在一个周期内只有有限个极限点；</li>
 </ol>
-<p>则<span class=math>\(f(x)\)</span>的傅里叶级数收敛，且有 <span class=math>\[
-\frac{a_0}{2}+\sum_{n=1}^\infty(a_n \cos nx + b_n \sin nx)=\\
+<p>则$f(x)$的傅里叶级数收敛，且有
+$$
+\frac{a_0}{2}+\sum_{n=1}^\infty(a_n \cos nx + b_n \sin nx)=\
 \begin{cases}
-f(x), x为连续点\\
+f(x), x为连续点\
 \frac{f(x^+)+f(x^-)}{2}, x为间断点
 \end{cases}
-\]</span> 其中，<span class=math>\(a_n, b_n\)</span>为<span class=math>\(f(x)的傅里叶系数\)</span></p>
+$$
+其中，$a_n, b_n$为$f(x)的傅里叶系数$</p>
 </blockquote>
 <p>可以发现傅里叶级数比幂级数的条件要宽松很多，对可导没有要求。</p>
 <p>另外，对奇函数，偶函数可以有对应的正弦级数和余弦级数。</p>

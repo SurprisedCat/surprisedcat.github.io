@@ -88,38 +88,44 @@ Apr 18, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=度量矩阵与广义内积>度量矩阵与广义内积</h2>
+<h2 id=度量矩阵与广义内积---omit-in-toc--->度量矩阵与广义内积</h2>
 <h2 id=度量矩阵>度量矩阵</h2>
 <h3 id=gram矩阵>Gram矩阵</h3>
-<p>设<span class=math>\(A\)</span>为一个<span class=math>\(m\times n\)</span>阶实矩阵，<span class=math>\(n\)</span>阶方阵<span class=math>\(G=[g_{ij}]=A^TA\)</span>称为Gramian或Gram矩阵，也有人称之为交互乘积(cross-product)矩阵。考虑<span class=math>\(A\)</span>的行向量表达式<span class=math>\(A=\begin{bmatrix} \mathbf{a}_1&\mathbf{a}_2&\cdots&\mathbf{a}_n \end{bmatrix}，\mathbf{a}_i\in\mathbb{R}^m\)</span>，则 <span class=math>\[G=A^TA=\begin{bmatrix} \mathbf{a}_1^T\\ \mathbf{a}_2^T\\ \vdots\\ \mathbf{a}_n^T \end{bmatrix}\begin {bmatrix} \mathbf{a}_1&\mathbf{a}_2&\cdots&\mathbf{a}_n \end{bmatrix}=\begin{bmatrix} \mathbf{a}_1^T\mathbf{a}_1&\mathbf {a}_1^T\mathbf{a}_2&\cdots&\mathbf{a}_1^T\mathbf{a}_n\\ \mathbf{a}_2^T\mathbf{a}_1&\mathbf{a}_2 ^T\mathbf{a}_2&\cdots&\mathbf{a}_2^T\mathbf{a}_n\\ ~&~&~&~\\ \mathbf{a}_n^T\mathbf{a}_1&\mathbf{a}_n^T\mathbf{a}_2&\cdots&\mathbf{a}_n^T\mathbf{a}_n \end{bmatrix}\]</span> 这指出<span class=math>\(g_{ij}=\mathbf{a}_i^T\mathbf{a}_j\)</span>。推广至一般情况，设向量集<span class=math>\(\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n\)</span>属于内积空间<span class=math>\(\mathcal{V}，n\times n\)</span>阶Gramian矩阵<span class=math>\(G\)</span>的<span class=math>\((i,j)\)</span>元定义为<span class=math>\(\mathbf{v}_i和\mathbf{v}_j\)</span>的内积，以<span class=math>\(g_{ij}=\left\langle\mathbf{v}_i,\mathbf{v}_j\right\rangle\)</span>表示。</p>
-<p>本文仅讨论广泛应用于统计学与控制系统的实Gramian矩阵，以下列举几个实Gramian矩阵<span class=math>\(G=A^TA\)</span>的基本性质。</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(A^TA\)</span>是对称矩阵。</li>
-</ol>
-<p>明显地，<span class=math>\(g_{ij}=\mathbf{a}_i^T\mathbf{a}_j=\mathbf{a}_j^T\mathbf{a}_i=g_{ji}\)</span>。</p>
-<p>(2)对任一实矩阵<span class=math>\(A，\mathrm{rank}(A^TA)=\mathrm{rank}A\)</span>。</p>
-<p>(3)若<span class=math>\(A^TA=0，则A=0\)</span>。</p>
-<p>性质(3)是性质(2)的必然结果。若<span class=math>\(A^TA=0\)</span>，则<span class=math>\(\mathrm{rank}A=\mathrm{rank}A^TA=\mathrm{rank}0=0\)</span>，惟有零矩阵其矩阵秩为零，推得<span class=math>\(A=0\)</span>。</p>
+<p>设$A$为一个$m\times n$阶实矩阵，$n$阶方阵$G=[g_{ij}]=A^TA$称为Gramian或Gram矩阵，也有人称之为交互乘积(cross-product)矩阵。考虑$A$的行向量表达式$A=\begin{bmatrix} \mathbf{a}_1&\mathbf{a}_2&\cdots&\mathbf{a}_n \end{bmatrix}，\mathbf{a}_i\in\mathbb{R}^m$，则
+$$G=A^TA=\begin{bmatrix} \mathbf{a}_1^T\ \mathbf{a}_2^T\ \vdots\ \mathbf{a}_n^T \end{bmatrix}\begin {bmatrix} \mathbf{a}_1&\mathbf{a}_2&\cdots&\mathbf{a}_n \end{bmatrix}=\begin{bmatrix} \mathbf{a}_1^T\mathbf{a}_1&\mathbf {a}_1^T\mathbf{a}_2&\cdots&\mathbf{a}_1^T\mathbf{a}_n\ \mathbf{a}_2^T\mathbf{a}_1&\mathbf{a}_2 ^T\mathbf{a}_2&\cdots&\mathbf{a}_2^T\mathbf{a}_n\ ~&~&~&~\ \mathbf{a}_n^T\mathbf{a}_1&\mathbf{a}_n^T\mathbf{a}_2&\cdots&\mathbf{a}_n^T\mathbf{a}<em>n \end{bmatrix}$$
+这指出$g</em>{ij}=\mathbf{a}_i^T\mathbf{a}_j$。推广至一般情况，设向量集$\mathbf{v}_1,\mathbf{v}_2,\ldots,\mathbf{v}_n$属于内积空间$\mathcal{V}，n\times n$阶Gramian矩阵$G$的$(i,j)$元定义为$\mathbf{v}_i和\mathbf{v}<em>j$的内积，以$g</em>{ij}=\left\langle\mathbf{v}_i,\mathbf{v}_j\right\rangle$表示。</p>
+<p>本文仅讨论广泛应用于统计学与控制系统的实Gramian矩阵，以下列举几个实Gramian矩阵$G=A^TA$的基本性质。</p>
+<p>(1) $A^TA$是对称矩阵。</p>
+<p>明显地，$g_{ij}=\mathbf{a}_i^T\mathbf{a}_j=\mathbf{a}_j^T\mathbf{a}<em>i=g</em>{ji}$。</p>
+<p>(2)对任一实矩阵$A，\mathrm{rank}(A^TA)=\mathrm{rank}A$。</p>
+<p>(3)若$A^TA=0，则A=0$。</p>
+<p>性质(3)是性质(2)的必然结果。若$A^TA=0$，则$\mathrm{rank}A=\mathrm{rank}A^TA=\mathrm{rank}0=0$，惟有零矩阵其矩阵秩为零，推得$A=0$。</p>
 <p>Gramian矩阵和正定矩阵有密切的关系，归结为以下三个性质。</p>
-<p>(4)对任一实矩阵<span class=math>\(A，A^TA\)</span>是半正定矩阵。设<span class=math>\(\mathbf{x}\in\mathbb{R}^n且\mathbf{x}\neq\mathbf{0}\)</span>，则<span class=math>\(\mathbf{x}^TA^TA\mathbf{x}=(A\mathbf{x})^T(A\mathbf{x})=\Vert A\mathbf{x}\Vert^2\ge 0\)</span>。</p>
-<p>(5)任一实对称半正定矩阵<span class=math>\(M\)</span>皆可表示为Grammin矩阵，亦即存在一矩阵<span class=math>\(A\)</span>使得<span class=math>\(M=A^TA\)</span>。</p>
-<p>实对称矩阵<span class=math>\(M\)</span>可正交对角化为<span class=math>\(M=Q\Lambda Q^{T}\)</span>，其中<span class=math>\(Q^TQ=I，\Lambda=\mathrm{diag}(\lambda_1,\ldots,\lambda_n)\)</span>。又<span class=math>\(M\)</span>为半正定，这意味对所有<span class=math>\(i，\lambda_i\ge 0\)</span>，故可令<span class=math>\(\Lambda^{1/2}=\mathrm{diag}(\sqrt{\lambda_1},\ldots,\sqrt{\lambda_n})\)</span>且<span class=math>\(A=\Lambda^{1/2}Q^T\)</span>，立得<span class=math>\(M=Q\Lambda Q^{T}=(Q\Lambda^{1/2})(\Lambda^{1/2}Q^T)=(\Lambda^{1/2}Q^T)^ T(\Lambda^{1/2}Q^T)=A^TA\)</span>。</p>
-<p>(6)唯当<span class=math>\(A\)</span>的列向量<span class=math>\(\mathbf{a}_1,\ldots,\mathbf{a}_n\)</span>是线性独立时，<span class=math>\(A^TA\)</span>可逆，故为正定矩阵。因为<span class=math>\(A\)</span>有线性独立的列向量意味<span class=math>\(\mathrm{rank}A=n\)</span>，由性质(2)可知<span class=math>\(\mathrm{rank}(A^TA)=n\)</span>，反向陈述显然成立。另外也可以考虑<span class=math>\(A\mathbf{x}=\mathbf{0}\)</span>，当A有线性独立行向量时，零空间<span class=math>\(N(A)=\{\mathbf{0}\}\)</span>，性质(4)的等号仅发生于<span class=math>\(\mathbf{x}=\mathbf{0}\)</span>，故<span class=math>\(A\)</span>为正定矩阵。</p>
+<p>(4)对任一实矩阵$A，A^TA$是半正定矩阵。设$\mathbf{x}\in\mathbb{R}^n且\mathbf{x}\neq\mathbf{0}$，则$\mathbf{x}^TA^TA\mathbf{x}=(A\mathbf{x})^T(A\mathbf{x})=\Vert A\mathbf{x}\Vert^2\ge 0$。</p>
+<p>(5)任一实对称半正定矩阵$M$皆可表示为Grammin矩阵，亦即存在一矩阵$A$使得$M=A^TA$。</p>
+<p>实对称矩阵$M$可正交对角化为$M=Q\Lambda Q^{T}$，其中$Q^TQ=I，\Lambda=\mathrm{diag}(\lambda_1,\ldots,\lambda_n)$。又$M$为半正定，这意味对所有$i，\lambda_i\ge 0$，故可令$\Lambda^{1/2}=\mathrm{diag}(\sqrt{\lambda_1},\ldots,\sqrt{\lambda_n})$且$A=\Lambda^{1/2}Q^T$，立得$M=Q\Lambda Q^{T}=(Q\Lambda^{1/2})(\Lambda^{1/2}Q^T)=(\Lambda^{1/2}Q^T)^ T(\Lambda^{1/2}Q^T)=A^TA$。</p>
+<p>(6)唯当$A$的列向量$\mathbf{a}_1,\ldots,\mathbf{a}_n$是线性独立时，$A^TA$可逆，故为正定矩阵。因为$A$有线性独立的列向量意味$\mathrm{rank}A=n$，由性质(2)可知$\mathrm{rank}(A^TA)=n$，反向陈述显然成立。另外也可以考虑$A\mathbf{x}=\mathbf{0}$，当A有线性独立行向量时，零空间$N(A)={\mathbf{0}}$，性质(4)的等号仅发生于$\mathbf{x}=\mathbf{0}$，故$A$为正定矩阵。</p>
 <h2 id=广义内积>广义内积</h2>
-<p>有复空间<span class=math>\(C^n\)</span>，有一组基<span class=math>\(bases_1=\{\varepsilon_1,\varepsilon_2,\dotsb,\varepsilon_n\}\)</span>，<span class=math>\(\alpha,\beta\)</span>用<span class=math>\(base_1\)</span>表示的向量，那么<span class=math>\(\alpha,\beta\)</span>在<span class=math>\(base_1\)</span>下的内积可以定义为 <span class=math>\[\langle\alpha,\beta\rangle=\sum_{i=1}^n\sum_{j=1}^n x_i\bar y_i\langle\varepsilon_i,\varepsilon_j\rangle\\=x^TA\bar y\]</span> 其中，<span class=math>\(A=(\langle\varepsilon_i,\varepsilon_j\rangle)_{n*n}\)</span>，称<span class=math>\(A\)</span>是空间<span class=math>\(C^n\)</span>在基<span class=math>\(\{\varepsilon_1,\varepsilon_2,\dotsb,\varepsilon_n\}\)</span>下的度量矩阵，这种带有度量矩阵的内积称为广义内积。</p>
-<p>对于欧几里得空间<span class=math>\(R^n\)</span>，度量矩阵是对称矩阵<span class=math>\(A^T=A\)</span>；对于酉空间<span class=math>\(C^n\)</span>，度量矩阵是Hermite矩阵<span class=math>\(A^H=A\)</span>。对于一般内积，可以看成度量矩阵是n阶单位矩阵<span class=math>\(I_{n*n}\)</span>。</p>
+<p>有复空间$C^n$，有一组基$bases_1={\varepsilon_1,\varepsilon_2,\dotsb,\varepsilon_n}$，$\alpha,\beta$用$base_1$表示的向量，那么$\alpha,\beta$在$base_1$下的内积可以定义为
+$$\langle\alpha,\beta\rangle=\sum_{i=1}^n\sum_{j=1}^n x_i\bar y_i\langle\varepsilon_i,\varepsilon_j\rangle\=x^TA\bar y$$
+其中，$A=(\langle\varepsilon_i,\varepsilon_j\rangle)_{n*n}$，称$A$是空间$C^n$在基${\varepsilon_1,\varepsilon_2,\dotsb,\varepsilon_n}$下的度量矩阵，这种带有度量矩阵的内积称为广义内积。</p>
+<p>对于欧几里得空间$R^n$，度量矩阵是对称矩阵$A^T=A$；对于酉空间$C^n$，度量矩阵是Hermite矩阵$A^H=A$。对于一般内积，可以看成度量矩阵是n阶单位矩阵$I_{n*n}$。</p>
 <p>可以看出定义内积的方式是多种多样的，因此我们能够指出只要满足哪些问题就可以算是内积。</p>
 <h2 id=内积空间>内积空间</h2>
-<p>标量域<span class=math>\({\displaystyle F}\)</span>是指实数域<span class=math>\(\mathbb {R}\)</span>或复数域<span class=math>\(\mathbb {C}\)</span>。</p>
-<p>正式地，一个内积空间是域<span class=math>\(F\)</span>上的向量空间<span class=math>\(V\)</span>与一个内积(即一个映射)构成的。<span class=math>\(V\)</span>上的一个内积定义为正定、非退化的共轭双线性形式（<span class=math>\(F = \mathbb{R}\)</span>时，内积是一个正定、对称、非退化的双线性形式），记为<span class=math>\(\langle \cdot, \cdot \rangle : V \times V \rightarrow F\)</span>。</p>
+<p>标量域${\displaystyle F}$是指实数域$\mathbb {R}$或复数域$\mathbb {C}$。</p>
+<p>正式地，一个内积空间是域$F$上的向量空间$V$与一个内积(即一个映射)构成的。$V$上的一个内积定义为正定、非退化的共轭双线性形式（$F = \mathbb{R}$时，内积是一个正定、对称、非退化的双线性形式），记为$\langle \cdot, \cdot \rangle : V \times V \rightarrow F$。</p>
 <p>它满足以下设定：</p>
-<ol style=list-style-type:decimal>
-<li>共轭对称；<span class=math>\(\forall x,y\in V, \; \; \langle x,y\rangle =\overline{\langle y,x\rangle}\)</span>，这个设定蕴含了：<span class=math>\(\forall x \in V, \; \; \langle x,x\rangle \in \mathbb{R}\)</span>，因为<span class=math>\(\langle x,x\rangle = \overline{\langle x,x\rangle}\)</span>.</li>
-<li>对第一个元素线性； <span class=math>\[\forall a\in F,\ \forall x,y\in V,\ \langle ax,y\rangle= a \langle x,y\rangle, \\ \forall x,y,z\in V,\ \langle x+y,z\rangle= \langle x,z\rangle+ \langle y,z\rangle.\]</span> 前两条可以推断出： <span class=math>\[\forall b\in F,\ \forall x,y\in V,\ \langle x,by \rangle= \overline{b} \langle x,y\rangle,\\ \forall x,y,z\in V,\ \langle x,y+z\rangle= \langle x,y\rangle+ \langle x,z\rangle.\]</span> 因此<span class=math>\(\langle \cdot , \cdot \rangle\)</span>实际上是一个半双线性形式。</li>
-<li>非负性：<span class=math>\(\forall x \in V,\ \langle x,x\rangle \ge 0.\)</span></li>
-<li>非退化：从<span class=math>\(V\)</span>到对偶空间<span class=math>\(V^\ast\)</span>的映射：<span class=math>\(x\mapsto \langle x,\cdot\rangle\)</span>是同构映射。在有限维的向量空间中，只需要验证它是单射：<span class=math>\(\langle x,y\rangle = 0 \; \forall y \in V\)</span>,当且仅当<span class=math>\(x = 0\)</span>。</li>
+<ol>
+<li>共轭对称；$\forall x,y\in V, ; ; \langle x,y\rangle =\overline{\langle y,x\rangle}$，这个设定蕴含了：$\forall x \in V, ; ; \langle x,x\rangle \in \mathbb{R}$，因为$\langle x,x\rangle = \overline{\langle x,x\rangle}$.</li>
+<li>对第一个元素线性；
+$$\forall a\in F,\ \forall x,y\in V,\ \langle ax,y\rangle= a \langle x,y\rangle, \ \forall x,y,z\in V,\ \langle x+y,z\rangle= \langle x,z\rangle+ \langle y,z\rangle.$$
+前两条可以推断出：
+$$\forall b\in F,\ \forall x,y\in V,\ \langle x,by \rangle= \overline{b} \langle x,y\rangle,\ \forall x,y,z\in V,\ \langle x,y+z\rangle= \langle x,y\rangle+ \langle x,z\rangle.$$
+因此$\langle \cdot , \cdot \rangle$实际上是一个半双线性形式。</li>
+<li>非负性：$\forall x \in V,\ \langle x,x\rangle \ge 0.$</li>
+<li>非退化：从$V$到对偶空间$V^\ast$的映射：$x\mapsto \langle x,\cdot\rangle$是同构映射。在有限维的向量空间中，只需要验证它是单射：$\langle x,y\rangle = 0 ; \forall y \in V$,当且仅当$x = 0$。</li>
 </ol>
-<p>拥有以上性质的共轭双线性形式被称为<strong>埃尔米特形式</strong>。<strong>内积是一个埃尔米特形式</strong>。如果<span class=math>\(F\)</span>是实数域<span class=math>\(\mathbb {R}\)</span>那么共轭对称性质就等价于对称性：<span class=math>\(\langle x,y\rangle=\langle y,x\rangle\)</span>，也就是说，共轭双线性变成了一般的双线性。</p>
+<p>拥有以上性质的共轭双线性形式被称为<strong>埃尔米特形式</strong>。<strong>内积是一个埃尔米特形式</strong>。如果$F$是实数域$\mathbb {R}$那么共轭对称性质就等价于对称性：$\langle x,y\rangle=\langle y,x\rangle$，也就是说，共轭双线性变成了一般的双线性。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

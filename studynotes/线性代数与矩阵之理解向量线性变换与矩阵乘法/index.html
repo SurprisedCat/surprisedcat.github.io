@@ -88,144 +88,175 @@ Apr 25, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=线性代数与矩阵之理解向量线性变换与矩阵乘法>线性代数与矩阵之理解向量、线性变换与矩阵乘法</h2>
+<h2 id=线性代数与矩阵之理解向量线性变换与矩阵乘法---omit-in-toc--->线性代数与矩阵之理解向量、线性变换与矩阵乘法</h2>
 <ul>
-<li><a href=#三个需要认可的前提>三个需要认可的前提</a></li>
-<li><a href=#向量的表示及其分解>向量的表示及其分解</a></li>
-<li><a href=#线性组合与基>线性组合与基</a></li>
-<li><a href=#空间的基>空间的基</a></li>
-<li><a href=#线性变换与矩阵>线性变换与矩阵</a></li>
-<li><a href=#线性变换>线性变换</a></li>
-<li><a href=#用矩阵描述线性变换>用矩阵描述线性变换</a></li>
-<li><a href=#从基变换的角度再看矩阵>从基变换的角度再看矩阵</a></li>
-<li><a href=#矩阵乘以矩阵>矩阵乘以矩阵</a></li>
-<li><a href=#从左边乘一个矩阵>从左边乘一个矩阵</a></li>
-<li><a href=#从右边乘一个矩阵>从右边乘一个矩阵</a></li>
-<li><a href=#bp-1ap><span class=math>\(B=P^{-1}AP\)</span></a></li>
-<li><a href=#tips>Tips</a></li>
-<li><a href=#n维空间有多少个向量>N维空间有多少个向量</a></li>
-<li><a href=#逆矩阵>逆矩阵</a></li>
+<li><a href=#%E4%B8%89%E4%B8%AA%E9%9C%80%E8%A6%81%E8%AE%A4%E5%8F%AF%E7%9A%84%E5%89%8D%E6%8F%90>三个需要认可的前提</a></li>
+<li><a href=#%E5%90%91%E9%87%8F%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E5%85%B6%E5%88%86%E8%A7%A3>向量的表示及其分解</a></li>
+<li><a href=#%E7%BA%BF%E6%80%A7%E7%BB%84%E5%90%88%E4%B8%8E%E5%9F%BA>线性组合与基</a>
+<ul>
+<li><a href=#%E7%A9%BA%E9%97%B4%E7%9A%84%E5%9F%BA>空间的基</a></li>
+</ul>
+</li>
+<li><a href=#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5>线性变换与矩阵</a>
+<ul>
+<li><a href=#%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2>线性变换</a></li>
+<li><a href=#%E7%94%A8%E7%9F%A9%E9%98%B5%E6%8F%8F%E8%BF%B0%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2>用矩阵描述线性变换</a></li>
+<li><a href=#%E4%BB%8E%E5%9F%BA%E5%8F%98%E6%8D%A2%E7%9A%84%E8%A7%92%E5%BA%A6%E5%86%8D%E7%9C%8B%E7%9F%A9%E9%98%B5>从基变换的角度再看矩阵</a></li>
+</ul>
+</li>
+<li><a href=#%E7%9F%A9%E9%98%B5%E4%B9%98%E4%BB%A5%E7%9F%A9%E9%98%B5>矩阵乘以矩阵</a>
+<ul>
+<li><a href=#%E4%BB%8E%E5%B7%A6%E8%BE%B9%E4%B9%98%E4%B8%80%E4%B8%AA%E7%9F%A9%E9%98%B5>从左边乘一个矩阵</a></li>
+<li><a href=#%E4%BB%8E%E5%8F%B3%E8%BE%B9%E4%B9%98%E4%B8%80%E4%B8%AA%E7%9F%A9%E9%98%B5>从右边乘一个矩阵</a></li>
+</ul>
+</li>
+<li><a href=#bp-1ap>$B=P^{-1}AP$</a></li>
+<li><a href=#tips>Tips</a>
+<ul>
+<li><a href=#n%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%90%91%E9%87%8F>N维空间有多少个向量</a></li>
+<li><a href=#%E9%80%86%E7%9F%A9%E9%98%B5>逆矩阵</a></li>
+</ul>
+</li>
 </ul>
 <h2 id=三个需要认可的前提>三个需要认可的前提</h2>
-<ol style=list-style-type:decimal>
-<li>对于空间，只考虑拓扑维数，不考虑分形维数。 （像这种“不说人话”的描述其实无助于理解，其实就是想说，我们考虑的空间都是自然数维度的，零维、一维、二维、三维、四维……） <img src=../../images/空间维数.svg alt=空间维数></li>
-<li>事物是客观存在的，对事物的观测是主观的。 对于同一个事物，如果观测的角度、方式等不同，会得出不同的结果。 <img src=../../images/多角度观测.jpg alt=多角度观测></li>
-<li>运动是相对的。比如右下图，如果要以地球为坐标系，太阳系天体实际上运动是复杂且诡异的。但是也不能说右下图的描述不对或无用，只是参考坐标系不一样。比如天球坐标系是位置天文学上很实用的工具。 <embed src=../../images/日心说地心说.webp></li>
+<ol>
+<li>对于空间，只考虑拓扑维数，不考虑分形维数。
+（像这种“不说人话”的描述其实无助于理解，其实就是想说，我们考虑的空间都是自然数维度的，零维、一维、二维、三维、四维……）
+<img src=../../images/%E7%A9%BA%E9%97%B4%E7%BB%B4%E6%95%B0.svg alt=空间维数></li>
+<li>事物是客观存在的，对事物的观测是主观的。
+对于同一个事物，如果观测的角度、方式等不同，会得出不同的结果。
+<img src=../../images/%E5%A4%9A%E8%A7%92%E5%BA%A6%E8%A7%82%E6%B5%8B.jpg alt=多角度观测></li>
+<li>运动是相对的。比如右下图，如果要以地球为坐标系，太阳系天体实际上运动是复杂且诡异的。但是也不能说右下图的描述不对或无用，只是参考坐标系不一样。比如天球坐标系是位置天文学上很实用的工具。
+<img src=../../images/%E6%97%A5%E5%BF%83%E8%AF%B4%E5%9C%B0%E5%BF%83%E8%AF%B4.webp alt=日心说地心说.webp></li>
 </ol>
 <h2 id=向量的表示及其分解>向量的表示及其分解</h2>
 <p>到了这里，别忘了这篇文章不是讲哲学，也不敢尝试探究过深的问题，只是谈谈自己对向量、线性变化、矩阵的理解。</p>
-<p>首先说的是最基础的向量(不做特殊说明时一般都以列向量的形式表示)。对于向量的理解，各有各的说法。向量可以是任何东西，只需要保证：两个<strong>向量相加及数字与向量相乘</strong>是有意义的即可。向量的加法和数乘是两个基础运算贯穿始终。而所有这些向量组成的集合，称为<strong>空间</strong>。<a href=#N维空间有多少个向量>Tips：N维空间有多少个向量？</a></p>
-<p><img src=../../images/向量是什么.png alt=向量是什么> 截图自<a href="https://www.bilibili.com/video/av6731067?p=2">线性代数的本质-系列合集</a></p>
-<p>我们主要关注的是，我们是如何描述一个向量的。还记得，我们的第一个前提吗？“我们考虑的空间都是自然数维度的”，<strong>维度</strong>是指空间中独立参数的数目，也就是我们用来描述空间中<strong>所有</strong>向量<strong>最少</strong>需要的参数个数。比如，在二维平面中，我们至少需要两个量<span class=math>\([a_1,a_2]^T\)</span>来描述空间中<strong>任一个点</strong>的位置，类似的，在三维空间中至少需要3个量<span class=math>\([a_1,a_2,a_3]^T\)</span>。</p>
-<p>线性代数描述的三维空间中，我们使用3个数字表示一个向量，例如<span class=math>\([a_1,a_2,a_3]^T\)</span>，我们在使用这个3个数字的时候，经常只关注到数值，并没有关心3个数的顺序，也是说，不仅仅数值中含有空间向量的信息，他们的顺序也是含有信息的，顺序+数值=空间向量。但是，回过头来说，这3个数字+顺序到底代表这什么呢？</p>
+<p>首先说的是最基础的向量(不做特殊说明时一般都以列向量的形式表示)。对于向量的理解，各有各的说法。向量可以是任何东西，只需要保证：两个<strong>向量相加及数字与向量相乘</strong>是有意义的即可。向量的加法和数乘是两个基础运算贯穿始终。而所有这些向量组成的集合，称为<strong>空间</strong>。<a href=#N%E7%BB%B4%E7%A9%BA%E9%97%B4%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E5%90%91%E9%87%8F>Tips：N维空间有多少个向量？</a></p>
+<p><img src=../../images/%E5%90%91%E9%87%8F%E6%98%AF%E4%BB%80%E4%B9%88.png alt=向量是什么>
+截图自<a href="https://www.bilibili.com/video/av6731067?p=2">线性代数的本质-系列合集</a></p>
+<p>我们主要关注的是，我们是如何描述一个向量的。还记得，我们的第一个前提吗？“我们考虑的空间都是自然数维度的”，<strong>维度</strong>是指空间中独立参数的数目，也就是我们用来描述空间中<strong>所有</strong>向量<strong>最少</strong>需要的参数个数。比如，在二维平面中，我们至少需要两个量$[a_1,a_2]^T$来描述空间中<strong>任一个点</strong>的位置，类似的，在三维空间中至少需要3个量$[a_1,a_2,a_3]^T$。</p>
+<p>线性代数描述的三维空间中，我们使用3个数字表示一个向量，例如$[a_1,a_2,a_3]^T$，我们在使用这个3个数字的时候，经常只关注到数值，并没有关心3个数的顺序，也是说，不仅仅数值中含有空间向量的信息，他们的顺序也是含有信息的，顺序+数值=空间向量。但是，回过头来说，这3个数字+顺序到底代表这什么呢？</p>
 <p>现实中，我们如何描述某地的位置呢？假设我们需要把一个快递送到指定位置，如下图的中航广场4楼。如果超人，可以无视地理环境沿着绿色的箭头直接飞过去就行了。但实际上，送快递的活计都是凡人在做，所以我们得先向前走400m，然后左转再走200m，最后坐电梯向上10m。有意思的地方来了，虽然我们无法直接飞达目的地，但是我们能够通过麻烦一点的方法，向着三个方向走三次，到达同样的目的地。这两种方式异曲同工。从另一个角度来讲，<strong>把绿色向量这个向量可以拆分成三个红色向量的和（向量的加法）</strong>。而且，我们在描述这3个方向的步骤时，可以换一种更细碎的描述：<em>先向前走1m，然后沿着这个方向走，直到走到1m的400倍；然后向左走1米，沿着向左的方向走直到走到1m的200倍；最后坐电梯向上1m，沿着向上的方向坐电梯直到1m的10倍</em>。也就是说，我们沿某一个方向行进时，可以行进某一特定长度的倍数（<strong>向量的数乘</strong>），如果每个方向都取一样的特定长度，那我们就把这个方向与特定长度的组合称为<strong>单位向量</strong>（例子中特定长度不一定非要是1，其他值也行）。</p>
-<div class=figure>
-<img src=../../images/三维坐标.png alt=三维坐标.png><p class=caption>三维坐标.png</p>
-</div>
-<p>现在，我们知道可以把在三维空间中的1个向量，分解成3个单位向量<strong>分别</strong>乘以其倍数的和（向量加法与数乘的线性组合）。那么能不能分成2个向量之和呢？当然可以！如果我们把向左200m的向量和向上10m的（红色）向量，变成1个等效的向量比如向左上方<span class=math>\(\sqrt{200^2+10^2}m\)</span>（黄色的向量）就可以了啊。但是现在问题来了，收快递的人说我现在不在4楼，被发配到地下1层了，需要坐电梯向下3m到负1层。那么按照<span class=math>\([向前,向左上]\)</span>的2个向量行进方式，是无论如何也到不了中航广场地下1层的。然而，原来用3个向量的分解方式，只要说在最后一个方向上，沿着向上的方向坐电梯直到1m的-3倍，那么还是能够完成送达的任务。总结来说，如果是分成2个方向，换了一个地点，那么方向大概率也得换（这个概率→1，因为三维空间中的二维平面测度是0，所以目标点恰好落在两个特定向量组成的平面的概率也是0）；而分成3个方向，依旧保证只沿着3个方向目标可达。因此，在我们生活的三维空间中，<strong>所有</strong>位置都可以用<strong>至少</strong>3个单位向量<strong>分别</strong>乘以其倍数的和到达。在三维空间中用至少用3个向量是为了保证组成向量的<strong>任意性</strong>。</p>
-<p>回顾一下，之前说三维空间中至少需要3个量<span class=math>\([a_1,a_2,a_3]^T\)</span>来描述空间中<strong>任一个点</strong>的位置，我们把这个向量换一种表述方式，即<span class=math>\(a_1\vec{x}+a_2\vec{y}+a_3\vec{z}\)</span>。是不是就是上例中的3个单位向量<strong>分别</strong>乘以其倍数的和？3个数字，分别对应了在3个方向上的行进倍数，因此它们的顺序是不能调换的。这3个单位向量的选择不是唯一的，只要他们<strong>线性无关</strong>即可。这个概念下节会说的，先按下不表。我们同样可以想象：N维空间所有点至少需要N个向量来表示，可数无穷维空间所有点至少需要可数无穷个向量来表示。</p>
-<p>现在总结一下这一节的内容，如何表示向量呢？在N维空间中，可以用N个有序的数字表示<span class=math>\([a_1,a_2,\dots,a_N]^T\)</span>，这是一种方便的描述方式。而这个向量，一定可以分解成N个单位向量的特定倍数的和。</p>
+<p><img src=../../images/%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87.png alt=三维坐标.png></p>
+<p>现在，我们知道可以把在三维空间中的1个向量，分解成3个单位向量<strong>分别</strong>乘以其倍数的和（向量加法与数乘的线性组合）。那么能不能分成2个向量之和呢？当然可以！如果我们把向左200m的向量和向上10m的（红色）向量，变成1个等效的向量比如向左上方$\sqrt{200^2+10^2}m$（黄色的向量）就可以了啊。但是现在问题来了，收快递的人说我现在不在4楼，被发配到地下1层了，需要坐电梯向下3m到负1层。那么按照$[向前,向左上]$的2个向量行进方式，是无论如何也到不了中航广场地下1层的。然而，原来用3个向量的分解方式，只要说在最后一个方向上，沿着向上的方向坐电梯直到1m的-3倍，那么还是能够完成送达的任务。总结来说，如果是分成2个方向，换了一个地点，那么方向大概率也得换（这个概率→1，因为三维空间中的二维平面测度是0，所以目标点恰好落在两个特定向量组成的平面的概率也是0）；而分成3个方向，依旧保证只沿着3个方向目标可达。因此，在我们生活的三维空间中，<strong>所有</strong>位置都可以用<strong>至少</strong>3个单位向量<strong>分别</strong>乘以其倍数的和到达。在三维空间中用至少用3个向量是为了保证组成向量的<strong>任意性</strong>。</p>
+<p>回顾一下，之前说三维空间中至少需要3个量$[a_1,a_2,a_3]^T$来描述空间中<strong>任一个点</strong>的位置，我们把这个向量换一种表述方式，即$a_1\vec{x}+a_2\vec{y}+a_3\vec{z}$。是不是就是上例中的3个单位向量<strong>分别</strong>乘以其倍数的和？3个数字，分别对应了在3个方向上的行进倍数，因此它们的顺序是不能调换的。这3个单位向量的选择不是唯一的，只要他们<strong>线性无关</strong>即可。这个概念下节会说的，先按下不表。我们同样可以想象：N维空间所有点至少需要N个向量来表示，可数无穷维空间所有点至少需要可数无穷个向量来表示。</p>
+<p>现在总结一下这一节的内容，如何表示向量呢？在N维空间中，可以用N个有序的数字表示$[a_1,a_2,\dots,a_N]^T$，这是一种方便的描述方式。而这个向量，一定可以分解成N个单位向量的特定倍数的和。</p>
 <h2 id=线性组合与基>线性组合与基</h2>
-<p>上一节中，提到一个向量可以分解成<strong>多个单位向量特定倍数的和</strong>，即<span class=math>\(\vec{v}=a_1\vec{v_1}+a_2\vec{v_2}+a_3\vec{v_3}+\dotsb\)</span>。总是这么描述很费劲，因此，我们给他起个名字，叫它<strong>线性组合</strong>。</p>
-<p>所谓线性，<em>我觉得</em>是一种<strong>平直均匀</strong>的特性（记住以后还会提到）。具体来看，其实主要是两条，<strong>一个是数乘，一个是相加</strong>。假设一组向量只包含这两种运算，那我们就可以把他叫做线性组合。写成符号语言就是：<span class=math>\(a\vec{u}+b\vec{v}+c\vec{w}\)</span>。N维空间所有点至少需要N个向量来表示。也就是说，一个N维空间中的任意向量，一定能表示成至少N个单位向量的线性组合。</p>
+<p>上一节中，提到一个向量可以分解成<strong>多个单位向量特定倍数的和</strong>，即$\vec{v}=a_1\vec{v_1}+a_2\vec{v_2}+a_3\vec{v_3}+\dotsb$。总是这么描述很费劲，因此，我们给他起个名字，叫它<strong>线性组合</strong>。</p>
+<p>所谓线性，<em>我觉得</em>是一种<strong>平直均匀</strong>的特性（记住以后还会提到）。具体来看，其实主要是两条，<strong>一个是数乘，一个是相加</strong>。假设一组向量只包含这两种运算，那我们就可以把他叫做线性组合。写成符号语言就是：$a\vec{u}+b\vec{v}+c\vec{w}$。N维空间所有点至少需要N个向量来表示。也就是说，一个N维空间中的任意向量，一定能表示成至少N个单位向量的线性组合。</p>
 <p>那么换个角度来看，N个单位向量的线性组合可以表示多少个向量呢？</p>
 <p>首先，我们先说明向量<strong>张成</strong>的空间。我们把<strong>所有</strong>可以表示为给定向量线性组合的<strong>向量的集合</strong>，被称为给定向量<strong>张成的空间</strong>。<strong>张成</strong>英文原文为“span”，有包括；遍及的意思（If something spans a range of things, all those things are included in it. 柯林斯高阶英汉双解词典）。张成二字可以理解为由N个单位向量<strong>所有的线性组合</strong>。这样就好理解了，N个单位向量的线性组合能够表示的向量都在它们所张成的空间中。如果这N个向量可以线性组和成N维空间中的任意一个向量，那么这N个向量张成的空间就等于这个N维空间。</p>
 <p>有人心里又有疑惑：<em>来表示任一N维向量的N个单位向量是否是随便选的？或者说，满足什么条件的N个单位向量才能表示出N维空间的所有向量？</em></p>
-<p>之前说过，<em>N维空间所有点至少需要N个向量来表示</em>。那么选定N个单位向量张成的空间就是N维吗？有时候所选的N个单位向量能被降维成N-1个单位向量，并且张成的向量空间维数（≥N-1维）与降维前一致 ，那么这N个单位向量就无法表示出N维空间的所有向量。也就是说，N个单位向量中存在没用（冗余）的向量，那些用所选的N个单位向量能表示出来的向量，都可以用其中N-1个单位向量表示出来。假如N个单位向量<span class=math>\({\vec{v_1},\dotsb,\vec{v}_N}\)</span>中，多余的向量是<span class=math>\(\vec{v_r}(1≤r≤N)\)</span>，那么 <span class=math>\[\begin{aligned}
-&\forall \vec{w}=a_1\vec{v}_1+a_2\vec{v}_2+\dotsb+a_N\vec{v}_N\\
-&可以改写成：\\
-&\vec{w}=b_1\vec{v}_1+\dotsb+b_{r-1}\vec{v}_{r-1}+b_{r+1}\vec{v}_{r+1}+\dotsb+b_N\vec{v}_N
-\end{aligned}\]</span> 由于这两个式子是相等的，即 <span class=math>\[\begin{aligned}
-&\quad a_1\vec{v}_1+a_2\vec{v}_2+\dotsb+a_N\vec{v}_N\\
-&=b_1\vec{v}_1+\dotsb+b_{r-1}\vec{v}_{r-1}+b_{r+1}\vec{v}_{r+1}+\dotsb+b_N\vec{v}_N \\
-&\Rightarrow(a_1-b_1)\vec{v}_1+\dotsb+(a_{r-1}-b_{r-1})\vec{v}_{r-1}\\
-&+a_r\vec{v}_r+(a_{r+1}-b_{r+1})\vec{v}_{r+1}+\dotsb+(b_N-a_N)\vec{v}_N=0\\
-&(单独列出a_r\vec{v}_r)\\
-&\Rightarrow a_r\vec{v}_r=(b_1-a_1)\vec{v}_1+\dotsb+(b_{r-1}-a_{r-1})\vec{v}_{r-1}\\
-&+(b_{r+1}-a_{r+1})\vec{v}_{r+1}+\dotsb+(b_N-a_N)\vec{v}_N
-\end{aligned}\]</span> 这个式子最后发现，如果存在多余的单位向量<span class=math>\(\vec{v_r}(1≤r≤N)\)</span>，那么这个多余的向量必然可以被其他N-1个单位向量线性组合出来。换句话说，他们之间是有关系的。基于这种线性组合关系（加法与数乘），我们称这种关系为<strong>线性相关</strong>。总结一下，线性相关的两个角度描述：</p>
+<p>之前说过，<em>N维空间所有点至少需要N个向量来表示</em>。那么选定N个单位向量张成的空间就是N维吗？有时候所选的N个单位向量能被降维成N-1个单位向量，并且张成的向量空间维数（≥N-1维）与降维前一致 ，那么这N个单位向量就无法表示出N维空间的所有向量。也就是说，N个单位向量中存在没用（冗余）的向量，那些用所选的N个单位向量能表示出来的向量，都可以用其中N-1个单位向量表示出来。假如N个单位向量${\vec{v_1},\dotsb,\vec{v}<em>N}$中，多余的向量是$\vec{v_r}(1≤r≤N)$，那么
+$$\begin{aligned}
+&\forall \vec{w}=a_1\vec{v}<em>1+a_2\vec{v}<em>2+\dotsb+a_N\vec{v}<em>N\
+&可以改写成：\
+&\vec{w}=b_1\vec{v}<em>1+\dotsb+b</em>{r-1}\vec{v}</em>{r-1}+b</em>{r+1}\vec{v}</em>{r+1}+\dotsb+b_N\vec{v}<em>N
+\end{aligned}$$
+由于这两个式子是相等的，即
+$$\begin{aligned}
+&\quad a_1\vec{v}<em>1+a_2\vec{v}<em>2+\dotsb+a_N\vec{v}<em>N\
+&=b_1\vec{v}<em>1+\dotsb+b</em>{r-1}\vec{v}</em>{r-1}+b</em>{r+1}\vec{v}</em>{r+1}+\dotsb+b_N\vec{v}<em>N \
+&\Rightarrow(a_1-b_1)\vec{v}<em>1+\dotsb+(a</em>{r-1}-b</em>{r-1})\vec{v}</em>{r-1}\
+&+a_r\vec{v}<em>r+(a</em>{r+1}-b</em>{r+1})\vec{v}<em>{r+1}+\dotsb+(b_N-a_N)\vec{v}<em>N=0\
+&(单独列出a_r\vec{v}<em>r)\
+&\Rightarrow a_r\vec{v}<em>r=(b_1-a_1)\vec{v}<em>1+\dotsb+(b</em>{r-1}-a</em>{r-1})\vec{v}</em>{r-1}\
+&+(b</em>{r+1}-a</em>{r+1})\vec{v}_{r+1}+\dotsb+(b_N-a_N)\vec{v}_N
+\end{aligned}$$
+这个式子最后发现，如果存在多余的单位向量$\vec{v_r}(1≤r≤N)$，那么这个多余的向量必然可以被其他N-1个单位向量线性组合出来。换句话说，他们之间是有关系的。基于这种线性组合关系（加法与数乘），我们称这种关系为<strong>线性相关</strong>。总结一下，线性相关的两个角度描述：</p>
 <ul>
 <li>【表达一】你有多个向量，并且可以移除其中一个而不减小张成的空间，我们称它们（这些向量）线性相关</li>
 <li>【表达二】其中一个向量，可以表示为其他向量的线性组合，因为这个向量已经落在其他向量张成的空间之中</li>
 </ul>
-<p>在几何中，线性相关表现在2D是共线，3D中是共面或共线（比如<span class=math>\([0,0,1]^T,[0,0,2]^T,[0,0,3]^T\)</span> 3个三维线性相关向量共线。）</p>
-<p>相反的，如果N个单位向量中，任一个向量<span class=math>\(\vec{v_i}\)</span>都不能表示成其他N-1个向量<span class=math>\(\vec v_1,\vec v_2,\dots,\vec v_{i-1},\vec v_{i+i},\dots,\vec v_N\)</span>的线性组合，那么这N个向量就是<strong>线性无关</strong>的，也就是他们之前没有线性组合的关系。</p>
+<p>在几何中，线性相关表现在2D是共线，3D中是共面或共线（比如$[0,0,1]^T,[0,0,2]^T,[0,0,3]^T$ 3个三维线性相关向量共线。）</p>
+<p>相反的，如果N个单位向量中，任一个向量$\vec{v_i}$都不能表示成其他N-1个向量$\vec v_1,\vec v_2,\dots,\vec v_{i-1},\vec v_{i+i},\dots,\vec v_N$的线性组合，那么这N个向量就是<strong>线性无关</strong>的，也就是他们之前没有线性组合的关系。</p>
 <h3 id=空间的基>空间的基</h3>
 <p>现在回看问题：满足什么条件的N个单位向量才能表示出N维空间的所有向量？答案就是<strong>线性无关的N个单位向量</strong>。讲了这么多，我们终于知道满足线性无关要求的N个单位向量能够表示出N维空间所有的向量，这些满足条件的N个单位向量，我们称之为<strong>N维空间的基（Basis）</strong>。所谓基，以基为砖，万物皆可构筑:dog:。<strong>用基可以构建出空间中任一向量，任一向量也可分解成空间基的线性组合</strong>。</p>
 <p>相应的，每一组基都是一个极大的线性无关集合，也就是说在N维空间中，找不出N+1个线性无关的向量。因为第N+1个向量必然属于N维空间，而N维空间的所有向量都可以被表示为N个线性无关的单位向量的线性组合，那么第N+1个向量必然也可以是这N个单位向量的线性组合，即是线性相关的。</p>
-<p>最后还要强调一点，大家先再读一遍<a href=#三个需要认可的前提>三个需要认可的前提</a>的第2条。之前在说基或单位向量的时候，一直避免说基的具体值，比为二维空间中<span class=math>\([1,0]^T,[0,1]^T\)</span>这样常见的基，是因为不想给大家一个固定印象，认为基的取法是固定的。下图中，左右两幅图中同一个向量在不同基下，表示方式也不同。</p>
-<img src=../../images/不同基底对空间中同一向量的描述.png alt=不同基底对空间中同一向量的描述>
-<center>
-不同基底对空间中同一向量的描述
-</center>
-<p>在基<span class=math>\([1,0]^T,[0,1]^T\)</span>下，向量为<span class=math>\([4,5]^T\)</span>；在基<span class=math>\([\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T,[-\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T\)</span>下，向量为<span class=math>\([\frac{9}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T\)</span>。向量的值，只是表示对应单位向量在线性组合中的倍数，因此在不同基下<span class=math>\([4,5]^T\)</span>与<span class=math>\([\frac{9}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T\)</span>是同一个向量也就不奇怪了。大多数人一开始以为基就是<span class=math>\([1,0]^T,[0,1]^T\)</span>这样的向量组，是因为它们实在是太常用了，以至于很多情况下默认的基就是这个样子。类似于<span class=math>\({e_1=(1,0,0), e_2=(0,1,0), e_3=(0,0,1)}\)</span>组成的基<strong>全称是标准正交基</strong>。</p>
-<p>关于上面那幅不同基底对空间中同一向量的描述的图，留一个思考题： <span class=math>\[\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}4\\5\end{bmatrix}\overset{?}{=}\begin{bmatrix}\frac{1}{\sqrt{2}}&-\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\end{bmatrix}\begin{bmatrix}\frac{9}{\sqrt{2}}\\ \frac{1}{\sqrt{2}}\end{bmatrix}\]</span> 直观的解释，为什么会相等呢？</p>
+<p>最后还要强调一点，大家先再读一遍<a href=#%E4%B8%89%E4%B8%AA%E9%9C%80%E8%A6%81%E8%AE%A4%E5%8F%AF%E7%9A%84%E5%89%8D%E6%8F%90>三个需要认可的前提</a>的第2条。之前在说基或单位向量的时候，一直避免说基的具体值，比为二维空间中$[1,0]^T,[0,1]^T$这样常见的基，是因为不想给大家一个固定印象，认为基的取法是固定的。下图中，左右两幅图中同一个向量在不同基下，表示方式也不同。</p>
+<p><img src=../../images/%E4%B8%8D%E5%90%8C%E5%9F%BA%E5%BA%95%E5%AF%B9%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%90%8C%E4%B8%80%E5%90%91%E9%87%8F%E7%9A%84%E6%8F%8F%E8%BF%B0.png alt=不同基底对空间中同一向量的描述></p>
+<center>不同基底对空间中同一向量的描述</center>
+<p>在基$[1,0]^T,[0,1]^T$下，向量为$[4,5]^T$；在基$[\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T,[-\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T$下，向量为$[\frac{9}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T$。向量的值，只是表示对应单位向量在线性组合中的倍数，因此在不同基下$[4,5]^T$与$[\frac{9}{\sqrt{2}},\frac{1}{\sqrt{2}}]^T$是同一个向量也就不奇怪了。大多数人一开始以为基就是$[1,0]^T,[0,1]^T$这样的向量组，是因为它们实在是太常用了，以至于很多情况下默认的基就是这个样子。类似于${e_1=(1,0,0), e_2=(0,1,0), e_3=(0,0,1)}$组成的基<strong>全称是标准正交基</strong>。</p>
+<p>关于上面那幅不同基底对空间中同一向量的描述的图，留一个思考题：
+$$\begin{bmatrix}1&0\0&1\end{bmatrix}\begin{bmatrix}4\5\end{bmatrix}\overset{?}{=}\begin{bmatrix}\frac{1}{\sqrt{2}}&-\frac{1}{\sqrt{2}}\\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\end{bmatrix}\begin{bmatrix}\frac{9}{\sqrt{2}}\ \frac{1}{\sqrt{2}}\end{bmatrix}$$
+直观的解释，为什么会相等呢？</p>
 <h2 id=线性变换与矩阵>线性变换与矩阵</h2>
-<p>矩阵，最直观的理解当然是一个写成方阵的数字<span class=math>\(\begin{bmatrix}1&2\\3&4\end{bmatrix}\)</span>。这一节的核心是为了说明：矩阵从变换的角度来看就是一种线性变换。</p>
+<p>矩阵，最直观的理解当然是一个写成方阵的数字$\begin{bmatrix}1&2\3&4\end{bmatrix}$。这一节的核心是为了说明：矩阵从变换的角度来看就是一种线性变换。</p>
 <h3 id=线性变换>线性变换</h3>
 <p>【变换】本质上是【函数】（左）的一种花哨的说法，它接受输入内容，并输出对应结果。那矩阵也是变换吗？是的。以矩阵为变换（右），其过程表示为接收一个向量，然后输出另一个向量如下图。也可以说矩阵是【向量的函数】。</p>
-<p><img src=../../images/变换与函数.gif width=200px></img> <img src=../../images/变换与函数2.gif width=200px></img></p>
+<p><img src=../../images/变换与函数.gif width=200px></img>
+<img src=../../images/变换与函数2.gif width=200px></img></p>
 <p>【变换】，直观的解释就是向量从一个地方变到了另一个地方，这暗示了我们可以用运动的方法来理解【向量的函数】这一概念。可以用可视化的方法来展现这组【变换】即输入-输出关系：</p>
 <p><img src=../../images/InputOutput.gif alt=InputOutput.gif width=400px></img></p>
 <p>但是通常所说的运动是一个连续的过程，而变换是将向量直接放到另一个地方。有点像瞬移：</p>
-<div class=figure>
-<img src=../../images/teleport.gif alt=瞬移><p class=caption>瞬移</p>
-</div>
+<p><img src=../../images/teleport.gif alt=瞬移></p>
 <p>在变换中，有一类变换特别重要，就是线性变换。几何角度来说，具有以下两个性质的就是线性变换（直观可视化如下图）：</p>
-<img src=../../images/LinearTransform.gif alt=LinearTransform.gif>
-<center>
-线性变换的几何演示
-</center>
+<p><img src=../../images/LinearTransform.gif alt=LinearTransform.gif></p>
+<center>线性变换的几何演示</center>
 <ul>
 <li>直线在变换后<strong>仍然保持为直线</strong>，不能有所弯曲（<strong>平直性，这也是线性的直观几何反映</strong>）。从图上来看，线性变换是“保持网格线平行且等距分布（均匀性）”的变换。</li>
 <li><strong>原点</strong>必须保持<strong>固定</strong></li>
 </ul>
-<p>如果保持保持直线但<strong>原点改变</strong>就称为：仿射变换（Affine Transformation）。仿射变换就是在线性变换的基础上加了一个偏移量。比如<span class=math>\(y=2x\)</span>是线性变换，<span class=math>\(y=2x+3\)</span>就是仿射变换。实际上，N维空间的仿射变换等价于N+1维空间的线性变换。详细理解参见<a href=https://www.matongxue.com/madocs/244/>如何通俗的解释仿射变换？</a></p>
-<p>线性变换有个非常重要的特性。如果<span class=math>\(\vec{w}=a_1\vec{v}_1+a_2\vec{v}_2+\dotsb+a_N\vec{v}_N\)</span>。那么 <span class=math>\[L(\vec{w})=L(a_1\vec{v}_1)+L(a_2\vec{v}_2)+\dotsb+L(a_N\vec{v}_N)\\
-=a_1L(\vec{v}_1)+a_2L(\vec{v}_2)+\dotsb+a_NL(\vec{v}_N)\]</span> 其中<span class=math>\(L(\cdot)\)</span>代表线性变换。我们在“线性组合和基”那一节说过，线性是一种<strong>平直均匀</strong>的特性。上面的公式就是说的<strong>均匀</strong>这一点（平直反映在直线线性变换后仍然时直线）。所谓均匀的特性，就是线性变换对<strong>整体的每一部分变换都是一致的</strong>，这样的话，我们就可以把整体拆成一个个部分，对每一个部分先做线性变换，然后再合并。在上图“线性变换的几何演示”中，我们可以发现整体的变换和局部是一致的：一个大正方形（四个小正方形组成）变成平四边形等效于其中每个小正方形变成平行四边形再组合。上面的等式是用数学的方式表示，对向量整体的线性变换，等于对组成向量整体的每一部分分别做一样的线性变换再组合。<strong>这就是线性的可加性</strong>。数乘可以算是可加性的一种特例，就是<span class=math>\(a∈R\)</span>个向量<span class=math>\(\vec{v}\)</span>相加，根据上面对线性变换均匀特性的解释，也就容易解释为何<span class=math>\(aL(\vec{v})=L(a\vec{v})\)</span>了。<strong>这称为线性的齐次性</strong>。</p>
+<p>如果保持保持直线但<strong>原点改变</strong>就称为：仿射变换（Affine Transformation）。仿射变换就是在线性变换的基础上加了一个偏移量。比如$y=2x$是线性变换，$y=2x+3$就是仿射变换。实际上，N维空间的仿射变换等价于N+1维空间的线性变换。详细理解参见<a href=https://www.matongxue.com/madocs/244/>如何通俗的解释仿射变换？</a></p>
+<p>线性变换有个非常重要的特性。如果$\vec{w}=a_1\vec{v}_1+a_2\vec{v}_2+\dotsb+a_N\vec{v}_N$。那么
+$$L(\vec{w})=L(a_1\vec{v}_1)+L(a_2\vec{v}_2)+\dotsb+L(a_N\vec{v}_N)\
+=a_1L(\vec{v}_1)+a_2L(\vec{v}_2)+\dotsb+a_NL(\vec{v}_N)$$
+其中$L(\cdot)$代表线性变换。我们在“线性组合和基”那一节说过，线性是一种<strong>平直均匀</strong>的特性。上面的公式就是说的<strong>均匀</strong>这一点（平直反映在直线线性变换后仍然时直线）。所谓均匀的特性，就是线性变换对<strong>整体的每一部分变换都是一致的</strong>，这样的话，我们就可以把整体拆成一个个部分，对每一个部分先做线性变换，然后再合并。在上图“线性变换的几何演示”中，我们可以发现整体的变换和局部是一致的：一个大正方形（四个小正方形组成）变成平四边形等效于其中每个小正方形变成平行四边形再组合。上面的等式是用数学的方式表示，对向量整体的线性变换，等于对组成向量整体的每一部分分别做一样的线性变换再组合。<strong>这就是线性的可加性</strong>。数乘可以算是可加性的一种特例，就是$a∈R$个向量$\vec{v}$相加，根据上面对线性变换均匀特性的解释，也就容易解释为何$aL(\vec{v})=L(a\vec{v})$了。<strong>这称为线性的齐次性</strong>。</p>
 <h3 id=用矩阵描述线性变换>用矩阵描述线性变换</h3>
 <p>在开始的时候，我们谈到空间中用一组有序数列的方式描述一个向量。那么在空间中，描述线性变换是什么呢？就是矩阵。直观上来看，矩阵一点也体现不出线性。但是，我们回想一下刚刚所说的，对向量整体的线性变换，等于对组成向量整体的每一部分分别做一样的线性变换再组合。</p>
-<p>这里需要使用上一节提到的工具，空间的基，也就是单位向量。“线性组合与基”一节中，我们已经知道，空间中任一向量可以表示成空间基的线性组合。为了方便描述，我们选取<strong>标准正交基</strong>来分解向量。例如，二维空间中，有向量<span class=math>\(\vec w\)</span>分解： <span class=math>\[\vec{w}=\begin{bmatrix}-1\\2\end{bmatrix}=-1*\begin{bmatrix}1\\0\end{bmatrix}+2*\begin{bmatrix}0\\1\end{bmatrix}\]</span> 令<span class=math>\(e_1=[1,0]^T,e_2=[0,1]^T\)</span>，所以简写成<span class=math>\(\vec{w}=-1\vec{e}_1+2\vec{e}_2\)</span>。现在有一个线性变换<span class=math>\(L(\cdot)\)</span>，则 <span class=math>\[\begin{aligned}
-&L(\vec{w})=L(-1\vec{e}_1+2\vec{e}_2)\\
-&根据上小节线性变换的特性有：\\
+<p>这里需要使用上一节提到的工具，空间的基，也就是单位向量。“线性组合与基”一节中，我们已经知道，空间中任一向量可以表示成空间基的线性组合。为了方便描述，我们选取<strong>标准正交基</strong>来分解向量。例如，二维空间中，有向量$\vec w$分解：
+$$\vec{w}=\begin{bmatrix}-1\2\end{bmatrix}=-1*\begin{bmatrix}1\0\end{bmatrix}+2*\begin{bmatrix}0\1\end{bmatrix}$$
+令$e_1=[1,0]^T,e_2=[0,1]^T$，所以简写成$\vec{w}=-1\vec{e}_1+2\vec{e}_2$。现在有一个线性变换$L(\cdot)$，则
+$$\begin{aligned}
+&L(\vec{w})=L(-1\vec{e}_1+2\vec{e}_2)\
+&根据上小节线性变换的特性有：\
 &=-1L(\vec{e}_1)+2L(\vec{e}_2)
-\end{aligned}\]</span> 假设这个线性变换将2个基向量分别变成： <span class=math>\[e_1'=L(\vec{e}_1)=\begin{bmatrix}3\\1\end{bmatrix},e_2'=L(\vec{e}_2)=\begin{bmatrix}1\\2\end{bmatrix}\]</span> 则<span class=math>\(L(\vec{w})\)</span>有： <span class=math>\[L(\vec{w})=-1*\begin{bmatrix}3\\1\end{bmatrix}+2*\begin{bmatrix}1\\2\end{bmatrix}\]</span> 如果我们再把变换后的基写到一起，那么就有 <span class=math>\[[e_1',e_2']=\begin{bmatrix}3&1\\1&2\end{bmatrix}\]</span> 这就构成了一个矩阵。说白了，矩阵是从<strong>局部变换</strong>的角度描述线性变换，局部就是向量分解成的基向量。也可以说矩阵是从<strong>基变换</strong>的角度描述线性变换，只需要关注基向量变换后的位置即可。</p>
+\end{aligned}$$
+假设这个线性变换将2个基向量分别变成：
+$$e_1'=L(\vec{e}_1)=\begin{bmatrix}3\1\end{bmatrix},e_2'=L(\vec{e}_2)=\begin{bmatrix}1\2\end{bmatrix}$$
+则$L(\vec{w})$有：
+$$L(\vec{w})=-1*\begin{bmatrix}3\1\end{bmatrix}+2*\begin{bmatrix}1\2\end{bmatrix}$$
+如果我们再把变换后的基写到一起，那么就有
+$$[e_1',e_2']=\begin{bmatrix}3&1\1&2\end{bmatrix}$$
+这就构成了一个矩阵。说白了，矩阵是从<strong>局部变换</strong>的角度描述线性变换，局部就是向量分解成的基向量。也可以说矩阵是从<strong>基变换</strong>的角度描述线性变换，只需要关注基向量变换后的位置即可。</p>
 <p>上个例子的几何描述如下图所示：</p>
-<div class=figure>
-<img src=../../images/线性变换和矩阵.gif alt=线性变换和矩阵.gif><p class=caption>线性变换和矩阵.gif</p>
-</div>
-<p>更加一般的情况，我们用变量来代替其中的具体值：绿色代表<span class=math>\(\vec i\)</span> 变换后的向量，红色代表<span class=math>\(\vec j\)</span>变换后的向量 <span class=math>\[\begin{bmatrix} \color{green}{a}&\color{red}b \\ \color{green}c&\color{red}d \end{bmatrix} \begin{bmatrix}x\\y\end{bmatrix}=\underbrace{x \begin{bmatrix}\color{green}a\\\color{green}c \end{bmatrix} + y \begin{bmatrix} \color{red}b\\\color{red}d\end{bmatrix}}_{\text{直观的部分这里}} =\begin{bmatrix} \color{green}{a}\color{black}{x}+\color{red}{b}\color{black}{y}\\\color{green}{c}\color{black}{x}+\color{red}{d}\color{black}{y}\end{bmatrix}\]</span> 上面的公式就是我们常说的矩阵乘法公式，就是线性变换后基的线性组合。</p>
+<p><img src=../../images/%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E5%92%8C%E7%9F%A9%E9%98%B5.gif alt=线性变换和矩阵.gif></p>
+<p>更加一般的情况，我们用变量来代替其中的具体值：绿色代表$\vec i$ 变换后的向量，红色代表$\vec j$变换后的向量
+$$\begin{bmatrix} \color{green}{a}&\color{red}b \ \color{green}c&\color{red}d \end{bmatrix} \begin{bmatrix}x\y\end{bmatrix}=\underbrace{x \begin{bmatrix}\color{green}a\\color{green}c \end{bmatrix} + y \begin{bmatrix} \color{red}b\\color{red}d\end{bmatrix}}_{\text{直观的部分这里}} =\begin{bmatrix} \color{green}{a}\color{black}{x}+\color{red}{b}\color{black}{y}\\color{green}{c}\color{black}{x}+\color{red}{d}\color{black}{y}\end{bmatrix}$$
+上面的公式就是我们常说的矩阵乘法公式，就是线性变换后基的线性组合。</p>
 <h3 id=从基变换的角度再看矩阵>从基变换的角度再看矩阵</h3>
-<p>还记得我们在上节中如何导出矩阵的吗？是把几个变换后基向量写到了一起。现在到了关键的一步。看上去矩阵就是由一组向量组成的，而且如果矩阵非奇异的话（现在只考虑这种情况，如果是奇异矩阵就是个降维了的坐标系），那么组成这个矩阵的那一组向量也就是线性无关的了，也就可以成为度量线性空间的一个基。结论：<strong>矩阵描述了一个空间的基</strong>。刚刚不是还说矩阵是变换描述向量的运动吗？怎么变成了基呢？现在回去读读<a href=#三个需要认可的前提>三个需要认可的前提</a>第3点，实际上物体的运动可以等效成参考系的运动。</p>
-<p>在“线性组合和基”小节的最后，我们留了个思考题： ><span class=math>\[\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}4\\5\end{bmatrix}\overset{?}{=}\begin{bmatrix}\frac{1}{\sqrt{2}}&-\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\end{bmatrix}\begin{bmatrix}\frac{9}{\sqrt{2}}\\ \frac{1}{\sqrt{2}}\end{bmatrix}\]</span> >直观的解释，为什么会相等呢？</p>
-<p>因为它们只是用不同的基描述同一个向量啊。从这个角度看，矩阵<span class=math>\(M\vec a = \vec b\)</span>的意思是：有一个向量，它在空间基<span class=math>\(M\)</span>的度量下得到的度量结果向量为<span class=math>\(\vec a\)</span>，那么它在标准正交基<span class=math>\(E\)</span>的度量下，这个向量的度量结果是<span class=math>\(\vec b\)</span>，而本质上它俩说的是一个向量，所以是相等的。更完整的写法应该是这样：<span class=math>\(M\vec a = E\vec b\)</span>。</p>
+<p>还记得我们在上节中如何导出矩阵的吗？是把几个变换后基向量写到了一起。现在到了关键的一步。看上去矩阵就是由一组向量组成的，而且如果矩阵非奇异的话（现在只考虑这种情况，如果是奇异矩阵就是个降维了的坐标系），那么组成这个矩阵的那一组向量也就是线性无关的了，也就可以成为度量线性空间的一个基。结论：<strong>矩阵描述了一个空间的基</strong>。刚刚不是还说矩阵是变换描述向量的运动吗？怎么变成了基呢？现在回去读读<a href=#%E4%B8%89%E4%B8%AA%E9%9C%80%E8%A6%81%E8%AE%A4%E5%8F%AF%E7%9A%84%E5%89%8D%E6%8F%90>三个需要认可的前提</a>第3点，实际上物体的运动可以等效成参考系的运动。</p>
+<p>在“线性组合和基”小节的最后，我们留了个思考题：</p>
+<blockquote>
+<p>$$\begin{bmatrix}1&0\0&1\end{bmatrix}\begin{bmatrix}4\5\end{bmatrix}\overset{?}{=}\begin{bmatrix}\frac{1}{\sqrt{2}}&-\frac{1}{\sqrt{2}}\\frac{1}{\sqrt{2}}&\frac{1}{\sqrt{2}}\end{bmatrix}\begin{bmatrix}\frac{9}{\sqrt{2}}\ \frac{1}{\sqrt{2}}\end{bmatrix}$$
+直观的解释，为什么会相等呢？</p>
+</blockquote>
+<p>因为它们只是用不同的基描述同一个向量啊。从这个角度看，矩阵$M\vec a = \vec b$的意思是：有一个向量，它在空间基$M$的度量下得到的度量结果向量为$\vec a$，那么它在标准正交基$E$的度量下，这个向量的度量结果是$\vec b$，而本质上它俩说的是一个向量，所以是相等的。更完整的写法应该是这样：$M\vec a = E\vec b$。</p>
 <p>如果这个角度还不好懂，我再提供一个大神的理解方式<a href=https://www.bilibili.com/video/av6731067/>3B1B的关于线性代数系列视频</a>，大体内容如下：</p>
-<p>如果假设有一个二维向量，使用标准正交基<span class=math>\(\vec{i}=e_1\)</span> 和 <span class=math>\(\vec{j}=e_2\)</span> 来描述是 <span class=math>\(\begin{bmatrix} 3 \\ 2 \end{bmatrix}\)</span> ，我们把这种描述称为：我们的语言。如果有另一组基向量<span class=math>\(\vec{i}'=\begin{bmatrix}2 \\1\end{bmatrix}\)</span>和 <span class=math>\(\vec{j}' = \begin{bmatrix} -1 \\ 1 \end{bmatrix}\)</span> （写成列向量的形式是为了形式上的统一）来描述同样一个向量变成 <span class=math>\(\begin{bmatrix} \frac{5}{3} \\ \frac{1}{3} \end{bmatrix}\)</span> ，我们把这种语言记为：詹妮弗的语言。显然两种语言描述同一样东西，所以： <span class=math>\[\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}3\\2\end{bmatrix}=\begin{bmatrix}2&-1\\1&1\end{bmatrix}\begin{bmatrix}5/3\\1/3\end{bmatrix}\]</span> 在不同的【语言】之间的转化使用矩阵向量乘法，在上面的例子中，转移矩阵是 <span class=math>\(\mathbf T = \begin{bmatrix} 2 & -1 \\ 1 & 1 \end{bmatrix}\)</span> ，矩阵的列表示用我们的语言表达詹妮弗的基向量，称为基变换。反过来，就是求转移矩阵的逆 <span class=math>\(\mathbf T^{-1}\)</span> ，称为<strong>基变换矩阵的逆</strong>，作用是可以表示从詹妮弗的基向量转换回我们的语言需要做的变换。</p>
+<p>如果假设有一个二维向量，使用标准正交基$\vec{i}=e_1$ 和 $\vec{j}=e_2$ 来描述是 $\begin{bmatrix} 3 \ 2 \end{bmatrix}$ ，我们把这种描述称为：我们的语言。如果有另一组基向量$\vec{i}'=\begin{bmatrix}2 \1\end{bmatrix}$和 $\vec{j}' = \begin{bmatrix} -1 \ 1 \end{bmatrix}$ （写成列向量的形式是为了形式上的统一）来描述同样一个向量变成 $\begin{bmatrix} \frac{5}{3} \ \frac{1}{3} \end{bmatrix}$ ，我们把这种语言记为：詹妮弗的语言。显然两种语言描述同一样东西，所以：
+$$\begin{bmatrix}1&0\0&1\end{bmatrix}\begin{bmatrix}3\2\end{bmatrix}=\begin{bmatrix}2&-1\1&1\end{bmatrix}\begin{bmatrix}5/3\1/3\end{bmatrix}$$
+在不同的【语言】之间的转化使用矩阵向量乘法，在上面的例子中，转移矩阵是 $\mathbf T = \begin{bmatrix} 2 & -1 \ 1 & 1 \end{bmatrix}$ ，矩阵的列表示用我们的语言表达詹妮弗的基向量，称为基变换。反过来，就是求转移矩阵的逆 $\mathbf T^{-1}$ ，称为<strong>基变换矩阵的逆</strong>，作用是可以表示从詹妮弗的基向量转换回我们的语言需要做的变换。</p>
 <h2 id=矩阵乘以矩阵>矩阵乘以矩阵</h2>
-<p>我们已经知道矩阵是线性变换的一种描述。那么<strong>多次线性变换</strong>就可以用<strong>多个矩阵</strong>来描述。举个例子：如果对一个向量先进行一次<em>旋转变换</em>，再进行一次<em>剪切变换</em>（ <span class=math>\(\vec{i}\)</span> 保持不变第一列为<span class=math>\([1,0]^T\)</span>， <span class=math>\(\vec{j}\)</span> 移动到坐标<span class=math>\([1,1]^T\)</span>） ，如下图左半边所示：</p>
-<div class=figure>
-<img src=../../images/复合变换与矩阵乘法.png alt=复合变换与矩阵乘法><p class=caption>复合变换与矩阵乘法</p>
-</div>
+<p>我们已经知道矩阵是线性变换的一种描述。那么<strong>多次线性变换</strong>就可以用<strong>多个矩阵</strong>来描述。举个例子：如果对一个向量先进行一次<em>旋转变换</em>，再进行一次<em>剪切变换</em>（ $\vec{i}$ 保持不变第一列为$[1,0]^T$， $\vec{j}$ 移动到坐标$[1,1]^T$） ，如下图左半边所示：</p>
+<p><img src=../../images/%E5%A4%8D%E5%90%88%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95.png alt=复合变换与矩阵乘法></p>
 <p>那么通过旋转矩阵和剪切矩阵两次线性变换的过程是否可以用一个复合线性变换（复合矩阵）来表示呢（上图右边部分）？为了解决这个问题，我们定义这个复合的过程叫做矩阵的乘法（矩阵乘矩阵）。</p>
-<p>在这里我们需要指出，矩阵乘法的变换顺序是<strong>从右往左</strong>读的（这一个常识很重要），进一步联系和思考发现，和复合函数的形式，如 <span class=math>\(f(g(x))\)</span> ，是一致的。</p>
+<p>在这里我们需要指出，矩阵乘法的变换顺序是<strong>从右往左</strong>读的（这一个常识很重要），进一步联系和思考发现，和复合函数的形式，如 $f(g(x))$ ，是一致的。</p>
 <h3 id=从左边乘一个矩阵>从左边乘一个矩阵</h3>
-<p>之前我们说过，矩阵乘法的变换顺序是<strong>从右往左</strong>读。从左边乘一个矩阵等效于施加一个线性变换。每从左边乘一个矩阵就是施加一次线性变换。假设有两个矩阵： <span class=math>\[M_1=\begin{bmatrix}a&b\\c&d\end{bmatrix},M_2=\begin{bmatrix}e&f\\g&h\end{bmatrix}\]</span> 我们先施加线性变换<span class=math>\(M_1\)</span>，再施加线性变换<span class=math>\(M_2\)</span>，表达式为<span class=math>\(M_2*M_1(从右向左原则)\)</span>。通过“线性变换与矩阵”那一节的描述，我们知道<span class=math>\(M_1\)</span>每一列表示一个线性变换后的新基向量，我们按照列向量的形式重写矩阵<span class=math>\(M_1=[w_1,w_2]\)</span>，其中<span class=math>\(w_1=[a,c]^T,w_2=[b,d]^T\)</span>。那么<span class=math>\(M_2*[w_1,w_2]\)</span>可以看成<span class=math>\(M_2\)</span>分别和两个向量的线性变换，按照向量分解为基再线性变换的理解方式，分别对<span class=math>\(w_1,w_2\)</span>进行操作，就能够类推出矩阵乘以矩阵运算规则：</p>
-<div class=figure>
-<img src=../../images/矩阵乘法.gif alt=矩阵乘法.gif><p class=caption>矩阵乘法.gif</p>
-</div>
+<p>之前我们说过，矩阵乘法的变换顺序是<strong>从右往左</strong>读。从左边乘一个矩阵等效于施加一个线性变换。每从左边乘一个矩阵就是施加一次线性变换。假设有两个矩阵：
+$$M_1=\begin{bmatrix}a&b\c&d\end{bmatrix},M_2=\begin{bmatrix}e&f\g&h\end{bmatrix}$$
+我们先施加线性变换$M_1$，再施加线性变换$M_2$，表达式为$M_2<em>M_1(从右向左原则)$。通过“线性变换与矩阵”那一节的描述，我们知道$M_1$每一列表示一个线性变换后的新基向量，我们按照列向量的形式重写矩阵$M_1=[w_1,w_2]$，其中$w_1=[a,c]^T,w_2=[b,d]^T$。那么$M_2</em>[w_1,w_2]$可以看成$M_2$分别和两个向量的线性变换，按照向量分解为基再线性变换的理解方式，分别对$w_1,w_2$进行操作，就能够类推出矩阵乘以矩阵运算规则：</p>
+<p><img src=../../images/%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95.gif alt=矩阵乘法.gif></p>
 <p>总结，矩阵从左边乘，是线性变换的复合，而我们观察两次线性变换的角度都没有变，都是最开始的标准正交基，每次变换都是在标准正交基的度量下。</p>
 <h3 id=从右边乘一个矩阵>从右边乘一个矩阵</h3>
-<p>先补充一点，矩阵从右边乘以<strong>行向量</strong>等效于矩阵的<strong>行</strong>进行线性组合。那么矩阵也可以从右边乘一个矩阵。整体的效果上来看，大多数情况下<span class=math>\(M_1*M\neq M*M_1\)</span>，如果矩阵从左边乘理解成施加一个线性变换，那么矩阵右乘是什么意思？是观察点的变化，或者说坐标系的变化。如果说左乘矩阵是发现物体<span class=math>\(P\)</span>有了向东的加速度<span class=math>\(\vec a_1\)</span>，又有了向北的加速度<span class=math>\(\vec a_2\)</span>，那么看看其整体的加速度是什么。那么右乘矩阵就是，我看物体<span class=math>\(P\)</span>有加速度<span class=math>\(\vec b_1\)</span>，然后别人观察我，认为我有加速度<span class=math>\(\vec b_2\)</span>，那么那个人看物体<span class=math>\(P\)</span>的加速度是多少，这就是观察点的变化。</p>
-<h2 id=bp-1ap><span class=math>\(B=P^{-1}AP\)</span></h2>
+<p>先补充一点，矩阵从右边乘以<strong>行向量</strong>等效于矩阵的<strong>行</strong>进行线性组合。那么矩阵也可以从右边乘一个矩阵。整体的效果上来看，大多数情况下$M_1<em>M\neq M</em>M_1$，如果矩阵从左边乘理解成施加一个线性变换，那么矩阵右乘是什么意思？是观察点的变化，或者说坐标系的变化。如果说左乘矩阵是发现物体$P$有了向东的加速度$\vec a_1$，又有了向北的加速度$\vec a_2$，那么看看其整体的加速度是什么。那么右乘矩阵就是，我看物体$P$有加速度$\vec b_1$，然后别人观察我，认为我有加速度$\vec b_2$，那么那个人看物体$P$的加速度是多少，这就是观察点的变化。</p>
+<h2 id=bp-1ap>$B=P^{-1}AP$</h2>
 <h2 id=tips>Tips</h2>
 <h3 id=n维空间有多少个向量>N维空间有多少个向量</h3>
-<p>N维空间当然有无穷个向量。这是显然的。更精确的说，N维空间有<span class=math>\(\aleph_1\)</span>个向量。那<span class=math>\(\aleph_1\)</span>具体是多少呢？我们先做这样一个标记，记自然数的个数有<span class=math>\(\aleph_0\)</span>个，那么<span class=math>\(\aleph_1=2^{\aleph_0}\)</span>。更有意思的是1维（实数个数），2维，3维，……，N维空间的向量个数是一样多的（应该叫等势的）。具体了解可看集合论、测度论和实变函数相关内容（万恶的康托尔和勒贝格啊，:dog:）。</p>
+<p>N维空间当然有无穷个向量。这是显然的。更精确的说，N维空间有$\aleph_1$个向量。那$\aleph_1$具体是多少呢？我们先做这样一个标记，记自然数的个数有$\aleph_0$个，那么$\aleph_1=2^{\aleph_0}$。更有意思的是1维（实数个数），2维，3维，……，N维空间的向量个数是一样多的（应该叫等势的）。具体了解可看集合论、测度论和实变函数相关内容（万恶的康托尔和勒贝格啊，:dog:）。</p>
 <h3 id=逆矩阵>逆矩阵</h3>
-<p>所谓逆，就是反过来的意思。根据基向量代表整个空间，已经变换过的 <span class=math>\(\vec{i}’\)</span> 和 <span class=math>\(\vec{j}’\)</span> 如何通过一个矩阵变换，变回 <span class=math>\(\vec{i}\)</span>和 <span class=math>\(\vec{j}\)</span> ，这个矩阵就是逆矩阵 ，写作 <span class=math>\(\mathbf A^{-1}\)</span>，直观理解如下图</p>
-<div class=figure>
-<img src=../../images/ReverseMatrix.gif alt=逆变换与逆矩阵><p class=caption>逆变换与逆矩阵</p>
-</div>
-<p>逆矩阵乘原矩阵等于恒等变换，写作 <span class=math>\(\mathbf A \mathbf A^{-1} = \mathbf I\)</span> 。<span class=math>\(\mathbf I\)</span> 矩阵表示基向量，对角线元素为1，其余为0（矩阵说对角线，默认为左上方到右下方）</p>
+<p>所谓逆，就是反过来的意思。根据基向量代表整个空间，已经变换过的 $\vec{i}’$ 和 $\vec{j}’$ 如何通过一个矩阵变换，变回 $\vec{i}$和 $\vec{j}$ ，这个矩阵就是逆矩阵 ，写作 $\mathbf A^{-1}$，直观理解如下图</p>
+<p><img src=../../images/ReverseMatrix.gif alt=逆变换与逆矩阵></p>
+<p>逆矩阵乘原矩阵等于恒等变换，写作 $\mathbf A \mathbf A^{-1} = \mathbf I$ 。$\mathbf I$ 矩阵表示基向量，对角线元素为1，其余为0（矩阵说对角线，默认为左上方到右下方）</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

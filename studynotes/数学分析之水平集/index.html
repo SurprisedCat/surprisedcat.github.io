@@ -88,44 +88,54 @@ Mar 16, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=数学分析之水平集>数学分析之水平集</h2>
+<h2 id=数学分析之水平集---omit-in-toc--->数学分析之水平集</h2>
 <p>水平集是数学中的中一个重要概念，这个概念和函数图像有着直观的联系，同时水平集也和函数的连续性，拟凸性，等高线图有着直接的联系。</p>
 <h2 id=水平集>水平集</h2>
-<p>在数学领域中, 一个具有<span class=math>\(n\)</span>变量的实值函数<span class=math>\(f\)</span>的<strong>水平集</strong>是具有以下形式的集合 <span class=math>\[
-\{(x_1,...,x_n)|f(x_1,...,x_n)=c\}
-\]</span></p>
-<p>其中<span class=math>\(c\)</span>是常数， 即使得函数值具有给定常数的变量集合。当具有<strong>两个变量</strong>时, 称为<strong>水平曲线(等高线)</strong>, 如果有<strong>三个变量, 称为水平曲面</strong>, 更多变量时, 水平集被叫做<strong>水平超曲面</strong>。</p>
+<p>在数学领域中, 一个具有$n$变量的实值函数$f$的<strong>水平集</strong>是具有以下形式的集合
+$$
+{(x_1,...,x_n)|f(x_1,...,x_n)=c}
+$$</p>
+<p>其中$c$是常数， 即使得函数值具有给定常数的变量集合。当具有<strong>两个变量</strong>时, 称为<strong>水平曲线(等高线)</strong>, 如果有<strong>三个变量, 称为水平曲面</strong>, 更多变量时, 水平集被叫做<strong>水平超曲面</strong>。</p>
 <h3 id=例子>例子</h3>
-<p>例如, 指定一个半径<span class=math>\(r\)</span>, 圆的方程可以定义为一个等高线： <span class=math>\[
+<p>例如, 指定一个半径$r$, 圆的方程可以定义为一个等高线：
+$$
 r^2=x^2 + y^2
-\]</span> 如果取<span class=math>\(r=5\)</span>, 那么等高值为<span class=math>\(c=5^2=25\)</span>。</p>
-<p>所有使得<span class=math>\(x^2 + y^2=25\)</span>的点<span class=math>\((x,y)\)</span>构成了它的等高线。 这就是说他们属于等高线的水平集。 如果<span class=math>\(x^2 + y^2\)</span>小于 25 这个点<span class=math>\((x,y)\)</span>就在等高线的内部;如果大于25，这个点就在等高线外部。</p>
+$$
+如果取$r=5$, 那么等高值为$c=5^2=25$。</p>
+<p>所有使得$x^2 + y^2=25$的点$(x,y)$构成了它的等高线。 这就是说他们属于等高线的水平集。 如果$x^2 + y^2$小于 25 这个点$(x,y)$就在等高线的内部;如果大于25，这个点就在等高线外部。</p>
 <h2 id=水平集与梯度>水平集与梯度</h2>
 <blockquote>
-<p>定理： 函数<span class=math>\(f\)</span>在一点处的梯度与在该点处<span class=math>\(f\)</span>的水平集垂直。</p>
+<p>定理： 函数$f$在一点处的梯度与在该点处$f$的水平集垂直。</p>
 </blockquote>
 <p>这个定理是十分不寻常的。为更好的理解定理的含义，设想两个旅行者在一座山峰的同一位置。其中一个人很大胆，决定从坡度最大的地方走。另一个人比较保守；他不想向上爬，也不想走下去，选择了一条在同一高度的路。上面的定理就是说，这两个旅行者相互离开的方向是互相垂直的。</p>
-<div class=figure>
-<img src=../../images/Level_grad.png alt=Level_grad.png><p class=caption>Level_grad.png</p>
-</div>
+<p><img src=../../images/Level_grad.png alt=Level_grad.png></p>
 <h2 id=上水平集和下水平集>上水平集和下水平集</h2>
 <blockquote>
-<p>集合<span class=math>\(\{ (x_1,...,x_n) | f(x_1,...,x_n) ≤ c \}\)</span>被称为<span class=math>\(f\)</span>的下水平集或子水平集;</p>
-<p>集合<span class=math>\(\{ (x_1,...,x_n) | f(x_1,...,x_n) \geq c \}\)</span>被称为<span class=math>\(f\)</span>的上水平集。</p>
+<p>集合${ (x_1,...,x_n) | f(x_1,...,x_n) ≤ c }$被称为$f$的下水平集或子水平集;</p>
+<p>集合${ (x_1,...,x_n) | f(x_1,...,x_n) \geq c }$被称为$f$的上水平集。</p>
 </blockquote>
 <p>上下水平集与<strong>最大最小值定理</strong>相关：</p>
 <blockquote>
-<p>定义：对于一个拓扑空间<span class=math>\(X\)</span>，如果</p>
+<p>定义：对于一个拓扑空间$X$，如果</p>
 <ul>
-<li><span class=math>\(f:X→R\)</span>是下半连续的，则其任意下水平集是闭的。</li>
-<li><span class=math>\(f:X→R\)</span>是上半连续的，则其任意上水平集是闭的。</li>
+<li>$f:X→R$是下半连续的，则其任意下水平集是闭的。</li>
+<li>$f:X→R$是上半连续的，则其任意上水平集是闭的。</li>
 </ul>
 </blockquote>
-<p><strong>通过半连续性，我们可以知道一个映射是否可以取到最值</strong>： >定理：设<span class=math>\(X\)</span>是非空紧集，<span class=math>\(f:X→R\)</span>则： > >- <span class=math>\(f\)</span>下半连续<span class=math>\(\Rightarrow\)</span>函数有最小值 >- <span class=math>\(f\)</span>上半连续<span class=math>\(\Rightarrow\)</span>函数有最大值</p>
+<p><strong>通过半连续性，我们可以知道一个映射是否可以取到最值</strong>：</p>
+<blockquote>
+<p>定理：设$X$是非空紧集，$f:X→R$则：</p>
+<ul>
+<li>$f$下半连续$\Rightarrow$函数有最小值</li>
+<li>$f$上半连续$\Rightarrow$函数有最大值</li>
+</ul>
+</blockquote>
 <p>具体可以参考<a href=https://en.wikipedia.org/wiki/Extreme_value_theorem#Extension_to_semi-continuous_functions>魏尔斯特拉斯极值定理</a></p>
 <p>上下水平集与<strong>拟凸拟凹函数</strong>有关：</p>
 <blockquote>
-<p><span class=math>\(f:R^n→R, \mathop{dom}f\)</span>是凸集，<span class=math>\(\alpha-\)</span>下水平集是凸集，则<span class=math>\(f(x)\)</span>为<strong>拟凸函数</strong>。即 <span class=math>\[f:R^n→R,s.t.\, S_\alpha=\{x\in \mathop{dom} f| f(x)\geq \alpha\}为凸集\]</span> <span class=math>\(f\)</span>是拟凸函数，我们称<span class=math>\(-f\)</span>为<strong>拟凹</strong>函数,拟凹函数的<span class=math>\(\alpha-\)</span><strong>上水平集是凸集</strong>。</p>
+<p>$f:R^n→R, \mathop{dom}f$是凸集，$\alpha-$下水平集是凸集，则$f(x)$为<strong>拟凸函数</strong>。即
+$$f:R^n→R,s.t., S_\alpha={x\in \mathop{dom} f| f(x)\geq \alpha}为凸集$$
+$f$是拟凸函数，我们称$-f$为<strong>拟凹</strong>函数,拟凹函数的$\alpha-$<strong>上水平集是凸集</strong>。</p>
 </blockquote>
 </article>
 <aside class=sidebar>

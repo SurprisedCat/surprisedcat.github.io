@@ -88,11 +88,11 @@ Oct 12, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=多臂老虎机问题>多臂老虎机问题</h2>
+<h2 id=多臂老虎机问题---omit-in-toc--->多臂老虎机问题</h2>
 <ul>
-<li><a href=#名词解释>名词解释</a></li>
-<li><a href=#bandit算法>Bandit算法</a></li>
-<li><a href=#基本的bandit对应>基本的Bandit对应</a></li>
+<li><a href=#%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A>名词解释</a></li>
+<li><a href=#bandit%E7%AE%97%E6%B3%95>Bandit算法</a></li>
+<li><a href=#%E5%9F%BA%E6%9C%AC%E7%9A%84bandit%E5%AF%B9%E5%BA%94>基本的Bandit对应</a></li>
 </ul>
 <h2 id=名词解释>名词解释</h2>
 <ul>
@@ -102,9 +102,12 @@ Oct 12, 2019</span>
 <li>rested MAB 马尔可夫MAB的一种，只有被选中的臂进行状态转移，其他臂状态不变，处于冻结状态</li>
 <li>non-stationary MAB</li>
 <li>contextual MAB 会带有一定的附属信息，可以根据附属信息来帮助判断选择哪个或哪一类臂</li>
-<li>variants</li>
+<li>variants
+<ul>
 <li>dualing MAB</li>
 <li>etc</li>
+</ul>
+</li>
 </ul>
 <h2 id=bandit算法>Bandit算法</h2>
 <ul>
@@ -117,11 +120,14 @@ Oct 12, 2019</span>
 <li>softmax</li>
 </ul>
 <h2 id=基本的bandit对应>基本的Bandit对应</h2>
-<ol style=list-style-type:decimal>
+<ol>
 <li>stochastic -- UCB</li>
-<li>adversarial -- Exp3</li>
+<li>adversarial -- Exp3
+<ol>
 <li>Oblivious: 每个杆变换的分布独立于拉栏者，基本上这种就是撞大运，研究的少</li>
 <li>Non-oblivious： 每个杆的分布会一句拉杆者的策略而变化，有点博弈的意思。</li>
+</ol>
+</li>
 <li>Markovian -- Gittins indices</li>
 </ol>
 </article>

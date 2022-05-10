@@ -88,87 +88,117 @@ Sep 15, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=学习笔记外测度>学习笔记——外测度</h2>
-<p>转载自知乎<https://zhuanlan.zhihu.com/p/106119812>。其中本人修正了一些小错误。</p>
+<h2 id=学习笔记外测度---omit-in-toc--->学习笔记——外测度</h2>
+<p>转载自知乎<a href=https://zhuanlan.zhihu.com/p/106119812>https://zhuanlan.zhihu.com/p/106119812</a>。其中本人修正了一些小错误。</p>
 <p>原作者：<a href=https://www.zhihu.com/people/tang-shu-43-28>路边社特约记者</a></p>
 <ul>
-<li><a href=#引论>引论</a></li>
-<li><a href=#外测度的抽象定义>外测度的抽象定义</a></li>
-<li><a href=#构造外测度的一般方法>构造外测度的一般方法</a></li>
-<li><a href=#从外测度到测度>从外测度到测度</a></li>
-<li><a href=#caratheodorys定理的应用>Caratheodory's定理的应用</a></li>
-<li><a href=#准测度外侧度测度>准测度→外侧度→测度</a></li>
+<li><a href=#%E5%BC%95%E8%AE%BA>引论</a></li>
+<li><a href=#%E5%A4%96%E6%B5%8B%E5%BA%A6%E7%9A%84%E6%8A%BD%E8%B1%A1%E5%AE%9A%E4%B9%89>外测度的抽象定义</a></li>
+<li><a href=#%E6%9E%84%E9%80%A0%E5%A4%96%E6%B5%8B%E5%BA%A6%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95>构造外测度的一般方法</a></li>
+<li><a href=#%E4%BB%8E%E5%A4%96%E6%B5%8B%E5%BA%A6%E5%88%B0%E6%B5%8B%E5%BA%A6>从外测度到测度</a></li>
+<li><a href=#caratheodorys%E5%AE%9A%E7%90%86%E7%9A%84%E5%BA%94%E7%94%A8>Caratheodory's定理的应用</a>
+<ul>
+<li><a href=#%E5%87%86%E6%B5%8B%E5%BA%A6%E5%A4%96%E4%BE%A7%E5%BA%A6%E6%B5%8B%E5%BA%A6>准测度→外侧度→测度</a></li>
+</ul>
+</li>
 </ul>
 <h2 id=引论>引论</h2>
 <p>外测度的基本想法是用一些形状良好的，已经定义了类似测度概念（称为类测度）的集合去尽可能“小”的覆盖其他集合，然后用这些集合的”类测度“的和作为被覆盖集合的外测度。</p>
-<p>譬如在实数轴<span class=math>\(R\)</span>上，定义开区间<span class=math>\(I=(a,b)\)</span>的类测度为其长度<span class=math>\(\rho(I)=b-a\)</span>,那么可以定义<span class=math>\(R\)</span>中任意集合<span class=math>\(E\)</span>的外测度为： <span class=math>\[\mu^\ast(E)=\inf\biggl\{\sum\limits_{j=1}^∞ \rho(I_j):E\subset \bigcup\limits_{j=1}^∞ I_j \biggl\}\]</span> 直观的讲，就是把无数个小区间拼起来，让它们盖住原来的集合，而且要让冗余的面积尽可能的小。在进一步构造外测度之前，先给出外测度的抽象定义。</p>
+<p>譬如在实数轴$R$上，定义开区间$I=(a,b)$的类测度为其长度$\rho(I)=b-a$,那么可以定义$R$中任意集合$E$的外测度为：
+$$\mu^\ast(E)=\inf\biggl{\sum\limits_{j=1}^∞ \rho(I_j):E\subset \bigcup\limits_{j=1}^∞ I_j \biggl}$$
+直观的讲，就是把无数个小区间拼起来，让它们盖住原来的集合，而且要让冗余的面积尽可能的小。在进一步构造外测度之前，先给出外测度的抽象定义。</p>
 <h2 id=外测度的抽象定义>外测度的抽象定义</h2>
 <blockquote>
-<p>设<span class=math>\(X\)</span>为任意集合，记<span class=math>\(\mathcal{P}(X)\)</span>为<span class=math>\(X\)</span>所有子集的族，所谓<span class=math>\(X\)</span>上的一个外测度是指一个函数<span class=math>\(\mu^\ast:\mathcal{P}(X)→[0,+∞)\)</span>，满足：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(\mu^\ast(\emptyset)=0\)</span></li>
-<li>若<span class=math>\(A\subset B \subset X\)</span>，则<span class=math>\(\mu^\ast(A)≤\mu^\ast(B)\)</span></li>
-<li>若<span class=math>\(\{A_n\}_{n=1}^∞\subset \mathcal{P}(X)\)</span>，则<span class=math>\(\mu^\ast(\bigcup\limits_{n=1}^∞ A_n)≤\sum\limits_{n=1}^∞\mu^\ast(A_n)\)</span></li>
+<p>设$X$为任意集合，记$\mathcal{P}(X)$为$X$所有子集的族，所谓$X$上的一个外测度是指一个函数$\mu^\ast:\mathcal{P}(X)→[0,+∞)$，满足：</p>
+<ol>
+<li>$\mu^\ast(\emptyset)=0$</li>
+<li>若$A\subset B \subset X$，则$\mu^\ast(A)≤\mu^\ast(B)$</li>
+<li>若${A_n}<em>{n=1}^∞\subset \mathcal{P}(X)$，则$\mu^\ast(\bigcup\limits</em>{n=1}^∞ A_n)≤\sum\limits_{n=1}^∞\mu^\ast(A_n)$</li>
 </ol>
 </blockquote>
 <h2 id=构造外测度的一般方法>构造外测度的一般方法</h2>
-<p>如引论中所述，为了构造在集合<span class=math>\(X\)</span>中的外测度，一般我们先在<span class=math>\(X\)</span>中某个子集族<span class=math>\(\mathcal{C}\)</span>上构建类似测度的概念，即定义一个函数 <span class=math>\[\rho:\mathcal{C}→[0,+∞)\]</span></p>
-<p>且要求：<span class=math>\(\emptyset∈\mathcal{C}，X ∈ \mathcal{C}，\rho(\emptyset)=0\)</span>。接着便可以在<span class=math>\(X\)</span>中定义，<span class=math>\(\forall A \subset X\)</span>: <span class=math>\[\mu^\ast:=\inf\biggl\{\sum\limits_{j=1}^∞ \rho(E_j): A\subset \bigcup\limits_{j=1}^∞ E_j，\{E_j\}_{j=1}^∞ \subset \mathcal{C}\biggl\}\]</span> 自然首先应该证明上面的定义满足外测度的三条性质。</p>
+<p>如引论中所述，为了构造在集合$X$中的外测度，一般我们先在$X$中某个子集族$\mathcal{C}$上构建类似测度的概念，即定义一个函数
+$$\rho:\mathcal{C}→[0,+∞)$$</p>
+<p>且要求：$\emptyset∈\mathcal{C}，X ∈ \mathcal{C}，\rho(\emptyset)=0$。接着便可以在$X$中定义，$\forall A \subset X$:
+$$\mu^\ast:=\inf\biggl{\sum\limits_{j=1}^∞ \rho(E_j): A\subset \bigcup\limits_{j=1}^∞ E_j，{E_j}_{j=1}^∞ \subset \mathcal{C}\biggl}$$
+自然首先应该证明上面的定义满足外测度的三条性质。</p>
 <blockquote>
-<p>定理一：如上定义的<span class=math>\(\mu^\ast\)</span>是<span class=math>\(X\)</span>上一个外测度.</p>
+<p>定理一：如上定义的$\mu^\ast$是$X$上一个外测度.</p>
 </blockquote>
-<div class=figure>
-<img src=../../images/外测度构造证明.png alt=外侧度构造证明><p class=caption>外侧度构造证明</p>
-</div>
+<p><img src=../../images/%E5%A4%96%E6%B5%8B%E5%BA%A6%E6%9E%84%E9%80%A0%E8%AF%81%E6%98%8E.png alt=外侧度构造证明></p>
 <h2 id=从外测度到测度>从外测度到测度</h2>
-<p>外测度的思想很简单且对于<span class=math>\(X\)</span>的幂集都适用，但外测度却并不满足我们对测度所期待的全部性质。具体的讲，类比于面积和体积的概念，我们希望测度至少满足：</p>
+<p>外测度的思想很简单且对于$X$的幂集都适用，但外测度却并不满足我们对测度所期待的全部性质。具体的讲，类比于面积和体积的概念，我们希望测度至少满足：</p>
 <p>（1）一个集合的测度应该等于把该集合分成任意多（至少是可数）个不相交集合的测度的和；</p>
 <p>（2）在一些空间中，譬如欧式空间中，对集合进行平移、旋转、反射等操作应该不改变集合的测度；</p>
 <p>当然我们希望测度满足的性质不止这两条，但这两条性质从某种意义上说就是互相矛盾的。譬如在三维空间中，Banach和Tarski证明了所谓的分球悖论，即仅通过平移、旋转、反射就能将一个球分成同样的两个球。那么性质（1）和（2）显然不可能同时满足。</p>
 <p>有两种方式处理这种情况。【一】是抛弃掉某些性质，【二】是对测度的定义域做一些限制。做法【一】并不令人满意，因为性质（1）和（2）显然是我们对三维空间物体体积的最直观且最基本的概念。所以做法【二】是比较合适的。</p>
-<p>一个简单的定义是， >对<span class=math>\(X\)</span>的一个子集<span class=math>\(A\)</span>，<span class=math>\(A\)</span>如果满足： ><span class=math>\[\forall E \subset X，\mu^\ast(E)=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)\]</span> >则称集合<span class=math>\(A\)</span>是<span class=math>\(\mu^\ast\)</span>可测的（<strong>我们的可测是指某个集合可测</strong>）。</p>
-<p>我们记<span class=math>\(\mathcal{M}\)</span>为所有<span class=math>\(\mu^\ast\)</span>可测的集合的族，那么：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(\mathcal{M}\)</span>是一个<span class=math>\(\sigma\)</span>代数。</li>
-<li>记<span class=math>\(\mu\)</span>是<span class=math>\(\mu^\ast\)</span>在<span class=math>\(\mathcal{M}\)</span>上的限制，即<span class=math>\(\mu=\mu^\ast|_{\mathcal{M}}\)</span>，那么<span class=math>\(\mu\)</span>是一个完备的测度。</li>
+<p>一个简单的定义是，</p>
+<blockquote>
+<p>对$X$的一个子集$A$，$A$如果满足：
+$$\forall E \subset X，\mu^\ast(E)=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)$$
+则称集合$A$是$\mu^\ast$可测的（<strong>我们的可测是指某个集合可测</strong>）。</p>
+</blockquote>
+<p>我们记$\mathcal{M}$为所有$\mu^\ast$可测的集合的族，那么：</p>
+<ol>
+<li>$\mathcal{M}$是一个$\sigma$代数。</li>
+<li>记$\mu$是$\mu^\ast$在$\mathcal{M}$上的限制，即$\mu=\mu^\ast|_{\mathcal{M}}$，那么$\mu$是一个完备的测度。</li>
 </ol>
 <blockquote>
 <p>定理二（Caratheodory's theorem):如上两条性质成立。即外测度在其可测集上是一个完备的测度。</p>
 <p>Proof：</p>
-<p><strong>首先证明<span class=math>\(\mathcal{M}\)</span>是一个<span class=math>\(\sigma\)</span>代数</strong>，即证明<span class=math>\(\mathcal{M}\)</span>满足对补运算和可数并运算的封闭性。</p>
-<p>（补运算封闭性）由等式<span class=math>\(\mu^\ast(E)=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)\)</span>对<span class=math>\(A,A^c\)</span>的对称性知<span class=math>\(A ∈ \mathcal{M}\Leftrightarrow A^c ∈ \mathcal{M}\)</span>。</p>
-<p>（可数并封闭性）先证明有限并的封闭性。设<span class=math>\(A,B ∈ \mathcal{M}\)</span>，且注意到 <span class=math>\[A\cup B = (A\cap B)\cup(A\cap B^c)\cup(A^c \cap B)\]</span> 所以<span class=math>\(\forall E\subset X\)</span> <span class=math>\[\begin{aligned}
-&\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\\
-&=\mu^\ast(E\cap((A\cap B)\cup(A\cap B^c)\cup(A^c \cap B)))+\mu^\ast(E\cap(A\cup B)^c)\\
-&≤\mu^\ast(E\cap A\cap B)+\mu^\ast(E\cap A\cap B^c)+\mu^\ast(E\cap A^c\cap B)+\mu^\ast(E\cap(A\cup B)^c)\\
-&(外测度定义条件3)\\
-&=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)(\mu^\ast可测定义)\\
-&=\mu^\ast(E)(\mu^\ast可测定义)\\
+<p><strong>首先证明$\mathcal{M}$是一个$\sigma$代数</strong>，即证明$\mathcal{M}$满足对补运算和可数并运算的封闭性。</p>
+<p>（补运算封闭性）由等式$\mu^\ast(E)=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)$对$A,A^c$的对称性知$A ∈ \mathcal{M}\Leftrightarrow A^c ∈ \mathcal{M}$。</p>
+<p>（可数并封闭性）先证明有限并的封闭性。设$A,B ∈ \mathcal{M}$，且注意到
+$$A\cup B = (A\cap B)\cup(A\cap B^c)\cup(A^c \cap B)$$
+所以$\forall E\subset X$
+$$\begin{aligned}
+&\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\
+&=\mu^\ast(E\cap((A\cap B)\cup(A\cap B^c)\cup(A^c \cap B)))+\mu^\ast(E\cap(A\cup B)^c)\
+&≤\mu^\ast(E\cap A\cap B)+\mu^\ast(E\cap A\cap B^c)+\mu^\ast(E\cap A^c\cap B)+\mu^\ast(E\cap(A\cup B)^c)\
+&(外测度定义条件3)\
+&=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)(\mu^\ast可测定义)\
+&=\mu^\ast(E)(\mu^\ast可测定义)\
 &即\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)≤\mu^\ast(E)
-\end{aligned}\]</span> 而由外测度定义3可知： <span class=math>\[\mu^\ast(E)≤\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\]</span> 所以<span class=math>\(\mu^\ast(E)=\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\)</span></p>
-<p>所以<span class=math>\(A\cup B ∈ \mathcal{M}\)</span>。然后由<strong>数学归纳法</strong>可以得到<strong>有限并</strong>的封闭性。</p>
-<p>再证明可数并的封闭性。令<span class=math>\(F_N=\bigcup\limits_{n=1}^N A_n，F=\bigcup\limits_{n=1}^∞ A_n\)</span>，因为<span class=math>\(F_N\subset F\Rightarrow F_N^c \supset F^c\)</span>，所以根据<span class=math>\(\mu^\ast\)</span>可测条件，对<span class=math>\(\forall E \subset X，\forall N>0\)</span>有 <span class=math>\[\mu^\ast(E)=\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F_N^c)\\
-≥\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F^c)\]</span> 对<span class=math>\(N\)</span>取极限则有 <span class=math>\[\mu^\ast(E)≥\lim_{N→∞}\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F^c)\\
-=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\]</span> 而由外测度定义3可知， <span class=math>\[\mu^\ast(E)=\mu^\ast((E\cap F)\cup (E\cap F^c))≤\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\]</span> 综上，<span class=math>\(\mu^\ast(E)=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\)</span>。满足可列可加性。</p>
-<p><span class=math>\(\mathcal M\)</span>满足互补集封闭，可列可加性，所以是一个<span class=math>\(\sigma\)</span>代数。</p>
-<p><strong>接着证明<span class=math>\(\mu\)</span>是一个完备的测度</strong>。 先说明<span class=math>\(\mu\)</span>是一个测度。</p>
-<p>（A）<span class=math>\(\mu(\emptyset)=0\)</span>，显然外测度的定义。</p>
-<p>（B）先证明有限可加性。设<span class=math>\(A,B ∈ \mathcal{M}，A\cap B = \emptyset\)</span>，因为<span class=math>\(\mu=\mu^\ast|_{\mathcal{M}}\)</span>，则依据<span class=math>\(\mu^\ast\)</span>可测条件： <span class=math>\[\mu(A\cup B)=\mu((A\cup B)\cap A)+\mu((A\cup B)\cap A^c)\\
-=\mu(A)+\mu(B)\]</span> 则再根据归纳法可得有限可加性。</p>
-<p>再证明对于可数可加加性。设<span class=math>\(\{A_n\}_{n=1}^∞ ∈ \mathcal{M}\)</span>，且两两不相交。令<span class=math>\(F_N=\bigcup\limits_{n=1}^N A_n，F=\bigcup\limits_{n=1}^∞ A_n\)</span>，有： <span class=math>\[\begin{aligned}
-\mu(F)&=\mu(F\cap F_n)+\mu(F\cap F_n^c)(\mu^\ast可测条件)\\
-&=\mu(\bigcup\limits_{n=1}^N A_n)+\mu(\bigcup\limits_{n=N+1}^∞ A_n)\\
-&=\sum_{n=1}^N\mu(A_n)+\mu(\bigcup\limits_{n=N+1}^∞ A_n)（有限可加性）\\
+\end{aligned}$$
+而由外测度定义3可知：
+$$\mu^\ast(E)≤\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)$$
+所以$\mu^\ast(E)=\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)$</p>
+<p>所以$A\cup B ∈ \mathcal{M}$。然后由<strong>数学归纳法</strong>可以得到<strong>有限并</strong>的封闭性。</p>
+<p>再证明可数并的封闭性。令$F_N=\bigcup\limits_{n=1}^N A_n，F=\bigcup\limits_{n=1}^∞ A_n$，因为$F_N\subset F\Rightarrow F_N^c \supset F^c$，所以根据$\mu^\ast$可测条件，对$\forall E \subset X，\forall N>0$有
+$$\mu^\ast(E)=\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F_N^c)\
+≥\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F^c)$$
+对$N$取极限则有
+$$\mu^\ast(E)≥\lim_{N→∞}\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F^c)\
+=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)$$
+而由外测度定义3可知，
+$$\mu^\ast(E)=\mu^\ast((E\cap F)\cup (E\cap F^c))≤\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)$$
+综上，$\mu^\ast(E)=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)$。满足可列可加性。</p>
+<p>$\mathcal M$满足互补集封闭，可列可加性，所以是一个$\sigma$代数。</p>
+<p><strong>接着证明$\mu$是一个完备的测度</strong>。
+先说明$\mu$是一个测度。</p>
+<p>（A）$\mu(\emptyset)=0$，显然外测度的定义。</p>
+<p>（B）先证明有限可加性。设$A,B ∈ \mathcal{M}，A\cap B = \emptyset$，因为$\mu=\mu^\ast|_{\mathcal{M}}$，则依据$\mu^\ast$可测条件：
+$$\mu(A\cup B)=\mu((A\cup B)\cap A)+\mu((A\cup B)\cap A^c)\
+=\mu(A)+\mu(B)$$
+则再根据归纳法可得有限可加性。</p>
+<p>再证明对于可数可加加性。设${A_n}<em>{n=1}^∞ ∈ \mathcal{M}$，且两两不相交。令$F_N=\bigcup\limits</em>{n=1}^N A_n，F=\bigcup\limits_{n=1}^∞ A_n$，有：
+$$\begin{aligned}
+\mu(F)&=\mu(F\cap F_n)+\mu(F\cap F_n^c)(\mu^\ast可测条件)\
+&=\mu(\bigcup\limits_{n=1}^N A_n)+\mu(\bigcup\limits_{n=N+1}^∞ A_n)\
+&=\sum_{n=1}^N\mu(A_n)+\mu(\bigcup\limits_{n=N+1}^∞ A_n)（有限可加性）\
 &≥\sum_{n=1}^N\mu(A_n)（非负性）
-\end{aligned}\]</span> 当对<span class=math>\(N\)</span>取极限时，<span class=math>\(\mu(F)=\mu(\bigcup\limits_{n=1}^∞ A_n)≥\lim\limits_{N→∞}\sum\limits_{n=1}^N\mu(A_n)=\sum\limits_{n=1}^∞\mu(A_n)\)</span>。</p>
-<p>又因为根据外测度定义3可知： <span class=math>\[\mu(\bigcup_{n=1}^∞ A_n)≤\sum_{n=1}^∞\mu(A_n)\]</span> 所以<span class=math>\(\mu(\bigcup\limits_{n=1}^∞ A_n)=\sum\limits_{n=1}^∞\mu(A_n)\)</span>。</p>
-<p>因此<span class=math>\(\mu=\mu^\ast|_{\mathcal{M}}\)</span>满足测度定义。</p>
-<p>（c）最后证明完备性。设<span class=math>\(A ∈ \mathcal{M}，\mu(A)=0\)</span>，从而对<span class=math>\(\forall F \subset A，需要证明0≤\mu^\ast(F)≤\mu^\ast(A)=\mu(A)=0\)</span>，即<span class=math>\(\mu^\ast(F)=0\)</span>。</p>
-<p>根据外测度定义3：对于<span class=math>\(\forall E \subset X，\mu^\ast(E)≤\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\)</span>。因为<span class=math>\(F \subset A\)</span>，所以根据外测度单调性<span class=math>\(0≤\mu^\ast(E\cap F)≤\mu^\ast(E \cap A)≤\mu^\ast(A)=0\)</span>。因此<span class=math>\(\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)=\mu^\ast(E\cap F^c)≤\mu^\ast(E)\)</span>。</p>
-<p>综上所述：<span class=math>\(\mu^\ast(E)=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\)</span>。<span class=math>\(A\)</span>的子集<span class=math>\(F\)</span>可测。根据外测度单调性可知，<span class=math>\(0≤\mu^\ast(F)≤\mu^\ast(A)=0\)</span>。</p>
+\end{aligned}$$
+当对$N$取极限时，$\mu(F)=\mu(\bigcup\limits_{n=1}^∞ A_n)≥\lim\limits_{N→∞}\sum\limits_{n=1}^N\mu(A_n)=\sum\limits_{n=1}^∞\mu(A_n)$。</p>
+<p>又因为根据外测度定义3可知：
+$$\mu(\bigcup_{n=1}^∞ A_n)≤\sum_{n=1}^∞\mu(A_n)$$
+所以$\mu(\bigcup\limits_{n=1}^∞ A_n)=\sum\limits_{n=1}^∞\mu(A_n)$。</p>
+<p>因此$\mu=\mu^\ast|_{\mathcal{M}}$满足测度定义。</p>
+<p>（c）最后证明完备性。设$A ∈ \mathcal{M}，\mu(A)=0$，从而对$\forall F \subset A，需要证明0≤\mu^\ast(F)≤\mu^\ast(A)=\mu(A)=0$，即$\mu^\ast(F)=0$。</p>
+<p>根据外测度定义3：对于$\forall E \subset X，\mu^\ast(E)≤\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)$。因为$F \subset A$，所以根据外测度单调性$0≤\mu^\ast(E\cap F)≤\mu^\ast(E \cap A)≤\mu^\ast(A)=0$。因此$\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)=\mu^\ast(E\cap F^c)≤\mu^\ast(E)$。</p>
+<p>综上所述：$\mu^\ast(E)=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)$。$A$的子集$F$可测。根据外测度单调性可知，$0≤\mu^\ast(F)≤\mu^\ast(A)=0$。</p>
 <p>所以0测度集的任意子集也可测，即A是完备的。</p>
 </blockquote>
-<p>因此，我们得到一个重要结论，如果把外测度限制再某个<span class=math>\(\sigma\)</span>代数上，那么可以得到一个完备的测度。</p>
+<p>因此，我们得到一个重要结论，如果把外测度限制再某个$\sigma$代数上，那么可以得到一个完备的测度。</p>
 <h2 id=caratheodorys定理的应用>Caratheodory's定理的应用</h2>
 <h3 id=准测度外侧度测度>准测度→外侧度→测度</h3>
 <p><a href=https://zhuanlan.zhihu.com/p/106119812>https://zhuanlan.zhihu.com/p/106119812</a></p>

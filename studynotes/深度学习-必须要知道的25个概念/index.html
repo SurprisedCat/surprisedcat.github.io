@@ -88,7 +88,7 @@ Jun 30, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=深度学习入门者必看25个你一定要知道的概念>深度学习入门者必看：25个你一定要知道的概念</h2>
+<h2 id=深度学习入门者必看25个你一定要知道的概念---omit-in-toc--->深度学习入门者必看：25个你一定要知道的概念</h2>
 <blockquote>
 <p>人工智能，深度学习，机器学习……不管你在从事什么工作，都需要了解这些概念。否则的话，三年之内你就会变成一只恐龙。 —— 马克·库班</p>
 </blockquote>
@@ -103,177 +103,115 @@ Jun 30, 2020</span>
 <li>递归神经网络</li>
 </ul>
 <h2 id=基础概念>基础概念</h2>
-<ol style=list-style-type:decimal>
-<li>神经元(Neuron)</li>
-</ol>
+<p>(1) 神经元(Neuron)</p>
 <p>正如我们大脑中的基本组成单元，神经元是组成神经网络的基础结构。设想一下当接触到新的信息时，我们的身体会对其进行处理，最后产生一些特定的反应。</p>
 <p>相似地，在神经网络中，在收到输入的信号之后，神经元通过处理，然后把结果输出给其它的神经元或者直接作为最终的输出。</p>
-<div class=figure>
-<img src=../../images/neuron.jpg alt=神经图><p class=caption>神经图</p>
-</div>
-<ol start=2 style=list-style-type:decimal>
-<li>加权/权重(Weights)</li>
-</ol>
+<p><img src=../../images/neuron.jpg alt=神经图></p>
+<p>(2) 加权/权重(Weights)</p>
 <p>当输入信号进入到神经元后，会被乘以相应的权重因子。举例来说，假设一个神经元有两个输入信号，那么每个输入将会存在着一个与之相应的权重因子。在初始化网络的时候，这些权重会被随机设置，然后在训练模型的过程中再不断地发生更改。</p>
 <p>在经过训练后的神经网络中，一个输入具有的权重因子越高，往往意味着它的重要性更高，对输出的影响越大。另一方面，当权重因子为0时意味着这个输入是无价值的。</p>
 <p>如下图所示，假设输入为a，相应的权重为W1。那么通过赋权节点后相应的输入应变为a*W1。</p>
-<div class=figure>
-<img src=../../images/neuron_weight.png alt=加权/权重><p class=caption>加权/权重</p>
-</div>
+<p><img src=../../images/neuron_weight.png alt=加权/权重></p>
 <p>(3)偏差（Bias）</p>
 <p>除了权重之外，另一个被应用于输入的线性分量被称为偏差。它被加到权重与输入相乘的结果中。基本上添加偏差的目的是来改变权重与输入相乘所得结果的范围的。添加偏差后，结果将看起来像a* W1 +偏差。这是输入变换的最终线性分量。</p>
 <p>(4)激活函数（Activation Function）</p>
-<p>一旦将线性分量应用于输入，将会需要应用一个非线性函数。这通过将激活函数应用于线性组合来完成。激活函数将输入信号转换为输出信号。应用激活函数后的输出看起来像<span class=math>\(f(a*W_1 + b）\)</span>，其中<span class=math>\(f()\)</span>就是激活函数。</p>
-<p>在下图中，我们将“n”个输入给定为<span class=math>\(X_1\)</span>到<span class=math>\(X_n\)</span>而与其相应的权重为<span class=math>\(W_{k1}\)</span>到<span class=math>\(W_{kn}\)</span>。我们有一个给定值为<span class=math>\(b_k\)</span>的偏差。权重首先乘以与其对应的输入，然后与偏差加在一起。而这个值叫做<span class=math>\(U\)</span>。 <span class=math>\[U=\sum W*X+b\]</span> 激活函数被应用于<span class=math>\(U\)</span>，即<span class=math>\(f(U)\)</span>，并且我们会从神经元接收最终输出，如<span class=math>\(y_k=f(U)\)</span>。</p>
-<div class=figure>
-<img src=../../images/神经元激活函数.jpg alt=神经元激活函数><p class=caption>神经元激活函数</p>
-</div>
+<p>一旦将线性分量应用于输入，将会需要应用一个非线性函数。这通过将激活函数应用于线性组合来完成。激活函数将输入信号转换为输出信号。应用激活函数后的输出看起来像$f(a*W_1 + b）$，其中$f()$就是激活函数。</p>
+<p>在下图中，我们将“n”个输入给定为$X_1$到$X_n$而与其相应的权重为$W_{k1}$到$W_{kn}$。我们有一个给定值为$b_k$的偏差。权重首先乘以与其对应的输入，然后与偏差加在一起。而这个值叫做$U$。
+$$U=\sum W*X+b$$
+激活函数被应用于$U$，即$f(U)$，并且我们会从神经元接收最终输出，如$y_k=f(U)$。</p>
+<p><img src=../../images/%E7%A5%9E%E7%BB%8F%E5%85%83%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.jpg alt=神经元激活函数></p>
 <p>接下来我们讲一讲常用的一些激活函数：Sigmoid函数， 线性整流函数(ReLU) 和 softmax函数</p>
-<ol style=list-style-type:lower-alpha>
-<li>sigmoid函数</li>
-</ol>
-<p><span class=math>\[sigmoid(x)=\frac{1}{1+e^{-x}}\]</span> sigmoid函数为值域在0到1之间的光滑函数，当需要观察输入信号数值上微小的变化时，与阶梯函数相比，平滑函数(比如Sigmoid函数)的表现更好。</p>
-<div class=figure>
-<img src=../../images/sigmoid.png alt=Sigmoid函数><p class=caption>Sigmoid函数</p>
-</div>
-<ol start=2 style=list-style-type:lower-alpha>
-<li>线性整流函数(ReLU-Rectified Linear Units)</li>
-</ol>
-<p>与Sigmoid函数不同的是，最近的网络更喜欢使用ReLu激活函数来处理隐藏层。该函数定义为： <span class=math>\[f(x)=max(x,0)\]</span> 当x大于0时，函数输出x，其余的情况输出为0。函数的图像是： <img src=../../images/线性整流函数.png alt=线性整流函数></p>
+<p>(a) sigmoid函数</p>
+<p>$$sigmoid(x)=\frac{1}{1+e^{-x}}$$
+sigmoid函数为值域在0到1之间的光滑函数，当需要观察输入信号数值上微小的变化时，与阶梯函数相比，平滑函数(比如Sigmoid函数)的表现更好。</p>
+<p><img src=../../images/sigmoid.png alt=Sigmoid函数></p>
+<p>(b) 线性整流函数(ReLU-Rectified Linear Units)</p>
+<p>与Sigmoid函数不同的是，最近的网络更喜欢使用ReLu激活函数来处理隐藏层。该函数定义为：
+$$f(x)=max(x,0)$$
+当x大于0时，函数输出x，其余的情况输出为0。函数的图像是：
+<img src=../../images/%E7%BA%BF%E6%80%A7%E6%95%B4%E6%B5%81%E5%87%BD%E6%95%B0.png alt=线性整流函数></p>
 <p>使用ReLU函数的最主要的好处是对于大于0的所有输入来说，它都有一个不变的导数值。常数导数值有助于网络训练进行得更快。</p>
-<ol start=3 style=list-style-type:lower-alpha>
-<li>Softmax</li>
-</ol>
+<p>(c) Softmax</p>
 <p>Softmax激活函数通常用于输出层，用于分类问题。它与sigmoid函数是很类似的，唯一的区别就是输出被归一化为总和为1。Sigmoid函数将发挥作用以防我们有一个二进制输出，但是如果我们有一个多类分类问题，softmax函数使为每个类分配值这种操作变得相当简单，而这可以将其解释为概率。</p>
 <p>以这种方式来操作的话，我们很容易看到——假设你正在尝试识别一个可能看起来像8的6。该函数将为每个数字分配值如下。我们可以很容易地看出，最高概率被分配给6，而下一个最高概率分配给8，依此类推……</p>
-<ol start=5 style=list-style-type:decimal>
-<li>神经网络</li>
-</ol>
+<p>(5) 神经网络</p>
 <p>神经网络是构成深度学习系统的框架。神经网络的任务是找到一个未知函数的近似表达方式，它是由彼此相连的神经元所组成，这些神经元会在训练网络的过程中根据误差来更改它们的权重和偏置。激活函数将非线性变化用线性变化的组合来表示，最终产生输出。</p>
 <p>关于神经网络最好的定义是由Matthew Mayo给出的：</p>
 <p>神经网络是由大量彼此相连、概念化的人造神经元组成的，这些神经元彼此之间传递着数据，相应的权重也会随着神经网络的经历而进行调整。神经元们有着激活的阈值，当它们遇到相应的数据以及权重时会被激活，这些被激活的神经元组合起来导致了“学习”行为的产生。</p>
-<ol start=6 style=list-style-type:decimal>
-<li>输入层/输出层/隐藏层</li>
-</ol>
+<p>(6) 输入层/输出层/隐藏层</p>
 <p>从名字中就能看出，输入层代表接受输入数据的一层，基本上是网络的第一层；输出层是产生输出的一层，或者是网络的最后一层，而网络中间的处理层叫做隐藏层。</p>
 <p>这些隐藏层对输入的数据进行特定的处理，再将其输入到下一层。输入层和输出层是可见的，而中间层通常是被隐藏起来的。</p>
-<div class=figure>
-<img src=../../images/输入_输出_隐藏层.jpg alt=输入/输出/隐藏层><p class=caption>输入/输出/隐藏层</p>
-</div>
-<ol start=7 style=list-style-type:decimal>
-<li>MLP（多层感知器）</li>
-</ol>
+<p><img src=../../images/%E8%BE%93%E5%85%A5_%E8%BE%93%E5%87%BA_%E9%9A%90%E8%97%8F%E5%B1%82.jpg alt=输入/输出/隐藏层></p>
+<p>(7) MLP（多层感知器）</p>
 <p>一个单一的神经元不能够完成复杂的任务，因此需要将它们堆叠起来工作进而产生有用的输出。</p>
 <p>最简单的神经网络包括一个输入层、一个隐藏层和一个输出层。每一层都由多个神经元组成，每一层的每个神经元都与下一层中的所有神经元相连。这样的网络可以被称为是全连接网络。</p>
-<div class=figure>
-<img src=../../images/多层感知器.jpg alt=多层感知器><p class=caption>多层感知器</p>
-</div>
-<ol start=8 style=list-style-type:decimal>
-<li>正向传播（Forward Propagation）</li>
-</ol>
+<p><img src=../../images/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E5%99%A8.jpg alt=多层感知器></p>
+<p>(8) 正向传播（Forward Propagation）</p>
 <p>正向传播是指输入通过隐藏层到输出层的运动。在正向传播中，信息沿着一个单一方向前进。输入层将输入提供给隐藏层，然后生成输出。这过程中是没有反向运动的。</p>
-<ol start=9 style=list-style-type:decimal>
-<li>成本函数（Cost Function）</li>
-</ol>
+<p>(9) 成本函数（Cost Function）</p>
 <p>当我们建立一个网络时，网络试图将输出预测得尽可能靠近实际值。我们使用成本/损失函数来衡量网络的准确性。而成本或损失函数会在发生错误时尝试惩罚网络。</p>
 <p>我们在运行网络时的目标是提高我们的预测精度并减少误差，从而最大限度地降低成本。最优化的输出是那些成本或损失函数值最小的输出。</p>
-<p>如果我将成本函数定义为均方误差，则可以写为： <span class=math>\[C= 1/m\sum(y–a)^2\]</span> 其中<span class=math>\(m\)</span>是训练输入的数量，<span class=math>\(a\)</span>是预测值，<span class=math>\(y\)</span>是该特定示例的实际值。学习过程围绕最小化成本来进行。</p>
-<ol start=10 style=list-style-type:decimal>
-<li>梯度下降（Gradient Descent）</li>
-</ol>
+<p>如果我将成本函数定义为均方误差，则可以写为：
+$$C= 1/m\sum(y–a)^2$$
+其中$m$是训练输入的数量，$a$是预测值，$y$是该特定示例的实际值。学习过程围绕最小化成本来进行。</p>
+<p>(10) 梯度下降（Gradient Descent）</p>
 <p>梯度下降是一种最小化成本的优化算法。要直观地想一想，在爬山的时候，你应该会采取小步骤，一步一步走下来，而不是一下子跳下来。因此，我们所做的就是，如果我们从一个点 x 开始，我们向下移动一点，即Δh，并将我们的位置更新为 x-Δh，并且我们继续保持一致，直到达到底部。考虑最低成本点。在数学上，为了找到函数的局部最小值，我们通常采取与函数梯度的负数成比例的步长。</p>
-<ol start=11 style=list-style-type:decimal>
-<li>学习率（Learning Rate）</li>
-</ol>
+<p>(11) 学习率（Learning Rate）</p>
 <p>学习率被定义为每次迭代中成本函数中最小化的量。简单来说，我们下降到成本函数的最小值的速率是学习率。我们应该非常仔细地选择学习率，因为它不应该是非常大的，以至于最佳解决方案被错过，也不应该非常低，以至于网络需要融合。</p>
-<div class=figure>
-<img src=../../images/学习率影响.jpg alt=学习率影响><p class=caption>学习率影响</p>
-</div>
-<ol start=12 style=list-style-type:decimal>
-<li>反向传播（Backpropagation）</li>
-</ol>
+<p><img src=../../images/%E5%AD%A6%E4%B9%A0%E7%8E%87%E5%BD%B1%E5%93%8D.jpg alt=学习率影响></p>
+<p>(12) 反向传播（Backpropagation）</p>
 <p>当我们定义神经网络时，我们为我们的节点分配随机权重和偏差值。一旦我们收到单次迭代的输出，我们就可以计算出网络的错误。然后将该错误与成本函数的梯度一起反馈给网络以更新网络的权重。 最后更新这些权重，以便减少后续迭代中的错误。使用成本函数的梯度的权重的更新被称为反向传播。</p>
 <p>在反向传播中，网络的运动是向后的，错误随着梯度从外层通过隐藏层流回，权重被更新。</p>
 <p><a href=https://blog.csdn.net/weixin_38347387/article/details/82936585>反向传播具体解析</a></p>
-<ol start=13 style=list-style-type:decimal>
-<li>批次（Batches）</li>
-</ol>
+<p>(13) 批次（Batches）</p>
 <p>在训练神经网络的同时，不用一次发送整个输入，我们将输入分成几个随机大小相等的块。与整个数据集一次性馈送到网络时建立的模型相比，批量训练数据使得模型更加广义化。</p>
-<ol start=14 style=list-style-type:decimal>
-<li>周期（Epochs）</li>
-</ol>
+<p>(14) 周期（Epochs）</p>
 <p>周期被定义为向前和向后传播中所有批次的单次训练迭代。这意味着1个周期是整个输入数据的单次向前和向后传递。</p>
 <p>你可以选择你用来训练网络的周期数量，更多的周期将显示出更高的网络准确性，然而，网络融合也需要更长的时间。另外，你必须注意，如果周期数太高，<strong>网络可能会过度拟合</strong>。</p>
-<ol start=15 style=list-style-type:decimal>
-<li>丢弃（Dropout）</li>
-</ol>
+<p>(15) 丢弃（Dropout）</p>
 <p>Dropout 是一种正则化技术，可防止网络过度拟合套。顾名思义，在训练期间，隐藏层中的一定数量的神经元被随机地丢弃。这意味着训练发生在神经网络的不同组合的神经网络的几个架构上。你可以将 Dropout 视为一种综合技术，然后将多个网络的输出用于产生最终输出。</p>
-<div class=figure>
-<img src=../../images/dropout.jpg alt=droput><p class=caption>droput</p>
-</div>
-<ol start=16 style=list-style-type:decimal>
-<li>批量归一化？？（Batch Normalization）</li>
-</ol>
+<p><img src=../../images/dropout.jpg alt=droput></p>
+<p>(16) 批量归一化？？（Batch Normalization）</p>
 <p>作为一个概念，批量归一化可以被认为是我们在河流中设定为特定检查点的水坝。这样做是为了确保数据的分发与希望获得的下一层相同。当我们训练神经网络时，权重在梯度下降的每个步骤之后都会改变，这会改变数据的形状如何发送到下一层。</p>
 <p><a href=https://blog.csdn.net/u013289254/article/details/99690730>深度学习中的五种归一化</a></p>
 <h2 id=卷积神经网络cnn>卷积神经网络CNN</h2>
-<ol start=17 style=list-style-type:decimal>
-<li>滤波器（Filters）</li>
-</ol>
+<p>(17) 滤波器（Filters）</p>
 <p>CNN中的滤波器与加权矩阵一样，它与输入图像的一部分相乘以产生一个回旋输出。我们假设有一个大小为28*28的图像，我们随机分配一个大小为3*3的滤波器，然后与图像不同的3*3部分相乘，形成所谓的卷积输出。滤波器尺寸通常小于原始图像尺寸。在成本最小化的反向传播期间，滤波器值被更新为重量值。</p>
-<p>参考一下，这里filter是一个3*3矩阵： <span class=math>\[\begin{bmatrix}
-1&0&1\\
-0&1&0\\
-1&0&1\\
-\end{bmatrix}\]</span> 与图像的每个3*3部分相乘以形成卷积特征。</p>
-<div class=figure>
-<img src=../../images/cnn_example.jpg alt=cnn_example><p class=caption>cnn_example</p>
-</div>
-<ol start=18 style=list-style-type:decimal>
-<li>卷积神经网络（CNN）</li>
-</ol>
+<p>参考一下，这里filter是一个3*3矩阵：
+$$\begin{bmatrix}
+1&0&1\
+0&1&0\
+1&0&1\
+\end{bmatrix}$$
+与图像的每个3*3部分相乘以形成卷积特征。</p>
+<p><img src=../../images/cnn_example.jpg alt=cnn_example></p>
+<p>(18) 卷积神经网络（CNN）</p>
 <p>卷积神经网络基本上应用于图像数据。假设我们有一个输入的大小（28*28*3），如果我们使用正常的神经网络，将有2352（28*28*3）参数。并且随着图像的大小增加参数的数量变得非常大。我们“卷积”图像以减少参数数量（如上面滤波器定义所示）。当我们将滤波器滑动到输入体积的宽度和高度时，将产生一个二维激活图，给出该滤波器在每个位置的输出。我们将沿深度尺寸堆叠这些激活图，并产生输出量。</p>
 <p>你可以看到下面的图，以获得更清晰的印象。</p>
-<div class=figure>
-<img src=../../images/CNN_Structure.jpg alt=CNN_Structure><p class=caption>CNN_Structure</p>
-</div>
+<p><img src=../../images/CNN_Structure.jpg alt=CNN_Structure></p>
 <p>(19)池化（Pooling）</p>
 <p>通常在卷积层之间定期引入池层。这基本上是为了减少一些参数，并防止过度拟合。最常见的池化类型是使用MAX操作的滤波器尺寸(2,2)的池层。它会做的是，它将占用原始图像的每个4*4矩阵的最大值。</p>
-<div class=figure>
-<img src=../../images/cnn_pooling.jpg alt=cnn_pooling><p class=caption>cnn_pooling</p>
-</div>
+<p><img src=../../images/cnn_pooling.jpg alt=cnn_pooling></p>
 <p>你还可以使用其他操作（如平均池）进行池化，但是最大池数量在实践中表现更好。</p>
 <p>(20)填充（Padding）</p>
 <p>填充是指在图像之间添加额外的零层，以使输出图像的大小与输入相同。这被称为相同的填充。</p>
-<div class=figure>
-<img src=../../images/cnn_padding.jpg alt=cnn_padding><p class=caption>cnn_padding</p>
-</div>
+<p><img src=../../images/cnn_padding.jpg alt=cnn_padding></p>
 <p>在应用滤波器之后，在相同填充的情况下，卷积层具有等于实际图像的大小。</p>
 <p>有效填充是指将图像保持为具有实际或“有效”的图像的所有像素。在这种情况下，在应用滤波器之后，输出的长度和宽度的大小在每个卷积层处不断减小。</p>
 <p>(21)数据增强（Data Augmentation）</p>
 <p>数据增强是指从给定数据导出的新数据的添加，这可能被证明对预测有益。例如，如果你使光线变亮，可能更容易在较暗的图像中看到猫，或者例如，数字识别中的9可能会稍微倾斜或旋转。在这种情况下，旋转将解决问题并提高我们的模型的准确性。通过旋转或增亮，我们正在提高数据的质量。这被称为数据增强。</p>
-<div class=figure>
-<img src=../../images/cnn_data_augmentation.jpg alt=Data_Augmentation><p class=caption>Data_Augmentation</p>
-</div>
+<p><img src=../../images/cnn_data_augmentation.jpg alt=Data_Augmentation></p>
 <h2 id=循环神经网络>循环神经网络</h2>
-<div class=figure>
-<img src=../../images/rnn_structure.jpg alt=rnn_structure><p class=caption>rnn_structure</p>
-</div>
-<ol start=22 style=list-style-type:decimal>
-<li>循环神经元（Recurrent Neuron）</li>
-</ol>
+<p><img src=../../images/rnn_structure.jpg alt=rnn_structure></p>
+<p>(22) 循环神经元（Recurrent Neuron）</p>
 <p>循环神经元是在 T 时间内将神经元的输出发送回给它。如上图，输出将返回输入 t 次。展开的神经元看起来像连接在一起的 t 个不同的神经元。这个神经元的基本优点是它给出了更广义的输出。</p>
-<ol start=23 style=list-style-type:decimal>
-<li>循环神经网络（RNN）</li>
-</ol>
+<p>(23) 循环神经网络（RNN）</p>
 <p>循环神经网络特别用于顺序数据，其中先前的输出用于预测下一个输出。在这种情况下，网络中有循环。隐藏神经元内的循环使他们能够存储有关前一个单词的信息一段时间，以便能够预测输出。隐藏层的输出在 t 时间戳内再次发送到隐藏层。展开的神经元看起来像上图。只有在完成所有的时间戳后，循环神经元的输出才能进入下一层。发送的输出更广泛，以前的信息保留的时间也较长。</p>
 <p>然后根据展开的网络将错误反向传播以更新权重。这被称为通过时间的反向传播（BPTT）。</p>
 <p>(24)消失梯度问题（Vanishing Gradient Problem）</p>
 <p>激活函数的梯度非常小的情况下会出现消失梯度问题。在权重乘以这些低梯度时的反向传播过程中，它们往往变得非常小，并且随着网络进一步深入而“消失”。这使得神经网络忘记了长距离依赖。这对循环神经网络来说是一个问题，长期依赖对于网络来说是非常重要的。</p>
 <p>这可以通过使用不具有小梯度的激活函数ReLu来解决。</p>
-<ol start=25 style=list-style-type:decimal>
-<li>激增梯度问题（Exploding Gradient Problem）</li>
-</ol>
+<p>(25) 激增梯度问题（Exploding Gradient Problem）</p>
 <p>这与消失的梯度问题完全相反，激活函数的梯度过大。在反向传播期间，它使特定节点的权重相对于其他节点的权重非常高，这使得它们不重要。这可以通过剪切梯度来轻松解决，使其不超过一定值。</p>
 </article>
 <aside class=sidebar>

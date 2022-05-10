@@ -88,13 +88,15 @@ Jun 22, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=rnn相关>RNN相关</h2>
+<h2 id=rnn相关---omit-in-toc--->RNN相关</h2>
 <h2 id=simple-rnn>simple RNN</h2>
 <p>RNN借助循环核提取时间维度特征。</p>
-<p><img src=../../images/simple_RNN.png alt=simple_RNN> <span class=math>\[
-y_t= softmax(h_t w_{hy} +b_y)\\
+<p><img src=../../images/simple_RNN.png alt=simple_RNN>
+$$
+y_t= softmax(h_t w_{hy} +b_y)\
 h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
-\]</span> 三个矩阵<span class=math>\(w_{hy},w_{xh},w_{hh}\)</span>在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的<span class=math>\(h_t\)</span>数量控制输出的序列长度。</p>
+$$
+三个矩阵$w_{hy},w_{xh},w_{hh}$在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的$h_t$数量控制输出的序列长度。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

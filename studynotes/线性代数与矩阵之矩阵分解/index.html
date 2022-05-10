@@ -88,88 +88,114 @@ Apr 24, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=线性代数与矩阵论之矩阵分解>线性代数与矩阵论之矩阵分解</h2>
+<h2 id=线性代数与矩阵论之矩阵分解---omit-in-toc--->线性代数与矩阵论之矩阵分解</h2>
 <ul>
-<li><a href=#三角分解>三角分解</a></li>
-<li><a href=#lu分解>LU分解</a></li>
-<li><a href=#crout分解>Crout分解</a></li>
-<li><a href=#doolittle分解>Doolittle分解</a></li>
-<li><a href=#舒尔分解>舒尔分解</a></li>
-<li><a href=#极分解>极分解</a></li>
-<li><a href=#qr分解>QR分解</a></li>
-<li><a href=#满秩分解>满秩分解</a></li>
-<li><a href=#谱分解又叫特征值分解>谱分解又叫特征值分解</a></li>
-<li><a href=#jordan分解>Jordan分解</a></li>
-<li><a href=#svd分解>SVD分解</a></li>
+<li><a href=#%E4%B8%89%E8%A7%92%E5%88%86%E8%A7%A3>三角分解</a>
+<ul>
+<li><a href=#lu%E5%88%86%E8%A7%A3>LU分解</a></li>
+<li><a href=#crout%E5%88%86%E8%A7%A3>Crout分解</a></li>
+<li><a href=#doolittle%E5%88%86%E8%A7%A3>Doolittle分解</a></li>
+<li><a href=#%E8%88%92%E5%B0%94%E5%88%86%E8%A7%A3>舒尔分解</a></li>
+</ul>
+</li>
+<li><a href=#%E6%9E%81%E5%88%86%E8%A7%A3>极分解</a></li>
+<li><a href=#qr%E5%88%86%E8%A7%A3>QR分解</a></li>
+<li><a href=#%E6%BB%A1%E7%A7%A9%E5%88%86%E8%A7%A3>满秩分解</a></li>
+<li><a href=#%E8%B0%B1%E5%88%86%E8%A7%A3%E5%8F%88%E5%8F%AB%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3>谱分解又叫特征值分解</a></li>
+<li><a href=#jordan%E5%88%86%E8%A7%A3>Jordan分解</a></li>
+<li><a href=#svd%E5%88%86%E8%A7%A3>SVD分解</a></li>
 </ul>
 <h2 id=三角分解>三角分解</h2>
 <h3 id=lu分解>LU分解</h3>
 <p>在线性代数与数值分析中，LU分解是矩阵分解的一种，将一个矩阵分解为一个<strong>下三角矩阵和一个上三角矩阵的乘积</strong>，<strong>有时需要再乘上一个置换矩阵</strong>。LU分解可以被视为高斯消元法的矩阵形式。在数值计算上，LU分解经常被用来解线性方程组、且在求逆矩阵和计算行列式中都是一个关键的步骤。</p>
-<p>对于方阵<span class=math>\(A\)</span>，<span class=math>\(A\)</span>的LU分解是将它分解成一个下三角矩阵<span class=math>\(L\)</span>与上三角矩阵<span class=math>\(U\)</span> 的乘积，也就是 <span class=math>\[A=LU\]</span> 通常，我们需要让<span class=math>\(L\)</span>矩阵的对角线元素为1，如果矩阵<span class=math>\(A\)</span>的对角线上出现0元素，我们应适当的改变<span class=math>\(A\)</span>的行的顺序，在此尝试将<span class=math>\(A\)</span>做LU分解。</p>
-<p>举例来说一个<span class=math>\(3\times 3\)</span>的矩阵<span class=math>\(A\)</span>，其 LU 分解会写成下面的形式： <span class=math>\[A={\begin{bmatrix}
-a_{11}&a_{12}&a_{13}\\
-a_{21}&a_{22}&a_{23}\\
-a_{31}&a_{32}&a_{33}\\
+<p>对于方阵$A$，$A$的LU分解是将它分解成一个下三角矩阵$L$与上三角矩阵$U$ 的乘积，也就是
+$$A=LU$$
+通常，我们需要让$L$矩阵的对角线元素为1，如果矩阵$A$的对角线上出现0元素，我们应适当的改变$A$的行的顺序，在此尝试将$A$做LU分解。</p>
+<p>举例来说一个$3\times 3$的矩阵$A$，其 LU 分解会写成下面的形式：
+$$A={\begin{bmatrix}
+a_{11}&a_{12}&a_{13}\
+a_{21}&a_{22}&a_{23}\
+a_{31}&a_{32}&a_{33}\
 \end{bmatrix}}=
 {\begin{bmatrix}
-1&0&0\\
-l_{21}&1&0\\
-l_{31}&l_{32}&1\\
+1&0&0\
+l_{21}&1&0\
+l_{31}&l_{32}&1\
 \end{bmatrix}}
 {\begin{bmatrix}
-u_{11}&u_{12}&u_{13}\\
-0&u_{22}&u_{23}\\
-0&0&u_{33}\\
-\end{bmatrix}}\]</span> 事实上，并不是每个矩阵都有 LU 分解。例如，从上式可知<span class=math>\(a_{11}=u_{11}\)</span>，若<span class=math>\(a_{11}=0\)</span>，则<span class=math>\(u_{11}\)</span>等于 0，故<span class=math>\(L\)</span>或<span class=math>\(U\)</span>是不可逆矩阵，<span class=math>\(A\)</span>必然也是不可逆矩阵。</p>
-<p>然而，存在着可逆矩阵<span class=math>\(A\)</span>不可LU分解的情况。例如，主对角线元素<span class=math>\(a_{11}=0\)</span>，如果按照LU分解的一般步骤，<span class=math>\(A\)</span>就是没有<span class=math>\(LU\)</span>分解的例子。该问题可借由置换<span class=math>\(A\)</span>的各行顺序来解决，最终会得到一个<span class=math>\(A\)</span>的<span class=math>\(PLU\)</span>分解，其中<span class=math>\(P\)</span>是置换矩阵。</p>
+u_{11}&u_{12}&u_{13}\
+0&u_{22}&u_{23}\
+0&0&u_{33}\
+\end{bmatrix}}$$
+事实上，并不是每个矩阵都有 LU 分解。例如，从上式可知$a_{11}=u_{11}$，若$a_{11}=0$，则$u_{11}$等于 0，故$L$或$U$是不可逆矩阵，$A$必然也是不可逆矩阵。</p>
+<p>然而，存在着可逆矩阵$A$不可LU分解的情况。例如，主对角线元素$a_{11}=0$，如果按照LU分解的一般步骤，$A$就是没有$LU$分解的例子。该问题可借由置换$A$的各行顺序来解决，最终会得到一个$A$的$PLU$分解，其中$P$是置换矩阵。</p>
 <p>LU分解的具体步骤和<strong>高斯消元法是相同</strong>的。我们以一个例子来进行说明：</p>
 <blockquote>
-<p>将一个简单的3×3矩阵A进行LU分解： <span class=math>\[A={\begin{bmatrix}1&2&3\\2&5&7\\3&5&3\\\end{bmatrix}}\]</span> 先将矩阵第一列元素中<span class=math>\(a_{11}\)</span>以下的所有元素变为0，即 <span class=math>\[L_{{1}}A={\begin{bmatrix}1&0&0\\-2&1&0\\-3&0&1\\\end{bmatrix}}\times {\begin{bmatrix}1&2&3\\2&5&7\\3&5&3\\\end{bmatrix}}={\begin{bmatrix}1&2&3\\0&1&1\\0&-1&-6\\\end{bmatrix}}\]</span> 再将矩阵第二列元素中a22以下的所有元素变为0，即 <span class=math>\[L_{{2}}(L_{{1}}A)={\begin{bmatrix}1&0&0\\0&1&0\\0&1&1\\\end{bmatrix}}\times {\begin{bmatrix}1&2&3\\0&1&1\\0&-1&-6\\\end{bmatrix}}={\begin{bmatrix}1&2&3\\0&1&1\\0&0&-5\\\end{bmatrix}}=U\]</span> 显然，<span class=math>\(L=(L_1^{-1}L_2^{-1})\)</span>，根据<a href=线性代数与矩阵之逆矩阵.md>矩阵求逆笔记</a>可知，消元矩阵的逆矩阵是主对角线元素不变，其他元素取反，则有： <span class=math>\[L_{1}^{-1}L_{2}^{-1}={\begin{bmatrix}1&0&0\\2&1&0\\3&0&1\\\end{bmatrix}} {\begin{bmatrix}1&0&0\\0&1&0\\0&-1&1\\\end{bmatrix}}\Rightarrow\\
-L={\begin{bmatrix}1&0&0\\2&1&0\\3&-1&1\\\end{bmatrix}}\]</span> 因此有 <span class=math>\[A=LU={\begin{bmatrix}1&0&0\\2&1&0\\3&-1&1\\\end{bmatrix}}{\begin{bmatrix}1&2&3\\0&1&1\\0&0&-5\\\end{bmatrix}}\]</span></p>
+<p>将一个简单的3×3矩阵A进行LU分解：
+$$A={\begin{bmatrix}1&2&3\2&5&7\3&5&3\\end{bmatrix}}$$
+先将矩阵第一列元素中$a_{11}$以下的所有元素变为0，即
+$$L_{{1}}A={\begin{bmatrix}1&0&0\-2&1&0\-3&0&1\\end{bmatrix}}\times {\begin{bmatrix}1&2&3\2&5&7\3&5&3\\end{bmatrix}}={\begin{bmatrix}1&2&3\0&1&1\0&-1&-6\\end{bmatrix}}$$
+再将矩阵第二列元素中a22以下的所有元素变为0，即
+$$L_{{2}}(L_{{1}}A)={\begin{bmatrix}1&0&0\0&1&0\0&1&1\\end{bmatrix}}\times {\begin{bmatrix}1&2&3\0&1&1\0&-1&-6\\end{bmatrix}}={\begin{bmatrix}1&2&3\0&1&1\0&0&-5\\end{bmatrix}}=U$$
+显然，$L=(L_1^{-1}L_2^{-1})$，根据<a href=%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5.md>矩阵求逆笔记</a>可知，消元矩阵的逆矩阵是主对角线元素不变，其他元素取反，则有：
+$$L_{1}^{-1}L_{2}^{-1}={\begin{bmatrix}1&0&0\2&1&0\3&0&1\\end{bmatrix}} {\begin{bmatrix}1&0&0\0&1&0\0&-1&1\\end{bmatrix}}\Rightarrow\
+L={\begin{bmatrix}1&0&0\2&1&0\3&-1&1\\end{bmatrix}}$$
+因此有
+$$A=LU={\begin{bmatrix}1&0&0\2&1&0\3&-1&1\\end{bmatrix}}{\begin{bmatrix}1&2&3\0&1&1\0&0&-5\\end{bmatrix}}$$</p>
 </blockquote>
 <p>如果存在主对角线元素为0时，则使用一个置换矩阵，把下面的一个非0元素换上来，如果该列元素都为0，则说明此矩阵不可逆。（但是也能进行LU分解，不管这一行，继续从下行开始消元分解。）</p>
 <h3 id=crout分解>Crout分解</h3>
 <h3 id=doolittle分解>Doolittle分解</h3>
 <h3 id=舒尔分解>舒尔分解</h3>
-<p>舒尔分解定理表明，如果<span class=math>\(A\)</span>是<span class=math>\(n\)</span>阶的<strong>复方阵</strong>，则存在<span class=math>\(n\)</span>阶幺正矩阵<span class=math>\(Q\)</span>，<span class=math>\(n\)</span>阶上三角矩阵U，使得 <span class=math>\[A=QUQ^{-1}\]</span> 即任何一个<span class=math>\(n\)</span>阶复方阵<span class=math>\(A\)</span>酉相似于一个<span class=math>\(n\)</span>阶上三角矩阵<span class=math>\(U\)</span>。因为<span class=math>\(A，U\)</span>相似，所以两者有相同的特征值，且相同特征值的代数重数也相同。又因<span class=math>\(U\)</span>是上三角矩阵，所以<span class=math>\(U\)</span>的对角元素实际上是<span class=math>\(A\)</span>的所有特征值。</p>
+<p>舒尔分解定理表明，如果$A$是$n$阶的<strong>复方阵</strong>，则存在$n$阶幺正矩阵$Q$，$n$阶上三角矩阵U，使得
+$$A=QUQ^{-1}$$
+即任何一个$n$阶复方阵$A$酉相似于一个$n$阶上三角矩阵$U$。因为$A，U$相似，所以两者有相同的特征值，且相同特征值的代数重数也相同。又因$U$是上三角矩阵，所以$U$的对角元素实际上是$A$的所有特征值。</p>
 <p>可通过数学归纳法证明。</p>
 <h2 id=极分解>极分解</h2>
-<p>一个复系数矩阵<span class=math>\(A\)</span>的极分解将其分解成两个矩阵的乘积，可以表示为： <span class=math>\[A=UP\]</span> 其中<span class=math>\(U\)</span>是一个<strong>酉矩阵</strong>，<span class=math>\(P\)</span>是一个<strong>半正定的埃尔米特矩阵</strong>。这样的分解对<strong>任意</strong>的矩阵<span class=math>\(A\)</span>都存在。当<span class=math>\(A\)</span>是可逆矩阵时，分解是唯一的，并且<span class=math>\(P\)</span>必然为正定矩阵。</p>
+<p>一个复系数矩阵$A$的极分解将其分解成两个矩阵的乘积，可以表示为：
+$$A=UP$$
+其中$U$是一个<strong>酉矩阵</strong>，$P$是一个<strong>半正定的埃尔米特矩阵</strong>。这样的分解对<strong>任意</strong>的矩阵$A$都存在。当$A$是可逆矩阵时，分解是唯一的，并且$P$必然为正定矩阵。</p>
 <h2 id=qr分解>QR分解</h2>
-<p>见<a href=线性代数与矩阵之正交（酉）矩阵与正交化.md>《线性代数与矩阵之正交（酉）矩阵与正交化》</a></p>
+<p>见<a href=%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%EF%BC%88%E9%85%89%EF%BC%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96.md>《线性代数与矩阵之正交（酉）矩阵与正交化》</a></p>
 <h2 id=满秩分解>满秩分解</h2>
 <blockquote>
-<p>定义：满秩分解：对于<span class=math>\(m×n\)</span>的矩阵<span class=math>\(A\)</span>，假设其秩为<span class=math>\(r\)</span>，若存在秩同样为<span class=math>\(r\)</span>两个矩阵：<span class=math>\(F_{m×r}\)</span>（列满秩）和<span class=math>\(G_{r×n}\)</span>（行满秩），使得<span class=math>\(A=FG\)</span>，则称其为矩阵<span class=math>\(A\)</span>的满秩分解。</p>
+<p>定义：满秩分解：对于$m×n$的矩阵$A$，假设其秩为$r$，若存在秩同样为$r$两个矩阵：$F_{m×r}$（列满秩）和$G_{r×n}$（行满秩），使得$A=FG$，则称其为矩阵$A$的满秩分解。</p>
 </blockquote>
 <p>根据可逆矩阵和高斯消元法，容易得到以下定理。</p>
 <blockquote>
 <p>定理：满秩分解有两个性质：不唯一性和存在性</p>
-<ol style=list-style-type:decimal>
-<li>满秩分解不唯一：假设存在<span class=math>\(r\)</span>阶可逆方阵<span class=math>\(D\)</span>，则<span class=math>\(A=FG=F(DD^{−1})G=(FD)(D^{−1}G)=F'G'\)</span>；</li>
+<ol>
+<li>满秩分解不唯一：假设存在$r$阶可逆方阵$D$，则$A=FG=F(DD^{−1})G=(FD)(D^{−1}G)=F'G'$；</li>
 <li>任何非零矩阵一定存在满秩分解。</li>
 </ol>
-<p>证明：假设存在初等变换矩阵<span class=math>\(B_{m×m}\)</span>，使得 <span class=math>\[BA=\begin{bmatrix}G\\O\end{bmatrix}\]</span> 显然，<span class=math>\(B\)</span>可以看成是带置换的高斯消元法。其中<span class=math>\(G\)</span>是个<span class=math>\(m×r\)</span>的行满秩矩阵。由上面的公式，可以推出， <span class=math>\[\begin{aligned}
+<p>证明：假设存在初等变换矩阵$B_{m×m}$，使得
+$$BA=\begin{bmatrix}G\O\end{bmatrix}$$
+显然，$B$可以看成是带置换的高斯消元法。其中$G$是个$m×r$的行满秩矩阵。由上面的公式，可以推出，
+$$\begin{aligned}
 A &= B^{-1}\left(
 \begin{array}{c}
-G\\
+G\
 O
 \end{array}
-\right)\\
+\right)\
 &= (F|S) \left(
 \begin{array}{c}
-G\\
+G\
 O
 \end{array}
-\right)\\
+\right)\
 &= FG
-\end{aligned}\]</span> 公式第二行中，我们将<span class=math>\(B^{−1}\)</span>分块为<span class=math>\((F|S)\)</span>，其中<span class=math>\(F\)</span>为<span class=math>\(m×r\)</span>矩阵（秩为<span class=math>\(r\)</span>），<span class=math>\(G\)</span>为<span class=math>\(r×n\)</span>矩阵（秩为<span class=math>\(r\)</span>）。</p>
+\end{aligned}$$
+公式第二行中，我们将$B^{−1}$分块为$(F|S)$，其中$F$为$m×r$矩阵（秩为$r$），$G$为$r×n$矩阵（秩为$r$）。</p>
 </blockquote>
 <p>从满秩分解的存在性证明，也可以看出满秩分解的求法：先导出高斯消元的初等矩阵和主元矩阵，然后求高斯消元的初等矩阵的逆矩阵，在分割成两部分。此外，还可以用<strong>Hermite标准型</strong>来求满秩分解。</p>
 <blockquote>
-<p>定义：Hermite标准型：对于<span class=math>\(m×n\)</span>的矩阵<span class=math>\(H\)</span>，假设其秩为<span class=math>\(r\)</span>，若<span class=math>\(H\)</span>满足 <span class=math>\(H\)</span>的<span class=math>\(j_1,j_2,…,j_r\)</span>列是单位矩阵<span class=math>\(E_m\)</span>的前<span class=math>\(r\)</span>行，则称<span class=math>\(H\)</span>为Hermite标准型。简单来说，<span class=math>\(H\)</span>具有以下形式： <span class=math>\[H=\begin{bmatrix}I_{r×r}&X_{r×(n-r)}\\O_{(m-r)×r}&O_{(m-r)×(n-r)}\end{bmatrix}\]</span></p>
+<p>定义：Hermite标准型：对于$m×n$的矩阵$H$，假设其秩为$r$，若$H$满足
+$H$的$j_1,j_2,…,j_r$列是单位矩阵$E_m$的前$r$行，则称$H$为Hermite标准型。简单来说，$H$具有以下形式：
+$$H=\begin{bmatrix}I_{r×r}&X_{r×(n-r)}\O_{(m-r)×r}&O_{(m-r)×(n-r)}\end{bmatrix}$$</p>
 </blockquote>
-<p>Hermite标准型就是将秩为<span class=math>\(r\)</span>的<span class=math>\(m×n\)</span>矩阵<span class=math>\(A\)</span>经初等变换（高斯消元）而成的<strong>阶梯型矩阵</strong>。所以也叫做Hermite最简型。</p>
-<p>算出Hermite标准型后，对于矩阵的满秩分解<span class=math>\(A=FG\)</span>来说，矩阵<span class=math>\(F\)</span>就是矩阵<span class=math>\(A\)</span>中<span class=math>\(j_1,j_2,…,j_r\)</span>列构成的<span class=math>\(m×r\)</span>矩阵，而<span class=math>\(G\)</span>则是Hermite标准型的前<span class=math>\(r\)</span>行构成的矩阵。</p>
+<p>Hermite标准型就是将秩为$r$的$m×n$矩阵$A$经初等变换（高斯消元）而成的<strong>阶梯型矩阵</strong>。所以也叫做Hermite最简型。</p>
+<p>算出Hermite标准型后，对于矩阵的满秩分解$A=FG$来说，矩阵$F$就是矩阵$A$中$j_1,j_2,…,j_r$列构成的$m×r$矩阵，而$G$则是Hermite标准型的前$r$行构成的矩阵。</p>
 <h2 id=谱分解又叫特征值分解>谱分解又叫特征值分解</h2>
 <p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》</p>
 <h2 id=jordan分解>Jordan分解</h2>

@@ -88,89 +88,112 @@ Oct 30, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之转移矩阵随机矩阵>概率统计随机过程之转移矩阵（随机矩阵）</h2>
+<h2 id=概率统计随机过程之转移矩阵随机矩阵---omit-in-toc--->概率统计随机过程之转移矩阵（随机矩阵）</h2>
 <p>注：本文说的随机矩阵是转移矩阵，英文叫stochastic matrix不是random matrix。</p>
 <ul>
-<li><a href=#极限行为和不变概率稳态>极限行为和不变概率（稳态）</a></li>
-<li><a href=#状态分类>状态分类</a></li>
-<li><a href=#周期性与非周期>周期性与非周期</a></li>
-<li><a href=#可约与不可约>可约与不可约</a></li>
-<li><a href=#不可约非周期链遍历链>不可约非周期链→遍历链</a></li>
-<li><a href=#可约性非常返态和周期的影响>可约性、非常返态和周期的影响</a></li>
-<li><a href=#随机矩阵的主特征1的简单证明>随机矩阵的主特征1的简单证明</a></li>
+<li><a href=#%E6%9E%81%E9%99%90%E8%A1%8C%E4%B8%BA%E5%92%8C%E4%B8%8D%E5%8F%98%E6%A6%82%E7%8E%87%E7%A8%B3%E6%80%81>极限行为和不变概率（稳态）</a></li>
+<li><a href=#%E7%8A%B6%E6%80%81%E5%88%86%E7%B1%BB>状态分类</a>
+<ul>
+<li><a href=#%E5%91%A8%E6%9C%9F%E6%80%A7%E4%B8%8E%E9%9D%9E%E5%91%A8%E6%9C%9F>周期性与非周期</a></li>
+<li><a href=#%E5%8F%AF%E7%BA%A6%E4%B8%8E%E4%B8%8D%E5%8F%AF%E7%BA%A6>可约与不可约</a></li>
+<li><a href=#%E4%B8%8D%E5%8F%AF%E7%BA%A6%E9%9D%9E%E5%91%A8%E6%9C%9F%E9%93%BE%E9%81%8D%E5%8E%86%E9%93%BE>不可约非周期链→遍历链</a></li>
+<li><a href=#%E5%8F%AF%E7%BA%A6%E6%80%A7%E9%9D%9E%E5%B8%B8%E8%BF%94%E6%80%81%E5%92%8C%E5%91%A8%E6%9C%9F%E7%9A%84%E5%BD%B1%E5%93%8D>可约性、非常返态和周期的影响</a></li>
+</ul>
+</li>
+<li><a href=#%E9%9A%8F%E6%9C%BA%E7%9F%A9%E9%98%B5%E7%9A%84%E4%B8%BB%E7%89%B9%E5%BE%811%E7%9A%84%E7%AE%80%E5%8D%95%E8%AF%81%E6%98%8E>随机矩阵的主特征1的简单证明</a></li>
 </ul>
 <h2 id=极限行为和不变概率稳态>极限行为和不变概率（稳态）</h2>
-<p>有转移矩阵<span class=math>\(P\)</span>，但经过<span class=math>\(N→ ∞\)</span>后，是否存在一个收敛的极限矩阵 <span class=math>\[\Pi=\lim_{n→ ∞}P^n\]</span> 如果能有一个更好的性质： >极限矩阵每一行都是一样的。</p>
-<p>那么对于任一个概率向量<span class=math>\(\vec v\)</span>(每一项非负且和为1)，都有： <span class=math>\[\vec \pi=\vec v\lim_{n→ ∞}P^n\]</span> 则<span class=math>\(\vec \pi\)</span>为不变概率分布或稳态概率分布。这个时候，<span class=math>\(\Pi\)</span>的值应该是 <span class=math>\[\Pi=\lim_{n→ ∞}P^n=\begin{bmatrix}
-\vec \pi\\
-\vec \pi\\
-\vdots\\
+<p>有转移矩阵$P$，但经过$N→ ∞$后，是否存在一个收敛的极限矩阵
+$$\Pi=\lim_{n→ ∞}P^n$$
+如果能有一个更好的性质：</p>
+<blockquote>
+<p>极限矩阵每一行都是一样的。</p>
+</blockquote>
+<p>那么对于任一个概率向量$\vec v$(每一项非负且和为1)，都有：
+$$\vec \pi=\vec v\lim_{n→ ∞}P^n$$
+则$\vec \pi$为不变概率分布或稳态概率分布。这个时候，$\Pi$的值应该是
+$$\Pi=\lim_{n→ ∞}P^n=\begin{bmatrix}
+\vec \pi\
+\vec \pi\
+\vdots\
 \vec \pi
-\end{bmatrix}\]</span> 因为向量左乘是行线性组合，<span class=math>\(\vec \pi\)</span>之间的任何线性组合都是<span class=math>\(\vec \pi\)</span>.</p>
+\end{bmatrix}$$
+因为向量左乘是行线性组合，$\vec \pi$之间的任何线性组合都是$\vec \pi$.</p>
 <p>那么什么样的矩阵能有稳态分布吧?</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>主特征值为1，且为单重（1）</li>
 <li>能选出一个非负的左特征向量（2）</li>
 </ol>
-<p>随机矩阵的主特征值为1这点可以证明见章节<a href=#随机矩阵的主特征1的简单证明>随机矩阵的主特征1的简单证明</a>。但是主特征值为单重和非负左特征向量需要更高等的数学技巧。我们用Perron–Frobenius theorem先给出一部分符合两点要求的矩阵。</p>
+<p>随机矩阵的主特征值为1这点可以证明见章节<a href=#%E9%9A%8F%E6%9C%BA%E7%9F%A9%E9%98%B5%E7%9A%84%E4%B8%BB%E7%89%B9%E5%BE%811%E7%9A%84%E7%AE%80%E5%8D%95%E8%AF%81%E6%98%8E>随机矩阵的主特征1的简单证明</a>。但是主特征值为单重和非负左特征向量需要更高等的数学技巧。我们用Perron–Frobenius theorem先给出一部分符合两点要求的矩阵。</p>
 <p>Perron–Frobenius theorem给出了一系列符合这两点的矩阵：</p>
 <blockquote>
-<p>定理1：Perron–Frobenius theorem：<strong>所有元素均为正实数</strong>的正矩阵的基本性质的重要定理.该定理断言:若矩阵<span class=math>\(A>0，ρ(A)为A\)</span>的谱半径，则:</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(ρ(A)\)</span>为<span class=math>\(A\)</span>的正特征值,其对应的一个特征向量为正特征向量。</li>
-<li>对于<span class=math>\(A\)</span>的任意其他特征值，都有<span class=math>\(|λ|&lt;ρ(A)\)</span></li>
-<li><span class=math>\(ρ(A)是A\)</span>的单重特征值。</li>
+<p>定理1：Perron–Frobenius theorem：<strong>所有元素均为正实数</strong>的正矩阵的基本性质的重要定理.该定理断言:若矩阵$A>0，ρ(A)为A$的谱半径，则:</p>
+<ol>
+<li>$ρ(A)$为$A$的正特征值,其对应的一个特征向量为正特征向量。</li>
+<li>对于$A$的任意其他特征值，都有$|λ|&lt;ρ(A)$</li>
+<li>$ρ(A)是A$的单重特征值。</li>
 </ol>
 </blockquote>
-<p>尽管Perron–Frobenius theorem给出了一系列矩阵，但是却不能覆盖所有具有适当极限性质的随机矩阵。因为随机矩阵的要求是非负，而不是全是正数。尽管随机矩阵<span class=math>\(P\)</span>的元素不全是正数，但是我们注意到，<span class=math>\(P^n\)</span>可能是全正的。而且根据矩阵的特征值分解，<span class=math>\(P^n\)</span>的特征值为<span class=math>\(P\)</span>特征值的n次方，且特征向量不变。而<span class=math>\(P\)</span>主特征值1的任意次方都是1，所以只要<span class=math>\(P^n\)</span>满足了Perron–Frobenius theorem，那么<span class=math>\(P\)</span>也满足。</p>
+<p>尽管Perron–Frobenius theorem给出了一系列矩阵，但是却不能覆盖所有具有适当极限性质的随机矩阵。因为随机矩阵的要求是非负，而不是全是正数。尽管随机矩阵$P$的元素不全是正数，但是我们注意到，$P^n$可能是全正的。而且根据矩阵的特征值分解，$P^n$的特征值为$P$特征值的n次方，且特征向量不变。而$P$主特征值1的任意次方都是1，所以只要$P^n$满足了Perron–Frobenius theorem，那么$P$也满足。</p>
 <p>鉴于此，我们给出以下结论：</p>
 <blockquote>
-<p>结论1：如果<span class=math>\(P\)</span>是一个随机矩阵，且对于某一n，<span class=math>\(P^n\)</span>的所有元素都是正数，则<span class=math>\(P\)</span>满足条件（1）（2）。</p>
+<p>结论1：如果$P$是一个随机矩阵，且对于某一n，$P^n$的所有元素都是正数，则$P$满足条件（1）（2）。</p>
 </blockquote>
 <h2 id=状态分类>状态分类</h2>
-<p>那么到底什么样的矩阵，当<span class=math>\(n\)</span>充分大时，<span class=math>\(P^n\)</span>的元素全都是正的呢？答案是<strong>遍历的</strong>随机矩阵。遍历的随机矩阵是<strong>不可约、非周期</strong>的矩阵。几个不能符合（1）（2）的矩阵包括：可约的，随机矩阵不收敛（周期性），有非常返态的（因为非常返态导致矩阵可约）。</p>
+<p>那么到底什么样的矩阵，当$n$充分大时，$P^n$的元素全都是正的呢？答案是<strong>遍历的</strong>随机矩阵。遍历的随机矩阵是<strong>不可约、非周期</strong>的矩阵。几个不能符合（1）（2）的矩阵包括：可约的，随机矩阵不收敛（周期性），有非常返态的（因为非常返态导致矩阵可约）。</p>
 <p>下面对几个概念进行介绍。</p>
 <h3 id=周期性与非周期>周期性与非周期</h3>
-<p>一种直观情况：如果有正整数<span class=math>\(d,d>1\)</span>，只有当<span class=math>\(n=d,2d,3d,…\)</span>时，有<span class=math>\(p(n)_{ij}>0\)</span>，则状态i为<strong>周期性的状态</strong>，周期为<span class=math>\(d\)</span>。</p>
-<p>周期性所说不直观的定义：若集合<span class=math>\(\{n: n≥1, p_{ii}> 0\}\)</span>非空，则称它的最大公约数，<span class=math>\(d=d(i)\)</span>为状态<span class=math>\(i\)</span>的周期。若<span class=math>\(d>1\)</span>，称<span class=math>\(i\)</span>是周期的;若<span class=math>\(d=1\)</span>,称 <span class=math>\(i\)</span>是非周期的。（引用：《应用随机过程（张波）》，第5章）</p>
+<p>一种直观情况：如果有正整数$d,d>1$，只有当$n=d,2d,3d,…$时，有$p(n)_{ij}>0$，则状态i为<strong>周期性的状态</strong>，周期为$d$。</p>
+<p>周期性所说不直观的定义：若集合${n: n≥1, p_{ii}> 0}$非空，则称它的最大公约数，$d=d(i)$为状态$i$的周期。若$d>1$，称$i$是周期的;若$d=1$,称 $i$是非周期的。（引用：《应用随机过程（张波）》，第5章）</p>
 <p>我当初也纳闷，定义中取公约数和周期没啥关系，然而，这才是更加完善的周期。见下图（《应用随机过程（张波）》，图5-3）</p>
-<p><img src=../../images/马尔可夫链周期性.jpg alt=马尔可夫链周期性> 由状态1出发返回状态1的步长为<span class=math>\(T=\{4,6,8,10,12,...\}\)</span>，很直观的感受到，4步之后就是两步两步的间隔了。</p>
-<p>定义周期：方案一是取4，但是会丢失了<span class=math>\(\{6,10,14...\}\)</span>这些步长；方案二就是取公约数2，就可以防止<span class=math>\(\{6,10,14...\}\)</span>步长的丢失，弊端也许就是不如<span class=math>\(\{d,2d,3d...\}\)</span>这种结构来得直观。（有点像<span class=math>\(y=ax+b，a\)</span>是周期）。</p>
+<p><img src=../../images/%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E9%93%BE%E5%91%A8%E6%9C%9F%E6%80%A7.jpg alt=马尔可夫链周期性>
+由状态1出发返回状态1的步长为$T={4,6,8,10,12,...}$，很直观的感受到，4步之后就是两步两步的间隔了。</p>
+<p>定义周期：方案一是取4，但是会丢失了${6,10,14...}$这些步长；方案二就是取公约数2，就可以防止${6,10,14...}$步长的丢失，弊端也许就是不如${d,2d,3d...}$这种结构来得直观。（有点像$y=ax+b，a$是周期）。</p>
 <p>补充：当马尔可夫链中<strong>任意一个状态都为周期性</strong>的状态时，则称马尔可夫链是周期的。但<strong>非周期性的马尔可夫链才是我们想要的</strong>，它是构成遍历的马尔可夫链的必要条件，遍历的马尔可夫有很多好的性质。</p>
 <blockquote>
-<p>定理2：如果状态<span class=math>\(i\)</span>和<span class=math>\(j\)</span>互通，那么<span class=math>\(d(i)=d(j)\)</span>（互通类中各状态周期相等。）</p>
+<p>定理2：如果状态$i$和$j$互通，那么$d(i)=d(j)$（互通类中各状态周期相等。）</p>
 </blockquote>
-<p>非周期定义：如果链从所有任意起点返回到自己所需要的步数集的最大公约数为1，则说明此链是非周期的，即所有状态不是定期返回的且所有返回的间隔的最大公约数为1。但是并不是说，返回自己的状态只需要一步，而是说，对于某个步数<span class=math>\(M\)</span>，所有步数n，满足<span class=math>\(n≥M\)</span>，都能够返回原状态。</p>
+<p>非周期定义：如果链从所有任意起点返回到自己所需要的步数集的最大公约数为1，则说明此链是非周期的，即所有状态不是定期返回的且所有返回的间隔的最大公约数为1。但是并不是说，返回自己的状态只需要一步，而是说，对于某个步数$M$，所有步数n，满足$n≥M$，都能够返回原状态。</p>
 <blockquote>
 <p>如何判别一个状态是非周期的？</p>
-<ol style=list-style-type:decimal>
+<ol>
 <li>若此状态带有自环，则必为非周期的（虽然非周期的状态不一定有自环）</li>
 <li>若此状态与一个非周期的状态互通，则必为非周期的。（定理2应用）</li>
 </ol>
 </blockquote>
 <p>以上<strong>只是两个充分</strong>条件。</p>
 <h3 id=可约与不可约>可约与不可约</h3>
-<p>互通：如果马尔可夫链里某状态<span class=math>\(i\)</span>经过<span class=math>\(n\)</span>步到达状态<span class=math>\(j\)</span>的概率<span class=math>\(>0\)</span>且相反的，状态<span class=math>\(j\)</span>经过<span class=math>\(n\)</span>步到<span class=math>\(i\)</span>的概率也<span class=math>\(>0\)</span>，即说明这俩状态是互通的. 如果对所有<span class=math>\(n\)</span>上面都不成立，则证明<span class=math>\(i,j\)</span>不通。</p>
-<p>可约的（reducible），意思就是在状态集中至少存在一个状态<span class=math>\(i\)</span>到状态<span class=math>\(j\)</span>是不通的！注意有可能<span class=math>\(j\)</span>到<span class=math>\(i\)</span>是通的，互通是一个相互的概念。<span class=math>\(i→j\)</span>同时<span class=math>\(j→i\)</span>才是互通。可约就是存在不互通的状态。</p>
+<p>互通：如果马尔可夫链里某状态$i$经过$n$步到达状态$j$的概率$>0$且相反的，状态$j$经过$n$步到$i$的概率也$>0$，即说明这俩状态是互通的. 如果对所有$n$上面都不成立，则证明$i,j$不通。</p>
+<p>可约的（reducible），意思就是在状态集中至少存在一个状态$i$到状态$j$是不通的！注意有可能$j$到$i$是通的，互通是一个相互的概念。$i→j$同时$j→i$才是互通。可约就是存在不互通的状态。</p>
 <p>不可约（irreducible），意思是马尔可夫链链从状态空间里一个位置经过有限步跳转到任何一个位置的概率大于0，即说的是马氏链里任何两个状态都是互通的。</p>
 <h3 id=不可约非周期链遍历链>不可约非周期链→遍历链</h3>
-<p>现在我们来证明一个非周期、不可约的转移矩阵满足结论（1），即 >如果<span class=math>\(P\)</span>是非周期、不可约的转移矩阵(遍历的)，那么存在<span class=math>\(M>0,\forall n≥M\)</span>，有<span class=math>\(P^n\)</span>>0(每一个元素大于0)。<span class=math>\(\Leftrightarrow\)</span>存在稳态概率<span class=math>\(\vec\pi\)</span>的条件。</p>
+<p>现在我们来证明一个非周期、不可约的转移矩阵满足结论（1），即</p>
+<blockquote>
+<p>如果$P$是非周期、不可约的转移矩阵(遍历的)，那么存在$M>0,\forall n≥M$，有$P^n$>0(每一个元素大于0)。$\Leftrightarrow$存在稳态概率$\vec\pi$的条件。</p>
+</blockquote>
 <p>证明：</p>
-<p>取任意<span class=math>\(i,j\)</span>，由于矩阵<span class=math>\(P\)</span>不可约，所以<span class=math>\(i,j\)</span>属于同一个连通类。因此存在一个数，记为<span class=math>\(m_{ij}\)</span>，使得<span class=math>\(p_{m_{ij}}(i,j)>0\)</span>，即<span class=math>\(i\)</span>通过<span class=math>\(m_{ij}\)</span>次转移后到达<span class=math>\(j\)</span>。</p>
-<p>此外，由于<span class=math>\(P\)</span>是非周期的，因此存在一个<span class=math>\(M_i\)</span>，使得所有<span class=math>\(n≥M_i\)</span>，有<span class=math>\(p_n(i,i)>0\)</span>（非周期的性质）。因此对所有的n≥M_i<span class=math>\(，有 \)</span><span class=math>\(p_{n+m_{ij}}(i,j)≥p_n(i,i)p_{m_{ij}}(i,j)>0\)</span>$ 令<span class=math>\(M\)</span>为所有<span class=math>\(i,j\)</span>组合中<span class=math>\(M_i+m_{ij}\)</span>的最大值（现在讨论有限状态马氏链，因此最大值存在），则对于所有<span class=math>\(n≥M\)</span>，以及任意的<span class=math>\(i,j\)</span>都有 <span class=math>\[p_{n}(i,j)>0.\]</span> 因此，由<span class=math>\(i,j\)</span>的任意性可知：存在<span class=math>\(n\)</span>，使得<span class=math>\(P^n\)</span>中每一项大于0。</p>
+<p>取任意$i,j$，由于矩阵$P$不可约，所以$i,j$属于同一个连通类。因此存在一个数，记为$m_{ij}$，使得$p_{m_{ij}}(i,j)>0$，即$i$通过$m_{ij}$次转移后到达$j$。</p>
+<p>此外，由于$P$是非周期的，因此存在一个$M_i$，使得所有$n≥M_i$，有$p_n(i,i)>0$（非周期的性质）。因此对所有的n≥M_i$，有
+$$p_{n+m_{ij}}(i,j)≥p_n(i,i)p_{m_{ij}}(i,j)>0$$
+令$M$为所有$i,j$组合中$M_i+m_{ij}$的最大值（现在讨论有限状态马氏链，因此最大值存在），则对于所有$n≥M$，以及任意的$i,j$都有
+$$p_{n}(i,j)>0.$$
+因此，由$i,j$的任意性可知：存在$n$，使得$P^n$中每一项大于0。</p>
 <p>如果我们用更加数学的语言描述，将其归纳成定理：</p>
 <blockquote>
-<p>定理3：如果<span class=math>\(P\)</span>是非周期、不可约的马尔可夫链转移矩阵，则存在一个唯一一个不变（稳态）概率向量<span class=math>\(\vec\pi\)</span>，满足 <span class=math>\[\vec\pi P=\vec\pi(这不是特征向量的转置吗？)\]</span> 如果<span class=math>\(\phi_0\)</span>为任一初始概率向量，则有 <span class=math>\[\lim_{n→ ∞}\phi_0P^n=\vec\pi\]</span></p>
+<p>定理3：如果$P$是非周期、不可约的马尔可夫链转移矩阵，则存在一个唯一一个不变（稳态）概率向量$\vec\pi$，满足
+$$\vec\pi P=\vec\pi(这不是特征向量的转置吗？)$$
+如果$\phi_0$为任一初始概率向量，则有
+$$\lim_{n→ ∞}\phi_0P^n=\vec\pi$$</p>
 </blockquote>
-<p>这也给我们求不变概率提示了一个更简单的方法，求转置矩阵<span class=math>\(P^T\)</span>特征值为1时的特征向量，并要求次特征向量1-范数为1。（矩阵的特征值在转置变换中不改变，转置矩阵与原矩阵是相似的。）</p>
+<p>这也给我们求不变概率提示了一个更简单的方法，求转置矩阵$P^T$特征值为1时的特征向量，并要求次特征向量1-范数为1。（矩阵的特征值在转置变换中不改变，转置矩阵与原矩阵是相似的。）</p>
 <h3 id=可约性非常返态和周期的影响>可约性、非常返态和周期的影响</h3>
 <p>可约性：可以当成几个不可约的子矩阵处理。</p>
 <p>非常返态：初始概率会对最终稳态概率有影响。</p>
 <p>周期：绝对值为1的特征值不只1个，周期是几，就有几个<strong>不同</strong>的绝对值为1的复根。同样，周期是多少，就有多少个不同的状态组，每个状态组都有其极限值。有平均稳态，是各个状态组极限稳态概率的平均数。</p>
 <h2 id=随机矩阵的主特征1的简单证明>随机矩阵的主特征1的简单证明</h2>
-<p>按照定义<span class=math>\(A*[1,1,1,...1,1,1]^T\)</span>得到一个列向量。</p>
-<p>而<span class=math>\(A\)</span>是一个随机矩阵(这里以行的和为1为例)，即<span class=math>\(A\)</span>的每一行和为1，<span class=math>\(A*[1,1,1,...1,1,1]^T\)</span>的每一个元素按照定义展开，正好是A的每一行的和，即是1，所以</p>
-<p><span class=math>\(A*[1,1,1,...1,1,1]^T=[1,1,1,...1,1,1]^T\)</span>。按照特征值的定义，即得到一个特征值为1。</p>
+<p>按照定义$A*[1,1,1,...1,1,1]^T$得到一个列向量。</p>
+<p>而$A$是一个随机矩阵(这里以行的和为1为例)，即$A$的每一行和为1，$A*[1,1,1,...1,1,1]^T$的每一个元素按照定义展开，正好是A的每一行的和，即是1，所以</p>
+<p>$A*[1,1,1,...1,1,1]^T=[1,1,1,...1,1,1]^T$。按照特征值的定义，即得到一个特征值为1。</p>
 <p>然后你还要证明1是最大的特征值。</p>
 <p>矩阵的1范数是1（行和范数），而根据范数不等式，任何范数都大于等于谱半径（=最大特征值），所以该矩阵的最大特征值不大于1，而，已知有一个特征值为1，所以最大特征值就是1。</p>
 <p>（其实严谨点还需要证明这个最大特征值即谱半径的重数为1）</p>

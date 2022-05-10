@@ -88,29 +88,29 @@ May 9, 2021</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之马尔可夫过程>概率统计随机过程之马尔可夫过程</h2>
+<h2 id=概率统计随机过程之马尔可夫过程---omit-in-toc--->概率统计随机过程之马尔可夫过程</h2>
 <h2 id=概论>概论</h2>
 <p>在概率论及统计学中，<strong>马尔可夫过程</strong>（英语：Markov process）是一个具备了<strong>马尔可夫性质</strong>的随机过程，因为俄国数学家安德雷·马尔可夫得名。马尔可夫过程是<strong>不具备记忆特质的（memorylessness）</strong>。换言之，马尔可夫过程的条件概率仅仅与系统的<strong>当前状态相关</strong>，而与它的过去历史或未来状态，都是独立、不相关的。</p>
 <p>具备<strong>离散状态的马尔可夫过程，通常被称为马尔可夫链</strong>。马尔可夫链通常使用离散的时间集合定义，又称离散时间马尔可夫链。有些学者虽然采用这个术语，但允许时间可以取连续的值。</p>
 <p>马尔可夫过程根据时间与状态空间的连续性可分为下表所示</p>
 <table>
 <thead>
-<tr class=header>
-<th align=center></th>
-<th align=center>可数或有限的状态空间</th>
-<th align=center>连续或一般的状态空间</th>
+<tr>
+<th style=text-align:center></th>
+<th style=text-align:center>可数或有限的状态空间</th>
+<th style=text-align:center>连续或一般的状态空间</th>
 </tr>
 </thead>
 <tbody>
-<tr class=odd>
-<td align=center>离散时间</td>
-<td align=center>在可数且有限状态空间下的马尔可夫链</td>
-<td align=center>Harris chain (在一般状态空间下的马尔可夫链)</td>
+<tr>
+<td style=text-align:center>离散时间</td>
+<td style=text-align:center>在可数且有限状态空间下的马尔可夫链</td>
+<td style=text-align:center>Harris chain (在一般状态空间下的马尔可夫链)</td>
 </tr>
-<tr class=even>
-<td align=center>连续时间</td>
-<td align=center>Continuous-time Markov process</td>
-<td align=center>任何具备马尔可夫性质的连续随机过程，例如维纳过程</td>
+<tr>
+<td style=text-align:center>连续时间</td>
+<td style=text-align:center>Continuous-time Markov process</td>
+<td style=text-align:center>任何具备马尔可夫性质的连续随机过程，例如维纳过程</td>
 </tr>
 </tbody>
 </table>
@@ -119,9 +119,10 @@ May 9, 2021</span>
 <blockquote>
 <p>马尔可夫性质：当一个随机过程在给定现在状态及所有过去状态情况下，其未来状态的条件概率分布仅依赖于当前状态；换句话说，在给定现在状态时，它与过去状态（即该过程的历史路径）是条件独立的，那么此随机过程即具有马尔可夫性质。</p>
 </blockquote>
-<p>数学上，如果<span class=math>\(X(t),t>0\)</span>为一个随机过程，则马尔可夫性质就是指 <span class=math>\[
-{\mathrm{Pr}}{\big [}X(t+h)=y\,|\,X(s)=x(s),s\leq t{\big ]}={\mathrm {Pr}}{\big [}X(t+h)=y\,|\,X(t)=x(t){\big ]},\quad \forall h>0.
-\]</span></p>
+<p>数学上，如果$X(t),t>0$为一个随机过程，则马尔可夫性质就是指
+$$
+{\mathrm{Pr}}{\big [}X(t+h)=y,|,X(s)=x(s),s\leq t{\big ]}={\mathrm {Pr}}{\big [}X(t+h)=y,|,X(t)=x(t){\big ]},\quad \forall h>0.
+$$</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

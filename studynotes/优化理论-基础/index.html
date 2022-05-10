@@ -88,54 +88,65 @@ Oct 30, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=优化理论基础>优化理论基础</h2>
+<h2 id=优化理论基础---omit-in-toc--->优化理论基础</h2>
 <p>证明链条：凸集与超平面->凸集分离定理->Farkas引理>Gordan定理和择一性定理->Kuhn-Tucker条件</p>
 <ul>
-<li><a href=#凸集的定义和性质>凸集的定义和性质</a></li>
-<li><a href=#性质>性质</a></li>
-<li><a href=#凸集的极点>凸集的极点</a></li>
-<li><a href=#凸集的方向>凸集的方向</a></li>
-<li><a href=#射线>射线</a></li>
-<li><a href=#方向的定义>方向的定义</a></li>
-<li><a href=#极方向>极方向</a></li>
-<li><a href=#凸集的极射线>凸集的极射线</a></li>
-<li><a href=#多面集的表示定理>多面集的表示定理</a></li>
-<li><a href=#多面集表示定理>多面集表示定理</a></li>
-<li><a href=#锥与凸锥>锥与凸锥</a></li>
-<li><a href=#凸集分离定理>凸集分离定理</a></li>
-<li><a href=#farkas引理>Farkas引理</a></li>
-<li><a href=#gordan定理>Gordan定理</a></li>
-<li><a href=#附录>附录</a></li>
+<li><a href=#%E5%87%B8%E9%9B%86%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E6%80%A7%E8%B4%A8>凸集的定义和性质</a>
+<ul>
+<li><a href=#%E6%80%A7%E8%B4%A8>性质</a></li>
+</ul>
+</li>
+<li><a href=#%E5%87%B8%E9%9B%86%E7%9A%84%E6%9E%81%E7%82%B9>凸集的极点</a></li>
+<li><a href=#%E5%87%B8%E9%9B%86%E7%9A%84%E6%96%B9%E5%90%91>凸集的方向</a>
+<ul>
+<li><a href=#%E5%B0%84%E7%BA%BF>射线</a></li>
+<li><a href=#%E6%96%B9%E5%90%91%E7%9A%84%E5%AE%9A%E4%B9%89>方向的定义</a></li>
+<li><a href=#%E6%9E%81%E6%96%B9%E5%90%91>极方向</a></li>
+<li><a href=#%E5%87%B8%E9%9B%86%E7%9A%84%E6%9E%81%E5%B0%84%E7%BA%BF>凸集的极射线</a></li>
+</ul>
+</li>
+<li><a href=#%E5%A4%9A%E9%9D%A2%E9%9B%86%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%AE%9A%E7%90%86>多面集的表示定理</a>
+<ul>
+<li><a href=#%E5%A4%9A%E9%9D%A2%E9%9B%86%E8%A1%A8%E7%A4%BA%E5%AE%9A%E7%90%86>多面集表示定理</a></li>
+</ul>
+</li>
+<li><a href=#%E9%94%A5%E4%B8%8E%E5%87%B8%E9%94%A5>锥与凸锥</a></li>
+<li><a href=#%E5%87%B8%E9%9B%86%E5%88%86%E7%A6%BB%E5%AE%9A%E7%90%86>凸集分离定理</a></li>
+<li><a href=#farkas%E5%BC%95%E7%90%86>Farkas引理</a></li>
+<li><a href=#gordan%E5%AE%9A%E7%90%86>Gordan定理</a></li>
+<li><a href=#%E9%99%84%E5%BD%95>附录</a></li>
 </ul>
 <h2 id=凸集的定义和性质>凸集的定义和性质</h2>
-<p>设<span class=math>\(S⊆R^n\)</span>，若对<span class=math>\(∀x_1,x_2∈S\)</span>及<span class=math>\(∀λ∈[0,1]\)</span>，都有<span class=math>\(λx_1+(1−λ)x_2∈S\)</span>，则称<span class=math>\(S\)</span>为凸集。</p>
+<p>设$S⊆R^n$，若对$∀x_1,x_2∈S$及$∀λ∈[0,1]$，都有$λx_1+(1−λ)x_2∈S$，则称$S$为凸集。</p>
 <h3 id=性质>性质</h3>
-<p>设<span class=math>\(S_1和S_2\)</span>是两个凸集，<span class=math>\(β\)</span>实数，则</p>
+<p>设$S_1和S_2$是两个凸集，$β$实数，则</p>
 <ul>
-<li><span class=math>\(\beta S_1=\{\beta x|x \in S_1\}\)</span>是凸集</li>
-<li><span class=math>\(S_1+S_2= \{x_1+x_2|x_1 \in S_1, x_2 \in S_2\}\)</span>是凸集</li>
-<li><span class=math>\(S_1-S_2=\{x_1-x_2|x_1 \in S_1, x_2 \in S_2\}\)</span>是凸集</li>
-<li><span class=math>\(S_1 \cap S_2\)</span>是凸集</li>
+<li>$\beta S_1={\beta x|x \in S_1}$是凸集</li>
+<li>$S_1+S_2= {x_1+x_2|x_1 \in S_1, x_2 \in S_2}$是凸集</li>
+<li>$S_1-S_2={x_1-x_2|x_1 \in S_1, x_2 \in S_2}$是凸集</li>
+<li>$S_1 \cap S_2$是凸集</li>
 </ul>
 <h2 id=凸集的极点>凸集的极点</h2>
-<p>设<span class=math>\(S\)</span>是非空集合，<span class=math>\(x∈S\)</span>，若<span class=math>\(x\)</span>不能表示成<span class=math>\(S\)</span>中两个不同点的凸组合，即若假设<span class=math>\(x=λx_1+(1−λ)x_2\)</span>，必推出<span class=math>\(x=x_1=x_2\)</span>，则称<span class=math>\(x\)</span>是凸集<span class=math>\(S\)</span>的极点。从图形的角度来看，<span class=math>\(x\)</span>是多边形的顶点或曲边的点。</p>
+<p>设$S$是非空集合，$x∈S$，若$x$不能表示成$S$中两个不同点的凸组合，即若假设$x=λx_1+(1−λ)x_2$，必推出$x=x_1=x_2$，则称$x$是凸集$S$的极点。从图形的角度来看，$x$是多边形的顶点或曲边的点。</p>
 <h2 id=凸集的方向>凸集的方向</h2>
 <h3 id=射线>射线</h3>
-<p><span class=math>\(∀α_0,\vec{d}\in R^n,\vec{d}≠0\)</span>称集合 <span class=math>\(S=\{α_0+k\vec{d}|k∈R,k≥0\}\)</span>为一条射线。称<span class=math>\(α_0\)</span>为射线的顶点，<span class=math>\(\vec{d}\)</span>为射线的方向。</p>
-<p>射线<span class=math>\(S=\{\alpha_0+k\vec{d}|k \in R,k\geq 0\}\)</span>是凸集。</p>
-<p><strong>证明：</strong><span class=math>\(\forall \alpha,\beta \in S,\exist k_1 \in R,k_1\geq 0,\)</span>使得<span class=math>\(\alpha = \alpha_0+k_1\vec{d};\exist k_2 \in R,k_2\geq 0,\)</span>使得<span class=math>\(\beta = c\)</span>。对于<span class=math>\(\forall \lambda \in [0,1],\lambda k_1+(1-\lambda)k_2 \geq 0\)</span>，于是<span class=math>\(\lambda\alpha+(1-\lambda)\beta=\lambda(\alpha_0+k_1\vec{d})+(1-\lambda)(\alpha_0+k_2\vec{d})=\alpha_0+[\lambda k_1+(1-\lambda)k_2]\vec{d}\in S\)</span>。即射线<span class=math>\(S\)</span>为凸集。</p>
+<p>$∀α_0,\vec{d}\in R^n,\vec{d}≠0$称集合 $S={α_0+k\vec{d}|k∈R,k≥0}$为一条射线。称$α_0$为射线的顶点，$\vec{d}$为射线的方向。</p>
+<p>射线$S={\alpha_0+k\vec{d}|k \in R,k\geq 0}$是凸集。</p>
+<p><strong>证明：</strong>$\forall \alpha,\beta \in S,\exist k_1 \in R,k_1\geq 0,$使得$\alpha = \alpha_0+k_1\vec{d};\exist k_2 \in R,k_2\geq 0,$使得$\beta = c$。对于$\forall \lambda \in [0,1],\lambda k_1+(1-\lambda)k_2 \geq 0$，于是$\lambda\alpha+(1-\lambda)\beta=\lambda(\alpha_0+k_1\vec{d})+(1-\lambda)(\alpha_0+k_2\vec{d})=\alpha_0+[\lambda k_1+(1-\lambda)k_2]\vec{d}\in S$。即射线$S$为凸集。</p>
 <h3 id=方向的定义>方向的定义</h3>
-<p>对于任意一个凸集<span class=math>\(S\)</span>，<span class=math>\(\forall \vec{d}\in R^n,d \neq 0,若\forall \alpha_0 \in S,\forall k \in R,k \geq 0,都有\alpha_0+k\vec{d} \in S\)</span>，则称<span class=math>\(\vec{d}\)</span>为<span class=math>\(S\)</span>的一个方向。</p>
+<p>对于任意一个凸集$S$，$\forall \vec{d}\in R^n,d \neq 0,若\forall \alpha_0 \in S,\forall k \in R,k \geq 0,都有\alpha_0+k\vec{d} \in S$，则称$\vec{d}$为$S$的一个方向。</p>
 <p><strong>comment：</strong> 方向能够无限延伸，说明在此方向上所有的点都在凸集内。方向是射线，起点是任意的，在方向上无界。</p>
-<p>设<span class=math>\(S=\{x∣Ax=b,x≥0\}≠∅\)</span>，<span class=math>\(\vec{d}\)</span>是非零向量，则<span class=math>\(\vec{d}\)</span>是<span class=math>\(S\)</span>的方向 ⟺ <span class=math>\(\vec{d}≥0且A\vec{d}=0\)</span>。</p>
+<p>设$S={x∣Ax=b,x≥0}≠∅$，$\vec{d}$是非零向量，则$\vec{d}$是$S$的方向 ⟺ $\vec{d}≥0且A\vec{d}=0$。</p>
 <h3 id=极方向>极方向</h3>
-<p>对于任意一个凸集<span class=math>\(S\)</span>,对于 <span class=math>\(S\)</span>中的任意两个方向<span class=math>\(\vec{d}_1,\vec{d}_2\)</span>, 若<span class=math>\(\forall k>0,\vec{d}_1\neq k \vec{d}_2\)</span>,则称这两个方向是不同的。</p>
-<p>若<span class=math>\(\vec{d}\)</span>是S的一个方向，且不是S的任意两个<strong>不同</strong>方向的<strong>正线性组合</strong>。即：对于S的任意两个方向<span class=math>\(\vec{d}_1,\vec{d}_2\)</span>，若存在<span class=math>\(k_1>0,k_2>0\)</span>，使得<span class=math>\(k_1\vec{d}_1+k_2\vec{d}_2=\vec{d}\)</span>，则<span class=math>\(\vec{d}_1,\vec{d}_2\)</span>必是相同的方向，则称<span class=math>\(\vec{d}\)</span>是S的一个极方向。</p>
+<p>对于任意一个凸集$S$,对于 $S$中的任意两个方向$\vec{d}_1,\vec{d}_2$, 若$\forall k>0,\vec{d}_1\neq k \vec{d}_2$,则称这两个方向是不同的。</p>
+<p>若$\vec{d}$是S的一个方向，且不是S的任意两个<strong>不同</strong>方向的<strong>正线性组合</strong>。即：对于S的任意两个方向$\vec{d}_1,\vec{d}_2$，若存在$k_1>0,k_2>0$，使得$k_1\vec{d}_1+k_2\vec{d}_2=\vec{d}$，则$\vec{d}_1,\vec{d}_2$必是相同的方向，则称$\vec{d}$是S的一个极方向。</p>
 <h3 id=凸集的极射线>凸集的极射线</h3>
 <p>凸集S中的任意一条射线，若它的方向是极方向，则称这条射线为极射线。</p>
 <h2 id=多面集的表示定理>多面集的表示定理</h2>
-<p><strong>多面集</strong>：在空间<span class=math>\(\mathbb{R}^n\)</span>中，由有限个闭半空间相交组成的集合： <span class=math>\[S=\{x \in \mathbb{R}^n:P_i^T x \leq \alpha_i,i=1,2,\dotsb,m\}\]</span></p>
-<p><strong>多面锥</strong>：在空间<span class=math>\(\mathbb{R}^n\)</span>中，由有限个<strong>包含原点</strong>的半空间相交而成： <span class=math>\[S=\{x \in \mathbb{R}^n:P_i^T x \leq 0,i=1,2,\dotsb,m\}\]</span></p>
+<p><strong>多面集</strong>：在空间$\mathbb{R}^n$中，由有限个闭半空间相交组成的集合：
+$$S={x \in \mathbb{R}^n:P_i^T x \leq \alpha_i,i=1,2,\dotsb,m}$$</p>
+<p><strong>多面锥</strong>：在空间$\mathbb{R}^n$中，由有限个<strong>包含原点</strong>的半空间相交而成：
+$$S={x \in \mathbb{R}^n:P_i^T x \leq 0,i=1,2,\dotsb,m}$$</p>
 <p><strong>多面体</strong>：有界的多面集。</p>
 <ul>
 <li>多面体是有限个点集的凸包。</li>
@@ -144,75 +155,88 @@ Oct 30, 2019</span>
 <li>多面集是凸集</li>
 </ul>
 <h3 id=多面集表示定理>多面集表示定理</h3>
-<p>设<span class=math>\(S=\{X∈\mathbb{R}^n:AX≤\vec{b},X≥\vec{0}\}\)</span>为非空多面集，其中 <span class=math>\[A=\begin{pmatrix}
-a_1 \\
-a_2 \\
-\vdots\\
+<p>设$S={X∈\mathbb{R}^n:AX≤\vec{b},X≥\vec{0}}$为非空多面集，其中
+$$A=\begin{pmatrix}
+a_1 \
+a_2 \
+\vdots\
 a_m
 \end{pmatrix} \in \mathbb{R}^{m\times n},
 b=\begin{pmatrix}
-b_1 \\
-b_2 \\
-\vdots\\
+b_1 \
+b_2 \
+\vdots\
 b_m
-\end{pmatrix} \in \mathbb{R}^{m}\]</span> 则有：</p>
+\end{pmatrix} \in \mathbb{R}^{m}$$
+则有：</p>
 <ul>
-<li>极点集非空，且存在有限个极点<span class=math>\(\{X(1),⋯,X(k)\}, k \in N,k \geq 1\)</span></li>
-<li>极方向集合为空集 ⟺ <span class=math>\(S\)</span>有界。若<span class=math>\(S\)</span>无界，则存在有限个极方向<span class=math>\(\{d(1),d(2),⋯,d(l)\},l \in N ,l \geq 0\)</span></li>
-<li><span class=math>\(∀X∈R_n,X∈S\)</span>当且仅当<span class=math>\(X\)</span> 可以被表示成<span class=math>\(X_1,⋯,X_k\)</span>的凸组合加上<span class=math>\(d_1,⋯,d_l\)</span>的非负线性组合，即存在集合 <span class=math>\[\{λ_i∈R:\sum_{i=1}^k λ_i=1,λ_i≥0,i∈N,1≤i≤k\}与 \\
-\{ \mu_i \in \mathbb R: \mu_i \ge 0, i \in \mathbb N, 1 \le i \le l \} \\
-使得：X = \sum\limits_{i = 1}^{k} \lambda_i X_i + \sum\limits_{i = 1}^{l} \mu_i d_i\]</span></li>
+<li>极点集非空，且存在有限个极点${X(1),⋯,X(k)}, k \in N,k \geq 1$</li>
+<li>极方向集合为空集 ⟺ $S$有界。若$S$无界，则存在有限个极方向${d(1),d(2),⋯,d(l)},l \in N ,l \geq 0$</li>
+<li>$∀X∈R_n,X∈S$当且仅当$X$ 可以被表示成$X_1,⋯,X_k$的凸组合加上$d_1,⋯,d_l$的非负线性组合，即存在集合
+$${λ_i∈R:\sum_{i=1}^k λ_i=1,λ_i≥0,i∈N,1≤i≤k}与 \
+{ \mu_i \in \mathbb R: \mu_i \ge 0, i \in \mathbb N, 1 \le i \le l } \
+使得：X = \sum\limits_{i = 1}^{k} \lambda_i X_i + \sum\limits_{i = 1}^{l} \mu_i d_i$$</li>
 </ul>
 <h2 id=锥与凸锥>锥与凸锥</h2>
-<p><strong>锥(cone)</strong> 定义：对于集合<span class=math>\(C⊆R_n,∀x∈C,θ≥0\)</span>，有<span class=math>\(θx⊆C\)</span>则<span class=math>\(x\)</span>构成的集合称为锥。说明一下，锥不一定是连续的（可以是数条过原点的射线的集合）。</p>
-<p><strong>凸锥</strong>（convex cone）定义：凸锥包含了集合内点的所有凸锥组合。若锥<span class=math>\(C⊆R_n,x_1,x_2...x_n∈C,θ_i≥0\)</span>，则凸锥组合<span class=math>\(θ_1 x_1+θ_2 x_2+...+θ_n x_n\)</span>也属于凸锥集合<span class=math>\(C\)</span>。这里说明一下，就是说一个集合<strong>既是凸集又是锥</strong>，那么就是凸锥。</p>
-<p><strong>凸锥包</strong>（convex cone hull）定义：凸锥包是包含集合<span class=math>\(C\)</span>的最小的凸锥，假设<span class=math>\(x_1,x2_...x_n∈C\)</span>，凸锥包表示为： <span class=math>\[\{θ_1x_1+θ_2x_2+...+θ_nx_n|x_1,x_2...x_n∈C，θ_i≥0\}\]</span></p>
+<p><strong>锥(cone)</strong> 定义：对于集合$C⊆R_n,∀x∈C,θ≥0$，有$θx⊆C$则$x$构成的集合称为锥。说明一下，锥不一定是连续的（可以是数条过原点的射线的集合）。</p>
+<p><strong>凸锥</strong>（convex cone）定义：凸锥包含了集合内点的所有凸锥组合。若锥$C⊆R_n,x_1,x_2...x_n∈C,θ_i≥0$，则凸锥组合$θ_1 x_1+θ_2 x_2+...+θ_n x_n$也属于凸锥集合$C$。这里说明一下，就是说一个集合<strong>既是凸集又是锥</strong>，那么就是凸锥。</p>
+<p><strong>凸锥包</strong>（convex cone hull）定义：凸锥包是包含集合$C$的最小的凸锥，假设$x_1,x2_...x_n∈C$，凸锥包表示为：
+$${θ_1x_1+θ_2x_2+...+θ_nx_n|x_1,x_2...x_n∈C，θ_i≥0}$$</p>
 <p>另见常见的凸集，凸锥，仿射集:<a href=https://www.cnblogs.com/saysei/p/10124314.html>https://www.cnblogs.com/saysei/p/10124314.html</a></p>
 <h2 id=凸集分离定理>凸集分离定理</h2>
 <p><strong>凸集分离定理</strong>（超平面分离定理）是应用凸集到最优化理论中的重要结果，这个结果在最优化理论中有重要的位置。所谓<strong>两个凸集分离</strong>，直观地看是指两个凸集合没有交叉和重合的部分，因此可以用<strong>一张超平面</strong>将两者隔在两边。<strong>需要注意的是，凸集分离定理研究n维欧式空间，所以“紧”的概念等同于闭合+有界</strong>。</p>
-<p>设<span class=math>\(S_1,S_2\subseteq R^n\)</span>为两个非空集合,且<span class=math>\(S_1\cap S_2=\emptyset\)</span>，如果存在非零向量<span class=math>\(\vec{p}\in R^n\)</span>及<span class=math>\(\alpha \in R\)</span>使得 <span class=math>\[S_1 \subseteq H^-=\{x\in R^n|\vec{p}^Tx\leq \alpha\}\]</span> <span class=math>\[S_2 \subseteq H^+=\{x\in R^n|\vec{p}^Tx\geq \alpha\}\]</span> 则称超平面<span class=math>\(H=\{x \in R^n |\vec{p}^T x=\alpha\}\)</span>分离了集合<span class=math>\(S_1与S_2\)</span>。</p>
+<p>设$S_1,S_2\subseteq R^n$为两个非空集合,且$S_1\cap S_2=\emptyset$，如果存在非零向量$\vec{p}\in R^n$及$\alpha \in R$使得
+$$S_1 \subseteq H^-={x\in R^n|\vec{p}^Tx\leq \alpha}$$
+$$S_2 \subseteq H^+={x\in R^n|\vec{p}^Tx\geq \alpha}$$
+则称超平面$H={x \in R^n
+|\vec{p}^T x=\alpha}$分离了集合$S_1与S_2$。</p>
 <p><strong>证明：</strong> 首先我们需要证明一个引理。</p>
 <blockquote>
-<p><strong>引理</strong> <span class=math>\(K\subset R^n\)</span>，且K是非空闭凸集。那么在K种<strong>存在唯一一个向量</strong>具有最小范数（长度）。</p>
-<p><strong>引理证明</strong>：令<span class=math>\(\delta=\inf\{|x|\mid x\in K\}\)</span>。令<span class=math>\(x_j\)</span>为K中的一个序列，且<span class=math>\(|x_j|\to\delta\)</span>。注意到K是一个凸集，且<span class=math>\((x_i+x_j)/2\)</span>也会在K中。所以<span class=math>\((x_i+x_j)/2\)</span>的范数大于<span class=math>\(\delta\)</span>。 <span class=math>\[|(x_i+x_j)/2|\geq|\delta|\Rightarrow |x_i+x_j|^2 \geq 4\delta^2 \\
-|x_i-x_j|^2=2|x_i|^2+2|x_j|^2-|x_i+x_j|^2\\
-\leq 2|x_i|^2+2|x_j|^2-4\delta^2 \to 0\]</span> 由于<span class=math>\(i,j\to\infty\)</span>，并且<span class=math>\(x_i\)</span>是柯西序列，因此x的极限在K中。唯一性是由于y也在K中有范数，而<span class=math>\(|x-y|^2 \leq 2|x_i|^2+2|x_j|^2-4\delta^2=0\)</span>，根据范数定义<span class=math>\(x=y\)</span>。</p>
+<p><strong>引理</strong> $K\subset R^n$，且K是非空闭凸集。那么在K种<strong>存在唯一一个向量</strong>具有最小范数（长度）。</p>
+<p><strong>引理证明</strong>：令$\delta=\inf{|x|\mid x\in K}$。令$x_j$为K中的一个序列，且$|x_j|\to\delta$。注意到K是一个凸集，且$(x_i+x_j)/2$也会在K中。所以$(x_i+x_j)/2$的范数大于$\delta$。
+$$|(x_i+x_j)/2|\geq|\delta|\Rightarrow |x_i+x_j|^2 \geq 4\delta^2 \
+|x_i-x_j|^2=2|x_i|^2+2|x_j|^2-|x_i+x_j|^2\
+\leq 2|x_i|^2+2|x_j|^2-4\delta^2 \to 0$$
+由于$i,j\to\infty$，并且$x_i$是柯西序列，因此x的极限在K中。唯一性是由于y也在K中有范数，而$|x-y|^2 \leq 2|x_i|^2+2|x_j|^2-4\delta^2=0$，根据范数定义$x=y$。</p>
 </blockquote>
-<p>接下来继续超平面分离定理证明。考虑两个不相交的分控凸集<span class=math>\(A，B\)</span>，令<span class=math>\(K=A+(-B)=\{x-y|x\in A,y\in B\}\)</span>。由于<span class=math>\(-B\)</span>也是凸集，所以<span class=math>\(K\)</span>也是凸集。由于K可能是开集，我们考虑K的闭包<span class=math>\(\overline{K}\)</span>（闭集），有一个最小范数的向量<span class=math>\(v\)</span>。由于<span class=math>\(\overline{K}\)</span>是凸的，所以对于<span class=math>\(\forall n \in K\)</span>，线段 <span class=math>\[v+t(n-v),0\leq t \leq 1\]</span> 也在<span class=math>\(\overline{K}\)</span>中，所以 <span class=math>\[|v|^2\leq |v+t(n-v)^2|=|v|^2+2t&lt;v,n-v>+t^2|n-v|^2\]</span> 上式是因为<span class=math>\(v\)</span>是唯一最小范数。对于<span class=math>\(0&lt;t \leq 1\)</span>，我们有 <span class=math>\[0\leq 2&lt;v,n>-2|v|^2+t|n-v|^2\\
-|v|^2-0.5t|n-v|^2\leq &lt;v,n>\]</span> 当<span class=math>\(t\to 0\)</span>时，<span class=math>\(&lt;n,v>\geq |v|^2\)</span>。因此对于任意<span class=math>\(x \in A\)</span>和<span class=math>\(y \in B\)</span>,有<span class=math>\(&lt;x-y,v> \geq |v|^2\)</span>。所以，如果<span class=math>\(v\)</span>时非零的。那么： <span class=math>\[\inf_{x \in A}\langle x,v \rangle \geq |v|^2+\sup_{y \in B}\langle y,v \rangle\]</span> 即存在一个平面分隔了凸集<span class=math>\(A,B\)</span>。更广泛的<span class=math>\(v=0\)</span>说明可见维基百科。</p>
+<p>接下来继续超平面分离定理证明。考虑两个不相交的分控凸集$A，B$，令$K=A+(-B)={x-y|x\in A,y\in B}$。由于$-B$也是凸集，所以$K$也是凸集。由于K可能是开集，我们考虑K的闭包$\overline{K}$（闭集），有一个最小范数的向量$v$。由于$\overline{K}$是凸的，所以对于$\forall n \in K$，线段
+$$v+t(n-v),0\leq t \leq 1$$
+也在$\overline{K}$中，所以
+$$|v|^2\leq |v+t(n-v)^2|=|v|^2+2t&lt;v,n-v>+t^2|n-v|^2$$
+上式是因为$v$是唯一最小范数。对于$0&lt;t \leq 1$，我们有
+$$0\leq 2&lt;v,n>-2|v|^2+t|n-v|^2\
+|v|^2-0.5t|n-v|^2\leq &lt;v,n>$$
+当$t\to 0$时，$&lt;n,v>\geq |v|^2$。因此对于任意$x \in A$和$y \in B$,有$&lt;x-y,v> \geq |v|^2$。所以，如果$v$时非零的。那么：
+$$\inf_{x \in A}\langle x,v \rangle \geq |v|^2+\sup_{y \in B}\langle y,v \rangle$$
+即存在一个平面分隔了凸集$A,B$。更广泛的$v=0$说明可见维基百科。</p>
 <p>另一个证明：<a href=https://www.cnblogs.com/szqfreiburger/p/11573936.html>https://www.cnblogs.com/szqfreiburger/p/11573936.html</a></p>
 <h2 id=farkas引理>Farkas引理</h2>
 <blockquote>
-<p>令<span class=math>\(A\in \mathbb{R}^{m\times n},\mathbf{b}\in \mathbb{R}^m\)</span>，那么下面两个陈述只有一个成立：</p>
-<ol style=list-style-type:decimal>
-<li>存在<span class=math>\(\mathbf{x}\in \mathbb{R}^n，使得Ax=b,且x \geq 0\)</span></li>
-<li>存在<span class=math>\(y \in \mathbb{R}^m,使得A^Ty\geq 0，且b^Ty&lt;0\)</span>.</li>
+<p>令$A\in \mathbb{R}^{m\times n},\mathbf{b}\in \mathbb{R}^m$，那么下面两个陈述只有一个成立：</p>
+<ol>
+<li>存在$\mathbf{x}\in \mathbb{R}^n，使得Ax=b,且x \geq 0$</li>
+<li>存在$y \in \mathbb{R}^m,使得A^Ty\geq 0，且b^Ty&lt;0$.</li>
 </ol>
-<p>需要注意的时，<span class=math>\(\mathbf{x}\geq 0\)</span>是指向量<span class=math>\(\mathbf{x}\)</span>的所有组成元素都非负。</p>
+<p>需要注意的时，$\mathbf{x}\geq 0$是指向量$\mathbf{x}$的所有组成元素都非负。</p>
 </blockquote>
-<p>先从几何角度了解一下这个引理的含义。我们认为矩阵<span class=math>\(A\)</span>是由<span class=math>\(n\)</span>个<span class=math>\(m\)</span>维的向量组成的向量组，由于在(1)中<span class=math>\(x\)</span>的每一个元素大于0，所以<span class=math>\(Ax\)</span>为<span class=math>\(n\)</span>个向量的非负线性组合，即凸锥组合。它们张成的是凸锥（或者说包含这<span class=math>\(n\)</span>个向量的凸锥包），长成下图所示。</p>
-<div class=figure>
-<img src=../../images/凸锥包.jpg alt=凸锥包><p class=caption>凸锥包</p>
-</div>
-<p>每一条棱表示<span class=math>\(A\)</span>中的一个向量。而（1）结果<span class=math>\(Ax=b\)</span>，表示<span class=math>\(b\)</span>在凸锥中，如下左图。</p>
-<img src=../../images/Farkas引理.jpg alt=Farkas引理.jpg>
-<center>
-左为b在凸锥内的情况，右图为b在凸锥外的情况，总能找到过原点的超平面（二维情况下为直线，法向量为y），把b和凸锥分开。
+<p>先从几何角度了解一下这个引理的含义。我们认为矩阵$A$是由$n$个$m$维的向量组成的向量组，由于在(1)中$x$的每一个元素大于0，所以$Ax$为$n$个向量的非负线性组合，即凸锥组合。它们张成的是凸锥（或者说包含这$n$个向量的凸锥包），长成下图所示。</p>
+<p><img src=../../images/%E5%87%B8%E9%94%A5%E5%8C%85.jpg alt=凸锥包></p>
+<p>每一条棱表示$A$中的一个向量。而（1）结果$Ax=b$，表示$b$在凸锥中，如下左图。</p>
+<p><img src=../../images/Farkas%E5%BC%95%E7%90%86.jpg alt=Farkas引理.jpg></p>
+<center>左为b在凸锥内的情况，右图为b在凸锥外的情况，总能找到过原点的超平面（二维情况下为直线，法向量为y），把b和凸锥分开。
 </center>
-<p>对于情形（2），则是凸集分离定理的推广。单点也是凸集。特别的，如果<span class=math>\(C\)</span>不仅是凸集，还是事实一中所提到的<strong>凸锥</strong>，我们可以找到一个<strong>过原点</strong>的平面，分开凸锥和它外面的一个点，也就是说如果<span class=math>\(C\)</span>是一个凸锥，<span class=math>\(x \notin C\)</span>，存在非零 <span class=math>\(d\in R^n\)</span>满足对于所有的 <span class=math>\(y in C\)</span>，有<span class=math>\(d^Tx&lt;0\)</span>，且<span class=math>\(d^Ty>0\)</span>。上面右图所示。</p>
+<p>对于情形（2），则是凸集分离定理的推广。单点也是凸集。特别的，如果$C$不仅是凸集，还是事实一中所提到的<strong>凸锥</strong>，我们可以找到一个<strong>过原点</strong>的平面，分开凸锥和它外面的一个点，也就是说如果$C$是一个凸锥，$x \notin C$，存在非零 $d\in R^n$满足对于所有的 $y in C$，有$d^Tx&lt;0$，且$d^Ty>0$。上面右图所示。</p>
 <p>严格证明可以参考:<a href=https://lijiancheng0614.github.io/2015/09/17/2015_09_17_Optimization%20Methods/>https://lijiancheng0614.github.io/2015/09/17/2015_09_17_Optimization%20Methods/</a></p>
 <h2 id=gordan定理>Gordan定理</h2>
-<p>设<span class=math>\(A\)</span>为<span class=math>\(m×n\)</span>矩阵，则<span class=math>\(Ax&lt;0\)</span>有解，⟺ <span class=math>\(A^Ty=0,y≥0(y≠0)\)</span>无解。</p>
+<p>设$A$为$m×n$矩阵，则$Ax&lt;0$有解，⟺ $A^Ty=0,y≥0(y≠0)$无解。</p>
 <h2 id=附录>附录</h2>
-<p>在<span class=math>\(R^n\)</span>中，下面三个条件等价：</p>
+<p>在$R^n$中，下面三个条件等价：</p>
 <ul>
 <li>“有界闭”（bounded and closed）；</li>
 <li>“紧”（compact）；</li>
 <li>“列紧”（sequentially compact）。</li>
 </ul>
-<div class=figure>
-<embed src=../../images/凸集凸函数凸优化.webp><p class=caption>凸集凸函数凸优化.webp</p>
-</div>
+<p><img src=../../images/%E5%87%B8%E9%9B%86%E5%87%B8%E5%87%BD%E6%95%B0%E5%87%B8%E4%BC%98%E5%8C%96.webp alt=凸集凸函数凸优化.webp></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

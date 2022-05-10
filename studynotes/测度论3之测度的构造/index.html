@@ -88,18 +88,25 @@ Sep 15, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=测度的构造>测度的构造</h2>
+<h2 id=测度的构造---omit-in-toc--->测度的构造</h2>
 <ul>
-<li><a href=#外测度测度的基础定义>外测度——测度的基础定义</a></li>
-<li><a href=#为什么建立外测度>为什么建立外测度</a></li>
-<li><a href=#外测度定义>外测度定义</a></li>
-<li><a href=#可测与不可测>可测与不可测</a></li>
-<li><a href=#参考文献>参考文献</a></li>
+<li><a href=#%E5%A4%96%E6%B5%8B%E5%BA%A6%E6%B5%8B%E5%BA%A6%E7%9A%84%E5%9F%BA%E7%A1%80%E5%AE%9A%E4%B9%89>外测度——测度的基础定义</a>
+<ul>
+<li><a href=#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BB%BA%E7%AB%8B%E5%A4%96%E6%B5%8B%E5%BA%A6>为什么建立外测度</a></li>
+<li><a href=#%E5%A4%96%E6%B5%8B%E5%BA%A6%E5%AE%9A%E4%B9%89>外测度定义</a></li>
+<li><a href=#%E5%8F%AF%E6%B5%8B%E4%B8%8E%E4%B8%8D%E5%8F%AF%E6%B5%8B>可测与不可测</a></li>
+</ul>
+</li>
+<li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE>参考文献</a></li>
 </ul>
 <p>这一章中，我们给出测度的构造，这是一个比较复杂的过程。</p>
 <p>第1节会介绍一下外测度，第2节会引入最重要的一个测度：一维的Lebesgue测度。第3节则是介绍更多Lebesgue测度相关的结论跟例子。当然，我们会发现Lebesgue测度无法测量实数的所有子集，第4节中我们会给出不可测集。</p>
 <p>从外测度中构造测度的方法有很多的用途，Lebesgue测度就是它的一个应用。在第5节，我们会讨论Caratheodory扩张定理，这是一个构造一般的测度很有力的工具。而在第6节我们利用零测集再进行一次扩张，即完备化。</p>
-<p>让我们来简单想一下如何在实数集上构造Lebesgue测度。首先考虑实数轴上开区间的测度<strong>m</strong>，直觉告诉我们，它就因该是这个区间的长度。由Lindelof 引理在实数集上的应用，<strong>任意一个实数的开子集都能够表示成可数个互不相交开区间的并</strong>。那么对于开集<span class=math>\(G=\bigcup\limits_{i=1}^\infty(a_i,b_i)\)</span>，<span class=math>\((a_i,b_i)_{i\in \mathbb{N}}\)</span>为互不相交的开区间，那么自然的，我们要求这个测度满足： <span class=math>\[m(G)=\sum\limits_{i=1}^\infty(b_i-a_i)\]</span> 接下来对更一般的子集<span class=math>\(E\subset\mathbb{R}\)</span>，我们可能可以定义 <span class=math>\[m(E)=\inf\{m(G):G为开集,E\subset G\}。\]</span> 这边已经开始有点外测度的意思。当然，这是一个很丰满的想法，只是现实有点骨感；因为在第4节，我们会证明测度<strong>m</strong>无法测量实数的所有子集。于是我们只能考虑把测度建立在一个比实数幂集要小的<span class=math>\(\sigma\)</span>-代数上——这个就是构造Lebesgue测度的基本想法。实际的构造可能跟这里的想法略有偏差，比如技术上左开右闭的区间会比开区间好处理很多，所以我们会选择<span class=math>\((a，b]\)</span>的区间。</p>
+<p>让我们来简单想一下如何在实数集上构造Lebesgue测度。首先考虑实数轴上开区间的测度<strong>m</strong>，直觉告诉我们，它就因该是这个区间的长度。由Lindelof 引理在实数集上的应用，<strong>任意一个实数的开子集都能够表示成可数个互不相交开区间的并</strong>。那么对于开集$G=\bigcup\limits_{i=1}^\infty(a_i,b_i)$，$(a_i,b_i)<em>{i\in \mathbb{N}}$为互不相交的开区间，那么自然的，我们要求这个测度满足：
+$$m(G)=\sum\limits</em>{i=1}^\infty(b_i-a_i)$$
+接下来对更一般的子集$E\subset\mathbb{R}$，我们可能可以定义
+$$m(E)=\inf{m(G):G为开集,E\subset G}。$$
+这边已经开始有点外测度的意思。当然，这是一个很丰满的想法，只是现实有点骨感；因为在第4节，我们会证明测度<strong>m</strong>无法测量实数的所有子集。于是我们只能考虑把测度建立在一个比实数幂集要小的$\sigma$-代数上——这个就是构造Lebesgue测度的基本想法。实际的构造可能跟这里的想法略有偏差，比如技术上左开右闭的区间会比开区间好处理很多，所以我们会选择$(a，b]$的区间。</p>
 <h2 id=外测度测度的基础定义>外测度——测度的基础定义</h2>
 <h3 id=为什么建立外测度>为什么建立外测度</h3>
 <p><strong>从内部划分小图形以求图形面积的方式</strong>是一种比较直观的方式，比如多边形面积往往用内部所含三角形的面积来度量，又如Riemann积分中曲边梯形面积的计算也是从其内部划分小矩形出发再逐步计算的，但是这种方法对<strong>只具有内点的点集</strong>才有效，对于推广到<strong>一般的点集</strong>上不是很方便。</p>
@@ -107,35 +114,41 @@ Sep 15, 2020</span>
 <p>一般来说，覆盖的点集要比原来的点集的“面积大”，因此这里取所有这种覆盖所求出矩形面积总和的<strong>下确界</strong>来代表它的某种度量。</p>
 <p>另外还有一个问题：每次覆盖所用的矩形可以有多少个？如果只允许<strong>有限个</strong>，则由此所建立的度量就是所谓的Jordan容度，这种度量有严重缺陷，Lebesgue将其改造为允许有<strong>可数个</strong>矩形参与覆盖。</p>
 <h3 id=外测度定义>外测度定义</h3>
-<p>回顾下测度:测度定义<strong>在<span class=math>\(\sigma\)</span>域</strong>上，并且满足可列可加性（<span class=math>\(\Rightarrow\)</span>有限可加性、可数次可加性、有限次可加性、次可加性、单调性）。</p>
-<p>而外侧度定义在<span class=math>\(X\)</span>的<strong>幂集</strong>上，并且只需要满足<strong>次可列可加性</strong>和单调性。</p>
+<p>回顾下测度:测度定义<strong>在$\sigma$域</strong>上，并且满足可列可加性（$\Rightarrow$有限可加性、可数次可加性、有限次可加性、次可加性、单调性）。</p>
+<p>而外侧度定义在$X$的<strong>幂集</strong>上，并且只需要满足<strong>次可列可加性</strong>和单调性。</p>
 <blockquote>
-<p>外侧度：令<span class=math>\(X\)</span>为一个集合，外测度被定义为一个映射<span class=math>\(\mu^\ast:\mathcal{P}(X)→[0,+∞]\)</span>，满足：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(\mu^\ast(\emptyset)=0\)</span></li>
-<li>若<span class=math>\(A \subset B\)</span>，那么<span class=math>\(\mu^\ast(A)&lt;\mu^\ast(B)\)</span>(单调性)</li>
-<li><span class=math>\(\forall A_1,A_2,\dots\subset X，\mu^\ast(\bigcup\limits_{i=1}^∞A^i)≤\sum\limits_{i=1}^∞\mu^\ast(A^i)\)</span>(次可列可加性)</li>
+<p>外侧度：令$X$为一个集合，外测度被定义为一个映射$\mu^\ast:\mathcal{P}(X)→[0,+∞]$，满足：</p>
+<ol>
+<li>$\mu^\ast(\emptyset)=0$</li>
+<li>若$A \subset B$，那么$\mu^\ast(A)&lt;\mu^\ast(B)$(单调性)</li>
+<li>$\forall A_1,A_2,\dots\subset X，\mu^\ast(\bigcup\limits_{i=1}^∞A^i)≤\sum\limits_{i=1}^∞\mu^\ast(A^i)$(次可列可加性)</li>
 </ol>
 </blockquote>
-<p>注：外测度定义在<span class=math>\(X\)</span>是所有子集上，也就是说<span class=math>\(X\)</span>的任意子集都可以谈论外测度。这与测度不同，测度定义在<span class=math>\(\sigma\)</span>代数上，即只有一部分<span class=math>\(X\)</span>子集可以谈论测度。</p>
+<p>注：外测度定义在$X$是所有子集上，也就是说$X$的任意子集都可以谈论外测度。这与测度不同，测度定义在$\sigma$代数上，即只有一部分$X$子集可以谈论测度。</p>
 <p>“外”测度的外字是指从外侧向内逼近测度，实际上外侧度可以比实际测量值大一点点。在这个思想下，我们可以通过覆盖的概念来构造外侧度。</p>
 <blockquote>
-<p>构造外测度：令<span class=math>\(X\)</span>为一集合，<span class=math>\(\mathcal C\)</span>是<span class=math>\(X\)</span>的包含空集的子集族，<span class=math>\(l\)</span>是<span class=math>\(\mathcal C\)</span>上的非负扩展实数值(<span class=math>\(R^+\cup\{0,+∞\}\)</span>)函数，且<span class=math>\(l\)</span>在空集处取零。那么定义 <span class=math>\[\mu^\ast(E)=\inf {\biggl \{}\sum_{i=0}^∞ l(A_{i})\,{\bigg |}E\subseteq \bigcup_{i=0}^∞ A_{i},\forall i∈\mathbb{N},A_i ∈ \mathcal{C}{\biggr\}} \tag{1}\]</span> 则<span class=math>\(\mu^\ast\)</span>是一个外测度。</p>
+<p>构造外测度：令$X$为一集合，$\mathcal C$是$X$的包含空集的子集族，$l$是$\mathcal C$上的非负扩展实数值($R^+\cup{0,+∞}$)函数，且$l$在空集处取零。那么定义
+$$\mu^\ast(E)=\inf {\biggl {}\sum_{i=0}^∞ l(A_{i}),{\bigg |}E\subseteq \bigcup_{i=0}^∞ A_{i},\forall i∈\mathbb{N},A_i ∈ \mathcal{C}{\biggr}} \tag{1}$$
+则$\mu^\ast$是一个外测度。</p>
 </blockquote>
-<p>这里未要求<span class=math>\(E\)</span>是<span class=math>\(X\)</span>的子集，外测度被定义为<span class=math>\(\mathcal C\)</span>中元素构成的覆盖的最小值。覆盖必是大于等于原集合的，所以体现了从外部包围的“外”的特点。</p>
+<p>这里未要求$E$是$X$的子集，外测度被定义为$\mathcal C$中元素构成的覆盖的最小值。覆盖必是大于等于原集合的，所以体现了从外部包围的“外”的特点。</p>
 <p>该构造满足外测度的定义的三条要求。<a href=https://zhuanlan.zhihu.com/p/61550686>证明链接</a></p>
 <h3 id=可测与不可测>可测与不可测</h3>
-<p>注意到外测度只满足<strong>次可加性</strong>，遗憾的是，可以证明Lebesgue外测度并不满足可加性。外测度居然不是我们所希望的<span class=math>\(\mathbb{R^n}\)</span>中点集的测度，怎么办？</p>
+<p>注意到外测度只满足<strong>次可加性</strong>，遗憾的是，可以证明Lebesgue外测度并不满足可加性。外测度居然不是我们所希望的$\mathbb{R^n}$中点集的测度，怎么办？</p>
 <p>补救的方法是把<strong>使外测度不具有可加性的集合排除在外，并称其为不可测集</strong>，那么剩下的称为可测集，于是在可测集族上，外测度将真正成为长度、面积或体积的推广，发挥它的作用。</p>
 <p>万幸的是我们在<strong>实际生活中能遇到的一切集合都是Lebesgue可测集</strong>。</p>
-<p>可以借由外测度来定义<span class=math>\(X\)</span>中的可测集合： >如果子集合 <span class=math>\(E\subseteq X\)</span>是<span class=math>\(\mu^\ast\)</span>-可测的，当且仅当对<span class=math>\(X\)</span>的任意子集合<span class=math>\(A\)</span>有： ><span class=math>\[\mu^\ast(A)=\mu^\ast(A\cap E)+\mu^\ast(A\cap E^{c}) \tag{2}\]</span></p>
-<p>注：理解上面定义的动机，如果一个外测度要成为测度，那么它需要从次可加变成可加，上面的定义正是涉及到可加的性质。注意到<span class=math>\((A\cap E)\cap(A\cap E^c)=\emptyset，(A\cap E)\cup(A\cap E^c)=A\)</span>，所以集合<span class=math>\(E\)</span>就是对集合<span class=math>\(A\)</span>的一个“分解“，<span class=math>\(\mu^\ast\)</span>的可加性不会对任意分解成立，但是会对<span class=math>\(E\)</span>的分解成立，因为<span class=math>\(E\)</span>是<span class=math>\(\sigma\)</span>-可测的。</p>
-<p>我们记所有的可测集类的基数为<span class=math>\(\mathcal{u}\)</span>，实际上<span class=math>\(\mathcal{u}=2^{\aleph_1}\)</span>。</p>
+<p>可以借由外测度来定义$X$中的可测集合：</p>
 <blockquote>
-<p>Caratheodory条件：令<span class=math>\(\mu^\ast\)</span>是<span class=math>\(X\)</span>上的一个外测度，那么由所有<span class=math>\(\mu^\ast\)</span>-可测的集合构成的集合系<span class=math>\(\mathcal A\)</span>是一个<span class=math>\(\sigma\)</span>-代数。<span class=math>\(\mu=\mu^\ast|_{\mathcal A}\)</span>是一个测度，且<span class=math>\(\mathcal A\)</span>包含了所有的零测集。</p>
+<p>如果子集合 $E\subseteq X$是$\mu^\ast$-可测的，当且仅当对$X$的任意子集合$A$有：
+$$\mu^\ast(A)=\mu^\ast(A\cap E)+\mu^\ast(A\cap E^{c}) \tag{2}$$</p>
+</blockquote>
+<p>注：理解上面定义的动机，如果一个外测度要成为测度，那么它需要从次可加变成可加，上面的定义正是涉及到可加的性质。注意到$(A\cap E)\cap(A\cap E^c)=\emptyset，(A\cap E)\cup(A\cap E^c)=A$，所以集合$E$就是对集合$A$的一个“分解“，$\mu^\ast$的可加性不会对任意分解成立，但是会对$E$的分解成立，因为$E$是$\sigma$-可测的。</p>
+<p>我们记所有的可测集类的基数为$\mathcal{u}$，实际上$\mathcal{u}=2^{\aleph_1}$。</p>
+<blockquote>
+<p>Caratheodory条件：令$\mu^\ast$是$X$上的一个外测度，那么由所有$\mu^\ast$-可测的集合构成的集合系$\mathcal A$是一个$\sigma$-代数。$\mu=\mu^\ast|_{\mathcal A}$是一个测度，且$\mathcal A$包含了所有的零测集。</p>
 </blockquote>
 <h2 id=参考文献>参考文献</h2>
-<ol style=list-style-type:decimal>
+<ol>
 <li><a href=https://zhuanlan.zhihu.com/p/47944282>从Lebesgue外测度到Lebesgue测度</a></li>
 <li><a href=https://zhuanlan.zhihu.com/p/61550686>外测度</a></li>
 <li><a href=https://zhuanlan.zhihu.com/p/35850693>测度 &外测度 &测度的完备化</a></li>

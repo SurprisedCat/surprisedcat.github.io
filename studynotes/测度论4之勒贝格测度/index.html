@@ -88,124 +88,162 @@ Sep 16, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=勒贝格测度>勒贝格测度</h2>
+<h2 id=勒贝格测度---omit-in-toc--->勒贝格测度</h2>
 <ul>
-<li><a href=#lebesgue可测>Lebesgue可测</a></li>
-<li><a href=#可测集的性质>可测集的性质</a></li>
-<li><a href=#常见的可测集>常见的可测集</a></li>
-<li><a href=#重要基础证明任何区间i都是可测集并且mii>重要基础证明：任何区间<span class=math>\(I\)</span>都是可测集，并且<span class=math>\(m(I)=|I|\)</span></a></li>
-<li><a href=#常见可测集>常见可测集</a></li>
-<li><a href=#borel集>Borel集</a></li>
-<li><a href=#勒贝格可测集的结构>勒贝格可测集的结构</a></li>
+<li><a href=#lebesgue%E5%8F%AF%E6%B5%8B>Lebesgue可测</a></li>
+<li><a href=#%E5%8F%AF%E6%B5%8B%E9%9B%86%E7%9A%84%E6%80%A7%E8%B4%A8>可测集的性质</a></li>
+<li><a href=#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8F%AF%E6%B5%8B%E9%9B%86>常见的可测集</a>
+<ul>
+<li><a href=#%E9%87%8D%E8%A6%81%E5%9F%BA%E7%A1%80%E8%AF%81%E6%98%8E%E4%BB%BB%E4%BD%95%E5%8C%BA%E9%97%B4i%E9%83%BD%E6%98%AF%E5%8F%AF%E6%B5%8B%E9%9B%86%E5%B9%B6%E4%B8%94mii>重要基础证明：任何区间$I$都是可测集，并且$m(I)=|I|$</a></li>
+<li><a href=#%E5%B8%B8%E8%A7%81%E5%8F%AF%E6%B5%8B%E9%9B%86>常见可测集</a></li>
+</ul>
+</li>
+<li><a href=#borel%E9%9B%86>Borel集</a></li>
+<li><a href=#%E5%8B%92%E8%B4%9D%E6%A0%BC%E5%8F%AF%E6%B5%8B%E9%9B%86%E7%9A%84%E7%BB%93%E6%9E%84>勒贝格可测集的结构</a></li>
 </ul>
 <h2 id=lebesgue可测>Lebesgue可测</h2>
 <blockquote>
-<p>定义1：可测集：在外测度的基础上，我们指出<span class=math>\(E\subset R^n\)</span>只要满足以下条件，我们就称之为<strong>Lebesgue可测集或<span class=math>\(m^\ast\)</span>可测集，简称可测集</strong>：对<span class=math>\(\forall T \subset R^n\)</span>，有 <span class=math>\[m^\ast(T)=m^\ast(T\cap E)+m^\ast(T\cap E^c)\]</span></p>
+<p>定义1：可测集：在外测度的基础上，我们指出$E\subset R^n$只要满足以下条件，我们就称之为<strong>Lebesgue可测集或$m^\ast$可测集，简称可测集</strong>：对$\forall T \subset R^n$，有
+$$m^\ast(T)=m^\ast(T\cap E)+m^\ast(T\cap E^c)$$</p>
 </blockquote>
-<p>其中，我们称<span class=math>\(T\)</span>为试验集，这一条件也被称为Caratheodory条件，简称卡氏条件。可测集的全体类称为可测集类，记为<span class=math>\(\mathcal{M}\)</span>。</p>
-<p>在这个定义下，我们下面来考虑定义在外测度上的可测集有什么性质和结构。注意到，外测度定义性质3有 <span class=math>\[m^\ast(A\cup B)≤m^\ast(A)+m^\ast(B)(次可列可加性)\\
-\because T=(T\cap E)\cup(T\cap E^c)\\
-\therefore m^\ast(T)≤m^\ast(T\cap E)+m^\ast(T\cap E^c)恒成立。\]</span> 因此，我们证明集合可测时，<strong>只需要证明</strong> <span class=math>\[m^\ast(T)≥m^\ast(T\cap E)+m^\ast(T\cap E^c)\]</span> 即可。且对于<span class=math>\(m^\ast(T)=∞\)</span>这个条件总是成立的。因此只需论证在<span class=math>\(m^\ast(T)&lt;∞\)</span>的情形，<strong>这是证明卡氏条件的关键</strong>。</p>
+<p>其中，我们称$T$为试验集，这一条件也被称为Caratheodory条件，简称卡氏条件。可测集的全体类称为可测集类，记为$\mathcal{M}$。</p>
+<p>在这个定义下，我们下面来考虑定义在外测度上的可测集有什么性质和结构。注意到，外测度定义性质3有
+$$m^\ast(A\cup B)≤m^\ast(A)+m^\ast(B)(次可列可加性)\
+\because T=(T\cap E)\cup(T\cap E^c)\
+\therefore m^\ast(T)≤m^\ast(T\cap E)+m^\ast(T\cap E^c)恒成立。$$
+因此，我们证明集合可测时，<strong>只需要证明</strong>
+$$m^\ast(T)≥m^\ast(T\cap E)+m^\ast(T\cap E^c)$$
+即可。且对于$m^\ast(T)=∞$这个条件总是成立的。因此只需论证在$m^\ast(T)&lt;∞$的情形，<strong>这是证明卡氏条件的关键</strong>。</p>
 <p>需要特别指出的是，可测性不是集合本身的性质，而是依赖于外测度的定义。事实上，我们可以给出两种外测度的定义，使集合在一个外测度下可测，而另一个不可测。</p>
 <p>外测度为0的点集为零测集。</p>
 <blockquote>
 <p>推论1：零测集都是可测集。</p>
 </blockquote>
-<p>证明：若<span class=math>\(m^\ast(E)=0\)</span>，则<span class=math>\(m^\ast(T)≤m^\ast(T\cap E)+m^\ast(T\cap E^c)≤m^\ast(E)+m^\ast(T)=m^\ast(T)，即m^\ast(T)=m^\ast(T\cap E)+m^\ast(T\cap E^c)\)</span>。</p>
+<p>证明：若$m^\ast(E)=0$，则$m^\ast(T)≤m^\ast(T\cap E)+m^\ast(T\cap E^c)≤m^\ast(E)+m^\ast(T)=m^\ast(T)，即m^\ast(T)=m^\ast(T\cap E)+m^\ast(T\cap E^c)$。</p>
 <h2 id=可测集的性质>可测集的性质</h2>
-<p>对于可测集类<span class=math>\(\mathcal{M}\)</span></p>
-<p>I. <span class=math>\(\emptyset ∈ \mathcal{M}\)</span></p>
-<ol start=2 style=list-style-type:upper-roman>
-<li><p>若<span class=math>\(E ∈ \mathcal{M}\)</span>，则<span class=math>\(E^c ∈ \mathcal{M}\)</span></p></li>
-<li><p>若<span class=math>\(E_1 ∈ \mathcal{M}，E_2 ∈ \mathcal{M}，\)</span>则<span class=math>\(E_1\cup E_2，E_1\cap E_2，E1-E2\)</span>皆属于<span class=math>\(\mathcal{M}\)</span>（可测集的任何有限次交、并所得集合仍是可测集）。</p></li>
-<li><p>若<span class=math>\(E_i ∈ \mathcal{M}(i=1,2,\dots)\)</span>，则其并集也属于<span class=math>\(\mathcal{M}\)</span>。若进一步有<span class=math>\(E_i\cap E_j=\emptyset\)</span>，则 <span class=math>\[m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)，\]</span> 即<span class=math>\(m^\ast\)</span>在<span class=math>\(\mathcal{M}\)</span>上满足可数可加性（<span class=math>\(\sigma\)</span>可加性）。</p></li>
-</ol>
+<p>对于可测集类$\mathcal{M}$</p>
+<p>I. $\emptyset ∈ \mathcal{M}$</p>
+<p>II. 若$E ∈ \mathcal{M}$，则$E^c ∈ \mathcal{M}$</p>
+<p>III. 若$E_1 ∈ \mathcal{M}，E_2 ∈ \mathcal{M}，$则$E_1\cup E_2，E_1\cap E_2，E1-E2$皆属于$\mathcal{M}$（可测集的任何有限次交、并所得集合仍是可测集）。</p>
+<p>IV. 若$E_i ∈ \mathcal{M}(i=1,2,\dots)$，则其并集也属于$\mathcal{M}$。若进一步有$E_i\cap E_j=\emptyset$，则
+$$m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)，$$
+即$m^\ast$在$\mathcal{M}$上满足可数可加性（$\sigma$可加性）。</p>
 <p>证明：</p>
 <p>（1）由推论1可知成立。</p>
 <p>（2）注意到可测集卡氏条件对于补集的对称性可立即得出结论。</p>
-<p>（3）我们先证有限并的封闭性。对于任一试验集<span class=math>\(T\subset R^n\)</span>，根据集合分解（如下图）与外测度的次可加性，我们有： <span class=math>\[\begin{aligned}
-m^\ast(T)&≤_{外测度定义3}m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap(E_1\cup E_2)^c)\\
-&=m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap E_1^c\cap E_2^c)_{德摩根律}\\
-&≤_{单调性}m^\ast(T\cap E_1\cap E_2)+m^\ast(T\cap E_1\cap E_2^c)+m^\ast(T\cap E_1^c\cap E_2)+m^\ast(T\cap E_1^c\cap E_2^c)\\
-&(由下图可知)(T\cap E_1\cap E_2) \cup(T\cap E_1\cap E_2^c)\cup(T\cap E_1^c\cap E_2)\subset E_1\cup E_2\\
-&=\underline{m^\ast((T\cap E_1)\cap E_2)+m^\ast((T\cap E_1)\cap E_2^c)}+\underline{m^\ast((T\cap E_1^c)\cap E_2)+m^\ast((T\cap E_1^c)\cap E_2^c)}\\
-&(由于E_2是可测集)\\
-&=m^\ast(T\cap E_1)+m^\ast(T\cap E_1^c)\\
-&(由于E_1是可测集)\\
-&=m^\ast(T)\\
+<p>（3）我们先证有限并的封闭性。对于任一试验集$T\subset R^n$，根据集合分解（如下图）与外测度的次可加性，我们有：
+$$\begin{aligned}
+m^\ast(T)&≤_{外测度定义3}m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap(E_1\cup E_2)^c)\
+&=m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap E_1^c\cap E_2^c)<em>{德摩根律}\
+&≤</em>{单调性}m^\ast(T\cap E_1\cap E_2)+m^\ast(T\cap E_1\cap E_2^c)+m^\ast(T\cap E_1^c\cap E_2)+m^\ast(T\cap E_1^c\cap E_2^c)\
+&(由下图可知)(T\cap E_1\cap E_2) \cup(T\cap E_1\cap E_2^c)\cup(T\cap E_1^c\cap E_2)\subset E_1\cup E_2\
+&=\underline{m^\ast((T\cap E_1)\cap E_2)+m^\ast((T\cap E_1)\cap E_2^c)}+\underline{m^\ast((T\cap E_1^c)\cap E_2)+m^\ast((T\cap E_1^c)\cap E_2^c)}\
+&(由于E_2是可测集)\
+&=m^\ast(T\cap E_1)+m^\ast(T\cap E_1^c)\
+&(由于E_1是可测集)\
+&=m^\ast(T)\
 &\therefore m^\ast(T)≥m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap(E_1\cup E_2)^c)
-\end{aligned}\]</span> <img src=../../images/集合分解.png alt=集合分解> 因此<span class=math>\(E_1\cup E_2\)</span>是可测集。接着由数学归纳法可递推，<strong>可测集的有限并可测</strong>。</p>
-<p>其次，我们证明对于交集的封闭性。我们注意到<span class=math>\(E_1 \cap E_2=(E_1^c \cup E_2^c)^c\)</span>。要证<span class=math>\((E_1^c \cup E_2^c)^c\)</span>可测，根据性质2，我们只需要证明补集<span class=math>\(((E_1^c \cup E_2^c)^c)^c=E_1^c \cup E_2^c\)</span>可测。因为<span class=math>\(E_1，E_2\)</span>可测，所以其补集（<span class=math>\(E_1^c，E_2^c\)</span>）都可测。再根据刚刚证明的可测集的有限并可测，则<span class=math>\(E_1^c\cup E_2^c\)</span>可测。综上所述，<span class=math>\(E_1 \cap E_2\)</span>可测。接着由数学归纳法可递推，<strong>可测集的有限交可测</strong>。</p>
-<p>最后我们证明可测集的差集可测。由<span class=math>\(E_1-E_2=E_1\cap E_2^c\)</span>，且<span class=math>\(E_1,E_2^c\)</span>可测<span class=math>\(\Rightarrow E_1\cup E_2^c\)</span>可测容易得出，<span class=math>\(E_1-E_2\)</span><strong>差集也可测</strong>。</p>
-<p>（4）从有限到无穷可数。我们先证可列并的封闭性。由于<span class=math>\(E_i ∈ \mathcal{M}(i=1,2,\dots)\)</span>，我们令 <span class=math>\[S=\bigcup_{i=1}^∞ E_i\qquad S_k=\bigcup_{i=1}^k E_i，k=1,2,3,\dots\]</span> 由（3）可知，有限并<span class=math>\(S_k\)</span>是可测的，我们可用试验集<span class=math>\(T\subset R^n\)</span>，有 <span class=math>\[\begin{aligned}
-m^\ast(T)&=m^\ast(T\cap S_k)+m^\ast(T\cap S_k^c)\\
-&=m^\ast(T\cap \bigcup_{i=1}^k E_i)+m^\ast(T\cap S_k^c)\\
-&=_{分配律}m^\ast(\bigcup_{i=1}^k(T\cap E_i))+m^\ast(T\cap S_k^c)\\
-&=_{有限并可测}\sum_{i=1}^k m^\ast(T\cap E_i)+m^\ast(T\cap S_k^c)\\
-&\because T\cup S_k^c \supset T\cup S^c\\
-&≥_{单调性}\sum_{i=1}^k m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\\
-当k→∞时，就有\\
-m^\ast(T)&≥\sum_{i=1}^∞ m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\\
+\end{aligned}$$
+<img src=../../images/%E9%9B%86%E5%90%88%E5%88%86%E8%A7%A3.png alt=集合分解>
+因此$E_1\cup E_2$是可测集。接着由数学归纳法可递推，<strong>可测集的有限并可测</strong>。</p>
+<p>其次，我们证明对于交集的封闭性。我们注意到$E_1 \cap E_2=(E_1^c \cup E_2^c)^c$。要证$(E_1^c \cup E_2^c)^c$可测，根据性质2，我们只需要证明补集$((E_1^c \cup E_2^c)^c)^c=E_1^c \cup E_2^c$可测。因为$E_1，E_2$可测，所以其补集（$E_1^c，E_2^c$）都可测。再根据刚刚证明的可测集的有限并可测，则$E_1^c\cup E_2^c$可测。综上所述，$E_1 \cap E_2$可测。接着由数学归纳法可递推，<strong>可测集的有限交可测</strong>。</p>
+<p>最后我们证明可测集的差集可测。由$E_1-E_2=E_1\cap E_2^c$，且$E_1,E_2^c$可测$\Rightarrow E_1\cup E_2^c$可测容易得出，$E_1-E_2$<strong>差集也可测</strong>。</p>
+<p>（4）从有限到无穷可数。我们先证可列并的封闭性。由于$E_i ∈ \mathcal{M}(i=1,2,\dots)$，我们令
+$$S=\bigcup_{i=1}^∞ E_i\qquad S_k=\bigcup_{i=1}^k E_i，k=1,2,3,\dots$$
+由（3）可知，有限并$S_k$是可测的，我们可用试验集$T\subset R^n$，有
+$$\begin{aligned}
+m^\ast(T)&=m^\ast(T\cap S_k)+m^\ast(T\cap S_k^c)\
+&=m^\ast(T\cap \bigcup_{i=1}^k E_i)+m^\ast(T\cap S_k^c)\
+&=<em>{分配律}m^\ast(\bigcup</em>{i=1}^k(T\cap E_i))+m^\ast(T\cap S_k^c)\
+&=<em>{有限并可测}\sum</em>{i=1}^k m^\ast(T\cap E_i)+m^\ast(T\cap S_k^c)\
+&\because T\cup S_k^c \supset T\cup S^c\
+&≥_{单调性}\sum_{i=1}^k m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\
+当k→∞时，就有\
+m^\ast(T)&≥\sum_{i=1}^∞ m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\
 &≥_{外测度定义3}m^\ast(T\cap S)+m^\ast(T\cap S^c)
-\end{aligned}\]</span> 由此可知，<span class=math>\(S ∈ \mathcal{M}\)</span>，即可列并<span class=math>\(S=\bigcup_{i=1}^∞ E_i\)</span>是可测的。</p>
-<p>接下来，我们进一步证明如果<span class=math>\(E_i,E_j\)</span>两两互不相交，则 <span class=math>\[m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)\]</span> 在以上公式<span class=math>\(m^\ast(T)≥\sum_{i=1}^∞ m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\)</span>中，我们以<span class=math>\(T\cap S\)</span>替换<span class=math>\(T\)</span>： <span class=math>\[m^\ast(T\cap S)≥\sum_{i=1}^∞ m^\ast(T\cap S \cap E_i)+m^\ast(T\cap S\cap S^c)\\
-=\sum_{i=1}^∞ m^\ast(T\cap (S \cap E_i))=\sum_{i=1}^∞ m^\ast(T\cap E_i)\]</span> 因为反向不等式总是成立的，所以 <span class=math>\[m^\ast(T\cap S)=\sum_{i=1}^∞ m^\ast(T\cap E_i)\]</span> 当我们取<span class=math>\(T=R^n\)</span>时有 <span class=math>\[m^\ast(S)=m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)\]</span> 我们从定理（1）（2）（4）发现，这些可测集合性质正好满足<span class=math>\(\sigma\)</span>代数的定义，所以我们可知，所有可测集组成的集类<span class=math>\(\mathcal{M}\)</span>是一个<span class=math>\(\sigma\)</span>代数。而性质（3）中的内容，也正好是<span class=math>\(\sigma\)</span>代数的性质。</p>
+\end{aligned}$$
+由此可知，$S ∈ \mathcal{M}$，即可列并$S=\bigcup_{i=1}^∞ E_i$是可测的。</p>
+<p>接下来，我们进一步证明如果$E_i,E_j$两两互不相交，则
+$$m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)$$
+在以上公式$m^\ast(T)≥\sum_{i=1}^∞ m^\ast(T\cap E_i)+m^\ast(T\cap S^c)$中，我们以$T\cap S$替换$T$：
+$$m^\ast(T\cap S)≥\sum_{i=1}^∞ m^\ast(T\cap S \cap E_i)+m^\ast(T\cap S\cap S^c)\
+=\sum_{i=1}^∞ m^\ast(T\cap (S \cap E_i))=\sum_{i=1}^∞ m^\ast(T\cap E_i)$$
+因为反向不等式总是成立的，所以
+$$m^\ast(T\cap S)=\sum_{i=1}^∞ m^\ast(T\cap E_i)$$
+当我们取$T=R^n$时有
+$$m^\ast(S)=m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)$$
+我们从定理（1）（2）（4）发现，这些可测集合性质正好满足$\sigma$代数的定义，所以我们可知，所有可测集组成的集类$\mathcal{M}$是一个$\sigma$代数。而性质（3）中的内容，也正好是$\sigma$代数的性质。</p>
 <blockquote>
-<p>推论2：可测集的可列并也是可测集。<span class=math>\(\bigcup\limits_{i=1}^∞ E_i∈ \mathcal{M}\)</span>。</p>
-<p>推论3：可测集的可列交也是可测集。<span class=math>\(\bigcap\limits_{i=1}^∞ E_i∈ \mathcal{M}\)</span>。</p>
+<p>推论2：可测集的可列并也是可测集。$\bigcup\limits_{i=1}^∞ E_i∈ \mathcal{M}$。</p>
+<p>推论3：可测集的可列交也是可测集。$\bigcap\limits_{i=1}^∞ E_i∈ \mathcal{M}$。</p>
 </blockquote>
-<p>对于这些可测集<span class=math>\(E∈ \mathcal{M}\)</span>，<strong>定义在其上的外测度可以称为测度</strong>，记为<span class=math>\(m(E)\)</span>，这就是通常所说的<span class=math>\(R^n\)</span>上的<strong>Lebesgue测度</strong>。</p>
+<p>对于这些可测集$E∈ \mathcal{M}$，<strong>定义在其上的外测度可以称为测度</strong>，记为$m(E)$，这就是通常所说的$R^n$上的<strong>Lebesgue测度</strong>。</p>
 <p>下面我们在添加两个关于集合极限测度的运算性质：</p>
-<p>V. （递增可测集列的测度运算）若有递增可测集列<span class=math>\(E_1\subset E_2\subset\dotsb\subset E_k \dotsb\)</span>，则 <span class=math>\[m(\lim_{k→∞} E_k)=\lim_{k→∞} m(E_k)\]</span></p>
-<ol start=6 style=list-style-type:upper-roman>
-<li>（递减可测集列的测度运算）若有递增可测集列<span class=math>\(E_1\supset E_2\supset\dotsb\supset E_k \dotsb\)</span>且<span class=math>\(m(E_1)&lt;∞\)</span>，则 <span class=math>\[m(\lim_{k→∞} E_k)=\lim_{k→∞} m(E_k)\]</span></li>
-</ol>
+<p>V. （递增可测集列的测度运算）若有递增可测集列$E_1\subset E_2\subset\dotsb\subset E_k \dotsb$，则
+$$m(\lim_{k→∞} E_k)=\lim_{k→∞} m(E_k)$$</p>
+<p>VI. （递减可测集列的测度运算）若有递增可测集列$E_1\supset E_2\supset\dotsb\supset E_k \dotsb$且$m(E_1)&lt;∞$，则
+$$m(\lim_{k→∞} E_k)=\lim_{k→∞} m(E_k)$$</p>
 <blockquote>
-<p>推论4：（Fatou引理）设<span class=math>\(\{E_k\}\)</span>是可测集列，则 <span class=math>\[m(\mathop{\underline{\lim}}\limits_{k→∞} E_k)≤\mathop{\underline{\lim}}\limits_{k→∞} m(E_k)\\
-m(\overline{\lim_{k→∞}} E_k)≥\overline{\lim}_{k→∞} m(E_k)\]</span></p>
+<p>推论4：（Fatou引理）设${E_k}$是可测集列，则
+$$m(\mathop{\underline{\lim}}\limits_{k→∞} E_k)≤\mathop{\underline{\lim}}\limits_{k→∞} m(E_k)\
+m(\overline{\lim_{k→∞}} E_k)≥\overline{\lim}_{k→∞} m(E_k)$$</p>
 </blockquote>
 <h2 id=常见的可测集>常见的可测集</h2>
 <blockquote>
-<p>定义2：若<span class=math>\(I\)</span>为一个区间（无论开区间还是左半开区间还是闭区间），称 <span class=math>\[\prod_{i=1}^n=(b_1-a_1)\times(b_2-a_2)\times\dotsb\times(b_n-a_n)\]</span> 为区间<span class=math>\(I\)</span>的体积，记为<span class=math>\(|I|\)</span>，区间具有连通性。</p>
+<p>定义2：若$I$为一个区间（无论开区间还是左半开区间还是闭区间），称
+$$\prod_{i=1}^n=(b_1-a_1)\times(b_2-a_2)\times\dotsb\times(b_n-a_n)$$
+为区间$I$的体积，记为$|I|$，区间具有连通性。</p>
 </blockquote>
 <p><strong>开集vs开区间</strong>：开集可以是可数个开区间的并集，开区间是开集的一种特殊情形，按照拓扑学观点，是连通的，而开集可以不连通。</p>
-<h3 id=重要基础证明任何区间i都是可测集并且mii>重要基础证明：任何区间<span class=math>\(I\)</span>都是可测集，并且<span class=math>\(m(I)=|I|\)</span></h3>
+<h3 id=重要基础证明任何区间i都是可测集并且mii>重要基础证明：任何区间$I$都是可测集，并且$m(I)=|I|$</h3>
 <blockquote>
-<p>定理1：<span class=math>\(R^n\)</span>上任何区间<span class=math>\(I\)</span>都是可测集，并且<span class=math>\(m(I)=|I|\)</span>。</p>
+<p>定理1：$R^n$上任何区间$I$都是可测集，并且$m(I)=|I|$。</p>
 </blockquote>
-<p><strong>这是一个非常重要的定理，是所有<span class=math>\(R^n\)</span>可测集的基础</strong>。我们分两步来证明，（1）区间的外测度等于体积<span class=math>\(m^\ast(I)=|I|\)</span>；（2）定义在区间上的外测度是可测的，即<span class=math>\(m=m^\ast|_I\)</span>。如果两个都成立，那么<span class=math>\(|I|=m^\ast(I)|_I=m(I)|_I\)</span></p>
-<p>（1）区间的外测度等于体积<span class=math>\(m^\ast(I)=|I|\)</span>。为了简单起见，我们只证明<span class=math>\(R^1\)</span>情形下。根据外测度使体积下限的定义有<span class=math>\(m^\ast(I)≤|I|\)</span>。由于可列点集的测度都是零，所以取不取等号外测度不变，这里我们取闭区间<span class=math>\(\bar{I}\)</span>（因为可以用有限覆盖定理）。</p>
-<p>对于任意的<span class=math>\(\varepsilon>0\)</span>，<strong>存在</strong>一列开区间<span class=math>\(\{I_i\}\)</span>使 <span class=math>\[\bar I \subset \bigcup_{i=1}^∞ I_i且\bigcup_{i=1}^∞ |I_i|&lt;m^\ast(\bar I)+\varepsilon(外测度加下限定义可得)\]</span> 根据有限覆盖定理，有界闭区间可以被有限个开区间覆盖，设这些开区间为<span class=math>\(I_1,I_2,\dots,I_n\)</span>，使得<span class=math>\(\bar{I}\subset \bigcup\limits_{i=1}^n I_i\)</span>。因为<span class=math>\(\bar{I}=\bigcup\limits_{i=1}^n(\bar{I}\cap I_i)\)</span>，所以由这些<span class=math>\(I_i\)</span>的端点与<span class=math>\(\bar I\)</span>的交点就把<span class=math>\(I\)</span>分解城有限多个无公共内点的小区间，<span class=math>\(\bar I\)</span>的长度就是这些小区间长度的和，并且每个小区间至少包含在某一个<span class=math>\(\bar I \cap I_i\)</span>中，于是 <span class=math>\[|\bar I|≤\sum_{i=1}^n|\bar I \cap I_i|≤\sum_{i=1}^n|I_i|≤\sum_{i=1}^∞|I_i|≤m^\ast(\bar I)+\varepsilon\]</span> 由<span class=math>\(\varepsilon\)</span>的任意性可知<span class=math>\(m^\ast(\bar I)≥|\bar I|\)</span>.</p>
-<p>因此<span class=math>\(m^\ast(I)=m^\ast(\bar I)=|I|\)</span></p>
-<div class=figure>
-<img src=../../images/区间测度.svg alt=区间测度><p class=caption>区间测度</p>
-</div>
-<p>（2）定义在区间上的外测度是可测的，即<span class=math>\(m=m^\ast|_I\)</span>。先证，对<strong>任一开区间(这里不是任一集合)</strong><span class=math>\(I_0\)</span>，都有 <span class=math>\[|I_0|=m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)\]</span> 事实上，如果<span class=math>\(I_0=I\)</span>，上式必然成立。（如第（1）部分所证）。当<span class=math>\(I \neq I_0\)</span>时，<span class=math>\(I_0\cap I\)</span>是一个区间，而<span class=math>\(I_0\cap I^c\)</span>可以分解成有限个互不相交的区间<span class=math>\(I_i，(i=1,2,\dots,k)\)</span>并(在一维中很好理解，最多两个，在高维度中会有很多个互不相交区间)。从而由外测度此可列可加性知： <span class=math>\[m^\ast(I_0\cap I^c)=m^\ast(\bigcup_{i=1}^k I_i)≤\sum_{i=1}^k m^\ast(I_i)\xlongequal{证明（1）}\sum_{i=1}^k|I_i|\]</span> 因此 <span class=math>\[m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)≤|I\cap I_0|+\sum_{i=1}^k|I_i|\xlongequal{体积性质}|I_0|\]</span> 另一方面，由于外测度的次可列可加性有： <span class=math>\[m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)≥m^\ast((I_0\cap I)\cup(I_0\cap I^c))=m^\ast(I_0)=|I_0|\]</span> 综上所述：<span class=math>\(|I_0|=m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)\)</span>.</p>
-<p>接下来，需要证明对任一<strong>点集</strong><span class=math>\(T\subset R^n\)</span>,任一<strong>区间</strong><span class=math>\(I\)</span>都满足 <span class=math>\[m^\ast(T)=m^\ast(T\cap I)+m^\ast(T\cap I^c)\]</span> 由外测度定义可知，对于<span class=math>\(\forall \varepsilon>0\)</span>，有一列<strong>开区间</strong><span class=math>\(\{I_i\}\)</span>，使<span class=math>\(T\subset \bigcup\limits_{n=1}^∞ I_i\)</span>，且<span class=math>\(\sum\limits_{i=1}^∞ |I_i|≤m^\ast(T)+\varepsilon\)</span>。由于 <span class=math>\[T\cap I\subset (\bigcup_{i=1}^∞ I_i)\cap I=\bigcup_{i=1}^∞ (I_i\cap I)\\
-T\cap I^c\subset (\bigcup_{i=1}^∞ I_i)\cap I^c=\bigcup_{i=1}^∞ (I_i\cap I^c)\\
-\Rightarrow m^\ast(T\cap I)≤\sum_{i=1}^∞ m^\ast(I_i\cap I)\\
-\Rightarrow m^\ast(T\cap I^c)≤\sum_{i=1}^∞ m^\ast(I_i\cap I^c)\\
-\Rightarrow m^\ast(T\cap I)+m^\ast(T\cap I^c)≤\sum_{i=1}^∞ m^\ast(I_i\cap I)+\sum_{i=1}^∞ m^\ast(I_i\cap I^c)\\
-=\sum_{i=1}^∞ [m^\ast(I_i\cap I)+m^\ast(I_i\cap I^c)]\\
-\xlongequal{由于每一个I_i都是区间}\sum_{i=1}^∞|I_i|≤m^\ast(T)+\varepsilon\\
+<p><strong>这是一个非常重要的定理，是所有$R^n$可测集的基础</strong>。我们分两步来证明，（1）区间的外测度等于体积$m^\ast(I)=|I|$；（2）定义在区间上的外测度是可测的，即$m=m^\ast|_I$。如果两个都成立，那么$|I|=m^\ast(I)|_I=m(I)|_I$</p>
+<p>（1）区间的外测度等于体积$m^\ast(I)=|I|$。为了简单起见，我们只证明$R^1$情形下。根据外测度使体积下限的定义有$m^\ast(I)≤|I|$。由于可列点集的测度都是零，所以取不取等号外测度不变，这里我们取闭区间$\bar{I}$（因为可以用有限覆盖定理）。</p>
+<p>对于任意的$\varepsilon>0$，<strong>存在</strong>一列开区间${I_i}$使
+$$\bar I \subset \bigcup_{i=1}^∞ I_i且\bigcup_{i=1}^∞ |I_i|&lt;m^\ast(\bar I)+\varepsilon(外测度加下限定义可得)$$
+根据有限覆盖定理，有界闭区间可以被有限个开区间覆盖，设这些开区间为$I_1,I_2,\dots,I_n$，使得$\bar{I}\subset \bigcup\limits_{i=1}^n I_i$。因为$\bar{I}=\bigcup\limits_{i=1}^n(\bar{I}\cap I_i)$，所以由这些$I_i$的端点与$\bar I$的交点就把$I$分解城有限多个无公共内点的小区间，$\bar I$的长度就是这些小区间长度的和，并且每个小区间至少包含在某一个$\bar I \cap I_i$中，于是
+$$|\bar I|≤\sum_{i=1}^n|\bar I \cap I_i|≤\sum_{i=1}^n|I_i|≤\sum_{i=1}^∞|I_i|≤m^\ast(\bar I)+\varepsilon$$
+由$\varepsilon$的任意性可知$m^\ast(\bar I)≥|\bar I|$.</p>
+<p>因此$m^\ast(I)=m^\ast(\bar I)=|I|$</p>
+<p><img src=../../images/%E5%8C%BA%E9%97%B4%E6%B5%8B%E5%BA%A6.svg alt=区间测度></p>
+<p>（2）定义在区间上的外测度是可测的，即$m=m^\ast|<em>I$。先证，对<strong>任一开区间(这里不是任一集合)</strong>$I_0$，都有
+$$|I_0|=m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)$$
+事实上，如果$I_0=I$，上式必然成立。（如第（1）部分所证）。当$I \neq I_0$时，$I_0\cap I$是一个区间，而$I_0\cap I^c$可以分解成有限个互不相交的区间$I_i，(i=1,2,\dots,k)$并(在一维中很好理解，最多两个，在高维度中会有很多个互不相交区间)。从而由外测度此可列可加性知：
+$$m^\ast(I_0\cap I^c)=m^\ast(\bigcup</em>{i=1}^k I_i)≤\sum_{i=1}^k m^\ast(I_i)\xlongequal{证明（1）}\sum_{i=1}^k|I_i|$$
+因此
+$$m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)≤|I\cap I_0|+\sum_{i=1}^k|I_i|\xlongequal{体积性质}|I_0|$$
+另一方面，由于外测度的次可列可加性有：
+$$m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)≥m^\ast((I_0\cap I)\cup(I_0\cap I^c))=m^\ast(I_0)=|I_0|$$
+综上所述：$|I_0|=m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)$.</p>
+<p>接下来，需要证明对任一<strong>点集</strong>$T\subset R^n$,任一<strong>区间</strong>$I$都满足
+$$m^\ast(T)=m^\ast(T\cap I)+m^\ast(T\cap I^c)$$
+由外测度定义可知，对于$\forall \varepsilon>0$，有一列<strong>开区间</strong>${I_i}$，使$T\subset \bigcup\limits_{n=1}^∞ I_i$，且$\sum\limits_{i=1}^∞ |I_i|≤m^\ast(T)+\varepsilon$。由于
+$$T\cap I\subset (\bigcup_{i=1}^∞ I_i)\cap I=\bigcup_{i=1}^∞ (I_i\cap I)\
+T\cap I^c\subset (\bigcup_{i=1}^∞ I_i)\cap I^c=\bigcup_{i=1}^∞ (I_i\cap I^c)\
+\Rightarrow m^\ast(T\cap I)≤\sum_{i=1}^∞ m^\ast(I_i\cap I)\
+\Rightarrow m^\ast(T\cap I^c)≤\sum_{i=1}^∞ m^\ast(I_i\cap I^c)\
+\Rightarrow m^\ast(T\cap I)+m^\ast(T\cap I^c)≤\sum_{i=1}^∞ m^\ast(I_i\cap I)+\sum_{i=1}^∞ m^\ast(I_i\cap I^c)\
+=\sum_{i=1}^∞ [m^\ast(I_i\cap I)+m^\ast(I_i\cap I^c)]\
+\xlongequal{由于每一个I_i都是区间}\sum_{i=1}^∞|I_i|≤m^\ast(T)+\varepsilon\
 即m^\ast(T\cap I)+m^\ast(T\cap I^c)≤m^\ast(T)+\varepsilon
-\]</span> 由<span class=math>\(\varepsilon\)</span>的任意性可知<span class=math>\(m^\ast(T\cap I)+m^\ast(T\cap I^c)≤m^\ast(T)\)</span>。而<span class=math>\(≥\)</span>是外测度定义的次可列可加性，所以<span class=math>\(m^\ast(T\cap I)+m^\ast(T\cap I^c)=m^\ast(T)\)</span>。</p>
-<p>这说明区间<span class=math>\(I\)</span>满足卡氏条件，即为可测集。</p>
+$$
+由$\varepsilon$的任意性可知$m^\ast(T\cap I)+m^\ast(T\cap I^c)≤m^\ast(T)$。而$≥$是外测度定义的次可列可加性，所以$m^\ast(T\cap I)+m^\ast(T\cap I^c)=m^\ast(T)$。</p>
+<p>这说明区间$I$满足卡氏条件，即为可测集。</p>
 <h3 id=常见可测集>常见可测集</h3>
 <blockquote>
-<p>定理2：欧几里得空间的Lindelof覆盖定理：任取非空开集<span class=math>\(E\subset R^n\)</span>，一族开集<span class=math>\(\mathcal A\)</span>是<span class=math>\(E\)</span>的覆盖，那么对于<span class=math>\(\mathcal A\)</span>，存在<span class=math>\(S\)</span>的<strong>可列</strong>子覆盖.</p>
+<p>定理2：欧几里得空间的Lindelof覆盖定理：任取非空开集$E\subset R^n$，一族开集$\mathcal A$是$E$的覆盖，那么对于$\mathcal A$，存在$S$的<strong>可列</strong>子覆盖.</p>
 </blockquote>
-<p>证明：令<span class=math>\(\mathcal M=\{N(y,r)|\quad r为正有理数，y为有理点\}\)</span>，则<span class=math>\(\mathcal M\)</span>是一个开集族，并且<span class=math>\(\mathcal{M}\)</span>可列。（<span class=math>\(R^n\)</span>中坐标为有理数的点为有理点）。</p>
-<p>由假设可知，对任一点<span class=math>\(x ∈ E\)</span>，存在开集<span class=math>\(G_x ∈ \mathcal A\)</span>(开覆盖)，使<span class=math>\(x ∈ G_x\)</span>。因为<span class=math>\(G_x\)</span>为开集，所以存在以<span class=math>\(x\)</span>为中心的邻域<span class=math>\(N(x,\delta_x)\subset G_x\)</span>.</p>
-<p>现在任取一有理点<span class=math>\(a_x ∈ N(x,\frac{\delta_x}{4})\)</span>，再取有理数<span class=math>\(r_a\)</span>，使<span class=math>\(\frac{\delta_x}{4}&lt;r_a&lt;\frac{\delta_x}{2}\)</span>，作<span class=math>\(a_x\)</span>的邻域<span class=math>\(N(a_x,r_a)\)</span>。如下图</p>
-<div class=figure>
-<img src=../../images/Lindelof覆盖定理证明.svg alt=Lindelof覆盖定理证明.svg><p class=caption>Lindelof覆盖定理证明.svg</p>
-</div>
-<p>由<span class=math>\(a_x，r_a\)</span>的取法，不难发现有<span class=math>\(x ∈ N(a_x,r_a)\subset N(x,\delta_x)\subset G_x\)</span>.</p>
-<p>于是<span class=math>\(E\)</span>中每一个点都有对应的有理点<span class=math>\(a_x\)</span>为中心，有理数<span class=math>\(r_a\)</span>为半径的邻域<span class=math>\(N(a_x,r_a)\)</span>。这些邻域组成集合系<span class=math>\(\{N(a_x,r_a)\}_{x ∈ E}\)</span>是E的一个开覆盖（因为每个点都被一个邻域覆盖了，我理解是由于实数的基数大于有理数，必然有一些点使用相同的邻域），同时<span class=math>\((a_x,r_a)\)</span>都是有理数，因此<span class=math>\(\{N(a_x,r_a)\}_{x ∈ E}\subset\mathcal{M}\)</span>，所以<span class=math>\(\{N(a_x,r_a)\}_{x ∈ E}\)</span>是至多可列的。</p>
-<p>又因为<span class=math>\(N(a_x,r_a)\subset N(x,\delta_x)\subset G_x\)</span>，因此取每一个包含<span class=math>\(N(a_x,r_a)\)</span>的<span class=math>\(G_x\)</span>组成的集合系也是可列的，并且能够覆盖<span class=math>\(E\)</span>。Lindelof覆盖定理得证。</p>
+<p>证明：令$\mathcal M={N(y,r)|\quad r为正有理数，y为有理点}$，则$\mathcal M$是一个开集族，并且$\mathcal{M}$可列。（$R^n$中坐标为有理数的点为有理点）。</p>
+<p>由假设可知，对任一点$x ∈ E$，存在开集$G_x ∈ \mathcal A$(开覆盖)，使$x ∈ G_x$。因为$G_x$为开集，所以存在以$x$为中心的邻域$N(x,\delta_x)\subset G_x$.</p>
+<p>现在任取一有理点$a_x ∈ N(x,\frac{\delta_x}{4})$，再取有理数$r_a$，使$\frac{\delta_x}{4}&lt;r_a&lt;\frac{\delta_x}{2}$，作$a_x$的邻域$N(a_x,r_a)$。如下图</p>
+<p><img src=../../images/Lindelof%E8%A6%86%E7%9B%96%E5%AE%9A%E7%90%86%E8%AF%81%E6%98%8E.svg alt=Lindelof覆盖定理证明.svg></p>
+<p>由$a_x，r_a$的取法，不难发现有$x ∈ N(a_x,r_a)\subset N(x,\delta_x)\subset G_x$.</p>
+<p>于是$E$中每一个点都有对应的有理点$a_x$为中心，有理数$r_a$为半径的邻域$N(a_x,r_a)$。这些邻域组成集合系${N(a_x,r_a)}<em>{x ∈ E}$是E的一个开覆盖（因为每个点都被一个邻域覆盖了，我理解是由于实数的基数大于有理数，必然有一些点使用相同的邻域），同时$(a_x,r_a)$都是有理数，因此${N(a_x,r_a)}</em>{x ∈ E}\subset\mathcal{M}$，所以${N(a_x,r_a)}_{x ∈ E}$是至多可列的。</p>
+<p>又因为$N(a_x,r_a)\subset N(x,\delta_x)\subset G_x$，因此取每一个包含$N(a_x,r_a)$的$G_x$组成的集合系也是可列的，并且能够覆盖$E$。Lindelof覆盖定理得证。</p>
 <blockquote>
-<p>引理1：<span class=math>\(R^n\)</span>中任何非空开集都可表示为至多可列个开区间的并。</p>
+<p>引理1：$R^n$中任何非空开集都可表示为至多可列个开区间的并。</p>
 </blockquote>
 <p>这可以看成是Lindelof覆盖定理的一个推广，从开集到开区间的推广。这是成立的。因为在证明是Lindelof覆盖定理中，我们使用的是邻域，这就相当于是开区间，把这些开区间取并集，这个引理可得证。</p>
 <p>有了以上覆盖定理，在加上可测集的运算性质，我们可以得出如下定理：</p>
@@ -215,35 +253,39 @@ T\cap I^c\subset (\bigcup_{i=1}^∞ I_i)\cap I^c=\bigcup_{i=1}^∞ (I_i\cap I^c)
 <p>由引理1可知任何非空开集都可表示为至多可列个开区间的并，而定理1告诉我们开区间是可测的，再通过推论2，任一开集的并集仍然是开集。因此开集是可测的。</p>
 <p>再根据测度的性质，可测集的补集都是可测的，而开集的补集是闭集，因此闭集也是可测的。</p>
 <p>例：康托尔集可测且测度为0.</p>
-<p>由康托尔集的构造可知<span class=math>\(P_0=[0,1]-G_0\)</span>，其中<span class=math>\(G_0=(\frac{1}{3},\frac{2}{3})\cup[(\frac{1}{9},\frac{2}{9}])\cup(\frac{7}{9},\frac{8}{9}])\cup\dotsb\)</span>为开集。</p>
-<p>由于<span class=math>\(闭集[0,1]，开集G_0\)</span>均可测，且可测集的差集可测所以<span class=math>\(P_0=[0,1]-G_0\)</span>可测。由测度的可加性可知， <span class=math>\[\begin{aligned}
-m(P_0)&=m([0,1])-m(G_0)\\
-&=1-(1/3+2\times1/3^2+\dotsb+2^{n-1}\times 1/3^n+\dotsb)\\
+<p>由康托尔集的构造可知$P_0=[0,1]-G_0$，其中$G_0=(\frac{1}{3},\frac{2}{3})\cup[(\frac{1}{9},\frac{2}{9}])\cup(\frac{7}{9},\frac{8}{9}])\cup\dotsb$为开集。</p>
+<p>由于$闭集[0,1]，开集G_0$均可测，且可测集的差集可测所以$P_0=[0,1]-G_0$可测。由测度的可加性可知，
+$$\begin{aligned}
+m(P_0)&=m([0,1])-m(G_0)\
+&=1-(1/3+2\times1/3^2+\dotsb+2^{n-1}\times 1/3^n+\dotsb)\
 &=1-1=0
-\end{aligned}\]</span> 康托尔集给出了一个基数是<span class=math>\(c/\aleph_1\)</span>，但是测度却是0的例子。</p>
+\end{aligned}$$
+康托尔集给出了一个基数是$c/\aleph_1$，但是测度却是0的例子。</p>
 <h2 id=borel集>Borel集</h2>
 <blockquote>
-<p>定义3：Borel集：凡属可以从开集出发，用取补集、取有限个或可列个集合的并或交等过程而得到的集合，统称为Borel集。Borel集的集合系就是Borel（<span class=math>\(\sigma\)</span>-）代数。</p>
+<p>定义3：Borel集：凡属可以从开集出发，用取补集、取有限个或可列个集合的并或交等过程而得到的集合，统称为Borel集。Borel集的集合系就是Borel（$\sigma$-）代数。</p>
 </blockquote>
-<p>显然开集、闭集、<span class=math>\(F_\sigma、G_\delta\)</span>都是Borel集。</p>
+<p>显然开集、闭集、$F_\sigma、G_\delta$都是Borel集。</p>
 <blockquote>
 <p>定理4：任何的Borel集都是可测的。</p>
 </blockquote>
 <p>这一点可以从可测集的运算性质得出。</p>
 <h2 id=勒贝格可测集的结构>勒贝格可测集的结构</h2>
 <blockquote>
-<p>引理2：<span class=math>\(R^n\)</span>中任何可测集<span class=math>\(E\)</span>都可表为至多可列个<strong>互不相交的有界可测集</strong>的并。</p>
+<p>引理2：$R^n$中任何可测集$E$都可表为至多可列个<strong>互不相交的有界可测集</strong>的并。</p>
 </blockquote>
-<p>证明：<span class=math>\(R^n\)</span>空间的可列化。令 <span class=math>\[S=\{x| x ∈ R^n，n-1≤d(x,0)&lt;n\},n=1,2,\dotsb，\]</span> 其中0表示<span class=math>\(R^n\)</span>中原点的坐标，则<span class=math>\(S_n(n=1,2,\dots)\)</span>可测。效果图如下，即一个个同心圆区间，且<span class=math>\(R^n=\bigcup\limits_{n=1}^∞ S_n\)</span>。</p>
-<p><img src=../../images/Rn分割.svg width=300px height=300px></p>
-<p>令<span class=math>\(E_n=E\cap S_n\)</span>，则<span class=math>\(E_n\)</span>是可测集<span class=math>\(E和有界可测S_n\)</span>的交集，也有界可测，且有两两互不相交。那么<span class=math>\(E=\bigcup\limits_{n=1}^∞ E_n\)</span>。</p>
+<p>证明：$R^n$空间的可列化。令
+$$S={x| x ∈ R^n，n-1≤d(x,0)&lt;n},n=1,2,\dotsb，$$
+其中0表示$R^n$中原点的坐标，则$S_n(n=1,2,\dots)$可测。效果图如下，即一个个同心圆区间，且$R^n=\bigcup\limits_{n=1}^∞ S_n$。</p>
+<img src=../../images/Rn分割.svg width=300px height=300px>
+<p>令$E_n=E\cap S_n$，则$E_n$是可测集$E和有界可测S_n$的交集，也有界可测，且有两两互不相交。那么$E=\bigcup\limits_{n=1}^∞ E_n$。</p>
 <p>这个引理的意义在于当我们讨论无界可测集的时候可以分解成有界可测集来讨论。下面我们来讨论各种集合与可测集之间的关系。</p>
 <blockquote>
-<p>定理5：（开集与可测集）可测集E<span class=math>\(\Leftrightarrow\)</span> 对于<span class=math>\(\forall \varepsilon>0\)</span>恒有开集<span class=math>\(G\supset E\)</span>，使<span class=math>\(m^\ast(G-E)&lt;\varepsilon\)</span></p>
-<p>定理6：（闭集与可测集）可测集E<span class=math>\(\Leftrightarrow\)</span> 对于<span class=math>\(\forall \varepsilon>0\)</span>恒有闭集<span class=math>\(F\subset E\)</span>，使<span class=math>\(m^\ast(E-F)&lt;\varepsilon\)</span></p>
-<p>定理7：（<span class=math>\(G_\delta\)</span>与可测集）可测集E<span class=math>\(\Leftrightarrow\)</span> 恒有<span class=math>\(G_\delta\)</span>型集合<span class=math>\(G\supset E\)</span>，使<span class=math>\(m^\ast(G-E)=0\)</span></p>
-<p>定理8：（<span class=math>\(F_\sigma\)</span>与可测集）可测集E<span class=math>\(\Leftrightarrow\)</span> 恒有<span class=math>\(F_\sigma\)</span>型集合<span class=math>\(F\subset E\)</span>，使<span class=math>\(m^\ast(E-F)=0\)</span></p>
-<p>定理9：（Borel集与可测集）任何可测集必是一个Borel集（<span class=math>\(F_\sigma\)</span>）与一个测度为0的可测集的并；同时也是一个Borel集（<span class=math>\(G_\delta\)</span>）与一个测度为0的可测集的差集。</p>
+<p>定理5：（开集与可测集）可测集E$\Leftrightarrow$ 对于$\forall \varepsilon>0$恒有开集$G\supset E$，使$m^\ast(G-E)&lt;\varepsilon$</p>
+<p>定理6：（闭集与可测集）可测集E$\Leftrightarrow$ 对于$\forall \varepsilon>0$恒有闭集$F\subset E$，使$m^\ast(E-F)&lt;\varepsilon$</p>
+<p>定理7：（$G_\delta$与可测集）可测集E$\Leftrightarrow$ 恒有$G_\delta$型集合$G\supset E$，使$m^\ast(G-E)=0$</p>
+<p>定理8：（$F_\sigma$与可测集）可测集E$\Leftrightarrow$ 恒有$F_\sigma$型集合$F\subset E$，使$m^\ast(E-F)=0$</p>
+<p>定理9：（Borel集与可测集）任何可测集必是一个Borel集（$F_\sigma$）与一个测度为0的可测集的并；同时也是一个Borel集（$G_\delta$）与一个测度为0的可测集的差集。</p>
 </blockquote>
 </article>
 <aside class=sidebar>

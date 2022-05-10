@@ -88,104 +88,141 @@ May 4, 2022</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之c-r不等式>概率统计随机过程之C-R不等式</h2>
+<h2 id=概率统计随机过程之c-r不等式---omit-in-toc--->概率统计随机过程之C-R不等式</h2>
 <ul>
-<li><a href=#前置条件>前置条件</a></li>
-<li><a href=#单参数c-r正则分布族>单参数C-R正则分布族</a></li>
-<li><a href=#费舍尔信息量>费舍尔信息量</a></li>
-<li><a href=#c-r不等式>C-R不等式</a></li>
-<li><a href=#单参数c-r不等式>单参数C-R不等式</a></li>
-<li><a href=#单参数c-r不等式等号成立条件>单参数C-R不等式等号成立条件</a></li>
-<li><a href=#多参数c-r不等式>多参数C-R不等式</a></li>
-<li><a href=#c-r不等式应用>C-R不等式应用</a></li>
-<li><a href=#求umvue>求UMVUE</a></li>
-<li><a href=#估计的效率和有效性>估计的效率和有效性</a></li>
-<li><a href=#在渐进正态性中的应用>在渐进正态性中的应用</a></li>
+<li><a href=#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6>前置条件</a>
+<ul>
+<li><a href=#%E5%8D%95%E5%8F%82%E6%95%B0c-r%E6%AD%A3%E5%88%99%E5%88%86%E5%B8%83%E6%97%8F>单参数C-R正则分布族</a></li>
+<li><a href=#%E8%B4%B9%E8%88%8D%E5%B0%94%E4%BF%A1%E6%81%AF%E9%87%8F>费舍尔信息量</a></li>
+</ul>
+</li>
+<li><a href=#c-r%E4%B8%8D%E7%AD%89%E5%BC%8F>C-R不等式</a>
+<ul>
+<li><a href=#%E5%8D%95%E5%8F%82%E6%95%B0c-r%E4%B8%8D%E7%AD%89%E5%BC%8F>单参数C-R不等式</a></li>
+<li><a href=#%E5%8D%95%E5%8F%82%E6%95%B0c-r%E4%B8%8D%E7%AD%89%E5%BC%8F%E7%AD%89%E5%8F%B7%E6%88%90%E7%AB%8B%E6%9D%A1%E4%BB%B6>单参数C-R不等式等号成立条件</a></li>
+<li><a href=#%E5%A4%9A%E5%8F%82%E6%95%B0c-r%E4%B8%8D%E7%AD%89%E5%BC%8F>多参数C-R不等式</a></li>
+</ul>
+</li>
+<li><a href=#c-r%E4%B8%8D%E7%AD%89%E5%BC%8F%E5%BA%94%E7%94%A8>C-R不等式应用</a>
+<ul>
+<li><a href=#%E6%B1%82umvue>求UMVUE</a></li>
+<li><a href=#%E4%BC%B0%E8%AE%A1%E7%9A%84%E6%95%88%E7%8E%87%E5%92%8C%E6%9C%89%E6%95%88%E6%80%A7>估计的效率和有效性</a></li>
+<li><a href=#%E5%9C%A8%E6%B8%90%E8%BF%9B%E6%AD%A3%E6%80%81%E6%80%A7%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8>在渐进正态性中的应用</a></li>
+</ul>
+</li>
 </ul>
 <p>Cramer-Rao不等式是另一个判别无偏估计是否为UMVUE的方法，但是Cramer-Rao不等式有更深层的含义。</p>
 <p>我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费舍尔信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
 <p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！</p>
-<p>回到C-R不等式和UMVUE的关系上来，其思想如下：设<span class=math>\(\mathcal{U}_g\)</span>是<span class=math>\(\theta\)</span>的一切无偏估计构成的集合，所有的这些<span class=math>\(\mathcal{U}_g\)</span>中的无偏估计的方差必有一个下界（一定非负），这个下界称为C-R下界。如果<span class=math>\(\mathcal{U}_g\)</span>中某一个估计量<span class=math>\(\hat g\)</span>的方差达到了这个下界，则<span class=math>\(\hat{g}\)</span>就一定是参数的UMVUE，当然会对样本分布族和<span class=math>\(\hat{g}\)</span>有一些正则条件。当时，使用这种下界的方法，都一个缺点，即<strong>C-R不等式给出的下界经常比实际的下界更小一些</strong>。这一情况下，C-R不等式就无法判断UMVUE的存在性。此外，C-R不等式还有其他一些用处，比如计算估计的效率、有效估计等等。</p>
+<p>回到C-R不等式和UMVUE的关系上来，其思想如下：设$\mathcal{U}_g$是$\theta$的一切无偏估计构成的集合，所有的这些$\mathcal{U}_g$中的无偏估计的方差必有一个下界（一定非负），这个下界称为C-R下界。如果$\mathcal{U}_g$中某一个估计量$\hat g$的方差达到了这个下界，则$\hat{g}$就一定是参数的UMVUE，当然会对样本分布族和$\hat{g}$有一些正则条件。当时，使用这种下界的方法，都一个缺点，即<strong>C-R不等式给出的下界经常比实际的下界更小一些</strong>。这一情况下，C-R不等式就无法判断UMVUE的存在性。此外，C-R不等式还有其他一些用处，比如计算估计的效率、有效估计等等。</p>
 <h2 id=前置条件>前置条件</h2>
 <p>C-R不等式成立需要样本分布族满足一些正则条件，适合这些条件的分布族称为<strong>C-R正则分布族</strong>。</p>
 <h3 id=单参数c-r正则分布族>单参数C-R正则分布族</h3>
 <blockquote>
-<p>定义1：单参数Cramer-Rao正则分布族：若单参数概率分布族<span class=math>\(p(x;\theta)\)</span>，<span class=math>\(\theta\in\varTheta\)</span>属于Cramer-Rao正则分布族，则需要满足以下五个条件：</p>
-<ol style=list-style-type:decimal>
-<li>参数空间<span class=math>\(\varTheta\)</span>是直线上的开区间；</li>
-<li><span class=math>\(\frac{\partial p(x;\theta)}{\partial\theta}\)</span>对所有<span class=math>\(\theta\in\varTheta\)</span>都存在；</li>
-<li>分布的支撑<span class=math>\(\{x:p(x;\theta)>0\}\)</span>与<span class=math>\(\theta\)</span>无关，即分布族具有共同的支撑；</li>
-<li><span class=math>\(p(x;\theta)\)</span>的微分与积分运算可交换；</li>
-<li>对所有<span class=math>\(\theta\in\varTheta\)</span>，期望 <span class=math>\[0&lt;I(\theta)=E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]&lt;+\infty\tag{1}\]</span> 其中，<span class=math>\(I(\theta)\)</span>为分布<span class=math>\(p(x;\theta)\)</span>中含有<span class=math>\(\theta\)</span>的<strong>费舍尔信息量</strong>，简称信息量。</li>
+<p>定义1：单参数Cramer-Rao正则分布族：若单参数概率分布族$p(x;\theta)$，$\theta\in\varTheta$属于Cramer-Rao正则分布族，则需要满足以下五个条件：</p>
+<ol>
+<li>参数空间$\varTheta$是直线上的开区间；</li>
+<li>$\frac{\partial p(x;\theta)}{\partial\theta}$对所有$\theta\in\varTheta$都存在；</li>
+<li>分布的支撑${x:p(x;\theta)>0}$与$\theta$无关，即分布族具有共同的支撑；</li>
+<li>$p(x;\theta)$的微分与积分运算可交换；</li>
+<li>对所有$\theta\in\varTheta$，期望
+$$0&lt;I(\theta)=E[(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2]&lt;+\infty\tag{1}$$
+其中，$I(\theta)$为分布$p(x;\theta)$中含有$\theta$的<strong>费舍尔信息量</strong>，简称信息量。</li>
 </ol>
 </blockquote>
 <h3 id=费舍尔信息量>费舍尔信息量</h3>
-<p>上面，我们用式（1）定义了费舍尔信息量。其具体解释可以理解为样本中关于<span class=math>\(\theta\)</span>有多少信息。<span class=math>\(I(\theta)\)</span>越大，意味着样本中含有位置参数<span class=math>\(\theta\)</span>的信息越多，该参数越容易估计。<span class=math>\(I(\theta)\)</span>也可解释成<strong>单个样品</strong>提供的信息量，由于简单抽样中，各个样品是i.i.d的，故每个样品提供的信息量<span class=math>\(I(\theta)\)</span>也是一样多的，即整个样本<span class=math>\((X_1,\dotsb,X_n)\)</span>所含信息量为<span class=math>\(nI(\theta)\)</span>。</p>
+<p>上面，我们用式（1）定义了费舍尔信息量。其具体解释可以理解为样本中关于$\theta$有多少信息。$I(\theta)$越大，意味着样本中含有位置参数$\theta$的信息越多，该参数越容易估计。$I(\theta)$也可解释成<strong>单个样品</strong>提供的信息量，由于简单抽样中，各个样品是i.i.d的，故每个样品提供的信息量$I(\theta)$也是一样多的，即整个样本$(X_1,\dotsb,X_n)$所含信息量为$nI(\theta)$。</p>
 <h2 id=c-r不等式>C-R不等式</h2>
 <h3 id=单参数c-r不等式>单参数C-R不等式</h3>
 <blockquote>
-<p>定理1：设<span class=math>\(\mathcal{F}=\{f(x;\theta),\theta\in\varTheta\}\)</span>是C-R正则分布族，<span class=math>\(g(\theta)\)</span>是定义在参数空间<span class=math>\(\varTheta\)</span>上的可微函数，设<span class=math>\(X=(X_1,X_2,\dotsb,X_n)\)</span>是由总体<span class=math>\(f(x;\theta)\in\mathcal{F}\)</span>中抽取的简单随机样本，<span class=math>\(\hat g(X)\)</span>是<span class=math>\(g(\theta)\)</span>的任一无偏估计，且满足下列条件： <span class=math>\[\int\dotsb\int \hat{g}(\bm{x})f(\bm{x},\theta)\mathrm{d}\bm{x}\]</span> 可在积分号下对<span class=math>\(\theta\)</span>求导数，此出<span class=math>\(\mathrm{d}\bm{x}=\mathrm{d}x_1\dotsb\mathrm{d}x_n\)</span>，则有： <span class=math>\[D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{nI(\theta)},\forall \theta\in \varTheta\tag{2}\]</span> 其中,<span class=math>\(I(\theta)\)</span>为Fisher信息量。</p>
+<p>定理1：设$\mathcal{F}={f(x;\theta),\theta\in\varTheta}$是C-R正则分布族，$g(\theta)$是定义在参数空间$\varTheta$上的可微函数，设$X=(X_1,X_2,\dotsb,X_n)$是由总体$f(x;\theta)\in\mathcal{F}$中抽取的简单随机样本，$\hat g(X)$是$g(\theta)$的任一无偏估计，且满足下列条件：
+$$\int\dotsb\int \hat{g}(\bm{x})f(\bm{x},\theta)\mathrm{d}\bm{x}$$
+可在积分号下对$\theta$求导数，此出$\mathrm{d}\bm{x}=\mathrm{d}x_1\dotsb\mathrm{d}x_n$，则有：
+$$D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{nI(\theta)},\forall \theta\in \varTheta\tag{2}$$
+其中,$I(\theta)$为Fisher信息量。</p>
 </blockquote>
-<p>特别地，当<span class=math>\(\hat g(\theta)=\theta\)</span>时，式(2)变成 ><span class=math>\[D[\hat{g}(X)]\geq \frac{1}{nI(\theta)},\forall \theta\in \varTheta\tag{3}\]</span> 当<span class=math>\(f(x;\theta)\)</span>为离散概率分布列时，式（2）变成 ><span class=math>\[D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{n\sum\limits_i\left\{[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]^2f(x_i;\theta)\right\}},\forall \theta\in \varTheta\tag{4}\]</span></p>
+<p>特别地，当$\hat g(\theta)=\theta$时，式(2)变成</p>
+<blockquote>
+<p>$$D[\hat{g}(X)]\geq \frac{1}{nI(\theta)},\forall \theta\in \varTheta\tag{3}$$
+当$f(x;\theta)$为离散概率分布列时，式（2）变成
+$$D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{n\sum\limits_i\left{[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]^2f(x_i;\theta)\right}},\forall \theta\in \varTheta\tag{4}$$</p>
+</blockquote>
 <p>证明：C-R不等式的证明本质上是柯西-施瓦茨不等式的应用。</p>
 <blockquote>
-<p>首先，在概率论中，柯西-施瓦茨不等式形式为： <span class=math>\[\mathrm{Var}(X)\cdot\mathrm{Var}(Y)\geq[\mathrm{Cov}(X,Y)]^2\]</span> 我们再来看看C-R不等式，式（2）： <span class=math>\[D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{nI(\theta)},\forall \theta\in \varTheta\]</span> 和柯西施瓦茨不等式对比下，<span class=math>\(D[\hat{g}(X)]\)</span>是方差。根据<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>笔记中的内容，可知<span class=math>\(nI(\theta)\)</span>其实是<strong>分数函数的方差</strong>。前面多了一个<span class=math>\(n\)</span>是因为，此时有<span class=math>\(n\)</span>个i.i.d简单抽样出来的随机变量，是多维随机变量场景。</p>
-<p>为了阐述清晰，在这里我们在写一遍关于分数函数<span class=math>\(S(\bm{x})\)</span>的相关证明。由于随机样本中每一样品都是i.i.d的，所以有<span class=math>\(f(\bm{x};\theta)=\prod\limits_{i=1}^n f(x_i;\theta)\)</span>，那么分数函数可记 <span class=math>\[S(\bm{x};\theta)=\frac{\partial\log{f(\bm{x};\theta)}}{\partial\theta}=\sum_{i=1}^n \frac{\partial\log{f(x_i;\theta)}}{\partial\theta}\tag{5}\]</span> 使用和<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>中一样的方法，可知： <span class=math>\[\begin{aligned}
-E[S(\bm{x};\theta)]&=\sum_{i=1}^n E[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]=\sum_{i=1}^n \int\frac{1}{f(x_i;\theta)}\frac{\partial f(x_i;\theta)}{\partial\theta}\cdot f(x_i;\theta)\mathrm{d}x_i\\
+<p>首先，在概率论中，柯西-施瓦茨不等式形式为：
+$$\mathrm{Var}(X)\cdot\mathrm{Var}(Y)\geq[\mathrm{Cov}(X,Y)]^2$$
+我们再来看看C-R不等式，式（2）：
+$$D[\hat{g}(X)]\geq \frac{(\hat g'(\theta))^2}{nI(\theta)},\forall \theta\in \varTheta$$
+和柯西施瓦茨不等式对比下，$D[\hat{g}(X)]$是方差。根据<a href=%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95.md>概率统计随机过程之最大似然估计拓展</a>笔记中的内容，可知$nI(\theta)$其实是<strong>分数函数的方差</strong>。前面多了一个$n$是因为，此时有$n$个i.i.d简单抽样出来的随机变量，是多维随机变量场景。</p>
+<p>为了阐述清晰，在这里我们在写一遍关于分数函数$S(\bm{x})$的相关证明。由于随机样本中每一样品都是i.i.d的，所以有$f(\bm{x};\theta)=\prod\limits_{i=1}^n f(x_i;\theta)$，那么分数函数可记
+$$S(\bm{x};\theta)=\frac{\partial\log{f(\bm{x};\theta)}}{\partial\theta}=\sum_{i=1}^n \frac{\partial\log{f(x_i;\theta)}}{\partial\theta}\tag{5}$$
+使用和<a href=%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E6%8B%93%E5%B1%95.md>概率统计随机过程之最大似然估计拓展</a>中一样的方法，可知：
+$$\begin{aligned}
+E[S(\bm{x};\theta)]&=\sum_{i=1}^n E[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]=\sum_{i=1}^n \int\frac{1}{f(x_i;\theta)}\frac{\partial f(x_i;\theta)}{\partial\theta}\cdot f(x_i;\theta)\mathrm{d}x_i\
 &=\sum_{i=1}^n \int\frac{\partial f(x_i;\theta)}{\partial\theta}\mathrm{d}x_i=\sum_{i=1}^n \frac{\partial }{\partial\theta}\int f(x_i;\theta)\mathrm{d}x_i=\sum_{i=1}^n \frac{\partial 1}{\partial\theta}=0
-\end{aligned}\]</span> 注意，C-R正则族的条件（2）保证了导数的存在，条件（4）保证了积分、微分顺序可交换。由于分数函数的期望为0，因此分数函数的方差为 <span class=math>\[\begin{aligned}
-D[S(\bm{x};\theta)]&=D[\sum_{i=1}^n \frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]=\sum_{i=1}^n D[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]\\
-&=\sum_{i=1}^n \{E[(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})^2]-(\underbrace{E[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]}_{=0})^2\}\\
+\end{aligned}$$
+注意，C-R正则族的条件（2）保证了导数的存在，条件（4）保证了积分、微分顺序可交换。由于分数函数的期望为0，因此分数函数的方差为
+$$\begin{aligned}
+D[S(\bm{x};\theta)]&=D[\sum_{i=1}^n \frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]=\sum_{i=1}^n D[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]\
+&=\sum_{i=1}^n {E[(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})^2]-(\underbrace{E[\frac{\partial\log{f(x_i;\theta)}}{\partial\theta}]}<em>{=0})^2}\
 (x_i都是i.i.d)&=n\cdot E[(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})^2]=nI(\theta)
-\end{aligned}\]</span> 由上可知，<span class=math>\(nI(\theta)\)</span>是分数函数的方差。那么式（2）可转换为要证： <span class=math>\[D[\hat{g}(X)]\cdot D[S(X;\theta)]\geq (\hat g'(\theta))^2,\forall \theta\in \varTheta\]</span> 再将上式和柯西-施瓦茨不等式对比下，发现区别就是将<span class=math>\(\hat g'(\theta)\)</span>换成<span class=math>\(\hat g(X)\)</span>与<span class=math>\(S(X;\theta)\)</span>的相关系数。注意，<span class=math>\(\hat g'(\theta)\)</span>是关于<span class=math>\(\theta\)</span>的函数，而<span class=math>\(\hat g(X)\)</span>与<span class=math>\(S(X;\theta)\)</span>的相关系数会将<span class=math>\(X\)</span>消掉，只剩下<span class=math>\(\theta\)</span>。下面我们就来验证这一点： <span class=math>\[\begin{aligned}
-\mathrm{Cov}(\hat{g}(X),S(X;\theta))&=E[\hat{g}(X)\cdot S(X;\theta)]-E[\hat{g}(X)]\underbrace{E[S(X;\theta)}_{=0}]\\
-&=E[\hat{g}(X)\cdot S(X;\theta)]\\
-&=\int\dotsb\int \hat{g}(\bm{x})(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})f(\bm{x};\theta)\mathrm{d}\bm{x}\\
-&=\int\dotsb\int \hat{g}(\bm{x})\frac{\partial f(\bm{x};\theta)}{\partial \theta}\mathrm{d}\bm{x}\\
-&=\frac{\partial}{\partial \theta}\underbrace{\int\dotsb\int \hat{g}(\bm{x})f(\bm{x};\theta)\mathrm{d}\bm{x}}_{E[\hat{g}(X)]}\\
-&\because \hat g(X)是g(\theta)的任一无偏估计\\
-&\therefore E[\hat g(X)]=g(\theta)\\
+\end{aligned}$$
+由上可知，$nI(\theta)$是分数函数的方差。那么式（2）可转换为要证：
+$$D[\hat{g}(X)]\cdot D[S(X;\theta)]\geq (\hat g'(\theta))^2,\forall \theta\in \varTheta$$
+再将上式和柯西-施瓦茨不等式对比下，发现区别就是将$\hat g'(\theta)$换成$\hat g(X)$与$S(X;\theta)$的相关系数。注意，$\hat g'(\theta)$是关于$\theta$的函数，而$\hat g(X)$与$S(X;\theta)$的相关系数会将$X$消掉，只剩下$\theta$。下面我们就来验证这一点：
+$$\begin{aligned}
+\mathrm{Cov}(\hat{g}(X),S(X;\theta))&=E[\hat{g}(X)\cdot S(X;\theta)]-E[\hat{g}(X)]\underbrace{E[S(X;\theta)}</em>{=0}]\
+&=E[\hat{g}(X)\cdot S(X;\theta)]\
+&=\int\dotsb\int \hat{g}(\bm{x})(\frac{\partial\log{f(x_i;\theta)}}{\partial\theta})f(\bm{x};\theta)\mathrm{d}\bm{x}\
+&=\int\dotsb\int \hat{g}(\bm{x})\frac{\partial f(\bm{x};\theta)}{\partial \theta}\mathrm{d}\bm{x}\
+&=\frac{\partial}{\partial \theta}\underbrace{\int\dotsb\int \hat{g}(\bm{x})f(\bm{x};\theta)\mathrm{d}\bm{x}}_{E[\hat{g}(X)]}\
+&\because \hat g(X)是g(\theta)的任一无偏估计\
+&\therefore E[\hat g(X)]=g(\theta)\
 &=\frac{\partial{g(\theta)}}{\partial{\theta}}=g'(\theta)
-\end{aligned}\]</span> 即，<span class=math>\(\mathrm{Cov}(\hat{g}(X),S(X;\theta))=g'(\theta)\)</span>。这样C-R不等式就完全转变成了柯西-施瓦茨不等式的形式。C-R不等式得证。</p>
+\end{aligned}$$
+即，$\mathrm{Cov}(\hat{g}(X),S(X;\theta))=g'(\theta)$。这样C-R不等式就完全转变成了柯西-施瓦茨不等式的形式。C-R不等式得证。</p>
 </blockquote>
 <p>C-R不等式表明，<strong>在给定分布族、样本后，我们的估计能力是有限的</strong>，无论用什么估计方式，其方差最小也是C-R不等式给出的结果。如果希望方差无限小，唯一的途径就是样本数量无限大。</p>
 <h3 id=单参数c-r不等式等号成立条件>单参数C-R不等式等号成立条件</h3>
-<ol style=list-style-type:decimal>
-<li>若样本分布族<strong>非指数族</strong>，任何<span class=math>\(g(\theta)\)</span>的任何无偏估计，其方差不能处处达到C-R不等式下界。这意味着，非指数族就没法用C-R不等式来求证UMVUE。</li>
-<li>即使样本的总体是指数族，<span class=math>\(f(\bm{x};\theta)=C(\theta)\exp{Q(\theta)T(\bm x)}h(\bm x)\)</span>，也不是让和<span class=math>\(g(\theta)\)</span>都能找到无偏估计<span class=math>\(\hat{g}(X)\)</span>，使其方差处处达到C-R下界。唯有<span class=math>\(g(\theta)=E[aT(X)+b]\)</span>时才有，即<span class=math>\(\hat{g}(X)=aT(X)+b\)</span>（线性函数）的情形才有，此处<span class=math>\(a\neq 0,b\)</span>与<span class=math>\(X\)</span>无关，但可以是<span class=math>\(\theta\)</span>的函数。</li>
+<ol>
+<li>若样本分布族<strong>非指数族</strong>，任何$g(\theta)$的任何无偏估计，其方差不能处处达到C-R不等式下界。这意味着，非指数族就没法用C-R不等式来求证UMVUE。</li>
+<li>即使样本的总体是指数族，$f(\bm{x};\theta)=C(\theta)\exp{Q(\theta)T(\bm x)}h(\bm x)$，也不是让和$g(\theta)$都能找到无偏估计$\hat{g}(X)$，使其方差处处达到C-R下界。唯有$g(\theta)=E[aT(X)+b]$时才有，即$\hat{g}(X)=aT(X)+b$（线性函数）的情形才有，此处$a\neq 0,b$与$X$无关，但可以是$\theta$的函数。</li>
 </ol>
 <p>从上面两个条件，我们不能发现：<strong>用C-R不等于求UMVUE是很受限的</strong>。</p>
 <h3 id=多参数c-r不等式>多参数C-R不等式</h3>
 <p>TODO用到时再说。</p>
 <h2 id=c-r不等式应用>C-R不等式应用</h2>
 <h3 id=求umvue>求UMVUE</h3>
-<p>当分布族满足正则分布族条件时，我们可以计算<span class=math>\(\frac{g'(\theta)}{nI(\theta)}\)</span>。然后再计算估计量的方差<span class=math>\(D[\hat g(X)]\)</span>。如果二者相等，且估计量是无偏估计，那么此估计量就是UMVUE。</p>
+<p>当分布族满足正则分布族条件时，我们可以计算$\frac{g'(\theta)}{nI(\theta)}$。然后再计算估计量的方差$D[\hat g(X)]$。如果二者相等，且估计量是无偏估计，那么此估计量就是UMVUE。</p>
 <p>这个方法对于指数族都是很好用的，因为指数族都是C-R正则分布族，而且可以求出费舍尔信息。但是，其缺点也很明显。一是因为很多分布族不满足C-R正则条件；二是一些UMVUE的实际方差确实比C-R不等式给出的更大，因此即使一个估计量方差大于C-R下界，那它也可能是UMVUE。即C-R不等式是必要条件，不是充分条件。</p>
 <h3 id=估计的效率和有效性>估计的效率和有效性</h3>
 <p>无偏估计的效率定义很简单，就是C-R界与估计方差的比值：</p>
 <blockquote>
-<p>定义2:<strong>无偏估计的效率</strong>。设<span class=math>\(\hat{g}(X)\)</span>为<span class=math>\(g(\theta)\)</span>的无偏估计，比值 <span class=math>\[e_{\hat{g}}(\theta)=\frac{[g'(\theta)]^2/nI(\theta)}{D[\hat{g}(X)]}\]</span> 称为无偏估计<span class=math>\(\hat{g}(X)\)</span>的效率。</p>
+<p>定义2:<strong>无偏估计的效率</strong>。设$\hat{g}(X)$为$g(\theta)$的无偏估计，比值
+$$e_{\hat{g}}(\theta)=\frac{[g'(\theta)]^2/nI(\theta)}{D[\hat{g}(X)]}$$
+称为无偏估计$\hat{g}(X)$的效率。</p>
 </blockquote>
-<p>显然，根据C-R不等式必有<span class=math>\(0&lt;e_{\hat{g}}(\theta)\leq 1\)</span>。</p>
+<p>显然，根据C-R不等式必有$0&lt;e_{\hat{g}}(\theta)\leq 1$。</p>
 <ul>
-<li>当<span class=math>\(e_{\hat{g}}(\theta)=1\)</span>，则称<span class=math>\(\hat{g}(X)\)</span>是<span class=math>\(g(\theta)\)</span>的<strong>有效估计</strong>（UMVUE）（有效估计是UMVUE，但是UMVUE不一定是有效估计）；</li>
-<li>若<span class=math>\(\hat{g}(X)\)</span>不是<span class=math>\(g(\theta)\)</span>的有效估计，但是<span class=math>\(\lim\limits_{n\rightarrow \infty}e_{\hat{g}}(\theta)=1\)</span>，则称<span class=math>\(\hat{g}(X)\)</span>是<span class=math>\(g(\theta)\)</span>的<strong>渐进有效估计</strong>。</li>
+<li>当$e_{\hat{g}}(\theta)=1$，则称$\hat{g}(X)$是$g(\theta)$的<strong>有效估计</strong>（UMVUE）（有效估计是UMVUE，但是UMVUE不一定是有效估计）；</li>
+<li>若$\hat{g}(X)$不是$g(\theta)$的有效估计，但是$\lim\limits_{n\rightarrow \infty}e_{\hat{g}}(\theta)=1$，则称$\hat{g}(X)$是$g(\theta)$的<strong>渐进有效估计</strong>。</li>
 </ul>
 <p>虽然有效估计是无偏估计中最好的，但是从常用分布来看有效估计并不多，渐进有效估计不少。</p>
 <h3 id=在渐进正态性中的应用>在渐进正态性中的应用</h3>
 <p>在一定条件下，最大似然估计具有渐进正态性。我们将通过如下定理阐释。需要指出的是，定理是以连续分布的形式给出，但是对于离散场景也是适用的。</p>
 <blockquote>
-<p>设<span class=math>\(p(x;\theta)\)</span>是某密度函数，其参数空间<span class=math>\(\varTheta=\{\theta\}\)</span>是直线上的非退化区间（即不是一个点），假如：</p>
-<ol style=list-style-type:decimal>
-<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，<span class=math>\(p(x;\theta)\)</span>对<span class=math>\(\theta\)</span>如下偏导都存在：<span class=math>\(\frac{\partial\ln p}{\partial\theta},\frac{\partial^2\ln p}{\partial\theta^2},\frac{\partial^3\ln p}{\partial\theta^3}\)</span></li>
-<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，有<span class=math>\(|\frac{\partial\ln p}{\partial\theta}|&lt;F_1(x),|\frac{\partial^2\ln p}{\partial\theta^2}|&lt;F_2(x),\frac{\partial^3\ln p}{\partial\theta^3}&lt;H(x)\)</span>成立，其中<span class=math>\(F_1(x)\)</span>与<span class=math>\(F_2(x)\)</span>在实数轴上可积，而<span class=math>\(H(x)\)</span>满足：<span class=math>\(\int_{-\infty}^\infty H(x)p(x;\theta)&lt;M\)</span>，这里<span class=math>\(M\)</span>与<span class=math>\(\theta\)</span>无关。</li>
-<li>对一切<span class=math>\(\theta\in\varTheta\)</span>，有<span class=math>\(0&lt;I(\theta)=E[(\frac{\partial\ln p}{\partial \theta})^2]&lt;+\infty\)</span></li>
+<p>设$p(x;\theta)$是某密度函数，其参数空间$\varTheta={\theta}$是直线上的非退化区间（即不是一个点），假如：</p>
+<ol>
+<li>对一切$\theta\in\varTheta$，$p(x;\theta)$对$\theta$如下偏导都存在：$\frac{\partial\ln p}{\partial\theta},\frac{\partial^2\ln p}{\partial\theta^2},\frac{\partial^3\ln p}{\partial\theta^3}$</li>
+<li>对一切$\theta\in\varTheta$，有$|\frac{\partial\ln p}{\partial\theta}|&lt;F_1(x),|\frac{\partial^2\ln p}{\partial\theta^2}|&lt;F_2(x),\frac{\partial^3\ln p}{\partial\theta^3}&lt;H(x)$成立，其中$F_1(x)$与$F_2(x)$在实数轴上可积，而$H(x)$满足：$\int_{-\infty}^\infty H(x)p(x;\theta)&lt;M$，这里$M$与$\theta$无关。</li>
+<li>对一切$\theta\in\varTheta$，有$0&lt;I(\theta)=E[(\frac{\partial\ln p}{\partial \theta})^2]&lt;+\infty$</li>
 </ol>
-<p>则在参数真值<span class=math>\(\theta\)</span>为参数空间<span class=math>\(\varTheta\)</span>内点的情况下，其似然方程有一个解存在，且此解<span class=math>\(\hat\theta_n=\theta(x_1,x_2,\dotsb,x_n)\)</span>依概率收敛于<span class=math>\(\theta\)</span>，且： <span class=math>\[
+<p>则在参数真值$\theta$为参数空间$\varTheta$内点的情况下，其似然方程有一个解存在，且此解$\hat\theta_n=\theta(x_1,x_2,\dotsb,x_n)$依概率收敛于$\theta$，且：
+$$
 \hat\theta_n\sim AN(\theta,[nI(\theta)]^{-1})
-\]</span></p>
+$$</p>
 </blockquote>
-<p>这个定理的意义在于给定了最大似然分布有渐进正态性的条件，其中渐进方差（体现大样本效率）完全由<strong>样本数量<span class=math>\(n\)</span>和分布的费舍尔信息量<span class=math>\(I(\theta)\)</span>决定</strong>，且费舍尔信息量越大（分布中含有<span class=math>\(\theta\)</span>）的信息越多，渐进方差在同等样本数量下越小，从而最大似然估计效果越好。</p>
+<p>这个定理的意义在于给定了最大似然分布有渐进正态性的条件，其中渐进方差（体现大样本效率）完全由<strong>样本数量$n$和分布的费舍尔信息量$I(\theta)$决定</strong>，且费舍尔信息量越大（分布中含有$\theta$）的信息越多，渐进方差在同等样本数量下越小，从而最大似然估计效果越好。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

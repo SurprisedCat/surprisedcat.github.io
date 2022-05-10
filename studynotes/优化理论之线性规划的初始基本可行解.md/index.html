@@ -88,15 +88,21 @@ Nov 2, 2019</span>
 </div>
 </span>
 </div>
-<h2 id=线性规划的初始基本可行解>线性规划的初始基本可行解</h2>
+<h2 id=线性规划的初始基本可行解---omit-in-toc--->线性规划的初始基本可行解</h2>
 <p>我们使用单纯形法的时候，需要一个初始基本可行解来开始迭代优化，求出其他改进的基本可行解。下面我们介绍两个求初始基本可行解的方法。</p>
 <ul>
-<li><a href=#两阶段法>两阶段法</a></li>
-<li><a href=#两阶段法核心思想>两阶段法核心思想</a></li>
-<li><a href=#大m法>大M法</a></li>
-<li><a href=#大m法核心思想>大M法核心思想</a></li>
-<li><a href=#单个人工变量技巧>单个人工变量技巧</a></li>
-<li><a href=#注意人工变量vs松弛变量>注意：人工变量vs松弛变量</a></li>
+<li><a href=#%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%B3%95>两阶段法</a>
+<ul>
+<li><a href=#%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%B3%95%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3>两阶段法核心思想</a></li>
+</ul>
+</li>
+<li><a href=#%E5%A4%A7m%E6%B3%95>大M法</a>
+<ul>
+<li><a href=#%E5%A4%A7m%E6%B3%95%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3>大M法核心思想</a></li>
+</ul>
+</li>
+<li><a href=#%E5%8D%95%E4%B8%AA%E4%BA%BA%E5%B7%A5%E5%8F%98%E9%87%8F%E6%8A%80%E5%B7%A7>单个人工变量技巧</a></li>
+<li><a href=#%E6%B3%A8%E6%84%8F%E4%BA%BA%E5%B7%A5%E5%8F%98%E9%87%8Fvs%E6%9D%BE%E5%BC%9B%E5%8F%98%E9%87%8F>注意：人工变量vs松弛变量</a></li>
 </ul>
 <h2 id=两阶段法>两阶段法</h2>
 <h3 id=两阶段法核心思想>两阶段法核心思想</h3>
@@ -105,21 +111,27 @@ Nov 2, 2019</span>
 <p>总的来说，第一阶段问题要让人工变量为0，第二阶段正常解原问题。</p>
 <h2 id=大m法>大M法</h2>
 <h3 id=大m法核心思想>大M法核心思想</h3>
-<p>类似于惩罚函数法。在约束中增加<strong>非负人工变量</strong>,<span class=math>\(\boldsymbol{x_a}\)</span>，同时修改目标函数，增加惩罚项<span class=math>\(M\boldsymbol{e^Tx_a}\)</span>，其中<span class=math>\(M\)</span>是一个很大的正数，这样由于极小化目标函数的过程中，必然要优化<span class=math>\(M\)</span>，将迫使人工变量离基。</p>
-<p>具体方式：目标函数加上带<span class=math>\(M\)</span>的人工变量，限制条件中增加非负人工变量，再用一般单纯形法求解。</p>
+<p>类似于惩罚函数法。在约束中增加<strong>非负人工变量</strong>,$\boldsymbol{x_a}$，同时修改目标函数，增加惩罚项$M\boldsymbol{e^Tx_a}$，其中$M$是一个很大的正数，这样由于极小化目标函数的过程中，必然要优化$M$，将迫使人工变量离基。</p>
+<p>具体方式：目标函数加上带$M$的人工变量，限制条件中增加非负人工变量，再用一般单纯形法求解。</p>
 <p>由于添加的非负人工变量的系数为1，能够组成单位阵，因此很容易获得初始基本可行解。</p>
 <h2 id=单个人工变量技巧>单个人工变量技巧</h2>
-<p>处理<span class=math>\(\boldsymbol{\bar b=B^{-1}b}\)</span>存在负数项情形，引入一个标量<span class=math>\(x_a\)</span>，转换为 <span class=math>\[
-\boldsymbol{x_B}+\boldsymbol{B^{-1}N x_N}-x_a \boldsymbol{e}=\boldsymbol{\bar b}\\
-\boldsymbol{x}=\begin{bmatrix}\boldsymbol{x_B} \\ \boldsymbol{x_N}\end{bmatrix}≥\boldsymbol{0},x_a≥0
-\]</span> 其中，<span class=math>\(\boldsymbol{e}=\{1,1,\dotsb,1\}^T\)</span>是m维列向量。为了消除<span class=math>\(\boldsymbol{]\bar b}\)</span>中的所有负数，可以借以将<span class=math>\(x_a\)</span>引入基变量来实现。令 <span class=math>\[
-b_r = \min\{b_i\}&lt;0
-\]</span> 以<span class=math>\(x_a\)</span>所在列为主列，第r行为主行进行主元消去（<span class=math>\(x_a\rightarrow x_r\)</span>）。此时，约束方程右端变为 <span class=math>\[
+<p>处理$\boldsymbol{\bar b=B^{-1}b}$存在负数项情形，引入一个标量$x_a$，转换为
+$$
+\boldsymbol{x_B}+\boldsymbol{B^{-1}N x_N}-x_a \boldsymbol{e}=\boldsymbol{\bar b}\
+\boldsymbol{x}=\begin{bmatrix}\boldsymbol{x_B} \ \boldsymbol{x_N}\end{bmatrix}≥\boldsymbol{0},x_a≥0
+$$
+其中，$\boldsymbol{e}={1,1,\dotsb,1}^T$是m维列向量。为了消除$\boldsymbol{]\bar b}$中的所有负数，可以借以将$x_a$引入基变量来实现。令
+$$
+b_r = \min{b_i}&lt;0
+$$
+以$x_a$所在列为主列，第r行为主行进行主元消去（$x_a\rightarrow x_r$）。此时，约束方程右端变为
+$$
 \begin{cases}
-\bar b_r' = -\bar b_r >0 \\
+\bar b_r' = -\bar b_r >0 \
 \bar b_i' = \bar b_i - \bar b_r ≥0, i\neq r
 \end{cases}
-\]</span> 于是，我们得到了一个关于添加单个人工变量的一个基本可行解（<span class=math>\(\boldsymbol{\bar b}≥0\)</span>）。再由此基本可行解出发，用两阶段法或大M法求解。</p>
+$$
+于是，我们得到了一个关于添加单个人工变量的一个基本可行解（$\boldsymbol{\bar b}≥0$）。再由此基本可行解出发，用两阶段法或大M法求解。</p>
 <h2 id=注意人工变量vs松弛变量>注意：人工变量vs松弛变量</h2>
 <p>人工变量与前面介绍过的松弛变量是两个不同的概念。松弛变量的作用是把不等式约束改写成等式约束，改写前后的两个问题是等价的。松弛变量的取值能够表达现行的可行点是在可行域的内部还是在其边界，也就是说，在此可行解处，原来的约束是成立严格不等式还是等式。因此，松弛变量是“合法”的变量。而人工变量的引入，改变了原来的约束条件，从这个意义上讲，它们是“不合法”的变量。这两种变量不可混为一谈。</p>
 </article>

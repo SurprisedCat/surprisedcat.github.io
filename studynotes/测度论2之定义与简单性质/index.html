@@ -88,75 +88,84 @@ Sep 14, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=测度论2之定义与简单性质>测度论2之定义与简单性质</h2>
+<h2 id=测度论2之定义与简单性质---omit-in-toc--->测度论2之定义与简单性质</h2>
 <ul>
-<li><a href=#总述>总述</a></li>
-<li><a href=#测度的定义>测度的定义</a></li>
-<li><a href=#性质>性质</a></li>
-<li><a href=#测度的有限性>测度的有限性</a></li>
-<li><a href=#测度空间的完备性>测度空间的完备性</a></li>
-<li><a href=#概率与测度>概率与测度</a></li>
-<li><a href=#补充两个测度的定理>补充两个测度的定理</a></li>
-<li><a href=#测度构造的主线-粗线条>测度构造的主线-粗线条</a></li>
+<li><a href=#%E6%80%BB%E8%BF%B0>总述</a></li>
+<li><a href=#%E6%B5%8B%E5%BA%A6%E7%9A%84%E5%AE%9A%E4%B9%89>测度的定义</a>
+<ul>
+<li><a href=#%E6%80%A7%E8%B4%A8>性质</a></li>
+<li><a href=#%E6%B5%8B%E5%BA%A6%E7%9A%84%E6%9C%89%E9%99%90%E6%80%A7>测度的有限性</a></li>
+<li><a href=#%E6%B5%8B%E5%BA%A6%E7%A9%BA%E9%97%B4%E7%9A%84%E5%AE%8C%E5%A4%87%E6%80%A7>测度空间的完备性</a></li>
+</ul>
+</li>
+<li><a href=#%E6%A6%82%E7%8E%87%E4%B8%8E%E6%B5%8B%E5%BA%A6>概率与测度</a></li>
+<li><a href=#%E8%A1%A5%E5%85%85%E4%B8%A4%E4%B8%AA%E6%B5%8B%E5%BA%A6%E7%9A%84%E5%AE%9A%E7%90%86>补充两个测度的定理</a></li>
+<li><a href=#%E6%B5%8B%E5%BA%A6%E6%9E%84%E9%80%A0%E7%9A%84%E4%B8%BB%E7%BA%BF-%E7%B2%97%E7%BA%BF%E6%9D%A1>测度构造的主线-粗线条</a></li>
 </ul>
 <h2 id=总述>总述</h2>
 <p>这一章介绍测度的定义跟测度的简单性质，最后给出一个俯瞰的视角，勾勒出测度构造的主线。但是具体证明会在后面章节展开。</p>
 <p>先在直觉层面介绍一下，测度论试图建立一般测量所需要的广义且底层的逻辑。一个测度可以是长度、面积、体积、概率，等等——它们的共同点就是给一个集合赋予一个数值。比如一条线段就是一个由点构成的集合，而长度就是给这个点集赋值一个实数 （这条线段长度是5）。这个实数不是随便赋值的，它要满足一些最基本的公理：比如两条线段不相交，那么他们的长度是可以相加的；再比如一个集合为空，那么长度应该为零，等等。</p>
 <p>人们自然的就会问：给定一个集合，我们能不能找到这么一个“测度”，能够合理的给集合中所有的子集都赋上一个值，同时也满足我们所需的测量的最基本的公理呢？</p>
 <p>对于有限集或者可数集，我们确实能找到这样的测度；但是对于<strong>不可数集，我们却找不到这样的测度</strong>（如果我们接受选择公理，我们总能构造出一些集合，无论我们给这些集合赋什么值都会不满足测度公理要求的条件）。</p>
-<p>既然大多数情况下（不可数集），我们没法找到一个测度能够合理的给集合中的每一个子集赋值，我们就退而求其次，问：”我们可以对哪些（不是全部）子集合理的赋值呢“。我们当然希望可以被测度赋值的子集越多越好————于是我们从一些子集开始，在测度依然可以合理赋值的条件下，逐步拓展、加入更多的子集；通常这些子集的集合体就会最终拓展成一个<span class=math>\(\sigma\)</span>-代数。</p>
+<p>既然大多数情况下（不可数集），我们没法找到一个测度能够合理的给集合中的每一个子集赋值，我们就退而求其次，问：”我们可以对哪些（不是全部）子集合理的赋值呢“。我们当然希望可以被测度赋值的子集越多越好————于是我们从一些子集开始，在测度依然可以合理赋值的条件下，逐步拓展、加入更多的子集；通常这些子集的集合体就会最终拓展成一个$\sigma$-代数。</p>
 <h2 id=测度的定义>测度的定义</h2>
 <blockquote>
-<p><strong>测度</strong>：令<span class=math>\(X\)</span>为一集合，<span class=math>\(\mathcal{A}\)</span>是由<span class=math>\(X\)</span>子集构成的<span class=math>\(\sigma\)</span>-代数，在<span class=math>\((X,\mathcal{A})\)</span>上的测度(measure)是一个映射<span class=math>\(\mu:\mathcal{A}\rightarrow [0,+\infty]\)</span>，满足：</p>
-<ol style=list-style-type:decimal>
-<li><span class=math>\(\mu(\emptyset)=0\)</span></li>
-<li>若<span class=math>\(A_i\in\mathcal{A},i=1,2,\dotsb\)</span>两两不相交，那么：<span class=math>\(\mu(\bigcup\limits_{n=1}^{\infty}A_i)=\sum\limits_{n=1}^{\infty}\mu(A_i)\)</span></li>
+<p><strong>测度</strong>：令$X$为一集合，$\mathcal{A}$是由$X$子集构成的$\sigma$-代数，在$(X,\mathcal{A})$上的测度(measure)是一个映射$\mu:\mathcal{A}\rightarrow [0,+\infty]$，满足：</p>
+<ol>
+<li>$\mu(\emptyset)=0$</li>
+<li>若$A_i\in\mathcal{A},i=1,2,\dotsb$两两不相交，那么：$\mu(\bigcup\limits_{n=1}^{\infty}A_i)=\sum\limits_{n=1}^{\infty}\mu(A_i)$</li>
 </ol>
 <blockquote>
-<p>注：性质(2)也被称为可列可加性(countable additivity)；若(2)中的序列为有限的<span class=math>\(n\)</span>个，那么就称为有限可加 (finitely additive)。<strong>有限可加未必可列可加</strong>。</p>
+<p>注：性质(2)也被称为可列可加性(countable additivity)；若(2)中的序列为有限的$n$个，那么就称为有限可加 (finitely additive)。<strong>有限可加未必可列可加</strong>。</p>
 </blockquote>
-<p>从而三元组<span class=math>\((X,\mathcal{A},\mu)\)</span>也被称为测度空间 (measure space)。</p>
+<p>从而三元组$(X,\mathcal{A},\mu)$也被称为测度空间 (measure space)。</p>
 </blockquote>
 <h3 id=性质>性质</h3>
 <ul>
-<li>若<span class=math>\(A,B\in \mathcal{A},A\subset B\)</span>，那么<span class=math>\(\mu(A)&lt;\mu(B)\)</span></li>
-<li>若<span class=math>\(A_i\in\mathcal{A},A=\bigcup\limits_{i=1}^{\infty}A_i\)</span>，那么<span class=math>\(\mu(A)\leq \mu(\bigcup\limits_{i=1}^{\infty}A_i)\)</span></li>
-<li>若<span class=math>\(A_i\in\mathcal{A},A_i\nearrow A\)</span>，那么<span class=math>\(\mu(A)=\lim_{n\rightarrow\infty}\mu(A_n)\)</span></li>
-<li>若<span class=math>\(A_i\in\mathcal{A},A_i\searrow A\)</span>，且<span class=math>\(\mu(A_1)&lt;\infty\)</span>,那么<span class=math>\(\mu(A)=\lim_{n\rightarrow\infty}\mu(A_n)\)</span></li>
+<li>若$A,B\in \mathcal{A},A\subset B$，那么$\mu(A)&lt;\mu(B)$</li>
+<li>若$A_i\in\mathcal{A},A=\bigcup\limits_{i=1}^{\infty}A_i$，那么$\mu(A)\leq \mu(\bigcup\limits_{i=1}^{\infty}A_i)$</li>
+<li>若$A_i\in\mathcal{A},A_i\nearrow A$，那么$\mu(A)=\lim_{n\rightarrow\infty}\mu(A_n)$</li>
+<li>若$A_i\in\mathcal{A},A_i\searrow A$，且$\mu(A_1)&lt;\infty$,那么$\mu(A)=\lim_{n\rightarrow\infty}\mu(A_n)$</li>
 </ul>
 <h3 id=测度的有限性>测度的有限性</h3>
-<ol style=list-style-type:decimal>
-<li>称测度<span class=math>\(\mu\)</span>为有限测度 (finite measure), 若<span class=math>\(\mu(x)&lt;\infty\)</span>。若<span class=math>\(\mu\)</span>是有限测度，那么<span class=math>\((X,\mathcal{A},\mu)\)</span>被称为有限测度空间</li>
-<li>测度<span class=math>\(\mu\)</span>为<span class=math>\(\sigma\)</span>-有限，若存在集合<span class=math>\(E_i\in \mathcal{A},i=1,2,\dotsb\)</span>, 满足<span class=math>\(\forall i,\mu(E_i)&lt;\infty,X=\bigcup\limits_{i=1}^\infty E_i\)</span>。若<span class=math>\(\mu\)</span>是<span class=math>\(\sigma\)</span>-有限，则称为<span class=math>\(\sigma\)</span>-有限测度空间。相较于有限测度宽松，只要求每个事件有限。</li>
-<li>令<span class=math>\((X,\mathcal{A},\mu)\)</span>为<span class=math>\(\sigma\)</span>-有限测度空间，若<span class=math>\(F_n=\bigcup\limits_{i=1}^n E_i\)</span>，则<span class=math>\(\forall n，F_n&lt;\infty\)</span>，且<span class=math>\(F_n\nearrow X\)</span>。所以不失一般性，我们可以令上文定义中的<span class=math>\(E_i\)</span>为递增集合 (<span class=math>\(E_i \nearrow\)</span>)</li>
+<ol>
+<li>称测度$\mu$为有限测度 (finite measure), 若$\mu(x)&lt;\infty$。若$\mu$是有限测度，那么$(X,\mathcal{A},\mu)$被称为有限测度空间</li>
+<li>测度$\mu$为$\sigma$-有限，若存在集合$E_i\in \mathcal{A},i=1,2,\dotsb$, 满足$\forall i,\mu(E_i)&lt;\infty,X=\bigcup\limits_{i=1}^\infty E_i$。若$\mu$是$\sigma$-有限，则称为$\sigma$-有限测度空间。相较于有限测度宽松，只要求每个事件有限。</li>
+<li>令$(X,\mathcal{A},\mu)$为$\sigma$-有限测度空间，若$F_n=\bigcup\limits_{i=1}^n E_i$，则$\forall n，F_n&lt;\infty$，且$F_n\nearrow X$。所以不失一般性，我们可以令上文定义中的$E_i$为递增集合 ($E_i \nearrow$)</li>
 </ol>
 <h3 id=测度空间的完备性>测度空间的完备性</h3>
 <blockquote>
-<p>零测集：令<span class=math>\((X,\mathcal{A},\mu)\)</span>为一测度空间，子集<span class=math>\(A\subset X\)</span>被称为零测集 (null set) 如果存在集合<span class=math>\(B\in\mathcal{A},A\subset B,且\mu(B)=0\)</span>。 >注：在前面的定义中，我们并不要求<span class=math>\(A\in\mathcal{A}\)</span>。</p>
+<p>零测集：令$(X,\mathcal{A},\mu)$为一测度空间，子集$A\subset X$被称为零测集 (null set) 如果存在集合$B\in\mathcal{A},A\subset B,且\mu(B)=0$。</p>
+<blockquote>
+<p>注：在前面的定义中，我们并不要求$A\in\mathcal{A}$。</p>
 </blockquote>
-<p>完备性： >完备测度空间：若<span class=math>\(\mathcal{A}\)</span>包含<strong>所有的零测集</strong>，那么<span class=math>\((X,\mathcal{A},\mu)\)</span>为完备测度空间 (complete measure space).</p>
-<p><span class=math>\(\mathcal{A}\)</span>的完备化 (completion) 是最小的<span class=math>\(\sigma\)</span>-代数<span class=math>\(\mathcal{\overline{A}}\supset \mathcal{A}\)</span>，而<span class=math>\((X,\mathcal{\overline{A}},\mu)\)</span>是完备的。有时候我们仅仅说 <span class=math>\(\mu\)</span>是完备的，或者<span class=math>\(\mathcal{A}\)</span>是完备的——它们都指<span class=math>\((X,\mathcal{A},\mu)\)</span>是完备的。</p>
+</blockquote>
+<p>完备性：</p>
+<blockquote>
+<p>完备测度空间：若$\mathcal{A}$包含<strong>所有的零测集</strong>，那么$(X,\mathcal{A},\mu)$为完备测度空间 (complete measure space).</p>
+</blockquote>
+<p>$\mathcal{A}$的完备化 (completion) 是最小的$\sigma$-代数$\mathcal{\overline{A}}\supset \mathcal{A}$，而$(X,\mathcal{\overline{A}},\mu)$是完备的。有时候我们仅仅说 $\mu$是完备的，或者$\mathcal{A}$是完备的——它们都指$(X,\mathcal{A},\mu)$是完备的。</p>
 <h2 id=概率与测度>概率与测度</h2>
-<p>概率(probability)或者有时候称为概率测度（probability measure)，被定义为一个测度，满足<span class=math>\(\mu(X)=1\)</span>。在概率论的语境中，我们通常会写<span class=math>\((\Omega,\mathcal{F},P)\)</span>, 其中<span class=math>\(\mathcal{F}\)</span>被称为是<span class=math>\(\sigma\)</span>-域 (<span class=math>\(\sigma\)</span>-field), 这个跟<span class=math>\(\sigma\)</span>-代数是一回事儿。</p>
+<p>概率(probability)或者有时候称为概率测度（probability measure)，被定义为一个测度，满足$\mu(X)=1$。在概率论的语境中，我们通常会写$(\Omega,\mathcal{F},P)$, 其中$\mathcal{F}$被称为是$\sigma$-域 ($\sigma$-field), 这个跟$\sigma$-代数是一回事儿。</p>
 <h2 id=补充两个测度的定理>补充两个测度的定理</h2>
 <p>补充两个定理，在泛函分析跟概率论的时候会被用到。</p>
 <blockquote>
-<p>定理：令<span class=math>\((X,\mathcal{A})\)</span>为一可测空间，<span class=math>\(\mu\)</span>是一个非负的集合映射，<strong>有限可加</strong>，且<span class=math>\(\mu(\emptyset)=0\)</span>。如果<span class=math>\(A_i\nearrow,A_i\in\mathcal{A}\)</span>，那么<span class=math>\(\mu(\cup_iA_i)=\lim\limits_{i\rightarrow\infty}\mu(A_i)\)</span>。<span class=math>\(\mu\)</span>是一个测度。</p>
+<p>定理：令$(X,\mathcal{A})$为一可测空间，$\mu$是一个非负的集合映射，<strong>有限可加</strong>，且$\mu(\emptyset)=0$。如果$A_i\nearrow,A_i\in\mathcal{A}$，那么$\mu(\cup_iA_i)=\lim\limits_{i\rightarrow\infty}\mu(A_i)$。$\mu$是一个测度。</p>
 </blockquote>
-<p>另一个角度来看， >定理：令<span class=math>\((X,\mathcal{A})\)</span>为一可测空间，<span class=math>\(\mu\)</span>是一个非负的集合映射，<strong>有限可加</strong>，且<span class=math>\(\mu(\emptyset)=0,\mu(X)&lt;\infty\)</span>。如果<span class=math>\(A_i\searrow\emptyset,A_i\in\mathcal{A}\)</span>，那么<span class=math>\(\lim\limits_{i\rightarrow\infty}\mu(A_i)=0\)</span>。<span class=math>\(\mu\)</span>是一个测度。</p>
+<p>另一个角度来看，</p>
+<blockquote>
+<p>定理：令$(X,\mathcal{A})$为一可测空间，$\mu$是一个非负的集合映射，<strong>有限可加</strong>，且$\mu(\emptyset)=0,\mu(X)&lt;\infty$。如果$A_i\searrow\emptyset,A_i\in\mathcal{A}$，那么$\lim\limits_{i\rightarrow\infty}\mu(A_i)=0$。$\mu$是一个测度。</p>
+</blockquote>
 <h2 id=测度构造的主线-粗线条>测度构造的主线-粗线条</h2>
 <p>在这里我想列出（不证明）实数上Lebesgue测度的构造主线，力求列出最自然、跳跃最小的那条线。</p>
 <blockquote>
-<p><span class=math>\(\sigma\)</span>-全：<span class=math>\(X\)</span>上的集合系<span class=math>\(\Epsilon\)</span>被称为是<span class=math>\(\sigma\)</span>-全的(<span class=math>\(\sigma\)</span>-total)，如果存在某个序列<span class=math>\(E_1,E_2,\dotsb\in\Epsilon,\bigcup\limits_{n=1}^\infty E_n=X\)</span>。 注：<span class=math>\(\sigma\)</span>-有限就自带了<span class=math>\(\sigma\)</span>-全</p>
+<p>$\sigma$-全：$X$上的集合系$\Epsilon$被称为是$\sigma$-全的($\sigma$-total)，如果存在某个序列$E_1,E_2,\dotsb\in\Epsilon,\bigcup\limits_{n=1}^\infty E_n=X$。
+注：$\sigma$-有限就自带了$\sigma$-全</p>
 </blockquote>
 <p>粗线条如下：</p>
-<div class=figure>
-<img src=../../images/测度构造粗线条.png alt=测度构造粗线条><p class=caption>测度构造粗线条</p>
-</div>
+<p><img src=../../images/%E6%B5%8B%E5%BA%A6%E6%9E%84%E9%80%A0%E7%B2%97%E7%BA%BF%E6%9D%A1.png alt=测度构造粗线条></p>
 <p>笔者画了下图以示各个测度与可测空间之间的关系:</p>
-<div class=figure>
-<img src=../../images/测度与可测空间之间的关系.jpg alt=测度与可测空间之间的关系><p class=caption>测度与可测空间之间的关系</p>
-</div>
+<p><img src=../../images/%E6%B5%8B%E5%BA%A6%E4%B8%8E%E5%8F%AF%E6%B5%8B%E7%A9%BA%E9%97%B4%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.jpg alt=测度与可测空间之间的关系></p>
 <p>此外还有更细的细条内容，可见<a href=https://zhuanlan.zhihu.com/p/61405805>测度构造的主线 - 细线条</a>。</p>
 </article>
 <aside class=sidebar>

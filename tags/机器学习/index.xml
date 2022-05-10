@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机器学习 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 机器学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>机器学习-模型评价的11个重要指标</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</link><pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</guid><description/></item><item><title>机器学习-RNN相关</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</link><pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</guid><description>
-&lt;h2 id="rnn相关">RNN相关&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="rnn相关---omit-in-toc---">RNN相关&lt;!-- omit in toc -->&lt;/h2>
 &lt;h2 id="simple-rnn">simple RNN&lt;/h2>
 &lt;p>RNN借助循环核提取时间维度特征。&lt;/p>
-&lt;p>&lt;img src="../../images/simple_RNN.png" alt="simple_RNN" /> &lt;span class="math">\[
-y_t= softmax(h_t w_{hy} +b_y)\\
+&lt;p>&lt;img src="../../images/simple_RNN.png" alt="simple_RNN">
+$$
+y_t= softmax(h_t w_{hy} +b_y)\
 h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
-\]&lt;/span> 三个矩阵&lt;span class="math">\(w_{hy},w_{xh},w_{hh}\)&lt;/span>在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的&lt;span class="math">\(h_t\)&lt;/span>数量控制输出的序列长度。&lt;/p></description></item><item><title>机器学习-框架</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</guid><description>
-&lt;h2 id="机器学习框架">机器学习框架&lt;!-- omit in toc -->&lt;/h2>
+$$
+三个矩阵$w_{hy},w_{xh},w_{hh}$在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的$h_t$数量控制输出的序列长度。&lt;/p></description></item><item><title>机器学习-框架</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</guid><description>
+&lt;h2 id="机器学习框架---omit-in-toc---">机器学习框架&lt;!-- omit in toc -->&lt;/h2>
 &lt;h2 id="三类机器学习算法">三类机器学习算法&lt;/h2>
 &lt;h3 id="监督学习">监督学习&lt;/h3>
 &lt;p>各种回归，决策树，随机森林，LNN，&lt;/p>
@@ -15,7 +17,7 @@ h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
 &lt;h3 id="强化学习">强化学习&lt;/h3>
 &lt;p>马尔科夫决策过程&lt;/p>
 &lt;h2 id="常用机器学习算法">常用机器学习算法&lt;/h2>
-&lt;ol style="list-style-type: decimal">
+&lt;ol>
 &lt;li>Linear Regression&lt;/li>
 &lt;li>Logistic Regression&lt;/li>
 &lt;li>Decision Tree&lt;/li>
@@ -26,12 +28,13 @@ h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
 &lt;li>Random Forest&lt;/li>
 &lt;li>Dimensionality Reduction Algorithms&lt;/li>
 &lt;li>Gradient Boosting algorithms
-&lt;ol style="list-style-type: decimal">
+&lt;ol>
 &lt;li>GBM&lt;/li>
 &lt;li>XGBoost&lt;/li>
 &lt;li>LightGBM&lt;/li>
 &lt;li>CatBoost&lt;/li>
-&lt;/ol>&lt;/li>
+&lt;/ol>
+&lt;/li>
 &lt;/ol>
 &lt;ul>
 &lt;li>线性回归算法 Linear Regression&lt;/li>
@@ -301,54 +304,56 @@ for all operations constructed within the context.&lt;/p>
 &lt;li>2.X版本中默认使用keras作为高级API， 1.X中需要自己装。在1.X中使用keras反而更容易移植到2.X。&lt;/li>
 &lt;li>1.X中一些API很难找，而且位置分类有很多争议，2.X版本重新归纳整理了API。&lt;/li>
 &lt;/ol></description></item><item><title>机器学习-七种回归分析</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%B8%83%E7%A7%8D%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%B8%83%E7%A7%8D%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</guid><description>
-&lt;h2 id="七种回归分析">七种回归分析&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="七种回归分析---omit-in-toc---">七种回归分析&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="#什么是回归分析">什么是回归分析&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#为什么要用回归分析--预测">为什么要用回归分析？--&amp;gt;预测&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#回归分析的种类">回归分析的种类&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#线性回归">线性回归&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#着重强调">着重强调&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#logistic回归">Logistic回归&lt;/a>
+&lt;li>&lt;a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90">什么是回归分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90--%E9%A2%84%E6%B5%8B">为什么要用回归分析？--&amp;gt;预测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E7%9A%84%E7%A7%8D%E7%B1%BB">回归分析的种类&lt;/a>
 &lt;ul>
-&lt;li>&lt;a href="#它是如何工作的">它是如何工作的&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#注意点">注意点&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#何时适用">何时适用&lt;/a>&lt;/li>
-&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92">线性回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%9D%80%E9%87%8D%E5%BC%BA%E8%B0%83">着重强调&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#logistic%E5%9B%9E%E5%BD%92">Logistic回归&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%AE%83%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">它是如何工作的&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BD%95%E6%97%B6%E9%80%82%E7%94%A8">何时适用&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;li>&lt;a href="#polynomial_regression">Polynomial_Regression&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#stepwise_regression">Stepwise_Regression&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#ridge_regression">Ridge_Regression&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#lasso_regression">Lasso_Regression&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#elasticnet_regression">ElasticNet_Regression&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#如何选择正确的回归分析算法">如何选择正确的回归分析算法&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95">如何选择正确的回归分析算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="什么是回归分析">什么是回归分析&lt;/h2>
 &lt;p>回归分析是一种预测模型来研究因变量和自变量（们）之间的关系。例如，研究开快车和路上交通事故直接的关系。回归分析也是一种重要的数据建模与分析工具。我们想找到一条曲线/直线，尽可能的通过各个点，使线和点之间的总误差尽可能小。&lt;/p>
 &lt;h2 id="为什么要用回归分析--预测">为什么要用回归分析？--&amp;gt;预测&lt;/h2>
 &lt;p>如上所述，回归分析是一种估计两个或多个变量之间关系的。比如，我们想基于现在的经济状况估计一个公司的销售情况。根据近期的公司数据，销量的增长大约是经济增长的2.5倍。这样，我们可以依靠现有和过去的信息预测未来公司的销量。&lt;/p>
 &lt;p>使用回归分析的优点有两种：&lt;/p>
-&lt;ol style="list-style-type: decimal">
+&lt;ol>
 &lt;li>发现自变量和因变量之间的显著关系&lt;/li>
 &lt;li>发现各个自变量对因变量的影响程度&lt;/li>
 &lt;/ol>
 &lt;h2 id="回归分析的种类">回归分析的种类&lt;/h2>
 &lt;p>有许多种回归分析可以用来做预测？这些技术通常由三个维度驱动（自变量的数量，因变量的类型和回归曲线的形状），如下所示：&lt;/p>
-&lt;img src="../../images/regression_classification.png" alt="回归分析的种类" />
-&lt;center>
-图1 回归分析的种类
-&lt;/center>
+&lt;p>&lt;img src="../../images/regression_classification.png" alt="回归分析的种类">&lt;/p>
+&lt;center>图1 回归分析的种类&lt;/center>
 &lt;p>如果你富有创造性，也可以创造出新的回归方式，综合上面多种参数。在此之前，让我们来了解最常用的回归方式:&lt;/p>
 &lt;h3 id="线性回归">线性回归&lt;/h3>
 &lt;p>线性回归是最广为人知的建模技术，也是人们最先选择的回归预测模型。在这个技术中，自变量可以是离散的，也可以是连续的，但是&lt;strong>因变量必须是连续的&lt;/strong>。而且双方是一种线性关系。&lt;/p>
-&lt;p>线性回归使用最佳的拟合&lt;strong>直线&lt;/strong>（也就是回归线）在&lt;strong>因变量（Y）&lt;/strong>和一个或多个&lt;strong>自变量（X(s)）&lt;/strong>之间建立一种&lt;strong>线性&lt;/strong>关系。&lt;/p>
-&lt;p>这种关系可以用&lt;span class="math">\(Y=a+b*x+e\)&lt;/span>来表示。其中，a是截距，b是直线的斜率，e是误差项。这个公式可以通过给定的一些预测参数来预测目标值。&lt;/p>
-&lt;img src="../../images/linear_regression.png" alt="图2 线性回归" />
-&lt;center>
-图2 线性回归
-&lt;/center>
+&lt;p>线性回归使用最佳的拟合&lt;strong>直线&lt;/strong>（也就是回归线）在&lt;strong>因变量（Y）&lt;strong>和一个或多个&lt;/strong>自变量（X(s)）&lt;strong>之间建立一种&lt;/strong>线性&lt;/strong>关系。&lt;/p>
+&lt;p>这种关系可以用$Y=a+b*x+e$来表示。其中，a是截距，b是直线的斜率，e是误差项。这个公式可以通过给定的一些预测参数来预测目标值。&lt;/p>
+&lt;p>&lt;img src="../../images/linear_regression.png" alt="图2 线性回归">&lt;/p>
+&lt;center>图2 线性回归&lt;/center>
 &lt;p>单线性回归和多线性回归的区别是：多线性回归有多余1个自变量，而单线性回归只有一个自变量。现在的问题是“如何最适曲线？”。&lt;/p>
 &lt;p>如何最适曲线？&lt;/p>
-&lt;p>答案是寻找最小均方误差，这是回归分析最常用的方式。 &lt;span class="math">\[min\|Xw-y\|^2_2\]&lt;/span> 我们可以通过R-square来衡量模型的性能。更多的细节可以参考这篇文章&lt;a href="https://www.analyticsvidhya.com/blog/2015/01/model-performance-metrics-classification/">《11 Important Model Evaluation Metrics for Machine Learning Everyone should know》&lt;/a>&lt;/p>
+&lt;p>答案是寻找最小均方误差，这是回归分析最常用的方式。
+$$min|Xw-y|^2_2$$
+我们可以通过R-square来衡量模型的性能。更多的细节可以参考这篇文章&lt;a href="https://www.analyticsvidhya.com/blog/2015/01/model-performance-metrics-classification/">《11 Important Model Evaluation Metrics for Machine Learning Everyone should know》&lt;/a>&lt;/p>
 &lt;h3 id="着重强调">着重强调&lt;/h3>
 &lt;ul>
 &lt;li>自变量和因变量之间必须要有线性关系！&lt;/li>
@@ -364,39 +369,31 @@ for all operations constructed within the context.&lt;/p>
 &lt;p>Logistic 回归通过使用其固有的 logistic 函数估计概率，来衡量因变量（我们想要预测的标签）与一个或多个自变量（特征）之间的关系。&lt;/p>
 &lt;p>然后这些概率必须二值化才能真地进行预测。这就是 logistic 函数的任务，也称为 Sigmoid 函数。Sigmoid 函数是一个 S 形曲线，它可以将任意实数值映射到介于 0 和 1 之间的值，但并不能取到 0或1。然后使用阈值分类器将 0 和 1 之间的值转换为 0 或 1。&lt;/p>
 &lt;p>下面的图片说明了 logistic 回归得出预测所需的所有步骤。&lt;/p>
-&lt;img src="../../images/logistic_regression.png" alt="logistic回归步骤图" />
-&lt;center>
-图3 logistic回归步骤图
-&lt;/center>
+&lt;p>&lt;img src="../../images/logistic_regression.png" alt="logistic回归步骤图">&lt;/p>
+&lt;center>图3 logistic回归步骤图&lt;/center>
 &lt;p>下面是 logistic 函数（sigmoid 函数）的图形表示：&lt;/p>
-&lt;img src="../../images/sigmoid.png" alt="sigmoid 函数" />
-&lt;center>
-图4 Sigmoid函数
-&lt;/center>
+&lt;p>&lt;img src="../../images/sigmoid.png" alt="sigmoid 函数">&lt;/p>
+&lt;center>图4 Sigmoid函数&lt;/center>
 &lt;h4 id="注意点">注意点&lt;/h4>
-&lt;ol style="list-style-type: decimal">
+&lt;ol>
 &lt;li>常被用于分类问题。&lt;/li>
 &lt;li>Logistic回归不需要自变量和因变量有线性关系，因为是非线性的log变换。&lt;/li>
 &lt;li>为了避免过拟合和欠拟合，我们应该包括所有重要的变量。确保这一过程的一个好方法是使用逐步的方式来估计Logistic回归。&lt;/li>
 &lt;/ol>
 &lt;h4 id="何时适用">何时适用&lt;/h4>
 &lt;p>就像我已经提到的那样，Logistic 回归通过线性边界将你的输入分成两个「区域」，每个类别划分一个区域。因此，你的数据应当是线性可分的，如下图所示的数据点：&lt;/p>
-&lt;img src="../../images/Logistic回归线性可分.png" alt="Logistic回归线性可分" />
-&lt;center>
-图5 Logistic回归线性可分
-&lt;/center>
+&lt;p>&lt;img src="../../images/Logistic%E5%9B%9E%E5%BD%92%E7%BA%BF%E6%80%A7%E5%8F%AF%E5%88%86.png" alt="Logistic回归线性可分">&lt;/p>
+&lt;center>图5 Logistic回归线性可分&lt;/center>
 &lt;p>换句话说：当 Y 变量只有两个值时（例如，当你面临分类问题时），您应该考虑使用逻辑回归。注意，你也可以将 Logistic 回归用于多类别分类。其他常见的分类算法有朴素贝叶斯、决策树、随机森林、支持向量机、k-近邻等等。我们将在其他文章中讨论它们，但别被这些机器学习算法的数量吓到。请注意，最好能够真正了解 4 或 5 种算法，并将精力集中在特征处理上，这也是未来工作的主题。&lt;/p>
 &lt;h3 id="polynomial_regression">Polynomial_Regression&lt;/h3>
 &lt;p>多项式回归。如果回归方程中自变量的阶数大于1，为多项式形式，则为多项式回归。&lt;/p>
 &lt;blockquote>
-&lt;p>e.g. &lt;span class="math">\(y=a+bx^2\)&lt;/span>&lt;/p>
+&lt;p>e.g. $y=a+bx^2$&lt;/p>
 &lt;/blockquote>
 &lt;p>这种回归得到是曲线，而不像线性回归是直线。多项式回归可以通过提高多项式的阶数来更好的拟合曲线。但是如果阶数（特征）设置的太多，特别是当特征数和训练点数相仿时，&lt;strong>拟合就趋近于插值&lt;/strong>。对于训练集，曲线将会特别好的符合，但是无法泛化的测试集中。这种现象被称为&lt;strong>过拟合&lt;/strong>。过拟合可以通过降低多项式级数（减少特征数）或者正规化来解决。&lt;/p>
 &lt;p>欠拟合，拟合与过拟合可以由图6表示。&lt;/p>
-&lt;embed src="../../images/underfitting-overfitting.webp" />
-&lt;center>
-图6 欠拟合，拟合与过拟合
-&lt;/center>
+&lt;p>&lt;img src="../../images/underfitting-overfitting.webp" alt="欠拟合，拟合与过拟合">&lt;/p>
+&lt;center>图6 欠拟合，拟合与过拟合&lt;/center>
 &lt;h3 id="stepwise_regression">Stepwise_Regression&lt;/h3>
 &lt;p>逐步回归。与平时所说的 regression analysis 不太相同，stepwise regression 可以算是一种 feature extraction 的方法。&lt;/p>
 &lt;p>举个例子，假如我们的数据中有一个因变量，但却有十几或几十个自变量。为了便于对变量数过多的数据进行处理，避免 “curse of dimensionality” 中可能出现的种种问题，我们总是会对数据进行降维，根据在特定领域中的知识或是理论假设，选择其中一些可能更有意义的变量进行后续分析。但不是任何情况下我们都掌握这些先验信息，所以基于数据本身的特征提取方法应运而生。&lt;/p>
@@ -408,21 +405,31 @@ for all operations constructed within the context.&lt;/p>
 &lt;p>可以想象，这样得到的变量组合，基于当前数据，应该是可以最大程度的解释因变量的变异，但其反面的作用就是会使模型有偏，即所谓的 overfitting 问题；另外，鉴于算法是基于变量解释度来进行特征提取的，当两个变量对因变量的影响相近时，则不免受到较大的噪声影响，使特征提取结果不稳定。&lt;/p>
 &lt;h3 id="ridge_regression">Ridge_Regression&lt;/h3>
 &lt;p>当使用最小二乘法计算线性回归模型参数的时候，如果数据集合矩阵（也叫做设计矩阵(design matrix)）X，存在多重共线性，那么最小二乘法对输入变量中的噪声非常的敏感，其解会极为不稳定。为了解决这个问题，就有了这一节脊回归（Ridge Regression ）。&lt;/p>
-&lt;p>当设计矩阵&lt;span class="math">\(X\)&lt;/span>存在多重共线性的时候（数学上称为病态矩阵），最小二乘法求得的参数&lt;span class="math">\(w\)&lt;/span>在数值上会非常的大，而一般的线性回归其模型是&lt;span class="math">\(y=w^Tx\)&lt;/span>，显然，就是因为&lt;span class="math">\(w\)&lt;/span>在数值上非常的大，所以，如果输入变量&lt;span class="math">\(x\)&lt;/span>有一个微小的变动，其反应在输出结果上也会变得非常大，这就是对输入变量总的噪声非常敏感的原因。&lt;/p>
-&lt;p>如果能限制参数&lt;span class="math">\(w\)&lt;/span>的增长，使&lt;span class="math">\(w\)&lt;/span>不会变得特别大，那么模型对输入&lt;span class="math">\(w\)&lt;/span>中噪声的敏感度就会降低。这就是脊回归和套索回归（Ridge Regression and Lasso Regrission）的基本思想。&lt;/p>
-&lt;p>为了限制模型参数&lt;span class="math">\(w\)&lt;/span>的数值大小，就在模型原来的目标函数上加上一个惩罚项，这个过程叫做正则化（Regularization）。&lt;/p>
-&lt;p>如果惩罚项是参数的&lt;span class="math">\(l_2\)&lt;/span>范数，就是脊回归(Ridge Regression)&lt;/p>
-&lt;p>如果惩罚项是参数的&lt;span class="math">\(l_1\)&lt;/span>范数，就是套索回归（Lasso Regrission）&lt;/p>
+&lt;p>当设计矩阵$X$存在多重共线性的时候（数学上称为病态矩阵），最小二乘法求得的参数$w$在数值上会非常的大，而一般的线性回归其模型是$y=w^Tx$，显然，就是因为$w$在数值上非常的大，所以，如果输入变量$x$有一个微小的变动，其反应在输出结果上也会变得非常大，这就是对输入变量总的噪声非常敏感的原因。&lt;/p>
+&lt;p>如果能限制参数$w$的增长，使$w$不会变得特别大，那么模型对输入$w$中噪声的敏感度就会降低。这就是脊回归和套索回归（Ridge Regression and Lasso Regrission）的基本思想。&lt;/p>
+&lt;p>为了限制模型参数$w$的数值大小，就在模型原来的目标函数上加上一个惩罚项，这个过程叫做正则化（Regularization）。&lt;/p>
+&lt;p>如果惩罚项是参数的$l_2$范数，就是脊回归(Ridge Regression)&lt;/p>
+&lt;p>如果惩罚项是参数的$l_1$范数，就是套索回归（Lasso Regrission）&lt;/p>
 &lt;p>正则化同时也是防止过拟合有效的手段，这在“多项式回归”中有详细的说明。&lt;/p>
-&lt;p>所谓脊回归，就是对于一个线性模型，&lt;strong>在原来的损失函数加入参数的&lt;span class="math">\(l_2\)&lt;/span>范数的惩罚项&lt;/strong>，其损失函数为如下形式: &lt;span class="math">\[J_w=\min_w{\|X-w\|^2+\alpha\|w\|^2},\alpha&amp;gt;0\]&lt;/span> 由于&lt;span class="math">\(w\)&lt;/span>最小化整个式子，如果&lt;span class="math">\(w\)&lt;/span>本身特别大，第二项就会很大，这样就限制了&lt;span class="math">\(w\)&lt;/span>的大小。&lt;/p>
-&lt;p>&lt;span class="math">\(α\)&lt;/span>的数值越大，那么正则项，也是惩罚项的作用就越明显；&lt;span class="math">\(α\)&lt;/span>的数值越小，正则项的作用就越弱。极端情况下，&lt;span class="math">\(α=0\)&lt;/span>则和原来的损失函数是一样的，如果&lt;span class="math">\(α=∞\)&lt;/span>，则损失函数只有正则项，此时其最小化的结果必然是&lt;span class="math">\(w=0\)&lt;/span>。&lt;/p>
-&lt;p>之前，我们根据线性回归判断参数的解为： &lt;span class="math">\[w=(X^TX)^{-1}X^Ty\]&lt;/span> 同理，脊回归的损失函数为： &lt;span class="math">\[\|Xw-y\|^2+\alpha\|w\|^2=(Xw-y)^T(Xw-y)+\alpha w^T w\]&lt;/span> 对于参数&lt;span class="math">\(w\)&lt;/span>求导之后，极值为0： &lt;span class="math">\[X^T(Xw-y)+X^T(Xw-y)+2\alpha w=0\]&lt;/span> 解得： &lt;span class="math">\[w=(X^T X+\alpha I)^{-1}X^Ty\]&lt;/span>&lt;/p>
+&lt;p>所谓脊回归，就是对于一个线性模型，&lt;strong>在原来的损失函数加入参数的$l_2$范数的惩罚项&lt;/strong>，其损失函数为如下形式:
+$$J_w=\min_w{|X-w|^2+\alpha|w|^2},\alpha&amp;gt;0$$
+由于$w$最小化整个式子，如果$w$本身特别大，第二项就会很大，这样就限制了$w$的大小。&lt;/p>
+&lt;p>$α$的数值越大，那么正则项，也是惩罚项的作用就越明显；$α$的数值越小，正则项的作用就越弱。极端情况下，$α=0$则和原来的损失函数是一样的，如果$α=∞$，则损失函数只有正则项，此时其最小化的结果必然是$w=0$。&lt;/p>
+&lt;p>之前，我们根据线性回归判断参数的解为：
+$$w=(X^TX)^{-1}X^Ty$$
+同理，脊回归的损失函数为：
+$$|Xw-y|^2+\alpha|w|^2=(Xw-y)^T(Xw-y)+\alpha w^T w$$
+对于参数$w$求导之后，极值为0：
+$$X^T(Xw-y)+X^T(Xw-y)+2\alpha w=0$$
+解得：
+$$w=(X^T X+\alpha I)^{-1}X^Ty$$&lt;/p>
 &lt;h3 id="lasso_regression">Lasso_Regression&lt;/h3>
-&lt;p>Lasso回归全称是(Least Absolute Shrinkage and Selection Operator)，它使用L1范数作为惩罚项。 &lt;span class="math">\[\|Xw-y\|^2+\alpha|w|\]&lt;/span>&lt;/p>
+&lt;p>Lasso回归全称是(Least Absolute Shrinkage and Selection Operator)，它使用L1范数作为惩罚项。
+$$|Xw-y|^2+\alpha|w|$$&lt;/p>
 &lt;h3 id="elasticnet_regression">ElasticNet_Regression&lt;/h3>
 &lt;p>弹性网络是一种使用 L1，L2范数作为先验正则项训练的线性回归模型.这种组合允许学习到一个只有少量参数是非零稀疏的模型，就像 Lasso一样，但是它仍然保持一些像Ridge的正则性质。我们可利用 l1_ratio 参数控制L1和L2的凸组合。弹性网络是一不断叠代的方法。&lt;/p>
 &lt;h2 id="如何选择正确的回归分析算法">如何选择正确的回归分析算法&lt;/h2>
-&lt;ol style="list-style-type: decimal">
+&lt;ol>
 &lt;li>数据探索是构建预测模型的必然部分。这是选择正确的模型（例如确定变量之间的关系和影响）之前的第一步。&lt;/li>
 &lt;li>为了比较不同模型的适用性，我们需要不同维度的分析，例如参数的统计特性，R-square, Adjusted r-square, AIC, BIC和误差项等。另一个方法是使用Mallow’s Cp 准则。 This essentially checks for possible bias in your model, by comparing the model with all possible submodels (or a careful selection of them).&lt;/li>
 &lt;li>Cross-validation is the best way to evaluate models used for prediction. Here you divide your data set into two group (train and validate). A simple mean squared difference between the observed and predicted values give you a measure for the prediction accuracy.&lt;/li>
@@ -432,48 +439,57 @@ for all operations constructed within the context.&lt;/p>
 &lt;/ol>
 &lt;h2 id="参考文献">参考文献&lt;/h2>
 &lt;p>[1] 7 Regression Techniques you should know!&lt;a href="https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/">https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/&lt;/a>&lt;/p></description></item><item><title>机器学习-梯度下降算法汇总（1）</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB1/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB1/</guid><description>
-&lt;h2 id="梯度下降算法1">梯度下降算法（1）&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="梯度下降算法1---omit-in-toc---">梯度下降算法（1）&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="#梯度下降法与梯度计算">梯度下降法与梯度计算&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#计算梯度通过微积分计算解析梯度">计算梯度②通过微积分计算解析梯度&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#各种梯度下降法">各种梯度下降法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E4%B8%8E%E6%A2%AF%E5%BA%A6%E8%AE%A1%E7%AE%97">梯度下降法与梯度计算&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6%E9%80%9A%E8%BF%87%E6%9C%89%E9%99%90%E5%B7%AE%E5%80%BC%E7%9A%84%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6%E8%BF%91%E4%BC%BC%E6%A2%AF%E5%BA%A6%E5%8F%AF%E4%BB%A5%E9%80%82%E7%94%A8%E4%BA%8E%E6%9C%89%E4%BA%9B%E4%B8%8D%E8%83%BD%E5%BE%AE%E5%88%86%E7%9A%84%E5%87%BD%E6%95%B0">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%AE%A1%E7%AE%97%E6%A2%AF%E5%BA%A6%E9%80%9A%E8%BF%87%E5%BE%AE%E7%A7%AF%E5%88%86%E8%AE%A1%E7%AE%97%E8%A7%A3%E6%9E%90%E6%A2%AF%E5%BA%A6">计算梯度②通过微积分计算解析梯度&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%90%84%E7%A7%8D%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95">各种梯度下降法&lt;/a>
+&lt;ul>
 &lt;li>&lt;a href="#batch_gradient_descent">Batch_gradient_descent&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#stochastic_gradient_descent">Stochastic_gradient_descent&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#mini-batch_gradient_descent">Mini-batch_gradient_descent&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#挑战">挑战&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#梯度优化算法">梯度优化算法&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%8C%91%E6%88%98">挑战&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%A2%AF%E5%BA%A6%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95">梯度优化算法&lt;/a>
+&lt;ul>
 &lt;li>&lt;a href="#momentum">Momentum&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#nesterov加速梯度法">Nesterov加速梯度法&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#未完待续">未完待续&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nesterov%E5%8A%A0%E9%80%9F%E6%A2%AF%E5%BA%A6%E6%B3%95">Nesterov加速梯度法&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%9C%AA%E5%AE%8C%E5%BE%85%E7%BB%AD">未完待续&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>本文首先查看了多种梯度下降算法，并总结了数据训练过程中遇到的挑战。接下来，我们介绍了最常用的梯度优化算法，并指出它们做出这些算法优化的缘由。我们还会简要的说明如何在并行与分布式场景下优化梯度下降算法。最后，我们会追加一些优化梯度下降算法的有用策略。&lt;/p>
 &lt;h3 id="梯度下降法与梯度计算">梯度下降法与梯度计算&lt;/h3>
 &lt;p>从最基本的来说，梯度下降算法是一个通过向负梯度方向(-∇θJ(θ))，更新参数θ来最小化目标函数J(θ)的方法。还有超参数学习率η决定我们向（本地）最优移动的步长。计算梯度，可以有两种办法，①缓慢、近似但是最简单的办法（数值梯度）②快速、精确但是更易于出错的微积分方法（解析梯度）。我们分别介绍：&lt;/p>
 &lt;h4 id="计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/h4>
-&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">def&lt;/span> eval_numerical_gradient(f, x):
-&lt;span class="co">&amp;quot;&amp;quot;&amp;quot;&lt;/span>
-&lt;span class="co"> a naive implementation of numerical gradient of f at x&lt;/span>
-&lt;span class="co"> - f should be a function that takes a single argument&lt;/span>
-&lt;span class="co"> - x is the point (numpy array) to evaluate the gradient at&lt;/span>
-&lt;span class="co"> &amp;quot;&amp;quot;&amp;quot;&lt;/span>
-fx = f(x) &lt;span class="co"># evaluate function value at original point&lt;/span>
-grad = np.zeros(x.shape)
-h = &lt;span class="fl">0.00001&lt;/span>
-&lt;span class="co"># iterate over all indexes in x&lt;/span>
-it = np.nditer(x, flags=[&lt;span class="st">&amp;#39;multi_index&amp;#39;&lt;/span>], op_flags=[&lt;span class="st">&amp;#39;readwrite&amp;#39;&lt;/span>])
-&lt;span class="kw">while&lt;/span> not it.finished:
-&lt;span class="co"># evaluate function at x+h&lt;/span>
-ix = it.multi_index
-old_value = x[ix]
-x[ix] = old_value + h &lt;span class="co"># increment by h&lt;/span>
-fxh = f(x) &lt;span class="co"># evalute f(x + h)&lt;/span>
-x[ix] = old_value &lt;span class="co"># restore to previous value (very important!)&lt;/span>
-&lt;span class="co"># compute the partial derivative&lt;/span>
-grad[ix] = (fxh - fx) / h &lt;span class="co"># the slope&lt;/span>
-it.iternext() &lt;span class="co"># step to next dimension&lt;/span>
-&lt;span class="kw">return&lt;/span>&lt;/code>&lt;/pre>
-&lt;p>grad这个函数在每一个维度上前进了一小步（h=0.00001）,并近似计算出每一个维度的偏导数，最后组成梯度。实际上，更好的方式是使用&lt;strong>中心差分公式&lt;/strong>作为偏导数计算：&lt;span class="math">\([f(x+h)−f(x−h)]/2h\)&lt;/span>。解释在:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">def&lt;/span> &lt;span class="nf">eval_numerical_gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="s2"> a naive implementation of numerical gradient of f at x
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="s2"> - f should be a function that takes a single argument
+&lt;/span>&lt;span class="ln"> 5&lt;/span>&lt;span class="s2"> - x is the point (numpy array) to evaluate the gradient at
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="n">fx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># evaluate function value at original point&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="n">grad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">zeros&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="n">h&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.00001&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="c1"># iterate over all indexes in x&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">it&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">nditer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flags&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;multi_index&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">op_flags&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;readwrite&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="k">while&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">finished&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="c1"># evaluate function at x+h&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">ix&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">multi_index&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="n">old_value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">old_value&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">h&lt;/span> &lt;span class="c1"># increment by h&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">fxh&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># evalute f(x + h)&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="n">x&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">old_value&lt;/span> &lt;span class="c1"># restore to previous value (very important!)&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c1"># compute the partial derivative&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="n">grad&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">fxh&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">fx&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">h&lt;/span> &lt;span class="c1"># the slope&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="n">it&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">iternext&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1"># step to next dimension&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="k">return&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>grad这个函数在每一个维度上前进了一小步（h=0.00001）,并近似计算出每一个维度的偏导数，最后组成梯度。实际上，更好的方式是使用&lt;strong>中心差分公式&lt;/strong>作为偏导数计算：$[f(x+h)−f(x−h)]/2h$。解释在:&lt;/p>
 &lt;p>&lt;a href="https://en.wikipedia.org/wiki/Numerical_differentiation">https://en.wikipedia.org/wiki/Numerical_differentiation&lt;/a>&lt;/p>
 &lt;p>需要指出的是超参数步长（学习率）的设置是什么重要（也是十分令人头疼的步骤），步长小收敛的速度慢，步长大容易直接跳到极值点的另一侧。&lt;/p>
 &lt;p>基于数值的梯度计算方法需要计算很多次目标函数，参数有多少个维度，就要计算多少次偏导，就要计算多少次目标函数，十分低效。对于现代神经网络动辄有成千上万的维度，计算一次梯度就要花费那么大计算量，十分不值得。而且每次计算梯度，只能获得h（步长）的收益，更使得计算量难以估计。&lt;/p>
@@ -483,46 +499,70 @@ it.iternext() &lt;span class="co"># step to next dimension&lt;/span>
 &lt;p>有三种梯度下降法的变种，差别在于我们使用&lt;strong>多少数据&lt;/strong>来计算目标函数的梯度。根据数据量，我们在参数的精度和所花的时间之间做权衡。&lt;/p>
 &lt;h4 id="batch_gradient_descent">Batch_gradient_descent&lt;/h4>
 &lt;p>Batch gradient descent（Vanilla gradient descent，批量梯度下降，BGD），这就是最基本的梯度下降法，每次运行梯度运算会把所有的训练数据都带入计算，所以它的运行速度十分缓慢，并且在大数据寄情况下，能够导致内存溢出。同时，BGD不允许我们在线更新模型，因为它要把所有数据都跑一遍。总的来说，代码如下：&lt;/p>
-&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
-params_grad = evaluate_gradient(loss_function, data, params)
-params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
-&lt;p>在给定的循环次数内，我们首先要计算损失函数在整个数据集(data)上的梯度向量，来更新我们的参数向量params。现在很多深度学习库都提供自动差分计算能力，来求解梯度。如果你自己求解梯度，需要注意进行梯度检查。 我们接下来会根据整体数据集的负梯度和学习率来更新参数。BGD对于凸的目标函数有收敛的全局最优解，对于非凸函数有局部最优解。&lt;/p>
-&lt;img src="../../images/bgd.png" alt="图1 BGD" />
-&lt;center>
-图1 BGD
-&lt;/center>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nb_epochs&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">params_grad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">evaluate_gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">loss_function&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">params&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">params&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">params&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">learning_rate&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">params_grad&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在给定的循环次数内，我们首先要计算损失函数在整个数据集(data)上的梯度向量，来更新我们的参数向量params。现在很多深度学习库都提供自动差分计算能力，来求解梯度。如果你自己求解梯度，需要注意进行梯度检查。
+我们接下来会根据整体数据集的负梯度和学习率来更新参数。BGD对于凸的目标函数有收敛的全局最优解，对于非凸函数有局部最优解。&lt;/p>
+&lt;p>&lt;img src="../../images/bgd.png" alt="图1 BGD">&lt;/p>
+&lt;center>图1 BGD&lt;/center>
 &lt;h4 id="stochastic_gradient_descent">Stochastic_gradient_descent&lt;/h4>
-&lt;p>随机梯度下降，SGD。与此相反，随机梯度下降只根据每一个（？？）训练数据进行一次参数更新。 &lt;span class="math">\[θ=θ−η⋅∇θJ(θ;x(i);y(i)).\]&lt;/span> BGD对于大数据集做了许多冗余的运算（我觉得不能叫冗余，而是信价比很低），因为它在更新参数之前，重复计算了很多相似数据的梯度。SGD通过每次只做一次更新来原理这种冗余。所以，SGD会快很多，且常常被用于在线学习。 SGD会以较高的方差频繁的更新，导致目标函数的抖动十分剧烈，如图2所示。&lt;/p>
-&lt;img src="../../images/sgd_fluc.png" alt="图2: SGD抖动" />
-&lt;center>
-图2: SGD抖动
-&lt;/center>
+&lt;p>随机梯度下降，SGD。与此相反，随机梯度下降只根据每一个（？？）训练数据进行一次参数更新。
+$$θ=θ−η⋅∇θJ(θ;x(i);y(i)).$$
+BGD对于大数据集做了许多冗余的运算（我觉得不能叫冗余，而是信价比很低），因为它在更新参数之前，重复计算了很多相似数据的梯度。SGD通过每次只做一次更新来原理这种冗余。所以，SGD会快很多，且常常被用于在线学习。
+SGD会以较高的方差频繁的更新，导致目标函数的抖动十分剧烈，如图2所示。&lt;/p>
+&lt;p>&lt;img src="../../images/sgd_fluc.png" alt="图2: SGD抖动">&lt;/p>
+&lt;center>图2: SGD抖动&lt;/center>
 &lt;p>不同于BGD稳定地向目标函数最小值前进，SGD的抖动从另一个角度来说使它有机会跳出局部最优找到更好的局部解（甚至最优解，参考模拟退火）。但是，这给收敛带来了很大问题。解决的方案就是&lt;strong>逐步降低学习率&lt;/strong>，这使得SGD有着和BGD相似的收敛能力。代码如下所示：&lt;/p>
-&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
-np.random.shuffle(data)
-&lt;span class="kw">for&lt;/span> example in data:
-params_grad = evaluate_gradient(loss_function, example,params)
-params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
-&lt;img src="../../images/sgd.png" alt="图3 SGD" />
-&lt;center>
-图3 SGD
-&lt;/center>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nb_epochs&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shuffle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">example&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">params_grad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">evaluate_gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">loss_function&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">example&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">params&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">params&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">params&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">learning_rate&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">params_grad&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="../../images/sgd.png" alt="图3 SGD">&lt;/p>
+&lt;center>图3 SGD&lt;/center>
 &lt;h4 id="mini-batch_gradient_descent">Mini-batch_gradient_descent&lt;/h4>
-&lt;p>最小batch梯度下降，MBGD综合了两种（BGD）的策略，每次选取一组最小batch（n个数据）进行训练。 &lt;span class="math">\[θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）\]&lt;/span> 这个办法a)降低了每次更新的抖动，更加容易收敛；b）计算效率高。通常最小batch的范围在50-256之间。&lt;/p>
-&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
-np.random.shuffle(data)
-&lt;span class="kw">for&lt;/span> batch in get_batches(data, batch_size=&lt;span class="dv">50&lt;/span>):
-params_grad = evaluate_gradient(loss_function, batch, params)
-params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
-&lt;img src="../../images/mbgd.png" alt="图4 MBGD" />
-&lt;center>
-图4 MBGD
-&lt;/center>
+&lt;p>最小batch梯度下降，MBGD综合了两种（BGD\SGD）的策略，每次选取一组最小batch（n个数据）进行训练。
+$$θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）$$
+这个办法a)降低了每次更新的抖动，更加容易收敛；b）计算效率高。通常最小batch的范围在50-256之间。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nb_epochs&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shuffle&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">batch&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">get_batches&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">batch_size&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">50&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">params_grad&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">evaluate_gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">loss_function&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">batch&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">params&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">params&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">params&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">learning_rate&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">params_grad&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="../../images/mbgd.png" alt="图4 MBGD">&lt;/p>
+&lt;center>图4 MBGD&lt;/center>
 &lt;p>总结表格，各种算法实现：&lt;/p>
-&lt;p>&lt;a href="https://github.com/tsycnh/mlbasic">https://github.com/tsycnh/mlbasic&lt;/a> |梯度下降算法|优点|缺点| |:-:|:-:|:-:| |BGD|凸优化全局最优|计算量大，迭代速度慢，训练速度慢 |SGD|训练速度快，支持在线学习|准确度下降，有噪声，非全局最优 |MBGD|1. 训练速度较快, 取决于小批量的数目 2. 支持在线学习|准确度不如 BGD, 仍然有噪声, 非全局最优解&lt;/p>
+&lt;p>&lt;a href="https://github.com/tsycnh/mlbasic">https://github.com/tsycnh/mlbasic&lt;/a>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">梯度下降算法&lt;/th>
+&lt;th style="text-align:center">优点&lt;/th>
+&lt;th style="text-align:center">缺点&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">BGD&lt;/td>
+&lt;td style="text-align:center">凸优化全局最优&lt;/td>
+&lt;td style="text-align:center">计算量大，迭代速度慢，训练速度慢&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">SGD&lt;/td>
+&lt;td style="text-align:center">训练速度快，支持在线学习&lt;/td>
+&lt;td style="text-align:center">准确度下降，有噪声，非全局最优&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">MBGD&lt;/td>
+&lt;td style="text-align:center">1. 训练速度较快, 取决于小批量的数目 2. 支持在线学习&lt;/td>
+&lt;td style="text-align:center">准确度不如 BGD, 仍然有噪声, 非全局最优解&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h3 id="挑战">挑战&lt;/h3>
 &lt;p>从上面可以看出，在优化中MBGD无疑是折衷下最佳方案。但是单纯的MBGD算法没有办法确保收敛，并且提供了一系列需要解决的问题：&lt;/p>
-&lt;ol style="list-style-type: decimal">
+&lt;ol>
 &lt;li>选择一个&lt;strong>合适的学习&lt;/strong>率非常困难。小的收敛慢，大的可能不收敛，或者在最小值周边浮动。&lt;/li>
 &lt;li>学习率规划尝试在训练中调节学习率，例如退火：根据一个预定的机制或目标变动之低于一个门限，就降低学习率。但是，这个调节机制或门限需要预先设定，并且不能够根据数据集特点自适应。&lt;/li>
 &lt;li>此外，相同的学习率被应用于所有的参数更新。但是如果我们的数据是稀疏的，同时特点有非常不同的频率，我们可能希望更新的程度是相当不同的，比如对于一个很少发生的事情一次性做一个大幅度的更新。&lt;/li>
@@ -532,97 +572,145 @@ params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
 &lt;p>在接下来的文章中，我们将概述一些被深度学习社区广泛使用的算法来处理上述挑战。我们不会讨论在高维数据集的实际计算中不可行的算法，例如二阶方法，如牛顿法。&lt;/p>
 &lt;h4 id="momentum">Momentum&lt;/h4>
 &lt;p>Momentum，动量法。SGD对避开“沟壑”有问题，例如，通常在局部最优附近，某一维度会远比其他维度陡峭。在这些情况下，SGD在沟谷的斜坡上振荡，而只在底部向局部最优方向缓慢前进，如图5所示：&lt;/p>
-&lt;img src="../../images/sgd_without_momentum.png" alt="图5：不加动量的SGD" />
-&lt;center>
-图5：不加动量的SGD
-&lt;/center>
-&lt;p>动量是一种在相关方向上加速SGD并抑制振荡的方法，如图6所示。它通过将过去的一部分分量，加到当前更新矢量来实现。 &lt;span class="math">\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta)\]&lt;/span> &lt;span class="math">\[\theta = \theta - v_t\]&lt;/span>&lt;/p>
-&lt;img src="../../images/momentum_vector.png" alt="图6：动量法矢量示意图" />
-&lt;center>
-图6：动量法矢量示意图
-&lt;/center>
-&lt;img src="../../images/sgd_with_momentum.png" alt="图7： 加动量的SGD" />
-&lt;center>
-图7： 加动量的SGD
-&lt;/center>
-&lt;p>γ通常是0.9，或者相似的值。&lt;/p>
+&lt;p>&lt;img src="../../images/sgd_without_momentum.png" alt="图5：不加动量的SGD">&lt;/p>
+&lt;center>图5：不加动量的SGD&lt;/center>
+&lt;p>动量是一种在相关方向上加速SGD并抑制振荡的方法，如图6所示。它通过将过去的一部分分量，加到当前更新矢量来实现。
+$$v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta)$$
+$$\theta = \theta - v_t$$&lt;/p>
+&lt;p>&lt;img src="../../images/momentum_vector.png" alt="图6：动量法矢量示意图">&lt;/p>
+&lt;center>图6：动量法矢量示意图&lt;/center>
+&lt;p>&lt;img src="../../images/sgd_with_momentum.png" alt="图7： 加动量的SGD">&lt;/p>
+&lt;center>图7： 加动量的SGD&lt;/center>
+γ通常是0.9，或者相似的值。
 &lt;p>本质上，当使用动量时，我们把球推下山。当球滚下山时，它积累了动量，在途中变得越来越快。同样的事情也发生在我们的参数更新上：动量项对于梯度指向相同方向的维度增加，对于梯度改变方向的维度减少更新。因此，我们获得更快的收敛速度和减少振荡。（&lt;strong>通过仿真，确实降低振动，收敛更快&lt;/strong>）&lt;/p>
-&lt;img src="../../images/momentum.png" alt="图8 Momentum动量法" />
-&lt;center>
-图8 Momentum动量法
-&lt;/center>
+&lt;p>&lt;img src="../../images/momentum.png" alt="图8 Momentum动量法">&lt;/p>
+&lt;center>图8 Momentum动量法&lt;/center>
 &lt;h4 id="nesterov加速梯度法">Nesterov加速梯度法&lt;/h4>
 &lt;p>Nesterov accelerated gradient修正动量，不让动量冲的太猛。&lt;/p>
 &lt;p>然而，当一个球滚下山坡从而带有一个初始动量之后，这个动量在其他位置就是盲目的，表现并不能令人满意。现在我们假设有一个智能球，知道这个初始动量将会把它带到何处，这样就可以提前做出一些修正，而不是仅仅用当前点的梯度来作为接下来动量的增量。&lt;/p>
-&lt;p>Nesterov加速梯度法，是一种能够提升动量精确性的方法。我们知道，在参数θ处，会带有一个初始动量γvt-1 。如果我们直接计算θ-γvt-1 处的梯度（这是估计的梯度），然后将这个梯度作为修正值来叠加在原始动量上，可以获得更加优良的效果。公式如下所示:（γ一般取0.9） &lt;span class="math">\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} )\]&lt;/span> &lt;span class="math">\[\theta = \theta - v_t \]&lt;/span>&lt;/p>
+&lt;p>Nesterov加速梯度法，是一种能够提升动量精确性的方法。我们知道，在参数θ处，会带有一个初始动量γvt-1 。如果我们直接计算θ-γvt-1 处的梯度（这是估计的梯度），然后将这个梯度作为修正值来叠加在原始动量上，可以获得更加优良的效果。公式如下所示:（γ一般取0.9）
+$$v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} )$$
+$$\theta = \theta - v_t $$&lt;/p>
 &lt;p>根据动量法和NAG法，我们可以通过图9进行对比。动量法（Momentum）首先会计算当前位置的梯度（第一段蓝线），然后加上之前累计的初始动量（第二段蓝线），总的矢量和即为走的最终路线。而NAG方法，首先根据之前累计的初始动量前进（棕色的线），然后估计在经过这个动量之后位置的梯度（红线）作为修正，实际走的是二者之和（绿线）。NAG波动也小了很多。&lt;strong>实际上NAG方法用到了二阶信息，所以才会有这么好的结果。&lt;/strong>&lt;/p>
-&lt;img src="../../images/momentum_vs_nag.png" alt="图9 动量法（蓝线） vs NAG法（棕，红，绿）" />
-&lt;center>
-图9 动量法（蓝线） vs NAG法（棕，红，绿）
-&lt;/center>
-&lt;img src="../../images/momentum_nag.png" alt="图10 Momentum_NAG" />
-&lt;center>
-图10 Nesterov加速梯度法
-&lt;/center>
+&lt;p>&lt;img src="../../images/momentum_vs_nag.png" alt="图9 动量法（蓝线） vs NAG法（棕，红，绿）">&lt;/p>
+&lt;center>图9 动量法（蓝线） vs NAG法（棕，红，绿）&lt;/center>
+&lt;p>&lt;img src="../../images/momentum_nag.png" alt="图10 Momentum_NAG">&lt;/p>
+&lt;center>图10 Nesterov加速梯度法&lt;/center>
 &lt;h3 id="未完待续">未完待续&lt;/h3>
 &lt;p>既然我们能够使得我们的更新适应误差函数的斜率以相应地加速SGD，我们同样也想要使得我们的更新能够适应每一个单独参数，以根据每个参数的重要性决定大的或者小的更新。下一章将说明如何自适应更新参数。（Adagrad、RMSprop、Adadelta、Adam、MaxAdam等等）&lt;/p></description></item><item><title>机器学习-梯度下降算法汇总（2）</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB2/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB2/</guid><description>
-&lt;h2 id="梯度下降算法2">梯度下降算法（2）&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="梯度下降算法2---omit-in-toc---">梯度下降算法（2）&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="#梯度优化算法">梯度优化算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%A2%AF%E5%BA%A6%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95">梯度优化算法&lt;/a>
+&lt;ul>
 &lt;li>&lt;a href="#adagrad">Adagrad&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#rmsprop均方根传播">RMSprop(均方根传播)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#rmsprop%E5%9D%87%E6%96%B9%E6%A0%B9%E4%BC%A0%E6%92%AD">RMSprop(均方根传播)&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#adadelta">Adadelta&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#adam">Adam&lt;/a>
 &lt;ul>
-&lt;li>&lt;a href="#我自己的实验到这里速度很慢了根本到不了一个理想值">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/a>&lt;/li>
-&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AE%9E%E9%AA%8C%E5%88%B0%E8%BF%99%E9%87%8C%E9%80%9F%E5%BA%A6%E5%BE%88%E6%85%A2%E4%BA%86%E6%A0%B9%E6%9C%AC%E5%88%B0%E4%B8%8D%E4%BA%86%E4%B8%80%E4%B8%AA%E7%90%86%E6%83%B3%E5%80%BC">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;li>&lt;a href="#adamax">AdaMax&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#nadam">Nadam&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#amsgrad">AMSGrad&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#lookahead新优化算法">Lookahead(新优化算法)&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#算法可视化图">算法可视化图&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#优化器选择">优化器选择&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#并行与分布式sgd">并行与分布式SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lookahead%E6%96%B0%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95">Lookahead(新优化算法)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AE%97%E6%B3%95%E5%8F%AF%E8%A7%86%E5%8C%96%E5%9B%BE">算法可视化图&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BC%98%E5%8C%96%E5%99%A8%E9%80%89%E6%8B%A9">优化器选择&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8Fsgd">并行与分布式SGD&lt;/a>
+&lt;ul>
 &lt;li>&lt;a href="#hogwild">Hogwild&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#downpour_sgd">Downpour_SGD&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#delay-tolerant_algorithms_for_sgd">Delay-tolerant_Algorithms_for_SGD&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#tensorflow">TensorFlow&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#elastic_averaging_sgd">Elastic_Averaging_SGD&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#优化sgd的其他策略">优化SGD的其他策略&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#数据集的洗牌和课程学习">数据集的洗牌和课程学习&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#批量归一化">批量归一化&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E4%BC%98%E5%8C%96sgd%E7%9A%84%E5%85%B6%E4%BB%96%E7%AD%96%E7%95%A5">优化SGD的其他策略&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%B4%97%E7%89%8C%E5%92%8C%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0">数据集的洗牌和课程学习&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%89%B9%E9%87%8F%E5%BD%92%E4%B8%80%E5%8C%96">批量归一化&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#early_stopping">Early_stopping&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#梯度噪音">梯度噪音&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#总结">总结&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%A2%AF%E5%BA%A6%E5%99%AA%E9%9F%B3">梯度噪音&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%80%BB%E7%BB%93">总结&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>上一篇文章我们理解到了Adagrad算法，即一个逐渐降低学习率的算法。它带来一个弊端，学习率可能过早的太小，以致于离最优点还很远就收敛了。因此有人提出了RMSprop算法来缓解这个问题，我们这篇文章从这里开始讲起。原文中先将Adadelta，但是我觉得原文这里有些难以理解，所以先从RMSprop说起。&lt;/p>
 &lt;h3 id="梯度优化算法">梯度优化算法&lt;/h3>
 &lt;h4 id="adagrad">Adagrad&lt;/h4>
 &lt;p>Adagrad在原来基础上，做了这样一个优化：让学习率适应参数，对于出现次数较少的特征，我们对其采用更大的学习率，对于出现次数较多的特征，我们对其采用较小的学习率。因此，Adagrad非常适合处理稀疏数据。&lt;/p>
-&lt;p>之前的方法中，我们对于所有的参数&lt;span class="math">\(\boldsymbol{\theta}\)&lt;/span>，都是用相同的学习速率η。而在Adagrade算法中，对于每一个维度的参数&lt;span class="math">\({\theta}_i\)&lt;/span>，采用不同的学习速率。我们先看看&lt;span class="math">\({\theta}_i\)&lt;/span>每一个维度的更新过程，然后再把它向量化。简单来看，我们使用&lt;span class="math">\(\boldsymbol{g_t}\)&lt;/span>来表示t时刻的梯度向量，&lt;span class="math">\(g_{t,i}\)&lt;/span>表示某一维度参数&lt;span class="math">\({\theta}_i\)&lt;/span>在t时刻的&lt;strong>偏导数&lt;/strong>。 &lt;span class="math">\[g_{t,i}=\frac{{\partial}J(\boldsymbol{\theta_t)}}{d\theta_{t,i}}\]&lt;/span> 对于一般SGD算法，每一个周期t内，&lt;span class="math">\(\theta_{i}\)&lt;/span>在更新是采用相同的学习率：&lt;span class="math">\(\theta_{t+1,i}=\theta_{t,i}-\eta\cdot{g_{t,i}}\)&lt;/span>. 但是对于Adagrad算法，学习率的更新的规则如下所示： &lt;span class="math">\[\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}}+\epsilon}\cdot g_{t,i}\]&lt;/span> 其中，&lt;span class="math">\(\boldsymbol{G_t}\)&lt;/span>是d*d的对角矩阵，其中元素&lt;span class="math">\(G_{t,ii}\)&lt;/span>表示表示之前此维度偏导数的平方和。而&lt;span class="math">\(\epsilon\)&lt;/span>的存在是为了防止分母为0，一般取值为1e-8.有意思的是，如果没有平方根这个算法的效果会很差。 由于参数&lt;span class="math">\(G_t\)&lt;/span>包含过去梯度的平方和，我们可以向量化这个表达式： &lt;span class="math">\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]&lt;/span> 其中，&lt;span class="math">\(\odot\)&lt;/span>表示矩阵和向量的积。这样随着矩阵&lt;span class="math">\(\boldsymbol{G_t}\)&lt;/span>元素逐渐变大，学习率η会逐渐减少。Adagrad算法最大的问题在于：由于每增加一个正项，在整个训练过程中，累加的和会持续增长。这会导致学习率变小以至于最终变得无限小，在学习率无限小时，Adagrad算法将无法取得额外的信息，导致算法停止。尤其是初始值的梯度很大，导致算法提前收敛。接下来的算法旨在解决这个不足。&lt;/p>
-&lt;img src="../../images/adagrad.png" alt="Adagrad based MBGD" />
-&lt;center>
-图1 Adagrad效果(batch=5)Adagrad算法提前停止
-&lt;/center>
+&lt;p>之前的方法中，我们对于所有的参数$\boldsymbol{\theta}$，都是用相同的学习速率η。而在Adagrade算法中，对于每一个维度的参数${\theta}&lt;em>i$，采用不同的学习速率。我们先看看${\theta}&lt;em>i$每一个维度的更新过程，然后再把它向量化。简单来看，我们使用$\boldsymbol{g_t}$来表示t时刻的梯度向量，$g&lt;/em>{t,i}$表示某一维度参数${\theta}&lt;em>i$在t时刻的&lt;strong>偏导数&lt;/strong>。
+$$g&lt;/em>{t,i}=\frac{{\partial}J(\boldsymbol{\theta_t)}}{d\theta&lt;/em>{t,i}}$$
+对于一般SGD算法，每一个周期t内，$\theta_{i}$在更新是采用相同的学习率：$\theta_{t+1,i}=\theta_{t,i}-\eta\cdot{g_{t,i}}$.
+但是对于Adagrad算法，学习率的更新的规则如下所示：
+$$\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}}+\epsilon}\cdot g_{t,i}$$
+其中，$\boldsymbol{G_t}$是d*d的对角矩阵，其中元素$G_{t,ii}$表示表示之前此维度偏导数的平方和。而$\epsilon$的存在是为了防止分母为0，一般取值为1e-8.有意思的是，如果没有平方根这个算法的效果会很差。
+由于参数$G_t$包含过去梯度的平方和，我们可以向量化这个表达式：
+$$\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}$$
+其中，$\odot$表示矩阵和向量的积。这样随着矩阵$\boldsymbol{G_t}$元素逐渐变大，学习率η会逐渐减少。Adagrad算法最大的问题在于：由于每增加一个正项，在整个训练过程中，累加的和会持续增长。这会导致学习率变小以至于最终变得无限小，在学习率无限小时，Adagrad算法将无法取得额外的信息，导致算法停止。尤其是初始值的梯度很大，导致算法提前收敛。接下来的算法旨在解决这个不足。&lt;/p>
+&lt;p>&lt;img src="../../images/adagrad.png" alt="Adagrad based MBGD">&lt;/p>
+&lt;center>图1 Adagrad效果(batch=5)Adagrad算法提前停止&lt;/center>
 &lt;h4 id="rmsprop均方根传播">RMSprop(均方根传播)&lt;/h4>
-&lt;p>RMSprop算法对学习率的自适应做出了修改。之前Adagrad算法中，学习率是一只下降的，为了避免过早收敛，Geoff Hinton 提出了一种新的学习率自动更新方式，类似TCP协议中平滑计算RTT的方式： &lt;span class="math">\[TCP的平均RTT : SRTT = \alpha \times SRTT + (1-\alpha)\times RTT\]&lt;/span> &lt;span class="math">\[RMSprop 学习率自适应参数: E[g^2]_t = \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t\]&lt;/span> 通常，&lt;span class="math">\(\gamma\)&lt;/span>取0.9，基础学习率&lt;span class="math">\(\eta\)&lt;/span>取0.001。我在实际使用中发现用0.001收敛的速度很慢，可以尝试使用0.2。而且损失函数的曲线明显平滑了许多。&lt;span class="math">\(E[g^2]_{t}\)&lt;/span>是0-&amp;gt;t时刻梯度的平滑值。综上所述，RMSprop的梯度更新算法为： &lt;span class="math">\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]&lt;/span> 另一个重要的建议是&lt;strong>mini-batch的值选区的大一些，否在防止震荡不收敛&lt;/strong>。&lt;/p>
-&lt;img src="../../images/rmsprop.png" alt="RMSprop based MBGD" />
-&lt;center>
-图2 RMSprop效果(batch=5)
-&lt;/center>
+&lt;p>RMSprop算法对学习率的自适应做出了修改。之前Adagrad算法中，学习率是一只下降的，为了避免过早收敛，Geoff Hinton 提出了一种新的学习率自动更新方式，类似TCP协议中平滑计算RTT的方式：
+$$TCP的平均RTT : SRTT = \alpha \times SRTT + (1-\alpha)\times RTT$$
+$$RMSprop 学习率自适应参数: E[g^2]&lt;em>t = \gamma E[g^2]&lt;/em>{t-1} + (1-\gamma)g^2_t$$
+通常，$\gamma$取0.9，基础学习率$\eta$取0.001。我在实际使用中发现用0.001收敛的速度很慢，可以尝试使用0.2。而且损失函数的曲线明显平滑了许多。$E[g^2]_{t}$是0-&amp;gt;t时刻梯度的平滑值。综上所述，RMSprop的梯度更新算法为：
+$${\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t$$
+另一个重要的建议是&lt;strong>mini-batch的值选区的大一些，否在防止震荡不收敛&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="../../images/rmsprop.png" alt="RMSprop based MBGD">&lt;/p>
+&lt;center>图2 RMSprop效果(batch=5)&lt;/center>
 &lt;h4 id="adadelta">Adadelta&lt;/h4>
-&lt;p>Adadelta算法是Adagrad算法的拓展,它能够降低Adagrad算法在学习率上单项的过度下降。相对于一直累加过去所有的梯度的平方，Adadelta算法管理了一个窗口,将过去梯度相加的个数固定为&lt;span class="math">\(\omega\)&lt;/span>。&lt;/p>
-&lt;p>但是相较于低效率地存储前&lt;span class="math">\(\omega\)&lt;/span>个梯度的平方，“梯度的和”被递归定义为逐渐衰减的之前所有梯度平方的和。这个定义有点像TCP协议中计算RTT的方式： &lt;span class="math">\[E[g^2]_t=\gamma E[g^2]_{t-1}+(1-\gamma)g^2_t\]&lt;/span> 在t时刻的实时平均&lt;span class="math">\(E[g^2]_{t}\)&lt;/span>只取决于之前的均值和当前的梯度。&lt;span class="math">\(\gamma\)&lt;/span>的作用和RMSprop中的类似，一般可以取0.9。为了清楚起见，我们重新写一般SGD算法的参数更新过程： &lt;span class="math">\[{\Delta}{\theta}_t = -{\eta}{\cdot}g_{t,i}\]&lt;/span> &lt;span class="math">\[{\theta}_{t+1} = {\theta}_t + {\Delta}{\theta}_t\]&lt;/span> 然后，我们再重写下Adagrad更新参数向量的公式： &lt;span class="math">\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]&lt;/span> 现在，我们只要把对角矩阵&lt;span class="math">\(G_t\)&lt;/span>换成逐渐衰减的梯度平方的均值&lt;span class="math">\({E[g^2]_t}\)&lt;/span>: &lt;span class="math">\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]&lt;/span> 如果我们认为&lt;span class="math">\({\sqrt{E[g^2]_t+{\epsilon}}}\)&lt;/span>近似等于均方根值RMS，也可以用下式表示： &lt;span class="math">\[\Delta\theta_t=-\frac{\eta}{RMS[g]_t}g_t\]&lt;/span> 到这里读者一定会很奇怪，这不是RMSprop算法吗？到这里如果把&lt;span class="math">\(\gamma\)&lt;/span>设置为0.9，确实和RMSprop算法一样，所以下面才说的Adadelta的独创。&lt;/p>
-我们看到目前的部分还存在两个明显问题，第一超参数学习率&lt;span class="math">\(\eta\)&lt;/span>还得手动设置；第二表达式的量纲不统一。我们假设&lt;span class="math">\(\theta\)&lt;/span>的单位是&lt;span class="math">\(x\)&lt;/span>。那么BGD、SGD、Momentum、NAG的量纲就是&lt;span class="math">\(1/x\)&lt;/span>。 &lt;span class="math">\[\Delta\theta单位\propto \boldsymbol{g}某一维度单位\propto\frac{\partial{f}}{\partial{\theta_i}}\propto\frac{1}{x}\]&lt;/span> 而Adagrad的&lt;span class="math">\(\Delta\theta\)&lt;/span>是无量纲数。如果我们想要获得匹配的量纲，必须使用二阶信息例如使用Hessian信息（或其他近似）的牛顿法： &lt;span class="math">\[\Delta\theta单位\propto \frac{\boldsymbol{g}}{\boldsymbol{H}}\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\propto{x}\]&lt;/span> 我们知道二阶的牛顿是正确的（这点先不去证明，反正是对的），但是二阶信息的计算量大大增加了，所以我们考虑如下变化： &lt;span class="math">\[\Delta\theta\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\Rightarrow\frac{\Delta\theta}{{\frac{\partial{f}}{\partial{\theta_i}}}}\propto\frac{1}{\frac{\partial^2f}{\partial{\theta^2}}}\propto\frac{1}{\boldsymbol{{H}}}\propto{x^2}\]&lt;/span> 再根据： &lt;span class="math">\[\frac{1}{\boldsymbol{H}}\cdot\boldsymbol{g}\propto{x}\]&lt;/span> &lt;span class="math">\(\boldsymbol{g}\)&lt;/span>即为当前梯度，分母中的&lt;span class="math">\(\frac{\partial{f}}{\partial{\theta_i}}\)&lt;/span>就是&lt;span class="math">\(RMS[g]_t\)&lt;/span>。关键分子还缺少一个&lt;span class="math">\(\Delta\theta\)&lt;/span>。Adadelta算法使用了平滑的均方根值&lt;span class="math">\(RMS[\Delta\theta]_{t-1}\)&lt;/span>来作为分子代替&lt;span class="math">\(\eta\)&lt;/span>，即： &lt;span class="math">\[\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]_t}g_t\]&lt;/span> &lt;span class="math">\[其中：RMS[\Delta \theta]_{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}\]&lt;/span> &lt;span class="math">\[其中：E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^2_t\]&lt;/span> 这样，Adadelta算法不用再设置超参数学习率，量纲也得到了统一。 &lt;img src="../../images/Adadelta.png" alt="Adadelta based MBGD" />
-&lt;center>
-图3 RMSprop效果(batch=5)
-&lt;/center>
+&lt;p>Adadelta算法是Adagrad算法的拓展,它能够降低Adagrad算法在学习率上单项的过度下降。相对于一直累加过去所有的梯度的平方，Adadelta算法管理了一个窗口,将过去梯度相加的个数固定为$\omega$。&lt;/p>
+&lt;p>但是相较于低效率地存储前$\omega$个梯度的平方，“梯度的和”被递归定义为逐渐衰减的之前所有梯度平方的和。这个定义有点像TCP协议中计算RTT的方式：
+$$E[g^2]&lt;em>t=\gamma E[g^2]&lt;/em>{t-1}+(1-\gamma)g^2_t$$
+在t时刻的实时平均$E[g^2]&lt;em>{t}$只取决于之前的均值和当前的梯度。$\gamma$的作用和RMSprop中的类似，一般可以取0.9。为了清楚起见，我们重新写一般SGD算法的参数更新过程：
+$${\Delta}{\theta}&lt;em>t = -{\eta}{\cdot}g&lt;/em>{t,i}$$
+$${\theta}&lt;/em>{t+1} = {\theta}&lt;em>t + {\Delta}{\theta}&lt;em>t$$
+然后，我们再重写下Adagrad更新参数向量的公式：
+$$\boldsymbol{\theta&lt;/em>{t+1}}=\boldsymbol{\theta&lt;/em>{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}$$
+现在，我们只要把对角矩阵$G_t$换成逐渐衰减的梯度平方的均值${E[g^2]_t}$:
+$${\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t$$
+如果我们认为${\sqrt{E[g^2]_t+{\epsilon}}}$近似等于均方根值RMS，也可以用下式表示：
+$$\Delta\theta_t=-\frac{\eta}{RMS[g]_t}g_t$$
+到这里读者一定会很奇怪，这不是RMSprop算法吗？到这里如果把$\gamma$设置为0.9，确实和RMSprop算法一样，所以下面才说的Adadelta的独创。&lt;/p>
+&lt;p>我们看到目前的部分还存在两个明显问题，第一超参数学习率$\eta$还得手动设置；第二表达式的量纲不统一。我们假设$\theta$的单位是$x$。那么BGD、SGD、Momentum、NAG的量纲就是$1/x$。
+$$\Delta\theta单位\propto \boldsymbol{g}某一维度单位\propto\frac{\partial{f}}{\partial{\theta_i}}\propto\frac{1}{x}$$
+而Adagrad的$\Delta\theta$是无量纲数。如果我们想要获得匹配的量纲，必须使用二阶信息例如使用Hessian信息（或其他近似）的牛顿法：
+$$\Delta\theta单位\propto \frac{\boldsymbol{g}}{\boldsymbol{H}}\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\propto{x}$$
+我们知道二阶的牛顿是正确的（这点先不去证明，反正是对的），但是二阶信息的计算量大大增加了，所以我们考虑如下变化：
+$$\Delta\theta\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\Rightarrow\frac{\Delta\theta}{{\frac{\partial{f}}{\partial{\theta_i}}}}\propto\frac{1}{\frac{\partial^2f}{\partial{\theta^2}}}\propto\frac{1}{\boldsymbol{{H}}}\propto{x^2}$$
+再根据：
+$$\frac{1}{\boldsymbol{H}}\cdot\boldsymbol{g}\propto{x}$$
+$\boldsymbol{g}$即为当前梯度，分母中的$\frac{\partial{f}}{\partial{\theta_i}}$就是$RMS[g]&lt;em>t$。关键分子还缺少一个$\Delta\theta$。Adadelta算法使用了平滑的均方根值$RMS[\Delta\theta]&lt;/em>{t-1}$来作为分子代替$\eta$，即：
+$$\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]&lt;em>t}g_t$$
+$$其中：RMS[\Delta \theta]&lt;/em>{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}$$
+$$其中：E[\Delta \theta^2]&lt;em>t = \gamma E[\Delta \theta^2]&lt;/em>{t-1} + (1 - \gamma) \Delta \theta^2_t$$
+这样，Adadelta算法不用再设置超参数学习率，量纲也得到了统一。
+&lt;img src="../../images/Adadelta.png" alt="Adadelta based MBGD">&lt;/p>
+&lt;center>图3 RMSprop效果(batch=5)&lt;/center>
 &lt;h4 id="adam">Adam&lt;/h4>
 &lt;p>自适应矩算法（Adaptive monent），是一种对随机目标函数执行一阶梯度优化的算法。其主要利用了&lt;strong>自适应性低阶矩估计&lt;/strong>。Adam 算法很容易实现，并且有很高的计算效率和较低的内存需求。Adam 算法梯度的对角缩放（diagonal rescaling）具有不变性，因此很适合求解带有大规模数据或参数的问题。该算法同样适用于解决大噪声和稀疏梯度的非稳态（non-stationary）问题。超参数可以很直观地解释，并只需要少量调整。&lt;/p>
-&lt;p>Adam算法的核心更新规律是： &lt;span class="math">\[\theta_{t+1} = \theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t\]&lt;/span> 和过去一样，&lt;span class="math">\(\eta\)&lt;/span>是学习率，&lt;span class="math">\(\hat m_t\)&lt;/span>是梯度的一阶矩，&lt;span class="math">\(\hat v_t\)&lt;/span>是梯度的二阶矩。我们用&lt;span class="math">\(g_t\)&lt;/span>表示t时刻的梯度。那么一阶矩&lt;span class="math">\(\hat m_t\)&lt;/span>和二阶矩&lt;span class="math">\(\hat v_t\)&lt;/span>分别可以指数移动平均表示： &lt;span class="math">\[m_t \leftarrow \beta_1\cdot m_{t-1}+(1-\beta_1)\cdot g_t\]&lt;/span> &lt;span class="math">\[v_t \leftarrow \beta_2\cdot v_{t-1}+(1-\beta_2)\cdot g_t^2\]&lt;/span> 但是，再初始的时候，一阶矩&lt;span class="math">\(m_0\)&lt;/span>和&lt;span class="math">\(v_0\)&lt;/span>都是从0开始，因此矩估计会偏向0（因为&lt;span class="math">\(1-\beta\)&lt;/span>接近0，所以初始阶段矩大约都接近0），因此我们在初始阶段需要用它除以一个&lt;strong>小数&lt;/strong>： &lt;span class="math">\[\hat m_t = \frac{m_t}{1-\beta_1^t}\]&lt;/span> &lt;span class="math">\[\hat v_t = \frac{v_t}{1-\beta_2^t}\]&lt;/span> t表示参数&lt;span class="math">\(\beta_1\)&lt;/span>、&lt;span class="math">\(\beta_2\)&lt;/span>的t次方，在编程中表示t次迭代，这样在最开始的时候&lt;span class="math">\(1-\beta\)&lt;/span>是一个小数，可以抵消最开始移动平均矩很小的缺点，随着迭代次数t增加，&lt;span class="math">\(1-\beta^t\)&lt;/span>逐渐趋近于1，实际的移动平均矩会逐渐占据更新过程的主导权。 论文作者建议超参数取值：&lt;span class="math">\(\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}\)&lt;/span>。&lt;/p>
+&lt;p>Adam算法的核心更新规律是：
+$$\theta_{t+1} = \theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t$$
+和过去一样，$\eta$是学习率，$\hat m_t$是梯度的一阶矩，$\hat v_t$是梯度的二阶矩。我们用$g_t$表示t时刻的梯度。那么一阶矩$\hat m_t$和二阶矩$\hat v_t$分别可以指数移动平均表示：
+$$m_t \leftarrow \beta_1\cdot m_{t-1}+(1-\beta_1)\cdot g_t$$
+$$v_t \leftarrow \beta_2\cdot v_{t-1}+(1-\beta_2)\cdot g_t^2$$
+但是，再初始的时候，一阶矩$m_0$和$v_0$都是从0开始，因此矩估计会偏向0（因为$1-\beta$接近0，所以初始阶段矩大约都接近0），因此我们在初始阶段需要用它除以一个&lt;strong>小数&lt;/strong>：
+$$\hat m_t = \frac{m_t}{1-\beta_1^t}$$
+$$\hat v_t = \frac{v_t}{1-\beta_2^t}$$
+t表示参数$\beta_1$、$\beta_2$的t次方，在编程中表示t次迭代，这样在最开始的时候$1-\beta$是一个小数，可以抵消最开始移动平均矩很小的缺点，随着迭代次数t增加，$1-\beta^t$逐渐趋近于1，实际的移动平均矩会逐渐占据更新过程的主导权。
+论文作者建议超参数取值：$\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}$。&lt;/p>
 &lt;h5 id="我自己的实验到这里速度很慢了根本到不了一个理想值">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/h5>
 &lt;h4 id="adamax">AdaMax&lt;/h4>
-&lt;p>Adamax是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。从Adam算法可以算是二范数的比较，如果我们把二范数变成无穷范数，那么： &lt;span class="math">\[v_t \leftarrow \beta_2^p\cdot v_{t-1}+(1-\beta_2^p)\cdot g_t^p \\ where\quad p\rightarrow\infty\]&lt;/span> 为了防止混淆，我们用&lt;span class="math">\(u_t\)&lt;/span>代替&lt;span class="math">\(v_t\)&lt;/span>,通过无穷范数是最大值性质，我们可以推得： &lt;span class="math">\[u_t = max(\beta_2\cdot u_{t-1},|g_t|)\]&lt;/span> 相应的，更新公式为： &lt;span class="math">\[\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t\]&lt;/span> 其中，&lt;span class="math">\(\eta = 0.002,\beta_1=0.9,\beta_2=0.999\)&lt;/span>。&lt;/p>
+&lt;p>Adamax是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。从Adam算法可以算是二范数的比较，如果我们把二范数变成无穷范数，那么：
+$$v_t \leftarrow \beta_2^p\cdot v_{t-1}+(1-\beta_2^p)\cdot g_t^p \ where\quad p\rightarrow\infty$$
+为了防止混淆，我们用$u_t$代替$v_t$,通过无穷范数是最大值性质，我们可以推得：
+$$u_t = max(\beta_2\cdot u_{t-1},|g_t|)$$
+相应的，更新公式为：
+$$\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t$$
+其中，$\eta = 0.002,\beta_1=0.9,\beta_2=0.999$。&lt;/p>
 &lt;h4 id="nadam">Nadam&lt;/h4>
 &lt;p>Nadam可以看作是Nesterov和Adam方法的结合。Nadam对学习率有了更强的约束，同时对梯度的更新也有更直接的影响。一般而言，在想使用带动量的RMSprop，或者Adam的地方，大多可以使用Nadam取得更好的效果。&lt;/p>
 &lt;h4 id="amsgrad">AMSGrad&lt;/h4>
@@ -656,14 +744,21 @@ params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
 &lt;h4 id="early_stopping">Early_stopping&lt;/h4>
 &lt;p>如Geoff Hinton所说：“Early Stopping是美丽好免费午餐”（NIPS 2015 Tutorial slides）。你因此必须在训练的过程中时常在验证集上监测误差，在验证集上如果损失函数不再显著地降低，那么应该提前结束训练。&lt;/p>
 &lt;h4 id="梯度噪音">梯度噪音&lt;/h4>
-&lt;p>Neelakantan等人[12]在每个梯度更新中增加满足高斯分布&lt;span class="math">\(N(0,σ^2_t)\)&lt;/span>的噪音： &lt;span class="math">\[g_{t,i}=g_{t,i}+N(0,σ_t^2)\]&lt;/span> 高斯分布的方差需要根据如下的策略退火： &lt;span class="math">\[σ_t^2=\frac{η}{(1+t)^γ}\]&lt;/span> 他们指出增加了噪音，使得网络对不好的初始化更加鲁棒，同时对深层的和复杂的网络的训练特别有益。他们猜测增加的噪音使得模型更优机会逃离当前的局部最优点，以发现新的局部最优点，这在更深层的模型中更加常见。&lt;/p>
+&lt;p>Neelakantan等人[12]在每个梯度更新中增加满足高斯分布$N(0,σ^2_t)$的噪音：
+$$g_{t,i}=g_{t,i}+N(0,σ_t^2)$$
+高斯分布的方差需要根据如下的策略退火：
+$$σ_t^2=\frac{η}{(1+t)^γ}$$
+他们指出增加了噪音，使得网络对不好的初始化更加鲁棒，同时对深层的和复杂的网络的训练特别有益。他们猜测增加的噪音使得模型更优机会逃离当前的局部最优点，以发现新的局部最优点，这在更深层的模型中更加常见。&lt;/p>
 &lt;h3 id="总结">总结&lt;/h3>
 &lt;p>在这篇博客文章中，我们初步研究了梯度下降的三个变形形式，其中，小批量梯度下降是最受欢迎的。 然后我们研究了最常用于优化SGD的算法：动量法，Nesterov加速梯度，Adagrad，Adadelta，RMSprop，Adam以及不同的优化异步SGD的算法。 最后，我们已经考虑其他一些改善SGD的策略，如洗牌和课程学习，批量归一化和early stopping。&lt;/p></description></item><item><title>机器学习-梯度和方向导数</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E5%92%8C%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0/</link><pubDate>Fri, 11 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E5%92%8C%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0/</guid><description>
-&lt;h2 id="梯度和方向导数">梯度和方向导数&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="梯度和方向导数---omit-in-toc---">梯度和方向导数&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>梯度是向量，是输入空间的向量。其方向指向函数值上升最快的方向，模是值函数的陡峭程度。模越大，越陡峭。&lt;/p>
-&lt;p>方向导数是标量，指函数值沿着某一方向&lt;span class="math">\(\vec{v}\)&lt;/span>的变换率。 &lt;span class="math">\[\nabla_v f(\vec{x})=\lim_{t→∞}\frac{f(\vec x+t\vec v)-f(\vec x)}{t}\]&lt;/span>&lt;/p>
+&lt;p>方向导数是标量，指函数值沿着某一方向$\vec{v}$的变换率。
+$$\nabla_v f(\vec{x})=\lim_{t→∞}\frac{f(\vec x+t\vec v)-f(\vec x)}{t}$$&lt;/p>
 &lt;p>单位长度内，&lt;strong>上升最多&lt;/strong>的方向是梯度所指的方向，梯度方向的方向导数指是梯度的模。&lt;/p>
-&lt;p>沿&lt;span class="math">\(\vec v\)&lt;/span>的方向导数和梯度的关系： &lt;span class="math">\[\nabla_v f(\vec{x})=\vec{v}\cdot\nabla f(\vec{x}),\\
-\nabla f(\vec{x})是点\vec x的梯度，\cdot是内积\]&lt;/span> 即使某点的梯度不存在，方向导数也可能存在。这时候可以用定义去求。&lt;/p>
-&lt;p>&lt;span class="math">\(\nabla_v f，f&amp;#39;_v，f&amp;#39;(x;v)，Df_x(v)，\frac{\partial f(x)}{\partial v}\)&lt;/span>都是指方向导数，为了省事向量的符号都没有打。&lt;/p>
-&lt;p>如果在方向&lt;span class="math">\(\vec v\)&lt;/span>上，方向导数小于0，那么在&lt;span class="math">\(\vec v\)&lt;/span>上总可以找到一小步&lt;span class="math">\(\bar t\)&lt;/span>，使得&lt;span class="math">\(f(\vec x+t\vec v)&amp;lt;f(\vec x)，t ∈(0,\bar t)\)&lt;/span>。当方向导数大于0，也有类似的结论。&lt;/p></description></item></channel></rss>
+&lt;p>沿$\vec v$的方向导数和梯度的关系：
+$$\nabla_v f(\vec{x})=\vec{v}\cdot\nabla f(\vec{x}),\
+\nabla f(\vec{x})是点\vec x的梯度，\cdot是内积$$
+即使某点的梯度不存在，方向导数也可能存在。这时候可以用定义去求。&lt;/p>
+&lt;p>$\nabla_v f，f'_v，f'(x;v)，Df_x(v)，\frac{\partial f(x)}{\partial v}$都是指方向导数，为了省事向量的符号都没有打。&lt;/p>
+&lt;p>如果在方向$\vec v$上，方向导数小于0，那么在$\vec v$上总可以找到一小步$\bar t$，使得$f(\vec x+t\vec v)&amp;lt;f(\vec x)，t ∈(0,\bar t)$。当方向导数大于0，也有类似的结论。&lt;/p></description></item></channel></rss>

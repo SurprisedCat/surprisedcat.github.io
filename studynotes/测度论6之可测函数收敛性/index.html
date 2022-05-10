@@ -88,80 +88,105 @@ Sep 17, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=可测函数收敛性>可测函数收敛性</h2>
+<h2 id=可测函数收敛性---omit-in-toc--->可测函数收敛性</h2>
 <ul>
-<li><a href=#回顾函数列逐点收敛和一致收敛>回顾函数列逐点收敛和一致收敛</a></li>
-<li><a href=#逐点收敛和一致收敛定义与区别>逐点收敛和一致收敛定义与区别</a></li>
-<li><a href=#一个例子逐点收敛却不一致收敛>一个例子逐点收敛却不一致收敛</a></li>
-<li><a href=#依测度收敛converge-in-measure>依测度收敛（Converge in measure）</a></li>
-<li><a href=#依测度收敛性质>依测度收敛性质</a></li>
-<li><a href=#几乎处处收敛几乎一致收敛依测度收敛的关系>几乎处处收敛、几乎一致收敛、依测度收敛的关系</a></li>
-<li><a href=#依测度柯西序列cauchy-sequence-in-measure>依测度柯西序列（Cauchy sequence in measure）</a></li>
-<li><a href=#证明附录>证明附录</a></li>
-<li><a href=#依测度收敛即为几乎处处实值>依测度收敛即为几乎处处实值</a></li>
+<li><a href=#%E5%9B%9E%E9%A1%BE%E5%87%BD%E6%95%B0%E5%88%97%E9%80%90%E7%82%B9%E6%94%B6%E6%95%9B%E5%92%8C%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B>回顾函数列逐点收敛和一致收敛</a>
+<ul>
+<li><a href=#%E9%80%90%E7%82%B9%E6%94%B6%E6%95%9B%E5%92%8C%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%8C%BA%E5%88%AB>逐点收敛和一致收敛定义与区别</a></li>
+<li><a href=#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E9%80%90%E7%82%B9%E6%94%B6%E6%95%9B%E5%8D%B4%E4%B8%8D%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B>一个例子逐点收敛却不一致收敛</a></li>
+</ul>
+</li>
+<li><a href=#%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%94%B6%E6%95%9Bconverge-in-measure>依测度收敛（Converge in measure）</a>
+<ul>
+<li><a href=#%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%94%B6%E6%95%9B%E6%80%A7%E8%B4%A8>依测度收敛性质</a></li>
+</ul>
+</li>
+<li><a href=#%E5%87%A0%E4%B9%8E%E5%A4%84%E5%A4%84%E6%94%B6%E6%95%9B%E5%87%A0%E4%B9%8E%E4%B8%80%E8%87%B4%E6%94%B6%E6%95%9B%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%94%B6%E6%95%9B%E7%9A%84%E5%85%B3%E7%B3%BB>几乎处处收敛、几乎一致收敛、依测度收敛的关系</a></li>
+<li><a href=#%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%9F%AF%E8%A5%BF%E5%BA%8F%E5%88%97cauchy-sequence-in-measure>依测度柯西序列（Cauchy sequence in measure）</a></li>
+<li><a href=#%E8%AF%81%E6%98%8E%E9%99%84%E5%BD%95>证明附录</a>
+<ul>
+<li><a href=#%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%94%B6%E6%95%9B%E5%8D%B3%E4%B8%BA%E5%87%A0%E4%B9%8E%E5%A4%84%E5%A4%84%E5%AE%9E%E5%80%BC>依测度收敛即为几乎处处实值</a></li>
+</ul>
+</li>
 </ul>
 <h2 id=回顾函数列逐点收敛和一致收敛>回顾函数列逐点收敛和一致收敛</h2>
 <h3 id=逐点收敛和一致收敛定义与区别>逐点收敛和一致收敛定义与区别</h3>
 <p>逐点收敛也称点态收敛，（英语：pointwise convergence，或称简单收敛），是数学中描述一组函数序列向一个函数趋近的一种方式（函数趋近极限有其他不同方式，个中差异请小心分辨）。详细点讲，如果这组函数叙列在定义域中每点的取值都会趋于一个极限值，这时可以<strong>用每点的极限来定义这组函数序列的极限函数</strong>，被趋近的这个极限函数称作这个函数叙列的逐点极限。</p>
 <blockquote>
-<p>定义1：(逐点收敛)极限函数：设<span class=math>\(\{f_{n}\}\)</span>是一组<strong>有相同定义域</strong>的函数序列。序列<span class=math>\(\{f_{n}\}\)</span><strong>（逐点）收敛</strong>当且仅当存在函数<span class=math>\(f\)</span>，使得在定义域中的每点<span class=math>\(x\)</span>，都有： <span class=math>\[\lim _{{n\rightarrow \infty }}f_{n}(x)=f(x)\]</span> 这时我们就说序列<span class=math>\(\{f_{n}\}\)</span>（逐点）收敛到<span class=math>\(f\)</span>，或说函数<span class=math>\(f\)</span>是序列<span class=math>\(f_{n}\)</span>的（逐点收敛）极限函数。可记为<span class=math>\(f_n→f \ pointwise\)</span></p>
+<p>定义1：(逐点收敛)极限函数：设${f_{n}}$是一组<strong>有相同定义域</strong>的函数序列。序列${f_{n}}$<strong>（逐点）收敛</strong>当且仅当存在函数$f$，使得在定义域中的每点$x$，都有：
+$$\lim <em>{{n\rightarrow \infty }}f</em>{n}(x)=f(x)$$
+这时我们就说序列${f_{n}}$（逐点）收敛到$f$，或说函数$f$是序列$f_{n}$的（逐点收敛）极限函数。可记为$f_n→f \ pointwise$</p>
 </blockquote>
 <p>逐点收敛并不能保证函数列中函数的一些性质比如连续性。</p>
 <blockquote>
-<p>定义2：一致收敛极限函数：让<span class=math>\(\{f_{n}\}_{n\in \mathbb {N} }\)</span>是定义在<span class=math>\(S\)</span>上，值域为<span class=math>\(\mathbb {R}\)</span>或<span class=math>\(\mathbb {C}\)</span>的一组函数序列，若序列 <span class=math>\(\{f_{n}\}_{n\in \mathbb {N}}\)</span><strong>均匀收敛</strong>至函数<span class=math>\(f\)</span>在集合<span class=math>\(S\)</span>上，即表示对所有<span class=math>\(\epsilon >0\)</span>，存在<span class=math>\(N∈\mathbb{N}\)</span>，使得当所有<span class=math>\(n\geq N\)</span>且 <span class=math>\(x∈ S\)</span>时有 <span class=math>\[|f_{n}(x)-f(x)|&lt;\epsilon.\]</span> 这时我们就说序列<span class=math>\(\{f_{n}\}\)</span>一致收敛(或均匀收敛)到<span class=math>\(f\)</span>，或说函数<span class=math>\(f\)</span>是序列<span class=math>\(f_{n}\)</span>的一致连续极限函数。</p>
+<p>定义2：一致收敛极限函数：让${f_{n}}<em>{n\in \mathbb {N} }$是定义在$S$上，值域为$\mathbb {R}$或$\mathbb {C}$的一组函数序列，若序列 ${f</em>{n}}<em>{n\in \mathbb {N}}$<strong>均匀收敛</strong>至函数$f$在集合$S$上，即表示对所有$\epsilon >0$，存在$N∈\mathbb{N}$，使得当所有$n\geq N$且 $x∈ S$时有
+$$|f</em>{n}(x)-f(x)|&lt;\epsilon.$$
+这时我们就说序列${f_{n}}$一致收敛(或均匀收敛)到$f$，或说函数$f$是序列$f_{n}$的一致连续极限函数。</p>
 </blockquote>
-<p>一致收敛大致可想成：若函数序列<span class=math>\(f_n\)</span>一致收敛至函数<span class=math>\(f\)</span>，代表对所有定义域中的点<span class=math>\(x\)</span>，<span class=math>\(f_n(x)\)</span>收敛至<span class=math>\(f(x)\)</span>会<strong>有（大致）相同的收敛速度</strong>（所以才会用“均匀”或“一致”来形容这种模式的收敛）。由于它对收敛要求<strong>较逐点收敛更强</strong>，故能保持一些重要的分析性质。</p>
-<p>一致收敛可保持<span class=math>\(\Rightarrow\)</span>连续性、黎曼可积性、积分可交换性、微分可交换性（这点不一定需要一定限制）。</p>
-<p>注意到，一致收敛和逐点收敛定义的区别在于，在一致收敛中<span class=math>\(N\)</span>的选取仅与<span class=math>\(\epsilon\)</span>相关，而在逐点收敛中<span class=math>\(N\)</span>还多了与点<span class=math>\(x\)</span>相关。所以<strong>一致收敛必定逐点收敛，而反之则不然</strong>。</p>
+<p>一致收敛大致可想成：若函数序列$f_n$一致收敛至函数$f$，代表对所有定义域中的点$x$，$f_n(x)$收敛至$f(x)$会<strong>有（大致）相同的收敛速度</strong>（所以才会用“均匀”或“一致”来形容这种模式的收敛）。由于它对收敛要求<strong>较逐点收敛更强</strong>，故能保持一些重要的分析性质。</p>
+<p>一致收敛可保持$\Rightarrow$连续性、黎曼可积性、积分可交换性、微分可交换性（这点不一定需要一定限制）。</p>
+<p>注意到，一致收敛和逐点收敛定义的区别在于，在一致收敛中$N$的选取仅与$\epsilon$相关，而在逐点收敛中$N$还多了与点$x$相关。所以<strong>一致收敛必定逐点收敛，而反之则不然</strong>。</p>
 <h3 id=一个例子逐点收敛却不一致收敛>一个例子逐点收敛却不一致收敛</h3>
-<p>函数序列<span class=math>\(f_{n}:[0,1]\rightarrow [0,1]\)</span>，让<span class=math>\(f_{n}(x)=x^{n}\)</span>，则<span class=math>\(\{f_{n}\}\)</span>逐点收敛到（不连续）函数 <span class=math>\[
-f(x)={\begin{cases}0&x\in [0,1)\\1&x=1\end{cases}},
-\]</span> 但显然<span class=math>\(\{f_{n}\}\)</span>并不一致收敛到该函数。因为对每个<span class=math>\(n\)</span>，<span class=math>\(\sup\{\,\left|f_{n}(x)-f(x)\right|:x\in [0,1]\,\}\)</span> 皆为 1，所以 <span class=math>\[
-\lim_{n\rightarrow \infty }\,\sup\{\,\left|f_{n}(x)-f(x)\right|:x\in [0,1]\,\}=1\neq 0
-\]</span> 这说明了序列<span class=math>\(\{f_{n}\}\)</span>并不一致收敛。</p>
+<p>函数序列$f_{n}:[0,1]\rightarrow [0,1]$，让$f_{n}(x)=x^{n}$，则${f_{n}}$逐点收敛到（不连续）函数
+$$
+f(x)={\begin{cases}0&x\in [0,1)\1&x=1\end{cases}},
+$$
+但显然${f_{n}}$并不一致收敛到该函数。因为对每个$n$，$\sup{,\left|f_{n}(x)-f(x)\right|:x\in [0,1],}$ 皆为 1，所以
+$$
+\lim_{n\rightarrow \infty },\sup{,\left|f_{n}(x)-f(x)\right|:x\in [0,1],}=1\neq 0
+$$
+这说明了序列${f_{n}}$并不一致收敛。</p>
 <h2 id=依测度收敛converge-in-measure>依测度收敛（Converge in measure）</h2>
 <blockquote>
-<p>定义（依测度收敛）:<strong>几乎处处实值</strong>的可测函数序列<span class=math>\(\{f_n\}\)</span>称为<strong>依测度收敛</strong>（convergent in measure），如果存在可测函数<span class=math>\(f\)</span>，使得对任意<span class=math>\(\varepsilon\)</span>,有 <span class=math>\[
-\lim_{n→∞}\mu(\{x:|f_n(x)-f(x)|≥\varepsilon\})=0
-\]</span> 此时，我们就说<span class=math>\(\{f_n\}\)</span>依测度收敛<span class=math>\(f\)</span>，记作<span class=math>\(f_n→f\)</span> in measure.</p>
+<p>定义（依测度收敛）:<strong>几乎处处实值</strong>的可测函数序列${f_n}$称为<strong>依测度收敛</strong>（convergent in measure），如果存在可测函数$f$，使得对任意$\varepsilon$,有
+$$
+\lim_{n→∞}\mu({x:|f_n(x)-f(x)|≥\varepsilon})=0
+$$
+此时，我们就说${f_n}$依测度收敛$f$，记作$f_n→f$ in measure.</p>
 </blockquote>
-<p>注：几乎处处实值指取值不是<span class=math>\(\{-\infty,+\infty\}\)</span>。<span class=math>\(f_n→f\)</span> in measure自动蕴含着(a)每个<span class=math>\(f_n\)</span>都是几乎处处实值且可测的 (b) <span class=math>\(f\)</span>是可测的。</p>
+<p>注：几乎处处实值指取值不是${-\infty,+\infty}$。$f_n→f$ in measure自动蕴含着(a)每个$f_n$都是几乎处处实值且可测的 (b) $f$是可测的。</p>
 <p>例子1 概率论中的依概率测度收敛，是随机变量比较强的收敛，强于依分布收敛。</p>
 <p>例子2 (处处不收敛但依测度收敛的例子)</p>
-<p>在Lebesgue测度空间<span class=math>\((R,\mathcal{B},m)\)</span>上，取<span class=math>\(E=(0,1]\)</span>。构造函数序列如下：</p>
-<p>第一步：将<span class=math>\((0,1]\)</span>二等分，定义两个函数： <span class=math>\[f_1^{(1)}=\begin{cases}
-1,\quad x\in (0,\frac{1}{2}]\\0,\quad x\in(\frac{1}{2},1]
+<p>在Lebesgue测度空间$(R,\mathcal{B},m)$上，取$E=(0,1]$。构造函数序列如下：</p>
+<p>第一步：将$(0,1]$二等分，定义两个函数：
+$$f_1^{(1)}=\begin{cases}
+1,\quad x\in (0,\frac{1}{2}]\0,\quad x\in(\frac{1}{2},1]
 \end{cases},
 f_2^{(1)}=\begin{cases}
-0,\quad x\in (0,\frac{1}{2}]\\1,\quad x\in(\frac{1}{2},1]
+0,\quad x\in (0,\frac{1}{2}]\1,\quad x\in(\frac{1}{2},1]
 \end{cases}
-\]</span> 第二步：将<span class=math>\((0,1]\)</span>四等分、八等分、。。。依次作下去，到第<span class=math>\(n\)</span>次分割时，将$(0,1]分成<span class=math>\(2^n\)</span>份，并定义<span class=math>\(2^n\)</span>个函数，每个函数<span class=math>\(f_j^{(n)}\)</span>定义为 <span class=math>\[
+$$
+第二步：将$(0,1]$四等分、八等分、。。。依次作下去，到第$n$次分割时，将$(0,1]分成$2^n$份，并定义$2^n$个函数，每个函数$f_j^{(n)}$定义为
+$$
 f_j^{(n)}=\begin{cases}
-1,\quad x\in (\frac{j-1}{2^n},\frac{j}{2^n}]\\0,\quad x\notin (\frac{j-1}{2^n},\frac{j}{2^n}]
+1,\quad x\in (\frac{j-1}{2^n},\frac{j}{2^n}]\0,\quad x\notin (\frac{j-1}{2^n},\frac{j}{2^n}]
 \end{cases}
-\]</span> 即每个函数只有一小部分区间<span class=math>\((\frac{j-1}{2^n},\frac{j}{2^n}]\)</span>为1，其他区间为0。</p>
-<p>第三步：把函数<span class=math>\(\{f_j^{(n)}\}(j=1,2,\dotsb,2^n)\)</span>按先上标再下标的顺序排列， <span class=math>\[
+$$
+即每个函数只有一小部分区间$(\frac{j-1}{2^n},\frac{j}{2^n}]$为1，其他区间为0。</p>
+<p>第三步：把函数${f_j^{(n)}}(j=1,2,\dotsb,2^n)$按先上标再下标的顺序排列，
+$$
 f_1^{(1)},f_2^{(1)},f_1^{(2)},f_2^{(2)},f_3^{(2)},f_4^{(2)},\dotsb,f_1^{(n)},f_2^{(n)},\dotsb,f_{2^n}^{(n)},\dotsb
-\]</span> 其中<span class=math>\(f_j^{(n)}\)</span>在这个序列里是 第<span class=math>\(2^n-2+j\)</span>个函数。</p>
-<p>显然，函数序列<span class=math>\(\{f_j^{(n)}\}\)</span>在<span class=math>\(E\)</span>上不收敛于0，因为序列中总有某一段区间上其值为1；但该序列趋于<span class=math>\(\infty\)</span>的情况下，值为1的区间测度趋于0，所以该序列<strong>依Lebesgue测度</strong><span class=math>\(m\)</span>收敛于 0。</p>
+$$
+其中$f_j^{(n)}$在这个序列里是 第$2^n-2+j$个函数。</p>
+<p>显然，函数序列${f_j^{(n)}}$在$E$上不收敛于0，因为序列中总有某一段区间上其值为1；但该序列趋于$\infty$的情况下，值为1的区间测度趋于0，所以该序列<strong>依Lebesgue测度</strong>$m$收敛于 0。</p>
 <p>详细解释如下：</p>
-<div class=figure>
-<img src=../../images/不收敛与依测度收敛.png alt=不收敛与依测度收敛><p class=caption>不收敛与依测度收敛</p>
-</div>
+<p><img src=../../images/%E4%B8%8D%E6%94%B6%E6%95%9B%E4%B8%8E%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%94%B6%E6%95%9B.png alt=不收敛与依测度收敛></p>
 <h3 id=依测度收敛性质>依测度收敛性质</h3>
-<p>在测度空间<span class=math>\((X,\mathcal{F},\mu)\)</span>下有以下性质：</p>
-<p>（1）<span class=math>\(f_n→f\)</span> in measure <span class=math>\(\Leftrightarrow \ f_n-f→0\)</span> in measure。证明是Trivial的。</p>
-<p>（2）<span class=math>\(f_n→f\)</span> in measure <span class=math>\(\Rightarrow \ f\)</span> is a.e. real-valued。证明见附录<a href=#依测度收敛即为几乎处处实值>依测度收敛即为几乎处处实值</a>。</p>
+<p>在测度空间$(X,\mathcal{F},\mu)$下有以下性质：</p>
+<p>（1）$f_n→f$ in measure $\Leftrightarrow \ f_n-f→0$ in measure。证明是Trivial的。</p>
+<p>（2）$f_n→f$ in measure $\Rightarrow \ f$ is a.e. real-valued。证明见附录<a href=#%E4%BE%9D%E6%B5%8B%E5%BA%A6%E6%94%B6%E6%95%9B%E5%8D%B3%E4%B8%BA%E5%87%A0%E4%B9%8E%E5%A4%84%E5%A4%84%E5%AE%9E%E5%80%BC>依测度收敛即为几乎处处实值</a>。</p>
 <h2 id=几乎处处收敛几乎一致收敛依测度收敛的关系>几乎处处收敛、几乎一致收敛、依测度收敛的关系</h2>
 <h2 id=依测度柯西序列cauchy-sequence-in-measure>依测度柯西序列（Cauchy sequence in measure）</h2>
 <h2 id=证明附录>证明附录</h2>
 <h3 id=依测度收敛即为几乎处处实值>依测度收敛即为几乎处处实值</h3>
 <blockquote>
-<p><span class=math>\(f_n→f\)</span> in measure <span class=math>\(\Rightarrow \ f\)</span> is a.e. real-valued</p>
+<p>$f_n→f$ in measure $\Rightarrow \ f$ is a.e. real-valued</p>
 </blockquote>
-<p>证明：（提示：把<span class=math>\(f\)</span>取<span class=math>\(\plusmn\infty\)</span>的点分两种考虑：一种是<span class=math>\(f_n\)</span>在这点取<span class=math>\(\plusmn\infty\)</span>，于是<span class=math>\(f\)</span>自然在这点取<span class=math>\(\plusmn\infty\)</span>；另一种是<span class=math>\(f_n\)</span>虽然在这点取有限值，但随着<span class=math>\(n→\infty\)</span>， <span class=math>\(f_n→f\)</span>趋于无穷大。）</p>
-<p>令 [公式] ,则 <a href=测度的次可加性>公式</a>。又因为每个 [公式] 都是几乎处处实值的，故 [公式] 。因此 [公式] 。</p>
-<p>任取 [公式] ,对所有的 [公式] 都有：[公式] 因此[公式] 对所有的 [公式] 成立。 不等式的左边与 [公式] 无关；右边因为 [公式] ，故随着 [公式] 而趋于 [公式]</p>
+<p>证明：（提示：把$f$取$\plusmn\infty$的点分两种考虑：一种是$f_n$在这点取$\plusmn\infty$，于是$f$自然在这点取$\plusmn\infty$；另一种是$f_n$虽然在这点取有限值，但随着$n→\infty$， $f_n→f$趋于无穷大。）</p>
+<p>令 [公式] ,则 <a href=%E6%B5%8B%E5%BA%A6%E7%9A%84%E6%AC%A1%E5%8F%AF%E5%8A%A0%E6%80%A7>公式</a>。又因为每个 [公式] 都是几乎处处实值的，故 [公式] 。因此 [公式] 。</p>
+<p>任取 [公式] ,对所有的 [公式] 都有：[公式]
+因此[公式] 对所有的 [公式] 成立。
+不等式的左边与 [公式] 无关；右边因为 [公式] ，故随着 [公式] 而趋于 [公式]</p>
 <p>那么我们取 [公式] ,就得到 [公式] ，这就说明了 [公式] 是几乎处处实值。</p>
 </article>
 <aside class=sidebar>

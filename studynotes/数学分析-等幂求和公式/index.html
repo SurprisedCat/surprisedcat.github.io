@@ -88,80 +88,98 @@ Mar 2, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=等幂求和公式>等幂求和公式</h2>
+<h2 id=等幂求和公式---omit-in-toc--->等幂求和公式</h2>
 <h2 id=一阶求和公式>一阶求和公式</h2>
-<p>一阶求和公式就是我们熟知的高斯求和公式 <span class=math>\[
+<p>一阶求和公式就是我们熟知的高斯求和公式
+$$
 S_1(n) = 1+2+3+\dotsb+n=\frac{n(n+1)}{2}
-\]</span></p>
+$$</p>
 <h2 id=二阶求和公式>二阶求和公式</h2>
-<p><span class=math>\[
+<p>$$
 S_2(n) = 1^2+2^2+3^2+\dotsb+n^2=\frac{n(n+1)(2n+1)}{6}
-\]</span></p>
+$$</p>
 <p>二阶求和公式在高中也学过，但当时使用的是猜测加数学归纳法，公式的推导过程不够直观。下面，我们用一个直观的构造法来推导二阶求和公式。</p>
-<p>构造直到<span class=math>\(2n\)</span>的平方和： <span class=math>\[
+<p>构造直到$2n$的平方和：
+$$
 \begin{aligned}
-S_2(2n)&=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\\
-&=\underbrace{1^2+2^2+3^2+\dotsb+n^2}_{S_2(n)}+(n^2+2n+1^2)+\dotsb+(n^2+2n\times n+n^2)\\
-&=S_2(n)+n\times n^2 + 2n\underbrace{(1+2+3+\dotsb+n)}_{S_1(n)}+\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}\\
-&=2S_2(n)+n^3+2n\times \frac{n(n+1)}{2}\\
-&=2S_2(n)+2n^3+n^2 \dotsb(1)\\
+S_2(2n)&=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\
+&=\underbrace{1^2+2^2+3^2+\dotsb+n^2}<em>{S_2(n)}+(n^2+2n+1^2)+\dotsb+(n^2+2n\times n+n^2)\
+&=S_2(n)+n\times n^2 + 2n\underbrace{(1+2+3+\dotsb+n)}</em>{S_1(n)}+\underbrace{(1^2+2^2+\dotsb+n^2)}<em>{S_2(n)}\
+&=2S_2(n)+n^3+2n\times \frac{n(n+1)}{2}\
+&=2S_2(n)+2n^3+n^2 \dotsb(1)\
 \end{aligned}
-\]</span> 另一个方面，我们可以将<span class=math>\(S_2(2n)\)</span>根据奇偶性拆分： <span class=math>\[
+$$
+另一个方面，我们可以将$S_2(2n)$根据奇偶性拆分：
+$$
 \begin{aligned}
-S_2(2n)&=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\\
-&=1^2+3^2+\dotsb+(2n-1)^2+2^2+4^2+\dotsb+(2n)^2\\
-&=(2\times 1-1)^2+(2\times 2-1)^2+\dotsb+(2\times n-1)^2+4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_(n)}\\
-&=(2^2\times 1^2 - 2\times 2\times 1 + 1^2)+(2^2\times 2^2 - 2\times 2\times 2 + 1^2)+\dotsb\\
-&+(2^2\times n^2 - 2\times 2\times n + 1^2)+4S_2(n)\\
-&=4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-4(1+2+\dotsb+n)+n+4S_2(n)\\
+S_2(2n)&=1^2+2^2+3^2+\dotsb+n^2+(n+1)^2+\dotsb+(n+n)^2\
+&=1^2+3^2+\dotsb+(2n-1)^2+2^2+4^2+\dotsb+(2n)^2\
+&=(2\times 1-1)^2+(2\times 2-1)^2+\dotsb+(2\times n-1)^2+4\underbrace{(1^2+2^2+\dotsb+n^2)}</em>{S_(n)}\
+&=(2^2\times 1^2 - 2\times 2\times 1 + 1^2)+(2^2\times 2^2 - 2\times 2\times 2 + 1^2)+\dotsb\
+&+(2^2\times n^2 - 2\times 2\times n + 1^2)+4S_2(n)\
+&=4\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-4(1+2+\dotsb+n)+n+4S_2(n)\
 &=8S_2(n)-4\frac{n(n+1)}{2}+n=8S_2(n)-2n^2-n\dotsb(2)
 \end{aligned}
-\]</span> 显然公式<span class=math>\((1)\)</span>等于公式<span class=math>\((2)\)</span>，因此有： <span class=math>\[
-2S_2(n)+2n^3+n^2=8S_2(n)-2n^2-n\\
+$$
+显然公式$(1)$等于公式$(2)$，因此有：
+$$
+2S_2(n)+2n^3+n^2=8S_2(n)-2n^2-n\
 \Rightarrow S_2(n)=\frac{n(n+1)(2n+1)}{6}
-\]</span></p>
+$$</p>
 <h2 id=三阶求和公式>三阶求和公式</h2>
-<p><span class=math>\[
+<p>$$
 S_3(n)=\left[{\frac {n(n+1)}{2}}\right]^{{2}}
-\]</span> 三阶求和公式也需要一个构造，这个构造利用了对称性，比二阶求和公式好懂一些。 <span class=math>\[
-S_3(n)=1^3 +2^3 +3^3 +\dotsb+n^3\\
+$$
+三阶求和公式也需要一个构造，这个构造利用了对称性，比二阶求和公式好懂一些。
+$$
+S_3(n)=1^3 +2^3 +3^3 +\dotsb+n^3\
 S_3(n)=n^3+(n-1)^3+(n-2)^3+\dotsb+1^3
-\]</span> 两者相加有： <span class=math>\[
+$$
+两者相加有：
+$$
 \begin{aligned}
-2S_3(n)&=n^3+1^3+(n-1)^3+2^3+(n-2)^3+3^3+\dotsb+1^3+n^3\\
-&根据立方和公式a^3+b^3=(a+b)(a^2-ab+b^2)有：\\
-2S_3(n)&=(n+1)(n^2-n+1)+[n+1]((n-1)^2-2(n-1)+2^2)\\
-&+[n+1]((n-2)^2-3(n-2)+3^2)+\dotsb+[n+1](1^2-n+n^2)\\
-&=[n+1](2\underbrace{(1^2+2^2+\dotsb+n^2)}_{S_2(n)}-(1\times n+2(n-1)+3(n-2)+\dotsb+n\times (n-(n-1)))\\
-&=[n+1](2S_2(n)-n\underbrace{(1+2+\dotsb+n)}_{S_1(n)}+2\times 1+3\times 2+\dotsb+n\times(n-1))\\
-&=[n+1](2S_2(n)-nS_1(n)+1^2+1+2^2+2+\dotsb+(n-1)^2+(n-1))\\
-&=[n+1](2S_2(n)-nS_1(n)+(S_2(n)-n^2)+(S_1(n)-n))\\
-&=[n+1](3S_2(n)-(n-1)S_1(n)-n^2-n)\\
-&代入S_1(n),S_2(n)结果可得：\\
-&=[n+1](\frac{n(n+1)(2n+1)}{2}-\frac{(n-1)n(n+1)}{2}-n(n+1))\\
-&={1\over 2}(n+1)^2[n(2n+1)-(n-1)n-2n]=\frac{1}{2}n^2(n+1)^2\\
+2S_3(n)&=n^3+1^3+(n-1)^3+2^3+(n-2)^3+3^3+\dotsb+1^3+n^3\
+&根据立方和公式a^3+b^3=(a+b)(a^2-ab+b^2)有：\
+2S_3(n)&=(n+1)(n^2-n+1)+<a href=(n-1)%5E2-2(n-1)+2%5E2>n+1</a>\
+&+<a href=(n-2)%5E2-3(n-2)+3%5E2>n+1</a>+\dotsb+<a href=1%5E2-n+n%5E2>n+1</a>\
+&=[n+1](2\underbrace{(1^2+2^2+\dotsb+n^2)}<em>{S_2(n)}-(1\times n+2(n-1)+3(n-2)+\dotsb+n\times (n-(n-1)))\
+&=[n+1](2S_2(n)-n\underbrace{(1+2+\dotsb+n)}</em>{S_1(n)}+2\times 1+3\times 2+\dotsb+n\times(n-1))\
+&=<a href=2S_2(n)-nS_1(n)+1%5E2+1+2%5E2+2+%5Cdotsb+(n-1)%5E2+(n-1)>n+1</a>\
+&=<a href=2S_2(n)-nS_1(n)+(S_2(n)-n%5E2)+(S_1(n)-n)>n+1</a>\
+&=<a href=3S_2(n)-(n-1)S_1(n)-n%5E2-n>n+1</a>\
+&代入S_1(n),S_2(n)结果可得：\
+&=<a href=%5Cfrac%7Bn(n+1)(2n+1)%7D%7B2%7D-%5Cfrac%7B(n-1)n(n+1)%7D%7B2%7D-n(n+1)>n+1</a>\
+&={1\over 2}(n+1)^2[n(2n+1)-(n-1)n-2n]=\frac{1}{2}n^2(n+1)^2\
 \Rightarrow S_3(n)&=\frac{1}{4}n^2(n+1)^2=[\frac{n(n+1)}{2}]^2
 \end{aligned}
-\]</span></p>
+$$</p>
 <h2 id=等幂求和公式推断>等幂求和公式推断</h2>
-<p>我们根据1~3阶的求和公式发现，<span class=math>\(m\)</span>阶<span class=math>\(n\)</span>个连续自然数的和是<strong>一个和<span class=math>\(n\)</span>相关的<span class=math>\(m+1\)</span>阶多项式(且没有0阶项)</strong>，因此可以猜测，<span class=math>\(m\)</span>阶<span class=math>\(n\)</span>个连续自然数和的形式为: <span class=math>\[
+<p>我们根据1~3阶的求和公式发现，$m$阶$n$个连续自然数的和是<strong>一个和$n$相关的$m+1$阶多项式(且没有0阶项)</strong>，因此可以猜测，$m$阶$n$个连续自然数和的形式为:
+$$
 a_{m+1} n^{m+1}+a_{m} n^{m}+\dotsb+a_1 n^1
-\]</span> 这样我们可以先找出<span class=math>\(m+1\)</span>个初始条件，然后以待定系数法求得求和公式。以2阶求和公式为例： <span class=math>\[
+$$
+这样我们可以先找出$m+1$个初始条件，然后以待定系数法求得求和公式。以2阶求和公式为例：
+$$
 \begin{aligned}
-1^2 = 1 &= 1^3 a_3+ 1^2 a_2 + 1^1 a_1 \\
-1^2 +2^2 = 5&= 2^3 a_3+ 2^2 a_2 + 2^1 a_1\\
+1^2 = 1 &= 1^3 a_3+ 1^2 a_2 + 1^1 a_1 \
+1^2 +2^2 = 5&= 2^3 a_3+ 2^2 a_2 + 2^1 a_1\
 1^2 +2^2 + 3^2= 14&= 3^3 a_3+ 3^2 a_2 + 3^1 a_1
 \end{aligned}
-\]</span> 根据高斯消元法或者克莱姆法则可知： <span class=math>\[
+$$
+根据高斯消元法或者克莱姆法则可知：
+$$
 \begin{cases}
-a_1=\frac{1}{3}\\
-a_2=\frac{1}{2}\\
-a_3=\frac{1}{6}\\
+a_1=\frac{1}{3}\
+a_2=\frac{1}{2}\
+a_3=\frac{1}{6}\
 \end{cases}
-\]</span> 即2阶求和公式为<span class=math>\(S_2(n)=\frac{1}{3}n^3+\frac{1}{2}n^2+\frac{1}{6}n\)</span>。</p>
-<p>当然这只是通过推断得出的结论，没有直接的证明。下面直接给出等幂求和公式 <span class=math>\[
+$$
+即2阶求和公式为$S_2(n)=\frac{1}{3}n^3+\frac{1}{2}n^2+\frac{1}{6}n$。</p>
+<p>当然这只是通过推断得出的结论，没有直接的证明。下面直接给出等幂求和公式
+$$
 S_m(n)={1 \over {m+1}}\sum_{{i=0}}^{m}{m+1 \choose {i}}B_{i}(n+1)^{{m+1-i}}\tag{3}
-\]</span> 其中<span class=math>\(B_i\)</span>是伯努利数。关于伯努利数请参考维基百科<a href=https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0>https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0</a>.</p>
+$$
+其中$B_i$是伯努利数。关于伯努利数请参考维基百科<a href=https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0>https://zh.wikipedia.org/wiki/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0</a>.</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

@@ -89,136 +89,157 @@ Apr 9, 2020</span>
 </span>
 </div>
 <ul>
-<li><a href=#简单函数积分定义>简单函数积分定义</a></li>
-<li><a href=#简单函数的柯西序列>简单函数的柯西序列</a></li>
-<li><a href=#习题>习题</a></li>
+<li><a href=#%E7%AE%80%E5%8D%95%E5%87%BD%E6%95%B0%E7%A7%AF%E5%88%86%E5%AE%9A%E4%B9%89>简单函数积分定义</a></li>
+<li><a href=#%E7%AE%80%E5%8D%95%E5%87%BD%E6%95%B0%E7%9A%84%E6%9F%AF%E8%A5%BF%E5%BA%8F%E5%88%97>简单函数的柯西序列</a></li>
+<li><a href=#%E4%B9%A0%E9%A2%98>习题</a></li>
 </ul>
-<h2 id=简单函数的积分>简单函数的积分</h2>
+<h2 id=简单函数的积分---omit-in-toc--->简单函数的积分</h2>
 <h2 id=简单函数积分定义>简单函数积分定义</h2>
 <blockquote>
-<p>简单函数:函数<span class=math>\(f:X\rightarrow \mathbb{R}\)</span>称为简单函数（simple function），如果存在<strong>有限个不相交</strong>的可测子集<span class=math>\(\{E_1,E_2,\dotsb,E_m\}\)</span>和<strong>有限个</strong>实数<span class=math>\(\alpha_1,\alpha_2,\dotsb,\alpha_m\)</span>,使得<span class=math>\(X=E_1\cup E_2\dotsb\cup E_m\)</span>和<span class=math>\(\forall j,f=\alpha_j \quad on \quad E_j\)</span>。</p>
-<p>此时 <span class=math>\(f\)</span> 可表示为： <span class=math>\(f(x)=\sum\limits_{j=1}^m \alpha_j\chi_{E_j}(x)\)</span> ，<span class=math>\(\chi_{E_j}\)</span>是可测子集 <span class=math>\(E_j\)</span> 的特征函数(即示性函数)。</p>
+<p>简单函数:函数$f:X\rightarrow \mathbb{R}$称为简单函数（simple function），如果存在<strong>有限个不相交</strong>的可测子集${E_1,E_2,\dotsb,E_m}$和<strong>有限个</strong>实数$\alpha_1,\alpha_2,\dotsb,\alpha_m$,使得$X=E_1\cup E_2\dotsb\cup E_m$和$\forall j,f=\alpha_j \quad on \quad E_j$。</p>
+<p>此时 $f$ 可表示为： $f(x)=\sum\limits_{j=1}^m \alpha_j\chi_{E_j}(x)$ ，$\chi_{E_j}$是可测子集 $E_j$ 的特征函数(即示性函数)。</p>
 </blockquote>
-<div class=figure>
-<img src=../../images/simple_function.jpg alt=简单函数><p class=caption>简单函数</p>
-</div>
+<p><img src=../../images/simple_function.jpg alt=简单函数></p>
 <ul>
-<li>注1:简单函数的取值<span class=math>\(\alpha_1,\alpha_2,\dotsb,\alpha_m \in \mathbb{R}\)</span>没有要求两两不同</li>
+<li>注1:简单函数的取值$\alpha_1,\alpha_2,\dotsb,\alpha_m \in \mathbb{R}$没有要求两两不同</li>
 <li>注2:由定义可知,简单函数是可测的.</li>
 </ul>
 <blockquote>
-<p>定义:(可积简单函数在全空间<span class=math>\(X\)</span>上的积分）</p>
-<p>测度空间 <span class=math>\((X,\mathcal{F},\mu)\)</span> 上的简单函数 <span class=math>\(f=\sum\limits_{i=1}^m \alpha_i\chi_{E_i}\)</span> 称为是<strong>可积的</strong>(integrable)，如果当 <span class=math>\(\alpha_i\neq 0\)</span> 时，有 <span class=math>\(\mu(E_i)&lt;\infty\)</span>。然后我们规定当 <span class=math>\(\alpha_i=0,\mu(E_i)=\infty\)</span> 时，<span class=math>\(\alpha_i\mu(E_i)=0\)</span>。此时，定义<span class=math>\(f\)</span>积分的值为 <span class=math>\[\sum\limits_{i=1}^m \alpha_i\mu(E_i)\]</span> 将这个值记做<span class=math>\(\int f(x) d\mu(x)\)</span>,或者 <span class=math>\(\int f d\mu\)</span>或者<span class=math>\(\int f\)</span> ，即是<span class=math>\(\int f(x) d\mu(x)=\int f d\mu=\int f=\sum\limits_{i=1}^m \alpha_i\mu(E_i)\)</span>。</p>
+<p>定义:(可积简单函数在全空间$X$上的积分）</p>
+<p>测度空间 $(X,\mathcal{F},\mu)$ 上的简单函数 $f=\sum\limits_{i=1}^m \alpha_i\chi_{E_i}$ 称为是<strong>可积的</strong>(integrable)，如果当 $\alpha_i\neq 0$ 时，有 $\mu(E_i)&lt;\infty$。然后我们规定当 $\alpha_i=0,\mu(E_i)=\infty$ 时，$\alpha_i\mu(E_i)=0$。此时，定义$f$积分的值为
+$$\sum\limits_{i=1}^m \alpha_i\mu(E_i)$$
+将这个值记做$\int f(x) d\mu(x)$,或者 $\int f d\mu$或者$\int f$ ，即是$\int f(x) d\mu(x)=\int f d\mu=\int f=\sum\limits_{i=1}^m \alpha_i\mu(E_i)$。</p>
 </blockquote>
-<p>注:如果加上积分空间,则<span class=math>\(\int f\)</span>可以写成<span class=math>\(\int_X f\)</span>。由上面定义知：这个定义即是要求积分是有限值，即 <span class=math>\(\int f d\mu &lt;\infty\)</span>(有限)。</p>
-<p>这个积分已经有勒贝格积分的意思了，对值域进行划分，然后统计定义域的测度。<strong>从可积的定义来看相当于积分值小于<span class=math>\(\infty\)</span></strong>。</p>
-<p>注意到简单函数<span class=math>\(f\)</span>可能有另外一种表示方式(拆分方式)，比如 <span class=math>\(f=\sum\limits_{j=1}^n \beta_j\chi_{F_j}\)</span> ，我们来验证积分这个定义是well-defined：即是验证<span class=math>\(f\)</span>在不同表示方式下的<strong>积分值是唯一</strong>的，即是验证： <span class=math>\[
+<p>注:如果加上积分空间,则$\int f$可以写成$\int_X f$。由上面定义知：这个定义即是要求积分是有限值，即 $\int f d\mu &lt;\infty$(有限)。</p>
+<p>这个积分已经有勒贝格积分的意思了，对值域进行划分，然后统计定义域的测度。<strong>从可积的定义来看相当于积分值小于$\infty$</strong>。</p>
+<p>注意到简单函数$f$可能有另外一种表示方式(拆分方式)，比如 $f=\sum\limits_{j=1}^n \beta_j\chi_{F_j}$ ，我们来验证积分这个定义是well-defined：即是验证$f$在不同表示方式下的<strong>积分值是唯一</strong>的，即是验证：
+$$
 \sum_{i=1}^m \alpha_i\chi_{E_i}=\sum_{j=1}^n \beta_j\chi_{F_j}\Rightarrow \sum_{i=1}^m \alpha_i\mu(E_i)=\sum_{j=1}^n \beta_j\mu(F_j)
-\]</span></p>
-<p>证明：当<span class=math>\(E_i\cap F_j \neq \emptyset\)</span>时，在交集<span class=math>\(E_i\cap F_j\)</span>上元素函数值相等即<span class=math>\(\alpha_i=\beta_j\)</span>,此时记<span class=math>\(\gamma_{ij}=\alpha_i=\beta_j\)</span> 然后每个<span class=math>\(E_i\)</span>可表示为不相交的<span class=math>\(E_i\cap F_j\)</span>的并（因为<span class=math>\(F_j\)</span>互不相交）,即<span class=math>\(E_i=\bigcup\limits_{j=1}^n(E_i\cap F_j)\)</span> 则有 <span class=math>\[
-\sum_{i=1}^m \alpha_i\mu(E_i)\overset{测度可列可加性}{=}\sum_{i=1}^m \alpha_i\sum_{j=1}^n\mu(E_i\cap F_j)\\
+$$</p>
+<p>证明：当$E_i\cap F_j \neq \emptyset$时，在交集$E_i\cap F_j$上元素函数值相等即$\alpha_i=\beta_j$,此时记$\gamma_{ij}=\alpha_i=\beta_j$
+然后每个$E_i$可表示为不相交的$E_i\cap F_j$的并（因为$F_j$互不相交）,即$E_i=\bigcup\limits_{j=1}^n(E_i\cap F_j)$
+则有
+$$
+\sum_{i=1}^m \alpha_i\mu(E_i)\overset{测度可列可加性}{=}\sum_{i=1}^m \alpha_i\sum_{j=1}^n\mu(E_i\cap F_j)\
 =\sum_{i=1}^m \sum_{j=1}^n \gamma_{ij}\mu(E_i\cap F_j)
-\]</span> 同理也有 <span class=math>\[
-\sum_{j=1}^n \beta_j\mu(F_j)\overset{测度可列可加性}{=}\sum_{j=1}^n \beta_j\sum_{i=1}^m\mu(F_j\cap E_i)\\
+$$
+同理也有
+$$
+\sum_{j=1}^n \beta_j\mu(F_j)\overset{测度可列可加性}{=}\sum_{j=1}^n \beta_j\sum_{i=1}^m\mu(F_j\cap E_i)\
 =\sum_{i=1}^m \sum_{j=1}^n \gamma_{ij}\mu(E_i\cap F_j)
-\]</span> 因为<span class=math>\(m,n\)</span>是有限数，故双重求和符号可以交换次序。 即是<span class=math>\(\sum\limits_{i=1}^m \alpha_i\mu(E_i)=\sum\limits_{j=1}^n \beta_j\mu(F_j)\)</span></p>
+$$
+因为$m,n$是有限数，故双重求和符号可以交换次序。
+即是$\sum\limits_{i=1}^m \alpha_i\mu(E_i)=\sum\limits_{j=1}^n \beta_j\mu(F_j)$</p>
 <blockquote>
-<p>命题1：在测度空间<span class=math>\((X,\mathcal{F},\mu)\)</span>中，</p>
-<p>(a)<span class=math>\(f\)</span>是简单函数，<span class=math>\(E\in \mathcal{F}\)</span>是可测集。则<span class=math>\(\chi_E\cdot f\)</span>也是简单函数；</p>
-<p>(b)<span class=math>\(f\)</span>是简单函数，且可积分；<span class=math>\(E\in \mathcal{F}\)</span>是可测集。则<span class=math>\(\chi_E\cdot f\)</span>也可积分（隐含着也是简单函数）；</p>
+<p>命题1：在测度空间$(X,\mathcal{F},\mu)$中，</p>
+<p>(a)$f$是简单函数，$E\in \mathcal{F}$是可测集。则$\chi_E\cdot f$也是简单函数；</p>
+<p>(b)$f$是简单函数，且可积分；$E\in \mathcal{F}$是可测集。则$\chi_E\cdot f$也可积分（隐含着也是简单函数）；</p>
 </blockquote>
 <p>证明：</p>
-<p>（a） 首先说明易证 <span class=math>\(\chi_A\cdot\chi_B=\chi_{A\cap B}\)</span>。<span class=math>\(f\)</span>是简单函数，因此<span class=math>\(f\)</span>可以写成<span class=math>\(f=\sum\limits_{i=1}^m\alpha_i\chi_{E_i}\)</span>，其中<span class=math>\(E_i\cap E_j=\emptyset, X=\bigcup\limits_{i=1}^mE_i\)</span>（即两两互不相交且并为全集），那么<span class=math>\(\chi_E\cdot f=\chi_E\cdot \sum\limits_{i=1}^m\alpha_i\chi_{E_i}=\sum\limits_{i=1}^m\alpha_i(\chi_E\cdot\chi_{E_i})=\sum\limits_{i=1}^m\alpha_i\chi_{E_i\cap E}\)</span></p>
-<p>所以<span class=math>\(\chi_E\cdot f\)</span>也是简单函数，且空间由<span class=math>\(X\)</span>restrict到<span class=math>\(E\)</span>。</p>
-<p>（b） 要证明简单函数可积，即要证明其积分<span class=math>\(\int \chi_E\cdot fd\mu\)</span>有限。 <span class=math>\[
-\int \chi_E\cdot f d\mu=\sum_{i=1}^m \alpha_i \mu(E_i\cap E)\overset{测度单调性}{\leq} \sum_{i=1}^m \alpha_i \mu(E_i)\\
+<p>（a） 首先说明易证 $\chi_A\cdot\chi_B=\chi_{A\cap B}$。$f$是简单函数，因此$f$可以写成$f=\sum\limits_{i=1}^m\alpha_i\chi_{E_i}$，其中$E_i\cap E_j=\emptyset, X=\bigcup\limits_{i=1}^mE_i$（即两两互不相交且并为全集），那么$\chi_E\cdot f=\chi_E\cdot \sum\limits_{i=1}^m\alpha_i\chi_{E_i}=\sum\limits_{i=1}^m\alpha_i(\chi_E\cdot\chi_{E_i})=\sum\limits_{i=1}^m\alpha_i\chi_{E_i\cap E}$</p>
+<p>所以$\chi_E\cdot f$也是简单函数，且空间由$X$restrict到$E$。</p>
+<p>（b） 要证明简单函数可积，即要证明其积分$\int \chi_E\cdot fd\mu$有限。
+$$
+\int \chi_E\cdot f d\mu=\sum_{i=1}^m \alpha_i \mu(E_i\cap E)\overset{测度单调性}{\leq} \sum_{i=1}^m \alpha_i \mu(E_i)\
 =\int f d\mu &lt; \infty
-\]</span> 故<span class=math>\(\chi_E\cdot f\)</span>是可积的。</p>
+$$
+故$\chi_E\cdot f$是可积的。</p>
 <blockquote>
-<p>定义2：可积简单函数在可测子集<span class=math>\(E\)</span>上的积分。测度空间<span class=math>\((X,\mathcal{F},\mu)\)</span>，设<span class=math>\(E\)</span>是可测子集。定义可积简单函数<span class=math>\(f\)</span>在<span class=math>\(E\)</span>上的积分为： <span class=math>\[
+<p>定义2：可积简单函数在可测子集$E$上的积分。测度空间$(X,\mathcal{F},\mu)$，设$E$是可测子集。定义可积简单函数$f$在$E$上的积分为：
+$$
 \int_E fd\mu=\int_X \chi_E\cdot f d\mu = \sum_{i=1}^m \alpha_i \mu(E_i\cap E)
-\]</span> 其中<span class=math>\(X=\bigcup\limits_{i=1}^m E_i\)</span>，且<span class=math>\(E_i\cap E_j=\emptyset, \forall i\neq j\)</span></p>
+$$
+其中$X=\bigcup\limits_{i=1}^m E_i$，且$E_i\cap E_j=\emptyset, \forall i\neq j$</p>
 </blockquote>
 <p>本章从简单函数开始定义积分，所有简单函数定义出来的积分<strong>本质上都是在求和</strong>。</p>
 <blockquote>
-<p>命题2：特征函数<span class=math>\(\chi_E\)</span>可积当且仅当<span class=math>\(E\)</span>是可测集且<span class=math>\(\mu(E)&lt;\infty\)</span></p>
+<p>命题2：特征函数$\chi_E$可积当且仅当$E$是可测集且$\mu(E)&lt;\infty$</p>
 </blockquote>
-<p>证明：必要性。特征函数是简单函数，若可积，则由定义隐含着(a)<span class=math>\(E\)</span>是可测的；(b)<span class=math>\(\int \chi_E d\mu&lt;\infty\)</span>。而<span class=math>\(\int \chi_E d\mu=\int_E d\mu=\mu(E)\)</span>。也就是<span class=math>\(E\)</span>是可测的和<span class=math>\(\mu(E)&lt;\infty\)</span></p>
-<p>充分性。若<span class=math>\(E\)</span>是可测集且<span class=math>\(\mu(E)&lt;\infty\)</span>。显然有<span class=math>\(\int \chi_E d\mu=\int_E d\mu=\mu(E)&lt;\infty\)</span>,故特征函数<span class=math>\(\chi_E\)</span>可积。</p>
+<p>证明：必要性。特征函数是简单函数，若可积，则由定义隐含着(a)$E$是可测的；(b)$\int \chi_E d\mu&lt;\infty$。而$\int \chi_E d\mu=\int_E d\mu=\mu(E)$。也就是$E$是可测的和$\mu(E)&lt;\infty$</p>
+<p>充分性。若$E$是可测集且$\mu(E)&lt;\infty$。显然有$\int \chi_E d\mu=\int_E d\mu=\mu(E)&lt;\infty$,故特征函数$\chi_E$可积。</p>
 <blockquote>
 <p>定理1：（简单函数的基本积分性质）</p>
-<p>测度空间<span class=math>\((X,\mathcal{F},\mu)\)</span>，设<span class=math>\(f,g\)</span>是可积的简单函数，<span class=math>\(\alpha,\beta \in \mathbb{R}\)</span>，默认测度都是一般的测度不是signed measure。</p>
-<ol style=list-style-type:decimal>
-<li><p><span class=math>\(\alpha f+\beta g\)</span> 是可积的简单函数，且<span class=math>\(\int (\alpha f+\beta g)=\alpha \int f+\beta \int g\)</span><strong>即线性</strong></p></li>
-<li><p><span class=math>\(fg\)</span> 也是可积的简单函数</p></li>
-<li><p><span class=math>\(|f|\)</span> 是可积的简单函数，且<span class=math>\(|\int f|\leq \int |f|\)</span></p></li>
-<li><p>如果<span class=math>\(f\geq 0, a.e\)</span>，则<span class=math>\(\int f\geq 0\)</span></p></li>
-<li><p>如果<span class=math>\(f \geq g, a.e\)</span>，则<span class=math>\(\int f \geq \int g\)</span></p></li>
-<li><p><span class=math>\(\int |f+g| \leq \int |f|+\int |g|\)</span></p></li>
-<li><p>设可测子集 <span class=math>\(E\)</span> 满足 <span class=math>\(\mu(E)&lt;\infty\)</span> ,且在<span class=math>\(E\)</span>上有<span class=math>\(m\leq f\leq M, a.e\)</span>。则<span class=math>\(m\mu(E)\leq \int_E fd\mu\leq M\mu(E)\)</span></p></li>
-<li><p>如果<span class=math>\(f\geq 0,a.e\)</span> , <span class=math>\(E\subseteq F \in \mathcal{F}\)</span> ，则<span class=math>\(\int_E f \leq \int_F f\)</span></p></li>
-<li><p>设<span class=math>\(E=\bigcup\limits_{k=1}^\infty E_k\)</span>, <span class=math>\(E,E_k\in \mathcal{F}\)</span>且<span class=math>\(E_{k1}\cap E_{k2}=\emptyset\)</span>,则<span class=math>\(\int_E f=\sum\limits_{k=1}^\infty\int_{E_k}f\)</span></p></li>
-</ol>
+<p>测度空间$(X,\mathcal{F},\mu)$，设$f,g$是可积的简单函数，$\alpha,\beta \in \mathbb{R}$，默认测度都是一般的测度不是signed measure。</p>
+<p>(1) $\alpha f+\beta g$ 是可积的简单函数，且$\int (\alpha f+\beta g)=\alpha \int f+\beta \int g$<strong>即线性</strong></p>
+<p>(2) $fg$ 也是可积的简单函数</p>
+<p>(3) $|f|$ 是可积的简单函数，且$|\int f|\leq \int |f|$</p>
+<p>(4) 如果$f\geq 0, a.e$，则$\int f\geq 0$</p>
+<p>(5) 如果$f \geq g, a.e$，则$\int f \geq \int g$</p>
+<p>(6) $\int |f+g| \leq \int |f|+\int |g|$</p>
+<p>(7) 设可测子集 $E$ 满足 $\mu(E)&lt;\infty$ ,且在$E$上有$m\leq f\leq M, a.e$。则$m\mu(E)\leq \int_E fd\mu\leq M\mu(E)$</p>
+<p>(8) 如果$f\geq 0,a.e$ , $E\subseteq F \in \mathcal{F}$ ，则$\int_E f \leq \int_F f$</p>
+<p>(9) 设$E=\bigcup\limits_{k=1}^\infty E_k$, $E,E_k\in \mathcal{F}$且$E_{k1}\cap E_{k2}=\emptyset$,则$\int_E f=\sum\limits_{k=1}^\infty\int_{E_k}f$</p>
 </blockquote>
-<p>注：性质(9)表明<span class=math>\(S(E)=\int_E f d\mu\)</span> (看成是关于<span class=math>\(E \)</span>的函数)是一个signed measure，因为有可列可加性质，且容易证<span class=math>\(S(\emptyset)=0\)</span></p>
-<p>证明：因为<span class=math>\(f,g\)</span>是简单函数。故设<span class=math>\(f=\sum\limits_{i=1}^n\alpha_i\chi_{E_i},g=\sum\limits_{j=1}^n\beta_j \chi_{F_j}\)</span>。注意区分在证明简单函数积分是well-defined的表达式，那是<span class=math>\(f\)</span>的两种拆分，而此时是两个函数。其中<span class=math>\(\{E_i\}\)</span>两两不交，<span class=math>\(\{F_j\}\)</span>两两不交，且<span class=math>\(\bigcup\limits_i^m E_i=\bigcup\limits_j^n F_j=X\)</span>。</p>
-<p>（1）由于<span class=math>\(\{F_j\}\)</span>互不相交且所有<span class=math>\(\{F_j\}\)</span>的并为全集，所以<span class=math>\(\forall i, E_i=\bigcup\limits_{j=1}^n(E_i\cap F_j)\)</span>，故<span class=math>\(\chi_{E_i}=\sum\limits_{j=1}^n\chi_{E_i\cap F_j}\)</span>，同理有<span class=math>\(\chi_{F_j}=\sum\limits_{i=1}^m\chi_{E_i\cap F_j}\)</span>。注意到<span class=math>\(\{E_i\cap F_j\}\)</span>是两两互不相交的。所以： <span class=math>\[
+<p>注：性质(9)表明$S(E)=\int_E f d\mu$ (看成是关于$E
+$的函数)是一个signed measure，因为有可列可加性质，且容易证$S(\emptyset)=0$</p>
+<p>证明：因为$f,g$是简单函数。故设$f=\sum\limits_{i=1}^n\alpha_i\chi_{E_i},g=\sum\limits_{j=1}^n\beta_j \chi_{F_j}$。注意区分在证明简单函数积分是well-defined的表达式，那是$f$的两种拆分，而此时是两个函数。其中${E_i}$两两不交，${F_j}$两两不交，且$\bigcup\limits_i^m E_i=\bigcup\limits_j^n F_j=X$。</p>
+<p>（1）由于${F_j}$互不相交且所有${F_j}$的并为全集，所以$\forall i, E_i=\bigcup\limits_{j=1}^n(E_i\cap F_j)$，故$\chi_{E_i}=\sum\limits_{j=1}^n\chi_{E_i\cap F_j}$，同理有$\chi_{F_j}=\sum\limits_{i=1}^m\chi_{E_i\cap F_j}$。注意到${E_i\cap F_j}$是两两互不相交的。所以：
+$$
 \begin{aligned}
-\alpha f+\beta g &= \sum_{i=1}^m \alpha \alpha_i \chi_{E_i}+\sum_{j=1}^n\beta\beta_j \chi_{F_j}\\
-&=\sum_{i=1}^m \alpha \alpha_i \sum_{j=1}^n\chi_{E_i\cap F_j}+\sum_{j=1}^n\beta\beta_j\sum_{i=1}^m\chi_{F_j\cap E_i}\\
+\alpha f+\beta g &= \sum_{i=1}^m \alpha \alpha_i \chi_{E_i}+\sum_{j=1}^n\beta\beta_j \chi_{F_j}\
+&=\sum_{i=1}^m \alpha \alpha_i \sum_{j=1}^n\chi_{E_i\cap F_j}+\sum_{j=1}^n\beta\beta_j\sum_{i=1}^m\chi_{F_j\cap E_i}\
 &\overset{有限求和可交换次序}{=}\sum_{i=1}^m\sum_{j=1}^n(\alpha\alpha_i+\beta\beta_j)\chi_{E_i\cap F_j}
 \end{aligned}
-\]</span> 因此<span class=math>\(\alpha f+\beta g\)</span>是simple fuction，然后我们计算其积分 <span class=math>\[
+$$
+因此$\alpha f+\beta g$是simple fuction，然后我们计算其积分
+$$
 \begin{aligned}
-\int_X\alpha f+ \beta g &= \sum_{i=1}^m\sum_{j=1}^n(\alpha\alpha_i+\beta\beta_j)\mu(E_i\cap F_j)\\
-&=\sum_{i=1}^m \alpha \alpha_i \sum_{j=1}^n\mu(E_i\cap F_j)+\sum_{j=1}^n\beta\beta_j\sum_{i=1}^m\mu(E_i\cap F_j)\\
-&\overset{测度可列可加性}{=}\alpha\sum_{i=1}^m\alpha_i\mu(\bigcup_{j=1}^n (E_i\cap F_j))+\beta\sum_{j=1}^n\beta_j\mu(\bigcup_{i=1}^m(E_i\cap F_j))\\
-&=\alpha\sum_{i=1}^m\alpha_i\mu(E_i)+\beta\sum_{j=1}^n\beta_j\mu(F_j)\\
+\int_X\alpha f+ \beta g &= \sum_{i=1}^m\sum_{j=1}^n(\alpha\alpha_i+\beta\beta_j)\mu(E_i\cap F_j)\
+&=\sum_{i=1}^m \alpha \alpha_i \sum_{j=1}^n\mu(E_i\cap F_j)+\sum_{j=1}^n\beta\beta_j\sum_{i=1}^m\mu(E_i\cap F_j)\
+&\overset{测度可列可加性}{=}\alpha\sum_{i=1}^m\alpha_i\mu(\bigcup_{j=1}^n (E_i\cap F_j))+\beta\sum_{j=1}^n\beta_j\mu(\bigcup_{i=1}^m(E_i\cap F_j))\
+&=\alpha\sum_{i=1}^m\alpha_i\mu(E_i)+\beta\sum_{j=1}^n\beta_j\mu(F_j)\
 &=\alpha \int_X f+ \beta\int_X g&lt;\infty(f,g可积)
 \end{aligned}
-\]</span> 可积简单函数的线性得证。</p>
-<p>（2）<span class=math>\(fg=\sum\limits_{i=1}^m\sum\limits_{j=1}^n \alpha_i\beta_j\chi_{E_i\cap F_j}\)</span>，易得<span class=math>\(fg\)</span>是simple function。</p>
-<p>而当<span class=math>\(\alpha_i\neq 0\)</span>时，<span class=math>\(\mu(E_i\cap F_j)\leq \mu(E_i)&lt;\infty\)</span> (因为<span class=math>\(f\)</span>可积，定义要求当<span class=math>\(\alpha_i\neq 0\)</span>时，<span class=math>\(\mu(E_i)&lt;\infty\)</span>)。因此<span class=math>\(\int_x fg = \sum\limits_{\alpha\neq 0,\beta\neq 0}\alpha_i\beta_j \mu(E_i\cap F_j)&lt;\infty\)</span>，即<span class=math>\(fg\)</span>可积。</p>
-<p>（3）<span class=math>\(f\)</span>在每个<span class=math>\(E_i\)</span>上的取值是<span class=math>\(\alpha_i\)</span>，则<span class=math>\(|f|\)</span>在<span class=math>\(E_i\)</span>上的取值为<span class=math>\(|\alpha_i|\)</span>。所以<span class=math>\(|f|\)</span>只取有限个值，并且仍能够拆分成有限个不相交的部分，故<span class=math>\(|f|\)</span>是simple function。因为<span class=math>\(|\alpha_i|\neq 0\)</span>时，<span class=math>\(\mu(E_i)&lt;∞\)</span>，所以<span class=math>\(|f|\)</span>是可积的。</p>
-<p>由于测度<span class=math>\(\mu(E_i)≥0\)</span>，因此<span class=math>\(|\alpha_i|\mu(E_i)≥\alpha_i\mu(E_i)\)</span>恒成立，因此 <span class=math>\[
+$$
+可积简单函数的线性得证。</p>
+<p>（2）$fg=\sum\limits_{i=1}^m\sum\limits_{j=1}^n \alpha_i\beta_j\chi_{E_i\cap F_j}$，易得$fg$是simple function。</p>
+<p>而当$\alpha_i\neq 0$时，$\mu(E_i\cap F_j)\leq \mu(E_i)&lt;\infty$ (因为$f$可积，定义要求当$\alpha_i\neq 0$时，$\mu(E_i)&lt;\infty$)。因此$\int_x fg = \sum\limits_{\alpha\neq 0,\beta\neq 0}\alpha_i\beta_j \mu(E_i\cap F_j)&lt;\infty$，即$fg$可积。</p>
+<p>（3）$f$在每个$E_i$上的取值是$\alpha_i$，则$|f|$在$E_i$上的取值为$|\alpha_i|$。所以$|f|$只取有限个值，并且仍能够拆分成有限个不相交的部分，故$|f|$是simple function。因为$|\alpha_i|\neq 0$时，$\mu(E_i)&lt;∞$，所以$|f|$是可积的。</p>
+<p>由于测度$\mu(E_i)≥0$，因此$|\alpha_i|\mu(E_i)≥\alpha_i\mu(E_i)$恒成立，因此
+$$
 \int |f|=\sum_{i=1}^m|\alpha_i|\mu(E_i)≥|\sum_{i=1}^m\alpha_i\mu(E_i)|=|\int f|
-\]</span></p>
-<p>（4）由<span class=math>\(f=\sum\limits_{i=1}^m \alpha_i \chi_{E_i}≥0, a.e\)</span>可知，对任一<span class=math>\(\alpha_i≥0\)</span>，有<span class=math>\(\mu(E_i)≥0\)</span>，对<span class=math>\(\alpha_i&lt;0\)</span>对应的<span class=math>\(E_i\)</span>，则有<span class=math>\(\mu(E_i)=0\)</span>(根据a.e)的定义可知。因此有<span class=math>\(\int f = \sum\limits_{i=1}^m \alpha_i \mu(E_i)≥0\)</span></p>
-<p>（5）令<span class=math>\(h=f-g≥0\)</span>，根据（4）和（1）线性可得（5）。</p>
-<p>（6）<span class=math>\(f，g\)</span>可积→由（1）可知<span class=math>\(f+g\)</span>可积→由（3）可知<span class=math>\(|f+g|\)</span>可积→由三角不等式可知<span class=math>\(|f+g|≤|f|+|g|\)</span>→由（5）可知<span class=math>\(\int |f+g|≤\int |f|+\int |g|\)</span></p>
+$$</p>
+<p>（4）由$f=\sum\limits_{i=1}^m \alpha_i \chi_{E_i}≥0, a.e$可知，对任一$\alpha_i≥0$，有$\mu(E_i)≥0$，对$\alpha_i&lt;0$对应的$E_i$，则有$\mu(E_i)=0$(根据a.e)的定义可知。因此有$\int f = \sum\limits_{i=1}^m \alpha_i \mu(E_i)≥0$</p>
+<p>（5）令$h=f-g≥0$，根据（4）和（1）线性可得（5）。</p>
+<p>（6）$f，g$可积→由（1）可知$f+g$可积→由（3）可知$|f+g|$可积→由三角不等式可知$|f+g|≤|f|+|g|$→由（5）可知$\int |f+g|≤\int |f|+\int |g|$</p>
 <p>（7）平凡的</p>
-<p>（8）<span class=math>\(E\subseteq F\)</span>等价于<span class=math>\(\chi_{E}≤\chi_F\)</span>。又因为<span class=math>\(f≥0,a.e\)</span>。故<span class=math>\(\chi_E f≤\chi_F f, a.e\)</span>，根据（5）可有<span class=math>\(\int \chi_E f≤\int \chi_F f\)</span>即为<span class=math>\(\int_E f ≤ \int_F f\)</span></p>
-<p>（9）简单函数积分的可列可加性。已知<span class=math>\(f=\sum\limits_{i=1}^m \alpha_i\chi_{E_i}\)</span>，而<span class=math>\(\chi_E\cdot f = \sum\limits_{i=1}^m\alpha_i\chi_{E_i\cap E}\)</span>。因此有 <span class=math>\[
+<p>（8）$E\subseteq F$等价于$\chi_{E}≤\chi_F$。又因为$f≥0,a.e$。故$\chi_E f≤\chi_F f, a.e$，根据（5）可有$\int \chi_E f≤\int \chi_F f$即为$\int_E f ≤ \int_F f$</p>
+<p>（9）简单函数积分的可列可加性。已知$f=\sum\limits_{i=1}^m \alpha_i\chi_{E_i}$，而$\chi_E\cdot f = \sum\limits_{i=1}^m\alpha_i\chi_{E_i\cap E}$。因此有
+$$
 \begin{aligned}
-\int_E f &= \sum_{i=1}^m\alpha_i\mu(E_i\cap E)\\
-(拆分E)&=\sum_{i=1}^m\alpha_i\sum_{k=1}^∞\mu(E_i\cap E_k)\\
-&=\sum_{k=1}^∞\sum_{i=1}^m\alpha_i\mu(E_i\cap E_k)\\
+\int_E f &= \sum_{i=1}^m\alpha_i\mu(E_i\cap E)\
+(拆分E)&=\sum_{i=1}^m\alpha_i\sum_{k=1}^∞\mu(E_i\cap E_k)\
+&=\sum_{k=1}^∞\sum_{i=1}^m\alpha_i\mu(E_i\cap E_k)\
 &=\sum_{j=1}^∞\int \chi_{E_k}\cdot f=\sum_{k=1}^∞\int_{E_k} f
 \end{aligned}
-\]</span></p>
+$$</p>
 <h2 id=简单函数的柯西序列>简单函数的柯西序列</h2>
-<p>我们目的是定义更一般函数的积分，为此做准备，现在引入简单函数序列<span class=math>\(\{f_n\}\)</span>的概念。</p>
+<p>我们目的是定义更一般函数的积分，为此做准备，现在引入简单函数序列${f_n}$的概念。</p>
 <blockquote>
-<p>定义3：<strong>积分</strong>的<strong>简单函数</strong>序列<span class=math>\(\{f_n\}\)</span>被称为柯西序列，如果满足：<span class=math>\(\int |f_n-f_m|→0,\)</span> as <span class=math>\(n,m→\infty\)</span>,也就是对任意<span class=math>\(\varepsilon>0\)</span>，存在<span class=math>\(N\)</span>，使得<span class=math>\(m,n≥N\)</span>时，有<span class=math>\(\int |f_n-f_m|&lt;\varepsilon\)</span>，此时记作<span class=math>\(\{f_n\}\)</span>柯西序列。</p>
+<p>定义3：<strong>积分</strong>的<strong>简单函数</strong>序列${f_n}$被称为柯西序列，如果满足：$\int |f_n-f_m|→0,$ as $n,m→\infty$,也就是对任意$\varepsilon>0$，存在$N$，使得$m,n≥N$时，有$\int |f_n-f_m|&lt;\varepsilon$，此时记作${f_n}$柯西序列。</p>
 </blockquote>
 <p>注1：就是定义了在"in mean"这种收敛方式下的柯西序列。？？</p>
-<p>注2：不要忘记，定义中的积分是对全空间<span class=math>\(X\)</span>积分。</p>
+<p>注2：不要忘记，定义中的积分是对全空间$X$积分。</p>
 <blockquote>
-<p>引理1：可积的简单函数序列<span class=math>\(\{f_n\}\)</span>若是柯西序列，则：存在几乎处处实值的可测函数<span class=math>\(f\)</span>，使得<span class=math>\(f_n→f\)</span>依测度收敛。</p>
+<p>引理1：可积的简单函数序列${f_n}$若是柯西序列，则：存在几乎处处实值的可测函数$f$，使得$f_n→f$依测度收敛。</p>
 </blockquote>
 <h2 id=习题>习题</h2>
-<p>1 测度空间<span class=math>\((X,\mathcal{F},\mu)\)</span>。设<span class=math>\(f\)</span>是简单函数，证明：<span class=math>\(f\)</span>几乎处处为0，当且仅当，对任意的可测集<span class=math>\(E\)</span>,有<span class=math>\(\int_E f=0\)</span></p>
+<p>1 测度空间$(X,\mathcal{F},\mu)$。设$f$是简单函数，证明：$f$几乎处处为0，当且仅当，对任意的可测集$E$,有$\int_E f=0$</p>
 <blockquote>
-<p><span class=math>\(f\)</span>是简单函数，设<span class=math>\(f\)</span>取值为<span class=math>\(\alpha_i \in \mathbb{R}, i=\{1,2,\dotsb,m\}\)</span>，<span class=math>\(X=\bigcup\limits_{i=1}^m E_i, E_i\cap E_j = \emptyset\)</span></p>
-<p>"<span class=math>\(\Rightarrow\)</span>": <span class=math>\(f=0,a.e\)</span>，则对<span class=math>\(\alpha_i\neq 0,\mu(E_i)=0\)</span>。</p>
-<p>那么对任意可测集<span class=math>\(E\)</span>, <span class=math>\[
-\int_E f=\int \chi_{E}f = \sum_{i=1}^m \alpha_i\mu(E\cap E_i)\\
+<p>$f$是简单函数，设$f$取值为$\alpha_i \in \mathbb{R}, i={1,2,\dotsb,m}$，$X=\bigcup\limits_{i=1}^m E_i, E_i\cap E_j = \emptyset$</p>
+<p>"$\Rightarrow$": $f=0,a.e$，则对$\alpha_i\neq 0,\mu(E_i)=0$。</p>
+<p>那么对任意可测集$E$,
+$$
+\int_E f=\int \chi_{E}f = \sum_{i=1}^m \alpha_i\mu(E\cap E_i)\
 ≤\sum_{i=1}^m \alpha_i\mu(E_i)=\sum_{\alpha_i\neq 0}\alpha_i\mu(E_i)=0
-\]</span> "<span class=math>\(\Leftarrow\)</span>"：反证法。假设<span class=math>\(f\)</span>不是几乎处处为0。因为<span class=math>\(f\)</span>是简单函数只取有限个值，那么就存在<span class=math>\(\alpha_k>0\)</span>且<span class=math>\(\mu(E_k)>0\)</span>或<span class=math>\(\alpha_k&lt;0\)</span>且<span class=math>\(\mu(E_k)&lt;0\)</span>。不妨设是在<span class=math>\(\alpha_k>0\)</span>且<span class=math>\(\mu(E_k)>0\)</span>。那么取<span class=math>\(E=E_k\)</span> ,<span class=math>\(f\)</span>在<span class=math>\(E_k\)</span>上的积分为 <span class=math>\[
-\int_{E_k} f=\int \chi_{E_k}f = \sum_{i=1}^m \alpha_i\mu(E_k\cap E_i)\\
+$$
+"$\Leftarrow$"：反证法。假设$f$不是几乎处处为0。因为$f$是简单函数只取有限个值，那么就存在$\alpha_k>0$且$\mu(E_k)>0$或$\alpha_k&lt;0$且$\mu(E_k)&lt;0$。不妨设是在$\alpha_k>0$且$\mu(E_k)>0$。那么取$E=E_k$ ,$f$在$E_k$上的积分为
+$$
+\int_{E_k} f=\int \chi_{E_k}f = \sum_{i=1}^m \alpha_i\mu(E_k\cap E_i)\
 =\alpha_k\mu(E_k\cap X)=\alpha_k\mu(E_k)>0
-\]</span> 这与假设矛盾，故<span class=math>\(f\)</span>几乎处处为0</p>
-<p>即如果<span class=math>\(f\)</span>是非负、可积的简单函数，且 <span class=math>\(\int f = 0\)</span>,证明 <span class=math>\(f=0, a.e\)</span></p>
+$$
+这与假设矛盾，故$f$几乎处处为0</p>
+<p>即如果$f$是非负、可积的简单函数，且 $\int f = 0$,证明 $f=0, a.e$</p>
 </blockquote>
 </article>
 <aside class=sidebar>

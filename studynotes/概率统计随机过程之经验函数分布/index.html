@@ -88,36 +88,49 @@ Aug 30, 2020</span>
 </div>
 </span>
 </div>
-<h2 id=概率统计随机过程之经验函数分布>概率统计随机过程之经验函数分布</h2>
-<p>设<span class=math>\(x_1, x_2, \cdots, x_n\)</span>是取自总体<span class=math>\(X\)</span>的样本, 其分布函数为<span class=math>\(F(x)\)</span>,<span class=math>\(F(x)\)</span>是未知的. 为了估计分布函数<span class=math>\(F(x)=P(X\le x)\)</span>, 使用如下统计量 <span class=math>\[
-F_n(x)=\frac{\#\{i: x_i\leq x\}}{n},
-\]</span> 其中<span class=math>\(\#A\)</span>表示集合<span class=math>\(A\)</span>中元素的个数, <span class=math>\(F_n(x)\)</span>称为<strong>经验分布函数 (empirical distribution function)</strong>. 上式中经验分布函数<span class=math>\(F_n(x)\)</span>的定义体现了用<strong>频率近似概率</strong>的想法.</p>
-<p>如果用<span class=math>\(I_A(x)\)</span>表示集合<span class=math>\(A\)</span>的特征函数（示性函数）, 即 <span class=math>\[
+<h2 id=概率统计随机过程之经验函数分布---omit-in-toc--->概率统计随机过程之经验函数分布</h2>
+<p>设$x_1, x_2, \cdots, x_n$是取自总体$X$的样本, 其分布函数为$F(x)$,$F(x)$是未知的. 为了估计分布函数$F(x)=P(X\le x)$, 使用如下统计量
+$$
+F_n(x)=\frac{#{i: x_i\leq x}}{n},
+$$
+其中$#A$表示集合$A$中元素的个数, $F_n(x)$称为<strong>经验分布函数 (empirical distribution function)</strong>. 上式中经验分布函数$F_n(x)$的定义体现了用<strong>频率近似概率</strong>的想法.</p>
+<p>如果用$I_A(x)$表示集合$A$的特征函数（示性函数）, 即
+$$
 I_A(x):=\begin{cases}
-1,x \in A,\\
+1,x \in A,\
 0,x \notin A,
 \end{cases}
-\]</span> 则经验分布函数<span class=math>\(F_n(x)\)</span>可以改写成 <span class=math>\[
-F_n(x)=\frac{1}{n}\sum_{i=0}^nI_{[x_i,\infty]}(x).\\
+$$
+则经验分布函数$F_n(x)$可以改写成
+$$
+F_n(x)=\frac{1}{n}\sum_{i=0}^nI_{[x_i,\infty]}(x).\
 I_{[x_i,\infty]}(x)=\begin{cases}
-1,x_i \le x,\\
+1,x_i \le x,\
 0,x_i > x,
 \end{cases}
-\]</span> 将样本<span class=math>\(x_1,x_2,⋯,x_n\)</span>理解成样本值时, <span class=math>\(F_n(x)\)</span>是一个分布函数. 设随机变量<span class=math>\(W∼F_n(x)\)</span>, 则<span class=math>\(W\)</span>服从离散分布, 在<span class=math>\(\{x_1,x_2,⋯,x_n\}\)</span>内取值, 如果各<span class=math>\(x_i\)</span>互不相同则<span class=math>\(W\)</span>服从<span class=math>\(\{x_1,x_2,⋯,x_n\}\)</span>上的离散均匀分布<span class=math>\(P(W=x_i)=1/n, i=1,2,⋯,n.\)</span>如果<span class=math>\(\{x_1,x_2,⋯,x_n\}\)</span>中有相同的观测值则其相应的取值概率是<span class=math>\(1/n\)</span>乘以重复次数.</p>
-<p>对样本<span class=math>\(x_1,x_2,⋯,x_n\)</span>从小到大排序得到<span class=math>\(x_{(1)}≤x_{(2)}≤⋯≤x_{(n)}\)</span>, 称为样本的次序统计量. 如果<span class=math>\(x_{(1)}≤x_{(2)}≤⋯≤x_{(n)}\)</span>, 易见 <span class=math>\[
+$$
+将样本$x_1,x_2,⋯,x_n$理解成样本值时, $F_n(x)$是一个分布函数.
+设随机变量$W∼F_n(x)$, 则$W$服从离散分布, 在${x_1,x_2,⋯,x_n}$内取值, 如果各$x_i$互不相同则$W$服从${x_1,x_2,⋯,x_n}$上的离散均匀分布$P(W=x_i)=1/n, i=1,2,⋯,n.$如果${x_1,x_2,⋯,x_n}$中有相同的观测值则其相应的取值概率是$1/n$乘以重复次数.</p>
+<p>对样本$x_1,x_2,⋯,x_n$从小到大排序得到$x_{(1)}≤x_{(2)}≤⋯≤x_{(n)}$, 称为样本的次序统计量. 如果$x_{(1)}≤x_{(2)}≤⋯≤x_{(n)}$, 易见
+$$
 F_n(x)=\begin{cases}
-0, & \textrm{当}\, x&lt; x_{(1)},\\
-\dfrac{i}{n}, & \textrm{当}\,x_{(i)}\leq x&lt; x_{(i+1)},\quad i=1,2,\cdots, n-1,\\
-1, & \textrm{当}\, x\geq x_{(n)}.
+0, & \textrm{当}, x&lt; x_{(1)},\
+\dfrac{i}{n}, & \textrm{当},x_{(i)}\leq x&lt; x_{(i+1)},\quad i=1,2,\cdots, n-1,\
+1, & \textrm{当}, x\geq x_{(n)}.
 \end{cases}
-\]</span> 将样本<span class=math>\(x_1,x_2,⋯,x_n\)</span>看成随机变量时, <span class=math>\(F_n(x)\)</span>是样本统计量.</p>
-<p><span class=math>\(I_{[x_i,∞)}(x)\)</span>是独立同分布的随机变量, 其共同分布为两点分布<span class=math>\(b(1,F(x))\)</span>. 由Glivenko-Cantelli定理可知, 当<span class=math>\(n→∞\)</span>时, <span class=math>\[
-\sup_{x\in\mathbb R}|F_n(x)-F(x)| \xrightarrow[]{\;\;{\rm a.s.}\;\;} 0.
-\]</span> 此结果表明<span class=math>\(F_n(x)\)</span>是<span class=math>\(F(x)\)</span>的一致强相合估计(uniformly and strongly consistent estimator). 于是当样本容量<span class=math>\(n\)</span>充分大时, <span class=math>\(F_n(x)\)</span>能良好地逼近总体分布函数<span class=math>\(F(x)\)</span>. 这是在统计学中以样本推断总体的依据.</p>
+$$
+将样本$x_1,x_2,⋯,x_n$看成随机变量时, $F_n(x)$是样本统计量.</p>
+<p>$I_{[x_i,∞)}(x)$是独立同分布的随机变量, 其共同分布为两点分布$b(1,F(x))$. 由Glivenko-Cantelli定理可知, 当$n→∞$时,
+$$
+\sup_{x\in\mathbb R}|F_n(x)-F(x)| \xrightarrow[]{;;{\rm a.s.};;} 0.
+$$
+此结果表明$F_n(x)$是$F(x)$的一致强相合估计(uniformly and strongly consistent estimator). 于是当样本容量$n$充分大时, $F_n(x)$能良好地逼近总体分布函数$F(x)$. 这是在统计学中以样本推断总体的依据.</p>
 <h2 id=经验分布函数与样本均值的关系>经验分布函数与样本均值的关系</h2>
-<p>如果随机变量<span class=math>\(W∼F_n(x)\)</span>, 显然<span class=math>\(W\)</span>的期望 <span class=math>\[
+<p>如果随机变量$W∼F_n(x)$, 显然$W$的期望
+$$
 E(W)=\frac{1}{n}\sum_{i=1}^nx_i=\bar x,
-\]</span> 即样本均值. 所以样本均值可以理解成服从经验分布的随机变量的数学期望. <strong>样本均值<span class=math>\(\bar x\)</span>用于估计总体均值<span class=math>\(E(X)\)</span>, 其本质上是用经验分布函数<span class=math>\(F_n(x)\)</span>近似总体分布函数<span class=math>\(F(x)\)</span></strong>. 用经验分布函数<span class=math>\(F_n(x)\)</span>近似总体分布函数<span class=math>\(F(x)\)</span>的一个应用是bootstrap方法.</p>
+$$
+即样本均值. 所以样本均值可以理解成服从经验分布的随机变量的数学期望. <strong>样本均值$\bar x$用于估计总体均值$E(X)$, 其本质上是用经验分布函数$F_n(x)$近似总体分布函数$F(x)$</strong>. 用经验分布函数$F_n(x)$近似总体分布函数$F(x)$的一个应用是bootstrap方法.</p>
 <h2 id=经验分布函数与直方图的关系>经验分布函数与直方图的关系</h2>
 <p>直方图 (histogram) 是估计分布密度非常直观简单的方法.</p>
 <h3 id=直方图作法>直方图作法</h3>
