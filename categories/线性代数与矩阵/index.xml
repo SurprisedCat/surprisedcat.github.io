@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>线性代数与矩阵 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/</link><description>Recent content in 线性代数与矩阵 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/index.xml" rel="self" type="application/rss+xml"/><item><title>线性代数与矩阵之正交（酉）矩阵与正交化</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/</guid><description>
 &lt;h2 id="线性代数与矩阵之正交酉矩阵与正交化">线性代数与矩阵之正交（酉）矩阵与正交化&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#正交向量组">正交向量组&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正交矩阵">正交矩阵&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#酉矩阵">酉矩阵&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#施密特正交化">施密特正交化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#qr分解">QR分解&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>本笔记将系统的介绍矩阵中正交的相关概念，包括正交向量（组），正交矩阵以及酉矩阵、施密特正交化以及矩阵的QR分解等。&lt;/p>
+&lt;h2 id="正交向量组">正交向量组&lt;/h2>
+&lt;blockquote>
+&lt;p>正交向量组：一组非零的两两正交(即内积为0)的向量构成的向量组，用数学语言可写为：有一组向量&lt;span class="math">\((q_1,q_2,\dotsb,q_n)\)&lt;/span>，向量之间两两满足 &lt;span class="math">\[q_i^Tq_j=&amp;lt;q_i,q_j&amp;gt;=\begin{cases}
+0,i\neq j\\
+a&amp;gt;0,i=j
+\end{cases}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>如果我们要求当&lt;span class="math">\(i=j\)&lt;/span>时的内积&lt;span class="math">\(a=1\)&lt;/span>，则称&lt;span class="math">\((q_1,q_2,\dotsb,q_n)\)&lt;/span>为标准正交向量组，所为“标准”就是其每个向量模长为单位长度1，相应的将向量长度化为1的过程就叫做&lt;strong>标准化（Normalization）&lt;/strong>。（此外，如果这个标准正交向量组的个数等于空间的维度&lt;span class="math">\(n\)&lt;/span>，那么这一组标准正交向量可以作为空间的标准正交基。因为非零正交的向量必然线性无关）&lt;/p>
 &lt;h2 id="正交矩阵">正交矩阵&lt;/h2>
-&lt;p>在矩阵论中，正交矩阵（英语：orthogonal matrix）是一个方块矩阵&lt;span class="math">\(Q\)&lt;/span>，其&lt;strong>元素为实数&lt;/strong>，而且&lt;strong>行向量与列向量皆为正交的单位向量&lt;/strong>，使得该矩阵的转&lt;strong>置矩阵为其逆矩阵&lt;/strong>： &lt;span class="math">\[Q^{T}=Q^{-1}\Leftrightarrow Q^{T}Q=QQ^{T}=I.\]&lt;/span>&lt;/p>
+&lt;p>在矩阵论中，正交矩阵（英语：orthogonal matrix）是一个方阵&lt;span class="math">\(Q\)&lt;/span>，其&lt;strong>元素为实数&lt;/strong>，而且&lt;strong>行向量与列向量皆为正交的单位向量&lt;/strong>，使得该矩阵的&lt;strong>转置矩阵&lt;/strong>有如下特性： &lt;span class="math">\[Q^{T}Q=QQ^{T}=I\]&lt;/span> 显而易见，&lt;span class="math">\(Q^{T}=Q^{-1}\)&lt;/span>即&lt;strong>正交矩阵的转置为其逆矩阵&lt;/strong>。这算是正交矩阵最重要的性质。这也说明，矩阵&lt;span class="math">\(Q\)&lt;/span>的列向量组&lt;span class="math">\((Cq_1,Cq_2,\dotsb,Cq_n)\)&lt;/span>是一组标准正交向量。典型的正交矩阵有单位阵&lt;span class="math">\(I\)&lt;/span>，置换矩阵，标准化的Hadamard等。&lt;/p>
 &lt;h3 id="酉矩阵">酉矩阵&lt;/h3>
+&lt;p>酉矩阵是正交矩阵在复数空间&lt;span class="math">\(\mathbb{C}^n\)&lt;/span>的推广。酉矩阵（又译作幺正矩阵，英语：unitary matrix）是一个&lt;span class="math">\(n×n\)&lt;/span>复数方块矩阵&lt;span class="math">\(U\)&lt;/span>，其满足以下性质： &lt;span class="math">\[U^\ast U=UU^{\ast}=I_{n}\]&lt;/span> 其中&lt;span class="math">\(U\ast\)&lt;/span>是&lt;span class="math">\(U\)&lt;/span>的共轭转置，&lt;span class="math">\(I_n\)&lt;/span>是&lt;span class="math">\(n×n\)&lt;/span>单位矩阵。同样的，酉矩阵的逆矩阵就是共轭转置： &lt;span class="math">\[
+U^{-1}=U^{*}
+\]&lt;/span> 显然，&lt;span class="math">\(U\)&lt;/span>的列（行）向量组是在&lt;span class="math">\(\mathbb{C}^n\)&lt;/span>上的一组标准正交基。&lt;/p>
 &lt;h2 id="施密特正交化">施密特正交化&lt;/h2>
+&lt;p>请看网页资料&lt;a href="../../网页资料/线性代数与矩阵之Gram-Schmidt正交化.html">线性代数与矩阵之Gram-Schmidt正交化.html&lt;/a>&lt;/p>
+&lt;p>原文地址&lt;a href="https://ccjou.wordpress.com/2010/04/22/gram-schmidt-正交化與-qr-分解/">https://ccjou.wordpress.com/2010/04/22/gram-schmidt-正交化與-qr-分解/&lt;/a>&lt;/p>
 &lt;h2 id="qr分解">QR分解&lt;/h2>
-&lt;p>请看文章 &lt;a href="https://ccjou.wordpress.com/2010/04/22/gram-schmidt-%E6%AD%A3%E4%BA%A4%E5%8C%96%E8%88%87-qr-%E5%88%86%E8%A7%A3/">https://ccjou.wordpress.com/2010/04/22/gram-schmidt-%E6%AD%A3%E4%BA%A4%E5%8C%96%E8%88%87-qr-%E5%88%86%E8%A7%A3/&lt;/a>&lt;/p></description></item><item><title>线性代数与矩阵之投影与子空间</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/</link><pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/</guid><description>
+&lt;p>某种程度上来说，矩阵的QR分解就是施密特正交化的矩阵化表示。对矩阵&lt;span class="math">\(A\)&lt;/span>进行施密特正交化得到&lt;span class="math">\(Q\)&lt;/span>，而求取&lt;span class="math">\(R\)&lt;/span>的过程是使用已经求取的标准正交基反推原来的列向量。&lt;/p></description></item><item><title>线性代数与矩阵之投影与子空间</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/</link><pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/</guid><description>
 &lt;h2 id="线性代数与矩阵之投影与子空间">线性代数与矩阵之投影与子空间&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#引子">引子&lt;/a>&lt;/li>

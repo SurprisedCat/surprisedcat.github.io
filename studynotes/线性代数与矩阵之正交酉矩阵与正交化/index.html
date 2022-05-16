@@ -89,12 +89,33 @@ May 11, 2022</span>
 </span>
 </div>
 <h2 id=线性代数与矩阵之正交酉矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</h2>
+<ul>
+<li><a href=#正交向量组>正交向量组</a></li>
+<li><a href=#正交矩阵>正交矩阵</a></li>
+<li><a href=#酉矩阵>酉矩阵</a></li>
+<li><a href=#施密特正交化>施密特正交化</a></li>
+<li><a href=#qr分解>QR分解</a></li>
+</ul>
+<p>本笔记将系统的介绍矩阵中正交的相关概念，包括正交向量（组），正交矩阵以及酉矩阵、施密特正交化以及矩阵的QR分解等。</p>
+<h2 id=正交向量组>正交向量组</h2>
+<blockquote>
+<p>正交向量组：一组非零的两两正交(即内积为0)的向量构成的向量组，用数学语言可写为：有一组向量<span class=math>\((q_1,q_2,\dotsb,q_n)\)</span>，向量之间两两满足 <span class=math>\[q_i^Tq_j=&lt;q_i,q_j>=\begin{cases}
+0,i\neq j\\
+a>0,i=j
+\end{cases}\]</span></p>
+</blockquote>
+<p>如果我们要求当<span class=math>\(i=j\)</span>时的内积<span class=math>\(a=1\)</span>，则称<span class=math>\((q_1,q_2,\dotsb,q_n)\)</span>为标准正交向量组，所为“标准”就是其每个向量模长为单位长度1，相应的将向量长度化为1的过程就叫做<strong>标准化（Normalization）</strong>。（此外，如果这个标准正交向量组的个数等于空间的维度<span class=math>\(n\)</span>，那么这一组标准正交向量可以作为空间的标准正交基。因为非零正交的向量必然线性无关）</p>
 <h2 id=正交矩阵>正交矩阵</h2>
-<p>在矩阵论中，正交矩阵（英语：orthogonal matrix）是一个方块矩阵<span class=math>\(Q\)</span>，其<strong>元素为实数</strong>，而且<strong>行向量与列向量皆为正交的单位向量</strong>，使得该矩阵的转<strong>置矩阵为其逆矩阵</strong>： <span class=math>\[Q^{T}=Q^{-1}\Leftrightarrow Q^{T}Q=QQ^{T}=I.\]</span></p>
+<p>在矩阵论中，正交矩阵（英语：orthogonal matrix）是一个方阵<span class=math>\(Q\)</span>，其<strong>元素为实数</strong>，而且<strong>行向量与列向量皆为正交的单位向量</strong>，使得该矩阵的<strong>转置矩阵</strong>有如下特性： <span class=math>\[Q^{T}Q=QQ^{T}=I\]</span> 显而易见，<span class=math>\(Q^{T}=Q^{-1}\)</span>即<strong>正交矩阵的转置为其逆矩阵</strong>。这算是正交矩阵最重要的性质。这也说明，矩阵<span class=math>\(Q\)</span>的列向量组<span class=math>\((Cq_1,Cq_2,\dotsb,Cq_n)\)</span>是一组标准正交向量。典型的正交矩阵有单位阵<span class=math>\(I\)</span>，置换矩阵，标准化的Hadamard等。</p>
 <h3 id=酉矩阵>酉矩阵</h3>
+<p>酉矩阵是正交矩阵在复数空间<span class=math>\(\mathbb{C}^n\)</span>的推广。酉矩阵（又译作幺正矩阵，英语：unitary matrix）是一个<span class=math>\(n×n\)</span>复数方块矩阵<span class=math>\(U\)</span>，其满足以下性质： <span class=math>\[U^\ast U=UU^{\ast}=I_{n}\]</span> 其中<span class=math>\(U\ast\)</span>是<span class=math>\(U\)</span>的共轭转置，<span class=math>\(I_n\)</span>是<span class=math>\(n×n\)</span>单位矩阵。同样的，酉矩阵的逆矩阵就是共轭转置： <span class=math>\[
+U^{-1}=U^{*}
+\]</span> 显然，<span class=math>\(U\)</span>的列（行）向量组是在<span class=math>\(\mathbb{C}^n\)</span>上的一组标准正交基。</p>
 <h2 id=施密特正交化>施密特正交化</h2>
+<p>请看网页资料<a href=../../网页资料/线性代数与矩阵之Gram-Schmidt正交化.html>线性代数与矩阵之Gram-Schmidt正交化.html</a></p>
+<p>原文地址<a href=https://ccjou.wordpress.com/2010/04/22/gram-schmidt-正交化與-qr-分解/>https://ccjou.wordpress.com/2010/04/22/gram-schmidt-正交化與-qr-分解/</a></p>
 <h2 id=qr分解>QR分解</h2>
-<p>请看文章 <a href=https://ccjou.wordpress.com/2010/04/22/gram-schmidt-%E6%AD%A3%E4%BA%A4%E5%8C%96%E8%88%87-qr-%E5%88%86%E8%A7%A3/>https://ccjou.wordpress.com/2010/04/22/gram-schmidt-%E6%AD%A3%E4%BA%A4%E5%8C%96%E8%88%87-qr-%E5%88%86%E8%A7%A3/</a></p>
+<p>某种程度上来说，矩阵的QR分解就是施密特正交化的矩阵化表示。对矩阵<span class=math>\(A\)</span>进行施密特正交化得到<span class=math>\(Q\)</span>，而求取<span class=math>\(R\)</span>的过程是使用已经求取的标准正交基反推原来的列向量。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
