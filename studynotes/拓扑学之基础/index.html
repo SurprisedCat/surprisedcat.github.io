@@ -153,6 +153,7 @@ Apr 17, 2020</span>
 <p>一度量空间为紧致的，当且仅当该空间是<strong>完备</strong>的，且为完全有界的。这即是所谓的海涅－博雷尔定理。须注意，紧致性仅决取于拓扑，而有界性则决取于度量。</p>
 <p>勒贝格数引理表示，对于紧致度量空间 M 内的每个开覆盖，均存在一个“勒贝格数”δ，使得每个 M 内直径 &lt; δ 的子集均会被包含于某些覆盖内。</p>
 <h2 id=banach空间>Banach空间</h2>
+<p>巴拿赫空间（英语：Banach space）是一个完备赋范向量空间。更精确地说，巴拿赫空间是一个具有范数并对此范数完备的向量空间。其完备性体现在，空间内任意向量的柯西序列总是收敛到一个良定义的位于空间内部的极限。</p>
 <h2 id=柯西序列>柯西序列</h2>
 <p>在数学中，<strong>柯西序列、柯西列、柯西数列或基本列</strong>是指这样一个数列，它的元素随着序数的增加而愈发靠近。更确切地说，在去掉有限个元素后，可以使得余下的元素中任何两点间的距离的最大值不超过任意给定的正数。</p>
 <p>柯西列的定义依赖于<strong>距离的定义</strong>，所以只有在<strong>度量空间</strong>中柯西列才有意义。</p>
@@ -174,23 +175,24 @@ Apr 17, 2020</span>
 <div class=figure>
 <img src=../../images/空间关系维恩图.jpeg alt=空间关系维恩图.jpeg><p class=caption>空间关系维恩图.jpeg</p>
 </div>
+<p>注：图中黄色的字是拓扑空间。</p>
 <div class=figure>
 <img src=../../images/空间关系说明表.jpeg alt=空间关系维恩图.jpeg><p class=caption>空间关系维恩图.jpeg</p>
 </div>
 <p>现代数学的一个特点就是以集合为研究对象，这样的好处就是可以将很多不同问题的本质抽象出来，变成同一个问题，当然这样的坏处就是描述起来比较抽象，很多人就难以理解了。</p>
 <p>既然是研究集合，每个人感兴趣的角度不同，研究的方向也就不同。为了能有效地研究集合，必须给集合赋予一些“结构”（从一些具体问题抽象出来的结构）。 从数学的本质来看，最基本的集合有两类：线性空间（有线性结构的集合）、度量空间（有度量结构的集合）。</p>
 <p>对线性空间而言，主要研究集合的描述，直观地说就是如何清楚地告诉地别人这个集合是什么样子。为了描述清楚，就引入了基（相当于三维空间中的坐标系）的概念，所以对于一个线性空间来说，只要知道其基即可，集合中的元素只要知道其在给定基下的坐标即可。</p>
-<p>但线性空间中的元素没有“长度”（相当于三维空间中线段的长度），为了量化线性空间中的元素，所以又在线性空间引入特殊的“长度”，即范数。赋予了范数的线性空间即称为赋犯线性空间。</p>
+<p>但线性空间中的元素没有“长度”（相当于三维空间中线段的长度），为了量化线性空间中的元素，所以又在线性空间引入特殊的“长度”，即范数。赋予了范数的线性空间即称为赋范线性空间。同时，两个赋范线性空间的所有线性算子构成了另一个空间，叫线性算子空间。</p>
 <p>但赋范线性空间中两个元素之间没有角度的概念，为了解决该问题，所以在线性空间中又引入了内积的概念。</p>
 <p>因为有度量，所以可以在度量空间、赋范线性空间以及内积空间中引入极限，但抽象空间中的极限与实数上的极限有一个很大的不同就是，极限点可能不在原来给定的集合中，所以又引入了完备的概念，完备的内积空间就称为Hilbert空间。</p>
 <p>这几个空间之间的关系是：</p>
 <ul>
-<li>线性空间与度量空间是两个不同的概念，没有交集。</li>
-<li>赋范线性空间就是赋予了范数的线性空间，也是度量空间（具有线性结构的度量空间）</li>
+<li>线性空间与度量空间是两个不同的概念，没有必然联系。线性空间中，不定义度量结构就不是度量空间，度量也可以定义在非线性空间中。二者的交集叫度量线性空间。</li>
+<li>赋范线性空间就是赋予了范数的线性空间，也是度量空间（具有线性结构的度量空间），因为范数也是距离的一种，即度量和原点的距离。</li>
 <li>Banach空间是完备的赋范线性空间。</li>
-<li>内积空间必为线性赋范空间，但线性赋范空间不一定是内积空间。</li>
-<li>希尔伯特空间就是完备的内积空间。</li>
-<li>n维欧式空间是完备的，从而是Banach空间以及希尔伯特空间</li>
+<li>内积空间必为赋范线性空间，但是在其基础上引入了角度，并产生了一些负数运算结果；但线性赋范空间不一定是内积空间。任何有限维内积空间都是完备的，因此也是banach空间。</li>
+<li>希尔伯特空间就是完备的内积空间，也可以说是定义了内积的Banach空间，算是banach空间和内积空间的交集。</li>
+<li>有限维欧式空间、有限维酉空间都是Banach空间以及希尔伯特空间</li>
 </ul>
 <p>其他阅读材料：如何理解空间，这是最基础的。 <a href=https://www.jianshu.com/p/1a8241cae23f>https://www.jianshu.com/p/1a8241cae23f</a></p>
 </article>
@@ -216,7 +218,7 @@ Apr 17, 2020</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -310,7 +312,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -342,13 +344,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/ class=nav-link title=线性代数与矩阵之正交（酉）矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
 </li>
 </ul>
 <div>
@@ -364,7 +366,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -472,7 +474,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>

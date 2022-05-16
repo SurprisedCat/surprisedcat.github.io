@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 May 10, 2022</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -91,9 +91,16 @@ May 10, 2022</span>
 <h2 id=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</h2>
 <ul>
 <li><a href=#引子>引子</a></li>
+<li><a href=#投影从向量到子空间投影>投影——从向量到子空间投影</a></li>
+<li><a href=#投影的最小误差要求>投影的最小误差要求</a></li>
+<li><a href=#向量到向量的投影>向量到向量的投影</a></li>
+<li><a href=#向量的投影矩阵>向量的投影矩阵</a></li>
 <li><a href=#子空间投影>子空间投影</a></li>
-<li><a href=#投影矩阵和最小二乘法>投影矩阵和最小二乘法</a></li>
-<li><a href=#不可逆的处理>不可逆的处理</a></li>
+<li><a href=#投影矩阵与子空间关系>投影矩阵与子空间关系</a></li>
+<li><a href=#再谈投影和误差>再谈投影和误差</a></li>
+<li><a href=#最小二乘法与子空间投影>最小二乘法与（子）空间投影</a></li>
+<li><a href=#最小二乘法>最小二乘法</a></li>
+<li><a href=#ata不可逆时的处理><span class=math>\(A^TA\)</span>不可逆时的处理</a></li>
 </ul>
 <h2 id=引子>引子</h2>
 <p>注：本文中默认矩阵<span class=math>\(A\)</span>的形式为：</p>
@@ -108,11 +115,157 @@ x_1&y_1\\x_2&y_2\\x_3&y_3\\\vdots&\vdots\\x_m&y_m\\
 <p>答案是有的，尽量近似的解获得方式如下（暂时不考虑<span class=math>\(A^TA\)</span>不可逆）： <span class=math>\[
 A^TA\Theta=A^Tb\Rightarrow \hat{\Theta}=(A^TA)^{-1}A^Tb
 \]</span> 注意，这里的矩阵<span class=math>\(A\)</span><strong>并不是方阵</strong>，因此<span class=math>\((A^TA)^{-1}\neq A^{-1}(A^T)^{-1}\)</span>，<span class=math>\(A,A^T\)</span>的逆不存在的。</p>
-<p>其中，<span class=math>\(A^b\)</span>与<span class=math>\(A^TA\)</span>就是这篇笔记的重点。</p>
-<h2 id=子空间投影>子空间投影</h2>
-<h2 id=投影矩阵和最小二乘法>投影矩阵和最小二乘法</h2>
-<h2 id=不可逆的处理>不可逆的处理</h2>
-<p>两个字：伪逆</p>
+<p>其中，<span class=math>\(A^Tb\)</span>和衍生出来的投影矩阵<span class=math>\(A(A^TA)^{-1}A^Tb\)</span>的由来就是这篇笔记的重点。</p>
+<h2 id=投影从向量到子空间投影>投影——从向量到子空间投影</h2>
+<p>想象我们站在冬日的阳光下，阳光照在我们身上。在给我们带来温暖与惬意的同时，也在平地上留下了一个影子，这就是投影在生活中最常见的情形。而此时的影子是三维世界的我们在二维平面成的像，当然阳光的角度，地面是不是斜坡都会影响影子的最终形态。</p>
+<div class=figure>
+<img src=../../images/投影影子.jpeg alt=投影影子><p class=caption>投影影子</p>
+</div>
+<p>线性代数与矩阵中也存在类似的过程——<strong>投影</strong>。投影是一种高维事物（如向量）往低维子空间投射影子的过程，而这个低维子空间中的影子应该是子空间中<strong>与原来事物相似</strong>的存在。如果用严格的数学语言描述：</p>
+<blockquote>
+<p>投影：有一属于向量空间<span class=math>\(V\)</span>的子空间<span class=math>\(W\)</span>，该子空间的一个投影<span class=math>\(P\)</span>需使得<span class=math>\(\forall u\in V,P(u)\in W\)</span>，并且<span class=math>\(\forall u\in W\)</span>，有<span class=math>\(P(u)=u\)</span></p>
+</blockquote>
+<p>上面这句话可解释为，<span class=math>\(P\)</span>是向量空间<span class=math>\(V\)</span>到子空间<span class=math>\(W\)</span>投影，那么<span class=math>\(P\)</span>将所有<span class=math>\(V\)</span>中的元素都映射到<span class=math>\(W\)</span>中，而且<span class=math>\(P\)</span>在<span class=math>\(W\)</span>上是恒等变换。虽然这个定义没有问题，但是满足这个定义的投影<span class=math>\(P\)</span>显然不是唯一的，如下图所示，各个<span class=math>\(p _i\)</span>都可以算作投影的影子。</p>
+<div class=figure>
+<img src=../../images/投影结果.drawio.svg alt=投影结果.drawio.svg><p class=caption>投影结果.drawio.svg</p>
+</div>
+<p>在这些影子中，总得有好有坏吧。我们可以设立一个指标：<strong>影子向量和原来向量的差别或误差</strong>。差别（误差）越小，也就是越近似，那么这个影子就保留了原向量尽可能多的信息，因此最好的投影会让二者具有“最近似性”关系。</p>
+<p>其实，这种追求最小误差的投影，叫做<strong>正交投影</strong>，正交投影是我们用得最多的投影方式，一个子空间的正交投影是唯一的。<strong>斜投影</strong>有时用来提及非正交投影，斜投影常常会扭曲向量的尺寸，因此用的不多。我们这里先提一下这些概念，本文其实说的投影都是正交投影。</p>
+<h3 id=投影的最小误差要求>投影的最小误差要求</h3>
+<p>那么，如果体现投影的“最近似”特性呢？由于从高维空间到子空间的投影是不唯一的，就像阳光可以顺着不同的方向照射，同一个地面产生的影子也是不一样的。如果原来的向量<span class=math>\(\vec{b}\)</span>产生的投影向量是<span class=math>\(\vec{p}\)</span>，那么它们之间的误差就是<span class=math>\(\vec{e}=\vec{b}-\vec{p}\)</span>。“最近似”特性就是希望误差<span class=math>\(\vec{e}\)</span>最小。根据点与空间的关系可知，<strong>最小化<span class=math>\(\vec{e}\)</span>相当于让其成为向量到空间的距离</strong>。</p>
+<p>那么这个空间<span class=math>\(V\)</span>到子空间<span class=math>\(W\)</span>的投影<span class=math>\(P\)</span>到底怎么求？以及如何在低维子空间中找到任意<span class=math>\(V\)</span>中向量的影子呢？就是这一章节的阐述重点。</p>
+<h3 id=向量到向量的投影>向量到向量的投影</h3>
+<p>空间中，最简单的子空间就是一维子空间（除了零向量），直接来说就是一个向量所在的过原点的直线，且该一维子空间由这个向量确定。一维子空间的投影是最基本的场景，也是其他更复杂场景的基础。一个向量往另一向量确定的一维子空间投影应该是什么呢？根据我们之前的要求，投影的影子应该是和原来向量差距最小的的。基本场景如下图所示：</p>
+<div class=figure>
+<img src=../../images/向量投影.drawio.svg alt=向量投影><p class=caption>向量投影</p>
+</div>
+<p>在上面这个图中，<span class=math>\(\vec{b}\)</span>为原向量，<span class=math>\(\vec{p}\)</span>为其在向量<span class=math>\(\vec{a}\)</span>所在的一维子空间的投影向量。根据向量的减法关系可知：<span class=math>\(\vec{b}-\vec{p}=\vec{e}\)</span>，其中<span class=math>\(\vec{e}\)</span>是<span class=math>\(\vec{b},\;\vec{p}\)</span>的误差。用小学的知识也能知道，<strong>当<span class=math>\(\vec{e}\)</span>垂直于一维子空间所在直线</strong>的时候，误差最小。所以投影应该满足： <span class=math>\[
+\vec{e}\perp\vec{a}\\
+\Leftrightarrow \vec{a}^T\vec{e}=0或\vec{a}\cdot \vec{e}=0
+\]</span> 我们将<span class=math>\(\vec{e}=\vec{b}-\vec{p}\)</span>代入，可得 <span class=math>\[
+\vec{a}^T(\vec{b}-\vec{p})=0\Leftrightarrow \vec{a}^T\vec{b}=\vec{a}^T\vec{p}
+\]</span> 并且，<span class=math>\(\vec{p}\)</span>与<span class=math>\(\vec{a}\)</span>都是一维子空间的向量，二者共线，必然有<span class=math>\(\vec{p}=x\vec{a}\)</span>，其中<span class=math>\(x\)</span>是一个标量。代入上式可得： <span class=math>\[
+\vec{a}^T\vec{b}=\vec{a}^T(x\vec{a})\Leftrightarrow x=(\vec{a}^T\vec{a})^{-1}\vec{a}^T\vec{b}
+\]</span> <span class=math>\(x\)</span>是<span class=math>\(\vec{p}\)</span>与<span class=math>\(\vec{a}\)</span>的倍数关系，由<span class=math>\(\vec{p}=x\vec{a}\)</span>可得： <span class=math>\[
+\vec{p}=\vec{a}(\vec{a}^T\vec{a})^{-1}\vec{a}^T\vec{b}
+\]</span> 那么，对于任意的<span class=math>\(\vec{b}\in \R^n\)</span>，为了追求误差最小化，其投影到<span class=math>\(\vec{a}\)</span>所属的一维子空间投影矩阵为： <span class=math>\[
+P_a=\vec{a}(\vec{a}^T\vec{a})^{-1}\vec{a}^T
+\]</span> 其中，<span class=math>\(P_a\)</span>表示投影到向量<span class=math>\(\vec{a}\)</span>所在子空间的投影矩阵。由于从<span class=math>\(\vec{e}\perp\vec{a}\)</span>到投影矩阵<span class=math>\(P_a\)</span>的推导过程都是充要关系，因此这种最小化误差的投影与投影矩阵<span class=math>\(P\)</span>是一一对应的。</p>
+<h3 id=向量的投影矩阵>向量的投影矩阵</h3>
+<p>上一小节，我们得到了某向量所在的一维子空间的投影矩阵<span class=math>\(P_a=\vec{a}(\vec{a}^T\vec{a})^{-1}\vec{a}^T\)</span>。我们现在来研究一些<span class=math>\(P\)</span>有哪些特性与性质。</p>
+<p>首先，<span class=math>\(P_a\)</span>与<span class=math>\(\vec{a}\)</span>的关系非常密切，由<span class=math>\(P_a=kaa^T,k=(\vec{a}^T\vec{a})^{-1}\)</span>可知，<span class=math>\(P_a\)</span>中的每个列向量都是<span class=math>\(\vec{a}\)</span>的倍数，即列向量之间都是线性相关的。这意味着<span class=math>\(P_a\)</span>的列空间（值域）等于<span class=math>\(\vec{a}\)</span>所在的一维子空间，<span class=math>\(Col(P_a)=\R^1_a\)</span>。这满足了投影定义中，将所有<span class=math>\(V\)</span>中的元素都映射到子空间<span class=math>\(W\)</span>中的要求。</p>
+<p>同时，<span class=math>\(P_a\)</span>的列向量的最大线性无关组为1，即<span class=math>\(P_a\)</span>是个秩1矩阵。投影所保留的维度正好对应了一维子空间的维度，这也体现了<span class=math>\(P_a\)</span>与一维子空间的映射关系。</p>
+<p>我们之前，在定义投影的时候也提过，<span class=math>\(\forall u\in W\)</span>，有<span class=math>\(P(u)=u\)</span>，也就是子空间中向量的投影是其本身。如果对一个已经经过投影的向量再做一次投影操作（因为第一次投影操作以及让影子属于子空间了），应该不再有变化，这从几何观点很容易理解。不难发现，<span class=math>\(P_aP_a=\vec{a}(\vec{a}^T\vec{a})^{-1}[\vec{a}^T\vec{a}(\vec{a}^T\vec{a})^{-1}]_{=1}\vec{a}^T=\vec{a}(\vec{a}^T\vec{a})^{-1}\vec{a}^T=P_a\)</span>，即<span class=math>\(P_a^2=P_a\)</span>。我们称这个性质为<strong>幂等性</strong>，满足这个性质的矩阵为幂等矩阵。投影矩阵的幂等性还可以从信息的角度理解，投影矩阵的作用是将与子空间无关的其他维度剥离，只留下子空间维度的信息。因此经过投影的向量已经没有了其他维度信息，在投影（剥离）一次不改变结果。</p>
+<p>此外，我们还发现，投影矩阵是一个对称矩阵，即<span class=math>\(P_a^T=P_a\)</span>。投影矩阵的对称性涉及到自伴随算子与空间的映射关系，是一个深刻且值得探讨的结论，但是需要的数学知识较深，这里不再讨论。</p>
+<p>总结，向量到一维子空间的投影矩阵有如下性质：</p>
+<ol style=list-style-type:decimal>
+<li>投影矩阵<span class=math>\(P_a\)</span>可有一维子空间所在向量<span class=math>\(\vec{a}\)</span>构成，因此其列空间为该子空间。</li>
+<li><span class=math>\(P_a\)</span>的秩等于子空间维度。</li>
+<li><span class=math>\(P_a\)</span>是幂等矩阵；</li>
+<li><span class=math>\(P_a\)</span>是对称矩阵。</li>
+</ol>
+<h3 id=子空间投影>子空间投影</h3>
+<p>我们已经讨论了向量到向量所在的一维子空间的投影，那么当子空间维数不仅仅是一维的，而是高维的子空间，那么其投影该怎么求呢？</p>
+<p>方法和一维子空间类似。假设我们要求矩阵<span class=math>\(A\)</span>确定的投影矩阵<span class=math>\(P_A\)</span>，由于子空间等于由矩阵<span class=math>\(A\)</span>的列空间，整体空间中有一任意非零向量<span class=math>\(\vec{b}\)</span>，其在子空间的投影为<span class=math>\(\vec{p}\)</span>，因为<span class=math>\(\vec{p}\)</span>位于<span class=math>\(A\)</span>的列空间，所以可以用<span class=math>\(A\)</span>的列向量的线性组合<span class=math>\(\hat{x}_1\vec{c}_1+\hat{x}_2\vec{c}_2+\dotsb+\hat{x}_n\vec{c}_n\)</span>表示，其中<span class=math>\(\vec{c}_i\)</span>是<span class=math>\(A\)</span>的一个<span class=math>\(m×1\)</span>的列向量，将其写成矩阵形式为：<span class=math>\(\vec{p}=A\hat{x}\)</span>。</p>
+<div class=figure>
+<img src=../../images/3dim_projection.png alt=3dim_projection.png><p class=caption>3dim_projection.png</p>
+</div>
+<p>同样的，我们希望误差<span class=math>\(\vec{e}=\vec{b}-\vec{p}\)</span>最小，那么根据高中立体几何知识可知：<strong>只有当误差<span class=math>\(\vec{e}\)</span>垂直与子空间时，<span class=math>\(e\)</span>的长度最短</strong>。此时，<span class=math>\(\vec{e}\)</span>应垂直于子空间中所有向量，包括<span class=math>\(A\)</span>的所有列向量，即 <span class=math>\[
+\vec{e}\perp Col(A)\\
+\Leftrightarrow A^T\vec{e}=\vec{0}或 c_i\cdot \vec{e}=0\;\forall i\in\{1,\dotsb,n\}
+\]</span> 其中，<span class=math>\(Col(A)\)</span>表示矩阵<span class=math>\(A\)</span>的列空间，<span class=math>\(c_i\)</span>是矩阵<span class=math>\(A\)</span>的一列。将<span class=math>\(\vec{e}=\vec{b}-\vec{p},\;\vec{p}=A\hat{x}\)</span>代入上式可得： <span class=math>\[
+A^T(\vec{b}-\vec{p})=0\Leftrightarrow A^T\vec{b}=A^T\vec{p}\Leftrightarrow A^T\vec{b}=A^TA\hat{x}
+\]</span> 我们先只考虑<span class=math>\(A^TA\)</span>是可逆的情形，可得： <span class=math>\[
+\hat{x}=(A^TA)^{-1}A^T\vec{b}
+\]</span> 而<span class=math>\(\hat{x}\)</span>又是<span class=math>\(\vec{p}\)</span>用矩阵<span class=math>\(A\)</span>列向量线性表示的系数，即<span class=math>\(\vec{p}=A\hat{x}\)</span>。综上可得，对于空间中任意向量<span class=math>\(\vec{b}\in \R^m\)</span>，在误差<span class=math>\(\vec{e}\)</span>最小化的正交投影要求下，其投影到子空间<span class=math>\(Col(A)\)</span>的结果为： <span class=math>\[
+\vec{p}=A(A^TA)^{-1}A^T\vec{b}
+\]</span> 相应的，由<span class=math>\(A\)</span>所确定的投影矩阵可定义为： <span class=math>\[
+P_A=A(A^TA)^{-1}A^T
+\]</span></p>
+<h3 id=投影矩阵与子空间关系>投影矩阵与子空间关系</h3>
+<p>上一小节已经求出了投影矩阵<span class=math>\(P_A=A(A^TA)^{-1}A^T\)</span>，其中<span class=math>\(A_{m×n}\)</span>为<span class=math>\(m×n\)</span>矩阵，那么投影矩阵与<span class=math>\(A\)</span>所构成的子空间是什么关系呢？</p>
+<p>我们首先研究<span class=math>\(P_A\)</span>的列空间的秩。由于我们先假设<span class=math>\(A^TA\)</span>是可逆的，因此其为一个<span class=math>\(n×n\)</span>维可逆矩阵，因此有<span class=math>\(Rank(A^TA)=n\)</span>。同时由于两个秩为<span class=math>\(r\)</span>的矩阵乘积秩必然也不大于<span class=math>\(r\)</span>（这是因为矩阵右乘或左乘分别是到其行空间或列空间的映射，因此矩阵乘法不可能升维），所以<span class=math>\(Rank(A)=Rank(A^T)\geq Rank(A^TA)=n\)</span>。而又因为矩阵的秩小于等于行数和列数，即<span class=math>\(Rank(A)=Rank(A^T)\leq \min\{m,n\}\)</span>，所以有<span class=math>\(Rank(A)=Rank(A^T)=n\leq m\)</span>。</p>
+<p>有了矩阵秩的信息，我们再来看看投影矩阵<span class=math>\(P_A\)</span>的秩，我们发现<span class=math>\(P_A\)</span>的秩并不好求，因此我们这里用一个夹逼的技巧，看看矩阵<span class=math>\(P_AA\)</span>的秩，易得 <span class=math>\[
+P_AA=A\underbrace{(A^TA)^{-1}A^TA}_{=I}=A
+\]</span> 根据<strong>两个矩阵乘积的秩必然不大于任一个矩阵的秩</strong>这一特性，有： <span class=math>\[
+\left .
+\begin{aligned}
+rank(P_A)≥rank(P_AA)=rank(A)=n\\
+rank(P_A)=rank(A(A^TA)^{-1}A^T)≤rank(A)=n
+\end{aligned}
+\right \}
+\Rightarrow rank(P_A)=n
+\]</span> 即投影矩阵<span class=math>\(P_A\)</span>的秩为<span class=math>\(n\)</span>，等于子空间的维度。</p>
+<p>有了<span class=math>\(P_A\)</span>的秩，我们再由矩阵乘法的积的列空间特性进行进一步推导。对于矩阵乘法<span class=math>\(S=AX\)</span>，如果我们将<span class=math>\(X\)</span>写成列向量组的形式<span class=math>\(X=(x_1,x_2,\dotsb,x_k)\)</span>，则<span class=math>\(S=AX\)</span>的乘积为<span class=math>\((Ax_1,Ax_2,\dotsb,Ax_k)\)</span>。显然，矩阵<span class=math>\(S\)</span>的每一列<span class=math>\(s_i=Ax_i ∈ Col(A)\)</span>，因而<span class=math>\(S\)</span>列向量组的线性组合也在<span class=math>\(Col(A)\)</span>中，即<span class=math>\(Col(S)\subseteq Col(A)\)</span>。依据此结论，我们可推断<span class=math>\(Col(P_A)\subseteq Col(A)\)</span>。再综合<span class=math>\(P_A\)</span>的秩为<span class=math>\(n\)</span>等于<span class=math>\(rank(A)\)</span>，我们能够断定<span class=math>\(Col(P_A)=Col(A)\)</span>，即<span class=math>\(A\)</span>所构成的子空间等于投影矩阵<span class=math>\(P_A\)</span>的列空间。</p>
+<p>最后我们来看看投影矩阵还有哪些性质。根据一维子空间中的投影研究应该具有幂等性和对称性。不难验证：</p>
+<ol style=list-style-type:decimal>
+<li>幂等性：<span class=math>\(P_AP_A=A(A^TA)^{-1}\underbrace{A^TA(A^TA)^{-1}}_{=I}A^T=A(A^TA)^{-1}A^T=P_A\)</span></li>
+<li>幂等矩阵的迹等于幂等矩阵的秩，即<span class=math>\(tr(A)=rank(A)\)</span>（通过特征值证明）</li>
+<li>对称性：<span class=math>\(P_A^T=(A(A^TA)^{-1}A^T)^T=(A^T)^T((A^TA)^{-1})^TA^T=A(A^TA)^{-1}A^T=P_A\)</span></li>
+</ol>
+<h3 id=再谈投影和误差>再谈投影和误差</h3>
+<p>通过投影，我们把空间中任一向量<span class=math>\(\vec{b}\)</span>分成了投影子空间的部分<span class=math>\(\vec{p}\)</span>和误差部分<span class=math>\(\vec{e}\)</span>。从信息的角度，投影矩阵的作用就是保留子空间中的信息分量<span class=math>\(\vec{p}\)</span>，去掉非子空间中的分量<span class=math>\(\vec{e}\)</span>。之前，我们已经分析出，投影子空间等于矩阵<span class=math>\(A\)</span>的列空间<span class=math>\(Col(A)\)</span>。那么误差<span class=math>\(\vec{e}\)</span>所在的空间有没有什么特殊之处呢？</p>
+<p>从之前的推导过程中，我们指出对于任意误差<span class=math>\(\vec{e}\)</span>，为了使其最小化，应让其垂直与列空间<span class=math>\(Col(A)\)</span>，即 <span class=math>\[
+\forall \vec{e},有\vec{e}\perp Col(A)
+\]</span> 哈，这里很直观的告诉我们，所有<span class=math>\(\vec{e}\)</span>所组成的子空间，应该垂直于列空间。而根据笔记<a href=线性代数与矩阵之四类空间.md>线性代数与矩阵之四类空间</a>的内容，<strong>垂直于列空间的空间正是左零空间</strong>！</p>
+<div class=figure>
+<img src=../../images/投影分割空间.png alt=投影分割空间.png><p class=caption>投影分割空间.png</p>
+</div>
+<p>这也就是说，我们永远可以把一个<span class=math>\(\R^m\)</span>中的向量，通过投影拆分成两个分量：一个在<span class=math>\(A\)</span>的列空间中，另一个分量垂直于<span class=math>\(A\)</span>的列空间，即在<span class=math>\(A\)</span>的左零空间中。同时这两个空间的直和，正好等于完整的空间<span class=math>\(\R^m\)</span>！</p>
+<blockquote>
+<p>直和：设<span class=math>\(V_1,V_2\)</span>是线性空间<span class=math>\(V\)</span>的子空间，如果<span class=math>\(V_1+V_2\)</span>中的每个向量分解式<span class=math>\(\vec{\alpha}=\vec{\alpha}_1+\vec{\alpha}_2\)</span>唯一，其中<span class=math>\(\vec{\alpha}_1∈V_1,\vec{\alpha}_2∈V_2\)</span>。那么称这个和为直和(direct sum)，记为<span class=math>\(V_1⊕V_2\)</span>。</p>
+</blockquote>
+<h2 id=最小二乘法与子空间投影>最小二乘法与（子）空间投影</h2>
+<p>我们说了这么长时间的投影，再回头看<a href=#引子>引子</a>中的那个问题，是不是有点理解投影的作用了？</p>
+<p>对于一个方程数大于变量数的线性方程组而言（<span class=math>\(m>n\)</span>），一般是没有解的。而投影就是让这个线性方程组有一个最近似的解<span class=math>\(\vec{\hat{x}}\)</span>，使误差<span class=math>\(\vec{e}=\vec{b}-A\vec{\hat{x}}\)</span>最小。这个方法在拟合方程如最小二乘法中得到了广泛应用。</p>
+<h3 id=最小二乘法>最小二乘法</h3>
+<p>“最小平方法”是对线性方程组，即方程个数比未知数更多的方程组，以回归分析求得近似解的标准方法，其核心是将<strong>残差总和最小化</strong>，残差即观测值与模型提供的拟合值之间的差距，对应到矩阵化处理，就是使投影的误差最小。</p>
+<p>下面我们用一个例子来说明最小二乘法的矩阵化处理方法。</p>
+<p>假设在平面直角坐标系中有三个点<span class=math>\(p_1,p_2,p_3\)</span>，分别为<span class=math>\(\{(1,1), (2,2), (3,2)\}\)</span>需要求一条直线尽可能的经过这三个点，虽然不可能有直线完全经过三点，但可以要求直线与这三个点的误差尽量小。我们假设这条直线可写成<span class=math>\(b=C+Dt\)</span>的形式，将数据代入写成方程组： <span class=math>\[
+\begin{cases}
+C+D=1\\
+C+2D=2\\
+C+3D=2
+\end{cases}\Leftrightarrow
+\underbrace{\begin{bmatrix}
+1&1\\1&2\\1&3\\
+\end{bmatrix}}_A
+\underbrace{\begin{bmatrix}
+C\\D\\
+\end{bmatrix}}_{\vec{x}}=
+\underbrace{\begin{bmatrix}
+1\\2\\2\\
+\end{bmatrix}}_{\vec{b}}
+\]</span></p>
+<div class=figure>
+<img src=../../images/最小二乘法.png alt=最小二乘法.png><p class=caption>最小二乘法.png</p>
+</div>
+<p>显然，这个的方程<span class=math>\(A\vec{x}=\vec{b}\)</span>是无解的，我们根据之前向量投影思路，解决办法就是求其最优解，最优解的含义即为误差最小： <span class=math>\[
+\min\|\vec{e}\|^2=\|A\vec{\hat{x}}-\vec{b}\|^2
+\]</span> 我们需要的就是寻找具有<strong>最小误差平方和</strong>的解<span class=math>\(\vec{\hat{x}}\)</span>，这也是“最小二乘”这一名称的由来。</p>
+<p>前面投影章节已经指出，正交投影矩阵<span class=math>\(P_A\)</span>能够最小化误差，所以<span class=math>\(\vec{\hat{x}}\)</span>的值应该等于<span class=math>\(\vec{b}\)</span>在<span class=math>\(A\)</span>所在子空间的正交投影，即： <span class=math>\[
+\hat{x}=(A^TA)^{-1}A^T\vec{b}
+\]</span> 根据上式解<span class=math>\(A\vec{\hat{x}}=\vec{b}\)</span>可得： <span class=math>\[
+\hat{x}=\begin{bmatrix}
+\hat{C}\\\hat{D}\\
+\end{bmatrix}=\left (\begin{bmatrix}
+1&1&1\\1&2&3\\
+\end{bmatrix}\begin{bmatrix}
+1&1\\1&2\\1&3\\
+\end{bmatrix}\right)^{-1}\begin{bmatrix}
+1&1&1\\1&2&3\\
+\end{bmatrix}\begin{bmatrix}
+1\\2\\2\\
+\end{bmatrix}=\begin{bmatrix}
+\frac{2}{3}\\\\\frac{1}{2}\\
+\end{bmatrix}
+\]</span> 即为方程误差最小的最优解。我们也可以验证，误差<span class=math>\(\vec{e}=\vec{b}-A\vec{\hat{x}}=[1/6\; -1/3\; 1/6]^T\)</span>，<span class=math>\(A^T\vec{e}=\vec{0}\Rightarrow Col(A)\perp\vec{e}\)</span>，投影向量<span class=math>\(\vec{p}=A\vec{\hat{x}}\)</span>与<span class=math>\(\vec{e}\)</span>正交，并且<span class=math>\(\vec{e}\)</span>与矩阵<span class=math>\(A\)</span>的列空间<span class=math>\(Col(A)\)</span>正交。</p>
+<p>最小二乘法是投影矩阵的典型应用，再补充一个小点，在实数空间<span class=math>\(\R^n\)</span>中，投影矩阵<span class=math>\(P_A=A(A^TA)^{-1}A^T\)</span>；而在复数空间<span class=math>\(\mathbb{C}^n\)</span>中，需要使用共轭转置代替，即<span class=math>\(P_A=A(A^HA)^{-1}A^H\)</span>。</p>
+<h3 id=ata不可逆时的处理><span class=math>\(A^TA\)</span>不可逆时的处理</h3>
+<p>之前，我们一直假设<span class=math>\(A^TA\)</span>是可逆的。然而，确实存在其不可逆的场景，比如一些未知量<span class=math>\(x_i,x_j\)</span>存在线性关系。</p>
+<p>最简单的方法当时是从中挑出一些列，筛选出线性无关的特征，不保留相同的特征，保证不存在线性相关的特征，从而组成一个更小的矩阵<span class=math>\(\tilde{A}\)</span>，使<span class=math>\(\tilde{A}^T\tilde{A}\)</span>可逆。</p>
+<p>其次，我们可以增加样本量，即多增加几个方程，看看能不能破坏未知量<span class=math>\(x_i,x_j\)</span>存在线性关系。</p>
+<p>最后，还可以采用正则化方法，对于正则化的方法，常见的是L1正则项和L2正则项。这超出了本文的阐述范围，有兴趣的读者可以找相关资料了解。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -136,7 +289,7 @@ A^TA\Theta=A^Tb\Rightarrow \hat{\Theta}=(A^TA)^{-1}A^Tb
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -230,7 +383,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -262,13 +415,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/ class=nav-link title=线性代数与矩阵之正交（酉）矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/ class=nav-link title=概率统计随机过程之C-R不等式>概率统计随机过程之C-R不等式</a>
 </li>
 </ul>
 <div>
@@ -284,7 +437,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
-<span class=button_tally>16</span>
+<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -392,7 +545,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=16 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>16</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
