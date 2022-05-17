@@ -1,4 +1,155 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>线性代数与矩阵 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/</link><description>Recent content in 线性代数与矩阵 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 11 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/index.xml" rel="self" type="application/rss+xml"/><item><title>线性代数与矩阵之正交（酉）矩阵与正交化</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>线性代数与矩阵 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/</link><description>Recent content in 线性代数与矩阵 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 16 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/index.xml" rel="self" type="application/rss+xml"/><item><title>线性代数与矩阵之特征值与特征向量</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/</link><pubDate>Mon, 16 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/</guid><description>
+&lt;h2 id="线性代数与矩阵之特征值与特征向量">线性代数与矩阵之特征值与特征向量&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#传统的特征值与特征向量介绍方法">传统的特征值与特征向量介绍方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征向量特殊在哪里">特征向量特殊在哪里&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征基">特征基&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征基的存在性">特征基的存在性&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#特征值都不相同">特征值都不相同&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征值重根与特征向量个数">特征值重根与特征向量个数&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#特征值的一些性质">特征值的一些性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征值分解与矩阵的幂">特征值分解与矩阵的幂&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩阵幂的快捷计算">矩阵幂的快捷计算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#投影矩阵的特征值与特征向量">投影矩阵的特征值与特征向量&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>特征值与特征向量是线性代数与矩阵中非常重要且深刻的两个概念，然而我当年在学习的时候基本上只学会了如何计算特征值和特征向量，对他们的意义、由来、用法不求甚解，很长一段时间都不知为什么会引入这两个奇怪的东西。当再次看到这二者时，我觉得还是记录下一些想法，必备后用。&lt;/p>
+&lt;p>注意，我们默认只在&lt;strong>方阵&lt;/strong>中讨论特征值和特征向量。&lt;/p>
+&lt;h2 id="传统的特征值与特征向量介绍方法">传统的特征值与特征向量介绍方法&lt;/h2>
+&lt;p>国内一些典型的大学线代教科书，例如用的非常广泛但也被称为教科书中的耻辱柱的《线性代数》（同济版）。对特征值与特征向量的介绍很直接，上来就会给你下个定义：&lt;/p>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(A\)&lt;/span>是&lt;span class="math">\(n\)&lt;/span>阶方阵，如果数&lt;span class="math">\(\lambda\)&lt;/span>和&lt;span class="math">\(n\)&lt;/span>维非零列向量&lt;span class="math">\(x\)&lt;/span>使关系是 &lt;span class="math">\[Ax=\lambda x\tag{1}\]&lt;/span> 成立，那么，这样的数&lt;span class="math">\(\lambda\)&lt;/span>称为矩阵&lt;span class="math">\(A\)&lt;/span>的&lt;strong>特征值&lt;/strong>，非零向量&lt;span class="math">\(x\)&lt;/span>称为&lt;span class="math">\(A\)&lt;/span>的对应与特征值&lt;span class="math">\(\lambda\)&lt;/span>的&lt;strong>特征向量&lt;/strong>。&lt;/p>
+&lt;p>（1）式也可写成 &lt;span class="math">\[(A-\lambda I)x=0\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>以上是同济版线性代数教材对特征值和特征向量的第一印象介绍。&lt;/p>
+&lt;p>接下来，大多数教科书就会介绍如何根据行列式&lt;span class="math">\(\det(A-\lambda I)=0\)&lt;/span>求出特征值，再将求出的各个特征值代入式（1）求出特征向量，接下来就开始举例子做题了。&lt;/p>
+&lt;p>最后，大家经过艰苦的刷题和复习，线性代数考了高分，过了段时间，就将这个有些奇怪的特征值和特征向量抛掷脑后。反正，当时我是这么过来的，^_^。&lt;/p>
+&lt;h2 id="特征向量特殊在哪里">特征向量特殊在哪里&lt;/h2>
+&lt;p>很多人并没想过，这个特征向量，为什么特殊，它又是怎么被称为“特征”的。刚接触这个定义会觉得有些微妙，似乎是个很巧妙的东西，又说不出个因为所以，有点懵，怎么就是“特征”值，“特征”向量了呢？我们从特征向量入手。&lt;/p>
+&lt;p>我们知道，矩阵是线性变化的一种表示方法。空间中的向量与矩阵的乘积本质上是对该向量长度和方向的变换。大多数向量在经过矩阵的变换后，长度和方向都会发生变化。如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/矩阵乘法线性变换.gif" alt="矩阵乘法线性变换.gif" />&lt;p class="caption">矩阵乘法线性变换.gif&lt;/p>
+&lt;/div>
+&lt;p>图中向量&lt;span class="math">\(v\)&lt;/span>原来所在的方向的直线可以称之为向量&lt;span class="math">\(v\)&lt;/span>张成的空间，对这个概念有疑惑的话，可以参考笔记&lt;a href="线性代数与矩阵之理解向量、线性变换与矩阵乘法.md">线性代数与矩阵之理解向量、线性变换与矩阵乘法&lt;/a>，线性变换之后，向量&lt;span class="math">\(v\)&lt;/span>大概率会离开原来所在的一维子空间到。这种离开原来子空间的向量并没有什么特殊的。基本上随便找一个空间中的向量，都会发生这种改变。那么，有没有一些特殊的向量，经过矩阵&lt;span class="math">\(A\)&lt;/span>的变换之后不会离开原来的一维子空间呢？&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/特征向量.gif" alt="特征向量.gif" />&lt;p class="caption">特征向量.gif&lt;/p>
+&lt;/div>
+&lt;p>还真有。如上所示，对于矩阵&lt;span class="math">\(\begin{bmatrix}3&amp;amp;1\\0&amp;amp;2\end{bmatrix}\)&lt;/span>而言，向量&lt;span class="math">\((1,-1)^T\)&lt;/span>在经过矩阵变换之后变成了&lt;span class="math">\((2,-2)^T\)&lt;/span>，仍旧位于原来的子空间中，只是长度变长了。同时，不难发现所有在向量&lt;span class="math">\((1,-1)^T\)&lt;/span>同一条直线上的向量都满足这种方向不变性。那么这些方向不变的向量相对于大多数方向会改变的向量是特殊的存在，此时我们再回看传统特征向量的定义： &lt;span class="math">\[
+Ax=\lambda x\tag{1}
+\]&lt;/span> 不正是说的是向量&lt;span class="math">\(x\)&lt;/span>在经过矩阵&lt;span class="math">\(A\)&lt;/span>的变换后，方向没有变化，和原向量是共线的&lt;span class="math">\(\lambda x\)&lt;/span>，只是长度发生了改变。对于特征向量而言，矩阵变化只是长度的伸缩，而长度伸缩的大小，正是特征值&lt;span class="math">\(\lambda\)&lt;/span>。&lt;/p>
+&lt;p>我们再看特征这个词的解释：特别的征象、标志；特点。我们说一个事物的特征，比如昆虫的特征是一对触角，两对翅（忽略极少数特例），三对足。特征体现了一种&lt;strong>不变性&lt;/strong>，不管其他方面怎么变，比如颜色、大小、生活地点，只要它的三个特性“一对触角，两对翅（忽略极少数特例），三对足”没变，那么它就是昆虫。如果它的特征，如足数目变了，比如蜘蛛、蜈蚣，那么它就不是昆虫（是不是很多人不知道蜘蛛不是昆虫，哈哈）。而&lt;strong>特征向量也是不变性的体现，它的方向在矩阵变换中总是不变的&lt;/strong>。&lt;/p>
+&lt;p>现在，我们可以承认，特征向量（以及附带的特征值）确实具有特殊性，那么这种特殊性有什么好处呢？我们需要回到向量在空间中表示的角度来考虑。&lt;/p>
+&lt;h2 id="特征基">特征基&lt;/h2>
+&lt;p>正常情况下，向量都是用标准正交基表示的，用矩阵表示就是单位向量&lt;span class="math">\(I\)&lt;/span>。例如，向量&lt;span class="math">\(v=(3,2)^T\)&lt;/span>就是说在基&lt;span class="math">\(e_1=(1,0)^T,e_2=(0,1)^T\)&lt;/span>两个单位向量下，由3份&lt;span class="math">\(e_1\)&lt;/span>和2份&lt;span class="math">\(e_2\)&lt;/span>合成的向量，即&lt;span class="math">\(v=3e_1+2e_2\)&lt;/span>。在经过某个矩阵&lt;span class="math">\(A\)&lt;/span>的线性变换后，比如还是上面的例子&lt;span class="math">\(\begin{bmatrix}3&amp;amp;1\\0&amp;amp;2\end{bmatrix}\)&lt;/span>，其结果&lt;span class="math">\((11,4)^T\)&lt;/span>很难和原向量&lt;span class="math">\((3,2)^T\)&lt;/span>看出直接的联系。&lt;/p>
+&lt;p>如果我们换一种思路，用另一组基去表示向量&lt;span class="math">\(v\)&lt;/span>，能不能让矩阵代表的线性变换看起来更直观，更容易呢？比方说，借助特征向量的方向不变性？&lt;/p>
+&lt;p>我们可以尝试下。以&lt;span class="math">\(v=(3,2)^T,A=\begin{bmatrix}3&amp;amp;1\\0&amp;amp;2\end{bmatrix}\)&lt;/span>为例。我们根据特征向量的求法，可得两个特征向量分别为&lt;span class="math">\(t_1=(1,0)^T,t_2=(1,-1)^T\)&lt;/span>，对应特征值分别为&lt;span class="math">\(\lambda_1=3,\lambda_2=2\)&lt;/span>。&lt;/p>
+&lt;p>那么&lt;span class="math">\(v\)&lt;/span>用&lt;span class="math">\(t_1,t_2\)&lt;/span>可表示为&lt;span class="math">\(v=5t_1-2t_2\)&lt;/span>，即在基&lt;span class="math">\(t_1=(1,0)^T,t_2=(1,-1)^T\)&lt;/span>表示下应为&lt;span class="math">\((5,-2)^T\)&lt;/span>，那么 &lt;span class="math">\[Av=A(5t_1-2t_2)=5At_1-2At_2=5\lambda_1t_1-2\lambda_2t_2=15t_1-4t_2\]&lt;/span> 在基&lt;span class="math">\(t_1,t_2\)&lt;/span>下，结果为&lt;span class="math">\((15,-4)\)&lt;/span>正好分别将第一、二个分量扩大了&lt;span class="math">\(\lambda_1,\lambda_2\)&lt;/span>倍！过程非常直观，计算非常方便！那些原来没有规律的变换，在特征向量组成的基表示下，&lt;strong>只是在各个分量方向不变是的伸缩变化&lt;/strong>。而其在标准正交基&lt;span class="math">\(e_1,e_2\)&lt;/span>下的结果正是&lt;span class="math">\(15t_1-4t_2=(11,4)^T\)&lt;/span>。结果没有任何区别！&lt;/p>
+&lt;p>因此，为了线性变换的便利，我们引入该线性变换（矩阵）对应特征基来表示一个向量：&lt;/p>
+&lt;blockquote>
+&lt;p>线性变换的特征基：空间的一组基，使得某线性变换在这组基下只是坐标轴方向上的伸缩变换(乘以一个标量&lt;span class="math">\(\lambda\)&lt;/span>)，不同轴上的伸缩比例不同。若&lt;span class="math">\(T=(t_1,t_2,\dotsb,t_n)\)&lt;/span>是矩阵&lt;span class="math">\(A\)&lt;/span>的一组特征基，向量&lt;span class="math">\(x\)&lt;/span>在特征基&lt;span class="math">\(T\)&lt;/span>的表示下为&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>，那么&lt;span class="math">\(Ax\)&lt;/span>的结果在&lt;span class="math">\(T\)&lt;/span>的表示下是： &lt;span class="math">\[Ax=(\lambda_1x_1,\lambda_2x_2,\dotsb,\lambda_nx_n)\]&lt;/span> 其中，&lt;span class="math">\(\lambda_1,\lambda_2,\dotsb,\lambda_n\)&lt;/span>分别是特征向量&lt;span class="math">\(t_1,t_2,\dotsb,t_n\)&lt;/span>对应的特征值。&lt;/p>
+&lt;/blockquote>
+&lt;p>注意，这里的&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>是在特征基下的表示结果，即&lt;span class="math">\(x=x_1t_1+x_2t_2+\dotsb+x_nt_n\)&lt;/span>，而不是标准正交基下的表示结果。&lt;/p>
+&lt;p>矩阵&lt;span class="math">\(A=\begin{bmatrix}3&amp;amp;1\\0&amp;amp;2\end{bmatrix}\)&lt;/span>的特征基的变换过程如下&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/特征基.gif" alt="特征基" />&lt;p class="caption">特征基&lt;/p>
+&lt;/div>
+&lt;p>所以使用特征向量组成的特征基来应对相应的线性变换，可以大大降低计算复杂度，这在求矩阵的幕、图像压缩、解微分方程等领域得到了大量应用，后面我们会举几个例子。&lt;/p>
+&lt;p>现在有一个问题，既然特征基那么好用，那么特征基总是存在嘛？换句话说，我们总是能够找到足够多的线性无关的特征向量组成特征基嘛？&lt;/p>
+&lt;h3 id="特征基的存在性">特征基的存在性&lt;/h3>
+&lt;p>一般我们求特征向量的步骤是先根据&lt;span class="math">\(\det(A-\lambda I)=0\)&lt;/span>解特征值的一元高次方程，然后在代入&lt;span class="math">\(Ax=\lambda x\)&lt;/span>求特征向量。那么 &lt;span class="math">\[\det(A-\lambda I)=0\tag{2}\]&lt;/span> 这个式子的解，就决定了特征向量的存在性。我们知道，在复数域下，n次方程必然有n个根，&lt;strong>而有没有重根，将是决定特征基是否存在的关键&lt;/strong>。&lt;/p>
+&lt;h4 id="特征值都不相同">特征值都不相同&lt;/h4>
+&lt;p>对于方程组 &lt;span class="math">\[(A-\lambda I)x=0\]&lt;/span> 由于式（2）&lt;span class="math">\(\det(A-\lambda I)=0\)&lt;/span>，即&lt;span class="math">\(A-\lambda I\)&lt;/span>并不是满秩的（奇异矩阵），由此其必存在至少一维零空间，此时&lt;span class="math">\(x\)&lt;/span>是属于零空间的任意向量。&lt;/p>
+&lt;p>对于存在&lt;span class="math">\(n\)&lt;/span>个不同特征值的场景，&lt;span class="math">\(A-\lambda I\)&lt;/span>的维数为&lt;span class="math">\(n-1\)&lt;/span>，由于&lt;span class="math">\(rank(Col(A-\lambda I))+rank(N(A-\lambda I))=n\)&lt;/span>，则我们可以得到&lt;span class="math">\(n\)&lt;/span>个特征向量&lt;span class="math">\((x_1,x_2\dotsb,x_n)\)&lt;/span>处在&lt;span class="math">\(n\)&lt;/span>个一维的零空间中。现在需要证明的是，这&lt;span class="math">\(n\)&lt;/span>个特征向量是线性无关的。&lt;/p>
+&lt;blockquote>
+&lt;p>我们使用反证法来证明。先假设这&lt;span class="math">\(n\)&lt;/span>个特征向量线性相关，则存在&lt;span class="math">\(n\)&lt;/span>个不全为零的常数&lt;span class="math">\((c^{(1)}_i)\)&lt;/span>使得如下式子成立： &lt;span class="math">\[c^{(1)}_1 x_1+c^{(1)}_2 x_2+\dotsb+c^{(1)}_n x_n=0\tag{3}\]&lt;/span> 用矩阵&lt;span class="math">\(A\)&lt;/span>左乘式(3)，根据&lt;span class="math">\(Ax_i =\lambda_ix_i\)&lt;/span>有： &lt;span class="math">\[c^{(1)}_1\lambda_1 x_1+c^{(1)}_2\lambda_2 x_2+\dotsb+c^{(1)}_n\lambda_n x_n=0\tag{4}\]&lt;/span> 现使用&lt;span class="math">\(式(4)-\lambda_n×式(3)\)&lt;/span>有: &lt;span class="math">\[c^{(1)}_1(\lambda_1-\lambda_n) x_1+c^{(1)}_2(\lambda_2-\lambda_n) x_2+\dotsb+c^{(1)}_{n-1}(\lambda_{n-1}-\lambda_n) x_{n-1}=0\tag{5}\]&lt;/span> 由于所有的&lt;span class="math">\(\lambda_i\)&lt;/span>都不相等，所以&lt;span class="math">\(\lambda_i-\lambda_n\neq 0(i\neq n)\)&lt;/span>。 我们令&lt;span class="math">\(c^{(2)}_i=c^{(1)}_i(\lambda_i-\lambda_n)\)&lt;/span> &lt;span class="math">\[c^{(2)}_1 x_1+c^{(2)}_2 x_2+\dotsb+c^{(2)}_{n-1} x_{n-1}=0\tag{6}\]&lt;/span> 式(6)与式(3)形式一样，但是少一个&lt;span class="math">\(x_n\)&lt;/span>，我们仿照之前的步骤，同样对&lt;span class="math">\(A×式(6)-\lambda_{n-1}×式(6)\)&lt;/span>得到: &lt;span class="math">\[c^{(2)}_1(\lambda_1-\lambda_{n-1}) x_1+c^{(2)}_2(\lambda_2-\lambda_{n-1}) x_2+\dotsb+c^{(2)}_{n-2}(\lambda_{n-2}-\lambda_{n-1}) x_{n-2}=0\tag{7}\]&lt;/span> 这次我们把&lt;span class="math">\(x_{n-1}\)&lt;/span>消掉了。 按照前面的乘以矩阵&lt;span class="math">\(A\)&lt;/span>再减去&lt;span class="math">\(\lambda\)&lt;/span>的步骤重复进行&lt;span class="math">\(n−2\)&lt;/span>次（每次都用一个不同的单个字符代替&lt;span class="math">\(x_i\)&lt;/span>前面的系数）后，可得： &lt;span class="math">\[c^{n-2}_1 (\lambda_1-\lambda_3)x_1+c^{n-2}_2(\lambda_2-\lambda_3)x_2=0\tag{8}\]&lt;/span> 同样的，令&lt;span class="math">\(c^{n-2}_1 (\lambda_1-\lambda_3)=c^{n-1}_1,c^{n-2}_2(\lambda_2-\lambda_3)=c^{(n-1)}_2\)&lt;/span>即可得到: &lt;span class="math">\[c^{(n-1)}_1x_1 +c^{(n-1)}_2x_2=0\tag{9}\]&lt;/span> 最后，我们使用&lt;span class="math">\(式(9)-\lambda_2×式(9)\)&lt;/span>有: &lt;span class="math">\[c^{(n-1)}_1Ax_1 +c^{(n-1)}_2Ax_2-c^{(n-1)}_1\lambda_2x_1-c^{(n-1)}_2\lambda_2x_2\\=c^{(n-1)}_1(\lambda_1-\lambda_2)x_1=0\tag{10}\]&lt;/span> 我们最后令&lt;span class="math">\(c^{(n)}_1=c^{(n-1)}_1(\lambda_1-\lambda_2)\)&lt;/span>。由于特征向量不为零，所以只能是&lt;span class="math">\(c^{(n)}_1\)&lt;/span>。&lt;/p>
+&lt;p>而&lt;span class="math">\(c^{(n)}_1=c^{(n-1)}_1(\lambda_1-\lambda_2)=c^{(n-2)}_1(\lambda_1-\lambda_3)(\lambda_1-\lambda_2)=\dotsb=c^{1}_1(\lambda_1-\lambda_2)(\lambda_1-\lambda_3)\dotsb(\lambda_1-\lambda_n)\)&lt;/span>，又因为各特征值都不相等，所以只能是&lt;span class="math">\(c^{(1)}_1=0\)&lt;/span>。将其代回式（9）可得：&lt;span class="math">\(c_2^{(n-1)}=0\)&lt;/span>&lt;/p>
+&lt;p>而&lt;span class="math">\(c_2^{(n-1)}=c^{(1)}_2(\lambda_2-\lambda_3)(\lambda_2-\lambda_4)\dotsb(\lambda_2-\lambda_n)\)&lt;/span>，而各特征值都不相等，所以只能是&lt;span class="math">\(c^{(1)}_2=0\)&lt;/span>。我们逐步从后往前反推，即可得到 &lt;span class="math">\[c^{(1)}_i=0,\forall i=\{1,2,\dotsb,n\}\]&lt;/span> 则说明前面的假设：存在&lt;span class="math">\(n\)&lt;/span>个不全为零的常数&lt;span class="math">\((c^{(1)}_i)\)&lt;/span>使式（3）为0不成立，因此&lt;strong>矩阵不同特征值对应的特征向量线性无关&lt;/strong>得证。&lt;/p>
+&lt;/blockquote>
+&lt;p>需要指出，我们所说的&lt;span class="math">\(n\)&lt;/span>个不同特征值，不一定非要都是实数，也可以是复数。复数特征值和特征向量同样满足&lt;span class="math">\(Ax=\lambda x\)&lt;/span>的一系列特性。我们以逆时针旋转&lt;span class="math">\(\frac{\pi}{2}\)&lt;/span>的旋转矩阵&lt;span class="math">\(R=\begin{bmatrix}0&amp;amp;-1\\1&amp;amp;0\end{bmatrix}\)&lt;/span>为例： &lt;img src="../../images/旋转矩阵.gif" alt="旋转矩阵.gif" />&lt;/p>
+&lt;p>显然，经过逆时针90°旋转，空间中所有的非零向量方向都发生了改变。我们计算特征值：&lt;span class="math">\(\det(R-\lambda I)=\lambda^2+1=0\Rightarrow \lambda_1=i,\lambda_2=-i\)&lt;/span>。代入算出对应的特征向量分别为&lt;span class="math">\(x_1=(1,-i)^T,x_2=(-i,1)^T\)&lt;/span>。可见，在此场景下的特征向量无法用实数域向量表示，但是用&lt;span class="math">\(x_1,x_2\)&lt;/span>组成特征基，其矩阵计算与实数域结果依然一致。&lt;/p>
+&lt;h4 id="特征值重根与特征向量个数">特征值重根与特征向量个数&lt;/h4>
+&lt;p>前一节已经说明不同的特征值必然带来线性不相关的特征向量，那么当特征值有&lt;span class="math">\(r\)&lt;/span>重根时，线性无关特征向量是不是也会有&lt;span class="math">\(r\)&lt;/span>个呢？&lt;/p>
+&lt;p>答案是不一定。而且&lt;span class="math">\(r\)&lt;/span>重根的特征向量可能从1~r个不等。&lt;/p>
+&lt;p>典型的&lt;span class="math">\(r\)&lt;/span>重特征值有&lt;span class="math">\(r\)&lt;/span>个线性无关特征向量的矩阵是单位阵&lt;span class="math">\(I_{n×n}\)&lt;/span>，特征值&lt;span class="math">\(\det(I-\lambda I)=0\)&lt;/span>，所有的特征值都是1，同时空间中所有的向量都可以作为特征向量（&lt;span class="math">\(Ix=1×x\)&lt;/span>），所以可以从空间中取出&lt;span class="math">\(n\)&lt;/span>个线性无关特征向量。&lt;/p>
+&lt;p>典型的线性无关特征向量个数小于特征根重数的矩阵是主对角元素有相等时的三角矩阵。具体例子如 &lt;span class="math">\[
+\begin{bmatrix}
+1&amp;amp;2\\0&amp;amp;1
+\end{bmatrix},
+\begin{bmatrix}
+1&amp;amp;2&amp;amp;3\\0&amp;amp;1&amp;amp;1\\0&amp;amp;0&amp;amp;1
+\end{bmatrix}
+\]&lt;/span> 这两个矩阵都只有一个线性无关的特征向量。&lt;/p>
+&lt;h2 id="特征值的一些性质">特征值的一些性质&lt;/h2>
+&lt;p>说了那么久的特征向量，我们再来看看特征值。特征值算是特征向量的副产品，虽然说我们在求解的时候通常是先求特征值，再求特征向量。&lt;/p>
+&lt;p>特征值几个常见的性质如下：&lt;/p>
+&lt;blockquote>
+&lt;p>性质1：矩阵&lt;span class="math">\(A\)&lt;/span>的特征值和等于矩阵的迹：&lt;span class="math">\(\sum\limits_i \lambda_i=tr(A)\)&lt;/span>&lt;/p>
+&lt;p>性质2：矩阵&lt;span class="math">\(A\)&lt;/span>的特征值积等于其行列式：&lt;span class="math">\(\prod\limits_i \lambda_i=\det(A)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>这两个性质的证明可借助矩阵的特征多项式。我们可以将&lt;span class="math">\(\det(A-\lambda I)\)&lt;/span>写成零点式形式： &lt;span class="math">\[
+f(\lambda)=(\lambda_1-\lambda)(\lambda_2-\lambda)\dotsb(\lambda_n-\lambda)
+\]&lt;/span> 其中，&lt;span class="math">\(\lambda_i\)&lt;/span>都是特征值，且有可能相等也有可能是复数。显然，根据展开式系数有&lt;span class="math">\(\lambda^0=\prod\limits_i \lambda_i,\lambda^1=(-1)^{n-1}\sum\limits_i \lambda_i\)&lt;/span>。我们再根据行列式&lt;span class="math">\(\det(A-\lambda I)\)&lt;/span>的展开项对应可得&lt;span class="math">\(\lambda^0=\det(A),\lambda^1=(-1)^{n-1}\sum\limits_i a_{ii}\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>性质3：若&lt;span class="math">\(λ\)&lt;/span>是可逆阵&lt;span class="math">\(A\)&lt;/span>的一个特征根，&lt;span class="math">\(x\)&lt;/span>为对应的特征向量，则&lt;span class="math">\(1/λ\)&lt;/span>是&lt;span class="math">\(A\)&lt;/span>的逆的一个特征根，&lt;span class="math">\(x\)&lt;/span>仍为对应的特征向量。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：若&lt;span class="math">\(x\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>对应的一个特征向量，&lt;span class="math">\(Ax=\lambda x\Rightarrow A^{-1}Ax=A^{-1}\lambda x\Rightarrow Ix=\lambda A^{-1}x\Rightarrow 1/\lambda x=A^{-1}x\)&lt;/span>。得证。&lt;/p>
+&lt;blockquote>
+&lt;p>性质4：若&lt;span class="math">\(λ\)&lt;/span>是方阵A的一个特征根，&lt;span class="math">\(x\)&lt;/span>为对应的特征向量，则&lt;span class="math">\(λ\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>次方是&lt;span class="math">\(A\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>次方的一个特征根，&lt;span class="math">\(x\)&lt;/span>仍为对应的特征向量。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：若&lt;span class="math">\(x\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>对应的一个特征向量，&lt;span class="math">\(A^mx=A^{m-1}(Ax)=A^{m-1}\lambda x=\lambda A^{m-2}(Ax)=\dotsb=\lambda^m x\)&lt;/span>，即&lt;span class="math">\(A^mx=\lambda^m x\)&lt;/span>。得证。&lt;/p>
+&lt;p>另外，如果特征值为0，说明矩阵&lt;span class="math">\(A\)&lt;/span>是奇异矩阵，特征向量&lt;span class="math">\(x\)&lt;/span>为了满足&lt;span class="math">\(Ax=0\)&lt;/span>必须位于&lt;span class="math">\(A\)&lt;/span>的零空间内。&lt;/p>
+&lt;h2 id="特征值分解与矩阵的幂">特征值分解与矩阵的幂&lt;/h2>
+&lt;p>如果我们有了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，那么我们能够做一些新的改变，我们将矩阵&lt;span class="math">\(A\)&lt;/span>的具有&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量&lt;span class="math">\(q_i\)&lt;/span>作为列向量，组成一个可逆方阵&lt;span class="math">\(Q\)&lt;/span>： &lt;span class="math">\[
+Q=[q_1,q_2,\dotsb,q_n]
+\]&lt;/span> 将其与原矩阵&lt;span class="math">\(A\)&lt;/span>相乘可得： &lt;span class="math">\[
+AQ=A[q_1,q_2,\dotsb,q_n]=[\lambda_1 q_1,\lambda_2 q_2,\dotsb,\lambda_n q_n]\\
+=Q\begin{bmatrix}
+\lambda_1&amp;amp;0&amp;amp;\dotsb&amp;amp;0\\
+0&amp;amp;\lambda_2&amp;amp;\dotsb&amp;amp;0\\
+\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots\\
+0&amp;amp;0&amp;amp;\dotsb&amp;amp;\lambda_1\\
+\end{bmatrix}=Q\Lambda
+\]&lt;/span> 这里的矩阵&lt;span class="math">\(\Lambda\)&lt;/span>为对角阵，它的非零元素就是矩阵&lt;span class="math">\(A\)&lt;/span>的特征值。因为矩阵&lt;span class="math">\(Q\)&lt;/span>中的列向量线性无关，因此逆矩阵&lt;span class="math">\(Q^{-1}\)&lt;/span>存在。在等式两侧左乘逆矩阵&lt;span class="math">\(Q^{-1}\)&lt;/span>，得到&lt;span class="math">\(\Lambda=Q^{-1}AQ\)&lt;/span>。相应地，&lt;span class="math">\(A=Q\Lambda Q^{-1}\)&lt;/span>。我们称之为矩阵的&lt;strong>特征分解&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>特征分解（Eigendecomposition），又称谱分解（Spectral decomposition）是将矩阵分解为由其特征值和特征向量表示的矩阵之积的方法。 &lt;span class="math">\(A\)&lt;/span>可以被分解为&lt;span class="math">\(A=Q\Lambda {Q}^{-1}\)&lt;/span>，其中&lt;span class="math">\(Q\)&lt;/span>是&lt;span class="math">\(N×N\)&lt;/span>方阵，且其第&lt;span class="math">\(i\)&lt;/span>列为&lt;span class="math">\(A\)&lt;/span>的特征向量&lt;span class="math">\(q_i\)&lt;/span>。&lt;span class="math">\(Λ\)&lt;/span>是对角矩阵，其对角线上的元素为对应的特征值，也即&lt;span class="math">\(\Lambda_{ii}=\lambda_i\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>由于&lt;span class="math">\(Q\)&lt;/span>是由特征向量组成的矩阵，并且可逆，因此&lt;span class="math">\(Q\)&lt;/span>的必然是非奇异矩阵，它的列向量组必然是线性无关的。这也推出了矩阵可特征值分解的一个充要条件：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(A\)&lt;/span>有&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量&lt;span class="math">\(\Leftrightarrow\)&lt;/span>矩阵&lt;span class="math">\(A\)&lt;/span>可特征值分解。&lt;/p>
+&lt;/blockquote>
+&lt;p>需要注意的是，&lt;strong>可特征值分解和矩阵&lt;span class="math">\(A\)&lt;/span>本身是不是非奇异无关，只和&lt;span class="math">\(A\)&lt;/span>的特征值数量有关&lt;/strong>，奇异矩阵也可能有特征值分解，如下例： &lt;span class="math">\[
+A=\begin{bmatrix}
+1&amp;amp;1\\0&amp;amp;0
+\end{bmatrix}=\begin{bmatrix}
+1&amp;amp;-1\\0&amp;amp;1
+\end{bmatrix}\begin{bmatrix}
+1&amp;amp;0\\0&amp;amp;0
+\end{bmatrix}\begin{bmatrix}
+1&amp;amp;1\\0&amp;amp;1
+\end{bmatrix}
+\]&lt;/span> 而非奇异矩阵也有可能没有特征值分解，例如&lt;span class="math">\(\begin{bmatrix}1&amp;amp;2\\0&amp;amp;1\end{bmatrix}\)&lt;/span>。&lt;/p>
+&lt;h3 id="矩阵幂的快捷计算">矩阵幂的快捷计算&lt;/h3>
+&lt;p>特征值分解的一个重要应用是计算矩阵的幂。根据特征分解公式&lt;span class="math">\(\mathbf{A}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}\)&lt;/span>，有 &lt;span class="math">\[
+A^m=(Q\Lambda Q^{-1})^m=Q\Lambda Q^{-1}Q\Lambda Q^{-1}\dotsb Q\Lambda Q^{-1}=Q\Lambda^m Q^{-1}
+\]&lt;/span> 这大大方便了矩阵的幂计算。&lt;/p>
+&lt;p>同时，我们观察&lt;span class="math">\(A^m\)&lt;/span>分解后的结果&lt;span class="math">\(Q\Lambda^m Q^{-1}\)&lt;/span>，如果当&lt;span class="math">\(m\rightarrow ∞\)&lt;/span>时，&lt;span class="math">\(A^m\rightarrow 0\)&lt;/span>，我们称矩阵&lt;span class="math">\(A\)&lt;/span>是&lt;strong>稳定的&lt;/strong>。那么根据&lt;span class="math">\(A^m=Q\Lambda^m Q^{-1}\)&lt;/span>，只有当&lt;span class="math">\(\Lambda^m\rightarrow 0\)&lt;/span>时，&lt;span class="math">\(A\)&lt;/span>才是稳定的。这就要求&lt;span class="math">\(A\)&lt;/span>的最大特征值的模要小于1，即&lt;span class="math">\(|\max \lambda_i|&amp;lt;1\)&lt;/span>。&lt;/p>
+&lt;p>此外，当&lt;span class="math">\(m\)&lt;/span>很大时，我们也发现最大的特征值&lt;span class="math">\(\max \lambda_i\)&lt;/span>对矩阵的幂产生的作用最大，因此我们也可用矩阵的最大特征值估计一些结果。&lt;/p>
+&lt;h2 id="投影矩阵的特征值与特征向量">投影矩阵的特征值与特征向量&lt;/h2>
+&lt;p>假设投影矩阵&lt;span class="math">\(P\)&lt;/span>是一个&lt;span class="math">\(n×n\)&lt;/span>维矩阵。由于&lt;span class="math">\(P\)&lt;/span>是幂等的，即&lt;span class="math">\(P^2=P\)&lt;/span>，因此对于特征向量&lt;span class="math">\(x\)&lt;/span>有 &lt;span class="math">\[
+\left .
+\begin{aligned}
+P^2x=\lambda^2 x\\
+Px=\lambda x\\
+P^2=P
+\end{aligned}
+\right \}\Rightarrow \lambda^2 x = \lambda x
+\]&lt;/span> 由于特征向量不为0，因此有 &lt;span class="math">\[
+\lambda^2=\lambda\Rightarrow \lambda=0,1
+\]&lt;/span> 即投影矩阵的特征值只能是0或1。&lt;/p>
+&lt;p>若该投影矩阵的列空间&lt;span class="math">\(Col(P)\)&lt;/span>的秩为&lt;span class="math">\(r\)&lt;/span>，那么任意列空间的元素都是特征向量，因为满足&lt;span class="math">\(Px=1×x\)&lt;/span>，所以我们可以从列空间中挑选出&lt;span class="math">\(r\)&lt;/span>个线性无关的特征向量。同时，对于投影矩阵的零空间&lt;span class="math">\(N(P)\)&lt;/span>，其是&lt;span class="math">\(n-r\)&lt;/span>维的，其中所有的向量皆满足&lt;span class="math">\(Px=0=0×x\)&lt;/span>，因此所有零空间中的向量也是&lt;span class="math">\(P\)&lt;/span>的特征向量，从而我们也能从零空间中找出&lt;span class="math">\(n-r\)&lt;/span>个线性无关的特征向量。&lt;/p>
+&lt;p>我们还知道投影矩阵是对称矩阵，即&lt;span class="math">\(P^T=P\)&lt;/span>，因此其列空间和行空间是一样的。根据矩阵四类空间的性质（参考笔记&lt;a href="线性代数与矩阵之四类空间.md">线性代数与矩阵之四类空间&lt;/a>），零矩阵和行矩阵垂直，因此零矩阵中元素皆垂直于行空间元素，列空间等于行空间的&lt;span class="math">\(r\)&lt;/span>个特征向量必然也垂直与零空间中的&lt;span class="math">\(n-r\)&lt;/span>个特征向量。这样我们就找到了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，即投影矩阵&lt;span class="math">\(P\)&lt;/span>必然可特征分解。（所有的对称矩阵都满足这个条件，因此所有的对称矩阵都是可特征分解的。）&lt;/p>
+&lt;p>总结：投影矩阵必然可特征分解，且其特征值只有0和1。&lt;/p></description></item><item><title>线性代数与矩阵之正交（酉）矩阵与正交化</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/</link><pubDate>Wed, 11 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/</guid><description>
 &lt;h2 id="线性代数与矩阵之正交酉矩阵与正交化">线性代数与矩阵之正交（酉）矩阵与正交化&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#正交向量组">正交向量组&lt;/a>&lt;/li>
