@@ -11616,7 +11616,10 @@ is同一性运算符：比较判断两个对象是否相同，&lt;strong>id&lt;/
 &lt;p>在数学中，正规矩阵（英语：normal matrix）&lt;span class="math">\(\mathbf {A}\)&lt;/span>是与自己的共轭转置满足交换律的复系数方块矩阵，也就是说，&lt;span class="math">\(\mathbf {A}\)&lt;/span>满足 &lt;span class="math">\[\mathbf{A}^\ast\mathbf{A} = \mathbf{A} \mathbf{A}^\ast\]&lt;/span> 其中&lt;span class="math">\(\mathbf{A}^\ast\)&lt;/span>是&lt;span class="math">\(\mathbf{A}\)&lt;/span>的共轭转置。&lt;/p>
 &lt;p>如果&lt;span class="math">\(\mathbf{A}\)&lt;/span>是实系数矩阵，则&lt;span class="math">\(\mathbf{A}^\ast = \mathbf{A}^T\)&lt;/span>，从而条件简化为&lt;span class="math">\(\mathbf {A} ^{T}\mathbf {A} =\mathbf {A} \mathbf {A} ^{T}\)&lt;/span>其中&lt;span class="math">\(\mathbf{A}^T\)&lt;/span>是&lt;span class="math">\(\mathbf{A}\)&lt;/span>的转置矩阵。&lt;/p>
 &lt;p>任何一个正规矩阵，都是某个正规算子在一组标准正交基下的矩阵；反之，任一正规算子在一组标准正交基下的矩阵都为正规矩阵。&lt;/p>
-&lt;p>矩阵的 ：任意正规矩阵都可在经过一个酉变换后变为对角矩阵，反过来所有可在经过一个酉变换后变为对角矩阵的矩阵都是正规矩阵。&lt;/p>
+&lt;p>矩阵的正规性充要条件：&lt;/p>
+&lt;blockquote>
+&lt;p>任意正规矩阵都可在经过一个酉变换后变为对角矩阵，反过来所有可在经过一个酉变换后变为对角矩阵的矩阵都是正规矩阵。&lt;/p>
+&lt;/blockquote>
 &lt;h2 id="例子">例子&lt;/h2>
 &lt;p>在复系数矩阵中，所有的酉矩阵、埃尔米特矩阵和斜埃尔米特矩阵都是正规的。同理，在实系数矩阵中，所有的正交矩阵、对称矩阵和斜对称矩阵都是正规的。&lt;/p>
 &lt;h2 id="性质">性质&lt;/h2>
@@ -11729,7 +11732,7 @@ B=\begin{bmatrix}
 &lt;p>需要指出的是Rayleigh商的定义、定理只适用于Hermite矩阵。因为Hermite矩阵&lt;span class="math">\(A\in C^{n*n}\)&lt;/span>的特征值均为实数，所以可以把他们记作（按照大小进行排序）：&lt;span class="math">\(\lambda_{min}=\lambda_n≤\lambda_{n-1}\dotsb≤\lambda_2≤\lambda_1=\lambda_{max}\)&lt;/span>。&lt;/p>
 &lt;blockquote>
 &lt;p>定理：&lt;span class="math">\(\lambda_{min}\)&lt;/span>是Rayleigh商的最小值，&lt;span class="math">\(\lambda_{max}\)&lt;/span>是Rayleigh商的最大值。 &lt;span class="math">\[\lambda_{min}=\min_{x\in C^n,x\neq 0}R(x),\lambda_{max}=\max_{x\in C^n,x\neq 0}R(x)\]&lt;/span>&lt;/p>
-&lt;/blockquote></description></item><item><title>线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8Ejordan%E5%88%86%E8%A7%A3/</link><pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8Ejordan%E5%88%86%E8%A7%A3/</guid><description>
+&lt;/blockquote></description></item><item><title>线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8Bjordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8E%E7%9B%B8%E4%BC%BC%E6%80%A7/</link><pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8Bjordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8E%E7%9B%B8%E4%BC%BC%E6%80%A7/</guid><description>
 &lt;h2 id="线性代数与矩阵之特征值分解与jordan标准型与jordan分解">线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解&lt;!-- omit in toc -->&lt;/h2>
 &lt;blockquote>
 &lt;p>正规矩阵：在数学中，正规矩阵（英语：normal matrix）&lt;span class="math">\(A\)&lt;/span>是与自己的共轭转置满足交换律的复系数方块矩阵，也就是说，&lt;span class="math">\(A\)&lt;/span>满足 &lt;span class="math">\[A^\ast A=AA^\ast\]&lt;/span> 其中&lt;span class="math">\(A\ast\)&lt;/span>是&lt;span class="math">\(A\)&lt;/span>的共轭转置。如果&lt;span class="math">\(A\)&lt;/span>是实系数矩阵，则&lt;span class="math">\(A^\ast=A^T\)&lt;/span>。&lt;/p>
@@ -11984,7 +11987,7 @@ O
 &lt;h2 id="jordan分解">Jordan分解&lt;/h2>
 &lt;p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》&lt;/p>
 &lt;h2 id="svd分解">SVD分解&lt;/h2>
-&lt;p>见《线性代数与矩阵之对称矩阵》&lt;/p></description></item><item><title>线性代数与矩阵之行列式</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E8%A1%8C%E5%88%97%E5%BC%8F/</link><pubDate>Thu, 23 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E8%A1%8C%E5%88%97%E5%BC%8F/</guid><description>
+&lt;p>TODO&lt;/p></description></item><item><title>线性代数与矩阵之行列式</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E8%A1%8C%E5%88%97%E5%BC%8F/</link><pubDate>Thu, 23 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E8%A1%8C%E5%88%97%E5%BC%8F/</guid><description>
 &lt;h2 id="行列式">行列式&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#行列式的几何意义">行列式的几何意义&lt;/a>&lt;/li>
@@ -12101,16 +12104,16 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;/ol>
 &lt;h2 id="广义逆矩阵的应用">广义逆矩阵的应用&lt;/h2>
 &lt;p>当&lt;span class="math">\(Ax=b\)&lt;/span>无解时可以用广义逆矩阵求近似解，实际是就是求&lt;span class="math">\(||Ax-b||_2\)&lt;/span>最小。&lt;/p>
-&lt;p>其通解为 &lt;span class="math">\[x=A^gb+(I-A^gA)y，y\in C^n\]&lt;/span> 其中，&lt;span class="math">\(A^gb\)&lt;/span>是唯一的极小最小二乘解。极小指长度（范数）最小。&lt;/p></description></item><item><title>线性代数与矩阵之二次型</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E4%BA%8C%E6%AC%A1%E5%9E%8B/</link><pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E4%BA%8C%E6%AC%A1%E5%9E%8B/</guid><description>
-&lt;h2 id="线性代数与矩阵之二次型">线性代数与矩阵之二次型&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>二次型→合同矩阵（对角化）→本质是研究对称矩阵→（一定可以）相似对角化&lt;/p></description></item><item><title>线性代数与矩阵之对称矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5/</link><pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5/</guid><description>
+&lt;p>其通解为 &lt;span class="math">\[x=A^gb+(I-A^gA)y，y\in C^n\]&lt;/span> 其中，&lt;span class="math">\(A^gb\)&lt;/span>是唯一的极小最小二乘解。极小指长度（范数）最小。&lt;/p></description></item><item><title>线性代数与矩阵之对称矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5/</link><pubDate>Sun, 19 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%AF%B9%E7%A7%B0%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;h2 id="线性代数与矩阵之对称矩阵">线性代数与矩阵之对称矩阵&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#对称矩阵">对称矩阵&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#简单性质">简单性质&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#对称矩阵的特征值与特征向量">对称矩阵的特征值与特征向量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#实对称矩阵的特征值与特征向量">实对称矩阵的特征值与特征向量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#对称矩阵的特征向量两两正交的证明">对称矩阵的特征向量两两正交的证明&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正定性">正定性&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#对称矩阵的分解">对称矩阵的分解&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#一定可以特征分解">一定可以特征分解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特征分解谱分解">特征分解（谱分解）&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#cholesky分解">Cholesky分解&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#分解唯一性">分解唯一性&lt;/a>&lt;/li>
@@ -12119,8 +12122,7 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;li>&lt;a href="#cholesky分解变形ldl分解">Cholesky分解变形——LDL分解&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#svd分解等于谱分解">SVD分解等于谱分解&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#对称矩阵的合同性">对称矩阵的合同性&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#正定性">正定性&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#对称矩阵的特征向量两两正交的证明">对称矩阵的特征向量两两正交的证明&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#埃米特矩阵">埃米特矩阵&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="对称矩阵">对称矩阵&lt;/h2>
 &lt;p>在线性代数中，对称矩阵（英语：symmetric matrix）是一个方形矩阵，其&lt;strong>转置矩阵和自身相等&lt;/strong>。 &lt;span class="math">\[A = A^{\textrm{T}}\]&lt;/span> 对称矩阵中的右上至左下方向元素以主对角线（左上至右下）为轴进行对称。若将其写作&lt;span class="math">\(A = (a_{ij})\)&lt;/span>，则对所有的&lt;span class="math">\(i和j\)&lt;/span>， &lt;span class="math">\[a_{ij}=a_{ji}.\]&lt;/span> 下列是3×3的对称矩阵： &lt;span class="math">\[\begin{bmatrix}
@@ -12140,9 +12142,21 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;li>一个矩阵同时为对称矩阵及斜对称矩阵当且仅当所有元素都是零。（显而易见）&lt;/li>
 &lt;li>如果X是对称矩阵，那么&lt;span class="math">\(AXA^T\)&lt;/span> 也是对称矩阵.证明：&lt;span class="math">\((AXA^T)^T=(A^T)^TX^TA^T=AX^TA^T;\because X^T=X;\therefore AX^TA^T=AXA^T.\)&lt;/span>&lt;/li>
 &lt;/ul>
-&lt;h2 id="对称矩阵的特征值与特征向量">对称矩阵的特征值与特征向量&lt;/h2>
+&lt;h2 id="实对称矩阵的特征值与特征向量">实对称矩阵的特征值与特征向量&lt;/h2>
+&lt;p>先说结论：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>实对称矩阵的特征值都是&lt;strong>实数&lt;/strong>。&lt;/li>
+&lt;li>实对称矩阵的特征向量都是&lt;strong>正交&lt;/strong>的。&lt;/li>
+&lt;/ol>
+&lt;p>特征值符号和主元符号相同&lt;/p>
+&lt;h3 id="对称矩阵的特征向量两两正交的证明">对称矩阵的特征向量两两正交的证明&lt;/h3>
+&lt;h2 id="正定性">正定性&lt;/h2>
+&lt;p>特征值为正&lt;/p>
+&lt;p>主元为正&lt;/p>
+&lt;p>顺序主子式&lt;/p>
+&lt;p>&lt;span class="math">\(x^TAX&amp;gt;0\)&lt;/span>&lt;/p>
 &lt;h2 id="对称矩阵的分解">对称矩阵的分解&lt;/h2>
-&lt;h3 id="一定可以特征分解">一定可以特征分解&lt;/h3>
+&lt;h3 id="特征分解谱分解">特征分解（谱分解）&lt;/h3>
 &lt;p>若该对称矩阵的列空间&lt;span class="math">\(Col(P)\)&lt;/span>的秩为&lt;span class="math">\(r\)&lt;/span>，所以我们可以从列空间中挑选出&lt;span class="math">\(r\)&lt;/span>个线性无关的特征向量。同时，对于对称矩阵的零空间&lt;span class="math">\(N(P)\)&lt;/span>，其是&lt;span class="math">\(n-r\)&lt;/span>维的，其中所有的向量皆满足&lt;span class="math">\(Px=0=0×x\)&lt;/span>（零空间中特征向量的特征值都是0），因此所有零空间中的向量也是&lt;span class="math">\(P\)&lt;/span>的特征向量，从而我们也能从零空间中找出&lt;span class="math">\(n-r\)&lt;/span>个线性无关的特征向量。&lt;/p>
 &lt;p>我们还知道&lt;span class="math">\(P^T=P\)&lt;/span>，因此其列空间和行空间是一样的。根据矩阵四类空间的性质（参考笔记&lt;a href="线性代数与矩阵之四类空间.md">线性代数与矩阵之四类空间&lt;/a>），零矩阵和行矩阵垂直，因此零矩阵中元素皆垂直于行空间元素，列空间等于行空间的&lt;span class="math">\(r\)&lt;/span>个特征向量必然也垂直与零空间中的&lt;span class="math">\(n-r\)&lt;/span>个特征向量。这样我们就找到了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，即对称矩阵&lt;span class="math">\(P\)&lt;/span>必然可特征分解。&lt;/p>
 &lt;h3 id="cholesky分解">Cholesky分解&lt;/h3>
@@ -12160,10 +12174,12 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;p>该分解与经典Cholesky分解犹有关系，如下：&lt;/p>
 &lt;p>&lt;span class="math">\[\mathbf {A} =\mathbf {LDL} ^{*}=\mathbf {LD} ^{\frac {1}{2}}(\mathbf {D} ^{\frac {1}{2}})^{*}\mathbf {L} ^{*}=\mathbf {LD} ^{\frac {1}{2}}(\mathbf {LD} ^{\frac {1}{2}})^{*}\]&lt;/span>&lt;/p>
 &lt;p>LDL变形如果得以有效运行，构造及使用时所需求的空间及计算的复杂性与经典Cholesky分解是相同的，但是可避免提取平方根。某些不存在Cholesky分解的不定矩阵，也可以运行LDL分解，&lt;span class="math">\(\mathbf {D}\)&lt;/span>中会出现负数元素。因此人们更倾向于使用LDL分解。对于实数矩阵，该种分解的形式可被改写成 &lt;span class="math">\[\mathbf {A} =\mathbf {LDL} ^{\mathbf {T} }\]&lt;/span> 此形式通常称为LDLT分解（或LDLT分解）。它与实对称矩阵的特征分解密切相关，因为对于实对称矩阵，存在特征分解&lt;span class="math">\(\mathbf {A} =\mathbf {Q\Lambda Q}^T\)&lt;/span>。&lt;/p>
-&lt;h2 id="svd分解等于谱分解">SVD分解等于谱分解&lt;/h2>
+&lt;h3 id="svd分解等于谱分解">SVD分解等于谱分解&lt;/h3>
 &lt;h2 id="对称矩阵的合同性">对称矩阵的合同性&lt;/h2>
-&lt;h2 id="正定性">正定性&lt;/h2>
-&lt;h2 id="对称矩阵的特征向量两两正交的证明">对称矩阵的特征向量两两正交的证明&lt;/h2></description></item><item><title>拓扑学之同坯</title><link>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%90%8C%E5%9D%AF/</link><pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%90%8C%E5%9D%AF/</guid><description>
+&lt;h2 id="埃米特矩阵">埃米特矩阵&lt;/h2>
+&lt;p>埃米特矩阵是对称矩阵在复数域的推广，将实对称矩阵的转置&lt;span class="math">\(A=A^T\)&lt;/span>升级为共轭转置&lt;span class="math">\(A=A^H\)&lt;/span>，其中字母“H”来自埃米特的英文“Hermite”。&lt;/p>
+&lt;p>对称矩阵的性质在复数空间中由埃米特矩阵继承。&lt;/p>
+&lt;p>埃尔米特矩阵主对角线上的元素都是实数的，其特征值也是实数。埃尔米特矩阵是正规矩阵，因此埃尔米特矩阵可被酉对角化，而且得到的对角阵的元素都是实数。这意味着埃尔米特矩阵的特征值都是实的，而且不同的特征值所对应的特征向量相互正交，因此可以在这些特征向量中找出一组&lt;span class="math">\(C^n\)&lt;/span>的正交基。&lt;/p></description></item><item><title>拓扑学之同坯</title><link>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%90%8C%E5%9D%AF/</link><pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%90%8C%E5%9D%AF/</guid><description>
 &lt;h2 id="同坯的通俗解释">同坯的通俗解释&lt;!-- omit in toc -->&lt;/h2>
 &lt;h2 id="同胚的通俗解释">同胚的通俗解释&lt;/h2>
 &lt;p>拓扑学是研究几何图形或空间在连续改变形状后还能保持不变的一些性质的学科。它只考虑物体间的位置关系而不考虑它们的形状和大小。在拓扑学里，重要的拓扑性质包括连通性与紧致性 ——百度百科&lt;/p>
@@ -13177,7 +13193,19 @@ U_{n+1}(x) = 2xU_n(x) - U_{n-1}(x). \\
 &lt;h3 id="棣莫弗定理">棣莫弗定理&lt;/h3>
 &lt;p>棣莫弗公式是一个关于复数和三角函数的公式，。其内容为对任意复数x和整数n，下列性质成立： &lt;span class="math">\[(\cos(x)+i\sin(x))^{n}=\cos(nx)+i\sin(nx)\]&lt;/span> 为了方便起见，我们常常将&lt;span class="math">\(cos(x) + i sin(x)\)&lt;/span>合并为另一个三角函数&lt;span class="math">\(cis(x)\)&lt;/span>，也就是说： &lt;span class="math">\[\operatorname {cis} ^{n}(x)=\operatorname {cis} (nx)\]&lt;/span> 证明：欧拉公式。&lt;/p>
 &lt;p>此定理可用来求单位复数的&lt;span class="math">\(n\)&lt;/span>次方根。设&lt;span class="math">\(|z|=1\)&lt;/span>，表为 &lt;span class="math">\[z=\cos(\theta)+i\sin(\theta)\]&lt;/span> 若&lt;span class="math">\(w^{n}=z\)&lt;/span>，按照棣莫弗公式： &lt;span class="math">\[w^{n}=(\cos \phi +i\sin \phi )^{n}=\cos n\phi +i\sin n\phi =\cos \theta +i\sin \theta =z\]&lt;/span> 于是得到 &lt;span class="math">\[n\phi =\theta +2k\pi （其中k\in \mathbb{Z} )\]&lt;/span> 也就是： &lt;span class="math">\[\phi =\frac{\theta+2k\pi}{n}\]&lt;/span> 当&lt;span class="math">\(k\)&lt;/span>取&lt;span class="math">\(0,1,\ldots ,n-1\)&lt;/span>，我们得到&lt;span class="math">\(n\)&lt;/span>个不同的根： &lt;span class="math">\[w=\cos({\dfrac {\theta +2k\pi }{n}})+i\sin({\dfrac {\theta +2k\pi }{n}}),k=0,1,\ldots ,n-1\]&lt;/span>&lt;/p></description></item><item><title>数学分析之投影内积和傅里叶级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8A%95%E5%BD%B1%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</link><pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8A%95%E5%BD%B1%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</guid><description>
-&lt;h2 id="矩阵内积是投影">矩阵内积是投影&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="数学分析之投影内积和傅里叶级数">数学分析之投影内积和傅里叶级数&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#内积点积">内积（点积）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#性质">性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#推广">推广&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从内积角度理解傅里叶级数">从内积角度理解傅里叶级数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="内积点积">内积（点积）&lt;/h2>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;h3 id="推广">推广&lt;/h3>
+&lt;p>矩阵、复数、函数&lt;/p>
+&lt;h3 id="矩阵内积是投影">矩阵内积是投影&lt;!-- omit in toc -->&lt;/h3>
+&lt;h3 id="从内积角度理解傅里叶级数">从内积角度理解傅里叶级数&lt;/h3>
 &lt;p>傅里叶级数是函数在cos nx与sin nx上的投影&lt;/p></description></item><item><title>数学分析之泰勒级数与高阶中值定理</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</link><pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</guid><description>
 &lt;h2 id="泰勒级数与高阶中值定理">泰勒级数与高阶中值定理&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
