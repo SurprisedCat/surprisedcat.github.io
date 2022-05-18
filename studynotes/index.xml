@@ -5149,17 +5149,17 @@ E(W)=\frac{1}{n}\sum_{i=1}^nx_i=\bar x,
 &lt;h3 id="mini-batch">mini-batch&lt;/h3>
 &lt;p>&lt;span class="math">\(X^{[l]\{t\}(s)}\)&lt;/span>:第&lt;span class="math">\(l\)&lt;/span>层，mini-batch中第&lt;span class="math">\(t\)&lt;/span>组中第&lt;span class="math">\(s\)&lt;/span>个样本。一般的 mini-batch 大小为 64 到 1024，考虑到电脑内存设置和使用的方式，如果mini-batch 大小是2的n次方,代码会运行地快一些。&lt;/p>
 &lt;h3 id="指数加权平均">指数加权平均&lt;/h3>
-&lt;p>&lt;span class="math">\(V_t=\beta * V_{t-1} + (1-\beta) * \theta_t, \beta=0.9,0.99\dotsb\)&lt;/span>，大概计算了&lt;span class="math">\(1/(1-\beta)\)&lt;/span>轮的平均数据。&lt;/p>
+&lt;p>&lt;span class="math">\(V_t=\beta×V_{t-1} + (1-\beta)×\theta_t, \beta=0.9,0.99\dotsb\)&lt;/span>，大概计算了&lt;span class="math">\(1/(1-\beta)\)&lt;/span>轮的平均数据。&lt;/p>
 &lt;p>但是指数加权平均在初始化的时候很不准确，需要&lt;strong>偏差修正&lt;/strong>。 &lt;span class="math">\[
-V_t=\beta * V_{t-1} + (1-\beta) * \theta_t \\
+V_t=\beta×V_{t-1} + (1-\beta)×\theta_t \\
 V_t = V_t /(1-\beta^t)
 \]&lt;/span> 当&lt;span class="math">\(t\rightarrow \infty时, 1-\beta^t\rightarrow 1\)&lt;/span>&lt;/p>
 &lt;h3 id="momentum-动量法梯度下降">Momentum 动量法梯度下降&lt;/h3>
 实际上就是指数加权平均/移动平均的梯度下降： &lt;span class="math">\[
-dV_t = \beta * dV_{t-1} + (1-\beta) dW_t \\
+dV_t = \beta×dV_{t-1} + (1-\beta) dW_t \\
 (偏差修正也可以不要)\\
 dV_t = dV_t/(1-\beta^t) \\
-W_t = W_t - \alpha * dV_t\\
+W_t = W_t - \alpha* dV_t\\
 通常\beta = 0.9
 \]&lt;/span> 其原理在于使用移动平均，抵消了振荡。 &lt;img src="../images/momentum_vs_vanilla.png" alt="momentum_vs_vanilla.png" />
 &lt;center>
