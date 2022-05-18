@@ -98,6 +98,10 @@ f(\lambda)=(\lambda_1-\lambda)(\lambda_2-\lambda)\dotsb(\lambda_n-\lambda)
 &lt;p>性质4：若&lt;span class="math">\(λ\)&lt;/span>是方阵A的一个特征根，&lt;span class="math">\(x\)&lt;/span>为对应的特征向量，则&lt;span class="math">\(λ\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>次方是&lt;span class="math">\(A\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>次方的一个特征根，&lt;span class="math">\(x\)&lt;/span>仍为对应的特征向量。&lt;/p>
 &lt;/blockquote>
 &lt;p>证明：若&lt;span class="math">\(x\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>对应的一个特征向量，&lt;span class="math">\(A^mx=A^{m-1}(Ax)=A^{m-1}\lambda x=\lambda A^{m-2}(Ax)=\dotsb=\lambda^m x\)&lt;/span>，即&lt;span class="math">\(A^mx=\lambda^m x\)&lt;/span>。得证。&lt;/p>
+&lt;blockquote>
+&lt;p>性质5：矩阵&lt;span class="math">\(A\)&lt;/span>与&lt;span class="math">\(A^T\)&lt;/span>拥有相同的特征值。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：我们通过行列式&lt;span class="math">\(\det(A-\lambda I)\)&lt;/span>计算得到矩阵&lt;span class="math">\(A\)&lt;/span>的特征值，根据行列式转置不变的性质，我们有&lt;span class="math">\(\det(A-\lambda I)=\det(A-\lambda I)^T=\det(A^T-\lambda I^T)=\det(A^T-\lambda I)\)&lt;/span>，即为&lt;span class="math">\(A^T\)&lt;/span>计算特征值的行列式。因此，矩阵&lt;span class="math">\(A\)&lt;/span>与&lt;span class="math">\(A^T\)&lt;/span>拥有相同的特征值。&lt;/p>
 &lt;p>另外，如果特征值为0，说明矩阵&lt;span class="math">\(A\)&lt;/span>是奇异矩阵，特征向量&lt;span class="math">\(x\)&lt;/span>为了满足&lt;span class="math">\(Ax=0\)&lt;/span>必须位于&lt;span class="math">\(A\)&lt;/span>的零空间内。&lt;/p>
 &lt;h2 id="特征值分解与矩阵的幂">特征值分解与矩阵的幂&lt;/h2>
 &lt;p>如果我们有了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，那么我们能够做一些新的改变，我们将矩阵&lt;span class="math">\(A\)&lt;/span>的具有&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量&lt;span class="math">\(q_i\)&lt;/span>作为列向量，组成一个可逆方阵&lt;span class="math">\(Q\)&lt;/span>： &lt;span class="math">\[
@@ -742,6 +746,9 @@ B=\begin{bmatrix}
 &lt;p>定理：&lt;span class="math">\(\lambda_{min}\)&lt;/span>是Rayleigh商的最小值，&lt;span class="math">\(\lambda_{max}\)&lt;/span>是Rayleigh商的最大值。 &lt;span class="math">\[\lambda_{min}=\min_{x\in C^n,x\neq 0}R(x),\lambda_{max}=\max_{x\in C^n,x\neq 0}R(x)\]&lt;/span>&lt;/p>
 &lt;/blockquote></description></item><item><title>线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8Ejordan%E5%88%86%E8%A7%A3/</link><pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8Ejordan%E5%88%86%E8%A7%A3/</guid><description>
 &lt;h2 id="线性代数与矩阵之特征值分解与jordan标准型与jordan分解">线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解&lt;!-- omit in toc -->&lt;/h2>
+&lt;blockquote>
+&lt;p>正规矩阵：在数学中，正规矩阵（英语：normal matrix）&lt;span class="math">\(A\)&lt;/span>是与自己的共轭转置满足交换律的复系数方块矩阵，也就是说，&lt;span class="math">\(A\)&lt;/span>满足 &lt;span class="math">\[A^\ast A=AA^\ast\]&lt;/span> 其中&lt;span class="math">\(A\ast\)&lt;/span>是&lt;span class="math">\(A\)&lt;/span>的共轭转置。如果&lt;span class="math">\(A\)&lt;/span>是实系数矩阵，则&lt;span class="math">\(A^\ast=A^T\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
 &lt;p>可对角化条件：&lt;/p>
 &lt;p>可对角化的矩阵一定是正规矩阵吗？&lt;/p>
 &lt;p>不一定。&lt;/p>
@@ -988,7 +995,7 @@ O
 &lt;p>Hermite标准型就是将秩为&lt;span class="math">\(r\)&lt;/span>的&lt;span class="math">\(m×n\)&lt;/span>矩阵&lt;span class="math">\(A\)&lt;/span>经初等变换（高斯消元）而成的&lt;strong>阶梯型矩阵&lt;/strong>。所以也叫做Hermite最简型。&lt;/p>
 &lt;p>算出Hermite标准型后，对于矩阵的满秩分解&lt;span class="math">\(A=FG\)&lt;/span>来说，矩阵&lt;span class="math">\(F\)&lt;/span>就是矩阵&lt;span class="math">\(A\)&lt;/span>中&lt;span class="math">\(j_1,j_2,…,j_r\)&lt;/span>列构成的&lt;span class="math">\(m×r\)&lt;/span>矩阵，而&lt;span class="math">\(G\)&lt;/span>则是Hermite标准型的前&lt;span class="math">\(r\)&lt;/span>行构成的矩阵。&lt;/p>
 &lt;h2 id="谱分解又叫特征值分解">谱分解又叫特征值分解&lt;/h2>
-&lt;p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》&lt;/p>
+&lt;p>见&lt;a href="线性代数与矩阵之特征值与特征向量.md">线性代数与矩阵之特征值与特征向量&lt;/a>&lt;/p>
 &lt;h2 id="jordan分解">Jordan分解&lt;/h2>
 &lt;p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》&lt;/p>
 &lt;h2 id="svd分解">SVD分解&lt;/h2>
@@ -1118,7 +1125,7 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;li>&lt;a href="#简单性质">简单性质&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#对称矩阵的特征值与特征向量">对称矩阵的特征值与特征向量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#对称矩阵的分解">对称矩阵的分解&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#一定可以谱分解">一定可以谱分解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一定可以特征分解">一定可以特征分解&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#cholesky分解">Cholesky分解&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#分解唯一性">分解唯一性&lt;/a>&lt;/li>
@@ -1150,7 +1157,9 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;/ul>
 &lt;h2 id="对称矩阵的特征值与特征向量">对称矩阵的特征值与特征向量&lt;/h2>
 &lt;h2 id="对称矩阵的分解">对称矩阵的分解&lt;/h2>
-&lt;h3 id="一定可以谱分解">一定可以谱分解&lt;/h3>
+&lt;h3 id="一定可以特征分解">一定可以特征分解&lt;/h3>
+&lt;p>若该对称矩阵的列空间&lt;span class="math">\(Col(P)\)&lt;/span>的秩为&lt;span class="math">\(r\)&lt;/span>，所以我们可以从列空间中挑选出&lt;span class="math">\(r\)&lt;/span>个线性无关的特征向量。同时，对于对称矩阵的零空间&lt;span class="math">\(N(P)\)&lt;/span>，其是&lt;span class="math">\(n-r\)&lt;/span>维的，其中所有的向量皆满足&lt;span class="math">\(Px=0=0×x\)&lt;/span>（零空间中特征向量的特征值都是0），因此所有零空间中的向量也是&lt;span class="math">\(P\)&lt;/span>的特征向量，从而我们也能从零空间中找出&lt;span class="math">\(n-r\)&lt;/span>个线性无关的特征向量。&lt;/p>
+&lt;p>我们还知道&lt;span class="math">\(P^T=P\)&lt;/span>，因此其列空间和行空间是一样的。根据矩阵四类空间的性质（参考笔记&lt;a href="线性代数与矩阵之四类空间.md">线性代数与矩阵之四类空间&lt;/a>），零矩阵和行矩阵垂直，因此零矩阵中元素皆垂直于行空间元素，列空间等于行空间的&lt;span class="math">\(r\)&lt;/span>个特征向量必然也垂直与零空间中的&lt;span class="math">\(n-r\)&lt;/span>个特征向量。这样我们就找到了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，即对称矩阵&lt;span class="math">\(P\)&lt;/span>必然可特征分解。&lt;/p>
 &lt;h3 id="cholesky分解">Cholesky分解&lt;/h3>
 &lt;p>Cholesky分解是正定埃尔米特矩阵的LU分解。&lt;/p>
 &lt;p>Cholesky分解是指将一个&lt;strong>正定的埃尔米特矩阵&lt;/strong>分解成一个&lt;strong>下三角矩阵与其共轭转置之乘积&lt;/strong>。 &lt;span class="math">\[\mathbf A=\mathbf L\mathbf L^\ast\]&lt;/span> 当矩阵&lt;span class="math">\(\mathbf{A}\)&lt;/span>是一个&lt;strong>半正定&lt;/strong>的埃尔米特矩阵，若允许&lt;span class="math">\(\mathbf {L}\)&lt;/span>的对角线元素为&lt;strong>零&lt;/strong>，则&lt;span class="math">\(\mathbf{A}\)&lt;/span>也存在上述形式的分解。&lt;/p>

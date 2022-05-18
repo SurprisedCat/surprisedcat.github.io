@@ -94,7 +94,7 @@ Apr 19, 2020</span>
 <li><a href=#简单性质>简单性质</a></li>
 <li><a href=#对称矩阵的特征值与特征向量>对称矩阵的特征值与特征向量</a></li>
 <li><a href=#对称矩阵的分解>对称矩阵的分解</a></li>
-<li><a href=#一定可以谱分解>一定可以谱分解</a></li>
+<li><a href=#一定可以特征分解>一定可以特征分解</a></li>
 <li><a href=#cholesky分解>Cholesky分解</a>
 <ul>
 <li><a href=#分解唯一性>分解唯一性</a></li>
@@ -126,7 +126,9 @@ Apr 19, 2020</span>
 </ul>
 <h2 id=对称矩阵的特征值与特征向量>对称矩阵的特征值与特征向量</h2>
 <h2 id=对称矩阵的分解>对称矩阵的分解</h2>
-<h3 id=一定可以谱分解>一定可以谱分解</h3>
+<h3 id=一定可以特征分解>一定可以特征分解</h3>
+<p>若该对称矩阵的列空间<span class=math>\(Col(P)\)</span>的秩为<span class=math>\(r\)</span>，所以我们可以从列空间中挑选出<span class=math>\(r\)</span>个线性无关的特征向量。同时，对于对称矩阵的零空间<span class=math>\(N(P)\)</span>，其是<span class=math>\(n-r\)</span>维的，其中所有的向量皆满足<span class=math>\(Px=0=0×x\)</span>（零空间中特征向量的特征值都是0），因此所有零空间中的向量也是<span class=math>\(P\)</span>的特征向量，从而我们也能从零空间中找出<span class=math>\(n-r\)</span>个线性无关的特征向量。</p>
+<p>我们还知道<span class=math>\(P^T=P\)</span>，因此其列空间和行空间是一样的。根据矩阵四类空间的性质（参考笔记<a href=线性代数与矩阵之四类空间.md>线性代数与矩阵之四类空间</a>），零矩阵和行矩阵垂直，因此零矩阵中元素皆垂直于行空间元素，列空间等于行空间的<span class=math>\(r\)</span>个特征向量必然也垂直与零空间中的<span class=math>\(n-r\)</span>个特征向量。这样我们就找到了<span class=math>\(n\)</span>个线性无关的特征向量，即对称矩阵<span class=math>\(P\)</span>必然可特征分解。</p>
 <h3 id=cholesky分解>Cholesky分解</h3>
 <p>Cholesky分解是正定埃尔米特矩阵的LU分解。</p>
 <p>Cholesky分解是指将一个<strong>正定的埃尔米特矩阵</strong>分解成一个<strong>下三角矩阵与其共轭转置之乘积</strong>。 <span class=math>\[\mathbf A=\mathbf L\mathbf L^\ast\]</span> 当矩阵<span class=math>\(\mathbf{A}\)</span>是一个<strong>半正定</strong>的埃尔米特矩阵，若允许<span class=math>\(\mathbf {L}\)</span>的对角线元素为<strong>零</strong>，则<span class=math>\(\mathbf{A}\)</span>也存在上述形式的分解。</p>

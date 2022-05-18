@@ -2062,6 +2062,7 @@ n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
 &lt;li>&lt;a href="#不可约非周期链遍历链">不可约非周期链→遍历链&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#可约性非常返态和周期的影响">可约性、非常返态和周期的影响&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#随机矩阵的主特征1的简单证明">随机矩阵的主特征1的简单证明&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从线性代数的角度看马尔可夫矩阵">从线性代数的角度看马尔可夫矩阵&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="极限行为和不变概率稳态">极限行为和不变概率（稳态）&lt;/h2>
 &lt;p>有转移矩阵&lt;span class="math">\(P\)&lt;/span>，但经过&lt;span class="math">\(N→ ∞\)&lt;/span>后，是否存在一个收敛的极限矩阵 &lt;span class="math">\[\Pi=\lim_{n→ ∞}P^n\]&lt;/span> 如果能有一个更好的性质： &amp;gt;极限矩阵每一行都是一样的。&lt;/p>
@@ -2138,7 +2139,18 @@ n_i=nl_i\sigma_i/(\sum_{i=1}^m l_i\sigma_i)\tag{14}
 &lt;p>然后你还要证明1是最大的特征值。&lt;/p>
 &lt;p>矩阵的1范数是1（行和范数），而根据范数不等式，任何范数都大于等于谱半径（=最大特征值），所以该矩阵的最大特征值不大于1，而，已知有一个特征值为1，所以最大特征值就是1。&lt;/p>
 &lt;p>（其实严谨点还需要证明这个最大特征值即谱半径的重数为1）&lt;/p>
-&lt;p>严谨证明请看：&lt;a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Non-negative_matrices">Perron–Frobenius theorem&lt;/a>&lt;/p></description></item><item><title>概率统计随机过程之两两独立与相互独立</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B/</link><pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B/</guid><description>
+&lt;p>严谨证明请看：&lt;a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Non-negative_matrices">Perron–Frobenius theorem&lt;/a>&lt;/p>
+&lt;h2 id="从线性代数的角度看马尔可夫矩阵">从线性代数的角度看马尔可夫矩阵&lt;/h2>
+&lt;p>如果我们从线性代数的角度看马尔可夫矩阵，会有一个整体的视角，获得更直观的认识。&lt;/p>
+&lt;p>我们如果通过特征基来表示马尔可夫矩阵&lt;span class="math">\(A\)&lt;/span>，有： &lt;span class="math">\[
+Av=c_1\lambda_1 x_1+c_2\lambda_2 x_2+\dotsb+c_n\lambda_n x_n\\
+v=c_1x_1+c_2x_2+\dotsb+c_nx_n
+\]&lt;/span> 其中，&lt;span class="math">\(\lambda_i\)&lt;/span>是矩阵&lt;span class="math">\(A\)&lt;/span>的特征值，且我们将其按从大到小顺序排好，向量&lt;span class="math">\(x_i\)&lt;/span>是对应的特征矩阵，我们将任意向量&lt;span class="math">\(v\)&lt;/span>用特征基表示，其系数为&lt;span class="math">\(c_i\)&lt;/span>。&lt;/p>
+&lt;p>那么，初始状态向量经过&lt;span class="math">\(k\)&lt;/span>个周期的马尔可夫矩阵为： &lt;span class="math">\[v_k=A^kv=c_1\lambda_1^k x_1+c_2\lambda_2^k x_2+\dotsb+c_n\lambda_n^k x_n\]&lt;/span> 如果想让&lt;span class="math">\(v_k\)&lt;/span>趋于稳态，那么特征值的&lt;span class="math">\(|\lambda_i|\)&lt;/span>都必须小于等于1，否则矩阵就会发散。&lt;/p>
+&lt;p>我们再看行列式&lt;span class="math">\(\det(A-I)\)&lt;/span>，由于&lt;span class="math">\(A\)&lt;/span>的每一列和为1，当对角元素减1后，列和必然为0，因此&lt;span class="math">\(A-I\)&lt;/span>的行向量是线性相关的，即&lt;span class="math">\(A-I\)&lt;/span>是奇异矩阵，所以&lt;span class="math">\(\det(A-I)=0\)&lt;/span>，这使得1是&lt;span class="math">\(A\)&lt;/span>的一个特征值。&lt;/p>
+&lt;p>设特征值&lt;span class="math">\(\lambda_1\sim\lambda_i\)&lt;/span>为1，剩下的小于1，那么当&lt;span class="math">\(k\rightarrow ∞\)&lt;/span>时，有&lt;span class="math">\(\lambda_1^k,\dotsb,\lambda_i^k=1,\lambda_{i+1},\dotsb,\lambda_n\rightarrow 0\)&lt;/span>，此时 &lt;span class="math">\[
+v_k=A^kv=c_1 x_1+c_2 x_2+\dotsb+c_ix_i
+\]&lt;/span> 即为稳态。&lt;/p></description></item><item><title>概率统计随机过程之两两独立与相互独立</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B/</link><pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E4%B8%A4%E4%B8%A4%E7%8B%AC%E7%AB%8B%E4%B8%8E%E7%9B%B8%E4%BA%92%E7%8B%AC%E7%AB%8B/</guid><description>
 &lt;h2 id="概率统计随机过程之两两独立与相互独立">概率统计随机过程之两两独立与相互独立&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>&lt;span class="math">\(A,B,C\)&lt;/span>互相独立，说明&lt;span class="math">\(A,B,C\)&lt;/span>间无关联，是互相独立的，但两两独立指&lt;span class="math">\(A\)&lt;/span>和&lt;span class="math">\(B\)&lt;/span>间独立，&lt;span class="math">\(B\)&lt;/span>和&lt;span class="math">\(C\)&lt;/span>之间独立，&lt;span class="math">\(A\)&lt;/span>和&lt;span class="math">\(C\)&lt;/span>间独立，但三者放在一起，并不能判断他们是无关的。&lt;/p>
 &lt;p>所以，&lt;strong>两两独立不一定相互独立，相互独立必然两两独立。&lt;/strong>&lt;/p>

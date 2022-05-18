@@ -98,6 +98,7 @@ Oct 30, 2020</span>
 <li><a href=#不可约非周期链遍历链>不可约非周期链→遍历链</a></li>
 <li><a href=#可约性非常返态和周期的影响>可约性、非常返态和周期的影响</a></li>
 <li><a href=#随机矩阵的主特征1的简单证明>随机矩阵的主特征1的简单证明</a></li>
+<li><a href=#从线性代数的角度看马尔可夫矩阵>从线性代数的角度看马尔可夫矩阵</a></li>
 </ul>
 <h2 id=极限行为和不变概率稳态>极限行为和不变概率（稳态）</h2>
 <p>有转移矩阵<span class=math>\(P\)</span>，但经过<span class=math>\(N→ ∞\)</span>后，是否存在一个收敛的极限矩阵 <span class=math>\[\Pi=\lim_{n→ ∞}P^n\]</span> 如果能有一个更好的性质： >极限矩阵每一行都是一样的。</p>
@@ -175,6 +176,17 @@ Oct 30, 2020</span>
 <p>矩阵的1范数是1（行和范数），而根据范数不等式，任何范数都大于等于谱半径（=最大特征值），所以该矩阵的最大特征值不大于1，而，已知有一个特征值为1，所以最大特征值就是1。</p>
 <p>（其实严谨点还需要证明这个最大特征值即谱半径的重数为1）</p>
 <p>严谨证明请看：<a href=https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Non-negative_matrices>Perron–Frobenius theorem</a></p>
+<h2 id=从线性代数的角度看马尔可夫矩阵>从线性代数的角度看马尔可夫矩阵</h2>
+<p>如果我们从线性代数的角度看马尔可夫矩阵，会有一个整体的视角，获得更直观的认识。</p>
+<p>我们如果通过特征基来表示马尔可夫矩阵<span class=math>\(A\)</span>，有： <span class=math>\[
+Av=c_1\lambda_1 x_1+c_2\lambda_2 x_2+\dotsb+c_n\lambda_n x_n\\
+v=c_1x_1+c_2x_2+\dotsb+c_nx_n
+\]</span> 其中，<span class=math>\(\lambda_i\)</span>是矩阵<span class=math>\(A\)</span>的特征值，且我们将其按从大到小顺序排好，向量<span class=math>\(x_i\)</span>是对应的特征矩阵，我们将任意向量<span class=math>\(v\)</span>用特征基表示，其系数为<span class=math>\(c_i\)</span>。</p>
+<p>那么，初始状态向量经过<span class=math>\(k\)</span>个周期的马尔可夫矩阵为： <span class=math>\[v_k=A^kv=c_1\lambda_1^k x_1+c_2\lambda_2^k x_2+\dotsb+c_n\lambda_n^k x_n\]</span> 如果想让<span class=math>\(v_k\)</span>趋于稳态，那么特征值的<span class=math>\(|\lambda_i|\)</span>都必须小于等于1，否则矩阵就会发散。</p>
+<p>我们再看行列式<span class=math>\(\det(A-I)\)</span>，由于<span class=math>\(A\)</span>的每一列和为1，当对角元素减1后，列和必然为0，因此<span class=math>\(A-I\)</span>的行向量是线性相关的，即<span class=math>\(A-I\)</span>是奇异矩阵，所以<span class=math>\(\det(A-I)=0\)</span>，这使得1是<span class=math>\(A\)</span>的一个特征值。</p>
+<p>设特征值<span class=math>\(\lambda_1\sim\lambda_i\)</span>为1，剩下的小于1，那么当<span class=math>\(k\rightarrow ∞\)</span>时，有<span class=math>\(\lambda_1^k,\dotsb,\lambda_i^k=1,\lambda_{i+1},\dotsb,\lambda_n\rightarrow 0\)</span>，此时 <span class=math>\[
+v_k=A^kv=c_1 x_1+c_2 x_2+\dotsb+c_ix_i
+\]</span> 即为稳态。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

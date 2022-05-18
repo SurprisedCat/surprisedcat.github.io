@@ -98,6 +98,10 @@ f(\lambda)=(\lambda_1-\lambda)(\lambda_2-\lambda)\dotsb(\lambda_n-\lambda)
 &lt;p>性质4：若&lt;span class="math">\(λ\)&lt;/span>是方阵A的一个特征根，&lt;span class="math">\(x\)&lt;/span>为对应的特征向量，则&lt;span class="math">\(λ\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>次方是&lt;span class="math">\(A\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>次方的一个特征根，&lt;span class="math">\(x\)&lt;/span>仍为对应的特征向量。&lt;/p>
 &lt;/blockquote>
 &lt;p>证明：若&lt;span class="math">\(x\)&lt;/span>为&lt;span class="math">\(A\)&lt;/span>对应的一个特征向量，&lt;span class="math">\(A^mx=A^{m-1}(Ax)=A^{m-1}\lambda x=\lambda A^{m-2}(Ax)=\dotsb=\lambda^m x\)&lt;/span>，即&lt;span class="math">\(A^mx=\lambda^m x\)&lt;/span>。得证。&lt;/p>
+&lt;blockquote>
+&lt;p>性质5：矩阵&lt;span class="math">\(A\)&lt;/span>与&lt;span class="math">\(A^T\)&lt;/span>拥有相同的特征值。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：我们通过行列式&lt;span class="math">\(\det(A-\lambda I)\)&lt;/span>计算得到矩阵&lt;span class="math">\(A\)&lt;/span>的特征值，根据行列式转置不变的性质，我们有&lt;span class="math">\(\det(A-\lambda I)=\det(A-\lambda I)^T=\det(A^T-\lambda I^T)=\det(A^T-\lambda I)\)&lt;/span>，即为&lt;span class="math">\(A^T\)&lt;/span>计算特征值的行列式。因此，矩阵&lt;span class="math">\(A\)&lt;/span>与&lt;span class="math">\(A^T\)&lt;/span>拥有相同的特征值。&lt;/p>
 &lt;p>另外，如果特征值为0，说明矩阵&lt;span class="math">\(A\)&lt;/span>是奇异矩阵，特征向量&lt;span class="math">\(x\)&lt;/span>为了满足&lt;span class="math">\(Ax=0\)&lt;/span>必须位于&lt;span class="math">\(A\)&lt;/span>的零空间内。&lt;/p>
 &lt;h2 id="特征值分解与矩阵的幂">特征值分解与矩阵的幂&lt;/h2>
 &lt;p>如果我们有了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，那么我们能够做一些新的改变，我们将矩阵&lt;span class="math">\(A\)&lt;/span>的具有&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量&lt;span class="math">\(q_i\)&lt;/span>作为列向量，组成一个可逆方阵&lt;span class="math">\(Q\)&lt;/span>： &lt;span class="math">\[
@@ -3464,7 +3468,7 @@ E[f(Y)|Y=y]=E[f(Y=y)|Y=y]=E[f(y)]=f(y)
 &lt;span class="ln">8&lt;/span>
 &lt;span class="ln">9&lt;/span>&lt;span class="gu">## H1 title&amp;lt;!-- omit in toc --&amp;gt;
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样在渲染成网页的时候，两个大标题会夹着目录，因此会美观一些。如果hugo能提供自动把一级标题当元信息，或者VS Code能够markdown能够渲染yaml头信息就不同这么麻烦。此外，我将H1 title前面变成二级标题，可以在不改变&lt;code>.markdownlint.json&lt;/code>文件的情况下在VS Code中不报错。&lt;/p>
-&lt;p>问题7解决：在有大量公式的文章中，不要使用hugo自带的golden编译器，替换成pandoc。pandoc的安装方法可在网上查到。我们还需要在该文章的头部信息中加入&lt;code>markup: &amp;quot;pandoc&amp;quot;&lt;/code>这一条。&lt;/p>
+&lt;p>问题7解决：在有大量公式的文章中，不要使用hugo自带的golden编译器，替换成pandoc。pandoc的安装方法可在网上查到。我们还需要在该文章的头部信息中加入&lt;code>markup: pandoc&lt;/code>这一条。&lt;/p>
 &lt;h3 id="修改hugo博客的clarity主题">修改Hugo博客的clarity主题&lt;/h3>
 &lt;p>我的博客是基于&lt;a href="https://github.com/chipzoller/hugo-clarity">clarity&lt;/a>主题修改而来，基本改动有&lt;/p>
 &lt;ul>
@@ -7786,6 +7790,7 @@ y_n\\
 &lt;li>&lt;a href="#不可约非周期链遍历链">不可约非周期链→遍历链&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#可约性非常返态和周期的影响">可约性、非常返态和周期的影响&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#随机矩阵的主特征1的简单证明">随机矩阵的主特征1的简单证明&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从线性代数的角度看马尔可夫矩阵">从线性代数的角度看马尔可夫矩阵&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="极限行为和不变概率稳态">极限行为和不变概率（稳态）&lt;/h2>
 &lt;p>有转移矩阵&lt;span class="math">\(P\)&lt;/span>，但经过&lt;span class="math">\(N→ ∞\)&lt;/span>后，是否存在一个收敛的极限矩阵 &lt;span class="math">\[\Pi=\lim_{n→ ∞}P^n\]&lt;/span> 如果能有一个更好的性质： &amp;gt;极限矩阵每一行都是一样的。&lt;/p>
@@ -7862,7 +7867,18 @@ y_n\\
 &lt;p>然后你还要证明1是最大的特征值。&lt;/p>
 &lt;p>矩阵的1范数是1（行和范数），而根据范数不等式，任何范数都大于等于谱半径（=最大特征值），所以该矩阵的最大特征值不大于1，而，已知有一个特征值为1，所以最大特征值就是1。&lt;/p>
 &lt;p>（其实严谨点还需要证明这个最大特征值即谱半径的重数为1）&lt;/p>
-&lt;p>严谨证明请看：&lt;a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Non-negative_matrices">Perron–Frobenius theorem&lt;/a>&lt;/p></description></item><item><title>测度论-Borel集的作用？意义？它为什么重要？</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA-borel%E9%9B%86%E7%9A%84%E4%BD%9C%E7%94%A8%E6%84%8F%E4%B9%89%E5%AE%83%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81/</link><pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA-borel%E9%9B%86%E7%9A%84%E4%BD%9C%E7%94%A8%E6%84%8F%E4%B9%89%E5%AE%83%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81/</guid><description>
+&lt;p>严谨证明请看：&lt;a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Non-negative_matrices">Perron–Frobenius theorem&lt;/a>&lt;/p>
+&lt;h2 id="从线性代数的角度看马尔可夫矩阵">从线性代数的角度看马尔可夫矩阵&lt;/h2>
+&lt;p>如果我们从线性代数的角度看马尔可夫矩阵，会有一个整体的视角，获得更直观的认识。&lt;/p>
+&lt;p>我们如果通过特征基来表示马尔可夫矩阵&lt;span class="math">\(A\)&lt;/span>，有： &lt;span class="math">\[
+Av=c_1\lambda_1 x_1+c_2\lambda_2 x_2+\dotsb+c_n\lambda_n x_n\\
+v=c_1x_1+c_2x_2+\dotsb+c_nx_n
+\]&lt;/span> 其中，&lt;span class="math">\(\lambda_i\)&lt;/span>是矩阵&lt;span class="math">\(A\)&lt;/span>的特征值，且我们将其按从大到小顺序排好，向量&lt;span class="math">\(x_i\)&lt;/span>是对应的特征矩阵，我们将任意向量&lt;span class="math">\(v\)&lt;/span>用特征基表示，其系数为&lt;span class="math">\(c_i\)&lt;/span>。&lt;/p>
+&lt;p>那么，初始状态向量经过&lt;span class="math">\(k\)&lt;/span>个周期的马尔可夫矩阵为： &lt;span class="math">\[v_k=A^kv=c_1\lambda_1^k x_1+c_2\lambda_2^k x_2+\dotsb+c_n\lambda_n^k x_n\]&lt;/span> 如果想让&lt;span class="math">\(v_k\)&lt;/span>趋于稳态，那么特征值的&lt;span class="math">\(|\lambda_i|\)&lt;/span>都必须小于等于1，否则矩阵就会发散。&lt;/p>
+&lt;p>我们再看行列式&lt;span class="math">\(\det(A-I)\)&lt;/span>，由于&lt;span class="math">\(A\)&lt;/span>的每一列和为1，当对角元素减1后，列和必然为0，因此&lt;span class="math">\(A-I\)&lt;/span>的行向量是线性相关的，即&lt;span class="math">\(A-I\)&lt;/span>是奇异矩阵，所以&lt;span class="math">\(\det(A-I)=0\)&lt;/span>，这使得1是&lt;span class="math">\(A\)&lt;/span>的一个特征值。&lt;/p>
+&lt;p>设特征值&lt;span class="math">\(\lambda_1\sim\lambda_i\)&lt;/span>为1，剩下的小于1，那么当&lt;span class="math">\(k\rightarrow ∞\)&lt;/span>时，有&lt;span class="math">\(\lambda_1^k,\dotsb,\lambda_i^k=1,\lambda_{i+1},\dotsb,\lambda_n\rightarrow 0\)&lt;/span>，此时 &lt;span class="math">\[
+v_k=A^kv=c_1 x_1+c_2 x_2+\dotsb+c_ix_i
+\]&lt;/span> 即为稳态。&lt;/p></description></item><item><title>测度论-Borel集的作用？意义？它为什么重要？</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA-borel%E9%9B%86%E7%9A%84%E4%BD%9C%E7%94%A8%E6%84%8F%E4%B9%89%E5%AE%83%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81/</link><pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA-borel%E9%9B%86%E7%9A%84%E4%BD%9C%E7%94%A8%E6%84%8F%E4%B9%89%E5%AE%83%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81/</guid><description>
 &lt;h2 id="borel-集的作用意义它为什么重要">Borel 集的作用？意义？它为什么重要？&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>转载自知乎：&lt;a href="https://www.zhihu.com/question/33991971">https://www.zhihu.com/question/33991971&lt;/a>&lt;/p>
 &lt;p>我来从概率论的角度说一下Borel集的意义吧。&lt;/p>
@@ -11715,6 +11731,9 @@ B=\begin{bmatrix}
 &lt;p>定理：&lt;span class="math">\(\lambda_{min}\)&lt;/span>是Rayleigh商的最小值，&lt;span class="math">\(\lambda_{max}\)&lt;/span>是Rayleigh商的最大值。 &lt;span class="math">\[\lambda_{min}=\min_{x\in C^n,x\neq 0}R(x),\lambda_{max}=\max_{x\in C^n,x\neq 0}R(x)\]&lt;/span>&lt;/p>
 &lt;/blockquote></description></item><item><title>线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8Ejordan%E5%88%86%E8%A7%A3/</link><pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8Ejordan%E5%88%86%E8%A7%A3/</guid><description>
 &lt;h2 id="线性代数与矩阵之特征值分解与jordan标准型与jordan分解">线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解&lt;!-- omit in toc -->&lt;/h2>
+&lt;blockquote>
+&lt;p>正规矩阵：在数学中，正规矩阵（英语：normal matrix）&lt;span class="math">\(A\)&lt;/span>是与自己的共轭转置满足交换律的复系数方块矩阵，也就是说，&lt;span class="math">\(A\)&lt;/span>满足 &lt;span class="math">\[A^\ast A=AA^\ast\]&lt;/span> 其中&lt;span class="math">\(A\ast\)&lt;/span>是&lt;span class="math">\(A\)&lt;/span>的共轭转置。如果&lt;span class="math">\(A\)&lt;/span>是实系数矩阵，则&lt;span class="math">\(A^\ast=A^T\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
 &lt;p>可对角化条件：&lt;/p>
 &lt;p>可对角化的矩阵一定是正规矩阵吗？&lt;/p>
 &lt;p>不一定。&lt;/p>
@@ -11961,7 +11980,7 @@ O
 &lt;p>Hermite标准型就是将秩为&lt;span class="math">\(r\)&lt;/span>的&lt;span class="math">\(m×n\)&lt;/span>矩阵&lt;span class="math">\(A\)&lt;/span>经初等变换（高斯消元）而成的&lt;strong>阶梯型矩阵&lt;/strong>。所以也叫做Hermite最简型。&lt;/p>
 &lt;p>算出Hermite标准型后，对于矩阵的满秩分解&lt;span class="math">\(A=FG\)&lt;/span>来说，矩阵&lt;span class="math">\(F\)&lt;/span>就是矩阵&lt;span class="math">\(A\)&lt;/span>中&lt;span class="math">\(j_1,j_2,…,j_r\)&lt;/span>列构成的&lt;span class="math">\(m×r\)&lt;/span>矩阵，而&lt;span class="math">\(G\)&lt;/span>则是Hermite标准型的前&lt;span class="math">\(r\)&lt;/span>行构成的矩阵。&lt;/p>
 &lt;h2 id="谱分解又叫特征值分解">谱分解又叫特征值分解&lt;/h2>
-&lt;p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》&lt;/p>
+&lt;p>见&lt;a href="线性代数与矩阵之特征值与特征向量.md">线性代数与矩阵之特征值与特征向量&lt;/a>&lt;/p>
 &lt;h2 id="jordan分解">Jordan分解&lt;/h2>
 &lt;p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》&lt;/p>
 &lt;h2 id="svd分解">SVD分解&lt;/h2>
@@ -12091,7 +12110,7 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;li>&lt;a href="#简单性质">简单性质&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#对称矩阵的特征值与特征向量">对称矩阵的特征值与特征向量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#对称矩阵的分解">对称矩阵的分解&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#一定可以谱分解">一定可以谱分解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一定可以特征分解">一定可以特征分解&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#cholesky分解">Cholesky分解&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#分解唯一性">分解唯一性&lt;/a>&lt;/li>
@@ -12123,7 +12142,9 @@ d_3=a_{33}-l_{31}^2d_1-l_{32}^2d_2\]&lt;/span>&lt;/p>
 &lt;/ul>
 &lt;h2 id="对称矩阵的特征值与特征向量">对称矩阵的特征值与特征向量&lt;/h2>
 &lt;h2 id="对称矩阵的分解">对称矩阵的分解&lt;/h2>
-&lt;h3 id="一定可以谱分解">一定可以谱分解&lt;/h3>
+&lt;h3 id="一定可以特征分解">一定可以特征分解&lt;/h3>
+&lt;p>若该对称矩阵的列空间&lt;span class="math">\(Col(P)\)&lt;/span>的秩为&lt;span class="math">\(r\)&lt;/span>，所以我们可以从列空间中挑选出&lt;span class="math">\(r\)&lt;/span>个线性无关的特征向量。同时，对于对称矩阵的零空间&lt;span class="math">\(N(P)\)&lt;/span>，其是&lt;span class="math">\(n-r\)&lt;/span>维的，其中所有的向量皆满足&lt;span class="math">\(Px=0=0×x\)&lt;/span>（零空间中特征向量的特征值都是0），因此所有零空间中的向量也是&lt;span class="math">\(P\)&lt;/span>的特征向量，从而我们也能从零空间中找出&lt;span class="math">\(n-r\)&lt;/span>个线性无关的特征向量。&lt;/p>
+&lt;p>我们还知道&lt;span class="math">\(P^T=P\)&lt;/span>，因此其列空间和行空间是一样的。根据矩阵四类空间的性质（参考笔记&lt;a href="线性代数与矩阵之四类空间.md">线性代数与矩阵之四类空间&lt;/a>），零矩阵和行矩阵垂直，因此零矩阵中元素皆垂直于行空间元素，列空间等于行空间的&lt;span class="math">\(r\)&lt;/span>个特征向量必然也垂直与零空间中的&lt;span class="math">\(n-r\)&lt;/span>个特征向量。这样我们就找到了&lt;span class="math">\(n\)&lt;/span>个线性无关的特征向量，即对称矩阵&lt;span class="math">\(P\)&lt;/span>必然可特征分解。&lt;/p>
 &lt;h3 id="cholesky分解">Cholesky分解&lt;/h3>
 &lt;p>Cholesky分解是正定埃尔米特矩阵的LU分解。&lt;/p>
 &lt;p>Cholesky分解是指将一个&lt;strong>正定的埃尔米特矩阵&lt;/strong>分解成一个&lt;strong>下三角矩阵与其共轭转置之乘积&lt;/strong>。 &lt;span class="math">\[\mathbf A=\mathbf L\mathbf L^\ast\]&lt;/span> 当矩阵&lt;span class="math">\(\mathbf{A}\)&lt;/span>是一个&lt;strong>半正定&lt;/strong>的埃尔米特矩阵，若允许&lt;span class="math">\(\mathbf {L}\)&lt;/span>的对角线元素为&lt;strong>零&lt;/strong>，则&lt;span class="math">\(\mathbf{A}\)&lt;/span>也存在上述形式的分解。&lt;/p>
