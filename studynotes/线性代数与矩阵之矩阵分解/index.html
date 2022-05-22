@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Apr 24, 2020</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5 title=线性代数与矩阵 class="post_tag button button_translucent">线性代数与矩阵
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -94,15 +94,20 @@ Apr 24, 2020</span>
 <li><a href=#lu分解>LU分解</a></li>
 <li><a href=#crout分解>Crout分解</a></li>
 <li><a href=#doolittle分解>Doolittle分解</a></li>
-<li><a href=#舒尔分解>舒尔分解</a></li>
+<li><a href=#舒尔分解>舒尔分解</a>
+<ul>
+<li><a href=#拓展实矩阵的舒尔分解>拓展：实矩阵的舒尔分解</a></li>
+</ul></li>
 <li><a href=#极分解>极分解</a></li>
 <li><a href=#qr分解>QR分解</a></li>
 <li><a href=#满秩分解>满秩分解</a></li>
-<li><a href=#谱分解又叫特征值分解>谱分解又叫特征值分解</a></li>
+<li><a href=#特征值分解谱分解>特征值分解（谱分解）</a></li>
 <li><a href=#jordan分解>Jordan分解</a></li>
-<li><a href=#svd分解>SVD分解</a></li>
+<li><a href=#奇异值分解svd分解>奇异值分解(SVD分解)</a></li>
+<li><a href=#奇异值分解与特征值分解的联系>奇异值分解与特征值分解的联系</a></li>
 </ul>
 <h2 id=三角分解>三角分解</h2>
+<p>三角分解是矩阵分解的基本形式，最初的三角分解是LU分解，它来自矩阵的高斯消元法。其他三角分解还有：当<span class=math>\(L\)</span>是单位下三角（主对角元都是1的下三角矩阵）时，称为Doolittle分解，当<span class=math>\(U\)</span>是单位下三角时，称为Crout分解，以及任何矩阵都可以进行的舒尔分解。</p>
 <h3 id=lu分解>LU分解</h3>
 <p>在线性代数与数值分析中，LU分解是矩阵分解的一种，将一个矩阵分解为一个<strong>下三角矩阵和一个上三角矩阵的乘积</strong>，<strong>有时需要再乘上一个置换矩阵</strong>。LU分解可以被视为高斯消元法的矩阵形式。在数值计算上，LU分解经常被用来解线性方程组、且在求逆矩阵和计算行列式中都是一个关键的步骤。</p>
 <p>对于方阵<span class=math>\(A\)</span>，<span class=math>\(A\)</span>的LU分解是将它分解成一个下三角矩阵<span class=math>\(L\)</span>与上三角矩阵<span class=math>\(U\)</span> 的乘积，也就是 <span class=math>\[A=LU\]</span> 通常，我们需要让<span class=math>\(L\)</span>矩阵的对角线元素为1，如果矩阵<span class=math>\(A\)</span>的对角线上出现0元素，我们应适当的改变<span class=math>\(A\)</span>的行的顺序，在此尝试将<span class=math>\(A\)</span>做LU分解。</p>
@@ -129,10 +134,93 @@ L={\begin{bmatrix}1&0&0\\2&1&0\\3&-1&1\\\end{bmatrix}}\]</span> 因此有 <span 
 </blockquote>
 <p>如果存在主对角线元素为0时，则使用一个置换矩阵，把下面的一个非0元素换上来，如果该列元素都为0，则说明此矩阵不可逆。（但是也能进行LU分解，不管这一行，继续从下行开始消元分解。）</p>
 <h3 id=crout分解>Crout分解</h3>
+<p>TODO</p>
 <h3 id=doolittle分解>Doolittle分解</h3>
+<p>TODO</p>
 <h3 id=舒尔分解>舒尔分解</h3>
-<p>舒尔分解定理表明，如果<span class=math>\(A\)</span>是<span class=math>\(n\)</span>阶的<strong>复方阵</strong>，则存在<span class=math>\(n\)</span>阶幺正矩阵<span class=math>\(Q\)</span>，<span class=math>\(n\)</span>阶上三角矩阵U，使得 <span class=math>\[A=QUQ^{-1}\]</span> 即任何一个<span class=math>\(n\)</span>阶复方阵<span class=math>\(A\)</span>酉相似于一个<span class=math>\(n\)</span>阶上三角矩阵<span class=math>\(U\)</span>。因为<span class=math>\(A，U\)</span>相似，所以两者有相同的特征值，且相同特征值的代数重数也相同。又因<span class=math>\(U\)</span>是上三角矩阵，所以<span class=math>\(U\)</span>的对角元素实际上是<span class=math>\(A\)</span>的所有特征值。</p>
+<p>舒尔分解(Schur分解)是最基本的矩阵分解之一，在矩阵分析中作为重要的理论工具，能够将<strong>任何一般方阵</strong>转化成上三角矩阵来研究。舒尔分解可以用来求解非对称矩阵的特征值，求不可对角化方阵的幂等。此外，舒尔分解也是推导特征值分解和SVD分解的一个有效途径。</p>
+<blockquote>
+<p>舒尔分解定理：如果<span class=math>\(A∈\mathbb{C}^n\)</span>是<span class=math>\(n\)</span>阶的<strong>复方阵</strong>，则存在<span class=math>\(n\)</span>阶酉矩阵<span class=math>\(U\)</span>，<span class=math>\(n\)</span>阶上三角矩阵<span class=math>\(T\)</span>，使得 <span class=math>\[A=UTU^{-1}=UTU^{H}\]</span> 即任何一个<span class=math>\(n\)</span>阶复方阵<span class=math>\(A\)</span>酉相似于一个<span class=math>\(n\)</span>阶上三角矩阵<span class=math>\(T\)</span>。</p>
+</blockquote>
+<p>由于<span class=math>\(U\)</span>为酉矩阵，所以有<span class=math>\(U^{-1}=U^H\)</span>。因为<span class=math>\(A，T\)</span>相似，所以两者有相同的特征值，且相同特征值的代数重数也相同。又因<span class=math>\(T\)</span>是上三角矩阵，所以<span class=math>\(T\)</span>的对角元素实际上是<span class=math>\(A\)</span>的所有特征值。</p>
 <p>可通过数学归纳法证明。</p>
+<blockquote>
+<p>证明：显然，对于任意一阶矩阵，这个舒尔分解是平凡的，任意<span class=math>\(A_{1×1}=[1]A[1]^H\)</span>，而<span class=math>\([1]_{1×1}\)</span>显然是个最简单的酉矩阵，<span class=math>\(A\)</span>只有一个元素，符合三角矩阵的定义。</p>
+<p>现在我们假设对于任意<span class=math>\(n-1\)</span>维矩阵，舒尔分解定理是成立的。现在我们需要证明对于<span class=math>\(n\)</span>阶矩阵，舒尔分解定理也是成立的。最重要的是构建连接<span class=math>\(n\)</span>维矩阵和<span class=math>\(n-1\)</span>维矩阵的桥梁。构造方法如下：</p>
+<p>我们首先找到矩阵<span class=math>\(A\)</span>任一非0特征值<span class=math>\(\lambda_1\)</span>（如果特征值都是0，那么此矩阵只能是零矩阵，显然也满足舒尔分解）以及对应的标准化的（模为1）特征向量<span class=math>\(x_1\)</span>，接下来我们在与<span class=math>\(x_1\)</span>所在一维子空间互补的<span class=math>\(n-1\)</span>维子空间中，选出另外<span class=math>\(n-1\)</span>个相互正交的单位向量<span class=math>\(x_2,x_3,\dotsb,x_n\)</span>，关于互补空间的概念请看笔记<a href=线性代数与矩阵之四类空间.md>线性代数与矩阵之四类空间</a>。</p>
+<p>由于<span class=math>\(n-1\)</span>维子空间必然存在<span class=math>\(n-1\)</span>个线性不相关的向量，因此我们可以选择任意<span class=math>\(n-1\)</span>个线性不相关向量进行施密特正交化，就可以得到<span class=math>\(n-1\)</span>个相互正交的单位向量。因为互补空间的向量是相互正交的，因此<span class=math>\(x_1\)</span>也垂直与<span class=math>\(x_2,\dotsb,x_n\)</span>。我们将<span class=math>\(x_1,x_2,\dotsb,x_n\)</span>组合到一起，就得到一个<strong>酉矩阵</strong><span class=math>\(X\)</span>，其中第1个向量是<span class=math>\(A\)</span>的标准化的特征向量，后面<span class=math>\(n-2\)</span>个是一般的向量。那么 <span class=math>\[AX=A\begin{bmatrix}x_1&x_2&\dotsb&x_n\end{bmatrix}=\begin{bmatrix}\lambda_1x_1&Ax_2&\dotsb&Ax_n\end{bmatrix}\\
+X^HAX=\begin{bmatrix}x_1^H\\x_2^H\\\vdots\\x_n^H\end{bmatrix}
+\begin{bmatrix}\lambda_1x_1&Ax_2&\dotsb&Ax_n\end{bmatrix}=\begin{bmatrix}
+\lambda_1x_1^Hx_1&x_1^HAx_2&\dotsb&x_1^HAx_n\\
+\lambda_1x_2^Hx_1&x_2^HAx_2&\dotsb&x_2^HAx_n\\
+\vdots&\vdots&\ddots&\vdots\\
+\lambda_1x_n^Hx_1&x_1^HAx_n&\dotsb&x_n^HAx_n
+\end{bmatrix}\\
+(x_i \perp x_j,i\neq j)=\left[\begin{array}{c:c}
+\lambda_1 & &A_{12}& \\
+\hdashline0& & &\\
+\vdots& &A_{22} &\\
+0& & &\\
+\end{array}\right]=\hat{T}\]</span> 其中，<span class=math>\(A_{12}=\begin{bmatrix}x_1^HAx_2&\dotsb&x_1^HAx_n\end{bmatrix}\)</span>是一个<span class=math>\(1×n\)</span>维矩阵。<span class=math>\(A_{22}\)</span>是由剩下的元素组成的<span class=math>\((n-1)×(n-1)\)</span>维矩阵。</p>
+<p>现在我们已经有了一个雏形，<span class=math>\(X^HAX=\hat{T}\Rightarrow A=XAX^H\)</span>，如果从分块矩阵的角度来看，这已经是一个分块上三角矩阵了，而且我们知道里面<span class=math>\((n-1)×(n-1)\)</span>维矩阵<span class=math>\(A_{22}\)</span>是能够进行了舒尔分解成<span class=math>\(A_{22}=P_1^H\tilde{T}P_1\)</span>，现在我们要做的就是将<span class=math>\(\hat{T}\)</span>与<span class=math>\(A_{22}=P_1^H\tilde{T}P_1\)</span>联系起来。其实，<span class=math>\(\hat{T}\)</span>就是多了一维，因此我们可以将<span class=math>\(n-1\)</span>维酉矩阵<span class=math>\(P_1\)</span>进行升维，如下： <span class=math>\[
+P=\left[\begin{array}{c:c}
+1 & 0 & \dotsb & 0\\
+\hdashline0&\\
+\vdots& &P_1\\
+0&\\
+\end{array}\right]
+\]</span> 显然，<span class=math>\(P^HP=I\)</span>是一个<span class=math>\(n\)</span>维酉矩阵。而<span class=math>\(P^H\hat{T}P\)</span>的结果为： <span class=math>\[
+P^H\hat{T}P=\left[\begin{array}{c:c}
+1 & 0 & \dotsb & 0\\
+\hdashline0&\\
+\vdots& &P^H_1\\
+0&\\
+\end{array}\right]
+\left[\begin{array}{c:c}
+\lambda_1 & &A_{12}& \\
+\hdashline0& & &\\
+\vdots& &A_{22} &\\
+0& & &\\
+\end{array}\right]
+\left[\begin{array}{c:c}
+1 & 0 & \dotsb & 0\\
+\hdashline0&\\
+\vdots& &P_1\\
+0&\\
+\end{array}\right]\\
+=\left[\begin{array}{c:c}
+\lambda_1 & &A_{12}P_1& \\
+\hdashline0& & &\\
+\vdots& &P_1^HA_{22}P_1 &\\
+0& & &\\
+\end{array}\right]
+=\left[\begin{array}{c:c}
+\lambda_1 & &A_{12}P_1& \\
+\hdashline0& & &\\
+\vdots& &\tilde{T} &\\
+0& & &\\
+\end{array}\right]=T
+\]</span> 其中，<span class=math>\(\tilde{T}\)</span>为上三角矩阵，因此<span class=math>\(P^H\hat{T}P\)</span>的结果为一个上三角矩阵<span class=math>\(T\)</span>。我们再将<span class=math>\(\hat{T}=X^HAX\)</span>代入<span class=math>\(T=P^H\hat{T}P\)</span>可得： <span class=math>\[T=X^HP^HAXP=(XP)^HAXP\]</span> 因为，<span class=math>\(X,P\)</span>都是<span class=math>\(n\)</span>维酉矩阵，而酉矩阵的乘积依然是酉矩阵，因此<span class=math>\(XP\)</span>也是酉矩阵，我们有： <span class=math>\[A=((XP)^H)^{-1}T(XP)^{-1}=(XP)T(XP)^H\\
+\overset{令U=XP}{=}UTU^H\]</span> 其中，<span class=math>\(U\)</span>是一个酉矩阵，<span class=math>\(T\)</span>是一个上三角矩阵。至此，我们证明了对于任意<span class=math>\(n\)</span>阶矩阵，舒尔分解定理也是成立的。得证。</p>
+</blockquote>
+<p>舒尔分解的证明过程证明了舒尔分解的存在性的同时，也提供了一种舒尔分解构造的方法，即从一阶矩阵开始，逐步使用<span class=math>\(1\sim n-1\)</span>维酉矩阵经过升维相乘，最终得到<span class=math>\(n\)</span>维酉矩阵<span class=math>\(U\)</span>。然后，左乘、右乘原矩阵，得到上三角矩阵<span class=math>\(T\)</span>（虽然这种方法相当麻烦）。此外，由于步骤中正交基的选择并不唯一，由此舒尔分解也是不唯一的。</p>
+<h4 id=拓展实矩阵的舒尔分解>拓展：实矩阵的舒尔分解</h4>
+<p>舒尔分解是针对复矩阵而言的，如果将数域缩小到实数域，舒尔分解就不完全适用了。问题就在于一个矩阵可能存在非实数特征值，即我们在递推过程中存在某个子矩阵找不到实数域内的特征值，导致后面就无法继续。</p>
+<blockquote>
+<p>实数域的舒尔分解：<del>设<span class=math>\(A\in R^{n\times n}\)</span>，则存在实正交矩阵<span class=math>\(U\)</span>和实上三角矩阵<span class=math>\(T\)</span>使得<span class=math>\(A=UTU^H\)</span>。</del></p>
+</blockquote>
+<p>上面的这结论是错的。然而在实数域，我们可以对上述舒尔分解定理做适当修正，使得在实数域也可以进行舒尔分解。</p>
+<blockquote>
+<p>实数域的舒尔分解定理：如果<span class=math>\(A∈\mathbb{R}^n\)</span>是<span class=math>\(n\)</span>阶的<strong>实方阵</strong>，则存在<span class=math>\(n\)</span>阶正交矩阵<span class=math>\(Q\)</span>，<span class=math>\(n\)</span>阶<strong>拟上三角</strong>矩阵<span class=math>\(T\)</span>，使得 <span class=math>\[A=QTQ^{-1}=QTQ^T\]</span> 即任何一个<span class=math>\(n\)</span>阶实方阵<span class=math>\(A\)</span>正交相似于一个<span class=math>\(n\)</span>阶<strong>拟上三角</strong>矩阵<span class=math>\(T\)</span>。</p>
+</blockquote>
+<p>然而，虽然不能将任意实矩阵正交相似上三角化，但我们可以放宽要求，将任意实矩阵正交相似拟上三角化。区别就在于<strong>拟三角</strong>！ <span class=math>\[
+T=\begin{bmatrix}
+R_{11}&R_{12}&\dotsb&R_{1m}\\
+&R_{22}&\dotsb&R_{2m}\\
+& & \ddots & \vdots\\
+& & & R_{mm}
+\end{bmatrix}
+\]</span> 其中对角子块<span class=math>\(R_{ii}\)</span>是<span class=math>\(1 × 1\)</span>矩阵或有一对共轭的虚特征值的<span class=math>\(2\times 2\)</span>矩阵，也因为对角子块的存在，最终的行列也不是<span class=math>\(n\)</span>，而是<span class=math>\(m\leq n\)</span>。证明方法也是数学归纳法，这里我们就省略不证了。</p>
 <h2 id=极分解>极分解</h2>
 <p>一个复系数矩阵<span class=math>\(A\)</span>的极分解将其分解成两个矩阵的乘积，可以表示为： <span class=math>\[A=UP\]</span> 其中<span class=math>\(U\)</span>是一个<strong>酉矩阵</strong>，<span class=math>\(P\)</span>是一个<strong>半正定的埃尔米特矩阵</strong>。这样的分解对<strong>任意</strong>的矩阵<span class=math>\(A\)</span>都存在。当<span class=math>\(A\)</span>是可逆矩阵时，分解是唯一的，并且<span class=math>\(P\)</span>必然为正定矩阵。</p>
 <h2 id=qr分解>QR分解</h2>
@@ -170,12 +258,23 @@ O
 </blockquote>
 <p>Hermite标准型就是将秩为<span class=math>\(r\)</span>的<span class=math>\(m×n\)</span>矩阵<span class=math>\(A\)</span>经初等变换（高斯消元）而成的<strong>阶梯型矩阵</strong>。所以也叫做Hermite最简型。</p>
 <p>算出Hermite标准型后，对于矩阵的满秩分解<span class=math>\(A=FG\)</span>来说，矩阵<span class=math>\(F\)</span>就是矩阵<span class=math>\(A\)</span>中<span class=math>\(j_1,j_2,…,j_r\)</span>列构成的<span class=math>\(m×r\)</span>矩阵，而<span class=math>\(G\)</span>则是Hermite标准型的前<span class=math>\(r\)</span>行构成的矩阵。</p>
-<h2 id=谱分解又叫特征值分解>谱分解又叫特征值分解</h2>
+<h2 id=特征值分解谱分解>特征值分解（谱分解）</h2>
 <p>见<a href=线性代数与矩阵之特征值与特征向量.md>线性代数与矩阵之特征值与特征向量</a></p>
 <h2 id=jordan分解>Jordan分解</h2>
-<p>见《线性代数与矩阵之特征值分解与Jordan标准型与Jordan分解》</p>
-<h2 id=svd分解>SVD分解</h2>
+<p>见<a href=线性代数与矩阵之Jordan标准型与相似性.md>线性代数与矩阵之Jordan标准型与相似性</a></p>
+<h2 id=奇异值分解svd分解>奇异值分解(SVD分解)</h2>
 <p>TODO</p>
+<h3 id=奇异值分解与特征值分解的联系>奇异值分解与特征值分解的联系</h3>
+<p>奇异值分解能够用于任意<span class=math>\(m\times n\)</span>矩阵，而特征分解只能适用于特定类型的方阵，故奇异值分解的适用范围更广。不过，这两个分解之间是有关联的。给定一个<span class=math>\(M\)</span>的奇异值分解，根据上面的论述，两者的关系式如下：</p>
+<p><span class=math>\[
+M^{*} M = V \Sigma^{*} U^{*}\, U \Sigma V^{*} =
+V (\Sigma^{*} \Sigma) V^{*}\,\]</span> <span class=math>\[M M^{*} = U \Sigma V^{*} \, V \Sigma^{*} U^{*} =
+U (\Sigma \Sigma^{*}) U^{*}\,\]</span> 关系式的右边描述了关系式左边的特征值分解。于是：</p>
+<p><span class=math>\(V\)</span>的列向量（右奇异向量）是<span class=math>\(M^{*}M\)</span>的特征向量。</p>
+<p><span class=math>\(U\)</span>的列向量（左奇异向量）是<span class=math>\(MM^{*}\)</span>的特征向量。</p>
+<p><span class=math>\(\Sigma\)</span>的非零对角元（非零奇异值）是<span class=math>\(M^{*}M\)</span>或者<span class=math>\(MM^{*}\)</span>的非零特征值的平方根。</p>
+<p>特殊情况下，当<span class=math>\(M\)</span>是一个<strong>正规矩阵</strong>（因而必须是方阵）根据谱定理，M可以被一组特征向量酉对角化，所以它可以表为： <span class=math>\[M = U D U^\ast\]</span> 其中<span class=math>\(U\)</span>为一个酉矩阵，<span class=math>\(D\)</span>为一个对角阵。如果<span class=math>\(M\)</span>是半正定的，<span class=math>\(M = U D U^\ast\)</span>的分解也是一个奇异值分解。</p>
+<p>然而，一般矩阵的特征分解跟奇异值分解不同。特征分解如下： <span class=math>\[M=UDU^{-1}\]</span> 其中<span class=math>\(U\)</span>是不需要是酉的，<span class=math>\(D\)</span>也不需要是半正定的。而奇异值分解如下： <span class=math>\[M=U\Sigma V^\ast\]</span> 其中<span class=math>\(\Sigma\)</span>是对角半正定矩阵，<span class=math>\(U\)</span>和<span class=math>\(V\)</span>是酉矩阵，两者除了通过矩阵<span class=math>\(M\)</span>没有必然的联系。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -193,12 +292,12 @@ O
 优化理论
 <span class=button_tally>21</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
 <span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
@@ -293,7 +392,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -325,13 +424,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之矩阵的正定性，二次型与合同矩阵>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/ class=nav-link title=线性代数与矩阵之特征值与特征向量>线性代数与矩阵之特征值与特征向量</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/ class=nav-link title=线性代数与矩阵之正交（酉）矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</a>
 </li>
 </ul>
 <div>
@@ -341,12 +440,12 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
 <span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
@@ -455,7 +554,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>

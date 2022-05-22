@@ -197,11 +197,15 @@ c_1&c_2&\cdots&c_n
 \]</span> 注意，此处每一个<span class=math>\(c_j\)</span>是一个<span class=math>\(m\times 1\)</span>的列向量。根据列空间的定义，它是由列向量组张成的空间，<strong>因此这些列向量必然包含列空间的一组基</strong>。</p>
 <p>同时，由于<span class=math>\(y^T c_j=0,j\in \{1,2,\cdots,n\}\)</span>，因此任一列向量与左零空间的向量<span class=math>\(y^T\)</span>都是正交的。又因为列向量必然包含列空间的一组基，那么左零空间中的向量<span class=math>\(y^T\)</span>正交于列空间的一组基，推得<span class=math>\(y^T\)</span>正交于列空间。同时，<span class=math>\(y^T\)</span>又是左零空间中的任意向量，因此左零空间是正交于列空间的。</p>
 <h4 id=子空间互补>子空间互补</h4>
+<blockquote>
+<p>补空间：在数学领域线性代数和泛函分析中，空间<span class=math>\(V\)</span>的子空间<span class=math>\(W\)</span>的正交补是正交于<span class=math>\(W\)</span>中所有向量的所有<span class=math>\(V\)</span>中向量的集合，其张成的空间成为<span class=math>\(W^{\perp}\)</span>，即 <span class=math>\[W^{\perp}=\{x\in V:\forall y\in W,&lt;x,y>=0\}\]</span></p>
+</blockquote>
 <p>我们再联系四个空间秩的关系，有</p>
 <ul>
 <li><span class=math>\(Rank(Raw(A))+Rank(N(A^T))=Rank(Col(A))+Rank(N(A^T))=m\)</span>可知，<span class=math>\(R^m\)</span>被切割成<span class=math>\(R^r\)</span>的列空间和<span class=math>\(R^{m-r}\)</span>的左零空间。也可以说在<span class=math>\(R^m\)</span>中列空间和左零空间<strong>互补</strong>。</li>
 <li><span class=math>\(Rank(Col(A))+Rank(N(A))=Rank(Raw(A))+Rank(N(A))=n\)</span>可知，<span class=math>\(R^n\)</span>被切割成<span class=math>\(R^r\)</span>的行空间和<span class=math>\(R^{n-r}\)</span>的零空间。也可以说在<span class=math>\(R^n\)</span>中行空间和零空间<strong>互补</strong>。</li>
 </ul>
+<p>互补的子空间组合在一起就是完整的空间，这种组合到一起的操作又称直和。</p>
 <h2 id=四类空间与线性方程组的可解性>四类空间与线性方程组的可解性</h2>
 <p>MIT著名的线性代数课程是从线性方程组的解的角度引出四类空间的。会看最初的定义</p>
 <p>矩阵<span class=math>\(A_{m\times n}\)</span>根据横向和纵向，我们可以将其分成列向量组或行向量组</p>
@@ -231,12 +235,12 @@ c_1&c_2&\cdots&c_n
 优化理论
 <span class=button_tally>21</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
 <span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
@@ -331,7 +335,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -363,13 +367,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之矩阵的正定性，二次型与合同矩阵>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/ class=nav-link title=线性代数与矩阵之特征值与特征向量>线性代数与矩阵之特征值与特征向量</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/ class=nav-link title=线性代数与矩阵之正交（酉）矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</a>
 </li>
 </ul>
 <div>
@@ -379,12 +383,12 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
 <span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
@@ -493,7 +497,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>

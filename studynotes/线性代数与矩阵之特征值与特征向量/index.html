@@ -93,10 +93,11 @@ May 16, 2022</span>
 <li><a href=#传统的特征值与特征向量介绍方法>传统的特征值与特征向量介绍方法</a></li>
 <li><a href=#特征向量特殊在哪里>特征向量特殊在哪里</a></li>
 <li><a href=#特征基>特征基</a></li>
-<li><a href=#特征基的存在性>特征基的存在性</a>
+<li><a href=#特征基的存在性与特征子空间>特征基的存在性与特征（子）空间</a>
 <ul>
 <li><a href=#特征值都不相同>特征值都不相同</a></li>
 <li><a href=#特征值重根与特征向量个数>特征值重根与特征向量个数</a></li>
+<li><a href=#特征子空间>特征（子）空间</a></li>
 </ul></li>
 <li><a href=#特征值的一些性质>特征值的一些性质</a></li>
 <li><a href=#特征值分解与矩阵的幂>特征值分解与矩阵的幂</a></li>
@@ -145,7 +146,7 @@ Ax=\lambda x\tag{1}
 </div>
 <p>所以使用特征向量组成的特征基来应对相应的线性变换，可以大大降低计算复杂度，这在求矩阵的幕、图像压缩、解微分方程等领域得到了大量应用，后面我们会举几个例子。</p>
 <p>现在有一个问题，既然特征基那么好用，那么特征基总是存在嘛？换句话说，我们总是能够找到足够多的线性无关的特征向量组成特征基嘛？</p>
-<h3 id=特征基的存在性>特征基的存在性</h3>
+<h3 id=特征基的存在性与特征子空间>特征基的存在性与特征（子）空间</h3>
 <p>一般我们求特征向量的步骤是先根据<span class=math>\(\det(A-\lambda I)=0\)</span>解特征值的一元高次方程，然后在代入<span class=math>\(Ax=\lambda x\)</span>求特征向量。那么 <span class=math>\[\det(A-\lambda I)=0\tag{2}\]</span> 这个式子的解，就决定了特征向量的存在性。我们知道，在复数域下，n次方程必然有n个根，<strong>而有没有重根，将是决定特征基是否存在的关键</strong>。</p>
 <h4 id=特征值都不相同>特征值都不相同</h4>
 <p>对于方程组 <span class=math>\[(A-\lambda I)x=0\]</span> 由于式（2）<span class=math>\(\det(A-\lambda I)=0\)</span>，即<span class=math>\(A-\lambda I\)</span>并不是满秩的（奇异矩阵），由此其必存在至少一维零空间，此时<span class=math>\(x\)</span>是属于零空间的任意向量。</p>
@@ -169,6 +170,11 @@ Ax=\lambda x\tag{1}
 1&2&3\\0&1&1\\0&0&1
 \end{bmatrix}
 \]</span> 这两个矩阵都只有一个线性无关的特征向量。</p>
+<h4 id=特征子空间>特征（子）空间</h4>
+<p>我们将所有有着<strong>相同特征值的特征向量组成的空间，还包括零向量</strong>（但要注意零向量本身不是特征向量），叫做一个特征（子）空间。也可以说是相同特征值所对应的特征向量张成的（子）空间。矩阵<span class=math>\(A\)</span>有多少个不同特征值，就有多少个特征子空间。</p>
+<p>由于特征子空间具有<strong>几何特性</strong>，我们将特征子空间的维度成为<strong>几何重数</strong>，而特征值的重数是<strong>方程解出来的，具有代数特征</strong>，我们称特征值的重数为<strong>代数重数</strong>。</p>
+<p>我们知道行列式<span class=math>\(\det(A-\lambda I)=0\)</span>，特征子空间作为<span class=math>\((A-\lambda I)x=0\)</span>的零空间必然有解，因此特征空间的维度必然是大于等于1。如果特征值重数是1，那么特征空间的维度必然等于1。而对于特征值根的重数大于1（即代数重数大于1），特征空间的维度取决于<span class=math>\((A-\lambda I)x=0\)</span>的零空间的维度，此维度小于代数重数，即有<span class=math>\(1\leq 几何充数 \leq 代数重数\)</span>。</p>
+<p>如果矩阵<span class=math>\(A\)</span>各特征子空间的直和等于原完整空间<span class=math>\(V^n\)</span>，那么<span class=math>\(A\)</span>就有了<span class=math>\(n\)</span>个线性无关的特征向量，此时这些特征向量可以构成一组特征基。</p>
 <h2 id=特征值的一些性质>特征值的一些性质</h2>
 <p>说了那么久的特征向量，我们再来看看特征值。特征值算是特征向量的副产品，虽然说我们在求解的时候通常是先求特征值，再求特征向量。</p>
 <p>特征值几个常见的性质如下：</p>
@@ -183,6 +189,7 @@ f(\lambda)=(\lambda_1-\lambda)(\lambda_2-\lambda)\dotsb(\lambda_n-\lambda)
 <p>性质3：若<span class=math>\(λ\)</span>是可逆阵<span class=math>\(A\)</span>的一个特征根，<span class=math>\(x\)</span>为对应的特征向量，则<span class=math>\(1/λ\)</span>是<span class=math>\(A\)</span>的逆的一个特征根，<span class=math>\(x\)</span>仍为对应的特征向量。</p>
 </blockquote>
 <p>证明：若<span class=math>\(x\)</span>为<span class=math>\(A\)</span>对应的一个特征向量，<span class=math>\(Ax=\lambda x\Rightarrow A^{-1}Ax=A^{-1}\lambda x\Rightarrow Ix=\lambda A^{-1}x\Rightarrow 1/\lambda x=A^{-1}x\)</span>。得证。</p>
+<p>另外，如果某个特征值为0，说明矩阵<span class=math>\(A\)</span>是奇异矩阵，特征向量<span class=math>\(x\)</span>为了满足<span class=math>\(Ax=0\)</span>必须位于<span class=math>\(A\)</span>的零空间内。在不可逆矩阵中，特征值就不能套用上面的性质。</p>
 <blockquote>
 <p>性质4：若<span class=math>\(λ\)</span>是方阵A的一个特征根，<span class=math>\(x\)</span>为对应的特征向量，则<span class=math>\(λ\)</span>的<span class=math>\(m\)</span>次方是<span class=math>\(A\)</span>的<span class=math>\(m\)</span>次方的一个特征根，<span class=math>\(x\)</span>仍为对应的特征向量。</p>
 </blockquote>
@@ -191,7 +198,10 @@ f(\lambda)=(\lambda_1-\lambda)(\lambda_2-\lambda)\dotsb(\lambda_n-\lambda)
 <p>性质5：矩阵<span class=math>\(A\)</span>与<span class=math>\(A^T\)</span>拥有相同的特征值。</p>
 </blockquote>
 <p>证明：我们通过行列式<span class=math>\(\det(A-\lambda I)\)</span>计算得到矩阵<span class=math>\(A\)</span>的特征值，根据行列式转置不变的性质，我们有<span class=math>\(\det(A-\lambda I)=\det(A-\lambda I)^T=\det(A^T-\lambda I^T)=\det(A^T-\lambda I)\)</span>，即为<span class=math>\(A^T\)</span>计算特征值的行列式。因此，矩阵<span class=math>\(A\)</span>与<span class=math>\(A^T\)</span>拥有相同的特征值。</p>
-<p>另外，如果特征值为0，说明矩阵<span class=math>\(A\)</span>是奇异矩阵，特征向量<span class=math>\(x\)</span>为了满足<span class=math>\(Ax=0\)</span>必须位于<span class=math>\(A\)</span>的零空间内。</p>
+<blockquote>
+<p>性质6：对于任何实数矩阵，如果其特征值为实数，那么特征向量是实向量。</p>
+</blockquote>
+<p>证明：我们从矩阵的空间来理解比较容易。对于<span class=math>\(n\)</span>阶实数矩阵而言，它是代表<span class=math>\(\R^n\)</span>空间中的线性变换，这意味着任意<span class=math>\(\R^n\)</span>中的向量，经过矩阵变换之后必然仍然在<span class=math>\(\R^n\)</span>空间中。对于矩阵<span class=math>\(A\)</span>，其求特征值所用的行列式所代表的矩阵<span class=math>\(A-\lambda I\)</span>，如果也是实数矩阵，那么也是<span class=math>\(\R^n\)</span>空间中的线性变换，同样也要满足<span class=math>\(\R^n\)</span>线性空间中的变换的封闭性。而当特征值<span class=math>\(\lambda\)</span>为实数时，<span class=math>\(A-\lambda I\)</span>显然也是实数矩阵，那么特征向量<span class=math>\(x\)</span>使得<span class=math>\((A-\lambda I)x=0\)</span>就位于<span class=math>\(A-\lambda I\)</span>的零空间中。矩阵的零空间<span class=math>\(N(A)\)</span>和矩阵的行空间<span class=math>\(Raw(A)\)</span>是<span class=math>\(\R^n\)</span>中互补的两个子空间，因此<span class=math>\(N(A),Raw(A)\)</span>都是实数向量的空间，因此位于零空间<span class=math>\(N(A)\)</span>中的特征向量必然也是实数向量。</p>
 <h2 id=特征值分解与矩阵的幂>特征值分解与矩阵的幂</h2>
 <p>如果我们有了<span class=math>\(n\)</span>个线性无关的特征向量，那么我们能够做一些新的改变，我们将矩阵<span class=math>\(A\)</span>的具有<span class=math>\(n\)</span>个线性无关的特征向量<span class=math>\(q_i\)</span>作为列向量，组成一个可逆方阵<span class=math>\(Q\)</span>： <span class=math>\[
 Q=[q_1,q_2,\dotsb,q_n]
@@ -203,13 +213,17 @@ AQ=A[q_1,q_2,\dotsb,q_n]=[\lambda_1 q_1,\lambda_2 q_2,\dotsb,\lambda_n q_n]\\
 \vdots&\vdots&\ddots&\vdots\\
 0&0&\dotsb&\lambda_1\\
 \end{bmatrix}=Q\Lambda
-\]</span> 这里的矩阵<span class=math>\(\Lambda\)</span>为对角阵，它的非零元素就是矩阵<span class=math>\(A\)</span>的特征值。因为矩阵<span class=math>\(Q\)</span>中的列向量线性无关，因此逆矩阵<span class=math>\(Q^{-1}\)</span>存在。在等式两侧左乘逆矩阵<span class=math>\(Q^{-1}\)</span>，得到<span class=math>\(\Lambda=Q^{-1}AQ\)</span>。相应地，<span class=math>\(A=Q\Lambda Q^{-1}\)</span>。我们称之为矩阵的<strong>特征分解</strong>。</p>
+\]</span> 这里的矩阵<span class=math>\(\Lambda\)</span>为对角阵，它的非零元素就是矩阵<span class=math>\(A\)</span>的特征值。因为矩阵<span class=math>\(Q\)</span>中的列向量线性无关，因此逆矩阵<span class=math>\(Q^{-1}\)</span>存在。在等式两侧左乘逆矩阵<span class=math>\(Q^{-1}\)</span>，得到<span class=math>\(\Lambda=Q^{-1}AQ\)</span>。相应地，<span class=math>\(A=Q\Lambda Q^{-1}\)</span>。我们称之为矩阵的<strong>特征分解</strong>，特征分解的过程也称为<strong>相似对角化</strong>。</p>
 <blockquote>
 <p>特征分解（Eigendecomposition），又称谱分解（Spectral decomposition）是将矩阵分解为由其特征值和特征向量表示的矩阵之积的方法。 <span class=math>\(A\)</span>可以被分解为<span class=math>\(A=Q\Lambda {Q}^{-1}\)</span>，其中<span class=math>\(Q\)</span>是<span class=math>\(N×N\)</span>方阵，且其第<span class=math>\(i\)</span>列为<span class=math>\(A\)</span>的特征向量<span class=math>\(q_i\)</span>。<span class=math>\(Λ\)</span>是对角矩阵，其对角线上的元素为对应的特征值，也即<span class=math>\(\Lambda_{ii}=\lambda_i\)</span>。</p>
 </blockquote>
 <p>由于<span class=math>\(Q\)</span>是由特征向量组成的矩阵，并且可逆，因此<span class=math>\(Q\)</span>的必然是非奇异矩阵，它的列向量组必然是线性无关的。这也推出了矩阵可特征值分解的一个充要条件：</p>
 <blockquote>
-<p><span class=math>\(A\)</span>有<span class=math>\(n\)</span>个线性无关的特征向量<span class=math>\(\Leftrightarrow\)</span>矩阵<span class=math>\(A\)</span>可特征值分解。</p>
+<p>定理：矩阵<span class=math>\(A\)</span>有<span class=math>\(n\)</span>个线性无关的特征向量<span class=math>\(\Leftrightarrow\)</span>矩阵<span class=math>\(A\)</span>可特征值分解。</p>
+</blockquote>
+<p>在联合之前特征基、特征子空间、代数重数、几何重数的概念，我们将上述定理做出推广：</p>
+<blockquote>
+<p>推论：矩阵<span class=math>\(A\)</span>有<span class=math>\(n\)</span>个线性无关的特征向量<span class=math>\(\Leftrightarrow\)</span>矩阵<span class=math>\(A\)</span>存在一组特征基<span class=math>\(\Leftrightarrow\)</span>矩阵<span class=math>\(A\)</span>所有的特征值的几何重数等于代数重数<span class=math>\(\Leftrightarrow\)</span>矩阵<span class=math>\(A\)</span>所以特征子空间的直和为完整空间<span class=math>\(\Leftrightarrow\)</span>矩阵<span class=math>\(A\)</span>可特征值分解</p>
 </blockquote>
 <p>需要注意的是，<strong>可特征值分解和矩阵<span class=math>\(A\)</span>本身是不是非奇异无关，只和<span class=math>\(A\)</span>的特征值数量有关</strong>，奇异矩阵也可能有特征值分解，如下例： <span class=math>\[
 A=\begin{bmatrix}
@@ -260,12 +274,12 @@ P^2=P
 优化理论
 <span class=button_tally>21</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
 <span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
@@ -360,7 +374,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
@@ -392,13 +406,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之矩阵的正定性，二次型与合同矩阵>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/ class=nav-link title=线性代数与矩阵之正交（酉）矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%8A%95%E5%BD%B1%E4%B8%8E%E5%AD%90%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之投影与子空间>线性代数与矩阵之投影与子空间</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
 </li>
 </ul>
 <div>
@@ -408,12 +422,12 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
 <span class=button_tally>17</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
@@ -522,7 +536,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=17 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>

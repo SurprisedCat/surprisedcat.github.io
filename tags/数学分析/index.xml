@@ -1,18 +1,89 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数学分析 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/</link><description>Recent content in 数学分析 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之投影内积和傅里叶级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8A%95%E5%BD%B1%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</link><pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%8A%95%E5%BD%B1%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数学分析 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/</link><description>Recent content in 数学分析 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之投影内积和傅里叶级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</link><pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</guid><description>
 &lt;h2 id="数学分析之投影内积和傅里叶级数">数学分析之投影内积和傅里叶级数&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="#内积点积">内积（点积）&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#性质">性质&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#推广">推广&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#内积点积传统定义">内积（点积）传统定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#性质">性质&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#基本运算规则">基本运算规则&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#空间关系">空间关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#内积与投影">内积与投影&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#内积的推广">内积的推广&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#复数的内积">复数的内积&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#矩阵的内积">矩阵的内积&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#函数的内积">函数的内积&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#从内积角度理解傅里叶级数">从内积角度理解傅里叶级数&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="内积点积">内积（点积）&lt;/h2>
+&lt;p>点积是线性代数、矩阵论中常用的概念，我们最开始学习的点积就是向量空间中的点积，但是内积在其他领域比如复数、矩阵、函数中也是有定义的，本笔记将介绍内积及其拓展。&lt;/p>
+&lt;h2 id="内积点积传统定义">内积（点积）传统定义&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>点积（Dot Product）又称数量积或标量积&lt;/strong>，是一种接受两个等长的数字序列（通常是坐标向量）、返回单个数字的代数运算。&lt;/p>
+&lt;/blockquote>
+&lt;p>在欧几里得几何中，两个笛卡尔坐标向量的点积常称为内积。点积的名称源自表示点乘运算的点号（&lt;span class="math">\(a\cdot b\)&lt;/span>），读作&lt;span class="math">\(a\ dot\ b\)&lt;/span>，标量积的叫法则是在强调其运算结果为标量而非向量。&lt;/p>
+&lt;p>从代数角度看，先对两个数字序列中的&lt;strong>每组对应元素求积，再对所有积求和&lt;/strong>，结果即为点积。从几何角度看，点积则是&lt;strong>两个向量的长度与它们夹角余弦的积&lt;/strong>。这两种定义在笛卡尔坐标系中等价。&lt;/p>
+&lt;p>代数角度，点积表示为： &lt;span class="math">\({\vec{a}}=[a_{1},a_{2},\cdots ,a_{n}]\)&lt;/span>和&lt;span class="math">\({\vec{b}}=[b_{1},b_{2},\cdots ,b_{n}]\)&lt;/span>的点积定义为： &lt;span class="math">\[
+\vec{a}\cdot \vec{b} = \sum_{i=1}^n a_ib_i = a_1b_1 + a_2b_2 + \cdots + a_nb_n
+\]&lt;/span> 点积还可以写为向量积的形式（注意这里的向量都是行向量，很多文章中默认向量是列向量）： &lt;span class="math">\[{\vec{a}}\cdot {\vec{b}}={\vec{a}}{\vec{b}}^{T}
+\]&lt;/span> 几何角度，在欧几里得空间中，点积可以直观地定义为 &lt;span class="math">\[\vec{a} \cdot \vec{b} = |\vec{a}| \, |\vec{b}| \cos \theta \;\]&lt;/span> 这里&lt;span class="math">\(|\vec{x}|\)&lt;/span> 表示&lt;span class="math">\(\vec{x}\)&lt;/span>的模（长度），&lt;span class="math">\(\theta\)&lt;/span>表示两个向量之间的角度。&lt;/p>
 &lt;h3 id="性质">性质&lt;/h3>
-&lt;h3 id="推广">推广&lt;/h3>
-&lt;p>矩阵、复数、函数&lt;/p>
-&lt;h3 id="矩阵内积是投影">矩阵内积是投影&lt;!-- omit in toc -->&lt;/h3>
-&lt;h3 id="从内积角度理解傅里叶级数">从内积角度理解傅里叶级数&lt;/h3>
-&lt;p>傅里叶级数是函数在cos nx与sin nx上的投影&lt;/p></description></item><item><title>数学分析之泰勒级数与高阶中值定理</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</link><pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</guid><description>
+&lt;h4 id="基本运算规则">基本运算规则&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>满足交换律。&lt;span class="math">\({\vec {a}}\cdot {\vec {b}}={\vec {b}}\cdot {\vec {a}}\)&lt;/span>&lt;/li>
+&lt;li>对向量加法满足分配律。&lt;span class="math">\(\vec{a} \cdot (\vec{b} + \vec{c}) = \vec{a} \cdot \vec{b} + \vec{a} \cdot \vec{c}\)&lt;/span>&lt;/li>
+&lt;li>点积是双线性算子。&lt;span class="math">\({\vec {a}}\cdot (r{\vec {b}}+{\vec {c}})=r({\vec {a}}\cdot {\vec {b}})+({\vec {a}}\cdot {\vec {c}})\)&lt;/span>&lt;/li>
+&lt;li>在乘以标量时满足：&lt;span class="math">\((c_1\vec{a}) \cdot (c_2\vec{b}) = (c_1c_2) (\vec{a} \cdot \vec{b})\)&lt;/span>&lt;/li>
+&lt;li>不满足结合律！不满足结合律！不满足结合律！&lt;/li>
+&lt;li>正交性：两个非零向量&lt;span class="math">\(\vec{a}\)&lt;/span>和&lt;span class="math">\(\vec{b}\)&lt;/span>是正交的，当且仅当&lt;span class="math">\({\vec{a}}\cdot {\vec{b}}=0\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;h4 id="空间关系">空间关系&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>线性空间+点积=内积空间。&lt;/li>
+&lt;li>内积空间必为线性赋范空间，但线性赋范空间不一定是内积空间，因为可以通过点积定义范数，但是单单范数无法引入角度概念，定义不了内积。&lt;/li>
+&lt;li>内积空间+完备性=希尔伯特空间&lt;/li>
+&lt;/ol>
+&lt;h4 id="内积与投影">内积与投影&lt;/h4>
+&lt;p>欧氏空间中向量&lt;span class="math">\(\vec A\)&lt;/span>在向量&lt;span class="math">\(\vec B\)&lt;/span>上的标量投影是指 &lt;span class="math">\[
+\vec A_B=|\vec A|\cos\theta
+\]&lt;/span> 这里&lt;span class="math">\(\theta\)&lt;/span>是&lt;span class="math">\(\vec A\)&lt;/span>和&lt;span class="math">\(\vec B\)&lt;/span>的夹角。从点积的几何定义&lt;span class="math">\(\vec A\cdot\vec B=|\vec{A}||\vec{B}|\cos\theta\)&lt;/span>不难得出，两个向量的点积：&lt;span class="math">\(\vec A\cdot\vec B\)&lt;/span>可以理解为向量&lt;span class="math">\(\vec A\)&lt;/span>在向量&lt;span class="math">\(\vec B\)&lt;/span>上的投影再乘以&lt;span class="math">\(\vec B\)&lt;/span>的长度。&lt;/p>
+&lt;p>![内积与投影.gif(/images/内积与投影.gif)&lt;/p>
+&lt;h2 id="内积的推广">内积的推广&lt;/h2>
+&lt;p>传统的内积定义环境都是实数线性空间，如欧几里得空间，然而内积不仅仅可以定义在实数线性空间上，还可以定义在其他空间，同时满足已有的内积性质。&lt;/p>
+&lt;h3 id="复数的内积">复数的内积&lt;/h3>
+&lt;p>复数内积与实数内积的区别就是做二者乘法的时候需要加&lt;strong>共轭&lt;/strong>，如果不加共轭，内积的性质就会变得完全不一样： &lt;span class="math">\[
+\vec{a} \cdot \vec{b} =\sum _{i}{{a_{i}}\,{\overline {b_{i}}}}
+\]&lt;/span> 其中，&lt;span class="math">\({\overline {b_{i}}}\)&lt;/span>表示&lt;span class="math">\(b_i\)&lt;/span>的共轭。写出向量乘积形式为： &lt;span class="math">\[
+\vec{a} \cdot \vec{b} =\vec{b} ^{\mathsf {H}}\vec{a}
+\]&lt;/span> 相应的，两个复向量的夹角&lt;span class="math">\(\theta\)&lt;/span>也定义为： &lt;span class="math">\[
+\cos \theta ={\frac {\operatorname {Re} (\vec{a} \cdot \vec{b} )}{\|\vec{a}\| \|\vec{b}\|}}.
+\]&lt;/span>&lt;/p>
+&lt;h3 id="矩阵的内积">矩阵的内积&lt;/h3>
+&lt;p>矩阵具有弗罗比尼乌斯内积，可以类比于向量的内积。它被定义为两个相同大小的矩阵&lt;span class="math">\(\mathbf {A}\)&lt;/span>和&lt;span class="math">\(\mathbf {B}\)&lt;/span>的对应元素的内积之和。&lt;/p>
+&lt;p>复矩阵情况下： &lt;span class="math">\[
+\mathbf {A} :\mathbf {B} =\sum_{i}\sum_{j}A_{ij}{\overline {B_{ij}}}=\mathrm {tr} (\mathbf {B} ^{\mathrm {H} }\mathbf {A} )=\mathrm {tr} (\mathbf {A} \mathbf {B} ^{\mathrm {H} })
+\]&lt;/span> 实矩阵情况下： &lt;span class="math">\[
+\mathbf {A} :\mathbf {B} =\sum_{i}\sum_{j}A_{ij}B_{ij}=\mathrm {tr} (\mathbf {B} ^{\mathrm {T} }\mathbf {A} )=\mathrm {tr} (\mathbf {A} \mathbf {B} ^{\mathrm {T} })=\mathrm {tr} (\mathbf {A} ^{\mathrm {T} }\mathbf {B} )=\mathrm {tr} (\mathbf {B} \mathbf {A} ^{\mathrm {T} })
+\]&lt;/span>&lt;/p>
+&lt;h3 id="函数的内积">函数的内积&lt;/h3>
+&lt;p>函数内积是离散维度往连续维度的延拓。内积的核心过程是&lt;strong>对应元素求积再累加&lt;/strong>。对于可积且平方可积（平方可积是为了&lt;span class="math">\(f(x)=g(x)\)&lt;/span>情形）函数例如&lt;span class="math">\(f(x),g(x)\)&lt;/span>而言，对应元素求积好办，只要二者相乘&lt;span class="math">\(f(x)g(x)\)&lt;/span>就行，离散场景的求和进入到连续场景就是&lt;strong>求积分&lt;/strong>，因此我们可以将函数的内积定义为： &lt;span class="math">\[
+&amp;lt;f(x),g(x)&amp;gt;=\int f(x)g(x)\mathrm{d}x
+\]&lt;/span> 然而，到这里还没有结束。我们在内积的时累加指的是所有维度的累加，而函数的所有维度是什么呢？是它的定义域&lt;span class="math">\(\mathbf{D}\)&lt;/span>，因此我们还要在上述积分中添加积分域： &lt;span class="math">\[
+&amp;lt;f(x),g(x)&amp;gt;=\int_{\mathbf{D}} f(x)g(x)\mathrm{d}x
+\]&lt;/span> 注意，这里要求两个函数必须可积且平方可积。容易验证，函数内积的定义也满足传统内积的性质。&lt;/p>
+&lt;h2 id="从内积角度理解傅里叶级数">从内积角度理解傅里叶级数&lt;/h2>
+&lt;p>我们在笔记&lt;a href="线性代数与矩阵之理解向量、线性变换与矩阵乘法.md">线性代数与矩阵之理解向量、线性变换与矩阵乘法&lt;/a>了解到，空间中任意向量都可以拆解成空间中一组基来表示，如果这组基是标准正交基是最好了。那么，自变量&lt;span class="math">\(x\)&lt;/span>所有函数组成的集合是不是也是一种空间呢？答案是肯定的。&lt;/p>
+&lt;p>既然所有的函数组成了一个空间，那么我们是否也能找到一组标准正交基呢？傅里叶用傅里叶级数和傅里叶变换给我们答案。我们可以对任意函数做傅里叶展开，得到表达式： &lt;span class="math">\[
+f(x)=a_0+a_1 \cos x+b_1\sin x+a_2 \cos 2x+b_2\sin 2x+\dotsb
+\]&lt;/span> 与之前的有限个标准正交向量组成的正交矩阵不同，这个空间是无限维，它的一组基是&lt;span class="math">\(1，\cos x，\sin x，\cos 2x，\sin 2x\dotsb\)&lt;/span>。我们计算基的任意两个分量，可验证其正交性： &lt;span class="math">\[
+\int_0^{2\pi}\sin mx\cos nx \mathrm{d}x=0(n\neq m)
+\]&lt;/span> 我们知道，在基分量上的系数等于在其上的投影大小，因此采用和标准正交基相似的内积运算可以得到傅里叶变换的参数。我们以&lt;span class="math">\(a_1\)&lt;/span>为例： &lt;span class="math">\[
+\begin{aligned}
+&amp;lt;f(x),\cos x&amp;gt;&amp;amp;=\int_0^{2\pi} f(x) \cos x\mathrm{d}x\\
+&amp;amp;=\int_0^{2\pi} (a_0+a_1 \cos x+b_1\sin x+a_2 \cos 2x+b_2\sin 2x+\dotsb) \cos x\\
+&amp;amp;=0+\int_0^{2\pi} a_1 \cos^2 x\mathrm{d}x+0+0+\dotsb\\
+&amp;amp;=a_1\pi
+\end{aligned}
+\]&lt;/span> 可以得到&lt;span class="math">\(a_1=\frac{1}{\pi}&amp;lt;f(x),\cos x&amp;gt;=\frac{1}{\pi}\int_0^{2\pi} f(x) \cos x\mathrm{d}x\)&lt;/span>，同理可以求得其它参数。我们这样就得到了一组傅里叶基下的函数表示形式。&lt;strong>也就是说傅里叶级数的系数是函数在&lt;span class="math">\(\cos nx\)&lt;/span>与&lt;span class="math">\(\sin nx\)&lt;/span>上的投影&lt;/strong>。&lt;/p>
+&lt;p>当函数&lt;span class="math">\(f(x)\)&lt;/span>是周期函数时，我们可以采用最小周期与函数相同的三角函数作为基的开始，然后其他的基周期分别为函数周期的&lt;span class="math">\(1/2,1/3,\dotsb,1/n,\dotsb\)&lt;/span>。当函数从周期函数变成非周期函数时，我们可以当成是周期无穷的周期函数，此时三角函数的间隔就会趋于0，函数的基也从离散无穷变成连续无穷，即由傅里叶级数变成傅里叶编号。&lt;/p></description></item><item><title>数学分析之泰勒级数与高阶中值定理</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</link><pubDate>Tue, 17 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E4%B8%8E%E9%AB%98%E9%98%B6%E4%B8%AD%E5%80%BC%E5%AE%9A%E7%90%86/</guid><description>
 &lt;h2 id="泰勒级数与高阶中值定理">泰勒级数与高阶中值定理&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#费马引理">费马引理&lt;/a>&lt;/li>
