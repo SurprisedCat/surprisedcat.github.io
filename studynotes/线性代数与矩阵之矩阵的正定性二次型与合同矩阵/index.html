@@ -91,8 +91,10 @@ May 20, 2022</span>
 <h2 id=线性代数与矩阵之矩阵的正定性二次型与合同矩阵>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</h2>
 <ul>
 <li><a href=#对称埃米特矩阵与正定性>对称（埃米特）矩阵与正定性</a></li>
+<li><a href=#正定矩阵性质>正定矩阵性质</a></li>
 <li><a href=#二次型与最小值>二次型与最小值</a></li>
-<li><a href=#合同矩阵>合同矩阵</a></li>
+<li><a href=#合同矩阵了解>合同矩阵（了解）</a></li>
+<li><a href=#合同性质>合同性质</a></li>
 </ul>
 <p>我们在对称矩阵的基础上定义了正定、半正定、负定、半负定的概念。</p>
 <h2 id=对称埃米特矩阵与正定性>对称（埃米特）矩阵与正定性</h2>
@@ -122,10 +124,54 @@ May 20, 2022</span>
 \]</span> 显然，其主元、特征值都是1，顺序主子式也都大于0，但是对于<span class=math>\(x^TAx\)</span>，我们随便找一个向量<span class=math>\(x=[1,1]^T\)</span>，则 <span class=math>\[
 [1\quad 1]\begin{bmatrix}1&-100\\0&1\end{bmatrix}\begin{bmatrix}1\\1\end{bmatrix}=-98&lt;0
 \]</span> 这并不满足<span class=math>\(x^TAX>0\)</span>。这说明，<strong>正定性必须建立在对称矩阵上</strong>。</p>
+<h3 id=正定矩阵性质>正定矩阵性质</h3>
+<ol style=list-style-type:decimal>
+<li>矩阵<span class=math>\(A\)</span>是正定矩阵，它的逆矩阵<span class=math>\(A^{-1}\)</span>也是正定矩阵。因为逆矩阵的特征值是原矩阵的倒数<span class=math>\(1\over \lambda\)</span>，因此也都是正数。</li>
+<li>矩阵<span class=math>\(A,B\)</span>是正定矩阵，那么<span class=math>\(A+B\)</span>也是正定矩阵。证明：<span class=math>\(x^T(A+B)x=x^TAx+x^TBx>0\)</span></li>
+<li>如果<span class=math>\(A\)</span>是一个<span class=math>\(m×n\)</span>长方形矩阵，则<span class=math>\(A^TA\)</span>是对称方阵，且一定半正定。证明：<span class=math>\(x^TA^TAx=(Ax)^TAx=|Ax|^2\geq 0\)</span>。当<span class=math>\(A\)</span>的秩为<span class=math>\(n\)</span>时，<span class=math>\(A^TA\)</span>为秩为<span class=math>\(n\)</span>的<span class=math>\(n\)</span>阶方阵，此时<span class=math>\(A^TA\)</span>的零空间为零维空间，此时<span class=math>\(A^TA\)</span>为正定矩阵。</li>
+</ol>
 <h2 id=二次型与最小值>二次型与最小值</h2>
-<p>TODO</p>
-<h2 id=合同矩阵>合同矩阵</h2>
-<p>TODO</p>
+<p>有了对称矩阵和定义在对称矩阵上的正定矩阵，我们由<span class=math>\(x^TAx\)</span>引出二次型的概念。所谓“二次型”就是多元二次函数的矩阵表示形态，但是这个多元二次函数只包含二次项不包含一次项和常数项。这是因为在高阶多项式中，主要性质大多由最高阶项决定。</p>
+<blockquote>
+<p>二次型：对<span class=math>\(n\)</span>维实向量<span class=math>\(x∈R^n\)</span><span class=math>\(n\)</span>阶实对称阵<span class=math>\(A\)</span>，<span class=math>\(f(\vec x)=\vec x^TA\vec x\)</span>称为二次型。复数域上变为共轭转置即可。</p>
+</blockquote>
+<p>由二项式展开式： <span class=math>\[
+\begin{aligned}
+f(x_1,x_2,\dotsb,x_n)&=c_{11}x_1^2+c_{22}x_2^2+\dotsb+c_{nn}x_n^2\\
+&+c_{12}x_1x_2+c_{13}x_1x_3+\dotsb+c_{1n}x_1x_n\\
+&+\dotsb+c_{n-1,n}x_{n-1}x_n
+\end{aligned}
+\]</span> 与二次型<span class=math>\(f(\vec x)=\vec x^TA\vec x\)</span>关系可知，其系数矩阵<span class=math>\(A\)</span>与二项式系数关系为： <span class=math>\[
+A=\begin{bmatrix}
+c_{11}&0.5c_{12}&0.5c_{13}&\dotsb&0.5c_{1,n}\\
+c_{21}&c_{22}&0.5c_{23}&\dotsb&0.5c_{2,n}\\
+\vdots&\vdots&\vdots&\ddots&\vdots&\\
+0.15c_{1,n}&0.5c_{2,n}&0.5c_{3,n}&\dotsb&c_{n,n}\\
+\end{bmatrix}
+\]</span> 显然，矩阵<span class=math>\(A\)</span>是对称矩阵。当<span class=math>\(A\)</span>是（半）正定矩阵时，二次型有最小值；当<span class=math>\(A\)</span>是（半）负定矩阵时二次型有最大值。</p>
+<div class=figure>
+<img src=../../images/正定负定不定半正定.png alt=正定负定不定半正定.png><p class=caption>正定负定不定半正定.png</p>
+</div>
+<h2 id=合同矩阵了解>合同矩阵（了解）</h2>
+<p>合同矩阵，在线性代数，特别是二次型理论中，常常用到矩阵间的合同关系。</p>
+<blockquote>
+<p>合同矩阵：设<span class=math>\(A,B\)</span>是两个<span class=math>\(n\)</span>阶方阵，若存在可逆矩阵<span class=math>\(C\)</span>，使得： <span class=math>\[B=C^TAC\]</span> 则称方阵<span class=math>\(A\)</span>与<span class=math>\(B\)</span>合同，记作<span class=math>\(A≃B\)</span>。</p>
+</blockquote>
+<h3 id=合同性质>合同性质</h3>
+<p>合同关系是一个<strong>等价关系</strong>，也就是说满足：</p>
+<ol style=list-style-type:decimal>
+<li>反身性：任意矩阵都与其自身合同；</li>
+<li>对称性：<span class=math>\(A\)</span>合同于<span class=math>\(B\)</span>，则可以推出<span class=math>\(B\)</span>合同于<span class=math>\(A\)</span>；</li>
+<li>传递性：<span class=math>\(A\)</span>合同于<span class=math>\(B\)</span>，<span class=math>\(B\)</span>合同于<span class=math>\(C\)</span>，则可以推出<span class=math>\(A\)</span>合同于<span class=math>\(C\)</span>；</li>
+<li>此外，由于<span class=math>\(B=C^TAC\)</span>中，要求<span class=math>\(C\)</span>可逆，所以合同矩阵的秩相同。</li>
+</ol>
+<p>两个实对称矩阵合同的充要条件是<strong>它们的正负惯性指数相同</strong>。</p>
+<p>其中，提到了正负惯性指数，是指：</p>
+<blockquote>
+<p>正惯性指数，简称正惯数，是线性代数里矩阵的<strong>正的特征值个数</strong>，也即是规范型里的系数"1"的个数。</p>
+</blockquote>
+<p>实二次型的标准形中，系数为正的平方项的个数等于二次型的正惯性指数。</p>
+<p>此外，合同变化与二次型的化简有关。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

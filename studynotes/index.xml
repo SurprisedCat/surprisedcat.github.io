@@ -2,8 +2,10 @@
 &lt;h2 id="线性代数与矩阵之矩阵的正定性二次型与合同矩阵">线性代数与矩阵之矩阵的正定性，二次型与合同矩阵&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#对称埃米特矩阵与正定性">对称（埃米特）矩阵与正定性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正定矩阵性质">正定矩阵性质&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#二次型与最小值">二次型与最小值&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#合同矩阵">合同矩阵&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#合同矩阵了解">合同矩阵（了解）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#合同性质">合同性质&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>我们在对称矩阵的基础上定义了正定、半正定、负定、半负定的概念。&lt;/p>
 &lt;h2 id="对称埃米特矩阵与正定性">对称（埃米特）矩阵与正定性&lt;/h2>
@@ -33,10 +35,54 @@
 \]&lt;/span> 显然，其主元、特征值都是1，顺序主子式也都大于0，但是对于&lt;span class="math">\(x^TAx\)&lt;/span>，我们随便找一个向量&lt;span class="math">\(x=[1,1]^T\)&lt;/span>，则 &lt;span class="math">\[
 [1\quad 1]\begin{bmatrix}1&amp;amp;-100\\0&amp;amp;1\end{bmatrix}\begin{bmatrix}1\\1\end{bmatrix}=-98&amp;lt;0
 \]&lt;/span> 这并不满足&lt;span class="math">\(x^TAX&amp;gt;0\)&lt;/span>。这说明，&lt;strong>正定性必须建立在对称矩阵上&lt;/strong>。&lt;/p>
+&lt;h3 id="正定矩阵性质">正定矩阵性质&lt;/h3>
+&lt;ol style="list-style-type: decimal">
+&lt;li>矩阵&lt;span class="math">\(A\)&lt;/span>是正定矩阵，它的逆矩阵&lt;span class="math">\(A^{-1}\)&lt;/span>也是正定矩阵。因为逆矩阵的特征值是原矩阵的倒数&lt;span class="math">\(1\over \lambda\)&lt;/span>，因此也都是正数。&lt;/li>
+&lt;li>矩阵&lt;span class="math">\(A,B\)&lt;/span>是正定矩阵，那么&lt;span class="math">\(A+B\)&lt;/span>也是正定矩阵。证明：&lt;span class="math">\(x^T(A+B)x=x^TAx+x^TBx&amp;gt;0\)&lt;/span>&lt;/li>
+&lt;li>如果&lt;span class="math">\(A\)&lt;/span>是一个&lt;span class="math">\(m×n\)&lt;/span>长方形矩阵，则&lt;span class="math">\(A^TA\)&lt;/span>是对称方阵，且一定半正定。证明：&lt;span class="math">\(x^TA^TAx=(Ax)^TAx=|Ax|^2\geq 0\)&lt;/span>。当&lt;span class="math">\(A\)&lt;/span>的秩为&lt;span class="math">\(n\)&lt;/span>时，&lt;span class="math">\(A^TA\)&lt;/span>为秩为&lt;span class="math">\(n\)&lt;/span>的&lt;span class="math">\(n\)&lt;/span>阶方阵，此时&lt;span class="math">\(A^TA\)&lt;/span>的零空间为零维空间，此时&lt;span class="math">\(A^TA\)&lt;/span>为正定矩阵。&lt;/li>
+&lt;/ol>
 &lt;h2 id="二次型与最小值">二次型与最小值&lt;/h2>
-&lt;p>TODO&lt;/p>
-&lt;h2 id="合同矩阵">合同矩阵&lt;/h2>
-&lt;p>TODO&lt;/p></description></item><item><title>线性代数与矩阵之特征值与特征向量</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/</link><pubDate>Mon, 16 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/</guid><description>
+&lt;p>有了对称矩阵和定义在对称矩阵上的正定矩阵，我们由&lt;span class="math">\(x^TAx\)&lt;/span>引出二次型的概念。所谓“二次型”就是多元二次函数的矩阵表示形态，但是这个多元二次函数只包含二次项不包含一次项和常数项。这是因为在高阶多项式中，主要性质大多由最高阶项决定。&lt;/p>
+&lt;blockquote>
+&lt;p>二次型：对&lt;span class="math">\(n\)&lt;/span>维实向量&lt;span class="math">\(x∈R^n\)&lt;/span>&lt;span class="math">\(n\)&lt;/span>阶实对称阵&lt;span class="math">\(A\)&lt;/span>，&lt;span class="math">\(f(\vec x)=\vec x^TA\vec x\)&lt;/span>称为二次型。复数域上变为共轭转置即可。&lt;/p>
+&lt;/blockquote>
+&lt;p>由二项式展开式： &lt;span class="math">\[
+\begin{aligned}
+f(x_1,x_2,\dotsb,x_n)&amp;amp;=c_{11}x_1^2+c_{22}x_2^2+\dotsb+c_{nn}x_n^2\\
+&amp;amp;+c_{12}x_1x_2+c_{13}x_1x_3+\dotsb+c_{1n}x_1x_n\\
+&amp;amp;+\dotsb+c_{n-1,n}x_{n-1}x_n
+\end{aligned}
+\]&lt;/span> 与二次型&lt;span class="math">\(f(\vec x)=\vec x^TA\vec x\)&lt;/span>关系可知，其系数矩阵&lt;span class="math">\(A\)&lt;/span>与二项式系数关系为： &lt;span class="math">\[
+A=\begin{bmatrix}
+c_{11}&amp;amp;0.5c_{12}&amp;amp;0.5c_{13}&amp;amp;\dotsb&amp;amp;0.5c_{1,n}\\
+c_{21}&amp;amp;c_{22}&amp;amp;0.5c_{23}&amp;amp;\dotsb&amp;amp;0.5c_{2,n}\\
+\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots&amp;amp;\\
+0.15c_{1,n}&amp;amp;0.5c_{2,n}&amp;amp;0.5c_{3,n}&amp;amp;\dotsb&amp;amp;c_{n,n}\\
+\end{bmatrix}
+\]&lt;/span> 显然，矩阵&lt;span class="math">\(A\)&lt;/span>是对称矩阵。当&lt;span class="math">\(A\)&lt;/span>是（半）正定矩阵时，二次型有最小值；当&lt;span class="math">\(A\)&lt;/span>是（半）负定矩阵时二次型有最大值。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/正定负定不定半正定.png" alt="正定负定不定半正定.png" />&lt;p class="caption">正定负定不定半正定.png&lt;/p>
+&lt;/div>
+&lt;h2 id="合同矩阵了解">合同矩阵（了解）&lt;/h2>
+&lt;p>合同矩阵，在线性代数，特别是二次型理论中，常常用到矩阵间的合同关系。&lt;/p>
+&lt;blockquote>
+&lt;p>合同矩阵：设&lt;span class="math">\(A,B\)&lt;/span>是两个&lt;span class="math">\(n\)&lt;/span>阶方阵，若存在可逆矩阵&lt;span class="math">\(C\)&lt;/span>，使得： &lt;span class="math">\[B=C^TAC\]&lt;/span> 则称方阵&lt;span class="math">\(A\)&lt;/span>与&lt;span class="math">\(B\)&lt;/span>合同，记作&lt;span class="math">\(A≃B\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="合同性质">合同性质&lt;/h3>
+&lt;p>合同关系是一个&lt;strong>等价关系&lt;/strong>，也就是说满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>反身性：任意矩阵都与其自身合同；&lt;/li>
+&lt;li>对称性：&lt;span class="math">\(A\)&lt;/span>合同于&lt;span class="math">\(B\)&lt;/span>，则可以推出&lt;span class="math">\(B\)&lt;/span>合同于&lt;span class="math">\(A\)&lt;/span>；&lt;/li>
+&lt;li>传递性：&lt;span class="math">\(A\)&lt;/span>合同于&lt;span class="math">\(B\)&lt;/span>，&lt;span class="math">\(B\)&lt;/span>合同于&lt;span class="math">\(C\)&lt;/span>，则可以推出&lt;span class="math">\(A\)&lt;/span>合同于&lt;span class="math">\(C\)&lt;/span>；&lt;/li>
+&lt;li>此外，由于&lt;span class="math">\(B=C^TAC\)&lt;/span>中，要求&lt;span class="math">\(C\)&lt;/span>可逆，所以合同矩阵的秩相同。&lt;/li>
+&lt;/ol>
+&lt;p>两个实对称矩阵合同的充要条件是&lt;strong>它们的正负惯性指数相同&lt;/strong>。&lt;/p>
+&lt;p>其中，提到了正负惯性指数，是指：&lt;/p>
+&lt;blockquote>
+&lt;p>正惯性指数，简称正惯数，是线性代数里矩阵的&lt;strong>正的特征值个数&lt;/strong>，也即是规范型里的系数&amp;quot;1&amp;quot;的个数。&lt;/p>
+&lt;/blockquote>
+&lt;p>实二次型的标准形中，系数为正的平方项的个数等于二次型的正惯性指数。&lt;/p>
+&lt;p>此外，合同变化与二次型的化简有关。&lt;/p></description></item><item><title>线性代数与矩阵之特征值与特征向量</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/</link><pubDate>Mon, 16 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/</guid><description>
 &lt;h2 id="线性代数与矩阵之特征值与特征向量">线性代数与矩阵之特征值与特征向量&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#传统的特征值与特征向量介绍方法">传统的特征值与特征向量介绍方法&lt;/a>&lt;/li>
@@ -5714,10 +5760,55 @@ B=\begin{bmatrix}
 &lt;p>需要指出的是Rayleigh商的定义、定理只适用于Hermite矩阵。因为Hermite矩阵&lt;span class="math">\(A\in C^{n*n}\)&lt;/span>的特征值均为实数，所以可以把他们记作（按照大小进行排序）：&lt;span class="math">\(\lambda_{min}=\lambda_n≤\lambda_{n-1}\dotsb≤\lambda_2≤\lambda_1=\lambda_{max}\)&lt;/span>。&lt;/p>
 &lt;blockquote>
 &lt;p>定理：&lt;span class="math">\(\lambda_{min}\)&lt;/span>是Rayleigh商的最小值，&lt;span class="math">\(\lambda_{max}\)&lt;/span>是Rayleigh商的最大值。 &lt;span class="math">\[\lambda_{min}=\min_{x\in C^n,x\neq 0}R(x),\lambda_{max}=\max_{x\in C^n,x\neq 0}R(x)\]&lt;/span>&lt;/p>
-&lt;/blockquote></description></item><item><title>线性代数与矩阵之Jordan标准型与相似性</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8Bjordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8E%E7%9B%B8%E4%BC%BC%E6%80%A7/</link><pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8Bjordan%E6%A0%87%E5%87%86%E5%9E%8B%E4%B8%8E%E7%9B%B8%E4%BC%BC%E6%80%A7/</guid><description>
+&lt;/blockquote></description></item><item><title>线性代数与矩阵之Jordan标准型与相似性</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9B%B8%E4%BC%BC%E6%80%A7%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B/</link><pubDate>Mon, 27 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9B%B8%E4%BC%BC%E6%80%A7%E4%B8%8Ejordan%E6%A0%87%E5%87%86%E5%9E%8B/</guid><description>
 &lt;h2 id="线性代数与矩阵之jordan标准型与相似性">线性代数与矩阵之Jordan标准型与相似性&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#相似矩阵">相似矩阵&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#相似矩阵的性质">相似矩阵的性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#相似矩阵的特征值与特征向量">相似矩阵的特征值与特征向量&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#相似矩阵与可对角化条件">相似矩阵与可对角化条件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#jordan标准型">Jordan标准型&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>矩阵之间可以通过相似变换进行转换，这种转换保留了很多不变的性质。如果一个矩阵能够和一个对角矩阵相似，那么研究该矩阵就会简单许多，然而并不是所有的矩阵都可以相似对角化。但是，所有矩阵都可以与Jordan标准型相似。&lt;/p>
 &lt;h2 id="相似矩阵">相似矩阵&lt;/h2>
-&lt;p>TODO&lt;/p>
+&lt;blockquote>
+&lt;p>相似矩阵（英语：similar matrix）是指存在相似关系的矩阵。相似关系是两个矩阵之间的一种等价关系。两个&lt;span class="math">\(n × n\)&lt;/span>矩阵&lt;span class="math">\(A\)&lt;/span>与&lt;span class="math">\[为相似矩阵当且仅当存在一个$n × n$的可逆矩阵$P$，使得：
+\]&lt;/span>P^{{-1}}AP=B&lt;span class="math">\($ \)&lt;/span>P&lt;span class="math">\(被称为矩阵\)&lt;/span>A&lt;span class="math">\(与\)&lt;/span>B$之间的相似变换矩阵。&lt;/p>
+&lt;/blockquote>
+&lt;p>相似变换是矩阵之间的一种等价关系，也就是说满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>反身性：任意矩阵都与其自身相似。&lt;/li>
+&lt;li>对称性：如果&lt;span class="math">\(A\)&lt;/span>和&lt;span class="math">\(B\)&lt;/span>相似，那么&lt;span class="math">\(B\)&lt;/span>也和&lt;span class="math">\(A\)&lt;/span>相似。&lt;/li>
+&lt;li>传递性：如果&lt;span class="math">\(A\)&lt;/span>和&lt;span class="math">\(B\)&lt;/span>相似，&lt;span class="math">\(B\)&lt;/span>和&lt;span class="math">\(C\)&lt;/span>相似，那么&lt;span class="math">\(A\)&lt;/span>也和&lt;span class="math">\(C\)&lt;/span>相似。&lt;/li>
+&lt;/ol>
+&lt;h3 id="相似矩阵的性质">相似矩阵的性质&lt;/h3>
+&lt;p>相似矩阵保留了矩阵的许多性质，因此许多对矩阵性质的研究可以通过研究更简单的相似矩阵而得到解决。&lt;/p>
+&lt;p>两个相似的矩阵相同的性质主要有：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>两者拥有同样的特征多项式。&lt;/li>
+&lt;li>两者的秩相等。&lt;/li>
+&lt;li>两者的行列式值相等。&lt;/li>
+&lt;li>两者的迹数相等。&lt;/li>
+&lt;li>两者拥有同样的特征值，尽管相应的特征向量一般不同。&lt;/li>
+&lt;/ol>
+&lt;p>其实，后面四个性质都可以算是第一个性质的推论，我们在下一小节证明。&lt;/p>
+&lt;p>两个相似的矩阵可以看做是同一个线性变换的「两面」，即在两个不同的基下的表现。因此，在给定了矩阵&lt;span class="math">\(A\)&lt;/span>后，只要能找到一个与之相似而又足够「简单」的「规范形式」&lt;span class="math">\(B\)&lt;/span>，那么对A的研究就可以转化为对更简单的矩阵&lt;span class="math">\(B\)&lt;/span>的研究。&lt;/p>
+&lt;h3 id="相似矩阵的特征值与特征向量">相似矩阵的特征值与特征向量&lt;/h3>
+&lt;p>我们在相似矩阵性质中最常提到相似矩阵拥有同样的特征值，这其实是第1个性质：两者拥有同样的特征多项式的必然结果。我们从矩阵行列式的角度来证明。&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;blockquote>
+&lt;p>假设&lt;span class="math">\(n\)&lt;/span>阶矩阵&lt;span class="math">\(A,B\)&lt;/span>相似，&lt;span class="math">\(A\sim B\)&lt;/span>，其特征多项式分别为： &lt;span class="math">\[f(\lambda)=|A-\lambda I|\\g(\lambda)=|B-\lambda I|\]&lt;/span> 由二者相似可知，存在可逆矩阵&lt;span class="math">\(P\)&lt;/span>，使得&lt;span class="math">\(B=P^{-1}AP\)&lt;/span>，即 &lt;span class="math">\[|B-\lambda I|=|(P^{-1}AP)-\lambda I|=|(P^{-1}AP)-\lambda P^{-1}IP|\\
+=|P^{-1}(A-\lambda I)P|\]&lt;/span> 根据行列式性质，我们可以将其中的&lt;span class="math">\(P,P^{-1}\)&lt;/span>提出来： &lt;span class="math">\[|P^{-1}(A-\lambda I)P|=|P^{-1}| |A-\lambda I| |P|=|A-\lambda I|\]&lt;/span> 这是因为行列式的计算结果都是数字，且&lt;span class="math">\(|P^{-1}||P|=1\)&lt;/span>，综上可得 &lt;span class="math">\[f(\lambda)=|A-\lambda I|=|B-\lambda I|=g(\lambda)\]&lt;/span> 即矩阵&lt;span class="math">\(A,B\)&lt;/span>拥有相同的特征多项式，因此他们的的特征值也相同。&lt;/p>
+&lt;/blockquote>
+&lt;p>由于相似矩阵的特征多项式一样，他们的特征值也一样。而特征值是否为0决定了矩阵的秩，因此二者秩相等；特征值的和等于矩阵的迹，因此二者迹相等；特征值的积等于行列式值，因此两者的行列式值相等。&lt;/p>
+&lt;p>相似矩阵在不改变特征值的时候，特征向量有什么变化呢？&lt;/p>
+&lt;p>由于&lt;span class="math">\(B=P^{-1}AP\)&lt;/span>中，那么对于&lt;span class="math">\(B\)&lt;/span>的特征值&lt;span class="math">\(\lambda\)&lt;/span>与相应的特征向量&lt;span class="math">\(x_B\)&lt;/span>有： &lt;span class="math">\[
+Bx_B=\lambda x_B
+\]&lt;/span> 将&lt;span class="math">\(B=P^{-1}AP\)&lt;/span>代入得： &lt;span class="math">\[
+\lambda x_B=Bx_B=P^{-1}APx_B
+\]&lt;/span> 两边同时左乘&lt;span class="math">\(P\)&lt;/span>： &lt;span class="math">\[
+\lambda(Px_B)=PP^{-1}APx_B=A(Px_B)
+\]&lt;/span> 由于&lt;span class="math">\(\lambda\)&lt;/span>也是&lt;span class="math">\(A\)&lt;/span>的特征值，那么&lt;span class="math">\(x_A=Px_B\)&lt;/span>就是&lt;span class="math">\(A\)&lt;/span>的特征向量。&lt;/p>
 &lt;h3 id="相似矩阵与可对角化条件">相似矩阵与可对角化条件&lt;/h3>
 &lt;p>首先我们引入一个定义：（详细有关正规矩阵的内容见笔记&lt;a href="线性代数与矩阵之正规矩阵.md">线性代数与矩阵之正规矩阵&lt;/a>）&lt;/p>
 &lt;blockquote>
@@ -5734,9 +5825,31 @@ B=\begin{bmatrix}
 &lt;/ol>
 &lt;p>关于正交相似：在线性代数中，实对称矩阵一定可以对角化，而且是正交对角化，也叫正交相似于对角阵。&lt;/p>
 &lt;h2 id="jordan标准型">Jordan标准型&lt;/h2>
-&lt;p>TODO&lt;/p>
-&lt;h2 id="jordan分解">Jordan分解&lt;/h2>
-&lt;p>TODO&lt;/p></description></item><item><title>线性代数与矩阵之理解向量、线性变换与矩阵乘法</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%90%86%E8%A7%A3%E5%90%91%E9%87%8F%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/</link><pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%90%86%E8%A7%A3%E5%90%91%E9%87%8F%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/</guid><description>
+&lt;p>如果把矩阵转换成其相似的对角阵，那么矩阵的研究会简化许多。然而，可惜的是并不是所有矩阵都可以相似对角化。只有正规矩阵可以相似对角化，那么有没有另一种简单而标准的形态，使得矩阵都可与之相似呢？&lt;/p>
+&lt;p>答案是Jordan标准型。&lt;/p>
+&lt;blockquote>
+&lt;p>Jordan标准型：是一种分块对角矩阵。 &lt;span class="math">\[
+J={\begin{bmatrix}J_{1}&amp;amp;\;&amp;amp;\;\\\;&amp;amp;\ddots &amp;amp;\;\\\;&amp;amp;\;&amp;amp;J_{p}\end{bmatrix}}
+\]&lt;/span> 其中，每一个分块矩阵&lt;span class="math">\(J_i\)&lt;/span>都具备一种很简单的形状 &lt;span class="math">\[
+J_{i}=\begin{bmatrix}
+\lambda_{i}&amp;amp;1&amp;amp;\;&amp;amp;\;\\
+\;&amp;amp;\lambda_{i}&amp;amp;\ddots &amp;amp;\;\\
+\;&amp;amp;\;&amp;amp;\ddots &amp;amp;1\\
+\;&amp;amp;\;&amp;amp;\;&amp;amp;\lambda_{i}
+\end{bmatrix}
+\]&lt;/span> 其中主对角线上都是同一个系数，而对角线上方一排全是1。形同以上&lt;span class="math">\(J_{i}\)&lt;/span>的矩阵称为Jordan矩阵。而矩阵&lt;span class="math">\(J\)&lt;/span>中每一个这样的小块被称为Jordan块。&lt;/p>
+&lt;/blockquote>
+&lt;p>线性代数中有如下的结果：&lt;/p>
+&lt;p>对任意系数域为&lt;span class="math">\(\mathbb {K}\)&lt;/span>，例如实数域，复数域的矩阵&lt;span class="math">\(M\)&lt;/span>，只要其特征值都在&lt;span class="math">\(\mathbb {K}\)&lt;/span>中，就存在一个与之相似的Jordan标准型&lt;span class="math">\(J：M=PJP^{{-1}}\)&lt;/span>，其中&lt;span class="math">\(P\)&lt;/span>是一个可逆矩阵。并且满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>矩阵&lt;span class="math">\(J\)&lt;/span>的特征值（计入重数）就是主对角线上的系数。&lt;/li>
+&lt;li>对于&lt;span class="math">\(J\)&lt;/span>的一个特征值&lt;span class="math">\(\lambda_i\)&lt;/span>，它的几何重数就是属于特征值&lt;span class="math">\(\lambda_i\)&lt;/span>的Jordan块的个数。&lt;/li>
+&lt;li>所有属于特征值&lt;span class="math">\(\lambda_i\)&lt;/span>的Jordan块的维数之和是特征值&lt;span class="math">\(\lambda_i\)&lt;/span>的代数重数。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>Jordan定理：任意&lt;span class="math">\(n\)&lt;/span>阶矩阵&lt;span class="math">\(A\)&lt;/span>都与一个Jordan矩阵&lt;span class="math">\(J\)&lt;/span>相似。Jordan矩阵中的每一个Jordan块对应一个特征向量。若矩阵具有&lt;span class="math">\(n\)&lt;/span>个不同的特征向量，则可以对角化，此时其Jordan标准型&lt;span class="math">\(J\)&lt;/span>就是对角矩阵&lt;span class="math">\(Λ\)&lt;/span>。若出现重特征值，则特征向量个数可能变少，减少的数量取决于Jordan块大小。&lt;/p>
+&lt;/blockquote>
+&lt;p>Jordan标准型虽然很好，但是将矩阵转换为Jordan标准型并不是一个容易的过程。因此，Jordan标准型的应用也受到了限制。&lt;/p></description></item><item><title>线性代数与矩阵之理解向量、线性变换与矩阵乘法</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%90%86%E8%A7%A3%E5%90%91%E9%87%8F%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/</link><pubDate>Sat, 25 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%90%86%E8%A7%A3%E5%90%91%E9%87%8F%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95/</guid><description>
 &lt;h2 id="线性代数与矩阵之理解向量线性变换与矩阵乘法">线性代数与矩阵之理解向量、线性变换与矩阵乘法&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#三个需要认可的前提">三个需要认可的前提&lt;/a>&lt;/li>
