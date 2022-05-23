@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3/">
 <meta property="og:title" content="线性代数与矩阵之矩阵分解">
 <meta property="og:description" content="线性代数与矩阵之矩阵分解 description.">
-<meta property="og:image" content="https://surprisedcat.github.io/images/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0.png">
+<meta property="og:image" content="https://surprisedcat.github.io/images/svd.png">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
@@ -102,8 +102,8 @@ Apr 24, 2020</span>
 <li><a href=#qr分解>QR分解</a></li>
 <li><a href=#满秩分解>满秩分解</a></li>
 <li><a href=#特征值分解谱分解>特征值分解（谱分解）</a></li>
-<li><a href=#jordan分解>Jordan分解</a></li>
-<li><a href=#奇异值分解svd分解>奇异值分解(SVD分解)</a></li>
+<li><a href=#奇异值分解svd>奇异值分解(SVD)</a></li>
+<li><a href=#svd几何解释>SVD几何解释</a></li>
 <li><a href=#奇异值分解与特征值分解的联系>奇异值分解与特征值分解的联系</a></li>
 </ul>
 <h2 id=三角分解>三角分解</h2>
@@ -260,10 +260,55 @@ O
 <p>算出Hermite标准型后，对于矩阵的满秩分解<span class=math>\(A=FG\)</span>来说，矩阵<span class=math>\(F\)</span>就是矩阵<span class=math>\(A\)</span>中<span class=math>\(j_1,j_2,…,j_r\)</span>列构成的<span class=math>\(m×r\)</span>矩阵，而<span class=math>\(G\)</span>则是Hermite标准型的前<span class=math>\(r\)</span>行构成的矩阵。</p>
 <h2 id=特征值分解谱分解>特征值分解（谱分解）</h2>
 <p>见<a href=线性代数与矩阵之特征值与特征向量.md>线性代数与矩阵之特征值与特征向量</a></p>
-<h2 id=jordan分解>Jordan分解</h2>
-<p>见<a href=线性代数与矩阵之Jordan标准型与相似性.md>线性代数与矩阵之Jordan标准型与相似性</a></p>
-<h2 id=奇异值分解svd分解>奇异值分解(SVD分解)</h2>
-<p>TODO</p>
+<h2 id=奇异值分解svd>奇异值分解(SVD)</h2>
+<p>特征值分解可以将矩阵分解成对角矩阵的形式，大大方便了矩阵的研究与计算，然后我们也知道只有正规矩阵才可以进行特征分解，那么是否能有一种能够分解成类似模式的分解，但是并没有矩阵类似的要求呢？</p>
+<p>这就是这一小节要引入的奇异值分解（Singular value decomposition），简称SVD。<strong>SVD的一大好处就是任何矩阵都可以进行奇异值分解</strong>。</p>
+<blockquote>
+<p>假设<span class=math>\(A\)</span>是一个<span class=math>\(m×n\)</span>阶矩阵，其中的元素全部属于域<span class=math>\(K\)</span>，也就是实数域或复数域。如此则存在一个分解使得 <span class=math>\[A= U \Sigma V^*\]</span> 其中<span class=math>\(U\)</span>是<span class=math>\(m×m\)</span>阶酉矩阵；<span class=math>\(Σ\)</span>是<span class=math>\(m×n\)</span>阶非负实数对角矩阵；而<span class=math>\(V*\)</span>，即<span class=math>\(V\)</span>的共轭转置，是<span class=math>\(n×n\)</span>阶酉矩阵。这样的分解就称作<span class=math>\(A\)</span>的<strong>奇异值分解</strong>。<span class=math>\(Σ\)</span>对角线上的元素<span class=math>\(Σ_{ii}\)</span>即为<span class=math>\(A\)</span>的奇异值。</p>
+</blockquote>
+<div class=figure>
+<img src=../../images/Singular_value_decomposition_visualisation.svg alt=奇异值分解><p class=caption>奇异值分解</p>
+</div>
+<p>常见的做法是将奇异值由大而小排列。如此<span class=math>\(Σ\)</span>便能由<span class=math>\(A\)</span>唯一确定了。（虽然<span class=math>\(U\)</span>和<span class=math>\(V\)</span>仍然不能确定。）</p>
+<p>SVD的存在性证明可以用谱定理或者变分法证明，这里不详述，维基百科的英文版上有。</p>
+<p>那么我们如果找到这个奇异值分解呢？</p>
+<p>这个分解中有相互正交的向量和很像特征值的奇异值，觉得和特征分解类似，那我们可不可以往特征分解上靠一靠呢。如果能有对称矩阵，就可以套用特征分解的方法获得特征值和正交（酉）矩阵了。</p>
+<p>显然，<span class=math>\(A^TA,AA^T\)</span>都是由<span class=math>\(A\)</span>构成的对称矩阵，而且在<span class=math>\(A=U\Sigma V^T\)</span>的前提下有： <span class=math>\[
+A^TA=(U\Sigma V^T)^TU\Sigma V^T=V^T\Sigma^2V\\
+AA^T=U\Sigma V^T(U\Sigma V^T)^T=U^T\Sigma^2U
+\]</span> 这正好是两个对称矩阵<span class=math>\(A^TA,AA^T\)</span>的对角化分解！那么我们只需要求出<span class=math>\(A^TA,AA^T\)</span>的特征分解，就可以求出<span class=math>\(U,V,\Sigma\)</span>的矩阵！！！</p>
+<p>需要注意的是，我们<span class=math>\(A^TA,AA^T\)</span>求出来的是奇异值的平方，实际使用记得要开根号。下面我们举两个例子：</p>
+<p>例1：对矩阵<span class=math>\(A=\begin{bmatrix}0&1\\1&1\\1&0\end{bmatrix}\)</span>进行奇异值分解。</p>
+<div class=figure>
+<img src=../../images/svd分解例1.png alt=svd分解例1><p class=caption>svd分解例1</p>
+</div>
+<p>接下来这个例子，给我们说明，完全依赖上面的方法有可能是错的！</p>
+<p>例2：对矩阵<span class=math>\(A=\begin{bmatrix}4&4\\-3&3\end{bmatrix}\)</span>进行奇异值分解。</p>
+<p>我们首先求出<span class=math>\(A^TA,AA^T\)</span>： <span class=math>\[
+A^TA=\begin{bmatrix}4&-3\\4&3\end{bmatrix}\begin{bmatrix}4&4\\-3&3\end{bmatrix}=\begin{bmatrix}25&7\\7&25\end{bmatrix}\\
+AA^T=\begin{bmatrix}4&4\\-3&3\end{bmatrix}\begin{bmatrix}4&-3\\4&3\end{bmatrix}=\begin{bmatrix}32&0\\0&18\end{bmatrix}
+\]</span> 出现了一个对角矩阵，显然奇异值为：<span class=math>\(\lambda_1=\sqrt{32},\lambda_2=\sqrt{18}\)</span>，剩余奇异值都是0。 进而求出<span class=math>\(V\)</span>中的特征向量： <span class=math>\[A^TAv_1=\lambda_1 v_1=\sqrt{32}v_1\Rightarrow v_1=\begin{bmatrix}1\over\sqrt{2}\\1\over\sqrt{2}\end{bmatrix}\\
+A^TAv_2=\lambda_2 v_2=\sqrt{18}v_2\Rightarrow v_2=\begin{bmatrix}1\over\sqrt{2}\\-1\over\sqrt{2}\end{bmatrix}\\
+V=\begin{bmatrix}1\over\sqrt{2}&1\over\sqrt{2}\\1\over\sqrt{2}&-1\over\sqrt{2}\end{bmatrix}\]</span> 同样求出<span class=math>\(U\)</span>的特征向量： <span class=math>\[AA^Tu_1=\lambda_1 u_1=\sqrt{32}u_1\Rightarrow u_1=\begin{bmatrix}1\\0\end{bmatrix}\\
+AA^Tu_2=\lambda_2 u_2=\sqrt{18}u_2\Rightarrow u_2=\begin{bmatrix}0\\1\end{bmatrix}\\
+U=\begin{bmatrix}1&0\\0&1\end{bmatrix}\]</span> 到这里看似没有问题，但是我们计算一下： <span class=math>\[
+U\Sigma V^\ast=\begin{bmatrix}1&0\\0&1\end{bmatrix}\begin{bmatrix}\sqrt{32}&0\\0&\sqrt{18}\end{bmatrix}\begin{bmatrix}1\over\sqrt{2}&1\over\sqrt{2}\\1\over\sqrt{2}&-1\over\sqrt{2}\end{bmatrix}\\
+=\begin{bmatrix}4&4\\3&-3\end{bmatrix}
+\]</span> 这和矩阵<span class=math>\(A\)</span>并不一样！！！底下两个正负号反了，难道奇异值分解有BUG吗？</p>
+<p>这是因为确定特征向量的过程中，特征向量反向仍然符合要求，通过<span class=math>\(A^TA,AA^T\)</span>求解特征向量的方法无法确认向量的正负符号，但是一旦我们确认<span class=math>\(V\)</span>中向量的方向之后，<span class=math>\(U\)</span>中向量的方向也就随之确定。关键是，<strong>我们在开<span class=math>\(\Sigma^2\)</span>的时候只考虑使用正值，人为地忽略了<span class=math>\(U,V\)</span>之间的正负号联系</strong>，为此可以使用<span class=math>\(AV=U\Sigma\)</span>替代计算可以避免这种问题。 <span class=math>\[
+U=AV\Sigma^{-1}=2\begin{bmatrix}1&0\\0&-1\end{bmatrix}
+\]</span> 归一化可得<span class=math>\(U=\begin{bmatrix}1&0\\0&-1\end{bmatrix}\)</span>。由于本例中<span class=math>\(\Sigma\)</span>可逆，才可以直接用<span class=math>\(\Sigma^{-1}\)</span>，否则就老老实实求解。</p>
+<p>因此<span class=math>\(A\)</span>正确的SVD为： <span class=math>\[
+A=U\Sigma V^\ast=\begin{bmatrix}1&0\\0&-1\end{bmatrix}\begin{bmatrix}\sqrt{32}&0\\0&\sqrt{18}\end{bmatrix}\begin{bmatrix}1\over\sqrt{2}&1\over\sqrt{2}\\1\over\sqrt{2}&-1\over\sqrt{2}\end{bmatrix}\\
+\]</span></p>
+<p>SVD应用的资料还可以看：<a href=../../网页资料/线性代数与矩阵-这次终于彻底理解了奇异值分解(SVD)原理及应用.html>这次终于彻底理解了奇异值分解(SVD)原理及应用</a></p>
+<h3 id=svd几何解释>SVD几何解释</h3>
+<p>在几何中，任意的线性变换都可以拆成三步：旋转-拉伸-再旋转。至于为什么能这样，我还不知道。但是，这三布正好对应了SVD的三个矩阵分量。</p>
+<p>我们知道，<span class=math>\(U,V\)</span>是酉矩阵（单位正交矩阵），模长为1，这叫矩阵的几何意义正是向量的旋转。所以<span class=math>\(U\Sigma V^\ast\)</span>就相当于先使用一个旋转矩阵<span class=math>\(V^\ast\)</span>转动向量，然后再用对角矩阵<span class=math>\(\Sigma\)</span>拉伸各个向量分量，最后再用矩阵<span class=math>\(U\)</span>再旋转一次，得到线性变换的结果。</p>
+<p>下图是矩阵<span class=math>\(M=U\Sigma V^\ast\)</span>各个矩阵作用与一个二维空间基的演示：</p>
+<div class=figure>
+<img src=../../images/SVD几何意义.gif alt=SVD几何意义><p class=caption>SVD几何意义</p>
+</div>
 <h3 id=奇异值分解与特征值分解的联系>奇异值分解与特征值分解的联系</h3>
 <p>奇异值分解能够用于任意<span class=math>\(m\times n\)</span>矩阵，而特征分解只能适用于特定类型的方阵，故奇异值分解的适用范围更广。不过，这两个分解之间是有关联的。给定一个<span class=math>\(M\)</span>的奇异值分解，根据上面的论述，两者的关系式如下：</p>
 <p><span class=math>\[
