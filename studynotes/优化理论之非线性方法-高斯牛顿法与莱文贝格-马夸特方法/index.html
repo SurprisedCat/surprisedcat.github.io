@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Nov 4, 2019</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA title=优化理论 class="post_tag button button_translucent">优化理论
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA title=优化理论 class="post_tag button button_translucent">优化理论
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -128,6 +128,74 @@ r(x_1)&r(x_2)&\dots&r(r_m)\end{bmatrix} \begin{bmatrix}
 </ol>
 <p>在曲线拟合实践中，<span class=math>\(\alpha\)</span>通常选取 0.1，<span class=math>\(\beta\)</span>选取10。</p>
 <p>相比于高斯-牛顿法，L-M算法的优势在于非常的鲁棒，很多情况下即使初始值距离(局部)最优解非常远，仍然可以保证求解成功。作为一种阻尼最小二乘解法，LMA(Levenberg-Marquart Algorithm)的收敛速度要稍微低于GNA(Guass-Newton Algorithm)。L-M算法作为求解非线性最小二乘问题最流行的算法广泛被各类软件包实现，例如google用于求解优化问题的库Ceres Solver。后续，我会通过最小二乘圆拟合的案例给出L-M算法的实现细节。</p>
+<h2 id=最小二乘法的改进>最小二乘法的改进</h2>
+<p>传统的最小二乘法是针对线性函数与线性场景，典型的场景如下图：</p>
+<div class=figure>
+<img src=../../images/Linear_regression.svg alt=Linear_regression.svg><p class=caption>Linear_regression.svg</p>
+</div>
+<p>其需要优化的方程是： <span class=math>\[
+\min\|X\theta-y\|^2
+\]</span> 其中，<span class=math>\(\theta\)</span>表示参数向量，参数的个数与特征的个数一样（算上常数项的），<span class=math>\(X\)</span>表示<span class=math>\(m\)</span>个观察到的数据，每个数据有<span class=math>\(n\)</span>个特征（算上常数项的），因此<span class=math>\(X\)</span>是一个<span class=math>\(m\times n\)</span>维矩阵。<span class=math>\(y\)</span>是实际观察到的结果向量。详细表示起来则是： <span class=math>\[
+X=\begin{bmatrix}
+——(x^{(1)})^T——\\
+——(x^{(2)})^T——\\
+\vdots\\
+——(x^{(m)})^T——\\
+\end{bmatrix},
+x^{(i)}=\begin{bmatrix}
+x^{(i)}_0(=1)\\
+x^{(i)}_1\\
+\vdots\\
+x^{(i)}_{n-1}\\
+\end{bmatrix},
+\theta=\begin{bmatrix}
+\theta_0\\
+\theta_1\\
+\vdots\\
+\theta_{n-1}\\
+\end{bmatrix},
+y=\begin{bmatrix}
+y_1\\
+y_2\\
+\vdots\\
+y_m\\
+\end{bmatrix}
+\]</span> 根据矩阵计算结果： <span class=math>\[
+\theta=(X^TX)^{-1}X^Ty
+\]</span> 显然，<span class=math>\(X\theta\)</span>只能表示直线结果，对于曲线结果无能为力。针对曲线场景，通常有两种改进思路，第一个就是将特征<span class=math>\(x_j\)</span>的高阶项加入其中，举个简单例子，比如除了常数项，只有一个特征的场景： <span class=math>\[
+y=\theta_0+\theta_0 x_1+\theta_2 x^2_1+\theta_3 x^3_1
+\]</span> 这样通过高阶多项式就可以拟合曲线，且根据拉格朗日插值法，只有阶数够多，那么就能够很好的拟合任意曲线。然而，高阶项数都是超参数，而且如果让每个特征都有高阶参数，那么参数数量就是几何数量级增长，难以控制参数规模。比如，有两个特征时，引入二次项就会有<span class=math>\(\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1^2+\theta_4x_2^2+\theta_5x_1x_2\)</span>共6项，如果到三次方项，那会有更多参数。我们知道，当参数少时会有欠拟合现象，偏差大；参数过多就是过拟合，方差大，因此引入高次方项后，情况变得难以控制。同时，高次函数拟合会出现龙格现象。</p>
+<blockquote>
+<p>在数值分析领域中，龙格现象是在一组等间插值点上使用具有高次多项式的多项式插值时出现的区间边缘处的振荡问题。</p>
+</blockquote>
+<div class=figure>
+<img src=../../images/曲线拟合.png alt=曲线拟合><p class=caption>曲线拟合</p>
+</div>
+<center>
+左图：一阶函数欠拟合；中图：二阶函数适当拟合；右图：5阶函数过拟合
+</center>
+<p>第二个改进思路就是使用<strong>局部加权线性回归算法</strong>(Locally Weighted Linear Regression, LWLR)。它的核心思想就是弯曲点附近的局部曲线，接近整体曲线。我们知道传统的线性规划的代价函数为 <span class=math>\[\sum_i (y^{(i)} − θ^T x^{(i)})^2\]</span> 而局部加权线性回归算法需要体现加权特性，它在不同线性函数之间进行加权，代价函数修改为： <span class=math>\[\sum_i w^{(i)}(y^{(i)} − θ^T x^{(i)})^2\]</span> 这里<span class=math>\(w^{(i)}\)</span>是非负的加权值，可以令<span class=math>\(w^{(i)}=\exp{(-\frac{(x^{(i)}-x)^2}{2\tau^2})}\)</span>。虽然<span class=math>\(w^{(i)}\)</span>有高斯分布形式，但是和高斯分布没有直接联系。显然，当<span class=math>\(|x^{(i)}-x|\)</span>比较小时，<span class=math>\(|x^{(i)}-x|\rightarrow 0\)</span>，此时<span class=math>\(w^{(i)}\rightarrow 1\)</span>；当<span class=math>\(|x^{(i)}-x|\)</span>比较大时，<span class=math>\(w^{(i)}\rightarrow 0\)</span>，权重较小。</p>
+<p>局部加权线性回归的优化函数写成矩阵形式为： <span class=math>\[
+J(\theta)=(X\theta-y)^TW(X\theta-y)
+\]</span> 多了一个权重矩阵<span class=math>\(W\)</span>，它是一个对角矩阵，对角元素<span class=math>\(w_{ii}={1\over 2}w^{(i)}\)</span>。根据矩阵求导公式可得： <span class=math>\[
+\begin{aligned}
+\nabla J(\theta)&=\nabla (X\theta-y)^TW(X\theta-y)\\
+&=2\frac{\partial{(X\theta-y)}}{\partial{\theta}}W(X\theta-y)\\
+&=2X^TW(X\theta-y)
+\end{aligned}
+\]</span> 当取极值时，<span class=math>\(\nabla J(\theta)=0\)</span>，即<span class=math>\(2X^TW(X\theta-y)=0\)</span>，所以有： <span class=math>\[
+2X^TW(X\theta-y)=0\\
+X^TWX\theta=X^TWy\\
+\theta=(X^TWX)^{-1}X^TWy
+\]</span> 关于矩阵求导的细节，请查阅网页资料<a href=../../网页资料/线性代数与矩阵-矩阵求导表.html>线性代数与矩阵-矩阵求导表</a></p>
+<p>此外，整个代价函数中只有一个超参数<span class=math>\(\tau\)</span>，称为<strong>带宽参数</strong>。它控制着加权参数随着对<span class=math>\(x\)</span>的远离，衰减的速度。当<span class=math>\(\tau\)</span>值比较大时，<span class=math>\(w^{(i)}\)</span>衰减得慢，容易出现欠拟合；当<span class=math>\(\tau\)</span>值比较小时，<span class=math>\(w^{(i)}\)</span>衰减得快，容易出现过拟合。从词义上来看，带宽参数意味着能够容纳周围参数的多少，容纳的越多函数越平缓，当<span class=math>\(\tau\rightarrow \infty\)</span>时，<span class=math>\(w^{(i)}\rightarrow 1\)</span>此时，带宽无限大，容纳了所有数据点，局部加权线性回归算法退化为传统线性规划算法。当<span class=math>\(\tau\)</span>很小时，<span class=math>\(w^{(i)}\)</span>衰减很快，只有在当前点才有效，此时局部加权线性回归算法退化为插值算法。局部加权线性回归效果如下</p>
+<div class=figure>
+<img src=../../images/局部加权线性规划.png alt=局部加权线性规划.png><p class=caption>局部加权线性规划.png</p>
+</div>
+<center>
+上图：带宽参数过大，欠拟合；中图：适当拟合；下图：带宽参数过小，过拟合
+</center>
+<p>在局部加权线性回归算法中，参数数量<span class=math>\(w^{(i)}\)</span>是随着数据量增加而线性增加的，这个参数不固定的监督学习算法成为<strong>非参数学习算法</strong>；相对的参数固定的监督学习算法，比如传统的线性规划就称作<strong>参数学习算法</strong>。</p>
 <h2 id=参考资料>参考资料</h2>
 <ol style=list-style-type:decimal>
 <li><a href=http://ece.eng.umanitoba.ca/undergraduate/ECE4850T02/Lecture%20Slides/MLRegression.pdf>maximum likelihood regression-university of manitoba</a></li>

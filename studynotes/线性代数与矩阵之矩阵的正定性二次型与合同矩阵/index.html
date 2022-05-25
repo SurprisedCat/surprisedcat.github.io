@@ -106,16 +106,16 @@ May 20, 2022</span>
 <p>注：如果是复数域的埃米特矩阵，那么上面一定中的转置都有替换成共轭转置。</p>
 <p>正定性还有这几个等价命题：</p>
 <ol style=list-style-type:decimal>
-<li>矩阵<span class=math>\(A\)</span>的所有特征值为正</li>
-<li>矩阵<span class=math>\(A\)</span>的所有主元为正</li>
-<li>矩阵<span class=math>\(A\)</span>的顺序主子式为正</li>
-<li>矩阵<span class=math>\(A\)</span>与单位阵<span class=math>\(I\)</span>合同，即存在可逆矩阵<span class=math>\(C\)</span>，使得<span class=math>\(A=C^TIC\)</span></li>
+<li>矩阵<span class=math>\(A\)</span>的所有特征值为正。对于正定矩阵的特征向量<span class=math>\(y\)</span>，有<span class=math>\(y^TAy>0\Rightarrow y^T\lambda y=\lambda |y|^2>0\Rightarrow \lambda>0\)</span>。</li>
+<li>矩阵<span class=math>\(A\)</span>的所有主元为正。证明思路：主元与二次型展开的平方项系数一致。</li>
+<li>矩阵<span class=math>\(A\)</span>的顺序主子式为正。</li>
+<li>矩阵<span class=math>\(A\)</span>与单位阵<span class=math>\(I\)</span>合同，即存在可逆矩阵<span class=math>\(C\)</span>，使得<span class=math>\(A=C^TIC\)</span>。</li>
 </ol>
 <p>类似的，半正定矩阵有以下等价命题：</p>
 <ol style=list-style-type:decimal>
-<li>矩阵<span class=math>\(A\)</span>的所有特征值为非负</li>
-<li>矩阵<span class=math>\(A\)</span>的所有主元为非负</li>
-<li>矩阵<span class=math>\(A\)</span>的顺序主子式为非负</li>
+<li>矩阵<span class=math>\(A\)</span>的所有特征值为非负。</li>
+<li>矩阵<span class=math>\(A\)</span>的所有主元为非负。</li>
+<li>矩阵<span class=math>\(A\)</span>的顺序主子式为非负。</li>
 </ol>
 <p>我们可以通过例子说明，非对称矩阵可以在满足上述1，2，3的前提下不满足正定矩阵的定义<span class=math>\(x^TAx>0\)</span>。如下例 <span class=math>\[
 \begin{bmatrix}

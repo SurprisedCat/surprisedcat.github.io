@@ -100,8 +100,8 @@ Sep 5, 2019</span>
 <p>拉格朗日余项和泰勒公式密不可分。泰勒技术的全形如下： <span class=math>\[
 \begin{aligned}
 f(x)&=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+\dotsb \\
-&=\sum^{\inf}_{n=0}\frac{f^{(n)}(a)}{n!}(x-a)^n
-\end{aligned}\]</span> 其中，前n项可以称为函数在点<span class=math>\(x=a\)</span>处的n阶泰勒展开式。<strong>所谓的阶，是指x的幂次；n阶就是x的最高次幂为n，而不是展开到第n项。</strong></p>
+&=\sum^{\infty}_{n=0}\frac{f^{(n)}(a)}{n!}(x-a)^n
+\end{aligned}\]</span> 其中，前n项可以称为函数在点<span class=math>\(x=a\)</span>处的<span class=math>\(n\)</span>阶泰勒展开式。<strong>所谓的阶，是指<span class=math>\(x\)</span>的幂次；<span class=math>\(n\)</span>阶就是<span class=math>\(x\)</span>的最高次幂为<span class=math>\(n\)</span>，而不是展开到第<span class=math>\(n\)</span>项。</strong></p>
 <p>但是，泰勒展开能够无限地逼近原函数，是以n趋向于无穷为前提条件的。如果我们只是将函数展开到n阶，则后面的部分（我们称为<strong>余项</strong>, remainder）就被省略了，这必然会产生误差。记余项的表达式为<span class=math>\(R_n(x)\)</span>，用它表示n项之后的余项（<strong>注意下标是 n 而不是 n+1</strong>），我们可以将泰勒展开写成如下形式: <span class=math>\[
 f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+R_n(x)
 \]</span> 或者说 <span class=math>\[f(x)=P_n(x)+R_n(x)\]</span> 这式子的意思是原函数可以分解为两个部分，一部分是 n 阶泰勒展开，另一部分就是拉格朗日余项。那么，做一个移项，就可以有：<span class=math>\(R_n(x)=f(x)-P_n(x)\)</span>。</p>
@@ -115,7 +115,7 @@ f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^
 &=\frac{M}{(n+1)!}|x^{n+1}|
 \end{aligned}\]</span> 这时我们就要介绍一个基本定理，即拉格朗日余项定理：</p>
 <blockquote>
-<p>若存在正数Max，使得对任意<span class=math>\(\xi\)</span>，如果<span class=math>\(a \le \xi \le x\)</span>或<span class=math>\(x \le \xi \le a\)</span>，均有<span class=math>\(|f^{(n+1)}(\xi)|\le Max\)</span>，则: <span class=math>\[|R_n(x)|=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \le \frac{Max}{(n+1)!}|(x-a)^{n+1}|\]</span> 也就是说Max的取值范围其实就由<span class=math>\(|f^{(n+1)}(\xi)|,(a \le \xi \le x\)</span>或<span class=math>\(x \le \xi \le a)\)</span>唯一给定。这一不等式也叫<strong>泰勒不等式</strong>。这是我们进行余项范围估计的主要理论基础。</p>
+<p>若存在正数Max，使得对任意<span class=math>\(\xi\)</span>，如果<span class=math>\(a \le \xi \le x\)</span>或<span class=math>\(x \le \xi \le a\)</span>，均有<span class=math>\(|f^{(n+1)}(\xi)|\le M\)</span>，则: <span class=math>\[|R_n(x)|=|\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}| \le \frac{M}{(n+1)!}|(x-a)^{n+1}|\]</span> 也就是说<span class=math>\(M\)</span>的取值范围其实就由<span class=math>\(|f^{(n+1)}(\xi)|,(a \le \xi \le x\)</span>或<span class=math>\(x \le \xi \le a)\)</span>唯一给定。这一不等式也叫<strong>泰勒不等式</strong>。这是我们进行余项范围估计的主要理论基础。</p>
 </blockquote>
 <h2 id=例题>例题</h2>
 <p><strong>例1</strong> 将<span class=math>\(y=sin(x)\)</span>展开成麦克劳林式，并估计其误差：</p>

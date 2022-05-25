@@ -146,7 +146,7 @@ Nov 4, 2019</span>
 <li>牛顿法当<span class=math>\(Hessian\)</span>矩阵为正定矩阵时，最小值才存在。牛顿法经常会因为<span class=math>\(Hessian\)</span>矩阵不正定而发散(diverage)。因此 牛顿法并不是非常的稳定。</li>
 </ol>
 <h3 id=牛顿法求根公式与牛顿优化法之间的联系>牛顿法求根公式与牛顿优化法之间的联系</h3>
-<p>在说道牛顿优化方法的时候，上过《计算方法》这门课的同学经常会说，牛顿法不是用来求根的么？实际上，牛顿优化法还真可以用牛顿求根法推导得出。我看到的材料是 Andrew Ng在《机器学习课程》中给出的一种推导。在牛顿求根公式中，<span class=math>\(f(x)=0\)</span>的解由迭代式 <span class=math>\[x_{i+1}=x_{i}-\frac{f(x_i)}{f\prime(x_i)}\]</span> 给出。在牛顿优化法中，我们欲求得梯度<span class=math>\(g(x)=f'(x)=0\)</span>对应的$x)。</p>
+<p>在说道牛顿优化方法的时候，上过《计算方法》这门课的同学经常会说，牛顿法不是用来求根的么？实际上，牛顿优化法还真可以用牛顿求根法推导得出。我看到的材料是 Andrew Ng在《机器学习课程》中给出的一种推导。在牛顿求根公式中，<span class=math>\(f(x)=0\)</span>的解由迭代式 <span class=math>\[x_{i+1}=x_{i}-\frac{f(x_i)}{f\prime(x_i)}\]</span> 给出。在牛顿优化法中，我们欲求得梯度<span class=math>\(g(x)=f'(x)=0\)</span>对应的<span class=math>\(x\)</span>。</p>
 <p>因此<span class=math>\(x\)</span>可以根据求根公式 <span class=math>\[x_{i+1}=x_{i}-\frac{f\prime(x_i)}{f\prime\prime(x_i)}\]</span> 求出。推广到多元函数上，<span class=math>\({1}/{f\prime\prime(x_i)}\)</span>演变为<span class=math>\(H^{-1}\)</span>，<span class=math>\(f\prime(x_i)\)</span>演变为<span class=math>\(\nabla_x f(x_i)\)</span>因此 <span class=math>\[x_{i+1}=x_{i}-H^{-1}{\nabla_x f(x_i)}\]</span> 与根据二阶泰勒展开并求<span class=math>\(f(\epsilon | x)\)</span>的最小值得到的结论一致。</p>
 <h2 id=参考文献>参考文献</h2>
 <ol style=list-style-type:decimal>

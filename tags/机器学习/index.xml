@@ -7,13 +7,15 @@ y_t= softmax(h_t w_{hy} +b_y)\\
 h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
 \]&lt;/span> 三个矩阵&lt;span class="math">\(w_{hy},w_{xh},w_{hh}\)&lt;/span>在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的&lt;span class="math">\(h_t\)&lt;/span>数量控制输出的序列长度。&lt;/p></description></item><item><title>机器学习-框架</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</guid><description>
 &lt;h2 id="机器学习框架">机器学习框架&lt;!-- omit in toc -->&lt;/h2>
-&lt;h2 id="三类机器学习算法">三类机器学习算法&lt;/h2>
-&lt;h3 id="监督学习">监督学习&lt;/h3>
-&lt;p>各种回归，决策树，随机森林，LNN，&lt;/p>
-&lt;h3 id="无监督学习">无监督学习&lt;/h3>
-&lt;p>K-means，Apriori&lt;/p>
-&lt;h3 id="强化学习">强化学习&lt;/h3>
-&lt;p>马尔科夫决策过程&lt;/p>
+&lt;h2 id="机器学习分类">机器学习分类&lt;/h2>
+&lt;h2 id="参数学习与非参数学习">参数学习与非参数学习&lt;/h2>
+&lt;p>参数学习(parametric learning algorithm)是指有固定一组参数，通过监督学习算法的数据不断优化。&lt;/p>
+&lt;p>非参数学习(non-parametric learning algorithm)是指参数的数量不定，会随着数据量规模的变化而&lt;strong>线性&lt;/strong>变化。&lt;/p>
+&lt;p>普通的线性回归属于参数学习算法；而局部加权线性回归（LWLR）属于非参数学习算法。&lt;/p>
+&lt;h3 id="三类机器学习算法">三类机器学习算法&lt;/h3>
+&lt;p>监督学习：各种回归，决策树，随机森林，LNN，&lt;/p>
+&lt;p>无监督学习：K-means，Apriori&lt;/p>
+&lt;p>强化学习：马尔科夫决策过程（MDP）&lt;/p>
 &lt;h2 id="常用机器学习算法">常用机器学习算法&lt;/h2>
 &lt;ol style="list-style-type: decimal">
 &lt;li>Linear Regression&lt;/li>
