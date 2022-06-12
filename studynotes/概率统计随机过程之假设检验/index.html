@@ -89,37 +89,94 @@ Apr 16, 2021</span>
 </span>
 </div>
 <h2 id=概率统计随机过程之假设检验>概率统计随机过程之假设检验</h2>
-<p>统计推断两大内容：<strong>参数估计（点估计、区间估计）与假设检验</strong>。</p>
-<h2 id=假设检验的基本概念>假设检验的基本概念</h2>
-<h3 id=假设检验问题>假设检验问题</h3>
-<p>总体<strong>分布未知</strong>：对总体分布的“某种推断”--》“假设”：</p>
+<p>统计推断两大内容：<strong>参数估计（点估计、区间估计）与假设检验</strong>。与参数估计不同，假设检验不需要去计算具体的数值或范围，只需要回答“Yes Or No”的问题。</p>
 <ul>
-<li>分布类型未知：非参数假设，例如假设服从正态分布，均匀分布……这类一般很难。</li>
-<li>参数未知：参数假设。</li>
+<li><a href=#假设检验>假设检验</a></li>
+<li><a href=#假设检验研究的问题>假设检验研究的问题</a></li>
+<li><a href=#假设>“假设”</a></li>
+<li><a href=#如何选择原假设h_0与备择假设h_1>如何选择原假设<span class=math>\(H_0\)</span>与备择假设<span class=math>\(H_1\)</span>？</a></li>
+<li><a href=#基本方法与步骤>基本方法与步骤</a></li>
+<li><a href=#两类错误>两类错误</a></li>
+<li><a href=#显著性水平>显著性水平</a></li>
+<li><a href=#p值>P值</a></li>
+<li><a href=#显著性水平和p值的区别>显著性水平和P值的区别</a></li>
+<li><a href=#一个总体的参数假设检验>一个总体的参数假设检验</a></li>
+<li><a href=#总体均值的检验>总体均值的检验</a></li>
+<li><a href=#总体比例的检验>总体比例的检验</a></li>
+<li><a href=#总体方差的检验>总体方差的检验</a></li>
+<li><a href=#两个总体的参数假设检验>两个总体的参数假设检验</a></li>
+<li><a href=#均值差异性检验>均值差异性检验</a></li>
+<li><a href=#两个总体比例差的检验>两个总体比例差的检验</a></li>
+<li><a href=#两个总体方差之比的检验>两个总体方差之比的检验</a></li>
 </ul>
-<p>假设检验：通过<strong>抽样的样本</strong>进行对假设进行检验</p>
-<ul>
-<li><strong>参数的假设检验</strong>（重点）</li>
-<li>非参数的假设检验</li>
-</ul>
+<h2 id=假设检验>假设检验</h2>
+<p>假设检验的基本思想是对<strong>总体参数</strong>的具体数值进行假设性陈述（如使用=，≥，≤等符号），再利用样本或实验结果来推断此假设的可信度。通常，逻辑上采用<strong>反证法</strong>，但只是概率性证伪，依据是统计上的<strong>小概率原理</strong>。</p>
+<blockquote>
+<p>小概率原理:一个事件如果发生的概率很小的话，那么它在一次试验中是几乎不可能发生的，但在多次重复试验中几乎是必然发生的。</p>
+</blockquote>
+<p>多小能称之为小概率呢？统计学上，一般认为地认为等于或小于0.05或0.01的概率为小概率。</p>
+<h3 id=假设检验研究的问题>假设检验研究的问题</h3>
+<p>总体分布存在未知内容，对总体分布的“某种推断”做出某些“假设”，再通过<strong>抽样的样本</strong>进行对假设进行检验。主要分为以下两种：</p>
+<ol style=list-style-type:decimal>
+<li>分布类型未知：非参数假设，例如假设服从正态分布，均匀分布……这类一般很难。针对分布类型未知的假设检验为非参数的假设检验。</li>
+<li>参数未知：参数假设。针对分布类型已知而其中某些参数未知的假设建议称为<strong>参数的假设检验</strong>（重点）。</li>
+</ol>
 <h3 id=假设>“假设”</h3>
-<ul>
-<li>原(零)假设：<span class=math>\(H_0\)</span>。</li>
-<li>备择(对立)假设：<span class=math>\(H_1\)</span>，它与原假设<span class=math>\(H_0\)</span>是互斥的。</li>
-</ul>
+<table>
+<thead>
+<tr class=header>
+<th align=center></th>
+<th align=center>原假设(Null hypothesis)</th>
+<th align=center>备择假设(Alternative hypothesis)</th>
+</tr>
+</thead>
+<tbody>
+<tr class=odd>
+<td align=center>表示记号</td>
+<td align=center><span class=math>\(H_0\)</span></td>
+<td align=center><span class=math>\(H_1\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>别称</td>
+<td align=center>零假设</td>
+<td align=center>研究假设</td>
+</tr>
+<tr class=odd>
+<td align=center>含义</td>
+<td align=center>待检验的假设</td>
+<td align=center>与原假设对立的假设<br>二者相互对立，有且只有一个成立</td>
+</tr>
+<tr class=even>
+<td align=center>目的</td>
+<td align=center>研究者想收集证据予以<strong>反对</strong>的假设</td>
+<td align=center>研究者想收集证据予以<strong>支持</strong>的假设</td>
+</tr>
+<tr class=odd>
+<td align=center>等号</td>
+<td align=center>带有，=，≥，≤</td>
+<td align=center>不带有，≠，&lt;,></td>
+</tr>
+</tbody>
+</table>
 <p>原假设与备择假设<strong>二选一</strong>，接受<span class=math>\(H_0\)</span>则拒绝<span class=math>\(H_1\)</span>，反则反之。</p>
-<p>如何选择原假设<span class=math>\(H_0\)</span>与备择假设<span class=math>\(H_1\)</span>？</p>
+<p>假设设计步骤：</p>
+<ol style=list-style-type:decimal>
+<li>先确定备择假设，在确定原假设</li>
+<li>=，≥，≤放在原假设中</li>
+<li>检验目的是收集证据拒绝原假设</li>
+</ol>
+<h3 id=如何选择原假设h_0与备择假设h_1>如何选择原假设<span class=math>\(H_0\)</span>与备择假设<span class=math>\(H_1\)</span>？</h3>
+<p><strong>科学的审慎原则与原假设的优势性</strong>。在科学研究中，通常要求保守主义，遵守习俗、惯例和延续性。比如新的工艺或技术默认无效、新的要没有疗效、变量无关联等。</p>
+<p>原假设是具有先天优势的，因为必须拿出充分的证据才可以推翻，具备先天受保护性，相对于备择假设更有优势。</p>
 <ol style=list-style-type:decimal>
 <li>一般不能轻易推翻（否定）的假设为原假设，原假设不能轻易拒绝，除非有足够的证据。</li>
+<li>保守性的作为原假设。</li>
 <li>分析人员想证明正确的命题作为备择假设，把分析人员努力证明他不正确的命题作为原假设。</li>
 <li>如果命题成立，但是误判为不成立时会造成严重后果的；命题为原假设。</li>
 </ol>
 <p>个人总结：惰性，严谨性（悲观性）</p>
-<h3 id=基本概念>基本概念</h3>
-<p>假设（如上所示）；假设检验（如上所示）</p>
-<p>假设检验问题：<strong>显著性假设检验问题（唯一假设，无备择假设）；<span class=math>\(H_0,H_1\)</span>假设检验问题；</strong></p>
-<h3 id=基本思想与步骤>基本思想与步骤</h3>
-<p><strong>基本思想</strong>：</p>
+<h2 id=基本方法与步骤>基本方法与步骤</h2>
+<p><strong>基本方法</strong>：</p>
 <p>用<strong>样本</strong>构造统计量<span class=math>\(T\)</span>，在原假设<span class=math>\(H_0\)</span>情况下，<span class=math>\(T\)</span>的分布已知，<span class=math>\(T\)</span>发生的概率与此次抽样相关，<strong>关注小概率事件在一次抽样中是否发生</strong>。</p>
 <p><em>假设检验和区间估计方法是类似的</em>。</p>
 <p><strong>步骤</strong>：</p>
@@ -131,21 +188,95 @@ Apr 16, 2021</span>
 <li>若样本数据构造的<span class=math>\(\hat T\in W\Rightarrow\)</span> 在拒绝域，拒绝<span class=math>\(H_0\)</span>；若样本数据构造的<span class=math>\(\hat T\in \bar W\Rightarrow\)</span>在接受域，接受<span class=math>\(H_0\)</span>；</li>
 </ol>
 <p><strong>补充</strong>：</p>
-<p>单侧检验，拒绝域只在左侧或右侧。</p>
-<h3 id=两类错误>两类错误</h3>
+<ul>
+<li>单侧检验，备择假设有方向性，拒绝域只在左侧（&lt;）或右侧（>）。</li>
+<li>双侧检验，备择假设没有方向性，拒绝域在两侧（=）</li>
+</ul>
+<h2 id=两类错误>两类错误</h2>
 <p>我们根据概率做的决策未必是对的。</p>
 <ol style=list-style-type:decimal>
-<li>第一类错误：弃真。<span class=math>\(P(拒绝H_0|H_0为真)=\alpha\)</span>。此<span class=math>\(\alpha\)</span>就是上文中的<span class=math>\(\alpha\)</span>。</li>
-<li>第二类错误：纳伪。<span class=math>\(P(接受H_0|H_0为假)=\beta\)</span></li>
+<li>第一类错误：弃真。原假设为真，但是推翻原假设。<span class=math>\(P(拒绝H_0|H_0为真)=\alpha\)</span>。此<span class=math>\(\alpha\)</span>就是上文中的<span class=math>\(\alpha\)</span>，称为显著性水平。<span class=math>\(1-\alpha\)</span>成为置信水平。</li>
+<li>第二类错误：纳伪。原假设为假，但是不推翻原假设。<span class=math>\(P(接受H_0|H_0为假)=\beta\)</span>。<span class=math>\(1-\beta\)</span>称为检测效率。</li>
 </ol>
-<p>原则：尽量保证不犯第一类错误的前提下，尽量减少第二类错误。</p>
-<h2 id=一个正态总体的参数假设检验>一个正态总体的参数假设检验</h2>
-<p>与区间估计类似</p>
-<h2 id=两个正态总体的参数假设检验>两个正态总体的参数假设检验</h2>
-<p>与区间估计类似</p>
-<p>均值差异性检验</p>
+<p>两类错误通常在样本一定时无法兼顾，第一类错误低，必然导致第二类错误升高。</p>
+<p>N-P原则：尽量保证不犯第一类错误的前提下，尽量减少第二类错误。</p>
+<p>注意，我们只能说不能拒绝原假设，而不能轻易说接受原假设。一般文中的接受域只是术语。</p>
+<h3 id=显著性水平>显著性水平</h3>
+<p>显著性水平<span class=math>\(\alpha\)</span>是一个概率值，代表着<strong>拒绝原假设$H_0率，其概率范围叫拒绝域</strong>。通常显著性水平的值比较小，如0.01，0.05，0.10，这种小概率也表明要拒绝原假设的概率应该很小，除非证据充分。</p>
+<div class=figure>
+<img src=../../images/拒绝域.png alt=拒绝域.png><p class=caption>拒绝域.png</p>
+</div>
+<ul>
+<li>双侧检验：|检测统计量值|>临界值，拒绝<span class=math>\(H_0\)</span>.</li>
+<li>左侧检验：检测统计量值 &lt; 临界值，拒绝<span class=math>\(H_0\)</span>.</li>
+<li>右侧检验：检测统计量值 > 临界值，拒绝<span class=math>\(H_0\)</span>.</li>
+</ul>
+<p>显著性水平是人为规定的，其概率大小与犯第一类错误的大小有关，显著性水平<span class=math>\(\alpha\)</span>越大，拒绝原假设的概率越大，那么发生第一类错误的概率<span class=math>\(P(拒绝H_0|H_0为真)\)</span>也就越大。</p>
+<h2 id=p值>P值</h2>
+<p>在上一小结使用显著性性水平和置信度的体系中，我们人为地规定了置信度，然后根据置信度确定临界值划分接受域和拒绝域。这实际上只回答了Yes Or NO的问题，具体抽样出来的样本发生概率有多小，并没有计算出来。为了近似的计算这个样本发生的概率，我们使用<strong>P值</strong>这个指标。</p>
+<blockquote>
+<p>P值（P value）就是<strong>当原假设为真时，比所得到的样本观察结果更极端的结果出现的概率</strong>。</p>
+</blockquote>
+<p>需要注意P值不是说所得样本发生的概率，而是所有比样本更加离谱发生的概率的<strong>总和</strong>，它是一组事件集合的概率。对于不同的检验，离谱/极端的定义是不一样的，比如：</p>
+<ul>
+<li>左侧检验：检验统计量小于或等于根据实际观测样本数据计算得到的检验统计量值的概率。</li>
+<li>右侧检验：检验统计量大于或等于根据实际观测样本数据计算得到的检验统计量值的概率。</li>
+<li>双侧检验：既要考虑小于等于又要考虑大于等于的情形。</li>
+</ul>
+<p>如果P值很小，说明原假设情况的发生的概率很小，而如果出现了，根据小概率原理，我们就有理由拒绝原假设，P值越小，我们拒绝原假设的理由越充分。总之，P值越小，表明结果越显著。用公式表示为： <span class=math>\[
+P\leq P_{\alpha}，则拒绝H_0
+\]</span> 其中，<span class=math>\(P_{\alpha}\)</span>是我们选定的概率。</p>
+<div class=figure>
+<img src=../../images/P值.png alt=P值.png><p class=caption>P值.png</p>
+</div>
+<h3 id=显著性水平和p值的区别>显著性水平和P值的区别</h3>
+<p>显著性水平是人为定的，我们根据显著性水平得到临界值，用临界值和统计量比较。</p>
+<p>P值是设计一个统计量，然后计算该统计量所有极端情况的概率和，再和一个人为定义的概率做比较。此外，P值能够得到极端情形的概率，能够提供更多的信息。</p>
+<p>二者的思路正好是互补的，只不过显著性水平和人为定义的小概率值通常取得一致，比如都是0.1，0.05，所以才容易搞混。</p>
+<p>通常在研究报告中，作者会求出P值，然后让读者去自行选择拒绝的小概率，而非使用显著性水平，直接拒绝原假设。</p>
+<h2 id=一个总体的参数假设检验>一个总体的参数假设检验</h2>
+<p>在总体分布类型已知的情况下，如果只有一个参数需要检验，会有以下常见情况。</p>
+<h3 id=总体均值的检验>总体均值的检验</h3>
+<p>根据中心极限定理，当样本数量足够多时，样本的均值服从渐进正态分布<span class=math>\(N(\mu_0,\sigma^2/n)\)</span>，其中<span class=math>\(\mu_0\)</span>是总体真正的均值，<span class=math>\(\sigma\)</span>是总体的标准差，<span class=math>\(n\)</span>是样本容量。通常，当样本容量<span class=math>\(n>30\)</span>时，我们就可以使用正态分布作为样本均值的分布。</p>
+<div class=figure>
+<img src=../../images/一个参数均值检验.png alt=一个参数均值检验.png><p class=caption>一个参数均值检验.png</p>
+</div>
+<p>当总体的标准差<span class=math>\(\sigma\)</span>未知时，我们可以用样本的标准差近似代替总体的标准差。需要注意，样本方差公式中分母是<span class=math>\(n-1\)</span> <span class=math>\[
+s^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-{\bar {X}})^2
+\]</span> 其中<span class=math>\(\bar{X}\)</span>为样本均值。</p>
+<p>z检验就是正态检验，t检验是student检验。</p>
+<h3 id=总体比例的检验>总体比例的检验</h3>
+<p>总体比例的检验多见于使用二项分布的场景。比如，总体中具有某一个特征的个体可能比例为<span class=math>\(\epsilon\)</span>，现在抽样的样本容量为<span class=math>\(n\)</span>，其中具有该特征的样本数量为<span class=math>\(x\)</span>，要求检验比例<span class=math>\(\epsilon\)</span>的准确性。本质上是检验<span class=math>\(\epsilon\)</span>与<span class=math>\(p=\frac{x}{n}\)</span>的关系。</p>
+<p>我们知道当<span class=math>\(n\)</span>较大时，二项分布是不太好求的，因为存在计算量很大的阶乘项，但是根据二项分布的中心极限定理，当<span class=math>\(n\)</span>较大，且<span class=math>\(n\epsilon\)</span>的值不是很小（<span class=math>\(n\epsilon>5, n(1-\epsilon)>5\)</span>）时，则可用正态分布去近似二项分布。</p>
+<p>根据抽样要求可知，具有某一个特征的个体数量服从二项分布<span class=math>\(B(n,\epsilon)\)</span>，即 <span class=math>\[
+P(x=k)=C_n^{k}\epsilon^k(1-\epsilon)^{n-k}
+\]</span> <strong>当<span class=math>\(n\)</span>很大时</strong>，我们可以用正态分布近似二项分布，即<span class=math>\(x\sim N(n\epsilon,n\epsilon(1-\epsilon))\)</span>，那么根据随机变量的关系有<span class=math>\(p=\frac{x}{n}\sim N(\epsilon,{\epsilon(1-\epsilon)\over{n}})\)</span>，将<span class=math>\(p\)</span>标准化后可得 <span class=math>\[
+\frac{p-\epsilon}{\sqrt{\frac{\epsilon(1-\epsilon)}{n}}}\sim N(0,1)
+\]</span> 这样我们可以通过正态（Z）检验来对比例进行假设检验。</p>
+<h3 id=总体方差的检验>总体方差的检验</h3>
+<p>根据笔记<a href=概率统计随机过程之抽样的分布.md>概率统计随机过程之抽样的分布</a>中内容可知，样本方差<span class=math>\(S^2\)</span>与总体方差<span class=math>\(\sigma^2\)</span>有如下关系： <span class=math>\[
+\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
+\]</span> 因此，可以对总体的方差进行卡方检验，方法与Z检验类似，只是卡方检验多用于单侧检验，且分布需要使用卡方分布。</p>
+<h2 id=两个总体的参数假设检验>两个总体的参数假设检验</h2>
+<p>两个总体的检验和单个总体的检验分类一样，也是分为均值、比例和方差的检验，如下图所示：</p>
+<div class=figure>
+<img src=../../images/两个总体的检验.png alt=两个总体的检验><p class=caption>两个总体的检验</p>
+</div>
+<p>通常我们研究的两个总体之间的差距，因此，一般研究的是<strong>两个总体的均值之差、比例之差与方差之比</strong>。</p>
+<h3 id=均值差异性检验>均值差异性检验</h3>
+<div class=figure>
+<img src=../../images/两个总体均值差的检验.png alt=两个总体均值差的检验><p class=caption>两个总体均值差的检验</p>
+</div>
 <div class=figure>
 <img src=../../images/两个正态总体的参数假设检验1.png alt=两个正态总体的参数假设检验1.png><p class=caption>两个正态总体的参数假设检验1.png</p>
+</div>
+<h3 id=两个总体比例差的检验>两个总体比例差的检验</h3>
+<div class=figure>
+<img src=../../images/两个总体比例差的检验.png alt=两个总体比例差的检验><p class=caption>两个总体比例差的检验</p>
+</div>
+<h3 id=两个总体方差之比的检验>两个总体方差之比的检验</h3>
+<div class=figure>
+<img src=../../images/两个总体方差之比的检验.png alt=两个总体方差之比的检验><p class=caption>两个总体方差之比的检验</p>
 </div>
 </article>
 <aside class=sidebar>
@@ -164,17 +295,17 @@ Apr 16, 2021</span>
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>18</span>
+</a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
 <span class=button_tally>18</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
-<span class=button_tally>12</span>
+<span class=button_tally>13</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
 测度论
@@ -248,9 +379,9 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=17 title=概率统计随机过程>概率统计随机过程<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=18 title=概率统计随机过程>概率统计随机过程<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -296,13 +427,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/ class=nav-link title=概率统计随机过程之时间序列分析>概率统计随机过程之时间序列分析</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E9%80%9A%E7%94%A8%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/ class=nav-link title=机器学习之通用线性模型>机器学习之通用线性模型</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之矩阵的正定性，二次型与合同矩阵>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%89%B9%E5%BE%81%E5%80%BC%E4%B8%8E%E7%89%B9%E5%BE%81%E5%90%91%E9%87%8F/ class=nav-link title=线性代数与矩阵之特征值与特征向量>线性代数与矩阵之特征值与特征向量</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E6%AD%A3%E4%BA%A4%E9%85%89%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%AD%A3%E4%BA%A4%E5%8C%96/ class=nav-link title=线性代数与矩阵之正交（酉）矩阵与正交化>线性代数与矩阵之正交（酉）矩阵与正交化</a>
 </li>
 </ul>
 <div>
@@ -312,17 +443,17 @@ SHELL
 优化理论
 <span class=button_tally>21</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>18</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
 线性代数与矩阵
 <span class=button_tally>18</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
-概率统计随机过程
-<span class=button_tally>17</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
-<span class=button_tally>12</span>
+<span class=button_tally>13</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
 测度论
@@ -410,9 +541,9 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=12 title=机器学习>机器学习<span class=button_tally>12</span>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=17 title=概率统计随机过程>概率统计随机过程<span class=button_tally>17</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=18 title=概率统计随机过程>概率统计随机过程<span class=button_tally>18</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>

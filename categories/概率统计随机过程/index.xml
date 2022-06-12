@@ -1,4 +1,222 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概率统计随机过程 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/</link><description>Recent content in 概率统计随机过程 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 04 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之C-R不等式</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/</link><pubDate>Wed, 04 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>概率统计随机过程 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/</link><description>Recent content in 概率统计随机过程 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 11 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之时间序列分析</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link><pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid><description>
+&lt;h2 id="概率统计随机过程之时间序列分析">概率统计随机过程之时间序列分析&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>时间序列分析（Time-Series Analysis）是统计与随机过程中常用的场景，在机器学习、强化学习的预测中也有重要地位，本笔记介绍时间序列分析的基本概念和指标，记录对时序分析的基本理解。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#时间序列的基本概念">时间序列的基本概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#时间序列的类型">时间序列的类型&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#时间序列的因素分解">时间序列的因素分解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#时间序列分析基础">时间序列分析基础&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#发展水平与平均发展水平">发展水平与平均发展水平&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#绝对数时间序列的序时平均数">绝对数时间序列的序时平均数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#相对数时间序列的序时平均数">相对数时间序列的序时平均数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#增长量">增长量&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#时间序列的速度分析">时间序列的速度分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#发展速度">发展速度&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#平均发展速度">平均发展速度&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#增长速度">增长速度&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#平均增长速度">平均增长速度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#年化增长速度">年化增长速度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#增长1绝对值">增长1%绝对值&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#时间序列的预测">时间序列的预测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#平稳序列预测">平稳序列预测&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#简单平均法">简单平均法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#移动平均法">移动平均法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数平滑法">指数平滑法&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#趋势序列的预测">趋势序列的预测&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#线性趋势预测">线性趋势预测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#非线性趋势预测">非线性趋势预测&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#季节因素考虑">季节因素考虑&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="时间序列的基本概念">时间序列的基本概念&lt;/h2>
+&lt;blockquote>
+&lt;p>时间序列：又叫动态序列，是指将同一对象不同时间的观测数据按期发生的先后顺序排列而成的序列。&lt;/p>
+&lt;/blockquote>
+&lt;p>这就是我们常说的时域表示，自变量（横轴）是时间，因变量（纵轴）是观察值。常见的时间序列如股市K线图，各年经济统计图表，Gartner技术成熟曲线等。&lt;/p>
+&lt;p>时间序列是一种动态的数列分析。时间序列中&lt;strong>每一时期的数值都是由许多不同的因素同时作用的综合结果&lt;/strong>。&lt;/p>
+&lt;p>时间序列的基本要素：&lt;/p>
+&lt;ul>
+&lt;li>所属的时间范围：可以是年份，季度，月份或者其他任何形式的时间&lt;/li>
+&lt;li>不同时间上的观察值&lt;/li>
+&lt;/ul>
+&lt;h3 id="时间序列的类型">时间序列的类型&lt;/h3>
+&lt;p>时间序列的类型从平稳性来看分为平稳序列和非平稳序列。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>平稳序列。基本不存在趋势的序列，各观察值基本在某个固定的水平上波动，或虽存在波动程度不同，但并不存在某种规律。我觉得和随机过程中的平稳概念类似，各态历经性，每一个时刻的值域是一样的，值域不会随着时间的变化而变化。&lt;/li>
+&lt;li>非平稳序列。&lt;/li>
+&lt;li>趋势型，随着时间增长，序列观察值存在与时间轴线性或非线性相关的趋势。&lt;/li>
+&lt;li>复合型，趋势、季节性、周期性的复合序列。&lt;/li>
+&lt;/ol>
+&lt;div class="figure">
+&lt;img src="../../images/时间序列稳态与非稳态.png" alt="时间序列稳态与非稳态.png" />&lt;p class="caption">时间序列稳态与非稳态.png&lt;/p>
+&lt;/div>
+&lt;h3 id="时间序列的因素分解">时间序列的因素分解&lt;/h3>
+&lt;p>时间序列分析的任务就是要正确地确定时间序列的性质，对影响时间序列的各种因素加以分解和测定，以便对未来的状况作出判断和预测。这些因素按照性质可以划分为：长期趋势、季节变动、循环变动、不规则变动。&lt;/p>
+&lt;p>时间序列因素四部分组成：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>趋势（T，trend），线性趋势、非线性趋势&lt;/li>
+&lt;li>季节性（S，seasonal fluctuation）&lt;/li>
+&lt;li>周期性（C，cyclical fluctuation）&lt;/li>
+&lt;li>随机性（I，irregular variations）&lt;/li>
+&lt;/ol>
+&lt;p>根据因素的关系，时间序列可以通过以下两种方式分解：&lt;/p>
+&lt;p>&lt;strong>加法分解&lt;/strong>。 &lt;span class="math">\[Y_i=T_i+S_i+C_i+I_i\]&lt;/span> 加法分解中，各影响因素是相互独立的，且均与&lt;span class="math">\(Y\)&lt;/span>有着相同的计量单位。季节性变动、周期性变动在各自周期内总会应为0，随机波动长期来看，期望也是0。在加法模型中，各因素的分解是通过减法实现，如 &lt;span class="math">\[
+Y-T=S+C+I
+\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>乘法分解&lt;/strong>。 &lt;span class="math">\[Y_i=T_i\times S_i\times C_i\times I_i\]&lt;/span> 乘法分解中，只有趋势与与&lt;span class="math">\(Y\)&lt;/span>有着相同的计量单位，其他因素都是以&lt;strong>比率&lt;/strong>的形式出现，季节性变动、周期性变动在各自周期内几何平均会应为1（100%），随机波动长期来看，几何平均也是1（100%）。在乘法模型中，各因素的分解是通过除法实现，如 &lt;span class="math">\[
+Y\div T=S×C×I
+\]&lt;/span>&lt;/p>
+&lt;h2 id="时间序列分析基础">时间序列分析基础&lt;/h2>
+&lt;p>时间序列分析的基本目的是描述动态变化（分析过去），揭示变化规律（认识规律）以至获悉未来数量的趋势（预测未来）。最直观的时序分析方法是图像描述，在难道初始数据后，先画出一幅图，能有助于我们更快地了解大体情形。&lt;/p>
+&lt;h3 id="发展水平与平均发展水平">发展水平与平均发展水平&lt;/h3>
+&lt;blockquote>
+&lt;p>发展水平：是指现象在不同的时间上的观察值，说明现象在某一时间上所达到的水平。表示为&lt;span class="math">\(Y_0,Y_1,\dotsb,Y_n\)&lt;/span>.&lt;/p>
+&lt;/blockquote>
+&lt;p>说白了，发展水平就是观察值的好听点说法。那么所谓&lt;strong>平均发展水平&lt;/strong>，就是一段时间内观察值的均值。&lt;/p>
+&lt;blockquote>
+&lt;p>平均发展水平:现象在不同时间上取值的平均数，又称序时平均数或动态平均数，说明现象在一段时期内所达到的一般水平。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="绝对数时间序列的序时平均数">绝对数时间序列的序时平均数&lt;/h4>
+&lt;p>绝对数平均数就是我们常说的平均值，对于等分的&lt;strong>时期序列&lt;/strong>，其计算公式是平凡的： &lt;span class="math">\[
+\bar{Y}=\frac{Y_1+Y_2+\dotsb+Y_n}{n}=\frac{\sum_{i=1}^n Y_i}{n}
+\]&lt;/span> &lt;img src="../../images/时期序列时点序列.png" alt="时期序列时点序列.png" />&lt;/p>
+&lt;p>所谓时期序列，就是指观察值代表了某一时段的值。对应的是时点序列，含义是指观察值只代表当前时间点的值。对于时点序列，我们可以用两侧端点的平均数作为某个时段的代表值，即&lt;span class="math">\(\bar{Y_i}=\frac{1}{2}(Y_i+Y_{i+1})\)&lt;/span>，因此时点序列的平均发展水平就是： &lt;span class="math">\[
+\bar{Y}=\frac{{(Y_1+Y_2)\over 2}+{(Y_2+Y_3)\over 2}+\dotsb+{(Y_{n-1}+Y_n)\over 2}}{n-1}=\frac{{Y_1\over 2}+Y_2+\dotsb+Y_{n-1}+{Y_n\over 2}}{n-1}
+\]&lt;/span> 注意，只有&lt;span class="math">\(n-1\)&lt;/span>个时段，而非像时期序列有&lt;span class="math">\(n\)&lt;/span>个时段。&lt;/p>
+&lt;p>有时，时间序列并不是均等的，如下图所示： &lt;img src="../../images/间隔不相等的时间序列.png" alt="间隔不相等的时间序列" />&lt;/p>
+&lt;p>我们可以用两侧端点的平均数作为某个时段的代表值，然后再乘以时间间隔的长度，最后除以总的时间，这里使用了加权平均的思想。 &lt;span class="math">\[
+\bar{Y}=\frac{({Y_1+Y_2\over 2})T_1+({Y_2+Y_3\over 2})T_2+\dotsb+({Y_{n-1}+Y_n\over 2})T_{n-1}+}{\sum_{i=1}^{n-1} T_i}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="相对数时间序列的序时平均数">相对数时间序列的序时平均数&lt;/h4>
+&lt;p>首先，分别求出构成相对数的分子指标&lt;span class="math">\(a_i\)&lt;/span>和分母指标&lt;span class="math">\(b_i\)&lt;/span>的序时平均数；其次，在进行对比，即得相对数时间序列的序时平均数： &lt;span class="math">\[
+\bar{Y}=\frac{\bar{a}}{\bar{b}}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="增长量">增长量&lt;/h4>
+&lt;ul>
+&lt;li>逐期增长量：报告期水平与前一期水平之差，&lt;span class="math">\(\Delta_i=Y_i-Y_{i-1}\)&lt;/span>&lt;/li>
+&lt;li>累计增长量：报告期水平与某一固定时期水平之差，&lt;span class="math">\(\Delta_i=Y_i-Y_{0}\)&lt;/span>。显然，累计增长量等于逐期增长量之和。&lt;/li>
+&lt;li>年距增长量，为了消除季节变动影响，本期发展水平-去年同期发展水平&lt;/li>
+&lt;li>平均增长量 &lt;span class="math">\[
+平均增长量=\frac{累计增长量}{间隔期数}=\frac{累计增长量}{观察值个数-1}
+\]&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h2 id="时间序列的速度分析">时间序列的速度分析&lt;/h2>
+&lt;p>时间序列的速度主要分发展速度和增长速度两个方面，发展速度是“连本带利”的速度，而增长速度主要看“利息”的增长，二者都反应了时间序列变化的快慢。&lt;/p>
+&lt;h3 id="发展速度">发展速度&lt;/h3>
+&lt;blockquote>
+&lt;p>发展速度：报告期水平和基期水平之比，公式表达为： &lt;span class="math">\[发展速度=\frac{报告期水平}{基期水平}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>常用的发展速度有环比发展速度、同比发展速度（年距发展速度）、定基发展速度。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>环比发展速度：报告期水平与前一期水平之比&lt;span class="math">\(R_i=\frac{Y_i}{Y_{i-1}}\)&lt;/span>;&lt;/li>
+&lt;li>同比发展速度：本期发展水平与去年同期发展水平之比；&lt;/li>
+&lt;li>定基发展速度：报告期水平与某一固定时期水平之比&lt;span class="math">\(R_i=\frac{Y_i}{Y_0}\)&lt;/span>。如果是计算长时间内总的发展速度，称为总速度。&lt;/li>
+&lt;/ol>
+&lt;p>显然，观察期内各环比发展速度的乘积等于最末期的定基发展速度，即 &lt;span class="math">\[
+\prod_{i=1}^n \frac{Y_i}{Y_{i-1}}=\frac{Y_n}{Y_0}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="平均发展速度">平均发展速度&lt;/h4>
+&lt;p>平均发展速度研究的是多个时期的发展速度均值，这里的均值计算方式需要仔细考虑下，并不能采用简单的算术平均，因为&lt;span class="math">\(n\)&lt;/span>个时期发展水平累积起来是乘积关系，所以求其平均数我们自然会想到将其开&lt;span class="math">\(n\)&lt;/span>次根号，即使用&lt;strong>几何平均数&lt;/strong>。 &lt;span class="math">\[
+\bar{R}=\sqrt[n]{\frac{Y_1}{Y_0}\times\frac{Y_2}{Y_1}\times\dotsb\times\frac{Y_n}{Y_{n-1}}}=\sqrt[n]{\prod_{i=1}^n \frac{Y_i}{Y_{i-1}}}=\sqrt[n]{\frac{Y_n}{Y_{0}}}\\
+反过来：Y_n=Y_0\bar{R}^n
+\]&lt;/span>&lt;/p>
+&lt;h3 id="增长速度">增长速度&lt;/h3>
+&lt;blockquote>
+&lt;p>增长速度：又称增长率，是增长量与基期发展水平之比，或报告期发展水平和基期发展水平之比&lt;strong>减1&lt;/strong>。 &lt;span class="math">\[\begin{aligned}
+增长速度(增长率)&amp;amp;=\frac{增长量}{基期水平}=\frac{报告期水平-基期水平}{基期水平}\\&amp;amp;=发展速度-1
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>增长速度表明了相对增加的程度，注意增长速度&lt;strong>可正可负可0&lt;/strong>，但是在负增长时有些概念需要谨慎使用。同样，增长速度也可分为环比增长速度、同比增长速度（年距增长速度）、定基增长速度。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>环比增长速度（率）：报告期水平与前一期水平之比减1，&lt;span class="math">\(G_i=\frac{Y_i-Y_{i-1}}{Y_{i-1}}=\frac{Y_i}{Y_{i-1}}-1\)&lt;/span>&lt;/li>
+&lt;li>同比增长速度（率）:总增长率与去年同期发展水平之比，或者本期发展水平与去年同期发展水平之比减1；&lt;/li>
+&lt;li>定基增长速度（率）：报告期水平与某一固定时期水平之比减1，&lt;span class="math">\(G_i=\frac{Y_i-Y_0}{Y_0}=\frac{Y_i}{Y_0}-1\)&lt;/span>。&lt;/li>
+&lt;/ol>
+&lt;h4 id="平均增长速度">平均增长速度&lt;/h4>
+&lt;p>平均增长速度，又称平均增长率，是用来描述现象在整体观察期内平均每期增长变化的程度。它与平均发展速度有着密切关系，两者仅相差一个基数，即 &lt;span class="math">\[
+平均增长速度=平均发展速度-1\\
+\bar{G}=\sqrt[n]{\frac{Y_n}{Y_{0}}}-1=\bar{R}-1
+\]&lt;/span>&lt;/p>
+&lt;h4 id="年化增长速度">年化增长速度&lt;/h4>
+&lt;p>如果我们计算不等长时期的增长率，比如要比较一个月的增长率和一个季度的增长率，由于其基准时期不同，其结果往往不客观。为了统一基准，我们可以采用年化增长率（又叫年率）来表示。我们借用平均增长速度的计算方式，先计算出观察时期的平均发展速度，然后再通过多次幂的方式求出年化发展速度。计算公式为： &lt;span class="math">\[
+G_A=(\frac{Y_i}{Y_0})^{\frac{m}{n}}-1
+\]&lt;/span> 其中，&lt;span class="math">\(m\)&lt;/span>为一年中的时期个数，比如按月算&lt;span class="math">\(m=12\)&lt;/span>，按季度算&lt;span class="math">\(m=4\)&lt;/span>;&lt;span class="math">\(n\)&lt;/span>表示当期和某一固定时期所跨的时期总数。&lt;/p>
+&lt;h4 id="增长1绝对值">增长1%绝对值&lt;/h4>
+&lt;p>在有些情况下，增长率会起到误导的作用，比如小基数场景下，不多的绝对值增长就会导致增长率的大幅上升。因此，不能单纯就增长率论增长率，需要与绝对值水平结合。为此，提出了增长1%绝对值的概念，即增长率每增长一个百分点而增加的绝对量。 &lt;span class="math">\[
+增长1\%绝对值=\frac{前期水平}{100}
+\]&lt;/span> 用于弥补增长率分析中的局限性。&lt;/p>
+&lt;h2 id="时间序列的预测">时间序列的预测&lt;/h2>
+&lt;p>我们对时间序列的研究往往是需要通过历史数据来预测未来的数据，其分析步骤如下：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>确定时间序列所包含的成分，即趋势、季节、周期、随机性的类型判断&lt;/li>
+&lt;li>选择适合此类时间序列的预测方法&lt;/li>
+&lt;li>对可能的预测方法进行评估，以确定最佳方案&lt;/li>
+&lt;li>利用最佳方案进行预测&lt;/li>
+&lt;/ol>
+&lt;div class="figure">
+&lt;img src="../../images/时间序列预测方法.png" alt="时间序列预测方法" />&lt;p class="caption">时间序列预测方法&lt;/p>
+&lt;/div>
+&lt;div class="figure">
+&lt;img src="../../images/时间序列分析评估.png" alt="时间序列分析评估" />&lt;p class="caption">时间序列分析评估&lt;/p>
+&lt;/div>
+&lt;h3 id="平稳序列预测">平稳序列预测&lt;/h3>
+&lt;p>对于既没有趋势性，也没有季节性周期性的纯随机时间序列，我们可以采用平稳序列预测方法。主要包括简单平均法、移动平均法、指数平均法三种。&lt;/p>
+&lt;h4 id="简单平均法">简单平均法&lt;/h4>
+&lt;p>顾名思义，就是取过去所有值的算术平均数，表达为： &lt;span class="math">\[
+F_{t+1}=\frac{1}{t}(Y_1+Y_2+\dotsb+Y_t)=\frac{1}{t}\sum_{i=1}^t Y_i
+\]&lt;/span> 简单平均法将所有观察值看作同等重要，不区分远期数据和近期数据的影响，适合对较为稳定的时间序列进行预测。其误差为： &lt;span class="math">\[
+e_{t+1}=Y_{t+1}-F_{t+1}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="移动平均法">移动平均法&lt;/h4>
+&lt;p>一种对简单平均法做出改进的方法是移动平均法，通过对时间序列的&lt;strong>逐期递移&lt;/strong>，球的一系列平均数作为预测值。移动平均法本质上是构建了一个&lt;strong>滑动窗口&lt;/strong>，只计算窗口内的观察值的平均数。根据数据是否平等可分为简单移动平均和加权移动平均两种。&lt;/p>
+&lt;p>简单移动平均：假设滑动窗口的大小为&lt;span class="math">\(k\)&lt;/span>，即计算最近的&lt;span class="math">\(k\)&lt;/span>个观察值的平均数，其预测值为： &lt;span class="math">\[
+F_{t+1}=\bar{Y}_t=\frac{Y_{t-k+1}+Y_{t-k+2}+\dotsb+Y_{t-1}+Y_t}{k}
+\]&lt;/span> 窗口大小&lt;span class="math">\(k\)&lt;/span>是一个超参数，需要根据实验或经验获得。&lt;span class="math">\(k\)&lt;/span>越小，越能跟上变化，&lt;span class="math">\(k\)&lt;/span>越大，预测曲线越稳定。&lt;/p>
+&lt;p>对于&lt;span class="math">\(n\)&lt;/span>个预测值，我们使用均方误差（MSE）衡量其误差： &lt;span class="math">\[
+MSE=\frac{\sum_{i=1}^n (Y_i-F_i)^2}{n}
+\]&lt;/span>&lt;/p>
+&lt;p>加权移动平均：假设滑动窗口的大小为&lt;span class="math">\(k\)&lt;/span>，这些观察值并不平等，有些观察值（比如近期的观察值）比较重要，需要加上一个权重&lt;span class="math">\(\alpha\)&lt;/span>，体现不同观察值的重要性，所有的权重值之和为1。 &lt;span class="math">\[
+F_{t+1}=\bar{Y}_t=\frac{\alpha_1Y_{t-k+1}+\alpha_2Y_{t-k+2}+\dotsb+\alpha_{k-1}Y_{t-1}+\alpha_kY_t}{k}\\
+\alpha_1+\alpha_2+\dotsb+\alpha_k=1
+\]&lt;/span> 加权移动平均可以更加灵活的反映不同时期数据对均值的影响，但是除了超参数&lt;span class="math">\(k\)&lt;/span>，还引入了另一组超参数&lt;span class="math">\(\alpha_i,i=\{1,2,\dotsb,k\}\)&lt;/span>。我们可以通过合理地调整这些超参数，来最小化MSE。&lt;/p>
+&lt;h4 id="指数平滑法">指数平滑法&lt;/h4>
+&lt;p>指数平均法算是加权平均的一种特例（没有窗口限制，且权重呈等比数列）。对过去的观察值加权平均进行预测的一种方法。观察值时间越远，其权重也跟着呈现指数的下降，这也是指数平滑法的名称由来。&lt;/p>
+&lt;p>指数平滑法会将时间序列进行修匀，消除随机波动，找出序列变化趋势。其计算公式为： &lt;span class="math">\[
+F_{t}=\alpha Y_{t-1}+(1-\alpha)F_{t-1}
+\]&lt;/span> 其中，&lt;span class="math">\(Y_{t-1}\)&lt;/span>为&lt;span class="math">\(t-1\)&lt;/span>期实际观察值，&lt;span class="math">\(F_{t-1}\)&lt;/span>为&lt;span class="math">\(t-1\)&lt;/span>期预测值，&lt;span class="math">\(\alpha\)&lt;/span>为平滑系数（&lt;span class="math">\(0&amp;lt;\alpha&amp;lt;1\)&lt;/span>），对于起点我们设&lt;span class="math">\(F_1=Y_1\)&lt;/span>。如果我们将式子展开，最终预测值会是前面各期的加权平均。显然，&lt;span class="math">\(\alpha\)&lt;/span>越大，新的观察值&lt;span class="math">\(Y_{t-1}\)&lt;/span>比例越大，预测对变动越敏感，适用于随机波动比较大的序列；反则反之。&lt;/p>
+&lt;h3 id="趋势序列的预测">趋势序列的预测&lt;/h3>
+&lt;p>所谓趋势，就是持续向上或持续向下的状态或规律，可分为线性趋势和非线性趋势。常用的趋势预测方法有线性趋势预测、非线性趋势预测和自回归模型预测。&lt;/p>
+&lt;h4 id="线性趋势预测">线性趋势预测&lt;/h4>
+&lt;p>本质上是线性回归，用观察值做线性回归。&lt;/p>
+&lt;h4 id="非线性趋势预测">非线性趋势预测&lt;/h4>
+&lt;p>指数曲线，使用指数曲线取回归数据。本上算是广义线性回归。对于指数曲线，只要取&lt;span class="math">\(\ln\)&lt;/span>，就可以变成线性回归。 &lt;span class="math">\[
+\hat{Y}_t=b_0b_1^t
+\]&lt;/span>&lt;/p>
+&lt;p>修正指数曲线：加了一个常数偏置&lt;span class="math">\(K\)&lt;/span>。 &lt;span class="math">\[
+\hat{Y}_t=K+b_0b_1^t
+\]&lt;/span>&lt;/p>
+&lt;p>Gompertz曲线： &lt;span class="math">\[
+\hat{Y}_t=Ka^{b^{t}}
+\]&lt;/span>&lt;/p>
+&lt;p>Logistics曲线 &lt;span class="math">\[
+\hat{Y}_t=\frac{1}{K+ab^t}
+\]&lt;/span>&lt;/p>
+&lt;p>多阶曲线：高阶多项式拟合。 &lt;span class="math">\[
+\hat{Y}_t=b_0+b_1t++b_2t^2+\dotsb++b_kt^k
+\]&lt;/span>&lt;/p>
+&lt;h3 id="季节因素考虑">季节因素考虑&lt;/h3>
+&lt;blockquote>
+&lt;p>季节指数:刻画序列在一个年度个月或各季度的典型季节特征。&lt;/p>
+&lt;/blockquote></description></item><item><title>概率统计随机过程之C-R不等式</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/</link><pubDate>Wed, 04 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bc-r%E4%B8%8D%E7%AD%89%E5%BC%8F/</guid><description>
 &lt;h2 id="概率统计随机过程之c-r不等式">概率统计随机过程之C-R不等式&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#前置条件">前置条件&lt;/a>&lt;/li>
@@ -207,11 +425,14 @@ E[f(Y)|Y=y]=E[f(Y=y)|Y=y]=E[f(y)]=f(y)
 &lt;blockquote>
 &lt;p>定理1：设&lt;span class="math">\(\{x_1,x_2,\dotsb,x_n\}\)&lt;/span>是来自某个总体的样本,&lt;span class="math">\(\bar{x}\)&lt;/span>为其样本均值：&lt;/p>
 &lt;p>(1)若总体分布为&lt;span class="math">\(N(\mu,\sigma^2)\)&lt;/span>，则&lt;span class="math">\(\bar{x}\)&lt;/span>的精确（抽样）分布为&lt;span class="math">\(N(\mu,\sigma^2/n)\)&lt;/span>;&lt;/p>
-&lt;p>(2)若总体的分布未知或不是正态分布，但&lt;span class="math">\(E(x)=\mu,Var(x)=\sigma^2\)&lt;/span>存在，则&lt;span class="math">\(n\)&lt;/span>较大时&lt;span class="math">\(\bar{x}\)&lt;/span>的渐进分布为&lt;span class="math">\(N(\mu,\sigma^2/n)\)&lt;/span>，常记为&lt;span class="math">\(\bar{x}\dot{\sim} N(\mu,\sigma^2/n)\)&lt;/span>。&lt;/p>
+&lt;p>(2)若总体的分布未知或不是正态分布，但&lt;span class="math">\(E(x)=\mu,Var(x)=\sigma^2\)&lt;/span>存在，则&lt;span class="math">\(n\)&lt;/span>较大时&lt;span class="math">\(\bar{x}\)&lt;/span>的渐进分布为&lt;span class="math">\(N(\mu,\sigma^2/n)\)&lt;/span>（通常&lt;span class="math">\(n&amp;gt;30\)&lt;/span>就接近于正态分布），常记为&lt;span class="math">\(\bar{x}\dot{\sim} N(\mu,\sigma^2/n)\)&lt;/span>。&lt;/p>
 &lt;/blockquote>
 &lt;p>证明：&lt;/p>
 &lt;p>（1）样本中的每个样品都是独立同分布的随机变量且服从&lt;span class="math">\(x_i\sim N(\mu,\sigma^2)\)&lt;/span>，则根据正态分布的线性性质，n个i.i.d的正态随机变量和为&lt;span class="math">\(N(n\mu,n\sigma^2)\)&lt;/span>。同样根据正态分布的线性性质，和再除以&lt;span class="math">\(1/n\)&lt;/span>，有&lt;span class="math">\(\bar{x}\sim N(\mu,\sigma^2/n)\)&lt;/span>。&lt;/p>
 &lt;p>（2）就是独立同分布的中心极限定理（林德伯格-莱维中心极限定理）的结果。证明的话是用随机变量分布列的特征函数收敛到正态分布的特征函数的思路。&lt;/p>
+&lt;p>需要指出，此处的抽样分布一般都是放回抽样，对于无放回抽样，样本均值的标准误差需要添加一个修正系数： &lt;span class="math">\[
+\sigma^2_{\bar{x}}=\sigma^2/n\times \frac{N-n}{N-1}&amp;lt;\sigma^2/n
+\]&lt;/span> 显然不放回抽样的样本均值的标准误差更小。&lt;/p>
 &lt;h2 id="样本方差的抽样分布">样本方差的抽样分布&lt;/h2>
 &lt;h3 id="卡方分布">卡方分布&lt;/h3>
 &lt;blockquote>
@@ -519,7 +740,8 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;h3 id="指数型分布族">指数型分布族&lt;/h3>
 &lt;p>区别于指数分布族，指数型分布族是指数分布族的推广，更是囊括了正态分布族、二项分布族、伽马分布族、多项分布族等等。&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}h(x)\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
+&lt;p>此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”。&lt;/p>
 &lt;/blockquote>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>，其中主要有两条：一条是“分布的支撑与&lt;span class="math">\(\theta\)&lt;/span>无关”；另一条是“&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关”，若其间线性相关，如&lt;span class="math">\(T_1(x)=2T_2(x)+3T_3(x)\)&lt;/span>，则把&lt;span class="math">\(T_1(x)\)&lt;/span>归拢到&lt;span class="math">\(T_2(x),T_3(x)\)&lt;/span>中即可。&lt;/p>
 &lt;p>下面这张截图就是将3个常见分布族改写成指数型分布族的例子。&lt;/p>
@@ -617,7 +839,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 &lt;p>有函数处理的信息不增特性可知，若&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量，则它任一函数&lt;span class="math">\(\delta(T)\)&lt;/span>也是完全统计量。&lt;/p>
 &lt;h4 id="指数族中统计量的完全性">指数族中统计量的完全性&lt;/h4>
 &lt;blockquote>
-&lt;p>&lt;strong>定理&lt;/strong>：设样本&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的概率函数 &lt;span class="math">\[f(x,\theta)=c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]&lt;/span> 为指数族的自然形式。令&lt;span class="math">\(T(x)=(T_1(x),\dotsb,T_k(x))\)&lt;/span>，且自然参数空间&lt;span class="math">\(\varTheta^\star\)&lt;/span>作为&lt;span class="math">\(R_k\)&lt;/span>的自己有内点，则&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量。&lt;/p>
+&lt;p>&lt;strong>定理&lt;/strong>：设样本&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的概率函数 &lt;span class="math">\[f(x,\theta)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\},\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]&lt;/span> 为指数族的自然形式。令&lt;span class="math">\(T(x)=(T_1(x),\dotsb,T_k(x))\)&lt;/span>，且自然参数空间&lt;span class="math">\(\varTheta^\star\)&lt;/span>作为&lt;span class="math">\(R_k\)&lt;/span>的自己有内点，则&lt;span class="math">\(T(x)\)&lt;/span>是完全统计量。&lt;/p>
 &lt;/blockquote>
 &lt;p>首先，该定理一个充分条件，只适用于判别指数族的完全性。&lt;span class="math">\(\theta_j\)&lt;/span>是可以是其他参数的函数，其结果作为&lt;span class="math">\(\varTheta^\star\)&lt;/span>的空间一维。&lt;/p>
 &lt;p>其次，有内点意味着&lt;span class="math">\(\varTheta^\star\)&lt;/span>不可以是K维空间的超平面，即&lt;span class="math">\(\theta=(\theta_1,\dotsb,\theta_k)\)&lt;/span>是满秩的。&lt;/p>
@@ -1470,37 +1692,94 @@ v&amp;amp;u\\
 {\mathrm{Pr}}{\big [}X(t+h)=y\,|\,X(s)=x(s),s\leq t{\big ]}={\mathrm {Pr}}{\big [}X(t+h)=y\,|\,X(t)=x(t){\big ]},\quad \forall h&amp;gt;0.
 \]&lt;/span>&lt;/p></description></item><item><title>概率统计随机过程之假设检验</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/</guid><description>
 &lt;h2 id="概率统计随机过程之假设检验">概率统计随机过程之假设检验&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>统计推断两大内容：&lt;strong>参数估计（点估计、区间估计）与假设检验&lt;/strong>。&lt;/p>
-&lt;h2 id="假设检验的基本概念">假设检验的基本概念&lt;/h2>
-&lt;h3 id="假设检验问题">假设检验问题&lt;/h3>
-&lt;p>总体&lt;strong>分布未知&lt;/strong>：对总体分布的“某种推断”--》“假设”：&lt;/p>
+&lt;p>统计推断两大内容：&lt;strong>参数估计（点估计、区间估计）与假设检验&lt;/strong>。与参数估计不同，假设检验不需要去计算具体的数值或范围，只需要回答“Yes Or No”的问题。&lt;/p>
 &lt;ul>
-&lt;li>分布类型未知：非参数假设，例如假设服从正态分布，均匀分布……这类一般很难。&lt;/li>
-&lt;li>参数未知：参数假设。&lt;/li>
+&lt;li>&lt;a href="#假设检验">假设检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#假设检验研究的问题">假设检验研究的问题&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#假设">“假设”&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#如何选择原假设h_0与备择假设h_1">如何选择原假设&lt;span class="math">\(H_0\)&lt;/span>与备择假设&lt;span class="math">\(H_1\)&lt;/span>？&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#基本方法与步骤">基本方法与步骤&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两类错误">两类错误&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#显著性水平">显著性水平&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#p值">P值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#显著性水平和p值的区别">显著性水平和P值的区别&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一个总体的参数假设检验">一个总体的参数假设检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#总体均值的检验">总体均值的检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#总体比例的检验">总体比例的检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#总体方差的检验">总体方差的检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两个总体的参数假设检验">两个总体的参数假设检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#均值差异性检验">均值差异性检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两个总体比例差的检验">两个总体比例差的检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两个总体方差之比的检验">两个总体方差之比的检验&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;p>假设检验：通过&lt;strong>抽样的样本&lt;/strong>进行对假设进行检验&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>参数的假设检验&lt;/strong>（重点）&lt;/li>
-&lt;li>非参数的假设检验&lt;/li>
-&lt;/ul>
+&lt;h2 id="假设检验">假设检验&lt;/h2>
+&lt;p>假设检验的基本思想是对&lt;strong>总体参数&lt;/strong>的具体数值进行假设性陈述（如使用=，≥，≤等符号），再利用样本或实验结果来推断此假设的可信度。通常，逻辑上采用&lt;strong>反证法&lt;/strong>，但只是概率性证伪，依据是统计上的&lt;strong>小概率原理&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>小概率原理:一个事件如果发生的概率很小的话，那么它在一次试验中是几乎不可能发生的，但在多次重复试验中几乎是必然发生的。&lt;/p>
+&lt;/blockquote>
+&lt;p>多小能称之为小概率呢？统计学上，一般认为地认为等于或小于0.05或0.01的概率为小概率。&lt;/p>
+&lt;h3 id="假设检验研究的问题">假设检验研究的问题&lt;/h3>
+&lt;p>总体分布存在未知内容，对总体分布的“某种推断”做出某些“假设”，再通过&lt;strong>抽样的样本&lt;/strong>进行对假设进行检验。主要分为以下两种：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>分布类型未知：非参数假设，例如假设服从正态分布，均匀分布……这类一般很难。针对分布类型未知的假设检验为非参数的假设检验。&lt;/li>
+&lt;li>参数未知：参数假设。针对分布类型已知而其中某些参数未知的假设建议称为&lt;strong>参数的假设检验&lt;/strong>（重点）。&lt;/li>
+&lt;/ol>
 &lt;h3 id="假设">“假设”&lt;/h3>
-&lt;ul>
-&lt;li>原(零)假设：&lt;span class="math">\(H_0\)&lt;/span>。&lt;/li>
-&lt;li>备择(对立)假设：&lt;span class="math">\(H_1\)&lt;/span>，它与原假设&lt;span class="math">\(H_0\)&lt;/span>是互斥的。&lt;/li>
-&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">&lt;/th>
+&lt;th align="center">原假设(Null hypothesis)&lt;/th>
+&lt;th align="center">备择假设(Alternative hypothesis)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">表示记号&lt;/td>
+&lt;td align="center">&lt;span class="math">\(H_0\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(H_1\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">别称&lt;/td>
+&lt;td align="center">零假设&lt;/td>
+&lt;td align="center">研究假设&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">含义&lt;/td>
+&lt;td align="center">待检验的假设&lt;/td>
+&lt;td align="center">与原假设对立的假设&lt;br>二者相互对立，有且只有一个成立&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">目的&lt;/td>
+&lt;td align="center">研究者想收集证据予以&lt;strong>反对&lt;/strong>的假设&lt;/td>
+&lt;td align="center">研究者想收集证据予以&lt;strong>支持&lt;/strong>的假设&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">等号&lt;/td>
+&lt;td align="center">带有，=，≥，≤&lt;/td>
+&lt;td align="center">不带有，≠，&amp;lt;,&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;p>原假设与备择假设&lt;strong>二选一&lt;/strong>，接受&lt;span class="math">\(H_0\)&lt;/span>则拒绝&lt;span class="math">\(H_1\)&lt;/span>，反则反之。&lt;/p>
-&lt;p>如何选择原假设&lt;span class="math">\(H_0\)&lt;/span>与备择假设&lt;span class="math">\(H_1\)&lt;/span>？&lt;/p>
+&lt;p>假设设计步骤：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>先确定备择假设，在确定原假设&lt;/li>
+&lt;li>=，≥，≤放在原假设中&lt;/li>
+&lt;li>检验目的是收集证据拒绝原假设&lt;/li>
+&lt;/ol>
+&lt;h3 id="如何选择原假设h_0与备择假设h_1">如何选择原假设&lt;span class="math">\(H_0\)&lt;/span>与备择假设&lt;span class="math">\(H_1\)&lt;/span>？&lt;/h3>
+&lt;p>&lt;strong>科学的审慎原则与原假设的优势性&lt;/strong>。在科学研究中，通常要求保守主义，遵守习俗、惯例和延续性。比如新的工艺或技术默认无效、新的要没有疗效、变量无关联等。&lt;/p>
+&lt;p>原假设是具有先天优势的，因为必须拿出充分的证据才可以推翻，具备先天受保护性，相对于备择假设更有优势。&lt;/p>
 &lt;ol style="list-style-type: decimal">
 &lt;li>一般不能轻易推翻（否定）的假设为原假设，原假设不能轻易拒绝，除非有足够的证据。&lt;/li>
+&lt;li>保守性的作为原假设。&lt;/li>
 &lt;li>分析人员想证明正确的命题作为备择假设，把分析人员努力证明他不正确的命题作为原假设。&lt;/li>
 &lt;li>如果命题成立，但是误判为不成立时会造成严重后果的；命题为原假设。&lt;/li>
 &lt;/ol>
 &lt;p>个人总结：惰性，严谨性（悲观性）&lt;/p>
-&lt;h3 id="基本概念">基本概念&lt;/h3>
-&lt;p>假设（如上所示）；假设检验（如上所示）&lt;/p>
-&lt;p>假设检验问题：&lt;strong>显著性假设检验问题（唯一假设，无备择假设）；&lt;span class="math">\(H_0,H_1\)&lt;/span>假设检验问题；&lt;/strong>&lt;/p>
-&lt;h3 id="基本思想与步骤">基本思想与步骤&lt;/h3>
-&lt;p>&lt;strong>基本思想&lt;/strong>：&lt;/p>
+&lt;h2 id="基本方法与步骤">基本方法与步骤&lt;/h2>
+&lt;p>&lt;strong>基本方法&lt;/strong>：&lt;/p>
 &lt;p>用&lt;strong>样本&lt;/strong>构造统计量&lt;span class="math">\(T\)&lt;/span>，在原假设&lt;span class="math">\(H_0\)&lt;/span>情况下，&lt;span class="math">\(T\)&lt;/span>的分布已知，&lt;span class="math">\(T\)&lt;/span>发生的概率与此次抽样相关，&lt;strong>关注小概率事件在一次抽样中是否发生&lt;/strong>。&lt;/p>
 &lt;p>&lt;em>假设检验和区间估计方法是类似的&lt;/em>。&lt;/p>
 &lt;p>&lt;strong>步骤&lt;/strong>：&lt;/p>
@@ -1512,21 +1791,95 @@ v&amp;amp;u\\
 &lt;li>若样本数据构造的&lt;span class="math">\(\hat T\in W\Rightarrow\)&lt;/span> 在拒绝域，拒绝&lt;span class="math">\(H_0\)&lt;/span>；若样本数据构造的&lt;span class="math">\(\hat T\in \bar W\Rightarrow\)&lt;/span>在接受域，接受&lt;span class="math">\(H_0\)&lt;/span>；&lt;/li>
 &lt;/ol>
 &lt;p>&lt;strong>补充&lt;/strong>：&lt;/p>
-&lt;p>单侧检验，拒绝域只在左侧或右侧。&lt;/p>
-&lt;h3 id="两类错误">两类错误&lt;/h3>
+&lt;ul>
+&lt;li>单侧检验，备择假设有方向性，拒绝域只在左侧（&amp;lt;）或右侧（&amp;gt;）。&lt;/li>
+&lt;li>双侧检验，备择假设没有方向性，拒绝域在两侧（=）&lt;/li>
+&lt;/ul>
+&lt;h2 id="两类错误">两类错误&lt;/h2>
 &lt;p>我们根据概率做的决策未必是对的。&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>第一类错误：弃真。&lt;span class="math">\(P(拒绝H_0|H_0为真)=\alpha\)&lt;/span>。此&lt;span class="math">\(\alpha\)&lt;/span>就是上文中的&lt;span class="math">\(\alpha\)&lt;/span>。&lt;/li>
-&lt;li>第二类错误：纳伪。&lt;span class="math">\(P(接受H_0|H_0为假)=\beta\)&lt;/span>&lt;/li>
+&lt;li>第一类错误：弃真。原假设为真，但是推翻原假设。&lt;span class="math">\(P(拒绝H_0|H_0为真)=\alpha\)&lt;/span>。此&lt;span class="math">\(\alpha\)&lt;/span>就是上文中的&lt;span class="math">\(\alpha\)&lt;/span>，称为显著性水平。&lt;span class="math">\(1-\alpha\)&lt;/span>成为置信水平。&lt;/li>
+&lt;li>第二类错误：纳伪。原假设为假，但是不推翻原假设。&lt;span class="math">\(P(接受H_0|H_0为假)=\beta\)&lt;/span>。&lt;span class="math">\(1-\beta\)&lt;/span>称为检测效率。&lt;/li>
 &lt;/ol>
-&lt;p>原则：尽量保证不犯第一类错误的前提下，尽量减少第二类错误。&lt;/p>
-&lt;h2 id="一个正态总体的参数假设检验">一个正态总体的参数假设检验&lt;/h2>
-&lt;p>与区间估计类似&lt;/p>
-&lt;h2 id="两个正态总体的参数假设检验">两个正态总体的参数假设检验&lt;/h2>
-&lt;p>与区间估计类似&lt;/p>
-&lt;p>均值差异性检验&lt;/p>
+&lt;p>两类错误通常在样本一定时无法兼顾，第一类错误低，必然导致第二类错误升高。&lt;/p>
+&lt;p>N-P原则：尽量保证不犯第一类错误的前提下，尽量减少第二类错误。&lt;/p>
+&lt;p>注意，我们只能说不能拒绝原假设，而不能轻易说接受原假设。一般文中的接受域只是术语。&lt;/p>
+&lt;h3 id="显著性水平">显著性水平&lt;/h3>
+&lt;p>显著性水平&lt;span class="math">\(\alpha\)&lt;/span>是一个概率值，代表着&lt;strong>拒绝原假设$H_0率，其概率范围叫拒绝域&lt;/strong>。通常显著性水平的值比较小，如0.01，0.05，0.10，这种小概率也表明要拒绝原假设的概率应该很小，除非证据充分。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/拒绝域.png" alt="拒绝域.png" />&lt;p class="caption">拒绝域.png&lt;/p>
+&lt;/div>
+&lt;ul>
+&lt;li>双侧检验：|检测统计量值|&amp;gt;临界值，拒绝&lt;span class="math">\(H_0\)&lt;/span>.&lt;/li>
+&lt;li>左侧检验：检测统计量值 &amp;lt; 临界值，拒绝&lt;span class="math">\(H_0\)&lt;/span>.&lt;/li>
+&lt;li>右侧检验：检测统计量值 &amp;gt; 临界值，拒绝&lt;span class="math">\(H_0\)&lt;/span>.&lt;/li>
+&lt;/ul>
+&lt;p>显著性水平是人为规定的，其概率大小与犯第一类错误的大小有关，显著性水平&lt;span class="math">\(\alpha\)&lt;/span>越大，拒绝原假设的概率越大，那么发生第一类错误的概率&lt;span class="math">\(P(拒绝H_0|H_0为真)\)&lt;/span>也就越大。&lt;/p>
+&lt;h2 id="p值">P值&lt;/h2>
+&lt;p>在上一小结使用显著性性水平和置信度的体系中，我们人为地规定了置信度，然后根据置信度确定临界值划分接受域和拒绝域。这实际上只回答了Yes Or NO的问题，具体抽样出来的样本发生概率有多小，并没有计算出来。为了近似的计算这个样本发生的概率，我们使用&lt;strong>P值&lt;/strong>这个指标。&lt;/p>
+&lt;blockquote>
+&lt;p>P值（P value）就是&lt;strong>当原假设为真时，比所得到的样本观察结果更极端的结果出现的概率&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>需要注意P值不是说所得样本发生的概率，而是所有比样本更加离谱发生的概率的&lt;strong>总和&lt;/strong>，它是一组事件集合的概率。对于不同的检验，离谱/极端的定义是不一样的，比如：&lt;/p>
+&lt;ul>
+&lt;li>左侧检验：检验统计量小于或等于根据实际观测样本数据计算得到的检验统计量值的概率。&lt;/li>
+&lt;li>右侧检验：检验统计量大于或等于根据实际观测样本数据计算得到的检验统计量值的概率。&lt;/li>
+&lt;li>双侧检验：既要考虑小于等于又要考虑大于等于的情形。&lt;/li>
+&lt;/ul>
+&lt;p>如果P值很小，说明原假设情况的发生的概率很小，而如果出现了，根据小概率原理，我们就有理由拒绝原假设，P值越小，我们拒绝原假设的理由越充分。总之，P值越小，表明结果越显著。用公式表示为： &lt;span class="math">\[
+P\leq P_{\alpha}，则拒绝H_0
+\]&lt;/span> 其中，&lt;span class="math">\(P_{\alpha}\)&lt;/span>是我们选定的概率。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/P值.png" alt="P值.png" />&lt;p class="caption">P值.png&lt;/p>
+&lt;/div>
+&lt;h3 id="显著性水平和p值的区别">显著性水平和P值的区别&lt;/h3>
+&lt;p>显著性水平是人为定的，我们根据显著性水平得到临界值，用临界值和统计量比较。&lt;/p>
+&lt;p>P值是设计一个统计量，然后计算该统计量所有极端情况的概率和，再和一个人为定义的概率做比较。此外，P值能够得到极端情形的概率，能够提供更多的信息。&lt;/p>
+&lt;p>二者的思路正好是互补的，只不过显著性水平和人为定义的小概率值通常取得一致，比如都是0.1，0.05，所以才容易搞混。&lt;/p>
+&lt;p>通常在研究报告中，作者会求出P值，然后让读者去自行选择拒绝的小概率，而非使用显著性水平，直接拒绝原假设。&lt;/p>
+&lt;h2 id="一个总体的参数假设检验">一个总体的参数假设检验&lt;/h2>
+&lt;p>在总体分布类型已知的情况下，如果只有一个参数需要检验，会有以下常见情况。&lt;/p>
+&lt;h3 id="总体均值的检验">总体均值的检验&lt;/h3>
+&lt;p>根据中心极限定理，当样本数量足够多时，样本的均值服从渐进正态分布&lt;span class="math">\(N(\mu_0,\sigma^2/n)\)&lt;/span>，其中&lt;span class="math">\(\mu_0\)&lt;/span>是总体真正的均值，&lt;span class="math">\(\sigma\)&lt;/span>是总体的标准差，&lt;span class="math">\(n\)&lt;/span>是样本容量。通常，当样本容量&lt;span class="math">\(n&amp;gt;30\)&lt;/span>时，我们就可以使用正态分布作为样本均值的分布。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/一个参数均值检验.png" alt="一个参数均值检验.png" />&lt;p class="caption">一个参数均值检验.png&lt;/p>
+&lt;/div>
+&lt;p>当总体的标准差&lt;span class="math">\(\sigma\)&lt;/span>未知时，我们可以用样本的标准差近似代替总体的标准差。需要注意，样本方差公式中分母是&lt;span class="math">\(n-1\)&lt;/span> &lt;span class="math">\[
+s^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_{i}-{\bar {X}})^2
+\]&lt;/span> 其中&lt;span class="math">\(\bar{X}\)&lt;/span>为样本均值。&lt;/p>
+&lt;p>z检验就是正态检验，t检验是student检验。&lt;/p>
+&lt;h3 id="总体比例的检验">总体比例的检验&lt;/h3>
+&lt;p>总体比例的检验多见于使用二项分布的场景。比如，总体中具有某一个特征的个体可能比例为&lt;span class="math">\(\epsilon\)&lt;/span>，现在抽样的样本容量为&lt;span class="math">\(n\)&lt;/span>，其中具有该特征的样本数量为&lt;span class="math">\(x\)&lt;/span>，要求检验比例&lt;span class="math">\(\epsilon\)&lt;/span>的准确性。本质上是检验&lt;span class="math">\(\epsilon\)&lt;/span>与&lt;span class="math">\(p=\frac{x}{n}\)&lt;/span>的关系。&lt;/p>
+&lt;p>我们知道当&lt;span class="math">\(n\)&lt;/span>较大时，二项分布是不太好求的，因为存在计算量很大的阶乘项，但是根据二项分布的中心极限定理，当&lt;span class="math">\(n\)&lt;/span>较大，且&lt;span class="math">\(n\epsilon\)&lt;/span>的值不是很小（&lt;span class="math">\(n\epsilon&amp;gt;5, n(1-\epsilon)&amp;gt;5\)&lt;/span>）时，则可用正态分布去近似二项分布。&lt;/p>
+&lt;p>根据抽样要求可知，具有某一个特征的个体数量服从二项分布&lt;span class="math">\(B(n,\epsilon)\)&lt;/span>，即 &lt;span class="math">\[
+P(x=k)=C_n^{k}\epsilon^k(1-\epsilon)^{n-k}
+\]&lt;/span> &lt;strong>当&lt;span class="math">\(n\)&lt;/span>很大时&lt;/strong>，我们可以用正态分布近似二项分布，即&lt;span class="math">\(x\sim N(n\epsilon,n\epsilon(1-\epsilon))\)&lt;/span>，那么根据随机变量的关系有&lt;span class="math">\(p=\frac{x}{n}\sim N(\epsilon,{\epsilon(1-\epsilon)\over{n}})\)&lt;/span>，将&lt;span class="math">\(p\)&lt;/span>标准化后可得 &lt;span class="math">\[
+\frac{p-\epsilon}{\sqrt{\frac{\epsilon(1-\epsilon)}{n}}}\sim N(0,1)
+\]&lt;/span> 这样我们可以通过正态（Z）检验来对比例进行假设检验。&lt;/p>
+&lt;h3 id="总体方差的检验">总体方差的检验&lt;/h3>
+&lt;p>根据笔记&lt;a href="概率统计随机过程之抽样的分布.md">概率统计随机过程之抽样的分布&lt;/a>中内容可知，样本方差&lt;span class="math">\(S^2\)&lt;/span>与总体方差&lt;span class="math">\(\sigma^2\)&lt;/span>有如下关系： &lt;span class="math">\[
+\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)
+\]&lt;/span> 因此，可以对总体的方差进行卡方检验，方法与Z检验类似，只是卡方检验多用于单侧检验，且分布需要使用卡方分布。&lt;/p>
+&lt;h2 id="两个总体的参数假设检验">两个总体的参数假设检验&lt;/h2>
+&lt;p>两个总体的检验和单个总体的检验分类一样，也是分为均值、比例和方差的检验，如下图所示：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/两个总体的检验.png" alt="两个总体的检验" />&lt;p class="caption">两个总体的检验&lt;/p>
+&lt;/div>
+&lt;p>通常我们研究的两个总体之间的差距，因此，一般研究的是&lt;strong>两个总体的均值之差、比例之差与方差之比&lt;/strong>。&lt;/p>
+&lt;h3 id="均值差异性检验">均值差异性检验&lt;/h3>
+&lt;div class="figure">
+&lt;img src="../../images/两个总体均值差的检验.png" alt="两个总体均值差的检验" />&lt;p class="caption">两个总体均值差的检验&lt;/p>
+&lt;/div>
 &lt;div class="figure">
 &lt;img src="../../images/两个正态总体的参数假设检验1.png" alt="两个正态总体的参数假设检验1.png" />&lt;p class="caption">两个正态总体的参数假设检验1.png&lt;/p>
+&lt;/div>
+&lt;h3 id="两个总体比例差的检验">两个总体比例差的检验&lt;/h3>
+&lt;div class="figure">
+&lt;img src="../../images/两个总体比例差的检验.png" alt="两个总体比例差的检验" />&lt;p class="caption">两个总体比例差的检验&lt;/p>
+&lt;/div>
+&lt;h3 id="两个总体方差之比的检验">两个总体方差之比的检验&lt;/h3>
+&lt;div class="figure">
+&lt;img src="../../images/两个总体方差之比的检验.png" alt="两个总体方差之比的检验" />&lt;p class="caption">两个总体方差之比的检验&lt;/p>
 &lt;/div></description></item><item><title>概率统计随机过程之参数估计</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/</guid><description>
 &lt;h2 id="概率统计随机过程之参数估计">概率统计随机过程之参数估计&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>

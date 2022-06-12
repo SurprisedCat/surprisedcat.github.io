@@ -1,4 +1,69 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机器学习 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 机器学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 09 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>机器学习-模型评价的11个重要指标</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</link><pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</guid><description/></item><item><title>机器学习-RNN相关</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</link><pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机器学习 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 机器学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 28 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>机器学习之通用线性模型</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E9%80%9A%E7%94%A8%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E9%80%9A%E7%94%A8%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</guid><description>
+&lt;h2 id="机器学习之通用线性模型">机器学习之通用线性模型&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在机器学习中，我们常常是从线性回归和Logistics回归这两种模型入手。大多数人在学的时候时将其当成两个独立的模型去学习的，线性回归用来拟合直线，Logistics回归用来分类。实际上，这两种模型都是一个更广泛模型的特例，这就是广义线性模型（Generalized Linear Models, 简称GLM）。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从概率的角度解释回归">从概率的角度解释回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数族">指数族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#伯努利分布的指数族形式">伯努利分布的指数族形式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#方差已知的高斯分布的指数族形式">方差已知的高斯分布的指数族形式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型使用的指数族">广义线性模型使用的指数族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#构建广义线性模型">构建广义线性模型&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/h2>
+&lt;p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>的定义不同)： &lt;span class="math">\[
+\theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
+h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
+\vec{\theta}^T \vec{x},\quad线性回归\\
+\frac{1}{1+e^{\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。那么他们二者为什么都有相同的更新公式呢？第一个原因是他们本质上都可以从最大似然估计推导出来；第二个原因则是它们二者都是一种更普遍的模型的特殊情况，这个模型就是&lt;strong>广义线性模型&lt;/strong>。&lt;/p>
+&lt;h2 id="从概率的角度解释回归">从概率的角度解释回归&lt;/h2>
+&lt;p>如果我们详细看回归的过程，就能发现它有两步组成。第一步是通过参数估计的方式，确定特定模型的参数，即求参数&lt;span class="math">\(\Theta\)&lt;/span>；第二部根据确定的模型，预测给定新数据的预测值，即求&lt;span class="math">\(y_{pred}\)&lt;/span>。&lt;/p>
+&lt;p>我们使用参数估计的过程主要是使用MLE、MAP、Bayesian等准则（推荐文章&lt;a href="https://engineering.purdue.edu/kak/Tutorials/Trinity.pdf">ML, MAP, and Bayesian --- The Holy Trinity of Parameter Estimation and Data Prediction&lt;/a>），这种方式往往是取某个角度概率最大的值作为参数估计的结果。因此，在第二部预测步骤时，给定参数&lt;span class="math">\(\theta\)&lt;/span>和自变量&lt;span class="math">\(x\)&lt;/span>后，得到的结果往往也不是一定精确的值，而是某个与概率分布相关的值（&lt;strong>后面我们指出这个值是期望&lt;/strong>）。&lt;/p>
+&lt;p>回看线性回归的结果，其一定是一条直线，但是真实的数据点并不一定在直线上。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/linear_regression.png" alt="线性回归" />&lt;p class="caption">线性回归&lt;/p>
+&lt;/div>
+&lt;p>以线性回归为例，假设回归函数为&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span> (&lt;span class="math">\(\theta,x\)&lt;/span>为向量), 对于每对观测结果&lt;span class="math">\((x^{(i)},y^{(i)})\)&lt;/span>，都有 &lt;span class="math">\[y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}\]&lt;/span> 其中 &lt;span class="math">\(\epsilon\)&lt;/span>为误差，基于一种合理的假设（中心极限定理），我们可以认为误差的分布服从正态分布(又称高斯分布)，即 &lt;span class="math">\(\epsilon \sim N(0,\sigma^2)\)&lt;/span> ，那么，我们可以认为&lt;span class="math">\(y^{(i)} \sim N(\theta^Tx^{(i)},\sigma^2)\)&lt;/span>,根据正态分布的概率公式 &lt;span class="math">\[P(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]&lt;/span>&lt;/p>
+&lt;p>我们可以通过最大似然估计求出模型的参数&lt;span class="math">\(\mathbf{\theta}\)&lt;/span>，进而得到线性模型&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span>。我们不难发现，&lt;span class="math">\(\mathbf{\theta}^T\mathbf{x}\)&lt;/span>正好是&lt;span class="math">\(y\)&lt;/span>这个高斯随机变量的期望！&lt;/p>
+&lt;p>线性回归这条直线&lt;span class="math">\(y=f(x)\)&lt;/span>的真实含义其实是：&lt;strong>回归模型中，对于取特定的自变量&lt;span class="math">\(x^{(i)}\)&lt;/span>，其因变量概率的期望是&lt;span class="math">\(f(x^{(i)})\)&lt;/span>。同样，在Logistics回归中，最终的结果也是二项分布中取0或1的期望&lt;/strong>，其以0.5作为阈值的原因也在于此，若以大于0.5的期望取1，那么我们就认为结果是1；若以小于0.5的期望取1（取0概率大于0.5），那么我们就认为结果是0，本质上就是这么直白。&lt;/p>
+&lt;p>此外，也可从&lt;span class="math">\(y_{pred}\)&lt;/span>为一个统计量的角度理解。&lt;/p>
+&lt;p>我们之前已经说过，我们使用回归模型预测的值，其实也并不是精确值，而是预测值概率的期望。广义线性模型和概率的关系，就是我们的&lt;strong>预测值&lt;span class="math">\(y_{pred}\)&lt;/span>的概率分布服从指数族分布。而指数族的参数通过连接函数和线性函数连接到一起&lt;/strong>，即&lt;span class="math">\(g(u)=\theta^T x\)&lt;/span>，这一点我们之后再说。下面我们先看指数族。&lt;/p>
+&lt;h2 id="指数族">指数族&lt;/h2>
+&lt;p>要了解广义线性模型，我们需要先知道数型分布族。指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
+&lt;p>此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”。&lt;/p>
+&lt;/blockquote>
+&lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。在机器学习中，我们更多采用以下形式： &lt;span class="math">\[
+p(y;\eta)=h(y)\exp\left\{\sum_{j=1}^k c_j(\eta)T_j(y)-A(\eta)\right\}\tag{2}
+\]&lt;/span> 注意：为了防止与线性回归中的参数&lt;span class="math">\(\theta\)&lt;/span>和数据点&lt;span class="math">\(x\)&lt;/span>混淆，我们在指数族中用&lt;span class="math">\(y,\eta\)&lt;/span>两个变量来表示。指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。比如，我们可以将伯努利分布和方差已知的高斯分布写成指数型分布族的形式。&lt;/p>
+&lt;h3 id="伯努利分布的指数族形式">伯努利分布的指数族形式&lt;/h3>
+&lt;p>伯努利分布又叫两点分布或者0-1分布，是最简单的概率分布形式之一。常见伯努利分布写成： &lt;span class="math">\[
+p(x;p)=p^x(1-p)^{1-x},x\in\{0,1\}
+\]&lt;/span> 转写为指数族形式为： &lt;span class="math">\[
+\begin{aligned}
+p(x;p)&amp;amp;=\exp\{x\log{p}+(1-x)\log{(1-p)}\}\\
+&amp;amp;=\exp\{x\log(\frac{p}{1-p})+\log{(1-p)}\}
+\end{aligned}
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=1;c(p)=\log(\frac{p}{1-p});T(x)=x;A(p)=-\log(1-p)\)&lt;/span>&lt;/p>
+&lt;h3 id="方差已知的高斯分布的指数族形式">方差已知的高斯分布的指数族形式&lt;/h3>
+&lt;p>典型的高斯分布写成（方差&lt;span class="math">\(\sigma^2\)&lt;/span>已知）： &lt;span class="math">\[
+p(x;\mu)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}
+\]&lt;/span> 转写为指数族形式为： &lt;span class="math">\[
+p(x;\mu)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\}\cdot\exp\{\frac{1}{2\sigma^2}(2\mu x-\mu^2)\}
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\};c(\mu)=\frac{\mu}{\sigma^2};T(x)=x;A(\mu)=\frac{\mu^2}{2\sigma^2}\)&lt;/span>&lt;/p>
+&lt;p>由此可见，不少常见的分布如泊松分布、Beta分布、Gamma分布都是指数分布族中的一员。我们对指数族形式的推导都可以应用到这些概率分布上。&lt;/p>
+&lt;p>广义线性模型的&lt;strong>预测值概率分布都属于指数分布族&lt;/strong>。&lt;/p>
+&lt;h3 id="广义线性模型使用的指数族">广义线性模型使用的指数族&lt;/h3>
+&lt;p>虽说，广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>服从的指数族分布，但是大多数广义线性模型用到的指数族模型不会过于复杂。在式(2) &lt;span class="math">\[
+p(x;\theta)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}
+\]&lt;/span> 中，复杂的部分主要是&lt;span class="math">\(\sum_{j=1}^k c_j(\theta)T_j(x)\)&lt;/span>。其中，&lt;span class="math">\(c_j(\theta)\)&lt;/span>可能是各种各样的非线性函数，&lt;span class="math">\(T_j(x)\)&lt;/span>也可能是高次多项式、指数函数等多种形式，最后还要将他们求和。但是在广义线性模型中，一般有两个特点：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(T_j(x)\)&lt;/span>只有一次项；&lt;/li>
+&lt;li>&lt;span class="math">\(c_j(\theta)\)&lt;/span>的由连接函数和线性函数组合构成。&lt;/li>
+&lt;/ol>
+&lt;h2 id="构建广义线性模型">构建广义线性模型&lt;/h2></description></item><item><title>机器学习-模型评价的11个重要指标</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</link><pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</guid><description/></item><item><title>机器学习-RNN相关</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</link><pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</guid><description>
 &lt;h2 id="rnn相关">RNN相关&lt;!-- omit in toc -->&lt;/h2>
 &lt;h2 id="simple-rnn">simple RNN&lt;/h2>
 &lt;p>RNN借助循环核提取时间维度特征。&lt;/p>

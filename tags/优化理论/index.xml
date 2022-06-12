@@ -145,6 +145,7 @@ h_j(x^\ast)=0;j=1,2,\dotsb,l\\
 &lt;ul>
 &lt;li>&lt;a href="#基础牛顿法">基础牛顿法&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#牛顿法求解函数根">牛顿法求解函数根&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#牛顿法求根的几何解释">牛顿法求根的几何解释&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#函数最优值与求根">函数最优值与求根&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#一元函数情况">一元函数情况&lt;/a>&lt;/li>
@@ -181,6 +182,13 @@ h_j(x^\ast)=0;j=1,2,\dotsb,l\\
 &lt;center>
 图1牛顿法求根
 &lt;/center>
+&lt;h3 id="牛顿法求根的几何解释">牛顿法求根的几何解释&lt;/h3>
+&lt;p>牛顿法求根其实是利用了切线的性质。如果我们查看过点&lt;span class="math">\(x_0\)&lt;/span>处的切线方程： &lt;span class="math">\[
+y-f(x_0)=f&amp;#39;(x_0)(x-x_0)\\
+\]&lt;/span> 当&lt;span class="math">\(y=0\)&lt;/span>时，有： &lt;span class="math">\[
+-f(x_0)=f&amp;#39;(x_0)(x-x_0)\\
+\Rightarrow x=x_0-\frac{f(x_0)}{f&amp;#39;(x_0)}
+\]&lt;/span> 这个式子和牛顿法求根的迭代公式一致。说白了，牛顿法求根就是利用当前点所在直线与&lt;span class="math">\(y=0\)&lt;/span>的交点，这个交点&lt;span class="math">\(x_1\)&lt;/span>会比&lt;span class="math">\(x_0\)&lt;/span>更接近让函数值为0。&lt;/p>
 &lt;h3 id="函数最优值与求根">函数最优值与求根&lt;/h3>
 &lt;h4 id="一元函数情况">一元函数情况&lt;/h4>
 &lt;p>从简单的一元函数开始，我们先列出函数的二阶泰勒展开式： &lt;span class="math">\[f(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{1}{2}f&amp;#39;&amp;#39;(x_0)(x-x_0)^2+R_2(x)\]&lt;/span>&lt;/p>
@@ -432,7 +440,7 @@ J(\theta)=(X\theta-y)^TW(X\theta-y)
 X^TWX\theta=X^TWy\\
 \theta=(X^TWX)^{-1}X^TWy
 \]&lt;/span> 关于矩阵求导的细节，请查阅网页资料&lt;a href="../../网页资料/线性代数与矩阵-矩阵求导表.html">线性代数与矩阵-矩阵求导表&lt;/a>&lt;/p>
-&lt;p>此外，整个代价函数中只有一个超参数&lt;span class="math">\(\tau\)&lt;/span>，称为&lt;strong>带宽参数&lt;/strong>。它控制着加权参数随着对&lt;span class="math">\(x\)&lt;/span>的远离，衰减的速度。当&lt;span class="math">\(\tau\)&lt;/span>值比较大时，&lt;span class="math">\(w^{(i)}\)&lt;/span>衰减得慢，容易出现欠拟合；当&lt;span class="math">\(\tau\)&lt;/span>值比较小时，&lt;span class="math">\(w^{(i)}\)&lt;/span>衰减得快，容易出现过拟合。从词义上来看，带宽参数意味着能够容纳周围参数的多少，容纳的越多函数越平缓，当&lt;span class="math">\(\tau\rightarrow \infty\)&lt;/span>时，&lt;span class="math">\(w^{(i)}\rightarrow 1\)&lt;/span>此时，带宽无限大，容纳了所有数据点，局部加权线性回归算法退化为传统线性规划算法。当&lt;span class="math">\(\tau\)&lt;/span>很小时，&lt;span class="math">\(w^{(i)}\)&lt;/span>衰减很快，只有在当前点才有效，此时局部加权线性回归算法退化为插值算法。局部加权线性回归效果如下&lt;/p>
+&lt;p>此外，整个代价函数中只有一个超参数&lt;span class="math">\(\tau\)&lt;/span>，称为&lt;strong>带宽参数&lt;/strong>。它控制着加权参数随着对&lt;span class="math">\(x\)&lt;/span>的远离，衰减的速度。当&lt;span class="math">\(\tau\)&lt;/span>值比较大时，&lt;span class="math">\(w^{(i)}\)&lt;/span>衰减得慢，容易出现欠拟合；当&lt;span class="math">\(\tau\)&lt;/span>值比较小时，&lt;span class="math">\(w^{(i)}\)&lt;/span>衰减得快，容易出现过拟合。从词义上来看，带宽参数意味着能够容纳周围参数的多少，容纳的越多函数越平缓，当&lt;span class="math">\(\tau\rightarrow \infty\)&lt;/span>时，&lt;span class="math">\(w^{(i)}\rightarrow 1\)&lt;/span>此时，带宽无限大，容纳了所有数据点，局部加权线性回归算法退化为传统线性规划算法。当&lt;span class="math">\(\tau\)&lt;/span>很小时，&lt;span class="math">\(w^{(i)}\)&lt;/span>衰减很快，只有在当前点才有效，此时局部加权线性回归算法退化为插值算法。这个算法的问题在于，对于每一个要预测的点，都要重新依据整个数据集计算一个线性回归模型出来，使得算法代价极高。局部加权线性回归效果如下&lt;/p>
 &lt;div class="figure">
 &lt;img src="../../images/局部加权线性规划.png" alt="局部加权线性规划.png" />&lt;p class="caption">局部加权线性规划.png&lt;/p>
 &lt;/div>
