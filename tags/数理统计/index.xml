@@ -8,7 +8,10 @@
 &lt;li>&lt;a href="#抽样分布">抽样分布&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#常见统计量的抽样分布">常见统计量的抽样分布&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#概率分布族">概率分布族&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#指数型分布族">指数型分布族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型分布族">指数型分布族&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
 &lt;li>&lt;a href="#次序统计量">次序统计量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#充分统计量">充分统计量&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#因子分解定理">因子分解定理&lt;/a>&lt;/li>
@@ -149,14 +152,42 @@ B_k&amp;amp;=\frac{1}{n}\sum_{i=1}^n (x_i-\bar x)^k(k=1,2,\dotsb) &amp;amp;\text
 &lt;h3 id="指数型分布族">指数型分布族&lt;/h3>
 &lt;p>区别于指数分布族，指数型分布族是指数分布族的推广，更是囊括了正态分布族、二项分布族、伽马分布族、多项分布族等等。&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
-&lt;p>此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”。&lt;/p>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，称为充分统计向量，但&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;span class="math">\(h(x)\)&lt;/span>也只是&lt;span class="math">\(x\)&lt;/span>的函数，且&lt;span class="math">\(h(x)&amp;gt;0\)&lt;/span>，通常是一个常数。&lt;/p>
 &lt;/blockquote>
+&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>，其中主要有两条：一条是“分布的支撑与&lt;span class="math">\(\theta\)&lt;/span>无关”；另一条是“&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关”，若其间线性相关，如&lt;span class="math">\(T_1(x)=2T_2(x)+3T_3(x)\)&lt;/span>，则把&lt;span class="math">\(T_1(x)\)&lt;/span>归拢到&lt;span class="math">\(T_2(x),T_3(x)\)&lt;/span>中即可。&lt;/p>
 &lt;p>下面这张截图就是将3个常见分布族改写成指数型分布族的例子。&lt;/p>
 &lt;div class="figure">
 &lt;img src="../../images/指数型分布族例子.png" alt="指数型分布族例子" />&lt;p class="caption">指数型分布族例子&lt;/p>
 &lt;/div>
+&lt;h4 id="指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/h4>
+&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式（3）进行进一步改造。&lt;/p>
+&lt;blockquote>
+&lt;p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、&lt;strong>值域是多维向量或者无穷维向量的集合的函数&lt;/strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。&lt;/p>
+&lt;/blockquote>
+&lt;p>对于&lt;span class="math">\(\theta\)&lt;/span>的一系列函数&lt;span class="math">\(c_1(\theta),c_2(\theta),\dotsb\)&lt;/span>和充分统计量向量&lt;span class="math">\(T_1(x),T_2(x),\dotsb\)&lt;/span>，我们写出列向量形式： &lt;span class="math">\[
+\mathbf{C}(\theta)=\begin{bmatrix}c_1(\theta)\\c_2(\theta)\\\vdots\\c_k(\theta)\end{bmatrix}
+\mathbf{T}(x)=\begin{bmatrix}T_1(x)\\T_2(x)\\\vdots\\T_k(x)\end{bmatrix}
+\]&lt;/span> 那么式（3）可写成 &lt;span class="math">\[
+p(x;\theta)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{4}
+\]&lt;/span> 其中，&lt;span class="math">\(\mathbf{C}(\theta),\mathbf{T}(x)\)&lt;/span>都是向量值函数，&lt;span class="math">\(h(x),A(\theta)\)&lt;/span>都是普通函数，通常文章会把&lt;span class="math">\(A(\theta)\)&lt;/span>写成&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的形式，这两种本质上是等价的，但是&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的参数形式更加统一，为主流用法。&lt;/p>
+&lt;p>&lt;strong>均值方差皆未知的高斯分布的指数族形式&lt;/strong>：如果高斯分布的均值和方差都是未知的，那么就需要使用多个线性不相关的充分统计量来表示指数型分布族： &lt;span class="math">\[
+\begin{aligned}
+p(x|\mu,\sigma^2)&amp;amp;=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[ -\frac{1}{2\sigma^2}(x-\mu)^2]\\
+&amp;amp;=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2]\\
+&amp;amp;=\frac{1}{(2\pi)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2-\ln{\sigma}]
+\end{aligned}
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/2\sigma^2\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)&lt;/span>。&lt;/p>
+&lt;p>需要指出的是，一般情况下，我们在&lt;span class="math">\(A(\mu,\sigma)\)&lt;/span>中最好不要在使用原有的&lt;span class="math">\(\mu,\sigma\)&lt;/span>，而是使用&lt;span class="math">\(\mathbf{C}\)&lt;/span>中的分量&lt;span class="math">\(c_1=\mu/\sigma^2,c_2=-1/2\sigma^2\)&lt;/span>表示，即 &lt;span class="math">\[
+A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)
+\]&lt;/span> 在其他文献中，也有令&lt;span class="math">\(h(x)=1\)&lt;/span>，然后把&lt;span class="math">\(\frac{1}{(2\pi)^{1/2}}\)&lt;/span>放到&lt;span class="math">\(A(\mathbf{C})\)&lt;/span>中的，即&lt;span class="math">\(A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)-\frac{1}{2}\log(2\pi)\)&lt;/span>，这样是等价的。&lt;/p>
+&lt;p>指数型分布族的重要性体现在以下多个方面：&lt;/p>
+&lt;ul>
+&lt;li>指数族分布是&lt;strong>唯一有共轭先验的分布族&lt;/strong>,这就简化了后验的计算&lt;/li>
+&lt;li>在特定的规范化条件下(regularity conditions),指数族分布是&lt;strong>唯一有限规模充分统计量&lt;/strong>(finite-sized sufficient statistics)的分布族,这意味着可以将数据压缩称固定规模的浓缩概括而不损失信息&lt;/li>
+&lt;li>指数族分布是&lt;strong>广义线性模型&lt;/strong>(generalized linear models)的核心&lt;/li>
+&lt;li>指数族分布也是&lt;strong>变分推理&lt;/strong>(variational inference)的核心&lt;/li>
+&lt;/ul>
 &lt;h2 id="次序统计量">次序统计量&lt;/h2>
 &lt;blockquote>
 &lt;p>&lt;strong>次序统计量&lt;/strong>：设&lt;span class="math">\(X_1,X_2,\dotsb,X_n\)&lt;/span>是取自总体&lt;span class="math">\(X\)&lt;/span>的一个样本，&lt;span class="math">\(X_{(k)}\)&lt;/span>称为该样本的的第k个次序统计量，假如每当获得样本观测值后将其&lt;strong>从小到大排序可得如下有序样本&lt;/strong>： &lt;span class="math">\[x_{(1)}≤x_{(2)}≤x_{(3)}≤\dotsb≤x_{(k)}≤\dotsb≤x_{(n)}\]&lt;/span> 其中，第k个观测值&lt;span class="math">\(x_{(k)}\)&lt;/span>就是&lt;span class="math">\(X_{(k)}\)&lt;/span>的取值，并称&lt;span class="math">\(X_{(1)},X_{(2)},\dotsb,X_{(n)}\)&lt;/span>为该&lt;strong>样本的次序统计量&lt;/strong>，特别的，&lt;span class="math">\(X_{(1)}=\min(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最小次序统计量&lt;/strong>，&lt;span class="math">\(X_{(n)}=\max(X_1,X_2,\dotsb,X_n)\)&lt;/span>称为该样本的&lt;strong>最大次序统计量&lt;/strong>。&lt;/p>

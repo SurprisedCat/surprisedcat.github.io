@@ -4,9 +4,8 @@
 &lt;ul>
 &lt;li>&lt;a href="#引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#从概率的角度解释回归">从概率的角度解释回归&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#指数族">指数族&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#伯努利分布的指数族形式">伯努利分布的指数族形式&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#方差已知的高斯分布的指数族形式">方差已知的高斯分布的指数族形式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型分布族指数族">指数型分布族（指数族）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#广义线性模型使用的指数族">广义线性模型使用的指数族&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#构建广义线性模型">构建广义线性模型&lt;/a>&lt;/li>
 &lt;/ul>
@@ -29,39 +28,44 @@ h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
 &lt;p>线性回归这条直线&lt;span class="math">\(y=f(x)\)&lt;/span>的真实含义其实是：&lt;strong>回归模型中，对于取特定的自变量&lt;span class="math">\(x^{(i)}\)&lt;/span>，其因变量概率的期望是&lt;span class="math">\(f(x^{(i)})\)&lt;/span>。同样，在Logistics回归中，最终的结果也是二项分布中取0或1的期望&lt;/strong>，其以0.5作为阈值的原因也在于此，若以大于0.5的期望取1，那么我们就认为结果是1；若以小于0.5的期望取1（取0概率大于0.5），那么我们就认为结果是0，本质上就是这么直白。&lt;/p>
 &lt;p>此外，也可从&lt;span class="math">\(y_{pred}\)&lt;/span>为一个统计量的角度理解。&lt;/p>
 &lt;p>我们之前已经说过，我们使用回归模型预测的值，其实也并不是精确值，而是预测值概率的期望。广义线性模型和概率的关系，就是我们的&lt;strong>预测值&lt;span class="math">\(y_{pred}\)&lt;/span>的概率分布服从指数族分布。而指数族的参数通过连接函数和线性函数连接到一起&lt;/strong>，即&lt;span class="math">\(g(u)=\theta^T x\)&lt;/span>，这一点我们之后再说。下面我们先看指数族。&lt;/p>
-&lt;h2 id="指数族">指数族&lt;/h2>
+&lt;h2 id="指数型分布族指数族">指数型分布族（指数族）&lt;/h2>
 &lt;p>要了解广义线性模型，我们需要先知道数型分布族。指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(h(x),T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，但&lt;span class="math">\(h(x)&amp;gt;0,T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;/p>
-&lt;p>此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”。&lt;/p>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，称为充分统计向量，但&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;span class="math">\(h(x)\)&lt;/span>也只是&lt;span class="math">\(x\)&lt;/span>的函数，且&lt;span class="math">\(h(x)&amp;gt;0\)&lt;/span>，通常是一个常数。&lt;/p>
 &lt;/blockquote>
-&lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。在机器学习中，我们更多采用以下形式： &lt;span class="math">\[
-p(y;\eta)=h(y)\exp\left\{\sum_{j=1}^k c_j(\eta)T_j(y)-A(\eta)\right\}\tag{2}
-\]&lt;/span> 注意：为了防止与线性回归中的参数&lt;span class="math">\(\theta\)&lt;/span>和数据点&lt;span class="math">\(x\)&lt;/span>混淆，我们在指数族中用&lt;span class="math">\(y,\eta\)&lt;/span>两个变量来表示。指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。比如，我们可以将伯努利分布和方差已知的高斯分布写成指数型分布族的形式。&lt;/p>
-&lt;h3 id="伯努利分布的指数族形式">伯努利分布的指数族形式&lt;/h3>
-&lt;p>伯努利分布又叫两点分布或者0-1分布，是最简单的概率分布形式之一。常见伯努利分布写成： &lt;span class="math">\[
-p(x;p)=p^x(1-p)^{1-x},x\in\{0,1\}
-\]&lt;/span> 转写为指数族形式为： &lt;span class="math">\[
-\begin{aligned}
-p(x;p)&amp;amp;=\exp\{x\log{p}+(1-x)\log{(1-p)}\}\\
-&amp;amp;=\exp\{x\log(\frac{p}{1-p})+\log{(1-p)}\}
-\end{aligned}
-\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=1;c(p)=\log(\frac{p}{1-p});T(x)=x;A(p)=-\log(1-p)\)&lt;/span>&lt;/p>
-&lt;h3 id="方差已知的高斯分布的指数族形式">方差已知的高斯分布的指数族形式&lt;/h3>
-&lt;p>典型的高斯分布写成（方差&lt;span class="math">\(\sigma^2\)&lt;/span>已知）： &lt;span class="math">\[
-p(x;\mu)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}
-\]&lt;/span> 转写为指数族形式为： &lt;span class="math">\[
-p(x;\mu)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\}\cdot\exp\{\frac{1}{2\sigma^2}(2\mu x-\mu^2)\}
-\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\};c(\mu)=\frac{\mu}{\sigma^2};T(x)=x;A(\mu)=\frac{\mu^2}{2\sigma^2}\)&lt;/span>&lt;/p>
-&lt;p>由此可见，不少常见的分布如泊松分布、Beta分布、Gamma分布都是指数分布族中的一员。我们对指数族形式的推导都可以应用到这些概率分布上。&lt;/p>
-&lt;p>广义线性模型的&lt;strong>预测值概率分布都属于指数分布族&lt;/strong>。&lt;/p>
+&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
+&lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。&lt;/p>
+&lt;p>在机器学习中，我们更多采用以下形式： &lt;span class="math">\[
+p(y;\eta)=h(y)\exp\left\{\sum_{j=1}^k c_j(\eta)T_j(y)-A(\eta)\right\}\tag{4}
+\]&lt;/span> 注意：&lt;strong>为了防止与线性回归中的参数&lt;span class="math">\(\theta\)&lt;/span>和数据点&lt;span class="math">\(x\)&lt;/span>混淆，我们在指数族中用&lt;span class="math">\(y,\eta\)&lt;/span>两个变量来表示&lt;/strong>，同样&lt;span class="math">\(y,\eta\)&lt;/span>可以是标量，也可以是向量。本笔记接下来都以式（4）为指数族表示形式。&lt;/p>
+&lt;h3 id="指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/h3>
+&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(4)进行进一步改造。&lt;/p>
+&lt;blockquote>
+&lt;p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、&lt;strong>值域是多维向量或者无穷维向量的集合的函数&lt;/strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。&lt;/p>
+&lt;/blockquote>
+&lt;p>对于&lt;span class="math">\(\eta\)&lt;/span>的一系列函数&lt;span class="math">\(c_1(\eta),c_2(\eta),\dotsb\)&lt;/span>和充分统计量向量&lt;span class="math">\(T_1(y),T_2(y),\dotsb\)&lt;/span>，我们写出列向量形式： &lt;span class="math">\[
+\mathbf{C}(\eta)=\begin{bmatrix}c_1(\eta)\\c_2(\eta)\\\vdots\\c_k(\eta)\end{bmatrix}
+\mathbf{T}(y)=\begin{bmatrix}T_1(y)\\T_2(y)\\\vdots\\T_k(y)\end{bmatrix}
+\]&lt;/span> 那么式（4）可写成 &lt;span class="math">\[
+p(y;\eta)=h(y)\exp\left\{\mathbf{C}^T(\eta)\mathbf{T}(y)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 其中，&lt;span class="math">\(\mathbf{C}(\eta),\mathbf{T}(y)\)&lt;/span>都是向量值函数，&lt;span class="math">\(h(y),A(\eta)\)&lt;/span>都是普通函数。通常文章会把&lt;span class="math">\(A(\theta)\)&lt;/span>写成&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的形式，这两种本质上是等价的，但是&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的参数形式更加统一，为主流用法。&lt;/p>
+&lt;p>指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。比如，我们可以将伯努利分布和方差已知的高斯分布写成指数型分布族的形式。&lt;/p>
+&lt;p>指数族有以下特殊之处，可能有些内容暂时不会涉及。&lt;/p>
+&lt;ul>
+&lt;li>指数族分布是&lt;strong>唯一有共轭先验的分布族&lt;/strong>,这就简化了后验的计算&lt;/li>
+&lt;li>在特定的规范化条件下(regularity conditions),指数族分布是&lt;strong>唯一有限规模充分统计量&lt;/strong>(finite-sized sufficient statistics)的分布族,这意味着可以将数据压缩称固定规模的浓缩概括而不损失信息&lt;/li>
+&lt;li>指数族分布是&lt;strong>广义线性模型&lt;/strong>(generalized linear models)的核心&lt;/li>
+&lt;li>指数族分布也是&lt;strong>变分推理&lt;/strong>(variational inference)的核心&lt;/li>
+&lt;/ul>
+&lt;p>广义线性模型的&lt;strong>预测值概率分布都属于指数型分布族&lt;/strong>。&lt;/p>
+&lt;p>具体关于指数型分布式的细节请看笔记&lt;a href="概率统计随机过程之指数型分布族应用.md">概率统计随机过程之指数型分布族应用.md&lt;/a>&lt;/p>
 &lt;h3 id="广义线性模型使用的指数族">广义线性模型使用的指数族&lt;/h3>
-&lt;p>虽说，广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>服从的指数族分布，但是大多数广义线性模型用到的指数族模型不会过于复杂。在式(2) &lt;span class="math">\[
-p(x;\theta)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}
-\]&lt;/span> 中，复杂的部分主要是&lt;span class="math">\(\sum_{j=1}^k c_j(\theta)T_j(x)\)&lt;/span>。其中，&lt;span class="math">\(c_j(\theta)\)&lt;/span>可能是各种各样的非线性函数，&lt;span class="math">\(T_j(x)\)&lt;/span>也可能是高次多项式、指数函数等多种形式，最后还要将他们求和。但是在广义线性模型中，一般有两个特点：&lt;/p>
+&lt;p>虽说，广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>服从的指数族分布，但是大多数广义线性模型用到的指数族模型不会过于复杂。在式(5) &lt;span class="math">\[
+p(y;\eta)=h(y)\exp\left\{\mathbf{C}^T(\eta)\mathbf{T}(y)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 中，复杂的部分主要是&lt;span class="math">\(\mathbf{C}^T(\eta)\mathbf{T}(y)=\sum_{j=1}^k c_j(\eta)T_j(y)\)&lt;/span>。其中，&lt;span class="math">\(c_j(\eta)\)&lt;/span>可能是各种各样的非线性函数，&lt;span class="math">\(T_j(y)\)&lt;/span>也可能是高次多项式、指数函数等多种形式，最后 还要将他们求和。但是在广义线性模型中，一般有两个特点：&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>&lt;span class="math">\(T_j(x)\)&lt;/span>只有一次项；&lt;/li>
-&lt;li>&lt;span class="math">\(c_j(\theta)\)&lt;/span>的由连接函数和线性函数组合构成。&lt;/li>
+&lt;li>&lt;span class="math">\(T_j(y)\)&lt;/span>只有一次项；&lt;/li>
+&lt;li>&lt;span class="math">\(c_j(\eta)\)&lt;/span>的由连接函数和线性函数组合构成。&lt;/li>
 &lt;/ol>
 &lt;h2 id="构建广义线性模型">构建广义线性模型&lt;/h2></description></item><item><title>机器学习-模型评价的11个重要指标</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</link><pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</guid><description/></item><item><title>机器学习-RNN相关</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</link><pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</guid><description>
 &lt;h2 id="rnn相关">RNN相关&lt;!-- omit in toc -->&lt;/h2>

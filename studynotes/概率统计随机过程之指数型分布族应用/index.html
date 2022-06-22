@@ -1,6 +1,6 @@
 <!doctype html><html lang=zh-cn data-figures=true class=page>
 <head>
-<title>优化理论之对偶单纯形法 | SurprisedCat</title>
+<title>概率统计随机过程之指数型分布族应用 | SurprisedCat</title>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta http-equiv=x-ua-compatible content="IE=edge">
@@ -8,15 +8,15 @@
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
 <meta property="og:locale" content="zh-cn">
 <meta property="og:type" content="article">
-<meta name=description content="优化理论之对偶单纯形法 description.">
-<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B%E5%AF%B9%E5%81%B6%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%B3%95/">
-<meta property="og:title" content="优化理论之对偶单纯形法">
-<meta property="og:description" content="优化理论之对偶单纯形法 description.">
-<meta property="og:image" content="https://surprisedcat.github.io/images/Linear_programming_polytope.png">
+<meta name=description content="概率统计随机过程之指数型分布族应用 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8C%87%E6%95%B0%E5%9E%8B%E5%88%86%E5%B8%83%E6%97%8F%E5%BA%94%E7%94%A8/">
+<meta property="og:title" content="概率统计随机过程之指数型分布族应用">
+<meta property="og:description" content="概率统计随机过程之指数型分布族应用 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1.jpg">
 <link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
 <link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
-<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B%E5%AF%B9%E5%81%B6%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%B3%95/>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8C%87%E6%95%B0%E5%9E%8B%E5%88%86%E5%B8%83%E6%97%8F%E5%BA%94%E7%94%A8/>
 <link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
 <link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
 <link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
@@ -72,52 +72,225 @@
 <main>
 <div class="grid-inverse wrap content">
 <article class=post_content>
-<h1 class=post_title>优化理论之对偶单纯形法</h1>
+<h1 class=post_title>概率统计随机过程之指数型分布族应用</h1>
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
-Nov 3, 2019</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA title=优化理论 class="post_tag button button_translucent">优化理论
+Nov 9, 2021</span>
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
 </a>
 </span>
 <span class=page_only>&nbsp;·
 <div class=post_share>
 分享到:
-<a href=https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B%E5%AF%B9%E5%81%B6%E5%8D%95%E7%BA%AF%E5%BD%A2%E6%B3%95/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%8C%87%E6%95%B0%E5%9E%8B%E5%88%86%E5%B8%83%E6%97%8F%E5%BA%94%E7%94%A8/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
 </a>
 </div>
 </span>
 </div>
-<h2 id=对偶单纯行法>对偶单纯行法</h2>
+<h2 id=概率统计随机过程之指数型分布族应用>概率统计随机过程之指数型分布族应用</h2>
+<p>在学习广义线性模型的时候，其各种模型都可以通过指数型分布族的形式来表示，而指数型分布族可以给出求原始分布均值和方差的统一形式，这在机器学习、数理统计中有重要作用。此外，本文还介绍了指数型分布族使用最大似然估计来估计参数的方法。</p>
 <ul>
-<li><a href=#前期准备>前期准备</a></li>
-<li><a href=#对偶单纯形法的基本思想>对偶单纯形法的基本思想</a></li>
+<li><a href=#指数型分布族指数族>指数型分布族（指数族）</a></li>
+<li><a href=#指数型分布族的向量化写法>指数型分布族的向量化写法</a></li>
+<li><a href=#指数型分布族的转换例子>指数型分布族的转换例子</a></li>
+<li><a href=#伯努利分布的指数族形式>伯努利分布的指数族形式</a></li>
+<li><a href=#多类别分布的指数族形式>多类别分布的指数族形式</a></li>
+<li><a href=#均值未知方差已知的高斯分布的指数族形式>均值未知方差已知的高斯分布的指数族形式</a></li>
+<li><a href=#均值方差皆未知的高斯分布的指数族形式>均值方差皆未知的高斯分布的指数族形式</a></li>
+<li><a href=#泊松分布的指数型分布族形式>泊松分布的指数型分布族形式</a></li>
+<li><a href=#指数族的期望与方差的统一形式>指数族的期望与方差的统一形式</a></li>
+<li><a href=#指数族的期望>指数族的期望</a></li>
+<li><a href=#指数族的方差>指数族的方差</a></li>
+<li><a href=#theta与eta的一一对应缘由><span class=math>\(\theta\)</span>与<span class=math>\(\eta\)</span>的一一对应缘由</a></li>
+<li><a href=#指数型分布族的最大似然估计>指数型分布族的最大似然估计</a></li>
 </ul>
-<h2 id=前期准备>前期准备</h2>
-<p>线性规划标准形式 <span class=math>\[
-\begin{aligned}
-\min \; &\sum_{j=1}^n c_jx_j\\
-\mathop{s.t.}\; &\sum_{j=1}^n \alpha_{ij}x_j=b_i,\ &i=1,\dotsb,m\\
-&x_j\geq 0,\ &j=1,\dotsb,n\\
-\end{aligned}
-\]</span> 用矩阵表示为： <span class=math>\[
-\begin{aligned}
-\min \; &\boldsymbol c^T \boldsymbol x\\
-\mathop{s.t.}\; &\boldsymbol A \boldsymbol x = \boldsymbol b\\
-&\boldsymbol x \geq \boldsymbol 0\\
-\end{aligned}\tag{2.1}
-\]</span></p>
-<h2 id=对偶单纯形法的基本思想>对偶单纯形法的基本思想</h2>
-<p>前面用单纯形法求解问题<span class=math>\((2.1)\)</span>时，往往需要引进人工变量，通过解一阶段问题求初始基本可行解。现在利用<strong>对偶性质</strong>给出一种<strong>不需引进人工变量</strong>的求解方法，这就是<strong>对偶单纯形法</strong>。为介绍这种方法的基本思想，先引入<strong>对偶可行的基本解</strong>的概念。</p>
+<h2 id=指数型分布族指数族>指数型分布族（指数族）</h2>
+<p>指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：</p>
 <blockquote>
-<p><strong>对偶可行的基本解</strong>:设<span class=math>\(\boldsymbol{x^{(0)}}\)</span>是<span class=math>\((2.1)\)</span>式的一个基本解（不一定是可行解），它对应的基矩阵为<span class=math>\(\boldsymbol{B}\)</span>，若其对应的单纯性乘子<span class=math>\(\boldsymbol{w^T=c^T_B B^{-1}}\)</span>是<span class=math>\((2.1)\)</span>式的对偶问题的<strong>可行解</strong>，即对所有<span class=math>\(j\)</span>，<span class=math>\(\boldsymbol{w^T p_j}-c_j\leq 0\)</span>成立，则称<span class=math>\(\boldsymbol{x^{(0)}}\)</span>为<strong>原问题的‘对偶可行’的基本解</strong>。</p>
+<p><strong>指数型分布族</strong>：一个概率分布族<span class=math>\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)</span>可称为<strong>指数型分布族</strong>，假如<span class=math>\(\mathfrak{p}\)</span>中的分布（分布列或密度函数）都可表示为如下形式： <span class=math>\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]</span> 其中，k为自然数；<span class=math>\(\theta\)</span>可以是数字，也可以是向量。分布的支撑<span class=math>\(\{x:p(x)>0\}\)</span>与参数<span class=math>\(\theta\)</span>无关；诸<span class=math>\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)</span>是定义在参数空间<span class=math>\(\varTheta\)</span>上的函数；诸<span class=math>\(T_1(x),\dotsb,T_k(x)\)</span>是<span class=math>\(x\)</span>的函数，称为充分统计向量，但<span class=math>\(T_1(x),\dotsb,T_k(x)\)</span>线性无关。<span class=math>\(h(x)\)</span>也只是<span class=math>\(x\)</span>的函数，且<span class=math>\(h(x)>0\)</span>，通常是一个常数。</p>
 </blockquote>
-<p>显然，<strong>对偶可行的基本解不一定是原问题的可行解</strong>。当对偶可行的基本解<strong>是</strong>原问题的可行解时，由于<strong>判别数均小于或等于零</strong>，因此它就是原问题的<strong>最优解</strong>。即对偶可行的基本解如果是原问题的可行解，那么它是最优解。</p>
-<p>对偶单纯形法的基本思想是，<strong>从原问题的一个对偶可行的基本解出发</strong>，求改进的对偶可行的基本解，当得到的对偶可行的基本解是原问题的可行解时，就达到最优解。那么现在有两个问题</p>
-<ol style=list-style-type:decimal>
-<li>如何先找到一个对偶可行的基本解（<strong>解扩充问题</strong>）</li>
-<li>如何改进这个对偶可行的基本解使得其在原问题可行（<strong>改进对偶问题</strong>）</li>
-</ol>
+<p><span class=math>\(c(\theta)\)</span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 <span class=math>\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]</span> 此外，指数族还有另一种表述方式，就是将外面的<span class=math>\(c(\theta)\)</span>放到指数符号中： <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]</span> 由于通常<span class=math>\(A(\theta)\)</span>含有<span class=math>\(\log\)</span>符号，该部分也称为“Log Partition Function”，易知<span class=math>\(A(\theta)=\ln c(\theta)\)</span>。 如果我们使用向量值函数来表达指数型分布族可写为: <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]</span></p>
+<p>从上述定义可知，一个分布族是不是指数型分布族的<strong>关键在于其概率分布能否改写为定义中方式</strong>。</p>
+<h3 id=指数型分布族的向量化写法>指数型分布族的向量化写法</h3>
+<p>下面我们使用<strong>向量值函数</strong>将式(4)进行进一步改造。</p>
+<blockquote>
+<p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、<strong>值域是多维向量或者无穷维向量的集合的函数</strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。</p>
+</blockquote>
+<p>对于<span class=math>\(\theta\)</span>的一系列函数<span class=math>\(c_1(\theta),c_2(\theta),\dotsb\)</span>和充分统计量向量<span class=math>\(T_1(x),T_2(x),\dotsb\)</span>，我们写出列向量形式： <span class=math>\[
+\mathbf{C}(\theta)=\begin{bmatrix}c_1(\theta)\\c_2(\theta)\\\vdots\\c_k(\theta)\end{bmatrix}
+\mathbf{T}(x)=\begin{bmatrix}T_1(x)\\T_2(x)\\\vdots\\T_k(x)\end{bmatrix}
+\]</span> 那么式（3）可写成 <span class=math>\[
+p(x;\theta)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{4}
+\]</span> 其中，<span class=math>\(\mathbf{C}(\theta),\mathbf{T}(x)\)</span>都是向量值函数，<span class=math>\(h(x),A(\theta)\)</span>都是普通函数。通常文章会把<span class=math>\(A(\theta)\)</span>写成<span class=math>\(A(\mathbf{C}(\theta))\)</span>的形式，这两种本质上是等价的，但是<span class=math>\(A(\mathbf{C}(\theta))\)</span>的参数形式更加统一，为主流用法。由于<span class=math>\(\mathbf{C}(\theta)\)</span>的计算结果本质上就是一个向量，我们可令向量值函数<span class=math>\(\mathbf{C(\theta)}=\eta\)</span>，那么式（4）可表示为： <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]</span> 这就是其他资料中的常见形式。其中<span class=math>\(\eta=\mathbf{C}(\theta)\)</span>，参数<span class=math>\(η\)</span>通常叫做自然参数(natural parameter)或者标准参数(canonical parameter)。这里注明：<span class=math>\(A(\theta)\)</span>与<span class=math>\(A(\eta)\)</span>实际上是两个不同的函数，但是可以通过<span class=math>\(\eta=\mathbf{C}(\theta),\theta=\mathbf{C}^{-1}(\eta)\)</span>进行互换，因此在后文对他们不做区分。此外，在<a href=#指数族的期望与方差的统一形式>指数族的期望与方差的统一形式</a>一节中，我们还会证明为什么<span class=math>\(\eta,\theta\)</span>是一一对应的，这里先写出这个引理。</p>
+<blockquote>
+<p>引理1：在指数族中函数<span class=math>\(C(\cdot)\)</span>总是<strong>单调连续的(存在逆函数)</strong>，所以自然参数<span class=math>\(η\)</span>和原始参数<span class=math>\(θ\)</span>是<strong>存在一一映射关系的</strong>。 <span class=math>\[
+\eta=\mathbf{C}(\theta)\\
+\theta=\mathbf{C}^{-1}(\eta)
+\]</span> 上面这个关系被应用在广义线性规划中。</p>
+</blockquote>
+<p>在指数型分布族中，使用标准参数<span class=math>\(η\)</span>表示的公式形式称为<strong>指数族分布的标准形式(canonical form)</strong>，在标准形式下，分布的参数是<span class=math>\(η\)</span>。<strong>实际上，从原始分布向指数型分布转换的过程就是将<span class=math>\(\theta\)</span>转换为<span class=math>\(\eta\)</span>的过程</strong>，在下节中我们会用例子说明。</p>
+<p>指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。指数族有以下特殊之处，可能有些内容暂时不会涉及。</p>
+<ul>
+<li>指数族分布是<strong>唯一有共轭先验的分布族</strong>,这就简化了后验的计算</li>
+<li>在特定的规范化条件下(regularity conditions),指数族分布是<strong>唯一有限规模充分统计量</strong>(finite-sized sufficient statistics)的分布族,这意味着可以将数据压缩称固定规模的浓缩概括而不损失信息</li>
+<li>指数族分布是<strong>广义线性模型</strong>(generalized linear models)的核心</li>
+<li>指数族分布也是<strong>变分推理</strong>(variational inference)的核心</li>
+</ul>
+<h2 id=指数型分布族的转换例子>指数型分布族的转换例子</h2>
+<h3 id=伯努利分布的指数族形式>伯努利分布的指数族形式</h3>
+<p>伯努利分布又叫两点分布或者0-1分布，是最简单的概率分布形式之一。常见伯努利分布写成： <span class=math>\[
+p(x;p)=p^x(1-p)^{1-x},x\in\{0,1\}
+\]</span> 转写为指数型分布族形式为： <span class=math>\[
+\begin{aligned}
+p(x;p)&=\exp\{x\ln{p}+(1-x)\ln{(1-p)}\}\\
+&=\exp\{x\ln(\frac{p}{1-p})+\ln{(1-p)}\}
+\end{aligned}
+\]</span> 对照指数族的形式，有<span class=math>\(h(x)=1;c(p)=\log(\frac{p}{1-p});T(x)=x;A(p)=-\log(1-p)\)</span>。写成标准形式为： <span class=math>\[
+p(x;\eta)=\exp\{\eta x-\ln(1+e^\eta)\}
+\]</span> 标准参数<span class=math>\(\eta\)</span>和原始参数<span class=math>\(p\)</span>的关系为： <span class=math>\[
+\eta=\ln(\frac{p}{1-p})\\
+p=\frac{1}{1+e^{-\eta}}\tag{6}
+\]</span> 其中<span class=math>\(\ln(\frac{p}{1-p})\)</span>成为logit函数，其反函数<span class=math>\(\frac{1}{1+e^{-\eta}}\)</span>称为sigmoid函数。如果我们得到了<span class=math>\(\eta\)</span>就可以用sigmoid函数反推得到<span class=math>\(p\)</span>。</p>
+<h3 id=多类别分布的指数族形式>多类别分布的指数族形式</h3>
+<p>伯努利分布中是只有两个取值的离散随机变量的概率分布，当随机变量的取值扩展到多个(大于2个并且有限集)的时候，就是称为多类别分布。比如掷一个均匀的骰子，就是6个等概率结果的多类别分布。假设多类别分布中共有<span class=math>\(m\)</span>个类别，其概率分别为<span class=math>\(\theta_1,\theta_2,\dotsb,\theta_m\)</span>，那么其概率质量函数为： <span class=math>\[
+p(x;\mathbf{\theta})=\prod_{i=1}^m \theta_i^{x_i}\\
+\sum_{i=1}^m \theta_i=1\\
+\sum_{i=1}^m x_i=1
+\]</span> 在一次实验的<span class=math>\(m\)</span>个<span class=math>\(x_i\)</span>中，只有被取到的那个<span class=math>\(x_i\)</span>为1，其余的<span class=math>\(x_j\)</span>都是0。我们将其改写成指数型分布族的形式： <span class=math>\[
+p(x;\mathbf{\theta})=\exp\{\sum_{i=1}^m x_i\ln{\theta_i}\}
+\]</span> 我们注意到，由于条件<span class=math>\(\sum_{i=1}^m \theta_i=1,\sum_{i=1}^m x_i=1,x_i=\{0,1\}\)</span>的限制，实际上<span class=math>\(m\)</span>个<span class=math>\(\theta_i,x_i\)</span>都只有<span class=math>\(m-1\)</span>个自由变量，最后的<span class=math>\(\theta_m,x_m\)</span>可以用<span class=math>\(\theta_m=1-\sum_{i=1}^{m-1}\theta_i,x_m=1-\sum_{i=1}^{m-1}x_i\)</span>表示。因此上面的等式可以改写为： <span class=math>\[
+\begin{aligned}
+p(x;\mathbf{\theta})&=\exp\{\sum_{i=1}^{m-1} x_i\ln{\theta_i}+(1-\sum_{i=1}^{m-1}x_i)\ln{(1-\sum_{i=1}^{m-1}\theta_i)}\}\\
+&=\exp\left\{\sum_{i=1}^{m-1} x_i\ln{\frac{\theta_i}{1-\sum_{j=1}^{m-1}\theta_j}}+\ln{(1-\sum_{i=1}^{m-1}\theta_i)}\right\}\\
+其中，&\theta_m=1-\sum_{j=1}^{m-1}\theta_j\\
+&=\exp\left\{\sum_{i=1}^{m-1} x_i\ln{\frac{\theta_i}{\theta_m}}+\ln{\theta_m}\right\}
+\end{aligned}
+\]</span> 对照向量化形式的指数型分布族形式，有<span class=math>\(h(x)=1;\mathbf{C}(\theta)=\begin{bmatrix}\ln(\theta_1/\theta_m)\\\ln(\theta_2/\theta_m)\\\vdots\\\ln(\theta_{m-1}/\theta_m)\end{bmatrix},\mathbf{T}(x)=\begin{bmatrix}x_1\\x_2\\\vdots\\x_{m-1}\end{bmatrix};A(\theta)=-\ln(1-\sum_{i=1}^{m-1}\theta_i)=-\ln(\theta_m)\)</span>。</p>
+<p>将其写成标准形式为： <span class=math>\[
+p(x;\eta)=\exp\{\eta^T T(x)-\ln(\sum_{i=1}^me^{\eta_i})\}
+\]</span> 其中，<span class=math>\(\eta=\mathbf{C}(\theta),A(\eta)=\ln(\sum_{i=1}^me^{\eta_i})\)</span></p>
+<p>在<span class=math>\(\theta\)</span>与<span class=math>\(\eta\)</span>的换算中需要一个技巧，我们在<span class=math>\(\mathbf{C}(\theta)\)</span>最后添加一项<span class=math>\(c_m(\theta)=\ln(\theta_m/\theta_m)\equiv 0\)</span>。</p>
+<blockquote>
+<p>PS:若我们将添加<span class=math>\(c_m(\theta)\)</span>的<span class=math>\(\mathbf{C}(\theta)\)</span>记为<span class=math>\(\mathbf{\hat{C}}(\theta)\)</span>，<span class=math>\(\mathbf{T}(x)\)</span>最后也添加一项<span class=math>\(x_m\)</span>，记为<span class=math>\(\mathbf{\hat{T}}(x)\)</span>，由于<span class=math>\(c_m(\theta)=0\)</span>，因此<span class=math>\(\mathbf{\hat{C}}^T(\theta)\mathbf{\hat{T}}(x)=\sum_{i=1}^{m} x_i\ln{\theta_i}=\sum_{i=1}^{m-1} x_i\ln{\theta_i}=\mathbf{C}^T(\theta)\mathbf{T}(x)\)</span>。因此，在此定义下，可以用后者替代前者得到更加工整的表达形式。</p>
+</blockquote>
+<p>那么有： <span class=math>\[
+\eta_i=c_i(\theta)=\ln(\frac{\theta_i}{\theta_m})\Rightarrow \theta_i=\theta_m e^{\eta_i}\\
+\Rightarrow \sum_{i=1}^m \theta_i=\theta_m\sum_{i=1}^m e^{\eta_i}=1\\
+\Rightarrow \theta_m=\frac{1}{\sum_{i=1}^m e^{\eta_i}}\\
+\Rightarrow\theta_i=\theta_m e^{\eta_i}=\frac{e^{\eta_i}}{\sum_{i=1}^m e^{\eta_i}}\tag{7}
+\]</span> 我们将上式称为softmax函数，普遍用于多分类问题。</p>
+<h3 id=均值未知方差已知的高斯分布的指数族形式>均值未知方差已知的高斯分布的指数族形式</h3>
+<p>典型的高斯分布写成（方差<span class=math>\(\sigma^2\)</span>已知）： <span class=math>\[
+p(x;\mu)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{(x-\mu)^2}{2\sigma^2}\}
+\]</span> 转写为指数族形式为： <span class=math>\[
+p(x;\mu)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\}\cdot\exp\{\frac{1}{2\sigma^2}(2\mu x-\mu^2)\}
+\]</span> 对照指数族的形式，有<span class=math>\(h(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\};c(\mu)=\frac{\mu}{\sigma^2};T(x)=x;A(\mu)=\frac{\mu^2}{2\sigma^2}\)</span>。写成标准形式为： <span class=math>\[
+p(x;\eta)=\frac{1}{\sqrt{2\pi}\sigma}\exp\{-\frac{1}{2\sigma^2}x^2\}\cdot\exp\{\eta x-\frac{\eta^2\sigma^2}{2}\}
+\]</span> 当服从标准正态分布时，<span class=math>\(\sigma=1\Rightarrow\eta=\mu\)</span>。</p>
+<h3 id=均值方差皆未知的高斯分布的指数族形式>均值方差皆未知的高斯分布的指数族形式</h3>
+<p>如果高斯分布的均值和方差都是未知的，那么就需要使用多个线性不相关的充分统计量来表示指数型分布族： <span class=math>\[
+\begin{aligned}
+p(x;\mu,\sigma^2)&=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[ -\frac{1}{2\sigma^2}(x-\mu)^2]\\
+&=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2]\\
+&=\frac{1}{(2\pi)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2-\ln{\sigma}]
+\end{aligned}
+\]</span> 对照指数族的形式，有<span class=math>\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/2\sigma^2\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)</span>。</p>
+<p>需要指出的是，一般情况下，我们在<span class=math>\(A(\mu,\sigma)\)</span>中最好不要在使用原有的<span class=math>\(\mu,\sigma\)</span>，而是使用<span class=math>\(\mathbf{C}\)</span>中的分量<span class=math>\(c_1=\mu/\sigma^2,c_2=-1/2\sigma^2\)</span>表示，即 <span class=math>\[
+A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)\tag{8.1}
+\]</span> 所以，其指数型分布族表示形式为 <span class=math>\[
+p(x;\mathbf{C})=\frac{1}{(2\pi)^{1/2}} \exp[\mathbf{C}^T(\mu,\sigma)\mathbf{T}(x)-A(\mathbf{C})]
+\]</span> 在其他文献中，也有令<span class=math>\(h(x)=1\)</span>，然后把<span class=math>\(\frac{1}{(2\pi)^{1/2}}\)</span>放到<span class=math>\(A(\mathbf{C})\)</span>中的，即<span class=math>\(A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)-\frac{1}{2}\log(2\pi)\)</span>，这样是等价的。</p>
+<h3 id=泊松分布的指数型分布族形式>泊松分布的指数型分布族形式</h3>
+<p>泊松分布的概率质量函数如下： <span class=math>\[
+p(x;\theta)=\frac{\theta^x e^{-\theta}}{x!}
+\]</span> 其中，<span class=math>\(x\)</span>为正整数。将其改写为指数型分布族： <span class=math>\[
+p(x;\theta)=\frac{1}{x!}\exp\{x\ln(\theta)-\theta\}
+\]</span> 对照指数型分布族形式易知：<span class=math>\(h(x)=\frac{1}{x!},c(\theta)=\ln(\theta),T(x)=x,A(\theta)=\theta\)</span>。根据<span class=math>\(\eta=c(\theta)\)</span>显然有： <span class=math>\[
+\eta=\ln(\theta)\\
+\theta=e^{\eta}
+\]</span> 此时，<span class=math>\(A(\eta)=e^{\eta}\)</span>。</p>
+<p>其他常见指数型分布族可参见<a href=https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions>维基百科词条</a>。</p>
+<p>由此可见，不少常见的分布如泊松分布、Beta分布、Gamma分布都是指数分布族中的一员。我们对指数族形式的推导都可以应用到这些概率分布上。</p>
+<h2 id=指数族的期望与方差的统一形式>指数族的期望与方差的统一形式</h2>
+<h3 id=指数族的期望>指数族的期望</h3>
+<p>我们在定义指数型分布族时提过，<span class=math>\(A(\eta)\)</span>作为Log配分函数(log partition function)，实现了概率分布的归一化，即: <span class=math>\[
+c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx=e^{A(\theta)}\\
+\Rightarrow A(\theta)=\ln\left\{\int h(x) \exp\left [\sum_{j=1}^k c_j(\theta)T_j(x)\right ] dx\right\}
+\]</span> 由于<span class=math>\(\eta\)</span>与<span class=math>\(\theta\)</span>存在一一关系，我们用<span class=math>\(\eta\)</span>替代<span class=math>\(\theta\)</span>得到 <span class=math>\[
+A(\eta)=\ln\left\{\int h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)] dx\right\}
+\]</span> 指数族有一个特点，就是我们可以通过对<span class=math>\(A(η)\)</span>求（偏）导来得到关于<span class=math>\(T(x)\)</span>的矩，而一阶矩和二阶矩能够推导出概率分布的期望和方差。当<span class=math>\(T(x)=x\)</span>或存在<span class=math>\(T_i(x)=x\)</span>的分量时，我们就可以用求导或者求偏导得到关于<span class=math>\(x\)</span>的期望和方差。具体做法如下，先<span class=math>\(A(\eta)\)</span>求一阶导： <span class=math>\[
+\begin{aligned}
+\frac{dA(\eta)}{d \eta}&=\frac{d}{d\eta}\ln\left\{\int h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)] dx\right\}\\
+&=\frac{\int \mathbf{T}(x) h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)] dx}{\int h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)] dx}\\
+&\because \int h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)] dx=e^{A(\eta)}\\
+&=\int \mathbf{T}(x) h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)-A(\eta)] dx\\
+&=E[\mathbf{T}(x)]
+\end{aligned}\tag{9}
+\]</span> 可见，Log配分函数的一阶导就是<span class=math>\(T(x)\)</span>的概率期望，显然当<span class=math>\(T(x)=x\)</span>时，有<span class=math>\(E(T(x))=E(x)=\mu\)</span>。对于伯努利分布、多项分布、泊松分布、高斯分布等这些<span class=math>\(T(x)=x\)</span>的分布来说，<span class=math>\(A(\eta)\)</span>的一阶导就是分布的均值<span class=math>\(\mu\)</span>。</p>
+<p>下面举两个例子。第一个多类别分布，其<span class=math>\(A(\eta)=\ln(\sum_{i=1}^me^{\eta_i})\)</span>，期望应该为<span class=math>\(\mathbf{\theta}=\begin{bmatrix}\theta_1\\\theta_2\\\vdots\\\theta_m\end{bmatrix}\)</span>（很特殊，其期望是一个向量）。我们求<span class=math>\(A(\eta)\)</span>的一阶导(<span class=math>\(\eta\)</span>是向量，因此结果是向量导数)有： <span class=math>\[
+\frac{d A(\eta)}{d\eta}=\frac{d \ln(\sum_{i=1}^me^{\eta_i})}{d\eta}=\frac{d\sum_{i=1}^me^{\eta_i}/d\eta}{\sum_{i=1}^me^{\eta_i}}\\
+=\begin{bmatrix}
+\frac{e^{\eta_1}}{\sum_{i=1}^me^{\eta_i}}\\
+\frac{e^{\eta_2}}{\sum_{i=1}^me^{\eta_i}}\\
+\vdots\\
+\frac{e^{\eta_m}}{\sum_{i=1}^me^{\eta_i}}
+\end{bmatrix}=\begin{bmatrix}\theta_1\\\theta_2\\\vdots\\\theta_m\end{bmatrix}
+\]</span> 即<span class=math>\(\frac{d A(\eta)}{d\eta}=E[x]\)</span>。</p>
+<p>第二个例子，我们来看均值方差皆未知的高斯分布，有<span class=math>\(\eta=\mathbf{C}(\theta)\)</span>中的分量<span class=math>\(\eta_1=c_1(\mu,\sigma)=\mu/\sigma^2,\eta_2=c_2(\mu,\sigma)=-1/2\sigma^2\)</span>表示，即 <span class=math>\[
+A(\mathbf{\eta})=\frac{-\eta_1^2}{4\eta_2}-\frac{1}{2}\log(-2\eta_2)\tag{8.2}
+\]</span> 其<span class=math>\(T(x)=[x\quad x^2]^T\)</span>，如果我们仅对<span class=math>\(x\)</span>那一项对应的<span class=math>\(\eta_1\)</span>求偏导，就可以得到概率分布的均值： <span class=math>\[
+\frac{\partial A(\eta)}{\partial \eta_1}=\frac{-2\eta_1}{4\eta_2}=\frac{-\mu/\sigma^2}{2\times (-{1\over 2\sigma^2})}=\mu
+\]</span> 即<span class=math>\(\frac{\partial A(\eta)}{\partial \eta_1}=\mu\)</span>。</p>
+<h3 id=指数族的方差>指数族的方差</h3>
+<p>在一阶导数的基础上，我们可以求出<span class=math>\(A(\eta)\)</span>的二阶导，由式（9）继续求（偏）导： <span class=math>\[
+\begin{aligned}
+\frac{d^2A(\eta)}{d\eta^2}&=\frac{d}{d\eta}\int \mathbf{T}(x) h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)-A(\eta)] dx\\
+&=\int \mathbf{T}(x) h(x) \frac{d}{d\eta}\{\exp[\mathbf{\eta}^T\mathbf{T}(x)-A(\eta)]\} dx\\
+&=\int \mathbf{T}(x) h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)-A(\eta)](\mathbf{T}(x)-\underbrace{\frac{d}{d\eta}A(\eta))}_{E[T(x)]} dx\\
+&=\int \mathbf{T}^2(x) h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)-A(\eta)] dx\\
+&-E[\mathbf{T}(x)]\int \mathbf{T}(x) h(x) \exp[\mathbf{\eta}^T\mathbf{T}(x)-A(\eta)] dx\\
+&=E[\mathbf{T}^2(x)]-E[\mathbf{T}(x)]^2\\
+&=\mathrm{Var}[\mathbf{T}(x)]
+\end{aligned}\tag{10}
+\]</span> 从上式可知，<span class=math>\(A(η)\)</span>的二阶导数正好是<span class=math>\(T(x)\)</span>的方差，对于<span class=math>\(T(x)=x\)</span>的分布，就是概率分布的方差。</p>
+<p>我们来看均值方差皆未知的高斯分布，对<span class=math>\(\eta_1\)</span>求两次偏导： <span class=math>\[
+\frac{\partial^2 A(\eta)}{\partial \eta_1^2}=\frac{-2}{4\eta_2}=\frac{-2}{4\times (-{1\over 2\sigma^2})}=\sigma^2
+\]</span> 显然就是高斯分布的方差。</p>
+<p>我们再举一个泊松分布的例子，其<span class=math>\(A(\eta)=e^\eta\)</span>。显然，其对<span class=math>\(\eta\)</span>求任意阶导数，都是<span class=math>\(e^\eta=\theta\)</span>，而泊松分布的均值和方差也都是<span class=math>\(\eta\)</span>。</p>
+<h3 id=theta与eta的一一对应缘由><span class=math>\(\theta\)</span>与<span class=math>\(\eta\)</span>的一一对应缘由</h3>
+<p>我们发现现函数<span class=math>\(A(η)\)</span>的二阶导数是<span class=math>\(T(x)\)</span>的方差，我们都知道方差肯定是大于等于0的，一个函数的二阶导数大于等于0，证明这个函数是一个<strong>凸函数</strong>(convex，碗状的)， 对于凸函数，其一阶导数单调递增。而其一阶导数正好又是<span class=math>\(\mu=E[T(x)]\)</span>，因此一阶导数结果<span class=math>\(\mu\)</span>和函数自变量<span class=math>\(\eta\)</span>是一一对应的，<span class=math>\(\eta\)</span>可以用<span class=math>\(\mu\)</span>的反函数表示。此外在指数型分布族中，<span class=math>\(\mu\)</span>和原分布中的参数<span class=math>\(\theta\)</span>有着很简单的关系，且是一一对应的。因此，<span class=math>\(\eta\)</span>与参数<span class=math>\(\theta\)</span>也是一一对应关系。总结来时就是： <span class=math>\[
+\eta\stackrel{一一对应}{\longleftrightarrow}\mu\stackrel{一一对应}{\longleftrightarrow} \theta\tag{11}
+\]</span></p>
+<h2 id=指数型分布族的最大似然估计>指数型分布族的最大似然估计</h2>
+<p>现在我们讨论下指数族的最大似然估计，我们知道指数族的自然参数<span class=math>\(η\)</span>和特定分布的原始参数<span class=math>\(θ\)</span>是一一对应的，二者是存在可逆关系的，所有只要我们能估计出自然参数<span class=math>\(η\)</span>，就一定能通过逆函数<span class=math>\(c(⋅)^{−1}\)</span>得到分布的真实参数<span class=math>\(θ\)</span>的估计值，也就是说对于指数族，我们只需要推导自然参数的估计量<span class=math>\(\eta\)</span>就能求出原始参数<span class=math>\(\theta\)</span>。</p>
+<p>我们在指数型分布族中同样可以使用<strong>最大似然估计</strong>来估计自然参数（标准参数）<span class=math>\(\eta\)</span>。按照最大似然估计的套路（详细可见<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>），我们需要假设这些样本都是独立同分布（i.i.d）的，用符号<span class=math>\(\mathcal{D}\)</span>表示随机变量的一个观测样本集，样本容量是<span class=math>\(N\)</span>。根据式（5）的指数型分布族表达式 <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]</span> 可得样本的联合概率密度为： <span class=math>\[
+\begin{aligned}
+L(\eta;\mathcal{D})&=\prod_{k=1}^N \left\{h(x_k)\exp[\eta^T\mathbf{T}(x_k)-A(\eta)]\right\}\\
+&=\prod_{k=1}^N h(x_k)\times\exp\left\{\eta^T\sum_{k=1}^N\mathbf{T}(x_k)-NA(\eta)\right\}
+\end{aligned}\tag{12}
+\]</span> 对比一下，我们发现指数族分布的联合概率仍然是指数族，只是每一个部分有了变化： <span class=math>\[
+h_{ML}(\mathbf{x})=\prod_{k=1}^N h(x_k)\\
+\eta_{ML}=\eta\\
+T_{ML}(\mathbf{x})=\sum_{k=1}^N\mathbf{T}(x_k)\\
+A_{ML}(\eta)=NA(\eta)
+\]</span> 除了标准参数<span class=math>\(\eta\)</span>没有改变，其他部分都发生了变化，但总体还是属于指数型分布族。</p>
+<p>按照最大似然估计的步骤，我们对式（12）取对数<span class=math>\(\ln(\log)\)</span>有： <span class=math>\[
+\begin{aligned}
+l(\eta;\mathcal{D})&=\ln(L(\eta;\mathcal{D}))\\
+&=\sum_{k=1}^n\ln(h(x_k))+\eta^T \sum_{k=1}^N\mathbf{T}(x_k)-NA(\eta)
+\end{aligned}\tag{13}
+\]</span> 接下来，为了求<span class=math>\(\eta\)</span>的极值，我们对式（13）求<span class=math>\(\eta\)</span>的导数并令其等于0： <span class=math>\[
+\nabla_\eta l(\eta;\mathcal{D})=\sum_{k=1}^N\mathbf{T}(x_k)-N\nabla_\eta A(\eta)=0\\
+\Rightarrow \nabla_\eta A(\eta)=\frac{1}{N}\sum_{k=1}^N\mathbf{T}(x_k)\tag{14}
+\]</span> 由于<span class=math>\(\eta\)</span>可能是向量，对于向量的导数，我们使用梯度<span class=math>\(\nabla_\eta\)</span>表示。又由式（9）可知<span class=math>\(A(η)\)</span>的一阶导数等于<span class=math>\(T(x)\)</span>的期望<span class=math>\(E[T(x)]\)</span>，即<span class=math>\(E[T(x)]=\frac{d A(\eta)}{d \eta}=\nabla_\eta A(\eta)\)</span>，令其结果为<span class=math>\(\mu_{ML}\)</span>，结合公式（14）有： <span class=math>\[
+\mu_{ML}=E[T(x)]=\frac{1}{N}\sum_{k=1}^N\mathbf{T}(x_k)\tag{15}
+\]</span> 从式(15)可以看出，指数族分布<span class=math>\(T(x)\)</span>期望值（均值参数<span class=math>\(\mu\)</span>）的最大似然估计等于样本的平均值。且均值参数的最大似然估计值，只和样本的统计量<span class=math>\(\sum_{k=1}^N=T(x_k)\)</span>有关，而不再依赖样本的其它信息，所以<span class=math>\(\sum_{k=1}^N=T(x_k)\)</span>(或者说<span class=math>\(T(x)\)</span>)是指数族的充分统计量。对于满足<span class=math>\(T(x)=x\)</span>的分布，比如伯努利分布、多项式分布、泊松分布等等，样本的均值就是<span class=math>\(T(x)\)</span>的均值，样本的均值就是均值参数的最大似然估计值。同理，对于单变量的高斯分布，样本的方差就是方差参数的最大似然估计值。</p>
+<p>最后，我们结合式（11）知道，<span class=math>\(\eta,\mu,\theta\)</span>是有一一对应关系的，可以通过函数和反函数相互计算。最大似然估计给出了<span class=math>\(μ_{ML}\)</span>的估计值，我们就是可以换算出<span class=math>\(η_{ML},\theta_{ML}\)</span>。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
