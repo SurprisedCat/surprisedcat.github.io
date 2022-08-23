@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Nov 9, 2021</span>
-<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
+<span class=post_time> · 3 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -104,6 +104,11 @@ Nov 9, 2021</span>
 <li><a href=#指数族的方差>指数族的方差</a></li>
 <li><a href=#theta与eta的一一对应缘由><span class=math>\(\theta\)</span>与<span class=math>\(\eta\)</span>的一一对应缘由</a></li>
 <li><a href=#指数型分布族的最大似然估计>指数型分布族的最大似然估计</a></li>
+<li><a href=#自然指数族>自然指数族</a></li>
+<li><a href=#指数分散族>指数分散族</a></li>
+<li><a href=#分散参数讨论>分散参数讨论</a></li>
+<li><a href=#配分函数讨论>配分函数讨论</a></li>
+<li><a href=#指数分散族的方差>指数分散族的方差</a></li>
 </ul>
 <h2 id=指数型分布族指数族>指数型分布族（指数族）</h2>
 <p>指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：</p>
@@ -129,7 +134,7 @@ p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
 <p>引理1：在指数族中函数<span class=math>\(C(\cdot)\)</span>总是<strong>单调连续的(存在逆函数)</strong>，所以自然参数<span class=math>\(η\)</span>和原始参数<span class=math>\(θ\)</span>是<strong>存在一一映射关系的</strong>。 <span class=math>\[
 \eta=\mathbf{C}(\theta)\\
 \theta=\mathbf{C}^{-1}(\eta)
-\]</span> 上面这个关系被应用在广义线性规划中。</p>
+\]</span></p>
 </blockquote>
 <p>在指数型分布族中，使用标准参数<span class=math>\(η\)</span>表示的公式形式称为<strong>指数族分布的标准形式(canonical form)</strong>，在标准形式下，分布的参数是<span class=math>\(η\)</span>。<strong>实际上，从原始分布向指数型分布转换的过程就是将<span class=math>\(\theta\)</span>转换为<span class=math>\(\eta\)</span>的过程</strong>，在下节中我们会用例子说明。</p>
 <p>指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。指数族有以下特殊之处，可能有些内容暂时不会涉及。</p>
@@ -291,6 +296,56 @@ l(\eta;\mathcal{D})&=\ln(L(\eta;\mathcal{D}))\\
 \mu_{ML}=E[T(x)]=\frac{1}{N}\sum_{k=1}^N\mathbf{T}(x_k)\tag{15}
 \]</span> 从式(15)可以看出，指数族分布<span class=math>\(T(x)\)</span>期望值（均值参数<span class=math>\(\mu\)</span>）的最大似然估计等于样本的平均值。且均值参数的最大似然估计值，只和样本的统计量<span class=math>\(\sum_{k=1}^N=T(x_k)\)</span>有关，而不再依赖样本的其它信息，所以<span class=math>\(\sum_{k=1}^N=T(x_k)\)</span>(或者说<span class=math>\(T(x)\)</span>)是指数族的充分统计量。对于满足<span class=math>\(T(x)=x\)</span>的分布，比如伯努利分布、多项式分布、泊松分布等等，样本的均值就是<span class=math>\(T(x)\)</span>的均值，样本的均值就是均值参数的最大似然估计值。同理，对于单变量的高斯分布，样本的方差就是方差参数的最大似然估计值。</p>
 <p>最后，我们结合式（11）知道，<span class=math>\(\eta,\mu,\theta\)</span>是有一一对应关系的，可以通过函数和反函数相互计算。最大似然估计给出了<span class=math>\(μ_{ML}\)</span>的估计值，我们就是可以换算出<span class=math>\(η_{ML},\theta_{ML}\)</span>。</p>
+<h2 id=自然指数族>自然指数族</h2>
+<p>我们在式（5）中给出了指数型分布族的一般形式 <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]</span> 但是对于广义线性模型的应用场景而言，还是复杂了一些，因此有一种简化的<strong>自然指数族</strong>。在自然指数族中，<span class=math>\(\mathbf{T}(\mathbf{x})=\mathbf{x}\)</span>，不存在类似于<span class=math>\(x^2,x^3,\log(x),\frac{1}{x}\)</span>这种带有函数关系的充分统计量，其可以简化写成： <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{x}-A(\eta)\right\}\tag{16}
+\]</span> 二项分布，负二项分布，伯努利分布，泊松分布，参数<span class=math>\(\alpha\)</span>已知的Gamma分布，已知方差的高斯分布，参数<span class=math>\(\lambda\)</span>已知的逆高斯分布（又称Wald分布）等都可以写成自然指数族形式，其他分布如卡方分布、Beta分布、帕累托分布，对数正态分布，一般正态分布，一般Gamma分布则无法写成自然指数族的形式。他们是否是自然指数族的核心就在于是不是充分统计量<span class=math>\(T(x)=x\)</span>。</p>
+<h2 id=指数分散族>指数分散族</h2>
+<p>在自然指数族的基础上，研究者们为了方便探究分布的期望和方差，对自然指数族做了少些变形得到指数分散族。其处理方法是将自然指数族的规范形式(式(16))的规范（自然）参数<span class=math>\(\eta\)</span>拆分成与位置（期望）相关的位置函数<span class=math>\(b(\vartheta)\)</span>以及和方差相关的分散函数<span class=math>\(a(\phi)\)</span>。其形式如下： <span class=math>\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{a(\phi)}+c(x,\phi)\}\tag{17}
+\]</span> 这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，<span class=math>\(a(ϕ)\)</span>称为分散函数(dispersion function)，是已知的。<span class=math>\(ϕ\)</span>称为分散参数(dispersion parameter)。<span class=math>\(\vartheta\)</span>仍然叫自然参数(natural parameter)或者规范参数(canonical parameter)，它和自然指数族中参数差了个系数，因为两种模式中<span class=math>\(\vartheta^T x,\eta^Tx\)</span>的模式都是<strong>参数<span class=math>\(\times\)</span>充分统计量</strong>，所以不难发现，实际上我们对自然参数做一个<span class=math>\(\frac{1}{a(\phi)}\)</span>倍的缩放。</p>
+<p><strong>指数分散族形式本质上是对自然指数族的参数<span class=math>\(\eta\)</span>进行了拆分，把期望参数和方差参数拆分开</strong>。使得自然参数<span class=math>\(\vartheta\)</span>仅和期望<span class=math>\(μ\)</span>相关，分散参数<span class=math>\(ϕ\)</span>和分布的方差参数相关。分拆后，规范参数<span class=math>\(\vartheta\)</span>仅和分布的期望参数<span class=math>\(μ\)</span>相关，并且和<span class=math>\(μ\)</span>之间存在一一映射的函数关系，换句话说，<span class=math>\(\vartheta\)</span>和<span class=math>\(μ\)</span>可以互相转化。 <span class=math>\[
+\vartheta=f(\mu)\\
+\mu=f^{−1}(\vartheta)\tag{18}
+\]</span> 后面在配分函数<span class=math>\(b(\vartheta)\)</span>的讨论中可以证明这一点。</p>
+<h3 id=分散参数讨论>分散参数讨论</h3>
+<p><span class=math>\(a(ϕ)\)</span>的函数形式并没有严格的要求，其函数形式并不重要。在大多数文献中，<span class=math>\(a(\phi)\)</span>被定义为： <span class=math>\[
+a_i(\phi)=\frac{\phi}{w_i}
+\]</span> 其中<span class=math>\(w_i\)</span>是观测样本的权重，一般是已知的。不同的样本可以拥有不同的权重值，比如进行参数估计时，对于某些样本设置成<span class=math>\(w_i=0\)</span>，这就相当于抛弃了这些样本。如果不需要对样本进行加权（大多数场景），那么直接令 <span class=math>\[
+a(\phi)=\phi
+\]</span> 即可。分散参数和分布的方差相关，它影响着方差的大小。此外，由于随机变量<span class=math>\(x\)</span>不变，<strong>在指数分布族和自然分布族中，其自然参数之间差<span class=math>\(\frac{1}{a(\phi)}\)</span>倍</strong>。 <span class=math>\[
+\eta=\frac{\vartheta}{a(\phi)}
+\]</span></p>
+<h3 id=配分函数讨论>配分函数讨论</h3>
+<p>在指数分散族中，我们将<span class=math>\(b(\vartheta)\)</span>也称为配分函数，和一般形态的配分函数<span class=math>\(A(\eta)\)</span>显然有如下关系： <span class=math>\[
+A(\eta)=\frac{b(\vartheta)}{a(\phi)}
+\]</span> 在指数型分布族中，我们可以用<span class=math>\(A(\eta)\)</span>的导数求出分布的矩，一阶导数是分布的期望，二阶导数是分布的方差。<span class=math>\(b(\vartheta)\)</span>也有类似的作用。由于<span class=math>\(\eta=\frac{\vartheta}{a(\phi)},A(\eta)=\frac{b(\vartheta)}{a(\phi)}=\frac{b(\eta\cdot a(\phi))}{a(\phi)}\)</span>，所以概率分布的期望为： <span class=math>\[
+E[X]=\frac{dA(\eta)}{d\eta}=\frac{d\frac{b(\vartheta)}{a(\phi)}}{d\eta}=\frac{d\frac{b(\vartheta)}{a(\phi)}}{d\frac{\vartheta}{a(\phi)}}\\
+\Rightarrow E[X]=\frac{d b(\vartheta)}{d\vartheta}=b'(\vartheta)=\mu\tag{19}
+\]</span> 同样的，我们可以推导出概率分布的方差： <span class=math>\[
+\mathrm{Var}[X]=A''(\eta)=\frac{d^2\frac{b(\vartheta)}{a(\phi)}}{d[\frac{\vartheta}{a(\phi)}]^2}\\
+又\because A'(\eta)=b'(\vartheta)\\
+\Rightarrow \mathrm{Var}[X]=\frac{d{b'(\vartheta)}}{d\frac{\vartheta}{a(\phi)}}=\frac{1}{a(\phi)}\frac{db'(\vartheta)}{d\vartheta}\\
+\Rightarrow \mathrm{Var}[X]=a(\phi)b''(\vartheta)\tag{20}
+\]</span> 由于<span class=math>\(b(\vartheta)\)</span>是在<span class=math>\(A(η)\)</span>的基础上拆分出去<span class=math>\(a(ϕ)\)</span>，所以<span class=math>\(b(\vartheta)\)</span>的二阶导数不再等于分布的方差，需要再乘上<span class=math>\(a(ϕ)\)</span>才能得到分布的方差。</p>
+<p>从期望和方差的关系，我们能发现<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>也是一一对应关系。根据式（19）可知，<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>有函数关系，且由于<span class=math>\(b'(\vartheta)\)</span>的导数<span class=math>\(b''(\vartheta)\)</span>是方差（恒大于0）乘以一个已知数<span class=math>\(a(\phi)\)</span>（式（20）结论），因此<span class=math>\(b'(\vartheta)\)</span>的导数必然恒为正数或负数（取决于已知数<span class=math>\(a(\phi)\)</span>），即<span class=math>\(b'(\vartheta)\)</span>必为单调函数，而单调函数必存在反函数，推得必存在<span class=math>\(b'^{-1}\)</span>，使得<span class=math>\(\vartheta=b'^{-1}(\mu)\)</span>。因此<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>是一一对应的。</p>
+<h3 id=指数分散族的方差>指数分散族的方差</h3>
+<p>在指数分散族中，分布的方差可以表示成两部分的乘积，一部分是分散函数<span class=math>\(a(ϕ)\)</span>，另一部分是配分函数的二阶导数<span class=math>\(b''(\vartheta)\)</span>。其中，函数<span class=math>\(b(\vartheta)\)</span>是一个关于<span class=math>\(\vartheta\)</span>的函数， 其二阶导数要么是一个常数，要么是一个关于自然参数<span class=math>\(\vartheta\)</span>的函数。 而自然参数<span class=math>\(\vartheta\)</span>和均值参数<span class=math>\(μ\)</span>存在一一对应关系，所以一定可以把<span class=math>\(\vartheta\)</span>替换成<span class=math>\(μ\)</span>。</p>
+<p>我们定义配分函数<span class=math>\(b(\vartheta)\)</span>的二阶导数为<strong>方差函数</strong>(variance function)，方差函数是一个关于期望<span class=math>\(μ\)</span>的函数，即 <span class=math>\[
+b''(\vartheta)=\nu(μ)\tag{21}
+\]</span> 方差函数<span class=math>\(ν(μ)\)</span>存在两种情况：</p>
+<ol style=list-style-type:decimal>
+<li>方差函数是一个常量值，<span class=math>\(ν(μ)=b''(\vartheta)=C\)</span>，此时分布的方差与均值无关。典型的分布就是正态分布。</li>
+<li>方差函数是一个关于均值<span class=math>\(μ\)</span>的函数，<span class=math>\(ν(μ)=b''(\vartheta)\)</span>，此时分布的方差与均值有关。</li>
+</ol>
+<p>方差函数，是一个平滑函数，它把分布的均值参数<span class=math>\(μ\)</span>和分布的方差关联在一起。如果其值一个常数值，说明均值和方差是独立无关的；反之，如果是<span class=math>\(μ\)</span>的函数，说明均值和方差是相关联的。</p>
+<p>例如，在高斯分布中，<span class=math>\(b''(\vartheta)=1\)</span>，所以方差和均值是相互独立的，对于其他分布，这是不成立的，高斯分布是特例。</p>
+<p>影响方差的，除了方差函数<span class=math>\(ν(μ)\)</span>以外，还有分散参数<span class=math>\(a(ϕ)=ϕ\)</span>，它起到一个缩放的作用。 参数<span class=math>\(\vartheta\)</span>和<span class=math>\(ϕ\)</span><strong>本质上是位置和尺度参数，位置参数反映数据的均值，尺度参数反映数据方差</strong>。</p>
+<div class=figure>
+<img src=../../images/常见分布的方差函数表.png alt=常见分布的方差函数表><p class=caption>常见分布的方差函数表</p>
+</div>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

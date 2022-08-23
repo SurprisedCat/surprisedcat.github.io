@@ -34,14 +34,14 @@ H(X,Y)&amp;amp;=-\displaystyle\sum_{x,y}p(x,y)logp(x,y)\\
 \end{aligned}
 \]&lt;/span> &lt;strong>注意点：&lt;/strong>&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>熵只依赖于随机变量的分布,与随机变量取值无关，所以也可以将 X 的熵记作 H(p)。&lt;/li>
-&lt;li>令0log0=0(因为某个取值概率可能为0)。&lt;/li>
+&lt;li>熵只依赖于随机变量的分布，与随机变量取值无关，所以也可以将&lt;span class="math">\(X\)&lt;/span>的熵记作&lt;span class="math">\(H(p)\)&lt;/span>。&lt;/li>
+&lt;li>令&lt;span class="math">\(0\log 0=0\)&lt;/span>(因为某个取值概率可能为0)。&lt;/li>
 &lt;/ol>
 &lt;p>那么这些定义有着什么样的性质呢？考虑一个随机变量&lt;span class="math">\(x\)&lt;/span>。这个随机变量有4种可能的状态，每个状态都是等可能的。为了把&lt;span class="math">\(x\)&lt;/span>的值传给接收者，我们&lt;strong>至少&lt;/strong>需要传输2比特的消息。（&lt;span class="math">\(H(X)=-4\times\dfrac{1}{4}log_2\dfrac{1}{4}=2\ bits\)&lt;/span>）&lt;/p>
 &lt;p>现在考虑一个具有4种可能的状态&lt;span class="math">\(\{a,b,c,d\}\)&lt;/span> 的随机变量，每个状态各自的概率为&lt;span class="math">\((1/2,1/4,1/8,1/8)\)&lt;/span>。这种情形下的熵为： &lt;span class="math">\[
 H(X)=-\displaystyle\frac{1}{2}log_2\frac{1}{2}-\frac{1}{4}log_2\frac{1}{4}-\frac{1}{8}log_2\frac{1}{8}-\frac{1}{8}log_2\frac{1}{8}=1.75\ bits
 \]&lt;/span> 这个实例也佐证了&lt;strong>非均匀分布比均匀分布的熵要小&lt;/strong>。现在让我们考虑如何把变量状态的类别传递给接收者。与之前一样，我们可以使用一个2比特的数字来完成这件事情。然而，我们可以利用非均匀分布这个特点，使用&lt;strong>更短的编码来描述更可能的事件，使用更长的编码来描述不太可能的事件&lt;/strong>。我们希望这样做能够得到一个更短的平均编码长度。我们可以使用下面的编码串（哈夫曼编码）：0、10、110、111来表示状态&lt;span class="math">\(\{a,b,c,d\}\)&lt;/span>。传输的编码的平均长度就是： &lt;span class="math">\[
-\displaystyle\frac{1}{2}\times1+\frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
+1\times \frac{1}{2}\times1+1\times \frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
 \]&lt;/span> 和该分布信息的熵一致。这个值与上方的随机变量的熵相等。熵和最短编码长度的这种关系是一种普遍的情形，称为&lt;strong>Shannon无损信源编码定理&lt;/strong>。定理表明熵是&lt;strong>传输一个随机变量状态值所需的比特位下界（最短平均编码长度）&lt;/strong>。因此，信息熵可以应用在数据压缩方面。这里这篇文章&lt;http://www.ruanyifeng.com/blog/2014/09/information-entropy.html>讲的很详细了，我就不赘述了。&lt;/p>
 &lt;h2 id="条件熵conditional-entropy">条件熵(Conditional entropy)&lt;/h2>
 &lt;p>条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>表示在已知随机变量&lt;span class="math">\(X\)&lt;/span>的条件下随机变量&lt;span class="math">\(Y\)&lt;/span>的不确定性。条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>定义为&lt;span class="math">\(X\)&lt;/span>给定条件下&lt;span class="math">\(Y\)&lt;/span>的条件概率分布的熵对&lt;span class="math">\(X\)&lt;/span>的数学期望： &lt;span class="math">\[
@@ -87,7 +87,7 @@ D_{KL}(p||q)=\displaystyle\sum_{x}p(x)log\frac{p(x)}{q(x)}=\sum_{x}p(x)logp(x)-p
 &lt;p>熵的公式 &lt;span class="math">\[
 H(p)=-\displaystyle\sum_{x}p(x)logp(x)
 \]&lt;/span> 交叉熵的公式 &lt;span class="math">\[
-H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum _{x}p(x)logq(x)
+H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum_{x}p(x)logq(x)
 \]&lt;/span> 所以有： &lt;span class="math">\[
 D_{KL}(p||q)=H(p,q)-H(p)
 \]&lt;/span> 当用非真实分布 q(x) 得到的平均码长比真实分布 p(x) 得到的平均码长多出的比特数就是相对熵。又因为&lt;span class="math">\(D_{KL}(p||q)≥0\)&lt;/span>恒成立。所以： &lt;span class="math">\[

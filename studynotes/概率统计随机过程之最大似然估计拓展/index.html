@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Apr 16, 2021</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -97,6 +97,7 @@ Apr 16, 2021</span>
 <li><a href=#最大似然估计具有正态性定理>最大似然估计具有正态性定理</a></li>
 <li><a href=#cramer-rao正则分布族下费雪信息量的另一种表示>Cramer-Rao正则分布族下费雪信息量的另一种表示</a></li>
 <li><a href=#cramer-rao不等式与界>Cramer-Rao不等式与界</a></li>
+<li><a href=#最大似然估计与相对熵kl散度交叉熵的等价性>最大似然估计与相对熵（KL散度）、交叉熵的等价性</a></li>
 <li><a href=#最大似然估计不具备的性质>最大似然估计不具备的性质</a></li>
 </ul>
 <p>最大似然估计是参数点估计中非常常用且有效的估计方法，本文对其相关性质进行拓展介绍，包括渐进正态性，一致最小方差无偏估计，C-R界以及存在隐变量时采用的EM算法。</p>
@@ -106,9 +107,10 @@ Apr 16, 2021</span>
 <p>步骤：</p>
 <ol style=list-style-type:decimal>
 <li>总体的概率/密度函数。</li>
-<li>写出似然估计函数<span class=math>\(L(\lambda)\)</span>。</li>
-<li>两边取<span class=math>\(\ln\)</span>，即为<span class=math>\(\ln(L(\lambda))\)</span>。</li>
-<li>对<span class=math>\(\lambda\)</span>求导（多参数估计就是偏导），令导数为0。</li>
+<li>写出似然估计函数<span class=math>\(L(\theta)\)</span>，其中<span class=math>\(\theta\)</span>是待估计参数。</li>
+<li>两边取<span class=math>\(\ln\)</span>，即为<span class=math>\(\ln(L(\theta))\)</span>。</li>
+<li>对<span class=math>\(\theta\)</span>求导（多参数估计就是偏导），令导数为0。</li>
+<li>求出使导数为0的<span class=math>\(\theta\)</span>即为最大似然估计参数。</li>
 </ol>
 <p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。</p>
 <p><strong>似然函数取对数的原因</strong>:</p>
@@ -197,6 +199,50 @@ I(\theta)&=0-\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\
 <h2 id=cramer-rao不等式与界>Cramer-Rao不等式与界</h2>
 <p>从最大似然估计的渐进正态性，我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
 <p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！它有自己估计的上限！</p>
+<h2 id=最大似然估计与相对熵kl散度交叉熵的等价性>最大似然估计与相对熵（KL散度）、交叉熵的等价性</h2>
+<p>在机器学习、广义线性模型的应用场景中，常常使用最小（大）化交叉熵或相对熵，又叫KL散度来替换一些最大似然估计的操作，从理论上来看它们是具有等价性的。关于相对熵的概念，可以先看笔记《<a href=无线通信之信息熵回忆总结.md>无线通信之信息熵回忆总结</a>》。最大似然估计的目标是最大化似然函数，我们将其写为： <span class=math>\[
+\argmax_{\theta} \ln(L(\theta))=\argmax_{\theta} \ln(\prod_{i=1}^n p(x_i;\theta))
+\]</span> 显然，似然函数<span class=math>\(L(\theta)\)</span>是由抽样出来的已知样本<span class=math>\(x_i\)</span>的概率密度函数（pdf）连乘得来的。当参数<span class=math>\(\theta\)</span>已知时，<span class=math>\(\prod_{i=1}^n p(x_i;\theta)\)</span>就是<span class=math>\(x=(x_1,x_2,\dotsb,x_n)\)</span>的联合概率密度值；如果<span class=math>\(\theta\)</span>未知，那么就会得到一个关于<span class=math>\(\theta\)</span>的函数<span class=math>\(L(\theta)\)</span>，而找到让函数<span class=math>\(L(\theta)\)</span>最大的<span class=math>\(\theta^\star\)</span>就是最大似然估计的核心。</p>
+<p>如果将<span class=math>\(\ln\)</span>符号和<span class=math>\(\prod\)</span>符号交换，上式可改写成： <span class=math>\[
+\argmax_{\theta} \ln(\prod_{i=1}^n p(x_i;\theta))=\argmax_{\theta}\sum_{i=1}^n \ln(p(x_i;\theta))
+\]</span> 简单地，我 们可以对似然函数加个负号，然后取最大值就变成了取最小值： <span class=math>\[
+\argmax_{\theta}\sum_{i=1}^n \ln(p(x_i;\theta))=\argmin_{\theta}\sum_{i=1}^n -\ln(p(x_i;\theta))
+\]</span> 由于<span class=math>\(n\)</span>是一个固定的数，因此在上式前面乘以一个常数<span class=math>\(\frac{1}{n}\)</span>不改变<span class=math>\(\argmin\limits_{\theta}\)</span>的结果，即<span class=math>\(\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x_i;\theta))\)</span>。</p>
+<p>接下来是体现抽样与概率关系的一步。我们知道<span class=math>\(x_i\)</span>都是从总体抽出来的样本，概率密度大的地方抽样出来的样本多，概率密度小的地方抽出来的样本就少。那么，想想我们如何使用蒙特卡洛法求一个随机变量函数的期望<span class=math>\(E[f(Y)]\)</span>的？其中<span class=math>\(Y\)</span>是一个随机变量。理论上来说： <span class=math>\[
+E[f(Y)]=\int_{-\infty}^\infty p(y)f(y)\mathrm{d}y
+\]</span> 但是，我们常常不知道<span class=math>\(Y\)</span>精确的概率密度函数<span class=math>\(p(y)\)</span>，因此我们会从总体<span class=math>\(Y\)</span>中抽取一定量的<span class=math>\(y_i\)</span>，然后用 <span class=math>\[
+\tilde{E}[f(Y)]=\frac{1}{n}\sum_{i=1}^n f(y_i)
+\]</span> 来近似计算期望，我们抽样的数量越多，这个值越准确。当抽样的数量趋近于无穷时，<span class=math>\(\tilde{E}[f(y)]{\rightarrow}E[f(y)](P=1)\)</span>。这个表述是不是看得眼熟，没错这就是强大数定律！由此我们可以得到一个结论：</p>
+<blockquote>
+<p>结论1：当样本数足够大时，可以使用<span class=math>\(\frac{1}{n}\sum_{i=1}^n f(y_i)\)</span>替代期望<span class=math>\(E[f(Y)]\)</span>。</p>
+</blockquote>
+<p>回到原来<span class=math>\(\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x_i;\theta))\)</span>的场景，我们令<span class=math>\(f(x)=-\ln(p(x_i;\theta))\)</span>，并且<span class=math>\(x_i\)</span>都是从总体的抽样出来的，那么当样本数量较大时，我们同样可以用求期望的方式去近似函数均值，即： <span class=math>\[
+\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x;\theta))\approx\begin{cases}
+\argmin\limits_{\theta} \int\limits_x p(x) [(-\ln(p(x;\theta))]\mathrm{d}x,\quad x\text{为连续随机变量}\\
+\argmin\limits_{\theta} \sum\limits_x p(x) [(-\ln(p(x;\theta))],\quad x\text{为离散随机变量}
+\end{cases}\\
+=\argmin_\theta E[-\ln(p(x;\theta))]=\argmin_\theta H(x;\theta)
+\]</span> 需要注意的是，作为概率的<span class=math>\(p(x)\)</span>是与<span class=math>\(\theta\)</span>无关的事实概率密度函数。因为抽样是从真实分布中抽样的，抽样结果只和<span class=math>\(x\)</span>的真实分布有关，或者说抽样结果已经是包含参数<span class=math>\(\theta\)</span>信息之后，体现出来的结果。到这里，我们又发现了一个重要的结论：</p>
+<blockquote>
+<p>结论2：最大似然估计的效果等同于调节参数让信息熵最小。</p>
+</blockquote>
+<p>这个直观上很好理解，最大似然估计是找出让事件发生概率最大的参数<span class=math>\(\theta\)</span>，而熵是衡量事件不确定性的度量，越可能发生的事情，其信息含量越小，熵也越小。因此，最大似然估计会使得<span class=math>\(\argmin\limits_\theta H(x;\theta)\)</span>。</p>
+<p>到这里，我们距离交叉熵与相对熵（KL散度）貌似还有一些距离。因为上式中，我们使用的是一般的熵，而不是交叉熵、相对熵，那么区别在哪里呢？</p>
+<p>答案就是似然函数<span class=math>\(-\ln(p(x;\theta))\)</span>。我们在上文中都默认使用了真实的概率分布<span class=math>\(p(x;\theta)\)</span>，然而我们实际上，我们并不知道！并且真实分布是客观存在的，实际上也不存在参数<span class=math>\(\theta\)</span>。我们只是选取了一种带有参数<span class=math>\(\theta\)</span>概率分布族<span class=math>\(q(x;\theta)\)</span>的去近似真实的概率<span class=math>\(p(x)\)</span>；或者假定数据<span class=math>\(x_i\)</span>服从某一带有参数<span class=math>\(\theta\)</span>概率分布族<span class=math>\(q(x;\theta)\)</span>。然而，实际情况是<span class=math>\(q(x;\theta)\)</span>与真实分布<span class=math>\(p(x)\)</span>是有差距的。因此，我们写出实际情况: <span class=math>\[
+\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x;\theta))\approx\begin{cases}
+\argmin\limits_{\theta} \int\limits_x p(x) [(-\ln(q(x;\theta))]\mathrm{d}x,\quad x\text{为连续随机变量}\\
+\argmin\limits_{\theta} \sum\limits_x p(x) [(-\ln(q(x;\theta))],\quad x\text{为离散随机变量}
+\end{cases}\\
+=\argmin_\theta E[-\ln(q(x;\theta))]
+\]</span> 注意只是将<span class=math>\(p(x;\theta)\)</span>换成了<span class=math>\(q(x;\theta)\)</span>，抽样的<span class=math>\(x_i\)</span>反应的是真实的概率分布，因此就是约等于<span class=math>\(p(x)\)</span>，且根据大数定律，样本数越大，越接近真实分布。根据笔记《<a href=无线通信之信息熵回忆总结.md>无线通信之信息熵回忆总结</a>》的定义，我们知道 <span class=math>\[
+E[-\ln(q(x;\theta))]=\sum_{x}p(x)(-\ln q(x;\theta))=H(p,q)
+\]</span> 其中，<span class=math>\(H(p,q)\)</span>成为交叉熵，只有我们设定的参数分布族<span class=math>\(q(x;\theta)\)</span>才与<span class=math>\(\theta\)</span>相关，真实分布作为客观存在与<span class=math>\(\theta\)</span>无关。</p>
+<p>根据交叉熵和相对熵的关系 <span class=math>\[
+D_{KL}(p||q)=H(p,q)-H(p)
+\]</span> 可知，相对熵和交叉熵相差一个真实熵<span class=math>\(H(p)\)</span>。因为<span class=math>\(p(x)\)</span>是客观存在的，因此<span class=math>\(H(p)\)</span>也是一个客观存在的常数，虽然我们不知道具体是多少，但是它确实只是个常数，与<span class=math>\(\theta\)</span>无关，因此 <span class=math>\[
+\argmin_\theta E[-\ln(q(x;\theta))]=\argmin_\theta H(p,q)=\argmin_\theta D_{KL}(p||q)
+\]</span> 其中，<span class=math>\(q\)</span>是与<span class=math>\(\theta\)</span>相关的分布族，<span class=math>\(p\)</span>与<span class=math>\(\theta\)</span>无关。</p>
+<p>综上可知，最大似然估计等同于最小化交叉熵或相对熵（KL散度）。</p>
 <h2 id=最大似然估计不具备的性质>最大似然估计不具备的性质</h2>
 <ol style=list-style-type:decimal>
 <li>最大似然估计不一定是无偏的。</li>

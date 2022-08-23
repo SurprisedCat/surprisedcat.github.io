@@ -224,68 +224,287 @@ F_{t}=\alpha Y_{t-1}+(1-\alpha)F_{t-1}
 &lt;li>&lt;a href="#从概率的角度解释回归">从概率的角度解释回归&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数型分布族指数族">指数型分布族（指数族）&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#广义线性模型使用的指数族">广义线性模型使用的指数族&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#构建广义线性模型">构建广义线性模型&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#自然指数族">自然指数族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数分散族">指数分散族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型与指数型分布族核心">广义线性模型与指数型分布族（核心）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性的体现">线性的体现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#连接函数与激活函数">连接函数与激活函数&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#连接函数是唯一的吗">连接函数是唯一的吗&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#标准链接">标准链接&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型的参数关系">广义线性模型的参数关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/h2>
 &lt;p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>的定义不同)： &lt;span class="math">\[
 \theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
 h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
 \vec{\theta}^T \vec{x},\quad线性回归\\
-\frac{1}{1+e^{\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
-\]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。那么他们二者为什么都有相同的更新公式呢？第一个原因是他们本质上都可以从最大似然估计推导出来；第二个原因则是它们二者都是一种更普遍的模型的特殊情况，这个模型就是&lt;strong>广义线性模型&lt;/strong>。&lt;/p>
+\frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。那么他们二者为什么都有相同的更新公式呢？(只有&lt;span class="math">\(h_{\vec{\theta}}(\vec{x})\)&lt;/span>的具体表现形式不同)。第一个原因是他们本质上都可以从最大似然估计推导出来；第二个原因则是它们二者都是一种更普遍的模型的特殊情况，这个模型就是&lt;strong>广义线性模型&lt;/strong>。&lt;/p>
 &lt;h2 id="从概率的角度解释回归">从概率的角度解释回归&lt;/h2>
-&lt;p>如果我们详细看回归的过程，就能发现它有两步组成。第一步是通过参数估计的方式，确定特定模型的参数，即求参数&lt;span class="math">\(\Theta\)&lt;/span>；第二部根据确定的模型，预测给定新数据的预测值，即求&lt;span class="math">\(y_{pred}\)&lt;/span>。&lt;/p>
-&lt;p>我们使用参数估计的过程主要是使用MLE、MAP、Bayesian等准则（推荐文章&lt;a href="https://engineering.purdue.edu/kak/Tutorials/Trinity.pdf">ML, MAP, and Bayesian --- The Holy Trinity of Parameter Estimation and Data Prediction&lt;/a>），这种方式往往是取某个角度概率最大的值作为参数估计的结果。因此，在第二部预测步骤时，给定参数&lt;span class="math">\(\theta\)&lt;/span>和自变量&lt;span class="math">\(x\)&lt;/span>后，得到的结果往往也不是一定精确的值，而是某个与概率分布相关的值（&lt;strong>后面我们指出这个值是期望&lt;/strong>）。&lt;/p>
-&lt;p>回看线性回归的结果，其一定是一条直线，但是真实的数据点并不一定在直线上。&lt;/p>
-&lt;div class="figure">
-&lt;img src="./images/linear_regression.png" alt="线性回归" />&lt;p class="caption">线性回归&lt;/p>
-&lt;/div>
-&lt;p>以线性回归为例，假设回归函数为&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span> (&lt;span class="math">\(\theta,x\)&lt;/span>为向量), 对于每对观测结果&lt;span class="math">\((x^{(i)},y^{(i)})\)&lt;/span>，都有 &lt;span class="math">\[y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}\]&lt;/span> 其中 &lt;span class="math">\(\epsilon\)&lt;/span>为误差，基于一种合理的假设（中心极限定理），我们可以认为误差的分布服从正态分布(又称高斯分布)，即 &lt;span class="math">\(\epsilon \sim N(0,\sigma^2)\)&lt;/span> ，那么，我们可以认为&lt;span class="math">\(y^{(i)} \sim N(\theta^Tx^{(i)},\sigma^2)\)&lt;/span>,根据正态分布的概率公式 &lt;span class="math">\[P(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]&lt;/span>&lt;/p>
+&lt;p>如果我们详细看统计回归的过程，就能发现它有两步组成。第一步是参数估计，确定特定模型中的未知参数，即求模型的参数&lt;span class="math">\(\Theta\)&lt;/span>；第二部根据已经确定的模型与参数，预测新数据的函数值，即求&lt;span class="math">\(y_{pred}\)&lt;/span>。&lt;/p>
+&lt;p>我们使用参数估计的过程主要是使用MLE、MAP、Bayesian等准则（推荐文章&lt;a href="https://engineering.purdue.edu/kak/Tutorials/Trinity.pdf">ML, MAP, and Bayesian --- The Holy Trinity of Parameter Estimation and Data Prediction&lt;/a>），这种方式往往是以上述某个准则推导出的概率最大的值作为参数估计的结果。因此，在第二部预测步骤时，给定参数估计结果&lt;span class="math">\(\theta\)&lt;/span>和自变量&lt;span class="math">\(x\)&lt;/span>后，通过模型得到的预测结果往往也不是实际真实值，而是&lt;strong>真实值和某个概率分布相关的误差组合起来的结果&lt;/strong>（我们希望这个组合出来的概率分布期望就是真实值）。&lt;/p>
+&lt;p>回看线性回归的结果，其预测模型是一条直线，但是真实的数据点并不一定在直线上，而是以某个概率分布在预测模型周围。&lt;/p>
+&lt;img src="./images/linear_regression.png" alt="线性回归" />
+&lt;center>
+图中线性回归为根据身高预测体重
+&lt;/center>
+&lt;p>以线性回归模型为例，假设回归函数为&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span> (&lt;span class="math">\(\theta,x\)&lt;/span>为向量), 对于每对观测结果&lt;span class="math">\((x^{(i)},y^{(i)})\)&lt;/span>，都有 &lt;span class="math">\[y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}\]&lt;/span> 其中 &lt;span class="math">\(\epsilon\)&lt;/span>为误差，基于一种合理的假设（中心极限定理），我们可以认为误差的分布服从正态分布(又称高斯分布)，即 &lt;span class="math">\(\epsilon \sim N(0,\sigma^2)\)&lt;/span> ，那么，我们可以认为&lt;span class="math">\(y^{(i)} \sim N(\theta^Tx^{(i)},\sigma^2)\)&lt;/span>,根据正态分布的概率公式 &lt;span class="math">\[P(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]&lt;/span>&lt;/p>
 &lt;p>我们可以通过最大似然估计求出模型的参数&lt;span class="math">\(\mathbf{\theta}\)&lt;/span>，进而得到线性模型&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span>。我们不难发现，&lt;span class="math">\(\mathbf{\theta}^T\mathbf{x}\)&lt;/span>正好是&lt;span class="math">\(y\)&lt;/span>这个高斯随机变量的期望！&lt;/p>
-&lt;p>线性回归这条直线&lt;span class="math">\(y=f(x)\)&lt;/span>的真实含义其实是：&lt;strong>回归模型中，对于取特定的自变量&lt;span class="math">\(x^{(i)}\)&lt;/span>，其因变量概率的期望是&lt;span class="math">\(f(x^{(i)})\)&lt;/span>。同样，在Logistics回归中，最终的结果也是二项分布中取0或1的期望&lt;/strong>，其以0.5作为阈值的原因也在于此，若以大于0.5的期望取1，那么我们就认为结果是1；若以小于0.5的期望取1（取0概率大于0.5），那么我们就认为结果是0，本质上就是这么直白。&lt;/p>
+&lt;p>线性回归这条直线&lt;span class="math">\(y=f(x)\)&lt;/span>的真实含义其实是：&lt;strong>回归模型中，对于取特定的自变量&lt;span class="math">\(x^{(i)}\)&lt;/span>，其因变量概率的期望是&lt;span class="math">\(f(x^{(i)})\)&lt;/span>。同样，在Logistics回归中，最终的预测结果也是二项分布中取0或1的期望&lt;/strong>，其以0.5作为阈值的原因也在于此，若以大于0.5的期望取1，那么我们就认为结果是1；若以小于0.5的期望取1（取0概率大于0.5），那么我们就认为结果是0，本质上就是这么直白。&lt;/p>
 &lt;p>此外，也可从&lt;span class="math">\(y_{pred}\)&lt;/span>为一个统计量的角度理解。&lt;/p>
 &lt;p>我们之前已经说过，我们使用回归模型预测的值，其实也并不是精确值，而是预测值概率的期望。广义线性模型和概率的关系，就是我们的&lt;strong>预测值&lt;span class="math">\(y_{pred}\)&lt;/span>的概率分布服从指数族分布。而指数族的参数通过连接函数和线性函数连接到一起&lt;/strong>，即&lt;span class="math">\(g(u)=\theta^T x\)&lt;/span>，这一点我们之后再说。下面我们先看指数族。&lt;/p>
 &lt;h2 id="指数型分布族指数族">指数型分布族（指数族）&lt;/h2>
-&lt;p>要了解广义线性模型，我们需要先知道数型分布族。指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：&lt;/p>
+&lt;p>指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，称为充分统计向量，但&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;span class="math">\(h(x)\)&lt;/span>也只是&lt;span class="math">\(x\)&lt;/span>的函数，且&lt;span class="math">\(h(x)&amp;gt;0\)&lt;/span>，通常是一个常数。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。&lt;/p>
-&lt;p>在机器学习中，我们更多采用以下形式： &lt;span class="math">\[
-p(y;\eta)=h(y)\exp\left\{\sum_{j=1}^k c_j(\eta)T_j(y)-A(\eta)\right\}\tag{4}
-\]&lt;/span> 注意：&lt;strong>为了防止与线性回归中的参数&lt;span class="math">\(\theta\)&lt;/span>和数据点&lt;span class="math">\(x\)&lt;/span>混淆，我们在指数族中用&lt;span class="math">\(y,\eta\)&lt;/span>两个变量来表示&lt;/strong>，同样&lt;span class="math">\(y,\eta\)&lt;/span>可以是标量，也可以是向量。本笔记接下来都以式（4）为指数族表示形式。&lt;/p>
 &lt;h3 id="指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/h3>
 &lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(4)进行进一步改造。&lt;/p>
 &lt;blockquote>
 &lt;p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、&lt;strong>值域是多维向量或者无穷维向量的集合的函数&lt;/strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。&lt;/p>
 &lt;/blockquote>
-&lt;p>对于&lt;span class="math">\(\eta\)&lt;/span>的一系列函数&lt;span class="math">\(c_1(\eta),c_2(\eta),\dotsb\)&lt;/span>和充分统计量向量&lt;span class="math">\(T_1(y),T_2(y),\dotsb\)&lt;/span>，我们写出列向量形式： &lt;span class="math">\[
-\mathbf{C}(\eta)=\begin{bmatrix}c_1(\eta)\\c_2(\eta)\\\vdots\\c_k(\eta)\end{bmatrix}
-\mathbf{T}(y)=\begin{bmatrix}T_1(y)\\T_2(y)\\\vdots\\T_k(y)\end{bmatrix}
-\]&lt;/span> 那么式（4）可写成 &lt;span class="math">\[
-p(y;\eta)=h(y)\exp\left\{\mathbf{C}^T(\eta)\mathbf{T}(y)-A(\eta)\right\}\tag{5}
-\]&lt;/span> 其中，&lt;span class="math">\(\mathbf{C}(\eta),\mathbf{T}(y)\)&lt;/span>都是向量值函数，&lt;span class="math">\(h(y),A(\eta)\)&lt;/span>都是普通函数。通常文章会把&lt;span class="math">\(A(\theta)\)&lt;/span>写成&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的形式，这两种本质上是等价的，但是&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的参数形式更加统一，为主流用法。&lt;/p>
-&lt;p>指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。比如，我们可以将伯努利分布和方差已知的高斯分布写成指数型分布族的形式。&lt;/p>
-&lt;p>指数族有以下特殊之处，可能有些内容暂时不会涉及。&lt;/p>
-&lt;ul>
-&lt;li>指数族分布是&lt;strong>唯一有共轭先验的分布族&lt;/strong>,这就简化了后验的计算&lt;/li>
-&lt;li>在特定的规范化条件下(regularity conditions),指数族分布是&lt;strong>唯一有限规模充分统计量&lt;/strong>(finite-sized sufficient statistics)的分布族,这意味着可以将数据压缩称固定规模的浓缩概括而不损失信息&lt;/li>
-&lt;li>指数族分布是&lt;strong>广义线性模型&lt;/strong>(generalized linear models)的核心&lt;/li>
-&lt;li>指数族分布也是&lt;strong>变分推理&lt;/strong>(variational inference)的核心&lt;/li>
-&lt;/ul>
+&lt;p>对于&lt;span class="math">\(\theta\)&lt;/span>的一系列函数&lt;span class="math">\(c_1(\theta),c_2(\theta),\dotsb\)&lt;/span>和充分统计量向量&lt;span class="math">\(T_1(x),T_2(x),\dotsb\)&lt;/span>，我们写出列向量形式： &lt;span class="math">\[
+\mathbf{C}(\theta)=\begin{bmatrix}c_1(\theta)\\c_2(\theta)\\\vdots\\c_k(\theta)\end{bmatrix}
+\mathbf{T}(x)=\begin{bmatrix}T_1(x)\\T_2(x)\\\vdots\\T_k(x)\end{bmatrix}
+\]&lt;/span> 那么式（3）可写成 &lt;span class="math">\[
+p(x;\theta)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{4}
+\]&lt;/span> 其中，&lt;span class="math">\(\mathbf{C}(\theta),\mathbf{T}(x)\)&lt;/span>都是向量值函数，&lt;span class="math">\(h(x),A(\theta)\)&lt;/span>都是普通函数。通常文章会把&lt;span class="math">\(A(\theta)\)&lt;/span>写成&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的形式，这两种本质上是等价的，但是&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的参数形式更加统一，为主流用法。由于&lt;span class="math">\(\mathbf{C}(\theta)\)&lt;/span>的计算结果本质上就是一个向量，我们可令向量值函数&lt;span class="math">\(\mathbf{C(\theta)}=\eta\)&lt;/span>，那么式（4）可表示为： &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 这就是其他资料中的常见形式。其中&lt;span class="math">\(\eta=\mathbf{C}(\theta)\)&lt;/span>，参数&lt;span class="math">\(η\)&lt;/span>通常叫做自然参数(natural parameter)或者标准参数(canonical parameter)。这里注明：&lt;span class="math">\(A(\theta)\)&lt;/span>与&lt;span class="math">\(A(\eta)\)&lt;/span>实际上是两个不同的函数，但是可以通过&lt;span class="math">\(\eta=\mathbf{C}(\theta),\theta=\mathbf{C}^{-1}(\eta)\)&lt;/span>进行互换，因此在后文对他们不做区分。此外，&lt;span class="math">\(\eta,\theta\)&lt;/span>是一一对应的，这里先不加证明地写出这个引理。&lt;/p>
+&lt;blockquote>
+&lt;p>引理1：在指数族中函数&lt;span class="math">\(C(\cdot)\)&lt;/span>总是&lt;strong>单调连续的(存在逆函数)&lt;/strong>，所以自然参数&lt;span class="math">\(η\)&lt;/span>和原始参数&lt;span class="math">\(θ\)&lt;/span>是&lt;strong>存在一一映射关系的&lt;/strong>。 &lt;span class="math">\[
+\eta=\mathbf{C}(\theta)\\
+\theta=\mathbf{C}^{-1}(\eta)
+\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>在指数型分布族中，使用标准参数&lt;span class="math">\(η\)&lt;/span>表示的公式形式称为&lt;strong>指数族分布的标准形式(canonical form)&lt;/strong>，在标准形式下，分布的参数是&lt;span class="math">\(η\)&lt;/span>。&lt;strong>实际上，从原始分布向指数型分布转换的过程就是将&lt;span class="math">\(\theta\)&lt;/span>转换为&lt;span class="math">\(\eta\)&lt;/span>的过程&lt;/strong>。&lt;/p>
 &lt;p>广义线性模型的&lt;strong>预测值概率分布都属于指数型分布族&lt;/strong>。&lt;/p>
 &lt;p>具体关于指数型分布式的细节请看笔记&lt;a href="概率统计随机过程之指数型分布族应用.md">概率统计随机过程之指数型分布族应用.md&lt;/a>&lt;/p>
-&lt;h3 id="广义线性模型使用的指数族">广义线性模型使用的指数族&lt;/h3>
-&lt;p>虽说，广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>服从的指数族分布，但是大多数广义线性模型用到的指数族模型不会过于复杂。在式(5) &lt;span class="math">\[
-p(y;\eta)=h(y)\exp\left\{\mathbf{C}^T(\eta)\mathbf{T}(y)-A(\eta)\right\}\tag{5}
-\]&lt;/span> 中，复杂的部分主要是&lt;span class="math">\(\mathbf{C}^T(\eta)\mathbf{T}(y)=\sum_{j=1}^k c_j(\eta)T_j(y)\)&lt;/span>。其中，&lt;span class="math">\(c_j(\eta)\)&lt;/span>可能是各种各样的非线性函数，&lt;span class="math">\(T_j(y)\)&lt;/span>也可能是高次多项式、指数函数等多种形式，最后 还要将他们求和。但是在广义线性模型中，一般有两个特点：&lt;/p>
+&lt;h3 id="自然指数族">自然指数族&lt;/h3>
+&lt;p>我们在式（5）中给出了指数型分布族的一般形式 &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 但是对于广义线性模型的应用场景而言，还是复杂了一些，因此有一种简化的&lt;strong>自然指数族&lt;/strong>。在自然指数族中，&lt;span class="math">\(\mathbf{T}(\mathbf{x})=\mathbf{x}\)&lt;/span>，不存在类似于&lt;span class="math">\(x^2,x^3,\log(x),\frac{1}{x}\)&lt;/span>这种带有函数关系的充分统计量，其可以简化写成： &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{x}-A(\eta)\right\}\tag{6}
+\]&lt;/span> 二项分布，负二项分布，伯努利分布，泊松分布，参数&lt;span class="math">\(\alpha\)&lt;/span>已知的Gamma分布，已知方差的高斯分布，参数&lt;span class="math">\(\lambda\)&lt;/span>已知的逆高斯分布（又称Wald分布）等都可以写成自然指数族形式，其他分布如卡方分布、Beta分布、帕累托分布，对数正态分布，一般正态分布，一般Gamma分布则无法写成自然指数族的形式。他们是否是自然指数族的核心就在于是不是充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>。&lt;/p>
+&lt;h3 id="指数分散族">指数分散族&lt;/h3>
+&lt;p>在自然指数族的基础上，研究者们为了方便探究分布的期望和方差，对自然指数族做了少些变形得到指数分散族。其处理方法是将自然指数族的规范形式(式(6))的规范（自然）参数&lt;span class="math">\(\eta\)&lt;/span>拆分成与位置（期望）相关的位置函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>以及和方差相关的分散函数&lt;span class="math">\(a(\phi)\)&lt;/span>。其形式如下： &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{a(\phi)}+c(x,\phi)\}\tag{7}
+\]&lt;/span> 这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，&lt;span class="math">\(a(ϕ)\)&lt;/span>称为分散函数(dispersion function)，是已知的。&lt;span class="math">\(ϕ\)&lt;/span>称为分散参数(dispersion parameter)。&lt;span class="math">\(\vartheta\)&lt;/span>仍然叫自然参数(natural parameter)或者规范参数(canonical parameter)，它和自然指数族中参数差了个系数，因为两种模式中&lt;span class="math">\(\vartheta^T x,\eta^Tx\)&lt;/span>的模式都是&lt;strong>参数&lt;span class="math">\(\times\)&lt;/span>充分统计量&lt;/strong>，所以不难发现，实际上我们对自然参数做一个&lt;span class="math">\(\frac{1}{a(\phi)}\)&lt;/span>倍的缩放。需要指出的是，在广义线性模型中，&lt;span class="math">\(a(\phi)\)&lt;/span>一般是 已知的，且通常是个常数系数，如果样本之间的重要性没有区别，我们可以令&lt;span class="math">\(a(\phi)=\phi\)&lt;/span>，即 &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{\phi}+c(x,\phi)\}\tag{7.1}
+\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>指数分散族形式本质上是对自然指数族的参数&lt;span class="math">\(\eta\)&lt;/span>进行了拆分，把期望参数和方差参数拆分开（二者实际是可逆的变换）&lt;/strong>。使得自然参数&lt;span class="math">\(\vartheta\)&lt;/span>仅和期望&lt;span class="math">\(μ\)&lt;/span>相关，分散参数&lt;span class="math">\(ϕ\)&lt;/span>和分布的方差参数相关。分拆后，规范参数&lt;span class="math">\(\vartheta\)&lt;/span>仅和分布的期望参数&lt;span class="math">\(μ\)&lt;/span>相关，并且和&lt;span class="math">\(μ\)&lt;/span>之间存在一一映射的函数关系，换句话说，&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(μ\)&lt;/span>可以互相转化。 &lt;span class="math">\[
+\vartheta=f(\mu)\\
+\mu=f^{−1}(\vartheta)\tag{8}
+\]&lt;/span> 这一点接下来会证明。&lt;/p>
+&lt;p>由笔记&lt;a href="概率统计随机过程之指数型分布族应用.md">概率统计随机过程之指数型分布族应用&lt;/a>可知，指数分散族的期望和方差可表达为： &lt;span class="math">\[
+E[X]=b&amp;#39;(\vartheta)=\mu\tag{9}
+\]&lt;/span> &lt;span class="math">\[
+\mathrm{Var}[X]=a(\phi)b&amp;#39;&amp;#39;(\vartheta)\tag{10}
+\]&lt;/span> 从期望和方差的关系，我们能发现&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>也是一一对应关系。根据式（9）可知，&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>有函数关系，且由于&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的导数&lt;span class="math">\(b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>是方差（恒大于0）乘以一个已知数&lt;span class="math">\(a(\phi)\)&lt;/span>（式（10）结论），因此&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的导数必然恒为正数或负数（取决于已知数&lt;span class="math">\(a(\phi)\)&lt;/span>），即&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>必为单调函数，而单调函数必存在反函数，推得必存在&lt;span class="math">\(b&amp;#39;^{-1}\)&lt;/span>，使得&lt;span class="math">\(\vartheta=b&amp;#39;^{-1}(\mu)\)&lt;/span>。因此&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>是一一对应的。&lt;/p>
+&lt;p>我们定义配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>的二阶导数为&lt;strong>方差函数&lt;/strong>(variance function)，方差函数是一个关于期望&lt;span class="math">\(μ\)&lt;/span>的函数，即 &lt;span class="math">\[
+b&amp;#39;&amp;#39;(\vartheta)=\nu(μ)\tag{11}
+\]&lt;/span> 方差函数&lt;span class="math">\(ν(μ)\)&lt;/span>存在两种情况：&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>&lt;span class="math">\(T_j(y)\)&lt;/span>只有一次项；&lt;/li>
-&lt;li>&lt;span class="math">\(c_j(\eta)\)&lt;/span>的由连接函数和线性函数组合构成。&lt;/li>
+&lt;li>方差函数是一个常量值，&lt;span class="math">\(ν(μ)=b&amp;#39;&amp;#39;(\vartheta)=C\)&lt;/span>，此时分布的方差与均值无关。典型的分布就是正态分布。&lt;/li>
+&lt;li>方差函数是一个关于均值&lt;span class="math">\(μ\)&lt;/span>的函数，&lt;span class="math">\(ν(μ)=b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>，此时分布的方差与均值有关。&lt;/li>
 &lt;/ol>
-&lt;h2 id="构建广义线性模型">构建广义线性模型&lt;/h2></description></item><item><title>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/</guid><description>
+&lt;p>我们从一般的概率分布推导出指数族，然后其中的一个子集自然指数族，最后给它做一个变型的指数分散族，这么兜兜绕绕就是为了方便广义线性的计算与推导。&lt;/p>
+&lt;h2 id="广义线性模型与指数型分布族核心">广义线性模型与指数型分布族（核心）&lt;/h2>
+&lt;p>我们在前面提到了用概率的形式理解回归模型和指数型分布族，这两个概率论的概念其实是广义线性模型的核心，然而在实际应用中，不论是一般线性模型还是广义线性模型，都没有体现出概率的影子。概率论似乎从回归模型中消失了，这一节我们将概率论从幕后拖出来，展示其操作广义线性模型的真面目。&lt;/p>
+&lt;p>我们在&lt;a href="#从概率的角度解释回归">从概率的角度解释回归&lt;/a>章节中指出，根据参数估计形成的预测模型给出的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>实际上并不会和观测到的&lt;span class="math">\(y_{obs}\)&lt;/span>(observation)完全一致。这其中的缘由主要有两点：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>观测值&lt;span class="math">\(y_{obs}\)&lt;/span>与对应的&lt;span class="math">\(x_{obs}\)&lt;/span>并不是严格的函数关系，而是在某个与&lt;span class="math">\(x_{obs}\)&lt;/span>相关的函数附近随机波动，即&lt;span class="math">\(y_{obs}=f(x_{obs})+\varepsilon\)&lt;/span>，其中&lt;span class="math">\(\varepsilon\)&lt;/span>是随机数，服从特定分布。但是，实际场景下&lt;span class="math">\(f(x_{obs})\)&lt;/span>与&lt;span class="math">\(\varepsilon\)&lt;/span>也不一定是相加的关系。&lt;/li>
+&lt;li>我们的预测模型&lt;span class="math">\(f(\cdot)\)&lt;/span>并不保证一定准确，模型的参数也是通过观测数据通过统计推断的形式如（最大似然估计、最大后验概率估计）得到的，而非精确推导。&lt;/li>
+&lt;/ol>
+&lt;p>因此，我们认为响应变量&lt;span class="math">\(y_{obs}\)&lt;/span>也服从带有特定参数的分布&lt;span class="math">\(Y(x_{obs})\)&lt;/span>，即&lt;span class="math">\(y_{obs}\)&lt;/span>是个随机变量。然而，&lt;span class="math">\(y_{obs}\)&lt;/span>不是一个独立的随机变量，它和&lt;span class="math">\(x_{obs}\)&lt;/span>有着密切关系，我们可以把&lt;span class="math">\(x_{obs}\)&lt;/span>看成&lt;span class="math">\(Y\)&lt;/span>的分布参数。实际应用中，我们不会说给出&lt;span class="math">\(Y\)&lt;/span>的分布当成&lt;span class="math">\(y_{pred}\)&lt;/span>让用户或者系统使用，这样一是不好用，二是计算起来经常无法得到数值结果。所以我们有个自然而然的想法：&lt;strong>使用一个代表性的数字来替代&lt;span class="math">\(Y\)&lt;/span>的概率分布&lt;/strong>。&lt;/p>
+&lt;p>那么，如果只选一个数字来代替整个概率分布，大家的第一反应基本都是&lt;strong>期望&lt;/strong>。因此，我们在建立回归模型的时候，&lt;strong>希望根据给定的&lt;span class="math">\(x_{obs}\)&lt;/span>得到的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>等于&lt;span class="math">\(Y\)&lt;/span>分布的条件期望&lt;span class="math">\(E[Y|x_{obs}]\)&lt;/span>&lt;/strong>。 &lt;span class="math">\[
+\mu=E[Y|x_{obs}]=y_{pred}=f(x_{obs})\tag{12}
+\]&lt;/span> 式（12）是推导广义线性模型的核心。由于求概率的期望是一个抹除随机性的过程，因此在回归模型中，概率分布的痕迹被隐藏了起来。其中的&lt;span class="math">\(f(\cdot)\)&lt;/span>就是要训练的广义线性模型。&lt;/p>
+&lt;p>从函数的角度来看，&lt;span class="math">\(x_{obs}\)&lt;/span>为自变量，&lt;span class="math">\(f(\cdot)\)&lt;/span>为映射关系（广义线性模型），&lt;span class="math">\(y_{pred}\)&lt;/span>为因变量，又称响应变量（Response variable）。从式（12）我们也可以看出，建立的广义线性模型其根据自变量计算得到的因变量，应等于随机变量&lt;span class="math">\(Y\)&lt;/span>的期望。&lt;/p>
+&lt;p>我们要解析广义线性模型，首先就要从&lt;span class="math">\(Y\)&lt;/span>的分布谈起。经过之前章节的铺垫，我们应该已经猜到，&lt;span class="math">\(Y\)&lt;/span>&lt;strong>是属于指数型分布族&lt;/strong>，即&lt;span class="math">\(Y\sim P(y;\theta)\)&lt;/span>。这是有现实意义的，比如认为估计的连续型随机变量属于高斯分布、二分类型随机变量属于伯努利分布等等。同时，我们也认识到，之所以广义线性模型都属于指数型分布族只不过是因为我们人为地挑了容易研究的这类分布族罢了。&lt;strong>所以，从因果关系上来讲，并非广义线性模型都使用指数型分布族，而是我们先选中指数型分布族，然后把符合这些分布族的模型命名为广义线性模型&lt;/strong>。&lt;/p>
+&lt;p>虽说，&lt;span class="math">\(P(y;\theta)\)&lt;/span>是指数型分布族，&lt;strong>但是广义线性模型用到的指数族模型并不像式（5）那么复杂，而是属于自然指数族或指数分散族&lt;/strong>。由于自然指数族和指数分布族是等效的，且指数分散族更适合模型的推导，同时我们一般不对样本的重要性有区分，因此我们下文主要使用&lt;span class="math">\(a(\phi)\)&lt;/span>为常函数的指数分散族的形式，如式（7.1）所示： &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{\phi}+c(x,\phi)\}\tag{7.1}
+\]&lt;/span> 为了区别观测数据&lt;span class="math">\(x_{obs}\)&lt;/span>和式（7.1）pdf中的自变量&lt;span class="math">\(x\)&lt;/span>，我们使用预测值&lt;span class="math">\(y\)&lt;/span>替代式（7.1）中的&lt;span class="math">\(x\)&lt;/span>，即 &lt;span class="math">\[
+p(y;\vartheta)=\exp\{\frac{\vartheta^T y-b(\vartheta)}{\phi}+c(y,\phi)\}\tag{7.2}
+\]&lt;/span> &lt;strong>此式（7.2）即为在下文中使用的广义线性模型概率分布表达式&lt;/strong>。&lt;/p>
+&lt;p>根据公式（9）我们可知，给定&lt;span class="math">\(\vartheta\)&lt;/span>的&lt;span class="math">\(Y\)&lt;/span>的期望为配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>的一阶导数: &lt;span class="math">\[
+E[Y;\vartheta]=b&amp;#39;(\vartheta)=\mu\tag{9.1}
+\]&lt;/span> 也就是说，我们使用期望&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>来代表&lt;span class="math">\(Y\)&lt;/span>的整个分布，并且也应是广义线性模型预测的结果&lt;span class="math">\(y_{pred}\)&lt;/span>。需要指出的是，&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的函数（有确定关系），因此&lt;span class="math">\(E[Y|x_{obs}]=E[Y|\vartheta]\)&lt;/span>。综合式（12）（9.1）我们有： &lt;span class="math">\[
+b&amp;#39;(\vartheta)=\mu=y_{pred}=f(x_{obs})\\
+\Rightarrow b&amp;#39;(\vartheta)=f(x_{obs})\tag{13}
+\]&lt;/span> 从式（12）、式（9.1）、式（13）我们通过求期望的方式去除了&lt;span class="math">\(Y\)&lt;/span>的随机性，得到了一个确定性的表达式，这也将概率统计的影子从广义线性模型中消去了。如果说还是留有概率分布的痕迹的话，那么就只有指数分散族的配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>还在其中。&lt;/p>
+&lt;p>式（13）还说明我们&lt;strong>要求的广义线性模型的表达式和配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>是存在密切关系的！&lt;/strong> 此外，我们在式（9）（10）的介绍中指出由于&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>是一一对应的，即存在反函数 &lt;span class="math">\[\vartheta=b&amp;#39;^{-1}(\mu)\tag{14}\]&lt;/span> 这个式子将会把广义线性模型中的“线性”和指数型分布族联系起来。&lt;/p>
+&lt;h3 id="线性的体现">线性的体现&lt;/h3>
+&lt;p>我们前面说了指数型分布族、期望，甚至得到了自变量&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(y_{pred}\)&lt;/span>的某种关系&lt;span class="math">\(\mu=b&amp;#39;(\vartheta)=y_{pred}=f(x_{obs})\)&lt;/span>，然而还有一个关键点没有解决，那就是如何将概率分布的参数&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(x\)&lt;/span>观测值&lt;span class="math">\(x_{obs}\)&lt;/span>联系起来。我们可以通过上式发现，&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(x_{obs}\)&lt;/span>是通过均值&lt;span class="math">\(\mu\)&lt;/span>联系在一起的。而&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>的关系可以通过式（14）确定。然而，&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>的关系还没有定下来。这也是广义“线性”模型中线性一词的由来，我们人为地设计一个&lt;strong>线性预测器&lt;/strong>： &lt;span class="math">\[
+\kappa=\beta^T x_{obs}+b\tag{15}
+\]&lt;/span> 即我们&lt;strong>设定&lt;/strong>参数&lt;span class="math">\(\kappa\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的线性组合，&lt;span class="math">\(x_{obs}\)&lt;/span>可以是标量也可以是向量。为了简洁性，通常会人为的为&lt;span class="math">\(x\)&lt;/span>扩充一个一维常量值1，并且把截距参数&lt;span class="math">\(b\)&lt;/span>算在&lt;span class="math">\(β\)&lt;/span>中，这样上述线性函数可以写成向量內积的形式。 &lt;span class="math">\[
+\kappa=\beta^T x_{obs}\tag{15.1}
+\]&lt;/span> 结合式（13）（14）我们可以得到 &lt;span class="math">\[
+\mu=b&amp;#39;(\vartheta)=h(\kappa)\tag{16}
+\]&lt;/span> &lt;span class="math">\[
+\vartheta=b&amp;#39;^{-1}(\mu)=b&amp;#39;^{-1}(h(\kappa))=b&amp;#39;^{-1}(h(\beta^T x_{obs}))\tag{17}
+\]&lt;/span> 根据式（13）的关系，显然有&lt;span class="math">\(f(x_{obs})=h(\kappa)=h(\beta^T x_{obs})\)&lt;/span>。由于&lt;span class="math">\(f\)&lt;/span>与&lt;span class="math">\(h\)&lt;/span>之间自变量是线性变换，因此只要&lt;span class="math">\(f(\cdot)\)&lt;/span>存在，那么&lt;span class="math">\(h(\cdot)\)&lt;/span>必然存在。这样我们就得到了广义线性模型，我们使用式（16）来通过观测值&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>的线性组合得到预测值&lt;span class="math">\(y_{pred}=\mu\)&lt;/span>。而式（17）则表明了线性预测器&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>与自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的关系。现在还有一个问题，就是函数关系&lt;span class="math">\(h(\cdot)\)&lt;/span>是什么样的呢？&lt;/p>
+&lt;h3 id="连接函数与激活函数">连接函数与激活函数&lt;/h3>
+&lt;p>从式（16）（17）我们可以看出预测值（期望）和线性预测器之间的关系。我们将令 &lt;span class="math">\(g(\mu)=h^{-1}(\mu)=\kappa\)&lt;/span>称之为&lt;strong>连接函数（Link function）&lt;/strong>，之所以叫这个名字是因为它将线性预测器和最终的预测值（期望）联系到了一起，即 &lt;span class="math">\[
+g(\mu)=\beta^T x_{obs}=\kappa\tag{18}
+\]&lt;/span> 但是在实际使用中，连接函数并不常用，反倒是连接函数的反函数&lt;span class="math">\(g^{-1}=h\)&lt;/span>更常见，因为我们可以用过&lt;span class="math">\(g^{-1}(\beta^T x_{obs})\)&lt;/span>计算出广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>，我们称&lt;span class="math">\(h=g^{-1}\)&lt;/span>为&lt;strong>激活函数(Activation function)&lt;/strong>。 &lt;span class="math">\[
+y_{pred}=g^{-1}(\kappa)=g^{-1}(\beta^T x_{obs})=h(\beta^ T x_{obs})\tag{19}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="连接函数是唯一的吗">连接函数是唯一的吗&lt;/h4>
+&lt;p>这里我们需要指出的是，连接函数不是唯一的。&lt;/p>
+&lt;h3 id="标准链接">标准链接&lt;/h3>
+&lt;p>下表列出了常用广义线性模型的配分函数、激活函数、连接函数以及典型使用场景。注：在自然指数族中，我们只允许充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>，在其他文献中有别的设置方式，因此连接函数会有所不同，大多数是系数的差别。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">分布&lt;/th>
+&lt;th align="center">一般形式&lt;/th>
+&lt;th align="center">原参数与自然参数、分散参数关系&lt;/th>
+&lt;th align="center">指数分散族形式&lt;/th>
+&lt;th align="center">使用场景&lt;/th>
+&lt;th align="center">配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>&lt;/th>
+&lt;th align="center">激活函数&lt;span class="math">\(\mu=b&amp;#39;(\vartheta)=g^{-1}(\vartheta)\)&lt;/span>&lt;/th>
+&lt;th align="center">连接函数&lt;span class="math">\(\beta^Tx=b&amp;#39;^{-1}(\mu)=g(\mu)\)&lt;/span>&lt;/th>
+&lt;th align="center">分布的支撑&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">正态分布&lt;br>已知&lt;span class="math">\(\sigma\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\mu\\\phi=\sigma^2\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x}{\phi}-\frac{\vartheta^2}{2\phi}-[\frac{x^2}{2\phi}+\ln(\sqrt{2\pi\phi})]\}\)&lt;/span>&lt;/td>
+&lt;td align="center">随机误差服从正态分布，一般线性回归&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\frac{1}{2}\vartheta^2\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((-\infty,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">逆高斯分布&lt;br>已知&lt;span class="math">\(\lambda(&amp;gt;0)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\sqrt{\frac{\lambda}{2\pi x^3}}e^{-\frac{\lambda(x-\mu)^2}{2\mu^2x}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\frac{1}{2\mu^2}\\\phi=-\frac{1}{\lambda}&amp;lt;0\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x}{\phi}-\frac{\sqrt{2\vartheta}}{\phi}+(\frac{1}{2\phi x}+\ln(\sqrt{\frac{-1}{2\pi\phi x^3}}))\}\)&lt;/span>&lt;/td>
+&lt;td align="center">逆高斯分布描述的是布朗运动中到达固定距离所需时间的分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\sqrt{2\vartheta}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=(2\vartheta)^{-1/2}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=(2\mu^2)^{-1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((0,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">伯努利分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p^x(1-p)^{1-x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{p}{1-p}\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-\ln(1+e^{\vartheta})\}\)&lt;/span>&lt;/td>
+&lt;td align="center">典型的二选一，比如抛硬币&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\ln(1+e^\vartheta)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\frac{1}{1+e^{-\vartheta}}\)&lt;/span>又称sigmoid函数&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{\mu}{1-\mu}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">二项分布(已知&lt;span class="math">\(n\)&lt;/span>)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(C_n^xp^x(1-p)^{n-x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{p}{1-p}\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-n\ln(1+e^\vartheta)+\ln C_n^x\}\)&lt;/span>&lt;/td>
+&lt;td align="center">在n次尝试中，概率为&lt;span class="math">\(p\)&lt;/span>的事件出现&lt;span class="math">\(x\)&lt;/span>次的概率&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n\ln(1+e^\vartheta)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\frac{n}{1+e^{-\vartheta}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{\mu}{n-\mu}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1,\dotsb,n\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">负二项分布(已知成功次数&lt;span class="math">\(r\)&lt;/span>)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(C_{r+x-1}^{r-1} p^r(1-p)^{x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln(1-p)\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x+r\ln(1-e^\vartheta)+\ln C_{r+x-1}^{r-1}\}\)&lt;/span>&lt;/td>
+&lt;td align="center">在成功次数为&lt;span class="math">\(r\)&lt;/span>时，失败次数的分布，第&lt;span class="math">\(r\)&lt;/span>次必然是成功的&lt;/td>
+&lt;td align="center">&lt;span class="math">\(-r\ln(1-e^\vartheta)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\frac{re^\vartheta}{1-e^\vartheta}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{\mu}{r+\mu}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1,2,\dotsb\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">泊松分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(e^{-\lambda}\frac{\lambda^x}{x!}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\lambda\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-e^\vartheta-\ln(x!)\}\)&lt;/span>&lt;/td>
+&lt;td align="center">表示在单位时间内，项目出现次数的概率分布，广泛应用于排队论&lt;/td>
+&lt;td align="center">&lt;span class="math">\(e^\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=e^\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1,2,\dotsb\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">指数分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\lambda e^{-\lambda x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\lambda\\\phi=-1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x-\ln\lambda}{-1}\}\)&lt;/span>&lt;/td>
+&lt;td align="center">基础分布，用途广泛&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\ln\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=1/\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=1/\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((0,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">GAMMA分布(已知&lt;span class="math">\(k&amp;gt;0\)&lt;/span>)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\frac{1}{\theta ^{k}\Gamma (k)}x^{k-1}e^{-x/\theta }\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=1/\theta\\\phi=-1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x-k\ln\vartheta}{-1}+(k-1)\ln x-\ln\Gamma(k)\}\)&lt;/span>&lt;/td>
+&lt;td align="center">可看成是指数分布的加和，具有可加性&lt;/td>
+&lt;td align="center">&lt;span class="math">\(k\ln\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=k/\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=k/\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((0,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">分类分布(共&lt;span class="math">\(m\)&lt;/span>个分类)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\prod_{i=1}^m\theta_i^{x_i}\\\sum_i\theta_i=1\\\sum_i x_i=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\begin{bmatrix}\ln(\theta_1/\theta_m)\\\ln(\theta_2/\theta_m)\\\vdots\\\ln(\theta_{m-1}/\theta_m)\\\ln(\theta_m/\theta_m)\end{bmatrix}\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-\ln\sum_{i=1}^me^{\vartheta_i}\}\)&lt;/span>&lt;/td>
+&lt;td align="center">伯努利分布的拓展，多个当中只有一个发生&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\ln\sum_{i=1}^me^{\vartheta_i}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu_i=\frac{e^\vartheta_i}{\sum_{i=1}^me^{\vartheta_i}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta_i=\ln\frac{\vartheta_i}{\vartheta_m}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{1,2,\dotsb,k\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="广义线性模型的参数关系">广义线性模型的参数关系&lt;/h3>
+&lt;p>我们在上表中，可以看出广义线性模型的表达式等于激活函数，即&lt;span class="math">\(f_{GLM}(x)=g^{-1}(\beta^T x)\)&lt;/span>，如果我们梳理一下上面的内容，可总结出广义线性模型的三大组成部分。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>一个指数族分布(指数分散族)作为响应变量&lt;span class="math">\(Y\)&lt;/span>概率分布&lt;span class="math">\(p(Y;\vartheta)\)&lt;/span>，被称为随机组件(random component)。&lt;/li>
+&lt;li>一个线性预测器&lt;span class="math">\(\vartheta=β^Tx_{obs}\)&lt;/span>，被称为系统组件(systematic component)。&lt;/li>
+&lt;li>一个连接函数&lt;span class="math">\(g\)&lt;/span>使得&lt;span class="math">\(E[Y]=\mu=g(\vartheta)=g(\beta^T x_{obs})\)&lt;/span>，描述了随机组件和系统组件之间的关系。&lt;/li>
+&lt;/ol>
+&lt;p>用图像表达他们的关系为：&lt;/p>
+&lt;div class="figure">
+&lt;img src="./images/广义线性分布关系图.drawio.svg" alt="广义线性分布关系图" />&lt;p class="caption">广义线性分布关系图&lt;/p>
+&lt;/div>
+&lt;p>先从图坐往右看，待定参数&lt;span class="math">\(\beta\)&lt;/span>与观测值&lt;span class="math">\(x_{obs}\)&lt;/span>组成线性预测期，其结果为指数分散族的参数&lt;span class="math">\(\vartheta\)&lt;/span>，且其分散参数&lt;span class="math">\(\phi\)&lt;/span>已知。由于指数分散族和常使用的一般概率分布表达式是可以相互转换的，我们也可以得到原参数&lt;span class="math">\(\theta\)&lt;/span>和自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的转换关系，可以证明它们是一一对应的。&lt;/p>
+&lt;p>再从图右往左看，由于观测结果&lt;span class="math">\(y_{obs}\)&lt;/span>与&lt;span class="math">\(x_{obs}\)&lt;/span>存在相关性，而非确定函数关系，我们认为其&lt;span class="math">\(y_{obs}\)&lt;/span>服从特定的分布，我们认为这种分布是指数型分布族（指数分散族），因此可以用&lt;span class="math">\(P(y;\vartheta)\)&lt;/span>来表达&lt;span class="math">\(y_{obs}\)&lt;/span>的分布，用随机变量&lt;span class="math">\(Y\)&lt;/span>表示。当然，这个随机变量也可以用原始参数的概率分布&lt;span class="math">\(P(y;\theta)\)&lt;/span>表示。但是，在实际使用中，我们更希望得到一个具体值，而非一个分布，因此我们应使用最具代表性的值——期望&lt;span class="math">\(\mu\)&lt;/span>来表示分布，即期望应等于广义线性模型的预测值&lt;span class="math">\(\mu=y_{pred}\)&lt;/span>。同时，指数分散族有一个非常好的性质，其配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>正好等于期望&lt;span class="math">\(\mu\)&lt;/span>。而原始参数的概率分布&lt;span class="math">\(P(y;\theta)\)&lt;/span>与期望&lt;span class="math">\(\mu\)&lt;/span>的关系&lt;span class="math">\(\varphi(\theta)\)&lt;/span>则需要根据具体情况计算，因此在广义线性模型中不太常用。&lt;/p>
+&lt;p>由于&lt;span class="math">\(\mu\)&lt;/span>和线性预测期直接不是相等关系，需要一个桥梁，即连接函数&lt;span class="math">\(g(\mu)\)&lt;/span>，它阐述了期望和线性预测期之间的关系：&lt;span class="math">\(g(\mu)=\vartheta=\beta^T x_{obs}\)&lt;/span>。我们可以证明这个连接函数必存在反函数&lt;span class="math">\(g^{-1}\)&lt;/span>，这样我们就可以使用这个反函数来预测结果，即&lt;span class="math">\(g^{-1}(\vartheta)=g^{-1}(\beta^T x)\)&lt;/span>。我们将这个反函数称之为激活函数。最后我们发现配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>与激活函数&lt;span class="math">\(g^{-1}(\vartheta)\)&lt;/span>有着一样的作用，因此我们得到激活函数就是配分函数的导数，即&lt;span class="math">\(b&amp;#39;=g^{-1}\)&lt;/span>。它们就是广义线性模型的函数&lt;span class="math">\(f(x_{obs})=b&amp;#39;(\beta^T x_{obs})=g^{-1}(\beta^T x_{obs})\)&lt;/span>。&lt;/p>
+&lt;h2 id="广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/h2>
+&lt;p>还记得在文章开头时的引子吗？&lt;/p>
+&lt;blockquote>
+&lt;p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>的定义不同)： &lt;span class="math">\[
+\theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
+h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
+\vec{\theta}^T \vec{x},\quad线性回归\\
+\frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。&lt;/p>
+&lt;/blockquote>
+&lt;p>这一是因为我们通过指数型分布族（指数分散族）给出了广义线性模型响应变量&lt;span class="math">\(Y\)&lt;/span>的统一形式，第二点就是由于我们使用的是最大似然估计，它的似然函数求导步骤与指数分散族非常契合。&lt;/p>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;a href="https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2">https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;h2 id="线性代数与矩阵之矩阵的正定性二次型与合同矩阵">线性代数与矩阵之矩阵的正定性，二次型与合同矩阵&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#对称埃米特矩阵与正定性">对称（埃米特）矩阵与正定性&lt;/a>&lt;/li>
@@ -5216,6 +5435,11 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;li>&lt;a href="#指数族的方差">指数族的方差&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#theta与eta的一一对应缘由">&lt;span class="math">\(\theta\)&lt;/span>与&lt;span class="math">\(\eta\)&lt;/span>的一一对应缘由&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数型分布族的最大似然估计">指数型分布族的最大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#自然指数族">自然指数族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数分散族">指数分散族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#分散参数讨论">分散参数讨论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#配分函数讨论">配分函数讨论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数分散族的方差">指数分散族的方差&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="指数型分布族指数族">指数型分布族（指数族）&lt;/h2>
 &lt;p>指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：&lt;/p>
@@ -5241,7 +5465,7 @@ p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
 &lt;p>引理1：在指数族中函数&lt;span class="math">\(C(\cdot)\)&lt;/span>总是&lt;strong>单调连续的(存在逆函数)&lt;/strong>，所以自然参数&lt;span class="math">\(η\)&lt;/span>和原始参数&lt;span class="math">\(θ\)&lt;/span>是&lt;strong>存在一一映射关系的&lt;/strong>。 &lt;span class="math">\[
 \eta=\mathbf{C}(\theta)\\
 \theta=\mathbf{C}^{-1}(\eta)
-\]&lt;/span> 上面这个关系被应用在广义线性规划中。&lt;/p>
+\]&lt;/span>&lt;/p>
 &lt;/blockquote>
 &lt;p>在指数型分布族中，使用标准参数&lt;span class="math">\(η\)&lt;/span>表示的公式形式称为&lt;strong>指数族分布的标准形式(canonical form)&lt;/strong>，在标准形式下，分布的参数是&lt;span class="math">\(η\)&lt;/span>。&lt;strong>实际上，从原始分布向指数型分布转换的过程就是将&lt;span class="math">\(\theta\)&lt;/span>转换为&lt;span class="math">\(\eta\)&lt;/span>的过程&lt;/strong>，在下节中我们会用例子说明。&lt;/p>
 &lt;p>指数分布族的意义在于给了我们常见分布一个统一的形式，我们通过此形式得出的结论，可以推广到所有符合该形式的概率分布。指数族有以下特殊之处，可能有些内容暂时不会涉及。&lt;/p>
@@ -5402,7 +5626,57 @@ l(\eta;\mathcal{D})&amp;amp;=\ln(L(\eta;\mathcal{D}))\\
 \]&lt;/span> 由于&lt;span class="math">\(\eta\)&lt;/span>可能是向量，对于向量的导数，我们使用梯度&lt;span class="math">\(\nabla_\eta\)&lt;/span>表示。又由式（9）可知&lt;span class="math">\(A(η)\)&lt;/span>的一阶导数等于&lt;span class="math">\(T(x)\)&lt;/span>的期望&lt;span class="math">\(E[T(x)]\)&lt;/span>，即&lt;span class="math">\(E[T(x)]=\frac{d A(\eta)}{d \eta}=\nabla_\eta A(\eta)\)&lt;/span>，令其结果为&lt;span class="math">\(\mu_{ML}\)&lt;/span>，结合公式（14）有： &lt;span class="math">\[
 \mu_{ML}=E[T(x)]=\frac{1}{N}\sum_{k=1}^N\mathbf{T}(x_k)\tag{15}
 \]&lt;/span> 从式(15)可以看出，指数族分布&lt;span class="math">\(T(x)\)&lt;/span>期望值（均值参数&lt;span class="math">\(\mu\)&lt;/span>）的最大似然估计等于样本的平均值。且均值参数的最大似然估计值，只和样本的统计量&lt;span class="math">\(\sum_{k=1}^N=T(x_k)\)&lt;/span>有关，而不再依赖样本的其它信息，所以&lt;span class="math">\(\sum_{k=1}^N=T(x_k)\)&lt;/span>(或者说&lt;span class="math">\(T(x)\)&lt;/span>)是指数族的充分统计量。对于满足&lt;span class="math">\(T(x)=x\)&lt;/span>的分布，比如伯努利分布、多项式分布、泊松分布等等，样本的均值就是&lt;span class="math">\(T(x)\)&lt;/span>的均值，样本的均值就是均值参数的最大似然估计值。同理，对于单变量的高斯分布，样本的方差就是方差参数的最大似然估计值。&lt;/p>
-&lt;p>最后，我们结合式（11）知道，&lt;span class="math">\(\eta,\mu,\theta\)&lt;/span>是有一一对应关系的，可以通过函数和反函数相互计算。最大似然估计给出了&lt;span class="math">\(μ_{ML}\)&lt;/span>的估计值，我们就是可以换算出&lt;span class="math">\(η_{ML},\theta_{ML}\)&lt;/span>。&lt;/p></description></item><item><title>概率统计随机过程之数理统计常用概念</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/</link><pubDate>Tue, 09 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/</guid><description>
+&lt;p>最后，我们结合式（11）知道，&lt;span class="math">\(\eta,\mu,\theta\)&lt;/span>是有一一对应关系的，可以通过函数和反函数相互计算。最大似然估计给出了&lt;span class="math">\(μ_{ML}\)&lt;/span>的估计值，我们就是可以换算出&lt;span class="math">\(η_{ML},\theta_{ML}\)&lt;/span>。&lt;/p>
+&lt;h2 id="自然指数族">自然指数族&lt;/h2>
+&lt;p>我们在式（5）中给出了指数型分布族的一般形式 &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 但是对于广义线性模型的应用场景而言，还是复杂了一些，因此有一种简化的&lt;strong>自然指数族&lt;/strong>。在自然指数族中，&lt;span class="math">\(\mathbf{T}(\mathbf{x})=\mathbf{x}\)&lt;/span>，不存在类似于&lt;span class="math">\(x^2,x^3,\log(x),\frac{1}{x}\)&lt;/span>这种带有函数关系的充分统计量，其可以简化写成： &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{x}-A(\eta)\right\}\tag{16}
+\]&lt;/span> 二项分布，负二项分布，伯努利分布，泊松分布，参数&lt;span class="math">\(\alpha\)&lt;/span>已知的Gamma分布，已知方差的高斯分布，参数&lt;span class="math">\(\lambda\)&lt;/span>已知的逆高斯分布（又称Wald分布）等都可以写成自然指数族形式，其他分布如卡方分布、Beta分布、帕累托分布，对数正态分布，一般正态分布，一般Gamma分布则无法写成自然指数族的形式。他们是否是自然指数族的核心就在于是不是充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>。&lt;/p>
+&lt;h2 id="指数分散族">指数分散族&lt;/h2>
+&lt;p>在自然指数族的基础上，研究者们为了方便探究分布的期望和方差，对自然指数族做了少些变形得到指数分散族。其处理方法是将自然指数族的规范形式(式(16))的规范（自然）参数&lt;span class="math">\(\eta\)&lt;/span>拆分成与位置（期望）相关的位置函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>以及和方差相关的分散函数&lt;span class="math">\(a(\phi)\)&lt;/span>。其形式如下： &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{a(\phi)}+c(x,\phi)\}\tag{17}
+\]&lt;/span> 这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，&lt;span class="math">\(a(ϕ)\)&lt;/span>称为分散函数(dispersion function)，是已知的。&lt;span class="math">\(ϕ\)&lt;/span>称为分散参数(dispersion parameter)。&lt;span class="math">\(\vartheta\)&lt;/span>仍然叫自然参数(natural parameter)或者规范参数(canonical parameter)，它和自然指数族中参数差了个系数，因为两种模式中&lt;span class="math">\(\vartheta^T x,\eta^Tx\)&lt;/span>的模式都是&lt;strong>参数&lt;span class="math">\(\times\)&lt;/span>充分统计量&lt;/strong>，所以不难发现，实际上我们对自然参数做一个&lt;span class="math">\(\frac{1}{a(\phi)}\)&lt;/span>倍的缩放。&lt;/p>
+&lt;p>&lt;strong>指数分散族形式本质上是对自然指数族的参数&lt;span class="math">\(\eta\)&lt;/span>进行了拆分，把期望参数和方差参数拆分开&lt;/strong>。使得自然参数&lt;span class="math">\(\vartheta\)&lt;/span>仅和期望&lt;span class="math">\(μ\)&lt;/span>相关，分散参数&lt;span class="math">\(ϕ\)&lt;/span>和分布的方差参数相关。分拆后，规范参数&lt;span class="math">\(\vartheta\)&lt;/span>仅和分布的期望参数&lt;span class="math">\(μ\)&lt;/span>相关，并且和&lt;span class="math">\(μ\)&lt;/span>之间存在一一映射的函数关系，换句话说，&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(μ\)&lt;/span>可以互相转化。 &lt;span class="math">\[
+\vartheta=f(\mu)\\
+\mu=f^{−1}(\vartheta)\tag{18}
+\]&lt;/span> 后面在配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>的讨论中可以证明这一点。&lt;/p>
+&lt;h3 id="分散参数讨论">分散参数讨论&lt;/h3>
+&lt;p>&lt;span class="math">\(a(ϕ)\)&lt;/span>的函数形式并没有严格的要求，其函数形式并不重要。在大多数文献中，&lt;span class="math">\(a(\phi)\)&lt;/span>被定义为： &lt;span class="math">\[
+a_i(\phi)=\frac{\phi}{w_i}
+\]&lt;/span> 其中&lt;span class="math">\(w_i\)&lt;/span>是观测样本的权重，一般是已知的。不同的样本可以拥有不同的权重值，比如进行参数估计时，对于某些样本设置成&lt;span class="math">\(w_i=0\)&lt;/span>，这就相当于抛弃了这些样本。如果不需要对样本进行加权（大多数场景），那么直接令 &lt;span class="math">\[
+a(\phi)=\phi
+\]&lt;/span> 即可。分散参数和分布的方差相关，它影响着方差的大小。此外，由于随机变量&lt;span class="math">\(x\)&lt;/span>不变，&lt;strong>在指数分布族和自然分布族中，其自然参数之间差&lt;span class="math">\(\frac{1}{a(\phi)}\)&lt;/span>倍&lt;/strong>。 &lt;span class="math">\[
+\eta=\frac{\vartheta}{a(\phi)}
+\]&lt;/span>&lt;/p>
+&lt;h3 id="配分函数讨论">配分函数讨论&lt;/h3>
+&lt;p>在指数分散族中，我们将&lt;span class="math">\(b(\vartheta)\)&lt;/span>也称为配分函数，和一般形态的配分函数&lt;span class="math">\(A(\eta)\)&lt;/span>显然有如下关系： &lt;span class="math">\[
+A(\eta)=\frac{b(\vartheta)}{a(\phi)}
+\]&lt;/span> 在指数型分布族中，我们可以用&lt;span class="math">\(A(\eta)\)&lt;/span>的导数求出分布的矩，一阶导数是分布的期望，二阶导数是分布的方差。&lt;span class="math">\(b(\vartheta)\)&lt;/span>也有类似的作用。由于&lt;span class="math">\(\eta=\frac{\vartheta}{a(\phi)},A(\eta)=\frac{b(\vartheta)}{a(\phi)}=\frac{b(\eta\cdot a(\phi))}{a(\phi)}\)&lt;/span>，所以概率分布的期望为： &lt;span class="math">\[
+E[X]=\frac{dA(\eta)}{d\eta}=\frac{d\frac{b(\vartheta)}{a(\phi)}}{d\eta}=\frac{d\frac{b(\vartheta)}{a(\phi)}}{d\frac{\vartheta}{a(\phi)}}\\
+\Rightarrow E[X]=\frac{d b(\vartheta)}{d\vartheta}=b&amp;#39;(\vartheta)=\mu\tag{19}
+\]&lt;/span> 同样的，我们可以推导出概率分布的方差： &lt;span class="math">\[
+\mathrm{Var}[X]=A&amp;#39;&amp;#39;(\eta)=\frac{d^2\frac{b(\vartheta)}{a(\phi)}}{d[\frac{\vartheta}{a(\phi)}]^2}\\
+又\because A&amp;#39;(\eta)=b&amp;#39;(\vartheta)\\
+\Rightarrow \mathrm{Var}[X]=\frac{d{b&amp;#39;(\vartheta)}}{d\frac{\vartheta}{a(\phi)}}=\frac{1}{a(\phi)}\frac{db&amp;#39;(\vartheta)}{d\vartheta}\\
+\Rightarrow \mathrm{Var}[X]=a(\phi)b&amp;#39;&amp;#39;(\vartheta)\tag{20}
+\]&lt;/span> 由于&lt;span class="math">\(b(\vartheta)\)&lt;/span>是在&lt;span class="math">\(A(η)\)&lt;/span>的基础上拆分出去&lt;span class="math">\(a(ϕ)\)&lt;/span>，所以&lt;span class="math">\(b(\vartheta)\)&lt;/span>的二阶导数不再等于分布的方差，需要再乘上&lt;span class="math">\(a(ϕ)\)&lt;/span>才能得到分布的方差。&lt;/p>
+&lt;p>从期望和方差的关系，我们能发现&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>也是一一对应关系。根据式（19）可知，&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>有函数关系，且由于&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的导数&lt;span class="math">\(b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>是方差（恒大于0）乘以一个已知数&lt;span class="math">\(a(\phi)\)&lt;/span>（式（20）结论），因此&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的导数必然恒为正数或负数（取决于已知数&lt;span class="math">\(a(\phi)\)&lt;/span>），即&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>必为单调函数，而单调函数必存在反函数，推得必存在&lt;span class="math">\(b&amp;#39;^{-1}\)&lt;/span>，使得&lt;span class="math">\(\vartheta=b&amp;#39;^{-1}(\mu)\)&lt;/span>。因此&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>是一一对应的。&lt;/p>
+&lt;h3 id="指数分散族的方差">指数分散族的方差&lt;/h3>
+&lt;p>在指数分散族中，分布的方差可以表示成两部分的乘积，一部分是分散函数&lt;span class="math">\(a(ϕ)\)&lt;/span>，另一部分是配分函数的二阶导数&lt;span class="math">\(b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>。其中，函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>是一个关于&lt;span class="math">\(\vartheta\)&lt;/span>的函数， 其二阶导数要么是一个常数，要么是一个关于自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的函数。 而自然参数&lt;span class="math">\(\vartheta\)&lt;/span>和均值参数&lt;span class="math">\(μ\)&lt;/span>存在一一对应关系，所以一定可以把&lt;span class="math">\(\vartheta\)&lt;/span>替换成&lt;span class="math">\(μ\)&lt;/span>。&lt;/p>
+&lt;p>我们定义配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>的二阶导数为&lt;strong>方差函数&lt;/strong>(variance function)，方差函数是一个关于期望&lt;span class="math">\(μ\)&lt;/span>的函数，即 &lt;span class="math">\[
+b&amp;#39;&amp;#39;(\vartheta)=\nu(μ)\tag{21}
+\]&lt;/span> 方差函数&lt;span class="math">\(ν(μ)\)&lt;/span>存在两种情况：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>方差函数是一个常量值，&lt;span class="math">\(ν(μ)=b&amp;#39;&amp;#39;(\vartheta)=C\)&lt;/span>，此时分布的方差与均值无关。典型的分布就是正态分布。&lt;/li>
+&lt;li>方差函数是一个关于均值&lt;span class="math">\(μ\)&lt;/span>的函数，&lt;span class="math">\(ν(μ)=b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>，此时分布的方差与均值有关。&lt;/li>
+&lt;/ol>
+&lt;p>方差函数，是一个平滑函数，它把分布的均值参数&lt;span class="math">\(μ\)&lt;/span>和分布的方差关联在一起。如果其值一个常数值，说明均值和方差是独立无关的；反之，如果是&lt;span class="math">\(μ\)&lt;/span>的函数，说明均值和方差是相关联的。&lt;/p>
+&lt;p>例如，在高斯分布中，&lt;span class="math">\(b&amp;#39;&amp;#39;(\vartheta)=1\)&lt;/span>，所以方差和均值是相互独立的，对于其他分布，这是不成立的，高斯分布是特例。&lt;/p>
+&lt;p>影响方差的，除了方差函数&lt;span class="math">\(ν(μ)\)&lt;/span>以外，还有分散参数&lt;span class="math">\(a(ϕ)=ϕ\)&lt;/span>，它起到一个缩放的作用。 参数&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(ϕ\)&lt;/span>&lt;strong>本质上是位置和尺度参数，位置参数反映数据的均值，尺度参数反映数据方差&lt;/strong>。&lt;/p>
+&lt;div class="figure">
+&lt;img src="./images/常见分布的方差函数表.png" alt="常见分布的方差函数表" />&lt;p class="caption">常见分布的方差函数表&lt;/p>
+&lt;/div></description></item><item><title>概率统计随机过程之数理统计常用概念</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/</link><pubDate>Tue, 09 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E5%B8%B8%E7%94%A8%E6%A6%82%E5%BF%B5/</guid><description>
 &lt;h2 id="概率统计随机过程之数理统计常用概念">概率统计随机过程之数理统计常用概念&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#总体与样本">总体与样本&lt;/a>&lt;/li>
@@ -7434,6 +7708,7 @@ D[h(T(X))]\leq D[\varphi(X)],\forall \theta\in\varTheta
 &lt;li>&lt;a href="#最大似然估计具有正态性定理">最大似然估计具有正态性定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#cramer-rao正则分布族下费雪信息量的另一种表示">Cramer-Rao正则分布族下费雪信息量的另一种表示&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#cramer-rao不等式与界">Cramer-Rao不等式与界&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最大似然估计与相对熵kl散度交叉熵的等价性">最大似然估计与相对熵（KL散度）、交叉熵的等价性&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#最大似然估计不具备的性质">最大似然估计不具备的性质&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>最大似然估计是参数点估计中非常常用且有效的估计方法，本文对其相关性质进行拓展介绍，包括渐进正态性，一致最小方差无偏估计，C-R界以及存在隐变量时采用的EM算法。&lt;/p>
@@ -7443,9 +7718,10 @@ D[h(T(X))]\leq D[\varphi(X)],\forall \theta\in\varTheta
 &lt;p>步骤：&lt;/p>
 &lt;ol style="list-style-type: decimal">
 &lt;li>总体的概率/密度函数。&lt;/li>
-&lt;li>写出似然估计函数&lt;span class="math">\(L(\lambda)\)&lt;/span>。&lt;/li>
-&lt;li>两边取&lt;span class="math">\(\ln\)&lt;/span>，即为&lt;span class="math">\(\ln(L(\lambda))\)&lt;/span>。&lt;/li>
-&lt;li>对&lt;span class="math">\(\lambda\)&lt;/span>求导（多参数估计就是偏导），令导数为0。&lt;/li>
+&lt;li>写出似然估计函数&lt;span class="math">\(L(\theta)\)&lt;/span>，其中&lt;span class="math">\(\theta\)&lt;/span>是待估计参数。&lt;/li>
+&lt;li>两边取&lt;span class="math">\(\ln\)&lt;/span>，即为&lt;span class="math">\(\ln(L(\theta))\)&lt;/span>。&lt;/li>
+&lt;li>对&lt;span class="math">\(\theta\)&lt;/span>求导（多参数估计就是偏导），令导数为0。&lt;/li>
+&lt;li>求出使导数为0的&lt;span class="math">\(\theta\)&lt;/span>即为最大似然估计参数。&lt;/li>
 &lt;/ol>
 &lt;p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。&lt;/p>
 &lt;p>&lt;strong>似然函数取对数的原因&lt;/strong>:&lt;/p>
@@ -7534,6 +7810,50 @@ I(\theta)&amp;amp;=0-\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\
 &lt;h2 id="cramer-rao不等式与界">Cramer-Rao不等式与界&lt;/h2>
 &lt;p>从最大似然估计的渐进正态性，我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：&lt;strong>C-R不等式&lt;/strong>，可以说给了统计学理论上的绝望。&lt;/p>
 &lt;p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！它有自己估计的上限！&lt;/p>
+&lt;h2 id="最大似然估计与相对熵kl散度交叉熵的等价性">最大似然估计与相对熵（KL散度）、交叉熵的等价性&lt;/h2>
+&lt;p>在机器学习、广义线性模型的应用场景中，常常使用最小（大）化交叉熵或相对熵，又叫KL散度来替换一些最大似然估计的操作，从理论上来看它们是具有等价性的。关于相对熵的概念，可以先看笔记《&lt;a href="无线通信之信息熵回忆总结.md">无线通信之信息熵回忆总结&lt;/a>》。最大似然估计的目标是最大化似然函数，我们将其写为： &lt;span class="math">\[
+\argmax_{\theta} \ln(L(\theta))=\argmax_{\theta} \ln(\prod_{i=1}^n p(x_i;\theta))
+\]&lt;/span> 显然，似然函数&lt;span class="math">\(L(\theta)\)&lt;/span>是由抽样出来的已知样本&lt;span class="math">\(x_i\)&lt;/span>的概率密度函数（pdf）连乘得来的。当参数&lt;span class="math">\(\theta\)&lt;/span>已知时，&lt;span class="math">\(\prod_{i=1}^n p(x_i;\theta)\)&lt;/span>就是&lt;span class="math">\(x=(x_1,x_2,\dotsb,x_n)\)&lt;/span>的联合概率密度值；如果&lt;span class="math">\(\theta\)&lt;/span>未知，那么就会得到一个关于&lt;span class="math">\(\theta\)&lt;/span>的函数&lt;span class="math">\(L(\theta)\)&lt;/span>，而找到让函数&lt;span class="math">\(L(\theta)\)&lt;/span>最大的&lt;span class="math">\(\theta^\star\)&lt;/span>就是最大似然估计的核心。&lt;/p>
+&lt;p>如果将&lt;span class="math">\(\ln\)&lt;/span>符号和&lt;span class="math">\(\prod\)&lt;/span>符号交换，上式可改写成： &lt;span class="math">\[
+\argmax_{\theta} \ln(\prod_{i=1}^n p(x_i;\theta))=\argmax_{\theta}\sum_{i=1}^n \ln(p(x_i;\theta))
+\]&lt;/span> 简单地，我 们可以对似然函数加个负号，然后取最大值就变成了取最小值： &lt;span class="math">\[
+\argmax_{\theta}\sum_{i=1}^n \ln(p(x_i;\theta))=\argmin_{\theta}\sum_{i=1}^n -\ln(p(x_i;\theta))
+\]&lt;/span> 由于&lt;span class="math">\(n\)&lt;/span>是一个固定的数，因此在上式前面乘以一个常数&lt;span class="math">\(\frac{1}{n}\)&lt;/span>不改变&lt;span class="math">\(\argmin\limits_{\theta}\)&lt;/span>的结果，即&lt;span class="math">\(\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x_i;\theta))\)&lt;/span>。&lt;/p>
+&lt;p>接下来是体现抽样与概率关系的一步。我们知道&lt;span class="math">\(x_i\)&lt;/span>都是从总体抽出来的样本，概率密度大的地方抽样出来的样本多，概率密度小的地方抽出来的样本就少。那么，想想我们如何使用蒙特卡洛法求一个随机变量函数的期望&lt;span class="math">\(E[f(Y)]\)&lt;/span>的？其中&lt;span class="math">\(Y\)&lt;/span>是一个随机变量。理论上来说： &lt;span class="math">\[
+E[f(Y)]=\int_{-\infty}^\infty p(y)f(y)\mathrm{d}y
+\]&lt;/span> 但是，我们常常不知道&lt;span class="math">\(Y\)&lt;/span>精确的概率密度函数&lt;span class="math">\(p(y)\)&lt;/span>，因此我们会从总体&lt;span class="math">\(Y\)&lt;/span>中抽取一定量的&lt;span class="math">\(y_i\)&lt;/span>，然后用 &lt;span class="math">\[
+\tilde{E}[f(Y)]=\frac{1}{n}\sum_{i=1}^n f(y_i)
+\]&lt;/span> 来近似计算期望，我们抽样的数量越多，这个值越准确。当抽样的数量趋近于无穷时，&lt;span class="math">\(\tilde{E}[f(y)]{\rightarrow}E[f(y)](P=1)\)&lt;/span>。这个表述是不是看得眼熟，没错这就是强大数定律！由此我们可以得到一个结论：&lt;/p>
+&lt;blockquote>
+&lt;p>结论1：当样本数足够大时，可以使用&lt;span class="math">\(\frac{1}{n}\sum_{i=1}^n f(y_i)\)&lt;/span>替代期望&lt;span class="math">\(E[f(Y)]\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>回到原来&lt;span class="math">\(\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x_i;\theta))\)&lt;/span>的场景，我们令&lt;span class="math">\(f(x)=-\ln(p(x_i;\theta))\)&lt;/span>，并且&lt;span class="math">\(x_i\)&lt;/span>都是从总体的抽样出来的，那么当样本数量较大时，我们同样可以用求期望的方式去近似函数均值，即： &lt;span class="math">\[
+\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x;\theta))\approx\begin{cases}
+\argmin\limits_{\theta} \int\limits_x p(x) [(-\ln(p(x;\theta))]\mathrm{d}x,\quad x\text{为连续随机变量}\\
+\argmin\limits_{\theta} \sum\limits_x p(x) [(-\ln(p(x;\theta))],\quad x\text{为离散随机变量}
+\end{cases}\\
+=\argmin_\theta E[-\ln(p(x;\theta))]=\argmin_\theta H(x;\theta)
+\]&lt;/span> 需要注意的是，作为概率的&lt;span class="math">\(p(x)\)&lt;/span>是与&lt;span class="math">\(\theta\)&lt;/span>无关的事实概率密度函数。因为抽样是从真实分布中抽样的，抽样结果只和&lt;span class="math">\(x\)&lt;/span>的真实分布有关，或者说抽样结果已经是包含参数&lt;span class="math">\(\theta\)&lt;/span>信息之后，体现出来的结果。到这里，我们又发现了一个重要的结论：&lt;/p>
+&lt;blockquote>
+&lt;p>结论2：最大似然估计的效果等同于调节参数让信息熵最小。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个直观上很好理解，最大似然估计是找出让事件发生概率最大的参数&lt;span class="math">\(\theta\)&lt;/span>，而熵是衡量事件不确定性的度量，越可能发生的事情，其信息含量越小，熵也越小。因此，最大似然估计会使得&lt;span class="math">\(\argmin\limits_\theta H(x;\theta)\)&lt;/span>。&lt;/p>
+&lt;p>到这里，我们距离交叉熵与相对熵（KL散度）貌似还有一些距离。因为上式中，我们使用的是一般的熵，而不是交叉熵、相对熵，那么区别在哪里呢？&lt;/p>
+&lt;p>答案就是似然函数&lt;span class="math">\(-\ln(p(x;\theta))\)&lt;/span>。我们在上文中都默认使用了真实的概率分布&lt;span class="math">\(p(x;\theta)\)&lt;/span>，然而我们实际上，我们并不知道！并且真实分布是客观存在的，实际上也不存在参数&lt;span class="math">\(\theta\)&lt;/span>。我们只是选取了一种带有参数&lt;span class="math">\(\theta\)&lt;/span>概率分布族&lt;span class="math">\(q(x;\theta)\)&lt;/span>的去近似真实的概率&lt;span class="math">\(p(x)\)&lt;/span>；或者假定数据&lt;span class="math">\(x_i\)&lt;/span>服从某一带有参数&lt;span class="math">\(\theta\)&lt;/span>概率分布族&lt;span class="math">\(q(x;\theta)\)&lt;/span>。然而，实际情况是&lt;span class="math">\(q(x;\theta)\)&lt;/span>与真实分布&lt;span class="math">\(p(x)\)&lt;/span>是有差距的。因此，我们写出实际情况: &lt;span class="math">\[
+\argmin\limits_{\theta} \frac{1}{n}\sum\limits_{i=1}^n -\ln(p(x;\theta))\approx\begin{cases}
+\argmin\limits_{\theta} \int\limits_x p(x) [(-\ln(q(x;\theta))]\mathrm{d}x,\quad x\text{为连续随机变量}\\
+\argmin\limits_{\theta} \sum\limits_x p(x) [(-\ln(q(x;\theta))],\quad x\text{为离散随机变量}
+\end{cases}\\
+=\argmin_\theta E[-\ln(q(x;\theta))]
+\]&lt;/span> 注意只是将&lt;span class="math">\(p(x;\theta)\)&lt;/span>换成了&lt;span class="math">\(q(x;\theta)\)&lt;/span>，抽样的&lt;span class="math">\(x_i\)&lt;/span>反应的是真实的概率分布，因此就是约等于&lt;span class="math">\(p(x)\)&lt;/span>，且根据大数定律，样本数越大，越接近真实分布。根据笔记《&lt;a href="无线通信之信息熵回忆总结.md">无线通信之信息熵回忆总结&lt;/a>》的定义，我们知道 &lt;span class="math">\[
+E[-\ln(q(x;\theta))]=\sum_{x}p(x)(-\ln q(x;\theta))=H(p,q)
+\]&lt;/span> 其中，&lt;span class="math">\(H(p,q)\)&lt;/span>成为交叉熵，只有我们设定的参数分布族&lt;span class="math">\(q(x;\theta)\)&lt;/span>才与&lt;span class="math">\(\theta\)&lt;/span>相关，真实分布作为客观存在与&lt;span class="math">\(\theta\)&lt;/span>无关。&lt;/p>
+&lt;p>根据交叉熵和相对熵的关系 &lt;span class="math">\[
+D_{KL}(p||q)=H(p,q)-H(p)
+\]&lt;/span> 可知，相对熵和交叉熵相差一个真实熵&lt;span class="math">\(H(p)\)&lt;/span>。因为&lt;span class="math">\(p(x)\)&lt;/span>是客观存在的，因此&lt;span class="math">\(H(p)\)&lt;/span>也是一个客观存在的常数，虽然我们不知道具体是多少，但是它确实只是个常数，与&lt;span class="math">\(\theta\)&lt;/span>无关，因此 &lt;span class="math">\[
+\argmin_\theta E[-\ln(q(x;\theta))]=\argmin_\theta H(p,q)=\argmin_\theta D_{KL}(p||q)
+\]&lt;/span> 其中，&lt;span class="math">\(q\)&lt;/span>是与&lt;span class="math">\(\theta\)&lt;/span>相关的分布族，&lt;span class="math">\(p\)&lt;/span>与&lt;span class="math">\(\theta\)&lt;/span>无关。&lt;/p>
+&lt;p>综上可知，最大似然估计等同于最小化交叉熵或相对熵（KL散度）。&lt;/p>
 &lt;h2 id="最大似然估计不具备的性质">最大似然估计不具备的性质&lt;/h2>
 &lt;ol style="list-style-type: decimal">
 &lt;li>最大似然估计不一定是无偏的。&lt;/li>
@@ -9254,14 +9574,14 @@ H(X,Y)&amp;amp;=-\displaystyle\sum_{x,y}p(x,y)logp(x,y)\\
 \end{aligned}
 \]&lt;/span> &lt;strong>注意点：&lt;/strong>&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>熵只依赖于随机变量的分布,与随机变量取值无关，所以也可以将 X 的熵记作 H(p)。&lt;/li>
-&lt;li>令0log0=0(因为某个取值概率可能为0)。&lt;/li>
+&lt;li>熵只依赖于随机变量的分布，与随机变量取值无关，所以也可以将&lt;span class="math">\(X\)&lt;/span>的熵记作&lt;span class="math">\(H(p)\)&lt;/span>。&lt;/li>
+&lt;li>令&lt;span class="math">\(0\log 0=0\)&lt;/span>(因为某个取值概率可能为0)。&lt;/li>
 &lt;/ol>
 &lt;p>那么这些定义有着什么样的性质呢？考虑一个随机变量&lt;span class="math">\(x\)&lt;/span>。这个随机变量有4种可能的状态，每个状态都是等可能的。为了把&lt;span class="math">\(x\)&lt;/span>的值传给接收者，我们&lt;strong>至少&lt;/strong>需要传输2比特的消息。（&lt;span class="math">\(H(X)=-4\times\dfrac{1}{4}log_2\dfrac{1}{4}=2\ bits\)&lt;/span>）&lt;/p>
 &lt;p>现在考虑一个具有4种可能的状态&lt;span class="math">\(\{a,b,c,d\}\)&lt;/span> 的随机变量，每个状态各自的概率为&lt;span class="math">\((1/2,1/4,1/8,1/8)\)&lt;/span>。这种情形下的熵为： &lt;span class="math">\[
 H(X)=-\displaystyle\frac{1}{2}log_2\frac{1}{2}-\frac{1}{4}log_2\frac{1}{4}-\frac{1}{8}log_2\frac{1}{8}-\frac{1}{8}log_2\frac{1}{8}=1.75\ bits
 \]&lt;/span> 这个实例也佐证了&lt;strong>非均匀分布比均匀分布的熵要小&lt;/strong>。现在让我们考虑如何把变量状态的类别传递给接收者。与之前一样，我们可以使用一个2比特的数字来完成这件事情。然而，我们可以利用非均匀分布这个特点，使用&lt;strong>更短的编码来描述更可能的事件，使用更长的编码来描述不太可能的事件&lt;/strong>。我们希望这样做能够得到一个更短的平均编码长度。我们可以使用下面的编码串（哈夫曼编码）：0、10、110、111来表示状态&lt;span class="math">\(\{a,b,c,d\}\)&lt;/span>。传输的编码的平均长度就是： &lt;span class="math">\[
-\displaystyle\frac{1}{2}\times1+\frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
+1\times \frac{1}{2}\times1+1\times \frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
 \]&lt;/span> 和该分布信息的熵一致。这个值与上方的随机变量的熵相等。熵和最短编码长度的这种关系是一种普遍的情形，称为&lt;strong>Shannon无损信源编码定理&lt;/strong>。定理表明熵是&lt;strong>传输一个随机变量状态值所需的比特位下界（最短平均编码长度）&lt;/strong>。因此，信息熵可以应用在数据压缩方面。这里这篇文章&lt;http://www.ruanyifeng.com/blog/2014/09/information-entropy.html>讲的很详细了，我就不赘述了。&lt;/p>
 &lt;h2 id="条件熵conditional-entropy">条件熵(Conditional entropy)&lt;/h2>
 &lt;p>条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>表示在已知随机变量&lt;span class="math">\(X\)&lt;/span>的条件下随机变量&lt;span class="math">\(Y\)&lt;/span>的不确定性。条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>定义为&lt;span class="math">\(X\)&lt;/span>给定条件下&lt;span class="math">\(Y\)&lt;/span>的条件概率分布的熵对&lt;span class="math">\(X\)&lt;/span>的数学期望： &lt;span class="math">\[
@@ -9307,7 +9627,7 @@ D_{KL}(p||q)=\displaystyle\sum_{x}p(x)log\frac{p(x)}{q(x)}=\sum_{x}p(x)logp(x)-p
 &lt;p>熵的公式 &lt;span class="math">\[
 H(p)=-\displaystyle\sum_{x}p(x)logp(x)
 \]&lt;/span> 交叉熵的公式 &lt;span class="math">\[
-H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum _{x}p(x)logq(x)
+H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum_{x}p(x)logq(x)
 \]&lt;/span> 所以有： &lt;span class="math">\[
 D_{KL}(p||q)=H(p,q)-H(p)
 \]&lt;/span> 当用非真实分布 q(x) 得到的平均码长比真实分布 p(x) 得到的平均码长多出的比特数就是相对熵。又因为&lt;span class="math">\(D_{KL}(p||q)≥0\)&lt;/span>恒成立。所以： &lt;span class="math">\[

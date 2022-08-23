@@ -123,14 +123,14 @@ H(X,Y)&=-\displaystyle\sum_{x,y}p(x,y)logp(x,y)\\
 \end{aligned}
 \]</span> <strong>注意点：</strong></p>
 <ol style=list-style-type:decimal>
-<li>熵只依赖于随机变量的分布,与随机变量取值无关，所以也可以将 X 的熵记作 H(p)。</li>
-<li>令0log0=0(因为某个取值概率可能为0)。</li>
+<li>熵只依赖于随机变量的分布，与随机变量取值无关，所以也可以将<span class=math>\(X\)</span>的熵记作<span class=math>\(H(p)\)</span>。</li>
+<li>令<span class=math>\(0\log 0=0\)</span>(因为某个取值概率可能为0)。</li>
 </ol>
 <p>那么这些定义有着什么样的性质呢？考虑一个随机变量<span class=math>\(x\)</span>。这个随机变量有4种可能的状态，每个状态都是等可能的。为了把<span class=math>\(x\)</span>的值传给接收者，我们<strong>至少</strong>需要传输2比特的消息。（<span class=math>\(H(X)=-4\times\dfrac{1}{4}log_2\dfrac{1}{4}=2\ bits\)</span>）</p>
 <p>现在考虑一个具有4种可能的状态<span class=math>\(\{a,b,c,d\}\)</span> 的随机变量，每个状态各自的概率为<span class=math>\((1/2,1/4,1/8,1/8)\)</span>。这种情形下的熵为： <span class=math>\[
 H(X)=-\displaystyle\frac{1}{2}log_2\frac{1}{2}-\frac{1}{4}log_2\frac{1}{4}-\frac{1}{8}log_2\frac{1}{8}-\frac{1}{8}log_2\frac{1}{8}=1.75\ bits
 \]</span> 这个实例也佐证了<strong>非均匀分布比均匀分布的熵要小</strong>。现在让我们考虑如何把变量状态的类别传递给接收者。与之前一样，我们可以使用一个2比特的数字来完成这件事情。然而，我们可以利用非均匀分布这个特点，使用<strong>更短的编码来描述更可能的事件，使用更长的编码来描述不太可能的事件</strong>。我们希望这样做能够得到一个更短的平均编码长度。我们可以使用下面的编码串（哈夫曼编码）：0、10、110、111来表示状态<span class=math>\(\{a,b,c,d\}\)</span>。传输的编码的平均长度就是： <span class=math>\[
-\displaystyle\frac{1}{2}\times1+\frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
+1\times \frac{1}{2}\times1+1\times \frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
 \]</span> 和该分布信息的熵一致。这个值与上方的随机变量的熵相等。熵和最短编码长度的这种关系是一种普遍的情形，称为<strong>Shannon无损信源编码定理</strong>。定理表明熵是<strong>传输一个随机变量状态值所需的比特位下界（最短平均编码长度）</strong>。因此，信息熵可以应用在数据压缩方面。这里这篇文章<http://www.ruanyifeng.com/blog/2014/09/information-entropy.html>讲的很详细了，我就不赘述了。</p>
 <h2 id=条件熵conditional-entropy>条件熵(Conditional entropy)</h2>
 <p>条件熵<span class=math>\(H(Y|X)\)</span>表示在已知随机变量<span class=math>\(X\)</span>的条件下随机变量<span class=math>\(Y\)</span>的不确定性。条件熵<span class=math>\(H(Y|X)\)</span>定义为<span class=math>\(X\)</span>给定条件下<span class=math>\(Y\)</span>的条件概率分布的熵对<span class=math>\(X\)</span>的数学期望： <span class=math>\[
@@ -176,7 +176,7 @@ D_{KL}(p||q)=\displaystyle\sum_{x}p(x)log\frac{p(x)}{q(x)}=\sum_{x}p(x)logp(x)-p
 <p>熵的公式 <span class=math>\[
 H(p)=-\displaystyle\sum_{x}p(x)logp(x)
 \]</span> 交叉熵的公式 <span class=math>\[
-H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum _{x}p(x)logq(x)
+H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum_{x}p(x)logq(x)
 \]</span> 所以有： <span class=math>\[
 D_{KL}(p||q)=H(p,q)-H(p)
 \]</span> 当用非真实分布 q(x) 得到的平均码长比真实分布 p(x) 得到的平均码长多出的比特数就是相对熵。又因为<span class=math>\(D_{KL}(p||q)≥0\)</span>恒成立。所以： <span class=math>\[
