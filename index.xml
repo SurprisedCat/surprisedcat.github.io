@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 11 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之时间序列分析</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link><pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 26 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之协和八公众号文章总结笔记</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</link><pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</guid><description>
+&lt;h2 id="概率统计随机过程之协和八公众号文章总结笔记">概率统计随机过程之协和八公众号文章总结笔记&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在公众号【协和八】读到了一个将统计学的专栏，虽然是医学系研究者写的，但是他山之石可以攻玉，其中讲解了很多很有用的统计学知识和难解的点。本篇笔记是该专栏的阅读笔记。&lt;/p>
+&lt;p>专栏链接：&lt;a href="https://mp.weixin.qq.com/s?__biz=MzAxMDA4NjU3OA==&amp;amp;mid=2652555217&amp;amp;idx=1&amp;amp;sn=da5332753856efb4a86aa695839523e6&amp;amp;chksm=80bbd60cb7cc5f1a3571f2f6389b3e0331fdf2612db62ae95de172c0d49b172efd8e4d236772&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0826Jegh5eGekDeo3gagkNmi&amp;amp;sharer_sharetime=1661503954453&amp;amp;sharer_shareid=2ac9f69d9b7a82eb74ce119fa6cee32f&amp;amp;key=38beb1eea6d155d34b2c714171a9bbdb1023b5929c6a8d4959ab5030989d46cf92a10bac409bfa0cd4d56ee20f279321f8723c97faa6694ae7d7835c23e88d84b080cf6e011938d7a86e0e3f88c01a06158aa31a07f803d47f5ec841f6d9e05a6f6c34694e85cfe4a434adb30c7f79de0d3f1f539bcca43bc11dbadcd1cb40ce&amp;amp;ascene=1&amp;amp;uin=MTcxMzg4NjU4MQ%3D%3D&amp;amp;devicetype=Windows+10+x64&amp;amp;version=62090538&amp;amp;lang=zh_CN&amp;amp;exportkey=AVUF2MlVFJXP3eTrXT%2FKrac%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=BjR6ClCbka%2Fh7sRrwT4qhuK4uUG4PH9gs7DDKMgyVwMixFT6vexfMRG4H8Sf%2Fq8J&amp;amp;wx_header=0">说人话的统计学——终点·起点 | 协和八&lt;/a>&lt;/p>
+&lt;h2 id="第1章高屋建瓴看统计">第1章：高屋建瓴看统计&lt;/h2>
+&lt;h3 id="你真的懂p值吗">你真的懂p值吗？&lt;/h3>
+&lt;h3 id="做统计多少数据才算够上">做统计，多少数据才算够？（上）&lt;/h3>
+&lt;h3 id="做统计多少数据才算够下">做统计，多少数据才算够？（下）&lt;/h3>
+&lt;h3 id="提升统计功效让评审心服口服">提升统计功效，让评审心服口服&lt;/h3>
+&lt;h3 id="你的科研成果都是真的吗">你的科研成果都是真的吗？&lt;/h3>
+&lt;h3 id="见识数据分析的独孤九剑">见识数据分析的「独孤九剑」&lt;/h3>
+&lt;h3 id="贝叶斯vs频率派武功到底哪家强">贝叶斯vs频率派：武功到底哪家强？&lt;/h3>
+&lt;h2 id="第2章算术平均数与正态分布">第2章：算术平均数与正态分布&lt;/h2>
+&lt;h3 id="数据到手了第一件事先干啥">数据到手了，第一件事先干啥？&lt;/h3>
+&lt;h3 id="算术平均数简单背后有乾坤">算术平均数：简单背后有乾坤&lt;/h3>
+&lt;h3 id="正态分布到底是怎么来的">正态分布到底是怎么来的？&lt;/h3>
+&lt;h2 id="第3章t检验两组平均数的比较">第3章：t检验：两组平均数的比较&lt;/h2>
+&lt;h3 id="想玩转t检验你得从这一篇看起">想玩转t检验？你得从这一篇看起&lt;/h3>
+&lt;h3 id="就是要实用t检验的七十二变">就是要实用！t检验的七十二变&lt;/h3>
+&lt;h3 id="不是正态分布t检验还能用吗">不是正态分布，t检验还能用吗？&lt;/h3>
+&lt;h3 id="只有-15-个标本也能指望t检验吗">只有 15 个标本，也能指望t检验吗？&lt;/h3>
+&lt;h3 id="样本分布不正态数据变换来救场">样本分布不正态？数据变换来救场&lt;/h3>
+&lt;h3 id="数据变换的万能钥匙box-cox变换">数据变换的万能钥匙：Box-Cox变换&lt;/h3>
+&lt;h3 id="t检验用不了别慌还有神奇的非参数检验">t检验用不了？别慌，还有神奇的非参数检验&lt;/h3>
+&lt;h3 id="只讲p值不讲效应大小都是耍流氓">只讲p值，不讲效应大小，都是耍流氓&lt;/h3>
+&lt;h3 id="找出t检验的效应大小对耍流氓-say-no">找出t检验的效应大小，对耍流氓 say no&lt;/h3>
+&lt;h3 id="用置信区间就是这么不自信">用置信区间，就是这么（不）自信&lt;/h3>
+&lt;h3 id="如何确定t检验的置信区间">如何确定t检验的置信区间&lt;/h3>
+&lt;h3 id="优雅秀出你的t检验提升paper逼格">优雅秀出你的t检验，提升Paper逼格&lt;/h3>
+&lt;h3 id="要做t检验这两口毒奶可喝不得">要做t检验，这两口毒奶可喝不得&lt;/h3>
+&lt;h2 id="第4章方差分析anova多组平均数的比较">第4章：方差分析（ANOVA）：多组平均数的比较&lt;/h2>
+&lt;h3 id="要比较三组数据t检验还能用吗">要比较三组数据，t检验还能用吗？&lt;/h3>
+&lt;h3 id="anova在手多组比较不犯愁">ANOVA在手，多组比较不犯愁&lt;/h3>
+&lt;h3 id="anova的基本招式你掌握了吗">ANOVA的基本招式你掌握了吗？&lt;/h3>
+&lt;h3 id="anova做出了显著性事儿还没完呢">ANOVA做出了显著性？事儿还没完呢&lt;/h3>
+&lt;h3 id="听说成对t检验还有-anova进阶版">听说，成对t检验还有 ANOVA进阶版？&lt;/h3>
+&lt;h3 id="重复测量-anova你要知道的事儿都在这里啦">重复测量 ANOVA：你要知道的事儿都在这里啦&lt;/h3>
+&lt;h3 id="没听说过多因素-anova那你就可就-out了">没听说过多因素 ANOVA？那你就可就 OUT了&lt;/h3>
+&lt;h3 id="多因素-anova好几个单因素-anova可没这么简单">多因素 ANOVA＝好几个单因素 ANOVA？可没这么简单&lt;/h3>
+&lt;h3 id="两个因素相互影响anova结果该如何判读">两个因素相互影响，ANOVA结果该如何判读？&lt;/h3>
+&lt;h3 id="anova还能搞三四五因素等等我头有点儿晕">ANOVA还能搞三四五因素？等等，我头有点儿晕&lt;/h3>
+&lt;h3 id="要做-anova样本量多大才够用">要做 ANOVA，样本量多大才够用&lt;/h3>
+&lt;h2 id="第5章线性回归统计建模初步">第5章：线性回归：统计建模初步&lt;/h2>
+&lt;h3 id="车模航模你玩过统计学模型你会玩吗">车模航模你玩过，统计学模型你会玩吗？&lt;/h3>
+&lt;h3 id="如果只能学习一种统计方法我选择线性回归">如果只能学习一种统计方法，我选择线性回归&lt;/h3>
+&lt;h3 id="回归线三千我只取这一条">回归线三千，我只取这一条&lt;/h3>
+&lt;h3 id="三千回归线里选中了你你靠谱吗">三千回归线里选中了你，你靠谱吗？&lt;/h3>
+&lt;h3 id="自变量不止一个线性回归该怎么做">自变量不止一个，线性回归该怎么做？&lt;/h3>
+&lt;h3 id="找出交互效应让线性模型更万能">找出「交互效应」，让线性模型更万能&lt;/h3>
+&lt;h3 id="天啦噜没考虑到混杂因素后果会这么严重">天啦噜！没考虑到混杂因素，后果会这么严重？&lt;/h3>
+&lt;h3 id="回归系数不显著也许是打开方式不对">回归系数不显著？也许是打开方式不对&lt;/h3>
+&lt;h3 id="评价线性模型r平方是个好裁判吗">评价线性模型，R平方是个好裁判吗？&lt;/h3>
+&lt;h3 id="如果r平方是砒霜本文教你三种解药">如果R平方是砒霜，本文教你三种解药&lt;/h3>
+&lt;h3 id="线性模型生病了你懂得怎样诊断吗">线性模型生病了，你懂得怎样诊断吗？&lt;/h3>
+&lt;h3 id="脱离群众的数据点是春风化雨还是秋风扫落叶">「脱离群众」的数据点，是「春风化雨」还是「秋风扫落叶」&lt;/h3>
+&lt;h2 id="第6章广义线性模型统计建模进阶">第6章：广义线性模型：统计建模进阶&lt;/h2>
+&lt;h3 id="你在-或者不在-需要逻辑回归来算">你在 或者不在 需要逻辑回归来算&lt;/h3>
+&lt;h3 id="逻辑回归的袅娜曲线你是否会过目难忘">逻辑回归的袅娜曲线，你是否会过目难忘？&lt;/h3>
+&lt;h3 id="逻辑回归的统计检验原来招数辣么多">逻辑回归的统计检验，原来招数辣么多？&lt;/h3>
+&lt;h3 id="线性回归能玩多变量逻辑回归当然也能">线性回归能玩多变量，逻辑回归当然也能&lt;/h3>
+&lt;h3 id="喂你的逻辑回归模型该做个体检啦">喂，你的逻辑回归模型该做个体检啦&lt;/h3>
+&lt;h3 id="逻辑回归能摆平二分类因变量那不止二分类呢">逻辑回归能摆平二分类因变量，那……不止二分类呢？&lt;/h3>
+&lt;h3 id="让人眼花缭乱的多项逻辑回归原来是这么用的">让人眼花缭乱的多项逻辑回归，原来是这么用的&lt;/h3>
+&lt;h3 id="只问方向无问远近定序回归的执念你懂吗">只问方向，无问远近，定序回归的执念你懂吗？&lt;/h3>
+&lt;h3 id="包教包会定序回归实战">包教包会：定序回归实战&lt;/h3>
+&lt;h3 id="数风流人物还靠泊松回归">「数」风流人物，还靠泊松回归&lt;/h3>
+&lt;h3 id="广义线性模型到底是个什么鬼">广义线性模型到底是个什么鬼？&lt;/h3>
+&lt;h2 id="自检">自检&lt;/h2>
+&lt;h3 id="妈妈说答对的童鞋才能中奖">妈妈说答对的童鞋才能中奖&lt;/h3>
+&lt;h3 id="统计学的十个误区你答对了吗">统计学的十个误区，你答对了吗？&lt;/h3></description></item><item><title>概率统计随机过程之时间序列分析</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</link><pubDate>Sat, 11 Jun 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/</guid><description>
 &lt;h2 id="概率统计随机过程之时间序列分析">概率统计随机过程之时间序列分析&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>时间序列分析（Time-Series Analysis）是统计与随机过程中常用的场景，在机器学习、强化学习的预测中也有重要地位，本笔记介绍时间序列分析的基本概念和指标，记录对时序分析的基本理解。&lt;/p>
 &lt;ul>
@@ -229,9 +298,11 @@ F_{t}=\alpha Y_{t-1}+(1-\alpha)F_{t-1}
 &lt;li>&lt;a href="#广义线性模型与指数型分布族核心">广义线性模型与指数型分布族（核心）&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#线性的体现">线性的体现&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#连接函数与激活函数">连接函数与激活函数&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#标准链接">标准链接&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#标准连接">标准连接&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#广义线性模型的参数关系">广义线性模型的参数关系&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#回答引子的疑问最大似然估计形势下的迭代优化">回答引子的疑问，最大似然估计形势下的迭代优化&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/h2>
@@ -319,7 +390,7 @@ b&amp;#39;&amp;#39;(\vartheta)=\nu(μ)\tag{11}
 &lt;li>观测值&lt;span class="math">\(y_{obs}\)&lt;/span>与对应的&lt;span class="math">\(x_{obs}\)&lt;/span>并不是严格的函数关系，而是在某个与&lt;span class="math">\(x_{obs}\)&lt;/span>相关的函数附近随机波动，即&lt;span class="math">\(y_{obs}=f(x_{obs})+\varepsilon\)&lt;/span>，其中&lt;span class="math">\(\varepsilon\)&lt;/span>是随机数，服从特定分布。但是，实际场景下&lt;span class="math">\(f(x_{obs})\)&lt;/span>与&lt;span class="math">\(\varepsilon\)&lt;/span>也不一定是相加的关系。&lt;/li>
 &lt;li>我们的预测模型&lt;span class="math">\(f(\cdot)\)&lt;/span>并不保证一定准确，模型的参数也是通过观测数据通过统计推断的形式如（最大似然估计、最大后验概率估计）得到的，而非精确推导。&lt;/li>
 &lt;/ol>
-&lt;p>因此，我们认为响应变量&lt;span class="math">\(y_{obs}\)&lt;/span>也服从带有特定参数的分布&lt;span class="math">\(Y(x_{obs})\)&lt;/span>，即&lt;span class="math">\(y_{obs}\)&lt;/span>是个随机变量。然而，&lt;span class="math">\(y_{obs}\)&lt;/span>不是一个独立的随机变量，它和&lt;span class="math">\(x_{obs}\)&lt;/span>有着密切关系，我们可以把&lt;span class="math">\(x_{obs}\)&lt;/span>看成&lt;span class="math">\(Y\)&lt;/span>的分布参数。实际应用中，我们不会说给出&lt;span class="math">\(Y\)&lt;/span>的分布当成&lt;span class="math">\(y_{pred}\)&lt;/span>让用户或者系统使用，这样一是不好用，二是计算起来经常无法得到数值结果。所以我们有个自然而然的想法：&lt;strong>使用一个代表性的数字来替代&lt;span class="math">\(Y\)&lt;/span>的概率分布&lt;/strong>。&lt;/p>
+&lt;p>因此，我们认为响应变量&lt;span class="math">\(y_{obs}\)&lt;/span>也服从带有特定参数的分布&lt;span class="math">\(Y=P(y_{obs}|x_{obs})\)&lt;/span>，即&lt;span class="math">\(y_{obs}\)&lt;/span>是个随机变量。然而，&lt;span class="math">\(y_{obs}\)&lt;/span>不是一个独立的随机变量，它和&lt;span class="math">\(x_{obs}\)&lt;/span>有着密切关系，我们可以把&lt;span class="math">\(x_{obs}\)&lt;/span>看成&lt;span class="math">\(Y\)&lt;/span>的分布参数。实际应用中，我们不会说给出&lt;span class="math">\(Y\)&lt;/span>的分布当成&lt;span class="math">\(y_{pred}\)&lt;/span>让用户或者系统使用，这样一是不好用，二是计算起来经常无法得到数值结果。所以我们有个自然而然的想法：&lt;strong>使用一个代表性的数字来替代&lt;span class="math">\(Y\)&lt;/span>的概率分布&lt;/strong>。&lt;/p>
 &lt;p>那么，如果只选一个数字来代替整个概率分布，大家的第一反应基本都是&lt;strong>期望&lt;/strong>。因此，我们在建立回归模型的时候，&lt;strong>希望根据给定的&lt;span class="math">\(x_{obs}\)&lt;/span>得到的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>等于&lt;span class="math">\(Y\)&lt;/span>分布的条件期望&lt;span class="math">\(E[Y|x_{obs}]\)&lt;/span>&lt;/strong>。 &lt;span class="math">\[
 \mu=E[Y|x_{obs}]=y_{pred}=f(x_{obs})\tag{12}
 \]&lt;/span> 式（12）是推导广义线性模型的核心。由于求概率的期望是一个抹除随机性的过程，因此在回归模型中，概率分布的痕迹被隐藏了起来。其中的&lt;span class="math">\(f(\cdot)\)&lt;/span>就是要训练的广义线性模型。&lt;/p>
@@ -346,29 +417,47 @@ b&amp;#39;(\vartheta)=\mu=y_{pred}=f(x_{obs})\\
 \mu=b&amp;#39;(\vartheta)=h(\kappa)\tag{16}
 \]&lt;/span> &lt;span class="math">\[
 \vartheta=b&amp;#39;^{-1}(\mu)=b&amp;#39;^{-1}(h(\kappa))=b&amp;#39;^{-1}(h(\beta^T x_{obs}))\tag{17}
-\]&lt;/span> 根据式（13）的关系，显然有&lt;span class="math">\(f(x_{obs})=h(\kappa)=h(\beta^T x_{obs})\)&lt;/span>。由于&lt;span class="math">\(f\)&lt;/span>与&lt;span class="math">\(h\)&lt;/span>之间自变量是线性变换，因此只要&lt;span class="math">\(f(\cdot)\)&lt;/span>存在，那么&lt;span class="math">\(h(\cdot)\)&lt;/span>必然存在。这样我们就得到了广义线性模型，我们使用式（16）来通过观测值&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>的线性组合得到预测值&lt;span class="math">\(y_{pred}=\mu\)&lt;/span>。而式（17）则表明了线性预测器&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>与自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的关系。现在还有一个问题，就是函数关系&lt;span class="math">\(h(\cdot)\)&lt;/span>是什么样的呢？&lt;/p>
+\]&lt;/span> 根据式（13）的关系，显然有&lt;span class="math">\(f(x_{obs})=h(\kappa)=h(\beta^T x_{obs})\)&lt;/span>。由于&lt;span class="math">\(f\)&lt;/span>与&lt;span class="math">\(h\)&lt;/span>之间自变量&lt;span class="math">\(x_{obs},\beta^T x_{obs}\)&lt;/span>是线性变换，因此只要&lt;span class="math">\(f(\cdot)\)&lt;/span>存在，那么一般情况下，&lt;span class="math">\(h(\cdot)\)&lt;/span>必然存在。这样我们就得到了广义线性模型，我们使用式（16）来通过观测值&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>的线性组合得到预测值&lt;span class="math">\(y_{pred}=\mu\)&lt;/span>。而式（17）则表明了线性预测器&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>与自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的关系。现在还有一个问题，就是函数关系&lt;span class="math">\(h(\cdot)\)&lt;/span>是什么样的呢？&lt;/p>
 &lt;h3 id="连接函数与激活函数">连接函数与激活函数&lt;/h3>
-&lt;p>从式（16）（17）我们可以看出预测值（期望）和线性预测器之间的关系。我们将令 &lt;span class="math">\(g(\mu)=h^{-1}(\mu)=\kappa\)&lt;/span>称之为&lt;strong>连接函数（Link function）&lt;/strong>，之所以叫这个名字是因为它将线性预测器和最终的预测值（期望）联系到了一起，即 &lt;span class="math">\[
-g(\mu)=\beta^T x_{obs}=\kappa\tag{18}
-\]&lt;/span> 那么现在就有一个问题，我们如何来确定连接函数呢？此外，也引出另一个问题:连接函数是唯一的吗？我们先回答后一个问题，即连接函数并不是唯一的。下面我们讨论如何找连接函数&lt;span class="math">\(g\)&lt;/span>。&lt;/p>
-&lt;p>前面我们提到过&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的函数（有确定关系），且有&lt;span class="math">\(E[Y|x_{obs}]=E[Y|\vartheta]=\mu(x_{obs})\)&lt;/span>，因此本质上期望&lt;span class="math">\(\mu\)&lt;/span>也是一个关于&lt;span class="math">\(x_{obs}\)&lt;/span>的函数。那么，结合式（18），可改写成 &lt;span class="math">\[
-g(\mu(x_{obs}))=\beta^T x_{obs}\tag{18.1}
-\]&lt;/span> 这是一个比较有意思的式子，左右两边根源自变量都是&lt;span class="math">\(x_{obs}\)&lt;/span>。那么连接函数&lt;span class="math">\(g\)&lt;/span>就必须要满足三个条件：&lt;/p>
-&lt;ol style="list-style-type: decimal">
-&lt;li>由于&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>的取值可能是整个实数域，但是期望&lt;span class="math">\(\mu\)&lt;/span>是有范围的，比如泊松分布的均值必大于0，即&lt;span class="math">\(\mu\in (0,+\infty)\)&lt;/span>，因此&lt;span class="math">\(g\)&lt;/span>必须将&lt;span class="math">\(\mu\)&lt;/span>的取值范围映射到整个实数域，这称为&lt;strong>定义域要求&lt;/strong>。&lt;/li>
-&lt;li>式(18.1)右侧显示&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>是一种线性关系，而&lt;span class="math">\(\mu\)&lt;/span>与&lt;span class="math">\(x_{obs}\)&lt;/span>的关系是复杂的函数关系，未必是线性的，那么连接函数&lt;span class="math">\(g\)&lt;/span>必然要将&lt;span class="math">\(\mu_(x_{obs})\)&lt;/span>中的非线性部分抵消掉，这称为&lt;strong>映射要求&lt;/strong>。&lt;/li>
-&lt;li>此外，我们希望&lt;span class="math">\(g\)&lt;/span>是可逆的（可微且严格单调），这样&lt;span class="math">\(\mu\)&lt;/span>与&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>就有了一一对应的关系，这是为了方便接下来求激活函数，这称为&lt;strong>可逆要求&lt;/strong>。&lt;/li>
-&lt;/ol>
-&lt;p>满足以上三点，就可以初步得到一个连接函数。可以看出，上面三个要求还是相对宽泛的，不同的映射可能得到不同的线性关系组合即&lt;span class="math">\(\beta_1^Tx_{obs},\beta_2^Tx_{obs},\dotsb\)&lt;/span>，这些都满足连接函数的要求，因此&lt;strong>连接函数并不是唯一的&lt;/strong>。&lt;/p>
-&lt;p>举个例子，&lt;/p>
-&lt;p>但是在实际使用中，连接函数并不常用，反倒是连接函数的反函数&lt;span class="math">\(g^{-1}=h\)&lt;/span>更常见，因为我们可以用过&lt;span class="math">\(g^{-1}(\beta^T x_{obs})\)&lt;/span>计算出广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>，我们称&lt;span class="math">\(h=g^{-1}\)&lt;/span>为&lt;strong>激活函数(Activation function)&lt;/strong>。 &lt;span class="math">\[
+&lt;p>从式（16）（17）我们可以看出预测值（期望）和线性预测器之间的关系。我们将令 &lt;span class="math">\(g(\mu)=h^{-1}(\mu)\)&lt;/span>称为&lt;strong>连接函数（Link function）&lt;/strong>，之所以叫这个名字是因为它将线性预测器和最终的预测值（期望）联系到了一起，即 &lt;span class="math">\[
+g(\mu)=h^{-1}\circ h(\beta^T x_{obs})=\beta^T x_{obs}=\kappa\tag{18}
+\]&lt;/span> 但是在实际使用中，连接函数并不常用，反倒是连接函数的反函数&lt;span class="math">\(g^{-1}=h\)&lt;/span>更常见，因为我们可以用过&lt;span class="math">\(g^{-1}(\beta^T x_{obs})\)&lt;/span>计算出广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>，我们称&lt;span class="math">\(h=g^{-1}\)&lt;/span>为&lt;strong>激活函数(Activation function)&lt;/strong>。 &lt;span class="math">\[
 y_{pred}=g^{-1}(\kappa)=g^{-1}(\beta^T x_{obs})=h(\beta^ T x_{obs})\tag{19}
-\]&lt;/span>&lt;/p>
-&lt;h3 id="标准链接">标准链接&lt;/h3>
+\]&lt;/span> 显然，广义线性模型中&lt;strong>通过线性预测器和激活函数就可以得到预测结果&lt;span class="math">\(y_{pred}\)&lt;/span>&lt;/strong>，而激活函数与连接函数是反函数的关系。现在，如果我们能知道连接函数，就可以完成整个广义线性模型了！&lt;/p>
+&lt;p>那么现在就有一个问题，我们如何来确定连接函数呢？此外，也引出另一个问题:连接函数是唯一的吗？我们先回答后一个问题，即连接函数并不是唯一的。下面我们讨论如何找连接函数&lt;span class="math">\(g\)&lt;/span>。&lt;/p>
+&lt;p>前面我们提到过&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的函数（有确定关系），且有&lt;span class="math">\(E[Y|x_{obs}]=E[Y|\vartheta]=\mu=h(x_{obs})\)&lt;/span>，因此本质上期望&lt;span class="math">\(\mu\)&lt;/span>也是一个关于&lt;span class="math">\(x_{obs}\)&lt;/span>的函数。那么，式（18）可简写成 &lt;span class="math">\[
+g(\mu)=\beta^T x_{obs}\tag{18.1}
+\]&lt;/span> 这是一个比较有意思的式子，左右两边根源自变量都是&lt;span class="math">\(x_{obs}\)&lt;/span>。那么连接函数&lt;span class="math">\(g\)&lt;/span>就必须要满足2个条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>由于&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>的取值可能是整个实数域，但是期望&lt;span class="math">\(\mu\)&lt;/span>是有范围的，比如泊松分布的均值必大于0，即&lt;span class="math">\(\mu\in (0,+\infty)\)&lt;/span>，因此&lt;span class="math">\(g\)&lt;/span>必须将&lt;span class="math">\(\mu\)&lt;/span>的取值范围映射到整个实数域，这称为&lt;strong>定义域要求&lt;/strong>。连接函数本质上，就是把实数域范围的&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>转换到特定分布合法的&lt;span class="math">\(\mu\)&lt;/span>值空间上。&lt;/li>
+&lt;li>此外，我们希望&lt;span class="math">\(g\)&lt;/span>是可逆的（可微且严格单调），这样&lt;span class="math">\(\mu\)&lt;/span>与&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>就有了一一对应的关系，这是因为函数一旦不可逆&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>就可能求出多个预测值，这显然是不符合实际情况的，这称为&lt;strong>可逆要求&lt;/strong>。&lt;/li>
+&lt;/ol>
+&lt;p>满足以上2点，就可以初步得到一个连接函数。可以看出，上面2个要求还是相对宽泛的，不同的映射可能得到不同的线性关系组合即&lt;span class="math">\(\beta_1^Tx_{obs},\beta_2^Tx_{obs},\dotsb\)&lt;/span>，这些都满足连接函数的要求，也就是说满足定义域映射关系的可逆函数都可以作为连接函数，因此&lt;strong>连接函数并不是唯一的&lt;/strong>。&lt;/p>
+&lt;p>举两个例子：&lt;/p>
+&lt;p>一：伯努利分布，我们知道其期望&lt;span class="math">\(\mu\in(0,1)\)&lt;/span>，那么连接函数&lt;span class="math">\(g\)&lt;/span>应该能够将定义域为&lt;span class="math">\((0,1)\)&lt;/span>的范围映射到整个实数域&lt;span class="math">\(\R\)&lt;/span>，那么下面三个连续单调函数（可逆）都可以满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Logit：&lt;span class="math">\(\log(\frac{\mu}{1-\mu})\)&lt;/span>；&lt;/li>
+&lt;li>Probit：&lt;span class="math">\(\varPhi^{-1}(\mu)\)&lt;/span>，其中&lt;span class="math">\(\varPhi^{-1}\)&lt;/span>是正态分布概率累计函数的反函数，实际上在伯努利分布中，任意定义域为&lt;span class="math">\(\R\)&lt;/span>的概率累计函数的反函数都可以作为连接函数；&lt;/li>
+&lt;li>互补Log-Log：&lt;span class="math">\(\log(-\log(1-\mu))\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>可以验证以上三个函数都可以将&lt;span class="math">\(\mu\in(0,1)\)&lt;/span>映射到实数域&lt;span class="math">\(\R\)&lt;/span>。&lt;/p>
+&lt;p>二：泊松分布，泊松分布的期望值&lt;span class="math">\(\mu&amp;gt;0\)&lt;/span>，那么连接函数&lt;span class="math">\(g\)&lt;/span>需要将定义域&lt;span class="math">\((0,\infty)\)&lt;/span>的范围映射到整个实数域&lt;span class="math">\(\R\)&lt;/span>，那么下面两个连续单调函数（可逆）都可以满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Log函数：&lt;span class="math">\(\log(\mu)\)&lt;/span>;&lt;/li>
+&lt;li>初等函数：&lt;span class="math">\(\mu-\frac{1}{\mu}\)&lt;/span>，虽然此函数在全局并不是连续单调的，但是在&lt;span class="math">\(\mu&amp;gt;0\)&lt;/span>时是全局单调的，存在反函数&lt;span class="math">\(y=\frac{x+\sqrt{x^2+4}}{2}\)&lt;/span>。&lt;/li>
+&lt;/ol>
+&lt;p>既然连接函数并不是唯一的，那么我们就要从中选出最为合适的连接函数。下一节，我们介绍一个比较常用的连接函数选择方式：&lt;strong>标准连接函数&lt;/strong>。&lt;/p>
+&lt;h3 id="标准连接">标准连接&lt;/h3>
 &lt;p>我们之前说个，连接函数并不是唯一的，那么选择哪一个连接函数比较好呢？这里我们推荐一种&lt;strong>比较自然的选择&lt;/strong>，注意只是说比较自然，但不一定是最合适的，在不同场景下某些连接函数确实表现地比其他连接函数更好。&lt;/p>
-&lt;p>所谓比较自然的选择，就是&lt;/p>
-&lt;p>使用标准连接的一大优势就是可以极大地简化数学运算。&lt;/p>
-&lt;p>下表列出了常用广义线性模型的配分函数、激活函数、连接函数以及典型使用场景。注：在自然指数族中，我们只允许充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>，在其他文献中有别的设置方式，因此连接函数会有所不同，大多数是系数的差别。&lt;/p>
+&lt;p>&lt;strong>所谓比较自然的选择，就是选择连接函数使得&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>。首先，&lt;span class="math">\(\vartheta\)&lt;/span>的取值范围就是&lt;span class="math">\(\R\)&lt;/span>，因此可以当成连接函数的值域，同时，我们也能保证常见情景下，这样选择的连接函数是可逆的（可用指数型分布族配分函数的二阶导数含义证明）。选择标准连接函数的一大优势就是可以极大地简化数学运算，非常契合广义线性模型的最大似然估计，我们在最后一节会详细讨论这个问题，这里先记住这个结论&lt;/strong>。&lt;/p>
+&lt;p>根据式（16）与标准连接函数的条件&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>可以推出： &lt;span class="math">\[
+g(\mu)=g(b&amp;#39;(\vartheta))=\vartheta\tag{20}
+\]&lt;/span> 其中，&lt;span class="math">\(\vartheta\)&lt;/span>经过两次变换&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>又变回了&lt;span class="math">\(\vartheta\)&lt;/span>，显然有&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>为恒等变换，那么&lt;span class="math">\(g\)&lt;/span>与&lt;span class="math">\(b&amp;#39;\)&lt;/span>就互为反函数！即有 &lt;span class="math">\[
+g^{-1}=b&amp;#39;\tag{21}
+\]&lt;/span> 这样我们的标准连接函数就可以根据指数型分布族的配分函数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的反函数推得了！我们终于不用再在一堆连接函数中盲目地搜索、构造，只需要通过&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>就能求得。同时，我们知道，激活函数与连接函数也是互为反函数，那么根据式（21）的关系也不难发现： &lt;span class="math">\[
+b&amp;#39;=h\tag{22}
+\]&lt;/span> &lt;strong>指数型分布族的配分函数的一阶导数正好就是激活函数的形式&lt;/strong>！我们最终得到了一个既简洁又优美的结果！&lt;/p>
+&lt;p>下表列出了常用广义线性模型的配分函数、激活函数、连接函数以及典型使用场景。注：在自然指数族中，我们只允许充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>，在其他文献中有别的设置方式，因此标准连接函数会略有所不同，大多数只是系数的差别。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr class="header">
@@ -492,7 +581,7 @@ y_{pred}=g^{-1}(\kappa)=g^{-1}(\beta^T x_{obs})=h(\beta^ T x_{obs})\tag{19}
 &lt;li>一个线性预测器&lt;span class="math">\(\vartheta=β^Tx_{obs}\)&lt;/span>，被称为系统组件(systematic component)。&lt;/li>
 &lt;li>一个连接函数&lt;span class="math">\(g\)&lt;/span>使得&lt;span class="math">\(E[Y]=\mu=g(\vartheta)=g(\beta^T x_{obs})\)&lt;/span>，描述了随机组件和系统组件之间的关系。&lt;/li>
 &lt;/ol>
-&lt;p>用图像表达他们的关系为：&lt;/p>
+&lt;p>用图像表达他们的关系为（假设使用标准连接函数）：&lt;/p>
 &lt;div class="figure">
 &lt;img src="./images/广义线性分布关系图.drawio.svg" alt="广义线性分布关系图" />&lt;p class="caption">广义线性分布关系图&lt;/p>
 &lt;/div>
@@ -500,6 +589,9 @@ y_{pred}=g^{-1}(\kappa)=g^{-1}(\beta^T x_{obs})=h(\beta^ T x_{obs})\tag{19}
 &lt;p>再从图右往左看，由于观测结果&lt;span class="math">\(y_{obs}\)&lt;/span>与&lt;span class="math">\(x_{obs}\)&lt;/span>存在相关性，而非确定函数关系，我们认为其&lt;span class="math">\(y_{obs}\)&lt;/span>服从特定的分布，我们认为这种分布是指数型分布族（指数分散族），因此可以用&lt;span class="math">\(P(y;\vartheta)\)&lt;/span>来表达&lt;span class="math">\(y_{obs}\)&lt;/span>的分布，用随机变量&lt;span class="math">\(Y\)&lt;/span>表示。当然，这个随机变量也可以用原始参数的概率分布&lt;span class="math">\(P(y;\theta)\)&lt;/span>表示。但是，在实际使用中，我们更希望得到一个具体值，而非一个分布，因此我们应使用最具代表性的值——期望&lt;span class="math">\(\mu\)&lt;/span>来表示分布，即期望应等于广义线性模型的预测值&lt;span class="math">\(\mu=y_{pred}\)&lt;/span>。同时，指数分散族有一个非常好的性质，其配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>正好等于期望&lt;span class="math">\(\mu\)&lt;/span>。而原始参数的概率分布&lt;span class="math">\(P(y;\theta)\)&lt;/span>与期望&lt;span class="math">\(\mu\)&lt;/span>的关系&lt;span class="math">\(\varphi(\theta)\)&lt;/span>则需要根据具体情况计算，因此在广义线性模型中不太常用。&lt;/p>
 &lt;p>由于&lt;span class="math">\(\mu\)&lt;/span>和线性预测期直接不是相等关系，需要一个桥梁，即连接函数&lt;span class="math">\(g(\mu)\)&lt;/span>，它阐述了期望和线性预测期之间的关系：&lt;span class="math">\(g(\mu)=\vartheta=\beta^T x_{obs}\)&lt;/span>。我们可以证明这个连接函数必存在反函数&lt;span class="math">\(g^{-1}\)&lt;/span>，这样我们就可以使用这个反函数来预测结果，即&lt;span class="math">\(g^{-1}(\vartheta)=g^{-1}(\beta^T x)\)&lt;/span>。我们将这个反函数称之为激活函数。最后我们发现配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>与激活函数&lt;span class="math">\(g^{-1}(\vartheta)\)&lt;/span>有着一样的作用，因此我们得到激活函数就是配分函数的导数，即&lt;span class="math">\(b&amp;#39;=g^{-1}\)&lt;/span>。它们就是广义线性模型的函数&lt;span class="math">\(f(x_{obs})=b&amp;#39;(\beta^T x_{obs})=g^{-1}(\beta^T x_{obs})\)&lt;/span>。&lt;/p>
 &lt;h2 id="广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/h2>
+&lt;p>本笔记的最后分两步，首先我们将说明使用标准连接函数时，使用最大似然估计方法我们可以得到非常简洁的解析结果；然后我们将首位呼应，回收文章开头引子中提出的疑问。&lt;/p>
+&lt;h3 id="标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/h3>
+&lt;h3 id="回答引子的疑问最大似然估计形势下的迭代优化">回答引子的疑问，最大似然估计形势下的迭代优化&lt;/h3>
 &lt;p>还记得在文章开头时的引子吗？&lt;/p>
 &lt;blockquote>
 &lt;p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>的定义不同)： &lt;span class="math">\[
