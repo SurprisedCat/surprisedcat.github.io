@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 26 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之协和八公众号文章总结笔记</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</link><pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 03 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之Fisher信息</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/</link><pubDate>Sat, 03 Sep 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/</guid><description>
+&lt;h2 id="概率统计随机过程之fisher信息">概率统计随机过程之Fisher信息&lt;!-- omit in toc -->&lt;/h2></description></item><item><title>概率统计随机过程之协和八公众号文章总结笔记</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</link><pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</guid><description>
 &lt;h2 id="概率统计随机过程之协和八公众号文章总结笔记">概率统计随机过程之协和八公众号文章总结笔记&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>在公众号【协和八】读到了一个将统计学的专栏，虽然是医学系研究者写的，但是他山之石可以攻玉，其中讲解了很多很有用的统计学知识和难解的点。本篇笔记是该专栏的阅读笔记。&lt;/p>
 &lt;p>专栏链接：&lt;a href="https://mp.weixin.qq.com/s?__biz=MzAxMDA4NjU3OA==&amp;amp;mid=2652555217&amp;amp;idx=1&amp;amp;sn=da5332753856efb4a86aa695839523e6&amp;amp;chksm=80bbd60cb7cc5f1a3571f2f6389b3e0331fdf2612db62ae95de172c0d49b172efd8e4d236772&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0826Jegh5eGekDeo3gagkNmi&amp;amp;sharer_sharetime=1661503954453&amp;amp;sharer_shareid=2ac9f69d9b7a82eb74ce119fa6cee32f&amp;amp;key=38beb1eea6d155d34b2c714171a9bbdb1023b5929c6a8d4959ab5030989d46cf92a10bac409bfa0cd4d56ee20f279321f8723c97faa6694ae7d7835c23e88d84b080cf6e011938d7a86e0e3f88c01a06158aa31a07f803d47f5ec841f6d9e05a6f6c34694e85cfe4a434adb30c7f79de0d3f1f539bcca43bc11dbadcd1cb40ce&amp;amp;ascene=1&amp;amp;uin=MTcxMzg4NjU4MQ%3D%3D&amp;amp;devicetype=Windows+10+x64&amp;amp;version=62090538&amp;amp;lang=zh_CN&amp;amp;exportkey=AVUF2MlVFJXP3eTrXT%2FKrac%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=BjR6ClCbka%2Fh7sRrwT4qhuK4uUG4PH9gs7DDKMgyVwMixFT6vexfMRG4H8Sf%2Fq8J&amp;amp;wx_header=0">说人话的统计学——终点·起点 | 协和八&lt;/a>&lt;/p>
@@ -301,8 +302,13 @@ F_{t}=\alpha Y_{t-1}+(1-\alpha)F_{t-1}
 &lt;li>&lt;a href="#标准连接">标准连接&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#广义线性模型的参数关系">广义线性模型的参数关系&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#logistics回归优化举例">Logistics回归优化举例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充牛顿法的简化方法之一fisher分数法">补充：牛顿法的简化方法之一Fisher分数法&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
 &lt;li>&lt;a href="#回答引子的疑问最大似然估计形势下的迭代优化">回答引子的疑问，最大似然估计形势下的迭代优化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型的求解irls算法">广义线性模型的求解（IRLS算法）&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/h2>
@@ -449,7 +455,7 @@ g(\mu)=\beta^T x_{obs}\tag{18.1}
 &lt;p>既然连接函数并不是唯一的，那么我们就要从中选出最为合适的连接函数。下一节，我们介绍一个比较常用的连接函数选择方式：&lt;strong>标准连接函数&lt;/strong>。&lt;/p>
 &lt;h3 id="标准连接">标准连接&lt;/h3>
 &lt;p>我们之前说个，连接函数并不是唯一的，那么选择哪一个连接函数比较好呢？这里我们推荐一种&lt;strong>比较自然的选择&lt;/strong>，注意只是说比较自然，但不一定是最合适的，在不同场景下某些连接函数确实表现地比其他连接函数更好。&lt;/p>
-&lt;p>&lt;strong>所谓比较自然的选择，就是选择连接函数使得&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>。首先，&lt;span class="math">\(\vartheta\)&lt;/span>的取值范围就是&lt;span class="math">\(\R\)&lt;/span>，因此可以当成连接函数的值域，同时，我们也能保证常见情景下，这样选择的连接函数是可逆的（可用指数型分布族配分函数的二阶导数含义证明）。选择标准连接函数的一大优势就是可以极大地简化数学运算，非常契合广义线性模型的最大似然估计，我们在最后一节会详细讨论这个问题，这里先记住这个结论&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>所谓比较自然的选择，就是选择连接函数使得&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>。首先，&lt;span class="math">\(\vartheta\)&lt;/span>的取值范围就是&lt;span class="math">\(\R\)&lt;/span>，因此可以当成连接函数的值域，同时，我们也能保证常见情景下，这样选择的连接函数是可逆的（可用指数型分布族配分函数的二阶导数含义证明）。选择标准连接函数的一大优势就是可以极大地简化数学运算，非常契合广义线性模型的最大似然估计，我们在下一章节会详细讨论这个问题，这里先记住这个结论&lt;/strong>。&lt;/p>
 &lt;p>根据式（16）与标准连接函数的条件&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>可以推出： &lt;span class="math">\[
 g(\mu)=g(b&amp;#39;(\vartheta))=\vartheta\tag{20}
 \]&lt;/span> 其中，&lt;span class="math">\(\vartheta\)&lt;/span>经过两次变换&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>又变回了&lt;span class="math">\(\vartheta\)&lt;/span>，显然有&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>为恒等变换，那么&lt;span class="math">\(g\)&lt;/span>与&lt;span class="math">\(b&amp;#39;\)&lt;/span>就互为反函数！即有 &lt;span class="math">\[
@@ -591,6 +597,61 @@ b&amp;#39;=h\tag{22}
 &lt;h2 id="广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/h2>
 &lt;p>本笔记的最后分两步，首先我们将说明使用标准连接函数时，使用最大似然估计方法我们可以得到非常简洁的解析结果；然后我们将首位呼应，回收文章开头引子中提出的疑问。&lt;/p>
 &lt;h3 id="标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/h3>
+&lt;p>最大似然估计是广义线性模型中参数估计的一般方法，其目的是最大化似然函数，具体细节可参考笔记&lt;a href="概率统计随机过程之最大似然估计拓展.md">《概率统计随机过程之最大似然估计拓展.md》&lt;/a>。其模型通常假设如下：我们有一组&lt;span class="math">\(n\)&lt;/span>个观测值&lt;span class="math">\((x_i,y_i)\in(\R^p\times \R),i=1,2,\dotsb,n\)&lt;/span>，其中&lt;span class="math">\(x_i\)&lt;/span>是一个&lt;span class="math">\(p\)&lt;/span>维向量，&lt;span class="math">\(y_i\)&lt;/span>是观测结果是一个实数。观测值&lt;span class="math">\(x_i\)&lt;/span>会影响到广义线性模型的参数&lt;span class="math">\(\vartheta\)&lt;/span>，或者说&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_i\)&lt;/span>的函数，即&lt;span class="math">\(\vartheta=\vartheta(x_i)\)&lt;/span>。在最大似然估计中，我们假设各个观测值之间是独立的，那么每一个观测值发生的概率即为： &lt;span class="math">\[
+p(y_i)=\exp\{\frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)\}\tag{23}
+\]&lt;/span> 显然，观测值&lt;span class="math">\(x_i\)&lt;/span>通过其因变量&lt;span class="math">\(\vartheta(x_i)\)&lt;/span>影响概率与期望，&lt;span class="math">\(x_i\)&lt;/span>给定时&lt;span class="math">\(\vartheta\)&lt;/span>也确定，然后&lt;span class="math">\(b(\vartheta)\)&lt;/span>及其一阶导数也确定了，最终可以确定&lt;span class="math">\(\mu=b&amp;#39;(\vartheta)\)&lt;/span>。我们先将独立的观测值相乘取&lt;span class="math">\(log\)&lt;/span>得到对数似然函数： &lt;span class="math">\[
+\begin{aligned}
+l_n(\vartheta(X);Y)&amp;amp;=\log \prod_{i=1}^n \exp\{\frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)\}\\
+&amp;amp;=\sum_{i=1}^n \frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)
+\end{aligned}\tag{24}
+\]&lt;/span> 下面我们根据参数&lt;span class="math">\(\vartheta\)&lt;/span>，期望&lt;span class="math">\(\mu\)&lt;/span>、线性预测器&lt;span class="math">\(\beta^T x_i\)&lt;/span>以及连接函数&lt;span class="math">\(g\)&lt;/span>之间的关系对式（24）进行变形： &lt;span class="math">\[
+\left .\begin{aligned}
+式(9.1)\Rightarrow \vartheta=b&amp;#39;^{-1}(\mu)\\
+式(18.1)\Rightarrow \mu=g^{-1}(\beta^T x_i)
+\end{aligned}\right\}\Rightarrow \vartheta(x_i) = b&amp;#39;^{-1}\circ g^{-1}(\beta^T x_i)\\
+\Rightarrow \vartheta(x_i)=(g\circ b&amp;#39;)^{-1}(\beta^T x_i)\tag{25}
+\]&lt;/span> 上式集中体现了&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(x_i\)&lt;/span>之间的关系，代入式（24）可将变量&lt;span class="math">\(\vartheta(x_i)\)&lt;/span>替换成&lt;span class="math">\(\beta\)&lt;/span>： &lt;span class="math">\[
+l_n(\beta;Y;X)=\sum_{i=1}^n \frac{(g\circ b&amp;#39;)^{-1}(\beta^T x_i)y_i-b[(g\circ b&amp;#39;)^{-1}(\beta^T x_i)]}{\phi}+c(y_i,\phi)\tag{26}
+\]&lt;/span> 在场景中，&lt;span class="math">\((x_i,y_i)\)&lt;/span>都是已经获得的观测值，只有参数&lt;span class="math">\(\beta\)&lt;/span>是未知的，最大似然估计就是求&lt;span class="math">\(\beta\)&lt;/span>使得对数似然函数（等效于似然函数）最大。&lt;/p>
+&lt;p>一般情况下，式（26）的计算并不是平凡的，但是如果我们选用&lt;strong>标准连接函数&lt;/strong>，这个式子就能得到极大简化！&lt;strong>根据式（21）有：&lt;span class="math">\(g=b&amp;#39;^{-1}\)&lt;/span>，这使得式（26）中的函数复合&lt;span class="math">\(g\circ b&amp;#39;=I\)&lt;/span>，即二者抵消，是一个恒等变换&lt;/strong>！此时，式（26）可简化为： &lt;span class="math">\[
+l_n(\beta;Y;X)=\sum_{i=1}^n \frac{\beta^T x_iy_i-b(\beta^T x_i)}{\phi}+c(y_i,\phi)\tag{26.1}
+\]&lt;/span> 其中，&lt;span class="math">\(\beta^T x_iy_i\)&lt;/span>是一个简单的线性函数；由式（10）可知&lt;span class="math">\(b(\beta^T x_i)\)&lt;/span>二阶导海森矩阵正定是一个严格凸函数；而最后的&lt;span class="math">\(c(y_i,\phi)\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>无关，求导时不造成影响。&lt;strong>这使得采取标准连接函数的最大似然估计可以通过凸优化的方法求得唯一极值&lt;/strong>，大大简化优化流程，免除了函数复合&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>在求导计算中复杂情形，这也是我们愿意选用标准连接函数的&lt;strong>核心原因&lt;/strong>。&lt;/p>
+&lt;p>附标准连接函数下最大似然估计的一二阶导数：&lt;/p>
+&lt;p>一阶导数： &lt;span class="math">\[
+\nabla_\beta l_n(\beta;Y;X)=\sum_{i=1}^n \frac{y_ix_i-b&amp;#39;(\beta^T x_i)x_i}{\phi};x_i\in \R^p\tag{27}
+\]&lt;/span> 二阶导数： &lt;span class="math">\[
+\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n\frac{-b&amp;#39;&amp;#39;(\beta^T x_i)x_ix_i^T}{\phi};x_i\in\R^p;x_i x_i^T \text{positive definite}\tag{28}\\
+\forall y\neq 0\in \R^p\quad y^T x_i x_i^T y=(x_i^T y)^T (x_i^Ty)&amp;gt;0
+\]&lt;/span>&lt;/p>
+&lt;h4 id="logistics回归优化举例">Logistics回归优化举例&lt;/h4>
+&lt;p>伯努利分布又叫两点分布或者0-1分布，是最简单的概率分布形式之一，其对应的广义线性模型就是Logistics回归，即二项分类。常见伯努利分布写成： &lt;span class="math">\[
+p(y;\theta)=\theta^y(1-\theta)^{1-y},y\in\{0,1\},\theta\in[0,1]
+\]&lt;/span> 转写为指数型分布族形式为： &lt;span class="math">\[
+\begin{aligned}
+p(y;\theta)&amp;amp;=\exp\{y\ln{\theta}+(1-y)\ln{(1-\theta)}\}\\
+&amp;amp;=\exp\{y\ln(\frac{\theta}{1-\theta})+\ln{(1-\theta)}\}
+\end{aligned}
+\]&lt;/span> 令&lt;span class="math">\(\vartheta=\ln(\frac{\theta}{1-\theta})\)&lt;/span>将其转换成指数分散族： &lt;span class="math">\[
+p(y;\vartheta)=\exp\{y\vartheta-\log(1+e^\vartheta)\}
+\]&lt;/span> 其&lt;span class="math">\(n\)&lt;/span>个观测值组成的对数似然函数为： &lt;span class="math">\[
+l_n(\vartheta(X);Y)=\sum_{i=1}^n (y_i\vartheta(x_i)-\log(1+e^{\vartheta(x_i)}))
+\]&lt;/span> 我们采用标准连接函数： &lt;span class="math">\[
+\vartheta(x_i)=\beta^T x_i
+\]&lt;/span> 则对数似然函数可写为： &lt;span class="math">\[
+l_n(\beta;Y;X)=\sum_{i=1}^n (\beta^T x_iy_i-\log(1+e^{\beta^Tx_i}))
+\]&lt;/span> 对&lt;span class="math">\(\beta\)&lt;/span>求一阶，二阶导数分别为： &lt;span class="math">\[
+\nabla_\beta l_n(\beta;Y;X)=\sum_{i=1}^n (y_ix_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^T x_i}}x_i);x_i\in \R^p\\
+H_{l_n}(\beta)=\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n \frac{e^{\beta^Tx_i}}{(1+e^{\beta^T x_i})^2}x_ix_i^T;x_i\in\R^p;
+\]&lt;/span> 注意，&lt;span class="math">\(x_ix_i^T\)&lt;/span>是由向量张成的矩阵。那么根据牛顿法，其优化迭代步骤为： &lt;span class="math">\[
+\beta^{(k+1)}=\beta^{(k)}-H_{l_n}(\beta^{(k)})^{-1}\nabla_\beta l_n(\beta^{(k)};Y;X)
+\]&lt;/span>&lt;/p>
+&lt;h4 id="补充牛顿法的简化方法之一fisher分数法">补充：牛顿法的简化方法之一Fisher分数法&lt;/h4>
+&lt;p>由于计算海森矩阵求和这一步很繁琐，因此我们可以用期望来替代求和操作（具体原理参见笔记&lt;a href="概率统计随机过程之最大似然估计拓展.md">概率统计随机过程之最大似然估计拓展&lt;/a>中最大似然估计与相对熵（KL散度）、交叉熵的等价性那一节）。因此有： &lt;span class="math">\[
+H_{l_n}(\beta)=\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n\frac{-b&amp;#39;&amp;#39;(\beta^T x_i)x_ix_i^T}{\phi}\\
+\simeq E[H_{l_n}(\beta)]=-I(\beta)
+\]&lt;/span> 其中，&lt;span class="math">\(I(\beta)\)&lt;/span>是Fisher信息量。所以海森矩阵也可以被Fisher信息矩阵替代，即为： &lt;span class="math">\[
+\beta^{(k+1)}=\beta^{(k)}+I(\beta^{(k)})^{-1}\nabla_\beta l_n(\beta^{(k)};Y;X)
+\]&lt;/span> 这种方法称为Fisher分数法，这算是一种近似的拟牛顿法，其收敛速度和牛顿法相近，但是计算量降低。&lt;/p>
 &lt;h3 id="回答引子的疑问最大似然估计形势下的迭代优化">回答引子的疑问，最大似然估计形势下的迭代优化&lt;/h3>
 &lt;p>还记得在文章开头时的引子吗？&lt;/p>
 &lt;blockquote>
@@ -601,10 +662,18 @@ h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
 \frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
 \]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。&lt;/p>
 &lt;/blockquote>
-&lt;p>这一是因为我们通过指数型分布族（指数分散族）给出了广义线性模型响应变量&lt;span class="math">\(Y\)&lt;/span>的统一形式，第二点就是由于我们使用的是最大似然估计，它的似然函数求导步骤与指数分散族非常契合。&lt;/p>
+&lt;p>这一是因为我们通过指数型分布族（指数分散族）给出了广义线性模型响应变量&lt;span class="math">\(Y\)&lt;/span>的统一形式，第二点就是由于我们使用的是最大似然估计，它的似然函数求导步骤与指数分散族非常契合。&lt;strong>实际上引子中的例子就是使用标准连接函数时一阶导数的应用&lt;/strong>。在梯度下降法中，通用的迭代公式为： &lt;span class="math">\[
+\theta_j=\theta_j-\alpha\frac{\partial }{\partial \theta_j}L(\theta)
+\]&lt;/span> 代入式（27）即为(变量&lt;span class="math">\(\beta\)&lt;/span>替换为&lt;span class="math">\(\theta\)&lt;/span>，另外最大似然估计要变成最小化损失函数，加个负号): &lt;span class="math">\[
+\theta=\theta-\alpha\sum_{i=1}^n -\frac{y_ix_i-b&amp;#39;(\theta^T x_i)x_i}{\phi}=\theta-\alpha\sum_{i=1}^n(b&amp;#39;(\theta^T x_i)-y_i)x_i/\phi
+\]&lt;/span> 其中，&lt;span class="math">\(b&amp;#39;(\theta^T x_i)\)&lt;/span>写成激活函数形式为&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>，采用单步迭代不需要求和&lt;span class="math">\(\sum\)&lt;/span>，如果分散系数为1，那么最终结果的各维度分量就是引子中的形式。&lt;/p>
+&lt;h2 id="广义线性模型的求解irls算法">广义线性模型的求解（IRLS算法）&lt;/h2>
+&lt;p>通常情况下，如果我们不考虑计算的复杂程度，广义线性模型可以使用梯度下降法或者牛顿进行求解。在这里，我们介绍一种广义线性模型的较常用的优化算法Iteratively Re-wighted Least Squares算法。这个算法能够将循环求和运算变换成矩阵运算，提供一个较为整体化的便捷计算形式。&lt;/p>
+&lt;p>TODO&lt;/p>
 &lt;h2 id="参考文献">参考文献&lt;/h2>
 &lt;ol style="list-style-type: decimal">
 &lt;li>&lt;a href="https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2">https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=mc1y8m9-hOM&amp;amp;list=PLUl4u3cNGP60uVBMaoNERc6knT_MgPKS0&amp;amp;index=21">https://www.youtube.com/watch?v=mc1y8m9-hOM&amp;amp;list=PLUl4u3cNGP60uVBMaoNERc6knT_MgPKS0&amp;amp;index=21&lt;/a>&lt;/li>
 &lt;/ol></description></item><item><title>线性代数与矩阵之矩阵的正定性，二次型与合同矩阵</title><link>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/</link><pubDate>Fri, 20 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E7%9F%A9%E9%98%B5%E7%9A%84%E6%AD%A3%E5%AE%9A%E6%80%A7%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E5%90%88%E5%90%8C%E7%9F%A9%E9%98%B5/</guid><description>
 &lt;h2 id="线性代数与矩阵之矩阵的正定性二次型与合同矩阵">线性代数与矩阵之矩阵的正定性，二次型与合同矩阵&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
