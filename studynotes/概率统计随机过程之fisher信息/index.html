@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Sep 3, 2022</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
+<span class=post_time> · 2 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -88,7 +88,162 @@ Sep 3, 2022</span>
 </div>
 </span>
 </div>
+<ul>
+<li><a href=#理解fisher信息>理解Fisher信息</a></li>
+<li><a href=#故事的开始从最大似然估计开始>故事的开始：从最大似然估计开始</a></li>
+<li><a href=#纠结方差与fisher信息>纠结：方差与Fisher信息</a></li>
+<li><a href=#mle的一个准严格推导>MLE的一个准严格推导</a></li>
+<li><a href=#fisher信息的应用>Fisher信息的应用</a></li>
+<li><a href=#频率学派角度应用fisher信息>频率学派角度应用Fisher信息</a></li>
+<li><a href=#贝叶斯学派角度应用fisher信息>贝叶斯学派角度应用Fisher信息</a></li>
+<li><a href=#最小描述长度角度应用fisher信息>最小描述长度角度应用Fisher信息</a></li>
+</ul>
 <h2 id=概率统计随机过程之fisher信息>概率统计随机过程之Fisher信息</h2>
+<p>Fisher信息是参数估计中的一个重要概念，它揭示了样本能够提供多少信息来给我们估计参数，并决定参数估计的精度，Fisher信息大小和样本容量、总体的概率分布、采用的估计方式都有关系。我们通过Fisher信息和Cramer-Rao界也可以确定参数估计的理论极限。Fisher信息是由著名的<strong>频率学派大佬，Ronald Fisher</strong>提出并推广，Fisher是一个统计学历史上非常重要的学者，几乎以一己之力构建了现代统计学框架，一些常见的统计学名词如统计显著性，P值，线性判别分析（LDA），最大似然估计，F分布，充分统计量，Fisher信息，方差分析（ANOVA）都是由Fisher发明或推广，同时也对贝叶斯学派的观点提出诸多批判。本篇笔记旨在系统的整理有关Fisher信息的相关内容，并结合文章《A Tutorial on Fisher Information》，总结Fisher信息在频率统计学派，贝叶斯学派以及最小描述长度模型中的应用。</p>
+<p>注：本文前面部分默认Fisher信息的参数估计都是一维参数估计。对于多维参数估计，我们专门设置了Fisher信息矩阵的章节。</p>
+<h2 id=理解fisher信息>理解Fisher信息</h2>
+<p>为了深刻理解Fisher信息的意义，我们设计了<strong>一个多次反转的叙述结构来初步介绍Fisher信息</strong>。</p>
+<p>在参数估计中，我们要做的<strong>核心任务是已知一个含有未知参数<span class=math>\(\theta\)</span>的模型，我们通过实际观测到数据来推断这个未知的参数<span class=math>\(\theta\)</span></strong>。对于观测到数据集<span class=math>\(X\)</span>，我们既可以直接使用整个观测集来做参数的估计，也可以从数据集中提取一些关键信息来进行参数估计。这些提取出来的信息，被称为统计量<span class=math>\(T(X)\)</span>，关于统计量的具体介绍，可以参考笔记<a href=概率统计随机过程之数理统计常用概念.md>概率统计随机过程之数理统计常用概念</a>中充分统计量章节的内容。</p>
+<p>简单地说，统计量是由观测数据构造出来的函数<span class=math>\(T=f(X)\)</span>，其<strong>包含并提纯</strong>了有关未知参数<span class=math>\(\theta\)</span>的信息。注意该函数<span class=math>\(f(X)\)</span>中并不能有其他未知的参数，也就是说只要给定观测集合<span class=math>\(X\)</span>，那么统计量的值<span class=math>\(T\)</span>就是一个定值。如果该统计量<span class=math>\(T\)</span>完全包含了观测数据集<span class=math>\(X\)</span>中所有有关未知参数<span class=math>\(\theta\)</span>的信息，则称为完全统计量（Sufficient Statistics），即<span class=math>\(I(T;\theta)=I(X;\theta)\)</span>。</p>
+<p>无论是原始的数据集<span class=math>\(X\)</span>，还是有数据集构造的统计量<span class=math>\(T(X)\)</span>，其进行参数估计的理论根源是一样的：抽样的数据中含有关于<strong>未知参数<span class=math>\(\theta\)</span>的信息</strong>，这是所有参数估计方法的基石。但是，原始数据集<span class=math>\(X\)</span>和带估计参数<span class=math>\(\theta\)</span>之间的关系是模糊的，需要我们逐渐求证的，因此能够建立数据集和带估计参数之间联系的<strong>参数估计方法</strong>就是非常关键的环节。本质上，参数估计方法也是通过数据集合<span class=math>\(X\)</span>来构建统计量<span class=math>\(T\)</span>，只不过这个统计量需要与带估计参数<span class=math>\(\theta\)</span>有更加直观的联系。目前使用的最广泛的估计方法——<strong>极大似然估计</strong>当然也不例外。实际上，在极大似然估计的处理流程，如构造似然函数、取<span class=math>\(ln\)</span>、求偏导的过程，就是构建最大似然统计量<span class=math>\(T=f(X)\)</span>的过程。</p>
+<p>那么，我们应该如何确定数据集<span class=math>\(X\)</span>或构造的统计量<span class=math>\(T=f(X)\)</span>中含有多少关于带估计参数<span class=math>\(\theta\)</span>的信息呢？这就是Fisher信息的由来的内生动力。</p>
+<h3 id=故事的开始从最大似然估计开始>故事的开始：从最大似然估计开始</h3>
+<p>在参数估计中，使用的最广泛的方式就是最大似然估计（maximum likelihood estimation, MLE），而Fisher正是MLE最有力的推动者，没有之一。在Fisher所在的年代，大家都想为模型的参数估计提出一套牢靠可行的方法，Fisher从1912年到1922年发表了多篇文章系统性的阐述并推广了最大似然估计方法，并对最大似然估计的性能进行分析，而<strong>Fisher信息正可用来衡量最大似然估计</strong>。</p>
+<blockquote>
+<p>TIPS：有趣的是，Fisher一直尝试严谨地证明最大似然估计理论，但是一直没有成功，直到1938年统计学家 Samuel S. Wilks最终给出了最大似然估计的证明结果，被称为Wilks定理，大概内容是多个独立观测值的估计的对数似然比的误差是渐近卡方分布的。其中，唯一比较难的证明步骤取决于Fisher信息矩阵的期望值，但是这个值正好已经被Fisher的另一个定理证明了，Fisher就这样可惜地错过了严谨地证明最大似然估计理论。</p>
+</blockquote>
+<p>最大似然估计的严谨证明费了一般波折，但是其核心思想非常的直观，<strong>就是如果一组事件发生了，那么我们就找出最容易使这些事件发生的概率模型</strong>。比如，我们抛了一个未知的硬币（可能是不均匀的），如果抛了10次，7次正面，3次反面，那我们就直观地认为该硬币得到正面的概率是0.7，所以说极大似然估计可能是最符合直觉的估计方法之一(虽然不一定是正确的，但是在抽样次数足够大时，能基本收敛到正确结果)。具体关于极大似然估计的内容可以参考笔记<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>，其精简步骤总结如下：</p>
+<ol style=list-style-type:decimal>
+<li>写出总体的概率质量/密度函数（PMF/PDF）<span class=math>\(p(x;\theta)\)</span>。</li>
+<li>根据采样的数据<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>写出似然估计函数<span class=math>\(L(\theta)=\prod_{i=1}^n p(x_i;\theta)\)</span>，其中<span class=math>\(\theta\)</span>是待估计参数。</li>
+<li>两边取自然对数<span class=math>\(\ln\)</span>，即为<span class=math>\(l(\theta)=\ln(L(\theta))=\sum_{i=1}^n \ln p(x_i;\theta)\)</span>。(注意，对数似然函数是小写<span class=math>\(l\)</span>)</li>
+<li>对<span class=math>\(l(\theta)\)</span>的<span class=math>\(\theta\)</span>求导（多参数估计就是偏导），<span class=math>\(\frac{\partial l(\theta)}{\partial\theta}=\sum_{i=1}^n \frac{\partial \ln(p(x_i;\theta))}{\partial \theta}\)</span>，令其导数为0。</li>
+<li>求出使导数为0的<span class=math>\(\theta\)</span>，即为最大似然估计参数<span class=math>\(\hat\theta_{MLE}=\arg\limits_{\theta}\{\sum_{i=1}^n \frac{\partial \ln(p(x_i;\theta))}{\partial \theta}=0\}\)</span>。</li>
+</ol>
+<blockquote>
+<p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。</p>
+</blockquote>
+<p><strong>似然函数取对数的原因</strong>:</p>
+<ol style=list-style-type:decimal>
+<li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。</li>
+<li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。</li>
+<li>取对数后，可以是一个上凸函数，更有利于求取最大值。</li>
+</ol>
+<p>那么最大似然估计的估计结果有多准确呢？我们可以借助“估计值<span class=math>\(\plusmn\)</span>一个范围”来描述，比如，<span class=math>\(\hat\theta_{MLE}\plusmn \sigma\)</span>，如果我们要求一个比较高的概率能用这个范围覆盖住真实值<span class=math>\(\theta_0\)</span>，同时<span class=math>\(\sigma\)</span>的比较小，我们就认为估计是比较准确的。<strong>如果估计的准确，我们也有理由认为估计时候信息比较充分，信息量比较多</strong>。不难发现，这里其实使用了区间估计的思想。</p>
+<p>至此，我们确定一个目标：<strong>将最大似然估计的准确性和信息的定义联系起来，信息含量越大，估计的准确性越高。</strong></p>
+<p>但是，我们现在并不知道<span class=math>\(\hat{\theta}_{MLE}\)</span>的具体分布是什么，不过我们通过采样的样本，我们可以用样本的均值和方差近似 总体的样本和方差。知道了样本、方差再通过某些概率不等式，我们能够计算出一些区间估计的界（bound），比如最常见的切比雪夫不等式，即我们可以借助切比雪夫不等式，只通过期望和方差就能确定一个大致的估计准确性的范围。</p>
+<blockquote>
+<p>切比雪夫不等式：对<strong>任何分布形状的数据都适用</strong>。可表示为：对于任意随机变量<span class=math>\(T\)</span>，当给定某一<span class=math>\(\varepsilon>0\)</span>，有： <span class=math>\[P(|T-E(T)|\geqslant \varepsilon)\leq {\frac {Var(T)}{\varepsilon^{2}}}\tag{1}\]</span></p>
+</blockquote>
+<p>注意，这里的随机变量<span class=math>\(T\)</span>可以是由样本集<span class=math>\(X\)</span>构造出来的任意随机变量，即<span class=math>\(T\)</span>为<span class=math>\(X\)</span>的某种统计量。</p>
+<p>使用切比雪夫不等式的最大优势就是前置要求少，并且几乎对任何概率分布都适用。从切比雪夫不等式我们可以发现，如果MLE是无偏估计的话（<span class=math>\(E(T)=\theta_0\)</span>），我们可以用方差将估计误差<span class=math>\(\varepsilon\)</span>限定在<span class=math>\(\frac {Var(T)}{\varepsilon^{2}}\)</span>范围内。特别地，我们如果人为地取<span class=math>\(\varepsilon=k\sqrt{Var(T)}=k\sigma\)</span>，那么有 <span class=math>\[
+P(|T-E(T)|\geqslant k\sigma)\leq {\frac {1}{k^2}}\tag{2}
+\]</span></p>
+<h3 id=纠结方差与fisher信息>纠结：方差与Fisher信息</h3>
+<p>从上文可知，<strong>直观地想，信息量越大，估计的越准确，这是大多数人的直觉，而且我可以告诉，这个直觉是对的</strong>。我们回看式(1)(2)，在无偏估计下，样本期望就是真实值，即<span class=math>\(E(T)=\theta_0\)</span>，同时<span class=math>\(k，\varepsilon\)</span>是与样本集无关我们可以人为选定的量，那么影响估计准确性的不可控因素就只剩下方差<span class=math>\(Var(T)=\sigma^2\)</span>。这显然意味着，<strong>统计量的方差和样本中含有的未知参数的<span class=math>\(\theta\)</span>的信息量密切相关</strong>！</p>
+<p>由于Fisher当时非常推崇MLE作为参数估计方法，且实际应用中效果也很好，因此Fisher在此发现的基础上，最开始提出了一个很intuitive想法：使用最大似然估计作为构造统计量的方法，然后计算方差： <span class=math>\[
+T(X)=\theta_{MLE}=\arg\limits_{\theta} \{\sum_{i=1}^n \frac{\partial \ln(p(x_i;\theta))}{\partial \theta}=0\}\tag{3}
+\]</span> 但是，其中的<span class=math>\(\arg\limits_\theta\)</span>这个运算符很让他犯难，这个操作符的代表的运算很抽象，不同的式子，实际的求0过程可能迥然不同，比如 <span class=math>\[
+\arg\limits_{x} \{ax-b=0\}\Rightarrow x=\frac{b}{a},(a\neq 0)\\
+\arg\limits_{x} \{ax^2+bx+c=0\}\Rightarrow x=\frac{-b\plusmn\sqrt{b^2-4ac}}{2a},(a\neq 0)
+\]</span> 同时，当时Fisher也并没有建立起MLE的严谨理论，因此退而求其次，Fisher构造重新了一个<strong>不包含<span class=math>\(\arg\)</span>运算符且最接近MLE</strong>的统计量，即： <span class=math>\[
+T(X)=\sum_{i=1}^n\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}=\frac{\partial l(X;\theta)}{\partial \theta}\tag{4}
+\]</span> 在构造这个统计量时，仅仅是不包含<span class=math>\(\arg\)</span>运算符，其他MLE结构都保留了下来。</p>
+<p>当式(4)是以样本随机变量<span class=math>\(X\)</span>为自变量的时候，我们叫他统计量<span class=math>\(T(X)\)</span>，但是如果我们换个角度，当式(4)以参数<span class=math>\(\theta\)</span>为自变量时，我们将式(4)重新起一个名字，叫做分数函数<span class=math>\(S(\theta)\)</span>，即； <span class=math>\[
+S(\theta)=\sum_{i=1}^n\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}=\frac{\partial l(X;\theta)}{\partial \theta}\tag{5}
+\]</span> 为了方便，我们可以将<span class=math>\(\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}\)</span>记为<span class=math>\(S(\theta;x_i)\)</span>，则式(5)可写为： <span class=math>\[
+S(\theta)=\sum_{i=1}^n S(\theta;x_i)\tag{5.1}
+\]</span></p>
+<p>从实质内容来看，式(4)(5)没有差别，只不过一个以<span class=math>\(X\)</span>为自变量，把<span class=math>\(\theta\)</span>当成已知的；一个以<span class=math>\(\theta\)</span>作为自变量，把<span class=math>\(X\)</span>当成已知的。我们之所以能这么做的原因，是因为式子中本质上存在两个未知变量：随机变量<span class=math>\(X\)</span>和未知参数<span class=math>\(\theta\)</span>，式(4)(5)都只是其中一个角度来看待。</p>
+<p>既然，已经选择好了一个好用的统计量<span class=math>\(T(X)\)</span>或者另一个角度叫分数函数<span class=math>\(S(\theta)\)</span>，我们来计算下它的方差<span class=math>\(Var(S)=E[(S-E(S))^2]=E(S^2)-(E(S))^2\)</span>吧。显然，求期望的操作消除了<span class=math>\(S\)</span>中的随机变量<span class=math>\(X\)</span>，使之结果只可能和<span class=math>\(\theta\)</span>有关（甚至可以证明期望和<span class=math>\(\theta\)</span>都无关）。首先，我们来求其中的<span class=math>\(E(S)\)</span>。 <span class=math>\[
+\begin{aligned}
+E(S(X;\theta))&=E\big [ \sum_{i=1}^n\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}\big]=\sum_{i=1}^n E\big [\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}\big]\\
+&=\sum_{i=1}^n\int_{-\infty}^{+\infty}\frac{\partial\ln p(x_i;\theta)}{\partial\theta}p(x_i;\theta)\mathrm{d}x_i\\
+&=\sum_{i=1}^n\int_{-\infty}^{+\infty} \frac{1}{p(x_i;\theta)}\frac{\partial p(x_i;\theta)}{\partial \theta} p(x_i;\theta)\mathrm{d}x_i\\
+&=\sum_{i=1}^n\int_{-\infty}^{+\infty} \frac{\partial p(x_i;\theta)}{\partial \theta}\mathrm{d}x_i(\text{交换积分和偏导})\\
+&=\sum_{i=1}^n \frac{\partial }{\partial\theta}\int_{-\infty}^{+\infty} p(x_i;\theta)\mathrm{d}x_i=\sum_{i=1}^n \frac{\partial }{\partial\theta} 1=0
+\end{aligned}\tag{6}
+\]</span> 式(6)给出了一个很好的结论：分数函数的期望<span class=math>\(E(S)\)</span>必然为0，和<span class=math>\(\theta\)</span>也没有关系。那么，方差就可以简化为：<span class=math>\(Var(S)=E(S^2)\)</span>。接下来，为了方便计算方差，我们先对其进行简化。由于对数似然函数中的每一个<span class=math>\(x_i\)</span>都是独立同分布的，那么随机变量<span class=math>\(x_i\)</span>的函数<span class=math>\(\frac{\partial \ln (p(x_i;\theta))}{\partial \theta}\)</span>也是独立同分布的，根据方差的性质，独立同分布随机变量的和（差）的方差，等于独立同分布随机变量方差的和，即 <span class=math>\[
+\begin{aligned}
+Var(S(\theta;X))&=Var[\sum_{i=1}^n\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}]=n\times Var[\frac{\partial \ln(p(x;\theta))}{\partial \theta}]\\
+&=nE[(\frac{\partial \ln(p(x;\theta))}{\partial \theta})^2]=E[(\frac{\partial l(X;\theta)}{\partial \theta})^2]
+\end{aligned}\tag{7}
+\]</span> 我们注意到，式(7)存在小写的随机变量<span class=math>\(x\)</span>和大写的随机变量<span class=math>\(X\)</span>，大写的<span class=math>\(X\)</span>是样本容量为<span class=math>\(n\)</span>的样本，小写的<span class=math>\(x\)</span>是每一次抽样的样品，当使用简单随机抽样时，由于每一个<span class=math>\(x_i\)</span>都是独立同分布的，即每一个样品从概率论的角度来讲都是等价的，其概率特征如期望、方差都是一样的，在此情况下使用样本<span class=math>\(X\)</span>和样品<span class=math>\(x\)</span>的期望和方差都是<span class=math>\(n\)</span>倍的关系，即<span class=math>\(Var(S(\theta;X))=nVar(S(\theta;x))\)</span>。</p>
+<p>那么使用哪一个方差更合理呢？注意我们之前说过，我们默认使用的采样方式都是简单随机抽样，但是实际中采样方式可能不同，因此，<span class=math>\(X\)</span>中每一个样品<span class=math>\(\{x_1,x_2,\dotsb,x_n\}\)</span>可能并不是等价的。我们追求更精细化的表达，希望方差针对每一个样品进行定义，从这个角度，更倾向于使用单个样品的方差，即<span class=math>\(Var(S(\theta;x))\)</span>。此时，整体样品本的方差就是所有单个样品方差的和。</p>
+<p>最终千呼万唤始出来，历史上Fisher将每一个抽样样品随机变量<span class=math>\(x\)</span>的方差定义成了<strong>Fisher信息</strong>。</p>
+<blockquote>
+<p>Fisher信息： <span class=math>\[I(\theta)=Var(S(\theta;x))=E[(\frac{\partial l(x;\theta)}{\partial \theta})^2]\tag{7.1}\]</span></p>
+</blockquote>
+<p>注意，式(7.1)中使用的是小写<span class=math>\(x\)</span>，在简单随机抽样时，样本<span class=math>\(X\)</span>中的各个样品<span class=math>\(x_i\)</span>独立同分布，即都为等价的随机变量。</p>
+<p>如果我们再对式（6）中<span class=math>\(\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x\)</span>再求<span class=math>\(\theta\)</span>的偏导（二阶偏导）有（由于独立同分布，省略下标<span class=math>\(i\)</span>）： <span class=math>\[
+\begin{aligned}
+0&=\frac{\partial}{\partial\theta}\int_{-\infty}^{+\infty}\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\mathrm{d}x(交互积分微分顺序)\\
+&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+\frac{\partial\ln p(x;\theta)}{\partial\theta}\frac{\partial p(x;\theta)}{\partial\theta}]\mathrm{d}x\\
+&\because \frac{\partial p(x;\theta)}{\partial\theta}=\frac{\partial\ln p(x;\theta)}{\partial\theta}p(x;\theta)\\
+0&=\int_{-\infty}^{+\infty}[\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)+(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)]\mathrm{d}x\\
+0&=\int_{-\infty}^{+\infty}\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x+\underbrace{\int_{-\infty}^{+\infty}(\frac{\partial\ln p(x;\theta)}{\partial\theta})^2p(x;\theta)\mathrm{d}x}_{I(\theta)}\\
+\end{aligned}
+\]</span> 从而有： <span class=math>\[
+\begin{aligned}
+0&=\int_{-\infty}^{+\infty}\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x+I(\theta)\\
+I(\theta)&=-\int_{-\infty}^{+\infty}\frac{\partial^2\ln p(x;\theta)}{\partial\theta^2}p(x;\theta)\mathrm{d}x\\
+&=-E[\frac{\partial^2 l(x;\theta)}{\partial \theta^2}]
+\end{aligned}\tag{7.2}
+\]</span> 综上所述，我们得到了Fisher信息的三种等价表达形式： <span class=math>\[I(\theta)=Var(S(\theta;x))\tag{8.1}\]</span> <span class=math>\[I(\theta)=E[(\frac{\partial l(x;\theta)}{\partial \theta})^2]=E[S^2(\theta;x)]\tag{8.2}\]</span> <span class=math>\[I(\theta)=-E[\frac{\partial^2 l(x;\theta)}{\partial \theta^2}]=-E[S'(\theta;x)]\tag{8.3}\]</span> 为了简便，下文中<span class=math>\(S(\theta;x)\)</span>默认写为<span class=math>\(S(\theta)\)</span>。</p>
+<p>那么，现在我们明确知道了，Fisher信息是分数函数的方差（式(8.1)），式(8.2,)(8.2)是化简计算的结果。那么通常情况下，我们总觉得<strong>估计的方差应该是越小越好吧</strong>？！极端情况，当估计的方差为0时，我们就可以精确地得到结果。但是，从信息的直观意思来看，通常大家是认为信息量越大越有利于估计。这两种直觉貌似是针锋相对的。</p>
+<p>实际上，这涉及到最根本的一个问题：<strong>分数函数的方差和待估计参数的方差是一回事吗</strong>？我们之前提到，Fisher在考虑利用方差设计Fisher信息时，认为第四步<span class=math>\(\arg\limits_{\theta}\)</span>操作难以处理，而采取了近似操作，正是因为这步近似，使得分数函数的方差和待估计参数<span class=math>\(\theta_{MLE}\)</span>的估计方差产生了区别！二者确实紧密相关，但是并不一样。硬要说的话，二者是整体与局部的关系，分数函数的方差是描述在整个参数空间内的整体的方差大小，而真正MLE估计的方差的是描述在<span class=math>\(\theta_{MLE}\)</span>附近的性质，如果是无偏估计就是描述估计真值<span class=math>\(\theta_0\)</span>附近的性质！那么，如何将描述整个参数空间性质的Fisher信息和真正MLE估计的能力联系起来呢？</p>
+<h3 id=mle的一个准严格推导>MLE的一个准严格推导</h3>
+<p>MLE的估计精确估计结果需要较为复杂的推导，这里我们利用<strong>中心极限定理</strong>，给出一种在抽样规模较大的情形下的准严格推导。上一小节中，我们知道Fisher信息来自于分数函数的方差，算是对整体性质的描述，而实际上我们更需要知道，在MLE估计结果在真值点<span class=math>\(\theta=\theta_0\)</span>邻域的效果如何。</p>
+<p>数学中，如果想看一个函数在某点附近的特性，有一个非常常用的工具，即<strong>级数展开</strong>，比如泰勒级数，洛朗级数（泰勒级数在复变领域的扩展），傅里叶级数，狄利克雷级数等等。<strong>在这里，我们使用泰勒级数，在MLE估计的结果<span class=math>\(\theta=\theta_0\)</span>进行展开，用以探索其邻域的性质</strong>。</p>
+<p>首先，根据MLE的计算，我们可以得到最大似然估计的结果<span class=math>\(\theta_{MLE}\)</span>，此时根据MLE的步骤5，显然有： <span class=math>\[
+\theta_{MLE}=\arg\limits_{\theta}\{\sum_{i=1}^n \frac{\partial \ln(p(x_i;\theta))}{\partial \theta}=0\}\\
+\Rightarrow S(\theta_{MLE};X)=\sum_{i=1}^n S(\theta_{MLE};x_i)=0\tag{9}
+\]</span> 注意，<span class=math>\(\theta_{MLE}\)</span>是让整体样本<span class=math>\(X\)</span>的分数函数<span class=math>\(S(\theta_{MLE};X)\)</span>为0，并不保证每一个样品<span class=math>\(x_i\)</span>的分数函数<span class=math>\(S(\theta_{MLE};x_i)\)</span>为0。其中： <span class=math>\[
+S(\theta_{MLE};x_i)=[\frac{\partial \ln(p(x_i;\theta))}{\partial \theta}|\theta=\theta_{MLE}]
+\]</span> 其次，我们将分数函数<span class=math>\(S(\theta;X)\)</span>在真值点<span class=math>\(\theta_0\)</span>处泰勒展开有： <span class=math>\[
+\begin{aligned}
+S(\theta;X)
+&=\sum_{i=1}^n[S(\theta_0;x_i)+\frac{1}{1!}S'(\theta_0;x_i)(\theta-\theta_0)+o(\theta-\theta_0)]\\
+&=\sum_{i=1}^n S(\theta_0;x_i)+ S'(\theta_0;x_i)(\theta-\theta_0)+\sum_{i=1}^n o(\theta-\theta_0)
+\end{aligned}
+\]</span> 将式(9)结果代入上市可得： <span class=math>\[
+0=\sum_{i=1}^n S(\theta_0;x_i)+\sum_{i=1}^n S'(\theta_0;x_i)(\theta_{MLE}-\theta_0)+\sum_{i=1}^n o(\theta_{MLE}-\theta_0)\\
+\text{两边同时除以}\frac{1}{n}\\
+0=\frac{1}{n}\sum_{i=1}^n S(\theta_0;x_i)+\frac{1}{n}\sum_{i=1}^n S'(\theta_0;x_i)(\theta_{MLE}-\theta_0)+\frac{1}{n}\sum_{i=1}^n o(\theta_{MLE}-\theta_0)\tag{10}
+\]</span> 看似两边同时除以<span class=math>\(\frac{1}{n}\)</span>是一个很普通的操作，但是，我们可以从概率论角度分别赋予等式右边各项实际含义。</p>
+<p>首先，我们看等式右边第一项<span class=math>\(\frac{1}{n}\sum_{i=1}^n S(\theta_0;x_i)\)</span>，我们之前提到过分数函数和统计量是一体两面，实际上分数函数可以换成统计量的写法，即<span class=math>\(\frac{1}{n}\sum_{i=1}^n T(x_i;\theta)\)</span>，其中<span class=math>\(x_i\)</span>都是由随机变量<span class=math>\(x\)</span>抽样出来的样品，所以等式左右可以看成是<strong>随机变量抽取<span class=math>\(n\)</span>次后求平均数</strong>，这恰好和<strong>中心极限定理</strong>的应用场景匹配！</p>
+<blockquote>
+<p>林德伯格－列维中心极限定理：<strong>独立同分布</strong>(iid)、且<strong>数学期望和方差有限</strong>的随机变量序列均值的标准化和以标准正态分布为极限。用数学语言描述为：</p>
+<p>设随机变量<span class=math>\(X_{1},X_{2},\cdots ,X_{n}\)</span>独立同分布，且具有<strong>有限的数学期望和方差</strong><span class=math>\(E(X_{i})=\mu\)</span>，<span class=math>\(D(X_{i})=\sigma ^{2}\neq 0(i=1,2,\cdots ,n)\)</span>。记 <span class=math>\[{\bar{X}}={\frac {1}{n}}\sum_{i=1}^{n}X_{i}，\zeta_{n}={\frac {{\bar {X}}-\mu }{\sigma /{\sqrt {n}}}}，\]</span> 则 <span class=math>\[\lim_{n\rightarrow \infty }P\left(\zeta_{n}\leq z\right)=\Phi \left(z\right)\]</span> 其中<span class=math>\(\Phi (z)\)</span>是标准正态分布的分布函数。</p>
+</blockquote>
+<p>因此当<span class=math>\(n\)</span>较大时，式(10)的右侧第一项将会逐渐收敛于正态分布，且其期望、方差我们之前已经求出来：<span class=math>\(E[S(\theta_0;x)]=0,Var[S(\theta_0;x)]=I(\theta_0)\)</span>，即 <span class=math>\[
+\frac{1}{n}\sum_{i=1}^n S(\theta_0;x_i)\sim N(0,\frac{1}{n}I(\theta_0))\tag{11}
+\]</span> 式(11)是一个非常良好的结论，利用了中心极限定理得到了我们所期望的正态分布，也是后续步骤的根本。</p>
+<p>式(10)的第二项中<span class=math>\(\theta_{MLE}-\theta_0\)</span>与求和项<span class=math>\(i\)</span>无关，可以当成系数，而<span class=math>\(\frac{1}{n}\sum_{i=1}^n S'(\theta_0;x_i)\)</span>求均值的操作，在当<span class=math>\(n\)</span>较大时，根据大数定律可以看成是<span class=math>\(E[S'(\theta_0;x)]\)</span>。而根据式(8.3)可知，<span class=math>\(-E[S'(\theta_0;x)]=I(\theta_0)\)</span>，即 <span class=math>\[
+\frac{1}{n}\sum_{i=1}^n S'(\theta_0;x_i)\approx -I(\theta_0)\tag{12}
+\]</span> 当<span class=math>\(n\)</span>较大时成立。</p>
+<p>而式(10)的第三项，<span class=math>\(\frac{1}{n}\sum_{i=1}^n o(\theta_{MLE}-\theta_0)\)</span>是<span class=math>\((\theta_{MLE}-\theta_0)\)</span>的一序列高阶项的均值，其结果依然是<span class=math>\((\theta_{MLE}-\theta_0)\)</span>的高阶项。当<span class=math>\(n\)</span>较大时，<span class=math>\(\theta_{MLE}\)</span>趋近于<span class=math>\(\theta_0\)</span>，此时<span class=math>\(\frac{1}{n}\sum_{i=1}^n o(\theta_{MLE}-\theta_0)\)</span>为高阶无穷小，可以近似忽略，那么，综合式(11,12)，式(10)的最终结果可以简化为： <span class=math>\[
+I(\theta_0)(\theta_{MLE}-\theta_0)\sim N(0,\frac{1}{n}I(\theta_0))\\
+\Rightarrow \theta_{MLE}\sim N(\theta_0,\frac{1}{nI(\theta_0)})\tag{13}
+\]</span> 即最大似然估计结果<span class=math>\(\theta_{MLE}\)</span>渐进服从于以真值<span class=math>\(\theta_0\)</span>为均值，<span class=math>\(\frac{1}{nI(\theta_0)})\)</span>为方差的正态分布。</p>
+<p>式(13)给出的结论就很显然了，为了让<span class=math>\(\theta_{MLE}\)</span>更贴近<span class=math>\(\theta_0\)</span>，方差显然是越小越好。而且式(13)也给出了缩小方差的两个途径：</p>
+<ol style=list-style-type:decimal>
+<li>增加<span class=math>\(n\)</span>，即增加样本容量。这个很好理解，统计学一般都是抽样越多，效果越好。而且，在独立同分布场景下，样本总的Fisher信息量<span class=math>\(I(\theta_0;X)\)</span>和样本容量<span class=math>\(n\)</span>是线性关系，是单位样品Fisheries信息量<span class=math>\(I(\theta_0;x)\)</span>的<span class=math>\(n\)</span>倍。</li>
+<li>增加Fisher信息量<span class=math>\(I(\theta)\)</span>。这里面门道就很多了，最重要的就是<strong>设计合理的估计方法</strong>。同时也告诉我们，当估计方法确定时，估计的精确性是有上限的！这个理论上限和Fisher信息量直接相关，学术界把它命名为<strong>Cramer-Rao界</strong>，和香农信息量规定的香农界一样，是统计学理论中最重要的理论边界之一。</li>
+</ol>
+<blockquote>
+<p>TIPS：需要指出的是，Fisher信息和Cramer-Rao界和香农定理一样，只是告诉了我们这个理论上界，但是并没有告诉我们如何达到这个理论界限的方法。因此，如何设计达到或接近理论界限是学术研究中乐此不疲的领域。</p>
+</blockquote>
+<h2 id=fisher信息的应用>Fisher信息的应用</h2>
+<p>Fisher信息应用从三个方面来看（主要参考文章<a href=https://arxiv.org/abs/1705.01064>A Tutorial on Fisher Information</a>），分别是频率学派角度，贝叶斯学派角度和最小描述长度角度。</p>
+<h3 id=频率学派角度应用fisher信息>频率学派角度应用Fisher信息</h3>
+<p>由于Fisher信息本身就是由频率学派大佬Fisher提出来的，因此Fisher信息在频率学派统计方法中也应用最早。除了为了最原始的功能，即提供参数估计的性能边界，之外还可以用于试验精度要求设计、假设检验和置信区间构造与估计。其利用Fisher信息的核心都是MLE估计结果的<strong>概率分布或近似场景下的渐近正态性</strong>。</p>
+<p>感觉对我而言比较容易理解，同时用的不太多，需要用到是可以参考<a href=https://arxiv.org/abs/1705.01064>A Tutorial on Fisher Information</a>中第二节内容，</p>
+<h3 id=贝叶斯学派角度应用fisher信息>贝叶斯学派角度应用Fisher信息</h3>
+<h3 id=最小描述长度角度应用fisher信息>最小描述长度角度应用Fisher信息</h3>
+<p>最小描述长度（Minimum Description Length， MDL）原则是将奥卡姆剃刀形式化后的一种结果。其想法是，在给予假说的集合的情况下，能产生最多资料压缩效果的那个假说是最好的，即该原则寻求最简单、最不复杂的模型。它是在1978年由Jorma Rissanen所引入的。其原理是对于一组给定的实例数据<span class=math>\(D\)</span>，如果要对其进行保存，为了节省存储空间，<strong>一般采用某种模型<span class=math>\(H\)</span>对其进行编码压缩，然后再保存压缩后的数据</strong>。同时，为了以后正确恢复这些实例数据，将所用的模型<span class=math>\(H\)</span>也保存起来。所以需要保存的总数据长度(比如比特数) 等于这些实例数据<span class=math>\(D\)</span>进行编码压缩后的长度加上保存模型<span class=math>\(H\)</span>所需的长度，将该数据长度称为总描述长度，即 <span class=math>\[
+L_{total}=L(H)+L(D|H)
+\]</span> MDL原则就是就是要求<strong>选择对此数据集<span class=math>\(D\)</span>总描述长度最小的模型<span class=math>\(H\)</span></strong>。MDL计算与BIC（Bayesian Information Criterion, 贝叶斯信息准则）非常相似，在某些情况下可以证明是等效的。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -102,12 +257,12 @@ Sep 3, 2022</span>
 <div>
 <h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
 <nav class=tags_nav>
-<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
-优化理论
-<span class=button_tally>21</span>
-</a>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
+<span class=button_tally>22</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
 <span class=button_tally>21</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
@@ -192,7 +347,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=21 title=概率统计随机过程>概率统计随机过程<span class=button_tally>21</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=22 title=概率统计随机过程>概率统计随机过程<span class=button_tally>22</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -238,24 +393,24 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/ class=nav-link title=概率统计随机过程之极简贝叶斯统计总结>概率统计随机过程之极简贝叶斯统计总结</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/ class=nav-link title=概率统计随机过程之协和八公众号文章总结笔记>概率统计随机过程之协和八公众号文章总结笔记</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%88%86%E6%9E%90/ class=nav-link title=概率统计随机过程之时间序列分析>概率统计随机过程之时间序列分析</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/ class=nav-link title=机器学习之广义线性模型>机器学习之广义线性模型</a>
-</li>
 </ul>
 <div>
 <h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
 <nav class=tags_nav>
-<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
-优化理论
-<span class=button_tally>21</span>
-</a>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
+<span class=button_tally>22</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
 <span class=button_tally>21</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
@@ -354,7 +509,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=21 title=概率统计随机过程>概率统计随机过程<span class=button_tally>21</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=22 title=概率统计随机过程>概率统计随机过程<span class=button_tally>22</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
