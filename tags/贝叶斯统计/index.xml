@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>贝叶斯统计 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/</link><description>Recent content in 贝叶斯统计 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 26 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之极简贝叶斯统计总结</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</guid><description>
+&lt;h2 id="概率统计随机过程之极简贝叶斯统计总结">概率统计随机过程之极简贝叶斯统计总结&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>本篇笔记是小岛宽之的书《统计学关我什么事》的阅读笔记总结。本书大体分为两个部分，第一部分是对贝叶斯统计学本质的形象介绍，深入浅出，对我理解贝叶斯统计推断的帮助很大。第二部分，作者用较为简略的数学语言介绍贝叶斯统计中常用的数学工具如先验共轭分布Beta分布、正态分布、条件概率等，对有一定统计学基础的人而言意义不大。本篇笔记主要总结第一部分。&lt;/p>
+&lt;h3 id="一">一&lt;/h3>
+&lt;p>统计学分为两大分支，一个是以内曼-皮尔逊范式为主导的频率学派，关键人物有内曼、皮尔逊父子以及费希尔；另一个则是以贝叶斯范式为主的贝叶斯学派，关键人物有贝叶斯、拉普拉斯、林德利以及萨维奇。我们过去学习的统计学以频率学派的概率为主，比如点估计、区间估计、假设检验等，而贝叶斯统计则在近段时间随着机器学习，计算机领域的快速的发展得到越来越多的重视。&lt;/p>
+&lt;p>贝叶斯统计的主观性和思想性才是贝叶斯统计的本质和便利性所在。&lt;/p>
+&lt;p>信息增加导致概率（分布）变化是贝叶斯推理的基本方法。其步骤如下：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>通过经验设定先验概率。信息指附加的状况，无任何信息时的概率分布就是先验概率&lt;/li>
+&lt;li>构建在某种情况下的条件概率，这需要额外的信息或数据来支撑构建。&lt;/li>
+&lt;li>通过观察出现的行为或现象（即信息），排除“不可能的情况”&lt;/li>
+&lt;li>归一化剩下的情况的概率，即逆概率——后验概率。&lt;/li>
+&lt;/ol>
+&lt;p>总结：先验概率+条件概率+信息=后验概率&lt;/p>
+&lt;p>贝叶斯统计推断中的“逆”是指由结果&lt;span class="math">\(\rightarrow\)&lt;/span>原因。比如事件有一定出现概率，但是我们不确定到底是什么事件，我们能通过事件所引发的现象（果）来推测事件到底是什么（因）。虽然多个事件可能引起相同的现象，但不同事件引起同一现象的概率不同，因此引起的现象可以作为信息，来帮助我们推测。贝叶斯统计就是通过信息增加，不断改进推测的方法，也是其被称为执果索因的来历。&lt;/p>
+&lt;h3 id="二">二&lt;/h3>
+&lt;p>贝叶斯推理有时候反直觉，主要是因为先验概率和条件概率二者容易被混淆。典型的例子就是一个很少见的病，如果被医学检测出来是阳性，检测的正确性就算是99%，实际上患病的概率也不高（至少不会是99%这么高）。这是因为条件概率虽然很大，但是先验概率很小。不过这种检测并不是无用，即使真正患病的概率依旧不高，但是相比原来先验概率还是有很大变化，他们的变化体现在概率上，即先验概率和后验概率的变化。&lt;/p>
+&lt;h3 id="三">三&lt;/h3>
+&lt;p>贝叶斯统计也可以根据主观数字进行推理。主观概率：描述心理感受或信念程度的方式，区别于客观概率，主观概率多是心理的描述。&lt;/p>
+&lt;blockquote>
+&lt;p>理由不充分原理：没有任何先验信息时，先验概率假定为&lt;strong>均匀分布&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>概率的概率：概率模型参数的概率，就是说概率模型的参数也是一个概率，二者组合的一起会得到一些神奇的概率分布，比如beta分布等。&lt;/p>
+&lt;h3 id="四">四&lt;/h3>
+&lt;p>再回到频率学派的内曼-皮尔逊范式统计推理，其核心工具假设检验，有零假设、备择假设，显著性水平。零假设只能用来拒绝，不能用来肯定。我们只能说不能拒绝零假设，而不能说我们能证明零假设是对的。而当我们拒绝零假设时，只能接受互斥的备择假设，反而能证明备择假设是真的。其核心时小概率事件很少发生这一事实，小概率体现在显著性水平这一概念上，有设置为1%，5%的，其实这也是一种&lt;strong>主观设置&lt;/strong>，没有严肃的数学推理，这也暗示着具有主观性的先验概率和它并没有完全分离的界限。&lt;/p>
+&lt;h3 id="五">五&lt;/h3>
+&lt;p>如果从贝叶斯角度看假设检验，那么就是先验概率&lt;span class="math">\(\rightarrow\)&lt;/span>后验概率的变化，在选择时，贝叶斯推断并不给出最终结果，而是给出结果的概率，因此无论在何种条件下，贝叶斯推断都能得出一个暂时的结果。内曼-皮尔逊范式和贝叶斯范式区别在于前者风险（或错误率）体现在显著性水平，而且这个正确率效果时基于大量结果的统计均值，并不针对当下情况，是一概而论的感觉。而后者风险（错误率）则体现在后验概率中，因为每一个选择都是一定的概率（分布），这种概率（分布）会随着信息的累加而变化，并不是固定的数值。&lt;/p>
+&lt;h3 id="六">六&lt;/h3>
+&lt;p>贝叶斯范式和内曼-皮尔逊范式的衔接点是：&lt;strong>最大似然估计（又叫极大似然估计）&lt;/strong>。其思路选择的是使结果概率最大的模型（即原因）本质就是贝叶斯式的思维方式。而从频率学派角度来看，则是使似然函数最大的选值。&lt;/p>
+&lt;h3 id="七">七&lt;/h3>
+&lt;p>贝叶斯的悖论：猜汽车/蒙提霍尔问题。信息影响的是信息影响下事件的概率，而非所有的概率。这点很难理解，也是贝叶斯思维方式的难点，推荐看书籍原文。令人吃惊的，如果理解这个理论，你会发现这是从贝叶斯角度给“多听长辈话”这一古老谚语的严谨数学解释。&lt;/p>
+&lt;h3 id="八">八&lt;/h3>
+&lt;p>掌握多条信息是的推理，需要一个前提是独立实验，应用概率的乘法公式。比如垃圾邮件分类器。同时我们会发现多个独立的信息可以逐步进行贝叶斯推断结果和直接使用所有信息的效果是一样的，这就是贝叶斯推断的“序贯性”。这样我们就可以不用大量存储所有数据，而是小步迭代，逐步精确。能这么做的核心原因是：&lt;strong>之前的信息在先验概率更新为后验概率的步骤中，保存到了后验概率中&lt;/strong>。因此后验概率是先验概率和信息的集中体现。这在计算机理论尤其是机器学习中有着方便、广泛的应用。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/贝叶斯概率更新.jpg" alt="贝叶斯概率更新" />&lt;p class="caption">贝叶斯概率更新&lt;/p>
+&lt;/div>
+&lt;h3 id="九">九&lt;/h3>
+&lt;p>Beta分布基本形式 &lt;span class="math">\[
+Beta(x)=C\times x^{\alpha-1}\times(1-x)^{\beta-1},x\in [0,1],\alpha\geq 1,\beta\geq 1
+\]&lt;/span> 其中，&lt;span class="math">\(C\)&lt;/span>是标准化（归一化）系数，&lt;span class="math">\(\alpha,\beta\)&lt;/span>分别是两种事件发生次数的相关量，其期望是： &lt;span class="math">\[
+E(x)=\frac{\alpha}{\alpha+\beta}
+\]&lt;/span>&lt;/p>
+&lt;p>由于归一化时，对&lt;span class="math">\(x^{\alpha-1}\times(1-x)^{\beta-1}\)&lt;/span>的积分用到了Gamma函数来计算，因此常数&lt;span class="math">\(C\)&lt;/span>中会有Gamma函数。Beta分布是伯努利分布/二项分布的共轭先验分布，此外正态分布是正态分布的共轭先验分布。&lt;/p>
+&lt;blockquote>
+&lt;p>共轭分布：在贝叶斯统计中，如果后验分布与先验分布属于同类（分布形式相同），则先验分布与后验分布被称为共轭分布，而先验分布被称为似然函数的共轭先验。&lt;/p>
+&lt;/blockquote>
+&lt;p>共轭先验的好处主要在于代数上的方便性，可以直接给出后验分布的封闭形式，否则的话只能数值计算。共轭先验也有助于获得关于似然函数如何更新先验分布的直观印象。一个比较好的结论是所有指数家族的分布都有共轭先验。&lt;/p></description></item><item><title>概率统计随机过程之贝叶斯统计推断</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/</guid><description>
+&lt;h2 id="概率统计随机过程之贝叶斯统计推断">概率统计随机过程之贝叶斯统计推断&lt;!-- omit in toc -->&lt;/h2></description></item></channel></rss>

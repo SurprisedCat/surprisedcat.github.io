@@ -28,7 +28,7 @@
 &lt;h3 id="六">六&lt;/h3>
 &lt;p>贝叶斯范式和内曼-皮尔逊范式的衔接点是：&lt;strong>最大似然估计（又叫极大似然估计）&lt;/strong>。其思路选择的是使结果概率最大的模型（即原因）本质就是贝叶斯式的思维方式。而从频率学派角度来看，则是使似然函数最大的选值。&lt;/p>
 &lt;h3 id="七">七&lt;/h3>
-&lt;p>贝叶斯的悖论：猜汽车/蒙提霍尔问题。信息影响的是已知的选择的概率，而非所有的概率。这点很难理解，也是贝叶斯思维方式的难点，推荐看书籍原文。令人吃惊的，如果理解这个理论，你会发现这是从贝叶斯角度给“多听长辈话”这一古老谚语的严谨数学解释。&lt;/p>
+&lt;p>贝叶斯的悖论：猜汽车/蒙提霍尔问题。信息影响的是信息影响下事件的概率，而非所有的概率。这点很难理解，也是贝叶斯思维方式的难点，推荐看书籍原文。令人吃惊的，如果理解这个理论，你会发现这是从贝叶斯角度给“多听长辈话”这一古老谚语的严谨数学解释。&lt;/p>
 &lt;h3 id="八">八&lt;/h3>
 &lt;p>掌握多条信息是的推理，需要一个前提是独立实验，应用概率的乘法公式。比如垃圾邮件分类器。同时我们会发现多个独立的信息可以逐步进行贝叶斯推断结果和直接使用所有信息的效果是一样的，这就是贝叶斯推断的“序贯性”。这样我们就可以不用大量存储所有数据，而是小步迭代，逐步精确。能这么做的核心原因是：&lt;strong>之前的信息在先验概率更新为后验概率的步骤中，保存到了后验概率中&lt;/strong>。因此后验概率是先验概率和信息的集中体现。这在计算机理论尤其是机器学习中有着方便、广泛的应用。&lt;/p>
 &lt;div class="figure">
@@ -44,7 +44,8 @@ E(x)=\frac{\alpha}{\alpha+\beta}
 &lt;blockquote>
 &lt;p>共轭分布：在贝叶斯统计中，如果后验分布与先验分布属于同类（分布形式相同），则先验分布与后验分布被称为共轭分布，而先验分布被称为似然函数的共轭先验。&lt;/p>
 &lt;/blockquote>
-&lt;p>共轭先验的好处主要在于代数上的方便性，可以直接给出后验分布的封闭形式，否则的话只能数值计算。共轭先验也有助于获得关于似然函数如何更新先验分布的直观印象。一个比较好的结论是所有指数家族的分布都有共轭先验。&lt;/p></description></item><item><title>概率统计随机过程之Fisher信息</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/</link><pubDate>Sat, 03 Sep 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/</guid><description>
+&lt;p>共轭先验的好处主要在于代数上的方便性，可以直接给出后验分布的封闭形式，否则的话只能数值计算。共轭先验也有助于获得关于似然函数如何更新先验分布的直观印象。一个比较好的结论是所有指数家族的分布都有共轭先验。&lt;/p></description></item><item><title>概率统计随机过程之贝叶斯统计推断</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/</guid><description>
+&lt;h2 id="概率统计随机过程之贝叶斯统计推断">概率统计随机过程之贝叶斯统计推断&lt;!-- omit in toc -->&lt;/h2></description></item><item><title>概率统计随机过程之Fisher信息</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/</link><pubDate>Sat, 03 Sep 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#理解fisher信息">理解Fisher信息&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#故事的开始从最大似然估计开始">故事的开始：从最大似然估计开始&lt;/a>&lt;/li>

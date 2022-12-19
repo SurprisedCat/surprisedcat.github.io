@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数学分析 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/</link><description>Recent content in 数学分析 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 18 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之投影内积和傅里叶级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</link><pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数学分析 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/</link><description>Recent content in 数学分析 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 01 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之两类欧拉积分(Gamma、Beta函数与积分)</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</guid><description>
+&lt;h2 id="数学分析之两类欧拉积分">数学分析之两类欧拉积分&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在概率论、微积分等数学领域中，我们经常能见到Beta函数（分布）、Gamma函数这种十分奇特的函数形式，他们很难从直觉上理解形式、作用，但是在很多时候有发挥着基础性作用。这不禁让人们好奇人们是怎么发现这两个奇葩的存在。这就要提到一位传奇数学巨匠——欧拉，他一生数学贡献无数，在数学及许多分支中都可以见到很多以欧拉命名的常数、公式和定理，他的工作使得数学更接近于现代数学的形态。他不但为数学界作出贡献，更把数学推至几乎整个物理的领域。此外欧拉还涉及建筑学、弹道学、航海学等领域。法国大数学家拉普拉斯曾说过一句话——“读读欧拉，他是所有人的老师。”两类欧拉积分，无疑也为其光辉的数学生涯又增加了浓墨重彩的一笔。两类欧拉积分的具体形式如下：&lt;/p>
+&lt;p>第一类欧拉积分(Beta函数)： &lt;span class="math">\[
+B(x,y)=\int_0^1 t^{x-1}(1-t)^{y-1}\mathrm{d}t=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}\tag{1}
+\]&lt;/span>&lt;/p>
+&lt;p>第二类欧拉积分(Gamma函数)： &lt;span class="math">\[
+\Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\mathrm{d}t\tag{2}
+\]&lt;/span>&lt;/p>
+&lt;p>那么如此不直观的两个积分是如何被引入数学领域并在很多方向的起到奠基作用呢？这就用从&lt;strong>哥德巴赫对插值与阶乘的研究&lt;/strong>说起。&lt;/p>
+&lt;h2 id="哥德巴赫的疑问插值与阶乘研究">哥德巴赫的疑问——插值与阶乘研究&lt;/h2>
+&lt;p>克里斯蒂安·哥德巴赫（1690-1764）是活跃于17-18世纪的普鲁士（现德国）数学家，现在稍微对数学有些了解的人肯定会听过著名的“哥德巴赫猜想”，这个猜想描述起来十分简单：&lt;/p>
+&lt;blockquote>
+&lt;p>任一大于2的偶数，都可表示成两个素数之和。&lt;/p>
+&lt;/blockquote>
+&lt;p>但是，却是数论中存在最久的未解问题之一。哥德巴赫就是有这种能在简单事物中寻到复杂原理的直觉。两类欧拉积分函数的诞生，也同样来源于他对一个简单插值问题的研究。&lt;/p>
+&lt;p>十七世纪的欧洲已经对科学实验与观测有了较为健全的认识，尤其是天文、海航领域，大量的观测与测量积累了丰富的相关数据，比如天文学上形体位置数据。由于每次观测都只获得一个结果，因此这些数据基本都是离散的数据。直观上来看，浩如烟海且庞杂多样的离散数据点令人头晕眼花，为了能提取出这些大量数据之中的精髓，总结数据的规律，数学家寄希望于&lt;strong>用一个相对简单的数学公式来替代大量的观测数据&lt;/strong>，&lt;strong>插值法&lt;/strong>的研究就此火热起来。内插，或称插值（英语：Interpolation），是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。求解科学和工程的问题时，通常有许多数据点借由采样、实验等方法获得，这些数据可能代表了有限个数值函数，其中自变量的值。而根据这些数据，我们往往希望得到一个连续的函数（曲线）。举个简单的例子：&lt;/p>
+&lt;blockquote>
+&lt;p>对于离散序列&lt;span class="math">\(\{(1,1),(2,q^1),(3,q^2),\dotsb,(k,q^{k-1}),\dotsb\},q\neq 1\)&lt;/span>的前&lt;span class="math">\(n\)&lt;/span>项之和，是否可以找出一条平滑的曲线穿过序列前&lt;span class="math">\(n\)&lt;/span>项的和？即 &lt;span class="math">\[f(n)=\sum_{i=1}^{n} a(i),\]&lt;/span> 找出一条过所有&lt;span class="math">\((n,f(n))\)&lt;/span>点且尽量简单的平滑曲线。&lt;/p>
+&lt;/blockquote>
+&lt;p>学过高中数学的读者很快就能发现，这个例子就是找的等比数列求和公式，画成图像是（&lt;span class="math">\(q=1.1\)&lt;/span>）：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/插值等比序列.png" alt="插值等比序列" />&lt;p class="caption">插值等比序列&lt;/p>
+&lt;/div>
+&lt;p>当我们用将这些点用一条平滑的曲线连接起来之后，不禁会思考，可以不可以用一个简单的表达式（函数）来表示这条曲线呢？这也是插值研究的一个重要问题。对于上面这个例子，根据中学数学知识，我们不难给出这样一条非常符合要求的曲线，其函数表达式为： &lt;span class="math">\[
+f(x)=\frac{1-q^x}{1-q}(q=1.1)\tag{3}
+\]&lt;/span>&lt;/p>
+&lt;p>显然所有离散点都在这条曲线上，并且得到这个十分简单的函数表达式意味着我们不用再记那些离散的点，即使序列有无限长也无所谓，只需要计算函数表达式就可以根据任意给出的&lt;span class="math">\(n\)&lt;/span>得到相应的结果&lt;span class="math">\(f(n)\)&lt;/span>。&lt;/p>
+&lt;p>这里必须要指出，是不是我们只能使用这一条曲线穿过所有的点呢？当时不是。我们可以信手画很多种曲线，都穿过图中那些离散的点，但是为什么大家选择了图中那条曲线呢？一是因为在哥德巴赫和欧拉所处的时代，函数这一词不仅仅意味着定义域到值域的抽象映射，更需要有一个能写出来的解析表达式。如果无法写出来一个明确的表达式，这个函数通常是不会被考虑的。二是因为这条曲线要足够的“自然”，这意味这条曲线需要一定合理的意义。当然即使满足了以上两点，函数曲线也并不是唯一的，大多数时候我们只是采用了那条&lt;strong>最符合我们直观想法&lt;/strong>的函数曲线。&lt;/p>
+&lt;p>此外，找到的这个函数还有一个非常重要的特点：&lt;strong>连续性：即使在非正整数的点，例如-1，0.4736，1.1,&lt;span class="math">\(\sqrt{2}\)&lt;/span>,100.12345，函数都是有值的&lt;/strong>。这意味着我们将表达式可用的范围（定义域）从正整数&lt;strong>解析延拓&lt;/strong>到了整个实数域（除了&lt;span class="math">\(q\neq 1\)&lt;/span>）。&lt;/p>
+&lt;blockquote>
+&lt;p>解析延拓（英语：Analytic continuation）是数学上将解析函数从较小定义域拓展到更大定义域的方法，延拓的基本原则是延拓后的函数在原来的区域上和原函数等值。&lt;/p>
+&lt;/blockquote>
+&lt;p>对离散数据的插值和延拓得到的解析表达式提升了问题处理的泛用性，算是提取了大量数据中的精髓。说句题外话，现在火热的神经网络监督学习方法本质上也是通过离散数据（训练数据）拟合和延拓最贴近现实的函数。&lt;/p>
+&lt;p>哥德巴赫在处理一系列插值与延拓问题时，遇到了一个看似很简单，处理起来却很棘手的问题，即阶乘的插值。&lt;/p>
+&lt;p>在一系列数列中，阶乘的表达方式并不复杂甚至说非常简单： &lt;span class="math">\[
+1,1\times 2,1\times 2\times 3,\dotsb,1\times 2\times\dotsb\times n,\dotsb
+\]&lt;/span> 哥德巴赫知道连加求和的通项公式非常好找，因此他希望找到一个优雅简洁的通项公式，即能准确地描述阶乘&lt;span class="math">\(n!\)&lt;/span>，又能够像求和公式&lt;span class="math">\(\frac{n(n+1)}{2}\)&lt;/span>那样可以推广到实数域。经过多次尝试，哥德巴赫并没有在这个问题上取得太大进展，因此，他决定向当时他所认识的多位著名数学家求助。&lt;/p>
+&lt;h2 id="三封信中诞生的gamma函数">三封信中诞生的Gamma函数&lt;/h2>
+&lt;h3 id="第一封丹尼尔-伯努利的解答">第一封：丹尼尔-伯努利的解答&lt;/h3>
+&lt;p>1722年他找尼古拉斯-伯努利请教这个阶乘插值问题，不过没有取得任何进展。即便如此，哥德巴赫却多年来一直不忘思考这个问题，1729 年他又请教尼古拉斯-伯努利的弟弟丹尼尔-伯努利，正好当时丹尼尔-伯努利对无穷级数有着很深入的了解，他从中获取灵感，于当年 10 月给哥德巴赫的一封回信中以无穷级数的形式给出了漂亮的解答。 &lt;span class="math">\[
+x!=\lim_{A\rightarrow\infty}(A+1+\frac{x}{2})^{x-1} \prod_{i=1}^A \frac{i+1}{i+x}
+\]&lt;/span> 这个插值公式的效果随&lt;span class="math">\(A\)&lt;/span>的增大而收敛，我们给出了一些&lt;span class="math">\(A\)&lt;/span>值下的结果图： &lt;img src="../../images/Bernoulli_interpolation.png" alt="bernoulli_interpolation" />&lt;/p>
+&lt;p>丹尼尔-伯努利通过无穷级数与插值首先给出了一个解析表达式，虽然看上去很不好用，但是给接下来欧拉的研究提供灵感。&lt;/p>
+&lt;h3 id="第二封欧拉的无穷级数型解答">第二封：欧拉的无穷级数型解答&lt;/h3></description></item><item><title>数学分析之投影内积和傅里叶级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</link><pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%86%85%E7%A7%AF%E5%92%8C%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/</guid><description>
 &lt;h2 id="数学分析之投影内积和傅里叶级数">数学分析之投影内积和傅里叶级数&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#内积点积传统定义">内积（点积）传统定义&lt;/a>&lt;/li>
