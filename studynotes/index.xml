@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Studynotes on SurprisedCat</title><link>https://surprisedcat.github.io/studynotes/</link><description>Recent content in Studynotes on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 01 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/studynotes/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之两类欧拉积分(Gamma、Beta函数与积分)</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#哥德巴赫的疑问插值与阶乘研究">哥德巴赫的疑问——插值与阶乘研究&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#三封信中诞生的gamma函数">三封信中诞生的Gamma函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#第一封丹尼尔-伯努利的解答">第一封：丹尼尔-伯努利的解答&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#第二封欧拉的无穷级数型解答">第二封：欧拉的无穷级数型解答&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#无穷乘积中欧拉的发现">无穷乘积中欧拉的发现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#第三封欧拉的积分函数型解答">第三封：欧拉的积分函数型解答&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#欧拉积分的进一步探究">欧拉积分的进一步探究&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#beta和gamma函数的命名">Beta和Gamma函数的命名&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#积分函数的偏移">积分函数的偏移&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#第二类欧拉积分的负数复数延拓以及统一表达式">第二类欧拉积分的负数、复数延拓以及统一表达式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#第二类欧拉积分与阶乘延拓的唯一性">第二类欧拉积分与阶乘延拓的唯一性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#gamma分布">Gamma分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#beta分布">Beta分布&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;/ul>
 &lt;h2 id="数学分析之两类欧拉积分">数学分析之两类欧拉积分&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>在概率论、微积分等数学领域中，我们经常能见到Beta函数（分布）、Gamma函数这种十分奇特的函数形式，他们很难从直觉上理解形式、作用，但是在很多时候有发挥着基础性作用。这不禁让人们好奇人们是怎么发现这两个奇葩的存在。这就要提到一位传奇数学巨匠——欧拉，他一生数学贡献无数，在数学及许多分支中都可以见到很多以欧拉命名的常数、公式和定理，他的工作使得数学更接近于现代数学的形态。他不但为数学界作出贡献，更把数学推至几乎整个物理的领域。此外欧拉还涉及建筑学、弹道学、航海学等领域。法国大数学家拉普拉斯曾说过一句话——“读读欧拉，他是所有人的老师。”两类欧拉积分，无疑也为其光辉的数学生涯又增加了浓墨重彩的一笔。两类欧拉积分的具体形式如下：&lt;/p>
 &lt;p>第一类欧拉积分(Beta函数)： &lt;span class="math">\[
-B(x,y)=\int_0^1 t^{x-1}(1-t)^{y-1}\mathrm{d}t=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}\tag{1}
+\Beta(x,y)=\int_0^1 t^{x-1}(1-t)^{y-1}\mathrm{d}t=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}\tag{1}
 \]&lt;/span>&lt;/p>
 &lt;p>第二类欧拉积分(Gamma函数)： &lt;span class="math">\[
 \Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\mathrm{d}t\tag{2}
@@ -39,10 +57,163 @@ f(x)=\frac{1-q^x}{1-q}(q=1.1)\tag{3}
 &lt;h2 id="三封信中诞生的gamma函数">三封信中诞生的Gamma函数&lt;/h2>
 &lt;h3 id="第一封丹尼尔-伯努利的解答">第一封：丹尼尔-伯努利的解答&lt;/h3>
 &lt;p>1722年他找尼古拉斯-伯努利请教这个阶乘插值问题，不过没有取得任何进展。即便如此，哥德巴赫却多年来一直不忘思考这个问题，1729 年他又请教尼古拉斯-伯努利的弟弟丹尼尔-伯努利，正好当时丹尼尔-伯努利对无穷级数有着很深入的了解，他从中获取灵感，于当年 10 月给哥德巴赫的一封回信中以无穷级数的形式给出了漂亮的解答。 &lt;span class="math">\[
-x!=\lim_{A\rightarrow\infty}(A+1+\frac{x}{2})^{x-1} \prod_{i=1}^A \frac{i+1}{i+x}
+x!=\lim_{A\rightarrow\infty}(A+1+\frac{x}{2})^{x-1} \prod_{i=1}^A \frac{i+1}{i+x}\tag{4}
 \]&lt;/span> 这个插值公式的效果随&lt;span class="math">\(A\)&lt;/span>的增大而收敛，我们给出了一些&lt;span class="math">\(A\)&lt;/span>值下的结果图： &lt;img src="../images/Bernoulli_interpolation.png" alt="bernoulli_interpolation" />&lt;/p>
-&lt;p>丹尼尔-伯努利通过无穷级数与插值首先给出了一个解析表达式，虽然看上去很不好用，但是给接下来欧拉的研究提供灵感。&lt;/p>
-&lt;h3 id="第二封欧拉的无穷级数型解答">第二封：欧拉的无穷级数型解答&lt;/h3></description></item><item><title>概率统计随机过程之极简贝叶斯统计总结</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</guid><description>
+&lt;p>丹尼尔-伯努利通过无穷级数首先给出了一个阶乘解析表达式，虽然看上去很不好用，但是收敛速度还是挺快的，并且给接下来欧拉的研究提供灵感。&lt;/p>
+&lt;h3 id="第二封欧拉的无穷级数型解答">第二封：欧拉的无穷级数型解答&lt;/h3>
+&lt;p>当哥德巴赫向丹尼尔-伯努利写信咨询时，他正在圣彼得堡担任科学院成员，而他此时身边有一位好朋友叫莱昂纳德-欧拉，对这个找阶乘函数的问题也表现出了兴趣。同样，借助于&lt;strong>无穷&lt;/strong>这个强大工具，他在论文&lt;a href="https://arxiv.org/abs/1201.5631">《De termino generali serium hypergeometricarum》&lt;/a>中给出了自己的思路。&lt;/p>
+&lt;blockquote>
+&lt;p>Tips: 无穷的运算法则：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\infty\plusmn a=\infty,\forall a\in R\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(-\infty\plusmn a=-\infty,\forall a\in R\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\infty\times a=\infty,\forall a&amp;gt;0\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\infty\times -a=-\infty,\forall a&amp;gt;0\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>对于一个无穷大数&lt;span class="math">\(n\rightarrow\infty\)&lt;/span>，任一有限数字&lt;span class="math">\(x\)&lt;/span>，有 &lt;span class="math">\[
+(n+x)!=n!\times (n+1)\times(n+2)\times\dotsb\times(n+x)\tag{5}
+\]&lt;/span> 显然，一般理解下式&lt;span class="math">\((5)\)&lt;/span>只有当&lt;span class="math">\(x\)&lt;/span>为正整数时才合理。为了方便讨论，欧拉假设已经找到了一个适用于整个正实数域的阶乘插值函数（负数和复数以后再讨论），不妨令其为&lt;span class="math">\(\Delta(x),x\in R^+\)&lt;/span>，即式(5)为： &lt;span class="math">\[
+\Delta(n+x)=\Delta(n)\times(n+1)\times(n+2)\times\dotsb\times(n+x)\tag{5.1}
+\]&lt;/span> 若&lt;span class="math">\(x\)&lt;/span>为正整数，则&lt;span class="math">\(\Delta(x)=x!\)&lt;/span>。而根据无穷大的计算法则，当&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>： &lt;span class="math">\[
+n+1=n\quad n+2=n\quad \dotsb \quad n+x=n
+\]&lt;/span> 因此，式&lt;span class="math">\((5.1)\)&lt;/span>可以写成 &lt;span class="math">\[
+\Delta(n+x)=\Delta(n)\times n^x\tag{6}
+\]&lt;/span> 此时，欧拉再利用无穷大的性质，当&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>时，&lt;span class="math">\(n+\alpha=n\)&lt;/span>，&lt;span class="math">\(\alpha\)&lt;/span>是任一有限数。欧拉再将式&lt;span class="math">\((6)\)&lt;/span>中的&lt;span class="math">\(n^x\)&lt;/span>代换为&lt;span class="math">\((n+\alpha)^x\)&lt;/span>，即 &lt;span class="math">\[
+\Delta(n+x)=\Delta(n)\times (n+\alpha)^x\tag{7}
+\]&lt;/span> 若取&lt;span class="math">\(\alpha=1\)&lt;/span>，则&lt;span class="math">\((7)\)&lt;/span>可写成： &lt;span class="math">\[
+\Delta(x+n)=\Delta(n)\times (n+1)^x, n\rightarrow\infty\\
+\Rightarrow \lim_{n\rightarrow\infty}\frac{\Delta(n)\times(n+1)^x}{\Delta(n+x)}=1\tag{8}
+\]&lt;/span> 最终，两边同时乘以&lt;span class="math">\(x\)&lt;/span>的阶乘函数&lt;span class="math">\(\Delta(x)\)&lt;/span>，则有： &lt;span class="math">\[
+\Delta(x)=\lim_{n\rightarrow\infty}\frac{\Delta(n)\times(n+1)^x}{\Delta(n+x)}\times\Delta(x)\\
+=\lim_{n\rightarrow\infty}\frac{1\cdot 2\cdot\dotsb \cdot n\times(n+1)^x}{(x+1)(x+2)\dotsb(x+n)},x\in R^+\tag{9}
+\]&lt;/span> 上式(9)就是欧拉得到的无穷乘积形式的阶乘函数。从欧拉给出的思路来看，他真是将无穷的性质玩出花来了，当&lt;span class="math">\(n\)&lt;/span>取值远大于&lt;span class="math">\(x\)&lt;/span>时，这些式子的精度都很高。反复利用无穷性质的缺点是欧拉所给出的无穷乘积（式(9)）表达式的收敛速度，并没有丹尼尔伯努利给出的无穷乘积表达式（式(4)）收敛速度快。同时，丹尼尔-伯努利和欧拉二者给出的不同结果也告诉我们：满足整数点阶乘计算结果的插值&lt;strong>阶乘函数并不唯一&lt;/strong>。&lt;/p>
+&lt;h3 id="无穷乘积中欧拉的发现">无穷乘积中欧拉的发现&lt;/h3>
+&lt;p>我们发现无论是式(4)还是式(9)，&lt;span class="math">\(x\)&lt;/span>的取值都可以是任意正实数，并非一定要是整数，不过欧拉的无穷乘积表达式却是一只会下金蛋的鸡。欧拉作为20岁前就熟读伐里农、牛顿、笛卡尔、伽利略、雅各布-伯努利、约翰-伯努利、泰勒、沃利斯著作的学神，发现自己的无穷乘积表达式（是(9)）和英国数学家沃利斯发现的沃利斯乘积具有相似性。沃里斯乘积： &lt;span class="math">\[
+\prod_{n=1}^{\infty}{\frac{2n}{2n-1}}\cdot {\frac{2n}{2n+1}}={\frac{2}{1}}\cdot {\frac {2}{3}}\cdot {\frac {4}{3}}\cdot {\frac {4}{5}}\cdot {\frac {6}{5}}\cdot {\frac {6}{7}}\cdot {\frac {8}{7}}\cdot {\frac {8}{9}}\cdots ={\frac {\pi }{2}}\tag{10}
+\]&lt;/span> 而自己的无穷乘积表达式在&lt;span class="math">\(x=\frac{1}{2}\)&lt;/span>的时候，有： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;\lim_{n\rightarrow\infty}\frac{1\cdot 2\cdot\dotsb \cdot n\times(n+1)^x}{(x+1)(x+2)\dotsb(x+n)}\bigg|_{x=\frac{1}{2}}\\
+&amp;amp;=\lim_{n\rightarrow\infty}(n+1)^{\frac{1}{2}}\frac{1}{\frac{1}{2}+1}\cdot\frac{2}{\frac{1}{2}+2}\cdot\frac{3}{\frac{1}{2}+3}\cdot\dotsb\frac{n}{\frac{1}{2}+n}\\
+&amp;amp;=\lim_{n\rightarrow\infty}\sqrt{n+1}\cdot \frac{2}{3}\cdot \frac{4}{5}\cdot \frac{6}{7}\dotsb \cdot \frac{2n}{2n+1}\\
+&amp;amp;=\lim_{n\rightarrow\infty}\sqrt{n+1}\cdot \sqrt{(\frac{2}{3}\cdot \frac{4}{5}\cdot \frac{6}{7}\dotsb \cdot \frac{2n}{2n+1})\cdot (\frac{2}{3}\cdot \frac{4}{5}\cdot \frac{6}{7}\dotsb \cdot \frac{2n}{2n+1})}\\
+&amp;amp;=\lim_{n\rightarrow\infty}\sqrt{n+1}\cdot \sqrt{\frac{2\cdot 2 \cdot 4 \cdot 4\cdot 6\cdot 6\dotsb 2n \cdot 2n}{3\cdot 3 \cdot 5 \cdot 5 \cdot 7 \dotsb \cdot(2n+1)\cdot(2n+1)}}\\
+&amp;amp;=\lim_{n\rightarrow\infty}\sqrt{\frac{n+1}{2n+1}}\cdot \sqrt{\underbrace{\prod_{i=1}^{n}{\frac{2i}{2i-1}}\cdot {\frac{2i}{2i+1}}}_{沃利斯乘积=\frac{\pi}{2}}}\tag{11}
+\end{aligned}
+\]&lt;/span> 欧拉惊奇地发现，后面那一项正是沃里斯公式（式(10)）的表达式，由此，我们可以将上式简写成： &lt;span class="math">\[
+\Delta(\frac{1}{2})=\frac{1}{2}!=\lim_{n\rightarrow\infty}\sqrt{\frac{n+1}{2n+1}}\cdot \sqrt{\prod_{i=1}^{n}{\frac{2i}{2i-1}}\cdot {\frac{2i}{2i+1}}}\\
+=\sqrt{\frac{1}{2}}\sqrt{\frac{\pi}{2}}=\frac{\sqrt{\pi}}{2}\tag{12}
+\]&lt;/span> 出乎意料，在阶乘的函数表达式中出现了&lt;span class="math">\(\pi\)&lt;/span>。此时，欧拉意识到这个阶乘表达式可能与圆或者求面积有着密切联系，而求面积是积分的本职工作。此外，沃利斯也是在研究曲线下方面积（用现在角度看就是积分）时得到的沃利斯乘积，因此欧拉闪过灵感，&lt;strong>能否用积分的形式来替代无穷乘积形式表示阶乘函数呢&lt;/strong>？&lt;/p>
+&lt;h3 id="第三封欧拉的积分函数型解答">第三封：欧拉的积分函数型解答&lt;/h3>
+&lt;p>参考了前辈沃利斯、牛顿和斯特林的积分研究成果，欧拉选取了以下积分形式： &lt;span class="math">\[
+J(e,n)=\int_0^1 x^e(1-x)^n\mathrm{d}x\tag{13}
+\]&lt;/span> 其中&lt;span class="math">\(e\)&lt;/span>是任意数，&lt;span class="math">\(n\)&lt;/span>是整数。这个式子细看其实已经是第一类欧拉积分的原型了，后来勒让德修改了式(13)的形式，得到式(1)，Beta函数。 &lt;span class="math">\[
+B(x,y)=\int_0^1 t^{x-1}(1-t)^{y-1}\mathrm{d}t\tag{1}
+\]&lt;/span> 相较于第二类欧拉积分，它出现的更早，并且由式(13)推导出了第二类欧拉积分（式(2)），因此我们反而把更复杂一些的式(13)的形式定义为“第一类”欧拉积 分。&lt;/p>
+&lt;p>我们通过分部积分法来处理式(13): &lt;span class="math">\[
+\begin{aligned}
+J(e,n)&amp;amp;=\frac{1}{e+1}x^{e+1}(1-x)^n\bigg |_0^1-\int_0^1 \frac{-n}{e+1}x^{e+1}(1-x)^{n-1}\mathrm{d}x\\
+&amp;amp;=0+\frac{n}{e+1}\int_0^1 x^{e+1}(1-x)^{n-1}\mathrm{d}x\\
+&amp;amp;=\frac{n}{e+1}J(e+1,n-1)
+\end{aligned}\tag{14}
+\]&lt;/span> 每用一次分部积分，&lt;span class="math">\(e\)&lt;/span>加一，&lt;span class="math">\(n\)&lt;/span>减一。这样我们递归地使用分部积分法可得： &lt;span class="math">\[\begin{aligned}
+J(e,n)&amp;amp;=\frac{n}{e+1}J(e+1,n-1)\\
+&amp;amp;=\frac{n(n-1)}{(e+1)(e+2)}J(e+2,n-2)\\
+&amp;amp;\qquad\qquad\vdots\\
+&amp;amp;=\frac{n(n-1)\dotsb 2\cdot 1}{(e+1)(e+2)\dotsb(e+n)}J(e+n,0)\\
+&amp;amp;=\frac{n(n-1)\dotsb 2\cdot 1}{(e+1)(e+2)\dotsb(e+n)}\int_0^1 x^{e+n}(1-x)^0\mathrm{d}x\\
+&amp;amp;=\frac{n!}{(e+1)(e+2)\dotsb(e+n)(e+n+1)}
+\end{aligned}\tag{15}
+\]&lt;/span> 即 &lt;span class="math">\[
+\int_0^1 x^{e}(1-x)^n\mathrm{d}x=\frac{n!}{(e+1)(e+2)\dotsb(e+n)(e+n+1)}\tag{15.1}
+\]&lt;/span> 欧拉经过分部积分，已经将阶乘&lt;span class="math">\(n!\)&lt;/span>与积分&lt;span class="math">\(\int_0^1 x^{e}(1-x)^n\mathrm{d}x\)&lt;/span>联系了起来，此时如果能将分母中&lt;span class="math">\((e+1)(e+2)\dotsb(e+n)(e+n+1)\)&lt;/span>与&lt;span class="math">\(n\)&lt;/span>的相关内容分离出来，就能够得到&lt;span class="math">\(n!\)&lt;/span>的积分表达式了！&lt;/p>
+&lt;p>欧拉使用了一个处理技巧，令&lt;span class="math">\(e=\frac{f}{g}\)&lt;/span>，代入得： &lt;span class="math">\[
+\int_0^1 x^{\frac{f}{g}}(1-x)^n\mathrm{d}x=\frac{n!}{(\frac{f}{g}+1)(\frac{f}{g}+2)\dotsb(\frac{f}{g}+n)(\frac{f}{g} +n+1)}\\
+=\frac{n!\cdot g^{n+1}}{(f+g)(f+2g)\dotsb(f+ng)(f+(n+1)g)}\tag{16}
+\]&lt;/span> 将等式右侧的&lt;span class="math">\(g^{n+1}\)&lt;/span>转移到另一侧，可得 &lt;span class="math">\[
+\frac{\int_0^1 x^{\frac{f}{g}}(1-x)^n\mathrm{d}x}{g^{n+1}}=\frac{n!}{(f+g)(f+2g)\dotsb(f+ng)(f+(n+1)g)}\tag{16.1}
+\]&lt;/span> 如果我们取&lt;span class="math">\(f=1,g\rightarrow 0\)&lt;/span>，那么等式右侧(RHS)在取极限时就会只剩下&lt;span class="math">\(n!\)&lt;/span>，而等式左侧(LHS)则是一个奇怪的结构： &lt;span class="math">\[
+\lim_{g\rightarrow 0},_{f=1}\frac{\int_0^1 x^{\frac{f}{g}}(1-x)^n\mathrm{d}x}{g^{n+1}}=\frac{\int_0^1 x^{\frac{1}{0}}(1-x)^n\mathrm{d}x}{0^{n+1}}\tag{17}
+\]&lt;/span> 为了处理这个结构，欧拉对积分变量做了一个代换，令&lt;span class="math">\(y=x^{\frac{f+g}{g}}\)&lt;/span>，&lt;span class="math">\(y\)&lt;/span>的积分域显然也是&lt;span class="math">\([0,1]\)&lt;/span>，则&lt;span class="math">\(x=y^{\frac{g}{f+g}}\)&lt;/span>，那么式(16.1)左侧可改写成： &lt;span class="math">\[
+\begin{aligned}
+(16.1)LHS&amp;amp;=\frac{\int_0^1 (y^{\frac{g}{f+g}})^{f/g}(1-y^{\frac{g}{f+g}})^n\mathrm{d}(y^{\frac{g}{f+g}})}{g^{n+1}}\\
+&amp;amp;=\frac{\int_0^1 y^{\frac{f}{f+g}}(1-y^{\frac{g}{f+g}})^n (\frac{g}{f+g}y^{\frac{-f}{f+g}})\mathrm{d}y}{g^{n+1}}\\
+&amp;amp;=\frac{\int_0^1 (1-y^{\frac{g}{f+g}})^n \mathrm{d}y}{g^{n}(f+g)}\\
+&amp;amp;=\frac{1}{(f+g)^{n+1}}\int_0^1(\frac{1-y^{\frac{g}{f+g}}}{\frac{g}{f+g}})^n\mathrm{d}y
+\end{aligned}\tag{18}
+\]&lt;/span> 此时，我们再看式(18)的结果，其关键结构就是&lt;span class="math">\(\frac{1-y^{\frac{g}{f+g}}}{\frac{g}{f+g}}\)&lt;/span>，为了方便我们令&lt;span class="math">\(z=\frac{g}{f+g}\)&lt;/span>，当取&lt;span class="math">\(f=1,g\rightarrow 0\)&lt;/span>时，显然有&lt;span class="math">\(z\rightarrow 0\)&lt;/span>，即 &lt;span class="math">\[
+\lim_{z\rightarrow 0}\frac{1-y^z}{z}\xlongequal{洛必达法则}\frac{-y^z\ln y}{1}\\
+=-\ln y\tag{19}
+\]&lt;/span> 将式(19)的结果代入式(18)，并联立式(16)可得： &lt;span class="math">\[
+\int_0^1 (-\ln y)^n\mathrm{d}y=n!\tag{20}
+\]&lt;/span> 为了追寻最后结果好看，也可以把&lt;span class="math">\(y\)&lt;/span>写成&lt;span class="math">\(x\)&lt;/span>，但是本文为了标识清晰，就保留&lt;span class="math">\(y\)&lt;/span>来表示。式(20)就是欧拉在原式论文中给出的结果，不过和式(2)给出的第二类欧拉积分似乎还有点不同。其实式(2)和(20)式等价的，我们只要令&lt;span class="math">\(y=e^{-t}\)&lt;/span>，那么便有： &lt;span class="math">\[
+n!=\int_0^1 (-\ln e^{-t})^n\mathrm{d}e^{-t}=\int_0^\infty t^n e^{-t}\mathrm{d}t\tag{21}
+\]&lt;/span> 显然，其结果就是第二类欧拉积分，又称为&lt;span class="math">\(\Gamma\)&lt;/span>函数。其在正实数范围内的图像如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/gamma-function-posotive-real.png" alt="gamma-function-posotive-real" />&lt;p class="caption">gamma-function-posotive-real&lt;/p>
+&lt;/div>
+&lt;p>需要注意的是，上式的函数和真正的&lt;span class="math">\(\Gamma\)&lt;/span>函数有一位偏移。做出这个偏移决定的也是欧拉，这也使得&lt;span class="math">\(\Gamma(x)=(x-1)!\)&lt;/span>而非&lt;span class="math">\(x!\)&lt;/span>。&lt;/p>
+&lt;p>哥德巴赫和欧拉在关于阶乘函数的通信中诞生了两类欧拉积分即Beta函数和Gamma函数，此时是1730年，欧拉只有23岁。从此数学家对他们的探索就从未停止过，并且得出了许多改变数学历史的结论。我们将这些细节在下一章中说明。&lt;/p>
+&lt;h2 id="欧拉积分的进一步探究">欧拉积分的进一步探究&lt;/h2>
+&lt;h3 id="beta和gamma函数的命名">Beta和Gamma函数的命名&lt;/h3>
+&lt;p>当欧拉在给哥德巴赫的回信中第一次给出两类积分的时候，显然不会像后世有“后验”经验的数学家那样意识到这两个积分函数的将会带来多大的数学财富。由于欧拉在当时已经是名满欧洲的大数学家，并且涉猎的领域宽广，因此很多其他方面的问题让欧拉并不能专心深入研究两类积分。&lt;/p>
+&lt;p>不过，当时很多著名的数学家都和欧拉有着密切的联系，比如法国18世纪末的三个著名数学家，即称为“法国3L”的拉格朗日（Lagrange）、拉普拉斯（Laplace）和勒让德（Legendre）。他们三人都是欧拉的后辈，且深受欧拉的影响，拉格朗日是欧拉的学生，拉普拉斯则是拉格朗日的同事，文章开头那句“读读欧拉，他是所有人的老师。”就是拉普拉斯说的。而勒让德是被拉格朗日发觉的数学家，其关于椭圆曲线和数论的研究很大程度上基于欧拉的研究，并且是欧拉时代到高斯时代的重要过渡者（虽然被夹在两个巨匠之间掩盖了勒让德本身的光芒，尤其是高斯&lt;sup>-&lt;/sup>）&lt;/p>
+&lt;p>勒让德花了许多时间研究欧拉相关的积分，并发表了几篇文章，在&lt;strong>1792年的文章《Mémoires sur les transcendantes elliptiques》（关于超越椭圆函数的备忘录）中首次将式（1）的形式命名为第一类欧拉积分&lt;/strong>。在1809年的《Recherches sur diverses sortes d'intégrales définies》（各类定积分的研究）中，勒让德正式地命名和引入了第一类欧拉积分（式(1)）和第二类欧拉积分（式(2)），并引入了符号&lt;span class="math">\(\Gamma\)&lt;/span>来表示第二类欧拉积分，即 &lt;span class="math">\[
+\Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\mathrm{d}t \tag{2.1}
+\]&lt;/span> 至于为什么勒让德只给第二类欧拉积分找了个代表符号容易理解，因为第二类欧拉积分正好是欧拉找到的表示阶乘的连续函数，得到了更多重视，而第一类欧拉积分则是在推导过程中的一个辅助积分。而勒让德选择符号&lt;span class="math">\(\Gamma\)&lt;/span>的原因，Julio González Cabillón猜测因为一是符号&lt;span class="math">\(\Gamma\)&lt;/span>是勒让德（LeGendre）中“L”倒过来写，二是“Gamma”中的“G”代表自己名字中的“Gendre”。&lt;/p>
+&lt;p>不过，随着研究的深入，直到1839年Jacques P. M. Binet才引入了符号&lt;span class="math">\(\Beta\)&lt;/span>（Beta ）表示第一类欧拉积分，他选用&lt;span class="math">\(\Beta\)&lt;/span>的原因也很简单，一是因为他名字中有字母“B”，二是第二类欧拉积分是由第一类欧拉积分推导出来的，理应使用希腊字母表中“&lt;span class="math">\(\Gamma\)&lt;/span>”的前一位字母“&lt;span class="math">\(\Beta\)&lt;/span>”。&lt;/p>
+&lt;h3 id="积分函数的偏移">积分函数的偏移&lt;/h3>
+&lt;p>如果仔细看欧拉得出的结果式(21)然后对比勒让德定义的&lt;span class="math">\(\Gamma\)&lt;/span>函数的表达式(2.1) &lt;span class="math">\[
+n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
+\]&lt;/span> 可以发现，欧拉的得出表达式严格来说并不是现在使用的第二类欧拉积分的表达式，&lt;strong>他们之间有一位偏移&lt;/strong>，即&lt;span class="math">\(\Gamma(n)\neq n!\)&lt;/span>而是等于&lt;span class="math">\((n-1)!\)&lt;/span>。其实，如果我们将式(21)的形式定义成&lt;span class="math">\(\Gamma\)&lt;/span>函数也不是不可以，事实上欧拉最初研究这个问题就用的式(21)的结果，此外欧拉的后辈数学王子高斯在研究这个积分也使用的如下形式： &lt;span class="math">\[
+\Pi(x)=\int_0^\infty t^x e^{-t}\mathrm{d}t\tag{23}
+\]&lt;/span> 当时主推式(2)定义的人是勒让德，即上文定义的式(2.1) &lt;span class="math">\[
+\Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\mathrm{d}t \tag{2.1}
+\]&lt;/span> 相应地，第一类欧拉积分在勒让德定义时也区别与刚被引入时的原始形式，也做了一位偏移，即 &lt;span class="math">\[
+\int_0^1 t^x(1-t)^y\mathrm{d}t\rightarrow\int_0^1 t^{x-1}(1-t)^{y-1}\mathrm{d}t\tag{24}
+\]&lt;/span> 从后世的角度来看，显然勒让德偏移一位的定义方式更被人普遍接受。实际上，勒让德在研究时发现，在1768年欧拉的著作《Institutiones calculi integralis》中，欧拉引入第一类积分时已经对积分参数做了-1的修改。欧拉在《Institutiones calculi integralis》中研究的积分形式如下： &lt;span class="math">\[
+\int_0^1 \frac{x^{p-1}}{\sqrt[n]{1-x^n}^{n-q}}\mathrm{d}x\tag{25}
+\]&lt;/span> 当&lt;span class="math">\(n=1\)&lt;/span>时，式(25)即为第一类欧拉积分（Beta函数）。勒让德依照欧拉的方式，同样对第二类欧拉积分做出了-1的偏移，可以说欧拉的研究影响了勒让德，让其决定采用了-1位的偏移。&lt;/p>
+&lt;p>至于为什么要最终采用-1位偏移的定义，且更广为接受呢？一个可能的原因是Beta函数与Gamma函数关系。按照勒让德的定义方式（式(2.1)），那么两个函数之间的关系可以简洁地写成： &lt;span class="math">\[
+\Beta(x,y)=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}\tag{26}
+\]&lt;/span> 式(26)简洁、对称，优雅，很符合数学家们的审美。如果按照不偏移的定义，即高斯的定义（式(23)），那么他们之间的关系则是 &lt;span class="math">\[
+\Beta&amp;#39;(x,y)=\frac{\Pi(x)\pi(y)}{\Pi(x+y+1)}\tag{27}
+\]&lt;/span> 分母那个多余的1，不仅仅会破坏对称美感，而且在计算种种带来额外项。&lt;/p>
+&lt;p>另一个可能的猜测则与抽象代数有关，按照勒让德的定义式(2.1)，&lt;span class="math">\(\Gamma\)&lt;/span>分布的概率密度函数和卷积可以组成一个半环，而不做偏移的定义形式则没有这个性质。虽然有关群论的内容需要等待欧拉死后大约半个世纪的阿贝尔和伽罗华才初步建立，但是欧拉未出版的一些手稿中已经体现了群论的初步思想。至于欧拉是否也发现式(2.1)的形式在群论计算中的便利性，我们就无从得知了。不过，正因为群论的发展，使得式(2.1)的定义方式更广泛地被接受。&lt;/p>
+&lt;h3 id="第二类欧拉积分的负数复数延拓以及统一表达式">第二类欧拉积分的负数、复数延拓以及统一表达式&lt;/h3>
+&lt;p>在欧拉进行阶乘延拓的时候，他考虑的是正实数场景。正如从整数向正实数的解析延拓促使了&lt;span class="math">\(\Gamma\)&lt;/span>函数的诞生，在此之后，数学家们开始希望将阶乘的概念拓展到负数与复数。&lt;/p>
+&lt;p>对于负数而言，虽说式(2)的形式并不适用，但是阶乘的思想还是能够借鉴的，关键就是递推公式： &lt;span class="math">\[
+\Gamma(x+1)=x\Gamma(x)\tag{28}
+\]&lt;/span> 那么如果我们不停地给自变量&lt;span class="math">\(x\)&lt;/span>减1，那么&lt;span class="math">\(x\)&lt;/span>很快就会落入负数的范围，比如： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;{1\over 2}!=\Gamma({3\over 2})=({1\over 2})\times \Gamma({3\over 2}-1)=({1\over 2})\times \Gamma({1\over 2})\\
+&amp;amp;{1\over 2}!=({1\over 2})\times(-{1\over 2})\times \Gamma({1\over 2}-1)=({1\over 2})\times (-{1\over 2})\times \Gamma(-{1\over 2})\\
+&amp;amp;{1\over 2}!=({1\over 2})\times(-{1\over 2})\times(-{3\over 2})\times \Gamma(-{1\over 2}-1)\\
+&amp;amp;\qquad=({1\over 2})\times(-{1\over 2})\times (-{3\over 2})\times \Gamma(-{3\over 2})=(-{5\over 2})!\\
+\end{aligned}\tag{29}
+\]&lt;/span> 我们将递推关系反转过来，我们能够很轻易地得到阶乘的负数延拓，比如： &lt;span class="math">\[
+(-{5\over 2})!=\Gamma(-{3\over 2})=({2\over 1})\times (-{2\over 1})\times (-{2\over 3})\times \underbrace{\Gamma({3\over 2})}_{\frac{1}{2}!=\frac{\sqrt{\pi}}{2}}=\frac{4\sqrt{\pi}}{3}\tag{30}
+\]&lt;/span> 依据递推关系，我们只要计算出&lt;span class="math">\(\Gamma\)&lt;/span>函数在0-1范围内的值，就可以推得&lt;strong>几乎所有&lt;/strong>负数&lt;span class="math">\(\Gamma\)&lt;/span>函数的值。注意，我这里使用的是“几乎”所有。这是因为使用递推关系有一个巨大的问题，即无法处理负整数的情形。比如-2的阶乘通过递推关系应该是： &lt;span class="math">\[
+\Gamma(-1)=(-2)! \\
+\Gamma(-1)\times (-1) \times 0 \times 1 = 1! =\Gamma(2)\tag{31}
+\]&lt;/span> 但是这个连乘式子中有一个&lt;span class="math">\(\times 0\)&lt;/span>，结果理应是0，而不是&lt;span class="math">\(1!\)&lt;/span>，相应地，&lt;span class="math">\(\Gamma\)&lt;/span>函数在所有负整数的延拓都没有良好的定义，负整数是函数的极点。延拓到负数部分的&lt;span class="math">\(\Gamma\)&lt;/span>函数如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/Gamma-function-real.svg" alt="Gamma-function-real.svg" />&lt;p class="caption">Gamma-function-real.svg&lt;/p>
+&lt;/div>
+&lt;p>相比于负数的延拓，复数的延拓要容易的多，因为&lt;span class="math">\(\Gamma\)&lt;/span>函数在自变量是“兼容”复数的，对于实数部分为正的复数&lt;span class="math">\(z,Re(z)&amp;gt;0\)&lt;/span>，我们甚至不必修改欧拉给出的式子原型。对于实数部分为负的复数&lt;span class="math">\(z,Re(z)&amp;gt;0\)&lt;/span>，只要实部不是负整数，也可以通过递推关系式得到。而实部为负整数的点，就是函数在复平面的极点。&lt;/p>
+&lt;blockquote>
+&lt;p>TIPS：全纯函数（英语：Holomorphic function）是复分析研究的中心对象；它们是定义在复平面&lt;span class="math">\(\mathbb {C}\)&lt;/span>的开子集上的，在复平面&lt;span class="math">\(\mathbb {C}\)&lt;/span>中取值的，在每点上皆复可微的函数(处处解析)。&lt;/p>
+&lt;p>在复变函数中，亚纯函数（meromorphic function）是在区域&lt;span class="math">\(D\)&lt;/span>上有定义，且除去极点之外处处解析的函数。具体来说就是在复分析中，一个复平面的开子集&lt;span class="math">\(D\)&lt;/span>上的亚纯函数是一个在&lt;span class="math">\(D\)&lt;/span>上除一个或若干个孤立点集合之外的区域全纯的函数，那些孤立点称为该函数的极点。&lt;/p>
+&lt;p>显然&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数由于在负整数为极点，其他位置处处解析，因此它是亚纯函数，而&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数的倒数&lt;span class="math">\(\frac{1}{\Gamma(x)}\)&lt;/span>却是处处解析的全纯函数（&lt;span class="math">\(\frac{1}{\Gamma(x)}\)&lt;/span>实部为负整数的点函数值都为0），因此在处理&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数，很多数学家会从&lt;span class="math">\(\frac{1}{\Gamma(x)}\)&lt;/span>着手。&lt;/p>
+&lt;/blockquote>
+&lt;p>在整个复平面，&lt;span class="math">\(\Gamma\)&lt;/span>函数的绝对值图像如下（注：那些顶端平的部分是为了方便显示，函数值截断的结果）&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/Gamma_abs_3D.png" alt="Gamma_abs_3D" />&lt;p class="caption">Gamma_abs_3D&lt;/p>
+&lt;/div>
+&lt;h3 id="第二类欧拉积分与阶乘延拓的唯一性">第二类欧拉积分与阶乘延拓的唯一性&lt;/h3>
+&lt;h3 id="两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/h3>
+&lt;h4 id="gamma分布">Gamma分布&lt;/h4>
+&lt;h4 id="beta分布">Beta分布&lt;/h4></description></item><item><title>概率统计随机过程之极简贝叶斯统计总结</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</guid><description>
 &lt;h2 id="概率统计随机过程之极简贝叶斯统计总结">概率统计随机过程之极简贝叶斯统计总结&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>本篇笔记是小岛宽之的书《统计学关我什么事》的阅读笔记总结。本书大体分为两个部分，第一部分是对贝叶斯统计学本质的形象介绍，深入浅出，对我理解贝叶斯统计推断的帮助很大。第二部分，作者用较为简略的数学语言介绍贝叶斯统计中常用的数学工具如先验共轭分布Beta分布、正态分布、条件概率等，对有一定统计学基础的人而言意义不大。本篇笔记主要总结第一部分。&lt;/p>
 &lt;h3 id="一">一&lt;/h3>
