@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Studynotes on SurprisedCat</title><link>https://surprisedcat.github.io/studynotes/</link><description>Recent content in Studynotes on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 01 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/studynotes/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之两类欧拉积分(Gamma、Beta函数与积分)</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Studynotes on SurprisedCat</title><link>https://surprisedcat.github.io/studynotes/</link><description>Recent content in Studynotes on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 06 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/studynotes/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之无穷级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/</link><pubDate>Fri, 06 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/</guid><description>
+&lt;h2 id="无穷级数">无穷级数&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>数理论是数学分析的一个分支，它与另一个分支微积分学一起作为基础知识和工具出现在其余数学分支中。实际上，不同于现在数学学习中对微积分的过度侧重，级数的地位和微积分相当，二者共同以极限为基本工具，分别从离散与连续两个方面，结合起来研究分析学的对象，即变量之间的依赖关系──函数。&lt;/p></description></item><item><title>数学分析之两类欧拉积分(Gamma、Beta函数与积分)</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#哥德巴赫的疑问插值与阶乘研究">哥德巴赫的疑问——插值与阶乘研究&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#三封信中诞生的gamma函数">三封信中诞生的Gamma函数&lt;/a>&lt;/li>
@@ -11,11 +13,14 @@
 &lt;li>&lt;a href="#积分函数的偏移">积分函数的偏移&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#第二类欧拉积分的负数复数延拓以及统一表达式">第二类欧拉积分的负数、复数延拓以及统一表达式&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#第二类欧拉积分与阶乘延拓的唯一性">第二类欧拉积分与阶乘延拓的唯一性&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/a>
-&lt;ul>
+&lt;li>&lt;a href="#不完全gamma函数与不完全beta函数">不完全Gamma函数与不完全Beta函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#gamma分布">Gamma分布&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#beta分布">Beta分布&lt;/a>&lt;/li>
-&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#附gamma函数beta函数关系以及其他函数">附：Gamma函数、Beta函数关系以及其他函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gamma函数与beta函数关系推导">Gamma函数与Beta函数关系推导&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gamma函数与psi函数">Gamma函数与Psi函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gamma函数与zeta函数">Gamma函数与zeta函数&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="数学分析之两类欧拉积分">数学分析之两类欧拉积分&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>在概率论、微积分等数学领域中，我们经常能见到Beta函数（分布）、Gamma函数这种十分奇特的函数形式，他们很难从直觉上理解形式、作用，但是在很多时候有发挥着基础性作用。这不禁让人们好奇人们是怎么发现这两个奇葩的存在。这就要提到一位传奇数学巨匠——欧拉，他一生数学贡献无数，在数学及许多分支中都可以见到很多以欧拉命名的常数、公式和定理，他的工作使得数学更接近于现代数学的形态。他不但为数学界作出贡献，更把数学推至几乎整个物理的领域。此外欧拉还涉及建筑学、弹道学、航海学等领域。法国大数学家拉普拉斯曾说过一句话——“读读欧拉，他是所有人的老师。”两类欧拉积分，无疑也为其光辉的数学生涯又增加了浓墨重彩的一笔。两类欧拉积分的具体形式如下：&lt;/p>
@@ -181,7 +186,7 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 \]&lt;/span> 分母那个多余的1，不仅仅会破坏对称美感，而且在计算种种带来额外项。&lt;/p>
 &lt;p>另一个可能的猜测则与抽象代数有关，按照勒让德的定义式(2.1)，&lt;span class="math">\(\Gamma\)&lt;/span>分布的概率密度函数和卷积可以组成一个半环，而不做偏移的定义形式则没有这个性质。虽然有关群论的内容需要等待欧拉死后大约半个世纪的阿贝尔和伽罗华才初步建立，但是欧拉未出版的一些手稿中已经体现了群论的初步思想。至于欧拉是否也发现式(2.1)的形式在群论计算中的便利性，我们就无从得知了。不过，正因为群论的发展，使得式(2.1)的定义方式更广泛地被接受。&lt;/p>
 &lt;h3 id="第二类欧拉积分的负数复数延拓以及统一表达式">第二类欧拉积分的负数、复数延拓以及统一表达式&lt;/h3>
-&lt;p>在欧拉进行阶乘延拓的时候，他考虑的是正实数场景。正如从整数向正实数的解析延拓促使了&lt;span class="math">\(\Gamma\)&lt;/span>函数的诞生，在此之后，数学家们开始希望将阶乘的概念拓展到负数与复数。&lt;/p>
+&lt;p>在欧拉进行阶乘延拓的时候，他考虑的是正实数场景，当&lt;span class="math">\(x\in R^+\)&lt;/span>时，第二类欧拉积分，即&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数是有定义且连续的，具体证明可参考网页资料&lt;a href="../网页资料/数学分析-学习笔记-Γ函数和B函数.html">数学分析-学习笔记-Γ函数和B函数.html&lt;/a>。正如从整数向正实数的解析延拓促使了&lt;span class="math">\(\Gamma\)&lt;/span>函数的诞生，在此之后，数学家们开始希望将阶乘的概念拓展到负数与复数。&lt;/p>
 &lt;p>对于负数而言，虽说式(2)的形式并不适用，但是阶乘的思想还是能够借鉴的，关键就是递推公式： &lt;span class="math">\[
 \Gamma(x+1)=x\Gamma(x)\tag{28}
 \]&lt;/span> 那么如果我们不停地给自变量&lt;span class="math">\(x\)&lt;/span>减1，那么&lt;span class="math">\(x\)&lt;/span>很快就会落入负数的范围，比如： &lt;span class="math">\[
@@ -192,7 +197,7 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 &amp;amp;\qquad=({1\over 2})\times(-{1\over 2})\times (-{3\over 2})\times \Gamma(-{3\over 2})=(-{5\over 2})!\\
 \end{aligned}\tag{29}
 \]&lt;/span> 我们将递推关系反转过来，我们能够很轻易地得到阶乘的负数延拓，比如： &lt;span class="math">\[
-(-{5\over 2})!=\Gamma(-{3\over 2})=({2\over 1})\times (-{2\over 1})\times (-{2\over 3})\times \underbrace{\Gamma({3\over 2})}_{\frac{1}{2}!=\frac{\sqrt{\pi}}{2}}=\frac{4\sqrt{\pi}}{3}\tag{30}
+(-{5\over 2})!=\Gamma(-{3\over 2})=({2\over 1})\times (-{2\over 1})\times (-{2\over 3})\times \underbrace{\Gamma({3\over 2})}_{=\frac{1}{2}!=\frac{\sqrt{\pi}}{2}}=\frac{4\sqrt{\pi}}{3}\tag{30}
 \]&lt;/span> 依据递推关系，我们只要计算出&lt;span class="math">\(\Gamma\)&lt;/span>函数在0-1范围内的值，就可以推得&lt;strong>几乎所有&lt;/strong>负数&lt;span class="math">\(\Gamma\)&lt;/span>函数的值。注意，我这里使用的是“几乎”所有。这是因为使用递推关系有一个巨大的问题，即无法处理负整数的情形。比如-2的阶乘通过递推关系应该是： &lt;span class="math">\[
 \Gamma(-1)=(-2)! \\
 \Gamma(-1)\times (-1) \times 0 \times 1 = 1! =\Gamma(2)\tag{31}
@@ -206,14 +211,141 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 &lt;p>在复变函数中，亚纯函数（meromorphic function）是在区域&lt;span class="math">\(D\)&lt;/span>上有定义，且除去极点之外处处解析的函数。具体来说就是在复分析中，一个复平面的开子集&lt;span class="math">\(D\)&lt;/span>上的亚纯函数是一个在&lt;span class="math">\(D\)&lt;/span>上除一个或若干个孤立点集合之外的区域全纯的函数，那些孤立点称为该函数的极点。&lt;/p>
 &lt;p>显然&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数由于在负整数为极点，其他位置处处解析，因此它是亚纯函数，而&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数的倒数&lt;span class="math">\(\frac{1}{\Gamma(x)}\)&lt;/span>却是处处解析的全纯函数（&lt;span class="math">\(\frac{1}{\Gamma(x)}\)&lt;/span>实部为负整数的点函数值都为0），因此在处理&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数，很多数学家会从&lt;span class="math">\(\frac{1}{\Gamma(x)}\)&lt;/span>着手。&lt;/p>
 &lt;/blockquote>
-&lt;p>在整个复平面，&lt;span class="math">\(\Gamma\)&lt;/span>函数的绝对值图像如下（注：那些顶端平的部分是为了方便显示，函数值截断的结果）&lt;/p>
+&lt;p>在整个复平面，&lt;span class="math">\(\Gamma\)&lt;/span>函数的&lt;strong>绝对值&lt;/strong>图像如下（注：那些顶端平的部分是为了方便显示，函数值截断的结果）&lt;/p>
 &lt;div class="figure">
 &lt;img src="../images/Gamma_abs_3D.png" alt="Gamma_abs_3D" />&lt;p class="caption">Gamma_abs_3D&lt;/p>
 &lt;/div>
+&lt;p>数学家F.W. Newman在1848年给了&lt;span class="math">\(\Gamma\)&lt;/span>函数在整个复平面一个通用的表达式(32)，利用了&lt;span class="math">\(1/\Gamma(z)\)&lt;/span>是全纯函数的特性。 &lt;span class="math">\[
+1/\Gamma(z)=ze^{\gamma z}\prod_{k=1}^{\infty}[(1+\frac{z}{k})e^{-\frac{z}{k}}],\qquad \gamma=0.5772156649\dotsb\tag{32}
+\]&lt;/span> 其中，&lt;span class="math">\(\gamma\)&lt;/span>为欧拉-马斯刻若尼常数，简称欧拉常数&lt;span class="math">\(\gamma = \lim\limits_{n \rightarrow \infty }[( \sum_{k=1}^n \frac{1}{k} - \ln(n)]\)&lt;/span>。&lt;/p>
 &lt;h3 id="第二类欧拉积分与阶乘延拓的唯一性">第二类欧拉积分与阶乘延拓的唯一性&lt;/h3>
-&lt;h3 id="两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/h3>
-&lt;h4 id="gamma分布">Gamma分布&lt;/h4>
-&lt;h4 id="beta分布">Beta分布&lt;/h4></description></item><item><title>概率统计随机过程之极简贝叶斯统计总结</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</guid><description>
+&lt;p>阶乘的解析延拓是唯一的吗？答案是显然的：No。我们回到开头插值的问题，最开始介绍&lt;a href="#哥德巴赫的疑问插值与阶乘研究">哥德巴赫的疑问——插值与阶乘研究&lt;/a>的时候就提到如果单纯地找插值函数，数学家们可以找出无数条符合要求的曲线。在丹尼尔-伯努利和欧拉分别写信告诉哥德巴赫他们的无穷乘积结果时，给出的也是两个不同的无穷乘积形式，并且都能够很好地做为阶乘的插值函数。&lt;/p>
+&lt;p>后来的数学家也解析延拓出了其他的阶乘函数，比如在1894年，法国数学家Hadamard利用&lt;span class="math">\(\Gamma\)&lt;/span>函数给出了一个在整个复平面内都解析的全纯函数： &lt;span class="math">\[
+y=\frac{1}{\Gamma(1-x)}\frac{\mathrm{d}}{\mathrm{d}x}\log\left[\Gamma(\frac{1-x}{2})/\Gamma(1-\frac{x}{2})\right],x\in \mathbb{C}\tag{33}
+\]&lt;/span> 其函数图像如下：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/hadamard阶乘函数.png" alt="hadamard阶乘函数.png" />&lt;p class="caption">hadamard阶乘函数.png&lt;/p>
+&lt;/div>
+&lt;p>相较于&lt;span class="math">\(\Gamma(x)\)&lt;/span>，式(33)在整个复平面内没有奇异性，即使在负整数处也没有极点，从函数分析理论角度来看，它是一个更适合分析的函数。&lt;/p>
+&lt;p>那么，为什么只有第二类欧拉积分，即&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数得到了数学家们的广泛认可呢？&lt;/p>
+&lt;p>从研究积分的角度看，这是显然的。因为欧拉积分在特殊函数中出现的频率非常高，第二类欧拉积分可以说是很多特殊积分的基础。而从插值的角度看，&lt;span class="math">\(\Gamma\)&lt;/span>函数的特殊性并不那么显然，虽然可以从美学上说，&lt;span class="math">\(\Gamma\)&lt;/span>函数简洁而优雅，但是数学要求我们找出更理性的证据。&lt;/p>
+&lt;p>既然阶乘插值的结果千千万，那我们来考虑阶乘函数除插值外，还应当满足哪些必要的要求。首先，阶乘的核心是递推关系&lt;span class="math">\(n!=n(n-1)!\)&lt;/span>，我们先要把递推关系延拓到所有正实数&lt;span class="math">\(f(x+1)=xf(x)，x\in R^+\)&lt;/span>（注意我们这里仿照勒让德的定义方式做了一位偏移），这使得将阶乘的概念从正整数延拓到正实数。同时我们规定阶乘函数的起点值&lt;span class="math">\(f(x)|_{x=1}=1\)&lt;/span>，这二者共同保证了在所有正整数点的函数值与整数的阶乘值一致。综上总结出以下两个要求：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(f(1)=1\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(f(x+1)=xf(x),\forall x\in R^+\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>毫无疑问，&lt;span class="math">\(\Gamma(x)\)&lt;/span>是满足上述两个条件的，但问题是满足上述两个条件的函数也是无穷多个，这里我们给出一个典型的构造方法。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>我们将数轴正半轴以1为单位划分成段，构造分段函数&lt;span class="math">\(g_0(x),x\in(0,1];g_1(x),x\in(1,2];g_2(x),x\in(2,3];\dotsb;g_n(x),x\in (n,n+1];\dotsb\)&lt;/span>&lt;/li>
+&lt;li>在区间&lt;span class="math">\([1,2]\)&lt;/span>内任意找出一个连续函数&lt;span class="math">\(g_1\)&lt;/span>，使得&lt;span class="math">\(g_1(1)=g_1(2)=1\)&lt;/span>。因为根据条件1和2，&lt;span class="math">\(f(1)=1,f(2)=1\times f(1)=1\)&lt;/span>。&lt;/li>
+&lt;li>根据条件2的递推关系，当&lt;span class="math">\(x\in (0,1]\)&lt;/span>，有&lt;span class="math">\(x\times g_0(x)=g_1(x)\Rightarrow g_0(x)=\frac{g_1(x)}{x}\)&lt;/span>。&lt;/li>
+&lt;li>根据条件2的递推关系，当&lt;span class="math">\(x\in (n,n+1],n&amp;gt;1\)&lt;/span>时，有&lt;span class="math">\(g_n(x)=g_1(x)\prod_{k=1}^{n-1}(x-k)\)&lt;/span>&lt;/li>
+&lt;li>将函数段&lt;span class="math">\(g_0,g_1,g_2,\dotsb\)&lt;/span>，组合起来，即构造为伪&lt;span class="math">\(\Gamma\)&lt;/span>函数同时满足条件1，2。&lt;/li>
+&lt;/ol>
+&lt;p>举个例子，令&lt;span class="math">\(g_1(x)=1\)&lt;/span>，其构造的函数分别为： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;g_0(x)=1/x,\qquad 0&amp;lt;x\le 1;\\
+&amp;amp;g_1(x)=1,\qquad 1&amp;lt;x\le 2;\\
+&amp;amp;g_2(x)=x-1,\qquad 2&amp;lt;x\le 3;\\
+&amp;amp;g_3(x)=(x-1)(x-2),\qquad 3&amp;lt;x\le 4;\\
+&amp;amp;g_4(x)=(x-1)(x-2)(x-3),\qquad 4&amp;lt;x\le 5;\\
+&amp;amp;\qquad \vdots
+\end{aligned}\tag{34}
+\]&lt;/span> 函数图像为： &lt;img src="../images/伪gamma函数1.png" alt="伪gamma函数1.png" />&lt;/p>
+&lt;p>有些人觉得分段函数在每段连接处是生硬地转折，不可微，看上去不够自然。那么加上&lt;strong>可微这个条件&lt;/strong>，&lt;span class="math">\(\Gamma\)&lt;/span>函数是否就是唯一解呢？依旧不是。我们可以利用&lt;span class="math">\(\Gamma\)&lt;/span>函数构造出其他满足条件的例子，我们任意找一个解析并且周期为1的周期函数&lt;span class="math">\(p(x)\)&lt;/span>，同时确保&lt;span class="math">\(p(1)=1\)&lt;/span>，比如&lt;span class="math">\(p(x)=1+\sin(2\pi x)\)&lt;/span>，那么函数 &lt;span class="math">\[g(x)=\Gamma(x)p(x)\tag{35}\]&lt;/span> 就是一个符合上述三个要求的函数，其函数图像如下：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/可微的伪Gamma函数.png" alt="可微的伪Gamma函数.png" />&lt;p class="caption">可微的伪Gamma函数.png&lt;/p>
+&lt;/div>
+&lt;p>既然，这样都不是充分条件，那么我们还要如何加强这个问题，使得&lt;span class="math">\(\Gamma\)&lt;/span>函数成为唯一解呢？在19世纪中叶，数学家们确实给出了能让&lt;span class="math">\(\Gamma\)&lt;/span>函数作为唯一满足条件的连续函数。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\Gamma(1)=1\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\Gamma(x+1)=x\Gamma(x),\forall x\in R^+\)&lt;/span>&lt;/li>
+&lt;li>满足反射公式：&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;span class="math">\[\Gamma(z)\Gamma(1-z)=\frac{\pi}{\sin(\pi z)}\tag{35}\]&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;ol start="4" style="list-style-type: decimal">
+&lt;li>满足乘法公式：&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;span class="math">\[\Gamma(nz)=(2\pi)^{\frac{1-n}{2}}n^{nz-\frac{1}{2}}\Gamma(z)\Gamma(z+\frac{1}{n})\Gamma(z+\frac{2 }{n})\dotsb\Gamma(z+\frac{n-1}{n})\tag{36}\]&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>不过新加的两个条件很难说是“符合直觉的”，它们太复杂，而且与其说是条件，倒不如说是&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数所特有的性质，有点先射箭，再画靶的嫌疑。&lt;/p>
+&lt;p>传统的数学分析领域似乎已经无法为我们提供更多帮助了。很多时候，代数和分析是相辅相成的，在康托尔发展了集合论以及拓扑学的完善之后，在20世纪之交，一个很“视觉”的概念，“凸函数”被提出来。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(f\)&lt;/span>称为凸函数，意思是对&lt;span class="math">\(0\leq t\leq 1\)&lt;/span>及任意&lt;span class="math">\(x_{1},x_{2}\in C\)&lt;/span>，皆有 &lt;span class="math">\[f\left(tx_{1}+(1-t)x_{2}\right)\leq tf\left(x_{1}\right)+(1-t)f\left(x_{2}\right)\tag{37}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>在代数上的描述并不直观，但是从几何上来说，凸函数就是函数上任意两点的连续都在函数上方，如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/凸函数定义.png" alt="凸函数定义.png" />&lt;p class="caption">凸函数定义.png&lt;/p>
+&lt;/div>
+&lt;p>凸函数不像三角函数&lt;span class="math">\(\sin,\cos\)&lt;/span>那样上下波动，形状相对固定，在研究中有非常方便的性质，比如局部最优就是全局最优，二阶导非负（多元情况下就是Hessian矩阵半正定），这些方便的性质迅速让凸函数在均值理论、拓扑学、博弈论、线性规划中得到了广泛应用，为此还发展出了专门的一个方向：凸优化。因此，如果研究者发现需要研究的函数是“凸”的，那么他会大松一口气，很多问题就能够轻易的解决。&lt;/p>
+&lt;p>而欧拉给出的&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数恰好在正实数范围内是“凸”的，同时在负数部分的每一小段也都是“凸”的，我们从&lt;span class="math">\(\Gamma\)&lt;/span>函数的图像中很容易看出这一点。而Hadamard延拓出的函数式(33)和我们构造的解析的伪&lt;span class="math">\(\Gamma\)&lt;/span>函数&lt;span class="math">\(g(x)=\Gamma(x)p(x)\)&lt;/span>（式(35)）显然不满足“凸”这个性质。那么，很多数学家自然而然的想到，&lt;span class="math">\(\Gamma\)&lt;/span>函数是不是唯一满足条件1，2的凸函数呢？&lt;/p>
+&lt;p>答案显然也不是，其实我们在前面已经给出了反例，就是前面构造出来的分段函数式(34)。虽然它是一段段曲线拼接起来的，且在拼接处不解析，但它是货真价实的凸函数。&lt;/p>
+&lt;p>不过，抓到“凸”这个特性，我们离真正的答案也就不远了。&lt;/p>
+&lt;p>在1922年，丹麦数学家Harald Bohr和Johannes Mollerup发现，&lt;span class="math">\(\Gamma(x)\)&lt;/span>函数不仅仅是凸的，而且&lt;span class="math">\(\log\Gamma(x)\)&lt;/span>也是凸函数，即&lt;strong>对数凸函数&lt;/strong>！对数凸函数是一个比凸函数更强的条件，对数凸函数必然是凸函数，由于对数函数会大幅降低函数成长的速率，因此若取对数后仍为凸函数，表示函数上升的速度比凸函数还快，因此会称为超凸函数。两位数学家证明：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Bohr–Mollerup定理&lt;/strong>：在&lt;span class="math">\(x&amp;gt;0\)&lt;/span>的区间上，&lt;span class="math">\(Γ\)&lt;/span>函数 &lt;span class="math">\[\Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\mathrm{d}t \tag{2.1}\]&lt;/span> 是&lt;strong>唯一&lt;/strong>同时满足以下3条性质的函数 f ：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(f(1)=1\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(f(x+1)=xf(x),\forall x\in R^+\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(f\)&lt;/span>是对数凸函数。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>这个定理最早是出现在一本复分析教科书中，并且证明过程并不复杂，以至于当时Bohr和Mollerup都以为这是一个人们肯定已经知道的结果。不过这个定理确实是第一个给出了阶乘函数的解析延拓在何种情形下一定是&lt;span class="math">\(Γ\)&lt;/span>函数的简明充要条件。后来，数学家Emil Artin简化了定理的证明，因此这个定理也被称为“Bohr–Mollerup-Artin定理”。&lt;/p>
+&lt;p>这个定理让数学家非常满意，让&lt;span class="math">\(\Gamma\)&lt;/span>函数充满了优雅与简洁的独特美学，甚至让追求严格性著称的尼古拉·布尔巴基合作者协会都以此作为阐述&lt;span class="math">\(\Gamma\)&lt;/span>函数的切入点。&lt;/p>
+&lt;h3 id="不完全gamma函数与不完全beta函数">不完全Gamma函数与不完全Beta函数&lt;/h3>
+&lt;p>不完全&lt;span class="math">\(Γ\)&lt;/span>、&lt;span class="math">\(\Beta\)&lt;/span>函数是&lt;span class="math">\(Γ\)&lt;/span>函数与&lt;span class="math">\(\Beta\)&lt;/span>函数的不定积分形式。这里不打算介绍太多，只介绍基本思想。由于两类欧拉积分都是定积分，在给出参数后就是固定值，后来数学家为了将它们推广到不定积分，就分别给出了不完全&lt;span class="math">\(Γ\)&lt;/span>函数与不完全&lt;span class="math">\(\Beta\)&lt;/span>函数。&lt;/p>
+&lt;p>&lt;span class="math">\(Γ\)&lt;/span>函数式(2.1)，根据将上限变成不定积分和下限变成不定积分又分成上不完全&lt;span class="math">\(Γ\)&lt;/span>函数和下不完全&lt;span class="math">\(Γ\)&lt;/span>函数，其解析表达式如下：&lt;/p>
+&lt;p>上不完全&lt;span class="math">\(Γ\)&lt;/span>函数： &lt;span class="math">\[\Gamma(s,x) = \int_x^{\infty} t^{s-1}\,e^{-t}\,{\rm d}t\quad \Re(s)&amp;gt;0, x\in\mathbb R_0^+\tag{38}\]&lt;/span> 当&lt;span class="math">\(x=0\)&lt;/span>时，上不完全&lt;span class="math">\(Γ\)&lt;/span>函数就是&lt;span class="math">\(Γ\)&lt;/span>函数&lt;span class="math">\(\Gamma(s,0)=\Gamma(s)\)&lt;/span>。&lt;/p>
+&lt;p>下不完全&lt;span class="math">\(Γ\)&lt;/span>函数： &lt;span class="math">\[\gamma(s,x) = \int_0^x t^{s-1}\,e^{-t}\,{\rm d}t \quad \Re(s)&amp;gt;0, x\in\mathbb R_0^+\tag{39}\]&lt;/span>&lt;/p>
+&lt;p>不完全&lt;span class="math">\(\Beta\)&lt;/span>函数是&lt;span class="math">\(\Beta\)&lt;/span>函数的一个推广，把&lt;span class="math">\(\Beta\)&lt;/span>函数中的定积分用不定积分来代替，需要指出的是不同于不完全&lt;span class="math">\(\Gamma\)&lt;/span>函数，不完全&lt;span class="math">\(\Beta\)&lt;/span>函数只会将上限改为不定积分。&lt;/p>
+&lt;p>不完全&lt;span class="math">\(\Beta\)&lt;/span>函数： &lt;span class="math">\[
+\Beta(x;\,a,b)=\int _{0}^{x}t^{{a-1}}\,(1-t)^{{b-1}}\,dt \quad x\in [0,1],a&amp;gt;0,b&amp;gt;0\tag{40}
+\]&lt;/span> 当&lt;span class="math">\(x = 1\)&lt;/span>，上式即化为&lt;span class="math">\(\Beta\)&lt;/span>函数。&lt;/p>
+&lt;h2 id="两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/h2>
+&lt;p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (&lt;span class="math">\(t\)&lt;/span>分布，&lt;span class="math">\(χ^2\)&lt;/span>分布，&lt;span class="math">\(F\)&lt;/span>分布)、&lt;span class="math">\(\Beta\)&lt;/span>分布、狄利克雷分布的密度公式中都有&lt;span class="math">\(\Gamma\)&lt;/span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。接下来，我们将分别介绍两类欧拉积分在概率论中的应用。&lt;/p>
+&lt;h3 id="gamma分布">Gamma分布&lt;/h3>
+&lt;p>与&lt;span class="math">\(\Gamma\)&lt;/span>函数有最直接联系的概率分布当然是直接由&lt;span class="math">\(\Gamma\)&lt;/span>函数变换得到的&lt;span class="math">\(\Gamma\)&lt;/span>分布，实际上&lt;span class="math">\(\Gamma\)&lt;/span>分布就是借&lt;span class="math">\(\Gamma\)&lt;/span>函数作为归一化分母而得到的概率分布： $$&lt;/p>
+&lt;p>$$&lt;/p>
+&lt;h3 id="beta分布">Beta分布&lt;/h3>
+&lt;h2 id="附gamma函数beta函数关系以及其他函数">附：Gamma函数、Beta函数关系以及其他函数&lt;/h2>
+&lt;h3 id="gamma函数与beta函数关系推导">Gamma函数与Beta函数关系推导&lt;/h3>
+&lt;p>从文章开头的式(1)我们就给出了&lt;span class="math">\(\Gamma\)&lt;/span>函数和&lt;span class="math">\(\Beta\)&lt;/span>函数二者的关系，其具体推导过程如下： &lt;span class="math">\[
+\begin{aligned}
+\Gamma(x) \Gamma(y) &amp;amp;= \int_0^{+\infty} e^{-t} t^{x-1} \mathrm{d}t \int_0^{+\infty} e^{-s} s^{y-1} \mathrm{d}s \\
+&amp;amp; = \int_0^{+\infty} \int_0^{+\infty} e^{-(s+t)} t^{x-1} s^{y-1} \mathrm{d}s \mathrm{d}t \\
+&amp;amp;=4 \int_0^{+\infty} \int_0^{+\infty} e^{-(u^2+v^2)} u^{2x-2} v^{2y-2} \cdot uv \mathrm{d}u \mathrm{d}v \quad (t=u^2,s=v^2)\\
+&amp;amp;= 4 \int_0^{+\infty} \int_0^{+\infty} e^{-(u^2+v^2)} u^{2x-1} v^{2y-1} \mathrm{d}u \mathrm{d}v \\
+&amp;amp;= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} e^{-(u^2+v^2)} |u|^{2x-1}|v|^{2y-1} \mathrm{d}u \mathrm{d}v \\
+&amp;amp;= \int_0^{+\infty} \int_0^{2\pi} r e^{-r^2} r^{2x-1} |\cos \theta|^{2x-1} r^{2y-1} |\sin \theta|^{2y-1} \mathrm{d}r \mathrm{d}\theta \quad (u=r\cos \theta,v=r\sin \theta) \\
+&amp;amp;= \int_0^{+\infty} r e^{-r^2} r^{2x+2y-2} \mathrm{d}r \int_0^{2\pi} |\cos \theta|^{2x-1} |\sin \theta|^{2y-1} \mathrm{d} \theta \\
+&amp;amp;= \frac{1}{2} \int_0^{+\infty} e^{-r^2} r^{2(x+y-1)} \mathrm{d}r^2 \int_0^{2\pi} |\cos \theta|^{2x-1} |\sin \theta|^{2y-1} \mathrm{d} \theta \\
+&amp;amp;= \frac{1}{2} \Gamma(x+y) \int_0^{2\pi} |\cos \theta|^{2x-1} |\sin \theta|^{2y-1} \mathrm{d} \theta \\
+&amp;amp;= \Gamma(x+y) \cdot 2\int_0^{\frac{\pi}{2}} \cos^{2x-1} \theta \sin^{2y-1} \theta \mathrm{d} \theta \\
+&amp;amp;= \Gamma(x+y) \cdot 2 \int_0^1 t^{x-\frac{1}{2}} (1-t)^{y-\frac{1}{2}} \frac{1}{2} t^{-\frac{1}{2}} (1-t)^{-\frac{1}{2}} \mathrm{d}t \quad (t=\cos^2 \theta,\sin \theta =(1-t)^\frac{1}{2}, \mathrm{d}t = -2 t^{\frac{1}{2}} (1-t)^{\frac{1}{2}} \mathrm{d} \theta) \\
+&amp;amp;= \Gamma(x+y) \int_0^1 t^{x-1} (1-t)^{y-1} \mathrm{d}t \\
+&amp;amp;= \Gamma(x+y) \Beta (x,y).\\
+&amp;amp;\Rightarrow \Beta(x,y)=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}
+\end{aligned}
+\]&lt;/span>&lt;/p>
+&lt;h3 id="gamma函数与psi函数">Gamma函数与Psi函数&lt;/h3>
+&lt;p>&lt;span class="math">\(\psi\)&lt;/span>函数又称双伽玛函数，是伽玛函数的对数导数，即 &lt;span class="math">\[
+\psi (x)={\frac {d}{dx}}\ln {\Gamma (x)}={\frac {\Gamma &amp;#39;(x)}{\Gamma (x)}}
+\]&lt;/span> 由&lt;span class="math">\(\psi\)&lt;/span>函数可以推导出Stirling级数。&lt;/p>
+&lt;h3 id="gamma函数与zeta函数">Gamma函数与zeta函数&lt;/h3>
+&lt;p>黎曼泽塔函数，写作&lt;span class="math">\(ζ(z)\)&lt;/span>的定义如下：设一复数&lt;span class="math">\(z\)&lt;/span>使得&lt;span class="math">\(Re(z)&amp;gt;1\)&lt;/span>，则定义： &lt;span class="math">\[
+\zeta(z)=\sum_{n=1}^\infty \frac{1}{n^z}
+\]&lt;/span> 它亦可以用积分定义： &lt;span class="math">\[
+\zeta(z)=\frac{1}{\Gamma(z)}\int_{0}^{\infty} \frac{x^ {z-1}}{e^x-1} \mathrm{d}x
+\]&lt;/span> 黎曼的&lt;span class="math">\(ζ\)&lt;/span>函数被数学家认为主要和“最纯”的数学领域数论相关，黎曼函数最著名的就是黎曼猜想：&lt;/p>
+&lt;blockquote>
+&lt;p>黎曼猜想：黎曼&lt;span class="math">\(ζ\)&lt;/span>函数的非平凡零点（在此情况下是指&lt;span class="math">\(z\)&lt;/span>不为-2，-4，-6，...，等点的值）的实数部分是&lt;span class="math">\(\frac{1}{2}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>而&lt;span class="math">\(\Gamma\)&lt;/span>函数与&lt;span class="math">\(ζ\)&lt;/span>函数有如下关系： &lt;span class="math">\[
+\pi ^{-{\frac {z}{2}}}\;\Gamma \left({\frac {z}{2}}\right)\zeta (z)=\pi ^{-{\frac {1-z}{2}}}\;\Gamma \left({\frac {1-z}{2}}\right)\;\zeta (1-z)
+\]&lt;/span>&lt;/p></description></item><item><title>概率统计随机过程之极简贝叶斯统计总结</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/</guid><description>
 &lt;h2 id="概率统计随机过程之极简贝叶斯统计总结">概率统计随机过程之极简贝叶斯统计总结&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>本篇笔记是小岛宽之的书《统计学关我什么事》的阅读笔记总结。本书大体分为两个部分，第一部分是对贝叶斯统计学本质的形象介绍，深入浅出，对我理解贝叶斯统计推断的帮助很大。第二部分，作者用较为简略的数学语言介绍贝叶斯统计中常用的数学工具如先验共轭分布Beta分布、正态分布、条件概率等，对有一定统计学基础的人而言意义不大。本篇笔记主要总结第一部分。&lt;/p>
 &lt;h3 id="一">一&lt;/h3>
@@ -9121,14 +9253,8 @@ f(x)=a_0+a_1 \cos x+b_1\sin x+a_2 \cos 2x+b_2\sin 2x+\dotsb
 &lt;li>&lt;a href="#费马引理">费马引理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#费马引理证明">费马引理证明&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#一阶微分中值定理">一阶微分中值定理&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#罗尔rolle中值定理">罗尔（Rolle）中值定理&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#罗尔rolle中值定理证明">罗尔（Rolle）中值定理证明&lt;/a>&lt;/li>
-&lt;/ul>&lt;/li>
-&lt;li>&lt;a href="#拉格朗日langrange中值定理">拉格朗日（Langrange）中值定理&lt;/a>
-&lt;ul>
-&lt;li>&lt;a href="#拉格朗日langrange中值定理证明">拉格朗日（Langrange）中值定理证明&lt;/a>&lt;/li>
-&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#罗尔rolle中值定理">罗尔（Rolle）中值定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#拉格朗日langrange中值定理">拉格朗日（Langrange）中值定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#柯西cauchy中值定理">柯西（Cauchy）中值定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#泰勒中值定理">泰勒中值定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#泰勒中值定理的一阶展开">泰勒中值定理的一阶展开&lt;/a>&lt;/li>
@@ -9148,7 +9274,7 @@ f(x)=a_0+a_1 \cos x+b_1\sin x+a_2 \cos 2x+b_2\sin 2x+\dotsb
 &lt;li>&lt;span class="math">\(f(a)=f(b)\)&lt;/span>&lt;/li>
 &lt;/ol>
 &lt;p>&lt;span class="math">\(\Rightarrow\)&lt;/span>在(a,b)内至少存在一点&lt;span class="math">\(\xi\)&lt;/span>，使&lt;span class="math">\(f&amp;#39;(\xi)=0\)&lt;/span>&lt;/p>
-&lt;h4 id="罗尔rolle中值定理证明">罗尔（Rolle）中值定理证明&lt;/h4>
+&lt;p>罗尔（Rolle）中值定理证明：&lt;/p>
 &lt;p>因&lt;span class="math">\(f(x)\)&lt;/span>在[a,b]上连续，故在[a,b]上取得最大值M和最小值m。&lt;/p>
 &lt;p>若&lt;span class="math">\(M=m\)&lt;/span>，则&lt;span class="math">\(f(x)\equiv M,x\in [a,b],\)&lt;/span>，因此&lt;span class="math">\(\forall\xi\in(a,b),f&amp;#39;(\xi)=0\)&lt;/span>&lt;/p>
 &lt;p>若&lt;span class="math">\(M&amp;gt;m\)&lt;/span>，则M和m中至少有一个与端点值不相同，不妨设极大值&lt;span class="math">\(M\neq f(a)\)&lt;/span>，则至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(f(\xi)=M\)&lt;/span>，则费马引理可知&lt;span class="math">\(f&amp;#39;(\xi)=0\)&lt;/span>（只有在驻点才可能取得极值）。&lt;/p>
@@ -9171,7 +9297,7 @@ x,\quad 0\leq x &amp;lt;1 \\
 &lt;li>在区间（a，b）内可导&lt;/li>
 &lt;/ol>
 &lt;p>&lt;span class="math">\(\Rightarrow\)&lt;/span>至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(f&amp;#39;(\xi)=\frac{f(b)-f(a)}{b-a}\)&lt;/span>&lt;/p>
-&lt;h4 id="拉格朗日langrange中值定理证明">拉格朗日（Langrange）中值定理证明&lt;/h4>
+&lt;p>拉格朗日（Langrange）中值定理证明：&lt;/p>
 &lt;p>可以把问题转为证明&lt;span class="math">\(f&amp;#39;(\xi)-\frac{f(b)-f(a)}{b-a}=0\)&lt;/span>。我们作辅助函数： &lt;span class="math">\[\phi(x)=f(x)-\frac{f(b)-f(a)}{b-a}x\]&lt;/span> 显然，&lt;span class="math">\(\phi(x)\)&lt;/span>在[a,b]上连续，在(a,b)内可导，且&lt;span class="math">\(\phi(a)=\frac{bf(a)-af(b)}{b-a}=\phi(b)\)&lt;/span>。&lt;/p>
 &lt;p>&lt;span class="math">\(\phi(x)\)&lt;/span>函数可由罗尔定理只至少存在一点&lt;span class="math">\(\xi\in(a,b)\)&lt;/span>，使&lt;span class="math">\(\phi&amp;#39;(\xi)=0\)&lt;/span>，即定理结论整理。证毕。&lt;/p>
 &lt;h3 id="柯西cauchy中值定理">柯西（Cauchy）中值定理&lt;/h3>
@@ -11839,10 +11965,10 @@ params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
 &lt;li>&lt;a href="#拉格朗日误差界">拉格朗日误差界&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#例题">例题&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#交错级数">交错级数&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#拉格朗日插值余项">拉格朗日插值余项&lt;/a> ](#拉格朗日插值余项 )&lt;/li>
+&lt;li>&lt;a href="#拉格朗日插值余项">拉格朗日插值余项&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="拉格朗日余项">拉格朗日余项&lt;/h2>
-&lt;p>拉格朗日余项和泰勒公式密不可分。泰勒技术的全形如下： &lt;span class="math">\[
+&lt;p>拉格朗日余项和泰勒公式密不可分。泰勒级数的全形如下： &lt;span class="math">\[
 \begin{aligned}
 f(x)&amp;amp;=f(a)+f&amp;#39;(a)(x-a)+\frac{f&amp;#39;&amp;#39;(a)}{2!}(x-a)^2+\dotsb+\frac{f^{(n)}(a)}{n!}(x-a)^n+\dotsb \\
 &amp;amp;=\sum^{\infty}_{n=0}\frac{f^{(n)}(a)}{n!}(x-a)^n

@@ -77,7 +77,7 @@
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
 Nov 1, 2022</span>
-<span class=post_time> · 3 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90 title=数学分析 class="post_tag button button_translucent">数学分析
+<span class=post_time> · 5 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90 title=数学分析 class="post_tag button button_translucent">数学分析
 </a>
 </span>
 <span class=page_only>&nbsp;·
@@ -100,11 +100,14 @@ Nov 1, 2022</span>
 <li><a href=#积分函数的偏移>积分函数的偏移</a></li>
 <li><a href=#第二类欧拉积分的负数复数延拓以及统一表达式>第二类欧拉积分的负数、复数延拓以及统一表达式</a></li>
 <li><a href=#第二类欧拉积分与阶乘延拓的唯一性>第二类欧拉积分与阶乘延拓的唯一性</a></li>
-<li><a href=#两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</a>
-<ul>
+<li><a href=#不完全gamma函数与不完全beta函数>不完全Gamma函数与不完全Beta函数</a></li>
+<li><a href=#两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</a></li>
 <li><a href=#gamma分布>Gamma分布</a></li>
 <li><a href=#beta分布>Beta分布</a></li>
-</ul></li>
+<li><a href=#附gamma函数beta函数关系以及其他函数>附：Gamma函数、Beta函数关系以及其他函数</a></li>
+<li><a href=#gamma函数与beta函数关系推导>Gamma函数与Beta函数关系推导</a></li>
+<li><a href=#gamma函数与psi函数>Gamma函数与Psi函数</a></li>
+<li><a href=#gamma函数与zeta函数>Gamma函数与zeta函数</a></li>
 </ul>
 <h2 id=数学分析之两类欧拉积分>数学分析之两类欧拉积分</h2>
 <p>在概率论、微积分等数学领域中，我们经常能见到Beta函数（分布）、Gamma函数这种十分奇特的函数形式，他们很难从直觉上理解形式、作用，但是在很多时候有发挥着基础性作用。这不禁让人们好奇人们是怎么发现这两个奇葩的存在。这就要提到一位传奇数学巨匠——欧拉，他一生数学贡献无数，在数学及许多分支中都可以见到很多以欧拉命名的常数、公式和定理，他的工作使得数学更接近于现代数学的形态。他不但为数学界作出贡献，更把数学推至几乎整个物理的领域。此外欧拉还涉及建筑学、弹道学、航海学等领域。法国大数学家拉普拉斯曾说过一句话——“读读欧拉，他是所有人的老师。”两类欧拉积分，无疑也为其光辉的数学生涯又增加了浓墨重彩的一笔。两类欧拉积分的具体形式如下：</p>
@@ -270,7 +273,7 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 \]</span> 分母那个多余的1，不仅仅会破坏对称美感，而且在计算种种带来额外项。</p>
 <p>另一个可能的猜测则与抽象代数有关，按照勒让德的定义式(2.1)，<span class=math>\(\Gamma\)</span>分布的概率密度函数和卷积可以组成一个半环，而不做偏移的定义形式则没有这个性质。虽然有关群论的内容需要等待欧拉死后大约半个世纪的阿贝尔和伽罗华才初步建立，但是欧拉未出版的一些手稿中已经体现了群论的初步思想。至于欧拉是否也发现式(2.1)的形式在群论计算中的便利性，我们就无从得知了。不过，正因为群论的发展，使得式(2.1)的定义方式更广泛地被接受。</p>
 <h3 id=第二类欧拉积分的负数复数延拓以及统一表达式>第二类欧拉积分的负数、复数延拓以及统一表达式</h3>
-<p>在欧拉进行阶乘延拓的时候，他考虑的是正实数场景。正如从整数向正实数的解析延拓促使了<span class=math>\(\Gamma\)</span>函数的诞生，在此之后，数学家们开始希望将阶乘的概念拓展到负数与复数。</p>
+<p>在欧拉进行阶乘延拓的时候，他考虑的是正实数场景，当<span class=math>\(x\in R^+\)</span>时，第二类欧拉积分，即<span class=math>\(\Gamma(x)\)</span>函数是有定义且连续的，具体证明可参考网页资料<a href=../../网页资料/数学分析-学习笔记-Γ函数和B函数.html>数学分析-学习笔记-Γ函数和B函数.html</a>。正如从整数向正实数的解析延拓促使了<span class=math>\(\Gamma\)</span>函数的诞生，在此之后，数学家们开始希望将阶乘的概念拓展到负数与复数。</p>
 <p>对于负数而言，虽说式(2)的形式并不适用，但是阶乘的思想还是能够借鉴的，关键就是递推公式： <span class=math>\[
 \Gamma(x+1)=x\Gamma(x)\tag{28}
 \]</span> 那么如果我们不停地给自变量<span class=math>\(x\)</span>减1，那么<span class=math>\(x\)</span>很快就会落入负数的范围，比如： <span class=math>\[
@@ -281,7 +284,7 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 &\qquad=({1\over 2})\times(-{1\over 2})\times (-{3\over 2})\times \Gamma(-{3\over 2})=(-{5\over 2})!\\
 \end{aligned}\tag{29}
 \]</span> 我们将递推关系反转过来，我们能够很轻易地得到阶乘的负数延拓，比如： <span class=math>\[
-(-{5\over 2})!=\Gamma(-{3\over 2})=({2\over 1})\times (-{2\over 1})\times (-{2\over 3})\times \underbrace{\Gamma({3\over 2})}_{\frac{1}{2}!=\frac{\sqrt{\pi}}{2}}=\frac{4\sqrt{\pi}}{3}\tag{30}
+(-{5\over 2})!=\Gamma(-{3\over 2})=({2\over 1})\times (-{2\over 1})\times (-{2\over 3})\times \underbrace{\Gamma({3\over 2})}_{=\frac{1}{2}!=\frac{\sqrt{\pi}}{2}}=\frac{4\sqrt{\pi}}{3}\tag{30}
 \]</span> 依据递推关系，我们只要计算出<span class=math>\(\Gamma\)</span>函数在0-1范围内的值，就可以推得<strong>几乎所有</strong>负数<span class=math>\(\Gamma\)</span>函数的值。注意，我这里使用的是“几乎”所有。这是因为使用递推关系有一个巨大的问题，即无法处理负整数的情形。比如-2的阶乘通过递推关系应该是： <span class=math>\[
 \Gamma(-1)=(-2)! \\
 \Gamma(-1)\times (-1) \times 0 \times 1 = 1! =\Gamma(2)\tag{31}
@@ -295,14 +298,141 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 <p>在复变函数中，亚纯函数（meromorphic function）是在区域<span class=math>\(D\)</span>上有定义，且除去极点之外处处解析的函数。具体来说就是在复分析中，一个复平面的开子集<span class=math>\(D\)</span>上的亚纯函数是一个在<span class=math>\(D\)</span>上除一个或若干个孤立点集合之外的区域全纯的函数，那些孤立点称为该函数的极点。</p>
 <p>显然<span class=math>\(\Gamma(x)\)</span>函数由于在负整数为极点，其他位置处处解析，因此它是亚纯函数，而<span class=math>\(\Gamma(x)\)</span>函数的倒数<span class=math>\(\frac{1}{\Gamma(x)}\)</span>却是处处解析的全纯函数（<span class=math>\(\frac{1}{\Gamma(x)}\)</span>实部为负整数的点函数值都为0），因此在处理<span class=math>\(\Gamma(x)\)</span>函数，很多数学家会从<span class=math>\(\frac{1}{\Gamma(x)}\)</span>着手。</p>
 </blockquote>
-<p>在整个复平面，<span class=math>\(\Gamma\)</span>函数的绝对值图像如下（注：那些顶端平的部分是为了方便显示，函数值截断的结果）</p>
+<p>在整个复平面，<span class=math>\(\Gamma\)</span>函数的<strong>绝对值</strong>图像如下（注：那些顶端平的部分是为了方便显示，函数值截断的结果）</p>
 <div class=figure>
 <img src=../../images/Gamma_abs_3D.png alt=Gamma_abs_3D><p class=caption>Gamma_abs_3D</p>
 </div>
+<p>数学家F.W. Newman在1848年给了<span class=math>\(\Gamma\)</span>函数在整个复平面一个通用的表达式(32)，利用了<span class=math>\(1/\Gamma(z)\)</span>是全纯函数的特性。 <span class=math>\[
+1/\Gamma(z)=ze^{\gamma z}\prod_{k=1}^{\infty}[(1+\frac{z}{k})e^{-\frac{z}{k}}],\qquad \gamma=0.5772156649\dotsb\tag{32}
+\]</span> 其中，<span class=math>\(\gamma\)</span>为欧拉-马斯刻若尼常数，简称欧拉常数<span class=math>\(\gamma = \lim\limits_{n \rightarrow \infty }[( \sum_{k=1}^n \frac{1}{k} - \ln(n)]\)</span>。</p>
 <h3 id=第二类欧拉积分与阶乘延拓的唯一性>第二类欧拉积分与阶乘延拓的唯一性</h3>
-<h3 id=两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</h3>
-<h4 id=gamma分布>Gamma分布</h4>
-<h4 id=beta分布>Beta分布</h4>
+<p>阶乘的解析延拓是唯一的吗？答案是显然的：No。我们回到开头插值的问题，最开始介绍<a href=#哥德巴赫的疑问插值与阶乘研究>哥德巴赫的疑问——插值与阶乘研究</a>的时候就提到如果单纯地找插值函数，数学家们可以找出无数条符合要求的曲线。在丹尼尔-伯努利和欧拉分别写信告诉哥德巴赫他们的无穷乘积结果时，给出的也是两个不同的无穷乘积形式，并且都能够很好地做为阶乘的插值函数。</p>
+<p>后来的数学家也解析延拓出了其他的阶乘函数，比如在1894年，法国数学家Hadamard利用<span class=math>\(\Gamma\)</span>函数给出了一个在整个复平面内都解析的全纯函数： <span class=math>\[
+y=\frac{1}{\Gamma(1-x)}\frac{\mathrm{d}}{\mathrm{d}x}\log\left[\Gamma(\frac{1-x}{2})/\Gamma(1-\frac{x}{2})\right],x\in \mathbb{C}\tag{33}
+\]</span> 其函数图像如下：</p>
+<div class=figure>
+<img src=../../images/hadamard阶乘函数.png alt=hadamard阶乘函数.png><p class=caption>hadamard阶乘函数.png</p>
+</div>
+<p>相较于<span class=math>\(\Gamma(x)\)</span>，式(33)在整个复平面内没有奇异性，即使在负整数处也没有极点，从函数分析理论角度来看，它是一个更适合分析的函数。</p>
+<p>那么，为什么只有第二类欧拉积分，即<span class=math>\(\Gamma(x)\)</span>函数得到了数学家们的广泛认可呢？</p>
+<p>从研究积分的角度看，这是显然的。因为欧拉积分在特殊函数中出现的频率非常高，第二类欧拉积分可以说是很多特殊积分的基础。而从插值的角度看，<span class=math>\(\Gamma\)</span>函数的特殊性并不那么显然，虽然可以从美学上说，<span class=math>\(\Gamma\)</span>函数简洁而优雅，但是数学要求我们找出更理性的证据。</p>
+<p>既然阶乘插值的结果千千万，那我们来考虑阶乘函数除插值外，还应当满足哪些必要的要求。首先，阶乘的核心是递推关系<span class=math>\(n!=n(n-1)!\)</span>，我们先要把递推关系延拓到所有正实数<span class=math>\(f(x+1)=xf(x)，x\in R^+\)</span>（注意我们这里仿照勒让德的定义方式做了一位偏移），这使得将阶乘的概念从正整数延拓到正实数。同时我们规定阶乘函数的起点值<span class=math>\(f(x)|_{x=1}=1\)</span>，这二者共同保证了在所有正整数点的函数值与整数的阶乘值一致。综上总结出以下两个要求：</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(f(1)=1\)</span></li>
+<li><span class=math>\(f(x+1)=xf(x),\forall x\in R^+\)</span></li>
+</ol>
+<p>毫无疑问，<span class=math>\(\Gamma(x)\)</span>是满足上述两个条件的，但问题是满足上述两个条件的函数也是无穷多个，这里我们给出一个典型的构造方法。</p>
+<ol style=list-style-type:decimal>
+<li>我们将数轴正半轴以1为单位划分成段，构造分段函数<span class=math>\(g_0(x),x\in(0,1];g_1(x),x\in(1,2];g_2(x),x\in(2,3];\dotsb;g_n(x),x\in (n,n+1];\dotsb\)</span></li>
+<li>在区间<span class=math>\([1,2]\)</span>内任意找出一个连续函数<span class=math>\(g_1\)</span>，使得<span class=math>\(g_1(1)=g_1(2)=1\)</span>。因为根据条件1和2，<span class=math>\(f(1)=1,f(2)=1\times f(1)=1\)</span>。</li>
+<li>根据条件2的递推关系，当<span class=math>\(x\in (0,1]\)</span>，有<span class=math>\(x\times g_0(x)=g_1(x)\Rightarrow g_0(x)=\frac{g_1(x)}{x}\)</span>。</li>
+<li>根据条件2的递推关系，当<span class=math>\(x\in (n,n+1],n>1\)</span>时，有<span class=math>\(g_n(x)=g_1(x)\prod_{k=1}^{n-1}(x-k)\)</span></li>
+<li>将函数段<span class=math>\(g_0,g_1,g_2,\dotsb\)</span>，组合起来，即构造为伪<span class=math>\(\Gamma\)</span>函数同时满足条件1，2。</li>
+</ol>
+<p>举个例子，令<span class=math>\(g_1(x)=1\)</span>，其构造的函数分别为： <span class=math>\[
+\begin{aligned}
+&g_0(x)=1/x,\qquad 0&lt;x\le 1;\\
+&g_1(x)=1,\qquad 1&lt;x\le 2;\\
+&g_2(x)=x-1,\qquad 2&lt;x\le 3;\\
+&g_3(x)=(x-1)(x-2),\qquad 3&lt;x\le 4;\\
+&g_4(x)=(x-1)(x-2)(x-3),\qquad 4&lt;x\le 5;\\
+&\qquad \vdots
+\end{aligned}\tag{34}
+\]</span> 函数图像为： <img src=../../images/伪gamma函数1.png alt=伪gamma函数1.png></p>
+<p>有些人觉得分段函数在每段连接处是生硬地转折，不可微，看上去不够自然。那么加上<strong>可微这个条件</strong>，<span class=math>\(\Gamma\)</span>函数是否就是唯一解呢？依旧不是。我们可以利用<span class=math>\(\Gamma\)</span>函数构造出其他满足条件的例子，我们任意找一个解析并且周期为1的周期函数<span class=math>\(p(x)\)</span>，同时确保<span class=math>\(p(1)=1\)</span>，比如<span class=math>\(p(x)=1+\sin(2\pi x)\)</span>，那么函数 <span class=math>\[g(x)=\Gamma(x)p(x)\tag{35}\]</span> 就是一个符合上述三个要求的函数，其函数图像如下：</p>
+<div class=figure>
+<img src=../../images/可微的伪Gamma函数.png alt=可微的伪Gamma函数.png><p class=caption>可微的伪Gamma函数.png</p>
+</div>
+<p>既然，这样都不是充分条件，那么我们还要如何加强这个问题，使得<span class=math>\(\Gamma\)</span>函数成为唯一解呢？在19世纪中叶，数学家们确实给出了能让<span class=math>\(\Gamma\)</span>函数作为唯一满足条件的连续函数。</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(\Gamma(1)=1\)</span></li>
+<li><span class=math>\(\Gamma(x+1)=x\Gamma(x),\forall x\in R^+\)</span></li>
+<li>满足反射公式：</li>
+</ol>
+<ul>
+<li><span class=math>\[\Gamma(z)\Gamma(1-z)=\frac{\pi}{\sin(\pi z)}\tag{35}\]</span></li>
+</ul>
+<ol start=4 style=list-style-type:decimal>
+<li>满足乘法公式：</li>
+</ol>
+<ul>
+<li><span class=math>\[\Gamma(nz)=(2\pi)^{\frac{1-n}{2}}n^{nz-\frac{1}{2}}\Gamma(z)\Gamma(z+\frac{1}{n})\Gamma(z+\frac{2 }{n})\dotsb\Gamma(z+\frac{n-1}{n})\tag{36}\]</span></li>
+</ul>
+<p>不过新加的两个条件很难说是“符合直觉的”，它们太复杂，而且与其说是条件，倒不如说是<span class=math>\(\Gamma(x)\)</span>函数所特有的性质，有点先射箭，再画靶的嫌疑。</p>
+<p>传统的数学分析领域似乎已经无法为我们提供更多帮助了。很多时候，代数和分析是相辅相成的，在康托尔发展了集合论以及拓扑学的完善之后，在20世纪之交，一个很“视觉”的概念，“凸函数”被提出来。</p>
+<blockquote>
+<p><span class=math>\(f\)</span>称为凸函数，意思是对<span class=math>\(0\leq t\leq 1\)</span>及任意<span class=math>\(x_{1},x_{2}\in C\)</span>，皆有 <span class=math>\[f\left(tx_{1}+(1-t)x_{2}\right)\leq tf\left(x_{1}\right)+(1-t)f\left(x_{2}\right)\tag{37}\]</span></p>
+</blockquote>
+<p>在代数上的描述并不直观，但是从几何上来说，凸函数就是函数上任意两点的连续都在函数上方，如下图：</p>
+<div class=figure>
+<img src=../../images/凸函数定义.png alt=凸函数定义.png><p class=caption>凸函数定义.png</p>
+</div>
+<p>凸函数不像三角函数<span class=math>\(\sin,\cos\)</span>那样上下波动，形状相对固定，在研究中有非常方便的性质，比如局部最优就是全局最优，二阶导非负（多元情况下就是Hessian矩阵半正定），这些方便的性质迅速让凸函数在均值理论、拓扑学、博弈论、线性规划中得到了广泛应用，为此还发展出了专门的一个方向：凸优化。因此，如果研究者发现需要研究的函数是“凸”的，那么他会大松一口气，很多问题就能够轻易的解决。</p>
+<p>而欧拉给出的<span class=math>\(\Gamma(x)\)</span>函数恰好在正实数范围内是“凸”的，同时在负数部分的每一小段也都是“凸”的，我们从<span class=math>\(\Gamma\)</span>函数的图像中很容易看出这一点。而Hadamard延拓出的函数式(33)和我们构造的解析的伪<span class=math>\(\Gamma\)</span>函数<span class=math>\(g(x)=\Gamma(x)p(x)\)</span>（式(35)）显然不满足“凸”这个性质。那么，很多数学家自然而然的想到，<span class=math>\(\Gamma\)</span>函数是不是唯一满足条件1，2的凸函数呢？</p>
+<p>答案显然也不是，其实我们在前面已经给出了反例，就是前面构造出来的分段函数式(34)。虽然它是一段段曲线拼接起来的，且在拼接处不解析，但它是货真价实的凸函数。</p>
+<p>不过，抓到“凸”这个特性，我们离真正的答案也就不远了。</p>
+<p>在1922年，丹麦数学家Harald Bohr和Johannes Mollerup发现，<span class=math>\(\Gamma(x)\)</span>函数不仅仅是凸的，而且<span class=math>\(\log\Gamma(x)\)</span>也是凸函数，即<strong>对数凸函数</strong>！对数凸函数是一个比凸函数更强的条件，对数凸函数必然是凸函数，由于对数函数会大幅降低函数成长的速率，因此若取对数后仍为凸函数，表示函数上升的速度比凸函数还快，因此会称为超凸函数。两位数学家证明：</p>
+<blockquote>
+<p><strong>Bohr–Mollerup定理</strong>：在<span class=math>\(x>0\)</span>的区间上，<span class=math>\(Γ\)</span>函数 <span class=math>\[\Gamma(x)=\int_0^\infty t^{x-1}e^{-t}\mathrm{d}t \tag{2.1}\]</span> 是<strong>唯一</strong>同时满足以下3条性质的函数 f ：</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(f(1)=1\)</span></li>
+<li><span class=math>\(f(x+1)=xf(x),\forall x\in R^+\)</span></li>
+<li><span class=math>\(f\)</span>是对数凸函数。</li>
+</ol>
+</blockquote>
+<p>这个定理最早是出现在一本复分析教科书中，并且证明过程并不复杂，以至于当时Bohr和Mollerup都以为这是一个人们肯定已经知道的结果。不过这个定理确实是第一个给出了阶乘函数的解析延拓在何种情形下一定是<span class=math>\(Γ\)</span>函数的简明充要条件。后来，数学家Emil Artin简化了定理的证明，因此这个定理也被称为“Bohr–Mollerup-Artin定理”。</p>
+<p>这个定理让数学家非常满意，让<span class=math>\(\Gamma\)</span>函数充满了优雅与简洁的独特美学，甚至让追求严格性著称的尼古拉·布尔巴基合作者协会都以此作为阐述<span class=math>\(\Gamma\)</span>函数的切入点。</p>
+<h3 id=不完全gamma函数与不完全beta函数>不完全Gamma函数与不完全Beta函数</h3>
+<p>不完全<span class=math>\(Γ\)</span>、<span class=math>\(\Beta\)</span>函数是<span class=math>\(Γ\)</span>函数与<span class=math>\(\Beta\)</span>函数的不定积分形式。这里不打算介绍太多，只介绍基本思想。由于两类欧拉积分都是定积分，在给出参数后就是固定值，后来数学家为了将它们推广到不定积分，就分别给出了不完全<span class=math>\(Γ\)</span>函数与不完全<span class=math>\(\Beta\)</span>函数。</p>
+<p><span class=math>\(Γ\)</span>函数式(2.1)，根据将上限变成不定积分和下限变成不定积分又分成上不完全<span class=math>\(Γ\)</span>函数和下不完全<span class=math>\(Γ\)</span>函数，其解析表达式如下：</p>
+<p>上不完全<span class=math>\(Γ\)</span>函数： <span class=math>\[\Gamma(s,x) = \int_x^{\infty} t^{s-1}\,e^{-t}\,{\rm d}t\quad \Re(s)>0, x\in\mathbb R_0^+\tag{38}\]</span> 当<span class=math>\(x=0\)</span>时，上不完全<span class=math>\(Γ\)</span>函数就是<span class=math>\(Γ\)</span>函数<span class=math>\(\Gamma(s,0)=\Gamma(s)\)</span>。</p>
+<p>下不完全<span class=math>\(Γ\)</span>函数： <span class=math>\[\gamma(s,x) = \int_0^x t^{s-1}\,e^{-t}\,{\rm d}t \quad \Re(s)>0, x\in\mathbb R_0^+\tag{39}\]</span></p>
+<p>不完全<span class=math>\(\Beta\)</span>函数是<span class=math>\(\Beta\)</span>函数的一个推广，把<span class=math>\(\Beta\)</span>函数中的定积分用不定积分来代替，需要指出的是不同于不完全<span class=math>\(\Gamma\)</span>函数，不完全<span class=math>\(\Beta\)</span>函数只会将上限改为不定积分。</p>
+<p>不完全<span class=math>\(\Beta\)</span>函数： <span class=math>\[
+\Beta(x;\,a,b)=\int _{0}^{x}t^{{a-1}}\,(1-t)^{{b-1}}\,dt \quad x\in [0,1],a>0,b>0\tag{40}
+\]</span> 当<span class=math>\(x = 1\)</span>，上式即化为<span class=math>\(\Beta\)</span>函数。</p>
+<h2 id=两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</h2>
+<p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (<span class=math>\(t\)</span>分布，<span class=math>\(χ^2\)</span>分布，<span class=math>\(F\)</span>分布)、<span class=math>\(\Beta\)</span>分布、狄利克雷分布的密度公式中都有<span class=math>\(\Gamma\)</span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。接下来，我们将分别介绍两类欧拉积分在概率论中的应用。</p>
+<h3 id=gamma分布>Gamma分布</h3>
+<p>与<span class=math>\(\Gamma\)</span>函数有最直接联系的概率分布当然是直接由<span class=math>\(\Gamma\)</span>函数变换得到的<span class=math>\(\Gamma\)</span>分布，实际上<span class=math>\(\Gamma\)</span>分布就是借<span class=math>\(\Gamma\)</span>函数作为归一化分母而得到的概率分布： $$</p>
+<p>$$</p>
+<h3 id=beta分布>Beta分布</h3>
+<h2 id=附gamma函数beta函数关系以及其他函数>附：Gamma函数、Beta函数关系以及其他函数</h2>
+<h3 id=gamma函数与beta函数关系推导>Gamma函数与Beta函数关系推导</h3>
+<p>从文章开头的式(1)我们就给出了<span class=math>\(\Gamma\)</span>函数和<span class=math>\(\Beta\)</span>函数二者的关系，其具体推导过程如下： <span class=math>\[
+\begin{aligned}
+\Gamma(x) \Gamma(y) &= \int_0^{+\infty} e^{-t} t^{x-1} \mathrm{d}t \int_0^{+\infty} e^{-s} s^{y-1} \mathrm{d}s \\
+& = \int_0^{+\infty} \int_0^{+\infty} e^{-(s+t)} t^{x-1} s^{y-1} \mathrm{d}s \mathrm{d}t \\
+&=4 \int_0^{+\infty} \int_0^{+\infty} e^{-(u^2+v^2)} u^{2x-2} v^{2y-2} \cdot uv \mathrm{d}u \mathrm{d}v \quad (t=u^2,s=v^2)\\
+&= 4 \int_0^{+\infty} \int_0^{+\infty} e^{-(u^2+v^2)} u^{2x-1} v^{2y-1} \mathrm{d}u \mathrm{d}v \\
+&= \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} e^{-(u^2+v^2)} |u|^{2x-1}|v|^{2y-1} \mathrm{d}u \mathrm{d}v \\
+&= \int_0^{+\infty} \int_0^{2\pi} r e^{-r^2} r^{2x-1} |\cos \theta|^{2x-1} r^{2y-1} |\sin \theta|^{2y-1} \mathrm{d}r \mathrm{d}\theta \quad (u=r\cos \theta,v=r\sin \theta) \\
+&= \int_0^{+\infty} r e^{-r^2} r^{2x+2y-2} \mathrm{d}r \int_0^{2\pi} |\cos \theta|^{2x-1} |\sin \theta|^{2y-1} \mathrm{d} \theta \\
+&= \frac{1}{2} \int_0^{+\infty} e^{-r^2} r^{2(x+y-1)} \mathrm{d}r^2 \int_0^{2\pi} |\cos \theta|^{2x-1} |\sin \theta|^{2y-1} \mathrm{d} \theta \\
+&= \frac{1}{2} \Gamma(x+y) \int_0^{2\pi} |\cos \theta|^{2x-1} |\sin \theta|^{2y-1} \mathrm{d} \theta \\
+&= \Gamma(x+y) \cdot 2\int_0^{\frac{\pi}{2}} \cos^{2x-1} \theta \sin^{2y-1} \theta \mathrm{d} \theta \\
+&= \Gamma(x+y) \cdot 2 \int_0^1 t^{x-\frac{1}{2}} (1-t)^{y-\frac{1}{2}} \frac{1}{2} t^{-\frac{1}{2}} (1-t)^{-\frac{1}{2}} \mathrm{d}t \quad (t=\cos^2 \theta,\sin \theta =(1-t)^\frac{1}{2}, \mathrm{d}t = -2 t^{\frac{1}{2}} (1-t)^{\frac{1}{2}} \mathrm{d} \theta) \\
+&= \Gamma(x+y) \int_0^1 t^{x-1} (1-t)^{y-1} \mathrm{d}t \\
+&= \Gamma(x+y) \Beta (x,y).\\
+&\Rightarrow \Beta(x,y)=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}
+\end{aligned}
+\]</span></p>
+<h3 id=gamma函数与psi函数>Gamma函数与Psi函数</h3>
+<p><span class=math>\(\psi\)</span>函数又称双伽玛函数，是伽玛函数的对数导数，即 <span class=math>\[
+\psi (x)={\frac {d}{dx}}\ln {\Gamma (x)}={\frac {\Gamma '(x)}{\Gamma (x)}}
+\]</span> 由<span class=math>\(\psi\)</span>函数可以推导出Stirling级数。</p>
+<h3 id=gamma函数与zeta函数>Gamma函数与zeta函数</h3>
+<p>黎曼泽塔函数，写作<span class=math>\(ζ(z)\)</span>的定义如下：设一复数<span class=math>\(z\)</span>使得<span class=math>\(Re(z)>1\)</span>，则定义： <span class=math>\[
+\zeta(z)=\sum_{n=1}^\infty \frac{1}{n^z}
+\]</span> 它亦可以用积分定义： <span class=math>\[
+\zeta(z)=\frac{1}{\Gamma(z)}\int_{0}^{\infty} \frac{x^ {z-1}}{e^x-1} \mathrm{d}x
+\]</span> 黎曼的<span class=math>\(ζ\)</span>函数被数学家认为主要和“最纯”的数学领域数论相关，黎曼函数最著名的就是黎曼猜想：</p>
+<blockquote>
+<p>黎曼猜想：黎曼<span class=math>\(ζ\)</span>函数的非平凡零点（在此情况下是指<span class=math>\(z\)</span>不为-2，-4，-6，...，等点的值）的实数部分是<span class=math>\(\frac{1}{2}\)</span>。</p>
+</blockquote>
+<p>而<span class=math>\(\Gamma\)</span>函数与<span class=math>\(ζ\)</span>函数有如下关系： <span class=math>\[
+\pi ^{-{\frac {z}{2}}}\;\Gamma \left({\frac {z}{2}}\right)\zeta (z)=\pi ^{-{\frac {1-z}{2}}}\;\Gamma \left({\frac {1-z}{2}}\right)\;\zeta (1-z)
+\]</span></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -332,16 +462,16 @@ n!=\int_0^\infty t^n e^{-t}\mathrm{d}t=\Gamma(n+1)\tag{22}
 机器学习
 <span class=button_tally>13</span>
 </a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>12</span>
+</a>
 <a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
 测度论
 <span class=button_tally>12</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
 LINUX
-<span class=button_tally>11</span>
-</a>
-<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
-数学分析
 <span class=button_tally>11</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
@@ -365,6 +495,8 @@ SHELL
 <a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=3 title=ecmascript>ECMASCRIPT<span class=button_tally>3</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
 </a>
@@ -398,7 +530,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=11 title=数学分析>数学分析<span class=button_tally>11</span>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=12 title=数学分析>数学分析<span class=button_tally>12</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
 </a>
@@ -434,31 +566,31 @@ SHELL
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%AE%9E%E4%BE%8B1/ class=nav-link title=javascript-Chrome插件实例1>javascript-Chrome插件实例1</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%85%A5%E9%97%A8/ class=nav-link title=javascript-Chrome插件入门>javascript-Chrome插件入门</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-js%E9%AB%98%E9%98%B6%E8%A7%A3%E6%9E%90/ class=nav-link title=javascript-js高阶解析>javascript-js高阶解析</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E9%80%86%E7%9F%A9%E9%98%B5/ class=nav-link title=线性代数与矩阵之逆矩阵>线性代数与矩阵之逆矩阵</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ class=nav-link title=shell-骨干流程4——命令执行与job控制>shell-骨干流程4——命令执行与job控制</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B3%E5%91%BD%E4%BB%A4%E5%B1%95%E5%BC%80/ class=nav-link title=shell-骨干流程3——命令展开>shell-骨干流程3——命令展开</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ class=nav-link title="Shell 骨干流程2——复合命令与控制流程">Shell 骨干流程2——复合命令与控制流程</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E6%9E%81%E7%AE%80%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%80%BB%E7%BB%93/ class=nav-link title=概率统计随机过程之极简贝叶斯统计总结>概率统计随机过程之极简贝叶斯统计总结</a>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%AE%9E%E4%BE%8B1/ class=nav-link title=javascript-Chrome插件实例1>javascript-Chrome插件实例1</a>
 </li>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1%E6%8E%A8%E6%96%AD/ class=nav-link title=概率统计随机过程之贝叶斯统计推断>概率统计随机过程之贝叶斯统计推断</a>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%85%A5%E9%97%A8/ class=nav-link title=javascript-Chrome插件入门>javascript-Chrome插件入门</a>
 </li>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8Bfisher%E4%BF%A1%E6%81%AF/ class=nav-link title=概率统计随机过程之Fisher信息>概率统计随机过程之Fisher信息</a>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-js%E9%AB%98%E9%98%B6%E8%A7%A3%E6%9E%90/ class=nav-link title=javascript-js高阶解析>javascript-js高阶解析</a>
 </li>
 </ul>
 <div>
@@ -480,16 +612,16 @@ SHELL
 机器学习
 <span class=button_tally>13</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>12</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
 测度论
 <span class=button_tally>12</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
 LINUX
-<span class=button_tally>11</span>
-</a>
-<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
-数学分析
 <span class=button_tally>11</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
@@ -518,7 +650,11 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
 </a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=3 title=ecmascript>ECMASCRIPT<span class=button_tally>3</span>
+</a>
 <a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=3 title=javascript>JAVASCRIPT<span class=button_tally>3</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
 </a>
@@ -558,7 +694,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=11 title=数学分析>数学分析<span class=button_tally>11</span>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=12 title=数学分析>数学分析<span class=button_tally>12</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
 </a>
