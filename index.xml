@@ -1,47 +1,48 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 10 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome插件实例1</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%AE%9E%E4%BE%8B1/</link><pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%AE%9E%E4%BE%8B1/</guid><description>
-&lt;h2 id="chrome插件实例1---omit-in-toc---">Chrome插件实例1&lt;!-- omit in toc -->&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 10 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例1</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B1/</link><pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B1/</guid><description>
+&lt;h2 id="chrome扩展实例1---omit-in-toc---">Chrome扩展实例1&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
-&lt;/ol></description></item><item><title>javascript-Chrome插件入门</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%85%A5%E9%97%A8/</link><pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%8F%92%E4%BB%B6%E5%85%A5%E9%97%A8/</guid><description>
-&lt;h2 id="chrome插件入门---omit-in-toc---">Chrome插件入门&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>Chrome插件能为Chrome浏览器增加新的功能和特性，为用户提供定制化的浏览体验，如果有一些自己需要的功能，也可以尝试自己写一些插件来实现。开发Chrome插件所需要的技术和WEB前端开发并无不同，都是需要&lt;/p>
+&lt;/ol></description></item><item><title>javascript-Chrome扩展入门</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%85%A5%E9%97%A8/</link><pubDate>Sun, 08 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%85%A5%E9%97%A8/</guid><description>
+&lt;h2 id="chrome扩展入门---omit-in-toc---">Chrome扩展入门&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Chrome扩展能为Chrome浏览器增加新的功能和特性，为用户提供定制化的浏览体验，如果有一些自己需要的功能，也可以尝试自己写一些扩展来实现。开发Chrome扩展所需要的技术和WEB前端开发并无不同，都是需要&lt;/p>
 &lt;ol>
 &lt;li>HTML&lt;/li>
 &lt;li>CSS&lt;/li>
 &lt;li>JavaScript&lt;/li>
 &lt;/ol>
-&lt;p>本质上来时，Chrome插件就是工作在客户端浏览器上的JavaScript程序。如果说写Chrome插件有什么需要新学的东西，那就是Chrome浏览器的Javascript APIs，通过浏览器的API，我们可以&lt;/p>
+&lt;p>本质上来时，Chrome扩展就是工作在客户端浏览器上的JavaScript程序。如果说写Chrome扩展有什么需要新学的东西，那就是Chrome浏览器的Javascript APIs，通过浏览器的API，我们可以&lt;/p>
 &lt;ol>
 &lt;li>修改Chrome浏览器原有的功能和行为；&lt;/li>
 &lt;li>允许用户收集和组织（重新组织）网上的信息；&lt;/li>
 &lt;li>给Chrome的DevTools添加新的特性。&lt;/li>
 &lt;/ol>
-&lt;p>正是Google提供的插件开发功能，为Chrome浏览器带来了源源不断的创新动力。&lt;/p>
+&lt;p>正是Google提供的扩展开发功能，为Chrome浏览器带来了源源不断的创新动力。&lt;/p>
 &lt;p>目前Chrome建议使用的是Manifest V3，本文以此为环境写作。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">插件的设计原则&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84">插件的文件结构&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%89%A9%E5%B1%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">扩展的设计原则&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%89%A9%E5%B1%95%E7%9A%84%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84">扩展的文件结构&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E5%85%A5%E9%97%A8%E4%BE%8B%E5%AD%90hello-world-extension">入门例子：Hello World Extension&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#%E8%B0%83%E8%AF%95%E6%8F%92%E4%BB%B6">调试插件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%B0%83%E8%AF%95%E6%89%A9%E5%B1%95">调试扩展&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%85%B3%E4%BA%8E%E6%89%A9%E5%B1%95extensions%E6%8F%92%E4%BB%B6plugins%E4%B8%8E%E5%BA%94%E7%94%A8apps">关于扩展（extensions），插件（plugins）与应用（Apps）&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="插件的设计原则">插件的设计原则&lt;/h2>
-&lt;p>Chrome的插件设计要求遵循“单一目的”原则，该原则包含两个方面：&lt;/p>
+&lt;h2 id="扩展的设计原则">扩展的设计原则&lt;/h2>
+&lt;p>Chrome的扩展设计要求遵循“单一目的”原则，该原则包含两个方面：&lt;/p>
 &lt;ol>
-&lt;li>插件的主题或关注领域集中，例如“新闻头条”，“天气”，“购物比价”。千万不要像国内很多软件那样做得那么大而全。&lt;/li>
-&lt;li>插件的功能集中，例如“标签管理”，“搜索功能”，“新标签页面”。&lt;/li>
+&lt;li>扩展的主题或关注领域集中，例如“新闻头条”，“天气”，“购物比价”。千万不要像国内很多软件那样做得那么大而全。&lt;/li>
+&lt;li>扩展的功能集中，例如“标签管理”，“搜索功能”，“新标签页面”。&lt;/li>
 &lt;/ol>
-&lt;h2 id="插件的文件结构">插件的文件结构&lt;/h2>
-&lt;p>插件根据所需的功能，包含的文件千差万别，其中最常用的如下。&lt;/p>
+&lt;h2 id="扩展的文件结构">扩展的文件结构&lt;/h2>
+&lt;p>扩展根据所需的功能，包含的文件千差万别，其中最常用的如下。&lt;/p>
 &lt;ol>
-&lt;li>（必需）manifest文件。此文件翻译为“清单文件”，是唯一必需的文件，且名字必须为&lt;code>manifest.json&lt;/code>（显然是个&lt;code>json&lt;/code>文件），放在插件的根目录文件夹下。Chrome浏览器通过该文件找到插件配置并载入，&lt;code>manifest.json&lt;/code>中记录了插件重要的元信息、定义资源、声明权限同时指定哪些文件在后台运行，哪些在前台显示，可以说是插件的指导手册。&lt;/li>
+&lt;li>（必需）manifest文件。此文件翻译为“清单文件”，是唯一必需的文件，且名字必须为&lt;code>manifest.json&lt;/code>（显然是个&lt;code>json&lt;/code>文件），放在扩展的根目录文件夹下。Chrome浏览器通过该文件找到扩展配置并载入，&lt;code>manifest.json&lt;/code>中记录了扩展重要的元信息、定义资源、声明权限同时指定哪些文件在后台运行，哪些在前台显示，可以说是扩展的指导手册。&lt;/li>
 &lt;li>service worker。通常是Javascript文件，监听并处理浏览器事件，例如跳转到新的页面、删除书签、关闭标签（tabs）等等。service worker可以使用所有的Chrome APIs，但是不能直接和页面的内容进行交互，那是Content scripts的工作。service worker一般运行在后台。&lt;/li>
 &lt;li>content scripts。一般也是Javascript文件，content scripts在页面上下文中执行Javascript脚本，能够读取和修改DOM节点，并向指定页面注入JS和CSS。content scripts只能直接使用部分Chrome APIs，不过，如果需要的话，可以与service worker交互来间接地使用其余的Chrome APIs。&lt;/li>
-&lt;li>UI元素。插件的页面部分也是由HTML文件组成，包括图标、popup页面，配置页面等等，这些页面并不是必需的，开发者可以按需添加，这些页面也可以使用Chrome APIs。&lt;/li>
+&lt;li>UI元素。扩展的页面部分也是由HTML文件组成，包括图标、popup页面，配置页面等等，这些页面并不是必需的，开发者可以按需添加，这些页面也可以使用Chrome APIs。&lt;/li>
 &lt;/ol>
 &lt;p>一般常用目录结构如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>&lt;span class="p">|&lt;/span>-- my-extension/
@@ -50,7 +51,7 @@
 &lt;span class="ln"> 4&lt;/span> &lt;span class="p">|&lt;/span>-- scripts/
 &lt;span class="ln"> 5&lt;/span> &lt;span class="p">|&lt;/span> ﹂ content.js // 前端内容处理
 &lt;span class="ln"> 6&lt;/span> &lt;span class="p">|&lt;/span> ﹂ others.js // 其他库，支持文件，按需命名
-&lt;span class="ln"> 7&lt;/span> &lt;span class="p">|&lt;/span>-- popup/ //插件按钮
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">|&lt;/span>-- popup/ //扩展按钮
 &lt;span class="ln"> 8&lt;/span> &lt;span class="p">|&lt;/span> ﹂ popup.html
 &lt;span class="ln"> 9&lt;/span> &lt;span class="p">|&lt;/span> ﹂ popup.js
 &lt;span class="ln">10&lt;/span> &lt;span class="p">|&lt;/span> ﹂ popup.css
@@ -61,22 +62,22 @@
 &lt;span class="ln">15&lt;/span> ﹂ icon-128.png
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>需要指出的是，上述文件结构除了&lt;code>manifest.json&lt;/code>文件的名字和位置固定，其他文件的名字和位置都可以通过&lt;code>manifet.json&lt;/code>中进行指定和配置，文件中的路径都使用&lt;strong>相对路径&lt;/strong>。&lt;/p>
 &lt;h2 id="入门例子hello-world-extension">入门例子：Hello World Extension&lt;/h2>
-&lt;p>在了解了Chrome插件大体结构后，我们用一个简单的“Hello”例子来展示下插件的简要开发流程。这个“Hello”插件的效果是当我们点击工具栏上的插件图标，就会弹出“Hello Extensions 我的第一个插件”。&lt;/p>
+&lt;p>在了解了Chrome扩展大体结构后，我们用一个简单的“Hello”例子来展示下扩展的简要开发流程。这个“Hello”扩展的效果是当我们点击工具栏上的扩展图标，就会弹出“Hello Extensions 我的第一个扩展”。&lt;/p>
 &lt;p>第一步，我们需要在跟目录建立一个&lt;code>manifest.json&lt;/code>文件。&lt;code>manifest.json&lt;/code>内容可以分为三类，Required，Recommended和Optional。&lt;/p>
 &lt;ul>
 &lt;li>Required: 必需的，3个
 &lt;ul>
 &lt;li>&amp;quot;manifest_version&amp;quot;：当前版本为3，现在推荐就写3。&lt;/li>
-&lt;li>&amp;quot;name&amp;quot;：开发者定义的插件名称。&lt;/li>
-&lt;li>&amp;quot;version&amp;quot;：开发者插件的版本。&lt;/li>
+&lt;li>&amp;quot;name&amp;quot;：开发者定义的扩展名称。&lt;/li>
+&lt;li>&amp;quot;version&amp;quot;：开发者扩展的版本。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>Recommended：推荐要有的，4个
 &lt;ul>
-&lt;li>&amp;quot;action&amp;quot;：使用&lt;code>chrome.action&lt;/code>接口控制Chrome工具栏的插件动作。工具栏的插件图标是一定存在的，无论是否有可用的操作。&lt;/li>
-&lt;li>&amp;quot;default_locale&amp;quot;：默认语言环境，在有本地化的插件中是必需的（带&lt;code>_locales&lt;/code>文件夹），如果没有&lt;code>_locales&lt;/code>文件夹，则一定不要写。&lt;/li>
-&lt;li>&amp;quot;description&amp;quot;：插件的简要描述。&lt;/li>
-&lt;li>&amp;quot;icons&amp;quot;：&lt;code>{...}&lt;/code>。插件的图标，总是要求提供128*128的图标，同时最好提供48*48的图标（用于管理页）和16*16的图标。为了保证通用性，最好用&lt;code>png&lt;/code>格式。实际上，即使没有图标，Chome也会给弄个默认的。&lt;/li>
+&lt;li>&amp;quot;action&amp;quot;：使用&lt;code>chrome.action&lt;/code>接口控制Chrome工具栏的扩展动作。工具栏的扩展图标是一定存在的，无论是否有可用的操作。&lt;/li>
+&lt;li>&amp;quot;default_locale&amp;quot;：默认语言环境，在有本地化的扩展中是必需的（带&lt;code>_locales&lt;/code>文件夹），如果没有&lt;code>_locales&lt;/code>文件夹，则一定不要写。&lt;/li>
+&lt;li>&amp;quot;description&amp;quot;：扩展的简要描述。&lt;/li>
+&lt;li>&amp;quot;icons&amp;quot;：&lt;code>{...}&lt;/code>。扩展的图标，总是要求提供128*128的图标，同时最好提供48*48的图标（用于管理页）和16*16的图标。为了保证通用性，最好用&lt;code>png&lt;/code>格式。实际上，即使没有图标，Chome也会给弄个默认的。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>Optional：可选的，剩余的都是。常用的有：
@@ -85,13 +86,13 @@
 &lt;li>&amp;quot;background&amp;quot;：&lt;code>{...}&lt;/code>设置&amp;quot;service_worker&amp;quot;的条目；&lt;/li>
 &lt;li>&amp;quot;content_script&amp;quot;：&lt;code>[{...}]&lt;/code>设置&amp;quot;content script&amp;quot;脚本；&lt;/li>
 &lt;li>&amp;quot;permissions&amp;quot;：&lt;code>[&amp;quot;...&amp;quot;]&lt;/code>允许的权限；&lt;/li>
-&lt;li>&amp;quot;short_name&amp;quot;：插件的简称（短名）；&lt;/li>
+&lt;li>&amp;quot;short_name&amp;quot;：扩展的简称（短名）；&lt;/li>
 &lt;li>&amp;quot;update_url&amp;quot;: Chrome商店以外的更新地址，在国内很有用；&lt;/li>
-&lt;li>&amp;quot;version_name&amp;quot;：插件版本的名称。&lt;/li>
+&lt;li>&amp;quot;version_name&amp;quot;：扩展版本的名称。&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;p>根据上面的介绍，我们可以写出&amp;quot;hello&amp;quot;插件的&lt;code>manifest.json&lt;/code>文件。需要指出的是，json文件在JSON5标准之前都&lt;strong>不支持注释&lt;/strong>，因此在真正使用时，需要将注释内容去除。&lt;/p>
+&lt;p>根据上面的介绍，我们可以写出&amp;quot;hello&amp;quot;扩展的&lt;code>manifest.json&lt;/code>文件。需要指出的是，json文件在JSON5标准之前都&lt;strong>不支持注释&lt;/strong>，因此在真正使用时，需要将注释内容去除。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln"> 1&lt;/span>&lt;span class="p">{&lt;/span>
 &lt;span class="ln"> 2&lt;/span>&lt;span class="c1">//Required
 &lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
@@ -99,7 +100,7 @@
 &lt;span class="ln"> 5&lt;/span>&lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">//注意这里是字符，不是数字
 &lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">//Recommended
 &lt;/span>&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nt">&amp;#34;action&amp;#34;&lt;/span>&lt;span class="p">:{&lt;/span>
-&lt;span class="ln"> 8&lt;/span> &lt;span class="nt">&amp;#34;default_popup&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;hello.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="c1">//点击工具栏插件图标后显示的弹窗
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nt">&amp;#34;default_popup&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;hello.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="c1">//点击工具栏扩展图标后显示的弹窗
 &lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;default_icon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;hello_extensions.png&amp;#34;&lt;/span>&lt;span class="c1">//默认图标地址
 &lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">},&lt;/span>
 &lt;span class="ln">11&lt;/span>&lt;span class="c1">// &amp;#34;default_locale&amp;#34; 没有本地化文件，一定不要写
@@ -108,12 +109,12 @@
 &lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="c1">//Optional
 &lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nt">&amp;#34;author&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;SurprisedCat&amp;#34;&lt;/span>
 &lt;span class="ln">16&lt;/span>&lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>第二步，根据&lt;code>manifest.json&lt;/code>中的配置，我们在根目录下创建&lt;code>hello_extensions.png&lt;/code>图片（图片大家可以根据自己喜好选一个）和&lt;code>hello.html&lt;/code>文件，该文件就是点击工具栏插件图片后显示的页面文件，代码如下：&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>第二步，根据&lt;code>manifest.json&lt;/code>中的配置，我们在根目录下创建&lt;code>hello_extensions.png&lt;/code>图片（图片大家可以根据自己喜好选一个）和&lt;code>hello.html&lt;/code>文件，该文件就是点击工具栏扩展图片后显示的页面文件，代码如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln">1&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">2&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">3&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">4&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Hello Extensions&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
-&lt;span class="ln">5&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>我的第一个插件&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>我的第一个扩展&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">6&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">7&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>现在我们的文件结构如下：&lt;/p>
@@ -121,23 +122,23 @@
 &lt;span class="ln">2&lt;/span> &lt;span class="p">|&lt;/span>-- manifest.json
 &lt;span class="ln">3&lt;/span> &lt;span class="p">|&lt;/span>-- hello_extensions.png
 &lt;span class="ln">4&lt;/span> ﹂- hello.html
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存好现有的3个文件，我们先来尝试本地载入插件看看效果。&lt;/p>
-&lt;p>第三步，载入未打包的插件。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存好现有的3个文件，我们先来尝试本地载入扩展看看效果。&lt;/p>
+&lt;p>第三步，载入未打包的扩展。&lt;/p>
 &lt;ol>
-&lt;li>在浏览器URL中输入&lt;code>chrome://extensions&lt;/code>打开插件设置页面。&lt;/li>
+&lt;li>在浏览器URL中输入&lt;code>chrome://extensions&lt;/code>打开扩展设置页面。&lt;/li>
 &lt;li>打开页面右上角的“开发者模式”。&lt;/li>
 &lt;li>点击页面左上角的“加载已解压的扩展程序”，并在找到刚刚存放三个文件的&lt;code>hello&lt;/code>文件夹。&lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="./images/chrome_extension_hello_load.png" alt="chrome_extension_hello_load">&lt;/p>
-&lt;p>这样我们就载入了自己编写的第一个插件！我们点击工具栏就可以发现自己编写的插件已经运行了，单击&amp;quot;hello&amp;quot;插件，就弹出了&lt;code>hello.html&lt;/code>中设置的内容。效果如下：&lt;/p>
+&lt;p>这样我们就载入了自己编写的第一个扩展！我们点击工具栏就可以发现自己编写的扩展已经运行了，单击&amp;quot;hello&amp;quot;扩展，就弹出了&lt;code>hello.html&lt;/code>中设置的内容。效果如下：&lt;/p>
 &lt;p>&lt;img src="./images/chrome_hello_extensions_demo.png" alt="hello extensions">&lt;/p>
-&lt;p>当我们对&lt;code>manifest.json&lt;/code>中的内容进行修改后，比如将其中的名称项&lt;code>&amp;quot;name&amp;quot;: &amp;quot;Hello Extensions of the world!&amp;quot;,&lt;/code>换个名字，还需要重新载入插件，点击下图圆圈箭头按钮。&lt;/p>
+&lt;p>当我们对&lt;code>manifest.json&lt;/code>中的内容进行修改后，比如将其中的名称项&lt;code>&amp;quot;name&amp;quot;: &amp;quot;Hello Extensions of the world!&amp;quot;,&lt;/code>换个名字，还需要重新载入扩展，点击下图圆圈箭头按钮。&lt;/p>
 &lt;p>&lt;img src="./images/chrome_extension_hello_reload.png" alt="chrome_extension_hello_reload">&lt;/p>
-&lt;p>可以发现插件名称已经被修改了。不过，并不是所有的修改都需要重新载入插件，下表显示了哪些文件修改后需要重载插件。&lt;/p>
+&lt;p>可以发现扩展名称已经被修改了。不过，并不是所有的修改都需要重新载入扩展，下表显示了哪些文件修改后需要重载扩展。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align:center">插件组成部件&lt;/th>
+&lt;th style="text-align:center">扩展组成部件&lt;/th>
 &lt;th style="text-align:center">是否需要重载&lt;/th>
 &lt;/tr>
 &lt;/thead>
@@ -168,28 +169,33 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="调试插件">调试插件&lt;/h2>
+&lt;h2 id="调试扩展">调试扩展&lt;/h2>
 &lt;p>在开发期时，我们一般可以通过两种方式调试代码，一种是自己在代码中添加&lt;code>console.log()&lt;/code>提示错误，另一种使用Chrome的开发者工具来调试。&lt;/p>
 &lt;p>我们还用上面&amp;quot;hello extension&amp;quot;的例子，简要介绍两种方式的使用。首先，我们对&lt;code>hello.html&lt;/code>进行修改如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln">1&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">2&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">meta&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">3&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">4&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Hello Extensions&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
-&lt;span class="ln">5&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>我的第一个插件&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>我的第一个扩展&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">6&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;popup.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="c">&amp;lt;!--引入一个新的js文件--&amp;gt;&lt;/span>
 &lt;span class="ln">7&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;span class="ln">8&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>引入的&lt;code>popup.js&lt;/code>文件同样放在根目录下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;This is a popup!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存文件后，重载插件。&lt;/p>
-&lt;p>第一个，使用&lt;code>console.log()&lt;/code>。现在的问题就是哪里能到看它的输出结果。我们右键点击工具栏的&amp;quot;hello&amp;quot;插件，在菜单中点击“审查弹出内容”。在弹出的开发者工具中，选择“console”控制面板，就可以看&lt;code>console.log()&lt;/code>输出的内容了。&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存文件后，重载扩展。&lt;/p>
+&lt;p>第一个，使用&lt;code>console.log()&lt;/code>。现在的问题就是哪里能到看它的输出结果。我们右键点击工具栏的&amp;quot;hello&amp;quot;扩展，在菜单中点击“审查弹出内容”。在弹出的开发者工具中，选择“console”控制面板，就可以看&lt;code>console.log()&lt;/code>输出的内容了。&lt;/p>
 &lt;p>&lt;img src="./images/chrome_extension_debug_consolelog.png" alt="chrome_extension_debug_consolelog">&lt;/p>
-&lt;p>第二个，如果我们的插件出现了一些无法运行的错误，就无法使用&lt;code>console.log&lt;/code>调试了，我们可以借助Chrome开发者工具的错误信息，比如在&lt;code>popup.js&lt;/code>中，我们出现了语法错误，少打了一个引号：&lt;/p>
+&lt;p>第二个，如果我们的扩展出现了一些无法运行的错误，就无法使用&lt;code>console.log&lt;/code>调试了，我们可以借助Chrome开发者工具的错误信息，比如在&lt;code>popup.js&lt;/code>中，我们出现了语法错误，少打了一个引号：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="nx">This&lt;/span> &lt;span class="nx">is&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="nx">popup&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// ❌ broken code
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当我们重新载入插件时，会发现插件页面多了一个“错误”按钮，点击后出现:&lt;/p>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当我们重新载入扩展时，会发现扩展页面多了一个“错误”按钮，点击后出现:&lt;/p>
 &lt;p>&lt;img src="./images/chrome_extension_debug_error.png" alt="chrome_extension_debug_error.png">&lt;/p>
 &lt;p>这样就能够根据提示调试代码。注意，这里的错误信息是不会自动删除的，即使后面改对了，之前的错误信息也会保留下来，必需自行手动清除。&lt;/p>
 &lt;p>此外，在开发者工具中，也会有错误代码位置的提示。&lt;/p>
+&lt;h2 id="关于扩展extensions插件plugins与应用apps">关于扩展（extensions），插件（plugins）与应用（Apps）&lt;/h2>
+&lt;p>在Chrome浏览器的发展中，扩展（extensions），插件（plugins）与应用（Apps）三个词都曾出现过。&lt;/p>
+&lt;p>不过现在Chrome目前不再提插件这种讲法，而广大用户也常常把插件和扩展当成一回事。严格来讲，扩展是利用浏览器已有的API，进行二次开发，提供新功能，新特性的代码，开发者只是将浏览器已潜在具备但尚未提供的功能组合出来。插件则是由于浏览器本身缺乏相应功能，使用底层内核API开发的新功能，例如过去Chrome不支持Flash，因此有Flash插件。从开发者角度来看，插件的开发难度是远大于扩展的。从用户角度看，二者都是提供了新功能，因此常常认为两者差不多。随着Google公司在互联网领域的话语权逐步增强和Chrome浏览器的逐渐完善，目前我们可以说Chrome已经不缺重要的功能，因此插件这个东西就逐渐不需要了。现在更多的是根据用户自身需求所定制化的扩展，目前用户所说的Chrome浏览器插件，实际上都是指Chrome的扩展，或者连在一起称为Chrome扩展插件。Chrome商店里提供的也都是Chrome扩展。&lt;/p>
+&lt;p>而Chrome应用（App）则是Google竞争失败的产物。2010年左右，Google公司提出了一个非常有魄力的想法，将Chrome浏览器做成一个像操作系统一样的大平台（实际上Google确实做到了），其他应用都跑在Chrome这个平台上，就是Chrome Apps。但是，用户们显然对这个想法不买账，而且随着网络前端能力的增强，Chrome应用变得很鸡肋。于是在2016 年，Google宣布会逐渐抛弃Chrome App，进一步拥抱网页平台。最终2022年6月，谷歌所有客户终止了Chrome App的支持。Chrome App已经陷入历史的尘埃中。&lt;/p>
+&lt;p>最终，只有轻量级的Chrome扩展留存下来，并且得到了越来越多用户的喜爱。后来，微软的IE和后续的Edge都被Chrome打的溃不成军，不得已放弃了自己的浏览器内核，在2018年采用了Chromium的Blink内核，这使得Chrome扩展也能够运行在Edge浏览器上，可以说是Chrome扩展的高光时刻了。至于以后，微软会不会反水，再弄一个自己的内核分庭抗礼，让我们拭目以待。&lt;/p>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
