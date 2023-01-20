@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bugs on SurprisedCat</title><link>https://surprisedcat.github.io/tags/bugs/</link><description>Recent content in bugs on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/bugs/index.xml" rel="self" type="application/rss+xml"/><item><title>bugs-编程的bug们</title><link>https://surprisedcat.github.io/projectnotes/bugs-%E7%BC%96%E7%A8%8B%E7%9A%84bug%E4%BB%AC/</link><pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/bugs-%E7%BC%96%E7%A8%8B%E7%9A%84bug%E4%BB%AC/</guid><description>
+&lt;h2 id="编程的bug们---omit-in-toc---">编程的bug们&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>积累在编程过程中遇到的神奇bug，不积跬步无以至千里，不积小流无以成江海。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#%E9%9B%B6%E5%AE%BD%E5%AD%97%E7%AC%A6zero-width-space">零宽字符zero-width space&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="零宽字符zero-width-space">零宽字符zero-width space&lt;/h2>
+&lt;p>来源：在赋值网页上的js代码直接粘贴到IDE中运行，但是报错&lt;code>Uncaught SyntaxError SyntaxError: Invalid or unexpected token&lt;/code>，但是在文件中并未发现认为非法字符。&lt;/p>
+&lt;p>发现：首先，光标移动时发现在有的位置多停留了，用hex editor打开文件，发现多了“E2 80 8b”这几个字符，随即到往上查询，发现这是零宽字符，属于一种特殊的Uicode字符，有很多神奇的用法，例如保密、水印、干扰复制等等。&lt;/p>
+&lt;p>解决：删除特殊的零宽字符，并用hex editor检查。以后直接从网上复制文本需要注意这些看不见的字符啊。&lt;/p></description></item></channel></rss>

@@ -1,8 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ecmascript on SurprisedCat</title><link>https://surprisedcat.github.io/tags/ecmascript/</link><description>Recent content in ecmascript on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 10 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/ecmascript/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例1</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B1/</link><pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B1/</guid><description>
-&lt;h2 id="chrome扩展实例1---omit-in-toc---">Chrome扩展实例1&lt;!-- omit in toc -->&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ecmascript on SurprisedCat</title><link>https://surprisedcat.github.io/tags/ecmascript/</link><description>Recent content in ecmascript on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/ecmascript/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例（二）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</link><pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</guid><description>
+&lt;h2 id="chrome扩展实例二---omit-in-toc---">Chrome扩展实例（二）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Chrome API文档：&lt;a href="https://developer.chrome.com/docs/extensions/reference/">https://developer.chrome.com/docs/extensions/reference/&lt;/a>&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
 &lt;/ul>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;ol>
+&lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>javascript-Chrome扩展实例（一）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/</link><pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/</guid><description>
+&lt;h2 id="chrome扩展实例一---omit-in-toc---">Chrome扩展实例（一）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在Chrome扩展入门中，我们写了一个最简单的形式化Hello插件，这个插件除了点击之后显示写字符外，没有任何实际作用，在这一章节中我们将写一些具备简单功能的扩展。这些扩展需要通过后台、前台或二者配合实现，主要编程语言是JavaScript，使用Chrome浏览器提供的API。我们更希望在开发实例中逐步学习Chrome扩展的内容。&lt;/p>
+&lt;p>Chrome API文档：&lt;a href="https://developer.chrome.com/docs/extensions/reference/">https://developer.chrome.com/docs/extensions/reference/&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#background-script%E5%90%8E%E5%8F%B0%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8">Background Script后台脚本使用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="background-script后台脚本使用">Background Script后台脚本使用&lt;/h2>
+&lt;p>我们下面用一个例子了解下插件的后台脚本是如何工作的。&lt;/p>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
@@ -222,6 +236,8 @@
 &lt;li>&lt;a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B">面向对象编程&lt;/a>
 &lt;ul>
 &lt;li>&lt;a href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">构造函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%B1%BB%E4%B8%AD%E5%B1%9E%E6%80%A7%E7%9A%84%E7%B1%BB%E5%9E%8B">类中属性的类型&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1prototype">原型对象prototype&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
@@ -395,4 +411,63 @@
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">class1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">class2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">//默认class1的所有值为空
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>JavaScript的原型链和Java的Class区别就在，它没有“Class”的概念，所有对象都是实例，所谓继承关系不过是把一个对象的原型指向另一个对象而已。&lt;/p>
 &lt;h3 id="构造函数">构造函数&lt;/h3>
-&lt;p>&lt;code>new&lt;/code>一个函数，就可以把这个函数当成构造函数使用。&lt;/p></description></item></channel></rss>
+&lt;p>&lt;code>new&lt;/code>一个函数，就可以把这个函数当成构造函数使用。&lt;/p>
+&lt;h3 id="类中属性的类型">类中属性的类型&lt;/h3>
+&lt;p>由于Javascript在设计之处并不是面向对象的语言，因此在类设计方面没有现在常见的特性例如访问级别修饰符（&lt;code>public&lt;/code>,&lt;code>private&lt;/code>,&lt;code>protected&lt;/code>）,读方法(&lt;code>getter&lt;/code>)和写方法(&lt;code>setter&lt;/code>)，属性的枚举等等。尤其在Java语言中出现的Javabean规范被证明对减少面向对象编程中的BUG具有积极意义，这促使其他编程语言包括Javascript也想方设法实现类似的功能，其中属性类型就是此方面的实践。为了表示方便，标准中一般使用&lt;code>[[Prooerty]]&lt;/code>来表示类中内容的属性，本文中依照标准的表示方法使用。&lt;/p>
+&lt;p>JavaScript属性类型分为两种，&lt;strong>数据属性和访问器属性&lt;/strong>。最开始Javascript只有数据属性，基本上一般教程里看到的类属性都是数据属性；在ES5标准中，为了增加数据的封装性和可控性，又增加了访问器属性（Accessor）。访问器属性更类似于面向对象编程中成员属性的&lt;code>get()&lt;/code>,&lt;code>set()&lt;/code>函数，在这些函数中，我们能够对数据的读写进行一定控制。&lt;/p>
+&lt;p>我们先看&lt;strong>数据属性&lt;/strong>，其包含四个特性：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>[[Configurable]]&lt;/code>：可配置性。表示属性是否可以通过&lt;code>delete&lt;/code>删除并重新定义，是否可以修改它的特性，以及是否可以把它改为访问器属性。默认情况下，所有直接定义在对象上的属性的这个特性都是&lt;code>true&lt;/code>。
+&lt;ul>
+&lt;li>例外，当&lt;code>[[Configurable]]&lt;/code>为&lt;code>false&lt;/code>时，若&lt;code>[[Writable]]&lt;/code>为&lt;code>true&lt;/code>，我们可以修改&lt;code>[[value]]&lt;/code>的值或将&lt;code>[[Writable]]&lt;/code>改为&lt;code>false&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>[[Enumerable]]&lt;/code>：可遍历性。表示属性是否可以通过&lt;code>for-in&lt;/code>循环返回。默认情况下，所有直接定义在对象上的属性的这个特性都是&lt;code>true&lt;/code>。
+&lt;ul>
+&lt;li>由于Javascript中&lt;code>Array&lt;/code>也是对象，因此我们给&lt;code>Array&lt;/code>自定义的属性也会在&lt;code>for-in&lt;/code>循环中带出来。目前建议数组&lt;code>Array&lt;/code>的数据遍历用&lt;code>for-of&lt;/code>循环。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>[[Writable]]&lt;/code>：是否可写。表示属性的值是否可以被修改。默认情况下，所有直接定义在对象上的属性的这个特性都是&lt;code>true&lt;/code>。&lt;/li>
+&lt;li>&lt;code>[[Value]]&lt;/code>：包含属性实际的值。未初始化的默认值为 &lt;code>undefined&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>在上面四个数据属性中，最容易理解的是&lt;code>[[value]]&lt;/code>，我们用各种方法初始化对象就是设置属性的&lt;code>[[value]]&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">person1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Alice&amp;#34;&lt;/span>&lt;span class="p">};&lt;/span> &lt;span class="c1">// 数据属性name的[[value]]是Alice
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">person2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nx">person2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Bob&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 数据属性name的[[value]]是Bob
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后对这个值的任何修改都会保存在&lt;code>[[value]]&lt;/code>这个特性。相对于 &lt;code>[[value]]&lt;/code>可以方便地修改，剩下三个数据属性的特性并不能直接修改，就必须使用&lt;code>Object.defineProperty()&lt;/code>方法。这个方法接收 3 个参数：&lt;strong>要给其添加属性的对象、属性的名称和一个特性描述符对象&lt;/strong>。最后一个参数，即描述符对象上的属性可以包含：&lt;code>configurable&lt;/code>、&lt;code>enumerable&lt;/code>、&lt;code>writable&lt;/code>和&lt;code>value&lt;/code>，跟相关特性的名称一一对应。根据要修改的特性，可以设置其中一个或多个值。&lt;/p>
+&lt;p>需要指出，区别于特性初始化默认为&lt;code>true&lt;/code>的情形，在调用&lt;code>Object.defineProperty()&lt;/code>时，&lt;code>configurable&lt;/code>、&lt;code>enumerable&lt;/code>和&lt;code>writable&lt;/code>的值如果不指定，则都默认为&lt;code>false&lt;/code>。多数情况下，可能都不需要&lt;code>Object.defineProperty()&lt;/code>提供的这些强大的设置，但要理解 JavaScript对象，就要理解这些概念。&lt;/p>
+&lt;p>例子:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln"> 1&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">person&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{};&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">//数值上等同于 person.name = &amp;#34;Bill&amp;#34;;person.income=10000;person.tax=2000;person.gender=&amp;#34;male&amp;#34;。但是属性特性不同
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">defineProperty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">configurable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">enumerable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">writable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Bill&amp;#34;&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">defineProperty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;income&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">configurable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">enumerable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">writable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">10000&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">defineProperty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;tax&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">configurable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">enumerable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">writable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2000&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">defineProperty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;gender&amp;#39;&lt;/span>&lt;span class="p">,{&lt;/span>&lt;span class="nx">enumerable&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;male&amp;#39;&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">//for-in 遍历
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">par&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="nx">person&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">par&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;:&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">par&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Tax: &amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">tax&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1">//尝试修改gender属性与income属性
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;尝试修改gender属性与income属性&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">income&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Income: &amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">income&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gender&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;female&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Gender: &amp;#39;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nx">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">gender&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>显示结果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>name:Bill
+&lt;span class="ln">2&lt;/span>income:10000
+&lt;span class="ln">3&lt;/span>gender:male
+&lt;span class="ln">4&lt;/span>Tax: &lt;span class="m">2000&lt;/span>
+&lt;span class="ln">5&lt;/span>尝试修改gender属性与income属性
+&lt;span class="ln">6&lt;/span>Income: &lt;span class="m">20000&lt;/span>
+&lt;span class="ln">7&lt;/span>Gender: male
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>由于没有将&lt;code>person.tax&lt;/code>的可遍历&lt;code>[[enumerable]]&lt;/code>设置为&lt;code>true&lt;/code>，因此js采用默认值&lt;code>false&lt;/code>，在使用&lt;code>for-in&lt;/code>遍历时，不会显示&lt;code>person.tax&lt;/code>。不过我们依旧可以使用&lt;code>person.tax&lt;/code>来访问。由于&lt;code>person.income&lt;/code>的&lt;code>[[writable]]&lt;/code>是&lt;code>true&lt;/code>，我们可以顺利地修改其值。然而&lt;code>person.gender&lt;/code>的&lt;code>[[writable]]&lt;/code>是&lt;code>false&lt;/code>，这个属性的值就不能再修改了，在非严格模式下尝试给这个属性重新赋值会被忽略。在严格模式下，尝试修改只读属性的值会抛出错误。&lt;/p>
+&lt;h3 id="原型对象prototype">原型对象prototype&lt;/h3>
+&lt;p>在ES6中新增了面向对象编程的模式，支持了&lt;code>Class&lt;/code>,&lt;code>extends&lt;/code>等面向对象关键字。不过在ES6之前，JavaScript也是能够实现面向对象编程的，用的就是&lt;strong>原型对象protptype&lt;/strong>，新增的功能不过是对既有功能的封装，让其更符合现代编程模式。&lt;/p>
+&lt;p>javascript中的&lt;code>prototype&lt;/code>更像是面向对象设计中的类，&lt;code>prototype&lt;/code>属性指向的是原型类，构造函数的原型&lt;code>prototype&lt;/code>是这个&lt;code>prototype&lt;/code>对象，原型对象的&lt;code>constructor&lt;/code>指向构造函数。所以说&lt;code>prototype&lt;/code>扮演了js中类&lt;code>class&lt;/code>的角色，对象与类直接有关系，构造函数也和类直接有关系，实例对象与构造函数通过类间接联系在一起。&lt;/p>
+&lt;p>构造函数通过&lt;code>prototype&lt;/code>属性指向原型对象，实例通过&lt;code>__proto__&lt;/code>属性指向原型对象。关系如下图：&lt;/p>
+&lt;p>&lt;img src="../../images/js%E5%8E%9F%E5%9E%8B%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%AE%9E%E4%BE%8B%E7%B1%BB%E6%AF%94.png" alt="js原型构造函数实例类比">&lt;/p>
+&lt;p>上图展示了&lt;code>Person&lt;/code>构造函数、&lt;code>Person&lt;/code>的原型对象和&lt;code>Person&lt;/code>现有两个实例之间的关系。注意，&lt;code>Person.prototype&lt;/code>指向原型对象，而&lt;code>Person.prototype.contructor&lt;/code>指回&lt;code>Person&lt;/code>构造函数。原型对象包含&lt;code>constructor&lt;/code>属性和其他后来添加的属性。&lt;code>Person&lt;/code>的两个实例&lt;code>person1&lt;/code>和&lt;code>person2&lt;/code>都只有一个内部属性指回&lt;code>Person.prototype&lt;/code>，而且两者都与构造函数没有直接联系。另外要注意，虽然这两个实例都没有属性和方法，但&lt;code>person1.sayName()&lt;/code>、&lt;code>person2.sayName()&lt;/code>可以正常调用。这是由于对象属性查找机制的原因。&lt;/p></description></item></channel></rss>
