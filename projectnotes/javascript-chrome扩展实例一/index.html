@@ -93,11 +93,56 @@ Jan 10, 2023</span>
 <p>在Chrome扩展入门中，我们写了一个最简单的形式化Hello插件，这个插件除了点击之后显示写字符外，没有任何实际作用，在这一章节中我们将写一些具备简单功能的扩展。这些扩展需要通过后台、前台或二者配合实现，主要编程语言是JavaScript，使用Chrome浏览器提供的API。我们更希望在开发实例中逐步学习Chrome扩展的内容。</p>
 <p>Chrome API文档：<a href=https://developer.chrome.com/docs/extensions/reference/>https://developer.chrome.com/docs/extensions/reference/</a></p>
 <ul>
-<li><a href=#background-script%E5%90%8E%E5%8F%B0%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8>Background Script后台脚本使用</a></li>
+<li><a href=#service-worker%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1>Service Worker后台服务</a></li>
+<li><a href=#%E6%89%A9%E5%B1%95%E7%9A%84%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86>扩展的权限管理</a></li>
 <li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3>参考文档</a></li>
 </ul>
-<h2 id=background-script后台脚本使用>Background Script后台脚本使用</h2>
-<p>我们下面用一个例子了解下插件的后台脚本是如何工作的。</p>
+<h2 id=service-worker后台服务>Service Worker后台服务</h2>
+<p>Service Worker是Chrome扩展在后台运行并监听和响应事件的服务程序，具有相当大的权限，几乎可以使用所有的Chrome API，作为扩展的支柱存在，稍微复杂一些的扩展都会需要service worker。在过去的版本中，service worker原名叫background算是非常贴切的名称了。</p>
+<p>Service Worker是<strong>事件驱动的服务</strong>，平时处于后台静默或休眠状态，当注册在Chrome的API<strong>监听到相应事件</strong>时才会启动。Service worker注册并安装成功后，运行于浏览器后台，不受页面刷新的影响，可以监听和截拦作用域范围内所有页面的Web请求。</p>
+<p>我们下面用一个例子了解下插件的后台service worker是如何工作的。该例子的作用是将处于激活状态的tab页面移至首位，例如当我们点击某个页面时，该页面的标签页就会被移到首位。为了方便，该例子不会用到<code>popup</code>，<code>conetent</code>等其他页面，只用后台的service worker。</p>
+<p>首先必然是写配置清单<code>manifest.json</code>。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln>1</span><span class=p>{</span>
+<span class=ln>2</span>  <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;MoveToFisrt&#34;</span><span class=p>,</span>
+<span class=ln>3</span>  <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;Demo Extension to move the activated tab to the first place&#34;</span><span class=p>,</span>
+<span class=ln>4</span>  <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;1.0&#34;</span><span class=p>,</span>
+<span class=ln>5</span>  <span class=nt>&#34;manifest_version&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span>
+<span class=ln>6</span>  <span class=nt>&#34;background&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>7</span>    <span class=nt>&#34;service_worker&#34;</span><span class=p>:</span> <span class=s2>&#34;background.js&#34;</span>
+<span class=ln>8</span>  <span class=p>}</span>
+<span class=ln>9</span><span class=p>}</span>
+</code></pre></div><p>清单中多出的配置项“background”就是用来指定service worker。<code>manifes.json</code>中使用的都是相对路径，因此我们在<code>manifest.json</code>同级目录添加<code>background.js</code>文件。其主要功能就是将激活的标签页移至首位。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//background.js
+</span><span class=ln> 2</span><span class=c1></span>
+<span class=ln> 3</span><span class=c1>//添加tab激活的事件监听器，事件触发后调用回调函数moveToFirstPosition
+</span><span class=ln> 4</span><span class=c1>//该addListener的回调函数形式：(activeInfo: object) =&gt; void 
+</span><span class=ln> 5</span><span class=c1>//activeInfo {tabID:tabID , windowId:windowId}
+</span><span class=ln> 6</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>tabs</span><span class=p>.</span><span class=nx>onActivated</span><span class=p>.</span><span class=nx>addListener</span><span class=p>(</span><span class=nx>moveToFirstPosition</span><span class=p>);</span>
+<span class=ln> 7</span>
+<span class=ln> 8</span><span class=c1>//定义回调函数moveToFirstPosition
+</span><span class=ln> 9</span><span class=c1></span><span class=kr>async</span> <span class=kd>function</span> <span class=nx>moveToFirstPosition</span><span class=p>(</span><span class=nx>activeInfo</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>10</span>  <span class=k>try</span> <span class=p>{</span>
+<span class=ln>11</span>    <span class=c1>// 将当前的tab移到首位即index:0。
+</span><span class=ln>12</span><span class=c1></span>    <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>tabs</span><span class=p>.</span><span class=nx>move</span><span class=p>(</span><span class=nx>activeInfo</span><span class=p>.</span><span class=nx>tabId</span><span class=p>,</span> <span class=p>{</span><span class=nx>index</span><span class=o>:</span> <span class=mi>0</span><span class=p>});</span>
+<span class=ln>13</span>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Success.&#34;</span><span class=p>);</span>
+<span class=ln>14</span>  <span class=p>}</span> <span class=k>catch</span> <span class=p>(</span><span class=nx>error</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>15</span>    <span class=k>if</span> <span class=p>(</span><span class=nx>error</span> <span class=o>==</span> <span class=s2>&#34;Error: Tabs cannot be edited right now (user may be dragging a tab).&#34;</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>16</span>      <span class=c1>//如果标签无法移动，那么等50ms再尝试
+</span><span class=ln>17</span><span class=c1></span>      <span class=nx>setTimeout</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=nx>moveToFirstPosition</span><span class=p>(</span><span class=nx>activeInfo</span><span class=p>),</span> <span class=mi>50</span><span class=p>);</span>
+<span class=ln>18</span>    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+<span class=ln>19</span>      <span class=nx>console</span><span class=p>.</span><span class=nx>error</span><span class=p>(</span><span class=nx>error</span><span class=p>);</span>
+<span class=ln>20</span>    <span class=p>}</span>
+<span class=ln>21</span>  <span class=p>}</span>
+<span class=ln>22</span><span class=p>}</span>
+</code></pre></div><p>这段js代码难度并不大，但是Chrome API有一个默认规则需要注意：</p>
+<blockquote>
+<p>除非特殊说明，<code>chrome.*</code>的API都是异步的。因此调用后会立即返回，而不会等待异步的操作完成。如果需要对异步操作的结果进行处理，需要使用回调函数或Promise。</p>
+</blockquote>
+<p>所以，在使用Chrome API开发时，我们会经常见到<code>async ... await..</code>的形式。关于这种语法，可以参考ES 8中新增的规范。</p>
+<p>现在我们可以在Chrome浏览器中载入这个扩展并尝试了！</p>
+<p>这个例子中我们只是用了后台的service worker(background.js)，该js脚本向Chrome的tab接口添加了一个事件监听器，当一个tab标签被激活后，会触发该事件监听器从而执行后台service worker的功能。Chrome的后台脚本基本都是使用事件驱动的模式，这样可以降低扩展对内存的消耗。</p>
+<h2 id=扩展的权限管理>扩展的权限管理</h2>
+<p>处于安全与隐私考虑，当我们需要操作浏览器或用户的相关数据、让扩展使用更加复杂功能时，需要给予扩展相对于的权限。</p>
 <h2 id=参考文档>参考文档</h2>
 <ol>
 <li>Google官方文档<a href=https://developer.chrome.com/docs/extensions/mv3/>https://developer.chrome.com/docs/extensions/mv3/</a></li>
