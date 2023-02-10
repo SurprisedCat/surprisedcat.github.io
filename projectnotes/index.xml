@@ -12,13 +12,30 @@
 &lt;p>在Chrome扩展入门中，我们写了一个最简单的形式化Hello插件，这个插件除了点击之后显示写字符外，没有任何实际作用，在这一章节中我们将写一些具备简单功能的扩展。这些扩展需要通过后台、前台或二者配合实现，主要编程语言是JavaScript，使用Chrome浏览器提供的API。我们更希望在开发实例中逐步学习Chrome扩展的内容。&lt;/p>
 &lt;p>Chrome API文档：&lt;a href="https://developer.chrome.com/docs/extensions/reference/">https://developer.chrome.com/docs/extensions/reference/&lt;/a>&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="#service-worker%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1">Service Worker后台服务&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#%E6%89%A9%E5%B1%95%E7%9A%84%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">扩展的权限管理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#service-worker%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1">Service Worker后台服务&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%90%8E%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B%E5%B0%86%E6%BF%80%E6%B4%BB%E7%9A%84tab%E9%A1%B5%E9%9D%A2%E7%A7%BB%E8%87%B3%E9%A6%96%E4%BD%8D">后台服务实例：将激活的Tab页面移至首位&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%89%A9%E5%B1%95%E7%9A%84%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86">扩展的权限管理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%89%A9%E5%B1%95%E4%BD%BF%E7%94%A8permission%E7%9A%84%E5%AE%9E%E4%BE%8B">自定义扩展使用permission的实例&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E4%BD%BF%E7%94%A8%E6%89%A9%E5%B1%95%E4%BF%AE%E6%94%B9%E5%8E%9F%E7%BD%91%E9%A1%B5">使用扩展修改原网页&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%88%86%E7%A6%BB%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E5%92%8C%E8%84%9A%E6%9C%AC">分离网页元素和脚本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%89%A9%E5%B1%95%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87">扩展的上下文&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E9%80%89%E9%A1%B9%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2">选项设置页面&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%80%BB%E7%BB%93">总结&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="service-worker后台服务">Service Worker后台服务&lt;/h2>
 &lt;p>Service Worker是Chrome扩展在后台运行并监听和响应事件的服务程序，具有相当大的权限，几乎可以使用所有的Chrome API，作为扩展的支柱存在，稍微复杂一些的扩展都会需要service worker。在过去的版本中，service worker原名叫background算是非常贴切的名称了。&lt;/p>
 &lt;p>Service Worker是&lt;strong>事件驱动的服务&lt;/strong>，平时处于后台静默或休眠状态，当注册在Chrome的API&lt;strong>监听到相应事件&lt;/strong>时才会启动。Service worker注册并安装成功后，运行于浏览器后台，不受页面刷新的影响，可以监听和截拦作用域范围内所有页面的Web请求。&lt;/p>
+&lt;h3 id="后台服务实例将激活的tab页面移至首位">后台服务实例：将激活的Tab页面移至首位&lt;/h3>
 &lt;p>我们下面用一个例子了解下插件的后台service worker是如何工作的。该例子的作用是将处于激活状态的tab页面移至首位，例如当我们点击某个页面时，该页面的标签页就会被移到首位。为了方便，该例子不会用到&lt;code>popup&lt;/code>，&lt;code>conetent&lt;/code>等其他页面，只用后台的service worker。&lt;/p>
 &lt;p>首先必然是写配置清单&lt;code>manifest.json&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln">1&lt;/span>&lt;span class="p">{&lt;/span>
@@ -55,13 +72,300 @@
 &lt;span class="ln">22&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>这段js代码难度并不大，但是Chrome API有一个默认规则需要注意：&lt;/p>
 &lt;blockquote>
-&lt;p>除非特殊说明，&lt;code>chrome.*&lt;/code>的API都是异步的。因此调用后会立即返回，而不会等待异步的操作完成。如果需要对异步操作的结果进行处理，需要使用回调函数或Promise。&lt;/p>
+&lt;p>除非特殊说明，&lt;code>chrome.*&lt;/code>的API都是异步的。因此调用后会立即返回，而不会等待异步的操作完成。如果需要对异步操作的结果进行处理，需要使用回调函数、&lt;code>Promise&lt;/code>或&lt;code>async...await...&lt;/code>。&lt;/p>
 &lt;/blockquote>
 &lt;p>所以，在使用Chrome API开发时，我们会经常见到&lt;code>async ... await..&lt;/code>的形式。关于这种语法，可以参考ES 8中新增的规范。&lt;/p>
 &lt;p>现在我们可以在Chrome浏览器中载入这个扩展并尝试了！&lt;/p>
-&lt;p>这个例子中我们只是用了后台的service worker(background.js)，该js脚本向Chrome的tab接口添加了一个事件监听器，当一个tab标签被激活后，会触发该事件监听器从而执行后台service worker的功能。Chrome的后台脚本基本都是使用事件驱动的模式，这样可以降低扩展对内存的消耗。&lt;/p>
+&lt;p>这个例子中我们只是用了后台的service worker(&lt;code>background.js&lt;/code>)，该js脚本向Chrome的tab接口添加了一个事件监听器，当一个tab标签被激活后，会触发该事件监听器从而执行后台功能（&lt;code>moveToFirstPosition&lt;/code>函数）。Chrome的后台脚本基本都是使用事件驱动的模式，这样可以降低扩展对内存的消耗。&lt;/p>
 &lt;h2 id="扩展的权限管理">扩展的权限管理&lt;/h2>
-&lt;p>处于安全与隐私考虑，当我们需要操作浏览器或用户的相关数据、让扩展使用更加复杂功能时，需要给予扩展相对于的权限。&lt;/p>
+&lt;p>在网络安全与数据隐私重要性日益凸显的当下，Chrome在&lt;code>V3&lt;/code>版本的&lt;code>manifest.json&lt;/code>中，着重考虑了安全与隐私，甚至到了不进行权限授予就不能使用大部分Chrome API的程度。当我们需要操作浏览器或用户的相关数据等Chrome API时，需要给予扩展相对应的权限（Permissions），从而帮助扩展程序或应用程序受到攻击时尽可能减小损失。扩展有四种类型的权限：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>permissions&lt;/code>：包含API文档中特点的权限字段如（&lt;code>storage&lt;/code>,&lt;code>geolocation&lt;/code>）&lt;/li>
+&lt;li>&lt;code>optional_permissions&lt;/code>：类似&lt;code>permissions&lt;/code>。但是在运行时由用户决定是否给予权限，而非事先决定。&lt;/li>
+&lt;li>&lt;code>host_permissions&lt;/code>：通过匹配字段来匹配是否有相应权限。&lt;/li>
+&lt;li>&lt;code>optional_host_permissions&lt;/code>：类似&lt;code>host_permissions&lt;/code>使用匹配字段。但是在运行时由用户决定是否给予权限，而非事先决定。&lt;/li>
+&lt;/ol>
+&lt;p>扩展程序或应用程序必须在清单文件&lt;code>manifest.json&lt;/code>中的 &lt;code>permissions&lt;/code>字段中声明所需要的权限，否则Chrome API会拒绝被调用。关于那些API需要什么权限的细节，可以参考&lt;a href="https://developer.chrome.com/docs/extensions/mv3/declare_permissions/">Chrome扩展的权限的文档&lt;/a>。&lt;/p>
+&lt;h3 id="自定义扩展使用permission的实例">自定义扩展使用permission的实例&lt;/h3>
+&lt;p>下面我们要开发一个Chrome扩展，让用户可以改变当前网页的背景色，其中需要使用到存储权限。首先在该扩展的目录下创建&lt;code>manifest.json&lt;/code>文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln">1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Coloring&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Demo Extension to change background color!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="nt">&amp;#34;background&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="nt">&amp;#34;service_worker&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;background.js&amp;#34;&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：此时我们未向其添加权限&lt;code>permission&lt;/code>信息。目前为止，这个&lt;code>manifest.json&lt;/code>文件和上个例子“将激活的Tab页面移至首位”并无太大区别。接下来，我们编写该扩展的&lt;code>background.js&lt;/code>文件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;#3aa757&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//绿色
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">onInstalled&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addListener&lt;/span>&lt;span class="p">(()=&amp;gt;{&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1">//调用存储API，存储color变量。
+&lt;/span>&lt;span class="ln">5&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">storage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">set&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">color&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`[Coloring] default background color is set to: &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">color&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们载入这个扩展，发现这个简单的脚本报错了：&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_permission_error.png" alt="chrome_extension_permission_error">&lt;/p>
+&lt;p>错误原因是&lt;code>chrome.storage.sync&lt;/code>是&lt;code>undefined&lt;/code>，这是因为Chrome还没将&lt;code>storage&lt;/code>接口授权给扩展，因此扩展无法获得&lt;code>chrome.storage.sync.*&lt;/code>的API。我们要做就是在&lt;code>manifest.json&lt;/code>中添加&lt;code>permissions&lt;/code>字段，并在其中添加&lt;code>storage&lt;/code>权限。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln"> 1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Coloring&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Demo Extension to change background color!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="nt">&amp;#34;background&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="nt">&amp;#34;service_worker&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;background.js&amp;#34;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="nt">&amp;#34;permissions&amp;#34;&lt;/span>&lt;span class="p">:[&lt;/span>&lt;span class="s2">&amp;#34;storage&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>重新加载扩展，可以看到&lt;code>background.js&lt;/code>执行无误，并如预期那样在DevTools页面中输出日志。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>&lt;span class="o">[&lt;/span>Coloring&lt;span class="o">]&lt;/span> default background color is &lt;span class="nb">set&lt;/span> to: &lt;span class="c1">#3aa757 background.js:6&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样我们就能在浏览器中存储了一个颜色数据，不过暂时也只是存储下，并没有实际的用途。&lt;/p>
+&lt;blockquote>
+&lt;p>Tips：在重新载入扩展后，&lt;a href="chrome://extensions/">chrome://extensions/&lt;/a>页面下的扩展依旧会显示有个错误按钮，那是因为扩展会保留之前的错误，而非重载之后依然有错，我们需要手动清除之前的错误信息。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="使用扩展修改原网页">使用扩展修改原网页&lt;/h2>
+&lt;p>现在，我们需要将存储的背景颜色数据拿出来真正利用上。为了降低学习曲线，我们先只是用扩展工具栏上的&lt;code>popup&lt;/code>页面来修改网页。结合上一篇文章《javascript-Chrome扩展入门》中&lt;code>popup&lt;/code>页面的内容，我们增加&lt;code>popup&lt;/code>页面与相关&lt;code>icon&lt;/code>图标。首先，在&lt;code>manifest.json&lt;/code>文件添加&lt;code>action&lt;/code>和&lt;code>icon&lt;/code>字段。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln"> 1&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Coloring&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Demo Extension to change background color!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="nt">&amp;#34;background&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nt">&amp;#34;service_worker&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;background.js&amp;#34;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nt">&amp;#34;permissions&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;storage&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nt">&amp;#34;action&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="nt">&amp;#34;default_popup&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;popup.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nt">&amp;#34;default_icon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="nt">&amp;#34;16&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started16.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="nt">&amp;#34;32&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started32.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="nt">&amp;#34;48&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started48.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="nt">&amp;#34;128&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started128.png&amp;#34;&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="nt">&amp;#34;icons&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="nt">&amp;#34;16&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started16.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="nt">&amp;#34;32&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started32.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="nt">&amp;#34;48&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started48.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="nt">&amp;#34;128&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started128.png&amp;#34;&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，正如前一篇文章介绍的，&lt;code>action&lt;/code>字段用于代表点击扩展工具栏中扩展图标的响应动作，&lt;code>default_popup&lt;/code>是指点击图标后弹出的页面，本例中是&lt;code>popup.html&lt;/code>这个页面。&lt;code>default_icon&lt;/code>和&lt;code>icon&lt;/code>下都是不同尺寸的图标图片，这个例子是借用了谷歌Chrome&lt;code>manifest V2&lt;/code>版本的素材，链接：&lt;a href="https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/_archive/mv2/tutorials/get_started">https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/_archive/mv2/tutorials/get_started&lt;/a>。（如果链接失效了，自己找一些图片换上去也行）&lt;/p>
+&lt;p>接下来就是编写&lt;code>popup.html&lt;/code>页面。我们希望&lt;code>popup.html&lt;/code>这个页面能够提供一个按钮，当我们点击按钮时，就能够将网页背景颜色替换成我们之前在&lt;code>background.js&lt;/code>存储的绿色。显然，仅仅靠HTML是不可能的，还要借助javascript来实现。基础的HTML代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="c">/*按钮的样式*/&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="nt">button&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="k">outline&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="k">border&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="k">border-radius&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">14&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="nt">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nc">current&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="k">box-shadow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">white&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="kt">px&lt;/span> &lt;span class="kc">black&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="nt">body&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="k">background&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">black&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">button&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;changeColor&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>B&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Add some codes here&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="err">// 可以在这里添加JS代码吗？？？ &lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">28&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="分离网页元素和脚本">分离网页元素和脚本&lt;/h3>
+&lt;p>上面的HTML代码很简单，就只有一个&lt;code>button&lt;/code>按钮。如果开发者觉得一个简单的js脚本，直接在上面的&lt;code>&amp;lt;script&amp;gt; ... &amp;lt;/script&amp;gt;&lt;/code>里添加就行，那么这个&lt;strong>扩展必然是运行不起来&lt;/strong>的。因为根据Chrome extension的Content Security Policy（CSP），&lt;strong>不允许我们使用内联javascript脚本(inline script)&lt;/strong>。我们可以试试，跑这个代码会报什么错误。&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_CSP.png" alt="chrome_extension_CSP.png">&lt;/p>
+&lt;blockquote>
+&lt;p>在网页中，inline script是恶意注入的重灾区，因此处于安全考虑，Chrome extension在开发时禁止使用inline script。即使原生的CSP是可以添加&lt;code>unsafe-inline&lt;/code>字段来允许inline script的运行，但是Chrome extension开发组还是完全禁止了&lt;code>unsafe-inline&lt;/code>、&lt;code>unsafe-eval&lt;/code>这些存在安全隐患方法的使用。如果应要开发者坚持要使用inline script，必须要添加&lt;code>nonce&lt;/code>或&lt;code>hash&lt;/code>这种额外的安全验证手段，其带来的代码复杂度往往还要超过单独把inline script改成独立的js文件。因此，除非是实在没法改，都不鼓励使用inline script。&lt;/p>
+&lt;/blockquote>
+&lt;p>因此，我们需要再单独建一个javascript文件&lt;code>popup.js&lt;/code>来放脚本程序，同时修改&lt;code>popup.html&lt;/code>中inline script为External JavaScript文件链接。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln">1&lt;/span>&lt;span class="c">&amp;lt;!-- no inline script
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c">&amp;lt;script&amp;gt; alert(&amp;#39;Add some codes here&amp;#39;);// 可以在这里添加JS代码吗？？？ &amp;lt;/script&amp;gt;
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="c">--&amp;gt;&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;popup.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那在&lt;code>popup.js&lt;/code>添加什么样的Javascript代码呢？第一，解析&lt;code>popup.html&lt;/code>的dom树，得到&lt;code>button&lt;/code>表单元素。第二，给&lt;code>button&lt;/code>注册监听按钮点击（&lt;code>click&lt;/code>）事件。第三，当发生&lt;code>click&lt;/code>事件时，需要从浏览器的本地存储中取出&lt;code>background.js&lt;/code>存储的颜色数据。第四，解析&lt;code>DOM&lt;/code>树修改页面背景的CSS属性。接下来，我们在上面的&lt;code>popup.html&lt;/code>中着手添加js代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">//popup.js
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">//第一，解析dom树，得到button表单元素。
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">button&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;changeColor&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1">//第二，注册监听按钮点击事件。
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;click&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">onClickFunction&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">onClickFunction&lt;/span>&lt;span class="p">(){&lt;/span>&lt;span class="c1">//注意由于Chrome API都是异步的，因此这里用async函数
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//调用Chrome接口取出当前标签页
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">tab&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">tabs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">query&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">active&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">currentWindow&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="c1">// 以当前标签页为上下文，执行setPageBackgroundColor函数
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">scripting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeScript&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">tabId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">tab&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">setPageBackgroundColor&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">17&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">setPageBackgroundColor&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c1">//第三，从浏览器的本地存储中取出存储的颜色数据。
+&lt;/span>&lt;span class="ln">20&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">storage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">color&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="c1">//第四，修改页面背景的CSS属性。
+&lt;/span>&lt;span class="ln">22&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backgroundColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在上面的js代码中，我们使用到了另外两个Chrome API：&lt;code>chrome.tabs.query&lt;/code>和&lt;code>chrome.scripting.executeScript&lt;/code>。它们分别来获取当前活动的tab页面和执行脚本命令，需要&lt;code>activeTab&lt;/code>, &lt;code>scripting&lt;/code>两种权限，因此我们再修改上述&lt;code>manifest.json&lt;/code>的&lt;code>permissions&lt;/code>字段，添加这两种权限：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln">1&lt;/span>&lt;span class="c1">//....
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="s2">&amp;#34;permissions&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;storage&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;activeTab&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;scripting&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1">//....
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后重新载入扩展，点击扩展工具栏中的插件，弹出了一个带字母“B”（Button）按钮的小页面，点击该按钮，则会将网页背景颜色改成我们之前存储的绿色&lt;code>#3aa757&lt;/code>。我们以常见的百度首页为例：&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_changeColor.png" alt="chrome_extension_changeColor.png">&lt;/p>
+&lt;blockquote>
+&lt;p>Tips: 请注意，插件通过给&lt;code>body&lt;/code>标签设置样式来修改网页背景色。因此，如果网页背景色是由其他标签决定的，便无法生效。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="扩展的上下文">扩展的上下文&lt;/h3>
+&lt;p>说实话，第一次看到例子中&lt;code>popup.js&lt;/code>代码有点迷糊，尤其是中间&lt;code>async function onClickFunction()&lt;/code>函数，不知道为什么要有这一步操作，还得用&lt;code>chrome.tabs.query&lt;/code>先找当前的tab页面，然后在麻烦地用&lt;code>chrome.scripting.executeScript&lt;/code>来执行&lt;code>setPageBackgroundColor&lt;/code>函数。如此大费周章，为什么不能直接在注册监听事件的时候就将回调函数设置为&lt;code>setPageBackgroundColor&lt;/code>呢？&lt;/p>
+&lt;p>我们可以尝试下看看直接这么做有什么效果，修改&lt;code>popup.js&lt;/code>中的时间监听代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="c1">//....
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c1">//第二，注册监听按钮点击事件。
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;click&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setPageBackgroundColor&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">//直接执行修改背景的函数
+&lt;/span>&lt;span class="ln">4&lt;/span>&lt;span class="c1">//....
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>重新载入后，Chrome没有报错，点击工具栏扩展弹出的按钮，得到的效果如下图所示：&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_changebg_error_context.png" alt="chrome_extension_changebg_error_context">&lt;/p>
+&lt;p>哈，网页页面本身的背景颜色没变，改变的只有扩展&lt;code>popup.html&lt;/code>那个小页面的背景颜色！这是因为：要考虑扩展执行时候的上下文啊。&lt;/p>
+&lt;p>首先，点击按钮&amp;quot;B&amp;quot;所执行的&lt;code>popup.js&lt;/code>脚本是在&lt;code>popup.html&lt;/code>中引入的，因此&lt;code>popup.js&lt;/code>执行的上下文是&lt;code>popup.html&lt;/code>页面，因此此时的&lt;code>setPageBackgroundColor&lt;/code>函数中DOM解析的&lt;code>document.body.style.backgroundColor&lt;/code>是指&lt;code>popup.html&lt;/code>的背景色，而非原网页&lt;code>www.baidu.com&lt;/code>的背景色。所以要改变js函数执行的上下文，我们要先用&lt;code>chrome.tabs.query({active: true, currentWindow: true});&lt;/code>找到当前页面的上下文环境，然后用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln">1&lt;/span>&lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">scripting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeScript&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">tabId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">tab&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="c1">// 指定函数执行的上下为tabID所代表的环境
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">setPageBackgroundColor&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>来重定向函数&lt;code>function: setPageBackgroundColor&lt;/code>执行时的上下文环境为&lt;code>target: {tabId: tab.id}&lt;/code>所指代的上下文。这样修改背景颜色的效果才会作用到原网页中。&lt;/p>
+&lt;p>不过，我们也可以通过上下文的区别来提供更好的用户体验。比如修饰原有的按钮。为了让用户更直观的感受背景将要变换的颜色，我们可以提前将背景色放到按钮上，让用户感觉我点击该颜色的按钮，就可以将背景改成和按钮一样的颜色。其修改的&lt;code>popup.js&lt;/code>代码如下，读者可借助下面的代码体会两种上下文的区别。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">//popup.js
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">//第一，解析dom树，得到button表单元素。
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">button&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;changeColor&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1">// 从storage取背景色并设到按钮上，以popup.html为上下文
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">storage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">color&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="nx">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backgroundColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1">//第二，注册监听按钮点击事件。
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;click&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">onClickFunction&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">onClickFunction&lt;/span>&lt;span class="p">(){&lt;/span>&lt;span class="c1">//注意由于Chrome API都是异步的，因此这里用async函数
+&lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//调用Chrome接口取出当前标签页
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">tab&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">tabs&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">query&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">active&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">currentWindow&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="c1">// 以当前标签页为上下文，执行setPageBackgroundColor函数
+&lt;/span>&lt;span class="ln">17&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">scripting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeScript&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">tabId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">tab&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">},&lt;/span>&lt;span class="c1">//指定访问的网页为上下文
+&lt;/span>&lt;span class="ln">19&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">setPageBackgroundColor&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">setPageBackgroundColor&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c1">//第三，从浏览器的本地存储中取出存储的颜色数据。
+&lt;/span>&lt;span class="ln">25&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">storage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;color&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">({&lt;/span> &lt;span class="nx">color&lt;/span> &lt;span class="p">})&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="c1">//第四，修改页面背景的CSS属性。
+&lt;/span>&lt;span class="ln">27&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backgroundColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">29&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>效果如下:&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_context.png" alt="chrome_extension_context">&lt;/p>
+&lt;h2 id="选项设置页面">选项设置页面&lt;/h2>
+&lt;p>目前改背景颜色这个扩展只支持将背景色设为绿色，这样很不灵活。我们可以给插件添加&lt;strong>选项设置页面&lt;/strong>，实现更加丰富的功能，比如提供不同的背景色。&lt;/p>
+&lt;p>选项设置页面也可以看作是扩展的配置页面，是扩展灵活性的体现。在&lt;code>manifest.json&lt;/code>中，需要添加&lt;code>option_page&lt;/code>字段指定选项页面，我们在目录中新建&lt;code>options.html&lt;/code>作为选项页面的HTML文件。完整的&lt;code>mamifest.json&lt;/code>文件如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln"> 1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Coloring&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Demo Extension to change background color!&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="nt">&amp;#34;background&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="nt">&amp;#34;service_worker&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;background.js&amp;#34;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="nt">&amp;#34;permissions&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;storage&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;activeTab&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;scripting&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nt">&amp;#34;action&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nt">&amp;#34;default_popup&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;popup.html&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="nt">&amp;#34;default_icon&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nt">&amp;#34;16&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started16.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="nt">&amp;#34;32&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started32.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="nt">&amp;#34;48&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started48.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="nt">&amp;#34;128&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started128.png&amp;#34;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="nt">&amp;#34;icons&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="nt">&amp;#34;16&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started16.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="nt">&amp;#34;32&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started32.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="nt">&amp;#34;48&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started48.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="nt">&amp;#34;128&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/get_started128.png&amp;#34;&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="nt">&amp;#34;options_page&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;options.html&amp;#34;&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这时重新加载插件，如果扩展在扩展工具栏可见，则右键点击扩展图标，可以看到右键菜单中的&lt;code>选项&lt;/code>菜单，点它就会打开我们添加的选项页&lt;code>options.html&lt;/code>。如果扩展被收纳进扩展程序图标里，那么点击扩展程序图标，找到对应扩展右侧的三个竖点图标 $\vdots$，在下拉菜单中也可以找到&lt;code>选项&lt;/code>入口。&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_options.png" alt="chrome_extension_options">&lt;/p>
+&lt;p>现在我们还没给&lt;code>options.html&lt;/code>添加任何内容，因此现在打开选项页是一个空白页。我们给其添加上相应的Html代码（体会个意思就不搞太复杂了^_^）：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nt">button&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="k">height&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">width&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">30&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="k">outline&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="k">margin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="kt">px&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">style&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">head&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;buttonDiv&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Choose a different background color!&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;options.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>和&lt;code>popup.html&lt;/code>类似，其主要功能也得依托Javascript实现，同时受限于CSP规则，js代码应该与Html代码分写在两个文件中，所以我们还要建立&lt;code>options.js&lt;/code>实现具体功能。&lt;/p>
+&lt;p>为了方便示例，我们在选项页面中提供四种可选的背景色，用四个按钮表示。当我们点击选中的颜色的按钮时，会将对应的颜色存储到Chrome浏览器的存储空间&lt;code>chrome.storage.sync&lt;/code>中。这样&lt;code>popup.html&lt;/code>页面运行时就会从浏览器中选出选项页确定的颜色。其代码如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">//options.js
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">//设置四种颜色：绿、红、黄、蓝
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">kButtonColors&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;#3aa757&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;#e8453c&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;#f9bb2d&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;#4688f1&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">//根据给定的颜色创建颜色按钮并注册监听事件
+&lt;/span>&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">constructOptions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">kButtonColors&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="c1">//找到添加按钮的div
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">page&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;buttonDiv&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="c1">//根据给定的颜色创建颜色按钮
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">item&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="nx">kButtonColors&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">button&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;button&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="c1">//设置按钮背景色
+&lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backgroundColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="c1">//为按钮注册监听事件，点击按钮则存储该颜色
+&lt;/span>&lt;span class="ln">16&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">button&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()=&amp;gt;{&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">storage&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">set&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="nx">color&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="nx">item&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">()=&amp;gt;{&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;color is &amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="p">})&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="c1">//添加元素
+&lt;/span>&lt;span class="ln">22&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">page&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">appendChild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">button&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">25&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="c1">//运行创建按钮函数
+&lt;/span>&lt;span class="ln">27&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">constructOptions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">kButtonColors&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开选项页面，就是四个不同颜色的按钮。&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_optionpage.png" alt="chrome_extension_optionpage.png">&lt;/p>
+&lt;p>当我们点击蓝色按钮后，&lt;code>popup.html&lt;/code>的按钮也会变成蓝色，点击后，网页的背景色也是蓝色。&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_optionpage_blue.png" alt="chrome_extension_optionpage_blue.png">&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>这篇文章中，我们相对完整的实现了一个改背景颜色的Chrome扩展，包含了清单文件&lt;code>manifest.json&lt;/code>，后台脚本&lt;code>background.js&lt;/code>，功能页面&lt;code>popup.html&lt;/code>和配置页面&lt;code>options.html&lt;/code>。基本走通了Chrome扩展开发的普遍流程，其他扩展开发的步骤也是大同小异。同时文章中也介绍了常见权限问题、上下文问题、CSP问题等常见坑，也算是经验的积累。改颜色扩展完整的目录结构如下：&lt;/p>
+&lt;p>&lt;img src="../images/chrome_extension_my_color.png" alt="chrome_extension_my_color.png">&lt;/p>
+&lt;p>该扩展主要参考了Chrome官方Manifest V2的一个教程，针对V3版本做了修改。&lt;/p>
+&lt;p>如果想把自己的扩展给更多人使用，可以将其打包上传的Chrome商店，发布自己的扩展，其步骤可参考Chrome教程&lt;a href="https://developer.chrome.com/docs/webstore/publish/">https://developer.chrome.com/docs/webstore/publish/&lt;/a>。如果只是小范围使用，可以直接把文件拷给别人就可以了。&lt;/p>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
