@@ -103,13 +103,43 @@
 &lt;span class="ln">17&lt;/span> &lt;span class="p">],&lt;/span>
 &lt;span class="ln">18&lt;/span> &lt;span class="nt">&amp;#34;matches&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
 &lt;span class="ln">19&lt;/span> &lt;span class="s2">&amp;#34;https://surprisedcat.github.io/studynotes/*&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="ln">20&lt;/span> &lt;span class="s2">&amp;#34;https://surprisedcat.github.io/projectnotes/*&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="s2">&amp;#34;https://surprisedcat.github.io/projectnotes/*&amp;#34;&lt;/span>
 &lt;span class="ln">21&lt;/span> &lt;span class="p">]&lt;/span>
 &lt;span class="ln">22&lt;/span> &lt;span class="p">}&lt;/span>
 &lt;span class="ln">23&lt;/span> &lt;span class="p">]&lt;/span>
 &lt;span class="ln">24&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>manifest.json&lt;/code>文件前面几项都没什么再需要解释的了，&lt;code>icons&lt;/code>的素材来自URL&lt;a href="https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images">https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images&lt;/a>（如果链接失效，可以随自己喜好找合适的图片）。新增的内容&lt;code>content_scripts&lt;/code>字段即为静态声明注入&lt;code>content_scripts&lt;/code>，注入的js脚本来自扩展根目录下的&lt;code>scripts/content.js&lt;/code>，扩展可用的网页是匹配&lt;code>matches&lt;/code>字段的本人博客网页^_^。该扩展运行时，Chrome浏览器会给扩展提供网页URL，当&lt;code>matches&lt;/code>字段匹配成功时，注入js脚本的功能生效（默认在网页完全载入的&lt;code>document_idle&lt;/code>阶段启动注入）。&lt;/p>
-&lt;p>接下来，新建目录&lt;code>scripts&lt;/code>并在其下新建js文件&lt;code>content.js&lt;/code>。&lt;/p>
+&lt;p>接下来，新建目录&lt;code>scripts&lt;/code>并在其下新建js文件&lt;code>content.js&lt;/code>，并添加如下代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">//content_script.js
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">//获取网页中的文章&amp;lt;article&amp;gt;标签（并不是所有网页都有，我的博客中有这个标签）
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">article&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;article&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1">//判断是否成功，不成功则返回null，也可能返回多个，为了方便我们先不考虑
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">article&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">article&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">textContent&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//获取标签中文本
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//分中英文统计字符
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//中文，/\p{Unified_Ideograph}/ug 匹配所有中文
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">chineseChar&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">matchAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/\p{Unified_Ideograph}/ug&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">chineseNum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">chineseChar&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//计算文本长度
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//英文，去除中文后再匹配
+&lt;/span>&lt;span class="ln">13&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">englishChar&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[^\w-]/g&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">matchAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[^\s]+/g&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">englishNum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[...&lt;/span>&lt;span class="nx">englishChar&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c1">//计算文本长度
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//假设我们每分钟阅读中文400个字，英文300单词，计算阅读时长
+&lt;/span>&lt;span class="ln">16&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">readingTime&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">round&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">chineseNum&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">400&lt;/span>&lt;span class="o">+&lt;/span> &lt;span class="nx">englishNum&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1">//创建&amp;lt;p&amp;gt;元素存放结果
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">badge&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;p&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="nx">badge&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">textContent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sb">`⏱️ &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">readingTime&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> min read`&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">20&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="c1">//在&amp;lt;h1&amp;gt;标题后面添加阅读时间的&amp;lt;p&amp;gt;元素
+&lt;/span>&lt;span class="ln">22&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">heading&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">article&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;h1&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="nx">heading&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">insertAdjacentElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;afterend&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">badge&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>需要指出，这个&lt;code>content.js&lt;/code>文件中的DOM操作针对的是本人博客网页的操作，并不能无缝移植到其他网页上。接下来，我们载入这个扩展。当我们打开一般网页时，这个扩展由于匹配字段并不成功，不会生效，只有当我们访问&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>https://surprisedcat.github.io/studynotes/*
+&lt;span class="ln">2&lt;/span>https://surprisedcat.github.io/projectnotes/*
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这两组网页时，扩展才会生效。那么，我们就访问上一篇文章《javascript-chrome扩展实例（一）》的URL&lt;a href="https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/">https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/&lt;/a>，显然时能够匹配的，注意看大标题“javascript-Chrome扩展实例（一）”下面确实多出了一行阅读时间。&lt;/p>
+&lt;p>&lt;img src="../../images/chrome_extension_readingtime.png" alt="chrome_extension_readingtime.png">&lt;/p>
+&lt;p>静态声明注入实验成功！&lt;/p>
 &lt;h3 id="动态声明declared-dynamically注入">动态声明（declared dynamically）注入&lt;/h3>
 &lt;h3 id="以编程方式注入programmatically-injected">以编程方式注入（programmatically injected）&lt;/h3>
 &lt;h2 id="参考文档">参考文档&lt;/h2>

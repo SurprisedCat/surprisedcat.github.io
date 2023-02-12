@@ -192,13 +192,43 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <span class=ln>17</span>      <span class=p>],</span>
 <span class=ln>18</span>      <span class=nt>&#34;matches&#34;</span><span class=p>:</span> <span class=p>[</span>
 <span class=ln>19</span>        <span class=s2>&#34;https://surprisedcat.github.io/studynotes/*&#34;</span><span class=p>,</span>
-<span class=ln>20</span>        <span class=s2>&#34;https://surprisedcat.github.io/projectnotes/*&#34;</span><span class=p>,</span>
+<span class=ln>20</span>        <span class=s2>&#34;https://surprisedcat.github.io/projectnotes/*&#34;</span>
 <span class=ln>21</span>      <span class=p>]</span>
 <span class=ln>22</span>    <span class=p>}</span>
 <span class=ln>23</span>  <span class=p>]</span>
 <span class=ln>24</span><span class=p>}</span>
 </code></pre></div><p><code>manifest.json</code>文件前面几项都没什么再需要解释的了，<code>icons</code>的素材来自URL<a href=https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images>https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images</a>（如果链接失效，可以随自己喜好找合适的图片）。新增的内容<code>content_scripts</code>字段即为静态声明注入<code>content_scripts</code>，注入的js脚本来自扩展根目录下的<code>scripts/content.js</code>，扩展可用的网页是匹配<code>matches</code>字段的本人博客网页^_^。该扩展运行时，Chrome浏览器会给扩展提供网页URL，当<code>matches</code>字段匹配成功时，注入js脚本的功能生效（默认在网页完全载入的<code>document_idle</code>阶段启动注入）。</p>
-<p>接下来，新建目录<code>scripts</code>并在其下新建js文件<code>content.js</code>。</p>
+<p>接下来，新建目录<code>scripts</code>并在其下新建js文件<code>content.js</code>，并添加如下代码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//content_script.js
+</span><span class=ln> 2</span><span class=c1></span>
+<span class=ln> 3</span><span class=c1>//获取网页中的文章&lt;article&gt;标签（并不是所有网页都有，我的博客中有这个标签）
+</span><span class=ln> 4</span><span class=c1></span><span class=kr>const</span> <span class=nx>article</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s2>&#34;article&#34;</span><span class=p>);</span>
+<span class=ln> 5</span><span class=c1>//判断是否成功，不成功则返回null，也可能返回多个，为了方便我们先不考虑
+</span><span class=ln> 6</span><span class=c1></span><span class=k>if</span> <span class=p>(</span><span class=nx>article</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln> 7</span>    <span class=kr>const</span> <span class=nx>text</span> <span class=o>=</span> <span class=nx>article</span><span class=p>.</span><span class=nx>textContent</span><span class=p>;</span><span class=c1>//获取标签中文本
+</span><span class=ln> 8</span><span class=c1></span>    <span class=c1>//分中英文统计字符
+</span><span class=ln> 9</span><span class=c1></span>    <span class=c1>//中文，/\p{Unified_Ideograph}/ug 匹配所有中文
+</span><span class=ln>10</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>chineseChar</span> <span class=o>=</span> <span class=nx>text</span><span class=p>.</span><span class=nx>matchAll</span><span class=p>(</span><span class=sr>/\p{Unified_Ideograph}/ug</span><span class=p>);</span>
+<span class=ln>11</span>    <span class=kr>const</span> <span class=nx>chineseNum</span> <span class=o>=</span> <span class=p>[...</span><span class=nx>chineseChar</span><span class=p>].</span><span class=nx>length</span><span class=p>;</span><span class=c1>//计算文本长度
+</span><span class=ln>12</span><span class=c1></span>    <span class=c1>//英文，去除中文后再匹配
+</span><span class=ln>13</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>englishChar</span> <span class=o>=</span> <span class=nx>text</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/[^\w-]/g</span><span class=p>,</span> <span class=s1>&#39; &#39;</span><span class=p>).</span><span class=nx>matchAll</span><span class=p>(</span><span class=sr>/[^\s]+/g</span><span class=p>);</span>
+<span class=ln>14</span>    <span class=kr>const</span> <span class=nx>englishNum</span> <span class=o>=</span> <span class=p>[...</span><span class=nx>englishChar</span><span class=p>].</span><span class=nx>length</span><span class=p>;</span><span class=c1>//计算文本长度
+</span><span class=ln>15</span><span class=c1></span>    <span class=c1>//假设我们每分钟阅读中文400个字，英文300单词，计算阅读时长
+</span><span class=ln>16</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>readingTime</span> <span class=o>=</span> <span class=nb>Math</span><span class=p>.</span><span class=nx>round</span><span class=p>(</span><span class=nx>chineseNum</span> <span class=o>/</span> <span class=mi>400</span><span class=o>+</span> <span class=nx>englishNum</span> <span class=o>/</span> <span class=mi>300</span><span class=p>);</span>
+<span class=ln>17</span>    <span class=c1>//创建&lt;p&gt;元素存放结果
+</span><span class=ln>18</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>badge</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s2>&#34;p&#34;</span><span class=p>);</span>
+<span class=ln>19</span>    <span class=nx>badge</span><span class=p>.</span><span class=nx>textContent</span> <span class=o>=</span> <span class=sb>`⏱️ </span><span class=si>${</span><span class=nx>readingTime</span><span class=si>}</span><span class=sb> min read`</span><span class=p>;</span>
+<span class=ln>20</span>
+<span class=ln>21</span>    <span class=c1>//在&lt;h1&gt;标题后面添加阅读时间的&lt;p&gt;元素
+</span><span class=ln>22</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>heading</span> <span class=o>=</span> <span class=nx>article</span><span class=p>.</span><span class=nx>querySelector</span><span class=p>(</span><span class=s2>&#34;h1&#34;</span><span class=p>);</span>
+<span class=ln>23</span>    <span class=nx>heading</span><span class=p>.</span><span class=nx>insertAdjacentElement</span><span class=p>(</span><span class=s2>&#34;afterend&#34;</span><span class=p>,</span> <span class=nx>badge</span><span class=p>);</span>
+<span class=ln>24</span><span class=p>}</span>
+</code></pre></div><p>需要指出，这个<code>content.js</code>文件中的DOM操作针对的是本人博客网页的操作，并不能无缝移植到其他网页上。接下来，我们载入这个扩展。当我们打开一般网页时，这个扩展由于匹配字段并不成功，不会生效，只有当我们访问</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=ln>1</span>https://surprisedcat.github.io/studynotes/*
+<span class=ln>2</span>https://surprisedcat.github.io/projectnotes/*
+</code></pre></div><p>这两组网页时，扩展才会生效。那么，我们就访问上一篇文章《javascript-chrome扩展实例（一）》的URL<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/</a>，显然时能够匹配的，注意看大标题“javascript-Chrome扩展实例（一）”下面确实多出了一行阅读时间。</p>
+<p><img src=../../images/chrome_extension_readingtime.png alt=chrome_extension_readingtime.png></p>
+<p>静态声明注入实验成功！</p>
 <h3 id=动态声明declared-dynamically注入>动态声明（declared dynamically）注入</h3>
 <h3 id=以编程方式注入programmatically-injected>以编程方式注入（programmatically injected）</h3>
 <h2 id=参考文档>参考文档</h2>
