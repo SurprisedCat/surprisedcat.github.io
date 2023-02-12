@@ -234,6 +234,9 @@ Jan 10, 2023</span>
 <span class=ln>25</span>  <span class=p>}</span>
 <span class=ln>26</span><span class=p>}</span>
 </code></pre></div><p>其中，正如前一篇文章介绍的，<code>action</code>字段用于代表点击扩展工具栏中扩展图标的响应动作，<code>default_popup</code>是指点击图标后弹出的页面，本例中是<code>popup.html</code>这个页面。<code>default_icon</code>和<code>icon</code>下都是不同尺寸的图标图片，这个例子是借用了谷歌Chrome<code>manifest V2</code>版本的素材，链接：<a href=https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/_archive/mv2/tutorials/get_started>https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/_archive/mv2/tutorials/get_started</a>。（如果链接失效了，自己找一些图片换上去也行）</p>
+<blockquote>
+<p>关于扩展的图标。最好使用PNG格式，兼容性最好，BMP、GIF、ICO和JPEG格式也可以使用，不过写本文时(2023年1月)尚不支持WebP和SVG格式。图标的尺寸最好分别提供16×16像素、32×32像素、48×48像素和128×128像素四种，如果尺寸不合适，Chrome浏览器将会尽力选用合适的尺寸（不保证效果）。</p>
+</blockquote>
 <p>接下来就是编写<code>popup.html</code>页面。我们希望<code>popup.html</code>这个页面能够提供一个按钮，当我们点击按钮时，就能够将网页背景颜色替换成我们之前在<code>background.js</code>存储的绿色。显然，仅仅靠HTML是不可能的，还要借助javascript来实现。基础的HTML代码如下：</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=ln> 1</span><span class=cp>&lt;!DOCTYPE html&gt;</span>
 <span class=ln> 2</span><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>

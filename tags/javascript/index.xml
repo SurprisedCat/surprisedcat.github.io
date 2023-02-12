@@ -1,9 +1,117 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>javascript on SurprisedCat</title><link>https://surprisedcat.github.io/tags/javascript/</link><description>Recent content in javascript on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例（二）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</link><pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</guid><description>
 &lt;h2 id="chrome扩展实例二---omit-in-toc---">Chrome扩展实例（二）&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>Chrome API文档：&lt;a href="https://developer.chrome.com/docs/extensions/reference/">https://developer.chrome.com/docs/extensions/reference/&lt;/a>&lt;/p>
+&lt;p>在Chrome扩展实例（一）中我们用一个例子走通了扩展开发的大体流程，实现了简单的换背景颜色功能。其中执行的js函数将上下文设置为浏览的网页页面，用的是&lt;code>chrome.scripting.executeScript&lt;/code> API来改变上下文环境。这其实是Chrome扩展content script的一种，这即是本篇文章介绍的重点。&lt;/p>
 &lt;ul>
+&lt;li>&lt;a href="#content-script">Content Script&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#content-script%E5%8F%AF%E7%94%A8%E6%8E%A5%E5%8F%A3">Content Script可用接口&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#content-script%E4%B8%8A%E4%B8%8B%E6%96%87">Content Script上下文&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#inject-scripts">Inject Scripts&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E9%9D%99%E6%80%81%E5%A3%B0%E6%98%8Edeclared-statically%E6%B3%A8%E5%85%A5">静态声明（declared statically）注入&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%BB%9F%E8%AE%A1">阅读时间统计&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%8A%A8%E6%80%81%E5%A3%B0%E6%98%8Edeclared-dynamically%E6%B3%A8%E5%85%A5">动态声明（declared dynamically）注入&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%BB%A5%E7%BC%96%E7%A8%8B%E6%96%B9%E5%BC%8F%E6%B3%A8%E5%85%A5programmatically-injected">以编程方式注入（programmatically injected）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
 &lt;/ul>
+&lt;h2 id="content-script">Content Script&lt;/h2>
+&lt;p>Content script是扩展中运行在网页上下文中的typescript/javascript/css文件，它直接作用于网页的DOM，能够直接访问、修改网页元素。但是由于content script的上下文与扩展不同，因此扩展本身交互时需要消息传递机制。同时，content script并不能像service worker或popup那样可以使用几乎所有的Chrome API，它能够使用的Chrome API很有限。&lt;/p>
+&lt;h3 id="content-script可用接口">Content Script可用接口&lt;/h3>
+&lt;p>Content Script能够&lt;strong>直接使用&lt;/strong>的Chrome API如下：&lt;/p>
+&lt;ul>
+&lt;li>i18n （语言国际化接口）&lt;/li>
+&lt;li>storage （存储接口）&lt;/li>
+&lt;li>runtime （运行时接口）
+&lt;ul>
+&lt;li>connect&lt;/li>
+&lt;li>getManifest&lt;/li>
+&lt;li>getURL&lt;/li>
+&lt;li>id&lt;/li>
+&lt;li>onConnect&lt;/li>
+&lt;li>onMessage&lt;/li>
+&lt;li>sendMessage&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>虽然content script无法直接调用其他Chrome API，但是可以利用消息传递机制，通过service worker或popup等间接地调用其他Chrome API。&lt;/p>
+&lt;h3 id="content-script上下文">Content Script上下文&lt;/h3>
+&lt;p>上下文可以说是Content Script最核心的内容。默认情况下，content script运行的上下文是一个独立的环境。这个独立环境是所在扩展所独享的，因此content script默认情况下只能操作所在扩展中的内容。扩展独立的空间保证content script的内容不会与网页页面内容、其他扩展的内容不会产生冲突。&lt;/p>
+&lt;p>但是，如果content script只能在扩展独立的空间中发挥作用，那么它就没法访问、修改网页元素，从而实现目标功能了。因此，Chrome提供一种&lt;strong>叫做“Inject scripts”的技术，来修改content script执行时的上下文&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>Inject scripts&lt;/strong>改变上下问的方式有三种：&lt;/p>
+&lt;ol>
+&lt;li>静态声明（declared statically）注入&lt;/li>
+&lt;li>动态声明（declared dynamically）注入&lt;/li>
+&lt;li>以编程方式注入（programmatically injected）&lt;/li>
+&lt;/ol>
+&lt;h2 id="inject-scripts">Inject Scripts&lt;/h2>
+&lt;p>直观地说，Inject Scripts就是将扩展中typescript/javascript/css文件注入到特定的运行环境中，这样就能够&lt;strong>用目标环境的上下文覆盖原来文件的上下文&lt;/strong>。而inject script的三种模式，可以根据开发需求，酌情选择。&lt;/p>
+&lt;h3 id="静态声明declared-statically注入">静态声明（declared statically）注入&lt;/h3>
+&lt;p>静态声明注入是inject script最常用的模式。这种模式需要在&lt;code>manifest.json&lt;/code>文件中提前写入。优点是方便简洁，缺点是缺乏灵活性，需要提前对&lt;code>manifest.json&lt;/code>内容进行规划。静态声明注入使用的&lt;code>manifest.json&lt;/code>中的&lt;code>content_scripts&lt;/code>字段，基本模式如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln"> 1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;扩展名称&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="c1">//...
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;content_scripts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="nt">&amp;#34;matches&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;https://*.github/*&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="nt">&amp;#34;css&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;my-styles.css&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nt">&amp;#34;js&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;content-script.js&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="nt">&amp;#34;run_at&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;document_idle&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nt">&amp;#34;match_about_blank&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nt">&amp;#34;match_origin_as_fallback&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">true&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="p">],&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="c1">//...
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>简单来说，&lt;code>content_script&lt;/code>在匹配成功&lt;code>matches&lt;/code>字段的网页中，注入&lt;code>js&lt;/code>指定的javascript文件和&lt;code>css&lt;/code>指定的css文件，其中&lt;code>js&lt;/code>和&lt;code>css&lt;/code>都可以指定一组文件。&lt;code>maches&lt;/code>，&lt;code>js&lt;/code>，&lt;code>css&lt;/code>此三个字段是&lt;code>content_script&lt;/code>的核心字段，后面三个字段都是功能配置字段。&lt;code>matches&lt;/code>字段的使用详情可参见文章&lt;a href="https://developer.chrome.com/docs/extensions/mv3/match_patterns/">https://developer.chrome.com/docs/extensions/mv3/match_patterns/&lt;/a>以及补充内容&lt;a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob">https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob&lt;/a>。三种功能字段介绍如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>run_at&lt;/code>:在什么时候注入脚本文件，有三个选项&lt;code>document_start&lt;/code>、&lt;code>document_end&lt;/code>、&lt;code>document_idle&lt;/code>，默认选项是&lt;code>document_idle&lt;/code>。
+&lt;ul>
+&lt;li>&lt;code>document_start&lt;/code>：DOM开始载入。&lt;/li>
+&lt;li>&lt;code>document_end&lt;/code>：DOM主体部分载入完毕，资源文件（如图像、脚本）可能尚在载入中。&lt;/li>
+&lt;li>&lt;code>document_idle&lt;/code>：DOM和资源文件全部载入完毕。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;code>match_about_blank&lt;/code>：如果&lt;code>matches&lt;/code>字段能够匹配空页面&lt;code>about:blank&lt;/code>，注入是否生效，默认&lt;code>false&lt;/code>。常见于通配符匹配场景。&lt;/li>
+&lt;li>&lt;code>match_origin_as_fallback&lt;/code>：当页面中包含框架（frame），如果框架的URL不匹配&lt;code>matches&lt;/code>字段，但是框架所在的母网页匹配&lt;code>matches&lt;/code>字段，脚本注入是否生效，默认为&lt;code>true&lt;/code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或&lt;code>&amp;lt;iframe&amp;gt;&lt;/code>标签。&lt;/li>
+&lt;/ul>
+&lt;p>下面我们就用一个例子解释静态声明注入的用法。&lt;/p>
+&lt;h4 id="阅读时间统计">阅读时间统计&lt;/h4>
+&lt;p>有了《chrome扩展入门》《chrome扩展实例（一）》两篇文章，我们对扩展的基本开发流程已有了基本的了解。现在我们就省略已知的步骤，快速实现一个新的扩展。首先,依旧是&lt;code>manifest.json&lt;/code>文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln"> 1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="nt">&amp;#34;manifest_version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Reading time&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;估计阅读文章所需要的时间&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="nt">&amp;#34;icons&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="nt">&amp;#34;16&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/icon-16.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="nt">&amp;#34;32&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/icon-32.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nt">&amp;#34;48&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/icon-48.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nt">&amp;#34;128&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;images/icon-128.png&amp;#34;&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="nt">&amp;#34;content_scripts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="nt">&amp;#34;js&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="s2">&amp;#34;scripts/content.js&amp;#34;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">],&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="nt">&amp;#34;matches&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="s2">&amp;#34;https://surprisedcat.github.io/studynotes/*&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="s2">&amp;#34;https://surprisedcat.github.io/projectnotes/*&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="p">]&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">]&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>manifest.json&lt;/code>文件前面几项都没什么再需要解释的了，&lt;code>icons&lt;/code>的素材来自URL&lt;a href="https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images">https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images&lt;/a>（如果链接失效，可以随自己喜好找合适的图片）。新增的内容&lt;code>content_scripts&lt;/code>字段即为静态声明注入&lt;code>content_scripts&lt;/code>，注入的js脚本来自扩展根目录下的&lt;code>scripts/content.js&lt;/code>，扩展可用的网页是匹配&lt;code>matches&lt;/code>字段的本人博客网页^_^。该扩展运行时，Chrome浏览器会给扩展提供网页URL，当&lt;code>matches&lt;/code>字段匹配成功时，注入js脚本的功能生效（默认在网页完全载入的&lt;code>document_idle&lt;/code>阶段启动注入）。&lt;/p>
+&lt;p>接下来，新建目录&lt;code>scripts&lt;/code>并在其下新建js文件&lt;code>content.js&lt;/code>。&lt;/p>
+&lt;h3 id="动态声明declared-dynamically注入">动态声明（declared dynamically）注入&lt;/h3>
+&lt;h3 id="以编程方式注入programmatically-injected">以编程方式注入（programmatically injected）&lt;/h3>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
@@ -153,6 +261,9 @@
 &lt;span class="ln">25&lt;/span> &lt;span class="p">}&lt;/span>
 &lt;span class="ln">26&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，正如前一篇文章介绍的，&lt;code>action&lt;/code>字段用于代表点击扩展工具栏中扩展图标的响应动作，&lt;code>default_popup&lt;/code>是指点击图标后弹出的页面，本例中是&lt;code>popup.html&lt;/code>这个页面。&lt;code>default_icon&lt;/code>和&lt;code>icon&lt;/code>下都是不同尺寸的图标图片，这个例子是借用了谷歌Chrome&lt;code>manifest V2&lt;/code>版本的素材，链接：&lt;a href="https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/_archive/mv2/tutorials/get_started">https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/_archive/mv2/tutorials/get_started&lt;/a>。（如果链接失效了，自己找一些图片换上去也行）&lt;/p>
+&lt;blockquote>
+&lt;p>关于扩展的图标。最好使用PNG格式，兼容性最好，BMP、GIF、ICO和JPEG格式也可以使用，不过写本文时(2023年1月)尚不支持WebP和SVG格式。图标的尺寸最好分别提供16×16像素、32×32像素、48×48像素和128×128像素四种，如果尺寸不合适，Chrome浏览器将会尽力选用合适的尺寸（不保证效果）。&lt;/p>
+&lt;/blockquote>
 &lt;p>接下来就是编写&lt;code>popup.html&lt;/code>页面。我们希望&lt;code>popup.html&lt;/code>这个页面能够提供一个按钮，当我们点击按钮时，就能够将网页背景颜色替换成我们之前在&lt;code>background.js&lt;/code>存储的绿色。显然，仅仅靠HTML是不可能的，还要借助javascript来实现。基础的HTML代码如下：&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
 &lt;span class="ln"> 2&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>

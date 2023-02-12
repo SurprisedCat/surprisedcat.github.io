@@ -76,8 +76,7 @@
 <div class=post_meta>
 <span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
 <span class=post_date>
-Jan 20, 2023</span>
-<span class=post_time> · 1 min read</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ecmascript title=ecmascript class="post_tag button button_translucent">ecmascript
+Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ecmascript title=ecmascript class="post_tag button button_translucent">ecmascript
 </a><a href=https://surprisedcat.github.io/tags/javascript title=javascript class="post_tag button button_translucent">javascript
 </a>
 </span>
@@ -90,10 +89,118 @@ Jan 20, 2023</span>
 </span>
 </div>
 <h2 id=chrome扩展实例二---omit-in-toc--->Chrome扩展实例（二）</h2>
-<p>Chrome API文档：<a href=https://developer.chrome.com/docs/extensions/reference/>https://developer.chrome.com/docs/extensions/reference/</a></p>
+<p>在Chrome扩展实例（一）中我们用一个例子走通了扩展开发的大体流程，实现了简单的换背景颜色功能。其中执行的js函数将上下文设置为浏览的网页页面，用的是<code>chrome.scripting.executeScript</code> API来改变上下文环境。这其实是Chrome扩展content script的一种，这即是本篇文章介绍的重点。</p>
 <ul>
+<li><a href=#content-script>Content Script</a>
+<ul>
+<li><a href=#content-script%E5%8F%AF%E7%94%A8%E6%8E%A5%E5%8F%A3>Content Script可用接口</a></li>
+<li><a href=#content-script%E4%B8%8A%E4%B8%8B%E6%96%87>Content Script上下文</a></li>
+</ul>
+</li>
+<li><a href=#inject-scripts>Inject Scripts</a>
+<ul>
+<li><a href=#%E9%9D%99%E6%80%81%E5%A3%B0%E6%98%8Edeclared-statically%E6%B3%A8%E5%85%A5>静态声明（declared statically）注入</a>
+<ul>
+<li><a href=#%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%BB%9F%E8%AE%A1>阅读时间统计</a></li>
+</ul>
+</li>
+<li><a href=#%E5%8A%A8%E6%80%81%E5%A3%B0%E6%98%8Edeclared-dynamically%E6%B3%A8%E5%85%A5>动态声明（declared dynamically）注入</a></li>
+<li><a href=#%E4%BB%A5%E7%BC%96%E7%A8%8B%E6%96%B9%E5%BC%8F%E6%B3%A8%E5%85%A5programmatically-injected>以编程方式注入（programmatically injected）</a></li>
+</ul>
+</li>
 <li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3>参考文档</a></li>
 </ul>
+<h2 id=content-script>Content Script</h2>
+<p>Content script是扩展中运行在网页上下文中的typescript/javascript/css文件，它直接作用于网页的DOM，能够直接访问、修改网页元素。但是由于content script的上下文与扩展不同，因此扩展本身交互时需要消息传递机制。同时，content script并不能像service worker或popup那样可以使用几乎所有的Chrome API，它能够使用的Chrome API很有限。</p>
+<h3 id=content-script可用接口>Content Script可用接口</h3>
+<p>Content Script能够<strong>直接使用</strong>的Chrome API如下：</p>
+<ul>
+<li>i18n （语言国际化接口）</li>
+<li>storage （存储接口）</li>
+<li>runtime （运行时接口）
+<ul>
+<li>connect</li>
+<li>getManifest</li>
+<li>getURL</li>
+<li>id</li>
+<li>onConnect</li>
+<li>onMessage</li>
+<li>sendMessage</li>
+</ul>
+</li>
+</ul>
+<p>虽然content script无法直接调用其他Chrome API，但是可以利用消息传递机制，通过service worker或popup等间接地调用其他Chrome API。</p>
+<h3 id=content-script上下文>Content Script上下文</h3>
+<p>上下文可以说是Content Script最核心的内容。默认情况下，content script运行的上下文是一个独立的环境。这个独立环境是所在扩展所独享的，因此content script默认情况下只能操作所在扩展中的内容。扩展独立的空间保证content script的内容不会与网页页面内容、其他扩展的内容不会产生冲突。</p>
+<p>但是，如果content script只能在扩展独立的空间中发挥作用，那么它就没法访问、修改网页元素，从而实现目标功能了。因此，Chrome提供一种<strong>叫做“Inject scripts”的技术，来修改content script执行时的上下文</strong>。</p>
+<p><strong>Inject scripts</strong>改变上下问的方式有三种：</p>
+<ol>
+<li>静态声明（declared statically）注入</li>
+<li>动态声明（declared dynamically）注入</li>
+<li>以编程方式注入（programmatically injected）</li>
+</ol>
+<h2 id=inject-scripts>Inject Scripts</h2>
+<p>直观地说，Inject Scripts就是将扩展中typescript/javascript/css文件注入到特定的运行环境中，这样就能够<strong>用目标环境的上下文覆盖原来文件的上下文</strong>。而inject script的三种模式，可以根据开发需求，酌情选择。</p>
+<h3 id=静态声明declared-statically注入>静态声明（declared statically）注入</h3>
+<p>静态声明注入是inject script最常用的模式。这种模式需要在<code>manifest.json</code>文件中提前写入。优点是方便简洁，缺点是缺乏灵活性，需要提前对<code>manifest.json</code>内容进行规划。静态声明注入使用的<code>manifest.json</code>中的<code>content_scripts</code>字段，基本模式如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=p>{</span>
+<span class=ln> 2</span> <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;扩展名称&#34;</span><span class=p>,</span>
+<span class=ln> 3</span> <span class=c1>//...
+</span><span class=ln> 4</span><span class=c1></span> <span class=nt>&#34;content_scripts&#34;</span><span class=p>:</span> <span class=p>[</span>
+<span class=ln> 5</span>   <span class=p>{</span>
+<span class=ln> 6</span>     <span class=nt>&#34;matches&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;https://*.github/*&#34;</span><span class=p>],</span>
+<span class=ln> 7</span>     <span class=nt>&#34;css&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;my-styles.css&#34;</span><span class=p>],</span>
+<span class=ln> 8</span>     <span class=nt>&#34;js&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;content-script.js&#34;</span><span class=p>],</span>
+<span class=ln> 9</span>     <span class=nt>&#34;run_at&#34;</span><span class=p>:</span> <span class=s2>&#34;document_idle&#34;</span><span class=p>,</span>
+<span class=ln>10</span>     <span class=nt>&#34;match_about_blank&#34;</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span>
+<span class=ln>11</span>     <span class=nt>&#34;match_origin_as_fallback&#34;</span><span class=p>:</span><span class=kc>true</span>
+<span class=ln>12</span>   <span class=p>}</span>
+<span class=ln>13</span> <span class=p>],</span>
+<span class=ln>14</span> <span class=c1>//...
+</span><span class=ln>15</span><span class=c1></span><span class=p>}</span>
+</code></pre></div><p>简单来说，<code>content_script</code>在匹配成功<code>matches</code>字段的网页中，注入<code>js</code>指定的javascript文件和<code>css</code>指定的css文件，其中<code>js</code>和<code>css</code>都可以指定一组文件。<code>maches</code>，<code>js</code>，<code>css</code>此三个字段是<code>content_script</code>的核心字段，后面三个字段都是功能配置字段。<code>matches</code>字段的使用详情可参见文章<a href=https://developer.chrome.com/docs/extensions/mv3/match_patterns/>https://developer.chrome.com/docs/extensions/mv3/match_patterns/</a>以及补充内容<a href=https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob>https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob</a>。三种功能字段介绍如下：</p>
+<ul>
+<li><code>run_at</code>:在什么时候注入脚本文件，有三个选项<code>document_start</code>、<code>document_end</code>、<code>document_idle</code>，默认选项是<code>document_idle</code>。
+<ul>
+<li><code>document_start</code>：DOM开始载入。</li>
+<li><code>document_end</code>：DOM主体部分载入完毕，资源文件（如图像、脚本）可能尚在载入中。</li>
+<li><code>document_idle</code>：DOM和资源文件全部载入完毕。</li>
+</ul>
+</li>
+<li><code>match_about_blank</code>：如果<code>matches</code>字段能够匹配空页面<code>about:blank</code>，注入是否生效，默认<code>false</code>。常见于通配符匹配场景。</li>
+<li><code>match_origin_as_fallback</code>：当页面中包含框架（frame），如果框架的URL不匹配<code>matches</code>字段，但是框架所在的母网页匹配<code>matches</code>字段，脚本注入是否生效，默认为<code>true</code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或<code>&lt;iframe></code>标签。</li>
+</ul>
+<p>下面我们就用一个例子解释静态声明注入的用法。</p>
+<h4 id=阅读时间统计>阅读时间统计</h4>
+<p>有了《chrome扩展入门》《chrome扩展实例（一）》两篇文章，我们对扩展的基本开发流程已有了基本的了解。现在我们就省略已知的步骤，快速实现一个新的扩展。首先,依旧是<code>manifest.json</code>文件：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=p>{</span>
+<span class=ln> 2</span>  <span class=nt>&#34;manifest_version&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span>
+<span class=ln> 3</span>  <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;Reading time&#34;</span><span class=p>,</span>
+<span class=ln> 4</span>  <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;1.0&#34;</span><span class=p>,</span>
+<span class=ln> 5</span>  <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;估计阅读文章所需要的时间&#34;</span><span class=p>,</span>
+<span class=ln> 6</span>
+<span class=ln> 7</span>  <span class=nt>&#34;icons&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 8</span>    <span class=nt>&#34;16&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-16.png&#34;</span><span class=p>,</span>
+<span class=ln> 9</span>    <span class=nt>&#34;32&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-32.png&#34;</span><span class=p>,</span>
+<span class=ln>10</span>    <span class=nt>&#34;48&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-48.png&#34;</span><span class=p>,</span>
+<span class=ln>11</span>    <span class=nt>&#34;128&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-128.png&#34;</span>
+<span class=ln>12</span>  <span class=p>},</span>
+<span class=ln>13</span>  <span class=nt>&#34;content_scripts&#34;</span><span class=p>:</span> <span class=p>[</span>
+<span class=ln>14</span>    <span class=p>{</span>
+<span class=ln>15</span>      <span class=nt>&#34;js&#34;</span><span class=p>:</span> <span class=p>[</span>
+<span class=ln>16</span>        <span class=s2>&#34;scripts/content.js&#34;</span>
+<span class=ln>17</span>      <span class=p>],</span>
+<span class=ln>18</span>      <span class=nt>&#34;matches&#34;</span><span class=p>:</span> <span class=p>[</span>
+<span class=ln>19</span>        <span class=s2>&#34;https://surprisedcat.github.io/studynotes/*&#34;</span><span class=p>,</span>
+<span class=ln>20</span>        <span class=s2>&#34;https://surprisedcat.github.io/projectnotes/*&#34;</span><span class=p>,</span>
+<span class=ln>21</span>      <span class=p>]</span>
+<span class=ln>22</span>    <span class=p>}</span>
+<span class=ln>23</span>  <span class=p>]</span>
+<span class=ln>24</span><span class=p>}</span>
+</code></pre></div><p><code>manifest.json</code>文件前面几项都没什么再需要解释的了，<code>icons</code>的素材来自URL<a href=https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images>https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/tutorial.reading-time/images</a>（如果链接失效，可以随自己喜好找合适的图片）。新增的内容<code>content_scripts</code>字段即为静态声明注入<code>content_scripts</code>，注入的js脚本来自扩展根目录下的<code>scripts/content.js</code>，扩展可用的网页是匹配<code>matches</code>字段的本人博客网页^_^。该扩展运行时，Chrome浏览器会给扩展提供网页URL，当<code>matches</code>字段匹配成功时，注入js脚本的功能生效（默认在网页完全载入的<code>document_idle</code>阶段启动注入）。</p>
+<p>接下来，新建目录<code>scripts</code>并在其下新建js文件<code>content.js</code>。</p>
+<h3 id=动态声明declared-dynamically注入>动态声明（declared dynamically）注入</h3>
+<h3 id=以编程方式注入programmatically-injected>以编程方式注入（programmatically injected）</h3>
 <h2 id=参考文档>参考文档</h2>
 <ol>
 <li>Google官方文档<a href=https://developer.chrome.com/docs/extensions/mv3/>https://developer.chrome.com/docs/extensions/mv3/</a></li>
