@@ -91,7 +91,7 @@
 &lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>简单来说，&lt;code>content_script&lt;/code>在匹配成功&lt;code>matches&lt;/code>字段的网页中，注入&lt;code>js&lt;/code>指定的javascript文件和&lt;code>css&lt;/code>指定的css文件，其中&lt;code>js&lt;/code>和&lt;code>css&lt;/code>都可以指定一组文件。&lt;code>maches&lt;/code>，&lt;code>js&lt;/code>，&lt;code>css&lt;/code>此三个字段是&lt;code>content_script&lt;/code>的核心字段，后面三个字段都是功能配置字段。&lt;code>matches&lt;/code>字段的使用详情可参见文章&lt;a href="https://developer.chrome.com/docs/extensions/mv3/match_patterns/">https://developer.chrome.com/docs/extensions/mv3/match_patterns/&lt;/a>以及补充内容&lt;a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob">https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob&lt;/a>。三种功能字段介绍如下：&lt;/p>
 &lt;ul>
-&lt;li>&lt;code>run_at&lt;/code>:在什么时候注入脚本文件，有三个选项&lt;code>document_start&lt;/code>、&lt;code>document_end&lt;/code>、&lt;code>document_idle&lt;/code>，默认选项是&lt;code>document_idle&lt;/code>。
+&lt;li>&lt;code>run_at&lt;/code>:在什么时候注入内容文件，有三个选项&lt;code>document_start&lt;/code>、&lt;code>document_end&lt;/code>、&lt;code>document_idle&lt;/code>，默认选项是&lt;code>document_idle&lt;/code>。
 &lt;ul>
 &lt;li>&lt;code>document_start&lt;/code>：DOM开始载入。&lt;/li>
 &lt;li>&lt;code>document_end&lt;/code>：DOM主体部分载入完毕，资源文件（如图像、脚本）可能尚在载入中。&lt;/li>
@@ -99,7 +99,7 @@
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;code>match_about_blank&lt;/code>：如果&lt;code>matches&lt;/code>字段能够匹配空页面&lt;code>about:blank&lt;/code>，注入是否生效，默认&lt;code>false&lt;/code>。常见于通配符匹配场景。&lt;/li>
-&lt;li>&lt;code>match_origin_as_fallback&lt;/code>：当页面中包含框架（frame），如果框架的URL不匹配&lt;code>matches&lt;/code>字段，但是框架所在的母网页匹配&lt;code>matches&lt;/code>字段，脚本注入是否生效，默认为&lt;code>true&lt;/code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或&lt;code>&amp;lt;iframe&amp;gt;&lt;/code>标签。&lt;/li>
+&lt;li>&lt;code>match_origin_as_fallback&lt;/code>：当页面中包含框架（frame），如果框架的URL不匹配&lt;code>matches&lt;/code>字段，但是框架所在的母网页匹配&lt;code>matches&lt;/code>字段，内容注入是否生效，默认为&lt;code>true&lt;/code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或&lt;code>&amp;lt;iframe&amp;gt;&lt;/code>标签。&lt;/li>
 &lt;/ul>
 &lt;p>下面我们就用一个例子解释静态声明注入的用法。&lt;/p>
 &lt;h4 id="阅读时间统计">阅读时间统计&lt;/h4>
@@ -161,8 +161,44 @@
 &lt;p>&lt;img src="../images/chrome_extension_readingtime.png" alt="chrome_extension_readingtime.png">&lt;/p>
 &lt;p>静态声明注入实验成功！&lt;/p>
 &lt;h3 id="动态声明declared-dynamically注入">动态声明（declared dynamically）注入&lt;/h3>
-&lt;p>如果某些网站不是那么知名，扩展无法在&lt;code>manifest.json&lt;/code>设计时就预见到或者对于某个匹配到的网站，并不是要总是注入脚本，需要在运行时再决定。对于这两种情况，静态声明注入就无法胜任，我们需要一种更灵活的脚本注入方式，这就需要&lt;strong>动态声明（declared dynamically）注入&lt;/strong>。&lt;/p>
+&lt;p>如果某些网站不是那么知名，扩展无法在&lt;code>manifest.json&lt;/code>设计时就预见到或者对于某个匹配到的网站，并不是要总是注入内容脚本，需要在运行时再决定。对于这两种情况，静态声明注入就无法胜任，我们需要一种更灵活的内容注入方式，这就需要&lt;strong>动态声明（declared dynamically）注入&lt;/strong>。&lt;/p>
+&lt;p>从Chrome 96开始，我们可以调用&lt;code>chrome.scripting&lt;/code> API进行动态声明注入，其主要方法包括：&lt;/p>
+&lt;ol>
+&lt;li>注册content script：&lt;code>chrome.scripting.registerContentScripts&lt;/code>，&lt;code>chrome.scripting.insertCSS&lt;/code>。&lt;/li>
+&lt;li>查看当前所有动态注册的content script：&lt;code>chrome.scripting.getRegisteredContentScripts&lt;/code>。&lt;/li>
+&lt;li>更新content script：&lt;code>chrome.scripting.updateContentScripts&lt;/code>。&lt;/li>
+&lt;li>删除已注册的content script：&lt;code>chrome.scripting.unregisterContentScripts&lt;/code>，&lt;code>chrome.scripting.removeCSS&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;p>动态声明注入通常至少需要两个权限：&lt;code>activeTab&lt;/code>和&lt;code>scripting&lt;/code>，其他权限根据所需的功能额外再提供。&lt;/p>
+&lt;p>区别与静态声明注入使用&lt;code>matches&lt;/code>字段来决定哪些URL执行内容注入，动态声明注入使用注入目标（Injection targets）来决定内容注入对象。注入目标使用&lt;code>tabID&lt;/code>来决定。&lt;/p>
+&lt;blockquote>
+&lt;p>tabID是Chrome标签页面window对象的ID，当我们打开多个tab页面时，每个tab页面都是一个独立的window对象，它们通过不同tabId区分，默认内容注入只在页面的主框架中有效。&lt;/p>
+&lt;/blockquote>
 &lt;h3 id="以编程方式注入programmatically-injected">以编程方式注入（programmatically injected）&lt;/h3>
+&lt;p>有的时候，我们只是注入执行一小段程序，觉得大费周章地使用静态/动态声明注入太过麻烦，此时就可以使用以编程方式注入（programmatically injected）。它允许扩展使用&lt;code>chrome.scripting.executeScript&lt;/code> API在特定事件或特殊场景执行内容注入。&lt;/p>
+&lt;p>以编程方式注入是最灵活多变的注入方法，它不仅可以像前两种方式那样选择Javascript或CSS文件进行注入，还可以选择可用的Javascript函数进行注入，例如在《javascript-chrome扩展实例（一）》中的修改背景颜色的实例，就是采用了Javascript函数注入的方式。但是如果该模式运用的不合理就会使得代码变得杂乱而无条理。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1">//使用js/css文件注入方式
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">onClicked&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addListener&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">tab&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">scripting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeScript&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">tabId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">tab&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="p">},&lt;/span>&lt;span class="c1">//注入的目标tab页面
+&lt;/span>&lt;span class="ln"> 5&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">files&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;content-script.js&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="c1">//注入的文件
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1">//使用js函数注入方式
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">onClicked&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addListener&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">tab&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="nx">chrome&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">scripting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">executeScript&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="nx">target&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">tabId&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nx">tab&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">},&lt;/span>&lt;span class="c1">//注入的目标tab页面
+&lt;/span>&lt;span class="ln">13&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">func&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nx">injectedFunction&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="c1">//注入的函数，这个函数必须当前脚本可调用的
+&lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">args&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;arg1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;arg2&amp;#34;&lt;/span> &lt;span class="p">]&lt;/span>&lt;span class="c1">//函数的参数
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;span class="ln">17&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">injectedFunction&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backgroundColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;orange&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>请注意，在使用函数注入的方式时，注入的函数是&lt;code>chrome.scripting.executeScript&lt;/code>调用中引用的函数的&lt;strong>副本&lt;/strong>，而不是原始函数本身。因此，函数的主体必须是自包含的(self-contained)，即不能使用函数以外的上下文内容；对函数外部变量的引用将导致内容脚本引发引用错误（ReferenceError）。&lt;/p>
+&lt;p>以编程方式注入通常至少需要两个权限：&lt;code>activeTab&lt;/code>和&lt;code>scripting&lt;/code>，其他权限根据所需的功能额外再提供。&lt;/p>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
@@ -3418,7 +3454,7 @@
 &lt;p>为什么不设置两个remote repo分别推送？怕自己疏忽，造成大量的冲突处理问题。&lt;/p>
 &lt;p>为什么不先推送到GitHub再用Github Actions推送到云上？自己觉得在云上折腾比较方便，就当云是测试环境，GitHub是发布环境吧。&lt;/p>
 &lt;h2 id="选定需要git管理的内容">选定需要git管理的内容&lt;/h2>
-&lt;p>我们在有很多文件/文件夹的地方执行&lt;code>git init .&lt;/code>时，会有大量不需要的文件也被放入待添加空间，我们需要先创建一个**.gitignore**文件筛选出我们需要的文件。比如，我们需要保留images，学习笔记，工程笔记，网页资料四个文件夹，其他全部不要，则&lt;code>.gitignore&lt;/code>文件可以写成:&lt;/p>
+&lt;p>我们在有很多文件/文件夹的地方执行&lt;code>git init .&lt;/code>时，会有大量不需要的文件也被放入待添加空间，我们需要先创建一个&lt;code>.gitignore&lt;/code>文件筛选出我们需要的文件。比如，我们需要保留images，学习笔记，工程笔记，网页资料四个文件夹，其他全部不要，则&lt;code>.gitignore&lt;/code>文件可以写成:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 先忽略跟文件下所有文件，开头使用/防止递归&lt;/span>
 &lt;span class="ln"> 2&lt;/span>/*
 &lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># 取反所有需要git管理的文件&lt;/span>

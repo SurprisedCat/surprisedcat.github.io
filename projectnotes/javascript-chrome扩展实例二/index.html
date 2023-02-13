@@ -160,7 +160,7 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 </span><span class=ln>15</span><span class=c1></span><span class=p>}</span>
 </code></pre></div><p>简单来说，<code>content_script</code>在匹配成功<code>matches</code>字段的网页中，注入<code>js</code>指定的javascript文件和<code>css</code>指定的css文件，其中<code>js</code>和<code>css</code>都可以指定一组文件。<code>maches</code>，<code>js</code>，<code>css</code>此三个字段是<code>content_script</code>的核心字段，后面三个字段都是功能配置字段。<code>matches</code>字段的使用详情可参见文章<a href=https://developer.chrome.com/docs/extensions/mv3/match_patterns/>https://developer.chrome.com/docs/extensions/mv3/match_patterns/</a>以及补充内容<a href=https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob>https://developer.chrome.com/docs/extensions/mv3/content_scripts/#matchAndGlob</a>。三种功能字段介绍如下：</p>
 <ul>
-<li><code>run_at</code>:在什么时候注入脚本文件，有三个选项<code>document_start</code>、<code>document_end</code>、<code>document_idle</code>，默认选项是<code>document_idle</code>。
+<li><code>run_at</code>:在什么时候注入内容文件，有三个选项<code>document_start</code>、<code>document_end</code>、<code>document_idle</code>，默认选项是<code>document_idle</code>。
 <ul>
 <li><code>document_start</code>：DOM开始载入。</li>
 <li><code>document_end</code>：DOM主体部分载入完毕，资源文件（如图像、脚本）可能尚在载入中。</li>
@@ -168,7 +168,7 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 </ul>
 </li>
 <li><code>match_about_blank</code>：如果<code>matches</code>字段能够匹配空页面<code>about:blank</code>，注入是否生效，默认<code>false</code>。常见于通配符匹配场景。</li>
-<li><code>match_origin_as_fallback</code>：当页面中包含框架（frame），如果框架的URL不匹配<code>matches</code>字段，但是框架所在的母网页匹配<code>matches</code>字段，脚本注入是否生效，默认为<code>true</code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或<code>&lt;iframe></code>标签。</li>
+<li><code>match_origin_as_fallback</code>：当页面中包含框架（frame），如果框架的URL不匹配<code>matches</code>字段，但是框架所在的母网页匹配<code>matches</code>字段，内容注入是否生效，默认为<code>true</code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或<code>&lt;iframe></code>标签。</li>
 </ul>
 <p>下面我们就用一个例子解释静态声明注入的用法。</p>
 <h4 id=阅读时间统计>阅读时间统计</h4>
@@ -230,8 +230,44 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <p><img src=../../images/chrome_extension_readingtime.png alt=chrome_extension_readingtime.png></p>
 <p>静态声明注入实验成功！</p>
 <h3 id=动态声明declared-dynamically注入>动态声明（declared dynamically）注入</h3>
-<p>如果某些网站不是那么知名，扩展无法在<code>manifest.json</code>设计时就预见到或者对于某个匹配到的网站，并不是要总是注入脚本，需要在运行时再决定。对于这两种情况，静态声明注入就无法胜任，我们需要一种更灵活的脚本注入方式，这就需要<strong>动态声明（declared dynamically）注入</strong>。</p>
+<p>如果某些网站不是那么知名，扩展无法在<code>manifest.json</code>设计时就预见到或者对于某个匹配到的网站，并不是要总是注入内容脚本，需要在运行时再决定。对于这两种情况，静态声明注入就无法胜任，我们需要一种更灵活的内容注入方式，这就需要<strong>动态声明（declared dynamically）注入</strong>。</p>
+<p>从Chrome 96开始，我们可以调用<code>chrome.scripting</code> API进行动态声明注入，其主要方法包括：</p>
+<ol>
+<li>注册content script：<code>chrome.scripting.registerContentScripts</code>，<code>chrome.scripting.insertCSS</code>。</li>
+<li>查看当前所有动态注册的content script：<code>chrome.scripting.getRegisteredContentScripts</code>。</li>
+<li>更新content script：<code>chrome.scripting.updateContentScripts</code>。</li>
+<li>删除已注册的content script：<code>chrome.scripting.unregisterContentScripts</code>，<code>chrome.scripting.removeCSS</code>。</li>
+</ol>
+<p>动态声明注入通常至少需要两个权限：<code>activeTab</code>和<code>scripting</code>，其他权限根据所需的功能额外再提供。</p>
+<p>区别与静态声明注入使用<code>matches</code>字段来决定哪些URL执行内容注入，动态声明注入使用注入目标（Injection targets）来决定内容注入对象。注入目标使用<code>tabID</code>来决定。</p>
+<blockquote>
+<p>tabID是Chrome标签页面window对象的ID，当我们打开多个tab页面时，每个tab页面都是一个独立的window对象，它们通过不同tabId区分，默认内容注入只在页面的主框架中有效。</p>
+</blockquote>
 <h3 id=以编程方式注入programmatically-injected>以编程方式注入（programmatically injected）</h3>
+<p>有的时候，我们只是注入执行一小段程序，觉得大费周章地使用静态/动态声明注入太过麻烦，此时就可以使用以编程方式注入（programmatically injected）。它允许扩展使用<code>chrome.scripting.executeScript</code> API在特定事件或特殊场景执行内容注入。</p>
+<p>以编程方式注入是最灵活多变的注入方法，它不仅可以像前两种方式那样选择Javascript或CSS文件进行注入，还可以选择可用的Javascript函数进行注入，例如在《javascript-chrome扩展实例（一）》中的修改背景颜色的实例，就是采用了Javascript函数注入的方式。但是如果该模式运用的不合理就会使得代码变得杂乱而无条理。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//使用js/css文件注入方式
+</span><span class=ln> 2</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>onClicked</span><span class=p>.</span><span class=nx>addListener</span><span class=p>((</span><span class=nx>tab</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln> 3</span>  <span class=nx>chrome</span><span class=p>.</span><span class=nx>scripting</span><span class=p>.</span><span class=nx>executeScript</span><span class=p>({</span>
+<span class=ln> 4</span>    <span class=nx>target</span><span class=o>:</span> <span class=p>{</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span> <span class=p>},</span><span class=c1>//注入的目标tab页面
+</span><span class=ln> 5</span><span class=c1></span>    <span class=nx>files</span><span class=o>:</span> <span class=p>[</span><span class=s2>&#34;content-script.js&#34;</span><span class=p>]</span><span class=c1>//注入的文件
+</span><span class=ln> 6</span><span class=c1></span>  <span class=p>});</span>
+<span class=ln> 7</span><span class=p>});</span>
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c1>//使用js函数注入方式
+</span><span class=ln>10</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>onClicked</span><span class=p>.</span><span class=nx>addListener</span><span class=p>((</span><span class=nx>tab</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>11</span>  <span class=nx>chrome</span><span class=p>.</span><span class=nx>scripting</span><span class=p>.</span><span class=nx>executeScript</span><span class=p>({</span>
+<span class=ln>12</span>    <span class=nx>target</span> <span class=o>:</span> <span class=p>{</span><span class=nx>tabId</span> <span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span><span class=p>},</span><span class=c1>//注入的目标tab页面
+</span><span class=ln>13</span><span class=c1></span>    <span class=nx>func</span> <span class=o>:</span> <span class=nx>injectedFunction</span><span class=p>,</span><span class=c1>//注入的函数，这个函数必须当前脚本可调用的
+</span><span class=ln>14</span><span class=c1></span>    <span class=nx>args</span> <span class=o>:</span> <span class=p>[</span> <span class=s2>&#34;arg1&#34;</span><span class=p>,</span><span class=s2>&#34;arg2&#34;</span> <span class=p>]</span><span class=c1>//函数的参数
+</span><span class=ln>15</span><span class=c1></span>  <span class=p>});</span>
+<span class=ln>16</span><span class=p>});</span>
+<span class=ln>17</span>
+<span class=ln>18</span><span class=kd>function</span> <span class=nx>injectedFunction</span><span class=p>()</span> <span class=p>{</span>
+<span class=ln>19</span>  <span class=nb>document</span><span class=p>.</span><span class=nx>body</span><span class=p>.</span><span class=nx>style</span><span class=p>.</span><span class=nx>backgroundColor</span> <span class=o>=</span> <span class=s2>&#34;orange&#34;</span><span class=p>;</span>
+<span class=ln>20</span><span class=p>}</span>
+</code></pre></div><p>请注意，在使用函数注入的方式时，注入的函数是<code>chrome.scripting.executeScript</code>调用中引用的函数的<strong>副本</strong>，而不是原始函数本身。因此，函数的主体必须是自包含的(self-contained)，即不能使用函数以外的上下文内容；对函数外部变量的引用将导致内容脚本引发引用错误（ReferenceError）。</p>
+<p>以编程方式注入通常至少需要两个权限：<code>activeTab</code>和<code>scripting</code>，其他权限根据所需的功能额外再提供。</p>
 <h2 id=参考文档>参考文档</h2>
 <ol>
 <li>Google官方文档<a href=https://developer.chrome.com/docs/extensions/mv3/>https://developer.chrome.com/docs/extensions/mv3/</a></li>

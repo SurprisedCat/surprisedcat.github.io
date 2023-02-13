@@ -142,7 +142,7 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <p>为什么不设置两个remote repo分别推送？怕自己疏忽，造成大量的冲突处理问题。</p>
 <p>为什么不先推送到GitHub再用Github Actions推送到云上？自己觉得在云上折腾比较方便，就当云是测试环境，GitHub是发布环境吧。</p>
 <h2 id=选定需要git管理的内容>选定需要git管理的内容</h2>
-<p>我们在有很多文件/文件夹的地方执行<code>git init .</code>时，会有大量不需要的文件也被放入待添加空间，我们需要先创建一个**.gitignore**文件筛选出我们需要的文件。比如，我们需要保留images，学习笔记，工程笔记，网页资料四个文件夹，其他全部不要，则<code>.gitignore</code>文件可以写成:</p>
+<p>我们在有很多文件/文件夹的地方执行<code>git init .</code>时，会有大量不需要的文件也被放入待添加空间，我们需要先创建一个<code>.gitignore</code>文件筛选出我们需要的文件。比如，我们需要保留images，学习笔记，工程笔记，网页资料四个文件夹，其他全部不要，则<code>.gitignore</code>文件可以写成:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 先忽略跟文件下所有文件，开头使用/防止递归</span>
 <span class=ln> 2</span>/*
 <span class=ln> 3</span><span class=c1># 取反所有需要git管理的文件</span>
