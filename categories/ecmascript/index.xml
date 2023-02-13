@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ecmascript on SurprisedCat</title><link>https://surprisedcat.github.io/categories/ecmascript/</link><description>Recent content in ecmascript on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/ecmascript/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例（二）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</link><pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ecmascript on SurprisedCat</title><link>https://surprisedcat.github.io/categories/ecmascript/</link><description>Recent content in ecmascript on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 13 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/ecmascript/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例（三）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/</guid><description>
+&lt;h2 id="chrome扩展实例三---omit-in-toc---">Chrome扩展实例（三）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>&lt;a href="https://developer.chrome.com/docs/extensions/mv3/messaging/">https://developer.chrome.com/docs/extensions/mv3/messaging/&lt;/a>&lt;/p>
+&lt;p>content script message&lt;a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/#host-page-communication">https://developer.chrome.com/docs/extensions/mv3/content_scripts/#host-page-communication&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://developer.chrome.com/docs/extensions/mv3/richNotifications/">https://developer.chrome.com/docs/extensions/mv3/richNotifications/&lt;/a>&lt;/p>
+&lt;p>例子&lt;/p>
+&lt;p>API测试 喝水通知&lt;/p>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;ol>
+&lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>javascript-Chrome扩展实例（五）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%94/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%94/</guid><description>
+&lt;h2 id="chrome扩展实例五---omit-in-toc---">Chrome扩展实例（五）&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;ol>
+&lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>javascript-Chrome扩展实例（四）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E5%9B%9B/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E5%9B%9B/</guid><description>
+&lt;h2 id="chrome扩展实例四---omit-in-toc---">Chrome扩展实例（四）&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="参考文档">参考文档&lt;/h2>
+&lt;ol>
+&lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>javascript-Chrome扩展实例（二）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</link><pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</guid><description>
 &lt;h2 id="chrome扩展实例二---omit-in-toc---">Chrome扩展实例（二）&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>在Chrome扩展实例（一）中我们用一个例子走通了扩展开发的大体流程，实现了简单的换背景颜色功能。其中执行的js函数将上下文设置为浏览的网页页面，用的是&lt;code>chrome.scripting.executeScript&lt;/code> API来改变上下文环境。这其实是Chrome扩展content script的一种，这即是本篇文章介绍的重点。&lt;/p>
 &lt;ul>
@@ -141,6 +161,7 @@
 &lt;p>&lt;img src="../../images/chrome_extension_readingtime.png" alt="chrome_extension_readingtime.png">&lt;/p>
 &lt;p>静态声明注入实验成功！&lt;/p>
 &lt;h3 id="动态声明declared-dynamically注入">动态声明（declared dynamically）注入&lt;/h3>
+&lt;p>如果某些网站不是那么知名，扩展无法在&lt;code>manifest.json&lt;/code>设计时就预见到或者对于某个匹配到的网站，并不是要总是注入脚本，需要在运行时再决定。对于这两种情况，静态声明注入就无法胜任，我们需要一种更灵活的脚本注入方式，这就需要&lt;strong>动态声明（declared dynamically）注入&lt;/strong>。&lt;/p>
 &lt;h3 id="以编程方式注入programmatically-injected">以编程方式注入（programmatically injected）&lt;/h3>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
