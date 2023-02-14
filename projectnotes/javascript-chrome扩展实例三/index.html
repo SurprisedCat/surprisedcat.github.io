@@ -89,14 +89,55 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 </span>
 </div>
 <h2 id=chrome扩展实例三---omit-in-toc--->Chrome扩展实例（三）</h2>
-<p><a href=https://developer.chrome.com/docs/extensions/mv3/messaging/>https://developer.chrome.com/docs/extensions/mv3/messaging/</a></p>
-<p>content script message<a href=https://developer.chrome.com/docs/extensions/mv3/content_scripts/#host-page-communication>https://developer.chrome.com/docs/extensions/mv3/content_scripts/#host-page-communication</a></p>
-<p><a href=https://developer.chrome.com/docs/extensions/mv3/richNotifications/>https://developer.chrome.com/docs/extensions/mv3/richNotifications/</a></p>
+<p>前面的教程中，我们已经阐述了Chrome扩展开发的整体框架和主干内容，经历了扩展开发的大致流程。Chrome以<code>manifest.json</code>为组织框架，Chrome API为轴心，service worker为协调者，通过Content scripts的三种注入模式来更改网页内容，再辅以<code>popup</code>，<code>options</code>来增强操作，能够实现丰富的用户定制化功能。此外，我们之前还介绍了权限、上下文、快捷键等概念，通过这些知识，如果已经有了一定javascript/CSS基础，那么开发常用的插件大多不成问题。</p>
+<p>这篇文章将会介绍三个更深入一些的概念，不一定在开发过程中会用到，但是能提升Chrome扩展的可用性和丰富其功能性。它们分别是：</p>
+<ul>
+<li>网络可访问资源(Web Accessible Resources)</li>
+<li>消息传递(Message passing)</li>
+<li>丰富的通知API(Rich notifications API)</li>
+</ul>
+<p>为了完整性，本文还将补充匹配模式(match pattern)的内容。如果在阅读过程中遇到匹配模式不懂的内容，也可以优先阅读匹配模式(match pattern)的章节。</p>
+<ul>
+<li><a href=#%E7%BD%91%E7%BB%9C%E5%8F%AF%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90web-accessible-resources>网络可访问资源(Web Accessible Resources)</a>
+<ul>
+<li><a href=#content-script%E7%AE%97%E4%B8%8D%E7%AE%97%E4%BB%8E%E6%89%A9%E5%B1%95%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90>content script算不算从扩展外部访问资源？</a></li>
+<li><a href=#%E5%AE%9E%E4%BE%8B%E8%B5%84%E6%BA%90%E5%8F%AF%E7%94%A8%E6%80%A7%E5%B1%95%E7%A4%BA>实例：资源可用性展示</a></li>
+</ul>
+</li>
+<li><a href=#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92message-passing>消息传递(Message passing)</a>
+<ul>
+<li><a href=#%E5%AE%9E%E4%BE%8B%E6%B6%88%E6%81%AF%E8%AE%A1%E6%97%B6%E5%99%A8>实例：消息计时器</a></li>
+</ul>
+</li>
+<li><a href=#%E4%B8%B0%E5%AF%8C%E7%9A%84%E9%80%9A%E7%9F%A5apirich-notifications-api>丰富的通知API(Rich notifications API)</a>
+<ul>
+<li><a href=#%E5%AE%9E%E4%BE%8B%E6%8C%89%E6%97%B6%E5%96%9D%E6%B0%B4>实例：按时喝水</a></li>
+</ul>
+</li>
+<li><a href=#%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8Fmatch-pattern>匹配模式(match pattern)</a></li>
+<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
+<li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3>参考文档</a></li>
+</ul>
+<h2 id=网络可访问资源web-accessible-resources>网络可访问资源(Web Accessible Resources)</h2>
+<h3 id=content-script算不算从扩展外部访问资源>content script算不算从扩展外部访问资源？</h3>
+<h3 id=实例资源可用性展示>实例：资源可用性展示</h3>
+<h2 id=消息传递message-passing>消息传递(Message passing)</h2>
+<h3 id=实例消息计时器>实例：消息计时器</h3>
+<h2 id=丰富的通知apirich-notifications-api>丰富的通知API(Rich notifications API)</h2>
+<h3 id=实例按时喝水>实例：按时喝水</h3>
+<h2 id=匹配模式match-pattern>匹配模式(match pattern)</h2>
+<p>匹配模式内容请参考整合版文档：<a href=../../%E7%BD%91%E9%A1%B5%E8%B5%84%E6%96%99/Javascript-Chrome%E6%89%A9%E5%B1%95%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D.html>Chrome扩展模式匹配</a></p>
+<h2 id=总结>总结</h2>
 <p>例子</p>
 <p>web access content; API测试 喝水通知</p>
 <h2 id=参考文档>参考文档</h2>
 <ol>
-<li>Google官方文档<a href=https://developer.chrome.com/docs/extensions/mv3/>https://developer.chrome.com/docs/extensions/mv3/</a></li>
+<li>Google Chrome Content Script <a href=https://developer.chrome.com/docs/extensions/mv3/content_scripts/#files>https://developer.chrome.com/docs/extensions/mv3/content_scripts/#files</a></li>
+<li>Manifest - Web Accessible Resources <a href=https://developer.chrome.com/docs/extensions/mv3/manifest/web_accessible_resources/>https://developer.chrome.com/docs/extensions/mv3/manifest/web_accessible_resources/</a></li>
+<li>GoogleChrome/chrome-extensions-samples <a href=https://github.com/GoogleChrome/chrome-extensions-samples>https://github.com/GoogleChrome/chrome-extensions-samples</a></li>
+<li>Message passing <a href=https://developer.chrome.com/docs/extensions/mv3/messaging/>https://developer.chrome.com/docs/extensions/mv3/messaging/</a></li>
+<li>Rich notifications API <a href=https://developer.chrome.com/docs/extensions/mv3/richNotifications/>https://developer.chrome.com/docs/extensions/mv3/richNotifications/</a></li>
+<li>Match patterns <a href=https://developer.chrome.com/docs/extensions/mv3/match_patterns/>https://developer.chrome.com/docs/extensions/mv3/match_patterns/</a></li>
 </ol>
 </article>
 <aside class=sidebar>

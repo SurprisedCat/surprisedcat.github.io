@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projectnotes on SurprisedCat</title><link>https://surprisedcat.github.io/projectnotes/</link><description>Recent content in Projectnotes on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/projectnotes/index.xml" rel="self" type="application/rss+xml"/><item><title>javascript-Chrome扩展实例（四）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E5%9B%9B/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E5%9B%9B/</guid><description>
 &lt;h2 id="chrome扩展实例四---omit-in-toc---">Chrome扩展实例（四）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>经过前面的学习，我们已经拥有了Chrome扩展开发的基础，现在我们就做一个完整的实例来巩固一样之前学习的内容。&lt;/p>
+&lt;p>现在我们要做一个Pomodoro时钟。Pomodoro一词来源于番茄工作法（Pomodoro Technique），是一种时间管理方法，在1980年代由Francesco Cirillo创立。该方法使用一个定时器来分割出一个一般为25分钟的工作时间和5分钟的休息时间，而那些时间段被称为pomodoros，为意大利语单词 pomodoro（中文：番茄）之复数。我们做的这个Pomodoro时钟要有倒计时、设定时间以及任务管理的功能。如果觉得这个工作方法有用，平时工作学习中也可以尝试使用这个扩展^_^。&lt;/p>
+&lt;p>素材来源：&lt;a href="https://github.com/KindEni/Chrome-Extension-Series/tree/main/Part%20Two">https://github.com/KindEni/Chrome-Extension-Series/tree/main/Part%20Two&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%8A%9F%E8%83%BD%E8%A6%81%E6%B1%82">功能要求&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90">思路分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#manifestjson%E6%A1%86%E6%9E%B6%E6%90%AD%E5%BB%BA">&lt;code>manifest.json&lt;/code>框架搭建&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%80%BB%E7%BB%93">总结&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="功能要求">功能要求&lt;/h2>
+&lt;h2 id="思路分析">思路分析&lt;/h2>
+&lt;h2 id="manifestjson框架搭建">&lt;code>manifest.json&lt;/code>框架搭建&lt;/h2>
+&lt;h2 id="总结">总结&lt;/h2>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
 &lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
+&lt;li>Chrome Extensions For Beginners -- Part 2: Practice &lt;a href="https://blog.openreplay.com/chrome-extensions-for-beginners--part-2-practice/">https://blog.openreplay.com/chrome-extensions-for-beginners--part-2-practice/&lt;/a>&lt;/li>
+&lt;li>Github KindEni/Chrome-Extension-Series &lt;a href="https://github.com/KindEni/Chrome-Extension-Series/tree/main/Part%20Two">https://github.com/KindEni/Chrome-Extension-Series/tree/main/Part%20Two&lt;/a>&lt;/li>
 &lt;/ol></description></item><item><title>javascript-Chrome扩展实例（三）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/</guid><description>
 &lt;h2 id="chrome扩展实例三---omit-in-toc---">Chrome扩展实例（三）&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>&lt;a href="https://developer.chrome.com/docs/extensions/mv3/messaging/">https://developer.chrome.com/docs/extensions/mv3/messaging/&lt;/a>&lt;/p>
-&lt;p>content script message&lt;a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/#host-page-communication">https://developer.chrome.com/docs/extensions/mv3/content_scripts/#host-page-communication&lt;/a>&lt;/p>
-&lt;p>&lt;a href="https://developer.chrome.com/docs/extensions/mv3/richNotifications/">https://developer.chrome.com/docs/extensions/mv3/richNotifications/&lt;/a>&lt;/p>
+&lt;p>前面的教程中，我们已经阐述了Chrome扩展开发的整体框架和主干内容，经历了扩展开发的大致流程。Chrome以&lt;code>manifest.json&lt;/code>为组织框架，Chrome API为轴心，service worker为协调者，通过Content scripts的三种注入模式来更改网页内容，再辅以&lt;code>popup&lt;/code>，&lt;code>options&lt;/code>来增强操作，能够实现丰富的用户定制化功能。此外，我们之前还介绍了权限、上下文、快捷键等概念，通过这些知识，如果已经有了一定javascript/CSS基础，那么开发常用的插件大多不成问题。&lt;/p>
+&lt;p>这篇文章将会介绍三个更深入一些的概念，不一定在开发过程中会用到，但是能提升Chrome扩展的可用性和丰富其功能性。它们分别是：&lt;/p>
+&lt;ul>
+&lt;li>网络可访问资源(Web Accessible Resources)&lt;/li>
+&lt;li>消息传递(Message passing)&lt;/li>
+&lt;li>丰富的通知API(Rich notifications API)&lt;/li>
+&lt;/ul>
+&lt;p>为了完整性，本文还将补充匹配模式(match pattern)的内容。如果在阅读过程中遇到匹配模式不懂的内容，也可以优先阅读匹配模式(match pattern)的章节。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#%E7%BD%91%E7%BB%9C%E5%8F%AF%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90web-accessible-resources">网络可访问资源(Web Accessible Resources)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#content-script%E7%AE%97%E4%B8%8D%E7%AE%97%E4%BB%8E%E6%89%A9%E5%B1%95%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90">content script算不算从扩展外部访问资源？&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%AE%9E%E4%BE%8B%E8%B5%84%E6%BA%90%E5%8F%AF%E7%94%A8%E6%80%A7%E5%B1%95%E7%A4%BA">实例：资源可用性展示&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92message-passing">消息传递(Message passing)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%AE%9E%E4%BE%8B%E6%B6%88%E6%81%AF%E8%AE%A1%E6%97%B6%E5%99%A8">实例：消息计时器&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%B0%E5%AF%8C%E7%9A%84%E9%80%9A%E7%9F%A5apirich-notifications-api">丰富的通知API(Rich notifications API)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%AE%9E%E4%BE%8B%E6%8C%89%E6%97%B6%E5%96%9D%E6%B0%B4">实例：按时喝水&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8Fmatch-pattern">匹配模式(match pattern)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%80%BB%E7%BB%93">总结&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="网络可访问资源web-accessible-resources">网络可访问资源(Web Accessible Resources)&lt;/h2>
+&lt;h3 id="content-script算不算从扩展外部访问资源">content script算不算从扩展外部访问资源？&lt;/h3>
+&lt;h3 id="实例资源可用性展示">实例：资源可用性展示&lt;/h3>
+&lt;h2 id="消息传递message-passing">消息传递(Message passing)&lt;/h2>
+&lt;h3 id="实例消息计时器">实例：消息计时器&lt;/h3>
+&lt;h2 id="丰富的通知apirich-notifications-api">丰富的通知API(Rich notifications API)&lt;/h2>
+&lt;h3 id="实例按时喝水">实例：按时喝水&lt;/h3>
+&lt;h2 id="匹配模式match-pattern">匹配模式(match pattern)&lt;/h2>
+&lt;p>匹配模式内容请参考整合版文档：&lt;a href="../%E7%BD%91%E9%A1%B5%E8%B5%84%E6%96%99/Javascript-Chrome%E6%89%A9%E5%B1%95%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D.html">Chrome扩展模式匹配&lt;/a>&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
 &lt;p>例子&lt;/p>
 &lt;p>web access content; API测试 喝水通知&lt;/p>
 &lt;h2 id="参考文档">参考文档&lt;/h2>
 &lt;ol>
-&lt;li>Google官方文档&lt;a href="https://developer.chrome.com/docs/extensions/mv3/">https://developer.chrome.com/docs/extensions/mv3/&lt;/a>&lt;/li>
+&lt;li>Google Chrome Content Script &lt;a href="https://developer.chrome.com/docs/extensions/mv3/content_scripts/#files">https://developer.chrome.com/docs/extensions/mv3/content_scripts/#files&lt;/a>&lt;/li>
+&lt;li>Manifest - Web Accessible Resources &lt;a href="https://developer.chrome.com/docs/extensions/mv3/manifest/web_accessible_resources/">https://developer.chrome.com/docs/extensions/mv3/manifest/web_accessible_resources/&lt;/a>&lt;/li>
+&lt;li>GoogleChrome/chrome-extensions-samples &lt;a href="https://github.com/GoogleChrome/chrome-extensions-samples">https://github.com/GoogleChrome/chrome-extensions-samples&lt;/a>&lt;/li>
+&lt;li>Message passing &lt;a href="https://developer.chrome.com/docs/extensions/mv3/messaging/">https://developer.chrome.com/docs/extensions/mv3/messaging/&lt;/a>&lt;/li>
+&lt;li>Rich notifications API &lt;a href="https://developer.chrome.com/docs/extensions/mv3/richNotifications/">https://developer.chrome.com/docs/extensions/mv3/richNotifications/&lt;/a>&lt;/li>
+&lt;li>Match patterns &lt;a href="https://developer.chrome.com/docs/extensions/mv3/match_patterns/">https://developer.chrome.com/docs/extensions/mv3/match_patterns/&lt;/a>&lt;/li>
 &lt;/ol></description></item><item><title>javascript-Chrome扩展实例（二）</title><link>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</link><pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/</guid><description>
 &lt;h2 id="chrome扩展实例二---omit-in-toc---">Chrome扩展实例（二）&lt;!-- omit in toc -->&lt;/h2>
 &lt;p>在Chrome扩展实例（一）中我们用一个例子走通了扩展开发的大体流程，实现了简单的换背景颜色功能。其中执行的js函数将上下文设置为浏览的网页页面，用的是&lt;code>chrome.scripting.executeScript&lt;/code> API来改变上下文环境。这其实是Chrome扩展content script的一种，这即是本篇文章介绍的重点。&lt;/p>
