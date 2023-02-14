@@ -101,13 +101,24 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <ul>
 <li><a href=#%E9%9D%99%E6%80%81%E5%A3%B0%E6%98%8Edeclared-statically%E6%B3%A8%E5%85%A5>静态声明（declared statically）注入</a>
 <ul>
-<li><a href=#%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%BB%9F%E8%AE%A1>阅读时间统计</a></li>
+<li><a href=#%E5%AE%9E%E4%BE%8B%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%BB%9F%E8%AE%A1>实例：阅读时间统计</a></li>
 </ul>
 </li>
-<li><a href=#%E5%8A%A8%E6%80%81%E5%A3%B0%E6%98%8Edeclared-dynamically%E6%B3%A8%E5%85%A5>动态声明（declared dynamically）注入</a></li>
-<li><a href=#%E4%BB%A5%E7%BC%96%E7%A8%8B%E6%96%B9%E5%BC%8F%E6%B3%A8%E5%85%A5programmatically-injected>以编程方式注入（programmatically injected）</a></li>
+<li><a href=#%E5%8A%A8%E6%80%81%E5%A3%B0%E6%98%8Edeclared-dynamically%E6%B3%A8%E5%85%A5>动态声明（declared dynamically）注入</a>
+<ul>
+<li><a href=#%E5%AE%9E%E4%BE%8B%E4%B8%93%E6%B3%A8%E6%A8%A1%E5%BC%8F>实例：专注模式</a></li>
+<li><a href=#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%A4%AA%E9%80%82%E5%90%88%E6%B3%A8%E5%85%A5javascript>为什么不太适合注入javascript</a></li>
+<li><a href=#%E5%8F%AF%E9%80%89%E4%B8%BA%E6%89%A9%E5%B1%95%E6%B7%BB%E5%8A%A0%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F>（可选）为扩展添加键盘快捷方式</a></li>
 </ul>
 </li>
+<li><a href=#%E4%BB%A5%E7%BC%96%E7%A8%8B%E6%96%B9%E5%BC%8F%E6%B3%A8%E5%85%A5programmatically-injected>以编程方式注入（programmatically injected）</a>
+<ul>
+<li><a href=#%E5%AE%9E%E4%BE%8B%E6%97%A0%E5%9B%BE%E6%A8%A1%E5%BC%8F>实例：无图模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
 <li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3>参考文档</a></li>
 </ul>
 <h2 id=content-script>Content Script</h2>
@@ -171,7 +182,7 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <li><code>match_origin_as_fallback</code>：当页面中包含框架（frame），如果框架的URL不匹配<code>matches</code>字段，但是框架所在的母网页匹配<code>matches</code>字段，内容注入是否生效，默认为<code>true</code>。这个属性适用于manifest V3及以上版本的扩展，同时由于HTML5中框架（frame）字段遭到删除，这条可能主要用于兼容老版本网页或<code>&lt;iframe></code>标签。</li>
 </ul>
 <p>下面我们就用一个例子解释静态声明注入的用法。</p>
-<h4 id=阅读时间统计>阅读时间统计</h4>
+<h4 id=实例阅读时间统计>实例：阅读时间统计</h4>
 <p>有了《chrome扩展入门》《chrome扩展实例（一）》两篇文章，我们对扩展的基本开发流程已有了基本的了解。现在我们就省略已知的步骤，快速实现一个新的扩展。首先,依旧是<code>manifest.json</code>文件：</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=p>{</span>
 <span class=ln> 2</span>  <span class=nt>&#34;manifest_version&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span>
@@ -228,8 +239,17 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <span class=ln>2</span>https://surprisedcat.github.io/projectnotes/*
 </code></pre></div><p>这两组网页时，扩展才会生效。那么，我们就访问上一篇文章《javascript-chrome扩展实例（一）》的URL<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/>https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/</a>，显然时能够匹配的，注意看大标题“javascript-Chrome扩展实例（一）”下面确实多出了一行阅读时间。</p>
 <p><img src=../../images/chrome_extension_readingtime.png alt=chrome_extension_readingtime.png></p>
-<p>静态声明注入实验成功！</p>
-<h3 id=动态声明declared-dynamically注入>动态声明（declared dynamically）注入</h3>
+<p>静态声明注入实验成功！附：reading_time文件结构。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=ln>1</span>reading_time
+<span class=ln>2</span>   ├─manifest.json
+<span class=ln>3</span>   ├─images
+<span class=ln>4</span>   │    ├─icon-128.png
+<span class=ln>5</span>   │    ├─icon-16.png
+<span class=ln>6</span>   │    ├─icon-32.png
+<span class=ln>7</span>   │    └─icon-48.png
+<span class=ln>8</span>   └─scripts
+<span class=ln>9</span>        └─content.js
+</code></pre></div><h3 id=动态声明declared-dynamically注入>动态声明（declared dynamically）注入</h3>
 <p>如果某些网站不是那么知名，扩展无法在<code>manifest.json</code>设计时就预见到或者对于某个匹配到的网站，并不是要总是注入内容脚本，需要在运行时再决定。对于这两种情况，静态声明注入就无法胜任，我们需要一种更灵活的内容注入方式，这就需要<strong>动态声明（declared dynamically）注入</strong>。</p>
 <p>从Chrome 96开始，我们可以调用<code>chrome.scripting</code> API进行动态声明注入，其主要方法包括：</p>
 <ol>
@@ -239,13 +259,162 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <li>删除已注册的content script：<code>chrome.scripting.unregisterContentScripts</code>，<code>chrome.scripting.removeCSS</code>。</li>
 </ol>
 <p>动态声明注入通常至少需要两个权限：<code>activeTab</code>和<code>scripting</code>，其他权限根据所需的功能额外再提供。</p>
-<p>区别与静态声明注入使用<code>matches</code>字段来决定哪些URL执行内容注入，动态声明注入使用注入目标（Injection targets）来决定内容注入对象。注入目标使用<code>tabID</code>来决定。</p>
+<p>区别与静态声明注入使用<code>matches</code>字段来决定哪些URL执行内容注入，动态声明注入使用<strong>注入目标</strong>（Injection targets）来决定内容注入对象。注入目标使用<code>tabID</code>来唯一决定。</p>
 <blockquote>
 <p>tabID是Chrome标签页面window对象的ID，当我们打开多个tab页面时，每个tab页面都是一个独立的window对象，它们通过不同tabId区分，默认内容注入只在页面的主框架中有效。</p>
 </blockquote>
+<h4 id=实例专注模式>实例：专注模式</h4>
+<p>现在网页上面有很多杂七杂八的元素，当我们阅读时很容易被这些元素分心，因此我们想做一个扩展，能够暂时性地让这些杂七杂八的元素消失，是我们能够更专心地阅读文章。本例使用的素材修改自官方教程<a href=https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-focus-mode/>https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-focus-mode/</a>。</p>
+<p>我们整体思路如下：先选CSDN网站为例，上面有很多妨碍阅读的元素，我们点击该扩展后，能将这些元素的CSS的<code>display</code>属性修改为<code>none</code>。假设我们已经提前写好了一个CSS文件，只要注入此文件就能实现（而非一个个地设置哪些元素应该不可见）。此外，我们还需要设置一个键盘快捷键，能够方便地在一般模式和专注模式中切换。</p>
+<p>我们首先设计<code>manifest.json</code>文件，因为不需要静态声明注入，所以不需要<code>content_scripts</code>字段，取而代之的是动态声明注入所需要的<code>activeTab</code>和<code>scripting</code>两个权限。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=p>{</span>
+<span class=ln> 2</span>  <span class=nt>&#34;manifest_version&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span>
+<span class=ln> 3</span>  <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;Focus Mode&#34;</span><span class=p>,</span>
+<span class=ln> 4</span>  <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;Enable reading mode on Chrome&#39;s official Extensions and Chrome Web Store documentation.&#34;</span><span class=p>,</span>
+<span class=ln> 5</span>  <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;1.0&#34;</span><span class=p>,</span>
+<span class=ln> 6</span>  <span class=nt>&#34;icons&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 7</span>    <span class=nt>&#34;16&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-16.png&#34;</span><span class=p>,</span>
+<span class=ln> 8</span>    <span class=nt>&#34;32&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-32.png&#34;</span><span class=p>,</span>
+<span class=ln> 9</span>    <span class=nt>&#34;48&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-48.png&#34;</span><span class=p>,</span>
+<span class=ln>10</span>    <span class=nt>&#34;128&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-128.png&#34;</span>
+<span class=ln>11</span>  <span class=p>},</span>
+<span class=ln>12</span>  <span class=nt>&#34;background&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>13</span>    <span class=nt>&#34;service_worker&#34;</span><span class=p>:</span> <span class=s2>&#34;background.js&#34;</span>
+<span class=ln>14</span>  <span class=p>},</span>
+<span class=ln>15</span>  <span class=nt>&#34;action&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>16</span>    <span class=nt>&#34;default_icon&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>17</span>      <span class=nt>&#34;16&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-16.png&#34;</span><span class=p>,</span>
+<span class=ln>18</span>      <span class=nt>&#34;32&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-32.png&#34;</span><span class=p>,</span>
+<span class=ln>19</span>      <span class=nt>&#34;48&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-48.png&#34;</span><span class=p>,</span>
+<span class=ln>20</span>      <span class=nt>&#34;128&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-128.png&#34;</span>
+<span class=ln>21</span>    <span class=p>}</span>
+<span class=ln>22</span>  <span class=p>},</span>
+<span class=ln>23</span>  <span class=nt>&#34;permissions&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;scripting&#34;</span><span class=p>,</span> <span class=s2>&#34;activeTab&#34;</span><span class=p>]</span>
+<span class=ln>24</span><span class=p>}</span>
+</code></pre></div><p><code>manifest</code>其他部分之前都应该讲解过了，现阶段唯一需要指出的是我们会在service worker的<code>background.js</code>中动态声明注入内容。</p>
+<p>为了区分当前网页是一般模式还是专注模式，我们给扩展的图标添加一个小徽章（badge），当开启专注模式时显示“ON”，否则显示“OFF”。所谓“badge”就是在扩展图标上显示一些文本，可以用来更新一些小的扩展状态提示信息。因为“badge”空间有限，所以只支持4个以下的字符（英文4个，中文2个）。“badge”无法通过配置文件来指定，必须通过代码实现，设置badge文字和颜色可以分别使用<code>chrome.action.setBadgeText({text: 'WORD'})</code>和<code>chrome.action.setBadgeBackgroundColor({color:[255, 0, 0, 255]})</code>。</p>
+<p>每次点击扩展图标，就换切换网页状态，同时badge状态也会跟着改变。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//background.js
+</span><span class=ln> 2</span><span class=c1></span>
+<span class=ln> 3</span><span class=c1>//初始状态下，状态为OFF
+</span><span class=ln> 4</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>runtime</span><span class=p>.</span><span class=nx>onInstalled</span><span class=p>.</span><span class=nx>addListener</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln> 5</span>  <span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>setBadgeText</span><span class=p>({</span>
+<span class=ln> 6</span>    <span class=nx>text</span><span class=o>:</span> <span class=s2>&#34;OFF&#34;</span><span class=p>,</span>
+<span class=ln> 7</span>  <span class=p>});</span>
+<span class=ln> 8</span><span class=p>});</span>
+<span class=ln> 9</span>
+<span class=ln>10</span><span class=c1>//添加监听事件，点击扩展action图标
+</span><span class=ln>11</span><span class=c1>//tab默认指当前的tab页面
+</span><span class=ln>12</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>onClicked</span><span class=p>.</span><span class=nx>addListener</span><span class=p>(</span><span class=kr>async</span><span class=p>(</span><span class=nx>tab</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>13</span>  <span class=c1>//获取当前badge状态
+</span><span class=ln>14</span><span class=c1></span>  <span class=kr>const</span> <span class=nx>prevState</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>getBadgeText</span><span class=p>({</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span> <span class=p>});</span>
+<span class=ln>15</span>  <span class=c1>//点击后的状态总是和之前相反
+</span><span class=ln>16</span><span class=c1></span>  <span class=kr>const</span> <span class=nx>nextState</span> <span class=o>=</span> <span class=nx>prevState</span> <span class=o>===</span> <span class=s1>&#39;ON&#39;</span> <span class=o>?</span> <span class=s1>&#39;OFF&#39;</span> <span class=o>:</span> <span class=s1>&#39;ON&#39;</span><span class=p>;</span>
+<span class=ln>17</span>  <span class=c1>//更改badge状态的文字
+</span><span class=ln>18</span><span class=c1></span>  <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>setBadgeText</span><span class=p>({</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=nx>nextState</span> <span class=p>});</span>
+<span class=ln>19</span><span class=p>})</span>
+</code></pre></div><p><img src=../../images/chrome_extension_badge.png alt=chrome_extension_badge.png></p>
+<p>以上代码实现了Badge状态文字的切换。我们希望在CSDN的网页上实现开启专注模式时，杂乱元素不可见，因此我们要添加CSDN的URL作为判别条件，同时根据Badge状态文字，决定注入还是取消注入CSS文件。因此，完善后的<code>background.js</code>代码如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//background.js
+</span><span class=ln> 2</span><span class=c1></span>
+<span class=ln> 3</span><span class=c1>//初始状态下，状态为OFF
+</span><span class=ln> 4</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>runtime</span><span class=p>.</span><span class=nx>onInstalled</span><span class=p>.</span><span class=nx>addListener</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln> 5</span>    <span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>setBadgeText</span><span class=p>({</span>
+<span class=ln> 6</span>        <span class=nx>text</span><span class=o>:</span> <span class=s2>&#34;OFF&#34;</span><span class=p>,</span>
+<span class=ln> 7</span>    <span class=p>});</span>
+<span class=ln> 8</span>    <span class=p>});</span>
+<span class=ln> 9</span>
+<span class=ln>10</span><span class=c1>//目标URL
+</span><span class=ln>11</span><span class=c1></span><span class=kr>const</span> <span class=nx>CSDN_url</span> <span class=o>=</span> <span class=s1>&#39;https://blog.csdn.net/&#39;</span><span class=p>;</span>
+<span class=ln>12</span>    <span class=c1>//添加监听事件，点击扩展action图标
+</span><span class=ln>13</span><span class=c1></span>    <span class=c1>//tab默认指当前的tab页面
+</span><span class=ln>14</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>onClicked</span><span class=p>.</span><span class=nx>addListener</span><span class=p>(</span><span class=kr>async</span><span class=p>(</span><span class=nx>tab</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln>15</span><span class=c1>//如果以CSDN_URL开头则执行内容脚本
+</span><span class=ln>16</span><span class=c1></span>    <span class=k>if</span><span class=p>(</span><span class=nx>tab</span><span class=p>.</span><span class=nx>url</span><span class=p>.</span><span class=nx>startsWith</span><span class=p>(</span><span class=nx>CSDN_url</span><span class=p>)){</span>
+<span class=ln>17</span>        <span class=c1>//获取当前badge状态
+</span><span class=ln>18</span><span class=c1></span>        <span class=kr>const</span> <span class=nx>prevState</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>getBadgeText</span><span class=p>({</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span> <span class=p>});</span>
+<span class=ln>19</span>        <span class=c1>//点击后的状态总是和之前相反
+</span><span class=ln>20</span><span class=c1></span>        <span class=kr>const</span> <span class=nx>nextState</span> <span class=o>=</span> <span class=nx>prevState</span> <span class=o>===</span> <span class=s1>&#39;ON&#39;</span> <span class=o>?</span> <span class=s1>&#39;OFF&#39;</span> <span class=o>:</span> <span class=s1>&#39;ON&#39;</span><span class=p>;</span>
+<span class=ln>21</span>        <span class=c1>//更改badge状态的文字
+</span><span class=ln>22</span><span class=c1></span>        <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>setBadgeText</span><span class=p>({</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span><span class=p>,</span> <span class=nx>text</span><span class=o>:</span> <span class=nx>nextState</span> <span class=p>});</span>
+<span class=ln>23</span>        <span class=c1>//根据Badge状态文字执行注入CSS和取消注入CSS
+</span><span class=ln>24</span><span class=c1></span>        <span class=k>if</span><span class=p>(</span><span class=nx>nextState</span> <span class=o>===</span> <span class=s2>&#34;ON&#34;</span><span class=p>){</span>
+<span class=ln>25</span>            <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>scripting</span><span class=p>.</span><span class=nx>insertCSS</span><span class=p>({</span><span class=c1>//注入CSS
+</span><span class=ln>26</span><span class=c1></span>                <span class=nx>files</span><span class=o>:</span> <span class=p>[</span><span class=s2>&#34;css/csdn.css&#34;</span><span class=p>],</span>
+<span class=ln>27</span>                <span class=nx>target</span><span class=o>:</span> <span class=p>{</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span> <span class=p>}</span>
+<span class=ln>28</span>            <span class=p>});</span>
+<span class=ln>29</span>        <span class=p>}</span> <span class=k>else</span> <span class=k>if</span> <span class=p>(</span><span class=nx>nextState</span> <span class=o>===</span> <span class=s2>&#34;OFF&#34;</span><span class=p>)</span> <span class=p>{</span>
+<span class=ln>30</span>            <span class=kr>await</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>scripting</span><span class=p>.</span><span class=nx>removeCSS</span><span class=p>({</span><span class=c1>//取消注入CSS
+</span><span class=ln>31</span><span class=c1></span>                <span class=nx>files</span><span class=o>:</span> <span class=p>[</span><span class=s2>&#34;css/csdn.css&#34;</span><span class=p>],</span>
+<span class=ln>32</span>                <span class=nx>target</span><span class=o>:</span> <span class=p>{</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span> <span class=p>}</span>
+<span class=ln>33</span>            <span class=p>});</span>
+<span class=ln>34</span>        <span class=p>}</span>
+<span class=ln>35</span>    <span class=p>}</span>
+<span class=ln>36</span><span class=p>})</span>
+</code></pre></div><p>这样就以动态声明注入实现了两种模式CSS的切换。<code>csdn.css</code>的内容如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=ln> 1</span><span class=c>/*CSDN 专注模式样式表*/</span>
+<span class=ln> 2</span><span class=c>/*URL:  *blog.csdn.net/*   */</span>
+<span class=ln> 3</span><span class=p>#</span><span class=nn>csdn-toolbar</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln> 4</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>aside</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln> 5</span><span class=p>#</span><span class=nn>recommend-right</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln> 6</span><span class=p>#</span><span class=nn>toolBarBox</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln> 7</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>main</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>.</span><span class=nc>first-recommend-box</span><span class=p>.</span><span class=nc>recommend-box</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln> 8</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>main</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>.</span><span class=nc>second-recommend-box</span><span class=p>.</span><span class=nc>recommend-box</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln> 9</span><span class=p>.</span><span class=nc>csdn-side-toolbar</span> <span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>10</span><span class=p>#</span><span class=nn>pcCommentBox</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>11</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>main</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>.</span><span class=nc>recommend-box</span><span class=p>.</span><span class=nc>insert-baidu-box</span><span class=p>.</span><span class=nc>recommend-box-style</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>12</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>main</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>.</span><span class=nc>template-box</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>13</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>main</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>.</span><span class=nc>blog-footer-bottom</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>14</span><span class=p>#</span><span class=nn>blogHuaweiyunAdvert</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>15</span><span class=p>#</span><span class=nn>blogColumnPayAdvert</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>16</span><span class=nt>body</span> <span class=o>&gt;</span> <span class=nt>div</span><span class=p>.</span><span class=nc>main_father</span><span class=p>.</span><span class=nc>clearfix</span><span class=p>.</span><span class=nc>d-flex</span><span class=p>.</span><span class=nc>justify-content-center</span><span class=p>{</span><span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span><span class=k>background-color</span><span class=p>:</span> <span class=kc>aliceblue</span><span class=p>}</span>
+<span class=ln>17</span><span class=p>#</span><span class=nn>mainBox</span><span class=p>{</span><span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span><span class=k>background-color</span><span class=p>:</span> <span class=kc>aliceblue</span><span class=p>}</span>
+<span class=ln>18</span><span class=p>#</span><span class=nn>mainBox</span> <span class=o>&gt;</span> <span class=nt>main</span><span class=p>{</span><span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>%</span><span class=p>;</span><span class=k>background-color</span><span class=p>:</span> <span class=kc>aliceblue</span><span class=p>}</span>
+<span class=ln>19</span><span class=p>#</span><span class=nn>blogExtensionBox</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>20</span><span class=p>#</span><span class=nn>js_content</span> <span class=o>&gt;</span> <span class=nt>pre</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=p>}</span>
+<span class=ln>21</span><span class=c>/*使用内联样式表以及!important的顽固分子*/</span>
+<span class=ln>22</span><span class=c>/*一般情况不要再扩展中使用!important*/</span>
+<span class=ln>23</span><span class=p>#</span><span class=nn>treeSkill</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=cp>!important</span><span class=p>}</span>
+<span class=ln>24</span><span class=p>#</span><span class=nn>pcCommentBox</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=cp>!important</span><span class=p>}</span>
+<span class=ln>25</span><span class=p>#</span><span class=nn>recommendNps</span><span class=p>{</span><span class=k>display</span><span class=p>:</span> <span class=kc>none</span><span class=cp>!important</span><span class=p>}</span>
+<span class=ln>26</span><span class=nt>body</span><span class=p>.</span><span class=nc>nodata</span><span class=p>{</span><span class=k>background</span><span class=p>:</span> <span class=kc>none</span><span class=cp>!important</span><span class=p>;</span><span class=k>background-color</span><span class=p>:</span><span class=kc>aliceblue</span><span class=cp>!important</span><span class=p>;</span><span class=k>background-image</span><span class=p>:</span> <span class=kc>none</span><span class=cp>!important</span><span class=p>}</span>
+</code></pre></div><p>现在我们可以重新载入扩展，选择CSDN的博客来测试下效果。示例URL:<a href=https://blog.csdn.net/wuyxinu/article/details/115839575>https://blog.csdn.net/wuyxinu/article/details/115839575</a>。</p>
+<p>一般模式：</p>
+<p><img src=../../images/chrome_extension_focus_mode_before.png alt=chrome_extension_focus_mode_before.png></p>
+<p>专注模式：</p>
+<p><img src=../../images/chrome_extension_focus_mode_after.png alt=chrome_extension_focus_mode_after.png></p>
+<p>动态声明注入试验成功！附：focus_mode文件结构。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=ln> 1</span>focus_mode
+<span class=ln> 2</span>├─background.js
+<span class=ln> 3</span>├─manifest.json
+<span class=ln> 4</span>├─css
+<span class=ln> 5</span>│   └─ csdn.css
+<span class=ln> 6</span>└─images
+<span class=ln> 7</span>    ├─icon-128.png
+<span class=ln> 8</span>    ├─icon-16.png
+<span class=ln> 9</span>    ├─icon-32.png
+<span class=ln>10</span>    └─icon-48.png
+</code></pre></div><h4 id=为什么不太适合注入javascript>为什么不太适合注入javascript</h4>
+<p>上面的例子我们动态注入的是CSS样式表，那么是否可以注入javascript文件呢？可以的。事实上，最开始我对官方示例改造时就用的是动态注入javascript。但是动态注入javascript时需要指定<code>runAt</code>，而之前我们说明<code>runAt</code>只有三个时刻，这三个时刻都需要重新载入网页，对于扩展来说实在不方便，因此我们采用了不需要重载网页的CSS样式表来做示例。</p>
+<p>那么，有没有一种不需要重载网页就能运行javascript的内容注入模式呢？当然有的，就是下一节介绍的<strong>以编程方式注入</strong>。</p>
+<h4 id=可选为扩展添加键盘快捷方式>（可选）为扩展添加键盘快捷方式</h4>
+<p>为了使用方便，我们还可以给扩展添加键盘快捷方式。比如可以通过快捷键启用/关闭专注模式。我们只需要在<code>manifest.json</code>最后添加如下代码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=c1>//...
+</span><span class=ln> 2</span><span class=c1></span><span class=p>{</span>
+<span class=ln> 3</span>  <span class=nt>&#34;commands&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 4</span>    <span class=nt>&#34;_execute_action&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 5</span>      <span class=nt>&#34;suggested_key&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 6</span>        <span class=nt>&#34;default&#34;</span><span class=p>:</span> <span class=s2>&#34;Ctrl+B&#34;</span><span class=p>,</span>
+<span class=ln> 7</span>        <span class=nt>&#34;mac&#34;</span><span class=p>:</span> <span class=s2>&#34;Command+B&#34;</span>
+<span class=ln> 8</span>      <span class=p>}</span>
+<span class=ln> 9</span>    <span class=p>}</span>
+<span class=ln>10</span>  <span class=p>}</span>
+<span class=ln>11</span><span class=p>}</span>
+</code></pre></div><p><code>command</code>字段代表监听的键盘事件。<code>_execute_action</code>等同于点击扩展图标事件<code>action.onClicked()</code>，因此我们不需要额外添加任何代码。<code>suggested_key</code>则是指定的快捷键，对于不同的操作系统（win、mac）快捷键有所区别。</p>
+<p>更多关于键盘快捷键的内容可参考<a href=https://developer.chrome.com/docs/extensions/reference/commands/>https://developer.chrome.com/docs/extensions/reference/commands/</a>。</p>
 <h3 id=以编程方式注入programmatically-injected>以编程方式注入（programmatically injected）</h3>
-<p>有的时候，我们只是注入执行一小段程序，觉得大费周章地使用静态/动态声明注入太过麻烦，此时就可以使用以编程方式注入（programmatically injected）。它允许扩展使用<code>chrome.scripting.executeScript</code> API在特定事件或特殊场景执行内容注入。</p>
-<p>以编程方式注入是最灵活多变的注入方法，它不仅可以像前两种方式那样选择Javascript或CSS文件进行注入，还可以选择可用的Javascript函数进行注入，例如在《javascript-chrome扩展实例（一）》中的修改背景颜色的实例，就是采用了Javascript函数注入的方式。但是如果该模式运用的不合理就会使得代码变得杂乱而无条理。</p>
+<p>我们前来介绍的两种内容注入方式都或多或少有些缺点。静态声明注入需要开发者极富远见，在<code>manifest.json</code>设计阶段就能够决定未来各种情况，否则就得频繁地更新插件；动态声明注入后又得重载网页让javascript生效，十分麻烦。能否可以让注入的js内容实时生效呢？此时就可以使用以编程方式注入（programmatically injected）。它允许扩展使用<code>chrome.scripting.executeScript</code> API在特定事件或特殊场景执行内容注入。</p>
+<p>以编程方式注入是最灵活多变的注入方法，它不仅可以像前两种方式那样选择Javascript或CSS文件进行注入，还可以选择可用的Javascript函数进行注入，例如在《javascript-chrome扩展实例（一）》中的修改背景颜色的实例，就是采用了Javascript函数注入的方式。但是如果该模式运用的不合理就会使得代码变得杂乱而无条理。其一般形式代码框架如下：</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//使用js/css文件注入方式
 </span><span class=ln> 2</span><span class=c1></span><span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>onClicked</span><span class=p>.</span><span class=nx>addListener</span><span class=p>((</span><span class=nx>tab</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
 <span class=ln> 3</span>  <span class=nx>chrome</span><span class=p>.</span><span class=nx>scripting</span><span class=p>.</span><span class=nx>executeScript</span><span class=p>({</span>
@@ -268,9 +437,70 @@ Jan 20, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <span class=ln>20</span><span class=p>}</span>
 </code></pre></div><p>请注意，在使用函数注入的方式时，注入的函数是<code>chrome.scripting.executeScript</code>调用中引用的函数的<strong>副本</strong>，而不是原始函数本身。因此，函数的主体必须是自包含的(self-contained)，即不能使用函数以外的上下文内容；对函数外部变量的引用将导致内容脚本引发引用错误（ReferenceError）。</p>
 <p>以编程方式注入通常至少需要两个权限：<code>activeTab</code>和<code>scripting</code>，其他权限根据所需的功能额外再提供。</p>
+<h4 id=实例无图模式>实例：无图模式</h4>
+<p>这个实例将使用以编程方式注入删除当前激活tab页面的所以图像元素<code>&lt;img></code>，这个简单的扩展只包含三种文件：<code>manifest.json</code>、<code>background.js</code>和<code>images</code>文件夹中的图标。</p>
+<p><code>manifest.json</code>文件如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=p>{</span>
+<span class=ln> 2</span>    <span class=nt>&#34;manifest_version&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span>
+<span class=ln> 3</span>    <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;No Images&#34;</span><span class=p>,</span>
+<span class=ln> 4</span>    <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;1.0&#34;</span><span class=p>,</span>
+<span class=ln> 5</span>    <span class=nt>&#34;description&#34;</span><span class=p>:</span> <span class=s2>&#34;Remove all the images in the web pages&#34;</span><span class=p>,</span>
+<span class=ln> 6</span>    <span class=nt>&#34;background&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 7</span>        <span class=nt>&#34;service_worker&#34;</span><span class=p>:</span> <span class=s2>&#34;background.js&#34;</span>
+<span class=ln> 8</span>    <span class=p>},</span>
+<span class=ln> 9</span>    <span class=nt>&#34;action&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>10</span>        <span class=nt>&#34;default_icon&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>11</span>            <span class=nt>&#34;16&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-16.png&#34;</span><span class=p>,</span>
+<span class=ln>12</span>            <span class=nt>&#34;32&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-32.png&#34;</span><span class=p>,</span>
+<span class=ln>13</span>            <span class=nt>&#34;48&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-48.png&#34;</span><span class=p>,</span>
+<span class=ln>14</span>            <span class=nt>&#34;128&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-128.png&#34;</span>
+<span class=ln>15</span>        <span class=p>}</span>
+<span class=ln>16</span>    <span class=p>},</span>
+<span class=ln>17</span>    <span class=nt>&#34;icons&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln>18</span>        <span class=nt>&#34;16&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-16.png&#34;</span><span class=p>,</span>
+<span class=ln>19</span>        <span class=nt>&#34;32&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-32.png&#34;</span><span class=p>,</span>
+<span class=ln>20</span>        <span class=nt>&#34;48&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-48.png&#34;</span><span class=p>,</span>
+<span class=ln>21</span>        <span class=nt>&#34;128&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-128.png&#34;</span>
+<span class=ln>22</span>    <span class=p>},</span>
+<span class=ln>23</span>    <span class=nt>&#34;permissions&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;activeTab&#34;</span><span class=p>,</span> <span class=s2>&#34;scripting&#34;</span><span class=p>]</span>
+<span class=ln>24</span><span class=p>}</span>
+</code></pre></div><p>这里没有什么新的知识。只需要注意以编程方式注入需要两种权限<code>activeTab</code>和<code>scripting</code>。我们在<code>background.js</code>中实现删除图片元素的js功能代码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//background.js
+</span><span class=ln> 2</span><span class=c1></span>
+<span class=ln> 3</span><span class=nx>chrome</span><span class=p>.</span><span class=nx>action</span><span class=p>.</span><span class=nx>onClicked</span><span class=p>.</span><span class=nx>addListener</span><span class=p>(</span><span class=kr>async</span><span class=p>(</span><span class=nx>tab</span><span class=p>)</span> <span class=p>=&gt;</span> <span class=p>{</span>
+<span class=ln> 4</span>    <span class=k>if</span><span class=p>(</span><span class=o>!</span><span class=nx>tab</span><span class=p>.</span><span class=nx>url</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s2>&#34;chrome://&#34;</span><span class=p>))</span> <span class=p>{</span><span class=c1>//chrome设置页面不生效
+</span><span class=ln> 5</span><span class=c1></span>    <span class=c1>//以编程方式注入
+</span><span class=ln> 6</span><span class=c1></span>    <span class=nx>chrome</span><span class=p>.</span><span class=nx>scripting</span><span class=p>.</span><span class=nx>executeScript</span><span class=p>({</span>
+<span class=ln> 7</span>        <span class=nx>target</span><span class=o>:</span> <span class=p>{</span> <span class=nx>tabId</span><span class=o>:</span> <span class=nx>tab</span><span class=p>.</span><span class=nx>id</span> <span class=p>},</span><span class=c1>//tabId默认是当前激活tab页面的ID
+</span><span class=ln> 8</span><span class=c1></span>        <span class=kd>function</span><span class=o>:</span> <span class=nx>removeImages</span><span class=c1>//调用函数
+</span><span class=ln> 9</span><span class=c1></span>    <span class=p>});</span>
+<span class=ln>10</span>    <span class=p>}</span>
+<span class=ln>11</span><span class=p>});</span>
+<span class=ln>12</span>
+<span class=ln>13</span><span class=kd>function</span> <span class=nx>removeImages</span><span class=p>(){</span>
+<span class=ln>14</span>    <span class=c1>//选出所有&lt;img&gt;元素
+</span><span class=ln>15</span><span class=c1></span>    <span class=kr>const</span> <span class=nx>elememts</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>querySelectorAll</span><span class=p>(</span><span class=s2>&#34;img&#34;</span><span class=p>);</span>
+<span class=ln>16</span>    <span class=k>if</span><span class=p>(</span><span class=nx>elememts</span><span class=p>){</span>
+<span class=ln>17</span>        <span class=k>for</span><span class=p>(</span><span class=kr>const</span> <span class=nx>item</span> <span class=k>of</span> <span class=nx>elememts</span><span class=p>){</span>
+<span class=ln>18</span>            <span class=c1>//元素删除的模式，并非直接删除，而是通过父元素删除
+</span><span class=ln>19</span><span class=c1></span>            <span class=nx>item</span><span class=p>.</span><span class=nx>parentNode</span><span class=p>.</span><span class=nx>removeChild</span><span class=p>(</span><span class=nx>item</span><span class=p>);</span>
+<span class=ln>20</span>        <span class=p>}</span>
+<span class=ln>21</span>    <span class=p>}</span>
+<span class=ln>22</span><span class=p>}</span>
+</code></pre></div><p>我们载入扩展，用百度主页来做测试：</p>
+<p>之前，下图中百度图标是存在的：</p>
+<p><img src=../../images/chrome_extension_no_images_before.png alt=chrome_extension_no_images_before.png></p>
+<p>点击扩展后，百度主页的图标被删除了：</p>
+<p><img src=../../images/chrome_extension_no_images_after.png alt=chrome_extension_no_images_after.png></p>
+<p>以编程方式注入内容实验成功！</p>
+<h2 id=总结>总结</h2>
+<p>本文以三种方式实现了CSS/Javascript内容的注入，分别是静态声明注入、动态声明注入和以编程方式注入。首先需要注意注入的内容所在上下文与扩展所在上下文的区别。注入内容的上下文需要与目标tab网页一致。其次，我们需要根据不同的场景选择合理的注入方式，还需要给予注入操作权限。内容注入是Chrome扩展实现其功能多样性的灵活。</p>
 <h2 id=参考文档>参考文档</h2>
 <ol>
 <li>Google官方文档<a href=https://developer.chrome.com/docs/extensions/mv3/>https://developer.chrome.com/docs/extensions/mv3/</a></li>
+<li>Content Script <a href=https://developer.chrome.com/docs/extensions/mv3/content_scripts/>https://developer.chrome.com/docs/extensions/mv3/content_scripts/</a></li>
+<li>Focus Mode <a href=https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-focus-mode/>https://developer.chrome.com/docs/extensions/mv3/getstarted/tut-focus-mode/</a></li>
+<li>Page redder <a href=https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/sample.page-redder>https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples/sample.page-redder</a></li>
 </ol>
 </article>
 <aside class=sidebar>
@@ -337,7 +567,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=6 title=ecmascript>ECMASCRIPT<span class=button_tally>6</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
 </a>
@@ -407,6 +637,9 @@ SHELL
 <h4 class=mt-4>精选文章</h4>
 <ul>
 <li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E5%9B%9B/ class=nav-link title=javascript-Chrome扩展实例（四）>javascript-Chrome扩展实例（四）</a>
+</li>
+<li>
 <a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
 </li>
 <li>
@@ -418,20 +651,17 @@ SHELL
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/javascript-js%E9%AB%98%E9%98%B6%E8%A7%A3%E6%9E%90/ class=nav-link title=javascript-js高阶解析>javascript-js高阶解析</a>
 </li>
-<li>
-<a href=https://surprisedcat.github.io/studynotes/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5%E4%B9%8B%E5%9B%9B%E7%B1%BB%E7%A9%BA%E9%97%B4/ class=nav-link title=线性代数与矩阵之四类空间>线性代数与矩阵之四类空间</a>
-</li>
 </ul>
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E5%9B%9B/ class=nav-link title=javascript-Chrome扩展实例（四）>javascript-Chrome扩展实例（四）</a>
+</li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
-</li>
-<li>
-<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%85%A5%E9%97%A8/ class=nav-link title=javascript-Chrome扩展入门>javascript-Chrome扩展入门</a>
 </li>
 </ul>
 <div>
@@ -493,11 +723,11 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=6 title=ecmascript>ECMASCRIPT<span class=button_tally>6</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=6 title=javascript>JAVASCRIPT<span class=button_tally>6</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
 </a>
