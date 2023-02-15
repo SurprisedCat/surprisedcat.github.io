@@ -374,7 +374,7 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <p>我的博客是基于<a href=https://github.com/chipzoller/hugo-clarity>clarity</a>主题修改而来，基本改动有</p>
 <ul>
 <li>在头部导航添加了归档和分类两项，添加了二者的模板、功能和archive type;</li>
-<li>在头部导航添加了资料库->资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在<code>/static/libwebpages</code></li>
+<li>在头部导航添加了资料库->资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在<code>/static/网页资料</code></li>
 <li>在头部导航添加了资料库->书签地址，书签位置<code>/content/library</code>；</li>
 <li>在头部导航添加了专栏项，基于原来的series修改而来；</li>
 <li>删除了多语言支持，因为总是出bug；</li>
@@ -383,7 +383,7 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <li>简化了默认的archetypes；</li>
 <li>修改了主题配色、链接、404页面等样式</li>
 </ul>
-<p>现在只要将我的markdown文章的文件夹放入<code>content</code>目录，网页资料的内容放到<code>/static/libwebpages</code>，images中的图片文件夹放到<code>/static/images</code>中，即可自动生成静态网站。</p>
+<p>现在只要将我的markdown文章的文件夹放入<code>content</code>目录，网页资料的内容放到<code>/static/网页资料</code>，images中的图片文件夹放到<code>/static/images</code>中，即可自动生成静态网站。</p>
 <h3 id=上传修改好的hugo博客>上传修改好的Hugo博客</h3>
 <p>首先，我们把改好的网站主题上传到云主机，路径为<code>/opt/blogtheme</code>，并把<code>/opt/blogtheme</code>的拥有者改为git。然后将其中content的内容建立软链接，连接到git工作区的相应目录。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 将/opt/blogtheme的拥有者改为git</span>
@@ -400,7 +400,7 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <span class=ln>2</span><span class=c1># 图片同步</span>
 <span class=ln>3</span>rsync -a /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
 <span class=ln>4</span><span class=c1># 网页同步</span>
-<span class=ln>5</span>rsync -a /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/libwebpages
+<span class=ln>5</span>rsync -a /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
 </code></pre></div><ul>
 <li>如果使用<strong>普通仓库</strong>，路径为<code>/srv/gitblogs.git/</code>。我们建立目录的软链接：</li>
 </ul>
@@ -415,7 +415,7 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <span class=ln>4</span><span class=c1># 图片同步</span>
 <span class=ln>5</span>$ rsync -a /srv/gitblogs.git/images/ /opt/blogtheme/static/images
 <span class=ln>6</span><span class=c1># 网页同步</span>
-<span class=ln>7</span>$ rsync -a /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/libwebpages
+<span class=ln>7</span>$ rsync -a /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/网页资料
 </code></pre></div><p>这样，我们也实现了内容和格式的分离，<code>/opt/blogtheme</code>做为存放格式的位置，基本不用动，每次只要git更新内容即可。</p>
 <h2 id=使用jenkins自动化部署网站>使用Jenkins自动化部署网站</h2>
 <p>经过上述准备，我们已经准备好了所需的内容，下面就是使用jenkins将它们构建成网站。我们首先新建网站的目录文件夹<code>/opt/public/</code>：</p>

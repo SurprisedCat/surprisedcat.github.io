@@ -19,7 +19,7 @@ SurprisedCat’s Personal Blog and NoteBook for mathematics, computer programmin
 本博客是基于[clarity](https://github.com/chipzoller/hugo-clarity)主题修改而来，主要改动有
 
 - 在头部导航添加了归档和分类两项，添加了二者的模板、功能和archive type;
-- 在头部导航添加了资料库->资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在`\static\libwebpages`
+- 在头部导航添加了资料库->资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在`\static\网页资料`
 - 在头部导航添加了资料库->书签地址，书签位置`\content\library`；
 - 在头部导航添加了专栏项，基于原来的series修改而来；
 - 删除了多语言支持，因为总是出bug；
