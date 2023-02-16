@@ -92,16 +92,16 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <p>前面的教程中，我们已经阐述了Chrome扩展开发的整体框架和主干内容，经历了扩展开发的大致流程。Chrome以<code>manifest.json</code>为组织框架，Chrome API为轴心，service worker为协调者，通过Content scripts的三种注入模式来更改网页内容，再辅以<code>popup</code>，<code>options</code>来增强操作，能够实现丰富的用户定制化功能。此外，我们之前还介绍了权限、上下文、快捷键等概念，通过这些知识，如果已经有了一定javascript/CSS基础，那么开发常用的插件大多不成问题。</p>
 <p>这篇文章将会介绍三个更深入一些的概念，不一定在开发过程中会用到，但是能提升Chrome扩展的可用性和丰富其功能性。它们分别是：</p>
 <ul>
-<li>网络可访问资源(Web Accessible Resources)</li>
+<li>Web可访问资源(Web Accessible Resources)</li>
 <li>消息传递(Message passing)</li>
 <li>丰富的通知API(Rich notifications API)</li>
 </ul>
 <p>为了完整性，本文还将补充匹配模式(match pattern)的内容。如果在阅读过程中遇到匹配模式不懂的内容，也可以优先阅读匹配模式(match pattern)的章节。</p>
 <ul>
-<li><a href=#%E7%BD%91%E7%BB%9C%E5%8F%AF%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90web-accessible-resources>网络可访问资源(Web Accessible Resources)</a>
+<li><a href=#web%E5%8F%AF%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90web-accessible-resourceswar>Web可访问资源(Web Accessible Resources，WAR)</a>
 <ul>
-<li><a href=#content-script%E7%AE%97%E4%B8%8D%E7%AE%97%E4%BB%8E%E6%89%A9%E5%B1%95%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90>content script算不算从扩展外部访问资源？</a></li>
 <li><a href=#%E5%AE%9E%E4%BE%8B%E8%B5%84%E6%BA%90%E5%8F%AF%E7%94%A8%E6%80%A7%E5%B1%95%E7%A4%BA>实例：资源可用性展示</a></li>
+<li><a href=#%E5%86%8D%E8%B0%88content-script%E4%B8%8E%E7%BD%91%E9%A1%B5%E4%B8%8A%E4%B8%8B%E6%96%87>再谈content script与网页上下文</a></li>
 </ul>
 </li>
 <li><a href=#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92message-passing>消息传递(Message passing)</a>
@@ -118,10 +118,125 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
 <li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3>参考文档</a></li>
 </ul>
-<h2 id=网络可访问资源web-accessible-resources>网络可访问资源(Web Accessible Resources)</h2>
-<h3 id=content-script算不算从扩展外部访问资源>content script算不算从扩展外部访问资源？</h3>
+<h2 id=web可访问资源web-accessible-resourceswar>Web可访问资源(Web Accessible Resources，WAR)</h2>
+<p>在阐述tab页面和扩展时，我们已经知道它们分属于不同的上下文，即有独立的运行环境。扩展的代码正常情况下只可以使用扩展自身的资源（如函数、CSS文件、图片、javascript文件）等等，无法访问网页的DOM及JS，同时网页在开发时也是意识不到Chrome扩展存在的，因此无法访问Chrome扩展的资源。</p>
+<p>为了打破这种界限，扩展使用了Inject scripts技术，使用三种模式进行内容注入，从而使得扩展的content script能够操作网页的DOM元素。需要指出的是扩展的content script无论使用静态声明注入、动态声明注入还是以编程方式注入，都只是获得了网页DOM元素的操作权，本质上Chrome的content script脚本和网页的JavaScript脚本还是处在两个独立的空间，没有互操作性，同时网页的DOM元素依然无法使用扩展内的资源。</p>
+<p>如果我们希望网页的DOM元素直接使用扩展的资源（比如图片、视频、CSS样式表甚至javascript文件），有什么方法呢？这就需要设置<strong>Web可访问资源(Web Accessible Resources, WAR)</strong>。</p>
+<p>Web可访问的资源是Chrome扩展中的文件，可由Web页面或其他Chrome扩展访问。扩展程序通常使用此功能来显示需要在网页中加载的图像或其他资源，扩展包中任何文件都可以设置成Web访问的。</p>
+<p>默认情况下，扩展中的任何资源都不是Web可访问的，只有扩展本身的页面或Script脚本能够访问这些内容。如果希望扩展以外的Web页面或脚本能够使用扩展中的资源，需要使用<code>manifest.json</code>中的<code>web_accessible_resources</code>字段来配置，格式如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln>1</span><span class=s2>&#34;web_accessible_resources&#34;</span><span class=err>:</span> <span class=p>[</span>
+<span class=ln>2</span>    <span class=p>{</span>
+<span class=ln>3</span>      <span class=nt>&#34;resources&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=s2>&#34;images/file1.png&#34;</span><span class=p>,</span> <span class=s2>&#34;css/file2.css&#34;</span> <span class=p>],</span>
+<span class=ln>4</span>      <span class=nt>&#34;matches&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=s2>&#34;https://surprisedcat.github.io/*&#34;</span> <span class=p>],</span><span class=c1>//&lt;all_urls&gt;
+</span><span class=ln>5</span><span class=c1></span>      <span class=c1>//&#34;extension_ids&#34;: [&#34;chrome-extension://EXTENSION_ID/&#34;],
+</span><span class=ln>6</span><span class=c1></span>      <span class=c1>//&#34;use_dynamic_url&#34;: true
+</span><span class=ln>7</span><span class=c1></span>    <span class=p>}</span>
+<span class=ln>8</span>  <span class=p>]</span><span class=err>,</span>
+</code></pre></div><p>其中，<code>resources</code>表示需要暴露给外界的资源文件名称；<code>matches</code>表示匹配的URL，使用match pattern，只有匹配成功的url才能使用暴露出来的资源，也可以使用<code>extension_ids</code>来匹配其他Chrome扩展。<code>matches</code>和<code>extension_ids</code>二者必有一个。<code>use_dynamic_url</code>，可选项，它为真时，只允许使用动态ID来访问Web可用资源，每个session都会的自己生成动态ID。</p>
+<p>之后，外部Web页面可以通过三种方式访问。一是外部Web页面通过<code>chrome-extension://extension-id/FILE_PATH</code>直接访问；二是当使用content script时，content script中可以使用Chrome API <code>chrome.runtime.getURL(FILE_PATH)</code>来访问。<code>chrome.runtime.getURL</code>将根据自身来自哪个扩展生成extension ID。三是可以使用<code>@@extension_id</code>来替代javascript中<code>chrome.runtime.getURL</code>生成extension ID的效果（用法<code>chrome.i18n.getMessage("@@extension_id")</code>），也可以在CSS文件中使用（用法<code>__MSG_@@extension_id__</code>），注意<code>__MSG_@@extension_id__</code>用在html的内联css中貌似不生效，只在Web可用文件的独立文件中生效，可能是因为Chrome扩展觉得Html网页的内容不归它管吧，只有从它这里取出去的文件才会做<code>__MSG_@@extension_id__</code>的转换。</p>
 <h3 id=实例资源可用性展示>实例：资源可用性展示</h3>
+<p>下面我们用一个例子展示Web可访问资源，为了方便</p>
+<blockquote>
+<p>Tips: 在实际使用Web可访问资源的时候，遇到一个坑。我刚开始开发Chrome扩展的时候，使用Web Accessible Resources的资源文件是一个名叫<code>Road Map.jpeg</code>的图片，这个文件名中间有个空格，当时运行扩展的时候，就是找不到这个图片资源，报找不到资源的错误。后来发现，在js编码的时候，把空格编码成了“%20”，也就是<code>Road%20Map.jpeg</code>，因此在<code>manifest.json</code>中"web_accessible_resources"设置资源名称时应该将空格改成“%20”，这样才能正常加载图片。不过为了少出错误，文件名中最好还是不要有空格等特殊字符吧。</p>
+</blockquote>
+<h3 id=再谈content-script与网页上下文>再谈content script与网页上下文</h3>
+<p><img src=../../images/chrome%E6%89%A9%E5%B1%95%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%B3%E7%B3%BB.drawio.svg alt=chrome扩展上下文关系.drawio.svg></p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>JS种类</th>
+<th style=text-align:center>可访问的Chrome API</th>
+<th style=text-align:center>DOM访问情况</th>
+<th style=text-align:center>页面JS访问情况</th>
+<th style=text-align:center>直接跨域</th>
+<th style=text-align:center>调试方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>injected scripts through web accessible resources</td>
+<td style=text-align:center>和普通JS无任何差别，不能访问任何扩展API</td>
+<td style=text-align:center>可以访问</td>
+<td style=text-align:center>可以访问</td>
+<td style=text-align:center>不可以</td>
+<td style=text-align:center>开发者工具-控制台（和页面JS一样）</td>
+</tr>
+<tr>
+<td style=text-align:center>content scripts</td>
+<td style=text-align:center>只能访问 storage、i18n、runtime等部分API</td>
+<td style=text-align:center>可以访问</td>
+<td style=text-align:center>不可以</td>
+<td style=text-align:center>不可以</td>
+<td style=text-align:center>开发者工具-控制台-javascript上下文-切换为对应扩展</td>
+</tr>
+<tr>
+<td style=text-align:center>popup js</td>
+<td style=text-align:center>可访问绝大部分API，除了devtools系列</td>
+<td style=text-align:center>不可直接访问</td>
+<td style=text-align:center>不可以</td>
+<td style=text-align:center>可以</td>
+<td style=text-align:center>扩展按钮-右键-审查元素-DevTools</td>
+</tr>
+<tr>
+<td style=text-align:center>background js</td>
+<td style=text-align:center>可访问绝大部分API，除了devtools系列</td>
+<td style=text-align:center>不可直接访问</td>
+<td style=text-align:center>不可以</td>
+<td style=text-align:center>可以</td>
+<td style=text-align:center>扩展管理页面-查看视图-DevTools</td>
+</tr>
+<tr>
+<td style=text-align:center>devtools js</td>
+<td style=text-align:center>只能访问 devtools、runtime等部分API</td>
+<td style=text-align:center>可以</td>
+<td style=text-align:center>可以</td>
+<td style=text-align:center>不可以</td>
+<td style=text-align:center>-</td>
+</tr>
+</tbody>
+</table>
 <h2 id=消息传递message-passing>消息传递(Message passing)</h2>
+<table>
+<thead>
+<tr>
+<th> </th>
+<th>injected-script through WAR</th>
+<th>content-script</th>
+<th>popup-js</th>
+<th>background-js</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>injected-script through WAR</td>
+<td>-</td>
+<td>window.postMessage</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>content-script</td>
+<td>window.postMessage</td>
+<td>-</td>
+<td>chrome.runtime.sendMessage chrome.runtime.connect</td>
+<td>chrome.runtime.sendMessage chrome.runtime.connect</td>
+</tr>
+<tr>
+<td>popup-js</td>
+<td>-</td>
+<td>chrome.tabs.sendMessage chrome.tabs.connect</td>
+<td>-</td>
+<td>chrome.extension. getBackgroundPage()</td>
+</tr>
+<tr>
+<td>background-js</td>
+<td>-</td>
+<td>chrome.tabs.sendMessage chrome.tabs.connect</td>
+<td>chrome.extension.getViews</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
 <h3 id=实例消息计时器>实例：消息计时器</h3>
 <h2 id=丰富的通知apirich-notifications-api>丰富的通知API(Rich notifications API)</h2>
 <h3 id=实例按时喝水>实例：按时喝水</h3>

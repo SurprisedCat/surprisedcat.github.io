@@ -24,16 +24,16 @@
 &lt;p>前面的教程中，我们已经阐述了Chrome扩展开发的整体框架和主干内容，经历了扩展开发的大致流程。Chrome以&lt;code>manifest.json&lt;/code>为组织框架，Chrome API为轴心，service worker为协调者，通过Content scripts的三种注入模式来更改网页内容，再辅以&lt;code>popup&lt;/code>，&lt;code>options&lt;/code>来增强操作，能够实现丰富的用户定制化功能。此外，我们之前还介绍了权限、上下文、快捷键等概念，通过这些知识，如果已经有了一定javascript/CSS基础，那么开发常用的插件大多不成问题。&lt;/p>
 &lt;p>这篇文章将会介绍三个更深入一些的概念，不一定在开发过程中会用到，但是能提升Chrome扩展的可用性和丰富其功能性。它们分别是：&lt;/p>
 &lt;ul>
-&lt;li>网络可访问资源(Web Accessible Resources)&lt;/li>
+&lt;li>Web可访问资源(Web Accessible Resources)&lt;/li>
 &lt;li>消息传递(Message passing)&lt;/li>
 &lt;li>丰富的通知API(Rich notifications API)&lt;/li>
 &lt;/ul>
 &lt;p>为了完整性，本文还将补充匹配模式(match pattern)的内容。如果在阅读过程中遇到匹配模式不懂的内容，也可以优先阅读匹配模式(match pattern)的章节。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="#%E7%BD%91%E7%BB%9C%E5%8F%AF%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90web-accessible-resources">网络可访问资源(Web Accessible Resources)&lt;/a>
+&lt;li>&lt;a href="#web%E5%8F%AF%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90web-accessible-resourceswar">Web可访问资源(Web Accessible Resources，WAR)&lt;/a>
 &lt;ul>
-&lt;li>&lt;a href="#content-script%E7%AE%97%E4%B8%8D%E7%AE%97%E4%BB%8E%E6%89%A9%E5%B1%95%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90">content script算不算从扩展外部访问资源？&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E5%AE%9E%E4%BE%8B%E8%B5%84%E6%BA%90%E5%8F%AF%E7%94%A8%E6%80%A7%E5%B1%95%E7%A4%BA">实例：资源可用性展示&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%86%8D%E8%B0%88content-script%E4%B8%8E%E7%BD%91%E9%A1%B5%E4%B8%8A%E4%B8%8B%E6%96%87">再谈content script与网页上下文&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;li>&lt;a href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92message-passing">消息传递(Message passing)&lt;/a>
@@ -50,10 +50,125 @@
 &lt;li>&lt;a href="#%E6%80%BB%E7%BB%93">总结&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">参考文档&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h2 id="网络可访问资源web-accessible-resources">网络可访问资源(Web Accessible Resources)&lt;/h2>
-&lt;h3 id="content-script算不算从扩展外部访问资源">content script算不算从扩展外部访问资源？&lt;/h3>
+&lt;h2 id="web可访问资源web-accessible-resourceswar">Web可访问资源(Web Accessible Resources，WAR)&lt;/h2>
+&lt;p>在阐述tab页面和扩展时，我们已经知道它们分属于不同的上下文，即有独立的运行环境。扩展的代码正常情况下只可以使用扩展自身的资源（如函数、CSS文件、图片、javascript文件）等等，无法访问网页的DOM及JS，同时网页在开发时也是意识不到Chrome扩展存在的，因此无法访问Chrome扩展的资源。&lt;/p>
+&lt;p>为了打破这种界限，扩展使用了Inject scripts技术，使用三种模式进行内容注入，从而使得扩展的content script能够操作网页的DOM元素。需要指出的是扩展的content script无论使用静态声明注入、动态声明注入还是以编程方式注入，都只是获得了网页DOM元素的操作权，本质上Chrome的content script脚本和网页的JavaScript脚本还是处在两个独立的空间，没有互操作性，同时网页的DOM元素依然无法使用扩展内的资源。&lt;/p>
+&lt;p>如果我们希望网页的DOM元素直接使用扩展的资源（比如图片、视频、CSS样式表甚至javascript文件），有什么方法呢？这就需要设置&lt;strong>Web可访问资源(Web Accessible Resources, WAR)&lt;/strong>。&lt;/p>
+&lt;p>Web可访问的资源是Chrome扩展中的文件，可由Web页面或其他Chrome扩展访问。扩展程序通常使用此功能来显示需要在网页中加载的图像或其他资源，扩展包中任何文件都可以设置成Web访问的。&lt;/p>
+&lt;p>默认情况下，扩展中的任何资源都不是Web可访问的，只有扩展本身的页面或Script脚本能够访问这些内容。如果希望扩展以外的Web页面或脚本能够使用扩展中的资源，需要使用&lt;code>manifest.json&lt;/code>中的&lt;code>web_accessible_resources&lt;/code>字段来配置，格式如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln">1&lt;/span>&lt;span class="s2">&amp;#34;web_accessible_resources&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="nt">&amp;#34;resources&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;images/file1.png&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;css/file2.css&amp;#34;&lt;/span> &lt;span class="p">],&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="nt">&amp;#34;matches&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;https://surprisedcat.github.io/*&amp;#34;&lt;/span> &lt;span class="p">],&lt;/span>&lt;span class="c1">//&amp;lt;all_urls&amp;gt;
+&lt;/span>&lt;span class="ln">5&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//&amp;#34;extension_ids&amp;#34;: [&amp;#34;chrome-extension://EXTENSION_ID/&amp;#34;],
+&lt;/span>&lt;span class="ln">6&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//&amp;#34;use_dynamic_url&amp;#34;: true
+&lt;/span>&lt;span class="ln">7&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">]&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，&lt;code>resources&lt;/code>表示需要暴露给外界的资源文件名称；&lt;code>matches&lt;/code>表示匹配的URL，使用match pattern，只有匹配成功的url才能使用暴露出来的资源，也可以使用&lt;code>extension_ids&lt;/code>来匹配其他Chrome扩展。&lt;code>matches&lt;/code>和&lt;code>extension_ids&lt;/code>二者必有一个。&lt;code>use_dynamic_url&lt;/code>，可选项，它为真时，只允许使用动态ID来访问Web可用资源，每个session都会的自己生成动态ID。&lt;/p>
+&lt;p>之后，外部Web页面可以通过三种方式访问。一是外部Web页面通过&lt;code>chrome-extension://extension-id/FILE_PATH&lt;/code>直接访问；二是当使用content script时，content script中可以使用Chrome API &lt;code>chrome.runtime.getURL(FILE_PATH)&lt;/code>来访问。&lt;code>chrome.runtime.getURL&lt;/code>将根据自身来自哪个扩展生成extension ID。三是可以使用&lt;code>@@extension_id&lt;/code>来替代javascript中&lt;code>chrome.runtime.getURL&lt;/code>生成extension ID的效果（用法&lt;code>chrome.i18n.getMessage(&amp;quot;@@extension_id&amp;quot;)&lt;/code>），也可以在CSS文件中使用（用法&lt;code>__MSG_@@extension_id__&lt;/code>），注意&lt;code>__MSG_@@extension_id__&lt;/code>用在html的内联css中貌似不生效，只在Web可用文件的独立文件中生效，可能是因为Chrome扩展觉得Html网页的内容不归它管吧，只有从它这里取出去的文件才会做&lt;code>__MSG_@@extension_id__&lt;/code>的转换。&lt;/p>
 &lt;h3 id="实例资源可用性展示">实例：资源可用性展示&lt;/h3>
+&lt;p>下面我们用一个例子展示Web可访问资源，为了方便&lt;/p>
+&lt;blockquote>
+&lt;p>Tips: 在实际使用Web可访问资源的时候，遇到一个坑。我刚开始开发Chrome扩展的时候，使用Web Accessible Resources的资源文件是一个名叫&lt;code>Road Map.jpeg&lt;/code>的图片，这个文件名中间有个空格，当时运行扩展的时候，就是找不到这个图片资源，报找不到资源的错误。后来发现，在js编码的时候，把空格编码成了“%20”，也就是&lt;code>Road%20Map.jpeg&lt;/code>，因此在&lt;code>manifest.json&lt;/code>中&amp;quot;web_accessible_resources&amp;quot;设置资源名称时应该将空格改成“%20”，这样才能正常加载图片。不过为了少出错误，文件名中最好还是不要有空格等特殊字符吧。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="再谈content-script与网页上下文">再谈content script与网页上下文&lt;/h3>
+&lt;p>&lt;img src="./images/chrome%E6%89%A9%E5%B1%95%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%B3%E7%B3%BB.drawio.svg" alt="chrome扩展上下文关系.drawio.svg">&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">JS种类&lt;/th>
+&lt;th style="text-align:center">可访问的Chrome API&lt;/th>
+&lt;th style="text-align:center">DOM访问情况&lt;/th>
+&lt;th style="text-align:center">页面JS访问情况&lt;/th>
+&lt;th style="text-align:center">直接跨域&lt;/th>
+&lt;th style="text-align:center">调试方式&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">injected scripts through web accessible resources&lt;/td>
+&lt;td style="text-align:center">和普通JS无任何差别，不能访问任何扩展API&lt;/td>
+&lt;td style="text-align:center">可以访问&lt;/td>
+&lt;td style="text-align:center">可以访问&lt;/td>
+&lt;td style="text-align:center">不可以&lt;/td>
+&lt;td style="text-align:center">开发者工具-控制台（和页面JS一样）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">content scripts&lt;/td>
+&lt;td style="text-align:center">只能访问 storage、i18n、runtime等部分API&lt;/td>
+&lt;td style="text-align:center">可以访问&lt;/td>
+&lt;td style="text-align:center">不可以&lt;/td>
+&lt;td style="text-align:center">不可以&lt;/td>
+&lt;td style="text-align:center">开发者工具-控制台-javascript上下文-切换为对应扩展&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">popup js&lt;/td>
+&lt;td style="text-align:center">可访问绝大部分API，除了devtools系列&lt;/td>
+&lt;td style="text-align:center">不可直接访问&lt;/td>
+&lt;td style="text-align:center">不可以&lt;/td>
+&lt;td style="text-align:center">可以&lt;/td>
+&lt;td style="text-align:center">扩展按钮-右键-审查元素-DevTools&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">background js&lt;/td>
+&lt;td style="text-align:center">可访问绝大部分API，除了devtools系列&lt;/td>
+&lt;td style="text-align:center">不可直接访问&lt;/td>
+&lt;td style="text-align:center">不可以&lt;/td>
+&lt;td style="text-align:center">可以&lt;/td>
+&lt;td style="text-align:center">扩展管理页面-查看视图-DevTools&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">devtools js&lt;/td>
+&lt;td style="text-align:center">只能访问 devtools、runtime等部分API&lt;/td>
+&lt;td style="text-align:center">可以&lt;/td>
+&lt;td style="text-align:center">可以&lt;/td>
+&lt;td style="text-align:center">不可以&lt;/td>
+&lt;td style="text-align:center">-&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h2 id="消息传递message-passing">消息传递(Message passing)&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th> &lt;/th>
+&lt;th>injected-script through WAR&lt;/th>
+&lt;th>content-script&lt;/th>
+&lt;th>popup-js&lt;/th>
+&lt;th>background-js&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>injected-script through WAR&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>window.postMessage&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>content-script&lt;/td>
+&lt;td>window.postMessage&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>chrome.runtime.sendMessage chrome.runtime.connect&lt;/td>
+&lt;td>chrome.runtime.sendMessage chrome.runtime.connect&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>popup-js&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>chrome.tabs.sendMessage chrome.tabs.connect&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>chrome.extension. getBackgroundPage()&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>background-js&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>chrome.tabs.sendMessage chrome.tabs.connect&lt;/td>
+&lt;td>chrome.extension.getViews&lt;/td>
+&lt;td>-&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h3 id="实例消息计时器">实例：消息计时器&lt;/h3>
 &lt;h2 id="丰富的通知apirich-notifications-api">丰富的通知API(Rich notifications API)&lt;/h2>
 &lt;h3 id="实例按时喝水">实例：按时喝水&lt;/h3>
@@ -6077,7 +6192,7 @@ E[f(Y)|Y=y]=E[f(Y=y)|Y=y]=E[f(y)]=f(y)
 &lt;li>文章中遇到太多公式的时候。hugo自带的编译器渲染出来的公式效果很差，有大量无法编译的公式。&lt;/li>
 &lt;/ol>
 &lt;p>问题1解决：我将文章目录都放到了hugo的content目录，hugo会自动读取content下所有的目录和文件，并根据目录结构生成这也是选择hugo框架的一个优势。&lt;/p>
-&lt;p>问题2解决：由于hugo在content文件中不支持编译纯html文件，我将网页资料的文件夹放在&lt;code>/static/&lt;/code>目录下，然后用&lt;code>hugo&lt;/code>的&lt;code>readDir&lt;/code>函数读取文件夹中的内容，然后拼接成链接，不需要能生成文件夹目录txt文章的工具等步骤。&lt;/p>
+&lt;p>问题2解决：由于hugo在content文件中不支持编译纯html文件，我将网页资料的文件夹放在&lt;code>/static/&lt;/code>目录下，然后在主题的&lt;code>lib_webpages&lt;/code>模板中用&lt;code>hugo&lt;/code>的&lt;code>readDir&lt;/code>函数读取文件夹中的内容，然后拼接成链接，不需要能生成文件夹目录txt文章的工具等步骤。目录则使用&lt;code>/content/library/webpages.html&lt;/code>生成，其调用了主题中的&lt;code>lib_webpages&lt;/code>模板。有个小缺点，即URL的层级关系被破坏。&lt;/p>
 &lt;p>问题3解决：在本地我用的是VS Code写markdown，我发现它是支持打开的文件作为根目录来索引文件的，即支持以打开的目录为&amp;quot;/&amp;quot;索引。因此，我把我所有本地的markdown文件中的&lt;code>../images/&lt;/code>改成了&lt;code>/images/&lt;/code>。其实用绝对路径对本地写markdown也是有好处的，就是主要打开的文件夹不变，就可以用多层文件结构编写文档，而不用总记相对路径；对网站的SEO也有利。此外，hugo对相对路径的支持也是有很多问题的，不值得花太多精力处理。&lt;/p>
 &lt;p>问题4TODO：参考&lt;a href="https://www.kyfws.com/post/kyfws-hugo-baidu-seo/">https://www.kyfws.com/post/kyfws-hugo-baidu-seo/&lt;/a>&lt;/p>
 &lt;p>问题5解决：可以通过hugo内置的&lt;code>_internal/disqus.html&lt;/code>完成评论功能，但是感觉我目前不太需要。&lt;/p>

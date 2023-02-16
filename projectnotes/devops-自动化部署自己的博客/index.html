@@ -349,7 +349,7 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <li>文章中遇到太多公式的时候。hugo自带的编译器渲染出来的公式效果很差，有大量无法编译的公式。</li>
 </ol>
 <p>问题1解决：我将文章目录都放到了hugo的content目录，hugo会自动读取content下所有的目录和文件，并根据目录结构生成这也是选择hugo框架的一个优势。</p>
-<p>问题2解决：由于hugo在content文件中不支持编译纯html文件，我将网页资料的文件夹放在<code>/static/</code>目录下，然后用<code>hugo</code>的<code>readDir</code>函数读取文件夹中的内容，然后拼接成链接，不需要能生成文件夹目录txt文章的工具等步骤。</p>
+<p>问题2解决：由于hugo在content文件中不支持编译纯html文件，我将网页资料的文件夹放在<code>/static/</code>目录下，然后在主题的<code>lib_webpages</code>模板中用<code>hugo</code>的<code>readDir</code>函数读取文件夹中的内容，然后拼接成链接，不需要能生成文件夹目录txt文章的工具等步骤。目录则使用<code>/content/library/webpages.html</code>生成，其调用了主题中的<code>lib_webpages</code>模板。有个小缺点，即URL的层级关系被破坏。</p>
 <p>问题3解决：在本地我用的是VS Code写markdown，我发现它是支持打开的文件作为根目录来索引文件的，即支持以打开的目录为"/"索引。因此，我把我所有本地的markdown文件中的<code>../images/</code>改成了<code>/images/</code>。其实用绝对路径对本地写markdown也是有好处的，就是主要打开的文件夹不变，就可以用多层文件结构编写文档，而不用总记相对路径；对网站的SEO也有利。此外，hugo对相对路径的支持也是有很多问题的，不值得花太多精力处理。</p>
 <p>问题4TODO：参考<a href=https://www.kyfws.com/post/kyfws-hugo-baidu-seo/>https://www.kyfws.com/post/kyfws-hugo-baidu-seo/</a></p>
 <p>问题5解决：可以通过hugo内置的<code>_internal/disqus.html</code>完成评论功能，但是感觉我目前不太需要。</p>
