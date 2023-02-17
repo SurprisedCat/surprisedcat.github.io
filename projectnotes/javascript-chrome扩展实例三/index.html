@@ -106,7 +106,7 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 </li>
 <li><a href=#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92message-passing>消息传递(Message passing)</a>
 <ul>
-<li><a href=#%E5%AE%9E%E4%BE%8B%E6%B6%88%E6%81%AF%E8%AE%A1%E6%97%B6%E5%99%A8>实例：消息计时器</a></li>
+<li><a href=#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93>消息传递方式总结</a></li>
 </ul>
 </li>
 <li><a href=#%E4%B8%B0%E5%AF%8C%E7%9A%84%E9%80%9A%E7%9F%A5apirich-notifications-api>丰富的通知API(Rich notifications API)</a>
@@ -133,14 +133,145 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 </span><span class=ln>7</span><span class=c1></span>    <span class=p>}</span>
 <span class=ln>8</span>  <span class=p>]</span><span class=err>,</span>
 </code></pre></div><p>其中，<code>resources</code>表示需要暴露给外界的资源文件名称；<code>matches</code>表示匹配的URL，使用match pattern，只有匹配成功的url才能使用暴露出来的资源，也可以使用<code>extension_ids</code>来匹配其他Chrome扩展。<code>matches</code>和<code>extension_ids</code>二者必有一个。<code>use_dynamic_url</code>，可选项，它为真时，只允许使用动态ID来访问Web可用资源，每个session都会的自己生成动态ID。</p>
-<p>之后，外部Web页面可以通过三种方式访问。一是外部Web页面通过<code>chrome-extension://extension-id/FILE_PATH</code>直接访问；二是当使用content script时，content script中可以使用Chrome API <code>chrome.runtime.getURL(FILE_PATH)</code>来访问。<code>chrome.runtime.getURL</code>将根据自身来自哪个扩展生成extension ID。三是可以使用<code>@@extension_id</code>来替代javascript中<code>chrome.runtime.getURL</code>生成extension ID的效果（用法<code>chrome.i18n.getMessage("@@extension_id")</code>），也可以在CSS文件中使用（用法<code>__MSG_@@extension_id__</code>），注意<code>__MSG_@@extension_id__</code>用在html的内联css中貌似不生效，只在Web可用文件的独立文件中生效，可能是因为Chrome扩展觉得Html网页的内容不归它管吧，只有从它这里取出去的文件才会做<code>__MSG_@@extension_id__</code>的转换。</p>
+<p>之后，外部Web页面可以通过三种方式访问。一是外部Web页面通过<code>chrome-extension://extension-id/FILE_PATH</code>直接访问；二是当使用content script时，content script中可以使用Chrome API <code>chrome.runtime.getURL(FILE_PATH)</code>来访问。<code>chrome.runtime.getURL</code>将根据自身来自哪个扩展生成extension ID。三是可以使用<code>@@extension_id</code>来替代javascript中<code>chrome.runtime.getURL</code>生成extension ID的效果（用法<code>chrome.i18n.getMessage("@@extension_id")</code>），也可以在CSS文件中使用（用法<code>__MSG_@@extension_id__</code>），注意<code>__MSG_@@extension_id__</code>用在html的内联css中貌似不生效，只在Web可访问文件的独立CSS/JS文件中生效，可能是因为Chrome扩展觉得Html网页的内容不归它管吧，只有从它这里取出去的文件才会做<code>__MSG_@@extension_id__</code>的转换。</p>
 <h3 id=实例资源可用性展示>实例：资源可用性展示</h3>
-<p>下面我们用一个例子展示Web可访问资源，为了方便</p>
+<p>下面我们通过下面例子中4个图片的可访问性来展示Web可访问资源的用法与性质。为了方便，我们先将该扩展的文件结构展示如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=ln> 1</span>web_accessible_resources
+<span class=ln> 2</span>    ├─ manifest.json
+<span class=ln> 3</span>    ├─ options.html
+<span class=ln> 4</span>    ├─ assets
+<span class=ln> 5</span>    │    └─ test.css
+<span class=ln> 6</span>    ├─ images
+<span class=ln> 7</span>    │    ├─ icon-128.png
+<span class=ln> 8</span>    │    ├─ test1.png
+<span class=ln> 9</span>    │    ├─ test2.png
+<span class=ln>10</span>    │    ├─ test3.png
+<span class=ln>11</span>    │    └─ test4.png
+<span class=ln>12</span>    └─ js
+<span class=ln>13</span>       ├─ content.js
+<span class=ln>14</span>       └─ web_access_resources.js
+</code></pre></div><p>其中，<code>test1.png</code>-<code>test4.png</code>是四张标有数字的图片。另外，示例的Demo网页网站为：<a href=https://surprisedcat.github.io/%E7%BD%91%E9%A1%B5%E8%B5%84%E6%96%99/DemoAndTest/javascript_chrome_extension_web_accessible_resources.html>https://surprisedcat.github.io/%E7%BD%91%E9%A1%B5%E8%B5%84%E6%96%99/DemoAndTest/javascript_chrome_extension_web_accessible_resources.html</a>。该网页相关的结构如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=ln>1</span>DemoAndTest
+<span class=ln>2</span>    ├─ javascript_chrome_extension_web_accessible_resources.html
+<span class=ln>3</span>    └─ js
+<span class=ln>4</span>      └─ web_access_resources.js
+</code></pre></div><p>为了便于对比，我们将扩展的<code>option.html</code>设置的与Demo网页<code>javascript_chrome_extension_web_accessible_resources.html</code>几乎一样（包括<code>web_access_resources.js</code>也一样），除了content script的js内容用了不同引入方式。因为扩展内部的<code>option.html</code>是无法使用content script，因此，我们直接用<code>&lt;script src="js/content.js">&lt;/script></code>引入，<code>javascript_chrome_extension_web_accessible_resources.html</code>中则是使用扩展静态声明注入。</p>
+<p>首先，我们查看<code>manifest.json</code>来大体了解下这个扩展：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=ln> 1</span><span class=p>{</span>
+<span class=ln> 2</span>    <span class=nt>&#34;name&#34;</span><span class=p>:</span> <span class=s2>&#34;Web Accessible Resources Demo&#34;</span><span class=p>,</span>
+<span class=ln> 3</span>    <span class=nt>&#34;version&#34;</span><span class=p>:</span> <span class=s2>&#34;1.0&#34;</span><span class=p>,</span>
+<span class=ln> 4</span>    <span class=nt>&#34;manifest_version&#34;</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span>
+<span class=ln> 5</span>    <span class=nt>&#34;action&#34;</span><span class=p>:</span> <span class=p>{</span>
+<span class=ln> 6</span>        <span class=nt>&#34;default_icon&#34;</span><span class=p>:</span> <span class=s2>&#34;images/icon-128.png&#34;</span>
+<span class=ln> 7</span>    <span class=p>},</span>
+<span class=ln> 8</span>    <span class=nt>&#34;options_page&#34;</span><span class=p>:</span> <span class=s2>&#34;options.html&#34;</span><span class=p>,</span>
+<span class=ln> 9</span>    <span class=nt>&#34;content_scripts&#34;</span><span class=p>:</span> <span class=p>[</span>
+<span class=ln>10</span>        <span class=p>{</span>
+<span class=ln>11</span>        <span class=nt>&#34;matches&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=s2>&#34;https://surprisedcat.github.io/*&#34;</span> <span class=p>],</span>
+<span class=ln>12</span>        <span class=nt>&#34;all_frames&#34;</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+<span class=ln>13</span>        <span class=nt>&#34;js&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;js/content.js&#34;</span><span class=p>]</span>
+<span class=ln>14</span>        <span class=p>}</span>
+<span class=ln>15</span>    <span class=p>],</span>
+<span class=ln>16</span>    <span class=nt>&#34;web_accessible_resources&#34;</span><span class=p>:</span> <span class=p>[</span>
+<span class=ln>17</span>        <span class=p>{</span>
+<span class=ln>18</span>        <span class=nt>&#34;resources&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=s2>&#34;images/test1.png&#34;</span><span class=p>,</span> <span class=s2>&#34;images/test2.png&#34;</span><span class=p>,</span> <span class=s2>&#34;images/test3.png&#34;</span><span class=p>,</span> <span class=s2>&#34;assets/test.css&#34;</span> <span class=p>],</span>
+<span class=ln>19</span>        <span class=nt>&#34;matches&#34;</span><span class=p>:</span> <span class=p>[</span> <span class=s2>&#34;https://surprisedcat.github.io/*&#34;</span> <span class=p>]</span>
+<span class=ln>20</span>        <span class=p>}</span>
+<span class=ln>21</span>    <span class=p>]</span>
+<span class=ln>22</span><span class=p>}</span>
+</code></pre></div><p>其中，和Web可访问资源相关的就是<code>web_accessible_resources</code>，设置了4个<code>https://surprisedcat.github.io</code>这个域名下访问的的资源，前三个是图片1，2，3，最后一个是一个CSS文件，它调用了图片<code>test3.png</code>作为背景图片。<code>test4.png</code>没有被作为Web可访问资源，在扩展的<code>options.html</code>可以访问，而外部页面无法访问，后面我们将展示这个例子。此外，<code>manifest.json</code>还使用静态声明注入了<code>js/content.js</code>。</p>
+<p>下面我们看看<code>javascript_chrome_extension_web_accessible_resources.html</code>的源码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=ln> 1</span><span class=cp>&lt;!DOCTYPE html&gt;</span>
+<span class=ln> 2</span><span class=p>&lt;</span><span class=nt>html</span> <span class=na>lang</span><span class=o>=</span><span class=s>&#34;en&#34;</span><span class=p>&gt;</span>
+<span class=ln> 3</span>  <span class=p>&lt;</span><span class=nt>head</span><span class=p>&gt;</span>
+<span class=ln> 4</span>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>charset</span><span class=o>=</span><span class=s>&#34;utf-8&#34;</span><span class=p>&gt;</span>
+<span class=ln> 5</span>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>http-equiv</span><span class=o>=</span><span class=s>&#34;X-UA-Compatible&#34;</span> <span class=na>content</span><span class=o>=</span><span class=s>&#34;IE=edge&#34;</span><span class=p>&gt;</span>
+<span class=ln> 6</span>    <span class=p>&lt;</span><span class=nt>meta</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;viewport&#34;</span> <span class=na>content</span><span class=o>=</span><span class=s>&#34;width=device-width, initial-scale=1&#34;</span><span class=p>&gt;</span>
+<span class=ln> 7</span>    <span class=p>&lt;</span><span class=nt>style</span><span class=p>&gt;</span>
+<span class=ln> 8</span>        <span class=p>#</span><span class=nn>test3</span> <span class=p>{</span>
+<span class=ln> 9</span>            <span class=k>border-style</span><span class=p>:</span> <span class=kc>solid</span><span class=p>;</span>
+<span class=ln>10</span>            <span class=k>height</span><span class=p>:</span> <span class=mi>100</span><span class=kt>px</span><span class=p>;</span>
+<span class=ln>11</span>            <span class=k>width</span><span class=p>:</span> <span class=mi>100</span><span class=kt>px</span><span class=p>;</span>
+<span class=ln>12</span>        <span class=p>}</span>
+<span class=ln>13</span>    <span class=p>&lt;/</span><span class=nt>style</span><span class=p>&gt;</span>
+<span class=ln>14</span>    <span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>Web accessible resources<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
+<span class=ln>15</span>  <span class=p>&lt;/</span><span class=nt>head</span><span class=p>&gt;</span>  
+<span class=ln>16</span>  <span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+<span class=ln>17</span>    <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span>Web可用资源示例<span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+<span class=ln>18</span>    <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>本页面位于外部网站<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+<span class=ln>19</span>    <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>Web页面直接使用Extension ID加载：text1.png<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+<span class=ln>20</span>    <span class=p>&lt;</span><span class=nt>form</span><span class=p>&gt;&lt;</span><span class=nt>label</span><span class=p>&gt;</span>Extension ID:<span class=p>&lt;/</span><span class=nt>label</span><span class=p>&gt;&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;text&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;extension_id_input&#34;</span><span class=p>&gt;</span>
+<span class=ln>21</span>    <span class=p>&lt;</span><span class=nt>input</span> <span class=na>type</span><span class=o>=</span><span class=s>&#34;button&#34;</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;testButton&#34;</span> <span class=na>value</span><span class=o>=</span><span class=s>&#34;确定&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>form</span><span class=p>&gt;&lt;</span><span class=nt>br</span><span class=p>&gt;</span>
+<span class=ln>22</span>    <span class=p>&lt;</span><span class=nt>img</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;test1&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;100&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;100&#34;</span><span class=p>&gt;&lt;</span><span class=nt>br</span><span class=p>&gt;</span>
+<span class=ln>23</span>    <span class=p>&lt;</span><span class=nt>h2</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;header2&#34;</span><span class=p>&gt;</span>Content script加载：text2.png<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+<span class=ln>24</span>    <span class=p>&lt;</span><span class=nt>img</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;test2&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;100&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;100&#34;</span><span class=p>&gt;&lt;</span><span class=nt>br</span><span class=p>&gt;</span>
+<span class=ln>25</span>    <span class=p>&lt;</span><span class=nt>h2</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;header3&#34;</span><span class=p>&gt;</span>CSS作为背景加载：text3.png<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+<span class=ln>26</span>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;test3&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>div</span><span class=p>&gt;&lt;</span><span class=nt>br</span><span class=p>&gt;</span>
+<span class=ln>27</span>    <span class=p>&lt;</span><span class=nt>h2</span><span class=p>&gt;</span>一个不在web accessible resources中的文件：text4.png<span class=p>&lt;/</span><span class=nt>h2</span><span class=p>&gt;</span>
+<span class=ln>28</span>    <span class=p>&lt;</span><span class=nt>img</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;test4&#34;</span> <span class=na>height</span><span class=o>=</span><span class=s>&#34;100&#34;</span> <span class=na>width</span><span class=o>=</span><span class=s>&#34;100&#34;</span><span class=p>&gt;&lt;</span><span class=nt>br</span><span class=p>&gt;</span>
+<span class=ln>29</span>
+<span class=ln>30</span>    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;js/web_access_resources.js&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+<span class=ln>31</span>  <span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+<span class=ln>32</span><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
+</code></pre></div><p>总结来说，就是放了四个框框，每个框框里希望引入一个图片。直观效果如下：</p>
+<p><img src=../../images/chrome_extension_web_accessible_resources_demo.png alt=chrome_extension_web_accessible_resources_demo></p>
+<p>第一个<code>&lt;img id="test1" height="100" width="100"></code>和第四个<code>&lt;img id="test4" height="100" width="100"></code>都是通过js脚本修改其<code>src</code>属性来更新图片的。js脚本内容在<code>js/web_access_resources.js</code>文件中，内容如下；</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln>1</span><span class=c1>//为“testButton”按钮增加监听事件
+</span><span class=ln>2</span><span class=c1></span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;testButton&#34;</span><span class=p>).</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s2>&#34;click&#34;</span><span class=p>,</span><span class=nx>setExtensionID</span><span class=p>)</span>
+<span class=ln>3</span><span class=c1>//点击按钮，将输入框中的extension id值赋值给第一、四个&lt;img&gt;标签的src属性。
+</span><span class=ln>4</span><span class=c1></span><span class=kd>function</span> <span class=nx>setExtensionID</span><span class=p>(){</span>
+<span class=ln>5</span>    <span class=kd>let</span> <span class=nx>input_id</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;extension_id_input&#34;</span><span class=p>).</span><span class=nx>value</span><span class=p>;</span>
+<span class=ln>6</span>    <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;test1&#34;</span><span class=p>).</span><span class=nx>src</span><span class=o>=</span><span class=s2>&#34;chrome-extension://&#34;</span><span class=o>+</span><span class=nx>input_id</span><span class=o>+</span><span class=s2>&#34;/images/test1.png&#34;</span><span class=p>;</span>
+<span class=ln>7</span>    <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;test4&#34;</span><span class=p>).</span><span class=nx>src</span><span class=o>=</span><span class=s2>&#34;chrome-extension://&#34;</span><span class=o>+</span><span class=nx>input_id</span><span class=o>+</span><span class=s2>&#34;/images/test4.png&#34;</span><span class=p>;</span>
+<span class=ln>8</span><span class=p>}</span>
+</code></pre></div><p>因为在Web页面的Html中，Chrome扩展无法使用<code>@@extension_id</code>或<code>chrome.runtime.getURL()</code>，所以Html页面若要使用Web可访问资源，只能使用最原始的<code>chrome-extension://extension_id/File_path</code>的方式。我们可以通过<code>chrome://extensions/</code>页面找到扩展的ID（Demo中ID为<code>ioianjljdbholheahfhjidofmjpgnfho</code>，载入后每个用户可能不同）。如果我们已经载入了扩展，就能看到<code>test1.png</code>已经被载入了，而<code>test4.png</code>无法访问，并且报错</p>
 <blockquote>
-<p>Tips: 在实际使用Web可访问资源的时候，遇到一个坑。我刚开始开发Chrome扩展的时候，使用Web Accessible Resources的资源文件是一个名叫<code>Road Map.jpeg</code>的图片，这个文件名中间有个空格，当时运行扩展的时候，就是找不到这个图片资源，报找不到资源的错误。后来发现，在js编码的时候，把空格编码成了“%20”，也就是<code>Road%20Map.jpeg</code>，因此在<code>manifest.json</code>中"web_accessible_resources"设置资源名称时应该将空格改成“%20”，这样才能正常加载图片。不过为了少出错误，文件名中最好还是不要有空格等特殊字符吧。</p>
+<p>Denying load of chrome-extension://ioianjljdbholheahfhjidofmjpgnfho/images/test4.png. Resources must be listed in the web_accessible_resources manifest key in order to be loaded by pages outside the extension.</p>
 </blockquote>
+<p>这是因为我们并没有把<code>test4.png</code>作为Web可访问资源，因此外界无法访问。但是，如果我们打开扩展的选项页<code>options.html</code>，执行同样的操作，<code>test4.png</code>是能显示出来的。这是因为<code>options.html</code>是扩展内的Web页面，可直接访问到扩展内部的所有资源，无需<code>web_accessible_resources</code>字段。二者区别如下：（图左外部页面，图右扩展<code>options.html</code>页面。）</p>
+<p><img src=../../images/chrome_extension_web_accessible_resources_demo2.png alt=chrome_extension_web_accessible_resources_demo2.png></p>
+<blockquote>
+<p>Tips: 在实际使用Web可访问资源的时候，遇到一个坑。我刚开始开发Chrome扩展的时候，使用Web Accessible Resources的资源文件是一个名叫<code>test image.jpeg</code>的图片，这个文件名中间有个空格，当时运行扩展的时候，就是找不到这个图片资源，报找不到资源的错误。后来发现，在js编码的时候，把空格编码成了“%20”，也就是<code>test%20image.jpeg</code>，因此在<code>manifest.json</code>中"web_accessible_resources"设置资源名称时应该将空格改成“%20”，这样才能正常加载图片。不过为了少出错误，文件名中最好还是不要有空格等特殊字符吧。</p>
+</blockquote>
+<p>有细心的读者会发现，上面对比的页面的图片与原始Web页面相比，中间两个标题后面多出了两个按钮：“载入图片”和“载入CSS”。这是我们载入扩展后，静态声明注入的<code>js/content.js</code>文件中添加的DOM元素，其代码如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=ln> 1</span><span class=c1>//content.js
+</span><span class=ln> 2</span><span class=c1>//在标题后添加按钮元素，点击后添加图片src
+</span><span class=ln> 3</span><span class=c1></span><span class=kd>let</span> <span class=nx>loadButton</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;button&#39;</span><span class=p>);</span>
+<span class=ln> 4</span><span class=nx>loadButton</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=s1>&#39;载入图片&#39;</span><span class=p>;</span>
+<span class=ln> 5</span><span class=nx>loadButton</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=nx>handleLoadImage</span><span class=p>);</span>
+<span class=ln> 6</span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;header2&#34;</span><span class=p>).</span><span class=nx>append</span><span class=p>(</span><span class=nx>loadButton</span><span class=p>);</span>
+<span class=ln> 7</span><span class=c1>//使用chrome.runtime.getURL生成带扩展ID的URL
+</span><span class=ln> 8</span><span class=c1></span><span class=kd>function</span> <span class=nx>handleLoadImage</span><span class=p>()</span> <span class=p>{</span>
+<span class=ln> 9</span>    <span class=kd>let</span> <span class=nx>element</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;test2&#34;</span><span class=p>);</span>
+<span class=ln>10</span>    <span class=nx>strtest</span> <span class=o>=</span> <span class=nx>chrome</span><span class=p>.</span><span class=nx>runtime</span><span class=p>.</span><span class=nx>getURL</span><span class=p>(</span><span class=s2>&#34;images/test2.png&#34;</span><span class=p>);</span>
+<span class=ln>11</span>    <span class=nx>element</span><span class=p>.</span><span class=nx>src</span> <span class=o>=</span> <span class=nx>strtest</span><span class=p>;</span>
+<span class=ln>12</span><span class=p>}</span>
+<span class=ln>13</span><span class=c1>//在标题后添加按钮元素，点击后添加link元素链接外部CSS
+</span><span class=ln>14</span><span class=c1></span><span class=kd>let</span> <span class=nx>loadCSS</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;button&#39;</span><span class=p>);</span>
+<span class=ln>15</span><span class=nx>loadCSS</span><span class=p>.</span><span class=nx>innerText</span> <span class=o>=</span> <span class=s1>&#39;载入CSS&#39;</span><span class=p>;</span>
+<span class=ln>16</span><span class=nx>loadCSS</span><span class=p>.</span><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;click&#39;</span><span class=p>,</span> <span class=nx>handleLoadCSS</span><span class=p>);</span>
+<span class=ln>17</span><span class=nb>document</span><span class=p>.</span><span class=nx>getElementById</span><span class=p>(</span><span class=s2>&#34;header3&#34;</span><span class=p>).</span><span class=nx>append</span><span class=p>(</span><span class=nx>loadCSS</span><span class=p>);</span>
+<span class=ln>18</span><span class=c1>//使用chrome.i18n.getMessage(&#34;@@extension_id&#34;)生成带扩展ID的URL
+</span><span class=ln>19</span><span class=c1></span><span class=kd>function</span> <span class=nx>handleLoadCSS</span><span class=p>()</span> <span class=p>{</span>
+<span class=ln>20</span>    <span class=kr>const</span> <span class=nx>head</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>getElementsByTagName</span><span class=p>(</span><span class=s1>&#39;head&#39;</span><span class=p>)[</span><span class=mi>0</span><span class=p>];</span>
+<span class=ln>21</span>    <span class=kr>const</span> <span class=nx>link</span> <span class=o>=</span> <span class=nb>document</span><span class=p>.</span><span class=nx>createElement</span><span class=p>(</span><span class=s1>&#39;link&#39;</span><span class=p>);</span>
+<span class=ln>22</span>    <span class=nx>link</span><span class=p>.</span><span class=nx>type</span><span class=o>=</span><span class=s1>&#39;text/css&#39;</span><span class=p>;</span>
+<span class=ln>23</span>    <span class=nx>link</span><span class=p>.</span><span class=nx>rel</span> <span class=o>=</span> <span class=s1>&#39;stylesheet&#39;</span><span class=p>;</span>
+<span class=ln>24</span>    <span class=nx>link</span><span class=p>.</span><span class=nx>href</span> <span class=o>=</span> <span class=s2>&#34;chrome-extension://&#34;</span><span class=o>+</span><span class=nx>chrome</span><span class=p>.</span><span class=nx>i18n</span><span class=p>.</span><span class=nx>getMessage</span><span class=p>(</span><span class=s2>&#34;@@extension_id&#34;</span><span class=p>)</span><span class=o>+</span><span class=s2>&#34;/assets/test.css&#34;</span><span class=p>;</span>
+<span class=ln>25</span>    <span class=nx>head</span><span class=p>.</span><span class=nx>appendChild</span><span class=p>(</span><span class=nx>link</span><span class=p>);</span>
+<span class=ln>26</span><span class=p>}</span>
+</code></pre></div><p>这段js代码的关键就是如何生成带extension id的URL，我们分别通过两种方式实现，一是调用<code>chrome.runtime.getURL</code>接口，二是调用<code>chrome.i18n.getMessage("@@extension_id")</code>这两种都能获得extension id。当在CSS文件中无法使用Chrome API获得extension id时，Chrome的开发人员还为我们提供了<code>__MSG_@@extension_id__</code>让Web可访问的CSS资源能够动态生成ID。我们在网页中引入Web可访问的CSS样式表<code>test.css</code>中就是用了<code>__MSG_@@extension_id__</code>作为第三个方框的背景图：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=ln>1</span><span class=p>#</span><span class=nn>test3</span> <span class=p>{</span>
+<span class=ln>2</span>    <span class=k>background-image</span><span class=p>:</span> <span class=nb>url</span><span class=p>(</span><span class=s1>&#39;chrome-extension://__MSG_@@extension_id__/images/test3.png&#39;</span><span class=p>);</span>
+<span class=ln>3</span><span class=p>}</span>
+</code></pre></div><p>这样我们就能够载入所有Web可访问资源了：</p>
+<p><img src=../../images/chrome_extension_web_accessible_resources_demo3.png alt=chrome_extension_web_accessible_resources_demo3.png></p>
 <h3 id=再谈content-script与网页上下文>再谈content script与网页上下文</h3>
-<p><img src=../../images/chrome%E6%89%A9%E5%B1%95%E4%B8%8A%E4%B8%8B%E6%96%87%E5%85%B3%E7%B3%BB.drawio.svg alt=chrome扩展上下文关系.drawio.svg></p>
+<p>前面我们已经知道页面的js和扩展content script注入的js运行在两个不同的上下文中。只有同一个上下文中的js是具有互操作性的。比如，同一个网页中无论是内联js还是外部链接引入的js，他们可以共享全局变量、函数等（但是要注意载入顺序，否则会出现前面的js引用后面还未载入的js内容而导致的引用为null的错误）。</p>
+<p>虽然页面的js和扩展content script注入的js二者的运行上下文是隔离的，但是它们都可以操作页面DOM，这也是content script的特殊之处。</p>
+<p>但是在Web可访问资源的场景下，还有一种特殊的javacript文件，它本身属于Chrome扩展，但是通过<code>manifest.json</code>中的Web可访问资源配置项暴露给了外面的网站，从而被外面网站所引用，这种特殊的js脚本可以叫做injected scripts through web accessible resources。其实，我们可以将这类js简单地理解成当前Web页面引入了一个跨域的js文件，并在Web页面的上下文中运行，因此injected scripts through web accessible resources与页面其他的js本质是一样的，此不过来源比较特殊，是从扩展引入的。因此，injected scripts through web accessible resources的运行上下文就是Web页面的上下文，可以操作DOM，也可以与页面本身的JS互操作。同时，这类JS也和Chrome扩展的上下文没有了关系，因此无法使用任何Chrome API。</p>
+<p>而扩展本身的js如<code>background.js</code>、<code>popup.js</code>等，他们完全与Web页面的js上下文隔离开，只能通过Chrome API、content script间接访问页面的DOM元素。（<code>devtools</code>的js例外，正常也用不到）</p>
+<p>Javascript可访问性总结如下表：</p>
 <table>
 <thead>
 <tr>
@@ -148,8 +279,7 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <th style=text-align:center>可访问的Chrome API</th>
 <th style=text-align:center>DOM访问情况</th>
 <th style=text-align:center>页面JS访问情况</th>
-<th style=text-align:center>直接跨域</th>
-<th style=text-align:center>调试方式</th>
+<th style=text-align:center>附：调试方式</th>
 </tr>
 </thead>
 <tbody>
@@ -158,14 +288,12 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <td style=text-align:center>和普通JS无任何差别，不能访问任何扩展API</td>
 <td style=text-align:center>可以访问</td>
 <td style=text-align:center>可以访问</td>
-<td style=text-align:center>不可以</td>
 <td style=text-align:center>开发者工具-控制台（和页面JS一样）</td>
 </tr>
 <tr>
 <td style=text-align:center>content scripts</td>
 <td style=text-align:center>只能访问 storage、i18n、runtime等部分API</td>
 <td style=text-align:center>可以访问</td>
-<td style=text-align:center>不可以</td>
 <td style=text-align:center>不可以</td>
 <td style=text-align:center>开发者工具-控制台-javascript上下文-切换为对应扩展</td>
 </tr>
@@ -174,7 +302,6 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <td style=text-align:center>可访问绝大部分API，除了devtools系列</td>
 <td style=text-align:center>不可直接访问</td>
 <td style=text-align:center>不可以</td>
-<td style=text-align:center>可以</td>
 <td style=text-align:center>扩展按钮-右键-审查元素-DevTools</td>
 </tr>
 <tr>
@@ -182,7 +309,6 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <td style=text-align:center>可访问绝大部分API，除了devtools系列</td>
 <td style=text-align:center>不可直接访问</td>
 <td style=text-align:center>不可以</td>
-<td style=text-align:center>可以</td>
 <td style=text-align:center>扩展管理页面-查看视图-DevTools</td>
 </tr>
 <tr>
@@ -190,54 +316,43 @@ Feb 13, 2023</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/ec
 <td style=text-align:center>只能访问 devtools、runtime等部分API</td>
 <td style=text-align:center>可以</td>
 <td style=text-align:center>可以</td>
-<td style=text-align:center>不可以</td>
 <td style=text-align:center>-</td>
 </tr>
 </tbody>
 </table>
 <h2 id=消息传递message-passing>消息传递(Message passing)</h2>
+<p>Chrome扩展不同组件的消息传递模式不同。（Todo）</p>
+<h3 id=消息传递方式总结>消息传递方式总结</h3>
 <table>
 <thead>
 <tr>
-<th> </th>
-<th>injected-script through WAR</th>
-<th>content-script</th>
-<th>popup-js</th>
-<th>background-js</th>
+<th style=text-align:center> </th>
+<th style=text-align:center>js in Web page (including web accessible resources)</th>
+<th style=text-align:center>content-script</th>
+<th style=text-align:center>popup-js background-js</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>injected-script through WAR</td>
-<td>-</td>
-<td>window.postMessage</td>
-<td>-</td>
-<td>-</td>
+<td style=text-align:center>js in Web page (including web accessible resources)</td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>window.postMessage</td>
+<td style=text-align:center>externally_connectable</td>
 </tr>
 <tr>
-<td>content-script</td>
-<td>window.postMessage</td>
-<td>-</td>
-<td>chrome.runtime.sendMessage chrome.runtime.connect</td>
-<td>chrome.runtime.sendMessage chrome.runtime.connect</td>
+<td style=text-align:center>content-script</td>
+<td style=text-align:center>window.postMessage</td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>chrome.runtime.sendMessage chrome.runtime.connect</td>
 </tr>
 <tr>
-<td>popup-js</td>
-<td>-</td>
-<td>chrome.tabs.sendMessage chrome.tabs.connect</td>
-<td>-</td>
-<td>chrome.extension. getBackgroundPage()</td>
-</tr>
-<tr>
-<td>background-js</td>
-<td>-</td>
-<td>chrome.tabs.sendMessage chrome.tabs.connect</td>
-<td>chrome.extension.getViews</td>
-<td>-</td>
+<td style=text-align:center>popup-js background-js</td>
+<td style=text-align:center>externally_connectable</td>
+<td style=text-align:center>chrome.tabs.sendMessage chrome.tabs.connect</td>
+<td style=text-align:center>-</td>
 </tr>
 </tbody>
 </table>
-<h3 id=实例消息计时器>实例：消息计时器</h3>
 <h2 id=丰富的通知apirich-notifications-api>丰富的通知API(Rich notifications API)</h2>
 <h3 id=实例按时喝水>实例：按时喝水</h3>
 <h2 id=匹配模式match-pattern>匹配模式(match pattern)</h2>
