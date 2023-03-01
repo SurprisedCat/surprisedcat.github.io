@@ -1,6 +1,157 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Studynotes on SurprisedCat</title><link>https://surprisedcat.github.io/studynotes/</link><description>Recent content in Studynotes on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 06 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/studynotes/index.xml" rel="self" type="application/rss+xml"/><item><title>数学分析之无穷级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/</link><pubDate>Fri, 06 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Studynotes on SurprisedCat</title><link>https://surprisedcat.github.io/studynotes/</link><description>Recent content in Studynotes on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/studynotes/index.xml" rel="self" type="application/rss+xml"/><item><title>复变函数之复变函数微积分</title><link>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86/</link><pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86/</guid><description>
+&lt;h2 id="复变函数微积分">复变函数微积分 &lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#复变函数定义">复变函数定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#复变函数的导数与微分">复变函数的导数与微分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#c-r">C-R&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#复变函数积分">复变函数积分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#柯西-">柯西-&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#留数与积分">留数与积分&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="复变函数定义">复变函数定义&lt;/h2>
+&lt;h2 id="复变函数的导数与微分">复变函数的导数与微分&lt;/h2>
+&lt;h3 id="c-r">C-R&lt;/h3>
+&lt;h2 id="复变函数积分">复变函数积分&lt;/h2>
+&lt;h3 id="柯西-">柯西-&lt;/h3>
+&lt;h2 id="留数与积分">留数与积分&lt;/h2></description></item><item><title>数学分析-导数、偏导与微分</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%AF%BC%E6%95%B0%E5%81%8F%E5%AF%BC%E4%B8%8E%E5%BE%AE%E5%88%86/</link><pubDate>Sat, 25 Feb 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%AF%BC%E6%95%B0%E5%81%8F%E5%AF%BC%E4%B8%8E%E5%BE%AE%E5%88%86/</guid><description>
+&lt;h2 id="导数偏导与微分">导数、偏导与微分&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#多元函数与一元函数差别的根源">多元函数与一元函数差别的根源&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#导数的延拓">导数的延拓&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从增量到微分">从增量到微分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从多元函数导数到微分">从多元函数导数到微分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#偏导与可微">偏导与可微&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>一元函数与多元函数的导数（偏导数）、微分以及函数的连续性之间关系密切，总体而言它们的关系如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/极限连续可导可微关系.png" alt="极限连续可导可微关系.png" />&lt;p class="caption">极限连续可导可微关系.png&lt;/p>
+&lt;/div>
+&lt;p>一元函数的内容在数学分析中较为容易理解，本文将着重介绍多元函数的偏导数、微分以及其他衍生概念和它们之间的关系。&lt;/p>
+&lt;h2 id="多元函数与一元函数差别的根源">多元函数与一元函数差别的根源&lt;/h2>
+&lt;p>在一元函数中，可微和可导是等价的，但是在多元函数中并不如此，并且导数在多元函数中推广并不是自然的拓展，而是衍生出偏导数、方向导数、全导数等额外概念。此外，多元函数连续性的概念也不仅仅是从负方向和正方向两边连续这么简单了。造成这一切的根源是&lt;strong>自变量维度的变化&lt;/strong>。&lt;/p>
+&lt;p>我们先看一元函数场景下：&lt;/p>
+&lt;ul>
+&lt;li>函数&lt;span class="math">\(f(x)\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>处极限：&lt;span class="math">\(\lim\limits_{x\rightarrow x_0} f(x) =A\)&lt;/span>；&lt;/li>
+&lt;li>函数&lt;span class="math">\(f(x)\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>处连续：&lt;span class="math">\(\lim\limits_{x\rightarrow x_0}f(x) = f(x_0)\)&lt;/span>(函数在&lt;span class="math">\(x_0\)&lt;/span>出有定义);&lt;/li>
+&lt;li>函数&lt;span class="math">\(f(x)\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>处导数：&lt;span class="math">\(\lim\limits_{x\rightarrow x_0} \frac{f(x)-f(x_0)}{x-x_0}=f&amp;#39;(x_0)\)&lt;/span>(函数在&lt;span class="math">\(x_0\)&lt;/span>&lt;strong>邻域&lt;/strong>有定义);&lt;/li>
+&lt;/ul>
+&lt;p>以上三者都谈到了&lt;span class="math">\(x\rightarrow x_0\)&lt;/span>的极限场景，而这三类极限存在的&lt;strong>充要&lt;/strong>条件都是存在左极限&lt;span class="math">\(x\rightarrow x_0^-\)&lt;/span>和右极限&lt;span class="math">\(x\rightarrow x_0^+\)&lt;/span>且相等。也就是说，&lt;strong>一元函数这些定义中，自变量是一维的，只要研究极限从点&lt;span class="math">\(x_0\)&lt;/span>正负两个方向趋近即可&lt;/strong>。如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/左右极限.png" alt="左右极限.png" />&lt;p class="caption">左右极限.png&lt;/p>
+&lt;/div>
+&lt;p>从上图中可知，在以为场景下，趋近于某一点只需要从两个方向分别趋近即可，但是当维度大于一维时，“趋近”的概念有了本质的变化。以二元空间的自变量&lt;span class="math">\((x,y)\)&lt;/span>组成的二维空间为例。如果我们按照惯有思路推导，会认为二维空间的极限是需要从四个方向趋近点&lt;span class="math">\((x_0^-,0),(x_0^+,0),(0,y_0^-),(0,y_0^+)\)&lt;/span>，如下图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/二维空间极限轴方向.png" alt="二维空间极限轴方向" />&lt;p class="caption">二维空间极限轴方向&lt;/p>
+&lt;/div>
+&lt;p>这显然考虑的不够周全，比如考虑二维连续函数，在&lt;span class="math">\(x，y\)&lt;/span>两个轴是1，其他位置都是0，它在原点&lt;span class="math">\((0,0)\)&lt;/span>处，&lt;span class="math">\((x_0^-,0),(x_0^+,0),(0,y_0^-),(0,y_0^+)\)&lt;/span>四个方向都是连续的，但是从沿着向量&lt;span class="math">\((1,1)\)&lt;/span>的方向就不连续了，函数值从0跳跃到了1。所以，当自变量大于一维时，我们考虑&lt;strong>点所在空间的所有方向&lt;/strong>，而不限于几个分量的方向：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/二维空间极限全方向.png" alt="二维空间极限全方向.png" />&lt;p class="caption">二维空间极限全方向.png&lt;/p>
+&lt;/div>
+&lt;p>当我们研究的问题从两个方向一下子扩展到无穷个方向后，传统的一些做法和结论就不适用了。&lt;/p>
+&lt;p>换个严谨点的说法：多维极限的存在，是指点&lt;span class="math">\(\vec{p}\)&lt;/span>以任何方式趋于点&lt;span class="math">\(\vec{p}_0\)&lt;/span>时，函数值&lt;span class="math">\(f(\vec{p})\)&lt;/span>都无限接近于&lt;span class="math">\(f(\vec{p}_0)\)&lt;/span>。因此，如果点&lt;span class="math">\(\vec{p}\)&lt;/span>只是以特殊方式，例如沿着一条定直线或定曲线趋于$ &lt;em>0&lt;span class="math">\(，即使函数值同样趋近于\)&lt;/span>f(&lt;/em>0)&lt;span class="math">\(，我们还不能由此断定函数的极限存在。但是反过来，如果当\)&lt;/span>&lt;span class="math">\(以不同方式趋近于\)&lt;/span>_0&lt;span class="math">\(时，函数\)&lt;/span>f()$趋于不同的值，那么就可以断定这函数的极限不存在。&lt;/p>
+&lt;p>一句话总结：极限趋近方向从两个变成了无穷个。&lt;/p>
+&lt;h2 id="导数的延拓">导数的延拓&lt;/h2>
+&lt;p>一元函数的导数是直观的，因为自变量只有一个，导数的定义就是函数值（因变量）随着自变量变化的变化率。但是在多元函数中，自变量不止一个，如何定义导数就出现了不同方式。&lt;/p>
+&lt;p>首先，如果只考虑其中一个自变量的变化，比如&lt;span class="math">\(x\)&lt;/span>，而其他自变量（&lt;span class="math">\(y, z, \dotsb\)&lt;/span>）不变，那么此时多元函数就可以当成&lt;span class="math">\(x\)&lt;/span>的一元函数。这时仅对&lt;span class="math">\(x\)&lt;/span>求的导数就成为多元函数&lt;span class="math">\(f\)&lt;/span>对于&lt;span class="math">\(x\)&lt;/span>的偏导数，记为：&lt;span class="math">\(\frac{\partial f}{\partial x}\)&lt;/span>。同理，我们可以求出关于其他变量的偏导数&lt;span class="math">\(\frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}, \dotsb\)&lt;/span>&lt;/p>
+&lt;p>偏导数只能反映出轴方向的变化性，因此偏导数存在可能说明函数延轴方向是连续的，对于其他方向爱莫能助，因此偏导数存在不能说明函数整体的连续性。&lt;/p>
+&lt;p>下图展示了二元函数的偏导数。固定&lt;span class="math">\(y=y_0, x\)&lt;/span>方向的偏导数（红色为x轴）；固定&lt;span class="math">\(x=x_0, y\)&lt;/span>方向的偏导数（绿色为y轴）&lt;/p>
+&lt;div class="figure">
+&lt;embed src="../images/x轴偏导数.jfif" />&lt;p class="caption">x轴偏导数.jfif&lt;/p>
+&lt;/div>
+&lt;div class="figure">
+&lt;embed src="../images/y轴偏导数.jfif" />&lt;p class="caption">y轴偏导数.jfif&lt;/p>
+&lt;/div>
+&lt;p>其次，偏导数只反应了函数沿各平行于坐标轴的方向的变化率，对于其他的方向还需要定义新的导数。设函数&lt;span class="math">\(f(\vec{x})\)&lt;/span>是一个&lt;span class="math">\(n\)&lt;/span>维自变量的函数，&lt;span class="math">\(\vec{x}=\{x_1,x_2,\dotsb,x_n\}\)&lt;/span>，若函数&lt;span class="math">\(f\)&lt;/span>在某点&lt;span class="math">\(\vec{x}\)&lt;/span>邻域内有定义，那么给定一个非零向量&lt;span class="math">\(\vec{v}\)&lt;/span>，函数沿向量&lt;span class="math">\(\vec{v}\)&lt;/span>的方向导数为： &lt;span class="math">\[
+\nabla_{\vec{v}} f(\vec{x}) = \lim_{t\rightarrow 0}\frac{f(\vec{x}+t\vec
+{v})-f(\vec{x})}{t}
+\]&lt;/span> 也可记为&lt;span class="math">\(\frac{\mathrm{d}f_{\vec{v}}}{\mathrm{d}t}|_{t\rightarrow 0}\)&lt;/span>。有些书籍中会较为严格地定义方向导数为函数在某一点沿&lt;strong>单位长度向量&lt;/strong>的方向导数，在这样的上下文中，“函数在某点沿向量&lt;span class="math">\(\vec{v}\)&lt;/span>方向上的导数”指的是函数在这一点沿着&lt;span class="math">\(\vec{v}\)&lt;/span>对应的单位向量&lt;span class="math">\(\vec{v_{unit}}=\frac{\vec{v}}{||\vec{v}||}\)&lt;/span>的方向导数。不过，只要&lt;span class="math">\(t\rightarrow 0\)&lt;/span>，是否指定向量&lt;span class="math">\(\vec{v}\)&lt;/span>为单位向量并不重要。下图展示了一个二维的方向导数。&lt;/p>
+&lt;div class="figure">
+&lt;embed src="../images/方向导数.jfif" />&lt;p class="caption">方向导数.jfif&lt;/p>
+&lt;/div>
+&lt;p>方向导数可以看成是偏导数的推广，当方向导数的方向正好沿着坐标轴时，方向导数就退化成了偏导数。例如，方向导数为&lt;span class="math">\(\vec{v}=\{1,0,0,\dotsb\}\)&lt;/span>平行于&lt;span class="math">\(x_1\)&lt;/span>轴，那么 &lt;span class="math">\[
+\begin{aligned}
+\nabla_{\vec{v}} f(\vec{x}) &amp;amp;= \lim_{t\rightarrow 0}\frac{f(\vec{x}+t\vec
+{v})-f(\vec{x})}{t}\\
+&amp;amp;=\lim_{t\rightarrow 0}\frac{f(x_1+t,x_2,\dotsb,x_n)-f(x_1,x_2,\dotsb,x_n)}{t}
+\end{aligned}
+\]&lt;/span> 我们将&lt;span class="math">\(t\)&lt;/span>改写成&lt;span class="math">\(\Delta x_1\)&lt;/span>，则上式为： &lt;span class="math">\[
+\lim_{\Delta x_1\rightarrow 0}\frac{f(x_1+\Delta x_1,x_2,\dotsb,x_n)-f(x_1,x_2,\dotsb,x_n)}{\Delta x_1}=\frac{\partial f(\vec
+{x})}{\partial x_1}
+\]&lt;/span> 此时，方向导数就是&lt;span class="math">\(x_1\)&lt;/span>分量的偏导数。&lt;/p>
+&lt;p>我们假设点&lt;span class="math">\(\vec{x}\)&lt;/span>邻域内各方向的方向导数都存在，那么是否有一个方向导数的最大值呢？该最大值又是什么方向呢？这就引出了梯度的概念。&lt;strong>即梯度是多元函数在点&lt;span class="math">\(\vec{x}\)&lt;/span>处上升最快的方向&lt;/strong>。&lt;/p>
+&lt;p>我们在这里直接给出梯度的表达式为： &lt;span class="math">\[
+\nabla f = \frac{\partial f}{\partial x_1}\vec{a}_1+\frac{\partial f}{\partial x_2}\vec{a}_2+\dotsb+\frac{\partial f}{\partial x_n}\vec{a}_n
+\]&lt;/span> 其中，&lt;span class="math">\(\frac{\partial f}{\partial x_i}\)&lt;/span>是&lt;span class="math">\(\vec{x}_i\)&lt;/span>分量的偏导数，&lt;span class="math">\(\vec{a}_i\)&lt;/span>是&lt;span class="math">\(\vec{x}_i\)&lt;/span>方向的单位向量。 至于证明读者可以从各种教材上寻找到。&lt;/p>
+&lt;p>另外，还有一个叫做全导数的概念，不过它和偏导数、方向导数、梯度讨论的场景并不一样。全导数是在&lt;strong>多元复合函数&lt;/strong>场景下，所有自变量都受到&lt;strong>唯一&lt;/strong>参数&lt;span class="math">\(t\)&lt;/span>控制的，关于&lt;span class="math">\(t\)&lt;/span>的导数。即对于多元函数&lt;span class="math">\(f(\vec{x})\)&lt;/span>，向量&lt;span class="math">\(\vec{x}\)&lt;/span>的每一个分量&lt;span class="math">\(x_i\)&lt;/span>都是&lt;span class="math">\(t\)&lt;/span>的函数&lt;span class="math">\(x_i(t)\)&lt;/span>，那么全导数&lt;span class="math">\(\frac{\mathrm{d}f}{\mathrm{d}t}\)&lt;/span>为： &lt;span class="math">\[
+\frac{\mathrm{d}f}{\mathrm{d}t}=\frac{\partial f}{\partial x_1}\frac{\partial x_1}{\partial t}+\frac{\partial f}{\partial x_2}\frac{\partial x_2}{\partial t}+\dotsb+\frac{\partial f}{\partial x_n}\frac{\partial x_n}{\partial t}
+\]&lt;/span> 全导数&lt;strong>本质上是一个一元函数导数&lt;/strong>，只不过这个自变量&lt;span class="math">\(t\)&lt;/span>隐含在相关变量&lt;span class="math">\(x_i(t)\)&lt;/span>中，实际上等同于&lt;span class="math">\(f(t)\)&lt;/span>对于变量&lt;span class="math">\(t\)&lt;/span>的导数，反映了整体函数值关于&lt;span class="math">\(t\)&lt;/span>的变化率。&lt;/p>
+&lt;h2 id="从增量到微分">从增量到微分&lt;/h2>
+&lt;p>在说明微分之前，我们需要介绍一个更直观的概念：增量&lt;span class="math">\(\Delta\)&lt;/span>。我们在上文中已经使用过这个概念了，例如&lt;span class="math">\(\Delta x\)&lt;/span>，不过我们都只是在多元函数自变量的某个分量中使用增量，表示某一分量的变化值。&lt;/p>
+&lt;p>增量即自变量或因变量的变化值（不一定非要是正值），在一元函数中，自变量&lt;span class="math">\(x\)&lt;/span>的增量就是沿着&lt;span class="math">\(x\)&lt;/span>轴左右增减的量，因此，&lt;span class="math">\(\Delta x\)&lt;/span>是线性变化的量。因变量&lt;span class="math">\(\Delta y\)&lt;/span>是两个函数值的差&lt;span class="math">\(\Delta y = f(x+\Delta x)-f(x)\)&lt;/span>，若函数&lt;span class="math">\(f\)&lt;/span>不是线性函数，增量通常也不是线性的。&lt;/p>
+&lt;p>在实际使用中，&lt;span class="math">\(\Delta y\)&lt;/span>计算会涉及函数&lt;span class="math">\(f\)&lt;/span>，因此十分不可控，比如当&lt;span class="math">\(f\)&lt;/span>非常复杂时，&lt;span class="math">\(\Delta y\)&lt;/span>将难以计算，同时&lt;span class="math">\(\Delta y\)&lt;/span>没有特定的数学性质，会随着映射&lt;span class="math">\(f\)&lt;/span>的改变而改变。因此，在微积分中，借助其核心思想之一：“&lt;strong>以直代曲&lt;/strong>”，对增量&lt;span class="math">\(\Delta y\)&lt;/span>进行简化，诞生了微分&lt;span class="math">\(\mathrm{d}y\)&lt;/span>。&lt;/p>
+&lt;p>对于曲线&lt;span class="math">\(y\)&lt;/span>的研究通常不是平凡的，微积分的一大创举就是证明了以直代曲的广泛可行性。如果一条曲线不好研究，那么我们就将其分割成一个个小段，每一小段上用一条直线段取代，当分割的间隔非常非常小时，就可以用这一系列小折线段组取代原来的曲线。如下图所示：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/以直代曲.png" alt="以直代曲.png" />&lt;p class="caption">以直代曲.png&lt;/p>
+&lt;/div>
+&lt;p>那么如果确定每个小区间里的直线方程呢？一个广泛的做法是统一小区间内某一点，然后做过该点的切线作为代替曲线的直线，比如统一取区间左端点做切线（或中点、右端点都行，当区间足够小时，别没有差别。如果严格地来说，采用闭区间套定理不断缩小区间，最终每个区间只会剩下一个点^_^，所以在无穷小的情况下也不会考虑用割线，只有切线。）而选中点的切线的斜率就是我们之前所说的该点的导数，因此，已知直线斜率和过直线一点&lt;span class="math">\((x_0,f(x_0))\)&lt;/span>，可以写出直线的方程&lt;span class="math">\(g(x)\)&lt;/span>： &lt;span class="math">\[
+g(x)=f&amp;#39;(x_0)(x-x_0)+f(x_0)
+\]&lt;/span> 我们令&lt;span class="math">\(\mathrm{d}y = g(x)-f(x_0)\)&lt;/span>，由于函数&lt;span class="math">\(g(x)\)&lt;/span>是一个线性函数，因此&lt;span class="math">\(\mathrm{d}y\)&lt;/span>随着变化量&lt;span class="math">\(\Delta x\)&lt;/span>线性变化，至于&lt;span class="math">\(\Delta x = x-x_0\)&lt;/span>，前面已经说过本来就是沿着&lt;span class="math">\(x\)&lt;/span>轴的线性变化，所以有&lt;span class="math">\(\Delta x =\mathrm{d}x\)&lt;/span>。因此，上式关系可改写为： &lt;span class="math">\[
+\mathrm{d}y = f&amp;#39;(x_0)\mathrm{d}x
+\]&lt;/span> 即为函数&lt;span class="math">\(f\)&lt;/span>在&lt;span class="math">\(x_0\)&lt;/span>处相应于自变量&lt;span class="math">\(\Delta x\)&lt;/span>的微分。注意，&lt;span class="math">\(\mathrm{d}x=\Delta x\)&lt;/span>。显然，&lt;span class="math">\(\mathrm{d}y\)&lt;/span>是在&lt;span class="math">\(x_0\)&lt;/span>邻域内，随自变量&lt;span class="math">\(\mathrm{d}x\)&lt;/span>，以&lt;span class="math">\(f&amp;#39;(x_0)\)&lt;/span>为斜率的线性变化量。&lt;/p>
+&lt;p>那么，&lt;span class="math">\(\mathrm{d}y\)&lt;/span>和&lt;span class="math">\(\Delta y\)&lt;/span>有什么关系呢？我们还是需要导数这个中间桥梁。&lt;/p>
+&lt;ul>
+&lt;li>导数：&lt;span class="math">\(f&amp;#39;(x_0)=\lim\limits_{x\rightarrow x_0} \frac{f(x)-f(x_0)}{x-x_0}= \lim\limits_{\Delta x\rightarrow 0}\frac{\Delta y}{\Delta x}\)&lt;/span>&lt;/li>
+&lt;li>微分：&lt;span class="math">\(f&amp;#39;(x_0)=\frac{\mathrm{d}y}{\mathrm{d}x}\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>上面二者结果都是&lt;span class="math">\(x_0\)&lt;/span>处的导数值！即&lt;span class="math">\(\frac{\mathrm{d}y}{\mathrm{d}x}=\lim\limits_{\Delta x\rightarrow 0}\frac{\Delta y}{\Delta x}\)&lt;/span>。后面的极限在&lt;span class="math">\(\Delta x\rightarrow 0\)&lt;/span>时只剩下了一项，说明&lt;span class="math">\(\Delta y\)&lt;/span>包含的其他项至少是&lt;span class="math">\(\Delta x\)&lt;/span>的高阶无穷小（如果&lt;span class="math">\(f(x)\)&lt;/span>是线性函数，剩余项就是0），所在才会在&lt;span class="math">\(\Delta x\)&lt;/span>趋于0的过程中消去，即&lt;span class="math">\(\Delta y =f&amp;#39;(x_0)\Delta x+o(\Delta x), o(\Delta x)\)&lt;/span>表示&lt;span class="math">\(\Delta x\)&lt;/span>的高阶无穷小。我们已知&lt;span class="math">\(\Delta x=\mathrm{d}x\)&lt;/span>，那么&lt;span class="math">\(\Delta y =f&amp;#39;(x_0)\mathrm{d}x+o(\Delta x)\Rightarrow \Delta y = \mathrm{d}y + o(\Delta x)\)&lt;/span>。其含义是&lt;span class="math">\(\Delta y\)&lt;/span>增量是由线性增长部分&lt;span class="math">\(\mathrm{d}y\)&lt;/span>和高阶增长量&lt;span class="math">\(o(\Delta x)\)&lt;/span>组成，当&lt;span class="math">\(\Delta x\)&lt;/span>很小很小，以0为极限时有：&lt;span class="math">\(\lim\limits_{\Delta x\rightarrow 0} \Delta y/\Delta x = \mathrm{d}y/\mathrm{d}x\)&lt;/span>。（上面的过程也暗含了一元函数可微与可导的等价性）&lt;/p>
+&lt;p>他们之间的关系如下图所示：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../images/增量与微分.png" alt="增量与微分.png" />&lt;p class="caption">增量与微分.png&lt;/p>
+&lt;/div>
+&lt;h2 id="从多元函数导数到微分">从多元函数导数到微分&lt;/h2>
+&lt;p>在一元函数中，可导和可微是互为充要条件。但是由于在多元函数中自变量维度的提升，可导变成了偏导，被限定了方向，甚至连多元函数的连续性都无法确定，而&lt;strong>微分在向多元函数延时拓没有受到方向限制&lt;/strong>，这种充要关系也被破坏了。&lt;/p>
+&lt;p>&lt;strong>具体谈到多元函数微分的话，通常指的是全微分&lt;/strong>。不过微分中是存在偏微分的，而偏微分确实也和偏导数是充要关系。例如： &lt;span class="math">\[
+f(x+\Delta x, y)-f(x,y)\approx \frac{\partial f}{\partial x}\Delta x\\
+f(x, y+\Delta y)-f(x,y)\approx \frac{\partial f}{\partial y}\Delta y
+\]&lt;/span> 当我们只考虑偏微分时，和一元函数是类似的，然而偏微分单独使用场景较少，因此谈到微分大家&lt;strong>默认都是说全微分&lt;/strong>。&lt;/p>
+&lt;p>多元函数全微分的引入和一元函数类似相同，都是通过增量概念，多元函数的总体增量称为&lt;strong>全增量&lt;/strong>，记作&lt;span class="math">\(\Delta f\)&lt;/span>: &lt;span class="math">\[
+\Delta f(\vec{x})=f(\vec{x}+\Delta \vec{x})-f(\vec{x})
+\]&lt;/span> 如果增量&lt;span class="math">\(\Delta f\)&lt;/span>可以表示成&lt;strong>每个分量的增量的线性组合&lt;/strong>加上一个增量距离的高阶无穷小，那么则称函数&lt;span class="math">\(f\)&lt;/span>在点&lt;span class="math">\(\vec{x}\)&lt;/span>处可微： &lt;span class="math">\[
+\Delta f(\vec{x}) = \vec{A}^T\Delta\vec{x}+o(\rho)
+\]&lt;/span> 其中，&lt;span class="math">\(\vec{A}, \Delta\vec{x}\)&lt;/span>是n维列向量，&lt;span class="math">\(\rho=||\Delta\vec{x}||_2\)&lt;/span>。同样的，在每个分量的增量都是沿坐标轴线性增长的，所以&lt;span class="math">\(\Delta\vec{x}=\mathrm{d}\vec{x}\)&lt;/span>。当&lt;span class="math">\(\Delta\vec{x}\)&lt;/span>很小很小时，&lt;span class="math">\(o(\rho)\)&lt;/span>忽略，剩余增量&lt;span class="math">\(\Delta f\)&lt;/span>记为&lt;span class="math">\(\mathrm{d}f\)&lt;/span>，称为&lt;span class="math">\(f\)&lt;/span>在点&lt;span class="math">\(\vec{x}\)&lt;/span>处的全微分： &lt;span class="math">\[
+\mathrm{d}f=\vec{A}^T\mathrm{d}\vec{x}=a_1x_1+\dotsb+a_nx_n
+\]&lt;/span> 由上可知，多元函数微分也是“以直代曲”思想的实践，只不过从用直线代替曲线变成了（高维）平面代替（高维）曲面。那每一个系数&lt;span class="math">\(a_i\)&lt;/span>到底等于多少呢？这就是从一般到特殊。&lt;/p>
+&lt;p>我们知道全微分是对点邻域任意方向都成立的，因此我们取平行于&lt;span class="math">\(x_i\)&lt;/span>的方向趋近，此时&lt;span class="math">\(\Delta\vec{x}=\{0,\dotsb,\Delta x_i,\dotsb,0\}\)&lt;/span>，全增量在该方向的表达式为： &lt;span class="math">\[
+f(\vec{x}+\Delta \vec{x})-f(\vec{x})=a_i\Delta x_i\\
+\Rightarrow \lim_{\Delta x_i\rightarrow 0} a_i=\frac{f(\vec{x}+\Delta \vec{x})-f(\vec{x})}{\Delta x_i}
+\]&lt;/span> 熟悉的读者立刻就能发现，上式正式多元函数在&lt;span class="math">\(x_i\)&lt;/span>分量上的偏导数！即&lt;span class="math">\(a_i=\frac{\partial f}{\partial x_i}\)&lt;/span>。因此，全微分&lt;span class="math">\(\mathrm{d}f\)&lt;/span>等于： &lt;span class="math">\[
+\mathrm{d}f=\sum_{i=1}^n\frac{\partial f}{\partial x_i}\mathrm{d}x_i
+\]&lt;/span> 从上面的过程我们也可以得出：&lt;strong>当全微分存在时，其平行于各分量的偏导数也存在&lt;/strong>（可微&lt;span class="math">\(\Rightarrow\)&lt;/span>有偏导）。&lt;/p>
+&lt;p>反过来，如果有偏导，那么只能保证在轴方向的偏微分存在，全微分不一定存在。典型例子如下： &lt;span class="math">\[
+f(x,y)=\begin{cases}
+\frac{xy}{\sqrt{x^2+y^2}},(x,y)\neq (0,0)\\
+0,(x,y)=(0,0).
+\end{cases}
+\]&lt;/span> 这个函数在&lt;span class="math">\((0,0)\)&lt;/span>处连续且偏导存在，但是不可微。 其在点&lt;span class="math">\((0,0)\)&lt;/span>全增量为: &lt;span class="math">\[
+\Delta f=f(0+\Delta x,0+\Delta y)-f(0,0)=\frac{\Delta x\Delta y}{\sqrt{\Delta x^2+\Delta y^2}}
+\]&lt;/span> 当我们选用从x轴或y轴方向趋近于&lt;span class="math">\((0,0)\)&lt;/span>，显然有： &lt;span class="math">\[
+\text{方向}_{\Delta x\rightarrow 0,\Delta y=0}: \Delta f = \mathrm{d}f = 0 \mathrm{d}x+0 \mathrm{d}y + 0= 0\\
+\text{方向}_{\Delta y\rightarrow 0,\Delta x=0}: \Delta f = \mathrm{d}f = 0 \mathrm{d}x+0 \mathrm{d}y +0 = 0
+\]&lt;/span> 注意，上式表示时我们只谈从&lt;span class="math">\({\Delta x\rightarrow 0,\Delta y=0}\)&lt;/span>或&lt;span class="math">\({\Delta y\rightarrow 0,\Delta x=0}\)&lt;/span>的方向，而非取极限&lt;/p>
+&lt;p>但是我们选用从方向&lt;span class="math">\((1,1)\)&lt;/span>，即&lt;span class="math">\(\Delta x = \Delta y\)&lt;/span>趋近于&lt;span class="math">\((0,0)\)&lt;/span>时： &lt;span class="math">\[
+\text{方向}_{\Delta x\rightarrow 0,\Delta y=\Delta x}: \Delta f = \mathrm{d}f = \frac{\Delta x^2}{\sqrt{\Delta x^2+\Delta x^2}}=\frac{\sqrt{2}}{2}\mathrm{d} x+ 0\mathrm{d} y + 0
+\]&lt;/span> 显然点&lt;span class="math">\((0,0)\)&lt;/span>处从&lt;span class="math">\((1,1)\)&lt;/span>方向的微分和&lt;span class="math">\(x,y\)&lt;/span>轴方向的微分不相等，因此全微分并不存在。需要指出的是上面三个式子中&lt;span class="math">\(o(\rho)=0\)&lt;/span>，因此我们可以直接写&lt;span class="math">\(\Delta f = \mathrm{d}f\)&lt;/span>。&lt;/p>
+&lt;p>从上面可以看出可微的要求还是挺高的，需要从各个方向考虑。那么有没有一个简单的方法判断可微呢？有的，那就是一阶偏导数连续。&lt;/p>
+&lt;h3 id="偏导与可微">偏导与可微&lt;/h3>
+&lt;p>其实偏导数连续是一个非常强的条件，一般函数都不会有这么好的性质。甚至偏导数连续是可微的充分条件，而非充要条件。可微并不能推导出偏导数连续！&lt;/p></description></item><item><title>数学分析之无穷级数</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/</link><pubDate>Fri, 06 Jan 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E6%97%A0%E7%A9%B7%E7%BA%A7%E6%95%B0/</guid><description>
 &lt;h2 id="无穷级数">无穷级数&lt;!-- omit in toc -->&lt;/h2>
-&lt;p>数理论是数学分析的一个分支，它与另一个分支微积分学一起作为基础知识和工具出现在其余数学分支中。实际上，不同于现在数学学习中对微积分的过度侧重，级数的地位和微积分相当，二者共同以极限为基本工具，分别从离散与连续两个方面，结合起来研究分析学的对象，即变量之间的依赖关系──函数。&lt;/p></description></item><item><title>数学分析之两类欧拉积分(Gamma、Beta函数与积分)</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</guid><description>
+&lt;p>级数理论是数学分析的一个分支，它与另一个分支微积分学一起作为基础知识和工具出现在其余数学分支中。实际上，不同于现在数学学习中对微积分的过度侧重，级数的地位和微积分相当，二者共同以极限为基本工具，分别从离散与连续两个方面，结合起来研究分析学的对象，即变量之间的依赖关系──函数。&lt;/p>
+&lt;p>无穷级数思想——逼近——微积分 数学分析词源 分析学&lt;/p>
+&lt;p>欧拉、高斯都是使用级数的高手 计算使用级数&lt;/p>
+&lt;p>无穷级数与差分&lt;/p>
+&lt;p>&lt;span class="math">\[
+\bvec
+\]&lt;/span>&lt;/p></description></item><item><title>数学分析之两类欧拉积分(Gamma、Beta函数与积分)</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E4%B8%A4%E7%B1%BB%E6%AC%A7%E6%8B%89%E7%A7%AF%E5%88%86gammabeta%E5%87%BD%E6%95%B0%E4%B8%8E%E7%A7%AF%E5%88%86/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#哥德巴赫的疑问插值与阶乘研究">哥德巴赫的疑问——插值与阶乘研究&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#三封信中诞生的gamma函数">三封信中诞生的Gamma函数&lt;/a>&lt;/li>
@@ -5168,7 +5319,7 @@ p_n(x)=&amp;amp;f(x_0)+\\
 \Delta f(x_0)=f(x_0+\Delta x)-f(x_0)，也称为一阶差分，\]&lt;/span> &lt;span class="math">\[\Delta f(x_0+\Delta x)=f(x_0+2\Delta x)-f(x_0+\Delta x),
 \]&lt;/span> 进一步令： &lt;span class="math">\[\Delta^2 f(x_0)=\Delta f(x_0+\Delta x)-\Delta f(x_0)，也称为二阶差分（为一阶差分的差分）\\
 \Delta^3 f(x_0)=\Delta^2 f(x_0+\Delta x)-\Delta^2 f(x_0)，也称为三阶差分。\]&lt;/span> 做了这些假设之后我们来看看之前提到的&lt;span class="math">\(a_1\)&lt;/span>会变成什么样子： &lt;span class="math">\[a_1=\frac{f(x_1)-f(x_0)}{x_1-x_0}\implies a_1=\frac{\Delta f(x_0)}{\Delta x}。\]&lt;/span> 而&lt;span class="math">\(f_1(x)\)&lt;/span>会变成： &lt;span class="math">\[f_1(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)\\
-\implies f_1(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)。\]&lt;/span> 同样的f_2(x)就变成了： &lt;span class="math">\[f_2(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)+\frac{\Delta^2 f(x_0)}{2\Delta x}(x-x_0)(x-x_1)。\]&lt;/span> 泰勒断言，当&lt;span class="math">\(\Delta x=0\)&lt;/span>时： &lt;span class="math">\[f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)\\
+\implies f_1(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)。\]&lt;/span> 同样的&lt;span class="math">\(f_2(x)\)&lt;/span>就变成了： &lt;span class="math">\[f_2(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)+\frac{\Delta^2 f(x_0)}{2\Delta x}(x-x_0)(x-x_1)。\]&lt;/span> 泰勒断言，当&lt;span class="math">\(\Delta x=0\)&lt;/span>时： &lt;span class="math">\[f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)\\
 f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2\\
 （\Delta x=0时有x-x_1=x-x_0）\]&lt;/span> 以此类推泰勒就得到了大名鼎鼎的泰勒公式： &lt;span class="math">\[f(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2+\cdots\]&lt;/span>&lt;/p>
 &lt;h2 id="切比雪夫节点与勒贝格常数">切比雪夫节点与勒贝格常数&lt;/h2>

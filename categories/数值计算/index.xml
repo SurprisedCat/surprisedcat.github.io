@@ -137,7 +137,7 @@ p_n(x)=&amp;amp;f(x_0)+\\
 \Delta f(x_0)=f(x_0+\Delta x)-f(x_0)，也称为一阶差分，\]&lt;/span> &lt;span class="math">\[\Delta f(x_0+\Delta x)=f(x_0+2\Delta x)-f(x_0+\Delta x),
 \]&lt;/span> 进一步令： &lt;span class="math">\[\Delta^2 f(x_0)=\Delta f(x_0+\Delta x)-\Delta f(x_0)，也称为二阶差分（为一阶差分的差分）\\
 \Delta^3 f(x_0)=\Delta^2 f(x_0+\Delta x)-\Delta^2 f(x_0)，也称为三阶差分。\]&lt;/span> 做了这些假设之后我们来看看之前提到的&lt;span class="math">\(a_1\)&lt;/span>会变成什么样子： &lt;span class="math">\[a_1=\frac{f(x_1)-f(x_0)}{x_1-x_0}\implies a_1=\frac{\Delta f(x_0)}{\Delta x}。\]&lt;/span> 而&lt;span class="math">\(f_1(x)\)&lt;/span>会变成： &lt;span class="math">\[f_1(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)\\
-\implies f_1(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)。\]&lt;/span> 同样的f_2(x)就变成了： &lt;span class="math">\[f_2(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)+\frac{\Delta^2 f(x_0)}{2\Delta x}(x-x_0)(x-x_1)。\]&lt;/span> 泰勒断言，当&lt;span class="math">\(\Delta x=0\)&lt;/span>时： &lt;span class="math">\[f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)\\
+\implies f_1(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)。\]&lt;/span> 同样的&lt;span class="math">\(f_2(x)\)&lt;/span>就变成了： &lt;span class="math">\[f_2(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)+\frac{\Delta^2 f(x_0)}{2\Delta x}(x-x_0)(x-x_1)。\]&lt;/span> 泰勒断言，当&lt;span class="math">\(\Delta x=0\)&lt;/span>时： &lt;span class="math">\[f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)\\
 f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2\\
 （\Delta x=0时有x-x_1=x-x_0）\]&lt;/span> 以此类推泰勒就得到了大名鼎鼎的泰勒公式： &lt;span class="math">\[f(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2+\cdots\]&lt;/span>&lt;/p>
 &lt;h2 id="切比雪夫节点与勒贝格常数">切比雪夫节点与勒贝格常数&lt;/h2>
