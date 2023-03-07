@@ -101,7 +101,7 @@ Nov 9, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6
 <li><a href=#指数族的期望与方差的统一形式>指数族的期望与方差的统一形式</a></li>
 <li><a href=#指数族的期望>指数族的期望</a></li>
 <li><a href=#指数族的方差>指数族的方差</a></li>
-<li><a href=#theta与eta的一一对应缘由><span class=math>\(\theta\)</span>与<span class=math>\(\eta\)</span>的一一对应缘由</a></li>
+<li><a href=#theta与eta的一一对应缘由><span class=math>\(\\theta\)</span>与<span class=math>\(\\eta\)</span>的一一对应缘由</a></li>
 <li><a href=#指数型分布族的最大似然估计>指数型分布族的最大似然估计</a></li>
 <li><a href=#自然指数族>自然指数族</a></li>
 <li><a href=#指数分散族>指数分散族</a></li>
@@ -114,10 +114,10 @@ Nov 9, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6
 <blockquote>
 <p><strong>指数型分布族</strong>：一个概率分布族<span class=math>\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)</span>可称为<strong>指数型分布族</strong>，假如<span class=math>\(\mathfrak{p}\)</span>中的分布（分布列或密度函数）都可表示为如下形式： <span class=math>\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]</span> 其中，k为自然数；<span class=math>\(\theta\)</span>可以是数字，也可以是向量。分布的支撑<span class=math>\(\{x:p(x)>0\}\)</span>与参数<span class=math>\(\theta\)</span>无关；诸<span class=math>\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)</span>是定义在参数空间<span class=math>\(\varTheta\)</span>上的函数；诸<span class=math>\(T_1(x),\dotsb,T_k(x)\)</span>是<span class=math>\(x\)</span>的函数，称为充分统计向量，但<span class=math>\(T_1(x),\dotsb,T_k(x)\)</span>线性无关。<span class=math>\(h(x)\)</span>也只是<span class=math>\(x\)</span>的函数，且<span class=math>\(h(x)>0\)</span>，通常是一个常数。</p>
 </blockquote>
-<p><span class=math>\(c(\theta)\)</span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 <span class=math>\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]</span> 此外，指数族还有另一种表述方式，就是将外面的<span class=math>\(c(\theta)\)</span>放到指数符号中： <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]</span> 由于通常<span class=math>\(A(\theta)\)</span>含有<span class=math>\(\log\)</span>符号，该部分也称为“Log Partition Function”，易知<span class=math>\(A(\theta)=\ln c(\theta)\)</span>。 如果我们使用向量值函数来表达指数型分布族可写为: <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]</span></p>
+<p><span class=math>\(c(\theta)\)</span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 <span class=math>\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]</span> 此外，指数族还有另一种表述方式，就是将外面的<span class=math>\(c(\theta)\)</span>放到指数符号中： <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]</span> 由于通常<span class=math>\(A(\theta)\)</span>含有<span class=math>\(\log\)</span>符号，该部分也称为“Log Partition Function”，易知<span class=math>\(A(\theta)=\ln c(\theta)\)</span>。 如果我们使用向量值函数来表达指数型分布族可写为: <span class=math>\[p_\theta(x)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{3}\]</span></p>
 <p>从上述定义可知，一个分布族是不是指数型分布族的<strong>关键在于其概率分布能否改写为定义中方式</strong>。</p>
 <h3 id=指数型分布族的向量化写法>指数型分布族的向量化写法</h3>
-<p>下面我们使用<strong>向量值函数</strong>将式(4)进行进一步改造。</p>
+<p>下面我们使用<strong>向量值函数</strong>将式(3)进行进一步改造。</p>
 <blockquote>
 <p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、<strong>值域是多维向量或者无穷维向量的集合的函数</strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。</p>
 </blockquote>
@@ -152,7 +152,7 @@ p(x;p)=p^x(1-p)^{1-x},x\in\{0,1\}
 p(x;p)&=\exp\{x\ln{p}+(1-x)\ln{(1-p)}\}\\
 &=\exp\{x\ln(\frac{p}{1-p})+\ln{(1-p)}\}
 \end{aligned}
-\]</span> 对照指数族的形式，有<span class=math>\(h(x)=1;c(p)=\log(\frac{p}{1-p});T(x)=x;A(p)=-\log(1-p)\)</span>。写成标准形式为： <span class=math>\[
+\]</span> 对照指数族的形式，有<span class=math>\(h(x)=1;c(p)=\ln(\frac{p}{1-p});T(x)=x;A(p)=-\ln n (1-p)\)</span>。写成标准形式为： <span class=math>\[
 p(x;\eta)=\exp\{\eta x-\ln(1+e^\eta)\}
 \]</span> 标准参数<span class=math>\(\eta\)</span>和原始参数<span class=math>\(p\)</span>的关系为： <span class=math>\[
 \eta=\ln(\frac{p}{1-p})\\
@@ -201,8 +201,8 @@ p(x;\mu,\sigma^2)&=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[ -\frac{1}{2\sigma^2}(x-\
 &=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2]\\
 &=\frac{1}{(2\pi)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2-\ln{\sigma}]
 \end{aligned}
-\]</span> 对照指数族的形式，有<span class=math>\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/2\sigma^2\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)</span>。</p>
-<p>需要指出的是，一般情况下，我们在<span class=math>\(A(\mu,\sigma)\)</span>中最好不要在使用原有的<span class=math>\(\mu,\sigma\)</span>，而是使用<span class=math>\(\mathbf{C}\)</span>中的分量<span class=math>\(c_1=\mu/\sigma^2,c_2=-1/2\sigma^2\)</span>表示，即 <span class=math>\[
+\]</span> 对照指数族的形式，有<span class=math>\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/(2\sigma^2)\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)</span>。</p>
+<p>需要指出的是，一般情况下，我们在<span class=math>\(A(\mu,\sigma)\)</span>中最好不要在使用原有的<span class=math>\(\mu,\sigma\)</span>，而是使用<span class=math>\(\mathbf{C}\)</span>中的分量<span class=math>\(c_1=\mu/\sigma^2,c_2=-1/(2\sigma^2)\)</span>表示，即 <span class=math>\[
 A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)\tag{8.1}
 \]</span> 所以，其指数型分布族表示形式为 <span class=math>\[
 p(x;\mathbf{C})=\frac{1}{(2\pi)^{1/2}} \exp[\mathbf{C}^T(\mu,\sigma)\mathbf{T}(x)-A(\mathbf{C})]
@@ -372,7 +372,7 @@ b''(\vartheta)=\nu(μ)\tag{21}
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
 数学分析
-<span class=button_tally>15</span>
+<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -444,7 +444,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=15 title=数学分析>数学分析<span class=button_tally>15</span>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
 </a>
@@ -498,13 +498,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E7%A7%AF%E5%88%86%E7%AF%87/ class=nav-link title=复变函数之复变函数微积分（积分篇）>复变函数之复变函数微积分（积分篇）</a>
-</li>
-<li>
 <a href=https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BE%AE%E5%88%86%E7%AF%87/ class=nav-link title=复变函数之复变函数微积分（微分篇）>复变函数之复变函数微积分（微分篇）</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%AF%BC%E6%95%B0%E5%81%8F%E5%AF%BC%E4%B8%8E%E5%BE%AE%E5%88%86/ class=nav-link title=数学分析-导数、偏导与微分>数学分析-导数、偏导与微分</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
 </li>
 </ul>
 <div>
@@ -524,7 +524,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
 数学分析
-<span class=button_tally>15</span>
+<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -598,7 +598,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=2 title=复变函数>复变函数<span class=button_tally>2</span>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
 </a>
@@ -612,7 +612,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=15 title=数学分析>数学分析<span class=button_tally>15</span>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
 </a>

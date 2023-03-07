@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 04 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>复变函数之复变函数微积分（积分篇）</title><link>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E7%A7%AF%E5%88%86%E7%AF%87/</link><pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E7%A7%AF%E5%88%86%E7%AF%87/</guid><description>
-&lt;h2 id="复变函数微积分积分篇">复变函数微积分（积分篇） &lt;!-- omit in toc -->&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="#复变函数积分">复变函数积分&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="复变函数积分">复变函数积分&lt;/h2></description></item><item><title>复变函数之复变函数微积分（微分篇）</title><link>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BE%AE%E5%88%86%E7%AF%87/</link><pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BE%AE%E5%88%86%E7%AF%87/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SurprisedCat</title><link>https://surprisedcat.github.io/</link><description>Recent content on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>复变函数之复变函数微积分（微分篇）</title><link>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BE%AE%E5%88%86%E7%AF%87/</link><pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BE%AE%E5%88%86%E7%AF%87/</guid><description>
 &lt;h2 id="复变函数微积分微分篇">复变函数微积分（微分篇） &lt;!-- omit in toc -->&lt;/h2>
 &lt;p>复变函数的形式很特殊，定义的形式、性质都接近于一元实函数，但是函数的实部、虚部又可以分成两个二元实函数，因此一些二元函数的处理方式也可以应用到复函数中，一元复函数的许多性质证明也是利用二元实函数。同时，在复函数组成实部、虚部的两个二元实函数又不是独立的，尤其在复函数可微、可积时，它们又有着密切联系，如C-R方程、拉普拉斯方程等，我们利用这些关系可以得出一般二元实函数所没有的结论。&lt;/p>
 &lt;ul>
@@ -2117,8 +2112,7 @@ f(x,y)=\begin{cases}
 &lt;li>&lt;a href="#第二类欧拉积分与阶乘延拓的唯一性">第二类欧拉积分与阶乘延拓的唯一性&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#不完全gamma函数与不完全beta函数">不完全Gamma函数与不完全Beta函数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#gamma分布">Gamma分布&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#beta分布">Beta分布&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gamma分布与一些常见分布的联系">Gamma分布与一些常见分布的联系&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#附gamma函数beta函数关系以及其他函数">附：Gamma函数、Beta函数关系以及其他函数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#gamma函数与beta函数关系推导">Gamma函数与Beta函数关系推导&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#gamma函数与psi函数">Gamma函数与Psi函数&lt;/a>&lt;/li>
@@ -2407,11 +2401,27 @@ y=\frac{1}{\Gamma(1-x)}\frac{\mathrm{d}}{\mathrm{d}x}\log\left[\Gamma(\frac{1-x}
 \Beta(x;\,a,b)=\int _{0}^{x}t^{{a-1}}\,(1-t)^{{b-1}}\,dt \quad x\in [0,1],a&amp;gt;0,b&amp;gt;0\tag{40}
 \]&lt;/span> 当&lt;span class="math">\(x = 1\)&lt;/span>，上式即化为&lt;span class="math">\(\Beta\)&lt;/span>函数。&lt;/p>
 &lt;h2 id="两类欧拉积分在概率论中的应用">两类欧拉积分在概率论中的应用&lt;/h2>
-&lt;p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (&lt;span class="math">\(t\)&lt;/span>分布，&lt;span class="math">\(χ^2\)&lt;/span>分布，&lt;span class="math">\(F\)&lt;/span>分布)、&lt;span class="math">\(\Beta\)&lt;/span>分布、狄利克雷分布的密度公式中都有&lt;span class="math">\(\Gamma\)&lt;/span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。接下来，我们将分别介绍两类欧拉积分在概率论中的应用。&lt;/p>
-&lt;h3 id="gamma分布">Gamma分布&lt;/h3>
-&lt;p>与&lt;span class="math">\(\Gamma\)&lt;/span>函数有最直接联系的概率分布当然是直接由&lt;span class="math">\(\Gamma\)&lt;/span>函数变换得到的&lt;span class="math">\(\Gamma\)&lt;/span>分布，实际上&lt;span class="math">\(\Gamma\)&lt;/span>分布就是借&lt;span class="math">\(\Gamma\)&lt;/span>函数作为归一化分母而得到的概率分布： $$&lt;/p>
-&lt;p>$$&lt;/p>
-&lt;h3 id="beta分布">Beta分布&lt;/h3>
+&lt;p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (&lt;span class="math">\(t\)&lt;/span>分布，&lt;span class="math">\(χ^2\)&lt;/span>分布，&lt;span class="math">\(F\)&lt;/span>分布)、&lt;span class="math">\(\Beta\)&lt;/span>分布、狄利克雷分布的密度公式中都有&lt;span class="math">\(\Gamma\)&lt;/span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。&lt;/p>
+&lt;p>Gamma分布: &lt;span class="math">\[
+p_{\Gamma}(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}
+\]&lt;/span>&lt;/p>
+&lt;p>与&lt;span class="math">\(\Gamma\)&lt;/span>函数有最直接联系的概率分布当然是直接由&lt;span class="math">\(\Gamma\)&lt;/span>函数变换得到的&lt;span class="math">\(\Gamma\)&lt;/span>分布，实际上&lt;span class="math">\(\Gamma\)&lt;/span>分布就是借&lt;span class="math">\(\Gamma\)&lt;/span>函数作为归一化分母而得到的概率分布。如果做一个变换&lt;span class="math">\(x = βt\)&lt;/span>，就得到伽玛分布的更一般的形式 &lt;span class="math">\[
+p_{\Gamma}(x|\alpha,\beta)=\frac{\beta^{\alpha
+}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)}
+\]&lt;/span>&lt;/p>
+&lt;p>Beta分布： &lt;span class="math">\[
+p_{B}=\frac{x^{\alpha-1}(1-x)^{\beta-1}} {\Beta(\alpha,\beta)}\!
+\]&lt;/span> 其中，&lt;span class="math">\(\Beta(\alpha,\beta)\)&lt;/span>为Beta函数。&lt;/p>
+&lt;h3 id="gamma分布与一些常见分布的联系">Gamma分布与一些常见分布的联系&lt;/h3>
+&lt;p>为了理解Gamma分布的广泛一般性，我们从分布的可加性入手，从最简单的分布开始逐渐深入到Gamma分布。&lt;/p>
+&lt;p>回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布&lt;span class="math">\(B(N,p)\)&lt;/span>，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在&lt;span class="math">\(\lambda=np\)&lt;/span>为定值时, &lt;span class="math">\(p\rightarrow 0, n\rightarrow\infty\)&lt;/span>的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布&lt;span class="math">\(n\rightarrow \infty\)&lt;/span>的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（&lt;span class="math">\(e\)&lt;/span>是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。&lt;/p>
+&lt;p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是&lt;strong>指数分布&lt;span class="math">\(X\thicksim \exp(\lambda)\)&lt;/span>的和&lt;/strong>，k个指数分布&lt;span class="math">\(X_i\thicksim \exp(\lambda),i\in\{1,2,\dotsb,k\}\)&lt;/span>相加是Erlang分布 &lt;span class="math">\[
+X_{i}\sim \exp (\lambda ),\\
+\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
+p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1
+\]&lt;/span> 它和指数分布的参数&lt;span class="math">\(\lambda\)&lt;/span>是一样的，参数&lt;span class="math">\(k\)&lt;/span>是指由&lt;span class="math">\(k\)&lt;/span>个指数分布相加。其实际含义可以指代&lt;span class="math">\(k\)&lt;/span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将&lt;span class="math">\(k\rightarrow \alpha\)&lt;/span>延拓到正实数域，就是Gamma分布&lt;span class="math">\(X\sim \Gamma(\alpha,\lambda)\)&lt;/span>。 &lt;span class="math">\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x&amp;gt;0\quad \alpha ,\lambda &amp;gt;0\]&lt;/span> 其中,&lt;span class="math">\(\Gamma(\alpha)\)&lt;/span>是Gamma函数而卡方分布又是Gamma分布的特例，即&lt;span class="math">\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)&lt;/span>， &lt;span class="math">\[
+p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}
+\]&lt;/span> 因此这两种分布(Gamma分布、卡方分布)也不出意外的有可加性。实际上，这些分布都可以看成是Gamma分布在某种情况下的特例，&lt;strong>虽然说历史进程上是从常见分布到Gamma分布，但是Gamma分布确是其他常见分布的根本&lt;/strong>。&lt;/p>
 &lt;h2 id="附gamma函数beta函数关系以及其他函数">附：Gamma函数、Beta函数关系以及其他函数&lt;/h2>
 &lt;h3 id="gamma函数与beta函数关系推导">Gamma函数与Beta函数关系推导&lt;/h3>
 &lt;p>从文章开头的式(1)我们就给出了&lt;span class="math">\(\Gamma\)&lt;/span>函数和&lt;span class="math">\(\Beta\)&lt;/span>函数二者的关系，其具体推导过程如下： &lt;span class="math">\[
@@ -8266,7 +8276,7 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;li>&lt;a href="#指数族的期望与方差的统一形式">指数族的期望与方差的统一形式&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数族的期望">指数族的期望&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数族的方差">指数族的方差&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#theta与eta的一一对应缘由">&lt;span class="math">\(\theta\)&lt;/span>与&lt;span class="math">\(\eta\)&lt;/span>的一一对应缘由&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#theta与eta的一一对应缘由">&lt;span class="math">\(\\theta\)&lt;/span>与&lt;span class="math">\(\\eta\)&lt;/span>的一一对应缘由&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数型分布族的最大似然估计">指数型分布族的最大似然估计&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#自然指数族">自然指数族&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数分散族">指数分散族&lt;/a>&lt;/li>
@@ -8279,10 +8289,10 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;blockquote>
 &lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，称为充分统计向量，但&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;span class="math">\(h(x)\)&lt;/span>也只是&lt;span class="math">\(x\)&lt;/span>的函数，且&lt;span class="math">\(h(x)&amp;gt;0\)&lt;/span>，通常是一个常数。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。&lt;/p>
 &lt;h3 id="指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/h3>
-&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(4)进行进一步改造。&lt;/p>
+&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(3)进行进一步改造。&lt;/p>
 &lt;blockquote>
 &lt;p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、&lt;strong>值域是多维向量或者无穷维向量的集合的函数&lt;/strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。&lt;/p>
 &lt;/blockquote>
@@ -8317,7 +8327,7 @@ p(x;p)=p^x(1-p)^{1-x},x\in\{0,1\}
 p(x;p)&amp;amp;=\exp\{x\ln{p}+(1-x)\ln{(1-p)}\}\\
 &amp;amp;=\exp\{x\ln(\frac{p}{1-p})+\ln{(1-p)}\}
 \end{aligned}
-\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=1;c(p)=\log(\frac{p}{1-p});T(x)=x;A(p)=-\log(1-p)\)&lt;/span>。写成标准形式为： &lt;span class="math">\[
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=1;c(p)=\ln(\frac{p}{1-p});T(x)=x;A(p)=-\ln n (1-p)\)&lt;/span>。写成标准形式为： &lt;span class="math">\[
 p(x;\eta)=\exp\{\eta x-\ln(1+e^\eta)\}
 \]&lt;/span> 标准参数&lt;span class="math">\(\eta\)&lt;/span>和原始参数&lt;span class="math">\(p\)&lt;/span>的关系为： &lt;span class="math">\[
 \eta=\ln(\frac{p}{1-p})\\
@@ -8366,8 +8376,8 @@ p(x;\mu,\sigma^2)&amp;amp;=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[ -\frac{1}{2\sigm
 &amp;amp;=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2]\\
 &amp;amp;=\frac{1}{(2\pi)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2-\ln{\sigma}]
 \end{aligned}
-\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/2\sigma^2\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)&lt;/span>。&lt;/p>
-&lt;p>需要指出的是，一般情况下，我们在&lt;span class="math">\(A(\mu,\sigma)\)&lt;/span>中最好不要在使用原有的&lt;span class="math">\(\mu,\sigma\)&lt;/span>，而是使用&lt;span class="math">\(\mathbf{C}\)&lt;/span>中的分量&lt;span class="math">\(c_1=\mu/\sigma^2,c_2=-1/2\sigma^2\)&lt;/span>表示，即 &lt;span class="math">\[
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/(2\sigma^2)\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)&lt;/span>。&lt;/p>
+&lt;p>需要指出的是，一般情况下，我们在&lt;span class="math">\(A(\mu,\sigma)\)&lt;/span>中最好不要在使用原有的&lt;span class="math">\(\mu,\sigma\)&lt;/span>，而是使用&lt;span class="math">\(\mathbf{C}\)&lt;/span>中的分量&lt;span class="math">\(c_1=\mu/\sigma^2,c_2=-1/(2\sigma^2)\)&lt;/span>表示，即 &lt;span class="math">\[
 A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)\tag{8.1}
 \]&lt;/span> 所以，其指数型分布族表示形式为 &lt;span class="math">\[
 p(x;\mathbf{C})=\frac{1}{(2\pi)^{1/2}} \exp[\mathbf{C}^T(\mu,\sigma)\mathbf{T}(x)-A(\mathbf{C})]
@@ -8861,7 +8871,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 &lt;/blockquote>
 &lt;p>说明：&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>规定&lt;span class="math">\(E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(E^{itX})=E(\cos tX)+iE(\sin tX)\)&lt;/span>&lt;/li>
+&lt;li>规定&lt;span class="math">\(E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(e^{itX})=E(\cos tX)+iE(\sin tX)\)&lt;/span>&lt;/li>
 &lt;li>由于&lt;span class="math">\(|e^{itX}|=1\)&lt;/span>，所以对任一随机变量都有特征函数。对于离散随机变量，其为求和形式；对于连续随机变量为积分形式。&lt;/li>
 &lt;li>特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>都是实变复值的。&lt;/li>
 &lt;li>&lt;span class="math">\(\varphi(0)=1\)&lt;/span>&lt;/li>

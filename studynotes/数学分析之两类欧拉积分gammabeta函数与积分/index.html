@@ -101,8 +101,7 @@ Nov 1, 2022</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6
 <li><a href=#第二类欧拉积分与阶乘延拓的唯一性>第二类欧拉积分与阶乘延拓的唯一性</a></li>
 <li><a href=#不完全gamma函数与不完全beta函数>不完全Gamma函数与不完全Beta函数</a></li>
 <li><a href=#两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</a></li>
-<li><a href=#gamma分布>Gamma分布</a></li>
-<li><a href=#beta分布>Beta分布</a></li>
+<li><a href=#gamma分布与一些常见分布的联系>Gamma分布与一些常见分布的联系</a></li>
 <li><a href=#附gamma函数beta函数关系以及其他函数>附：Gamma函数、Beta函数关系以及其他函数</a></li>
 <li><a href=#gamma函数与beta函数关系推导>Gamma函数与Beta函数关系推导</a></li>
 <li><a href=#gamma函数与psi函数>Gamma函数与Psi函数</a></li>
@@ -391,11 +390,27 @@ y=\frac{1}{\Gamma(1-x)}\frac{\mathrm{d}}{\mathrm{d}x}\log\left[\Gamma(\frac{1-x}
 \Beta(x;\,a,b)=\int _{0}^{x}t^{{a-1}}\,(1-t)^{{b-1}}\,dt \quad x\in [0,1],a>0,b>0\tag{40}
 \]</span> 当<span class=math>\(x = 1\)</span>，上式即化为<span class=math>\(\Beta\)</span>函数。</p>
 <h2 id=两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</h2>
-<p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (<span class=math>\(t\)</span>分布，<span class=math>\(χ^2\)</span>分布，<span class=math>\(F\)</span>分布)、<span class=math>\(\Beta\)</span>分布、狄利克雷分布的密度公式中都有<span class=math>\(\Gamma\)</span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。接下来，我们将分别介绍两类欧拉积分在概率论中的应用。</p>
-<h3 id=gamma分布>Gamma分布</h3>
-<p>与<span class=math>\(\Gamma\)</span>函数有最直接联系的概率分布当然是直接由<span class=math>\(\Gamma\)</span>函数变换得到的<span class=math>\(\Gamma\)</span>分布，实际上<span class=math>\(\Gamma\)</span>分布就是借<span class=math>\(\Gamma\)</span>函数作为归一化分母而得到的概率分布： $$</p>
-<p>$$</p>
-<h3 id=beta分布>Beta分布</h3>
+<p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (<span class=math>\(t\)</span>分布，<span class=math>\(χ^2\)</span>分布，<span class=math>\(F\)</span>分布)、<span class=math>\(\Beta\)</span>分布、狄利克雷分布的密度公式中都有<span class=math>\(\Gamma\)</span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。</p>
+<p>Gamma分布: <span class=math>\[
+p_{\Gamma}(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}
+\]</span></p>
+<p>与<span class=math>\(\Gamma\)</span>函数有最直接联系的概率分布当然是直接由<span class=math>\(\Gamma\)</span>函数变换得到的<span class=math>\(\Gamma\)</span>分布，实际上<span class=math>\(\Gamma\)</span>分布就是借<span class=math>\(\Gamma\)</span>函数作为归一化分母而得到的概率分布。如果做一个变换<span class=math>\(x = βt\)</span>，就得到伽玛分布的更一般的形式 <span class=math>\[
+p_{\Gamma}(x|\alpha,\beta)=\frac{\beta^{\alpha
+}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)}
+\]</span></p>
+<p>Beta分布： <span class=math>\[
+p_{B}=\frac{x^{\alpha-1}(1-x)^{\beta-1}} {\Beta(\alpha,\beta)}\!
+\]</span> 其中，<span class=math>\(\Beta(\alpha,\beta)\)</span>为Beta函数。</p>
+<h3 id=gamma分布与一些常见分布的联系>Gamma分布与一些常见分布的联系</h3>
+<p>为了理解Gamma分布的广泛一般性，我们从分布的可加性入手，从最简单的分布开始逐渐深入到Gamma分布。</p>
+<p>回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布<span class=math>\(B(N,p)\)</span>，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在<span class=math>\(\lambda=np\)</span>为定值时, <span class=math>\(p\rightarrow 0, n\rightarrow\infty\)</span>的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布<span class=math>\(n\rightarrow \infty\)</span>的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（<span class=math>\(e\)</span>是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。</p>
+<p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是<strong>指数分布<span class=math>\(X\thicksim \exp(\lambda)\)</span>的和</strong>，k个指数分布<span class=math>\(X_i\thicksim \exp(\lambda),i\in\{1,2,\dotsb,k\}\)</span>相加是Erlang分布 <span class=math>\[
+X_{i}\sim \exp (\lambda ),\\
+\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
+p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1
+\]</span> 它和指数分布的参数<span class=math>\(\lambda\)</span>是一样的，参数<span class=math>\(k\)</span>是指由<span class=math>\(k\)</span>个指数分布相加。其实际含义可以指代<span class=math>\(k\)</span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将<span class=math>\(k\rightarrow \alpha\)</span>延拓到正实数域，就是Gamma分布<span class=math>\(X\sim \Gamma(\alpha,\lambda)\)</span>。 <span class=math>\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x>0\quad \alpha ,\lambda >0\]</span> 其中,<span class=math>\(\Gamma(\alpha)\)</span>是Gamma函数而卡方分布又是Gamma分布的特例，即<span class=math>\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)</span>， <span class=math>\[
+p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}
+\]</span> 因此这两种分布(Gamma分布、卡方分布)也不出意外的有可加性。实际上，这些分布都可以看成是Gamma分布在某种情况下的特例，<strong>虽然说历史进程上是从常见分布到Gamma分布，但是Gamma分布确是其他常见分布的根本</strong>。</p>
 <h2 id=附gamma函数beta函数关系以及其他函数>附：Gamma函数、Beta函数关系以及其他函数</h2>
 <h3 id=gamma函数与beta函数关系推导>Gamma函数与Beta函数关系推导</h3>
 <p>从文章开头的式(1)我们就给出了<span class=math>\(\Gamma\)</span>函数和<span class=math>\(\Beta\)</span>函数二者的关系，其具体推导过程如下： <span class=math>\[
@@ -459,7 +474,7 @@ y=\frac{1}{\Gamma(1-x)}\frac{\mathrm{d}}{\mathrm{d}x}\log\left[\Gamma(\frac{1-x}
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
 数学分析
-<span class=button_tally>15</span>
+<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -531,7 +546,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=15 title=数学分析>数学分析<span class=button_tally>15</span>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
 </a>
@@ -585,13 +600,13 @@ SHELL
 <h4 class=mt-4>最新文章</h4>
 <ul class=flex-column>
 <li>
-<a href=https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E7%A7%AF%E5%88%86%E7%AF%87/ class=nav-link title=复变函数之复变函数微积分（积分篇）>复变函数之复变函数微积分（积分篇）</a>
-</li>
-<li>
 <a href=https://surprisedcat.github.io/studynotes/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E4%B9%8B%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0%E5%BE%AE%E7%A7%AF%E5%88%86%E5%BE%AE%E5%88%86%E7%AF%87/ class=nav-link title=复变函数之复变函数微积分（微分篇）>复变函数之复变函数微积分（微分篇）</a>
 </li>
 <li>
 <a href=https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90%E4%B9%8B%E5%AF%BC%E6%95%B0%E5%81%8F%E5%AF%BC%E4%B8%8E%E5%BE%AE%E5%88%86/ class=nav-link title=数学分析-导数、偏导与微分>数学分析-导数、偏导与微分</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
 </li>
 </ul>
 <div>
@@ -611,7 +626,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
 数学分析
-<span class=button_tally>15</span>
+<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
 机器学习
@@ -685,7 +700,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=2 title=复变函数>复变函数<span class=button_tally>2</span>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
 </a>
@@ -699,7 +714,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=15 title=数学分析>数学分析<span class=button_tally>15</span>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
 </a>

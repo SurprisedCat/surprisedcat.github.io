@@ -876,7 +876,7 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;li>&lt;a href="#指数族的期望与方差的统一形式">指数族的期望与方差的统一形式&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数族的期望">指数族的期望&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数族的方差">指数族的方差&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#theta与eta的一一对应缘由">&lt;span class="math">\(\theta\)&lt;/span>与&lt;span class="math">\(\eta\)&lt;/span>的一一对应缘由&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#theta与eta的一一对应缘由">&lt;span class="math">\(\\theta\)&lt;/span>与&lt;span class="math">\(\\eta\)&lt;/span>的一一对应缘由&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数型分布族的最大似然估计">指数型分布族的最大似然估计&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#自然指数族">自然指数族&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#指数分散族">指数分散族&lt;/a>&lt;/li>
@@ -889,10 +889,10 @@ p(x,n_1,n_2)=\begin{cases}
 &lt;blockquote>
 &lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，称为充分统计向量，但&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;span class="math">\(h(x)\)&lt;/span>也只是&lt;span class="math">\(x\)&lt;/span>的函数，且&lt;span class="math">\(h(x)&amp;gt;0\)&lt;/span>，通常是一个常数。&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
 &lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。&lt;/p>
 &lt;h3 id="指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/h3>
-&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(4)进行进一步改造。&lt;/p>
+&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(3)进行进一步改造。&lt;/p>
 &lt;blockquote>
 &lt;p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、&lt;strong>值域是多维向量或者无穷维向量的集合的函数&lt;/strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。&lt;/p>
 &lt;/blockquote>
@@ -927,7 +927,7 @@ p(x;p)=p^x(1-p)^{1-x},x\in\{0,1\}
 p(x;p)&amp;amp;=\exp\{x\ln{p}+(1-x)\ln{(1-p)}\}\\
 &amp;amp;=\exp\{x\ln(\frac{p}{1-p})+\ln{(1-p)}\}
 \end{aligned}
-\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=1;c(p)=\log(\frac{p}{1-p});T(x)=x;A(p)=-\log(1-p)\)&lt;/span>。写成标准形式为： &lt;span class="math">\[
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=1;c(p)=\ln(\frac{p}{1-p});T(x)=x;A(p)=-\ln n (1-p)\)&lt;/span>。写成标准形式为： &lt;span class="math">\[
 p(x;\eta)=\exp\{\eta x-\ln(1+e^\eta)\}
 \]&lt;/span> 标准参数&lt;span class="math">\(\eta\)&lt;/span>和原始参数&lt;span class="math">\(p\)&lt;/span>的关系为： &lt;span class="math">\[
 \eta=\ln(\frac{p}{1-p})\\
@@ -976,8 +976,8 @@ p(x;\mu,\sigma^2)&amp;amp;=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[ -\frac{1}{2\sigm
 &amp;amp;=\frac{1}{(2\pi\sigma^2)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2]\\
 &amp;amp;=\frac{1}{(2\pi)^{1/2}} \exp[-\frac{1}{2\sigma^2} x^2 +\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2-\ln{\sigma}]
 \end{aligned}
-\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/2\sigma^2\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)&lt;/span>。&lt;/p>
-&lt;p>需要指出的是，一般情况下，我们在&lt;span class="math">\(A(\mu,\sigma)\)&lt;/span>中最好不要在使用原有的&lt;span class="math">\(\mu,\sigma\)&lt;/span>，而是使用&lt;span class="math">\(\mathbf{C}\)&lt;/span>中的分量&lt;span class="math">\(c_1=\mu/\sigma^2,c_2=-1/2\sigma^2\)&lt;/span>表示，即 &lt;span class="math">\[
+\]&lt;/span> 对照指数族的形式，有&lt;span class="math">\(h(x)=\frac{1}{(2\pi)^{1/2}}, \mathbf{C}=\begin{bmatrix}\mu/\sigma^2 \\-1/(2\sigma^2)\end{bmatrix},\mathbf{T}=\begin{bmatrix}x\\x^2\end{bmatrix},A(\mu,\sigma)=\frac{1}{2\sigma^2}\mu^2+\ln{\sigma}\)&lt;/span>。&lt;/p>
+&lt;p>需要指出的是，一般情况下，我们在&lt;span class="math">\(A(\mu,\sigma)\)&lt;/span>中最好不要在使用原有的&lt;span class="math">\(\mu,\sigma\)&lt;/span>，而是使用&lt;span class="math">\(\mathbf{C}\)&lt;/span>中的分量&lt;span class="math">\(c_1=\mu/\sigma^2,c_2=-1/(2\sigma^2)\)&lt;/span>表示，即 &lt;span class="math">\[
 A(\mathbf{C})=\frac{-c_1^2}{4c_2}-\frac{1}{2}\log(-2c_2)\tag{8.1}
 \]&lt;/span> 所以，其指数型分布族表示形式为 &lt;span class="math">\[
 p(x;\mathbf{C})=\frac{1}{(2\pi)^{1/2}} \exp[\mathbf{C}^T(\mu,\sigma)\mathbf{T}(x)-A(\mathbf{C})]
@@ -1471,7 +1471,7 @@ P(T_1=t)={n\choose t}p^t(1-p)^{n-t},t=0,1,\dotsb,n
 &lt;/blockquote>
 &lt;p>说明：&lt;/p>
 &lt;ol style="list-style-type: decimal">
-&lt;li>规定&lt;span class="math">\(E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(E^{itX})=E(\cos tX)+iE(\sin tX)\)&lt;/span>&lt;/li>
+&lt;li>规定&lt;span class="math">\(E(\xi+i\eta)=E(\xi)+iE(\eta)\Rightarrow E(e^{itX})=E(\cos tX)+iE(\sin tX)\)&lt;/span>&lt;/li>
 &lt;li>由于&lt;span class="math">\(|e^{itX}|=1\)&lt;/span>，所以对任一随机变量都有特征函数。对于离散随机变量，其为求和形式；对于连续随机变量为积分形式。&lt;/li>
 &lt;li>特征函数&lt;span class="math">\(\varphi(t)\)&lt;/span>都是实变复值的。&lt;/li>
 &lt;li>&lt;span class="math">\(\varphi(0)=1\)&lt;/span>&lt;/li>
