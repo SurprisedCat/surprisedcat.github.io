@@ -92,7 +92,7 @@ Nov 12, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 <li><a href=#样本均值的抽样分布正态分布>样本均值的抽样分布——正态分布</a></li>
 <li><a href=#样本方差的抽样分布>样本方差的抽样分布</a></li>
 <li><a href=#卡方分布>卡方分布</a></li>
-<li><a href=#样本方差的抽样分布服从chi2n分布>样本方差的抽样分布服从<span class=math>\(\chi^2(n)\)</span>分布</a></li>
+<li><a href=#样本方差的抽样分布服从chi2n分布>样本方差的抽样分布服从<span class=math>\(\\chi^2(n)\)</span>分布</a></li>
 <li><a href=#样本均值与样本方差比值的分布>样本均值与样本方差比值的分布</a></li>
 <li><a href=#t分布>t分布</a>
 <ul>
@@ -164,7 +164,7 @@ p_y(y)&=F_y'(y)=F'_x(\sqrt{y}) - F'_x(-\sqrt{y})\\
 </ul>
 <h3 id=样本方差的抽样分布服从chi2n分布>样本方差的抽样分布服从<span class=math>\(\chi^2(n)\)</span>分布</h3>
 <blockquote>
-<p>引理1： N维随机变量线性变换的分布。设在两个n随机变量<span class=math>\(X=(x_1,x_2,\dotsb,x_n)'\)</span>与<span class=math>\(Y=(_1,y_2,\dotsb,y_n)'\)</span>间存在一个线性变换关系<span class=math>\(Y=AX\)</span>，其中<span class=math>\(A=(a_{ij})\)</span>为一个<span class=math>\(n\times n\)</span>的n阶方阵，则它们的期望向量和方差（协方差）矩阵之间有如下关系： <span class=math>\[E(Y)=AE(X)\\Var(Y)=AVar(X)A'\]</span></p>
+<p>引理1： N维随机变量线性变换的分布。设在两个n维随机变量<span class=math>\(X=(x_1,x_2,\dotsb,x_n)'\)</span>与<span class=math>\(Y=(_1,y_2,\dotsb,y_n)'\)</span>间存在一个线性变换关系<span class=math>\(Y=AX\)</span>，其中<span class=math>\(A=(a_{ij})\)</span>为一个<span class=math>\(n\times n\)</span>的n阶方阵，则它们的期望向量和方差（协方差）矩阵之间有如下关系： <span class=math>\[E(Y)=AE(X)\\Var(Y)=AVar(X)A'\]</span></p>
 </blockquote>
 <p>证明：</p>
 <p>（1）首先矩阵变换是一种线性变换，求期望（无论是积分还是求和）也是线性变换，有<span class=math>\(E(Y)=E(AX)\)</span>，<span class=math>\(A\)</span>都是常数，所以可以把它当成线性变换的系数提出来，就有了<span class=math>\(E(Y)=AE(X)\)</span>。</p>
@@ -196,7 +196,7 @@ A=\begin{bmatrix}
 \vdots&\vdots&\vdots&\ddots&\vdots&\\
 \frac{1}{\sqrt{n\cdot (n-1))}}&\frac{1}{\sqrt{n\cdot (n-1))}}&\frac{1}{\sqrt{n\cdot (n-1))}}&\dotsb&-\frac{n-1}{\sqrt{n\cdot (n-1))}}\\
 \end{bmatrix}
-\]</span> 这时有<span class=math>\(\frac{y_i}{\sigma}\sim N(0,1),i=2,3,\dotsb,n;y_1=\sqrt{n}\bar{x}\)</span>，且 <span class=math>\[\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\sim \chi^2(n-1)\]</span> 样本方差的抽样分布服从<span class=math>\(\chi^2(n)\)</span>分布得证。</p>
+\]</span> 这时有<span class=math>\(\frac{y_i}{\sigma}\sim N(0,1),i=2,3,\dotsb,n;y_1=\sqrt{n}\bar{x}\)</span>，且 <span class=math>\[\frac{(n-1)s^2}{\sigma^2}=\sum_{i=2}^n (\frac{y_i}{\sigma})^2\sim \chi^2(n-1)\]</span> 样本方差的抽样分布服从<span class=math>\(\chi^2(n-1)\)</span>分布得证。</p>
 <p>通过构造的矩阵<span class=math>\(A\)</span>，我们还发现<span class=math>\(\bar{x}\)</span>只和<span class=math>\(y_1\)</span>有关，而<span class=math>\(s^2\)</span>只和<span class=math>\(y_2,\dotsb,y_n\)</span>有关，同时<span class=math>\(y_i\)</span>之间是相互独立的，因此<span class=math>\(\bar{x},s^2\)</span>也是相互独立的。</p>
 <h2 id=样本均值与样本方差比值的分布>样本均值与样本方差比值的分布</h2>
 <h3 id=t分布>t分布</h3>
@@ -292,7 +292,7 @@ p(x,n_1,n_2)=\begin{cases}
 <nav class=tags_nav>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>23</span>
+<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
 优化理论
@@ -384,7 +384,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=23 title=概率统计随机过程>概率统计随机过程<span class=button_tally>23</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -444,7 +444,7 @@ SHELL
 <nav class=tags_nav>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>23</span>
+<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
 优化理论
@@ -554,7 +554,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=23 title=概率统计随机过程>概率统计随机过程<span class=button_tally>23</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -572,7 +572,9 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=统计学>统计学<span class=button_tally>1</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
 </a>

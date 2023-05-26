@@ -101,6 +101,8 @@ Nov 1, 2022</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6
 <li><a href=#第二类欧拉积分与阶乘延拓的唯一性>第二类欧拉积分与阶乘延拓的唯一性</a></li>
 <li><a href=#不完全gamma函数与不完全beta函数>不完全Gamma函数与不完全Beta函数</a></li>
 <li><a href=#两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</a></li>
+<li><a href=#gamma分布>Gamma分布</a></li>
+<li><a href=#beta分布>Beta分布</a></li>
 <li><a href=#gamma分布与一些常见分布的联系>Gamma分布与一些常见分布的联系</a></li>
 <li><a href=#附gamma函数beta函数关系以及其他函数>附：Gamma函数、Beta函数关系以及其他函数</a></li>
 <li><a href=#gamma函数与beta函数关系推导>Gamma函数与Beta函数关系推导</a></li>
@@ -391,26 +393,67 @@ y=\frac{1}{\Gamma(1-x)}\frac{\mathrm{d}}{\mathrm{d}x}\log\left[\Gamma(\frac{1-x}
 \]</span> 当<span class=math>\(x = 1\)</span>，上式即化为<span class=math>\(\Beta\)</span>函数。</p>
 <h2 id=两类欧拉积分在概率论中的应用>两类欧拉积分在概率论中的应用</h2>
 <p>第二类欧拉积分在概率统计中频繁现身，众多的高阶统计分布，包括常见的统计学三大分布 (<span class=math>\(t\)</span>分布，<span class=math>\(χ^2\)</span>分布，<span class=math>\(F\)</span>分布)、<span class=math>\(\Beta\)</span>分布、狄利克雷分布的密度公式中都有<span class=math>\(\Gamma\)</span>函数的身影。而第一类欧拉积分则和二项分布、伯努利分布有着密切关系，常作为贝叶斯统计中的先验分布。</p>
-<p>Gamma分布: <span class=math>\[
-p_{\Gamma}(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}
+<h3 id=gamma分布>Gamma分布</h3>
+<p>Gamma分布概率密度函数： <span class=math>\[
+p_{_\Gamma}(x|\alpha)=\frac{x^{\alpha-1}e^{-x}}{\Gamma(\alpha)}\tag{41}
 \]</span></p>
 <p>与<span class=math>\(\Gamma\)</span>函数有最直接联系的概率分布当然是直接由<span class=math>\(\Gamma\)</span>函数变换得到的<span class=math>\(\Gamma\)</span>分布，实际上<span class=math>\(\Gamma\)</span>分布就是借<span class=math>\(\Gamma\)</span>函数作为归一化分母而得到的概率分布。如果做一个变换<span class=math>\(x = βt\)</span>，就得到伽玛分布的更一般的形式 <span class=math>\[
-p_{\Gamma}(x|\alpha,\beta)=\frac{\beta^{\alpha
-}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)}
-\]</span></p>
-<p>Beta分布： <span class=math>\[
-p_{B}=\frac{x^{\alpha-1}(1-x)^{\beta-1}} {\Beta(\alpha,\beta)}\!
-\]</span> 其中，<span class=math>\(\Beta(\alpha,\beta)\)</span>为Beta函数。</p>
+p_{_\Gamma}(t|\alpha,\beta)=\frac{\beta^{\alpha
+}t^{\alpha-1}e^{-\beta t}}{\Gamma(\alpha)}\tag{42}
+\]</span> <span class=math>\(α\)</span>称为 shape parameter，主要决定了分布曲线的形状；<span class=math>\(β\)</span>称为rate parameter，主要决定曲线有多陡。<span class=math>\(θ=1/β\)</span>称为scale parameter，同样决定曲线有多陡。</p>
+<p>固定<span class=math>\(α=4\)</span>,随着<span class=math>\(β\)</span>（或<span class=math>\(θ=1/β\)</span>）参数的增加，x轴的scale在减小，其分布相对就越窄。若放在同一个x轴上， 增加<span class=math>\(β\)</span>将得到更陡的曲线 （相应地，y轴的scale增加）。</p>
+<div class=figure>
+<img src=../../images/gamma分布rate参数.gif alt=gamma分布rate参数.gif><p class=caption>gamma分布rate参数.gif</p>
+</div>
+<p>固定<span class=math>\(β=1\)</span>，<span class=math>\(α\)</span>改变，曲线的形态发生改变。</p>
+<div class=figure>
+<img src=../../images/gamma分布shape参数.gif alt=gamma分布shape参数.gif><p class=caption>gamma分布shape参数.gif</p>
+</div>
+<p>在这个形式下，Gamma分布期望<span class=math>\(E(T)=\frac{\alpha}{\beta}\)</span>，方差<span class=math>\(Var(T)=\frac{\alpha}{\beta^2}\)</span>。</p>
+<h3 id=beta分布>Beta分布</h3>
+<p>Beta分布概率密度函数： <span class=math>\[
+p_{B}=\frac{x^{\alpha-1}(1-x)^{\beta-1}} {\Beta(\alpha,\beta)}\!\tag{43}
+\]</span> 其中，参数<span class=math>\(\alpha,\beta>0\)</span>，定义域<span class=math>\(x\in(0,1)\)</span>,分母<span class=math>\(\Beta(\alpha,\beta)\)</span>为Beta函数。</p>
+<div class=figure>
+<img src=../../images/Beta_distribution.png alt=Beta_distribution.png><p class=caption>Beta_distribution.png</p>
+</div>
+<p>期望值和方差分别是：<span class=math>\(\mu =\operatorname {E}(X)={\frac{\alpha }{\alpha +\beta }}\)</span>，<span class=math>\(\operatorname {Var}(X)=\operatorname {E}(X-\mu )^{2}={\frac {\alpha \beta }{(\alpha +\beta )^{2}(\alpha +\beta +1)}}\)</span>。</p>
 <h3 id=gamma分布与一些常见分布的联系>Gamma分布与一些常见分布的联系</h3>
-<p>为了理解Gamma分布的广泛一般性，我们从分布的可加性入手，从最简单的分布开始逐渐深入到Gamma分布。</p>
+<p>为了理解Gamma分布的广泛一般性，我们从分布的<strong>可加性</strong>入手，从最简单的分布开始逐渐深入到Gamma分布。</p>
 <p>回想我们在研究最基础的伯努利分布时，将N个伯努利分布叠加后，形成了二项分布<span class=math>\(B(N,p)\)</span>，换句话说二项分布就是独立同分布(i.i.d)的伯努利分布加出来的，因此多几个伯努力分布相加还是二项分布，只是二项分布的参数有所改变。这是二项分布可加性的来源。而泊松分布是二项分布在<span class=math>\(\lambda=np\)</span>为定值时, <span class=math>\(p\rightarrow 0, n\rightarrow\infty\)</span>的极限，因此本质也是一种二项分布，不难理解为什么泊松分布也有可加性了。此外，作为二项分布<span class=math>\(n\rightarrow \infty\)</span>的极限的正态分布，自然也是有可加性的，但是这已经拓展到连续分布了。（<span class=math>\(e\)</span>是联系离散和连续的桥梁之一，这也是从离散的二项分布到正态分布表达式突然多出自然常数的一个暗示）。而其它具有可加性的离散分布，比如负二项分布是由N个独立同分布的几何分布加出来的，带有可加性也算是自然而然了。</p>
 <p>在连续分布中，也有一些分布是“加”出来的。最常见、应用最广泛的是<strong>指数分布<span class=math>\(X\thicksim \exp(\lambda)\)</span>的和</strong>，k个指数分布<span class=math>\(X_i\thicksim \exp(\lambda),i\in\{1,2,\dotsb,k\}\)</span>相加是Erlang分布 <span class=math>\[
 X_{i}\sim \exp (\lambda ),\\
 \sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\Rightarrow p(x;k,\lambda )=\sum_{i=1}^{k}{X_{i}}\sim \operatorname {Erlang} (k,\lambda )\\
-p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1
-\]</span> 它和指数分布的参数<span class=math>\(\lambda\)</span>是一样的，参数<span class=math>\(k\)</span>是指由<span class=math>\(k\)</span>个指数分布相加。其实际含义可以指代<span class=math>\(k\)</span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将<span class=math>\(k\rightarrow \alpha\)</span>延拓到正实数域，就是Gamma分布<span class=math>\(X\sim \Gamma(\alpha,\lambda)\)</span>。 <span class=math>\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x>0\quad \alpha ,\lambda >0\]</span> 其中,<span class=math>\(\Gamma(\alpha)\)</span>是Gamma函数而卡方分布又是Gamma分布的特例，即<span class=math>\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)</span>， <span class=math>\[
-p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}
+p(x;k,\lambda )={\lambda ^{k}x^{{k-1}}e^{{-\lambda x}} \over (k-1)!}\quad {\text{for }}x,\lambda \geq 0,k\geq 1\tag{44}
+\]</span> 它和指数分布的参数<span class=math>\(\lambda\)</span>是一样的，参数<span class=math>\(k\)</span>是指由<span class=math>\(k\)</span>个指数分布相加。其实际含义可以指代<span class=math>\(k\)</span>个用户/物件到达所用的时间间隔等。显然，有指数分布加出来的Erlang分布也有可加性，无非就是多几个指数分布的和。而将<span class=math>\(k\rightarrow \alpha\)</span>延拓到正实数域，就是Gamma分布<span class=math>\(X\sim \Gamma(\alpha,\lambda)\)</span>。 <span class=math>\[p(x;\alpha ,\lambda )={\frac {\lambda ^{\alpha }x^{\alpha -1}e^{-\lambda x}}{\Gamma (\alpha )}}\quad {\text{for }}x>0\quad \alpha ,\lambda >0\tag{45}\]</span> 其中,<span class=math>\(\Gamma(\alpha)\)</span>是Gamma函数而卡方分布又是Gamma分布的特例，即<span class=math>\(X\sim \chi^2(n)=\Gamma(\frac{n}{2},\frac{1}{2})\)</span>， <span class=math>\[
+p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\frac {-x}{2}}\tag{46}
 \]</span> 因此这两种分布(Gamma分布、卡方分布)也不出意外的有可加性。实际上，这些分布都可以看成是Gamma分布在某种情况下的特例，<strong>虽然说历史进程上是从常见分布到Gamma分布，但是Gamma分布确是其他常见分布的根本</strong>。</p>
+<p>Gamma分布的可加性的直接证明一般有两种思路，一是使用两个独立随机变量和的概率密度函数等于其概率密度函数的卷积；二是使用特征函数，独立随机变量的和等于特征函数的积。假设两个独立的服从Gamma分布的随机变量<span class=math>\(X\sim p_{_X}(x;\alpha_1,\lambda),Y\sim p_{_Y}(x;\alpha_2,\lambda)\)</span>，现需证明<span class=math>\(Z=X+Y\sim \Gamma(\alpha_1+\alpha_2,\lambda)\)</span>。</p>
+<p><strong>证明方法1</strong>：独立随机变量和等于概率密度函数卷积。由独立随机变量和的关系可知: <span class=math>\[
+\begin{aligned}
+p_{_Z}(x)&=p_{_X}(x)*p_{_Y}(x)\\
+&=\int_{-\infty}^{+\infty} p_{_X}(x-\tau)p_{_Y}(\tau)\mathrm{d}\tau
+\end{aligned}\tag{47}
+\]</span> 由于Gamma分布的概率密度函数在负数区域都为0，即<span class=math>\(\tau\leq 0\)</span>时，<span class=math>\(p_{_Y}(\tau)=0\)</span>，因此积分限 可以简化为<span class=math>\((0,\infty)\)</span>，式（47）带入具体表达式有： <span class=math>\[
+\begin{aligned}
+p_{_Z}(x)&=\int_{-\infty}^{+\infty} p_{_X}(x-\tau)p_{_Y}(\tau)\mathrm{d}\tau\\
+&= \int_{0}^{+\infty} {\frac {\lambda ^{\alpha_1}(x-\tau)^{\alpha_1-1}e^{-\lambda (x-\tau)}}{\Gamma (\alpha_1)}}\times{\frac {\lambda ^{\alpha_2}\tau^{\alpha_2-1}e^{-\lambda\tau}}{\Gamma (\alpha_2)}}\mathrm{d}\tau\\
+&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}e^{-\lambda x}\int_{0}^{+\infty}(x-\tau)^{\alpha_1-1}\tau^{\alpha_2-1}\mathrm{d}\tau\\
+&\overset{提取x}{=}\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}e^{-\lambda x}x^{\alpha_1+\alpha_2-2}\int_{0}^{+\infty}(1-\frac{\tau}{x})^{\alpha_1-1}(\frac{\tau}{x})^{\alpha_2-1}\mathrm{d}\tau\\
+\end{aligned}
+\tag{48}
+\]</span> 我们令<span class=math>\(\tau/x=t\)</span>，则有<span class=math>\(\mathrm{d}\tau=x\mathrm{d}t\)</span>。同时由于<span class=math>\(x>\tau>0\)</span>，所以<span class=math>\(t=\frac{\tau}{x}\in(0,1)\)</span>。式（48）可写为 <span class=math>\[
+\begin{aligned}
+p_{_Z}(x)&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}e^{-\lambda x}x^{\alpha_1+\alpha_2-2}\int_{0}^{+\infty}(1-t)^{\alpha_1-1}t^{\alpha_2-1}x\mathrm{d}t\\
+&=\frac{\lambda^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)}e^{-\lambda x}x^{\alpha_1+\alpha_2-1}\Beta(\alpha_1,\alpha_2)\\
+&=\frac{\lambda^{\alpha_1+\alpha_2}x^{\alpha_1+\alpha_2-1}e^{-\lambda x}}{\Gamma(\alpha_1+\alpha_2)}=p(x;\alpha_1+\alpha_2,\lambda)
+\end{aligned}\tag{49}
+\]</span> 即服从<span class=math>\(p_{_\Gamma}(x|\alpha_1+\alpha_2,\lambda)\)</span>，得证。</p>
+<p><strong>证明方法2</strong>：使用特征函数。可知Gamma分布的特征函数为<span class=math>\(\phi_{_\Gamma}(t)=(1-it/\beta)^{-\alpha}\)</span>，特征函数有一个性质：</p>
+<blockquote>
+<p>若 <span class=math>\(X_1,\ldots,X_n\)</span> 相互独立， <span class=math>\(X_k\)</span> 特征函数为 <span class=math>\(\phi_k(t)\)</span>，则 <span class=math>\(Y=X_1+\cdots+X_n\)</span> 的特征函数为 <span class=math>\(\phi_Y(t)=\phi_1(t)\cdots\phi_{k}(t)\)</span>。</p>
+</blockquote>
+<p>那么<span class=math>\(X+Y\)</span>的特征函数应为<span class=math>\(\phi_{_{X+Y}}(t)=(1-it/\lambda)^{-\alpha_1}(1-it/\lambda)^{-\alpha_2}=(1-it/\lambda)^{-(\alpha_1+\alpha_2)}\)</span>。再由特征函数的反演唯一性可得<span class=math>\((1-it/\lambda)^{-(\alpha_1+\alpha_2)}\)</span>对应的概率密度函数为<span class=math>\(p_{_\Gamma}(x|\alpha_1+\alpha_2,\lambda)\)</span>，得证。</p>
 <h2 id=附gamma函数beta函数关系以及其他函数>附：Gamma函数、Beta函数关系以及其他函数</h2>
 <h3 id=gamma函数与beta函数关系推导>Gamma函数与Beta函数关系推导</h3>
 <p>从文章开头的式(1)我们就给出了<span class=math>\(\Gamma\)</span>函数和<span class=math>\(\Beta\)</span>函数二者的关系，其具体推导过程如下： <span class=math>\[
@@ -429,23 +472,23 @@ p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\fra
 &= \Gamma(x+y) \int_0^1 t^{x-1} (1-t)^{y-1} \mathrm{d}t \\
 &= \Gamma(x+y) \Beta (x,y).\\
 &\Rightarrow \Beta(x,y)=\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}
-\end{aligned}
+\end{aligned}\tag{A1}
 \]</span></p>
 <h3 id=gamma函数与psi函数>Gamma函数与Psi函数</h3>
 <p><span class=math>\(\psi\)</span>函数又称双伽玛函数，是伽玛函数的对数导数，即 <span class=math>\[
-\psi (x)={\frac {d}{dx}}\ln {\Gamma (x)}={\frac {\Gamma '(x)}{\Gamma (x)}}
+\psi (x)={\frac {d}{dx}}\ln {\Gamma (x)}={\frac {\Gamma '(x)}{\Gamma (x)}}\tag{A2}
 \]</span> 由<span class=math>\(\psi\)</span>函数可以推导出Stirling级数。</p>
 <h3 id=gamma函数与zeta函数>Gamma函数与zeta函数</h3>
 <p>黎曼泽塔函数，写作<span class=math>\(ζ(z)\)</span>的定义如下：设一复数<span class=math>\(z\)</span>使得<span class=math>\(Re(z)>1\)</span>，则定义： <span class=math>\[
-\zeta(z)=\sum_{n=1}^\infty \frac{1}{n^z}
+\zeta(z)=\sum_{n=1}^\infty \frac{1}{n^z}\tag{A3}
 \]</span> 它亦可以用积分定义： <span class=math>\[
-\zeta(z)=\frac{1}{\Gamma(z)}\int_{0}^{\infty} \frac{x^ {z-1}}{e^x-1} \mathrm{d}x
+\zeta(z)=\frac{1}{\Gamma(z)}\int_{0}^{\infty} \frac{x^ {z-1}}{e^x-1} \mathrm{d}x\tag{A4}
 \]</span> 黎曼的<span class=math>\(ζ\)</span>函数被数学家认为主要和“最纯”的数学领域数论相关，黎曼函数最著名的就是黎曼猜想：</p>
 <blockquote>
 <p>黎曼猜想：黎曼<span class=math>\(ζ\)</span>函数的非平凡零点（在此情况下是指<span class=math>\(z\)</span>不为-2，-4，-6，...，等点的值）的实数部分是<span class=math>\(\frac{1}{2}\)</span>。</p>
 </blockquote>
 <p>而<span class=math>\(\Gamma\)</span>函数与<span class=math>\(ζ\)</span>函数有如下关系： <span class=math>\[
-\pi ^{-{\frac {z}{2}}}\;\Gamma \left({\frac {z}{2}}\right)\zeta (z)=\pi ^{-{\frac {1-z}{2}}}\;\Gamma \left({\frac {1-z}{2}}\right)\;\zeta (1-z)
+\pi ^{-{\frac {z}{2}}}\;\Gamma \left({\frac {z}{2}}\right)\zeta (z)=\pi ^{-{\frac {1-z}{2}}}\;\Gamma \left({\frac {1-z}{2}}\right)\;\zeta (1-z)\tag{A5}
 \]</span></p>
 </article>
 <aside class=sidebar>
@@ -462,7 +505,7 @@ p(x;n)={\frac {1}{2^{\frac {n}{2}}\Gamma(\frac{n}{2})}}x^{\frac {n}{2}-1}e^{\fra
 <nav class=tags_nav>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>23</span>
+<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
 优化理论
@@ -554,7 +597,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=23 title=概率统计随机过程>概率统计随机过程<span class=button_tally>23</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -614,7 +657,7 @@ SHELL
 <nav class=tags_nav>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>23</span>
+<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
 优化理论
@@ -724,7 +767,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=23 title=概率统计随机过程>概率统计随机过程<span class=button_tally>23</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -742,7 +785,9 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=统计学>统计学<span class=button_tally>1</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
 </a>

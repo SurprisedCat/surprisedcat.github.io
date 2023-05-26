@@ -125,6 +125,7 @@ Nov 3, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6
 <ul>
 <li><a href=#二维随机变量积的分布>二维随机变量积的分布</a></li>
 <li><a href=#二维随机变量商的分布>二维随机变量商的分布</a></li>
+<li><a href=#二维随机变量积和商的分布直接推导>二维随机变量积和商的分布直接推导</a></li>
 </ul></li>
 </ul>
 <h2 id=单个随机变量函数的分布>单个随机变量函数的分布</h2>
@@ -324,7 +325,9 @@ p_{_Z}(z)=\int_{-\infty}^∞ p_{_X}(x)p_{_Y}(z-x)dx
 \]</span> 得证。</p>
 <p>在之前<a href=#思考分布可加性的本质>思考：分布可加性的本质</a>章节中我们已经讨论了为什么有些分布具有可加性，也涉及了部分连续性随机分布，这里我们给出详细命题：</p>
 <blockquote>
-<p>命题6-1：<strong>正态分布的可加性</strong>。设随机变量<span class=math>\(X\sim N(\mu_1,\sigma_1^2),Y\sim N(\mu_2,\sigma_2^2)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)</span> 命题6-2：<strong>伽马分布的可加性</strong>。设随机变量<span class=math>\(X\sim Ga(\alpha_1,\lambda),Y\sim Ga(\alpha_2,\lambda)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim Ga(\alpha_1+\alpha_2,\lambda)\)</span> 命题6-3：<strong>卡方分布的可加性</strong>。设随机变量<span class=math>\(X\sim \chi^2(m),Y\sim \chi^2(n)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim \chi^2(m+n)\)</span></p>
+<p>命题6-1：<strong>正态分布的可加性</strong>。设随机变量<span class=math>\(X\sim N(\mu_1,\sigma_1^2),Y\sim N(\mu_2,\sigma_2^2)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim N(\mu_1+\mu_2,\sigma_1^2+\sigma_2^2)\)</span></p>
+<p>命题6-2：<strong>伽马分布的可加性</strong>。设随机变量<span class=math>\(X\sim Ga(\alpha_1,\lambda),Y\sim Ga(\alpha_2,\lambda)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim Ga(\alpha_1+\alpha_2,\lambda)\)</span></p>
+<p>命题6-3：<strong>卡方分布的可加性</strong>。设随机变量<span class=math>\(X\sim \chi^2(m),Y\sim \chi^2(n)\)</span>，且<span class=math>\(X,Y\)</span>独立，则<span class=math>\(Z=X+Y\sim \chi^2(m+n)\)</span></p>
 </blockquote>
 <p>证明： (1):正态分布的可加性。首先<span class=math>\(Z=X+Y\)</span>的定义域依然是<span class=math>\((-∞,∞)\)</span>,利用连续随机变量的卷积公式<span class=math>\((5)\)</span>可得： <span class=math>\[
 \begin{aligned}
@@ -449,6 +452,72 @@ v&u\\
 \end{vmatrix}|=p_{_X}(uv)p_{_Y}(v){|v|}
 \]</span></p>
 <p>第三步：对<span class=math>\(v\)</span>积分，求<span class=math>\(u\)</span>的边际分布： <span class=math>\[p_{_U}(u)=\int_{-∞}^∞p_{_X}(uv)p_{_Y}(v){|v|}dv\]</span> 得证。</p>
+<h4 id=二维随机变量积和商的分布直接推导>二维随机变量积和商的分布直接推导</h4>
+<p>上面两个说的都是两个独立的随机变量<span class=math>\(X,Y\)</span>，实际上只要知道两个随机变量的联合概率分布，即使不是独立的，也有一样的结论。</p>
+<blockquote>
+<p>设二维随机变量<span class=math>\((X,Y)\)</span>的联合概率密度为<span class=math>\(f(x,y)\)</span>，那么二者的商的分布<span class=math>\(Z=X/Y\)</span>的概率密度函数为：<span class=math>\(p_{_Z}(z)=\int_{-\infty}^\infty f(zy,y)|y|\mathrm{d}y\)</span>。显然当<span class=math>\(X,Y\)</span>独立时，有<span class=math>\(f(zy,y)=p_{_X}(zy)p_{_Y}(y)\)</span>。</p>
+<p>设二维随机变量<span class=math>\((X,Y)\)</span>的联合概率密度为<span class=math>\(p(x,y)\)</span>，那么二者的积的分布<span class=math>\(Z=XY\)</span>的概率密度函数为：<span class=math>\(p_Z(z)=\int_{-\infty}^\infty f(\frac{z}{y},y)|\frac{1}{y}|\mathrm{d}y\)</span>。显然当<span class=math>\(X,Y\)</span>独立时，有<span class=math>\(f(\frac{z}{y},y)=p_{_X}(\frac{z}{y})p_{_Y}(y)\)</span>。</p>
+</blockquote>
+<p>我们先从随机变量商的分布开始证明。利用分布函数<span class=math>\(F_{_Z}(z)\)</span>的定义，我们有： <span class=math>\[
+F_{_Z}(z)=P(Z\leq z)=P(\frac{X}{Y}\leq z)=\iint\limits_{\frac{x}{y}&lt;z}f(x,y)\mathrm{d}x\mathrm{d}y
+\]</span> 关键就是研究这个二重积分。我们先得确定积分范围。在<span class=math>\(x/y\leq z\)</span>的场景中，<span class=math>\(z\)</span>是一个给定的常数，因此积分的范围会被直线<span class=math>\(x=zy\)</span>划分，针对<span class=math>\(z\)</span>是否正负，还需要分成两种情况考虑：<span class=math>\(z&lt;0\)</span>和<span class=math>\(z\geq 0\)</span>。</p>
+<p>当<span class=math>\(z&lt;0\)</span>时，<span class=math>\(x/y\)</span>小于一个负数，那么二者必然一正一负，积分区域只能在第二、四象限；为了方便进一步确定积分范围，我们使用一个不严谨但是快速的方法。由于<span class=math>\(-\infty&lt; z\)</span>，那么<span class=math>\(x\rightarrow -\infty,y>0\)</span>所在范围必然位于积分区域，即<span class=math>\(x/y=z&lt;0\)</span>在第二象限直线下方部分位于积分区域。同样的，<span class=math>\(x\rightarrow \infty,y&lt;0\)</span>所在范围必然位于积分区域，即<span class=math>\(x/y=z&lt;0\)</span>在第四象限直线上方部分位于积分区域。综上<strong>得到<span class=math>\(z&lt;0\)</span>时下左图的红色阴影积分区域</strong>。</p>
+<p>当<span class=math>\(z>0\)</span>时，<span class=math>\(x/y\)</span>小于一个正数，那么第二、四象限的<span class=math>\(x/y\)</span>都是负数，必然属于积分区域；再看第一、三象限。采样上述类似的快速判断方法，由于<span class=math>\(0&lt;z\)</span>，那么<span class=math>\(y\rightarrow \infty, x>0\)</span>所在范围必然位于积分区域，即<span class=math>\(x/y=z>0\)</span>在第一象限直线上方部分位于积分区域。同样的，<span class=math>\(y\rightarrow -\infty,x&lt;0\)</span>所在范围必然位于积分区域，即<span class=math>\(x/y=z>0\)</span>在第三象限直线下方部分位于积分区域。综上<strong>得到<span class=math>\(z>0\)</span>时下右图的红色阴影积分区域</strong>。</p>
+<div class=figure>
+<img src=../../images/随机变量函数商的分布.jpg alt=随机变量函数商的分布.jpg><p class=caption>随机变量函数商的分布.jpg</p>
+</div>
+<p>确定好了积分区域，我们下面选择积分次序。对于二重积分，可以先对<span class=math>\(x\)</span>积分，也可以先对<span class=math>\(y\)</span>积分，主要看那个方便。我们可以把两个次序的积分先写出来，比较一下。</p>
+<p>如果先对<span class=math>\(y\)</span>积分，在对<span class=math>\(x\)</span>积分。那么<span class=math>\(z&lt;0\)</span>和<span class=math>\(z>0\)</span>的积分公式如下： <span class=math>\[
+\begin{aligned}
+&z&lt;0\\
+&P(\frac{X}{Y}\leq z)=\int_{-\infty}^0\int_0^{x/z}f(x,y)\mathrm{d}y\mathrm{d}x+\int_{0}^{\infty}\int_{x/z}^0f(x,y)\mathrm{d}y\mathrm{d}x\\
+&z>0\\
+&P(\frac{X}{Y}\leq z)=\int_{0}^{\infty}\int_{x/z}^{\infty}f(x,y)\mathrm{d}y\mathrm{d}x+\int_{-\infty}^{0}\int_0^{\infty}f(x,y)\mathrm{d}y\mathrm{d}x\\
+&\qquad\qquad\int_{-\infty}^{0}\int_{-\infty}^{z/x}f(x,y)\mathrm{d}y\mathrm{d}x+\int_{0}^{\infty}\int_{-\infty}^{0}f(x,y)\mathrm{d}y\mathrm{d}x
+\end{aligned}
+\]</span> 这种积分次序在<span class=math>\(z>0\)</span>时，被分成的四个积分区域，计算比较麻烦。我们再来尝试先对<span class=math>\(x\)</span>积分，在对<span class=math>\(y\)</span>积分。 <span class=math>\[
+\begin{aligned}
+&z&lt;0\\
+&P(\frac{X}{Y}\leq z)=\int_{0}^{\infty}\int_{-\infty}^{yz}f(x,y)\mathrm{d}x\mathrm{d}y+\int_{-\infty}^{0}\int_{yz}^{\infty}f(x,y)\mathrm{d}x\mathrm{d}y\\
+&z>0\\
+&P(\frac{X}{Y}\leq z)=\int_{0}^{\infty}\int_{-\infty}^{yz}f(x,y)\mathrm{d}x\mathrm{d}y+\int_{-\infty}^{0}\int_{yz}^{\infty}f(x,y)\mathrm{d}x\mathrm{d}y\\
+\end{aligned}
+\]</span> 在此积分次序下，不仅都被只划分成了两个积分区域，并且在<span class=math>\(z&lt;0\)</span>和<span class=math>\(z>0\)</span>时，两个积分的公式是一样的，可以合并成一个场景，不用区分<span class=math>\(z\)</span>的正负，十分有利于计算，因此先对<span class=math>\(x\)</span>积分，在对<span class=math>\(y\)</span>积分是合适的积分方式，即 <span class=math>\[
+F_{_Z}(z)=P(Z\leq z)\\
+=P(\frac{X}{Y}\leq z)=\int_{0}^{\infty}\int_{-\infty}^{yz}f(x,y)\mathrm{d}x\mathrm{d}y+\int_{-\infty}^{0}\int_{yz }^{\infty}f(x,y)\mathrm{d}x\mathrm{d}y\\
+\]</span> 联系分布函数和概率密度函数的关系，<span class=math>\(F_{_Z}(z)=\int_{-\infty}^z f(t)\mathrm{d}t\)</span>，我们希望在二重积分限中去除<span class=math>\(y\)</span>，只保留<span class=math>\(z\)</span>，因此我们在对<span class=math>\(x\)</span>的积分中采用变量代换令<span class=math>\(x=yt\)</span>，那么<span class=math>\(\mathrm{d}x=y\mathrm{d}t\)</span>，代入有： <span class=math>\[
+F_{_Z}(z)=\int_{0}^{\infty}\int_{-\infty}^{z}f(yt,y)y\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\int_{z}^{\infty}f(yt,y)y\mathrm{d}t\mathrm{d}y
+\]</span> 上式中第一项中<span class=math>\(y\)</span>恒大于0，第二项中<span class=math>\(y\)</span>恒小于0，所以我们加上绝对值符号，统一积分内容： <span class=math>\[
+\begin{aligned}
+F_{_Z}(z)&=\int_{0}^{\infty}\int_{-\infty}^{z}f(yt,y)|y|\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\int_{z}^{\infty}-f(yt,y)|y|\mathrm{d}t\mathrm{d}y\\
+&=\int_{0}^{\infty}\int_{-\infty}^{z}f(yt,y)|y|\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\underbrace{\int_{-\infty}^{z}}_{负号改变}f(yt,y)|y|\mathrm{d}t\mathrm{d}y\\
+&=\int_{0}^{\infty}\int_{-\infty}^{z}f(yt,y)|y|\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\int_{-\infty}^{z}f(yt,y)|y|\mathrm{d}t\mathrm{d}y\\
+&\overset{交互积分次序}{=}\int_{-\infty}^{z}\int_{0}^{\infty}f(yt,y)|y|\mathrm{d}y\mathrm{d}t+\int_{-\infty}^{z}\int_{-\infty}^{0}f(yt,y)|y|\mathrm{d}y\mathrm{d}t\\
+&=\int_{-\infty}^{z}\int_{-\infty}^{\infty}f(yt,y)|y|\mathrm{d}y\mathrm{d}t
+\end{aligned}
+\]</span> 求导得到概率密度函数。 <span class=math>\[
+p_{_Z}(z)=F'_{_Z}(z)=\int_{-\infty}^{\infty}f(yz,y)|y|\mathrm{d}y
+\]</span> 得证。</p>
+<p>我们再讨论随机变量积的分布。利用分布函数<span class=math>\(F_{_Z}(z)\)</span>的定义，我们有： <span class=math>\[
+F_{_Z}(z)=P(Z\leq z)=P(XY\leq z)=\iint\limits_{xy&lt;z}f(x,y)\mathrm{d}x\mathrm{d}y
+\]</span> 同样我们要考虑其积分区域，需要分成两种情况考虑：<span class=math>\(z&lt;0\)</span>和<span class=math>\(z\geq 0\)</span>。具体分析过程和随机变量商的方法类似，不再具体说明。可以得到如下图所示阴影积分区域。</p>
+<div class=figure>
+<img src=../../images/随机变量函数积的分布.jpg alt=随机变量函数积的分布.jpg><p class=caption>随机变量函数积的分布.jpg</p>
+</div>
+<p>在考虑积分顺序时，同样也是先对<span class=math>\(x\)</span>积分，再对<span class=math>\(y\)</span>积分更适合计算，所以有： <span class=math>\[
+F_{_Z}(z)=P(Z\leq z)\\
+=P(XY\leq z)=\int_{0}^{\infty}\int_{-\infty}^{z/y}f(x,y)\mathrm{d}x\mathrm{d}y+\int_{-\infty}^{0}\int_{z/y}^{\infty}f(x,y)\mathrm{d}x\mathrm{d}y\\
+\]</span> 之后变量代换（<span class=math>\(x=\frac{t}{y}\)</span>）与交互积分顺序的方法也和随机变量商的分布一致，最后可以得到 <span class=math>\[
+\begin{aligned}
+F_{_Z}(z)&=\int_{0}^{\infty}\int_{-\infty}^{z}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\int_{z}^{\infty}-f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}t\mathrm{d}y\\
+&=\int_{0}^{\infty}\int_{-\infty}^{z}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\underbrace{\int_{-\infty}^{z}}_{负号改变}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}t\mathrm{d}y\\
+&=\int_{0}^{\infty}\int_{-\infty}^{z}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}t\mathrm{d}y+\int_{-\infty}^{0}\int_{-\infty}^{z}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}t\mathrm{d}y\\
+&\overset{交互积分次序}{=}\int_{-\infty}^{z}\int_{0}^{\infty}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}y\mathrm{d}t+\int_{-\infty}^{z}\int_{-\infty}^{0}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}y\mathrm{d}t\\
+&=\int_{-\infty}^{z}\int_{-\infty}^{\infty}f(\frac{t}{y},y)|\frac{1}{y}|\mathrm{d}y\mathrm{d}t
+\end{aligned}
+\]</span> 求导得到概率密度函数。 <span class=math>\[
+p_{_Z}(z)=F'_{_Z}(z)=\int_{-\infty}^{\infty}f(\frac{z}{y},y)|\frac{1}{y}|\mathrm{d}y
+\]</span> 得证。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
@@ -464,7 +533,7 @@ v&u\\
 <nav class=tags_nav>
 <a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>23</span>
+<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
 优化理论
@@ -556,7 +625,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=23 title=概率统计随机过程>概率统计随机过程<span class=button_tally>23</span>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -616,7 +685,7 @@ SHELL
 <nav class=tags_nav>
 <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
 概率统计随机过程
-<span class=button_tally>23</span>
+<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
 优化理论
@@ -726,7 +795,7 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=23 title=概率统计随机过程>概率统计随机过程<span class=button_tally>23</span>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
 </a>
@@ -744,7 +813,9 @@ SHELL
 </a>
 <a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
 </a>
-<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=统计学>统计学<span class=button_tally>1</span>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
 </a>
 <a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
 </a>
