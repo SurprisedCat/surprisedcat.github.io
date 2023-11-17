@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on SurprisedCat</title><link>https://surprisedcat.github.io/tags/ai/</link><description>Recent content in AI on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 25 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>AI-神经网络玩雅达利游戏(atari 2600)的预处理</title><link>https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/</link><pubDate>Wed, 25 Oct 2023 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/</guid><description>
+&lt;h2 id="ai-神经网络玩雅达利游戏atari-2600的预处理---omit-in-toc---">AI-神经网络玩雅达利游戏(atari 2600)的预处理&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在阅读DQN的一些基本文章时，发现都是大家着重于神经网络部分（这也没错），中文互联网缺乏对DQN实验环境——Atari 2600游戏环境的处理。本文通过阅读国外的一些博文、论文以及源码，整理了Atari游戏的环境处理步骤。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#atari%E6%B8%B8%E6%88%8F%E5%A4%84%E7%90%86%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6">Atari游戏处理整体框架&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%8E%B7%E5%8F%96%E8%A7%82%E6%B5%8B%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96">获取观测与初始化&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%B8%B8%E6%88%8F%E7%8E%AF%E5%A2%83%E5%88%9D%E5%A7%8B%E5%8C%96">游戏环境初始化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%8E%B7%E5%8F%96%E8%A7%82%E6%B5%8B%E5%9B%BE%E5%83%8F%E4%B8%8E%E4%BA%A4%E4%BA%92">获取观测图像与交互&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#firereset-%E5%90%AF%E5%8A%A8">FireReset 启动&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%A2%9E%E5%8A%A0%E9%9A%8F%E6%9C%BA%E6%80%A7">增加随机性&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#sticky-action">Sticky Action&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#noop">Noop&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#frame-skip-%E4%B8%8E-max-pooling">Frame skip 与 Max pooling&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%A1%A5%E5%85%85frame-stack">补充：Frame stack&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gym%E6%8F%90%E4%BE%9B%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%80%A7">Gym提供的随机性&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E6%80%BB%E4%BD%93%E6%AD%A5%E9%AA%A4%E7%9A%84%E9%99%90%E5%88%B6">总体步骤的限制&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%B8%B8%E6%88%8F%E5%9B%BE%E5%83%8F%E7%9A%84%E5%A4%84%E7%90%86">游戏图像的处理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%BA%E4%BA%86%E9%80%82%E5%BA%94%E4%BA%8E%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%A4%84%E7%90%86">为了适应于神经网络的处理&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#episodic-life">Episodic Life&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#clipreward">ClipReward&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#scaledfloat">ScaledFloat&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#frame-stack">Frame Stack&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#frametopytorch">FrameToPytorch&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="atari游戏处理整体框架">Atari游戏处理整体框架&lt;/h2>
+&lt;p>Atari游戏是过去一款风靡世界的游戏机，有着丰富的游戏可选。2017年，OpenAI团队正是使用Atari 2600作为环境，发表了那篇神经网络领域的里程碑之作：《Human-level control through deep reinforcement learning》。这篇文章以及很多后续论文中，对Atrai环境本身的处理也是非常重要的引入了不少新的概念，如frame skip, frame stack, sticky action, max pooling等等，为DQN的发展打下了良好的基础。&lt;/p>
+&lt;p>为了适应DQN的处理，目前主流Atari游戏的整体处理步骤如下：&lt;/p>
+&lt;p>&lt;img src="../../images/Atari%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B.drawio.svg" alt="Atari处理流程.drawio.svg">&lt;/p>
+&lt;p>注意，这些步骤在不同项目中可能属于不同的项目。例如，在ALE中实现了sticky action, gymnasium中就没有特地实现。stable-baselines3这个库基本上就都是自己实现的。另外，同一个大步骤在具体细节上也可能不同，例如对于游戏图像的处理，原始论文是直接缩放，没有剪裁图像，而现在一些实现代码例如《Deep Reinforcement Learning Hands On Second Edition》剪裁了图像。&lt;/p>
+&lt;h2 id="获取观测与初始化">获取观测与初始化&lt;/h2>
+&lt;p>为了将Atari 2600游戏环境作为DQN的交互环境，我们通常使用 Arcade Learning Environment(ALE)来模拟游戏并提供用于选择要执行的操作的接口。ALE是一个简洁的框架，允许研究人员和爱好者为Atari 2600游戏开发AI代理。它构建在Atari 2600仿真器 Stella 之上，并将仿真细节与代理设计分开。ALE允许我们在每个时间步骤提取Atari游戏反馈的信息，这种信息既可以是人眼可观测的图像(RGB图像)也可以是计算机处理的内存内容(RAM)，同时在每个时间步骤接收操作信息，用于与游戏环境交互。&lt;/p>
+&lt;p>本文默认使用RGB图像信息作为ALE的反馈内容，其图像大小为&lt;code>210 * 160&lt;/code>像素，采用RGB模式，即返回的观测数据规模为&lt;code>210*160*3&lt;/code>。每个像素点都是0-255取值范围的整数。为了不失一般性，本文采用Breakout（打砖块）这个游戏为例，Gym环境为0.29.1版本，环境创建时采用最原始（并非默认）的配置，即从ALE中获取1帧RGB图像，并给ALE每一帧一个操作（对应环境为&lt;code>BreakoutNoFrameskip-v4&lt;/code>）。&lt;/p>
+&lt;p>注：默认情况下，ALE中Atari游戏每秒有60帧。&lt;/p>
+&lt;h3 id="游戏环境初始化">游戏环境初始化&lt;/h3>
+&lt;p>我们可以通过如下代码构建环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">gymnasium&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">gym&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">numpy&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">np&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">matplotlib.pyplot&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">plt&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">cv2&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="kn">from&lt;/span> &lt;span class="nn">collections&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">deque&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，gym版本更新后全程是gymnasium，为了与过去统一所以&lt;code>import gymnasium as gym&lt;/code>。引入&lt;code>matplotlib.pyplot&lt;/code>和&lt;code>cv2&lt;/code>是为了画图与处理图像，而&lt;code>deque&lt;/code>是为了存储反馈的图像帧。为了保持可复现性，本文中设置了随机种子值都是100，至此，我们可以创建Breakout的游戏环境：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">seed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 设置随机种子值&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">env&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">gym&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;BreakoutNoFrameskip-v4&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，为了获得Atari游戏最原始，未经任何处理的观测数据，我们使用了&lt;code>BreakoutNoFrameskip-v4&lt;/code>，这个名称的创建的环境返回的结果不会使用Sticky action过滤动作，也不会使用frame skip跳帧来增强随机性（这些我们接下来要自己实现）。&lt;/p>
+&lt;p>至于如何在gym中对环境返回的动作和观测进行修改，这里推荐使用&lt;a href="https://gymnasium.farama.org/api/wrappers/">gym Wrapper模块&lt;/a>，具体操作方法超出了本文的阐述范围，需要了解的读者可以通过gym官方文档深入学习。&lt;/p>
+&lt;p>未经处理的Breakout游戏信息如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">unwrapped&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_action_meanings&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1"># 游戏动作的含义&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">action_space&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 游戏操作的动作空间&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 游戏图像的观测空间，对于Atari游戏来说，一般是210*160的RGB图像，每个像素点RGB范围都是[0,255]&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">observation_space&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;NOOP&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;FIRE&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;RIGHT&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;LEFT&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="n">Discrete&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="n">Box&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">255&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">210&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">160&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">uint8&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从上述可以发现，Breakout游戏的操作动作有四种：无操作（NOOP），开火/开球（FIRE），向右移动（RIGHT）和向左移动（LEFT），其动作空间是四个离散的数值（&lt;code>Discrete(4)&lt;/code>），分别对应着0——NOOP，1——FIRE，2——RIGHT，3——LEFT。而游戏的反馈（返回值）是一个210 $\times$ 160大小的RGB图像，以&lt;code>numpy.ndarray&lt;/code>的形式返回，具体来说是 $210\times 160\times 3$的三维数组，每个元素都是0-255的整数（如果熟悉图像处理，这部分就很好理解了）。&lt;/p>
+&lt;h3 id="获取观测图像与交互">获取观测图像与交互&lt;/h3>
+&lt;p>在生成Atari环境之后，Gym主要通过两个函数与Agents进行操作，一是重置函数&lt;code>env.reset()&lt;/code>，二是操作函数&lt;code>env.step()&lt;/code>。&lt;/p>
+&lt;p>&lt;code>env.reset()&lt;/code>将环境重置为初始状态，返回初始观测结果和信息。该函数最好接收一个整数参数作为随机数种子。其返回值是一个210 $\times$ 160大小的初始RGB图像和一些与游戏初始化信息。常见用法为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">observation&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">seed&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">2&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">imshow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">observation&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 以图片的形式显示numpy.ndarray&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># info一般是游戏相关信息，如lives表示游戏中剩余的生命数，frame_number表示游戏进行了多少帧&lt;/span>
+&lt;span class="ln">5&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;lives&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;episode_frame_number&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;frame_number&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;seeds&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">271914307&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3436027390&lt;/span>&lt;span class="p">)}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="../../images/breakout_reset.png" alt="breakout_reset.png">&lt;/p>
+&lt;p>&lt;code>env.step()&lt;/code>函数根据给定的动作与游戏环境进行一次交互。在Gym atari实际环境中，每执行一次step函数，游戏进行一帧（1/60秒）。当游戏进行到终止时（&lt;code>terminated or truncated&lt;/code>），需要重新调用&lt;code>env.reset()&lt;/code>函数重置环境以继续游戏交互。常见的用法为：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">observation&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">reward&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">terminated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">step&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>step&lt;/code>函数的参数来自于动作空间&lt;code>action_space&lt;/code>，由上可知，Breakout的动作空间是0-3四个离散整数。&lt;code>observation&lt;/code>和过去一样是&lt;code>numpy.ndarray&lt;/code>数组。&lt;code>reward&lt;/code>是采取该动作获取的奖励；&lt;code>terminated&lt;/code>指的是游戏是否进入到终止状态，&lt;code>truncated&lt;/code>则是在0.26版本后新添加的结果，表示是否达到一个截断状态，通常截断状态是由超时&lt;code>TimeLimit&lt;/code>引起的。&lt;code>info&lt;/code>和&lt;code>env.reset()&lt;/code>反馈的结果类似，也是游戏的辅助信息。函数返回的信息结果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">imshow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">observation&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 图片多了球&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;reward: &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">reward&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;termianted: &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">terminated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;truncated: &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">info&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="n">reward&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mf">0.0&lt;/span> &lt;span class="n">termianted&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;lives&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;episode_frame_number&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;frame_number&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="../../images/breakout_start.png" alt="breakout_reset.png">&lt;/p>
+&lt;h3 id="firereset-启动">FireReset 启动&lt;/h3>
+&lt;p>对于像breakout、pong之类的Atari游戏，我们需要需要通过Fire操作来发球（或者说开始游戏），如果让Agent自己学习的话，可能会花很多时间来发球，因此有些神经网络项目在Atari游戏的预处理中，会将发球和reset进行绑定，如果这个游戏需要通过Fire来启动，那么则添加&lt;code>FireReset&lt;/code>这个Wrapper。需要说明的是，对于是否需要使用FireReset，大家并没有统一意见，有人认为学习发球也是神经网络的工作之一，并不需要额外地设置。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">from&lt;/span> &lt;span class="nn">gymnasium.core&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Env&lt;/span> &lt;span class="c1"># typing类型提示&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="nc">FireResetEnv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">gym&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Wrapper&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;
+&lt;/span>&lt;span class="ln"> 5&lt;/span>&lt;span class="s1"> 对于使用FIRE开始游戏的游戏采取FIRE操作来初始化
+&lt;/span>&lt;span class="ln"> 6&lt;/span>&lt;span class="s1"> :param env: Environment to wrap
+&lt;/span>&lt;span class="ln"> 7&lt;/span>&lt;span class="s1"> &amp;#39;&amp;#39;&amp;#39;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Env&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="c1"># 检查第2个动作是否为FIRE。&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="k">assert&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">unwrapped&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_action_meanings&lt;/span>&lt;span class="p">()[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;FIRE&amp;#34;&lt;/span> &lt;span class="c1"># type: ignore[attr-defined]&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="k">assert&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">unwrapped&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_action_meanings&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="c1"># type: ignore[attr-defined]&lt;/span>
+&lt;span class="ln">14&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="c1"># 重载reset函数，使用FireReset&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="n">kwargs&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1"># 核心代码&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="n">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="n">kwargs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c1"># Fire to start&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="n">obs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">terminated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">step&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="c1"># 特殊情况处理&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="c1"># 如果已经结束了，则重置环境&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">terminated&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="n">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="n">kwargs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="c1"># 存疑，为啥这里用使用step(2)???&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="n">obs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">terminated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">step&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">terminated&lt;/span> &lt;span class="ow">or&lt;/span> &lt;span class="n">truncated&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="n">obs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">info&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="n">kwargs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">obs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">info&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>FireResetEnv&lt;/code>类继承了&lt;code>gym.Wrapper&lt;/code>，它的初始化函数仅仅检查动作空间中是否存在“Fire”这个选项。由于只需要在重置阶段起作用，因此只重写了&lt;code>reset()&lt;/code>函数。主要修改就是在原始的&lt;code>reset()&lt;/code>之后添加一步“Fire”动作，从而触发开始游戏。后面特殊处理的代码是为了防止游戏已经结束从而重置游戏。从本人实践的实际效果来看，至少对于（初期）探索性比较强的算法，&lt;code>FireResetEnv&lt;/code>并不是很必要。参见讨论&lt;a href="https://github.com/openai/baselines/issues/240">https://github.com/openai/baselines/issues/240&lt;/a>。&lt;/p>
+&lt;p>如果要使用上述Wrapper，只需要将原始的环境作为参数传递给Wrapper即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">env&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">gym&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;BreakoutNoFrameskip-v4&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">env_firereset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">FireResetEnv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么新的环境&lt;code>env_firereset&lt;/code>在调用重置函数&lt;code>reset&lt;/code>时就会调用&lt;code>FireResetEnv&lt;/code>中重写的&lt;code>reset&lt;/code>函数。&lt;/p>
+&lt;p>最后需要指出的是，&lt;code>FireResetEnv&lt;/code>类虽然负责开启特定游戏，但是在各个项目的Atari预处理流程中并不一定是最先处理的，甚至Gym项目中已经移除了FireReset的相关代码。（个人觉得只要放在NOOP处理的后面就问题不大）。&lt;/p>
+&lt;h2 id="增加随机性">增加随机性&lt;/h2>
+&lt;p>《The arcade learning environment: An evaluation platform for general agents》中指出，Atari 游戏是完全确定性的。 因此，玩家可以通过简单地记住最佳的动作序列而完全忽略对环境的观察来实现最先进的性能（例如背板行为）。为了避免这种情况，游戏环境都需要增加随机性。从添加随机性的时机来看，可以分为在初始阶段添加随机性（例如：NOOP）和交互阶段添加随机性（例如：Sticky action、frame skip）。&lt;/p>
+&lt;p>在初始阶段，我们可以等一段时间在开始操作（即开始有几步什么都不做，No Operation），让环境自动演变一会，从而获得不同的初始状态。在交互阶段，可以使用Sticky action(粘连动作)：即动作不是总是准确传递到环境中的，而是有概率使用之前执行的动作，从而增加动作的随机性。此外，还可以应用Frame Skip（随机跳帧）：在每个环境步骤中，都会针对随机数量的帧重复该操作。可以通过将关键字参数frameskip设置为正整数或两个正整数的元组来更改此行为。如果frameskip是一个整数，则跳帧是确定性的，并且在每个步骤中动作都会重复frameskip很多次。否则，frameskip若是一个元组，则在每个环境步骤中，在（frameskip[0]， frameskip[1]）之间均匀随机选择跳过帧的数量来创造随机性。&lt;/p>
+&lt;p>下面我们按照处理流程介绍增加随机性的功能。&lt;/p>
+&lt;h3 id="sticky-action">Sticky Action&lt;/h3>
+&lt;p>Sticky Action，中文翻译为粘连动作，是论文《Revisiting the Arcade Learning Environment:
+Evaluation Protocols and Open Problems for General Agents》在Section 5.2中提出的方法，具体步骤为设定一个概率阈值&lt;code>repeat_action_probability&lt;/code>，每次Agent执行动作前先生成一个随机数，如果这个随机数大于&lt;code>repeat_action_probability&lt;/code>，则执行Agent本身的动作，否则沿用上一次的动作。这就使得动作产生了随机性，Atari游戏实际执行的动作并不一定是Agent传递的操作。&lt;/p>
+&lt;p>ALE和Gymnasium都自己实现了Sticky action(粘连动作)代码，为了方便理解，我们将以Gymnaisum的代码作为基础进行适当简化。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="nc">StickyAction&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="ln"> 2&lt;/span> &lt;span class="n">gym&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ActionWrapper&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ObsType&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ActType&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ActType&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">gym&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Env&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ObsType&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ActType&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">repeat_action_probability&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">float&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">):&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Initialize StickyAction wrapper.
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="s2">
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="s2"> Args:
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="s2"> env (Env): the wrapped environment
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="s2"> repeat_action_probability (int | float): a probability of repeating the old action.
+&lt;/span>&lt;span class="ln">13&lt;/span>&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="n">repeat_action_probability&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="k">raise&lt;/span> &lt;span class="n">InvalidProbability&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;repeat_action_probability should be in the interval [0,1). Received &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">repeat_action_probability&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">)&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="n">gym&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ActionWrapper&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">repeat_action_probability&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">repeat_action_probability&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">last_action&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">ActType&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kc">None&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">reset&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">seed&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kc">None&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">options&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">dict&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Any&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kc">None&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="nb">tuple&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ObsType&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">dict&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nb">str&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Any&lt;/span>&lt;span class="p">]]:&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;Reset the environment.&amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">last_action&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span> &lt;span class="c1"># 为了方便NOOP操作，这里设置为None&lt;/span>
+&lt;span class="ln">28&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reset&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">seed&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">seed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">30&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="k">def&lt;/span> &lt;span class="nf">action&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">action&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">ActType&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">ActType&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="c1"># 如果随机数未超过阈值概率，则不接受新的动作，执行之前的动作&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">last_action&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">np_random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">uniform&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">repeat_action_probability&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="p">):&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="n">action&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">last_action&lt;/span>
+&lt;span class="ln">38&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">last_action&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">action&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">action&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="noop">Noop&lt;/h3>
+&lt;p>在游戏刚开始阶段，在一定随机步数内不做任何操作，从而获得一定的初始随机化能力。我只需要设置一个最大Noop步数，代码会在0-max Noop中选择一个随机数N，执行N步的Noop。&lt;/p>
+&lt;h3 id="frame-skip-与-max-pooling">Frame skip 与 Max pooling&lt;/h3>
+&lt;h3 id="补充frame-stack">补充：Frame stack&lt;/h3>
+&lt;h3 id="gym提供的随机性">Gym提供的随机性&lt;/h3>
+&lt;p>在Gym V26中所有Atari游戏均提供三个随机性版本。它们的不同之处在于上述参数的默认设置。默认参数差异如下表所示：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Version&lt;/th>
+&lt;th style="text-align:center">frame skip&lt;/th>
+&lt;th style="text-align:center">repeat_action_probability&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">V0&lt;/td>
+&lt;td style="text-align:center">(2,5)&lt;/td>
+&lt;td style="text-align:center">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">V4&lt;/td>
+&lt;td style="text-align:center">(2,5)&lt;/td>
+&lt;td style="text-align:center">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">V5&lt;/td>
+&lt;td style="text-align:center">(2,5)&lt;/td>
+&lt;td style="text-align:center">0.25&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>具体来说，对于每个 Atari 游戏，Gymnasium 中都会注册几种不同的配置。 v0 和 v4 的命名方案类似。 让我们以Amidar游戏为例看一下在gymnasium注册的Amidar的所有变体：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Env-id&lt;/th>
+&lt;th style="text-align:left">obs_type=&lt;/th>
+&lt;th style="text-align:left">frameskip=&lt;/th>
+&lt;th style="text-align:left">repeat_action_probability=&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-v0&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">(2, 5)&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-ram-v0&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">(2, 5)&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-ramDeterministic-v0&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">4&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-ramNoFrameskip-v0&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">1&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">AmidarDeterministic-v0&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">4&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">AmidarNoFrameskip-v0&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">1&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-v4&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">(2, 5)&lt;/td>
+&lt;td style="text-align:left">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-ram-v4&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">(2, 5)&lt;/td>
+&lt;td style="text-align:left">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-ramDeterministic-v4&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">4&lt;/td>
+&lt;td style="text-align:left">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Amidar-ramNoFrameskip-v4&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">1&lt;/td>
+&lt;td style="text-align:left">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">AmidarDeterministic-v4&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">4&lt;/td>
+&lt;td style="text-align:left">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">AmidarNoFrameskip-v4&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">1&lt;/td>
+&lt;td style="text-align:left">0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">ALE/Amidar-v5&lt;/td>
+&lt;td style="text-align:left">rgb&lt;/td>
+&lt;td style="text-align:left">4&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">ALE/Amidar-ram-v5&lt;/td>
+&lt;td style="text-align:left">ram&lt;/td>
+&lt;td style="text-align:left">4&lt;/td>
+&lt;td style="text-align:left">0.25&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>注：obs_type表示观测返回的类型。可以有三种&lt;/p>
+&lt;ol>
+&lt;li>“ram”: The 128 Bytes of RAM&lt;/li>
+&lt;li>“rgb”: 类似于人眼看到的RGB图像&lt;/li>
+&lt;li>“grayscale”： 返回的是单一色的灰度图&lt;/li>
+&lt;/ol>
+&lt;h2 id="总体步骤的限制">总体步骤的限制&lt;/h2>
+&lt;p>TimeLimit&lt;/p>
+&lt;h2 id="游戏图像的处理">游戏图像的处理&lt;/h2>
+&lt;p>WarpFrame流程：灰度图+缩放，有的需要裁剪&lt;/p>
+&lt;h2 id="为了适应于神经网络的处理">为了适应于神经网络的处理&lt;/h2>
+&lt;h3 id="episodic-life">Episodic Life&lt;/h3>
+&lt;h3 id="clipreward">ClipReward&lt;/h3>
+&lt;h3 id="scaledfloat">ScaledFloat&lt;/h3>
+&lt;h3 id="frame-stack">Frame Stack&lt;/h3>
+&lt;h3 id="frametopytorch">FrameToPytorch&lt;/h3>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="https://stable-baselines3.readthedocs.io/en/master/common/atari_wrappers.html">https://stable-baselines3.readthedocs.io/en/master/common/atari_wrappers.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://danieltakeshi.github.io/2016/11/25/frame-skipping-and-preprocessing-for-deep-q-networks-on-atari-2600-games/">https://danieltakeshi.github.io/2016/11/25/frame-skipping-and-preprocessing-for-deep-q-networks-on-atari-2600-games/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.gymlibrary.dev/environments/atari/index.html">https://www.gymlibrary.dev/environments/atari/index.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stable-baselines3.readthedocs.io/en/master/_modules/stable_baselines3/common/atari_wrappers.html">https://stable-baselines3.readthedocs.io/en/master/_modules/stable_baselines3/common/atari_wrappers.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/PacktPublishing/Deep-Reinforcement-Learning-Hands-On-Second-Edition/blob/master/Chapter06/lib/wrappers.py">https://github.com/PacktPublishing/Deep-Reinforcement-Learning-Hands-On-Second-Edition/blob/master/Chapter06/lib/wrappers.py&lt;/a>&lt;/li>
+&lt;/ol></description></item></channel></rss>
