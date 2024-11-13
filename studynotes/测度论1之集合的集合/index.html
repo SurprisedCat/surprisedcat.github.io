@@ -91,8 +91,8 @@ Sep 14, 2020</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 <ul>
 <li><a href=#集合的集合>集合的集合</a></li>
 <li><a href=#来自拓扑的定义>来自拓扑的定义</a></li>
-<li><a href=#从sigma代数开始>从<span class=math>\(\sigma\)</span>代数开始</a></li>
-<li><a href=#最小sigma代数>最小<span class=math>\(\sigma\)</span>代数</a></li>
+<li><a href=#从sigma代数开始>从<span class=math>\(\\sigma\)</span>代数开始</a></li>
+<li><a href=#最小sigma代数>最小<span class=math>\(\\sigma\)</span>代数</a></li>
 <li><a href=#borel集与borel代数域>Borel集与Borel代数(域)</a></li>
 <li><a href=#单调类定理>单调类定理</a></li>
 <li><a href=#集合序列>集合序列</a></li>
@@ -101,7 +101,8 @@ Sep 14, 2020</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 <li><a href=#λ系与π系>λ系与π系</a></li>
 <li><a href=#π系>π系</a></li>
 <li><a href=#λ系>λ系</a></li>
-<li><a href=#λ系π系与sigma代数>λ系π系与<span class=math>\(\sigma\)</span>代数</a></li>
+<li><a href=#λ系π系与sigma代数>λ系π系与<span class=math>\(\\sigma\)</span>代数</a></li>
+<li><a href=#附录1-集合运算的独立性>附录1： 集合运算的独立性</a></li>
 </ul>
 <h2 id=集合的集合>集合的集合</h2>
 <blockquote>
@@ -121,7 +122,7 @@ Sep 14, 2020</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 <blockquote>
 <p>若<span class=math>\(X \in A\)</span>，则称<span class=math>\(A\)</span>为<span class=math>\(X\)</span>上的一个代数。即代数需要把<span class=math>\(X\)</span>自身包含进去。</p>
 </blockquote>
-<p>若<span class=math>\(A\)</span>对<strong>有限</strong>并运算，<strong>有限</strong>交运算，差运算，余运算封闭，则称<span class=math>\(A\)</span>为代数，<strong>称为<span class=math>\(X\)</span>上的集代数</strong> 。</p>
+<p>若<span class=math>\(A\)</span>对<strong>有限</strong>并运算，<strong>有限</strong>交运算，差运算，余（补）运算封闭，则称<span class=math>\(A\)</span>为代数，<strong>称为<span class=math>\(X\)</span>上的集代数</strong> 。</p>
 <h2 id=从sigma代数开始>从<span class=math>\(\sigma\)</span>代数开始</h2>
 <p>在<strong>集环</strong>的基础上（通常使用<span class=math>\(S\)</span>对集合的并和差运算封闭的定义，即<span class=math>\(\forall E,F\in S\implies E\cup F\in S,E-F\in S\)</span>）加上无限可数并操作的封闭：</p>
 <blockquote>
@@ -168,8 +169,8 @@ Sep 14, 2020</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 <ol style=list-style-type:decimal>
 <li><span class=math>\(\mathcal C_1=\{(a,b):a,b ∈ \mathbb{R}\}\)</span></li>
 <li><span class=math>\(\mathcal C_2=\{[a,b]:a,b ∈ \mathbb{R}\}\)</span></li>
-<li><span class=math>\(\mathcal C_1=\{(a,b]:a,b ∈ \mathbb{R}\}\)</span></li>
-<li><span class=math>\(\mathcal C_1=\{(a,∞):a ∈ \mathbb{R}\}\)</span></li>
+<li><span class=math>\(\mathcal C_3=\{(a,b]:a,b ∈ \mathbb{R}\}\)</span></li>
+<li><span class=math>\(\mathcal C_4=\{(a,∞):a ∈ \mathbb{R}\}\)</span></li>
 </ol>
 <p>博雷尔测度（Borel measure）是σ代数上对区间[a, b]给出值b-a的测度。</p>
 <p>博雷尔测度并不完备，因此习惯使用勒贝格测度：每个博雷尔可测集都是勒贝格可测的，并且它们的测度值吻合。</p>
@@ -236,6 +237,16 @@ A_1\dotsb A_n\dotsb\in \mathcal{M}\\
 <blockquote>
 <p>若一个集合系<span class=math>\(\mathcal{A}\)</span>既是<span class=math>\(\lambda\)</span>-系又是<span class=math>\(\pi\)</span>-系，那么它也是<span class=math>\(\sigma\)</span>-代数。且<span class=math>\(\lambda(\mathcal{A})=\sigma(\mathcal{A})\)</span>。</p>
 </blockquote>
+<h2 id=附录1-集合运算的独立性>附录1： 集合运算的独立性</h2>
+<p>集合的四种常见运算：交<span class=math>\(\cap\)</span>、并<span class=math>\(\cup\)</span>、差<span class=math>\(-\)</span>、对称差<span class=math>\(\oplus\)</span>并不是相互独立的，可由其中某两种运算推出其他两种，总结如下：</p>
+<blockquote>
+<p>集合运算定理1：<br>(a) 集合的交、对称差运算可由集合的并、差两种运算定义<br>(b) 集合的交、并运算可由集合的差、对称差两种运算定义<br>(c) 集合的交、差运算可由集合的并、对称差两种运算定义<br>(d) 集合的并、差运算可由集合的交、对称差两种运算定义</p>
+</blockquote>
+<p>但是并不是四种运算的任意两种都可以推出其他运算。</p>
+<blockquote>
+<p>集合运算定理2：<br>(a) 集合的差运算无法由集合的交、并两种运算定义<br>(b) 集合的并运算无法由集合的交、差两种运算定义</p>
+</blockquote>
+<p>即集合的四种基本运算：并、交、差、对称差不是相互独立的可以把并、差两种运算（或 对称差、差两种运算，或对称差、并两种运算，或对称差、交两种运算）作为两个相互独立的基本运算，其余两种运算可由这两种运算定义；但不可以只把并与交两种运算（或差与交两种运算）作为独立的基本运算，否则其余的两种运算至少有一种不能由它们定义。</p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>

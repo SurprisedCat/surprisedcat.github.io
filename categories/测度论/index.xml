@@ -11,6 +11,9 @@
 &lt;p>当样本空间离散的时候，概率非常容易定义，只要分配给每一个结果一个概率值，其和等于1就好了。这个时候我们可以&lt;strong>定义概率的所有事件的集合&lt;/strong>就是样本空间的全部子集，没毛病。&lt;/p>
 &lt;p>但是当样本空间不是离散的，比如说是实轴R，那么概率的定义就比较麻烦了。我们发现，&lt;strong>并不是R上的所有子集（事件）都可以被定义上概率&lt;/strong>，比如：&lt;/p>
 &lt;div class="figure">
+&lt;img src="../../images/勒贝格不可测集例6.png" alt="勒贝格不可测集例6" />&lt;p class="caption">勒贝格不可测集例6&lt;/p>
+&lt;/div>
+&lt;div class="figure">
 &lt;img src="../../images/勒贝格不可测集.jpg" alt="勒贝格不可测集" />&lt;p class="caption">勒贝格不可测集&lt;/p>
 &lt;/div>
 &lt;p>看，我们发现，如果严格按照概率函数的定义，并不是R上的所有子集（事件）都能被定义概率的。那么我们能不能把那些能定义概率的集合（事件）挑出来只对他们进行研究呢？&lt;/p>
@@ -752,8 +755,8 @@ j=1,2,\dotsb,k\cdot 2^k,k=1,2,\dotsb.\]&lt;/span> 可直接写成； &lt;span cl
 &lt;ul>
 &lt;li>&lt;a href="#集合的集合">集合的集合&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#来自拓扑的定义">来自拓扑的定义&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#从sigma代数开始">从&lt;span class="math">\(\sigma\)&lt;/span>代数开始&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#最小sigma代数">最小&lt;span class="math">\(\sigma\)&lt;/span>代数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从sigma代数开始">从&lt;span class="math">\(\\sigma\)&lt;/span>代数开始&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最小sigma代数">最小&lt;span class="math">\(\\sigma\)&lt;/span>代数&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#borel集与borel代数域">Borel集与Borel代数(域)&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#单调类定理">单调类定理&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#集合序列">集合序列&lt;/a>&lt;/li>
@@ -762,7 +765,8 @@ j=1,2,\dotsb,k\cdot 2^k,k=1,2,\dotsb.\]&lt;/span> 可直接写成； &lt;span cl
 &lt;li>&lt;a href="#λ系与π系">λ系与π系&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#π系">π系&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#λ系">λ系&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#λ系π系与sigma代数">λ系π系与&lt;span class="math">\(\sigma\)&lt;/span>代数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#λ系π系与sigma代数">λ系π系与&lt;span class="math">\(\\sigma\)&lt;/span>代数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录1-集合运算的独立性">附录1： 集合运算的独立性&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="集合的集合">集合的集合&lt;/h2>
 &lt;blockquote>
@@ -782,7 +786,7 @@ j=1,2,\dotsb,k\cdot 2^k,k=1,2,\dotsb.\]&lt;/span> 可直接写成； &lt;span cl
 &lt;blockquote>
 &lt;p>若&lt;span class="math">\(X \in A\)&lt;/span>，则称&lt;span class="math">\(A\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>上的一个代数。即代数需要把&lt;span class="math">\(X\)&lt;/span>自身包含进去。&lt;/p>
 &lt;/blockquote>
-&lt;p>若&lt;span class="math">\(A\)&lt;/span>对&lt;strong>有限&lt;/strong>并运算，&lt;strong>有限&lt;/strong>交运算，差运算，余运算封闭，则称&lt;span class="math">\(A\)&lt;/span>为代数，&lt;strong>称为&lt;span class="math">\(X\)&lt;/span>上的集代数&lt;/strong> 。&lt;/p>
+&lt;p>若&lt;span class="math">\(A\)&lt;/span>对&lt;strong>有限&lt;/strong>并运算，&lt;strong>有限&lt;/strong>交运算，差运算，余（补）运算封闭，则称&lt;span class="math">\(A\)&lt;/span>为代数，&lt;strong>称为&lt;span class="math">\(X\)&lt;/span>上的集代数&lt;/strong> 。&lt;/p>
 &lt;h2 id="从sigma代数开始">从&lt;span class="math">\(\sigma\)&lt;/span>代数开始&lt;/h2>
 &lt;p>在&lt;strong>集环&lt;/strong>的基础上（通常使用&lt;span class="math">\(S\)&lt;/span>对集合的并和差运算封闭的定义，即&lt;span class="math">\(\forall E,F\in S\implies E\cup F\in S,E-F\in S\)&lt;/span>）加上无限可数并操作的封闭：&lt;/p>
 &lt;blockquote>
@@ -829,8 +833,8 @@ j=1,2,\dotsb,k\cdot 2^k,k=1,2,\dotsb.\]&lt;/span> 可直接写成； &lt;span cl
 &lt;ol style="list-style-type: decimal">
 &lt;li>&lt;span class="math">\(\mathcal C_1=\{(a,b):a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
 &lt;li>&lt;span class="math">\(\mathcal C_2=\{[a,b]:a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
-&lt;li>&lt;span class="math">\(\mathcal C_1=\{(a,b]:a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
-&lt;li>&lt;span class="math">\(\mathcal C_1=\{(a,∞):a ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathcal C_3=\{(a,b]:a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathcal C_4=\{(a,∞):a ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
 &lt;/ol>
 &lt;p>博雷尔测度（Borel measure）是σ代数上对区间[a, b]给出值b-a的测度。&lt;/p>
 &lt;p>博雷尔测度并不完备，因此习惯使用勒贝格测度：每个博雷尔可测集都是勒贝格可测的，并且它们的测度值吻合。&lt;/p>
@@ -896,7 +900,17 @@ A_1\dotsb A_n\dotsb\in \mathcal{M}\\
 &lt;h3 id="λ系π系与sigma代数">λ系π系与&lt;span class="math">\(\sigma\)&lt;/span>代数&lt;/h3>
 &lt;blockquote>
 &lt;p>若一个集合系&lt;span class="math">\(\mathcal{A}\)&lt;/span>既是&lt;span class="math">\(\lambda\)&lt;/span>-系又是&lt;span class="math">\(\pi\)&lt;/span>-系，那么它也是&lt;span class="math">\(\sigma\)&lt;/span>-代数。且&lt;span class="math">\(\lambda(\mathcal{A})=\sigma(\mathcal{A})\)&lt;/span>。&lt;/p>
-&lt;/blockquote></description></item><item><title>测度论2之定义与简单性质</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA2%E4%B9%8B%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA2%E4%B9%8B%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8/</guid><description>
+&lt;/blockquote>
+&lt;h2 id="附录1-集合运算的独立性">附录1： 集合运算的独立性&lt;/h2>
+&lt;p>集合的四种常见运算：交&lt;span class="math">\(\cap\)&lt;/span>、并&lt;span class="math">\(\cup\)&lt;/span>、差&lt;span class="math">\(-\)&lt;/span>、对称差&lt;span class="math">\(\oplus\)&lt;/span>并不是相互独立的，可由其中某两种运算推出其他两种，总结如下：&lt;/p>
+&lt;blockquote>
+&lt;p>集合运算定理1：&lt;br />(a) 集合的交、对称差运算可由集合的并、差两种运算定义&lt;br />(b) 集合的交、并运算可由集合的差、对称差两种运算定义&lt;br />(c) 集合的交、差运算可由集合的并、对称差两种运算定义&lt;br />(d) 集合的并、差运算可由集合的交、对称差两种运算定义&lt;/p>
+&lt;/blockquote>
+&lt;p>但是并不是四种运算的任意两种都可以推出其他运算。&lt;/p>
+&lt;blockquote>
+&lt;p>集合运算定理2：&lt;br />(a) 集合的差运算无法由集合的交、并两种运算定义&lt;br />(b) 集合的并运算无法由集合的交、差两种运算定义&lt;/p>
+&lt;/blockquote>
+&lt;p>即集合的四种基本运算：并、交、差、对称差不是相互独立的可以把并、差两种运算（或 对称差、差两种运算，或对称差、并两种运算，或对称差、交两种运算）作为两个相互独立的基本运算，其余两种运算可由这两种运算定义；但不可以只把并与交两种运算（或差与交两种运算）作为独立的基本运算，否则其余的两种运算至少有一种不能由它们定义。&lt;/p></description></item><item><title>测度论2之定义与简单性质</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA2%E4%B9%8B%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA2%E4%B9%8B%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8/</guid><description>
 &lt;h2 id="测度论2之定义与简单性质">测度论2之定义与简单性质&lt;!-- omit in toc -->&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="#总述">总述&lt;/a>&lt;/li>
