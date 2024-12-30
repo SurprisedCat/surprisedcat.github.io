@@ -322,6 +322,18 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <p>注意：这个脚本要复制到<code>gitblogs.git</code>这个裸库的<code>hooks/post-receive</code>文件中，而不是中转库的！</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#!/bin/bash
 </span><span class=ln>2</span><span class=cp></span>git --work-tree<span class=o>=</span>/srv/blogtransfer.git/ --git-dir<span class=o>=</span>/srv/blogtransfer.git/.git pull
+</code></pre></div><p>附完整版<code>post-receive</code>文件：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=cp>#!/bin/bash
+</span><span class=ln> 2</span><span class=cp></span>git --work-tree<span class=o>=</span>/srv/blogtransfer.git/ --git-dir<span class=o>=</span>/srv/blogtransfer.git/.git pull
+<span class=ln> 3</span><span class=c1># rsync -a source destination</span>
+<span class=ln> 4</span><span class=c1># 图片同步</span>
+<span class=ln> 5</span>rsync -a --delete /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
+<span class=ln> 6</span><span class=c1># 网页同步</span>
+<span class=ln> 7</span>rsync -a --delete /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
+<span class=ln> 8</span><span class=c1># 触发jenkins编译新网站</span>
+<span class=ln> 9</span><span class=c1># -X 表示请求类型，用post；-u 表示认证信息，填写登录jenkins的用户名密码；-v表示显示详细过程</span>
+<span class=ln>10</span><span class=c1># URL触发远程构建所用的URL</span>
+<span class=ln>11</span>curl -X post -u <span class=s1>&#39;lelouch:Uinxj4E+foDlxDnYgZmE+XnkngRlcX22&#39;</span> -v http://127.0.0.1:8080/job/hugoblog/build?token<span class=o>=</span>************************************************************************
 </code></pre></div><h3 id=普通远程仓库的更新脚本>普通远程仓库的更新脚本</h3>
 <p>我们将下面这个脚本复制到<code>post-receive</code>文件来完成普通远程仓库的更新工作区。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=cp>#!/bin/bash
@@ -398,9 +410,9 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 </code></pre></div><p>在hugo 0.62以后，不在支持static的软链接复制（说是因为存在可能导致循环链接），因此hugo主题的static文件夹中无法直接使用ln，退一步，我使用rsync同步文件夹。我们把下面两命令加到之前的post-receive脚本中。</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># rsync -a source destination</span>
 <span class=ln>2</span><span class=c1># 图片同步</span>
-<span class=ln>3</span>rsync -a /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
+<span class=ln>3</span>rsync -a --delete /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
 <span class=ln>4</span><span class=c1># 网页同步</span>
-<span class=ln>5</span>rsync -a /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
+<span class=ln>5</span>rsync -a --delete /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
 </code></pre></div><ul>
 <li>如果使用<strong>普通仓库</strong>，路径为<code>/srv/gitblogs.git/</code>。我们建立目录的软链接：</li>
 </ul>
@@ -413,9 +425,9 @@ Nov 25, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/de
 <span class=ln>2</span><span class=c1># 无法直接使用ln，退一步，我用rsync同步。</span>
 <span class=ln>3</span><span class=c1># rsync -a source destination</span>
 <span class=ln>4</span><span class=c1># 图片同步</span>
-<span class=ln>5</span>$ rsync -a /srv/gitblogs.git/images/ /opt/blogtheme/static/images
+<span class=ln>5</span>$ rsync -a --delete /srv/gitblogs.git/images/ /opt/blogtheme/static/images
 <span class=ln>6</span><span class=c1># 网页同步</span>
-<span class=ln>7</span>$ rsync -a /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/网页资料
+<span class=ln>7</span>$ rsync -a --delete /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/网页资料
 </code></pre></div><p>这样，我们也实现了内容和格式的分离，<code>/opt/blogtheme</code>做为存放格式的位置，基本不用动，每次只要git更新内容即可。</p>
 <h2 id=使用jenkins自动化部署网站>使用Jenkins自动化部署网站</h2>
 <p>经过上述准备，我们已经准备好了所需的内容，下面就是使用jenkins将它们构建成网站。我们首先新建网站的目录文件夹<code>/opt/public/</code>：</p>

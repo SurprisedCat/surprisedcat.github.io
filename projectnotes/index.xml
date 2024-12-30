@@ -5359,6 +5359,18 @@ Evaluation Protocols and Open Problems for General Agents》在Section 5.2中提
 &lt;p>注意：这个脚本要复制到&lt;code>gitblogs.git&lt;/code>这个裸库的&lt;code>hooks/post-receive&lt;/code>文件中，而不是中转库的！&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#!/bin/bash
 &lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>git --work-tree&lt;span class="o">=&lt;/span>/srv/blogtransfer.git/ --git-dir&lt;span class="o">=&lt;/span>/srv/blogtransfer.git/.git pull
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>附完整版&lt;code>post-receive&lt;/code>文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="cp">&lt;/span>git --work-tree&lt;span class="o">=&lt;/span>/srv/blogtransfer.git/ --git-dir&lt;span class="o">=&lt;/span>/srv/blogtransfer.git/.git pull
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># rsync -a source destination&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 图片同步&lt;/span>
+&lt;span class="ln"> 5&lt;/span>rsync -a --delete /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># 网页同步&lt;/span>
+&lt;span class="ln"> 7&lt;/span>rsync -a --delete /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># 触发jenkins编译新网站&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># -X 表示请求类型，用post；-u 表示认证信息，填写登录jenkins的用户名密码；-v表示显示详细过程&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># URL触发远程构建所用的URL&lt;/span>
+&lt;span class="ln">11&lt;/span>curl -X post -u &lt;span class="s1">&amp;#39;lelouch:Uinxj4E+foDlxDnYgZmE+XnkngRlcX22&amp;#39;&lt;/span> -v http://127.0.0.1:8080/job/hugoblog/build?token&lt;span class="o">=&lt;/span>************************************************************************
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="普通远程仓库的更新脚本">普通远程仓库的更新脚本&lt;/h3>
 &lt;p>我们将下面这个脚本复制到&lt;code>post-receive&lt;/code>文件来完成普通远程仓库的更新工作区。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">#!/bin/bash
@@ -5435,9 +5447,9 @@ Evaluation Protocols and Open Problems for General Agents》在Section 5.2中提
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>在hugo 0.62以后，不在支持static的软链接复制（说是因为存在可能导致循环链接），因此hugo主题的static文件夹中无法直接使用ln，退一步，我使用rsync同步文件夹。我们把下面两命令加到之前的post-receive脚本中。&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># rsync -a source destination&lt;/span>
 &lt;span class="ln">2&lt;/span>&lt;span class="c1"># 图片同步&lt;/span>
-&lt;span class="ln">3&lt;/span>rsync -a /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
+&lt;span class="ln">3&lt;/span>rsync -a --delete /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
 &lt;span class="ln">4&lt;/span>&lt;span class="c1"># 网页同步&lt;/span>
-&lt;span class="ln">5&lt;/span>rsync -a /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
+&lt;span class="ln">5&lt;/span>rsync -a --delete /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
 &lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>如果使用&lt;strong>普通仓库&lt;/strong>，路径为&lt;code>/srv/gitblogs.git/&lt;/code>。我们建立目录的软链接：&lt;/li>
 &lt;/ul>
@@ -5450,9 +5462,9 @@ Evaluation Protocols and Open Problems for General Agents》在Section 5.2中提
 &lt;span class="ln">2&lt;/span>&lt;span class="c1"># 无法直接使用ln，退一步，我用rsync同步。&lt;/span>
 &lt;span class="ln">3&lt;/span>&lt;span class="c1"># rsync -a source destination&lt;/span>
 &lt;span class="ln">4&lt;/span>&lt;span class="c1"># 图片同步&lt;/span>
-&lt;span class="ln">5&lt;/span>$ rsync -a /srv/gitblogs.git/images/ /opt/blogtheme/static/images
+&lt;span class="ln">5&lt;/span>$ rsync -a --delete /srv/gitblogs.git/images/ /opt/blogtheme/static/images
 &lt;span class="ln">6&lt;/span>&lt;span class="c1"># 网页同步&lt;/span>
-&lt;span class="ln">7&lt;/span>$ rsync -a /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/网页资料
+&lt;span class="ln">7&lt;/span>$ rsync -a --delete /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/网页资料
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>这样，我们也实现了内容和格式的分离，&lt;code>/opt/blogtheme&lt;/code>做为存放格式的位置，基本不用动，每次只要git更新内容即可。&lt;/p>
 &lt;h2 id="使用jenkins自动化部署网站">使用Jenkins自动化部署网站&lt;/h2>
 &lt;p>经过上述准备，我们已经准备好了所需的内容，下面就是使用jenkins将它们构建成网站。我们首先新建网站的目录文件夹&lt;code>/opt/public/&lt;/code>：&lt;/p>

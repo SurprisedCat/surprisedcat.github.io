@@ -4,15 +4,15 @@
 	"sourceRoot": "/opt/blogtheme",
 	"sources": [
 		"themes/hugo-clarity/assets/sass/main.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_variables.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_override.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_fonts.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_base.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_components.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_utils.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_mobile.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_syntax.sass",
-		"../../opt/blogtheme/themes/hugo-clarity/assets/sass/_custom.sass"
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_variables.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_override.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_fonts.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_base.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_components.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_utils.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_mobile.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_syntax.sass",
+		"../../../../../opt/blogtheme/themes/hugo-clarity/assets/sass/_custom.sass"
 	],
 	"sourcesContent": [
 		"@import 'variables';\n@import 'override';\n@import 'fonts';\n@import 'base';\n@import 'components';\n@import 'utils';\n@import 'mobile';\n@import 'syntax';\n@import 'custom';\n",
