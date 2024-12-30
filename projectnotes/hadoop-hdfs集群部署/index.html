@@ -88,6 +88,13 @@ Dec 26, 2024</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 </div>
 </span>
 </div>
+<ul>
+<li><a href=#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C>前置准备工作</a></li>
+<li><a href=#hadoop-%E4%B8%BB%E8%A6%81%E9%85%8D%E7%BD%AE>Hadoop 主要配置</a></li>
+<li><a href=#hadoop-hdfs%E5%88%9D%E5%A7%8B%E5%8C%96>Hadoop HDFS初始化</a></li>
+<li><a href=#%E4%BF%9D%E5%AD%98%E7%8A%B6%E6%80%81>保存状态</a></li>
+<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
+</ul>
 <h2 id=hdfs集群部署---omit-in-toc--->HDFS集群部署</h2>
 <p>本篇笔记使用的Hadoop版本为3.4.1，下载链接<a href=https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.4.1/hadoop-3.4.1.tar.gz>hadoop-3.4.1.tar.gz</a>。</p>
 <p>根据前面的笔记，部署HDFS的3台虚拟机配置如下：</p>
@@ -127,19 +134,223 @@ Dec 26, 2024</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E
 <li>DataNode，从节点工作者</li>
 <li>SecondaryNameNode，主节点辅助</li>
 </ul>
-<p>我们将使用<code>node1</code>作为NameNode主节点，将会部署更多的软件。本质上，HDFS的三种角色都是作为进程运行在主机上。hadoop-3.4.1.tar.gz安装包中包含了3种角色的程序，我们将其分别上传到3台虚拟机<code>node1</code>，<code>node2</code>，<code>node3</code>。具体操作步骤（以<code>node1</code>为例，以<code>root</code>用户操作）如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=ln> 1</span><span class=c1># 1. 上传Hadoop安装报到node1节点中，本人使用的是MobaXterm直接上传，并切换到上传所在目录</span>
+<h2 id=前置准备工作>前置准备工作</h2>
+<p>我们将使用<code>node1</code>作为NameNode主节点，将会部署更多的软件。本质上，HDFS的三种角色都是作为进程运行在主机上。hadoop-3.4.1.tar.gz安装包中包含了3种角色的程序，我们将其上传到<code>node1</code>中，配置好<code>node1</code>后，我们将其再<code>scp</code>到<code>node2</code>,<code>node3</code>上。具体操作步骤（以<code>node1</code>为例，以<code>root</code>用户操作）如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 1. 上传Hadoop安装报到node1节点中，本人使用的是MobaXterm直接上传，并切换到上传所在目录</span>
 <span class=ln> 2</span><span class=c1># 2. 解压缩安装包到/export/server中</span>
 <span class=ln> 3</span>tar -zxvf hadoop-3.4.1.tar.gz -C /export/server
 <span class=ln> 4</span>
 <span class=ln> 5</span><span class=c1># 3. 构建软连接方便操作</span>
 <span class=ln> 6</span><span class=nb>cd</span> /export/server
-<span class=ln> 7</span>ln -s /export/server/hadoop-3.4.1 hadoop
+<span class=ln> 7</span>ln -s /export/server/hadoop-3.4.1 /export/server/hadoop
 <span class=ln> 8</span>
 <span class=ln> 9</span><span class=c1># 进入hadoop安装包准备安装</span>
 <span class=ln>10</span><span class=nb>cd</span> hadoop
-<span class=ln>11</span>
-</code></pre></div>
+</code></pre></div><h2 id=hadoop-主要配置>Hadoop 主要配置</h2>
+<p>Hadoop文件下基本由以下文件:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=o>[</span>root@node1 hadoop<span class=o>]</span><span class=c1># ls -l</span>
+<span class=ln> 2</span>total <span class=m>84</span>
+<span class=ln> 3</span>drwxr-xr-x <span class=m>2</span> <span class=m>1024</span> <span class=m>1024</span>   <span class=m>203</span> Oct <span class=m>10</span> 00:36 bin <span class=c1># 存放Hadoop的各类程序（命令）</span>
+<span class=ln> 4</span>drwxr-xr-x <span class=m>3</span> <span class=m>1024</span> <span class=m>1024</span>    <span class=m>20</span> Oct  <span class=m>9</span> 22:59 etc <span class=c1># 存放Hadoop的配置文件</span>
+<span class=ln> 5</span>drwxr-xr-x <span class=m>2</span> <span class=m>1024</span> <span class=m>1024</span>   <span class=m>106</span> Oct <span class=m>10</span> 00:36 include <span class=c1># C语言的一些头文件</span>
+<span class=ln> 6</span>drwxr-xr-x <span class=m>3</span> <span class=m>1024</span> <span class=m>1024</span>    <span class=m>20</span> Oct <span class=m>10</span> 00:36 lib <span class=c1># 存放Linux系统的动态链接库</span>
+<span class=ln> 7</span>drwxr-xr-x <span class=m>4</span> <span class=m>1024</span> <span class=m>1024</span>   <span class=m>288</span> Oct <span class=m>10</span> 00:36 libexec <span class=c1># 存放配置Hadoop系统的脚本文件(.sh,.cmd)</span>
+<span class=ln> 8</span>-rw-rw-r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span> <span class=m>23759</span> Sep <span class=m>17</span> 04:47 LICENSE-binary <span class=c1># 存放许可证文件</span>
+<span class=ln> 9</span>drwxr-xr-x <span class=m>2</span> <span class=m>1024</span> <span class=m>1024</span>  <span class=m>4096</span> Oct <span class=m>10</span> 00:36 licenses-binary
+<span class=ln>10</span>-rw-rw-r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span> <span class=m>15696</span> Jul <span class=m>16</span> 03:54 LICENSE.txt
+<span class=ln>11</span>-rw-rw-r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span> <span class=m>27165</span> Jul <span class=m>16</span> 03:54 NOTICE-binary
+<span class=ln>12</span>-rw-rw-r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span>  <span class=m>1541</span> Jul <span class=m>16</span> 03:54 NOTICE.txt
+<span class=ln>13</span>-rw-rw-r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span>   <span class=m>175</span> Jul <span class=m>16</span> 03:54 README.txt
+<span class=ln>14</span>drwxr-xr-x <span class=m>3</span> <span class=m>1024</span> <span class=m>1024</span>  <span class=m>4096</span> Oct  <span class=m>9</span> 22:59 sbin <span class=c1># 管理员程序</span>
+<span class=ln>15</span>drwxr-xr-x <span class=m>4</span> <span class=m>1024</span> <span class=m>1024</span>    <span class=m>31</span> Oct <span class=m>10</span> 01:09 share <span class=c1># 存放二进制源码（java jar包）</span>
+</code></pre></div><p>其中，我们常用的有<code>bin</code>,<code>etc</code>,<code>sbin</code>三个文件夹中的程序。在配置阶段，主要是<code>etc</code>文件中的配置修改，其中和HDFS修改的配置文件主要有:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=o>[</span>root@node1 hadoop<span class=o>]</span><span class=c1># ls -l workers hadoop-env.sh core-site.xml hdfs-site.xml</span>
+<span class=ln>2</span>-rw-r--r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span>   <span class=m>774</span> Oct  <span class=m>9</span> 22:57 core-site.xml
+<span class=ln>3</span>-rw-r--r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span> <span class=m>16786</span> Oct <span class=m>10</span> 00:36 hadoop-env.sh
+<span class=ln>4</span>-rw-r--r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span>   <span class=m>775</span> Oct  <span class=m>9</span> 23:03 hdfs-site.xml
+<span class=ln>5</span>-rw-r--r-- <span class=m>1</span> <span class=m>1024</span> <span class=m>1024</span>    <span class=m>10</span> Oct  <span class=m>9</span> 22:57 workers
+</code></pre></div><p>ps: 在/etc文件夹中，<code>.sh</code>是Linux使用的配置文件，<code>.cmd</code>是Windows使用的配置文件。因此，会看到类似<code>hadoop-env.sh</code>,<code>hadoop-env.cmd</code>这样同名不同后缀的一对文件。<code>.xml</code>是通用的数据文件格式，JAVA语言喜欢用这个文件格式。<code>.properties</code>是一种主要在Java相关技术中用来存储应用程序的可配置参数的文件的文件扩展名。</p>
+<p>下面我们具体介绍四个和HDFS密切相关的配置文件。</p>
+<ol>
+<li>
+<p>workers:：记录集群中存在哪些从节点(DataNode)</p>
+<p>填入DataNode的IP或主机名(可DNS解析时)，一行一个
+e.g</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>vim workers
+<span class=ln>2</span>
+<span class=ln>3</span><span class=c1># 填入以下内容</span>
+<span class=ln>4</span>node1
+<span class=ln>5</span>node2
+<span class=ln>6</span>node3
+</code></pre></div></li>
+<li>
+<p>hadoop-env.sh：配置hadoop运行的环境变量。找到文件中对应项，并修改。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># JDK环境位置</span>
+<span class=ln>2</span><span class=nb>export</span> <span class=nv>JAVA_HOME</span><span class=o>=</span>/export/server/jdk1.8.0_421
+<span class=ln>3</span><span class=c1># Hadoop安装位置</span>
+<span class=ln>4</span><span class=nb>export</span> <span class=nv>HADOOP_HOME</span><span class=o>=</span>/export/server/hadoop
+<span class=ln>5</span><span class=c1># Hadoop配置文件目录位置</span>
+<span class=ln>6</span><span class=nb>export</span> <span class=nv>HADOOP_CONF_DIR</span><span class=o>=</span><span class=nv>$HADOOP_HOME</span>/etc/hadoop
+<span class=ln>7</span><span class=c1># Hadoop 运行日志目录位置</span>
+<span class=ln>8</span><span class=nb>export</span> <span class=nv>HADOOP_LOG_DIR</span><span class=o>=</span><span class=nv>$HADOOP_HOME</span>/logs
+</code></pre></div></li>
+<li>
+<p>core-site.xml:配置集群全局参数，用于定义系统级别的参数，如HDFS、URL、Hadoop的临时目录等。数据格式为name-value.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=ln> 1</span><span class=nt>&lt;configuration&gt;</span>
+<span class=ln> 2</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln> 3</span>    <span class=c>&lt;!--HDFS文件系统的网络通信路径--&gt;</span>
+<span class=ln> 4</span>    <span class=c>&lt;!--通讯协议：hdfs://, namenode:node1, 通信端口8020--&gt;</span>
+<span class=ln> 5</span>    <span class=c>&lt;!--表明DataNode将和node1的8020端口通讯, node1是NameNode所在机器--&gt;</span>
+<span class=ln> 6</span>        <span class=nt>&lt;name&gt;</span>fs.defaultFS<span class=nt>&lt;/name&gt;</span>
+<span class=ln> 7</span>        <span class=nt>&lt;value&gt;</span>hdfs://node1:8020<span class=nt>&lt;/value&gt;</span>
+<span class=ln> 8</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln> 9</span>
+<span class=ln>10</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln>11</span>    <span class=c>&lt;!--io操作文件缓冲区大小 131072 bit--&gt;</span>
+<span class=ln>12</span>        <span class=nt>&lt;name&gt;</span>io.file.buffer.size<span class=nt>&lt;/name&gt;</span>
+<span class=ln>13</span>        <span class=nt>&lt;value&gt;</span>131072<span class=nt>&lt;/value&gt;</span>
+<span class=ln>14</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>15</span><span class=nt>&lt;/configuration&gt;</span>
+</code></pre></div></li>
+<li>
+<p>hdfs-site.xml：HDFS参数。如名称节点和数据节点的存放位置、文件副本的个数、文件读取权限等。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=ln> 1</span><span class=nt>&lt;configuration&gt;</span>
+<span class=ln> 2</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln> 3</span>        <span class=c>&lt;!--hdfs文件系统，默认创建的文件权限设置，默认700， rwx --&gt;</span>
+<span class=ln> 4</span>        <span class=nt>&lt;name&gt;</span>dfs.datanode.data.dir.perm<span class=nt>&lt;/name&gt;</span>
+<span class=ln> 5</span>        <span class=nt>&lt;value&gt;</span>700<span class=nt>&lt;/value&gt;</span>
+<span class=ln> 6</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln> 7</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln> 8</span>    <span class=c>&lt;!--NameNode元数据的存储位置,在node1节点的/data/nn 目录下--&gt;</span>
+<span class=ln> 9</span>        <span class=nt>&lt;name&gt;</span>dfs.namenode.name.dir<span class=nt>&lt;/name&gt;</span>
+<span class=ln>10</span>        <span class=nt>&lt;value&gt;</span>/data/nn<span class=nt>&lt;/value&gt;</span>
+<span class=ln>11</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>12</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln>13</span>    <span class=c>&lt;!--NameNode允许哪几个节点的DataNode连接，即允许加入集群--&gt;</span>
+<span class=ln>14</span>        <span class=nt>&lt;name&gt;</span>dfs.namenode.hosts<span class=nt>&lt;/name&gt;</span>
+<span class=ln>15</span>        <span class=nt>&lt;value&gt;</span>node1,node2,node3<span class=nt>&lt;/value&gt;</span>
+<span class=ln>16</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>17</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln>18</span>    <span class=c>&lt;!--hdfs默认块大小，默认256MB--&gt;</span>
+<span class=ln>19</span>        <span class=nt>&lt;name&gt;</span>dfs.blocksize<span class=nt>&lt;/name&gt;</span>
+<span class=ln>20</span>        <span class=nt>&lt;value&gt;</span>268435456<span class=nt>&lt;/value&gt;</span>
+<span class=ln>21</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>22</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln>23</span>    <span class=c>&lt;!--namenode处理的并发数线程数,默认100--&gt;</span>
+<span class=ln>24</span>        <span class=nt>&lt;name&gt;</span>dfs.namenode.handler.count<span class=nt>&lt;/name&gt;</span>
+<span class=ln>25</span>        <span class=nt>&lt;value&gt;</span>100<span class=nt>&lt;/value&gt;</span>
+<span class=ln>26</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>27</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln>28</span>    <span class=c>&lt;!--从节点DataNode的数据目录存储目录，即数据存放在各个node的位置--&gt;</span>
+<span class=ln>29</span>        <span class=nt>&lt;name&gt;</span>dfs.datanode.data.dir<span class=nt>&lt;/name&gt;</span>
+<span class=ln>30</span>        <span class=nt>&lt;value&gt;</span>/data/dn<span class=nt>&lt;/value&gt;</span>
+<span class=ln>31</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>32</span>    <span class=nt>&lt;property&gt;</span>
+<span class=ln>33</span>        <span class=nt>&lt;name&gt;&lt;/name&gt;</span>
+<span class=ln>34</span>        <span class=nt>&lt;value&gt;&lt;/value&gt;</span>
+<span class=ln>35</span>    <span class=nt>&lt;/property&gt;</span>
+<span class=ln>36</span><span class=nt>&lt;/configuration&gt;</span>
+</code></pre></div><p>总之，<code>namenode</code>数据存放在<code>node1</code>的<code>/data/nn</code>，<code>datanode</code>数据存放在<code>node1</code>,<code>node2</code>,<code>node3</code>的<code>/data/dn</code>。</p>
+</li>
+</ol>
+<p>然后，我们将配置好的Hadoop程序从<code>node1</code>复制到<code>node2</code>，<code>node3</code>。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 从node1 scp复制</span>
+<span class=ln>2</span><span class=nb>cd</span> /export/server
+<span class=ln>3</span>scp -r hadoop-3.4.1 node2:/export/server/
+<span class=ln>4</span>scp -r hadoop-3.4.1 node3:/export/server/
+<span class=ln>5</span>
+<span class=ln>6</span><span class=c1># node2，node3上同样创建软链接</span>
+<span class=ln>7</span>ln -s /export/server/hadoop-3.4.1 /export/server/hadoop
+</code></pre></div><p>复制完成之后，我们在3个节点上都添加Hadoop环境变量</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>vim /etc/profile
+<span class=ln>2</span>
+<span class=ln>3</span><span class=c1># 在/etc/profile文末添加如下内容</span>
+<span class=ln>4</span><span class=nb>export</span> <span class=nv>HADOOP_HOME</span><span class=o>=</span>/export/server/hadoop
+<span class=ln>5</span><span class=nb>export</span> <span class=nv>PATH</span><span class=o>=</span><span class=nv>$PATH</span>:<span class=nv>$HADOOP_HOME</span>/bin:<span class=nv>$HADOOP_HOME</span>/sbin
+<span class=ln>6</span>
+<span class=ln>7</span><span class=c1># 使环境变量生效</span>
+<span class=ln>8</span><span class=nb>source</span> /etc/profile
+</code></pre></div><p>接下来，我们依据配置文件创建文件夹并更改拥有者。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># node1</span>
+<span class=ln> 2</span>mkdir -p /data/nn
+<span class=ln> 3</span>mkdir /data/dn
+<span class=ln> 4</span>chown -R hadoop:hadoop /data
+<span class=ln> 5</span>chown -R hadoop:hadoop /export
+<span class=ln> 6</span>
+<span class=ln> 7</span><span class=c1># node2, node3</span>
+<span class=ln> 8</span>mkdir -p /data/dn
+<span class=ln> 9</span>chown -R hadoop:hadoop /data
+<span class=ln>10</span>chown -R hadoop:hadoop /export
+</code></pre></div><p>接下来，我们都可以用普通用户hadoop来启动整个Hadoop服务。</p>
+<h2 id=hadoop-hdfs初始化>Hadoop HDFS初始化</h2>
+<p>我们开始使用HDFS时，首先要对整个文件系统执行初始化（格式化）。注：我们现在以<code>hadoop</code>用户来执行了命令。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 确保以hadoop用户执行</span>
+<span class=ln> 2</span>su - hadoop
+<span class=ln> 3</span><span class=c1># 格式化namenode</span>
+<span class=ln> 4</span>hadoop namenode -format
+<span class=ln> 5</span>
+<span class=ln> 6</span><span class=c1># 格式化成功后，/data/nn中会有一些文件</span>
+<span class=ln> 7</span><span class=nb>cd</span> /data/nn <span class=o>&amp;&amp;</span> ls
+<span class=ln> 8</span>current
+<span class=ln> 9</span>ls current/
+<span class=ln>10</span>fsimage_0000000000000000000  fsimage_0000000000000000000.md5  seen_txid  VERSION
+</code></pre></div><p>格式化之后我们可以采用快捷脚本一键启动/关闭集群</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 启动</span>
+<span class=ln> 2</span><span class=o>[</span>hadoop@node1 nn<span class=o>]</span>$ start-dfs.sh
+<span class=ln> 3</span>Starting namenodes on <span class=o>[</span>node1<span class=o>]</span>
+<span class=ln> 4</span>Starting datanodes
+<span class=ln> 5</span>node3: WARNING: /export/server/hadoop/logs does not exist. Creating.
+<span class=ln> 6</span>node2: WARNING: /export/server/hadoop/logs does not exist. Creating.
+<span class=ln> 7</span>Starting secondary namenodes <span class=o>[</span>node1<span class=o>]</span>
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c1># 通过jps查看目前运行的java进程</span>
+<span class=ln>10</span><span class=o>[</span>hadoop@node1 nn<span class=o>]</span>$ jps
+<span class=ln>11</span><span class=m>20101</span> DataNode
+<span class=ln>12</span><span class=m>19946</span> NameNode
+<span class=ln>13</span><span class=m>20394</span> SecondaryNameNode
+<span class=ln>14</span><span class=m>20524</span> Jps
+<span class=ln>15</span>
+<span class=ln>16</span><span class=c1># 一键启动脚本，还会自动启用其他DataNode,查看node2,node3的进程：</span>
+<span class=ln>17</span><span class=o>[</span>hadoop@node2 ~<span class=o>]</span>$ jps
+<span class=ln>18</span><span class=m>17296</span> Jps
+<span class=ln>19</span><span class=m>17177</span> DataNode
+<span class=ln>20</span>
+<span class=ln>21</span><span class=o>[</span>hadoop@node3 ~<span class=o>]</span>$ jps
+<span class=ln>22</span><span class=m>17207</span> DataNode
+<span class=ln>23</span><span class=m>17307</span> Jps
+<span class=ln>24</span>
+<span class=ln>25</span>
+<span class=ln>26</span><span class=c1># 停止</span>
+<span class=ln>27</span><span class=o>[</span>hadoop@node1 nn<span class=o>]</span>$ stop-dfs.sh
+</code></pre></div><p>启动完成之后，Hadoop在NameNode所在的服务器上，提供了一个网站服务器，默认启动在9870端口。如果能打开网站，并且其中信息大概没错，HDFS的集群部署就大概完成了。</p>
+<p><img src=../../images/hadoop-HDFS-website.png alt=hadoop-HDFS-website></p>
+<h2 id=保存状态>保存状态</h2>
+<p>虚拟机快照，防止误操作。具体步骤：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 关闭hadoop集群</span>
+<span class=ln> 2</span><span class=o>[</span>hadoop@node1 nn<span class=o>]</span>$ stop-dfs.sh
+<span class=ln> 3</span>Stopping namenodes on <span class=o>[</span>node1<span class=o>]</span>
+<span class=ln> 4</span>Stopping datanodes
+<span class=ln> 5</span>Stopping secondary namenodes <span class=o>[</span>node1<span class=o>]</span>
+<span class=ln> 6</span><span class=o>[</span>hadoop@node1 nn<span class=o>]</span>$ jps
+<span class=ln> 7</span><span class=m>21701</span> Jps
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c1># 关闭虚拟机</span>
+<span class=ln>10</span>su - root
+<span class=ln>11</span>shutdown -h now
+<span class=ln>12</span>
+<span class=ln>13</span><span class=c1># 虚拟机操作拍摄快照</span>
+</code></pre></div><p>拍摄好快照后，我们的虚拟机快照状态如下：</p>
+<p><img src=../../images/hadoop-HDFS-%E5%BF%AB%E7%85%A7.png alt=hadoop-HDFS-快照></p>
+<h2 id=总结>总结</h2>
+<ol>
+<li>上传、解压到<code>/export/server</code>，配置软链接</li>
+<li>修改4份配置文件：<code>workers</code>,<code>hadoop-env.sh</code>,<code>core-site.xml</code>,<code>hdfs-site.xml</code></li>
+<li>分发的<code>node2</code>,<code>node3</code>，并设置环境变量</li>
+<li>创建数据目录，并修改文件权限归属hadoop账户</li>
+<li>启动，并查看Web UI</li>
+<li>附下图问题省流自查。</li>
+</ol>
+<p><img src=../../images/hadoop-HDFS-%E9%85%8D%E7%BD%AE%E8%87%AA%E6%9F%A5.png alt=hadoop-HDFS-配置自查></p>
 </article>
 <aside class=sidebar>
 <section class=sidebar_inner>
