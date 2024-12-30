@@ -1,0 +1,57 @@
+---
+title : "关于SurprisedCat"
+description : "本博客内容介绍、主题介绍、联系方式"
+date : "2021-11-23"
+aliases : ["about-us", "about-hugo", "contact"]
+author : "SurprisedCat"
+---
+
+## 关于SurprisedCat的博客
+
+SurprisedCat的个人博客和网络笔记本。积累数学、计算机编程和通信等方面知识。
+
+SurprisedCat’s Personal Blog and NoteBook for mathematics, computer programming and communication.
+
+如果有问题，请邮件联系：<cx840025951@outlook.com>
+
+## 对clarity主题的修改
+
+本博客是基于[clarity](https://github.com/chipzoller/hugo-clarity)主题修改而来，主要改动有
+
+- 在头部导航添加了归档和分类两项，添加了二者的模板、功能和archive type;
+- 在头部导航添加了资料库->资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在`\static\网页资料`
+- 在头部导航添加了资料库->书签地址，书签位置`\content\library`；
+- 在头部导航添加了专栏项，基于原来的series修改而来；
+- 删除了多语言支持，因为总是出bug；
+- 修改了侧边栏的内容显示顺序，取消了个人信息阅读更多按钮，将链接移植到了名字上；
+- 精简了分享链接，由于外国大多社交网站不可访问和国内社交网站的封闭性，只保留了复制网页链接的功能，删除了多余的社交网站链接；
+- 简化了默认的archetypes；
+- 修改了主题配色、链接、404页面等样式
+
+## 当前版本HugoV0.89.4介绍
+
+Hugo makes use of a variety of open source projects including:
+
+- <https://github.com/yuin/goldmark>
+- <https://github.com/alecthomas/chroma>
+- <https://github.com/muesli/smartcrop>
+- <https://github.com/spf13/cobra>
+- <https://github.com/spf13/viper>
+
+Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+
+Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
+
+Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
+
+Learn more and contribute on [GitHub](https://github.com/gohugoio).
+
+## The MIT License (MIT)
+
+Copyright © 2021 SurprisedCat
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

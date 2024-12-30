@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>组合数学 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/</link><description>Recent content in 组合数学 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Fri, 17 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>组合数学-递归与母函数（上）</title><link>https://surprisedcat.github.io/studynotes/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-%E9%80%92%E5%BD%92%E4%B8%8E%E6%AF%8D%E5%87%BD%E6%95%B0%E4%B8%8A/</link><pubDate>Fri, 17 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-%E9%80%92%E5%BD%92%E4%B8%8E%E6%AF%8D%E5%87%BD%E6%95%B0%E4%B8%8A/</guid><description>
+&lt;h2 id="递归与母函数上">递归与母函数（上）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>递推关系是计数的一个强有力的工具，特别是在做算法分析时是必需的。递推关系的求解主要是利用母函数。当然母函数尚有其他用处，但这主要是介绍解递推关系上的应用。&lt;/p>
+&lt;p>通常序列&lt;span class="math">\(a_0,a_1,\dotsb,a_n,\dotsb\)&lt;/span>与某个问题序列&lt;span class="math">\(P_0,P_1,\dotsb,P_n,\dotsb\)&lt;/span>的计数问题相对应，若已知序列的母函数，则可确定该序列，从而可以解决相应的计数问题。&lt;/p>
+&lt;p>注意：&lt;strong>母函数==生成函数&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#组合数学引子">组合数学引子&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有重复组合公式及其证明方法">有重复组合公式及其证明方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#母函数定义">母函数定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#普通母函数ordinary-generating-functionogf">普通母函数(Ordinary generating function，OGF)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数生成函数exponential-generating-functionegf">指数生成函数(Exponential generating function，EGF)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#泊松生成函数">泊松生成函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#普通母函数举例">普通母函数举例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#母函数的性质">母函数的性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#整数的拆分">整数的拆分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型母函数详解">指数型母函数详解&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#递推关系">递推关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#汉诺塔">汉诺塔&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#求n位十进制数中出现偶数个5的数的个数">求n位十进制数中出现偶数个5的数的个数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从n个元素中取r个进行允许重复的组合">从n个元素中取r个进行允许重复的组合&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#fibonacci数列">Fibonacci数列&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="组合数学引子">组合数学引子&lt;/h2>
+&lt;h3 id="有重复组合公式及其证明方法">有重复组合公式及其证明方法&lt;/h3>
+&lt;p>从n个不同元素中取出m的元素（方法是从n个元素中每次取出一个后，放回，再取另外一个，直到取出m个元素），并成一组，叫做n个不同元素的一个m-可重组合。n个不同元素的m-可重组合数为&lt;span class="math">\(C(m,n+m-1)\)&lt;/span>，&lt;span class="math">\(m\)&lt;/span>可以是任意的正整数。&lt;/p>
+&lt;p>证明：实际上大家还应该注意到一点，就是有重复组合不考虑取出的元素的顺序，通俗来说，你第一次取出一号元素第二次取出三号元素和你第一次取出三号元素第二次取出一号元素是一样的情况。可以把该过程看作是一个“放球模型”；n个不同的元素看作是n个格子，去掉头尾之后中间一共有&lt;span class="math">\((n-1)\)&lt;/span>块相同的隔板；用m个相同的小球代表取m次；则原问题可以简化为将m个不加区别的小球放进n个格子里面，问有多少种放法；&lt;/p>
+&lt;p>注意到格子的头尾两块隔板无论什么情况下位置都是不变的，故去掉不用考虑；相当于&lt;span class="math">\(m\)&lt;/span>个相同的小球和&lt;span class="math">\((n-1)\)&lt;/span>块相同的隔板先进行全排列：一共有&lt;span class="math">\((m+n-1)!\)&lt;/span>种排法，再由于m个小球和&lt;span class="math">\((n-1)\)&lt;/span>块隔板是分别不加以区分的，所以除以重复的情况：&lt;span class="math">\(m!*(n-1)!\)&lt;/span>；&lt;/p>
+&lt;p>于是答案就是：&lt;span class="math">\(\frac{(m+n-1)!}{m!*(n-1)!}=C(m,n+m-1)\)&lt;/span>。&lt;/p>
+&lt;h2 id="母函数定义">母函数定义&lt;/h2>
+&lt;p>母函数的是形式化的函数，是一种形式幂级数，其每一项的系数可以提供关于这个序列的信息。母函数可分为很多种，包括普通母函数、指数母函数、L级数、贝尔级数和狄利克雷级数。对每个序列都可以写出以上每个类型的一个母函数。构造母函数的目的一般是为了解决某个特定的问题，因此选用何种母函数视乎序列本身的特性和问题的类型。&lt;/p>
+&lt;p>注意母函数本身并不是一个从某个定义域射到某个上域的函数，名字中的“函数”只是出于历史原因而保留。&lt;/p>
+&lt;h3 id="普通母函数ordinary-generating-functionogf">普通母函数(Ordinary generating function，OGF)&lt;/h3>
+&lt;p>对于序列&lt;span class="math">\(a_n\)&lt;/span>，其OGF定义为： &lt;span class="math">\[G(a_n;x)=\sum_{n=0}^\infty(a_n x^n) \tag{1.1}\]&lt;/span> 当没有特别之处是哪一种生成函数的时候，通常就用OGF。如果&lt;span class="math">\(a_n\)&lt;/span>是概率密度函数或者离散随机变量，那么OGF可以成为概率生成函数（PGF）。对于多维生成函数可以用多个变量表示，例如： &lt;span class="math">\[G(a_{m,n};x,y)=\sum_{m,n=0}^\infty a_{m,n}x^m y^n\tag{1.2}\]&lt;/span>&lt;/p>
+&lt;h3 id="指数生成函数exponential-generating-functionegf">指数生成函数(Exponential generating function，EGF)&lt;/h3>
+&lt;p>&lt;span class="math">\[\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{1.3}.\]&lt;/span> 在组合枚举问题中EGF一般比OGF更方便使用。&lt;/p>
+&lt;h3 id="泊松生成函数">泊松生成函数&lt;/h3>
+&lt;p>&lt;span class="math">\[\operatorname{PG}(a_{n};x)=\sum_{n=0}^{\infty}a_{n}e^{-x}{\frac{x^{n}}{n!}}=e^{-x}\operatorname {EG} (a_{n};x)\tag{1.4}.\]&lt;/span>&lt;/p>
+&lt;h2 id="普通母函数举例">普通母函数举例&lt;/h2>
+&lt;p>一个关键的生成函数是对于常序列1，1，1，1，1，1，……，它的生成函数是几何级数： &lt;span class="math">\[\sum_{n=0}^\infty x^n=\frac{1}{1-x}\quad x\in(-1,1) \tag{2.1}\]&lt;/span> 证明方法可以1，左边是右边的Maclaurin级数。2，用等比级数求和公式。从这个母函数，我们可以轻易的推导出其他母函数。&lt;/p>
+&lt;p>序列：&lt;span class="math">\(1,a,a^2,a^3,a^4,\dotsb\)&lt;/span> &lt;span class="math">\[\sum_{n=0}^{\infty}{(ax)}^{n}=\frac{1}{1-ax}\tag{2.2}\]&lt;/span> 序列：&lt;span class="math">\(1,-1,1,-1,1,\dotsb\)&lt;/span>(a=-1) &lt;span class="math">\[\sum_{n=0}^{\infty}(-1)^n x^n=\frac{1}{1+x}\tag{2.3}\]&lt;/span> 序列：&lt;span class="math">\(1,0,1,0,1,\dotsb\)&lt;/span>(a=-1) &lt;span class="math">\[\sum_{n=0}^{\infty}x^{2n}=\frac{1}{1-x^2}\tag{2.4}\]&lt;/span> 序列：&lt;span class="math">\(1,2,3,4,5,\dotsb\)&lt;/span>,可以看成是原始级数的导数： &lt;span class="math">\[\bigg [\sum_{n=0}^\infty x^n\bigg ]&amp;#39;=\sum_{n=0}^\infty (n+1)x^n\\
+=\bigg [\frac{1}{1-x}\bigg ]&amp;#39;=\frac{1}{(1-x)^2}\tag{2.5}\]&lt;/span> 递推： &lt;span class="math">\[1+\sum_{k=1}^\infty\frac{n(n+1)\dotsb(n+k-1)}{k!}x^k=\frac{1}{(1-x)^n}\tag{2.6}\]&lt;/span> 序列：&lt;span class="math">\(C(n,0),C(n,1),\dotsb,C(n,n)\)&lt;/span>，展开式公式。 &lt;span class="math">\[\sum_{i=0}^{n}C(n,i)x^i=(1+x)^n\tag{2.7}\]&lt;/span> 对公式两边求导： &lt;span class="math">\[C(n,1)+2C(n,2)x+\dotsb+nC(n,n)x^{n-1}=n(1+x)^{n-1}\tag{2.8}\]&lt;/span> 再令x=1得： &lt;span class="math">\[C(n,1)+2C(n,2)+\dotsb+nC(n,n)=n2^{n-1}\tag{2.9}\]&lt;/span> 如果对等式&lt;span class="math">\((2.7)\)&lt;/span>两边同时乘以&lt;span class="math">\(x\)&lt;/span>， &lt;span class="math">\[C(n,1)x+2C(n,2)x^2+\dotsb+nC(n,n)x^n=nx(1+x)^{n-1}\tag{2.10}\]&lt;/span> 然后再对等式的两边求导得： &lt;span class="math">\[C(n,1)+2^2 C(n,2)x+\dotsb+n^2 C(n,n)x^{n-1}\\
+=n(1+x)^{n-1}+n(n-1)x(1+x)^{n-2}\tag{2.11}\]&lt;/span> 再令x=1得： &lt;span class="math">\[C(n,1)+2^2 C(n,2)+\dotsb+n^2 C(n,n)\\=n2^{n-1}+n(n-1)x2^{n-2}=n(n+1)2^{n-2}
+\tag{2.12}\]&lt;/span> 递推：牛顿二项式公式 &lt;span class="math">\[(1\plusmn x)^\alpha=\sum_{k=0}^\infty C(\alpha,k)(\plusmn x)^k\]&lt;/span> 当&lt;span class="math">\(\alpha&amp;lt;0\)&lt;/span>时，&lt;/p>
+&lt;h2 id="母函数的性质">母函数的性质&lt;/h2>
+&lt;blockquote>
+&lt;p>位移性质：设&lt;span class="math">\({x_k},{y_k}\)&lt;/span>为两个序列，其相应的母函数为&lt;span class="math">\(A(x),B(x)\)&lt;/span>。若 &lt;span class="math">\[b_k=\begin{cases}0 &amp;amp;k&amp;lt;l\\
+a_{k-l} &amp;amp; k \ge l\end{cases} \tag{3.1}\]&lt;/span> 则&lt;span class="math">\(B(x)=x^lA(x)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>简单证明： &lt;span class="math">\[\begin{aligned}B(x)&amp;amp;=b_0+b_1 x+b_2 x^2+\dotsb+b_{l-1}x^{l-1}+b_{l}x^{l}+b_{l+1}x^{l+1}+\dotsb \\
+&amp;amp;=0+0+\dotsb+0+a_0 x^l+a_1 x^{l+1}+\dotsb \tag{3.2}\\
+&amp;amp;=x^l(a_0+a_1 x+\dotsb)=x^l A(x)
+\end{aligned}\]&lt;/span> 总结来说类似于傅里叶变换的向右移位。&lt;/p>
+&lt;p>推论：若&lt;span class="math">\(b_k=a_{k+l}\)&lt;/span>，则 &lt;span class="math">\[B(x)=[A(x)-\sum_{k=0}^{l-1}a_k x^k]/x^l\tag{3.3}\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>若&lt;span class="math">\(b_k=\sum\limits_{i=0}^k a_i\)&lt;/span>，则 &lt;span class="math">\[B(x)=\frac{A(x)}{1-x}\tag{3.4}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>进一步引申：&lt;/p>
+&lt;blockquote>
+&lt;p>若&lt;span class="math">\(\sum\limits_{k=0}^\infty a_k\)&lt;/span>收敛，&lt;span class="math">\(b_k=\sum\limits_{i=0}^k a_i\)&lt;/span>，则 &lt;span class="math">\[B(x)=\frac{A(1)-xA(x)}{1-x}\tag{3.5}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>类似于：等比数列求和公式&lt;/p>
+&lt;blockquote>
+&lt;p>若&lt;span class="math">\(b_k=ka_k\)&lt;/span>，则 &lt;span class="math">\[B(x)=xA&amp;#39;(x)\tag{3.6}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>简单证明： &lt;span class="math">\[A&amp;#39;(x)=\frac{d}{dx}(\sum_{k=0}^\infty a_k x^k) \\
+=\sum_{k=1}^\infty k a_k x^{k-1}\]&lt;/span> &lt;span class="math">\[xA&amp;#39;(x)=x\sum_{k=1}^\infty k a_k x^{k-1}\\
+=\sum_{k=1}^\infty k a_k x^k \quad\text{(添加k=0项无影响)}\\
+=\sum_{k=0}^\infty (k a_k) x^k=\sum_{k=0}^\infty b_k x^k=B(x)\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>推论：若&lt;span class="math">\(b_k=\frac{a_k}{k+1}\)&lt;/span>，则 &lt;span class="math">\[B(x)=\frac{1}{x}\int_0^x A(x)dx\tag{3.7}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="整数的拆分">整数的拆分&lt;/h2>
+&lt;blockquote>
+&lt;p>定理4.1：正整数n拆分成&lt;strong>不同整数&lt;/strong>之和的拆分数等于拆分成&lt;strong>奇整数&lt;/strong>之和的拆分数。&lt;/p>
+&lt;/blockquote>
+&lt;p>可以用Ferrers图像和描述性质。&lt;/p>
+&lt;h2 id="指数型母函数详解">指数型母函数详解&lt;/h2>
+&lt;p>问题：设有n个元素，其中元素&lt;span class="math">\(a_1\)&lt;/span>重复了&lt;span class="math">\(n_1\)&lt;/span>次，&lt;span class="math">\(a_2\)&lt;/span>重复了&lt;span class="math">\(n_2\)&lt;/span>次，...，&lt;span class="math">\(a_k\)&lt;/span>重复了&lt;span class="math">\(n_k\)&lt;/span>次，&lt;span class="math">\(n_1+n_2+\dotsb+n_k=n\)&lt;/span>，从中取出r个排列，一共有多少种&lt;strong>排列&lt;/strong>？&lt;/p>
+&lt;blockquote>
+&lt;p>简化定理5.1:设&lt;span class="math">\(S={n_1a_1,n_2a_2,\dotsb,n_ka_k}\)&lt;/span>为一多重集，其中&lt;span class="math">\(n_1+n_2+\dotsb+n_k=n\)&lt;/span>，那么从S中取n个元素的&lt;strong>排列数&lt;/strong>为： &lt;span class="math">\[\frac{n!}{n_1!n_2!\dotsb n_k!}\tag{5.1}\]&lt;/span> 证明: &lt;span class="math">\[C(n,n_1)C(n-n_1,n_2)\dotsb C(n-n_1-\dotsb-n_{k-1},n_k)\\
+=\frac{n!}{n_1!n_2!\dotsb n_k!}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>定义：对于序列&lt;span class="math">\(a_0，a_1，...，a_n，...\)&lt;/span> &lt;span class="math">\[\operatorname {EG} (a_{n};x)=\sum_{n=0}^{\infty}a_n{\frac{x^{n}}{n!}}\tag{5.2}.\]&lt;/span> 为序列的指数型母函数（EGF）。&lt;/p>
+&lt;p>例如：序列&lt;span class="math">\(1,1,...\)&lt;/span>的EGF为： &lt;span class="math">\[1+\frac{x}{1!}+\frac{x^2}{2!}+\dotsb=e^x\]&lt;/span>&lt;/p>
+&lt;p>例如：序列&lt;span class="math">\(0!,1!,2!,...,k!,\dotsb\)&lt;/span>的EGF为： &lt;span class="math">\[0!+1!\frac{x}{1!}+2!\frac{x^2}{2!}+\dotsb+k!\frac{x^k}{k!}\\
+=1+x+x^2+\dotsb=\frac{1}{1-x}\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定理5.2：设&lt;span class="math">\(S=\{n_1 b_1,n_2 b_2,\dotsb,n_k b_k\}\)&lt;/span>为一多重集，并设&lt;span class="math">\(a_r(r=0,1,2,\dotsb)\)&lt;/span>为S的r排列，则&lt;span class="math">\({a_r}\)&lt;/span>的指数型母函数为： &lt;span class="math">\[G_e(x)=\\
+(1+\frac{x}{1!}+\dotsb+\frac{x^{n_1}}{n_1!})(1+\frac{x}{1!}+\dotsb+\frac{x^{n_2}}{n_2!})\dotsb(1+\frac{x}{1!}+\dotsb+\frac{x^{n_k}}{n_k!})\tag{5.3}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="递推关系">递推关系&lt;/h2>
+&lt;h3 id="汉诺塔">汉诺塔&lt;/h3>
+&lt;div class="figure">
+&lt;img src="../../images/汉诺塔.png" alt="汉诺塔" />&lt;p class="caption">汉诺塔&lt;/p>
+&lt;/div>
+&lt;p>算法的分析：设&lt;span class="math">\(h_n\)&lt;/span>为将n个圆盘从塔座A移动到塔座B上所需要的移动次数。我们要如何计算&lt;span class="math">\(h_n\)&lt;/span>呢？&lt;/p>
+&lt;p>首先我们假设我们已经掌握了将&lt;span class="math">\(h_{n-1}\)&lt;/span>个圆盘挪动的方法。那么我们先将n-1个圆盘移动到中介柱子C，需要&lt;span class="math">\(h_{n-1}\)&lt;/span>步；然后把最下面的第n层放到B柱子，需要一步；最后把C柱子的n-1个圆盘移动到B柱子，有需要&lt;span class="math">\(h_{n-1}\)&lt;/span>步。因此共需要&lt;span class="math">\(2h_{n-1}+1\)&lt;/span>步。用递推公式表达： &lt;span class="math">\[\begin{cases}h_n=2h_{n-1}+1 &amp;amp;n&amp;gt;1 \\
+h_1=1 &amp;amp;n=1\end{cases}\tag{6.1}\]&lt;/span>&lt;/p>
+&lt;p>解法1： &lt;span class="math">\[\begin{aligned}
+h_n&amp;amp;=2h_{n-1}+1=2(2h_{n-2}+1)+1\\
+&amp;amp;=2^2h_{n-2}+2+1=2^2(2h_{n-3}+1)+2+1\\
+&amp;amp;=2^3h_{n-3}+2^2+2+1\\
+&amp;amp;=2^{n-1}h_1+2^{n-2}+\dotsb+2+1\\
+&amp;amp;=2^n-1
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>解法2：OGF母函数求解 &lt;span class="math">\[\begin{aligned}
+H(x)&amp;amp;=h_1 x+h_2 x^2+\dotsb+h_n x^n+\dotsb\\
+-2xH(x)&amp;amp;=-2h_1 x^2-\dotsb-2h_{n-1}x^n+\dotsb\\
+\hline\\
+\because h_n&amp;amp;=2h_{n-1}+1\\
+(1-2x)H(x)&amp;amp;=x+x^2+\dotsb+x^n+\dotsb=\frac{x}{1-x}
+\end{aligned}\]&lt;/span> &lt;span class="math">\[H(x)=\frac{x}{(1-x)(1-2x)}\\
+=\frac{1}{1-2x}-\frac{1}{1-x}\\
+=\sum_{n=0}^\infty(2^n-1)x^n\\
+\Rightarrow h(n)=2^n-1\]&lt;/span>&lt;/p>
+&lt;h3 id="求n位十进制数中出现偶数个5的数的个数">求n位十进制数中出现偶数个5的数的个数&lt;/h3>
+&lt;p>设：&lt;span class="math">\(a_n=n\)&lt;/span>位十进制数中出现偶数个5的数的个数，&lt;/p>
+&lt;p>&lt;span class="math">\(b_n=n\)&lt;/span>位十进制数中出现奇数个5的数的个数。&lt;/p>
+&lt;p>则有： &lt;span class="math">\[\begin{cases}
+a_n=9a_{n-1}+b_{n-1}, &amp;amp; n&amp;gt;1 \\
+b_n=9b_{n-1}+a_{n-1}, &amp;amp; n&amp;gt;1\tag{6.2A}\\
+a_1=8,b_1=1
+\end{cases}\]&lt;/span> 解释：n位中，5为偶数个的个数&lt;span class="math">\(a_n\)&lt;/span>可以看成两组：1.在n-1位数中，5为偶数个的个数&lt;span class="math">\(a_{n-1}\)&lt;/span>，这样第n位可以选除了5的任意数字，有9种；2.在n-1位数中，5为奇数个的个数&lt;span class="math">\(b_{n-1}\)&lt;/span>，这样第n位只可以选5，有1种；共有&lt;span class="math">\(a_n=9a_{n-1}+b_{n-1}\)&lt;/span>种。奇数&lt;span class="math">\(b_n\)&lt;/span>同理。首位不能为0。&lt;/p>
+&lt;p>解法1：设序列&lt;span class="math">\(\{a_n\}\)&lt;/span>和序列&lt;span class="math">\(\{b_n\}\)&lt;/span>的母函数分别为&lt;span class="math">\(A(x),B(x)\)&lt;/span>。 &lt;span class="math">\[A(x)=a_1 x+a_2 x^2+\dotsb+a_n x^n+\dotsb\\
+B(x)=b_1 x+b_2 x^2+\dotsb+b_n x^n+\dotsb\]&lt;/span> &lt;span class="math">\[\begin{aligned}
+A(x)=a_1 x+a_2 x^2&amp;amp;+\dotsb+a_n x^n+\dotsb\\
+-9xA(x)=\quad-9a_1 x^2&amp;amp;-\dotsb-9a_{n-1}x^n-\dotsb\\
+-xB(x)=\quad-b_1 x^2&amp;amp;-\dotsb-b_{n-1}x^n-\dotsb\\
+\hline\\
+(1-9x)A(x)-xB(x)&amp;amp;=a_1 x=8x
+\end{aligned}
+\]&lt;/span> 类似地，可得： &lt;span class="math">\[(1-9x)B(x)-xA(x)=b_1 x=x\]&lt;/span> 联立方程 &lt;span class="math">\[\begin{cases}
+(1-9x)A(x)-xB(x)=8x \\
+(1-9x)B(x)-xA(x)=x
+\end{cases}\]&lt;/span> 用克莱姆法则求解： &lt;span class="math">\[\begin{aligned}
+A(x)&amp;amp;=\frac{\begin{vmatrix}
+8x&amp;amp;-x\\
+x&amp;amp;(1-9x)
+\end{vmatrix}}{\begin{vmatrix}
+(1-9x)&amp;amp;-x\\
+-x&amp;amp;(1-9x)
+\end{vmatrix}}\\
+&amp;amp;=\frac{-71x^2+8x}{(1-8x)(1-10x)}\\
+&amp;amp;=\frac{x}{2}(\frac{7}{1-8x}+\frac{9}{1-10x})\\
+&amp;amp;=\frac{1}{2}\sum_{n=0}^\infty(7*8^n+9*10^n)x^{n+1}\\
+&amp;amp;\Rightarrow a_n=\frac{1}{2}(7*8^{n-1}+9*10^{n-1})
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>解法2：设序列&lt;span class="math">\(\{a_n\}\)&lt;/span>和序列&lt;span class="math">\(\{b_n\}\)&lt;/span>的母函数分别为&lt;span class="math">\(A(x),B(x)\)&lt;/span>。 &lt;span class="math">\[\begin{cases}
+a_n=9a_{n-1}+b_{n-1}, &amp;amp; n&amp;gt;1 \\
+b_{n-1}=9*10^{n-2}-a_{n-1}, &amp;amp; n&amp;gt;2\tag{6.2B}\\
+a_1=8,b_1=1
+\end{cases}\]&lt;/span> 这一步是因为在所有n位数中，5有奇数个和偶数个的和必为所有n位数。 式&lt;span class="math">\({6.2B}\)&lt;/span>可以推得&lt;span class="math">\(a_n=8a_{n-1}+9*10^{n-2}(n&amp;gt;1)\)&lt;/span> &lt;span class="math">\[\begin{aligned}
+A(x)=a_1 x+a_2 x^2&amp;amp;+\dotsb+a_n x^n+\dotsb\\
+-8xA(x)=\quad-8a_1 x^2&amp;amp;-\dotsb-8a_{n-1}x^n-\dotsb\\
+\hline\\
+(1-8x)A(x)=a_1 x+9*&amp;amp;10^0 x^2+9*10x^3+\dotsb\\
+=8x+\frac{9x^2}{1-10x}&amp;amp;=\frac{8x-71x^2}{1-10x}
+\end{aligned}
+\]&lt;/span> 接下来依据解法1可得&lt;span class="math">\(a_n=\frac{1}{2}(7*8^{n-1}+9*10^{n-1})\)&lt;/span>。&lt;/p>
+&lt;h3 id="从n个元素中取r个进行允许重复的组合">从n个元素中取r个进行允许重复的组合&lt;/h3>
+&lt;p>这是对引子的另一种证明方法。&lt;/p>
+&lt;p>假定允许重复的组合数用&lt;span class="math">\(C^\ast(n,r)\)&lt;/span>表示，那么有以下递推关系： &lt;span class="math">\[\begin{cases}
+C^\ast(n,r)=C^\ast(n,r-1)+C^\ast(n-1,r)\tag{6.3}\\
+C^\ast(n,0)=1
+\end{cases}
+\]&lt;/span> 凑单解法： &lt;span class="math">\[\begin{aligned}
+G_n(x)&amp;amp;=C^\ast(n,0)+C^\ast(n,1)x+C^\ast(n,2)x^2+\dotsb\\
+-xG_n(x)&amp;amp;=\qquad\qquad\quad C^\ast(n,0)x+C^\ast(n,1)x^2+\dotsb\\
+-G_{n-1}(x)&amp;amp;=C^\ast(n-1,0)+C^\ast(n-1,1)x+C^\ast(n-1,2)x^2+\dotsb\\
+\hline\\
+&amp;amp;(1-x)G_n(x)-G_{n-1}(x)=0\\
+\end{aligned}\]&lt;/span> 可以获得&lt;span class="math">\(G_n(x)\)&lt;/span>的递推公式： &lt;span class="math">\[\begin{aligned}
+G_n(x)&amp;amp;=\frac{1}{1-x}G_{n-1}(x)\\
+&amp;amp;=\dotsb\\
+&amp;amp;=\frac{1}{(1-x)^{n-1}}G_1(x)\\
+&amp;amp;=\frac{1}{(1-x)^{n-1}}[C^\ast(1,0)+C^\ast(1,1)x+C^\ast(1,2)x^2+\dotsb]\\
+&amp;amp;=\frac{1}{(1-x)^{n-1}}[1+x+x^2+\dotsb]\\
+&amp;amp;=\frac{1}{(1-x)^n}\\
+\end{aligned}\]&lt;/span> 从&lt;span class="math">\((1-x)^n\)&lt;/span>的对于序列来看： &lt;span class="math">\[\begin{aligned}
+(1-x)^{-n}&amp;amp;=\sum_{r=0}^\infty C(-n,r)(-x)^r\\
+&amp;amp;=\sum_{r=0}^\infty\frac{(-n)(-n-1)\dotsb(-n-r+1)}{r!}(-x)^r\\
+&amp;amp;=\sum_{r=0}^\infty\frac{n(n+1)\dotsb(n+r-1)}{r!}x^r\\
+&amp;amp;=\sum_{r=0}^\infty C(n+r-1,r)x^r\\
+&amp;amp;\Rightarrow C^\ast(n,r)=C(n+r-1,r)\\
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;h3 id="fibonacci数列">Fibonacci数列&lt;/h3>
+&lt;p>典型的Fibonacci数列的递推公式如下所示： &lt;span class="math">\[\begin{cases}
+F_n=F_{n-1}+F_{n-2}\tag{6.4}\\
+F_1=1,F_2=2\\
+\end{cases}\]&lt;/span> 假设&lt;span class="math">\(F_n\)&lt;/span>的递推公式为&lt;span class="math">\(G(x)\)&lt;/span>: &lt;span class="math">\[\begin{aligned}
+G(x)&amp;amp;=F_1x+F_2x^2+F_3x^3+\dotsb+F_nx^n+\dotsb\\
+-xG(x)&amp;amp;=\qquad -F_1x^2-F_2x^3-\dotsb-F_{n-1}x^n-\dotsb\\
+-x^2G(x)&amp;amp;=\qquad\qquad\quad-F_1x^3-\dotsb-F_{n-2}x^n-\dotsb\\
+\hline\\
+&amp;amp;(1-x-x^2)G(x)=F_1x=x\\
+\Rightarrow G(x)&amp;amp;=\frac{x}{1-x-x^2}=\frac{x}{(1-\frac{1+\sqrt{5}}{2}x)(1-\frac{1-\sqrt{5}}{2}x)}
+\end{aligned}\]&lt;/span> 通过解方程的因式分解得： &lt;span class="math">\[\begin{aligned}
+G(x)&amp;amp;=\frac{1}{\sqrt{5}}[\frac{1}{1-(1+\sqrt{5})x/2}-\frac{1}{1-(1-\sqrt{5})x/2}]\\
+&amp;amp;=\frac{1}{\sqrt{5}}\sum_{n=0}^\infty[(\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n]x^n\\
+&amp;amp;\Rightarrow F_n=\frac{1}{\sqrt{5}}[(\frac{1+\sqrt{5}}{2})^n-(\frac{1-\sqrt{5}}{2})^n]
+\end{aligned}\]&lt;/span> 其他一些性质：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(F_1+F_2+\dotsb+F_n=F_{n+2}-1\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(F_1+F_3+\dotsb+F_{2n-1}=F_{2n}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(F_1^2+F_2^2+\dotsb+F_n^2=F_nF_{n+1}\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>这些都可以通过累加法证明。&lt;/p></description></item><item><title>组合数学-递归与母函数（下）</title><link>https://surprisedcat.github.io/studynotes/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-%E9%80%92%E5%BD%92%E4%B8%8E%E6%AF%8D%E5%87%BD%E6%95%B0%E4%B8%8B/</link><pubDate>Fri, 17 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-%E9%80%92%E5%BD%92%E4%B8%8E%E6%AF%8D%E5%87%BD%E6%95%B0%E4%B8%8B/</guid><description>
+&lt;h2 id="递归与母函数下">递归与母函数（下）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>递推关系是计数的一个强有力的工具，特别是在做算法分析时是必需的。递推关系的求解主要是利用母函数。当然母函数尚有其他用处，但这主要是介绍解递推关系上的应用。&lt;/p>
+&lt;p>通常序列&lt;span class="math">\(a_0,a_1,\dotsb,a_n,\dotsb\)&lt;/span>与某个问题序列&lt;span class="math">\(P_0,P_1,\dotsb,P_n,\dotsb\)&lt;/span>的计数问题相对应，若已知序列的母函数，则可确定该序列，从而可以解决相应的计数问题。&lt;/p>
+&lt;p>注意：&lt;strong>母函数==生成函数&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>组合数学引子&lt;/li>
+&lt;li>有重复组合公式及其证明方法&lt;br />&lt;/li>
+&lt;li>母函数定义&lt;/li>
+&lt;li>普通母函数(Ordinary generating function，OGF)&lt;/li>
+&lt;li>指数生成函数(Exponential generating function，EGF)&lt;/li>
+&lt;li>泊松生成函数&lt;/li>
+&lt;li>普通母函数举例&lt;/li>
+&lt;li>母函数的性质&lt;/li>
+&lt;li>整数的拆分&lt;/li>
+&lt;li>指数型母函数详解&lt;/li>
+&lt;li>递推关系&lt;/li>
+&lt;li>汉诺塔&lt;/li>
+&lt;li>求n位十进制数中出现偶数个5的数的个数&lt;/li>
+&lt;li>从n个元素中取r个进行允许重复的组合&lt;/li>
+&lt;li>Fibonacci数列&lt;/li>
+&lt;li>&lt;a href="#线性常系数递推关系">线性常系数递推关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#k阶常系数线性齐次递推关系">k阶常系数线性齐次递推关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#常系数线性非齐次递推关系">常系数线性非齐次递推关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#非线性递推关系举例">非线性递推关系举例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#多项式系数">多项式系数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#Stirling数">Stirling数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#Catalan数">Catalan数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="线性常系数递推关系">线性常系数递推关系&lt;/h2>
+&lt;p>定义：设k是给定的正整数，如果序列&lt;span class="math">\(\{a_n\}\)&lt;/span>满足 &lt;span class="math">\[a_n+c_1 a_{n-1}+c_2 a_{n-2}+\dotsb+c_k a_{n-k}=f(n)\tag{7.1}\\
+n&amp;gt;k,c_k\neq0\]&lt;/span> 其中&lt;span class="math">\(c_1,c_2,\dotsb,c_k\)&lt;/span>是常数，则该方程成为序列&lt;span class="math">\(\{a_n\}\)&lt;/span>的&lt;strong>k阶常系数线性&lt;/strong>递推关系。若&lt;span class="math">\(f(n)=0\)&lt;/span>，则线性递推关系成为&lt;strong>齐次&lt;/strong>的。&lt;/p>
+&lt;p>定义：方程 &lt;span class="math">\[x^k+c_1 x^{k-1}+c_2 x^{k -2}+\dotsb+c_{k-1}x+c_k=0\tag{7.2}\]&lt;/span> 称为递推关系的&lt;strong>特征方程&lt;/strong>，其根称为递推关系的&lt;strong>特征根&lt;/strong>。&lt;/p>
+&lt;h3 id="k阶常系数线性齐次递推关系">k阶常系数线性齐次递推关系&lt;/h3>
+&lt;p>齐次：没有常数项，表达式： &lt;span class="math">\[a_n+c_1 a_{n-1}+c_2 a_{n-2}+\dotsb+c_k a_{n-k}=0\tag{7.3}\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>引理1：r设为非零数，则&lt;span class="math">\(a_n=r^n\)&lt;/span>是齐次递推关系的一个解&lt;strong>当且仅当&lt;/strong>r是递推关系的特征根。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：必要性。若&lt;span class="math">\(a_n=r^n\)&lt;/span>是递推关系的一个解，那么有 &lt;span class="math">\[\begin{aligned}
+r^n+c_1*r^{n-1}+\dotsb+c_k r^{n-k}&amp;amp;=0\\
+r^{n-k}(r^k+c_1 r^{k-1}+\dotsb+c_k)&amp;amp;=0\\
+r^k+c_1 r^{k-1}+\dotsb+c_k&amp;amp;=0\\
+\Rightarrow r是特征根
+\end{aligned}\]&lt;/span>&lt;/p>
+&lt;p>充分性：若r是递推关系的特征根。那么有 &lt;span class="math">\[r^k+c_1 r^{k-1}+\dotsb+c_k=0\]&lt;/span> 在方程的两端同乘以&lt;span class="math">\(r^{n-k}\)&lt;/span>，便得 &lt;span class="math">\[r^n+c_1*r^{n-1}+\dotsb+c_k r^{n-k}=0\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>引理2：线性。&lt;span class="math">\(A_1,A_2\)&lt;/span>是任意常数，若&lt;span class="math">\(\{a_n\},\{b_n\}\)&lt;/span>都是齐次递推关系的解，那么&lt;span class="math">\(\{A_1 a_n+A_2 b_n\}\)&lt;/span>也是齐次递推关系的解。&lt;/p>
+&lt;/blockquote>
+&lt;p>推论： &amp;gt;设&lt;span class="math">\(\{a_n^1\},\{a_n^2\},\dotsb,\{a_n^t\}\)&lt;/span>是齐次递推关系的t个不同的解，若对齐次递推关系的每一个解，都存在常数&lt;span class="math">\(A_1&amp;#39;,A_2&amp;#39;,\dotsb,A_t&amp;#39;\)&lt;/span>，使得 &amp;gt;&lt;span class="math">\[a_n=A_1&amp;#39;a_n^1+A_2&amp;#39;a_n^2+\dotsb+A_t&amp;#39;a_n^t\]&lt;/span> &amp;gt;成立，则称&lt;span class="math">\(A_1&amp;#39;a_n^1+A_2&amp;#39;a_n^2+\dotsb+A_t&amp;#39;a_n^t\)&lt;/span>为齐次递推关系的通解，其中&lt;span class="math">\(A_1&amp;#39;,A_2&amp;#39;,\dotsb,A_t&amp;#39;\)&lt;/span>为任意常数。&lt;/p>
+&lt;p>非常类似于微分方程的解。&lt;/p>
+&lt;blockquote>
+&lt;p>定理7.1：设&lt;span class="math">\(r_1,r_2,\dotsb,r_k\)&lt;/span>是齐次递推关系的&lt;span class="math">\(k\)&lt;/span>个不同的特征根，那么 &lt;span class="math">\[a_n=A_1 r_1^n+A_2 r_2^n+\dotsb+A_k r_k^n\tag{7.4}\]&lt;/span> 是齐次递推关系的通解。&lt;strong>此定理只有在k阶特征方程解出k个不同根才有效&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：设&lt;span class="math">\(\{h_n\}\)&lt;/span>是齐次递推关系的任意一个解，那么&lt;span class="math">\(\{h_n\}\)&lt;/span>由k个初值&lt;span class="math">\(h_0=d_0,h_1=d_1,\dotsb,h_{k-1}=d_{k-1},\)&lt;/span>唯一确定。于是有 &lt;span class="math">\[\begin{cases}
+h_0=A_1+A_2+\dotsb+A_k=d_0\\
+h_1=A_1 r_1+A_2 r_2+\dotsb+A_k r_k=d_1\\
+\dotsb\\
+h_{k-1}=A_1 r_1^{k-1}+A_2 r_2^{k-1}+\dotsb+A_k r_k^{k-1}=d_{k-1}\\
+\end{cases}\]&lt;/span> 此一次方程组的系数行列式为范德蒙矩阵行列 &lt;span class="math">\[\begin{vmatrix}
+1&amp;amp;1&amp;amp;\dotsb&amp;amp;1\\
+r_1&amp;amp;r_2&amp;amp;\dotsb&amp;amp;r_k\\
+\dotsb&amp;amp;\dotsb&amp;amp;\dotsb&amp;amp;\dotsb\\
+r_1^{k-1}&amp;amp;r_2^{k-1}&amp;amp;\dotsb&amp;amp;r_k^{k-1}\\
+\end{vmatrix}=\prod_{1\le j&amp;lt;i \le k}(r_i-r_j) \neq 0\]&lt;/span> 因此k个自由度需要k个一次线性不相关方程来唯一确定。&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>：求解递归关系 &lt;span class="math">\[\begin{cases}
+a_n-9a_{n-1}+26a_{n-2}-24a_{n-3}=0, &amp;amp;n \ge 3\\ \tag{7.5}
+a_0=6,a_1=17,a_2=53
+\end{cases}\]&lt;/span>&lt;/p>
+&lt;p>解：特征方程为 &lt;span class="math">\[x^3-9x^2+26x-24=0\]&lt;/span> 解方程得： &lt;span class="math">\[x_1=2,x_2=3,x_3=4\]&lt;/span> 故通解为： &lt;span class="math">\[a_n=A_1 2^n+A_2 3^n+A_3 4^n\]&lt;/span> 根据初始条件联立方程组： &lt;span class="math">\[\begin{cases}
+A_1+A_2+A_3=6\\
+A_1*2+A_2*3+A_3*4=17\\
+A_1*4+A_2*9+A_3*16=53\\
+\end{cases}\]&lt;/span> 得&lt;span class="math">\(A_1=3,A_2=1,A_3=2\)&lt;/span>，因此 &lt;span class="math">\[a_n=3*2^n+3^n+2*4^n\]&lt;/span>&lt;/p>
+&lt;p>如果用原来的凑单法会相当麻烦：&lt;/p>
+&lt;p>&lt;img src="../../images/凑单法解题1.png" alt="凑单法解题1" /> &lt;img src="../../images/凑单法解题2.png" alt="凑单法解题2" /> &lt;span class="math">\[A(x)=\frac{3}{1-2x}+\frac{1}{1-3x}+\frac{2}{1-4x}\\
+a_n=3*2^n+3^n+2*4^n,n \ge 0
+\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>：求解递归关系 &lt;span class="math">\[\begin{cases}
+a_n-4a_{n-1}+4a_{n-2}=0, &amp;amp;n \ge 2\\ \tag{7.6}
+a_0=1,a_1=3\\
+\end{cases}\]&lt;/span> 其特征方程为&lt;span class="math">\(x^2-4x+4=0 \Rightarrow x_1=x_2=2\)&lt;/span>，此时有 &lt;span class="math">\[a_n=A_1 2^n+A_2 2^n=(A_1+A_2)2^n\]&lt;/span> 为了满足初始条件&lt;span class="math">\(a_0=1,a_1=3\)&lt;/span>，有 &lt;span class="math">\[\begin{cases}
+A_1+A_2=1\\
+2A_1+2A_2=3\\
+\end{cases}\]&lt;/span> 但这是不可能的。&lt;strong>引出有重根的情形&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>定理7.2：设&lt;span class="math">\(r_1,r_2,\dotsb,r_s\)&lt;/span>是k阶齐次递推关系的&lt;span class="math">\(s(s&amp;lt;k)\)&lt;/span>个不同的特征根,其重数分别为&lt;span class="math">\(h_1,h_2,\dotsb,h_s\)&lt;/span>，且&lt;span class="math">\(h_1+h_2+\dotsb+h_s=k\)&lt;/span>那么齐次递推关系的通解是 &lt;span class="math">\[a_n=\alpha_n^1+\alpha_n^2+\dotsb+\alpha_n^s.\tag{7.7}\]&lt;/span> 其中，&lt;span class="math">\(\alpha_n^i=(b_0^i+b_1^in+b_2^i n^2+\dotsb+b_{h_i}^i n^{h_i-1})r_i^n,i=1,2,\dotsb,s\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明略。&lt;/p>
+&lt;p>很显然，没有重根的是这个定理7.2公式的特殊情况。&lt;/p>
+&lt;p>重回上个例题： &lt;span class="math">\[a_n=(A+Bn)2^n\\
+\begin{cases}
+A=1\\
+2(A+B)=3\\
+\end{cases}\\
+\Rightarrow A=1,B=0.5\\
+\Rightarrow a_n=(1+0.5n)*2^n\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>：求解递推关系 &lt;span class="math">\[\begin{cases}
+a_n=-a_{n-1}+3a_{n-2}+5a_{n-3}+2a_{n-4},n \ge 4\\ \tag{7.8}
+a_0=1,a_1=0,a_2=1,a_3=2\\
+\end{cases}\]&lt;/span> 解：其特征方程为 &lt;span class="math">\[x^4+x^3-3x^2-5x-2=0\]&lt;/span> 其特征根为：&lt;span class="math">\(x_1=x_2=x_3=-1,x_4=2\)&lt;/span> 其通解为： &lt;span class="math">\[a_n=(t_1+t_2 n +t_3 n^2)(-1)^n+t_4 2^n\]&lt;/span> 联立方程组： &lt;span class="math">\[\begin{cases}
+t_1+t_4=1\\
+(t_1+t_2+t_3)*(-1)+t_4*2=0\\
+(t_1+t_2*2+t_3*4)+t_4*4=1\\
+(t_1+t_2*3+t_3*9)*(-1)+t_4*8=2\\
+\end{cases}\\
+\Rightarrow t_1=7/9,t_2=-1/3,t_3=0,t_4=2/9\]&lt;/span> 由此可得： &lt;span class="math">\[a_n=(7/9-1/3*n)(-1)^n+2/9*2^n,n \ge 0\]&lt;/span>&lt;/p>
+&lt;h3 id="常系数线性非齐次递推关系">常系数线性非齐次递推关系&lt;/h3>
+&lt;p>非齐次：必有常数项，表达式： &lt;span class="math">\[a_n+c_1 a_{n-1}+c_2 a_{n-2}+\dotsb+c_k a_{n-k}=f(n) \neq 0 \tag{7.9}\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定理7.3：k阶常系数线性非齐次递推关系&lt;span class="math">\((7.9)\)&lt;/span>的通解是该递推关系的&lt;strong>一个特解加上其相应的齐次递推关系&lt;/strong>的通解。&lt;/p>
+&lt;/blockquote>
+&lt;p>这个关系非常类似非齐次微分方程中特解和通解的关系的情况。&lt;/p>
+&lt;p>证明：设&lt;span class="math">\(a_n&amp;#39;,a_n^\ast\)&lt;/span>分别为式&lt;span class="math">\((7.9)\)&lt;/span>的特解和式&lt;span class="math">\((7.3)\)&lt;/span>的通解。则 &lt;span class="math">\[a_n&amp;#39;+c_1 a_{n-1}&amp;#39;+c_2 a_{n-2}&amp;#39;+\dotsb+c_k a_{n-k}&amp;#39;=f(n)\\
+a_n^\ast+c_1 a_{n-1}^\ast+c_2 a_{n-2}^\ast+\dotsb+c_k a_{n-k}^\ast=0\]&lt;/span> 因此有 &lt;span class="math">\[(a_n&amp;#39;+a_n^\ast)+c_1(a_{n-1}&amp;#39;+a_{n-1}^\ast)+c_2(a_{n-2}&amp;#39;+a_{n-2}^\ast)+\dotsb\\
++c_k(a_{n-k}&amp;#39;+a_{n-k}^\ast)=f(n)\]&lt;/span> 若&lt;span class="math">\(a_n\)&lt;/span>为式&lt;span class="math">\(7.9\)&lt;/span>的任意一个解，易知&lt;span class="math">\(a_n-a_n&amp;#39;=a_n^\ast\)&lt;/span>是式(7.3)的通解，所以 &lt;span class="math">\[a_n=a_n&amp;#39;+a_n^\ast\tag{7.10}\]&lt;/span>&lt;/p>
+&lt;p>不难看出，一般递推的关系的特解比较难求，而通解可以通过定理7.2求得。而且非齐次递推关系的&lt;strong>特解通常是没有普遍的解法的&lt;/strong>。只有在某些简单的情况下可用待定系数法求出&lt;span class="math">\(a_n&amp;#39;\)&lt;/span>。 &amp;gt;定理7.4：&lt;strong>特解形式&lt;/strong>。若线性非齐次递推关系 &amp;gt;&lt;span class="math">\[a_n+c_1 a_{n-1}+c_2 a_{n-2}+\dotsb+c_k a_{n-k}=f(n),c_k \neq 0\\
+f(n)=(b_t n^t+b_{t-1} n^{t-1}+\dotsb+b_1 n+b_0)s^n\]&lt;/span> &amp;gt;的非齐次项&lt;span class="math">\(f(n)\)&lt;/span>满足特定条件，则递推关系的特解可以有以下特定形式： &amp;gt; &amp;gt;1. 当&lt;span class="math">\(f(n)\)&lt;/span>中无&lt;span class="math">\(s^n\)&lt;/span>指数项时，对应的特解形式为&lt;span class="math">\(a_n&amp;#39;=P_t n^t+P_{t-1} n^{t-1}+\dotsb+P_1 n+P_0\)&lt;/span>，其中&lt;span class="math">\(P_0,P_1,\dotsb,P_t\)&lt;/span>为待定系数。 &amp;gt;2. 当&lt;span class="math">\(f(n)中，s\)&lt;/span>不是对应的齐次递推关系的特征根，则对应的特解是&lt;span class="math">\((P_t n^t+P_{t-1} n^{t-1}+\dotsb+P_1 n+P_0)s^n\)&lt;/span>，其中&lt;span class="math">\(P_0,P_1,\dotsb,P_t\)&lt;/span>为待定系数。 &amp;gt;3. 当&lt;span class="math">\(f(n)中，s\)&lt;/span>是特征方程的&lt;span class="math">\(m\)&lt;/span>重特征根，则对应的特解是&lt;span class="math">\(n^m(P_t n^t+P_{t-1} n^{t-1}+\dotsb+P_1 n+P_0)s^n\)&lt;/span>，其中&lt;span class="math">\(P_0,P_1,\dotsb,P_t\)&lt;/span>为待定系数。&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>求解递推关系 &lt;span class="math">\[\begin{cases}
+a_n-a_{n-1}-6a_{n-2}=5\cdot4^n\\ \tag{7.11}
+a_0=5,a_1=3
+\end{cases}\]&lt;/span> 解：其特征方程为 &lt;span class="math">\[x^2-x-6=(x-3)(x+2)=0\]&lt;/span> 其特征根为&lt;span class="math">\(x=3,-2\)&lt;/span>，通解形式为：&lt;span class="math">\(A3^n+B(-2)^n\)&lt;/span>。&lt;/p>
+&lt;p>&lt;span class="math">\(f(n)=5\cdot 4^n\)&lt;/span>，其中4不是特征方程的根。特解形式为&lt;span class="math">\(P_0\cdot 4^n\)&lt;/span>，带入递推关系得： &lt;span class="math">\[P_0 4^n-P_0 4^{n-1}-6P_0 4^{n-2}=5\cdot 4^n\\
+\Rightarrow P_0=\frac{40}{3}\]&lt;/span> 该递推关系的通解为： &lt;span class="math">\[a_n=A3^n+B(-2)^n+\frac{40}{3}4^n\]&lt;/span> 带入初始条件得 &lt;span class="math">\[a_n=\frac{-67}{5}3^n+\frac{76}{15}(-2)^n+\frac{40}{3}4^n\]&lt;/span>&lt;/p>
+&lt;h2 id="非线性递推关系举例">非线性递推关系举例&lt;/h2>
+&lt;h3 id="多项式系数">多项式系数&lt;/h3>
+&lt;p>&lt;strong>引子&lt;/strong>：在下列展开式 &lt;span class="math">\[(x_1+x_2+x_3)^3=x_1^3+x_2^3+x_3^3+3x_1^2x_2+3x_1^2x_3\\
++3x_1x_2^3+3x_1x_3^2+3x_2^2x_3+3x_2x_3^2+6x_1x_2x_3\]&lt;/span> 中，每项都是&lt;span class="math">\(x_1^{n_1}x_2^{n_2}x_3^{n_3}\)&lt;/span>的形式，其中&lt;span class="math">\(n_1,n_2,n_3\)&lt;/span>都是非负整数，且&lt;span class="math">\(n_1+n_2+n_3=3\)&lt;/span>。项&lt;span class="math">\(x_1^{n_1}x_2^{n_2}x_3^{n_3}\)&lt;/span>得系数为 &lt;span class="math">\[\frac{3!}{n_1!n_2!n_3!}\]&lt;/span> 等同于在求范围内的排列数。&lt;/p>
+&lt;blockquote>
+&lt;p>定理8.1 设n为正整数，则 &lt;span class="math">\[(x_1+x_2+\dotsb+x_m)^n\\
+=\sum_{n_1+n_2+\dotsb+n_m=n}C(n, n_1,n_2,\dotsb,n_m)x_1^{n_1}x_2^{n_2}\dotsb x_m^{n_m}\]&lt;/span> 其中&lt;span class="math">\(n_1,n_2,\dotsb,n_m\)&lt;/span>为非负整数。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：系数为多重集&lt;span class="math">\(x_i^{n_i}\)&lt;/span>的全排列。 &lt;span class="math">\[C(n,n_1)C(n-n_1,n_2)\dotsb C(n-n_1-\dotsb-n_{m-1},n_m)\\
+\begin{aligned}
+&amp;amp;=\frac{n!}{(n-n_1)!n_1!}\frac{(n-n_1)!}{(n-n_1-n_2)!n_2!}\dotsb\frac{(n-n_1-\dotsb-n_{m-1})!}{(n-n_1-\dotsb-n_m)!n_m!}\\
+&amp;amp;=\frac{n!}{n_1!n_2!\dotsb n_m!(n-n_1-\dotsb-n_m)!}\\
+&amp;amp;\because n=n_1+n_2+\dotsb+n_m\\
+&amp;amp;\therefore 原式=\frac{n!}{n_1!n_2!\dotsb n_m!}
+\end{aligned}
+\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>求展开&lt;span class="math">\((x_1+x_2+\dotsb+x_5)^7\)&lt;/span>，则&lt;span class="math">\(x_1^2x_3x_4^3x_5\)&lt;/span>的系数。 &lt;span class="math">\[\frac{(2+1+3+1)!}{2!1!3!1!}=420\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>展开&lt;span class="math">\((2x_1-3x_2+5x_3)^6\)&lt;/span>，则&lt;span class="math">\(x_1^3x_2x_3^2\)&lt;/span>的系数为 &lt;span class="math">\[\frac{(3+1+2)!}{3!1!2!}\cdot 2^3\cdot(-3)\cdot5^2=-36000\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定理8.2 展开式&lt;span class="math">\((x_1+x_2+\dotsb+x_m)^n\)&lt;/span>的项数等于&lt;span class="math">\(C(n+m-1,n)\)&lt;/span>，而且这些项的系数之和等于&lt;span class="math">\(m^n\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：展开式的项&lt;span class="math">\(x_1^{n_1}x_2^{n_2}\dotsb x_m^{n_m},(n_1+n_2+\dotsb+n_m=n)\)&lt;/span> 与从m个元素中取n个允许重复的组合一一对应，故其项数为&lt;span class="math">\(C(n+m-1,n)\)&lt;/span>。当令&lt;span class="math">\(x_1=x_2=\dotsb=x_m=1\)&lt;/span>时，系数和为&lt;span class="math">\((1+1+\dotsb+1)^n=m^n\)&lt;/span>&lt;/p>
+&lt;p>&lt;strong>例题&lt;/strong>多项式&lt;span class="math">\((x_1+x_2+x_3)^3\)&lt;/span>的展开式中恰有 &lt;span class="math">\[C(n+m-1,n)=C(3+3-1,3)=C(5,3)=10\]&lt;/span> 项。&lt;/p>
+&lt;h3 id="stirling数">Stirling数&lt;/h3>
+&lt;p>有两类Stirling数，称之为第一类Stirling数和第二类Stirling数&lt;/p>
+&lt;blockquote>
+&lt;p>定义： &lt;span class="math">\[[x_n]=x(x-1)\dotsb(x-n+1)\\
+=s(n,n)x^n-s(n,n-1)x^{n-1}+\dotsb+(-1)^{n-1}s(n,1)x+(-1)^n s(n,0)\]&lt;/span> 称&lt;span class="math">\(s(n,0),s(n,1),\dotsb,s(n,n)\)&lt;/span>为&lt;strong>第一类Stirling数&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>定义可知：&lt;span class="math">\(s(n,0)=0 \quad s(n,n)=1\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>定义：n个有区别的球放到m个相同的盒子中，要求无一空盒，其不同的方案数用&lt;span class="math">\(S(n,m)\)&lt;/span>表示，称为&lt;strong>第二类Stirling数&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="catalan数">Catalan数&lt;/h3>
+&lt;blockquote>
+&lt;p>定义：数 &lt;span class="math">\[C_n=\frac{1}{n+1}C(2n,n),n=0,1,2,\dotsb\]&lt;/span> 为第n个Catalan数。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="left">n&lt;/th>
+&lt;th align="left">0&lt;/th>
+&lt;th align="left">1&lt;/th>
+&lt;th align="left">2&lt;/th>
+&lt;th align="left">3&lt;/th>
+&lt;th align="left">4&lt;/th>
+&lt;th align="left">5&lt;/th>
+&lt;th align="left">6&lt;/th>
+&lt;th align="left">7&lt;/th>
+&lt;th align="left">8&lt;/th>
+&lt;th align="left">9&lt;/th>
+&lt;th align="left">10&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="left">&lt;span class="math">\(C_n\)&lt;/span>&lt;/td>
+&lt;td align="left">1&lt;/td>
+&lt;td align="left">1&lt;/td>
+&lt;td align="left">2&lt;/td>
+&lt;td align="left">5&lt;/td>
+&lt;td align="left">14&lt;/td>
+&lt;td align="left">42&lt;/td>
+&lt;td align="left">132&lt;/td>
+&lt;td align="left">429&lt;/td>
+&lt;td align="left">1430&lt;/td>
+&lt;td align="left">4862&lt;/td>
+&lt;td align="left">16796&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;/blockquote></description></item></channel></rss>

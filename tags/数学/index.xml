@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数学 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/</link><description>Recent content in 数学 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 21 Mar 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>数学-重要不等式</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6-%E9%87%8D%E8%A6%81%E4%B8%8D%E7%AD%89%E5%BC%8F/</link><pubDate>Sat, 21 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6-%E9%87%8D%E8%A6%81%E4%B8%8D%E7%AD%89%E5%BC%8F/</guid><description>
+&lt;h2 id="重要不等式">重要不等式&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#数学分析">数学分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#伯努利不等式">伯努利不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫总和不等式">切比雪夫总和不等式&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#切比雪夫不等式总和的积分形式">切比雪夫不等式总和的积分形式&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#闵可夫斯基不等式lps中的三角不等式k">闵可夫斯基不等式(&lt;span class="math">\(L^{p}(S)\)&lt;/span>中的三角不等式K)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#代数">代数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#排序不等式">排序不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#杨氏不等式">杨氏不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#柯西不等式">柯西不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#内斯比特不等式">内斯比特不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#平均数不等式">平均数不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#马勒不等式">马勒不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性矩阵不等式">线性矩阵不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几何">几何&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#三角不等式">三角不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#外森比克不等式">外森比克不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#阿达马不等式">阿达马不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#概率与统计">概率与统计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#集中不等式">集中不等式&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#马尔可夫不等式">马尔可夫不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫不等式">切比雪夫不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#霍夫丁不等式">霍夫丁不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#efronstein不等式">Efron–Stein不等式&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#布尔不等式">布尔不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#琴生jensen不等式凸函数相关">琴生(Jensen)不等式(凸函数相关)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#测度论的版本">测度论的版本&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#概率论的版本">概率论的版本&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#赫尔德holder不等式">赫尔德(holder)不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#信息论">信息论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#吉布斯不等式相对熵">吉布斯不等式(相对熵)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#克拉夫特不等式">克拉夫特不等式&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="数学分析">数学分析&lt;/h2>
+&lt;h3 id="伯努利不等式">伯努利不等式&lt;/h3>
+&lt;p>对任意整数&lt;span class="math">\(n\geq 0\)&lt;/span>，和任意实数&lt;span class="math">\(x\geq -1\)&lt;/span>， &lt;span class="math">\[
+(1+x)^{n}\geq 1+nx
+\]&lt;/span> 如果&lt;span class="math">\({\displaystyle n\geq 0}\)&lt;/span>且是偶数，则不等式对任意实数&lt;span class="math">\(x\)&lt;/span>成立。&lt;/p>
+&lt;p>证明：伯努利不等式可以用数学归纳法证明。&lt;/p>
+&lt;h3 id="切比雪夫总和不等式">切比雪夫总和不等式&lt;/h3>
+&lt;p>数学上的切比雪夫总和不等式以切比雪夫命名，可用以比较&lt;strong>两组数积的和&lt;/strong>及&lt;strong>两组数的线性和的积&lt;/strong>的大小： &lt;span class="math">\[
+若a_{1}\geq a_{2}\geq \cdots \geq a_{n}且b_{1}\geq b_{2}\geq \cdots \geq b_{n}，则：\\
+n\sum _{k=1}^{n}a_{k}b_{k}\geq \left(\sum_{k=1}^{n}a_{k}\right)\left(\sum_{k=1}^{n}b_{k}\right)\geq n\sum_{k=1}^{n}a_{k}b_{n+1-k}
+\]&lt;/span> 上式同时除以&lt;span class="math">\(n^2\)&lt;/span>也可以写作 &lt;span class="math">\[
+{\frac {1}{n}}\sum _{k=1}^{n}a_{k}b_{k}\geq \left({\frac {1}{n}}\sum_{k=1}^{n}a_{k}\right)\left({\frac{1}{n}}\sum_{k=1}^{n}b_{k}\right)\geq {\frac {1}{n}}\sum_{k=1}^{n}a_{k}b_{n+1-k}
+\]&lt;/span> 它是由排序不等式而来。&lt;/p>
+&lt;p>&lt;strong>证明&lt;/strong>：设&lt;span class="math">\(a_{1}\geq a_{2}\geq \cdots \geq a_{n}\)&lt;/span>且&lt;span class="math">\(b_{1}\geq b_{2}\geq \cdots \geq b_{n}\)&lt;/span>，由排序不等式可知，最大的和为顺序和： &lt;span class="math">\[
+{\displaystyle a_{1}b_{1}+\cdots +a_{n}b_{n}}
+\]&lt;/span> 于是： &lt;span class="math">\[
+{\displaystyle a_{1}b_{1}+\cdots +a_{n}b_{n}=a_{1}b_{1}+a_{2}b_{2}+\cdots +a_{n}b_{n}}\\
+{\displaystyle a_{1}b_{1}+\cdots +a_{n}b_{n}\geq a_{1}b_{2}+a_{2}b_{3}+\cdots +a_{n}b_{1}}\\
+{\displaystyle a_{1}b_{1}+\cdots +a_{n}b_{n}\geq a_{1}b_{3}+a_{2}b_{4}+\cdots +a_{n}b_{2}}\\
+\vdots\\
+{\displaystyle a_{1}b_{1}+\cdots +a_{n}b_{n}\geq a_{1}b_{n}+a_{2}b_{1}+\cdots +a_{n}b_{n-1}}
+\]&lt;/span> 将这&lt;span class="math">\(n\)&lt;/span>个不等式分边相加，同时对右边进行因式分解，便得到： &lt;span class="math">\[
+{\displaystyle n(a_{1}b_{1}+\cdots +a_{n}b_{n})\geq (a_{1}+\cdots +a_{n})(b_{1}+\cdots +b_{n})}
+\]&lt;/span> 两边都除以&lt;span class="math">\(n^{2}\)&lt;/span>，就得到切比雪夫综合不等式的第一个不等号： &lt;span class="math">\[
+{\displaystyle {\frac {(a_{1}b_{1}+\cdots +a_{n}b_{n})}{n}}\geq {\frac {(a_{1}+\cdots +a_{n})}{n}}\cdot {\frac {(b_{1}+\cdots +b_{n})}{n}}}
+\]&lt;/span> 同理，右边的不等号可由最小的和为逆序和推得。&lt;/p>
+&lt;h4 id="切比雪夫不等式总和的积分形式">切比雪夫不等式总和的积分形式&lt;/h4>
+&lt;p>若&lt;span class="math">\(f\)&lt;/span>和&lt;span class="math">\(g\)&lt;/span>是区间&lt;span class="math">\([0,1]\)&lt;/span>上的可积的实函数，并且两者都是&lt;strong>递增或两者都是递减&lt;/strong>的，则： &lt;span class="math">\[
+{\displaystyle \int fg\geq \int f\int g}
+\]&lt;/span> 上式可推广到&lt;strong>任意区间&lt;/strong>。&lt;/p>
+&lt;h3 id="闵可夫斯基不等式lps中的三角不等式k">闵可夫斯基不等式(&lt;span class="math">\(L^{p}(S)\)&lt;/span>中的三角不等式K)&lt;/h3>
+&lt;p>闵可夫斯基不等式（Minkowski inequality）表明&lt;span class="math">\(L^p\)&lt;/span>空间是一个&lt;strong>赋范向量空间&lt;/strong>。设&lt;span class="math">\(S\)&lt;/span>是一个度量空间，&lt;span class="math">\(1\leq p\leq \infty ,f,g\in L^{p}(S)\)&lt;/span>，那么&lt;span class="math">\(f+g\in L^{p}(S)\)&lt;/span>，我们有： &lt;span class="math">\[
+\|f+g\|_{p}\leq \|f\|_{p}+\|g\|_{p}
+\]&lt;/span> 如果&lt;span class="math">\(1&amp;lt;p&amp;lt;\infty\)&lt;/span>，等号成立当且仅当&lt;span class="math">\(\exists k\geq 0,f=kg\)&lt;/span>，或者&lt;span class="math">\(g=kf\)&lt;/span>.闵可夫斯基不等式是&lt;span class="math">\(L^{p}(S)\)&lt;/span>中的三角不等式。它可以用赫尔德不等式来证明。&lt;/p>
+&lt;h2 id="代数">代数&lt;/h2>
+&lt;h3 id="排序不等式">排序不等式&lt;/h3>
+&lt;p>排序不等式是数学上的一条基础不等式。它可以推导出很多有名的不等式，其内容如下:&lt;/p>
+&lt;p>如果 &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;{\displaystyle x_{1}\leq x_{2}\leq \cdots \leq x_{n}}和{\displaystyle y_{1}\leq y_{2}\leq \cdots \leq y_{n}}是两组实数。而\\
+&amp;amp;{\displaystyle x_{\sigma (1)},\ldots ,x_{\sigma (n)}}是{\displaystyle x_{1},\ldots ,x_{n}}的任意一个排列。
+\end{aligned}
+\]&lt;/span> 排序不等式指出: &lt;span class="math">\[
+{\displaystyle x_{1}y_{1}+\cdots +x_{n}y_{n}\geq x_{\sigma (1)}y_{1}+\cdots +x_{\sigma (n)}y_{n}\geq x_{n}y_{1}+\cdots +x_{1}y_{n}}。
+\]&lt;/span> 以文字可以说成是&lt;strong>顺序和不小于乱序和，乱序和不小于逆序和&lt;/strong>。这个不等式有一点强大在于，完全和符号无关。&lt;/p>
+&lt;p>排序不等式可以用数学归纳法证明。关键在于下列结果：&lt;/p>
+&lt;p>若&lt;span class="math">\(x_{i}\leq x_{j},\,y_{i}\leq y_{j}\)&lt;/span>，则有 &lt;span class="math">\[
+{\displaystyle (x_{j}-x_{i})(y_{j}-y_{i})\geq 0}
+\]&lt;/span> 移项得出 &lt;span class="math">\[
+{\displaystyle x_{i}y_{i}+x_{j}y_{j}\geq x_{j}y_{i}+x_{i}y_{j}}。
+\]&lt;/span> 重复以上步骤便可得出排序不等式。&lt;/p>
+&lt;h3 id="杨氏不等式">杨氏不等式&lt;/h3>
+&lt;p>杨氏不等式，指出：假设&lt;span class="math">\(a, b, p 和q\)&lt;/span>是正实数 ，且有&lt;span class="math">\(\frac{1}{p}+\frac{1}{q} = 1\)&lt;/span>，那么： &lt;span class="math">\[
+{\displaystyle ab\leq {\frac {a^{p}}{p}}+{\frac {b^{q}}{q}}.}
+\]&lt;/span> 等号成立当且仅当&lt;span class="math">\({\displaystyle a^{p}=b^{q}}\)&lt;/span>，因为这时 &lt;span class="math">\[{\displaystyle ab=a(b^{q})^{1 \over q}=aa^{p \over q}=a^{p}={a^{p} \over p}+{b^{q} \over q}}\]&lt;/span> 杨氏不等式是&lt;strong>加权算术－几何平均值不等式的特例&lt;/strong>，杨氏不等式是证明赫尔德不等式的一个快捷方法。该不等式以威廉·亨利·杨命名。&lt;/p>
+&lt;p>&lt;strong>证明&lt;/strong>：我们知道函数&lt;span class="math">\({\displaystyle f(x)=e^{x}}\)&lt;/span>是一个凸函数， 因为它的二阶导数恒为正。 从而我们有： &lt;span class="math">\[{\displaystyle ab=e^{\ln(a)}e^{\ln(b)}=e^{{1 \over p}\ln(a^{p})+{1 \over q}\ln(b^{q})}\leq {1 \over p}e^{\ln(a^{p})}+{1 \over q}e^{\ln(b^{q})}={a^{p} \over p}+{b^{q} \over q}}\]&lt;/span> 这里我们使用了凸函数的一个性质：对任意&lt;span class="math">\(t\)&lt;/span>，若&lt;span class="math">\(0 &amp;lt; t &amp;lt;1\)&lt;/span>，则有： &lt;span class="math">\[{\displaystyle f(tx+(1-t)y)\leq tf(x)+(1-t)f(y)}\]&lt;/span>&lt;/p>
+&lt;h3 id="柯西不等式">柯西不等式&lt;/h3>
+&lt;p>柯西-施瓦茨不等式，又称施瓦茨不等式或柯西-布尼亚科夫斯基-施瓦茨不等式，是一条很多场合都用得上的不等式；例如线性代数的矢量，数学分析的无穷级数和乘积的积分，和概率论的方差和协方差。它被认为是最重要的数学不等式之一。它有一些推广，如赫尔德不等式。&lt;/p>
+&lt;p>柯西-施瓦茨不等式叙述，对于一个内积空间所有向量&lt;span class="math">\(x\)&lt;/span>和&lt;span class="math">\(y\)&lt;/span>， &lt;span class="math">\[
+\big| \langle x,y\rangle \big|^2 \leq \langle x,x\rangle \cdot \langle y,y\rangle\]&lt;/span> 其中&lt;span class="math">\(\langle\cdot,\cdot\rangle\)&lt;/span>表示内积，也叫点积。等价地，将两边开方，引用向量的范数，不等式可写为 &lt;span class="math">\[
+|\langle x,y\rangle| \leq \|x\| \cdot \|y\|.\,\]&lt;/span> 另外，等式成立当且仅当&lt;span class="math">\(x\)&lt;/span>和&lt;span class="math">\(y\)&lt;/span>线性相关。&lt;/p>
+&lt;p>柯西不等式有大量的特例形式与推广，这里不一一列举。&lt;/p>
+&lt;h3 id="内斯比特不等式">内斯比特不等式&lt;/h3>
+&lt;p>内斯比特不等式是数学的一条不等式，它说对任何正实数&lt;span class="math">\(a,b,c\)&lt;/span>，都有： &lt;span class="math">\[
+{\displaystyle {\frac {a}{b+c}}+{\frac {b}{a+c}}+{\frac {c}{a+b}}\geq {\frac {3}{2}}.}
+\]&lt;/span>&lt;/p>
+&lt;h3 id="平均数不等式">平均数不等式&lt;/h3>
+&lt;p>平均数不等式，或称平均值不等式、均值不等式，是数学上的一组不等式，也是基本不等式的推广。它是说：&lt;/p>
+&lt;p>如果&lt;span class="math">\(x_{1},x_{2},\ldots ,x_{n}\)&lt;/span>是正数，则 &lt;span class="math">\[
+H_n \le G_n \le A_n \le Q_n
+\]&lt;/span> 当且仅当&lt;span class="math">\(x_{1}=x_{2}=\cdots =x_{n}\)&lt;/span>，等号成立。&lt;/p>
+&lt;p>用文字描述即对这些正数：调和平均数 ≤ 几何平均数 ≤ 算术平均数 ≤ 平方平均数（方均根）&lt;/p>
+&lt;h3 id="马勒不等式">马勒不等式&lt;/h3>
+&lt;p>马勒不等式陈述说由两个无穷正项序列的对应项的和构成序列的几何均值大于或等于这两个无穷序列几何均值的和: &lt;span class="math">\[
+{\displaystyle \prod _{k=1}^{n}(x_{k}+y_{k})^{1/n}\geq \prod_{k=1}^{n}x_{k}^{1/n}+\prod_{k=1}^{n}y_{k}^{1/n}}
+\]&lt;/span> 其中, 对任何的&lt;span class="math">\(k, x_k, y_k &amp;gt; 0\)&lt;/span>.&lt;/p>
+&lt;p>&lt;strong>证明&lt;/strong>：由均值不等式, 有: &lt;span class="math">\[
+{\displaystyle \prod _{k=1}^{n}\left({x_{k} \over x_{k}+y_{k}}\right)^{1/n}\leq {1 \over n}\sum _{k=1}^{n}{x_{k} \over x_{k}+y_{k}},}
+\]&lt;/span> 和 &lt;span class="math">\[
+{\displaystyle \prod _{k=1}^{n}\left({y_{k} \over x_{k}+y_{k}}\right)^{1/n}\leq {1 \over n}\sum _{k=1}^{n}{y_{k} \over x_{k}+y_{k}}.}\]&lt;/span> 因此, &lt;span class="math">\[
+{\displaystyle \prod _{k=1}^{n}\left({x_{k} \over x_{k}+y_{k}}\right)^{1/n}+\prod _{k=1}^{n}\left({y_{k} \over x_{k}+y_{k}}\right)^{1/n}\leq {1 \over n}n=1.}
+\]&lt;/span> 两边同乘以分母项后即得结论.&lt;/p>
+&lt;h3 id="线性矩阵不等式">线性矩阵不等式&lt;/h3>
+&lt;p>线性矩阵不等式是凸优化中，具有形式： &lt;span class="math">\[
+{\displaystyle \operatorname {LMI} (y):=A_{0}+y_{1}A_{1}+y_{2}A_{2}+\cdots +y_{m}A_{m}\geq 0\,}
+\]&lt;/span> 的表达式, 其中,&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\({\displaystyle y=[y_{i}\,,~i\!=\!1,\dots ,m]}\)&lt;/span>是一个实向量&lt;/li>
+&lt;li>&lt;span class="math">\({\displaystyle A_{0},A_{1},A_{2},\dots ,A_{m}}\)&lt;/span>是 &lt;span class="math">\(n\times n\)&lt;/span>的实对称矩阵&lt;span class="math">\({\mathbb {S}}^{n}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(B\geq 0\)&lt;/span>是广义的不等式，意思是在&lt;span class="math">\(\mathbb S^{n}\)&lt;/span>的半正定子空间&lt;span class="math">\(\mathbb {S}_{+}\)&lt;/span>内，&lt;span class="math">\(B\)&lt;/span>是半正定矩阵。&lt;/li>
+&lt;/ul>
+&lt;p>线性矩阵不等式表示&lt;span class="math">\(y\)&lt;/span>的凸集限制条件。&lt;/p>
+&lt;h2 id="几何">几何&lt;/h2>
+&lt;h3 id="三角不等式">三角不等式&lt;/h3>
+&lt;p>三角不等式是数学上的一个不等式，表示从A到B再到C的距离永不少于从A到C的距离；亦可以说是两项独立物件的量之和不少于其和的量。&lt;/p>
+&lt;ul>
+&lt;li>在三角形ABC中，这个式子用标量可以写作&lt;span class="math">\({\displaystyle {\overline {AB}}+{\overline {BC}}\geq {\overline {AC}}}\)&lt;/span>。用向量的写法，这个不等式可以写成：&lt;span class="math">\({\displaystyle \left|{\overrightarrow {AC}}\right|\leq \left|{\overrightarrow {AB}}\right|+\left|{\overrightarrow {BC}}\right|}\)&lt;/span>&lt;/li>
+&lt;li>在实数中，此式依然成立：&lt;span class="math">\(\left|a+b\right|\leq \left|a\right|+\left|b\right|\)&lt;/span>。&lt;/li>
+&lt;li>在&lt;span class="math">\({\displaystyle L^{p}(S)}\)&lt;/span>中是闵科夫斯基不等式。&lt;/li>
+&lt;/ul>
+&lt;h3 id="外森比克不等式">外森比克不等式&lt;/h3>
+&lt;p>外森比克不等式（Weitzenböck's inequality）是有关三角形边长和面积的一个不等式。设三角形的边长为&lt;span class="math">\(a,b,c\)&lt;/span>，面积为&lt;span class="math">\(A\)&lt;/span>，则外森比克不等式声称 &lt;span class="math">\[a^2+b^2+c^2 \ge 4 \sqrt{3} A\]&lt;/span> 成立。当且仅当三角形为等边三角形，等号成立。佩多不等式是外森比克不等式的推广。&lt;/p>
+&lt;h3 id="阿达马不等式">阿达马不等式&lt;/h3>
+&lt;p>数学中的阿达马不等式从上限制了n维欧几里得空间中，由&lt;span class="math">\(n\)&lt;/span>支向量&lt;span class="math">\({\mathbf {v}}_{1}, {\mathbf {v}}_{2}, \ldots \mathbf {v} _{n}\)&lt;/span>标出的体积。&lt;/p>
+&lt;p>这不等式的几何意义是当&lt;strong>向量为正交集时体积最大&lt;/strong>。&lt;/p>
+&lt;h2 id="概率与统计">概率与统计&lt;/h2>
+&lt;h3 id="集中不等式">集中不等式&lt;/h3>
+&lt;p>集中不等式是数学中的一类不等式，描述了一个随机变量是否集中在某个取值附近。&lt;em>例如大数定律说明了一系列独立同分布随机变量的平均值在概率上趋近于它们的数学期望，这表示随着变量数目增大，平均值会集中在数学期望附近&lt;/em>。&lt;/p>
+&lt;h4 id="马尔可夫不等式">马尔可夫不等式&lt;/h4>
+&lt;p>在概率论中，马尔可夫不等式给出了随机变量的函数大于等于某正数的概率的上界。马尔可夫不等式把概率关联到数学期望，给出了随机变量的累积分布函数一个&lt;strong>宽泛但仍有用的界&lt;/strong>，例如不超过1/5的人口会有超过5倍于人均收入的收入。&lt;/p>
+&lt;p>设&lt;span class="math">\(X\)&lt;/span>是一个非负随机变量，&lt;span class="math">\(\varepsilon&amp;gt;0\)&lt;/span>为正实数，则有 &lt;span class="math">\[
+P(X&amp;gt;\varepsilon) \leq \frac{E(X)}{\varepsilon}
+\]&lt;/span> &lt;strong>证明&lt;/strong>： &lt;span class="math">\[{\begin{aligned}
+{\textrm {E}}(X)&amp;amp;=\int_{-\infty }^{\infty }xf(x)dx\\
+&amp;amp;=\int_{0}^{\infty }xf(x)dx\\
+&amp;amp;\geq \int_{\varepsilon}^{\infty }xf(x)dx\\
+&amp;amp;\because x &amp;gt; \varepsilon, \forall x \in (\varepsilon,\infty)\\
+&amp;amp;\geq \int_{\varepsilon}^{\infty }\varepsilon f(x)dx\\
+&amp;amp;=\varepsilon\int _{\varepsilon}^{\infty }f(x)dx\\
+&amp;amp;=\varepsilon{\textrm {P}}(X\geq \varepsilon).
+\end{aligned}}\]&lt;/span> 离散情形下证明类似。&lt;/p>
+&lt;p>对于单调增加函数的扩展版本:&lt;/p>
+&lt;p>若&lt;span class="math">\(φ\)&lt;/span>是定义在非负实数上的单调增加函数，且其值非负，&lt;span class="math">\(X\)&lt;/span>是一个随机变量，&lt;span class="math">\(\varepsilon ≥ 0，且φ(\varepsilon) &amp;gt; 0\)&lt;/span>，则 &lt;span class="math">\[
+{\displaystyle \mathbb {P} (|X|\geq \varepsilon)\leq {\frac {\mathbb {E} (\varphi (|X|))}{\varphi (\varepsilon)}}}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="切比雪夫不等式">切比雪夫不等式&lt;/h4>
+&lt;p>切比雪夫不等式（英语：Chebyshev's Inequality）显示了随机变量的“几乎所有”值都会“接近”平均。&lt;/p>
+&lt;p>切比雪夫不等式对&lt;strong>任何分布形状的数据都适用&lt;/strong>，但是需要随机变量的期望、方差都存在。可表示为：对于任意&lt;span class="math">\(b&amp;gt;0\)&lt;/span>，有： &lt;span class="math">\[
+{\displaystyle P(|X-E(X)|\geq \varepsilon)\leq {\frac {Var(X)}{\varepsilon^{2}}}}
+\]&lt;/span> 反过来写就是 &lt;span class="math">\[
+{\displaystyle P(|X-E(X)|\leq \varepsilon)\geq 1-{\frac {Var(X)}{\varepsilon^{2}}}}
+\]&lt;/span>&lt;/p>
+&lt;p>在概率论中，还有一种等价表述：&lt;/p>
+&lt;p>设&lt;span class="math">\(X\)&lt;/span>为随机变量，期望值为&lt;span class="math">\(\mu\)&lt;/span>，标准差为&lt;span class="math">\(\sigma\)&lt;/span>。对于任何实数&lt;span class="math">\(k&amp;gt;0\)&lt;/span>， &lt;span class="math">\[
+P(\left|X-\mu \right|\geq k\sigma )\leq {\frac {1}{k^{2}}}.
+\]&lt;/span>&lt;/p>
+&lt;p>证明：可从马尔可夫不等式直接证明：马氏不等式说明对任意随机变量&lt;span class="math">\(Y\)&lt;/span>和正数&lt;span class="math">\(a\)&lt;/span>有&lt;span class="math">\(\Pr(|Y|&amp;gt;a)\leq \operatorname {E}(|Y|)/a\)&lt;/span>。取&lt;span class="math">\(Y=(X-\mu )^{2}\)&lt;/span>及&lt;span class="math">\(a=(k\sigma )^{2}\)&lt;/span>可证。&lt;/p>
+&lt;h4 id="霍夫丁不等式">霍夫丁不等式&lt;/h4>
+&lt;p>霍夫丁不等式适用于&lt;strong>有界的随机变量&lt;/strong>。设有两两独立的一系列随机变量&lt;span class="math">\(X_{1},\dots ,X_{n}\)&lt;/span>。假设对所有的&lt;span class="math">\(1 \leq i\leq n\)&lt;/span>，&lt;span class="math">\(X_{i}\)&lt;/span>都是几乎有界的变量，即满足： &lt;span class="math">\[
+{\displaystyle \mathbb {P} (X_{i}\in [a_{i},b_{i}])=1.}
+\]&lt;/span> 那么这&lt;span class="math">\(n\)&lt;/span>个随机变量的经验期望： &lt;span class="math">\[
+{\overline {X}}={\frac {X_{1}+\cdots +X_{n}}{n}}
+\]&lt;/span> 满足以下的不等式: &lt;span class="math">\[
+{\displaystyle \mathbb {P} ({\overline {X}}-\mathbb {E} [{\overline {X}}]\geq t)\leq \exp \left(-{\frac {2t^{2}n^{2}}{\sum _{i=1}^{n}(b_{i}-a_{i})^{2}}}\right),}
+\]&lt;/span> &lt;span class="math">\[
+{绝对值：\displaystyle \mathbb {P} (|{\overline {X}}-\mathbb {E} [{\overline {X}}]|\geq t)\leq 2\exp \left(-{\frac {2t^{2}n^{2}}{\sum_{i=1}^{n}(b_{i}-a_{i})^{2}}}\right),}
+\]&lt;/span>&lt;/p>
+&lt;h4 id="efronstein不等式">Efron–Stein不等式&lt;/h4>
+&lt;p>Efron–Stein不等式给出了随机变量&lt;strong>方差的一个上限估计&lt;/strong>。设有两两独立的随机变量&lt;span class="math">\(X_{1}\dots X_{n}\)&lt;/span>和&lt;span class="math">\(X_{1}&amp;#39;\dots X_{n}&amp;#39;\)&lt;/span>，并且对所有的&lt;span class="math">\(i\)&lt;/span>，&lt;span class="math">\(X_{i}&amp;#39;\)&lt;/span>与&lt;span class="math">\(X_{i}\)&lt;/span>有着相同的分布。那么令 &lt;span class="math">\[{\displaystyle X=(X_{1},\dots ,X_{n}),X^{(i)}=(X_{1},\dots ,X_{i-1},X_{i}&amp;#39;,X_{i+1},\dots ,X_{n})}\]&lt;/span> 则有 &lt;span class="math">\[\mathrm {Var} (f(X))\leq {\frac {1}{2}}\sum_{i=1}^{n}E[(f(X)-f(X^{(i)}))^{2}].
+\]&lt;/span>&lt;/p>
+&lt;h3 id="布尔不等式">布尔不等式&lt;/h3>
+&lt;p>布尔不等式（Boole's inequality），由乔治·布尔提出，指对于全部事件的概率不大于单个事件的概率总和。这是一个很平凡的不等式，但是很长时间内没有给出严格证明。&lt;/p>
+&lt;p>对于事件&lt;span class="math">\(A_1、A_2、A_3、......\)&lt;/span>： &lt;span class="math">\[P(\bigcup_{{i}}A_{i})\leq \sum_{i}P(A_{i})\]&lt;/span> 在测度论上，布尔不等式满足&lt;span class="math">\(σ\)&lt;/span>次可加性。&lt;/p>
+&lt;h3 id="琴生jensen不等式凸函数相关">琴生(Jensen)不等式(凸函数相关)&lt;/h3>
+&lt;p>琴生不等式（Jensen's inequality）给出积分的&lt;strong>凸函数值和凸函数的积分值间&lt;/strong>的关系。琴生不等式有以下推论：过一个凸函数上任意两点所作割线一定在这两点间的函数图象的上方，即： &lt;span class="math">\[tf(x_{1})+(1-t)f(x_{2})\geq f\left(tx_{1}+(1-t)x_{2}\right),0\leq t\leq 1.\]&lt;/span>&lt;/p>
+&lt;p>琴生不等式可以用测度论或概率论的语言给出。这两种方式都表明同一个很一般的结果。&lt;/p>
+&lt;h4 id="测度论的版本">测度论的版本&lt;/h4>
+&lt;p>假设&lt;span class="math">\(\mu\)&lt;/span>是集合&lt;span class="math">\(\Omega\)&lt;/span>的正测度，使得&lt;span class="math">\(\mu (\Omega )=1\)&lt;/span>。若&lt;span class="math">\(g\)&lt;/span>是勒贝格可积的实值函数，而&lt;span class="math">\(\varphi\)&lt;/span>是在&lt;span class="math">\(g\)&lt;/span>的值域上定义的凸函数，则 &lt;span class="math">\[
+\varphi \left(\int_{{\Omega}}g\,d\mu \right)\leq \int_{\Omega }\varphi \circ g\,d\mu
+\]&lt;/span>&lt;/p>
+&lt;h4 id="概率论的版本">概率论的版本&lt;/h4>
+&lt;p>以概率论的名词，&lt;span class="math">\(\mu\)&lt;/span>是个概率测度。函数&lt;span class="math">\(g\)&lt;/span>换作实值随机变数&lt;span class="math">\(X\)&lt;/span>（就纯数学而言，两者没有分别）。在&lt;span class="math">\(\Omega\)&lt;/span>空间上，任何函数相对于概率测度&lt;span class="math">\(\mu\)&lt;/span>的积分就成了期望值。这不等式就说，若&lt;span class="math">\(\varphi\)&lt;/span>是任一凸函数，则 &lt;span class="math">\[
+\varphi \left(E(X)\right)\leq E(\varphi (X))
+\]&lt;/span>&lt;/p>
+&lt;h3 id="赫尔德holder不等式">赫尔德(holder)不等式&lt;/h3>
+&lt;p>赫尔德不等式是数学分析的一条不等式，取名自奥托·赫尔德(Otto Hölder)。这是一条揭示&lt;span class="math">\(L^p\)&lt;/span>空间的相互关系的基本不等式：&lt;/p>
+&lt;p>设&lt;span class="math">\(S\)&lt;/span>为测度空间，&lt;span class="math">\(1\leq p,q\leq \infty\)&lt;/span>，及&lt;span class="math">\({1 \over p}+{1 \over q}=1\)&lt;/span>，设&lt;span class="math">\(f\)&lt;/span>在&lt;span class="math">\(L^{p}(S)\)&lt;/span>内，&lt;span class="math">\(g\)&lt;/span>在&lt;span class="math">\(L^{q}(S)\)&lt;/span>内。则&lt;span class="math">\(f g\)&lt;/span>在&lt;span class="math">\(L^{1}(S)\)&lt;/span>内，且有 &lt;span class="math">\[
+\|fg\|_{1}\leq \|f\|_{p}\|g\|_{q}。
+\]&lt;/span> 若&lt;span class="math">\(S\)&lt;/span>取作&lt;span class="math">\(\{1,...,n\}\)&lt;/span>附计数测度，便得赫尔德不等式的特殊情形：对所有实数（或复数）&lt;span class="math">\(x_{1},...,x_{n};y_{1},...,y_{n}\)&lt;/span>，有 &lt;span class="math">\[
+\sum_{{k=1}}^{n}|x_{k}y_{k}|\leq \left(\sum_{{k=1}}^{n}|x_{k}|^{p}\right)^{{1/p}}\left(\sum_{{k=1}}^{n}|y_{k}|^{q}\right)^{{1/q}}。
+\]&lt;/span> 我们称p和q互为赫尔德共轭。(感觉会用于范数的证明)。&lt;/p>
+&lt;p>当&lt;span class="math">\(p = q = 2\)&lt;/span>，便得到柯西-施瓦茨不等式。赫尔德不等式可以证明&lt;span class="math">\(L^p\)&lt;/span>空间上一般化的三角不等式，闵可夫斯基不等式。&lt;/p>
+&lt;p>证明：一般通过杨氏不等式证明。&lt;/p>
+&lt;h2 id="信息论">信息论&lt;/h2>
+&lt;h3 id="吉布斯不等式相对熵">吉布斯不等式(相对熵)&lt;/h3>
+&lt;p>若&lt;span class="math">\(\sum _{i=1}^{n}p_{i}=\sum _{i=1}^{n}q_{i}=1\)&lt;/span>，且&lt;span class="math">\(p_{i},q_{i}\in (0,1]\)&lt;/span>，则有： &lt;span class="math">\[
+-\sum _{i=1}^{n}p_{i}\log p_{i}\leq -\sum_{i=1}^{n}p_{i}\log q_{i}
+\]&lt;/span> 等号成立当且仅当&lt;span class="math">\(\forall i, p_{i}=q_{i}\)&lt;/span>。&lt;/p>
+&lt;p>吉布斯不等式等价于： &lt;span class="math">\[
+0\leq -\sum_{i=1}^{n}p_{i}\log q_{i}-(-\sum_{i=1}^{n}p_{i}\log p_{i})=\sum _{i=1}^{n}p_{i}\log(p_{i}/q_{i})=D_{\mathrm {KL} }(P\|Q)
+\]&lt;/span> 文字解释就是：&lt;span class="math">\(0 \leq 交叉熵-熵 = 相对熵\)&lt;/span>。&lt;/p>
+&lt;h3 id="克拉夫特不等式">克拉夫特不等式&lt;/h3>
+&lt;p>在编码理论，克拉夫特不等式给出了一个码字长度集合存在唯一可解编码/单义可译码（uniquely decodable code）的必要条件。因为这个不等式在前缀码和树上面应用很多，所以在计算机科学和信息学中很常用。&lt;/p>
+&lt;p>克拉夫特不等式对码字限制长度以保证前缀编码的可能性。这个不等式说明码字长度指数的倒数的分布和概率质量函数很相似。&lt;/p>
+&lt;ul>
+&lt;li>如果克拉夫特不等式中严格成立，相应的编码有冗余（redundancy）。&lt;/li>
+&lt;li>如果克拉夫特不等式中等式成立，相应的编码被称作complete code。&lt;/li>
+&lt;li>如果克拉夫特不等式不成立，相应的编码不是唯一可解编码（uniquely decipherable）。&lt;/li>
+&lt;/ul>
+&lt;p>设符号表中的原始符号为&lt;span class="math">\(S=\{\,s_{1},s_{2},\ldots ,s_{n}\,\}\)&lt;/span> 在大小为&lt;span class="math">\(r\)&lt;/span>的字符集上编码为唯一可解编码的码字长度为 &lt;span class="math">\[\ell_{1},\ell_{2},\ldots ,\ell_{n}.\]&lt;/span> 则 &lt;span class="math">\[
+{\displaystyle \sum _{i=1}^{n}r^{-\ell_{i}}\leqslant 1.}
+\]&lt;/span> 反之, 给定一个满足上述不等式的自然数集合&lt;span class="math">\(\ell_{1},\ell_{2},\ldots ,\ell_{n}\)&lt;/span>, 则在大小为&lt;span class="math">\(r\)&lt;/span>字符集上，存在一组唯一可解编码符合相应的码字长度。&lt;/p></description></item><item><title>数学-切比雪夫相关</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6-%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E7%9B%B8%E5%85%B3/</link><pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6-%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E7%9B%B8%E5%85%B3/</guid><description>
+&lt;h2 id="切比雪夫相关概念">切比雪夫相关概念&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>巴夫尼提·列波维奇·切比雪夫（俄语：Пафну́тий Льво́вич Чебышёв ，1821年5月26日－1894年12月8日），俄罗斯数学家。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#概率论">概率论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫不等式">切比雪夫不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#数值分析">数值分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫多项式">切比雪夫多项式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫节点">切比雪夫节点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫总和不等式">切比雪夫总和不等式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫方程">切比雪夫方程&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#度量几何">度量几何&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫距离">切比雪夫距离&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#数论质数相关">数论(质数相关)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫定理">切比雪夫定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫函数">切比雪夫函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录">附录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#棣莫弗定理">棣莫弗定理&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="概率论">概率论&lt;/h2>
+&lt;h3 id="切比雪夫不等式">切比雪夫不等式&lt;/h3>
+&lt;p>在概率论中，切比雪夫不等式（英语：Chebyshev's Inequality）显示了随机变量的“几乎所有”值都会“接近”平均切比雪夫不等式，对&lt;strong>任何分布形状的数据都适用&lt;/strong>。可表示为：对于任意&lt;span class="math">\(b&amp;gt;0\)&lt;/span>，有： &lt;span class="math">\[P(|X-E(X)|\geqslant b)\leq {\frac {Var(X)}{b^{2}}}\]&lt;/span>&lt;/p>
+&lt;h2 id="数值分析">数值分析&lt;/h2>
+&lt;h3 id="切比雪夫多项式">切比雪夫多项式&lt;/h3>
+&lt;p>切比雪夫多项式是与棣莫弗定理有关，以递归方式定义的一系列&lt;strong>正交多项式&lt;/strong>序列。通常，第一类切比雪夫多项式以符号&lt;span class="math">\(T_n\)&lt;/span>表示，第二类切比雪夫多项式用&lt;span class="math">\(U_n\)&lt;/span>表示。切比雪夫多项式&lt;span class="math">\(T_n\)&lt;/span>或&lt;span class="math">\(U_n\)&lt;/span>代表n阶多项式。&lt;/p>
+&lt;p>切比雪夫多项式在逼近理论中有重要的应用。这是因为第一类切比雪夫多项式的根（被称为切比雪夫节点）可以用于多项式插值。相应的插值多项式能最大限度地降低龙格现象，并且提供多项式在连续函数的最佳一致逼近。&lt;/p>
+&lt;p>第一类Chebyshev多项式：由递推式 &lt;span class="math">\[T_0(x) = 1,\\ \tag{2.1}
+T_1(x) = x, \\
+T_{n+1}(x) = 2xT_n(x) - T_{n-1}(x). \\\]&lt;/span> 所确立的一系列多项式称为第一类Chebyshev多项式.&lt;/p>
+&lt;p>第二类Chebyshev多项式：由递推式 &lt;span class="math">\[U_0(x) = 1, \\ \tag{2.2}
+U_1(x) = 2x, \\
+U_{n+1}(x) = 2xU_n(x) - U_{n-1}(x). \\
+\]&lt;/span> 所确立的一系列多项式称为第二类Chebyshev多项式.&lt;/p>
+&lt;h3 id="切比雪夫节点">切比雪夫节点&lt;/h3>
+&lt;p>对于一个插值区间&lt;span class="math">\([a, b]\)&lt;/span> 如果要在这个插值区间上选取&lt;span class="math">\(n\)&lt;/span>个点作为插值基点，使得上面的最大误差最小，则基点的选法如下: &lt;span class="math">\[x_i=\frac{b+a}{2}+\frac{b-a}{2}\cos\frac{(2i-1)\pi}{2n}\\
+(i=1,2,\dotsb,n)\]&lt;/span> 这些节点称为切比雪夫（插值）节点。&lt;/p>
+&lt;h3 id="切比雪夫总和不等式">切比雪夫总和不等式&lt;/h3>
+&lt;p>用以比较两组数积的和及两组数的线性和的积的大小：&lt;/p>
+&lt;p>若&lt;span class="math">\(a_{1}\geq a_{2}\geq \cdots \geq a_{n}\)&lt;/span>且&lt;span class="math">\(b_{1}\geq b_{2}\geq \cdots \geq b_{n}\)&lt;/span>，则： &lt;span class="math">\[n\sum _{k=1}^{n}a_{k}b_{k}\geq \left(\sum_{k=1}^{n}a_{k}\right)\left(\sum_{k=1}^{n}b_{k}\right)\geq n\sum_{k=1}^{n}a_{k}b_{n+1-k}.\]&lt;/span> 上式也可以写作 &lt;span class="math">\[{\frac {1}{n}}\sum _{k=1}^{n}a_{k}b_{k}\geq \left({\frac {1}{n}}\sum_{k=1}^{n}a_{k}\right)\left({\frac {1}{n}}\sum_{k=1}^{n}b_{k}\right)\geq {\frac {1}{n}}\sum_{k=1}^{n}a_{k}b_{n+1-k}\]&lt;/span> 它是由排序不等式而来。&lt;/p>
+&lt;h3 id="切比雪夫方程">切比雪夫方程&lt;/h3>
+&lt;p>切比雪夫方程（英语：Chebyshev equation）是指二阶线性常微分方程: &lt;span class="math">\[(1-x^{2}){d^{2}y \over dx^{2}}-x{dy \over dx}+p^{2}y=0\]&lt;/span> 其中&lt;span class="math">\(p\)&lt;/span>为一实常数。方程的解为幂级数: &lt;span class="math">\[y=\sum _{n=0}^{\infty }a_{n}x^{n}\]&lt;/span> 其中系数可通过以下递推关系式计算： &lt;span class="math">\[a_{n+2}={(n-p)(n+p) \over (n+1)(n+2)}a_{n}.\]&lt;/span> 级数在&lt;span class="math">\(x\in [-1,1]\)&lt;/span>上收敛（对递推关系式应用比值审敛法可得）。递推关系的初值a0与a1可为任意值，由此可得微分方程不同的特解。&lt;/p>
+&lt;h2 id="度量几何">度量几何&lt;/h2>
+&lt;h3 id="切比雪夫距离">切比雪夫距离&lt;/h3>
+&lt;p>数学上，切比雪夫距离（Chebyshev distance）或是&lt;span class="math">\(L_∞\)&lt;/span>度量是向量空间中的一种度量，二个点之间的距离定义&lt;strong>为其各座标数值差的最大值&lt;/strong>。以&lt;span class="math">\((x_1,y_1)和(x_2,y_2)\)&lt;/span>二点为例，其切比雪夫距离为&lt;span class="math">\(max(|x_2-x_1|,|y_2-y_1|)\)&lt;/span>。&lt;/p>
+&lt;p>若将国际象棋棋盘放在二维直角座标系中，格子的边长定义为1，座标的x轴及y轴和棋盘方格平行，原点恰落在某一格的中心点，则王从一个位置走到其他位置需要的步数恰为二个位置的切比雪夫距离，因此切比雪夫距离也称为&lt;strong>棋盘距离&lt;/strong>。&lt;/p>
+&lt;p>范数定义：若二个向量或二个点&lt;span class="math">\(p\quad q\)&lt;/span>，其座标分别为&lt;span class="math">\(p_{i}\)&lt;/span>及&lt;span class="math">\(q_i\)&lt;/span>，则两者之间的切比雪夫距离定义如下： &lt;span class="math">\[D_{\rm {Chebyshev}}(p,q):=\max_{i}(|p_{i}-q_{i}|).\]&lt;/span> 这也等于以下&lt;span class="math">\(L_p\)&lt;/span>度量的极值： &lt;span class="math">\[\lim_{k\to \infty }{\bigg (}\sum_{i=1}^{n}\left|p_{i}-q_{i}\right|^{k}{\bigg )}^{1/k},\]&lt;/span> 因此切比雪夫距离也称为&lt;span class="math">\(L_∞\)&lt;/span>度量。&lt;/p>
+&lt;h2 id="数论质数相关">数论(质数相关)&lt;/h2>
+&lt;h3 id="切比雪夫定理">切比雪夫定理&lt;/h3>
+&lt;p>对于&lt;span class="math">\(n&amp;gt;3\)&lt;/span>，n和2n之间至少有一个素数。&lt;/p>
+&lt;h3 id="切比雪夫函数">切比雪夫函数&lt;/h3>
+&lt;p>切比雪夫函数(Chebyshev function)重要的数论函数之一。它是切比雪夫为了证明素数定理而给出的。使函数&lt;span class="math">\(Ψ(x)\)&lt;/span>与对数函数建立了简单的联系，从而为证明素数定理和研究素数分布奠定了基础。&lt;/p>
+&lt;h2 id="附录">附录&lt;/h2>
+&lt;h3 id="棣莫弗定理">棣莫弗定理&lt;/h3>
+&lt;p>棣莫弗公式是一个关于复数和三角函数的公式，。其内容为对任意复数x和整数n，下列性质成立： &lt;span class="math">\[(\cos(x)+i\sin(x))^{n}=\cos(nx)+i\sin(nx)\]&lt;/span> 为了方便起见，我们常常将&lt;span class="math">\(cos(x) + i sin(x)\)&lt;/span>合并为另一个三角函数&lt;span class="math">\(cis(x)\)&lt;/span>，也就是说： &lt;span class="math">\[\operatorname {cis} ^{n}(x)=\operatorname {cis} (nx)\]&lt;/span> 证明：欧拉公式。&lt;/p>
+&lt;p>此定理可用来求单位复数的&lt;span class="math">\(n\)&lt;/span>次方根。设&lt;span class="math">\(|z|=1\)&lt;/span>，表为 &lt;span class="math">\[z=\cos(\theta)+i\sin(\theta)\]&lt;/span> 若&lt;span class="math">\(w^{n}=z\)&lt;/span>，按照棣莫弗公式： &lt;span class="math">\[w^{n}=(\cos \phi +i\sin \phi )^{n}=\cos n\phi +i\sin n\phi =\cos \theta +i\sin \theta =z\]&lt;/span> 于是得到 &lt;span class="math">\[n\phi =\theta +2k\pi （其中k\in \mathbb{Z} )\]&lt;/span> 也就是： &lt;span class="math">\[\phi =\frac{\theta+2k\pi}{n}\]&lt;/span> 当&lt;span class="math">\(k\)&lt;/span>取&lt;span class="math">\(0,1,\ldots ,n-1\)&lt;/span>，我们得到&lt;span class="math">\(n\)&lt;/span>个不同的根： &lt;span class="math">\[w=\cos({\dfrac {\theta +2k\pi }{n}})+i\sin({\dfrac {\theta +2k\pi }{n}}),k=0,1,\ldots ,n-1\]&lt;/span>&lt;/p></description></item><item><title>数学-方差标准差均方根均方</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6-%E6%96%B9%E5%B7%AE%E6%A0%87%E5%87%86%E5%B7%AE%E5%9D%87%E6%96%B9%E6%A0%B9%E5%9D%87%E6%96%B9/</link><pubDate>Thu, 23 May 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%AD%A6-%E6%96%B9%E5%B7%AE%E6%A0%87%E5%87%86%E5%B7%AE%E5%9D%87%E6%96%B9%E6%A0%B9%E5%9D%87%E6%96%B9/</guid><description>
+&lt;h2 id="统计估计概念方差标准差均方误差均方根误差平均绝对误差协方差等等">统计/估计概念（方差、标准差、均方误差、均方根误差、平均绝对误差、协方差等等）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>说明：&lt;/p>
+&lt;ul>
+&lt;li>均值&lt;span class="math">\(\mu = E(X)\)&lt;/span>&lt;/li>
+&lt;li>样本均值&lt;span class="math">\(\bar{\mu} = \frac{1}{N}\sum^N_{n=1}{x_n}(N个样本的均值)\)&lt;/span>&lt;/li>
+&lt;li>有偏估计：由样本值求得的估计值与待估参数的真值之间有系统误差，其期望值不是待估参数的真值。&lt;/li>
+&lt;li>无偏估计：估计量的数学期望等于被估计参数的真实值。&lt;/li>
+&lt;li>补充：范数是一种定义在向量或矩阵上的“距离”，表格中所列的是向量范式定义。&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">名称&lt;/th>
+&lt;th align="center">英文名&lt;/th>
+&lt;th align="center">公式&lt;/th>
+&lt;th align="center">意义&lt;/th>
+&lt;th align="center">注释&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">方差&lt;/td>
+&lt;td align="center">VAR&lt;/td>
+&lt;td align="center">&lt;span class="math">\(D(x)=E\{\sum[X-E(X)]^2\}\)&lt;/span>&lt;/td>
+&lt;td align="center">随机变量或统计数据与均值的偏离程度&lt;/td>
+&lt;td align="center">描述数据集本身性质&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">样本方差&lt;/td>
+&lt;td align="center">Sample VAR&lt;/td>
+&lt;td align="center">&lt;span class="math">\(s^2=\frac{1}{N-1}\sum^N_{n=1}{(x_n-\bar{x})^2}\)&lt;/span>，其中&lt;span class="math">\(\bar{x}\)&lt;/span>为样本均值&lt;/td>
+&lt;td align="center">依据所给样本对随机变量的方差做出的一个估计&lt;/td>
+&lt;td align="center">底数&lt;span class="math">\(N-1\)&lt;/span>，无偏估计，统计性质，大于总体方差&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">总体方差&lt;/td>
+&lt;td align="center">Population VAR&lt;/td>
+&lt;td align="center">&lt;span class="math">\(s^2_p=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)&lt;/span>，其中&lt;span class="math">\(\mu\)&lt;/span>为总体均值&lt;/td>
+&lt;td align="center">依据所给样本对随机变量的方差做出的一个估计&lt;/td>
+&lt;td align="center">底数&lt;span class="math">\(N\)&lt;/span>，&lt;strong>有偏估计&lt;/strong>，统计性质，小于样本方差&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">标准差&lt;/td>
+&lt;td align="center">SD&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\sigma=\sqrt{D(X)}\)&lt;/span>&lt;/td>
+&lt;td align="center">反映组内个体间的离散程度,量纲与统计对象相同&lt;/td>
+&lt;td align="center">数据集本身性质&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">均方差&lt;/td>
+&lt;td align="center">SD&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\sigma=\sqrt{D(X)}\)&lt;/span>&lt;/td>
+&lt;td align="center">反映组内个体间的离散程度,量纲与统计对象相同&lt;/td>
+&lt;td align="center">&lt;strong>就是标准差&lt;/strong>，数据集本身性质&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">均方误差&lt;/td>
+&lt;td align="center">MSE&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MSE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{(x_n-\mu)^2}\)&lt;/span>&lt;/td>
+&lt;td align="center">它是“误差”的平方的期望值。误差就是估计值与被估计量的差。&lt;/td>
+&lt;td align="center">估计（预测）的性质&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">均方根误差&lt;/td>
+&lt;td align="center">RMSE&lt;/td>
+&lt;td align="center">&lt;span class="math">\(RMSE(\hat{x})=\sqrt{MSE(\hat{x}_n})\)&lt;/span>&lt;/td>
+&lt;td align="center">代表预测的值和观察到的值之差的样本标准差&lt;/td>
+&lt;td align="center">估计（预测）的性质&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">均方根值&lt;/td>
+&lt;td align="center">RMS&lt;/td>
+&lt;td align="center">&lt;span class="math">\(RMS=\sqrt{\frac{\sum^N_{n=1}x^2_n}{N}}\)&lt;/span>&lt;/td>
+&lt;td align="center">在数据统计分析中，将所有值平方求和，求其均值，再开平方&lt;/td>
+&lt;td align="center">又称有效值，防止正负数平均后减小，例如计算交流电功率，统计性质&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">平均绝对误差&lt;/td>
+&lt;td align="center">MAE&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MAE(\hat{x})=\frac{1}{N}\sum^N_{n=1}{\vert x_n-\mu \vert}\)&lt;/span>&lt;/td>
+&lt;td align="center">所有单个观测值与算术平均值的偏差的绝对值的平均&lt;/td>
+&lt;td align="center">防止正负值抵消，估计(预测)性质&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">平均绝对百分比误差&lt;/td>
+&lt;td align="center">MAPE&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MAPE(\hat{x})=\frac{100\%}{N}\sum^N_{n=1}{\vert \frac{x_n-\mu}{x_n}\vert}\)&lt;/span>&lt;/td>
+&lt;td align="center">MAE指标的百分比化。MAPE为0%表示完美模型，MAPE大于100 %则表示劣质模型。当真实值有数据等于0时，存在分母0除问题，该公式不可用！&lt;/td>
+&lt;td align="center">平均绝对值误差的相对化，剔除数值范围影响，估计(预测)性质&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">协方差&lt;/td>
+&lt;td align="center">Covariance&lt;/td>
+&lt;td align="center">&lt;span class="math">\(cov(X,Y)=E\{{[X-E(X)][Y-E(Y)]\}}\)&lt;/span>&lt;/td>
+&lt;td align="center">协方差表示的是两个变量的总体的误差。如果两个变量的变化趋势一致，也就是说如果其中一个大于自身的期望值，另外一个也大于自身的期望值，那么两个变量之间的协方差就是正值。 如果两个变量的变化趋势相反，即其中一个大于自身的期望值，另外一个却小于自身的期望值，那么两个变量之间的协方差就是负值。如果X 与Y 是统计独立的，那么二者之间的协方差就是0（反之不成立）&lt;/td>
+&lt;td align="center">衡量两个变量之间的&lt;strong>线性关系&lt;/strong>，同增同减正相关，一增一减负相关，0是不相关&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(L1\)&lt;/span>范数&lt;/td>
+&lt;td align="center">L1 Norm&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\|x\|_1=\sum^N_{n=1}\vert x_n \vert\)&lt;/span>&lt;/td>
+&lt;td align="center">向量或矩阵元素的绝对值之和&lt;/td>
+&lt;td align="center">用于向量或矩阵，曼哈顿距离、最小绝对误差等，属于L-P范数&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(L2\)&lt;/span>范数&lt;/td>
+&lt;td align="center">L2 Norm&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\|x\|_2=\sqrt{\sum^N_{n=1}x^2_n}\)&lt;/span>&lt;/td>
+&lt;td align="center">向量或矩阵元素的平方和再开平方&lt;/td>
+&lt;td align="center">用于向量或矩阵，欧氏距离，属于L-P范数&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(L\infty\)&lt;/span>范数&lt;/td>
+&lt;td align="center">&lt;span class="math">\(L\infty\)&lt;/span> Norm&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\|x\|_\infty=\sqrt[\infty]{\sum^N_{n=1}x^\infty_n}=max(X)\)&lt;/span>&lt;/td>
+&lt;td align="center">主要被用来度量所有元素的最大值&lt;/td>
+&lt;td align="center">用于向量或矩阵，属于L-P范数&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>

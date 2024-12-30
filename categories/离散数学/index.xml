@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>离散数学 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/</link><description>Recent content in 离散数学 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Thu, 01 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>离散数学-代数群环域</title><link>https://surprisedcat.github.io/studynotes/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6-%E4%BB%A3%E6%95%B0%E7%BE%A4%E7%8E%AF%E5%9F%9F/</link><pubDate>Thu, 01 Aug 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6-%E4%BB%A3%E6%95%B0%E7%BE%A4%E7%8E%AF%E5%9F%9F/</guid><description>
+&lt;h2 id="代数中的群环域">代数中的群、环、域&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>转载自&lt;a href="https://yunhao.space/2018/11/07/group-ring-field-in-mathematics/">https://yunhao.space/2018/11/07/group-ring-field-in-mathematics/&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#引例整数加法群">引例：整数加法群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#群">群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#群的定义">群的定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#群的四个公理">群的四个公理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#只满足前两个条件封闭性结合律rightarrow半群">只满足前两个条件，封闭性，结合律&lt;span class="math">\(\Rightarrow\)&lt;/span>半群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可交换群rightarrow阿贝尔群">可交换群&lt;span class="math">\(\Rightarrow\)&lt;/span>阿贝尔群&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#环">环&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#环的定义">环的定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可交换环">可交换环&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#除环阿贝尔群with群">除环(阿贝尔群with群)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#域">域&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#域的定义">域的定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有限域或伽罗瓦域">有限域或伽罗瓦域&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="figure">
+&lt;img src="../../images/群环域.jpg" alt="群环域的管旭" />&lt;p class="caption">群环域的管旭&lt;/p>
+&lt;/div>
+&lt;h2 id="引例整数加法群">引例：整数加法群&lt;/h2>
+&lt;p>最常见的群之一是整数集&lt;span class="math">\(\mathbb{Z}\)&lt;/span>和整数的加法所构成的群。它由以下数列组成： &lt;span class="math">\[…,−4,−3,−2,−1,0,1,2,3,4,…\]&lt;/span> 群有四个公理。以上面的加法群为例。如下：&lt;/p>
+&lt;ul>
+&lt;li>封闭性： 对于任何两个整数a和b，它们的和a+b也是整数。换句话说，在任何时候，把两个整数相加都能得出整数的结果。这个性质叫做在加法下封闭。&lt;/li>
+&lt;li>结合律： 对于任何整数a, b和c，(a+b)+c=a+（b+c）。用话语来表达，先把a加到b，然后把它们的和加到c，所得到的结果与把a加到b与c的和是相等的。这个性质叫做结合律。&lt;/li>
+&lt;li>单位元： 如果a是任何整数，那么0+a=a+0=a。零叫做加法的单位元，因为把它加到任何整数都得到相同的整数。&lt;/li>
+&lt;li>逆元： 对于任何整数a，存在另一个整数b使得a+b=b+a=0。整数b叫做整数a的逆元，记为−a。&lt;/li>
+&lt;/ul>
+&lt;h2 id="群">群&lt;/h2>
+&lt;h3 id="群的定义">群的定义&lt;/h3>
+&lt;p>群&lt;span class="math">\((G,⋅)\)&lt;/span>是由集合&lt;span class="math">\(G\)&lt;/span>和二元运算&lt;span class="math">\(&amp;quot;⋅&amp;quot;\)&lt;/span>构成的，符合以下四个性质（称“群公理”）的数学结构。其中，二元运算结合任何两个元素&lt;span class="math">\(a和b\)&lt;/span>而形成另一个元素，记为&lt;span class="math">\(a⋅b\)&lt;/span>，符号&lt;span class="math">\(&amp;quot;⋅&amp;quot;\)&lt;/span>是具体的运算，比如整数加法。&lt;/p>
+&lt;h3 id="群的四个公理">群的四个公理&lt;/h3>
+&lt;ul>
+&lt;li>封闭性： 对于所有G中a, b，运算a⋅b的结果也在G中。&lt;/li>
+&lt;li>结合律： 对于所有G中的a, b和c，等式(a⋅b)⋅c=a⋅(b⋅c)成立。&lt;/li>
+&lt;li>单位元： 存在G中的一个元素e，使得对于所有G中的元素a，总有等式e⋅a=a⋅e=a成立。&lt;/li>
+&lt;li>逆元： 对于每个G中的a，存在G中的一个元素b使得总有a⋅b=b⋅a=e，此处e为单位元。&lt;/li>
+&lt;/ul>
+&lt;h3 id="只满足前两个条件封闭性结合律rightarrow半群">只满足前两个条件，封闭性，结合律&lt;span class="math">\(\Rightarrow\)&lt;/span>半群&lt;/h3>
+&lt;p>半群的运算经常指示为乘号。&lt;/p>
+&lt;p>集合&lt;span class="math">\(S\)&lt;/span>和其上的二元运算&lt;span class="math">\(⋅: S×S→S\)&lt;/span>。若&lt;span class="math">\(⋅\)&lt;/span>满足结合律，即：&lt;span class="math">\(∀x,y,z∈S，有(x⋅y)⋅z=x⋅(y⋅z)\)&lt;/span>，则称&lt;strong>有序对&lt;/strong>&lt;span class="math">\((S,⋅)\)&lt;/span>为半群，运算&lt;span class="math">\(⋅\)&lt;/span>称为该半群的乘法。 即半群只满足群的四个公理中的&lt;strong>封闭性和结合律&lt;/strong>。&lt;/p>
+&lt;h3 id="可交换群rightarrow阿贝尔群">可交换群&lt;span class="math">\(\Rightarrow\)&lt;/span>阿贝尔群&lt;/h3>
+&lt;p>群运算的次序很重要，把元素&lt;span class="math">\(a\)&lt;/span>与元素&lt;span class="math">\(b\)&lt;/span>结合，所得到的结果不一定与把元素&lt;span class="math">\(b\)&lt;/span>与元素&lt;span class="math">\(a\)&lt;/span>结合相同；&lt;span class="math">\(a⋅b=b⋅a\)&lt;/span>(交换律)不一定恒成立。&lt;/p>
+&lt;p>阿贝尔群的群运算&lt;strong>符合交换律&lt;/strong>，因此阿贝尔群也被称为&lt;strong>交换群&lt;/strong>。它由自身的集合&lt;span class="math">\(G\)&lt;/span>和二元运算&lt;span class="math">\(∗\)&lt;/span>构成。它除了满足一般的群公理，封闭性、结合律、单位元、逆元之外，还满足 &lt;span class="math">\[a∗b=b∗a\]&lt;/span> 因为阿贝尔群的群运算满足交换律和结合律，群元素乘积的值与乘法运算时的次序无关。&lt;/p>
+&lt;p>群运算不满足交换律的群被称为“非阿贝尔群”，或“非交换群”。&lt;/p>
+&lt;p>阿贝尔群有两种主要运算符号,加法和乘法。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="left">约定&lt;/th>
+&lt;th align="left">运算&lt;/th>
+&lt;th align="left">单位元&lt;/th>
+&lt;th align="left">幂&lt;/th>
+&lt;th align="left">逆元&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="left">加法运算&lt;/td>
+&lt;td align="left">&lt;span class="math">\(x+y\)&lt;/span>&lt;/td>
+&lt;td align="left">0&lt;/td>
+&lt;td align="left">&lt;span class="math">\(nx\)&lt;/span>&lt;/td>
+&lt;td align="left">&lt;span class="math">\(−x\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="left">乘法运算&lt;/td>
+&lt;td align="left">&lt;span class="math">\(x∗y或xy\)&lt;/span>&lt;/td>
+&lt;td align="left">e或1&lt;/td>
+&lt;td align="left">&lt;span class="math">\(x^n\)&lt;/span>&lt;/td>
+&lt;td align="left">&lt;span class="math">\(x^{−1}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="环">环&lt;/h2>
+&lt;h3 id="环的定义">环的定义&lt;/h3>
+&lt;p>集合R和定义于其上的二元运算&lt;span class="math">\(+和⋅，(R,+,⋅)\)&lt;/span>构成一个环，若它们满足：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\((R,+)\)&lt;/span>形成一个交换群(阿贝尔群)，其单位元称为零元，记作0。即： 封闭性：&lt;span class="math">\((R,+)\)&lt;/span>是封闭的 结合律：&lt;span class="math">\((a+b)+c=a+(b+c)\)&lt;/span> 单位元：&lt;span class="math">\(0+a=a+0=a\)&lt;/span> 逆元：&lt;span class="math">\(∀a,∃−a, 满足a+−a=−a+a=0\)&lt;/span> 交换律： (a+b)=(b+a)&lt;/li>
+&lt;li>&lt;span class="math">\((R,⋅)\)&lt;/span>形成一个半群。即： 封闭性：&lt;span class="math">\((R,⋅)\)&lt;/span>是封闭的 结合律：&lt;span class="math">\((a⋅b)⋅c=a⋅(b⋅c)\)&lt;/span>&lt;/li>
+&lt;li>乘法关于加法满足分配律。即：&lt;span class="math">\(a⋅(b+c)=(a⋅b)+(a⋅c)\qquad(a+b)⋅c=(a⋅c)+(b⋅c)\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>就是一个交换群和一个半群的结合。环在群的基础上限制更加严格了一些。&lt;/p>
+&lt;p>以&lt;strong>矩阵加法或矩阵乘法&lt;/strong>为运算，所有于一环内n×n矩阵所组成的集合，为环。&lt;/p>
+&lt;h3 id="可交换环">可交换环&lt;/h3>
+&lt;p>&lt;span class="math">\((R,+)\)&lt;/span>形成一个交换群(阿贝尔群)， &lt;span class="math">\((R,⋅)\)&lt;/span>形成一个半群，且满足交换率。多了一个&lt;span class="math">\(&amp;quot;⋅&amp;quot;\)&lt;/span>满足交换律的条件。&lt;/p>
+&lt;h3 id="除环阿贝尔群with群">除环(阿贝尔群with群)&lt;/h3>
+&lt;p>除环（division ring），又译反对称体（skew field），是一类特殊的环，在环内&lt;strong>除法运算有效&lt;/strong>。除环内&lt;strong>必有非0元素&lt;/strong>，且环内所有的非0量都有对应的倒数（比如说，对于&lt;span class="math">\(x\)&lt;/span>来说，存在数&lt;span class="math">\(a\)&lt;/span>，使得&lt;span class="math">\(a⋅x=x⋅a=1\)&lt;/span>）。除环不一定是交换环。&lt;/p>
+&lt;p>换种说法，一个环是除环当且仅当其可逆元群包含了环中所有的非零元素。&lt;/p>
+&lt;p>也就是说，&lt;span class="math">\((R,⋅)\)&lt;/span>有&lt;strong>乘法单位元&lt;/strong>，并且每个非零元素都有对应的&lt;strong>乘法逆元&lt;/strong>。即，在环的基础上要求&lt;span class="math">\((R,⋅)\)&lt;/span>是群。&lt;/p>
+&lt;h2 id="域">域&lt;/h2>
+&lt;h3 id="域的定义">域的定义&lt;/h3>
+&lt;p>域是个集合&lt;span class="math">\(F\)&lt;/span>且带有&lt;strong>加法和乘法&lt;/strong>两种运算，这里“运算”可以想成是种映射，对任意两元素&lt;span class="math">\(a,b∈F\)&lt;/span>，这映射将此两元素对应到某元素，且这些运算满足如下性质：&lt;/p>
+&lt;ul>
+&lt;li>封闭性：&lt;/li>
+&lt;li>在加法运算上封闭，对所有属于&lt;span class="math">\(F的 a,b， a+b属于F\)&lt;/span>&lt;/li>
+&lt;li>在乘法运算上封闭，对所有属于&lt;span class="math">\(F的 a,b， a∗b属于F\)&lt;/span>&lt;/li>
+&lt;li>结合律：&lt;/li>
+&lt;li>加法有结合律，对所有属于F的&lt;span class="math">\(a,b,c， (a+b)+c=a+(b+c)\)&lt;/span>&lt;/li>
+&lt;li>乘法有结合律，对所有属于F的&lt;span class="math">\(a,b,c， (a∗b)∗c=a∗(b∗c)\)&lt;/span>&lt;/li>
+&lt;li>单位元：&lt;/li>
+&lt;li>加法单位元，在F中有元素0，使得所有&lt;span class="math">\(a∈F，a+0=a\)&lt;/span>&lt;/li>
+&lt;li>乘法单位元，在F中有元素1，使得所有&lt;span class="math">\(a∈F，a∗1=a\)&lt;/span>&lt;/li>
+&lt;li>加法单位元0&lt;strong>不等于&lt;/strong>乘法单位元1&lt;/li>
+&lt;li>逆元：&lt;/li>
+&lt;li>加法逆元，对所有属于&lt;span class="math">\(F的 a，存在 −a 使得 a+(−a)=0\)&lt;/span>&lt;/li>
+&lt;li>乘法逆元，对所有属于&lt;span class="math">\(F的 a，且a≠0，存在 a^{−1} 使得 a∗a^{−1}=1\)&lt;/span>&lt;/li>
+&lt;li>交换律：&lt;/li>
+&lt;li>加法交换律，对所有属于F的&lt;span class="math">\(a,b， a+b=b+a\)&lt;/span>&lt;/li>
+&lt;li>乘法交换律，对所有属于F的&lt;span class="math">\(a,b， a∗b=b∗a\)&lt;/span>&lt;/li>
+&lt;li>分配律：&lt;/li>
+&lt;li>对所有属于F的&lt;span class="math">\(a,b,c，有a⋅(b+c)=(a⋅b)+(a⋅c)\)&lt;/span>&lt;/li>
+&lt;li>对所有属于F的&lt;span class="math">\(a,b,c，有(a+b)⋅c=(a⋅c)+(b⋅c)\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>其中&lt;span class="math">\(0≠1\)&lt;/span>的要求排除了平凡的只由一个元素组成的域。&lt;/p>
+&lt;p>通过群和环的概念我们可以得到简化定义：&lt;/p>
+&lt;ul>
+&lt;li>域是交换性除环。&lt;/li>
+&lt;li>域是一种交换环&lt;span class="math">\((F,+,∗)\)&lt;/span>，当中加法单位元0不等于乘法单位元1，且所有&lt;strong>非0元素&lt;/strong>有乘法逆元。&lt;/li>
+&lt;li>域是两个阿贝尔群，乘法对加法满足分配律。&lt;/li>
+&lt;/ul>
+&lt;p>由以上性质可以得出一些最基本的推论：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(−(a∗b)=(−a)∗b=a∗(−b)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(a∗0=0\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(如果a∗b=0，则要么a=0，要么b=0\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>域在环的基础上限制更加严格了一些。&lt;/p>
+&lt;h3 id="有限域或伽罗瓦域">有限域或伽罗瓦域&lt;/h3>
+&lt;p>包含有限个元素的域称为有限域或伽罗瓦域。有限域最常见的例子是当 p 为素数时，整数对 p 取模。有限域的元素个数称为它的阶。&lt;/p></description></item></channel></rss>

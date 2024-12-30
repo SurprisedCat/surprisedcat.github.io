@@ -1,0 +1,983 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>测度论 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/</link><description>Recent content in 测度论 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Thu, 17 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>测度论-Borel集的作用？意义？它为什么重要？</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA-borel%E9%9B%86%E7%9A%84%E4%BD%9C%E7%94%A8%E6%84%8F%E4%B9%89%E5%AE%83%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81/</link><pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA-borel%E9%9B%86%E7%9A%84%E4%BD%9C%E7%94%A8%E6%84%8F%E4%B9%89%E5%AE%83%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81/</guid><description>
+&lt;h2 id="borel-集的作用意义它为什么重要">Borel 集的作用？意义？它为什么重要？&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>转载自知乎：&lt;a href="https://www.zhihu.com/question/33991971">https://www.zhihu.com/question/33991971&lt;/a>&lt;/p>
+&lt;p>我来从概率论的角度说一下Borel集的意义吧。&lt;/p>
+&lt;p>首先回忆一下概率空间的定义，概率空间是一个三元组，样本空间、事件的集合、概率。&lt;/p>
+&lt;p>我们的概率函数是定义在事件上的，而不是定义在样本空间上的。&lt;/p>
+&lt;p>概率的定义必须满足几个性质，也就是Kolmogorov公理：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/Kolmogorov公理.jpg" alt="Kolmogorov公理" />&lt;p class="caption">Kolmogorov公理&lt;/p>
+&lt;/div>
+&lt;p>当样本空间离散的时候，概率非常容易定义，只要分配给每一个结果一个概率值，其和等于1就好了。这个时候我们可以&lt;strong>定义概率的所有事件的集合&lt;/strong>就是样本空间的全部子集，没毛病。&lt;/p>
+&lt;p>但是当样本空间不是离散的，比如说是实轴R，那么概率的定义就比较麻烦了。我们发现，&lt;strong>并不是R上的所有子集（事件）都可以被定义上概率&lt;/strong>，比如：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/勒贝格不可测集例6.png" alt="勒贝格不可测集例6" />&lt;p class="caption">勒贝格不可测集例6&lt;/p>
+&lt;/div>
+&lt;div class="figure">
+&lt;img src="../../images/勒贝格不可测集.jpg" alt="勒贝格不可测集" />&lt;p class="caption">勒贝格不可测集&lt;/p>
+&lt;/div>
+&lt;p>看，我们发现，如果严格按照概率函数的定义，并不是R上的所有子集（事件）都能被定义概率的。那么我们能不能把那些能定义概率的集合（事件）挑出来只对他们进行研究呢？&lt;/p>
+&lt;p>当然可以。但是挑出来的这些事件的集合必须有一些要求，比如：&lt;/p>
+&lt;p>空集必须在这个事件的集合里面 如果我们关心某个事件A，那么「事件A不发生」，也就是A的补集也必须在这个事件的集合里面 如果我们关心一系列事件，那么这些事件同时发生、至少有一个发生的概率也必须能被研究。 这就诞生了所谓的σ-代数的概念。&lt;/p>
+&lt;p>那么我们怎么在R上定义概率呢？这个时候我们需要引入分布函数了：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/分布函数.jpg" alt="分布函数" />&lt;p class="caption">分布函数&lt;/p>
+&lt;/div>
+&lt;p>有了分布函数，我们可以先在区间上定义概率：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/定义概率.jpg" alt="定义概率" />&lt;p class="caption">定义概率&lt;/p>
+&lt;/div>
+&lt;p>然后通过所谓的内测度外测度定义出一些集合的概率函数。R上所有的区间所生成的最小σ-代数就是Borel σ-代数，Borel σ-代数的元素叫做Borel集。我们发现，刚好所有的Borel集都是可以被定义上概率的，而且是最符合我们直觉的（除非特意构造，碰到的多数集合都是Borel集），所以我们就干脆只研究Borel集的概率算了。&lt;/p>
+&lt;p>所以它为什么重要？因为通过它，我们排除了那些不好的集合，限制了我们讨论的范围，把我们的问题简单化了。&lt;/p></description></item><item><title>测度论6之可测函数收敛性</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA6%E4%B9%8B%E5%8F%AF%E6%B5%8B%E5%87%BD%E6%95%B0%E6%94%B6%E6%95%9B%E6%80%A7/</link><pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA6%E4%B9%8B%E5%8F%AF%E6%B5%8B%E5%87%BD%E6%95%B0%E6%94%B6%E6%95%9B%E6%80%A7/</guid><description>
+&lt;h2 id="可测函数收敛性">可测函数收敛性&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#回顾函数列逐点收敛和一致收敛">回顾函数列逐点收敛和一致收敛&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#逐点收敛和一致收敛定义与区别">逐点收敛和一致收敛定义与区别&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一个例子逐点收敛却不一致收敛">一个例子逐点收敛却不一致收敛&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#依测度收敛converge-in-measure">依测度收敛（Converge in measure）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#依测度收敛性质">依测度收敛性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几乎处处收敛几乎一致收敛依测度收敛的关系">几乎处处收敛、几乎一致收敛、依测度收敛的关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#依测度柯西序列cauchy-sequence-in-measure">依测度柯西序列（Cauchy sequence in measure）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#证明附录">证明附录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#依测度收敛即为几乎处处实值">依测度收敛即为几乎处处实值&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="回顾函数列逐点收敛和一致收敛">回顾函数列逐点收敛和一致收敛&lt;/h2>
+&lt;h3 id="逐点收敛和一致收敛定义与区别">逐点收敛和一致收敛定义与区别&lt;/h3>
+&lt;p>逐点收敛也称点态收敛，（英语：pointwise convergence，或称简单收敛），是数学中描述一组函数序列向一个函数趋近的一种方式（函数趋近极限有其他不同方式，个中差异请小心分辨）。详细点讲，如果这组函数叙列在定义域中每点的取值都会趋于一个极限值，这时可以&lt;strong>用每点的极限来定义这组函数序列的极限函数&lt;/strong>，被趋近的这个极限函数称作这个函数叙列的逐点极限。&lt;/p>
+&lt;blockquote>
+&lt;p>定义1：(逐点收敛)极限函数：设&lt;span class="math">\(\{f_{n}\}\)&lt;/span>是一组&lt;strong>有相同定义域&lt;/strong>的函数序列。序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>&lt;strong>（逐点）收敛&lt;/strong>当且仅当存在函数&lt;span class="math">\(f\)&lt;/span>，使得在定义域中的每点&lt;span class="math">\(x\)&lt;/span>，都有： &lt;span class="math">\[\lim _{{n\rightarrow \infty }}f_{n}(x)=f(x)\]&lt;/span> 这时我们就说序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>（逐点）收敛到&lt;span class="math">\(f\)&lt;/span>，或说函数&lt;span class="math">\(f\)&lt;/span>是序列&lt;span class="math">\(f_{n}\)&lt;/span>的（逐点收敛）极限函数。可记为&lt;span class="math">\(f_n→f \ pointwise\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>逐点收敛并不能保证函数列中函数的一些性质比如连续性。&lt;/p>
+&lt;blockquote>
+&lt;p>定义2：一致收敛极限函数：让&lt;span class="math">\(\{f_{n}\}_{n\in \mathbb {N} }\)&lt;/span>是定义在&lt;span class="math">\(S\)&lt;/span>上，值域为&lt;span class="math">\(\mathbb {R}\)&lt;/span>或&lt;span class="math">\(\mathbb {C}\)&lt;/span>的一组函数序列，若序列 &lt;span class="math">\(\{f_{n}\}_{n\in \mathbb {N}}\)&lt;/span>&lt;strong>均匀收敛&lt;/strong>至函数&lt;span class="math">\(f\)&lt;/span>在集合&lt;span class="math">\(S\)&lt;/span>上，即表示对所有&lt;span class="math">\(\epsilon &amp;gt;0\)&lt;/span>，存在&lt;span class="math">\(N∈\mathbb{N}\)&lt;/span>，使得当所有&lt;span class="math">\(n\geq N\)&lt;/span>且 &lt;span class="math">\(x∈ S\)&lt;/span>时有 &lt;span class="math">\[|f_{n}(x)-f(x)|&amp;lt;\epsilon.\]&lt;/span> 这时我们就说序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>一致收敛(或均匀收敛)到&lt;span class="math">\(f\)&lt;/span>，或说函数&lt;span class="math">\(f\)&lt;/span>是序列&lt;span class="math">\(f_{n}\)&lt;/span>的一致连续极限函数。&lt;/p>
+&lt;/blockquote>
+&lt;p>一致收敛大致可想成：若函数序列&lt;span class="math">\(f_n\)&lt;/span>一致收敛至函数&lt;span class="math">\(f\)&lt;/span>，代表对所有定义域中的点&lt;span class="math">\(x\)&lt;/span>，&lt;span class="math">\(f_n(x)\)&lt;/span>收敛至&lt;span class="math">\(f(x)\)&lt;/span>会&lt;strong>有（大致）相同的收敛速度&lt;/strong>（所以才会用“均匀”或“一致”来形容这种模式的收敛）。由于它对收敛要求&lt;strong>较逐点收敛更强&lt;/strong>，故能保持一些重要的分析性质。&lt;/p>
+&lt;p>一致收敛可保持&lt;span class="math">\(\Rightarrow\)&lt;/span>连续性、黎曼可积性、积分可交换性、微分可交换性（这点不一定需要一定限制）。&lt;/p>
+&lt;p>注意到，一致收敛和逐点收敛定义的区别在于，在一致收敛中&lt;span class="math">\(N\)&lt;/span>的选取仅与&lt;span class="math">\(\epsilon\)&lt;/span>相关，而在逐点收敛中&lt;span class="math">\(N\)&lt;/span>还多了与点&lt;span class="math">\(x\)&lt;/span>相关。所以&lt;strong>一致收敛必定逐点收敛，而反之则不然&lt;/strong>。&lt;/p>
+&lt;h3 id="一个例子逐点收敛却不一致收敛">一个例子逐点收敛却不一致收敛&lt;/h3>
+&lt;p>函数序列&lt;span class="math">\(f_{n}:[0,1]\rightarrow [0,1]\)&lt;/span>，让&lt;span class="math">\(f_{n}(x)=x^{n}\)&lt;/span>，则&lt;span class="math">\(\{f_{n}\}\)&lt;/span>逐点收敛到（不连续）函数 &lt;span class="math">\[
+f(x)={\begin{cases}0&amp;amp;x\in [0,1)\\1&amp;amp;x=1\end{cases}},
+\]&lt;/span> 但显然&lt;span class="math">\(\{f_{n}\}\)&lt;/span>并不一致收敛到该函数。因为对每个&lt;span class="math">\(n\)&lt;/span>，&lt;span class="math">\(\sup\{\,\left|f_{n}(x)-f(x)\right|:x\in [0,1]\,\}\)&lt;/span> 皆为 1，所以 &lt;span class="math">\[
+\lim_{n\rightarrow \infty }\,\sup\{\,\left|f_{n}(x)-f(x)\right|:x\in [0,1]\,\}=1\neq 0
+\]&lt;/span> 这说明了序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>并不一致收敛。&lt;/p>
+&lt;h2 id="依测度收敛converge-in-measure">依测度收敛（Converge in measure）&lt;/h2>
+&lt;blockquote>
+&lt;p>定义（依测度收敛）:&lt;strong>几乎处处实值&lt;/strong>的可测函数序列&lt;span class="math">\(\{f_n\}\)&lt;/span>称为&lt;strong>依测度收敛&lt;/strong>（convergent in measure），如果存在可测函数&lt;span class="math">\(f\)&lt;/span>，使得对任意&lt;span class="math">\(\varepsilon\)&lt;/span>,有 &lt;span class="math">\[
+\lim_{n→∞}\mu(\{x:|f_n(x)-f(x)|≥\varepsilon\})=0
+\]&lt;/span> 此时，我们就说&lt;span class="math">\(\{f_n\}\)&lt;/span>依测度收敛&lt;span class="math">\(f\)&lt;/span>，记作&lt;span class="math">\(f_n→f\)&lt;/span> in measure.&lt;/p>
+&lt;/blockquote>
+&lt;p>注：几乎处处实值指取值不是&lt;span class="math">\(\{-\infty,+\infty\}\)&lt;/span>。&lt;span class="math">\(f_n→f\)&lt;/span> in measure自动蕴含着(a)每个&lt;span class="math">\(f_n\)&lt;/span>都是几乎处处实值且可测的 (b) &lt;span class="math">\(f\)&lt;/span>是可测的。&lt;/p>
+&lt;p>例子1 概率论中的依概率测度收敛，是随机变量比较强的收敛，强于依分布收敛。&lt;/p>
+&lt;p>例子2 (处处不收敛但依测度收敛的例子)&lt;/p>
+&lt;p>在Lebesgue测度空间&lt;span class="math">\((R,\mathcal{B},m)\)&lt;/span>上，取&lt;span class="math">\(E=(0,1]\)&lt;/span>。构造函数序列如下：&lt;/p>
+&lt;p>第一步：将&lt;span class="math">\((0,1]\)&lt;/span>二等分，定义两个函数： &lt;span class="math">\[f_1^{(1)}=\begin{cases}
+1,\quad x\in (0,\frac{1}{2}]\\0,\quad x\in(\frac{1}{2},1]
+\end{cases},
+f_2^{(1)}=\begin{cases}
+0,\quad x\in (0,\frac{1}{2}]\\1,\quad x\in(\frac{1}{2},1]
+\end{cases}
+\]&lt;/span> 第二步：将&lt;span class="math">\((0,1]\)&lt;/span>四等分、八等分、。。。依次作下去，到第&lt;span class="math">\(n\)&lt;/span>次分割时，将$(0,1]分成&lt;span class="math">\(2^n\)&lt;/span>份，并定义&lt;span class="math">\(2^n\)&lt;/span>个函数，每个函数&lt;span class="math">\(f_j^{(n)}\)&lt;/span>定义为 &lt;span class="math">\[
+f_j^{(n)}=\begin{cases}
+1,\quad x\in (\frac{j-1}{2^n},\frac{j}{2^n}]\\0,\quad x\notin (\frac{j-1}{2^n},\frac{j}{2^n}]
+\end{cases}
+\]&lt;/span> 即每个函数只有一小部分区间&lt;span class="math">\((\frac{j-1}{2^n},\frac{j}{2^n}]\)&lt;/span>为1，其他区间为0。&lt;/p>
+&lt;p>第三步：把函数&lt;span class="math">\(\{f_j^{(n)}\}(j=1,2,\dotsb,2^n)\)&lt;/span>按先上标再下标的顺序排列， &lt;span class="math">\[
+f_1^{(1)},f_2^{(1)},f_1^{(2)},f_2^{(2)},f_3^{(2)},f_4^{(2)},\dotsb,f_1^{(n)},f_2^{(n)},\dotsb,f_{2^n}^{(n)},\dotsb
+\]&lt;/span> 其中&lt;span class="math">\(f_j^{(n)}\)&lt;/span>在这个序列里是 第&lt;span class="math">\(2^n-2+j\)&lt;/span>个函数。&lt;/p>
+&lt;p>显然，函数序列&lt;span class="math">\(\{f_j^{(n)}\}\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上不收敛于0，因为序列中总有某一段区间上其值为1；但该序列趋于&lt;span class="math">\(\infty\)&lt;/span>的情况下，值为1的区间测度趋于0，所以该序列&lt;strong>依Lebesgue测度&lt;/strong>&lt;span class="math">\(m\)&lt;/span>收敛于 0。&lt;/p>
+&lt;p>详细解释如下：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/不收敛与依测度收敛.png" alt="不收敛与依测度收敛" />&lt;p class="caption">不收敛与依测度收敛&lt;/p>
+&lt;/div>
+&lt;h3 id="依测度收敛性质">依测度收敛性质&lt;/h3>
+&lt;p>在测度空间&lt;span class="math">\((X,\mathcal{F},\mu)\)&lt;/span>下有以下性质：&lt;/p>
+&lt;p>（1）&lt;span class="math">\(f_n→f\)&lt;/span> in measure &lt;span class="math">\(\Leftrightarrow \ f_n-f→0\)&lt;/span> in measure。证明是Trivial的。&lt;/p>
+&lt;p>（2）&lt;span class="math">\(f_n→f\)&lt;/span> in measure &lt;span class="math">\(\Rightarrow \ f\)&lt;/span> is a.e. real-valued。证明见附录&lt;a href="#依测度收敛即为几乎处处实值">依测度收敛即为几乎处处实值&lt;/a>。&lt;/p>
+&lt;h2 id="几乎处处收敛几乎一致收敛依测度收敛的关系">几乎处处收敛、几乎一致收敛、依测度收敛的关系&lt;/h2>
+&lt;h2 id="依测度柯西序列cauchy-sequence-in-measure">依测度柯西序列（Cauchy sequence in measure）&lt;/h2>
+&lt;h2 id="证明附录">证明附录&lt;/h2>
+&lt;h3 id="依测度收敛即为几乎处处实值">依测度收敛即为几乎处处实值&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(f_n→f\)&lt;/span> in measure &lt;span class="math">\(\Rightarrow \ f\)&lt;/span> is a.e. real-valued&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：（提示：把&lt;span class="math">\(f\)&lt;/span>取&lt;span class="math">\(\plusmn\infty\)&lt;/span>的点分两种考虑：一种是&lt;span class="math">\(f_n\)&lt;/span>在这点取&lt;span class="math">\(\plusmn\infty\)&lt;/span>，于是&lt;span class="math">\(f\)&lt;/span>自然在这点取&lt;span class="math">\(\plusmn\infty\)&lt;/span>；另一种是&lt;span class="math">\(f_n\)&lt;/span>虽然在这点取有限值，但随着&lt;span class="math">\(n→\infty\)&lt;/span>， &lt;span class="math">\(f_n→f\)&lt;/span>趋于无穷大。）&lt;/p>
+&lt;p>令 [公式] ,则 &lt;a href="测度的次可加性">公式&lt;/a>。又因为每个 [公式] 都是几乎处处实值的，故 [公式] 。因此 [公式] 。&lt;/p>
+&lt;p>任取 [公式] ,对所有的 [公式] 都有：[公式] 因此[公式] 对所有的 [公式] 成立。 不等式的左边与 [公式] 无关；右边因为 [公式] ，故随着 [公式] 而趋于 [公式]&lt;/p>
+&lt;p>那么我们取 [公式] ,就得到 [公式] ，这就说明了 [公式] 是几乎处处实值。&lt;/p></description></item><item><title>测度论之勒贝格积分稳定性</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA%E4%B9%8B%E5%8B%92%E8%B4%9D%E6%A0%BC%E7%A7%AF%E5%88%86%E7%A8%B3%E5%AE%9A%E6%80%A7/</link><pubDate>Thu, 17 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA%E4%B9%8B%E5%8B%92%E8%B4%9D%E6%A0%BC%E7%A7%AF%E5%88%86%E7%A8%B3%E5%AE%9A%E6%80%A7/</guid><description>
+&lt;h2 id="勒贝格积分稳定性">勒贝格积分稳定性&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="单调收敛定理">单调收敛定理&lt;/h2>
+&lt;h2 id="fatou引理">Fatou引理&lt;/h2>
+&lt;h2 id="勒贝格控制收敛定理">勒贝格控制收敛定理&lt;/h2>
+&lt;h2 id="tonelli定理">Tonelli定理&lt;/h2>
+&lt;h2 id="fubini定理">Fubini定理&lt;/h2></description></item><item><title>测度论4之Lebesgue--Stieltjes测度</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA4%E4%B9%8Blebesgue-stieltjes%E6%B5%8B%E5%BA%A6/</link><pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA4%E4%B9%8Blebesgue-stieltjes%E6%B5%8B%E5%BA%A6/</guid><description>
+&lt;h2 id="lebesgue-stieltjes测度">Lebesgue-Stieltjes测度&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#定义lebesgue-stieltjes测度">定义Lebesgue-Stieltjes测度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从外测度到lebesgue-stieltjes测度">从外测度到Lebesgue-Stieltjes测度&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="定义lebesgue-stieltjes测度">定义Lebesgue-Stieltjes测度&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(F\)&lt;/span>为&lt;span class="math">\(R\)&lt;/span>上的&lt;strong>右连续增函数&lt;/strong>, 则在&lt;span class="math">\(B(R)\)&lt;/span>有&lt;strong>唯一&lt;/strong>的&lt;span class="math">\(σ\)&lt;/span>有限测度&lt;span class="math">\(µ_F\)&lt;/span> 满足: &lt;span class="math">\[µ_F((a, b]) = F(b) − F(a), a, b ∈ R, a ≤ b.\]&lt;/span> &lt;span class="math">\(µ_F\)&lt;/span>称为由&lt;span class="math">\(F\)&lt;/span>决定的&lt;span class="math">\(R\)&lt;/span>上的&lt;strong>Lebesgue-Stieltjes测度&lt;/strong>.&lt;/p>
+&lt;p>特殊的，如果&lt;span class="math">\(F(x)=x\)&lt;/span>，则为Lebesgue测度。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="从外测度到lebesgue-stieltjes测度">从外测度到Lebesgue-Stieltjes测度&lt;/h2>
+&lt;p>令&lt;span class="math">\(X=\mathbb{R}\)&lt;/span>，令&lt;span class="math">\(\mathcal{C}\)&lt;/span>是由&lt;strong>左开右闭&lt;/strong>区间&lt;span class="math">\((a,b]\)&lt;/span>构成的集合系 (其实就是半环)。&lt;span class="math">\(\alpha(x)\)&lt;/span>是一个&lt;strong>单调递增的右连续函数&lt;/strong> (注：这个右连续其实跟左开右闭区间是有一种默契的。 比如，若右边也是开，那么右连续的函数，跳开的地方就很难精准的测量了)；于是&lt;span class="math">\(\alpha\)&lt;/span>满足：&lt;span class="math">\(x&amp;lt;y \Rightarrow \alpha(x)≤\alpha(y)，\lim\limits_{z→x^+}\alpha(z)=\alpha(x)\)&lt;/span>。 这里并不要求&lt;span class="math">\(\alpha\)&lt;/span>严格单调递增。&lt;/p>
+&lt;blockquote>
+&lt;p>定义集合映射：&lt;span class="math">\(l((a,b)])=\alpha(b)-\alpha(a)\)&lt;/span>。根据通用的外测度构造方法，设定外测度为 &lt;span class="math">\[m^\ast(E)=\inf\biggl\{\sum_{i=1}^∞ l(A_i):A_i ∈ \mathcal{C}，E\subset \bigcup_{i=1}^∞ A_i\biggl\}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>由Caratheodory's定理可知，&lt;span class="math">\(m^\ast\)&lt;/span>定义在&lt;span class="math">\(m^\ast\)&lt;/span>可测集上是一个测度。注意到若&lt;span class="math">\(K=(a,b]，L=(b,c]，K\cup L =(a,c]\)&lt;/span>，且&lt;span class="math">\(l(K)+l(L)=[\alpha(b)-\alpha(a)]+[\alpha(c)-\alpha(b)]=\alpha(c)-\alpha(a)=l(K\cup L)\)&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定理：任一&lt;span class="math">\(\mathbb R\)&lt;/span>上Borel-&lt;span class="math">\(\sigma\)&lt;/span>-代数中的集合都是&lt;span class="math">\(m^\ast\)&lt;/span>可测的。&lt;/p>
+&lt;/blockquote></description></item><item><title>测度论4之勒贝格测度</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA4%E4%B9%8B%E5%8B%92%E8%B4%9D%E6%A0%BC%E6%B5%8B%E5%BA%A6/</link><pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA4%E4%B9%8B%E5%8B%92%E8%B4%9D%E6%A0%BC%E6%B5%8B%E5%BA%A6/</guid><description>
+&lt;h2 id="勒贝格测度">勒贝格测度&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#lebesgue可测">Lebesgue可测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可测集的性质">可测集的性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#常见的可测集">常见的可测集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#重要基础证明任何区间i都是可测集并且mii">重要基础证明：任何区间&lt;span class="math">\(I\)&lt;/span>都是可测集，并且&lt;span class="math">\(m(I)=|I|\)&lt;/span>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#常见可测集">常见可测集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#borel集">Borel集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#勒贝格可测集的结构">勒贝格可测集的结构&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="lebesgue可测">Lebesgue可测&lt;/h2>
+&lt;blockquote>
+&lt;p>定义1：可测集：在外测度的基础上，我们指出&lt;span class="math">\(E\subset R^n\)&lt;/span>只要满足以下条件，我们就称之为&lt;strong>Lebesgue可测集或&lt;span class="math">\(m^\ast\)&lt;/span>可测集，简称可测集&lt;/strong>：对&lt;span class="math">\(\forall T \subset R^n\)&lt;/span>，有 &lt;span class="math">\[m^\ast(T)=m^\ast(T\cap E)+m^\ast(T\cap E^c)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>其中，我们称&lt;span class="math">\(T\)&lt;/span>为试验集，这一条件也被称为Caratheodory条件，简称卡氏条件。可测集的全体类称为可测集类，记为&lt;span class="math">\(\mathcal{M}\)&lt;/span>。&lt;/p>
+&lt;p>在这个定义下，我们下面来考虑定义在外测度上的可测集有什么性质和结构。注意到，外测度定义性质3有 &lt;span class="math">\[m^\ast(A\cup B)≤m^\ast(A)+m^\ast(B)(次可列可加性)\\
+\because T=(T\cap E)\cup(T\cap E^c)\\
+\therefore m^\ast(T)≤m^\ast(T\cap E)+m^\ast(T\cap E^c)恒成立。\]&lt;/span> 因此，我们证明集合可测时，&lt;strong>只需要证明&lt;/strong> &lt;span class="math">\[m^\ast(T)≥m^\ast(T\cap E)+m^\ast(T\cap E^c)\]&lt;/span> 即可。且对于&lt;span class="math">\(m^\ast(T)=∞\)&lt;/span>这个条件总是成立的。因此只需论证在&lt;span class="math">\(m^\ast(T)&amp;lt;∞\)&lt;/span>的情形，&lt;strong>这是证明卡氏条件的关键&lt;/strong>。&lt;/p>
+&lt;p>需要特别指出的是，可测性不是集合本身的性质，而是依赖于外测度的定义。事实上，我们可以给出两种外测度的定义，使集合在一个外测度下可测，而另一个不可测。&lt;/p>
+&lt;p>外测度为0的点集为零测集。&lt;/p>
+&lt;blockquote>
+&lt;p>推论1：零测集都是可测集。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：若&lt;span class="math">\(m^\ast(E)=0\)&lt;/span>，则&lt;span class="math">\(m^\ast(T)≤m^\ast(T\cap E)+m^\ast(T\cap E^c)≤m^\ast(E)+m^\ast(T)=m^\ast(T)，即m^\ast(T)=m^\ast(T\cap E)+m^\ast(T\cap E^c)\)&lt;/span>。&lt;/p>
+&lt;h2 id="可测集的性质">可测集的性质&lt;/h2>
+&lt;p>对于可测集类&lt;span class="math">\(\mathcal{M}\)&lt;/span>&lt;/p>
+&lt;p>I. &lt;span class="math">\(\emptyset ∈ \mathcal{M}\)&lt;/span>&lt;/p>
+&lt;ol start="2" style="list-style-type: upper-roman">
+&lt;li>&lt;p>若&lt;span class="math">\(E ∈ \mathcal{M}\)&lt;/span>，则&lt;span class="math">\(E^c ∈ \mathcal{M}\)&lt;/span>&lt;/p>&lt;/li>
+&lt;li>&lt;p>若&lt;span class="math">\(E_1 ∈ \mathcal{M}，E_2 ∈ \mathcal{M}，\)&lt;/span>则&lt;span class="math">\(E_1\cup E_2，E_1\cap E_2，E1-E2\)&lt;/span>皆属于&lt;span class="math">\(\mathcal{M}\)&lt;/span>（可测集的任何有限次交、并所得集合仍是可测集）。&lt;/p>&lt;/li>
+&lt;li>&lt;p>若&lt;span class="math">\(E_i ∈ \mathcal{M}(i=1,2,\dots)\)&lt;/span>，则其并集也属于&lt;span class="math">\(\mathcal{M}\)&lt;/span>。若进一步有&lt;span class="math">\(E_i\cap E_j=\emptyset\)&lt;/span>，则 &lt;span class="math">\[m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)，\]&lt;/span> 即&lt;span class="math">\(m^\ast\)&lt;/span>在&lt;span class="math">\(\mathcal{M}\)&lt;/span>上满足可数可加性（&lt;span class="math">\(\sigma\)&lt;/span>可加性）。&lt;/p>&lt;/li>
+&lt;/ol>
+&lt;p>证明：&lt;/p>
+&lt;p>（1）由推论1可知成立。&lt;/p>
+&lt;p>（2）注意到可测集卡氏条件对于补集的对称性可立即得出结论。&lt;/p>
+&lt;p>（3）我们先证有限并的封闭性。对于任一试验集&lt;span class="math">\(T\subset R^n\)&lt;/span>，根据集合分解（如下图）与外测度的次可加性，我们有： &lt;span class="math">\[\begin{aligned}
+m^\ast(T)&amp;amp;≤_{外测度定义3}m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap(E_1\cup E_2)^c)\\
+&amp;amp;=m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap E_1^c\cap E_2^c)_{德摩根律}\\
+&amp;amp;≤_{单调性}m^\ast(T\cap E_1\cap E_2)+m^\ast(T\cap E_1\cap E_2^c)+m^\ast(T\cap E_1^c\cap E_2)+m^\ast(T\cap E_1^c\cap E_2^c)\\
+&amp;amp;(由下图可知)(T\cap E_1\cap E_2) \cup(T\cap E_1\cap E_2^c)\cup(T\cap E_1^c\cap E_2)\subset E_1\cup E_2\\
+&amp;amp;=\underline{m^\ast((T\cap E_1)\cap E_2)+m^\ast((T\cap E_1)\cap E_2^c)}+\underline{m^\ast((T\cap E_1^c)\cap E_2)+m^\ast((T\cap E_1^c)\cap E_2^c)}\\
+&amp;amp;(由于E_2是可测集)\\
+&amp;amp;=m^\ast(T\cap E_1)+m^\ast(T\cap E_1^c)\\
+&amp;amp;(由于E_1是可测集)\\
+&amp;amp;=m^\ast(T)\\
+&amp;amp;\therefore m^\ast(T)≥m^\ast(T\cap(E_1\cup E_2))+m^\ast(T\cap(E_1\cup E_2)^c)
+\end{aligned}\]&lt;/span> &lt;img src="../../images/集合分解.png" alt="集合分解" /> 因此&lt;span class="math">\(E_1\cup E_2\)&lt;/span>是可测集。接着由数学归纳法可递推，&lt;strong>可测集的有限并可测&lt;/strong>。&lt;/p>
+&lt;p>其次，我们证明对于交集的封闭性。我们注意到&lt;span class="math">\(E_1 \cap E_2=(E_1^c \cup E_2^c)^c\)&lt;/span>。要证&lt;span class="math">\((E_1^c \cup E_2^c)^c\)&lt;/span>可测，根据性质2，我们只需要证明补集&lt;span class="math">\(((E_1^c \cup E_2^c)^c)^c=E_1^c \cup E_2^c\)&lt;/span>可测。因为&lt;span class="math">\(E_1，E_2\)&lt;/span>可测，所以其补集（&lt;span class="math">\(E_1^c，E_2^c\)&lt;/span>）都可测。再根据刚刚证明的可测集的有限并可测，则&lt;span class="math">\(E_1^c\cup E_2^c\)&lt;/span>可测。综上所述，&lt;span class="math">\(E_1 \cap E_2\)&lt;/span>可测。接着由数学归纳法可递推，&lt;strong>可测集的有限交可测&lt;/strong>。&lt;/p>
+&lt;p>最后我们证明可测集的差集可测。由&lt;span class="math">\(E_1-E_2=E_1\cap E_2^c\)&lt;/span>，且&lt;span class="math">\(E_1,E_2^c\)&lt;/span>可测&lt;span class="math">\(\Rightarrow E_1\cup E_2^c\)&lt;/span>可测容易得出，&lt;span class="math">\(E_1-E_2\)&lt;/span>&lt;strong>差集也可测&lt;/strong>。&lt;/p>
+&lt;p>（4）从有限到无穷可数。我们先证可列并的封闭性。由于&lt;span class="math">\(E_i ∈ \mathcal{M}(i=1,2,\dots)\)&lt;/span>，我们令 &lt;span class="math">\[S=\bigcup_{i=1}^∞ E_i\qquad S_k=\bigcup_{i=1}^k E_i，k=1,2,3,\dots\]&lt;/span> 由（3）可知，有限并&lt;span class="math">\(S_k\)&lt;/span>是可测的，我们可用试验集&lt;span class="math">\(T\subset R^n\)&lt;/span>，有 &lt;span class="math">\[\begin{aligned}
+m^\ast(T)&amp;amp;=m^\ast(T\cap S_k)+m^\ast(T\cap S_k^c)\\
+&amp;amp;=m^\ast(T\cap \bigcup_{i=1}^k E_i)+m^\ast(T\cap S_k^c)\\
+&amp;amp;=_{分配律}m^\ast(\bigcup_{i=1}^k(T\cap E_i))+m^\ast(T\cap S_k^c)\\
+&amp;amp;=_{有限并可测}\sum_{i=1}^k m^\ast(T\cap E_i)+m^\ast(T\cap S_k^c)\\
+&amp;amp;\because T\cup S_k^c \supset T\cup S^c\\
+&amp;amp;≥_{单调性}\sum_{i=1}^k m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\\
+当k→∞时，就有\\
+m^\ast(T)&amp;amp;≥\sum_{i=1}^∞ m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\\
+&amp;amp;≥_{外测度定义3}m^\ast(T\cap S)+m^\ast(T\cap S^c)
+\end{aligned}\]&lt;/span> 由此可知，&lt;span class="math">\(S ∈ \mathcal{M}\)&lt;/span>，即可列并&lt;span class="math">\(S=\bigcup_{i=1}^∞ E_i\)&lt;/span>是可测的。&lt;/p>
+&lt;p>接下来，我们进一步证明如果&lt;span class="math">\(E_i,E_j\)&lt;/span>两两互不相交，则 &lt;span class="math">\[m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)\]&lt;/span> 在以上公式&lt;span class="math">\(m^\ast(T)≥\sum_{i=1}^∞ m^\ast(T\cap E_i)+m^\ast(T\cap S^c)\)&lt;/span>中，我们以&lt;span class="math">\(T\cap S\)&lt;/span>替换&lt;span class="math">\(T\)&lt;/span>： &lt;span class="math">\[m^\ast(T\cap S)≥\sum_{i=1}^∞ m^\ast(T\cap S \cap E_i)+m^\ast(T\cap S\cap S^c)\\
+=\sum_{i=1}^∞ m^\ast(T\cap (S \cap E_i))=\sum_{i=1}^∞ m^\ast(T\cap E_i)\]&lt;/span> 因为反向不等式总是成立的，所以 &lt;span class="math">\[m^\ast(T\cap S)=\sum_{i=1}^∞ m^\ast(T\cap E_i)\]&lt;/span> 当我们取&lt;span class="math">\(T=R^n\)&lt;/span>时有 &lt;span class="math">\[m^\ast(S)=m^\ast(\bigcup_{i=1}^∞ E_i)=\sum_{i=1}^∞ m^\ast(E_i)\]&lt;/span> 我们从定理（1）（2）（4）发现，这些可测集合性质正好满足&lt;span class="math">\(\sigma\)&lt;/span>代数的定义，所以我们可知，所有可测集组成的集类&lt;span class="math">\(\mathcal{M}\)&lt;/span>是一个&lt;span class="math">\(\sigma\)&lt;/span>代数。而性质（3）中的内容，也正好是&lt;span class="math">\(\sigma\)&lt;/span>代数的性质。&lt;/p>
+&lt;blockquote>
+&lt;p>推论2：可测集的可列并也是可测集。&lt;span class="math">\(\bigcup\limits_{i=1}^∞ E_i∈ \mathcal{M}\)&lt;/span>。&lt;/p>
+&lt;p>推论3：可测集的可列交也是可测集。&lt;span class="math">\(\bigcap\limits_{i=1}^∞ E_i∈ \mathcal{M}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>对于这些可测集&lt;span class="math">\(E∈ \mathcal{M}\)&lt;/span>，&lt;strong>定义在其上的外测度可以称为测度&lt;/strong>，记为&lt;span class="math">\(m(E)\)&lt;/span>，这就是通常所说的&lt;span class="math">\(R^n\)&lt;/span>上的&lt;strong>Lebesgue测度&lt;/strong>。&lt;/p>
+&lt;p>下面我们在添加两个关于集合极限测度的运算性质：&lt;/p>
+&lt;p>V. （递增可测集列的测度运算）若有递增可测集列&lt;span class="math">\(E_1\subset E_2\subset\dotsb\subset E_k \dotsb\)&lt;/span>，则 &lt;span class="math">\[m(\lim_{k→∞} E_k)=\lim_{k→∞} m(E_k)\]&lt;/span>&lt;/p>
+&lt;ol start="6" style="list-style-type: upper-roman">
+&lt;li>（递减可测集列的测度运算）若有递增可测集列&lt;span class="math">\(E_1\supset E_2\supset\dotsb\supset E_k \dotsb\)&lt;/span>且&lt;span class="math">\(m(E_1)&amp;lt;∞\)&lt;/span>，则 &lt;span class="math">\[m(\lim_{k→∞} E_k)=\lim_{k→∞} m(E_k)\]&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>推论4：（Fatou引理）设&lt;span class="math">\(\{E_k\}\)&lt;/span>是可测集列，则 &lt;span class="math">\[m(\mathop{\underline{\lim}}\limits_{k→∞} E_k)≤\mathop{\underline{\lim}}\limits_{k→∞} m(E_k)\\
+m(\overline{\lim_{k→∞}} E_k)≥\overline{\lim}_{k→∞} m(E_k)\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="常见的可测集">常见的可测集&lt;/h2>
+&lt;blockquote>
+&lt;p>定义2：若&lt;span class="math">\(I\)&lt;/span>为一个区间（无论开区间还是左半开区间还是闭区间），称 &lt;span class="math">\[\prod_{i=1}^n=(b_1-a_1)\times(b_2-a_2)\times\dotsb\times(b_n-a_n)\]&lt;/span> 为区间&lt;span class="math">\(I\)&lt;/span>的体积，记为&lt;span class="math">\(|I|\)&lt;/span>，区间具有连通性。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>开集vs开区间&lt;/strong>：开集可以是可数个开区间的并集，开区间是开集的一种特殊情形，按照拓扑学观点，是连通的，而开集可以不连通。&lt;/p>
+&lt;h3 id="重要基础证明任何区间i都是可测集并且mii">重要基础证明：任何区间&lt;span class="math">\(I\)&lt;/span>都是可测集，并且&lt;span class="math">\(m(I)=|I|\)&lt;/span>&lt;/h3>
+&lt;blockquote>
+&lt;p>定理1：&lt;span class="math">\(R^n\)&lt;/span>上任何区间&lt;span class="math">\(I\)&lt;/span>都是可测集，并且&lt;span class="math">\(m(I)=|I|\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>这是一个非常重要的定理，是所有&lt;span class="math">\(R^n\)&lt;/span>可测集的基础&lt;/strong>。我们分两步来证明，（1）区间的外测度等于体积&lt;span class="math">\(m^\ast(I)=|I|\)&lt;/span>；（2）定义在区间上的外测度是可测的，即&lt;span class="math">\(m=m^\ast|_I\)&lt;/span>。如果两个都成立，那么&lt;span class="math">\(|I|=m^\ast(I)|_I=m(I)|_I\)&lt;/span>&lt;/p>
+&lt;p>（1）区间的外测度等于体积&lt;span class="math">\(m^\ast(I)=|I|\)&lt;/span>。为了简单起见，我们只证明&lt;span class="math">\(R^1\)&lt;/span>情形下。根据外测度使体积下限的定义有&lt;span class="math">\(m^\ast(I)≤|I|\)&lt;/span>。由于可列点集的测度都是零，所以取不取等号外测度不变，这里我们取闭区间&lt;span class="math">\(\bar{I}\)&lt;/span>（因为可以用有限覆盖定理）。&lt;/p>
+&lt;p>对于任意的&lt;span class="math">\(\varepsilon&amp;gt;0\)&lt;/span>，&lt;strong>存在&lt;/strong>一列开区间&lt;span class="math">\(\{I_i\}\)&lt;/span>使 &lt;span class="math">\[\bar I \subset \bigcup_{i=1}^∞ I_i且\bigcup_{i=1}^∞ |I_i|&amp;lt;m^\ast(\bar I)+\varepsilon(外测度加下限定义可得)\]&lt;/span> 根据有限覆盖定理，有界闭区间可以被有限个开区间覆盖，设这些开区间为&lt;span class="math">\(I_1,I_2,\dots,I_n\)&lt;/span>，使得&lt;span class="math">\(\bar{I}\subset \bigcup\limits_{i=1}^n I_i\)&lt;/span>。因为&lt;span class="math">\(\bar{I}=\bigcup\limits_{i=1}^n(\bar{I}\cap I_i)\)&lt;/span>，所以由这些&lt;span class="math">\(I_i\)&lt;/span>的端点与&lt;span class="math">\(\bar I\)&lt;/span>的交点就把&lt;span class="math">\(I\)&lt;/span>分解城有限多个无公共内点的小区间，&lt;span class="math">\(\bar I\)&lt;/span>的长度就是这些小区间长度的和，并且每个小区间至少包含在某一个&lt;span class="math">\(\bar I \cap I_i\)&lt;/span>中，于是 &lt;span class="math">\[|\bar I|≤\sum_{i=1}^n|\bar I \cap I_i|≤\sum_{i=1}^n|I_i|≤\sum_{i=1}^∞|I_i|≤m^\ast(\bar I)+\varepsilon\]&lt;/span> 由&lt;span class="math">\(\varepsilon\)&lt;/span>的任意性可知&lt;span class="math">\(m^\ast(\bar I)≥|\bar I|\)&lt;/span>.&lt;/p>
+&lt;p>因此&lt;span class="math">\(m^\ast(I)=m^\ast(\bar I)=|I|\)&lt;/span>&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/区间测度.svg" alt="区间测度" />&lt;p class="caption">区间测度&lt;/p>
+&lt;/div>
+&lt;p>（2）定义在区间上的外测度是可测的，即&lt;span class="math">\(m=m^\ast|_I\)&lt;/span>。先证，对&lt;strong>任一开区间(这里不是任一集合)&lt;/strong>&lt;span class="math">\(I_0\)&lt;/span>，都有 &lt;span class="math">\[|I_0|=m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)\]&lt;/span> 事实上，如果&lt;span class="math">\(I_0=I\)&lt;/span>，上式必然成立。（如第（1）部分所证）。当&lt;span class="math">\(I \neq I_0\)&lt;/span>时，&lt;span class="math">\(I_0\cap I\)&lt;/span>是一个区间，而&lt;span class="math">\(I_0\cap I^c\)&lt;/span>可以分解成有限个互不相交的区间&lt;span class="math">\(I_i，(i=1,2,\dots,k)\)&lt;/span>并(在一维中很好理解，最多两个，在高维度中会有很多个互不相交区间)。从而由外测度此可列可加性知： &lt;span class="math">\[m^\ast(I_0\cap I^c)=m^\ast(\bigcup_{i=1}^k I_i)≤\sum_{i=1}^k m^\ast(I_i)\xlongequal{证明（1）}\sum_{i=1}^k|I_i|\]&lt;/span> 因此 &lt;span class="math">\[m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)≤|I\cap I_0|+\sum_{i=1}^k|I_i|\xlongequal{体积性质}|I_0|\]&lt;/span> 另一方面，由于外测度的次可列可加性有： &lt;span class="math">\[m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)≥m^\ast((I_0\cap I)\cup(I_0\cap I^c))=m^\ast(I_0)=|I_0|\]&lt;/span> 综上所述：&lt;span class="math">\(|I_0|=m^\ast(I_0\cap I)+m^\ast(I_0\cap I^c)\)&lt;/span>.&lt;/p>
+&lt;p>接下来，需要证明对任一&lt;strong>点集&lt;/strong>&lt;span class="math">\(T\subset R^n\)&lt;/span>,任一&lt;strong>区间&lt;/strong>&lt;span class="math">\(I\)&lt;/span>都满足 &lt;span class="math">\[m^\ast(T)=m^\ast(T\cap I)+m^\ast(T\cap I^c)\]&lt;/span> 由外测度定义可知，对于&lt;span class="math">\(\forall \varepsilon&amp;gt;0\)&lt;/span>，有一列&lt;strong>开区间&lt;/strong>&lt;span class="math">\(\{I_i\}\)&lt;/span>，使&lt;span class="math">\(T\subset \bigcup\limits_{n=1}^∞ I_i\)&lt;/span>，且&lt;span class="math">\(\sum\limits_{i=1}^∞ |I_i|≤m^\ast(T)+\varepsilon\)&lt;/span>。由于 &lt;span class="math">\[T\cap I\subset (\bigcup_{i=1}^∞ I_i)\cap I=\bigcup_{i=1}^∞ (I_i\cap I)\\
+T\cap I^c\subset (\bigcup_{i=1}^∞ I_i)\cap I^c=\bigcup_{i=1}^∞ (I_i\cap I^c)\\
+\Rightarrow m^\ast(T\cap I)≤\sum_{i=1}^∞ m^\ast(I_i\cap I)\\
+\Rightarrow m^\ast(T\cap I^c)≤\sum_{i=1}^∞ m^\ast(I_i\cap I^c)\\
+\Rightarrow m^\ast(T\cap I)+m^\ast(T\cap I^c)≤\sum_{i=1}^∞ m^\ast(I_i\cap I)+\sum_{i=1}^∞ m^\ast(I_i\cap I^c)\\
+=\sum_{i=1}^∞ [m^\ast(I_i\cap I)+m^\ast(I_i\cap I^c)]\\
+\xlongequal{由于每一个I_i都是区间}\sum_{i=1}^∞|I_i|≤m^\ast(T)+\varepsilon\\
+即m^\ast(T\cap I)+m^\ast(T\cap I^c)≤m^\ast(T)+\varepsilon
+\]&lt;/span> 由&lt;span class="math">\(\varepsilon\)&lt;/span>的任意性可知&lt;span class="math">\(m^\ast(T\cap I)+m^\ast(T\cap I^c)≤m^\ast(T)\)&lt;/span>。而&lt;span class="math">\(≥\)&lt;/span>是外测度定义的次可列可加性，所以&lt;span class="math">\(m^\ast(T\cap I)+m^\ast(T\cap I^c)=m^\ast(T)\)&lt;/span>。&lt;/p>
+&lt;p>这说明区间&lt;span class="math">\(I\)&lt;/span>满足卡氏条件，即为可测集。&lt;/p>
+&lt;h3 id="常见可测集">常见可测集&lt;/h3>
+&lt;blockquote>
+&lt;p>定理2：欧几里得空间的Lindelof覆盖定理：任取非空开集&lt;span class="math">\(E\subset R^n\)&lt;/span>，一族开集&lt;span class="math">\(\mathcal A\)&lt;/span>是&lt;span class="math">\(E\)&lt;/span>的覆盖，那么对于&lt;span class="math">\(\mathcal A\)&lt;/span>，存在&lt;span class="math">\(S\)&lt;/span>的&lt;strong>可列&lt;/strong>子覆盖.&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：令&lt;span class="math">\(\mathcal M=\{N(y,r)|\quad r为正有理数，y为有理点\}\)&lt;/span>，则&lt;span class="math">\(\mathcal M\)&lt;/span>是一个开集族，并且&lt;span class="math">\(\mathcal{M}\)&lt;/span>可列。（&lt;span class="math">\(R^n\)&lt;/span>中坐标为有理数的点为有理点）。&lt;/p>
+&lt;p>由假设可知，对任一点&lt;span class="math">\(x ∈ E\)&lt;/span>，存在开集&lt;span class="math">\(G_x ∈ \mathcal A\)&lt;/span>(开覆盖)，使&lt;span class="math">\(x ∈ G_x\)&lt;/span>。因为&lt;span class="math">\(G_x\)&lt;/span>为开集，所以存在以&lt;span class="math">\(x\)&lt;/span>为中心的邻域&lt;span class="math">\(N(x,\delta_x)\subset G_x\)&lt;/span>.&lt;/p>
+&lt;p>现在任取一有理点&lt;span class="math">\(a_x ∈ N(x,\frac{\delta_x}{4})\)&lt;/span>，再取有理数&lt;span class="math">\(r_a\)&lt;/span>，使&lt;span class="math">\(\frac{\delta_x}{4}&amp;lt;r_a&amp;lt;\frac{\delta_x}{2}\)&lt;/span>，作&lt;span class="math">\(a_x\)&lt;/span>的邻域&lt;span class="math">\(N(a_x,r_a)\)&lt;/span>。如下图&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/Lindelof覆盖定理证明.svg" alt="Lindelof覆盖定理证明.svg" />&lt;p class="caption">Lindelof覆盖定理证明.svg&lt;/p>
+&lt;/div>
+&lt;p>由&lt;span class="math">\(a_x，r_a\)&lt;/span>的取法，不难发现有&lt;span class="math">\(x ∈ N(a_x,r_a)\subset N(x,\delta_x)\subset G_x\)&lt;/span>.&lt;/p>
+&lt;p>于是&lt;span class="math">\(E\)&lt;/span>中每一个点都有对应的有理点&lt;span class="math">\(a_x\)&lt;/span>为中心，有理数&lt;span class="math">\(r_a\)&lt;/span>为半径的邻域&lt;span class="math">\(N(a_x,r_a)\)&lt;/span>。这些邻域组成集合系&lt;span class="math">\(\{N(a_x,r_a)\}_{x ∈ E}\)&lt;/span>是E的一个开覆盖（因为每个点都被一个邻域覆盖了，我理解是由于实数的基数大于有理数，必然有一些点使用相同的邻域），同时&lt;span class="math">\((a_x,r_a)\)&lt;/span>都是有理数，因此&lt;span class="math">\(\{N(a_x,r_a)\}_{x ∈ E}\subset\mathcal{M}\)&lt;/span>，所以&lt;span class="math">\(\{N(a_x,r_a)\}_{x ∈ E}\)&lt;/span>是至多可列的。&lt;/p>
+&lt;p>又因为&lt;span class="math">\(N(a_x,r_a)\subset N(x,\delta_x)\subset G_x\)&lt;/span>，因此取每一个包含&lt;span class="math">\(N(a_x,r_a)\)&lt;/span>的&lt;span class="math">\(G_x\)&lt;/span>组成的集合系也是可列的，并且能够覆盖&lt;span class="math">\(E\)&lt;/span>。Lindelof覆盖定理得证。&lt;/p>
+&lt;blockquote>
+&lt;p>引理1：&lt;span class="math">\(R^n\)&lt;/span>中任何非空开集都可表示为至多可列个开区间的并。&lt;/p>
+&lt;/blockquote>
+&lt;p>这可以看成是Lindelof覆盖定理的一个推广，从开集到开区间的推广。这是成立的。因为在证明是Lindelof覆盖定理中，我们使用的是邻域，这就相当于是开区间，把这些开区间取并集，这个引理可得证。&lt;/p>
+&lt;p>有了以上覆盖定理，在加上可测集的运算性质，我们可以得出如下定理：&lt;/p>
+&lt;blockquote>
+&lt;p>定理3：任何开集、闭集都是可测集。&lt;/p>
+&lt;/blockquote>
+&lt;p>由引理1可知任何非空开集都可表示为至多可列个开区间的并，而定理1告诉我们开区间是可测的，再通过推论2，任一开集的并集仍然是开集。因此开集是可测的。&lt;/p>
+&lt;p>再根据测度的性质，可测集的补集都是可测的，而开集的补集是闭集，因此闭集也是可测的。&lt;/p>
+&lt;p>例：康托尔集可测且测度为0.&lt;/p>
+&lt;p>由康托尔集的构造可知&lt;span class="math">\(P_0=[0,1]-G_0\)&lt;/span>，其中&lt;span class="math">\(G_0=(\frac{1}{3},\frac{2}{3})\cup[(\frac{1}{9},\frac{2}{9}])\cup(\frac{7}{9},\frac{8}{9}])\cup\dotsb\)&lt;/span>为开集。&lt;/p>
+&lt;p>由于&lt;span class="math">\(闭集[0,1]，开集G_0\)&lt;/span>均可测，且可测集的差集可测所以&lt;span class="math">\(P_0=[0,1]-G_0\)&lt;/span>可测。由测度的可加性可知， &lt;span class="math">\[\begin{aligned}
+m(P_0)&amp;amp;=m([0,1])-m(G_0)\\
+&amp;amp;=1-(1/3+2\times1/3^2+\dotsb+2^{n-1}\times 1/3^n+\dotsb)\\
+&amp;amp;=1-1=0
+\end{aligned}\]&lt;/span> 康托尔集给出了一个基数是&lt;span class="math">\(c/\aleph_1\)&lt;/span>，但是测度却是0的例子。&lt;/p>
+&lt;h2 id="borel集">Borel集&lt;/h2>
+&lt;blockquote>
+&lt;p>定义3：Borel集：凡属可以从开集出发，用取补集、取有限个或可列个集合的并或交等过程而得到的集合，统称为Borel集。Borel集的集合系就是Borel（&lt;span class="math">\(\sigma\)&lt;/span>-）代数。&lt;/p>
+&lt;/blockquote>
+&lt;p>显然开集、闭集、&lt;span class="math">\(F_\sigma、G_\delta\)&lt;/span>都是Borel集。&lt;/p>
+&lt;blockquote>
+&lt;p>定理4：任何的Borel集都是可测的。&lt;/p>
+&lt;/blockquote>
+&lt;p>这一点可以从可测集的运算性质得出。&lt;/p>
+&lt;h2 id="勒贝格可测集的结构">勒贝格可测集的结构&lt;/h2>
+&lt;blockquote>
+&lt;p>引理2：&lt;span class="math">\(R^n\)&lt;/span>中任何可测集&lt;span class="math">\(E\)&lt;/span>都可表为至多可列个&lt;strong>互不相交的有界可测集&lt;/strong>的并。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：&lt;span class="math">\(R^n\)&lt;/span>空间的可列化。令 &lt;span class="math">\[S=\{x| x ∈ R^n，n-1≤d(x,0)&amp;lt;n\},n=1,2,\dotsb，\]&lt;/span> 其中0表示&lt;span class="math">\(R^n\)&lt;/span>中原点的坐标，则&lt;span class="math">\(S_n(n=1,2,\dots)\)&lt;/span>可测。效果图如下，即一个个同心圆区间，且&lt;span class="math">\(R^n=\bigcup\limits_{n=1}^∞ S_n\)&lt;/span>。&lt;/p>
+&lt;p>&lt;img src="../../images/Rn分割.svg" width=300px height=300px>&lt;/p>
+&lt;p>令&lt;span class="math">\(E_n=E\cap S_n\)&lt;/span>，则&lt;span class="math">\(E_n\)&lt;/span>是可测集&lt;span class="math">\(E和有界可测S_n\)&lt;/span>的交集，也有界可测，且有两两互不相交。那么&lt;span class="math">\(E=\bigcup\limits_{n=1}^∞ E_n\)&lt;/span>。&lt;/p>
+&lt;p>这个引理的意义在于当我们讨论无界可测集的时候可以分解成有界可测集来讨论。下面我们来讨论各种集合与可测集之间的关系。&lt;/p>
+&lt;blockquote>
+&lt;p>定理5：（开集与可测集）可测集E&lt;span class="math">\(\Leftrightarrow\)&lt;/span> 对于&lt;span class="math">\(\forall \varepsilon&amp;gt;0\)&lt;/span>恒有开集&lt;span class="math">\(G\supset E\)&lt;/span>，使&lt;span class="math">\(m^\ast(G-E)&amp;lt;\varepsilon\)&lt;/span>&lt;/p>
+&lt;p>定理6：（闭集与可测集）可测集E&lt;span class="math">\(\Leftrightarrow\)&lt;/span> 对于&lt;span class="math">\(\forall \varepsilon&amp;gt;0\)&lt;/span>恒有闭集&lt;span class="math">\(F\subset E\)&lt;/span>，使&lt;span class="math">\(m^\ast(E-F)&amp;lt;\varepsilon\)&lt;/span>&lt;/p>
+&lt;p>定理7：（&lt;span class="math">\(G_\delta\)&lt;/span>与可测集）可测集E&lt;span class="math">\(\Leftrightarrow\)&lt;/span> 恒有&lt;span class="math">\(G_\delta\)&lt;/span>型集合&lt;span class="math">\(G\supset E\)&lt;/span>，使&lt;span class="math">\(m^\ast(G-E)=0\)&lt;/span>&lt;/p>
+&lt;p>定理8：（&lt;span class="math">\(F_\sigma\)&lt;/span>与可测集）可测集E&lt;span class="math">\(\Leftrightarrow\)&lt;/span> 恒有&lt;span class="math">\(F_\sigma\)&lt;/span>型集合&lt;span class="math">\(F\subset E\)&lt;/span>，使&lt;span class="math">\(m^\ast(E-F)=0\)&lt;/span>&lt;/p>
+&lt;p>定理9：（Borel集与可测集）任何可测集必是一个Borel集（&lt;span class="math">\(F_\sigma\)&lt;/span>）与一个测度为0的可测集的并；同时也是一个Borel集（&lt;span class="math">\(G_\delta\)&lt;/span>）与一个测度为0的可测集的差集。&lt;/p>
+&lt;/blockquote></description></item><item><title>测度论5之可测函数</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA5%E4%B9%8B%E5%8F%AF%E6%B5%8B%E5%87%BD%E6%95%B0/</link><pubDate>Wed, 16 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA5%E4%B9%8B%E5%8F%AF%E6%B5%8B%E5%87%BD%E6%95%B0/</guid><description>
+&lt;h2 id="可测函数">可测函数&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#点集上的函数">点集上的函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义实数">广义实数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#点集上的连续函数与函数列的极限">点集上的连续函数与函数列的极限&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#这时我们就说序列f_n逐点收敛到f或说函数f是序列f_n的逐点收敛极限函数">&amp;gt;这时我们就说序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>（逐点）收敛到&lt;span class="math">\(f\)&lt;/span>，或说函数&lt;span class="math">\(f\)&lt;/span>是序列&lt;span class="math">\(f_{n}\)&lt;/span>的（逐点收敛）极限函数。&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几乎处处连续">“几乎处处连续”&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#勒贝格可测函数">勒贝格可测函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充稠密与疏朗">补充：稠密与疏朗&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可测函数运算性质">可测函数运算性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#简单函数">简单函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可测函数的构造">可测函数的构造&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充集合与函数">补充：集合与函数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="点集上的函数">点集上的函数&lt;/h2>
+&lt;h3 id="广义实数">广义实数&lt;/h3>
+&lt;blockquote>
+&lt;p>定义1：广义实数：&lt;span class="math">\(R\cup \{-∞,+∞\}\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>规定&lt;span class="math">\(0\times\pm ∞=0\)&lt;/span>&lt;/p>
+&lt;p>下面几种无穷运算无意义。 &lt;span class="math">\[\frac{∞}{∞}，\frac{∞}{0}，\frac{a}{0}\\
+(+∞)-(+∞)，(-∞)-(-∞)，(+∞)+(-∞)，(-∞)+(+∞)\]&lt;/span>&lt;/p>
+&lt;h3 id="点集上的连续函数与函数列的极限">点集上的连续函数与函数列的极限&lt;/h3>
+&lt;blockquote>
+&lt;p>定义2：对于在&lt;span class="math">\(E\subset R^n\)&lt;/span>上的函数&lt;span class="math">\(f\)&lt;/span>，我们用记号： &lt;span class="math">\[E[f(x)&amp;gt;a]\]&lt;/span> 表示&lt;span class="math">\(E\)&lt;/span>中满足&lt;span class="math">\(f(x)&amp;gt;a\)&lt;/span>的点&lt;span class="math">\(x\)&lt;/span>的集合全体，即 &lt;span class="math">\[E[f(x)&amp;gt;a]=\{x|x ∈ E，f(x)&amp;gt;a\}\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>类似的可以定义：&lt;span class="math">\(E[f(x)&amp;gt;a]，E[f(x)&amp;lt;a]，E[f(x)≥a]，E[f(x)≤a]，E[f(x)=a]，E[a&amp;lt;f(x)≤b]\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>定义3：(逐点收敛)极限函数：设&lt;span class="math">\(\{f_{n}\}\)&lt;/span>是一组有相同定义域的函数序列。序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>&lt;strong>（逐点）收敛&lt;/strong>当且仅当存在函数&lt;span class="math">\(f\)&lt;/span>，使得在定义域中的每点&lt;span class="math">\(x\)&lt;/span>，都有： &lt;span class="math">\[\lim _{{n\rightarrow \infty }}f_{n}(x)=f(x)\]&lt;/span> 这时我们就说序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>（逐点）收敛到&lt;span class="math">\(f\)&lt;/span>，或说函数&lt;span class="math">\(f\)&lt;/span>是序列&lt;span class="math">\(f_{n}\)&lt;/span>的（逐点收敛）极限函数。 -------- 定义4：一致收敛极限函数：让&lt;span class="math">\(\{f_{n}\}_{n\in \mathbb {N} }\)&lt;/span>是定义在&lt;span class="math">\(S\)&lt;/span>上，值域为&lt;span class="math">\(\mathbb {R}\)&lt;/span>或&lt;span class="math">\(\mathbb {C}\)&lt;/span>的一组函数序列，若序列 &lt;span class="math">\(\{f_{n}\}_{n\in \mathbb {N}}\)&lt;/span>均匀收敛至函数&lt;span class="math">\(f\)&lt;/span>在集合&lt;span class="math">\(S\)&lt;/span>上，即表示对所有&lt;span class="math">\(\epsilon &amp;gt;0\)&lt;/span>，存在&lt;span class="math">\(N∈\mathbb{N}\)&lt;/span>，使得当所有&lt;span class="math">\(n\geq N\)&lt;/span>且 &lt;span class="math">\(x∈ S\)&lt;/span>时有 &lt;span class="math">\[|f_{n}(x)-f(x)|&amp;lt;\epsilon.\]&lt;/span> 这时我们就说序列&lt;span class="math">\(\{f_{n}\}\)&lt;/span>一致收敛到&lt;span class="math">\(f\)&lt;/span>，或说函数&lt;span class="math">\(f\)&lt;/span>是序列&lt;span class="math">\(f_{n}\)&lt;/span>的一致连续极限函数。&lt;/p>
+&lt;/blockquote>
+&lt;p>注意到，一致收敛和逐点收敛定义的区别在于，在一致收敛中&lt;span class="math">\(N\)&lt;/span>的选取仅与&lt;span class="math">\(\epsilon\)&lt;/span>相关，而在逐点收敛中&lt;span class="math">\(N\)&lt;/span>还多了与点&lt;span class="math">\(x\)&lt;/span>相关。所以一致收敛必定逐点收敛，而反之则不然。&lt;/p>
+&lt;blockquote>
+&lt;p>定理1：&lt;span class="math">\(\{f_n(x)\}\)&lt;/span>是点集&lt;span class="math">\(E\)&lt;/span>上的连续函数列，且一致收敛于&lt;span class="math">\(f(x)\)&lt;/span>，则&lt;span class="math">\(f(x)\)&lt;/span>是&lt;span class="math">\(E\)&lt;/span>上的连续函数。&lt;/p>
+&lt;/blockquote>
+&lt;p>点集上一致收敛的连续函数列，其一致连续极限函数连续。&lt;/p>
+&lt;blockquote>
+&lt;p>定理2：点集&lt;span class="math">\(E\)&lt;/span>上的函数列&lt;span class="math">\(\{f_n(x)\}\)&lt;/span>不收敛与&lt;span class="math">\(f(x)\)&lt;/span>的点集合为 &lt;span class="math">\[\bigcup_{k=1}^∞ \bigcap_{N=1}^∞ \bigcup_{n=N}^∞ E[|f_n(x)-f(x)|≥\frac{1}{k}]\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>这里不给出严格的证明，只讲如何理解这个式子。首先我们把式子化简如下： &lt;span class="math">\[\bigcap_{N=1}^∞ \bigcup_{n=N}^∞ E_n\\
+E_n=E[|f_n(x)-f(x)|≥\frac{1}{k}]\]&lt;/span> 我们取得是&lt;span class="math">\(E_n\)&lt;/span>的上极限，所谓点集序列上极限就是序列中存在于无穷多个集合的元素，即这个点一直都在集合序列中。而&lt;span class="math">\(E_n\)&lt;/span>则是表示某个项&lt;span class="math">\(f_n(x)\)&lt;/span>和极限函数&lt;span class="math">\(f(x)\)&lt;/span>有差距的点，有差距的点一直存在与序列中表示不会收敛到极限函数。最后差距的大小用&lt;span class="math">\(\frac{1}{k}\)&lt;/span>表示，对所有大于0的差距取并集，则是所有不收敛的点。&lt;/p>
+&lt;h3 id="几乎处处连续">“几乎处处连续”&lt;/h3>
+&lt;blockquote>
+&lt;p>定义：设有一个与集合&lt;span class="math">\(E\subset R^n\)&lt;/span>中的点&lt;span class="math">\(x\)&lt;/span>有关的命题&lt;span class="math">\(P(x)\)&lt;/span>。若除了&lt;span class="math">\(E\)&lt;/span>中的&lt;strong>一个零测集以外&lt;/strong>，&lt;span class="math">\(P(x)\)&lt;/span>皆为真，则称&lt;span class="math">\(P(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上&lt;strong>几乎处处&lt;/strong>是真的。简记为&lt;span class="math">\(P(x)\)&lt;/span>，&lt;span class="math">\(a.e.\quad x ∈ E\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>例如1：&lt;span class="math">\(f(x)，g(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上可测，若有 &lt;span class="math">\[m(\{x ∈ E:f(x)\neq g(x)\})=0\]&lt;/span> 则称&lt;span class="math">\(f(x)与g(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上&lt;strong>几乎处处相等&lt;/strong>。也称&lt;span class="math">\(f(x)与g(x)\)&lt;/span>是对等的，记为&lt;span class="math">\(f(x)=g(x)，a.e.\quad x ∈ E\)&lt;/span>&lt;/p>
+&lt;p>例如1：&lt;span class="math">\(f(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上可测，若有 &lt;span class="math">\[m(\{x ∈ E:|f(x)|&amp;lt;+∞\})=0\]&lt;/span> 则称&lt;span class="math">\(f(x)与g(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上是&lt;strong>几乎处处有限的&lt;/strong>。记为&lt;span class="math">\(|f(x)|&amp;lt;∞，a.e.\quad x ∈ E\)&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定理：几乎处处相等的一个性质—如果&lt;span class="math">\(f(x)可测，且f(x)=g(x)，a.e. \quad x ∈ E\)&lt;/span>可测，则&lt;span class="math">\(g(x)\)&lt;/span>可测.&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：令&lt;span class="math">\(A=\{x:f(x)\neq g(x)\}\)&lt;/span>，则&lt;span class="math">\(m(A)=0\)&lt;/span>，且&lt;span class="math">\(E-A\)&lt;/span>是可测集。 &lt;span class="math">\[\begin{aligned}
+&amp;amp;\{x ∈ E:g(x)&amp;gt;t\}\\
+&amp;amp;=\{x ∈ E-A:g(x)&amp;gt;t\}\cup \{x ∈ A:g(x)&amp;gt;t\}\\
+&amp;amp;=\{x ∈ E-A:f(x)&amp;gt;t\}\cup \{x ∈ A:g(x)&amp;gt;t\}\\
+&amp;amp;第一个因为f(x)=g(x)，第二个因为m(A)=0\\
+&amp;amp;=\{x ∈ E-A:f(x)&amp;gt;t\} 为可测集
+\end{aligned}\]&lt;/span> 由此可知，对于一个可测函数来说，&lt;strong>当改变它在零测集上的值时不会改变函数的可测性&lt;/strong>&lt;/p>
+&lt;h2 id="勒贝格可测函数">勒贝格可测函数&lt;/h2>
+&lt;blockquote>
+&lt;p>定义：可测函数：&lt;span class="math">\(f(x)\)&lt;/span>是定义在可测集&lt;span class="math">\(E\subset R^n\)&lt;/span>上的广义实值函数，如果对于&lt;span class="math">\(\forall t ∈ R^1\)&lt;/span>，有点集 &lt;span class="math">\[\{x ∈ E:f(x)&amp;gt;t\}(或简写作x:f(x)&amp;gt;t)\]&lt;/span> 是可测集，则称&lt;span class="math">\(f(x)\)&lt;/span>是在&lt;span class="math">\(E\)&lt;/span>上&lt;strong>可测函数&lt;/strong>，或称&lt;span class="math">\(f(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上&lt;strong>可测&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>这一定义中虽然指的是对任意的&lt;span class="math">\(t\in R^1\)&lt;/span>，但实际上我们只需要对&lt;span class="math">\(R^1\)&lt;/span>中的一个稠密集中的元&lt;span class="math">\(r\)&lt;/span>，指出集合&lt;span class="math">\(\{x:f(x)&amp;gt;r\}\)&lt;/span>是可测集即可。&lt;/p>
+&lt;h3 id="补充稠密与疏朗">补充：稠密与疏朗&lt;/h3>
+&lt;blockquote>
+&lt;p>补充定义：稠密。若&lt;span class="math">\(A⊂B且\bar A=B\)&lt;/span>， 则称A在B中稠密，或称A是B的稠密子集。A的闭包等于B。&lt;/p>
+&lt;p>稠密的相对概念是无处稠密，又称疏朗。如果一个闭包的内核是空集，即&lt;span class="math">\(\bar E^\circ=\emptyset\)&lt;/span>，则称&lt;span class="math">\(E\)&lt;/span>在&lt;span class="math">\(R^n\)&lt;/span>上是无处稠密集（疏朗集）。&lt;/p>
+&lt;/blockquote>
+&lt;p>例如，&lt;span class="math">\(E\subset R^n\)&lt;/span>，若&lt;span class="math">\(\bar E =R^n\)&lt;/span>则称&lt;span class="math">\(E\)&lt;/span>为&lt;span class="math">\(R^n\)&lt;/span>中的稠密集。有理数集和无理数集都是稠密集。整数、&lt;span class="math">\(集合\{1,1/2,1/3,\dots \}\)&lt;/span>、Cantor集在实数轴&lt;span class="math">\(R\)&lt;/span>上是无处稠密集。&lt;/p>
+&lt;p>无处稠密的闭集的补集是一个稠密的开集，因此无处稠密集的补集是内部为稠密的集合。一个无处稠密集并不一定就是可忽略的。例如，如果&lt;span class="math">\(X\)&lt;/span>位于单位区间&lt;span class="math">\([0,1]\)&lt;/span>，&lt;strong>不仅有可能有勒贝格测度为零的稠密集（例如有理数集），也有可能有测度为正数的无处稠密集&lt;/strong>。&lt;/p>
+&lt;p>例如（一个康托尔集的变体），从&lt;span class="math">\([0,1]\)&lt;/span>内移除所有形为&lt;span class="math">\(a/2n\)&lt;/span>的最简二进分数，以及旁边的区间&lt;span class="math">\([a/2^n − 1/2^{2n+1}, a/2^n + 1/2^{2n+1}]\)&lt;/span>；由于对于每一个&lt;span class="math">\(n\)&lt;/span>，这最多移除了总和为&lt;span class="math">\(1/2^{n+1}\)&lt;/span>的区间，留下的无处稠密集的测度就至少是&lt;span class="math">\(1/2\)&lt;/span>（实际上刚刚大于0.535……，因为重叠的原因），因此在某种意义上表示了&lt;span class="math">\([0,1]\)&lt;/span>的大多数空间。&lt;/p>
+&lt;blockquote>
+&lt;p>定理：设&lt;span class="math">\(f(x)\)&lt;/span>是可测集&lt;span class="math">\(E\)&lt;/span>上的函数，&lt;span class="math">\(D\)&lt;/span>是&lt;span class="math">\(R^1\)&lt;/span>中的一个稠密集。若对任意的&lt;span class="math">\(r ∈ D\)&lt;/span>，点集&lt;span class="math">\(\{x:f(x)&amp;gt;r\}\)&lt;/span>都是可测集，则对任意的&lt;span class="math">\(t\in R^1\)&lt;/span>，点集&lt;span class="math">\(\{x:f(x)&amp;gt;t\}\)&lt;/span>也是可测集。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：任选一个实数&lt;span class="math">\(t\)&lt;/span>，因为&lt;span class="math">\(D\)&lt;/span>在&lt;span class="math">\(R^1\)&lt;/span>中稠密，所以我们能够在&lt;span class="math">\(D\)&lt;/span>中取一点列&lt;span class="math">\(\{r_k\}\)&lt;/span>，使得 &lt;span class="math">\[r_k≥t(k=1,2,\dotsb); \lim_{k→ ∞}r_k=t\]&lt;/span> 我们有 &lt;span class="math">\[\{x:f(x)&amp;gt;t\}=\bigcup_{k=1}^∞ \{x:f(x)&amp;gt;r_k\}\]&lt;/span> 因为每一个点集&lt;span class="math">\(\{x:f(x)&amp;gt;r_k\}\)&lt;/span>都是可测集，可测集的任意并集也是可测集，所以&lt;span class="math">\(\{x:f(x)&amp;gt;t\}\)&lt;/span>也是可测集。&lt;/p>
+&lt;blockquote>
+&lt;p>定理：等价定义：对于&lt;span class="math">\(E\)&lt;/span>上的可测函数&lt;span class="math">\(f(x)，t ∈ R^1\)&lt;/span>，则以下点集都可测：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\{x:f(x)≤t\}=E-\{x:f(x)&amp;gt;t\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)≥t\}=\bigcap\limits_{k=1}^∞\{x:f(x)&amp;gt;t-\frac{1}{k}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)&amp;lt;t\}=E-\{x:f(x)≥t\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)=t\}=\{x:f(x)≥t\}\cap \{x:f(x)≤t\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)&amp;lt;+∞\}=\bigcup\limits_{k=1}^∞\{x:f(x)&amp;lt;k\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)=+∞\}=E-\{x:f(x)&amp;lt;+∞\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)&amp;gt;-∞\}=\bigcup\limits_{k=1}^∞\{x:f(x)&amp;gt;-k\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\{x:f(x)=-∞\}=E-\{x:f(x)&amp;gt;-∞\}\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h3 id="可测函数运算性质">可测函数运算性质&lt;/h3>
+&lt;p>如果&lt;span class="math">\(f(x)，g(x)\)&lt;/span>在&lt;span class="math">\(E\)&lt;/span>上可测：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(f(x)在E_1，E_2\)&lt;/span>上可测，那么&lt;span class="math">\(f(x)在E_1\cup E_2\)&lt;/span>上可测。&lt;/li>
+&lt;li>&lt;span class="math">\(f(x)在E\)&lt;/span>的子集上可测。&lt;/li>
+&lt;li>&lt;span class="math">\(cf(x)，c ∈ R^1\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\(f(x)\pm g(x)\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\(f(x)\times g(x)\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\(\sup_{k≥1}\{f_k(x)\}\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\(\inf_{k≥1}\{f_k(x)\}\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\(\overline{\lim}_{k→∞}\{f_k(x)\}\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\(\underline{\lim}_{k→∞}\{f_k(x)\}\)&lt;/span>可测&lt;/li>
+&lt;li>&lt;span class="math">\({\lim}_{k→∞}\{f_k(x)\}=f(x)\)&lt;/span>，且&lt;span class="math">\(\{f_k(x)\}\)&lt;/span>是可测函数列，那么&lt;span class="math">\(f(x)\)&lt;/span>可测&lt;/li>
+&lt;/ol>
+&lt;h3 id="简单函数">简单函数&lt;/h3>
+&lt;blockquote>
+&lt;p>定义：简单函数又称单纯函数，（英语：simple function），在数学的实分析中是指&lt;strong>值域只有有限个值&lt;/strong>的实函数，类似阶梯函数。有些作者要求简单函数是可测的，因为在实际应用上，特别在讨论勒贝格积分时，必须是可测函数，要不然积分的定义没有意义。&lt;/p>
+&lt;/blockquote>
+&lt;p>对于取值为&lt;span class="math">\(\{c_1,c_2,\dots,c_p\}\)&lt;/span>的简单函数有： &lt;span class="math">\[E=\bigcap_{i=1}^{p}E_i;E_i\cap E_j =\emptyset,i,j=1,2,3,\dots,p\\
+f(x)=c_i; x ∈ E_i;\]&lt;/span> 此外可以记&lt;span class="math">\(f\)&lt;/span>为 &lt;span class="math">\[f(x)=\sum_{i=1}^p c_i \chi_{E_i}(x),x ∈ E\]&lt;/span> 从而简单函数时&lt;strong>有限个特征函数的线性组合&lt;/strong>。特别的，当每一个&lt;span class="math">\(E_i\)&lt;/span>都是一个矩体，那么&lt;span class="math">\(f(x)\)&lt;/span>是一个阶梯函数。显然对于简单函数&lt;span class="math">\(f(x)，g(x)\)&lt;/span>，&lt;span class="math">\(f(x)\pm g(x)，f(x)\cdot g(x)\)&lt;/span>都是简单函数。&lt;/p>
+&lt;p>如果简单函数中，每个值的集合&lt;span class="math">\(E_i\)&lt;/span>都是可测的，那么称&lt;span class="math">\(f(x)\)&lt;/span>是&lt;strong>可测简单函数&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>定理：简单函数逼近定理：&lt;/p>
+&lt;p>（1）.非负可测函数：若&lt;span class="math">\(f(x)\)&lt;/span>是&lt;span class="math">\(E\)&lt;/span>上的非负可测简单函数，则存在&lt;strong>非负可测简单函数渐升列&lt;/strong>： &lt;span class="math">\[\varphi_k(x)≤\varphi_{k+1}(x)，k=1,2,\dots\\
+\lim_{k→∞}\varphi_k(x)=f(x)，x ∈ E\]&lt;/span> （2）.可测函数：若&lt;span class="math">\(f(x)\)&lt;/span>是&lt;span class="math">\(E\)&lt;/span>上的可测简单函数，则存在&lt;strong>可测简单函数列&lt;/strong>&lt;span class="math">\(\{\varphi_k(x)\}\)&lt;/span>，使得&lt;span class="math">\(|\varphi_k(x)|≤|f(x)|\)&lt;/span>，且有 &lt;span class="math">\[\lim_{k→∞}\varphi_k(x)=f(x)，x ∈ E\]&lt;/span> 若&lt;span class="math">\(f(x)\)&lt;/span>还是有界的，则上述收敛是一致的。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明：（1）对于任意自然数&lt;span class="math">\(k\)&lt;/span>，我们将&lt;span class="math">\([0,k]\)&lt;/span>划分称&lt;span class="math">\(k\cdot 2^k\)&lt;/span>等分，并记 &lt;span class="math">\[E_{k,j}=\biggl\{x ∈ E:\frac{j-1}{2^k}≤f(x)&amp;lt;\frac{j}{2^k}\biggl\},\\
+E_k=\biggl\{x ∈ E:f(x)≥k\biggl\},\\
+j=1,2,\dotsb,k\cdot 2^k,k=1,2,\dotsb.\]&lt;/span> 设函数为 &lt;span class="math">\[\varphi_k(x)=\begin{cases}
+\frac{j-1}{2^k},\quad x ∈ E_{k,j},\\
+k,\quad x ∈ E_{k},
+\end{cases}\\
+j=1,2,\dotsb,k\cdot 2^k,k=1,2,\dotsb.\]&lt;/span> 可直接写成； &lt;span class="math">\[\varphi_k(x)=k\chi_{E_k}(x)+\sum_{j=1}^{k2^k}\frac{j-1}{2^k}\chi_{E_{k,j}}(x),\chi(x)为特征函数\]&lt;/span> 其效果如下图： &lt;img src="../../images/简单函数逼近.svg" alt="简单函数逼近.svg" /> 从图中很明显的看出：每个简单函数都是非负可测简单函数，并且函数列是递增的趋近于&lt;span class="math">\(f(x)\)&lt;/span>，即&lt;span class="math">\(\lim\limits_{k→∞} \varphi_k(x)=f(x)，x ∈ E\)&lt;/span>。&lt;/p>
+&lt;p>（2）对于任意可测函数&lt;span class="math">\(f(x)\)&lt;/span>我们可以把它分成非负0的部分&lt;span class="math">\(f^+(x)\)&lt;/span>和负数部分&lt;span class="math">\(f^-(x)（为f(x)负数部分的绝对值）\)&lt;/span>，所以&lt;span class="math">\(f(x)=f^+(x)-f^-(x)\)&lt;/span>。有第(1)部分证明和可测函数运算法则可知，&lt;span class="math">\(f^+(x)\)&lt;/span>与&lt;span class="math">\(f^-(x)\)&lt;/span>都是非负可测函数。于是存在可测简单函数列&lt;span class="math">\(\{\varphi_k^{(1)}(x)\},\{\varphi_k^{(2)}(x)\}\)&lt;/span>满足 &lt;span class="math">\[\lim_{k→∞} \varphi_k^{(1)}(x)=f^+(x)，\lim_{k→∞} \varphi_k^{(2)}(x)=f^-(x)，x ∈ E\]&lt;/span> 显然，可测函数的差&lt;span class="math">\(\varphi_k^{(1)}(x)-\varphi_k^{(2)}(x)\)&lt;/span>是简单可测函数，且有 &lt;span class="math">\[\lim_{k→ i}[\varphi_k^{(1)}(x)-\varphi_k^{(2)}(x)]=f^+(x)-f^-(x)=f(x)， x ∈ E\]&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>定义：支集：对于在&lt;span class="math">\(E\subset R^n\)&lt;/span>上的函数&lt;span class="math">\(f(x)\)&lt;/span>，我们称点集 &lt;span class="math">\[\overline{\{x:f(x)\neq 0\}}\]&lt;/span> 为&lt;span class="math">\(f(x)\)&lt;/span>的支集，记为&lt;span class="math">\(\mathop{supp}(f)\)&lt;/span>。若&lt;span class="math">\(f(x)\)&lt;/span>的支集是有界的，则称&lt;span class="math">\(f(x)\)&lt;/span>是&lt;strong>具有紧支集&lt;/strong>的函数。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="可测函数的构造">可测函数的构造&lt;/h2>
+&lt;h2 id="补充集合与函数">补充：集合与函数&lt;/h2>
+&lt;p>示性函数（特征函数，Characteristic function）可以代表不同的概念。最通常且多数通称为指示函数。 &lt;span class="math">\[{\mathbf {1}}_{A}:X\to \{0,1\}或者写作\\
+\chi(A)=\begin{cases}
+1,\quad x ∈ A\\
+0,\quad x \notin A
+\end{cases}\]&lt;/span> 其中在集合&lt;span class="math">\(X\)&lt;/span>中任一子集合&lt;span class="math">\(A\)&lt;/span>,皆满足于集合&lt;span class="math">\(A\)&lt;/span>内一点为值1,于集合&lt;span class="math">\(X − A\)&lt;/span>内一点为值 0。&lt;/p>
+&lt;p>显然&lt;span class="math">\(\chi(A)=\chi(B)\Leftrightarrow A=B\)&lt;/span>。&lt;/p>
+&lt;p>一般的，示性函数（特征函数）的运算法则如下： &lt;img src="../../images/示性函数运算法则.png" alt="示性函数运算法则" />&lt;/p></description></item><item><title>测度论3.5之内侧度</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA3.5%E4%B9%8B%E5%86%85%E4%BE%A7%E5%BA%A6/</link><pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA3.5%E4%B9%8B%E5%86%85%E4%BE%A7%E5%BA%A6/</guid><description>
+&lt;h2 id="内测度">内测度&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>有外测度，那有没有内测度 (inner measure)呢？还真有，但是在测度的构造中，内测度不是必须的，这边简单介绍一下。外测度试图从集合的外面向内逼近，而内测度则是从集合的里面向外逼近。&lt;/p>
+&lt;blockquote>
+&lt;p>定义：内测度是一个对某个集合&lt;span class="math">\(X\)&lt;/span>的所有子集有定义的一个函数&lt;span class="math">\(\varphi :2^{X}\rightarrow [0,\infty ],\)&lt;/span> 满足下列条件:&lt;/p>
+&lt;ul>
+&lt;li>空集: 空集的内测度为0。&lt;span class="math">\(\varphi (\varnothing )=0\)&lt;/span>&lt;/li>
+&lt;li>超加性：对两个交集为空的集合A和B，有&lt;span class="math">\(\varphi (A\cup B)\geq \varphi (A)+\varphi (B).\)&lt;/span>&lt;/li>
+&lt;li>集合降链的极限：对一个集合序列&lt;span class="math">\(A_{j}\)&lt;/span>，若对于所有的&lt;span class="math">\(j\)&lt;/span>满足&lt;span class="math">\(A_{j}\supseteq A_{j+1}\)&lt;/span>，且&lt;span class="math">\(\varphi (A_{1})&amp;lt;\infty\)&lt;/span>，则&lt;span class="math">\(\varphi \left(\bigcap _{j=1}^{\infty }A_{j}\right)=\lim _{j\to \infty }\varphi (A_{j})\)&lt;/span>&lt;/li>
+&lt;li>若集合&lt;span class="math">\(A\)&lt;/span>满足&lt;span class="math">\(\varphi (A)=\infty\)&lt;/span>，则对所有正数&lt;span class="math">\(c\)&lt;/span>, 存在&lt;span class="math">\(A\)&lt;/span>的一个子集&lt;span class="math">\(B\)&lt;/span>，使得&lt;span class="math">\(c\leq \varphi (B)&amp;lt;\infty\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>另外一个定义可以从外测度诱导出来： &amp;gt;定义2：令&lt;span class="math">\(X\)&lt;/span>为一集合，&lt;span class="math">\(\mu^\ast\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>上的一个外测度。定义内测度&lt;span class="math">\(\mu_*(A):=\mu^\ast(A)-\mu^\ast(A^c)\)&lt;/span>&lt;/p>
+&lt;p>内测度可以从测度中构造出来： &amp;gt;定义3：令&lt;span class="math">\((X,\mathcal{M},\mu)\)&lt;/span>为一测度空间, 定义内侧度&lt;span class="math">\(\mu_*(E):=\sup\{\mu(S):S\in\mathcal{A}，S\subset E\}\)&lt;/span>&lt;/p>
+&lt;p>还有以下定理 &amp;gt;定理：令&lt;span class="math">\(\mu\)&lt;/span>是&lt;span class="math">\(\mathbb{R}^n\)&lt;/span>上的 Lebesgue 测度，&lt;span class="math">\(\mu_*(A)=\mu^\ast(A)\)&lt;/span>当且仅当&lt;span class="math">\(A\)&lt;/span>为&lt;span class="math">\(\mu\)&lt;/span>-可测。&lt;/p></description></item><item><title>测度论3之外测度的他山之石</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA3%E4%B9%8B%E5%A4%96%E6%B5%8B%E5%BA%A6%E7%9A%84%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3/</link><pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA3%E4%B9%8B%E5%A4%96%E6%B5%8B%E5%BA%A6%E7%9A%84%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3/</guid><description>
+&lt;h2 id="学习笔记外测度">学习笔记——外测度&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>转载自知乎&lt;https://zhuanlan.zhihu.com/p/106119812>。其中本人修正了一些小错误。&lt;/p>
+&lt;p>原作者：&lt;a href="https://www.zhihu.com/people/tang-shu-43-28">路边社特约记者&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#引论">引论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#外测度的抽象定义">外测度的抽象定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#构造外测度的一般方法">构造外测度的一般方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从外测度到测度">从外测度到测度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#caratheodorys定理的应用">Caratheodory's定理的应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#准测度外侧度测度">准测度→外侧度→测度&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="引论">引论&lt;/h2>
+&lt;p>外测度的基本想法是用一些形状良好的，已经定义了类似测度概念（称为类测度）的集合去尽可能“小”的覆盖其他集合，然后用这些集合的”类测度“的和作为被覆盖集合的外测度。&lt;/p>
+&lt;p>譬如在实数轴&lt;span class="math">\(R\)&lt;/span>上，定义开区间&lt;span class="math">\(I=(a,b)\)&lt;/span>的类测度为其长度&lt;span class="math">\(\rho(I)=b-a\)&lt;/span>,那么可以定义&lt;span class="math">\(R\)&lt;/span>中任意集合&lt;span class="math">\(E\)&lt;/span>的外测度为： &lt;span class="math">\[\mu^\ast(E)=\inf\biggl\{\sum\limits_{j=1}^∞ \rho(I_j):E\subset \bigcup\limits_{j=1}^∞ I_j \biggl\}\]&lt;/span> 直观的讲，就是把无数个小区间拼起来，让它们盖住原来的集合，而且要让冗余的面积尽可能的小。在进一步构造外测度之前，先给出外测度的抽象定义。&lt;/p>
+&lt;h2 id="外测度的抽象定义">外测度的抽象定义&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(X\)&lt;/span>为任意集合，记&lt;span class="math">\(\mathcal{P}(X)\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>所有子集的族，所谓&lt;span class="math">\(X\)&lt;/span>上的一个外测度是指一个函数&lt;span class="math">\(\mu^\ast:\mathcal{P}(X)→[0,+∞)\)&lt;/span>，满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\mu^\ast(\emptyset)=0\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A\subset B \subset X\)&lt;/span>，则&lt;span class="math">\(\mu^\ast(A)≤\mu^\ast(B)\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(\{A_n\}_{n=1}^∞\subset \mathcal{P}(X)\)&lt;/span>，则&lt;span class="math">\(\mu^\ast(\bigcup\limits_{n=1}^∞ A_n)≤\sum\limits_{n=1}^∞\mu^\ast(A_n)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h2 id="构造外测度的一般方法">构造外测度的一般方法&lt;/h2>
+&lt;p>如引论中所述，为了构造在集合&lt;span class="math">\(X\)&lt;/span>中的外测度，一般我们先在&lt;span class="math">\(X\)&lt;/span>中某个子集族&lt;span class="math">\(\mathcal{C}\)&lt;/span>上构建类似测度的概念，即定义一个函数 &lt;span class="math">\[\rho:\mathcal{C}→[0,+∞)\]&lt;/span>&lt;/p>
+&lt;p>且要求：&lt;span class="math">\(\emptyset∈\mathcal{C}，X ∈ \mathcal{C}，\rho(\emptyset)=0\)&lt;/span>。接着便可以在&lt;span class="math">\(X\)&lt;/span>中定义，&lt;span class="math">\(\forall A \subset X\)&lt;/span>: &lt;span class="math">\[\mu^\ast:=\inf\biggl\{\sum\limits_{j=1}^∞ \rho(E_j): A\subset \bigcup\limits_{j=1}^∞ E_j，\{E_j\}_{j=1}^∞ \subset \mathcal{C}\biggl\}\]&lt;/span> 自然首先应该证明上面的定义满足外测度的三条性质。&lt;/p>
+&lt;blockquote>
+&lt;p>定理一：如上定义的&lt;span class="math">\(\mu^\ast\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>上一个外测度.&lt;/p>
+&lt;/blockquote>
+&lt;div class="figure">
+&lt;img src="../../images/外测度构造证明.png" alt="外侧度构造证明" />&lt;p class="caption">外侧度构造证明&lt;/p>
+&lt;/div>
+&lt;h2 id="从外测度到测度">从外测度到测度&lt;/h2>
+&lt;p>外测度的思想很简单且对于&lt;span class="math">\(X\)&lt;/span>的幂集都适用，但外测度却并不满足我们对测度所期待的全部性质。具体的讲，类比于面积和体积的概念，我们希望测度至少满足：&lt;/p>
+&lt;p>（1）一个集合的测度应该等于把该集合分成任意多（至少是可数）个不相交集合的测度的和；&lt;/p>
+&lt;p>（2）在一些空间中，譬如欧式空间中，对集合进行平移、旋转、反射等操作应该不改变集合的测度；&lt;/p>
+&lt;p>当然我们希望测度满足的性质不止这两条，但这两条性质从某种意义上说就是互相矛盾的。譬如在三维空间中，Banach和Tarski证明了所谓的分球悖论，即仅通过平移、旋转、反射就能将一个球分成同样的两个球。那么性质（1）和（2）显然不可能同时满足。&lt;/p>
+&lt;p>有两种方式处理这种情况。【一】是抛弃掉某些性质，【二】是对测度的定义域做一些限制。做法【一】并不令人满意，因为性质（1）和（2）显然是我们对三维空间物体体积的最直观且最基本的概念。所以做法【二】是比较合适的。&lt;/p>
+&lt;p>一个简单的定义是， &amp;gt;对&lt;span class="math">\(X\)&lt;/span>的一个子集&lt;span class="math">\(A\)&lt;/span>，&lt;span class="math">\(A\)&lt;/span>如果满足： &amp;gt;&lt;span class="math">\[\forall E \subset X，\mu^\ast(E)=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)\]&lt;/span> &amp;gt;则称集合&lt;span class="math">\(A\)&lt;/span>是&lt;span class="math">\(\mu^\ast\)&lt;/span>可测的（&lt;strong>我们的可测是指某个集合可测&lt;/strong>）。&lt;/p>
+&lt;p>我们记&lt;span class="math">\(\mathcal{M}\)&lt;/span>为所有&lt;span class="math">\(\mu^\ast\)&lt;/span>可测的集合的族，那么：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\mathcal{M}\)&lt;/span>是一个&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/li>
+&lt;li>记&lt;span class="math">\(\mu\)&lt;/span>是&lt;span class="math">\(\mu^\ast\)&lt;/span>在&lt;span class="math">\(\mathcal{M}\)&lt;/span>上的限制，即&lt;span class="math">\(\mu=\mu^\ast|_{\mathcal{M}}\)&lt;/span>，那么&lt;span class="math">\(\mu\)&lt;/span>是一个完备的测度。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>定理二（Caratheodory's theorem):如上两条性质成立。即外测度在其可测集上是一个完备的测度。&lt;/p>
+&lt;p>Proof：&lt;/p>
+&lt;p>&lt;strong>首先证明&lt;span class="math">\(\mathcal{M}\)&lt;/span>是一个&lt;span class="math">\(\sigma\)&lt;/span>代数&lt;/strong>，即证明&lt;span class="math">\(\mathcal{M}\)&lt;/span>满足对补运算和可数并运算的封闭性。&lt;/p>
+&lt;p>（补运算封闭性）由等式&lt;span class="math">\(\mu^\ast(E)=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)\)&lt;/span>对&lt;span class="math">\(A,A^c\)&lt;/span>的对称性知&lt;span class="math">\(A ∈ \mathcal{M}\Leftrightarrow A^c ∈ \mathcal{M}\)&lt;/span>。&lt;/p>
+&lt;p>（可数并封闭性）先证明有限并的封闭性。设&lt;span class="math">\(A,B ∈ \mathcal{M}\)&lt;/span>，且注意到 &lt;span class="math">\[A\cup B = (A\cap B)\cup(A\cap B^c)\cup(A^c \cap B)\]&lt;/span> 所以&lt;span class="math">\(\forall E\subset X\)&lt;/span> &lt;span class="math">\[\begin{aligned}
+&amp;amp;\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\\
+&amp;amp;=\mu^\ast(E\cap((A\cap B)\cup(A\cap B^c)\cup(A^c \cap B)))+\mu^\ast(E\cap(A\cup B)^c)\\
+&amp;amp;≤\mu^\ast(E\cap A\cap B)+\mu^\ast(E\cap A\cap B^c)+\mu^\ast(E\cap A^c\cap B)+\mu^\ast(E\cap(A\cup B)^c)\\
+&amp;amp;(外测度定义条件3)\\
+&amp;amp;=\mu^\ast(E\cap A)+\mu^\ast(E\cap A^c)(\mu^\ast可测定义)\\
+&amp;amp;=\mu^\ast(E)(\mu^\ast可测定义)\\
+&amp;amp;即\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)≤\mu^\ast(E)
+\end{aligned}\]&lt;/span> 而由外测度定义3可知： &lt;span class="math">\[\mu^\ast(E)≤\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\]&lt;/span> 所以&lt;span class="math">\(\mu^\ast(E)=\mu^\ast(E\cap(A\cup B))+\mu^\ast(E\cap(A\cup B)^c)\)&lt;/span>&lt;/p>
+&lt;p>所以&lt;span class="math">\(A\cup B ∈ \mathcal{M}\)&lt;/span>。然后由&lt;strong>数学归纳法&lt;/strong>可以得到&lt;strong>有限并&lt;/strong>的封闭性。&lt;/p>
+&lt;p>再证明可数并的封闭性。令&lt;span class="math">\(F_N=\bigcup\limits_{n=1}^N A_n，F=\bigcup\limits_{n=1}^∞ A_n\)&lt;/span>，因为&lt;span class="math">\(F_N\subset F\Rightarrow F_N^c \supset F^c\)&lt;/span>，所以根据&lt;span class="math">\(\mu^\ast\)&lt;/span>可测条件，对&lt;span class="math">\(\forall E \subset X，\forall N&amp;gt;0\)&lt;/span>有 &lt;span class="math">\[\mu^\ast(E)=\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F_N^c)\\
+≥\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F^c)\]&lt;/span> 对&lt;span class="math">\(N\)&lt;/span>取极限则有 &lt;span class="math">\[\mu^\ast(E)≥\lim_{N→∞}\mu^\ast(E\cap F_N)+\mu^\ast(E\cap F^c)\\
+=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\]&lt;/span> 而由外测度定义3可知， &lt;span class="math">\[\mu^\ast(E)=\mu^\ast((E\cap F)\cup (E\cap F^c))≤\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\]&lt;/span> 综上，&lt;span class="math">\(\mu^\ast(E)=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\)&lt;/span>。满足可列可加性。&lt;/p>
+&lt;p>&lt;span class="math">\(\mathcal M\)&lt;/span>满足互补集封闭，可列可加性，所以是一个&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/p>
+&lt;p>&lt;strong>接着证明&lt;span class="math">\(\mu\)&lt;/span>是一个完备的测度&lt;/strong>。 先说明&lt;span class="math">\(\mu\)&lt;/span>是一个测度。&lt;/p>
+&lt;p>（A）&lt;span class="math">\(\mu(\emptyset)=0\)&lt;/span>，显然外测度的定义。&lt;/p>
+&lt;p>（B）先证明有限可加性。设&lt;span class="math">\(A,B ∈ \mathcal{M}，A\cap B = \emptyset\)&lt;/span>，因为&lt;span class="math">\(\mu=\mu^\ast|_{\mathcal{M}}\)&lt;/span>，则依据&lt;span class="math">\(\mu^\ast\)&lt;/span>可测条件： &lt;span class="math">\[\mu(A\cup B)=\mu((A\cup B)\cap A)+\mu((A\cup B)\cap A^c)\\
+=\mu(A)+\mu(B)\]&lt;/span> 则再根据归纳法可得有限可加性。&lt;/p>
+&lt;p>再证明对于可数可加加性。设&lt;span class="math">\(\{A_n\}_{n=1}^∞ ∈ \mathcal{M}\)&lt;/span>，且两两不相交。令&lt;span class="math">\(F_N=\bigcup\limits_{n=1}^N A_n，F=\bigcup\limits_{n=1}^∞ A_n\)&lt;/span>，有： &lt;span class="math">\[\begin{aligned}
+\mu(F)&amp;amp;=\mu(F\cap F_n)+\mu(F\cap F_n^c)(\mu^\ast可测条件)\\
+&amp;amp;=\mu(\bigcup\limits_{n=1}^N A_n)+\mu(\bigcup\limits_{n=N+1}^∞ A_n)\\
+&amp;amp;=\sum_{n=1}^N\mu(A_n)+\mu(\bigcup\limits_{n=N+1}^∞ A_n)（有限可加性）\\
+&amp;amp;≥\sum_{n=1}^N\mu(A_n)（非负性）
+\end{aligned}\]&lt;/span> 当对&lt;span class="math">\(N\)&lt;/span>取极限时，&lt;span class="math">\(\mu(F)=\mu(\bigcup\limits_{n=1}^∞ A_n)≥\lim\limits_{N→∞}\sum\limits_{n=1}^N\mu(A_n)=\sum\limits_{n=1}^∞\mu(A_n)\)&lt;/span>。&lt;/p>
+&lt;p>又因为根据外测度定义3可知： &lt;span class="math">\[\mu(\bigcup_{n=1}^∞ A_n)≤\sum_{n=1}^∞\mu(A_n)\]&lt;/span> 所以&lt;span class="math">\(\mu(\bigcup\limits_{n=1}^∞ A_n)=\sum\limits_{n=1}^∞\mu(A_n)\)&lt;/span>。&lt;/p>
+&lt;p>因此&lt;span class="math">\(\mu=\mu^\ast|_{\mathcal{M}}\)&lt;/span>满足测度定义。&lt;/p>
+&lt;p>（c）最后证明完备性。设&lt;span class="math">\(A ∈ \mathcal{M}，\mu(A)=0\)&lt;/span>，从而对&lt;span class="math">\(\forall F \subset A，需要证明0≤\mu^\ast(F)≤\mu^\ast(A)=\mu(A)=0\)&lt;/span>，即&lt;span class="math">\(\mu^\ast(F)=0\)&lt;/span>。&lt;/p>
+&lt;p>根据外测度定义3：对于&lt;span class="math">\(\forall E \subset X，\mu^\ast(E)≤\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\)&lt;/span>。因为&lt;span class="math">\(F \subset A\)&lt;/span>，所以根据外测度单调性&lt;span class="math">\(0≤\mu^\ast(E\cap F)≤\mu^\ast(E \cap A)≤\mu^\ast(A)=0\)&lt;/span>。因此&lt;span class="math">\(\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)=\mu^\ast(E\cap F^c)≤\mu^\ast(E)\)&lt;/span>。&lt;/p>
+&lt;p>综上所述：&lt;span class="math">\(\mu^\ast(E)=\mu^\ast(E\cap F)+\mu^\ast(E\cap F^c)\)&lt;/span>。&lt;span class="math">\(A\)&lt;/span>的子集&lt;span class="math">\(F\)&lt;/span>可测。根据外测度单调性可知，&lt;span class="math">\(0≤\mu^\ast(F)≤\mu^\ast(A)=0\)&lt;/span>。&lt;/p>
+&lt;p>所以0测度集的任意子集也可测，即A是完备的。&lt;/p>
+&lt;/blockquote>
+&lt;p>因此，我们得到一个重要结论，如果把外测度限制再某个&lt;span class="math">\(\sigma\)&lt;/span>代数上，那么可以得到一个完备的测度。&lt;/p>
+&lt;h2 id="caratheodorys定理的应用">Caratheodory's定理的应用&lt;/h2>
+&lt;h3 id="准测度外侧度测度">准测度→外侧度→测度&lt;/h3>
+&lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/106119812">https://zhuanlan.zhihu.com/p/106119812&lt;/a>&lt;/p></description></item><item><title>测度论3之测度的构造</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA3%E4%B9%8B%E6%B5%8B%E5%BA%A6%E7%9A%84%E6%9E%84%E9%80%A0/</link><pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA3%E4%B9%8B%E6%B5%8B%E5%BA%A6%E7%9A%84%E6%9E%84%E9%80%A0/</guid><description>
+&lt;h2 id="测度的构造">测度的构造&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#外测度测度的基础定义">外测度——测度的基础定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#为什么建立外测度">为什么建立外测度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#外测度定义">外测度定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#可测与不可测">可测与不可测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这一章中，我们给出测度的构造，这是一个比较复杂的过程。&lt;/p>
+&lt;p>第1节会介绍一下外测度，第2节会引入最重要的一个测度：一维的Lebesgue测度。第3节则是介绍更多Lebesgue测度相关的结论跟例子。当然，我们会发现Lebesgue测度无法测量实数的所有子集，第4节中我们会给出不可测集。&lt;/p>
+&lt;p>从外测度中构造测度的方法有很多的用途，Lebesgue测度就是它的一个应用。在第5节，我们会讨论Caratheodory扩张定理，这是一个构造一般的测度很有力的工具。而在第6节我们利用零测集再进行一次扩张，即完备化。&lt;/p>
+&lt;p>让我们来简单想一下如何在实数集上构造Lebesgue测度。首先考虑实数轴上开区间的测度&lt;strong>m&lt;/strong>，直觉告诉我们，它就因该是这个区间的长度。由Lindelof 引理在实数集上的应用，&lt;strong>任意一个实数的开子集都能够表示成可数个互不相交开区间的并&lt;/strong>。那么对于开集&lt;span class="math">\(G=\bigcup\limits_{i=1}^\infty(a_i,b_i)\)&lt;/span>，&lt;span class="math">\((a_i,b_i)_{i\in \mathbb{N}}\)&lt;/span>为互不相交的开区间，那么自然的，我们要求这个测度满足： &lt;span class="math">\[m(G)=\sum\limits_{i=1}^\infty(b_i-a_i)\]&lt;/span> 接下来对更一般的子集&lt;span class="math">\(E\subset\mathbb{R}\)&lt;/span>，我们可能可以定义 &lt;span class="math">\[m(E)=\inf\{m(G):G为开集,E\subset G\}。\]&lt;/span> 这边已经开始有点外测度的意思。当然，这是一个很丰满的想法，只是现实有点骨感；因为在第4节，我们会证明测度&lt;strong>m&lt;/strong>无法测量实数的所有子集。于是我们只能考虑把测度建立在一个比实数幂集要小的&lt;span class="math">\(\sigma\)&lt;/span>-代数上——这个就是构造Lebesgue测度的基本想法。实际的构造可能跟这里的想法略有偏差，比如技术上左开右闭的区间会比开区间好处理很多，所以我们会选择&lt;span class="math">\((a，b]\)&lt;/span>的区间。&lt;/p>
+&lt;h2 id="外测度测度的基础定义">外测度——测度的基础定义&lt;/h2>
+&lt;h3 id="为什么建立外测度">为什么建立外测度&lt;/h3>
+&lt;p>&lt;strong>从内部划分小图形以求图形面积的方式&lt;/strong>是一种比较直观的方式，比如多边形面积往往用内部所含三角形的面积来度量，又如Riemann积分中曲边梯形面积的计算也是从其内部划分小矩形出发再逐步计算的，但是这种方法对&lt;strong>只具有内点的点集&lt;/strong>才有效，对于推广到&lt;strong>一般的点集&lt;/strong>上不是很方便。&lt;/p>
+&lt;p>为了对一般点集也能度量出某种“长度、面积或体积”，放弃从点集内部进行扩张的方法，而是采&lt;strong>用从外部挤压的方式&lt;/strong>，也就是用矩形去覆盖点集，然后计算这些矩形的面积总和。&lt;/p>
+&lt;p>一般来说，覆盖的点集要比原来的点集的“面积大”，因此这里取所有这种覆盖所求出矩形面积总和的&lt;strong>下确界&lt;/strong>来代表它的某种度量。&lt;/p>
+&lt;p>另外还有一个问题：每次覆盖所用的矩形可以有多少个？如果只允许&lt;strong>有限个&lt;/strong>，则由此所建立的度量就是所谓的Jordan容度，这种度量有严重缺陷，Lebesgue将其改造为允许有&lt;strong>可数个&lt;/strong>矩形参与覆盖。&lt;/p>
+&lt;h3 id="外测度定义">外测度定义&lt;/h3>
+&lt;p>回顾下测度:测度定义&lt;strong>在&lt;span class="math">\(\sigma\)&lt;/span>域&lt;/strong>上，并且满足可列可加性（&lt;span class="math">\(\Rightarrow\)&lt;/span>有限可加性、可数次可加性、有限次可加性、次可加性、单调性）。&lt;/p>
+&lt;p>而外侧度定义在&lt;span class="math">\(X\)&lt;/span>的&lt;strong>幂集&lt;/strong>上，并且只需要满足&lt;strong>次可列可加性&lt;/strong>和单调性。&lt;/p>
+&lt;blockquote>
+&lt;p>外侧度：令&lt;span class="math">\(X\)&lt;/span>为一个集合，外测度被定义为一个映射&lt;span class="math">\(\mu^\ast:\mathcal{P}(X)→[0,+∞]\)&lt;/span>，满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\mu^\ast(\emptyset)=0\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A \subset B\)&lt;/span>，那么&lt;span class="math">\(\mu^\ast(A)&amp;lt;\mu^\ast(B)\)&lt;/span>(单调性)&lt;/li>
+&lt;li>&lt;span class="math">\(\forall A_1,A_2,\dots\subset X，\mu^\ast(\bigcup\limits_{i=1}^∞A^i)≤\sum\limits_{i=1}^∞\mu^\ast(A^i)\)&lt;/span>(次可列可加性)&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>注：外测度定义在&lt;span class="math">\(X\)&lt;/span>是所有子集上，也就是说&lt;span class="math">\(X\)&lt;/span>的任意子集都可以谈论外测度。这与测度不同，测度定义在&lt;span class="math">\(\sigma\)&lt;/span>代数上，即只有一部分&lt;span class="math">\(X\)&lt;/span>子集可以谈论测度。&lt;/p>
+&lt;p>“外”测度的外字是指从外侧向内逼近测度，实际上外侧度可以比实际测量值大一点点。在这个思想下，我们可以通过覆盖的概念来构造外侧度。&lt;/p>
+&lt;blockquote>
+&lt;p>构造外测度：令&lt;span class="math">\(X\)&lt;/span>为一集合，&lt;span class="math">\(\mathcal C\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的包含空集的子集族，&lt;span class="math">\(l\)&lt;/span>是&lt;span class="math">\(\mathcal C\)&lt;/span>上的非负扩展实数值(&lt;span class="math">\(R^+\cup\{0,+∞\}\)&lt;/span>)函数，且&lt;span class="math">\(l\)&lt;/span>在空集处取零。那么定义 &lt;span class="math">\[\mu^\ast(E)=\inf {\biggl \{}\sum_{i=0}^∞ l(A_{i})\,{\bigg |}E\subseteq \bigcup_{i=0}^∞ A_{i},\forall i∈\mathbb{N},A_i ∈ \mathcal{C}{\biggr\}} \tag{1}\]&lt;/span> 则&lt;span class="math">\(\mu^\ast\)&lt;/span>是一个外测度。&lt;/p>
+&lt;/blockquote>
+&lt;p>这里未要求&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的子集，外测度被定义为&lt;span class="math">\(\mathcal C\)&lt;/span>中元素构成的覆盖的最小值。覆盖必是大于等于原集合的，所以体现了从外部包围的“外”的特点。&lt;/p>
+&lt;p>该构造满足外测度的定义的三条要求。&lt;a href="https://zhuanlan.zhihu.com/p/61550686">证明链接&lt;/a>&lt;/p>
+&lt;h3 id="可测与不可测">可测与不可测&lt;/h3>
+&lt;p>注意到外测度只满足&lt;strong>次可加性&lt;/strong>，遗憾的是，可以证明Lebesgue外测度并不满足可加性。外测度居然不是我们所希望的&lt;span class="math">\(\mathbb{R^n}\)&lt;/span>中点集的测度，怎么办？&lt;/p>
+&lt;p>补救的方法是把&lt;strong>使外测度不具有可加性的集合排除在外，并称其为不可测集&lt;/strong>，那么剩下的称为可测集，于是在可测集族上，外测度将真正成为长度、面积或体积的推广，发挥它的作用。&lt;/p>
+&lt;p>万幸的是我们在&lt;strong>实际生活中能遇到的一切集合都是Lebesgue可测集&lt;/strong>。&lt;/p>
+&lt;p>可以借由外测度来定义&lt;span class="math">\(X\)&lt;/span>中的可测集合： &amp;gt;如果子集合 &lt;span class="math">\(E\subseteq X\)&lt;/span>是&lt;span class="math">\(\mu^\ast\)&lt;/span>-可测的，当且仅当对&lt;span class="math">\(X\)&lt;/span>的任意子集合&lt;span class="math">\(A\)&lt;/span>有： &amp;gt;&lt;span class="math">\[\mu^\ast(A)=\mu^\ast(A\cap E)+\mu^\ast(A\cap E^{c}) \tag{2}\]&lt;/span>&lt;/p>
+&lt;p>注：理解上面定义的动机，如果一个外测度要成为测度，那么它需要从次可加变成可加，上面的定义正是涉及到可加的性质。注意到&lt;span class="math">\((A\cap E)\cap(A\cap E^c)=\emptyset，(A\cap E)\cup(A\cap E^c)=A\)&lt;/span>，所以集合&lt;span class="math">\(E\)&lt;/span>就是对集合&lt;span class="math">\(A\)&lt;/span>的一个“分解“，&lt;span class="math">\(\mu^\ast\)&lt;/span>的可加性不会对任意分解成立，但是会对&lt;span class="math">\(E\)&lt;/span>的分解成立，因为&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(\sigma\)&lt;/span>-可测的。&lt;/p>
+&lt;p>我们记所有的可测集类的基数为&lt;span class="math">\(\mathcal{u}\)&lt;/span>，实际上&lt;span class="math">\(\mathcal{u}=2^{\aleph_1}\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>Caratheodory条件：令&lt;span class="math">\(\mu^\ast\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>上的一个外测度，那么由所有&lt;span class="math">\(\mu^\ast\)&lt;/span>-可测的集合构成的集合系&lt;span class="math">\(\mathcal A\)&lt;/span>是一个&lt;span class="math">\(\sigma\)&lt;/span>-代数。&lt;span class="math">\(\mu=\mu^\ast|_{\mathcal A}\)&lt;/span>是一个测度，且&lt;span class="math">\(\mathcal A\)&lt;/span>包含了所有的零测集。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/47944282">从Lebesgue外测度到Lebesgue测度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/61550686">外测度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/35850693">测度 &amp;amp;外测度 &amp;amp;测度的完备化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zh.wikipedia.org/zh-hans/%E5%A4%96%E6%B5%8B%E5%BA%A6">维基外测度&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>测度论0之集合重新认识</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA0%E4%B9%8B%E9%9B%86%E5%90%88%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA0%E4%B9%8B%E9%9B%86%E5%90%88%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86/</guid><description>
+&lt;h2 id="重新认识集合">重新认识集合&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#先导概念">先导概念&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#点">点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#导集内核闭包">导集内核闭包&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#闭集">闭集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#闭集的运算">闭集的运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#开集">开集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#开集的运算">开集的运算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#完备集">完备集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#heine-borel有限覆盖定理">Heine-Borel有限覆盖定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#直线上开集闭集与完备集的构造">直线上开集、闭集与完备集的构造&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#非空有界开集开集的构造是基础">非空有界开集（开集的构造是基础）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#非空有界闭集">非空有界闭集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#完备集构造">完备集构造&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从测度论的角度定义连续函数">从测度论的角度定义连续函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#函数在孤立点处连续">函数在孤立点处连续&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#borel集">Borel集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#f_sigma与g_delta集">&lt;span class="math">\(F_{\sigma}\)&lt;/span>与&lt;span class="math">\(G_{\delta}\)&lt;/span>集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#borel集定义">Borel集定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#cantor集">Cantor集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#三分康托集">三分康托集&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#集列的极限">集列的极限&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="先导概念">先导概念&lt;/h2>
+&lt;h3 id="点">点&lt;/h3>
+&lt;blockquote>
+&lt;p>聚点（极限点）：设X是数集，实数&lt;span class="math">\(a\)&lt;/span>满足，&lt;span class="math">\(\forall \delta&amp;gt;0\)&lt;/span>，满足去心邻域&lt;span class="math">\(U^\circ(a,\delta)\cap X \neq \emptyset\)&lt;/span>，则称&lt;span class="math">\(a\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>的聚点（极限点）。&lt;/p>
+&lt;p>等价描述为：如果点&lt;span class="math">\(a\)&lt;/span>的任何邻域 &lt;span class="math">\[U^\circ(a,\delta)=\{x|0&amp;lt;|x-a|&amp;lt;\delta\}\]&lt;/span> 都含有X中无穷多个点，则称&lt;span class="math">\(a\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>的聚点（极限点）。&lt;/p>
+&lt;/blockquote>
+&lt;p>所有的内点都是聚点，聚点不需要在集合中，边界点也不需要在集合中。内点和孤立点都必须在集合中。&lt;/p>
+&lt;blockquote>
+&lt;p>孤立点：在数集&lt;span class="math">\(X\)&lt;/span>中，点&lt;span class="math">\(x\)&lt;/span>称为拓扑空间子集&lt;span class="math">\(S\)&lt;/span>的孤立点，如果 &lt;span class="math">\(x∈S\)&lt;/span>，且存在&lt;span class="math">\(x\)&lt;/span>的一个邻域 ，其中不含&lt;span class="math">\(S\)&lt;/span>中除了&lt;span class="math">\(x\)&lt;/span>的其他点。&lt;/p>
+&lt;/blockquote>
+&lt;p>在数集中所有的孤立点都是边界点，一般拓扑空间不一定时是。&lt;/p>
+&lt;img src="../../images/内点聚点孤立点边界点.png" alt="内点聚点孤立点边界点" />
+&lt;center>
+各种点之间关系
+&lt;/center>
+&lt;h3 id="导集内核闭包">导集内核闭包&lt;/h3>
+&lt;blockquote>
+&lt;p>内核：设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，由&lt;span class="math">\(E\)&lt;/span>的所有内点组成的集合称为&lt;span class="math">\(E\)&lt;/span>的内核，记为&lt;span class="math">\(E^\circ\)&lt;/span>。&lt;/p>
+&lt;p>导集：设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，由&lt;span class="math">\(E\)&lt;/span>的所有聚点组成的集合称为&lt;span class="math">\(E\)&lt;/span>的导集，记为&lt;span class="math">\(E&amp;#39;\)&lt;/span>。&lt;/p>
+&lt;p>闭包：设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，称&lt;span class="math">\(E\cup E&amp;#39;\)&lt;/span>为&lt;span class="math">\(E\)&lt;/span>的闭包，记为&lt;span class="math">\(\overline{E}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>闭包点的定义非常接近聚点的定义。这两个定义之间的差别非常微小但很重要——在聚点的定义中，点&lt;span class="math">\(x\)&lt;/span>的邻域必须包含“不是&lt;span class="math">\(x\)&lt;/span>自身的”这个集合的点。因此，所有聚点都是闭包点，但不是所有的闭包点都是聚点。&lt;strong>不是聚点的闭包点就是孤点&lt;/strong>。也就是说，点&lt;span class="math">\(x\)&lt;/span>是孤点，若它是&lt;span class="math">\(S\)&lt;/span>的元素，且存在&lt;span class="math">\(x\)&lt;/span>的邻域，该邻域中除了&lt;span class="math">\(x\)&lt;/span>没有其他的点属于&lt;span class="math">\(S\)&lt;/span>。&lt;/p>
+&lt;p>对给定的集合&lt;span class="math">\(S\)&lt;/span>和点&lt;span class="math">\(x\)&lt;/span>，&lt;span class="math">\(x\)&lt;/span>是&lt;span class="math">\(S\)&lt;/span>的闭包点，当且仅当&lt;span class="math">\(x\)&lt;/span>属于&lt;span class="math">\(S\)&lt;/span>，或&lt;span class="math">\(x\)&lt;/span>是&lt;span class="math">\(S\)&lt;/span>的聚点，即&lt;span class="math">\(\overline{E}= E\cup E&amp;#39;\)&lt;/span>。&lt;/p>
+&lt;p>关于导集、内核、闭包有以下定理： &amp;gt;如果&lt;span class="math">\(A \subset B\)&lt;/span>，则&lt;span class="math">\(A^\circ \subset B^\circ，A&amp;#39;\subset B&amp;#39;，\overline{A}\subset\overline{B}\)&lt;/span>。即导集、内核、闭包的运算具有单调性。&lt;/p>
+&lt;h2 id="闭集">闭集&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，如果导集&lt;span class="math">\(E&amp;#39;\subset E\)&lt;/span>，则&lt;span class="math">\(E\)&lt;/span>为闭集。所有的极限点都在&lt;span class="math">\(E\)&lt;/span>中可取。&lt;/p>
+&lt;/blockquote>
+&lt;p>数集中只有&lt;span class="math">\(\emptyset 与 R^n\)&lt;/span>既是开集也是闭集；有理数集、半开半闭区间既不是开集也不是闭集。&lt;/p>
+&lt;blockquote>
+&lt;p>定理1.设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中点集，则&lt;span class="math">\(E\)&lt;/span>的导集&lt;span class="math">\(E&amp;#39;\)&lt;/span>与闭包&lt;span class="math">\(\overline{E}\)&lt;/span>都是闭集。&lt;/p>
+&lt;p>定理2.闭集的补集是开集。开集的补集是闭集。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="闭集的运算">闭集的运算&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>任意多个&lt;/strong>闭集的交集是闭集。 &lt;span class="math">\[ClosedSet_n为闭集，\bigcap_{n=1}^∞ ClosedSet_n为闭集\]&lt;/span> &lt;strong>有限多个&lt;/strong>闭集的并集是闭集。 &lt;span class="math">\[ClosedSet_n为闭集，\bigcup_{n=1}^N ClosedSet_n为闭集\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>反例：无限多个闭集的并集是开集。&lt;/p>
+&lt;p>&lt;strong>例&lt;/strong>：考虑一列闭区间&lt;span class="math">\(F_n=[-\frac{n}{n+1},\frac{n}{n+1}]，n=1,2,\dots\)&lt;/span>。每个&lt;span class="math">\(F_n\)&lt;/span>是闭集，但是&lt;span class="math">\(\bigcup_{n=1}^∞ F_n= (-1,1)\)&lt;/span>为开集。&lt;/p>
+&lt;p>&lt;strong>例&lt;/strong>: 我们认为每一个有理数点是闭集，那么所有有理数点组成的有理数集既不是开集也不是闭集，而是&lt;span class="math">\(F_{\sigma}\)&lt;/span>集。&lt;/p>
+&lt;h2 id="开集">开集&lt;/h2>
+&lt;blockquote>
+&lt;p>如果&lt;span class="math">\(E\)&lt;/span>中的每一个点都是内点，则&lt;span class="math">\(E\)&lt;/span>是开集，即&lt;span class="math">\(E\Leftrightarrow E^\circ\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>数集中只有&lt;span class="math">\(\emptyset 与 R^n\)&lt;/span>既是开集也是闭集；有理数集、半开半闭区间既不是开集也不是闭集。&lt;/p>
+&lt;h3 id="开集的运算">开集的运算&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>任意多个&lt;/strong>开集的并集是开集。 &lt;span class="math">\[OpenSet_n为开集，\bigcup_{n=1}^∞ OpenSet_n为开集\]&lt;/span> &lt;strong>有限多个&lt;/strong>开集的交集是开集。 &lt;span class="math">\[OpenSet_n为开集，\bigcap_{n=1}^N OpenSet_n为开集\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>反例：无限多个开集的交集是闭集。&lt;/p>
+&lt;p>&lt;strong>例&lt;/strong>：考虑一列开区间&lt;span class="math">\(G_n=(-\frac{1}{n},\frac{1}{n})，n=1,2,\dots\)&lt;/span>。每个&lt;span class="math">\(G_n\)&lt;/span>是开集，但是&lt;span class="math">\(\bigcap_{n=1}^∞ G_n= \{0\}\)&lt;/span>为闭集。&lt;/p>
+&lt;h2 id="完备集">完备集&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(E\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>中的点集，如果导集&lt;span class="math">\(E\subset E&amp;#39;\)&lt;/span>，则&lt;span class="math">\(E\)&lt;/span>为自密集（和闭集定义正好相反）。如果&lt;span class="math">\(E=E&amp;#39;\)&lt;/span>，则&lt;span class="math">\(E\)&lt;/span>为完备集（自密闭集是完备集）。&lt;/p>
+&lt;/blockquote>
+&lt;p>解释：孤立点和聚点的定义是对立的，也就是说自密集不含有孤立点。自密闭集是完备集，因此完备集就是&lt;strong>不含孤立点的闭集&lt;/strong>。但是在一个闭集中，去点所有的孤立点，也不一定时完备集。因为有时候去点所有孤立点会诞生新的孤立点，如下例。&lt;/p>
+&lt;p>&lt;strong>例&lt;/strong>：设&lt;span class="math">\(E=\{0,1,1/2,1/3,\dots\}\)&lt;/span>，显然这是个闭集。其聚点只有一个是&lt;span class="math">\(\{0\}\)&lt;/span>，其他都是孤立点。但是去掉所有孤立点后，这个集合只剩下点&lt;span class="math">\(\{0\}\)&lt;/span>，并不是完备集。&lt;/p>
+&lt;h3 id="heine-borel有限覆盖定理">Heine-Borel有限覆盖定理&lt;/h3>
+&lt;blockquote>
+&lt;p>推广的有限覆盖定理：Heine-Borel有限覆盖定理&lt;/p>
+&lt;p>设&lt;span class="math">\(F\)&lt;/span>是&lt;strong>有界闭集&lt;/strong>&lt;span class="math">\(\Leftrightarrow\)&lt;/span>&lt;span class="math">\(\{G_\lambda\}_{\lambda ∈ I}\)&lt;/span>是&lt;span class="math">\(F\)&lt;/span>的任一开覆盖，则&lt;span class="math">\(\{G_\lambda\}_{\lambda ∈ I}\)&lt;/span>中必存在有限多个&lt;strong>开集&lt;/strong>&lt;span class="math">\(G_1,G_2,\dots,G_m\)&lt;/span>同样覆盖了&lt;span class="math">\(F\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>从开区间闭区间变成了开集闭集。&lt;/p>
+&lt;blockquote>
+&lt;p>进一步推广（不需要有界闭集条件）：&lt;span class="math">\(F\)&lt;/span>是&lt;span class="math">\(R^n\)&lt;/span>任一点集，&lt;span class="math">\(\{G_\lambda\}_{\lambda ∈ I}\)&lt;/span>是&lt;span class="math">\(F\)&lt;/span>的任一开覆盖，则&lt;span class="math">\(\{G_\lambda\}_{\lambda ∈ I}\)&lt;/span>中必存在&lt;strong>至多可列&lt;/strong>个&lt;strong>开集&lt;/strong>&lt;span class="math">\(G_1,G_2,\dots,G_m\)&lt;/span>同样覆盖了&lt;span class="math">\(F\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>去掉有界闭集限制，结论从有限个开集变成可列个开集。&lt;/p>
+&lt;h2 id="直线上开集闭集与完备集的构造">直线上开集、闭集与完备集的构造&lt;/h2>
+&lt;h3 id="非空有界开集开集的构造是基础">非空有界开集（开集的构造是基础）&lt;/h3>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(G\)&lt;/span>是直线上&lt;span class="math">\(R^1\)&lt;/span>上的开集，如果区间&lt;span class="math">\((\alpha,\beta) \subset G\)&lt;/span>，而且端点&lt;span class="math">\(\alpha,\beta\)&lt;/span>不属于&lt;span class="math">\(G\)&lt;/span>，那么称&lt;span class="math">\((\alpha,\beta)\)&lt;/span>为&lt;span class="math">\(G\)&lt;/span>的一个&lt;strong>构成区间&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>例如：开集&lt;span class="math">\((0,1)\cup (2,3)\)&lt;/span>的构成区间是&lt;span class="math">\((0,1)\)&lt;/span>和&lt;span class="math">\((2,3)\)&lt;/span> 。&lt;/p>
+&lt;blockquote>
+&lt;p>开区间构造定理：&lt;span class="math">\(R^1\)&lt;/span>上任何&lt;strong>非空有界&lt;/strong>开集都可表示成&lt;strong>有限个或可列个&lt;/strong>互不相交的构成区间的并。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="非空有界闭集">非空有界闭集&lt;/h3>
+&lt;blockquote>
+&lt;p>定理：设&lt;span class="math">\(F\)&lt;/span>是非空有界闭集，则&lt;span class="math">\(F\)&lt;/span>中必有一最大点和一最小点。&lt;/p>
+&lt;/blockquote>
+&lt;p>证明思路：有界→有上确界→上确界b邻域→b在导集中→导集&lt;span class="math">\(\subset\)&lt;/span>闭集。&lt;/p>
+&lt;blockquote>
+&lt;p>闭区间构造定理：设&lt;span class="math">\(F\)&lt;/span>是&lt;span class="math">\(R^1\)&lt;/span>上的任一非空有界闭集，则&lt;span class="math">\(F\)&lt;/span>是由一闭区间中去掉有限或者可列个开区间而成。这些开区间的端点还是属于&lt;span class="math">\(F\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="完备集构造">完备集构造&lt;/h3>
+&lt;blockquote>
+&lt;p>直线&lt;span class="math">\(R^1\)&lt;/span>上的&lt;span class="math">\(F\)&lt;/span>是任一非空有界完备集，则&lt;span class="math">\(F\)&lt;/span>是由一闭区间中去点有限或可列个&lt;strong>彼此没有公共端点&lt;/strong>且&lt;strong>与原来闭区间也没有公共端点&lt;/strong>的开区间而组成，这些开区间的端点还是属于&lt;span class="math">\(F\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="从测度论的角度定义连续函数">从测度论的角度定义连续函数&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(f(x)\)&lt;/span>是定义在&lt;span class="math">\(E\subset R^n\)&lt;/span>上的实值函数，&lt;span class="math">\(x_0∈E\)&lt;/span>。如果对任意的&lt;span class="math">\(\varepsilon&amp;gt;0\)&lt;/span>，存在&lt;span class="math">\(\delta&amp;gt;0\)&lt;/span>，使得当&lt;span class="math">\(x ∈ E\cap B(x_0,\delta)\)&lt;/span>时有： &lt;span class="math">\[|f(x)-f(x_0)|&amp;lt;\varepsilon，\]&lt;/span> 则称&lt;span class="math">\(f(x)在x_0\)&lt;/span>点处&lt;strong>连续&lt;/strong>。&lt;span class="math">\(x_0\)&lt;/span>是&lt;span class="math">\(f\)&lt;/span>的一个&lt;strong>连续点&lt;/strong>。（在&lt;span class="math">\(x \notin E&amp;#39;\)&lt;/span>的情形，即&lt;span class="math">\(x_0\)&lt;/span>是&lt;span class="math">\(E\)&lt;/span>的孤立点的时候，&lt;span class="math">\(f(x)\)&lt;/span>自然在&lt;span class="math">\(x=x_0\)&lt;/span>处连续）。若&lt;span class="math">\(E\)&lt;/span>中任一点皆为&lt;span class="math">\(f\)&lt;/span>的连续点，则称&lt;span class="math">\(f(x)\)&lt;/span>&lt;strong>在E上连续&lt;/strong>。我们记E上的连续函数之全体为&lt;span class="math">\(C(E)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="函数在孤立点处连续">函数在孤立点处连续&lt;/h3>
+&lt;p>我们先来看孤立点的定义：&lt;/p>
+&lt;p>集合&lt;span class="math">\(S\)&lt;/span>的一个点&lt;span class="math">\(x\)&lt;/span>，如果存在&lt;span class="math">\(x\)&lt;/span>的一个邻域&lt;span class="math">\(U(x,δ)\)&lt;/span>，除了点&lt;span class="math">\(x\)&lt;/span>以外，&lt;span class="math">\(U(x,δ)\)&lt;/span>不包含&lt;span class="math">\(S\)&lt;/span>中的其他点，则称点&lt;span class="math">\(x\)&lt;/span>为孤点或孤立点。&lt;/p>
+&lt;p>从图像上来看，函数在孤立点处连续这个结论很难理解。&lt;/p>
+&lt;p>但是从连续函数的定义和孤立点的定义上进行分析，这个结论却很明显：&lt;/p>
+&lt;p>&lt;span class="math">\(x_0∈E\)&lt;/span>是&lt;span class="math">\(E\)&lt;/span>上的孤立点时，则存在一个&lt;span class="math">\(\delta&amp;gt;0，E\cap B(x_0,\delta)=\{x_0\}\)&lt;/span>。故任意&lt;span class="math">\(\varepsilon&amp;gt;0\)&lt;/span>，都有&lt;span class="math">\(x ∈E\cap B(x_0,\delta)\)&lt;/span>，使得&lt;span class="math">\(|f(x)-f(x_0)|=|f(x_0)-f(x_0)|=0&amp;lt;\varepsilon\)&lt;/span>.这说明函数在孤立点&lt;span class="math">\(x_0\)&lt;/span>处连续。&lt;/p>
+&lt;h2 id="borel集">Borel集&lt;/h2>
+&lt;p>闭集与开集是&lt;span class="math">\(R^n\)&lt;/span>中最基本的集合。但是在&lt;span class="math">\(R^n\)&lt;/span>中有很多点集既不是开集也不是闭集。&lt;/p>
+&lt;h3 id="f_sigma与g_delta集">&lt;span class="math">\(F_{\sigma}\)&lt;/span>与&lt;span class="math">\(G_{\delta}\)&lt;/span>集&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(F_{\sigma}\)&lt;/span>与&lt;span class="math">\(G_{\delta}\)&lt;/span>集：若&lt;span class="math">\(E\subset R^n\)&lt;/span>是&lt;strong>可数个闭集&lt;/strong>的&lt;strong>并&lt;/strong>则称&lt;span class="math">\(E\)&lt;/span>为&lt;span class="math">\(F_{\sigma}\)&lt;/span>（型）集。若&lt;span class="math">\(E\subset R^n\)&lt;/span>是&lt;strong>可数个开集&lt;/strong>的&lt;strong>交&lt;/strong>则称&lt;span class="math">\(E\)&lt;/span>为&lt;span class="math">\(G_{\delta}\)&lt;/span>（型）集。&lt;/p>
+&lt;/blockquote>
+&lt;p>由定义可知&lt;span class="math">\(F_{\sigma}\)&lt;/span>集的补集是&lt;span class="math">\(G_\delta\)&lt;/span>集，&lt;span class="math">\(G_\delta\)&lt;/span>集的补集是&lt;span class="math">\(F_{\sigma}\)&lt;/span>集。&lt;/p>
+&lt;p>例如：每一个有理数点&lt;span class="math">\(\{r_k\}\)&lt;/span>是闭集，&lt;span class="math">\(R^n\)&lt;/span>中的全体有理数为 &lt;span class="math">\[\bigcup_{k=1}^∞\{r_k\}\]&lt;/span> 为&lt;strong>可数个闭集&lt;/strong>的&lt;strong>并&lt;/strong>，即&lt;span class="math">\(F_{\sigma}\)&lt;/span>集。&lt;/p>
+&lt;h3 id="borel集定义">Borel集定义&lt;/h3>
+&lt;blockquote>
+&lt;p>由&lt;span class="math">\(R^n\)&lt;/span>中一切开集构成的开集族所生成的&lt;span class="math">\(\sigma\)&lt;/span>代数称为&lt;span class="math">\(Borel- \sigma-\)&lt;/span>代数，记为&lt;span class="math">\(\mathcal{B}\)&lt;/span>。&lt;span class="math">\(\mathcal{B}\)&lt;/span>中的元称为Borel集。&lt;/p>
+&lt;/blockquote>
+&lt;p>显然，&lt;span class="math">\(R^n\)&lt;/span>中的闭集，开集，&lt;span class="math">\(F_{\sigma}\)&lt;/span>与&lt;span class="math">\(G_{\delta}\)&lt;/span>集皆为Borel集；任一Borel集的补集也是Borel集；Borel集的并、交、上下极限集皆为Borel集。可数个&lt;span class="math">\(F_{\sigma}\)&lt;/span>集的交集（&lt;span class="math">\(F_{\sigma\delta}\)&lt;/span>）是Borel集。&lt;/p>
+&lt;p>博雷尔集是指在一个指定的拓扑空间中，可由其开集（或者等价地，可由其闭集）的可数次并运算、交运算和（或）差运算得到的一个集合。&lt;/p>
+&lt;p>我们研究的集合&lt;strong>基本都是Borel集&lt;/strong>。&lt;/p>
+&lt;h2 id="cantor集">Cantor集&lt;/h2>
+&lt;h3 id="三分康托集">三分康托集&lt;/h3>
+&lt;p>康托尔集是由不断去掉线段的中间三分之一而得出。首先从区间&lt;span class="math">\([0,1]\)&lt;/span>中去掉中间的三分之一（&lt;span class="math">\(\frac {1}{3},{\frac {2}{3}}\)&lt;/span>），留下两条线段：&lt;span class="math">\([0,{\frac {1}{3}}]\cup [{\frac {2}{3}},1]\)&lt;/span>。然后，把这两条线段的中间三分之一都去掉，留下四条线段&lt;span class="math">\([0,{\frac {1}{9}}]\cup [{\frac {2}{9}},{\frac {1}{3}}]\cup [{\frac {2}{3}},{\frac {7}{9}}]\cup [{\frac {8}{9}},1]\)&lt;/span>。把这个过程一直进行下去，其中第&lt;span class="math">\(n\)&lt;/span>个集合为：&lt;/p>
+&lt;p>&lt;span class="math">\[{\frac {C_{n-1}}{3}}\cup \left({\frac {2}{3}}+{\frac {C_{n-1}}{3}}\right).\]&lt;/span> 康托尔集就是由所有过程中没有被去掉的区间&lt;span class="math">\([0,1]\)&lt;/span>中的点组成。&lt;/p>
+&lt;p>下面的图显示了这个过程的最初六个步骤。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/Cantor_set_in_seven_iterations.png" alt="Cantor_set_in_seven_iterations" />&lt;p class="caption">Cantor_set_in_seven_iterations&lt;/p>
+&lt;/div>
+&lt;p>康托集具有以下直观的性质：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>第n次，从集合&lt;span class="math">\([0,1]\)&lt;/span>中会去掉&lt;span class="math">\(2^{n-1}\)&lt;/span>个长度为&lt;span class="math">\(\frac{1}{3^n}\)&lt;/span>的开区间，余下的每个闭区间长度是&lt;span class="math">\(\frac{1}{3^n}\)&lt;/span>，共有&lt;span class="math">\(2^n\)&lt;/span>个。&lt;/li>
+&lt;li>无论去掉开区间的过程进行多少次，康托尔集的点必属于每次去掉开区间后留下来的某个闭区间。&lt;/li>
+&lt;li>从&lt;span class="math">\([0,1]\)&lt;/span>中每次去掉开区间后，开区间的端点都属于康托尔集。&lt;/li>
+&lt;/ol>
+&lt;p>此外，康托尔集还有以下结论：&lt;/p>
+&lt;ul>
+&lt;li>Cantor集的Lebesgue测度是0&lt;/li>
+&lt;li>Cantor集是非空有界闭集&lt;/li>
+&lt;li>Cantor集是完备集&lt;/li>
+&lt;li>Cantor集是无处稠密集（疏朗集）&lt;/li>
+&lt;li>Cantor集是不可数集，基数是&lt;span class="math">\(\aleph_1\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h2 id="集列的极限">集列的极限&lt;/h2>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(A_1,A_2,\dots,A_n,\dots\)&lt;/span>是一列集合，由&lt;strong>属于上述集列中无限多个集&lt;/strong>的那种元素的全体组成的集称为这一集列的&lt;strong>上限集&lt;/strong>。记作&lt;span class="math">\(\overline{\lim\limits_{n→\infty}}A_n\)&lt;/span> &lt;span class="math">\[\overline{\lim\limits_{n→\infty}}A_n=\{x|存在无穷多个A_n，使x ∈ A_n\}.\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;hr />
+&lt;blockquote>
+&lt;p>对于集列&lt;span class="math">\(A_1,A_2,\dots,A_n,\dots\)&lt;/span>，那种&lt;strong>除了有限个集合外&lt;/strong>，属于集列中&lt;strong>其余每个集&lt;/strong>的元素全体组成的集称为&lt;strong>下限集&lt;/strong>。可以理解为不含有此元素的集合有有限个。记作&lt;span class="math">\(\mathop{\underline{\lim}}\limits_{n→\infty}A_n\)&lt;/span> &lt;span class="math">\[\mathop{\underline{\lim}}\limits_{n→\infty}A_n=\{x|存在N(x),当n&amp;gt;N(x)，x ∈ A_n\}.\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>显然： &lt;span class="math">\[\bigcap\limits_{n=1}^∞ A_n\subset\mathop{\underline{\lim}}\limits_{n→\infty}A_n\subset\overline{\lim\limits_{n→\infty}}A_n\subset\bigcup\limits_{n=1}^∞ A_n\]&lt;/span>&lt;/p>
+&lt;p>上极限，包含它的有无限个（不包含它的也可以有无限个）即可能同时存在无限个集合包含它并且无限个集合不包含它&lt;span class="math">\(∞=∞+∞\)&lt;/span>；下极限，不包含它的有有限个，必然是包含它的集合有无限个&lt;span class="math">\(∞=∞-N\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>定理：上极限&lt;span class="math">\(\overline{\lim\limits_{n→∞}}A_n=\bigcap\limits_{n=1}^∞\bigcup\limits_{m=n}^∞ A_m\)&lt;/span>&lt;/p>
+&lt;p>下极限：&lt;span class="math">\(\mathop{\underline{\lim}}\limits_{n→∞} A_n = \bigcup\limits_{n=1}^∞\bigcap\limits_{m=n}^∞ A_m\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>如果集列&lt;span class="math">\(\{A_n\}\)&lt;/span>的上下极限相等，则称集列&lt;span class="math">\(\{A_n\}\)&lt;/span>收敛，并称&lt;span class="math">\(A=\overline{\lim\limits_{n→∞}}A_n=\mathop{\underline{\lim}}\limits_{n→∞} A_n\)&lt;/span>是集列&lt;span class="math">\(\{A_n\}\)&lt;/span>的极限，记为&lt;span class="math">\(A=\lim\limits_{n→∞}A_n\)&lt;/span>。&lt;/p>
+&lt;img src="../../images/集列的上下极限.jpg" alt="集列的上下极限" />
+&lt;center>
+知乎上的一种理解
+&lt;/center>
+&lt;p>&lt;a href="https://www.zhihu.com/question/56812618">原图来源&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>定理：单调集列必收敛。如果是单调增加序列则： &lt;span class="math">\[\lim\limits_{n→∞}A_n=\bigcup\limits_{n=1}^∞ A_n\]&lt;/span> 如果是单调减少序列则： &lt;span class="math">\[\lim\limits_{n→∞}A_n=\bigcap\limits_{n=1}^∞ A_n\]&lt;/span>&lt;/p>
+&lt;/blockquote></description></item><item><title>测度论1之集合的集合</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA1%E4%B9%8B%E9%9B%86%E5%90%88%E7%9A%84%E9%9B%86%E5%90%88/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA1%E4%B9%8B%E9%9B%86%E5%90%88%E7%9A%84%E9%9B%86%E5%90%88/</guid><description>
+&lt;h2 id="测度论之集合的集合">测度论之集合的集合&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#集合的集合">集合的集合&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#来自拓扑的定义">来自拓扑的定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从sigma代数开始">从&lt;span class="math">\(\\sigma\)&lt;/span>代数开始&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#最小sigma代数">最小&lt;span class="math">\(\\sigma\)&lt;/span>代数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#borel集与borel代数域">Borel集与Borel代数(域)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单调类定理">单调类定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#集合序列">集合序列&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单调系">单调系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#一般角度的单调系定理">一般角度的单调系定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#λ系与π系">λ系与π系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#π系">π系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#λ系">λ系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#λ系π系与sigma代数">λ系π系与&lt;span class="math">\(\\sigma\)&lt;/span>代数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录1-集合运算的独立性">附录1： 集合运算的独立性&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="集合的集合">集合的集合&lt;/h2>
+&lt;blockquote>
+&lt;p>集类(集合族,集合系)：集合的集合，X的集类表示由X的子集组成的集合。e.g. &lt;span class="math">\(\{\emptyset,\{1,2\},\{1,3,4\},\{R\}\},P(X)(X的幂集)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="来自拓扑的定义">来自拓扑的定义&lt;/h3>
+&lt;blockquote>
+&lt;p>环--集环&lt;br />设&lt;span class="math">\(X\)&lt;/span>为一集合，&lt;span class="math">\(S\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>上的一个非空集类。&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(S\)&lt;/span>对集合的并和差运算封闭，即&lt;span class="math">\(\forall E,F\in S\implies E\cup F\in S,E-F\in S\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(S\)&lt;/span>对集合的交和对称差运算封闭，即：&lt;span class="math">\(\forall E,F\in S\implies E\cap F\in S,E\triangle F\in S\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(S\)&lt;/span>对集合的交，差以及无交并运算封闭.对称差（&lt;span class="math">\(\triangle\)&lt;/span>）&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>当且仅当&lt;span class="math">\(S\)&lt;/span>满足以上几个条件中&lt;strong>任何一个&lt;/strong>时，&lt;span class="math">\(S\)&lt;/span>构成一个环，此时&lt;span class="math">\(S\)&lt;/span>被称为一个&lt;strong>集环&lt;/strong>。三个定义是可以相互推导的，比如利用德摩根律推导。其中对称差是加法，空集是零元，逆元是其自身，交是乘法，全集是幺元。&lt;/p>
+&lt;p>若集环S还满足以下条件：&lt;/p>
+&lt;blockquote>
+&lt;p>若&lt;span class="math">\(X \in A\)&lt;/span>，则称&lt;span class="math">\(A\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>上的一个代数。即代数需要把&lt;span class="math">\(X\)&lt;/span>自身包含进去。&lt;/p>
+&lt;/blockquote>
+&lt;p>若&lt;span class="math">\(A\)&lt;/span>对&lt;strong>有限&lt;/strong>并运算，&lt;strong>有限&lt;/strong>交运算，差运算，余（补）运算封闭，则称&lt;span class="math">\(A\)&lt;/span>为代数，&lt;strong>称为&lt;span class="math">\(X\)&lt;/span>上的集代数&lt;/strong> 。&lt;/p>
+&lt;h2 id="从sigma代数开始">从&lt;span class="math">\(\sigma\)&lt;/span>代数开始&lt;/h2>
+&lt;p>在&lt;strong>集环&lt;/strong>的基础上（通常使用&lt;span class="math">\(S\)&lt;/span>对集合的并和差运算封闭的定义，即&lt;span class="math">\(\forall E,F\in S\implies E\cup F\in S,E-F\in S\)&lt;/span>）加上无限可数并操作的封闭：&lt;/p>
+&lt;blockquote>
+&lt;p>对任意一列集合&lt;span class="math">\(E_i \in A(i=1,2,\dotsb)\)&lt;/span>，都有&lt;span class="math">\(\bigcup\limits_{i=1}^{\infty}E_i\in A\)&lt;/span>，则称&lt;span class="math">\(A\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>上的&lt;strong>一个&lt;span class="math">\(\sigma\)&lt;/span>环&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>从&lt;strong>有限到无限可数（可列，阿列夫零&lt;span class="math">\(\aleph_0\)&lt;/span>）的转变&lt;/strong>。&lt;/p>
+&lt;p>同样的，在&lt;strong>集代数&lt;/strong>的基础上，加上&lt;strong>无限可数并&lt;/strong>操作的封闭，即是&lt;span class="math">\(\sigma\)&lt;/span>代数或&lt;span class="math">\(\sigma\)&lt;/span>域。&lt;/p>
+&lt;p>完整的定义如下：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(X\)&lt;/span>为一集合，假设有集合系&lt;span class="math">\({\mathcal {F}}\subseteq {\mathcal {P}}(X)\)&lt;/span>，其中 &lt;span class="math">\({\mathcal {P}}(X)\)&lt;/span>代表&lt;span class="math">\(X\)&lt;/span>的幂集，若&lt;span class="math">\(\mathcal{F}\)&lt;/span>满足下列条件&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(X\in {\mathcal {F}}\)&lt;/span>;&lt;/li>
+&lt;li>&lt;span class="math">\(A\in {\mathcal {F}}\;\Rightarrow \;A^{c}\in {\mathcal {F}}\)&lt;/span>;&lt;/li>
+&lt;li>&lt;span class="math">\(A_{n}\in {\mathcal {F}},\;\forall n\in \mathbb {N} \;\Rightarrow \;\bigcup_{n=1}^{\infty }A_{n}\in {\mathcal {F}}.\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;p>则称集合系&lt;span class="math">\(\mathcal{F}\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>的&lt;span class="math">\(σ-代数\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>在测度论里&lt;span class="math">\(\left(X,{\mathcal {F}}\right)\)&lt;/span>称为一个&lt;strong>可测空间&lt;/strong>。 集合族&lt;span class="math">\(\mathcal{F}\)&lt;/span>中的元素，也就是&lt;span class="math">\(X\)&lt;/span>的某子集，称为&lt;strong>可测集合&lt;/strong>。而在概率论中，这些集合被称为&lt;strong>随机事件&lt;/strong>。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>X为任意集， X的至多可数集全体所成的集类 A为一个&lt;span class="math">\(\sigma\)&lt;/span>环。当且仅当X为至多可数集时(&lt;span class="math">\(X \in A\)&lt;/span>)，A为&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/li>
+&lt;li>设&lt;span class="math">\(A=\{\emptyset,X\}\)&lt;/span>，则A是X上的&lt;span class="math">\(\sigma\)&lt;/span>代数，且为X上的最小&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/li>
+&lt;li>设&lt;span class="math">\(P(X)\)&lt;/span>为X全体子集所成的集类，则&lt;span class="math">\(P(X)\)&lt;/span>为X上最大的&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/li>
+&lt;/ol>
+&lt;h3 id="最小sigma代数">最小&lt;span class="math">\(\sigma\)&lt;/span>代数&lt;/h3>
+&lt;blockquote>
+&lt;p>Lemma：若&lt;span class="math">\(A_\alpha\)&lt;/span>是一个&lt;span class="math">\(\sigma代数\)&lt;/span>，&lt;span class="math">\(\forall \alpha \in I\)&lt;/span>，&lt;span class="math">\(I\)&lt;/span>为非空索引集(index set)，那么&lt;span class="math">\(\bigcap_{\alpha \in I}A_\alpha\)&lt;/span>也是一个&lt;span class="math">\(\sigma代数\)&lt;/span>。&lt;/p>
+&lt;p>Proof：以两个为例，多个可以递推。&lt;span class="math">\(A_1,A_2\)&lt;/span>是两个&lt;span class="math">\(\sigma代数\)&lt;/span>。&lt;/p>
+&lt;ul>
+&lt;li>由于&lt;span class="math">\(\emptyset,X\in A_1;\emptyset,X\in A_2\)&lt;/span>，所以&lt;span class="math">\(\emptyset,X\in A_1\cap A_2\)&lt;/span>；&lt;/li>
+&lt;li>由于集合&lt;span class="math">\(E,E^c \in A_1,A_2\)&lt;/span>，所以&lt;span class="math">\(E,E^c \in A_1\cap A_2\)&lt;/span>；&lt;/li>
+&lt;li>对于可列集合&lt;span class="math">\(\bigcup _{n=1}^{\infty }E_{n}\in A_1,A_2\)&lt;/span>，所以&lt;span class="math">\(\bigcup _{n=1}^{\infty }E_{n}\in A_1\cap A_2\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>下面我们根据&lt;span class="math">\(\sigma\)&lt;/span>代数交的引理定义最小&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/p>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(\mathcal C\)&lt;/span>是&lt;span class="math">\(X\)&lt;/span>上的任意子集类，则存在唯一的一个&lt;span class="math">\(σ代数（σ(\mathcal C)）\)&lt;/span>，它是包含&lt;span class="math">\(\mathcal C\)&lt;/span>的最小&lt;span class="math">\(σ代数\)&lt;/span>，称&lt;span class="math">\(σ(\mathcal C)\)&lt;/span>是&lt;span class="math">\(\mathcal C\)&lt;/span>生成的&lt;span class="math">\(σ\)&lt;/span>代数（&lt;span class="math">\(\mathcal C\)&lt;/span>为生成元） &lt;span class="math">\[\sigma(\mathcal C) = {\bigcap} _{\mathcal F&amp;#39;为\sigma代数且\mathcal C \subset \mathcal F&amp;#39;}\mathcal F&amp;#39;\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>注意满足条件的&lt;span class="math">\(σ\)&lt;/span>代数是存在的，因为&lt;span class="math">\(\mathcal{C}⊂P(X)\)&lt;/span>。容易看出，若&lt;span class="math">\(\mathcal{C_1}\subset \mathcal{C_2}\)&lt;/span>，那么&lt;span class="math">\(\sigma(\mathcal{C_1})\subset \sigma(\mathcal{C_2})\)&lt;/span>。 &lt;span class="math">\(\sigma(\sigma(\mathcal{C}))=\sigma(\mathcal{C})\)&lt;/span>，因为有上面&lt;span class="math">\(\sigma(\mathcal{C})\)&lt;/span>本身是一个&lt;span class="math">\(\sigma\)&lt;/span>代数, 再根据定义便可得。&lt;/p>
+&lt;h2 id="borel集与borel代数域">Borel集与Borel代数(域)&lt;/h2>
+&lt;p>一个拓扑空间的开集全体所生成的&lt;span class="math">\(\sigma代数\)&lt;/span>就是borel代数。&lt;/p>
+&lt;p>如果我们幸运的能在度量空间或者更广义的拓扑空间&lt;span class="math">\(X\)&lt;/span>上定义一些开集，这时我们令&lt;span class="math">\(G\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>上&lt;strong>所有开子集&lt;/strong>的集合，那么&lt;span class="math">\(\sigma(G)\)&lt;/span>就是&lt;span class="math">\(X\)&lt;/span>上的 &lt;span class="math">\(Borel(-\sigma-)代数\)&lt;/span> ，记为&lt;span class="math">\(B_X\)&lt;/span>, 里面的元素就叫 Borel 集。&lt;/p>
+&lt;p>令&lt;span class="math">\(X=\mathbb{R}\)&lt;/span>，那么&lt;span class="math">\(\mathcal{B}\)&lt;/span>可以从以下的集合系的&lt;span class="math">\(\sigma\)&lt;/span>代数中生成：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\mathcal C_1=\{(a,b):a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathcal C_2=\{[a,b]:a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathcal C_3=\{(a,b]:a,b ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\mathcal C_4=\{(a,∞):a ∈ \mathbb{R}\}\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>博雷尔测度（Borel measure）是σ代数上对区间[a, b]给出值b-a的测度。&lt;/p>
+&lt;p>博雷尔测度并不完备，因此习惯使用勒贝格测度：每个博雷尔可测集都是勒贝格可测的，并且它们的测度值吻合。&lt;/p>
+&lt;p>Borel系的其他细节可以参考学习笔记中的《Borel 集的作用？意义？它为什么重要？》&lt;/p>
+&lt;h2 id="单调类定理">单调类定理&lt;/h2>
+&lt;h3 id="集合序列">集合序列&lt;/h3>
+&lt;blockquote>
+&lt;p>不升序列：若对一切&lt;span class="math">\(n \geq 1\)&lt;/span>，&lt;span class="math">\(A_n \subseteq A_{n+1}\)&lt;/span>，且令&lt;span class="math">\(A=\bigcup\limits_{n=1}^{\infty}A_n\)&lt;/span>，则记为&lt;span class="math">\(A_n\nearrow A\)&lt;/span>也有写成&lt;span class="math">\(A_n \uparrow A\)&lt;/span>.&lt;/p>
+&lt;p>不降序列：若对一切&lt;span class="math">\(n \geq 1\)&lt;/span>，&lt;span class="math">\(A_n \supseteq A_{n+1}\)&lt;/span>，且令&lt;span class="math">\(A=\bigcap\limits_{n=1}^{\infty}A_n\)&lt;/span>，则记为&lt;span class="math">\(A_n\searrow A\)&lt;/span>也有写成&lt;span class="math">\(A_n \downarrow A\)&lt;/span>.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;span class="math">\(A_n\nearrow A\)&lt;/span>当且仅当&lt;span class="math">\(A_n^c\searrow A^c\)&lt;/span>。&lt;/p>
+&lt;h3 id="单调系">单调系&lt;/h3>
+&lt;blockquote>
+&lt;p>一个单调系(monotone class)是由集合&lt;span class="math">\(X\)&lt;/span>的子集构成的&lt;strong>集合系&lt;/strong>&lt;span class="math">\(\mathcal{M}\)&lt;/span>同时满足以下两个条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>如果集合&lt;span class="math">\(A_i\nearrow A\)&lt;/span>，且&lt;span class="math">\(\forall i,A_i\in \mathcal{M}\)&lt;/span>，那么&lt;span class="math">\(A \in \mathcal{M}\)&lt;/span>，即对不降序列的可数并封闭。&lt;/li>
+&lt;li>如果集合&lt;span class="math">\(A_i\searrow A\)&lt;/span>，且&lt;span class="math">\(\forall i,A_i\in \mathcal{M}\)&lt;/span>，那么&lt;span class="math">\(A \in \mathcal{M}\)&lt;/span>，即对不升序列的可数交封闭。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>单调系的&lt;strong>交集&lt;/strong>仍然是单调系。所有包含某个集合系&lt;span class="math">\(\mathcal{C}\)&lt;/span>的单调系的交就是包含该集合系的&lt;strong>最小单调系&lt;/strong>。 &lt;span class="math">\[\mathcal{M}(\mathcal{C})= {\bigcap} _{\mathcal M&amp;#39;为单调系且\mathcal C \subset \mathcal M&amp;#39;}\mathcal M&amp;#39;\]&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(\sigma代数\)&lt;/span>与单调系的关系可以通过下面说明。 &amp;gt;引理：&lt;span class="math">\(\sigma代数\Leftrightarrow 代数+单调系\)&lt;/span>&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;p>&lt;span class="math">\(\sigma代数\Rightarrow 集代数\)&lt;/span>，显然&lt;span class="math">\(\sigma代数\)&lt;/span>是在集代数的定义上添加无穷可列并封闭的条件得来的。&lt;/p>
+&lt;p>&lt;span class="math">\(\sigma代数\Rightarrow 单调系\)&lt;/span>，&lt;span class="math">\(\sigma代数\)&lt;/span>要求可列并和可列交封闭，满足单调系&lt;span class="math">\(\bigcap\limits_{n=1}^{\infty}A_n \in \mathcal{M},\bigcup\limits_{n=1}^{\infty}A_n\in \mathcal{M}\)&lt;/span>的定义。&lt;/p>
+&lt;p>&lt;span class="math">\(代数+单调系\Rightarrow\sigma代数\)&lt;/span>，集代数提供了&lt;span class="math">\(\sigma代数\)&lt;/span>的&lt;span class="math">\(\emptyset,X\in \mathcal{M}；A\in \mathcal{M}\Rightarrow A^c\in \mathcal{M}\)&lt;/span>与有限交、并的封闭性。需要从单调系中推导出无限可数并的封闭性。于是我们对于任意集合系&lt;span class="math">\(A_n\)&lt;/span>构造如下集合序列： &lt;span class="math">\[\begin{cases}
+C_1=A_1\\
+C_2=A_1\cup A_2\\
+\vdots\\
+C_n=A_1\cup A_2\dotsb\cup A_n\\
+A_n,C_n\subset X
+\end{cases}\\
+A_1\dotsb A_n\dotsb\in \mathcal{M}\\
+\bigcup\limits_{n=1}^{\infty}A_n=\bigcup\limits_{n=1}^{\infty}C_n\nearrow C \in \mathcal{M}
+\]&lt;/span> 所以无限可数并&lt;span class="math">\(\bigcup\limits_{n=1}^{\infty}A_n \in \mathcal{M}。代数+单调系\Rightarrow\sigma代数\)&lt;/span>&lt;/p>
+&lt;p>得证。&lt;/p>
+&lt;h3 id="一般角度的单调系定理">一般角度的单调系定理&lt;/h3>
+&lt;blockquote>
+&lt;p>单调系定理：令&lt;span class="math">\(\mathcal A_0\)&lt;/span>是定义在&lt;span class="math">\(X\)&lt;/span>上的一个代数，&lt;span class="math">\(\mathcal A\)&lt;/span> 是包含&lt;span class="math">\(\mathcal A_0\)&lt;/span>的最小 &lt;span class="math">\(\sigma\)&lt;/span>-代数，&lt;span class="math">\(\mathcal M\)&lt;/span>是包含&lt;span class="math">\(\mathcal A_0\)&lt;/span>的最小单调系，那么&lt;span class="math">\(\mathcal M=\mathcal{A}\)&lt;/span>。该定理联系了单调系和&lt;span class="math">\(\sigma\)&lt;/span>代数.&lt;/p>
+&lt;p>Proof：由以上引理可知，&lt;span class="math">\(\sigma代数\)&lt;/span>是一个单调系且包含&lt;span class="math">\(X的子集A_0\)&lt;/span>，而&lt;span class="math">\(M\)&lt;/span>是包含&lt;span class="math">\(A_0\)&lt;/span>的最小单调系。即&lt;span class="math">\(\mathcal{M}\subset\mathcal{A}\)&lt;/span>。&lt;/p>
+&lt;p>如果我们能接着证明&lt;span class="math">\(\mathcal{A}\subset\mathcal{M}\)&lt;/span>，则说明&lt;span class="math">\(\mathcal M=\mathcal{A}\)&lt;/span>。&lt;/p>
+&lt;p>由以上引理中的证明可知，单调系的定义可以使得集系&lt;span class="math">\(\mathcal{M}\)&lt;/span>内对无穷可数并封闭。如果我们能证明最小单调系也是一个集代数(证明略)，那么就用引理：&lt;span class="math">\(\sigma代数\Leftrightarrow 代数+单调系\)&lt;/span>推得&lt;span class="math">\(\mathcal{M}\)&lt;/span>是一个&lt;span class="math">\(\sigma\)&lt;/span>代数。&lt;/p>
+&lt;p>&lt;span class="math">\(\mathcal{M}\)&lt;/span>是一个包含&lt;span class="math">\(A_0的\sigma\)&lt;/span>代数，而&lt;span class="math">\(\mathcal A\)&lt;/span> 是包含&lt;span class="math">\(\mathcal A_0\)&lt;/span>的最小 &lt;span class="math">\(\sigma\)&lt;/span>-代数，所以&lt;span class="math">\(\mathcal{A}\subset\mathcal{M}\)&lt;/span>。&lt;/p>
+&lt;p>综上所述，&lt;span class="math">\(\mathcal{A}\subset\mathcal{M}\)&lt;/span>，&lt;span class="math">\(\mathcal{A}\supset\mathcal{M}\)&lt;/span>，所以&lt;span class="math">\(\mathcal M=\mathcal{A}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;a href="../../images/sigma代数与单调系.jpg">英文版单调性与单调系定理&lt;/a>&lt;/p>
+&lt;h2 id="λ系与π系">λ系与π系&lt;/h2>
+&lt;h3 id="π系">π系&lt;/h3>
+&lt;blockquote>
+&lt;p>定义：若在&lt;span class="math">\(X\)&lt;/span>上的非空子集类&lt;span class="math">\(\Pi\)&lt;/span>满足：&lt;/p>
+&lt;p>&lt;span class="math">\(A,B∈\Pi⇒A\cap B∈\Pi\)&lt;/span>,则称子集类&lt;span class="math">\(Π为π系\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>即它对交运算封闭，&lt;span class="math">\(\sigma\)&lt;/span>代数也是&lt;span class="math">\(\pi\)&lt;/span>系。&lt;span class="math">\(\pi(A)\)&lt;/span>指由&lt;span class="math">\(A\)&lt;/span>生成的&lt;span class="math">\(\pi\)&lt;/span>-系，是包含 &lt;span class="math">\(A\)&lt;/span>的最小的&lt;span class="math">\(\pi\)&lt;/span>-系。&lt;/p>
+&lt;h3 id="λ系">λ系&lt;/h3>
+&lt;blockquote>
+&lt;p>定义：若在&lt;span class="math">\(X\)&lt;/span>上的子集类&lt;span class="math">\(\Lambda\)&lt;/span>满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(X\in \Lambda\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A\in\Lambda\)&lt;/span>，那么&lt;span class="math">\(A^c\in\Lambda\)&lt;/span>(注：这条也可等价换成&lt;span class="math">\(A,B\in\Lambda,A\subset B,B-A\subset \Lambda\)&lt;/span>)&lt;/li>
+&lt;li>如果集合序&lt;span class="math">\(A_1,A_2,A_3,\dotsb,\in \Lambda\)&lt;/span>且互不相交，那么&lt;span class="math">\(\bigcup\limits_{n=1}^{\infty}A_n\in \Lambda\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>&lt;span class="math">\(\lambda\)&lt;/span>系和&lt;span class="math">\(\sigma\)&lt;/span>代数的区别是对于无穷可数并的要求&lt;span class="math">\(\lambda\)&lt;/span>系更严格，所以&lt;span class="math">\(\sigma\)&lt;/span>代数也是&lt;span class="math">\(\lambda\)&lt;/span>系。&lt;span class="math">\(\lambda(A)\)&lt;/span>指由&lt;span class="math">\(A\)&lt;/span>生成的&lt;span class="math">\(\lambda\)&lt;/span>-系，是包含 &lt;span class="math">\(A\)&lt;/span>的最小的&lt;span class="math">\(\lambda\)&lt;/span>-系。&lt;/p>
+&lt;h3 id="λ系π系与sigma代数">λ系π系与&lt;span class="math">\(\sigma\)&lt;/span>代数&lt;/h3>
+&lt;blockquote>
+&lt;p>若一个集合系&lt;span class="math">\(\mathcal{A}\)&lt;/span>既是&lt;span class="math">\(\lambda\)&lt;/span>-系又是&lt;span class="math">\(\pi\)&lt;/span>-系，那么它也是&lt;span class="math">\(\sigma\)&lt;/span>-代数。且&lt;span class="math">\(\lambda(\mathcal{A})=\sigma(\mathcal{A})\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="附录1-集合运算的独立性">附录1： 集合运算的独立性&lt;/h2>
+&lt;p>集合的四种常见运算：交&lt;span class="math">\(\cap\)&lt;/span>、并&lt;span class="math">\(\cup\)&lt;/span>、差&lt;span class="math">\(-\)&lt;/span>、对称差&lt;span class="math">\(\oplus\)&lt;/span>并不是相互独立的，可由其中某两种运算推出其他两种，总结如下：&lt;/p>
+&lt;blockquote>
+&lt;p>集合运算定理1：&lt;br />(a) 集合的交、对称差运算可由集合的并、差两种运算定义&lt;br />(b) 集合的交、并运算可由集合的差、对称差两种运算定义&lt;br />(c) 集合的交、差运算可由集合的并、对称差两种运算定义&lt;br />(d) 集合的并、差运算可由集合的交、对称差两种运算定义&lt;/p>
+&lt;/blockquote>
+&lt;p>但是并不是四种运算的任意两种都可以推出其他运算。&lt;/p>
+&lt;blockquote>
+&lt;p>集合运算定理2：&lt;br />(a) 集合的差运算无法由集合的交、并两种运算定义&lt;br />(b) 集合的并运算无法由集合的交、差两种运算定义&lt;/p>
+&lt;/blockquote>
+&lt;p>即集合的四种基本运算：并、交、差、对称差不是相互独立的可以把并、差两种运算（或 对称差、差两种运算，或对称差、并两种运算，或对称差、交两种运算）作为两个相互独立的基本运算，其余两种运算可由这两种运算定义；但不可以只把并与交两种运算（或差与交两种运算）作为独立的基本运算，否则其余的两种运算至少有一种不能由它们定义。&lt;/p></description></item><item><title>测度论2之定义与简单性质</title><link>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA2%E4%B9%8B%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B5%8B%E5%BA%A6%E8%AE%BA2%E4%B9%8B%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%AE%80%E5%8D%95%E6%80%A7%E8%B4%A8/</guid><description>
+&lt;h2 id="测度论2之定义与简单性质">测度论2之定义与简单性质&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#总述">总述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#测度的定义">测度的定义&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#性质">性质&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#测度的有限性">测度的有限性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#测度空间的完备性">测度空间的完备性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#概率与测度">概率与测度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充两个测度的定理">补充两个测度的定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#测度构造的主线-粗线条">测度构造的主线-粗线条&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="总述">总述&lt;/h2>
+&lt;p>这一章介绍测度的定义跟测度的简单性质，最后给出一个俯瞰的视角，勾勒出测度构造的主线。但是具体证明会在后面章节展开。&lt;/p>
+&lt;p>先在直觉层面介绍一下，测度论试图建立一般测量所需要的广义且底层的逻辑。一个测度可以是长度、面积、体积、概率，等等——它们的共同点就是给一个集合赋予一个数值。比如一条线段就是一个由点构成的集合，而长度就是给这个点集赋值一个实数 （这条线段长度是5）。这个实数不是随便赋值的，它要满足一些最基本的公理：比如两条线段不相交，那么他们的长度是可以相加的；再比如一个集合为空，那么长度应该为零，等等。&lt;/p>
+&lt;p>人们自然的就会问：给定一个集合，我们能不能找到这么一个“测度”，能够合理的给集合中所有的子集都赋上一个值，同时也满足我们所需的测量的最基本的公理呢？&lt;/p>
+&lt;p>对于有限集或者可数集，我们确实能找到这样的测度；但是对于&lt;strong>不可数集，我们却找不到这样的测度&lt;/strong>（如果我们接受选择公理，我们总能构造出一些集合，无论我们给这些集合赋什么值都会不满足测度公理要求的条件）。&lt;/p>
+&lt;p>既然大多数情况下（不可数集），我们没法找到一个测度能够合理的给集合中的每一个子集赋值，我们就退而求其次，问：”我们可以对哪些（不是全部）子集合理的赋值呢“。我们当然希望可以被测度赋值的子集越多越好————于是我们从一些子集开始，在测度依然可以合理赋值的条件下，逐步拓展、加入更多的子集；通常这些子集的集合体就会最终拓展成一个&lt;span class="math">\(\sigma\)&lt;/span>-代数。&lt;/p>
+&lt;h2 id="测度的定义">测度的定义&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;strong>测度&lt;/strong>：令&lt;span class="math">\(X\)&lt;/span>为一集合，&lt;span class="math">\(\mathcal{A}\)&lt;/span>是由&lt;span class="math">\(X\)&lt;/span>子集构成的&lt;span class="math">\(\sigma\)&lt;/span>-代数，在&lt;span class="math">\((X,\mathcal{A})\)&lt;/span>上的测度(measure)是一个映射&lt;span class="math">\(\mu:\mathcal{A}\rightarrow [0,+\infty]\)&lt;/span>，满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(\mu(\emptyset)=0\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A_i\in\mathcal{A},i=1,2,\dotsb\)&lt;/span>两两不相交，那么：&lt;span class="math">\(\mu(\bigcup\limits_{n=1}^{\infty}A_i)=\sum\limits_{n=1}^{\infty}\mu(A_i)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>注：性质(2)也被称为可列可加性(countable additivity)；若(2)中的序列为有限的&lt;span class="math">\(n\)&lt;/span>个，那么就称为有限可加 (finitely additive)。&lt;strong>有限可加未必可列可加&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>从而三元组&lt;span class="math">\((X,\mathcal{A},\mu)\)&lt;/span>也被称为测度空间 (measure space)。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="性质">性质&lt;/h3>
+&lt;ul>
+&lt;li>若&lt;span class="math">\(A,B\in \mathcal{A},A\subset B\)&lt;/span>，那么&lt;span class="math">\(\mu(A)&amp;lt;\mu(B)\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A_i\in\mathcal{A},A=\bigcup\limits_{i=1}^{\infty}A_i\)&lt;/span>，那么&lt;span class="math">\(\mu(A)\leq \mu(\bigcup\limits_{i=1}^{\infty}A_i)\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A_i\in\mathcal{A},A_i\nearrow A\)&lt;/span>，那么&lt;span class="math">\(\mu(A)=\lim_{n\rightarrow\infty}\mu(A_n)\)&lt;/span>&lt;/li>
+&lt;li>若&lt;span class="math">\(A_i\in\mathcal{A},A_i\searrow A\)&lt;/span>，且&lt;span class="math">\(\mu(A_1)&amp;lt;\infty\)&lt;/span>,那么&lt;span class="math">\(\mu(A)=\lim_{n\rightarrow\infty}\mu(A_n)\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h3 id="测度的有限性">测度的有限性&lt;/h3>
+&lt;ol style="list-style-type: decimal">
+&lt;li>称测度&lt;span class="math">\(\mu\)&lt;/span>为有限测度 (finite measure), 若&lt;span class="math">\(\mu(x)&amp;lt;\infty\)&lt;/span>。若&lt;span class="math">\(\mu\)&lt;/span>是有限测度，那么&lt;span class="math">\((X,\mathcal{A},\mu)\)&lt;/span>被称为有限测度空间&lt;/li>
+&lt;li>测度&lt;span class="math">\(\mu\)&lt;/span>为&lt;span class="math">\(\sigma\)&lt;/span>-有限，若存在集合&lt;span class="math">\(E_i\in \mathcal{A},i=1,2,\dotsb\)&lt;/span>, 满足&lt;span class="math">\(\forall i,\mu(E_i)&amp;lt;\infty,X=\bigcup\limits_{i=1}^\infty E_i\)&lt;/span>。若&lt;span class="math">\(\mu\)&lt;/span>是&lt;span class="math">\(\sigma\)&lt;/span>-有限，则称为&lt;span class="math">\(\sigma\)&lt;/span>-有限测度空间。相较于有限测度宽松，只要求每个事件有限。&lt;/li>
+&lt;li>令&lt;span class="math">\((X,\mathcal{A},\mu)\)&lt;/span>为&lt;span class="math">\(\sigma\)&lt;/span>-有限测度空间，若&lt;span class="math">\(F_n=\bigcup\limits_{i=1}^n E_i\)&lt;/span>，则&lt;span class="math">\(\forall n，F_n&amp;lt;\infty\)&lt;/span>，且&lt;span class="math">\(F_n\nearrow X\)&lt;/span>。所以不失一般性，我们可以令上文定义中的&lt;span class="math">\(E_i\)&lt;/span>为递增集合 (&lt;span class="math">\(E_i \nearrow\)&lt;/span>)&lt;/li>
+&lt;/ol>
+&lt;h3 id="测度空间的完备性">测度空间的完备性&lt;/h3>
+&lt;blockquote>
+&lt;p>零测集：令&lt;span class="math">\((X,\mathcal{A},\mu)\)&lt;/span>为一测度空间，子集&lt;span class="math">\(A\subset X\)&lt;/span>被称为零测集 (null set) 如果存在集合&lt;span class="math">\(B\in\mathcal{A},A\subset B,且\mu(B)=0\)&lt;/span>。 &amp;gt;注：在前面的定义中，我们并不要求&lt;span class="math">\(A\in\mathcal{A}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>完备性： &amp;gt;完备测度空间：若&lt;span class="math">\(\mathcal{A}\)&lt;/span>包含&lt;strong>所有的零测集&lt;/strong>，那么&lt;span class="math">\((X,\mathcal{A},\mu)\)&lt;/span>为完备测度空间 (complete measure space).&lt;/p>
+&lt;p>&lt;span class="math">\(\mathcal{A}\)&lt;/span>的完备化 (completion) 是最小的&lt;span class="math">\(\sigma\)&lt;/span>-代数&lt;span class="math">\(\mathcal{\overline{A}}\supset \mathcal{A}\)&lt;/span>，而&lt;span class="math">\((X,\mathcal{\overline{A}},\mu)\)&lt;/span>是完备的。有时候我们仅仅说 &lt;span class="math">\(\mu\)&lt;/span>是完备的，或者&lt;span class="math">\(\mathcal{A}\)&lt;/span>是完备的——它们都指&lt;span class="math">\((X,\mathcal{A},\mu)\)&lt;/span>是完备的。&lt;/p>
+&lt;h2 id="概率与测度">概率与测度&lt;/h2>
+&lt;p>概率(probability)或者有时候称为概率测度（probability measure)，被定义为一个测度，满足&lt;span class="math">\(\mu(X)=1\)&lt;/span>。在概率论的语境中，我们通常会写&lt;span class="math">\((\Omega,\mathcal{F},P)\)&lt;/span>, 其中&lt;span class="math">\(\mathcal{F}\)&lt;/span>被称为是&lt;span class="math">\(\sigma\)&lt;/span>-域 (&lt;span class="math">\(\sigma\)&lt;/span>-field), 这个跟&lt;span class="math">\(\sigma\)&lt;/span>-代数是一回事儿。&lt;/p>
+&lt;h2 id="补充两个测度的定理">补充两个测度的定理&lt;/h2>
+&lt;p>补充两个定理，在泛函分析跟概率论的时候会被用到。&lt;/p>
+&lt;blockquote>
+&lt;p>定理：令&lt;span class="math">\((X,\mathcal{A})\)&lt;/span>为一可测空间，&lt;span class="math">\(\mu\)&lt;/span>是一个非负的集合映射，&lt;strong>有限可加&lt;/strong>，且&lt;span class="math">\(\mu(\emptyset)=0\)&lt;/span>。如果&lt;span class="math">\(A_i\nearrow,A_i\in\mathcal{A}\)&lt;/span>，那么&lt;span class="math">\(\mu(\cup_iA_i)=\lim\limits_{i\rightarrow\infty}\mu(A_i)\)&lt;/span>。&lt;span class="math">\(\mu\)&lt;/span>是一个测度。&lt;/p>
+&lt;/blockquote>
+&lt;p>另一个角度来看， &amp;gt;定理：令&lt;span class="math">\((X,\mathcal{A})\)&lt;/span>为一可测空间，&lt;span class="math">\(\mu\)&lt;/span>是一个非负的集合映射，&lt;strong>有限可加&lt;/strong>，且&lt;span class="math">\(\mu(\emptyset)=0,\mu(X)&amp;lt;\infty\)&lt;/span>。如果&lt;span class="math">\(A_i\searrow\emptyset,A_i\in\mathcal{A}\)&lt;/span>，那么&lt;span class="math">\(\lim\limits_{i\rightarrow\infty}\mu(A_i)=0\)&lt;/span>。&lt;span class="math">\(\mu\)&lt;/span>是一个测度。&lt;/p>
+&lt;h2 id="测度构造的主线-粗线条">测度构造的主线-粗线条&lt;/h2>
+&lt;p>在这里我想列出（不证明）实数上Lebesgue测度的构造主线，力求列出最自然、跳跃最小的那条线。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;span class="math">\(\sigma\)&lt;/span>-全：&lt;span class="math">\(X\)&lt;/span>上的集合系&lt;span class="math">\(\Epsilon\)&lt;/span>被称为是&lt;span class="math">\(\sigma\)&lt;/span>-全的(&lt;span class="math">\(\sigma\)&lt;/span>-total)，如果存在某个序列&lt;span class="math">\(E_1,E_2,\dotsb\in\Epsilon,\bigcup\limits_{n=1}^\infty E_n=X\)&lt;/span>。 注：&lt;span class="math">\(\sigma\)&lt;/span>-有限就自带了&lt;span class="math">\(\sigma\)&lt;/span>-全&lt;/p>
+&lt;/blockquote>
+&lt;p>粗线条如下：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/测度构造粗线条.png" alt="测度构造粗线条" />&lt;p class="caption">测度构造粗线条&lt;/p>
+&lt;/div>
+&lt;p>笔者画了下图以示各个测度与可测空间之间的关系:&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/测度与可测空间之间的关系.jpg" alt="测度与可测空间之间的关系" />&lt;p class="caption">测度与可测空间之间的关系&lt;/p>
+&lt;/div>
+&lt;p>此外还有更细的细条内容，可见&lt;a href="https://zhuanlan.zhihu.com/p/61405805">测度构造的主线 - 细线条&lt;/a>。&lt;/p></description></item></channel></rss>

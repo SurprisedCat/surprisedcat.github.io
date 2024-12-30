@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>机器学习 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 机器学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 28 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>机器学习之广义线性模型</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Sat, 28 May 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/</guid><description>
+&lt;h2 id="机器学习之广义线性模型">机器学习之广义线性模型&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在机器学习中，我们常常是从线性回归和Logistics回归这两种模型入手。大多数人在学的时候时将其当成两个独立的模型去学习的，线性回归用来拟合直线，Logistics回归用来分类。实际上，这两种模型都是一个更广泛模型的特例，这就是广义线性模型（Generalized Linear Models, 简称GLM）。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#从概率的角度解释回归">从概率的角度解释回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型分布族指数族">指数型分布族（指数族）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#自然指数族">自然指数族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数分散族">指数分散族&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型与指数型分布族核心">广义线性模型与指数型分布族（核心）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性的体现">线性的体现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#连接函数与激活函数">连接函数与激活函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#标准连接">标准连接&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型的参数关系">广义线性模型的参数关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#logistics回归优化举例">Logistics回归优化举例&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充牛顿法的简化方法之一fisher分数法">补充：牛顿法的简化方法之一Fisher分数法&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#回答引子的疑问最大似然估计形势下的迭代优化">回答引子的疑问，最大似然估计形势下的迭代优化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#广义线性模型的求解irls算法">广义线性模型的求解（IRLS算法）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="引子线性回归和logistics回归">引子：线性回归和Logistics回归&lt;/h2>
+&lt;p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>的定义不同)： &lt;span class="math">\[
+\theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
+h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
+\vec{\theta}^T \vec{x},\quad线性回归\\
+\frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。那么他们二者为什么都有相同的更新公式呢？(只有&lt;span class="math">\(h_{\vec{\theta}}(\vec{x})\)&lt;/span>的具体表现形式不同)。第一个原因是他们本质上都可以从最大似然估计推导出来；第二个原因则是它们二者都是一种更普遍的模型的特殊情况，这个模型就是&lt;strong>广义线性模型&lt;/strong>。&lt;/p>
+&lt;h2 id="从概率的角度解释回归">从概率的角度解释回归&lt;/h2>
+&lt;p>如果我们详细看统计回归的过程，就能发现它有两步组成。第一步是参数估计，确定特定模型中的未知参数，即求模型的参数&lt;span class="math">\(\Theta\)&lt;/span>；第二部根据已经确定的模型与参数，预测新数据的函数值，即求&lt;span class="math">\(y_{pred}\)&lt;/span>。&lt;/p>
+&lt;p>我们使用参数估计的过程主要是使用MLE、MAP、Bayesian等准则（推荐文章&lt;a href="https://engineering.purdue.edu/kak/Tutorials/Trinity.pdf">ML, MAP, and Bayesian --- The Holy Trinity of Parameter Estimation and Data Prediction&lt;/a>），这种方式往往是以上述某个准则推导出的概率最大的值作为参数估计的结果。因此，在第二部预测步骤时，给定参数估计结果&lt;span class="math">\(\theta\)&lt;/span>和自变量&lt;span class="math">\(x\)&lt;/span>后，通过模型得到的预测结果往往也不是实际真实值，而是&lt;strong>真实值和某个概率分布相关的误差组合起来的结果&lt;/strong>（我们希望这个组合出来的概率分布期望就是真实值）。&lt;/p>
+&lt;p>回看线性回归的结果，其预测模型是一条直线，但是真实的数据点并不一定在直线上，而是以某个概率分布在预测模型周围。&lt;/p>
+&lt;img src="../../images/linear_regression.png" alt="线性回归" />
+&lt;center>
+图中线性回归为根据身高预测体重
+&lt;/center>
+&lt;p>以线性回归模型为例，假设回归函数为&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span> (&lt;span class="math">\(\theta,x\)&lt;/span>为向量), 对于每对观测结果&lt;span class="math">\((x^{(i)},y^{(i)})\)&lt;/span>，都有 &lt;span class="math">\[y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}\]&lt;/span> 其中 &lt;span class="math">\(\epsilon\)&lt;/span>为误差，基于一种合理的假设（中心极限定理），我们可以认为误差的分布服从正态分布(又称高斯分布)，即 &lt;span class="math">\(\epsilon \sim N(0,\sigma^2)\)&lt;/span> ，那么，我们可以认为&lt;span class="math">\(y^{(i)} \sim N(\theta^Tx^{(i)},\sigma^2)\)&lt;/span>,根据正态分布的概率公式 &lt;span class="math">\[P(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]&lt;/span>&lt;/p>
+&lt;p>我们可以通过最大似然估计求出模型的参数&lt;span class="math">\(\mathbf{\theta}\)&lt;/span>，进而得到线性模型&lt;span class="math">\(y=\mathbf{\theta}^T\mathbf{x}\)&lt;/span>。我们不难发现，&lt;span class="math">\(\mathbf{\theta}^T\mathbf{x}\)&lt;/span>正好是&lt;span class="math">\(y\)&lt;/span>这个高斯随机变量的期望！&lt;/p>
+&lt;p>线性回归这条直线&lt;span class="math">\(y=f(x)\)&lt;/span>的真实含义其实是：&lt;strong>回归模型中，对于取特定的自变量&lt;span class="math">\(x^{(i)}\)&lt;/span>，其因变量概率的期望是&lt;span class="math">\(f(x^{(i)})\)&lt;/span>。同样，在Logistics回归中，最终的预测结果也是二项分布中取0或1的期望&lt;/strong>，其以0.5作为阈值的原因也在于此，若以大于0.5的期望取1，那么我们就认为结果是1；若以小于0.5的期望取1（取0概率大于0.5），那么我们就认为结果是0，本质上就是这么直白。&lt;/p>
+&lt;p>此外，也可从&lt;span class="math">\(y_{pred}\)&lt;/span>为一个统计量的角度理解。&lt;/p>
+&lt;p>我们之前已经说过，我们使用回归模型预测的值，其实也并不是精确值，而是预测值概率的期望。广义线性模型和概率的关系，就是我们的&lt;strong>预测值&lt;span class="math">\(y_{pred}\)&lt;/span>的概率分布服从指数族分布。而指数族的参数通过连接函数和线性函数连接到一起&lt;/strong>，即&lt;span class="math">\(g(u)=\theta^T x\)&lt;/span>，这一点我们之后再说。下面我们先看指数族。&lt;/p>
+&lt;h2 id="指数型分布族指数族">指数型分布族（指数族）&lt;/h2>
+&lt;p>指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>指数型分布族&lt;/strong>：一个概率分布族&lt;span class="math">\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)&lt;/span>可称为&lt;strong>指数型分布族&lt;/strong>，假如&lt;span class="math">\(\mathfrak{p}\)&lt;/span>中的分布（分布列或密度函数）都可表示为如下形式： &lt;span class="math">\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]&lt;/span> 其中，k为自然数；&lt;span class="math">\(\theta\)&lt;/span>可以是数字，也可以是向量。分布的支撑&lt;span class="math">\(\{x:p(x)&amp;gt;0\}\)&lt;/span>与参数&lt;span class="math">\(\theta\)&lt;/span>无关；诸&lt;span class="math">\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)&lt;/span>是定义在参数空间&lt;span class="math">\(\varTheta\)&lt;/span>上的函数；诸&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>是&lt;span class="math">\(x\)&lt;/span>的函数，称为充分统计向量，但&lt;span class="math">\(T_1(x),\dotsb,T_k(x)\)&lt;/span>线性无关。&lt;span class="math">\(h(x)\)&lt;/span>也只是&lt;span class="math">\(x\)&lt;/span>的函数，且&lt;span class="math">\(h(x)&amp;gt;0\)&lt;/span>，通常是一个常数。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;span class="math">\(c(\theta)\)&lt;/span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 &lt;span class="math">\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]&lt;/span> 此外，指数族还有另一种表述方式，就是将外面的&lt;span class="math">\(c(\theta)\)&lt;/span>放到指数符号中： &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]&lt;/span> 由于通常&lt;span class="math">\(A(\theta)\)&lt;/span>含有&lt;span class="math">\(\log\)&lt;/span>符号，该部分也称为“Log Partition Function”，易知&lt;span class="math">\(A(\theta)=\ln c(\theta)\)&lt;/span>。 如果我们使用向量值函数来表达指数型分布族可写为: &lt;span class="math">\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]&lt;/span>&lt;/p>
+&lt;p>从上述定义可知，一个分布族是不是指数型分布族的&lt;strong>关键在于其概率分布能否改写为定义中方式&lt;/strong>。&lt;/p>
+&lt;h3 id="指数型分布族的向量化写法">指数型分布族的向量化写法&lt;/h3>
+&lt;p>下面我们使用&lt;strong>向量值函数&lt;/strong>将式(4)进行进一步改造。&lt;/p>
+&lt;blockquote>
+&lt;p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、&lt;strong>值域是多维向量或者无穷维向量的集合的函数&lt;/strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。&lt;/p>
+&lt;/blockquote>
+&lt;p>对于&lt;span class="math">\(\theta\)&lt;/span>的一系列函数&lt;span class="math">\(c_1(\theta),c_2(\theta),\dotsb\)&lt;/span>和充分统计量向量&lt;span class="math">\(T_1(x),T_2(x),\dotsb\)&lt;/span>，我们写出列向量形式： &lt;span class="math">\[
+\mathbf{C}(\theta)=\begin{bmatrix}c_1(\theta)\\c_2(\theta)\\\vdots\\c_k(\theta)\end{bmatrix}
+\mathbf{T}(x)=\begin{bmatrix}T_1(x)\\T_2(x)\\\vdots\\T_k(x)\end{bmatrix}
+\]&lt;/span> 那么式（3）可写成 &lt;span class="math">\[
+p(x;\theta)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{4}
+\]&lt;/span> 其中，&lt;span class="math">\(\mathbf{C}(\theta),\mathbf{T}(x)\)&lt;/span>都是向量值函数，&lt;span class="math">\(h(x),A(\theta)\)&lt;/span>都是普通函数。通常文章会把&lt;span class="math">\(A(\theta)\)&lt;/span>写成&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的形式，这两种本质上是等价的，但是&lt;span class="math">\(A(\mathbf{C}(\theta))\)&lt;/span>的参数形式更加统一，为主流用法。由于&lt;span class="math">\(\mathbf{C}(\theta)\)&lt;/span>的计算结果本质上就是一个向量，我们可令向量值函数&lt;span class="math">\(\mathbf{C(\theta)}=\eta\)&lt;/span>，那么式（4）可表示为： &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 这就是其他资料中的常见形式。其中&lt;span class="math">\(\eta=\mathbf{C}(\theta)\)&lt;/span>，参数&lt;span class="math">\(η\)&lt;/span>通常叫做自然参数(natural parameter)或者标准参数(canonical parameter)。这里注明：&lt;span class="math">\(A(\theta)\)&lt;/span>与&lt;span class="math">\(A(\eta)\)&lt;/span>实际上是两个不同的函数，但是可以通过&lt;span class="math">\(\eta=\mathbf{C}(\theta),\theta=\mathbf{C}^{-1}(\eta)\)&lt;/span>进行互换，因此在后文对他们不做区分。此外，&lt;span class="math">\(\eta,\theta\)&lt;/span>是一一对应的，这里先不加证明地写出这个引理。&lt;/p>
+&lt;blockquote>
+&lt;p>引理1：在指数族中函数&lt;span class="math">\(C(\cdot)\)&lt;/span>总是&lt;strong>单调连续的(存在逆函数)&lt;/strong>，所以自然参数&lt;span class="math">\(η\)&lt;/span>和原始参数&lt;span class="math">\(θ\)&lt;/span>是&lt;strong>存在一一映射关系的&lt;/strong>。 &lt;span class="math">\[
+\eta=\mathbf{C}(\theta)\\
+\theta=\mathbf{C}^{-1}(\eta)
+\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>在指数型分布族中，使用标准参数&lt;span class="math">\(η\)&lt;/span>表示的公式形式称为&lt;strong>指数族分布的标准形式(canonical form)&lt;/strong>，在标准形式下，分布的参数是&lt;span class="math">\(η\)&lt;/span>。&lt;strong>实际上，从原始分布向指数型分布转换的过程就是将&lt;span class="math">\(\theta\)&lt;/span>转换为&lt;span class="math">\(\eta\)&lt;/span>的过程&lt;/strong>。&lt;/p>
+&lt;p>广义线性模型的&lt;strong>预测值概率分布都属于指数型分布族&lt;/strong>。&lt;/p>
+&lt;p>具体关于指数型分布式的细节请看笔记&lt;a href="概率统计随机过程之指数型分布族应用.md">概率统计随机过程之指数型分布族应用.md&lt;/a>&lt;/p>
+&lt;h3 id="自然指数族">自然指数族&lt;/h3>
+&lt;p>我们在式（5）中给出了指数型分布族的一般形式 &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]&lt;/span> 但是对于广义线性模型的应用场景而言，还是复杂了一些，因此有一种简化的&lt;strong>自然指数族&lt;/strong>。在自然指数族中，&lt;span class="math">\(\mathbf{T}(\mathbf{x})=\mathbf{x}\)&lt;/span>，不存在类似于&lt;span class="math">\(x^2,x^3,\log(x),\frac{1}{x}\)&lt;/span>这种带有函数关系的充分统计量，其可以简化写成： &lt;span class="math">\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{x}-A(\eta)\right\}\tag{6}
+\]&lt;/span> 二项分布，负二项分布，伯努利分布，泊松分布，参数&lt;span class="math">\(\alpha\)&lt;/span>已知的Gamma分布，已知方差的高斯分布，参数&lt;span class="math">\(\lambda\)&lt;/span>已知的逆高斯分布（又称Wald分布）等都可以写成自然指数族形式，其他分布如卡方分布、Beta分布、帕累托分布，对数正态分布，一般正态分布，一般Gamma分布则无法写成自然指数族的形式。他们是否是自然指数族的核心就在于是不是充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>。&lt;/p>
+&lt;h3 id="指数分散族">指数分散族&lt;/h3>
+&lt;p>在自然指数族的基础上，研究者们为了方便探究分布的期望和方差，对自然指数族做了少些变形得到指数分散族。其处理方法是将自然指数族的规范形式(式(6))的规范（自然）参数&lt;span class="math">\(\eta\)&lt;/span>拆分成与位置（期望）相关的位置函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>以及和方差相关的分散函数&lt;span class="math">\(a(\phi)\)&lt;/span>。其形式如下： &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{a(\phi)}+c(x,\phi)\}\tag{7}
+\]&lt;/span> 这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，&lt;span class="math">\(a(ϕ)\)&lt;/span>称为分散函数(dispersion function)，是已知的。&lt;span class="math">\(ϕ\)&lt;/span>称为分散参数(dispersion parameter)。&lt;span class="math">\(\vartheta\)&lt;/span>仍然叫自然参数(natural parameter)或者规范参数(canonical parameter)，它和自然指数族中参数差了个系数，因为两种模式中&lt;span class="math">\(\vartheta^T x,\eta^Tx\)&lt;/span>的模式都是&lt;strong>参数&lt;span class="math">\(\times\)&lt;/span>充分统计量&lt;/strong>，所以不难发现，实际上我们对自然参数做一个&lt;span class="math">\(\frac{1}{a(\phi)}\)&lt;/span>倍的缩放。需要指出的是，在广义线性模型中，&lt;span class="math">\(a(\phi)\)&lt;/span>一般是 已知的，且通常是个常数系数，如果样本之间的重要性没有区别，我们可以令&lt;span class="math">\(a(\phi)=\phi\)&lt;/span>，即 &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{\phi}+c(x,\phi)\}\tag{7.1}
+\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>指数分散族形式本质上是对自然指数族的参数&lt;span class="math">\(\eta\)&lt;/span>进行了拆分，把期望参数和方差参数拆分开（二者实际是可逆的变换）&lt;/strong>。使得自然参数&lt;span class="math">\(\vartheta\)&lt;/span>仅和期望&lt;span class="math">\(μ\)&lt;/span>相关，分散参数&lt;span class="math">\(ϕ\)&lt;/span>和分布的方差参数相关。分拆后，规范参数&lt;span class="math">\(\vartheta\)&lt;/span>仅和分布的期望参数&lt;span class="math">\(μ\)&lt;/span>相关，并且和&lt;span class="math">\(μ\)&lt;/span>之间存在一一映射的函数关系，换句话说，&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(μ\)&lt;/span>可以互相转化。 &lt;span class="math">\[
+\vartheta=f(\mu)\\
+\mu=f^{−1}(\vartheta)\tag{8}
+\]&lt;/span> 这一点接下来会证明。&lt;/p>
+&lt;p>由笔记&lt;a href="概率统计随机过程之指数型分布族应用.md">概率统计随机过程之指数型分布族应用&lt;/a>可知，指数分散族的期望和方差可表达为： &lt;span class="math">\[
+E[X]=b&amp;#39;(\vartheta)=\mu\tag{9}
+\]&lt;/span> &lt;span class="math">\[
+\mathrm{Var}[X]=a(\phi)b&amp;#39;&amp;#39;(\vartheta)\tag{10}
+\]&lt;/span> 从期望和方差的关系，我们能发现&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>也是一一对应关系。根据式（9）可知，&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>有函数关系，且由于&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的导数&lt;span class="math">\(b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>是方差（恒大于0）乘以一个已知数&lt;span class="math">\(a(\phi)\)&lt;/span>（式（10）结论），因此&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的导数必然恒为正数或负数（取决于已知数&lt;span class="math">\(a(\phi)\)&lt;/span>），即&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>必为单调函数，而单调函数必存在反函数，推得必存在&lt;span class="math">\(b&amp;#39;^{-1}\)&lt;/span>，使得&lt;span class="math">\(\vartheta=b&amp;#39;^{-1}(\mu)\)&lt;/span>。因此&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>是一一对应的。&lt;/p>
+&lt;p>我们定义配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>的二阶导数为&lt;strong>方差函数&lt;/strong>(variance function)，方差函数是一个关于期望&lt;span class="math">\(μ\)&lt;/span>的函数，即 &lt;span class="math">\[
+b&amp;#39;&amp;#39;(\vartheta)=\nu(μ)\tag{11}
+\]&lt;/span> 方差函数&lt;span class="math">\(ν(μ)\)&lt;/span>存在两种情况：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>方差函数是一个常量值，&lt;span class="math">\(ν(μ)=b&amp;#39;&amp;#39;(\vartheta)=C\)&lt;/span>，此时分布的方差与均值无关。典型的分布就是正态分布。&lt;/li>
+&lt;li>方差函数是一个关于均值&lt;span class="math">\(μ\)&lt;/span>的函数，&lt;span class="math">\(ν(μ)=b&amp;#39;&amp;#39;(\vartheta)\)&lt;/span>，此时分布的方差与均值有关。&lt;/li>
+&lt;/ol>
+&lt;p>我们从一般的概率分布推导出指数族，然后其中的一个子集自然指数族，最后给它做一个变型的指数分散族，这么兜兜绕绕就是为了方便广义线性的计算与推导。&lt;/p>
+&lt;h2 id="广义线性模型与指数型分布族核心">广义线性模型与指数型分布族（核心）&lt;/h2>
+&lt;p>我们在前面提到了用概率的形式理解回归模型和指数型分布族，这两个概率论的概念其实是广义线性模型的核心，然而在实际应用中，不论是一般线性模型还是广义线性模型，都没有体现出概率的影子。概率论似乎从回归模型中消失了，这一节我们将概率论从幕后拖出来，展示其操作广义线性模型的真面目。&lt;/p>
+&lt;p>我们在&lt;a href="#从概率的角度解释回归">从概率的角度解释回归&lt;/a>章节中指出，根据参数估计形成的预测模型给出的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>实际上并不会和观测到的&lt;span class="math">\(y_{obs}\)&lt;/span>(observation)完全一致。这其中的缘由主要有两点：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>观测值&lt;span class="math">\(y_{obs}\)&lt;/span>与对应的&lt;span class="math">\(x_{obs}\)&lt;/span>并不是严格的函数关系，而是在某个与&lt;span class="math">\(x_{obs}\)&lt;/span>相关的函数附近随机波动，即&lt;span class="math">\(y_{obs}=f(x_{obs})+\varepsilon\)&lt;/span>，其中&lt;span class="math">\(\varepsilon\)&lt;/span>是随机数，服从特定分布。但是，实际场景下&lt;span class="math">\(f(x_{obs})\)&lt;/span>与&lt;span class="math">\(\varepsilon\)&lt;/span>也不一定是相加的关系。&lt;/li>
+&lt;li>我们的预测模型&lt;span class="math">\(f(\cdot)\)&lt;/span>并不保证一定准确，模型的参数也是通过观测数据通过统计推断的形式如（最大似然估计、最大后验概率估计）得到的，而非精确推导。&lt;/li>
+&lt;/ol>
+&lt;p>因此，我们认为响应变量&lt;span class="math">\(y_{obs}\)&lt;/span>也服从带有特定参数的分布&lt;span class="math">\(Y=P(y_{obs}|x_{obs})\)&lt;/span>，即&lt;span class="math">\(y_{obs}\)&lt;/span>是个随机变量。然而，&lt;span class="math">\(y_{obs}\)&lt;/span>不是一个独立的随机变量，它和&lt;span class="math">\(x_{obs}\)&lt;/span>有着密切关系，我们可以把&lt;span class="math">\(x_{obs}\)&lt;/span>看成&lt;span class="math">\(Y\)&lt;/span>的分布参数。实际应用中，我们不会说给出&lt;span class="math">\(Y\)&lt;/span>的分布当成&lt;span class="math">\(y_{pred}\)&lt;/span>让用户或者系统使用，这样一是不好用，二是计算起来经常无法得到数值结果。所以我们有个自然而然的想法：&lt;strong>使用一个代表性的数字来替代&lt;span class="math">\(Y\)&lt;/span>的概率分布&lt;/strong>。&lt;/p>
+&lt;p>那么，如果只选一个数字来代替整个概率分布，大家的第一反应基本都是&lt;strong>期望&lt;/strong>。因此，我们在建立回归模型的时候，&lt;strong>希望根据给定的&lt;span class="math">\(x_{obs}\)&lt;/span>得到的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>等于&lt;span class="math">\(Y\)&lt;/span>分布的条件期望&lt;span class="math">\(E[Y|x_{obs}]\)&lt;/span>&lt;/strong>。 &lt;span class="math">\[
+\mu=E[Y|x_{obs}]=y_{pred}=f(x_{obs})\tag{12}
+\]&lt;/span> 式（12）是推导广义线性模型的核心。由于求概率的期望是一个抹除随机性的过程，因此在回归模型中，概率分布的痕迹被隐藏了起来。其中的&lt;span class="math">\(f(\cdot)\)&lt;/span>就是要训练的广义线性模型。&lt;/p>
+&lt;p>从函数的角度来看，&lt;span class="math">\(x_{obs}\)&lt;/span>为自变量，&lt;span class="math">\(f(\cdot)\)&lt;/span>为映射关系（广义线性模型），&lt;span class="math">\(y_{pred}\)&lt;/span>为因变量，又称响应变量（Response variable）。从式（12）我们也可以看出，建立的广义线性模型其根据自变量计算得到的因变量，应等于随机变量&lt;span class="math">\(Y\)&lt;/span>的期望。&lt;/p>
+&lt;p>我们要解析广义线性模型，首先就要从&lt;span class="math">\(Y\)&lt;/span>的分布谈起。经过之前章节的铺垫，我们应该已经猜到，&lt;span class="math">\(Y\)&lt;/span>&lt;strong>是属于指数型分布族&lt;/strong>，即&lt;span class="math">\(Y\sim P(y;\theta)\)&lt;/span>。这是有现实意义的，比如认为估计的连续型随机变量属于高斯分布、二分类型随机变量属于伯努利分布等等。同时，我们也认识到，之所以广义线性模型都属于指数型分布族只不过是因为我们人为地挑了容易研究的这类分布族罢了。&lt;strong>所以，从因果关系上来讲，并非广义线性模型都使用指数型分布族，而是我们先选中指数型分布族，然后把符合这些分布族的模型命名为广义线性模型&lt;/strong>。&lt;/p>
+&lt;p>虽说，&lt;span class="math">\(P(y;\theta)\)&lt;/span>是指数型分布族，&lt;strong>但是广义线性模型用到的指数族模型并不像式（5）那么复杂，而是属于自然指数族或指数分散族&lt;/strong>。由于自然指数族和指数分布族是等效的，且指数分散族更适合模型的推导，同时我们一般不对样本的重要性有区分，因此我们下文主要使用&lt;span class="math">\(a(\phi)\)&lt;/span>为常函数的指数分散族的形式，如式（7.1）所示： &lt;span class="math">\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{\phi}+c(x,\phi)\}\tag{7.1}
+\]&lt;/span> 为了区别观测数据&lt;span class="math">\(x_{obs}\)&lt;/span>和式（7.1）pdf中的自变量&lt;span class="math">\(x\)&lt;/span>，我们使用预测值&lt;span class="math">\(y\)&lt;/span>替代式（7.1）中的&lt;span class="math">\(x\)&lt;/span>，即 &lt;span class="math">\[
+p(y;\vartheta)=\exp\{\frac{\vartheta^T y-b(\vartheta)}{\phi}+c(y,\phi)\}\tag{7.2}
+\]&lt;/span> &lt;strong>此式（7.2）即为在下文中使用的广义线性模型概率分布表达式&lt;/strong>。&lt;/p>
+&lt;p>根据公式（9）我们可知，给定&lt;span class="math">\(\vartheta\)&lt;/span>的&lt;span class="math">\(Y\)&lt;/span>的期望为配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>的一阶导数: &lt;span class="math">\[
+E[Y;\vartheta]=b&amp;#39;(\vartheta)=\mu\tag{9.1}
+\]&lt;/span> 也就是说，我们使用期望&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>来代表&lt;span class="math">\(Y\)&lt;/span>的整个分布，并且也应是广义线性模型预测的结果&lt;span class="math">\(y_{pred}\)&lt;/span>。需要指出的是，&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的函数（有确定关系），因此&lt;span class="math">\(E[Y|x_{obs}]=E[Y|\vartheta]\)&lt;/span>。综合式（12）（9.1）我们有： &lt;span class="math">\[
+b&amp;#39;(\vartheta)=\mu=y_{pred}=f(x_{obs})\\
+\Rightarrow b&amp;#39;(\vartheta)=f(x_{obs})\tag{13}
+\]&lt;/span> 从式（12）、式（9.1）、式（13）我们通过求期望的方式去除了&lt;span class="math">\(Y\)&lt;/span>的随机性，得到了一个确定性的表达式，这也将概率统计的影子从广义线性模型中消去了。如果说还是留有概率分布的痕迹的话，那么就只有指数分散族的配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>还在其中。&lt;/p>
+&lt;p>式（13）还说明我们&lt;strong>要求的广义线性模型的表达式和配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>是存在密切关系的！&lt;/strong> 此外，我们在式（9）（10）的介绍中指出由于&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>是一一对应的，即存在反函数 &lt;span class="math">\[\vartheta=b&amp;#39;^{-1}(\mu)\tag{14}\]&lt;/span> 这个式子将会把广义线性模型中的“线性”和指数型分布族联系起来。&lt;/p>
+&lt;h3 id="线性的体现">线性的体现&lt;/h3>
+&lt;p>我们前面说了指数型分布族、期望，甚至得到了自变量&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(y_{pred}\)&lt;/span>的某种关系&lt;span class="math">\(\mu=b&amp;#39;(\vartheta)=y_{pred}=f(x_{obs})\)&lt;/span>，然而还有一个关键点没有解决，那就是如何将概率分布的参数&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(x\)&lt;/span>观测值&lt;span class="math">\(x_{obs}\)&lt;/span>联系起来。我们可以通过上式发现，&lt;span class="math">\(\vartheta\)&lt;/span>和&lt;span class="math">\(x_{obs}\)&lt;/span>是通过均值&lt;span class="math">\(\mu\)&lt;/span>联系在一起的。而&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>的关系可以通过式（14）确定。然而，&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(\mu\)&lt;/span>的关系还没有定下来。这也是广义“线性”模型中线性一词的由来，我们人为地设计一个&lt;strong>线性预测器&lt;/strong>： &lt;span class="math">\[
+\kappa=\beta^T x_{obs}+b\tag{15}
+\]&lt;/span> 即我们&lt;strong>设定&lt;/strong>参数&lt;span class="math">\(\kappa\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的线性组合，&lt;span class="math">\(x_{obs}\)&lt;/span>可以是标量也可以是向量。为了简洁性，通常会人为的为&lt;span class="math">\(x\)&lt;/span>扩充一个一维常量值1，并且把截距参数&lt;span class="math">\(b\)&lt;/span>算在&lt;span class="math">\(β\)&lt;/span>中，这样上述线性函数可以写成向量內积的形式。 &lt;span class="math">\[
+\kappa=\beta^T x_{obs}\tag{15.1}
+\]&lt;/span> 结合式（13）（14）我们可以得到 &lt;span class="math">\[
+\mu=b&amp;#39;(\vartheta)=h(\kappa)\tag{16}
+\]&lt;/span> &lt;span class="math">\[
+\vartheta=b&amp;#39;^{-1}(\mu)=b&amp;#39;^{-1}(h(\kappa))=b&amp;#39;^{-1}(h(\beta^T x_{obs}))\tag{17}
+\]&lt;/span> 根据式（13）的关系，显然有&lt;span class="math">\(f(x_{obs})=h(\kappa)=h(\beta^T x_{obs})\)&lt;/span>。由于&lt;span class="math">\(f\)&lt;/span>与&lt;span class="math">\(h\)&lt;/span>之间自变量&lt;span class="math">\(x_{obs},\beta^T x_{obs}\)&lt;/span>是线性变换，因此只要&lt;span class="math">\(f(\cdot)\)&lt;/span>存在，那么一般情况下，&lt;span class="math">\(h(\cdot)\)&lt;/span>必然存在。这样我们就得到了广义线性模型，我们使用式（16）来通过观测值&lt;span class="math">\(x_{obs}\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>的线性组合得到预测值&lt;span class="math">\(y_{pred}=\mu\)&lt;/span>。而式（17）则表明了线性预测器&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>与自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的关系。现在还有一个问题，就是函数关系&lt;span class="math">\(h(\cdot)\)&lt;/span>是什么样的呢？&lt;/p>
+&lt;h3 id="连接函数与激活函数">连接函数与激活函数&lt;/h3>
+&lt;p>从式（16）（17）我们可以看出预测值（期望）和线性预测器之间的关系。我们将令 &lt;span class="math">\(g(\mu)=h^{-1}(\mu)\)&lt;/span>称为&lt;strong>连接函数（Link function）&lt;/strong>，之所以叫这个名字是因为它将线性预测器和最终的预测值（期望）联系到了一起，即 &lt;span class="math">\[
+g(\mu)=h^{-1}\circ h(\beta^T x_{obs})=\beta^T x_{obs}=\kappa\tag{18}
+\]&lt;/span> 但是在实际使用中，连接函数并不常用，反倒是连接函数的反函数&lt;span class="math">\(g^{-1}=h\)&lt;/span>更常见，因为我们可以用过&lt;span class="math">\(g^{-1}(\beta^T x_{obs})\)&lt;/span>计算出广义线性模型的预测值&lt;span class="math">\(y_{pred}\)&lt;/span>，我们称&lt;span class="math">\(h=g^{-1}\)&lt;/span>为&lt;strong>激活函数(Activation function)&lt;/strong>。 &lt;span class="math">\[
+y_{pred}=g^{-1}(\kappa)=g^{-1}(\beta^T x_{obs})=h(\beta^ T x_{obs})\tag{19}
+\]&lt;/span> 显然，广义线性模型中&lt;strong>通过线性预测器和激活函数就可以得到预测结果&lt;span class="math">\(y_{pred}\)&lt;/span>&lt;/strong>，而激活函数与连接函数是反函数的关系。现在，如果我们能知道连接函数，就可以完成整个广义线性模型了！&lt;/p>
+&lt;p>那么现在就有一个问题，我们如何来确定连接函数呢？此外，也引出另一个问题:连接函数是唯一的吗？我们先回答后一个问题，即连接函数并不是唯一的。下面我们讨论如何找连接函数&lt;span class="math">\(g\)&lt;/span>。&lt;/p>
+&lt;p>前面我们提到过&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_{obs}\)&lt;/span>的函数（有确定关系），且有&lt;span class="math">\(E[Y|x_{obs}]=E[Y|\vartheta]=\mu=h(x_{obs})\)&lt;/span>，因此本质上期望&lt;span class="math">\(\mu\)&lt;/span>也是一个关于&lt;span class="math">\(x_{obs}\)&lt;/span>的函数。那么，式（18）可简写成 &lt;span class="math">\[
+g(\mu)=\beta^T x_{obs}\tag{18.1}
+\]&lt;/span> 这是一个比较有意思的式子，左右两边根源自变量都是&lt;span class="math">\(x_{obs}\)&lt;/span>。那么连接函数&lt;span class="math">\(g\)&lt;/span>就必须要满足2个条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>由于&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>的取值可能是整个实数域，但是期望&lt;span class="math">\(\mu\)&lt;/span>是有范围的，比如泊松分布的均值必大于0，即&lt;span class="math">\(\mu\in (0,+\infty)\)&lt;/span>，因此&lt;span class="math">\(g\)&lt;/span>必须将&lt;span class="math">\(\mu\)&lt;/span>的取值范围映射到整个实数域，这称为&lt;strong>定义域要求&lt;/strong>。连接函数本质上，就是把实数域范围的&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>转换到特定分布合法的&lt;span class="math">\(\mu\)&lt;/span>值空间上。&lt;/li>
+&lt;li>此外，我们希望&lt;span class="math">\(g\)&lt;/span>是可逆的（可微且严格单调），这样&lt;span class="math">\(\mu\)&lt;/span>与&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>就有了一一对应的关系，这是因为函数一旦不可逆&lt;span class="math">\(\beta^T x_{obs}\)&lt;/span>就可能求出多个预测值，这显然是不符合实际情况的，这称为&lt;strong>可逆要求&lt;/strong>。&lt;/li>
+&lt;/ol>
+&lt;p>满足以上2点，就可以初步得到一个连接函数。可以看出，上面2个要求还是相对宽泛的，不同的映射可能得到不同的线性关系组合即&lt;span class="math">\(\beta_1^Tx_{obs},\beta_2^Tx_{obs},\dotsb\)&lt;/span>，这些都满足连接函数的要求，也就是说满足定义域映射关系的可逆函数都可以作为连接函数，因此&lt;strong>连接函数并不是唯一的&lt;/strong>。&lt;/p>
+&lt;p>举两个例子：&lt;/p>
+&lt;p>一：伯努利分布，我们知道其期望&lt;span class="math">\(\mu\in(0,1)\)&lt;/span>，那么连接函数&lt;span class="math">\(g\)&lt;/span>应该能够将定义域为&lt;span class="math">\((0,1)\)&lt;/span>的范围映射到整个实数域&lt;span class="math">\(\R\)&lt;/span>，那么下面三个连续单调函数（可逆）都可以满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Logit：&lt;span class="math">\(\log(\frac{\mu}{1-\mu})\)&lt;/span>；&lt;/li>
+&lt;li>Probit：&lt;span class="math">\(\varPhi^{-1}(\mu)\)&lt;/span>，其中&lt;span class="math">\(\varPhi^{-1}\)&lt;/span>是正态分布概率累计函数的反函数，实际上在伯努利分布中，任意定义域为&lt;span class="math">\(\R\)&lt;/span>的概率累计函数的反函数都可以作为连接函数；&lt;/li>
+&lt;li>互补Log-Log：&lt;span class="math">\(\log(-\log(1-\mu))\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>可以验证以上三个函数都可以将&lt;span class="math">\(\mu\in(0,1)\)&lt;/span>映射到实数域&lt;span class="math">\(\R\)&lt;/span>。&lt;/p>
+&lt;p>二：泊松分布，泊松分布的期望值&lt;span class="math">\(\mu&amp;gt;0\)&lt;/span>，那么连接函数&lt;span class="math">\(g\)&lt;/span>需要将定义域&lt;span class="math">\((0,\infty)\)&lt;/span>的范围映射到整个实数域&lt;span class="math">\(\R\)&lt;/span>，那么下面两个连续单调函数（可逆）都可以满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Log函数：&lt;span class="math">\(\log(\mu)\)&lt;/span>;&lt;/li>
+&lt;li>初等函数：&lt;span class="math">\(\mu-\frac{1}{\mu}\)&lt;/span>，虽然此函数在全局并不是连续单调的，但是在&lt;span class="math">\(\mu&amp;gt;0\)&lt;/span>时是全局单调的，存在反函数&lt;span class="math">\(y=\frac{x+\sqrt{x^2+4}}{2}\)&lt;/span>。&lt;/li>
+&lt;/ol>
+&lt;p>既然连接函数并不是唯一的，那么我们就要从中选出最为合适的连接函数。下一节，我们介绍一个比较常用的连接函数选择方式：&lt;strong>标准连接函数&lt;/strong>。&lt;/p>
+&lt;h3 id="标准连接">标准连接&lt;/h3>
+&lt;p>我们之前说个，连接函数并不是唯一的，那么选择哪一个连接函数比较好呢？这里我们推荐一种&lt;strong>比较自然的选择&lt;/strong>，注意只是说比较自然，但不一定是最合适的，在不同场景下某些连接函数确实表现地比其他连接函数更好。&lt;/p>
+&lt;p>&lt;strong>所谓比较自然的选择，就是选择连接函数使得&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>。首先，&lt;span class="math">\(\vartheta\)&lt;/span>的取值范围就是&lt;span class="math">\(\R\)&lt;/span>，因此可以当成连接函数的值域，同时，我们也能保证常见情景下，这样选择的连接函数是可逆的（可用指数型分布族配分函数的二阶导数含义证明）。选择标准连接函数的一大优势就是可以极大地简化数学运算，非常契合广义线性模型的最大似然估计，我们在下一章节会详细讨论这个问题，这里先记住这个结论&lt;/strong>。&lt;/p>
+&lt;p>根据式（16）与标准连接函数的条件&lt;span class="math">\(g(\mu)=\vartheta=\beta^Tx_{obs}\)&lt;/span>可以推出： &lt;span class="math">\[
+g(\mu)=g(b&amp;#39;(\vartheta))=\vartheta\tag{20}
+\]&lt;/span> 其中，&lt;span class="math">\(\vartheta\)&lt;/span>经过两次变换&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>又变回了&lt;span class="math">\(\vartheta\)&lt;/span>，显然有&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>为恒等变换，那么&lt;span class="math">\(g\)&lt;/span>与&lt;span class="math">\(b&amp;#39;\)&lt;/span>就互为反函数！即有 &lt;span class="math">\[
+g^{-1}=b&amp;#39;\tag{21}
+\]&lt;/span> 这样我们的标准连接函数就可以根据指数型分布族的配分函数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>的反函数推得了！我们终于不用再在一堆连接函数中盲目地搜索、构造，只需要通过&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>就能求得。同时，我们知道，激活函数与连接函数也是互为反函数，那么根据式（21）的关系也不难发现： &lt;span class="math">\[
+b&amp;#39;=h\tag{22}
+\]&lt;/span> &lt;strong>指数型分布族的配分函数的一阶导数正好就是激活函数的形式&lt;/strong>！我们最终得到了一个既简洁又优美的结果！&lt;/p>
+&lt;p>下表列出了常用广义线性模型的配分函数、激活函数、连接函数以及典型使用场景。注：在自然指数族中，我们只允许充分统计量&lt;span class="math">\(T(x)=x\)&lt;/span>，在其他文献中有别的设置方式，因此标准连接函数会略有所不同，大多数只是系数的差别。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">分布&lt;/th>
+&lt;th align="center">一般形式&lt;/th>
+&lt;th align="center">原参数与自然参数、分散参数关系&lt;/th>
+&lt;th align="center">指数分散族形式&lt;/th>
+&lt;th align="center">使用场景&lt;/th>
+&lt;th align="center">配分函数&lt;span class="math">\(b(\vartheta)\)&lt;/span>&lt;/th>
+&lt;th align="center">激活函数&lt;span class="math">\(\mu=b&amp;#39;(\vartheta)=g^{-1}(\vartheta)\)&lt;/span>&lt;/th>
+&lt;th align="center">连接函数&lt;span class="math">\(\beta^Tx=b&amp;#39;^{-1}(\mu)=g(\mu)\)&lt;/span>&lt;/th>
+&lt;th align="center">分布的支撑&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">正态分布&lt;br>已知&lt;span class="math">\(\sigma\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\mu\\\phi=\sigma^2\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x}{\phi}-\frac{\vartheta^2}{2\phi}-[\frac{x^2}{2\phi}+\ln(\sqrt{2\pi\phi})]\}\)&lt;/span>&lt;/td>
+&lt;td align="center">随机误差服从正态分布，一般线性回归&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\frac{1}{2}\vartheta^2\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((-\infty,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">逆高斯分布&lt;br>已知&lt;span class="math">\(\lambda(&amp;gt;0)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\sqrt{\frac{\lambda}{2\pi x^3}}e^{-\frac{\lambda(x-\mu)^2}{2\mu^2x}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\frac{1}{2\mu^2}\\\phi=-\frac{1}{\lambda}&amp;lt;0\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x}{\phi}-\frac{\sqrt{2\vartheta}}{\phi}+(\frac{1}{2\phi x}+\ln(\sqrt{\frac{-1}{2\pi\phi x^3}}))\}\)&lt;/span>&lt;/td>
+&lt;td align="center">逆高斯分布描述的是布朗运动中到达固定距离所需时间的分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\sqrt{2\vartheta}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=(2\vartheta)^{-1/2}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=(2\mu^2)^{-1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((0,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">伯努利分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p^x(1-p)^{1-x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{p}{1-p}\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-\ln(1+e^{\vartheta})\}\)&lt;/span>&lt;/td>
+&lt;td align="center">典型的二选一，比如抛硬币&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\ln(1+e^\vartheta)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\frac{1}{1+e^{-\vartheta}}\)&lt;/span>又称sigmoid函数&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{\mu}{1-\mu}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">二项分布(已知&lt;span class="math">\(n\)&lt;/span>)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(C_n^xp^x(1-p)^{n-x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{p}{1-p}\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-n\ln(1+e^\vartheta)+\ln C_n^x\}\)&lt;/span>&lt;/td>
+&lt;td align="center">在n次尝试中，概率为&lt;span class="math">\(p\)&lt;/span>的事件出现&lt;span class="math">\(x\)&lt;/span>次的概率&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n\ln(1+e^\vartheta)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\frac{n}{1+e^{-\vartheta}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{\mu}{n-\mu}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1,\dotsb,n\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">负二项分布(已知成功次数&lt;span class="math">\(r\)&lt;/span>)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(C_{r+x-1}^{r-1} p^r(1-p)^{x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln(1-p)\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x+r\ln(1-e^\vartheta)+\ln C_{r+x-1}^{r-1}\}\)&lt;/span>&lt;/td>
+&lt;td align="center">在成功次数为&lt;span class="math">\(r\)&lt;/span>时，失败次数的分布，第&lt;span class="math">\(r\)&lt;/span>次必然是成功的&lt;/td>
+&lt;td align="center">&lt;span class="math">\(-r\ln(1-e^\vartheta)\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=\frac{re^\vartheta}{1-e^\vartheta}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\frac{\mu}{r+\mu}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1,2,\dotsb\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">泊松分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(e^{-\lambda}\frac{\lambda^x}{x!}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\lambda\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-e^\vartheta-\ln(x!)\}\)&lt;/span>&lt;/td>
+&lt;td align="center">表示在单位时间内，项目出现次数的概率分布，广泛应用于排队论&lt;/td>
+&lt;td align="center">&lt;span class="math">\(e^\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=e^\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\ln\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{0,1,2,\dotsb\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">指数分布&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\lambda e^{-\lambda x}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\lambda\\\phi=-1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x-\ln\lambda}{-1}\}\)&lt;/span>&lt;/td>
+&lt;td align="center">基础分布，用途广泛&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\ln\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=1/\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=1/\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((0,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">GAMMA分布(已知&lt;span class="math">\(k&amp;gt;0\)&lt;/span>)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\frac{1}{\theta ^{k}\Gamma (k)}x^{k-1}e^{-x/\theta }\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=1/\theta\\\phi=-1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\frac{\vartheta x-k\ln\vartheta}{-1}+(k-1)\ln x-\ln\Gamma(k)\}\)&lt;/span>&lt;/td>
+&lt;td align="center">可看成是指数分布的加和，具有可加性&lt;/td>
+&lt;td align="center">&lt;span class="math">\(k\ln\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu=k/\vartheta\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=k/\mu\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\((0,+\infty)\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">分类分布(共&lt;span class="math">\(m\)&lt;/span>个分类)&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\prod_{i=1}^m\theta_i^{x_i}\\\sum_i\theta_i=1\\\sum_i x_i=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta=\begin{bmatrix}\ln(\theta_1/\theta_m)\\\ln(\theta_2/\theta_m)\\\vdots\\\ln(\theta_{m-1}/\theta_m)\\\ln(\theta_m/\theta_m)\end{bmatrix}\\\phi=1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\exp\{\vartheta x-\ln\sum_{i=1}^me^{\vartheta_i}\}\)&lt;/span>&lt;/td>
+&lt;td align="center">伯努利分布的拓展，多个当中只有一个发生&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\ln\sum_{i=1}^me^{\vartheta_i}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\mu_i=\frac{e^\vartheta_i}{\sum_{i=1}^me^{\vartheta_i}}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vartheta_i=\ln\frac{\vartheta_i}{\vartheta_m}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\{1,2,\dotsb,k\}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="广义线性模型的参数关系">广义线性模型的参数关系&lt;/h3>
+&lt;p>我们在上表中，可以看出广义线性模型的表达式等于激活函数，即&lt;span class="math">\(f_{GLM}(x)=g^{-1}(\beta^T x)\)&lt;/span>，如果我们梳理一下上面的内容，可总结出广义线性模型的三大组成部分。&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>一个指数族分布(指数分散族)作为响应变量&lt;span class="math">\(Y\)&lt;/span>概率分布&lt;span class="math">\(p(Y;\vartheta)\)&lt;/span>，被称为随机组件(random component)。&lt;/li>
+&lt;li>一个线性预测器&lt;span class="math">\(\vartheta=β^Tx_{obs}\)&lt;/span>，被称为系统组件(systematic component)。&lt;/li>
+&lt;li>一个连接函数&lt;span class="math">\(g\)&lt;/span>使得&lt;span class="math">\(E[Y]=\mu=g(\vartheta)=g(\beta^T x_{obs})\)&lt;/span>，描述了随机组件和系统组件之间的关系。&lt;/li>
+&lt;/ol>
+&lt;p>用图像表达他们的关系为（假设使用标准连接函数）：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/广义线性分布关系图.drawio.svg" alt="广义线性分布关系图" />&lt;p class="caption">广义线性分布关系图&lt;/p>
+&lt;/div>
+&lt;p>先从图坐往右看，待定参数&lt;span class="math">\(\beta\)&lt;/span>与观测值&lt;span class="math">\(x_{obs}\)&lt;/span>组成线性预测期，其结果为指数分散族的参数&lt;span class="math">\(\vartheta\)&lt;/span>，且其分散参数&lt;span class="math">\(\phi\)&lt;/span>已知。由于指数分散族和常使用的一般概率分布表达式是可以相互转换的，我们也可以得到原参数&lt;span class="math">\(\theta\)&lt;/span>和自然参数&lt;span class="math">\(\vartheta\)&lt;/span>的转换关系，可以证明它们是一一对应的。&lt;/p>
+&lt;p>再从图右往左看，由于观测结果&lt;span class="math">\(y_{obs}\)&lt;/span>与&lt;span class="math">\(x_{obs}\)&lt;/span>存在相关性，而非确定函数关系，我们认为其&lt;span class="math">\(y_{obs}\)&lt;/span>服从特定的分布，我们认为这种分布是指数型分布族（指数分散族），因此可以用&lt;span class="math">\(P(y;\vartheta)\)&lt;/span>来表达&lt;span class="math">\(y_{obs}\)&lt;/span>的分布，用随机变量&lt;span class="math">\(Y\)&lt;/span>表示。当然，这个随机变量也可以用原始参数的概率分布&lt;span class="math">\(P(y;\theta)\)&lt;/span>表示。但是，在实际使用中，我们更希望得到一个具体值，而非一个分布，因此我们应使用最具代表性的值——期望&lt;span class="math">\(\mu\)&lt;/span>来表示分布，即期望应等于广义线性模型的预测值&lt;span class="math">\(\mu=y_{pred}\)&lt;/span>。同时，指数分散族有一个非常好的性质，其配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>正好等于期望&lt;span class="math">\(\mu\)&lt;/span>。而原始参数的概率分布&lt;span class="math">\(P(y;\theta)\)&lt;/span>与期望&lt;span class="math">\(\mu\)&lt;/span>的关系&lt;span class="math">\(\varphi(\theta)\)&lt;/span>则需要根据具体情况计算，因此在广义线性模型中不太常用。&lt;/p>
+&lt;p>由于&lt;span class="math">\(\mu\)&lt;/span>和线性预测期直接不是相等关系，需要一个桥梁，即连接函数&lt;span class="math">\(g(\mu)\)&lt;/span>，它阐述了期望和线性预测期之间的关系：&lt;span class="math">\(g(\mu)=\vartheta=\beta^T x_{obs}\)&lt;/span>。我们可以证明这个连接函数必存在反函数&lt;span class="math">\(g^{-1}\)&lt;/span>，这样我们就可以使用这个反函数来预测结果，即&lt;span class="math">\(g^{-1}(\vartheta)=g^{-1}(\beta^T x)\)&lt;/span>。我们将这个反函数称之为激活函数。最后我们发现配分函数的导数&lt;span class="math">\(b&amp;#39;(\vartheta)\)&lt;/span>与激活函数&lt;span class="math">\(g^{-1}(\vartheta)\)&lt;/span>有着一样的作用，因此我们得到激活函数就是配分函数的导数，即&lt;span class="math">\(b&amp;#39;=g^{-1}\)&lt;/span>。它们就是广义线性模型的函数&lt;span class="math">\(f(x_{obs})=b&amp;#39;(\beta^T x_{obs})=g^{-1}(\beta^T x_{obs})\)&lt;/span>。&lt;/p>
+&lt;h2 id="广义线性模型的最大似然估计">广义线性模型的最大似然估计&lt;/h2>
+&lt;p>本笔记的最后分两步，首先我们将说明使用标准连接函数时，使用最大似然估计方法我们可以得到非常简洁的解析结果；然后我们将首位呼应，回收文章开头引子中提出的疑问。&lt;/p>
+&lt;h3 id="标准连接函数下的广义线性模型最大似然估计">标准连接函数下的广义线性模型最大似然估计&lt;/h3>
+&lt;p>最大似然估计是广义线性模型中参数估计的一般方法，其目的是最大化似然函数，具体细节可参考笔记&lt;a href="概率统计随机过程之最大似然估计拓展.md">《概率统计随机过程之最大似然估计拓展.md》&lt;/a>。其模型通常假设如下：我们有一组&lt;span class="math">\(n\)&lt;/span>个观测值&lt;span class="math">\((x_i,y_i)\in(\R^p\times \R),i=1,2,\dotsb,n\)&lt;/span>，其中&lt;span class="math">\(x_i\)&lt;/span>是一个&lt;span class="math">\(p\)&lt;/span>维向量，&lt;span class="math">\(y_i\)&lt;/span>是观测结果是一个实数。观测值&lt;span class="math">\(x_i\)&lt;/span>会影响到广义线性模型的参数&lt;span class="math">\(\vartheta\)&lt;/span>，或者说&lt;span class="math">\(\vartheta\)&lt;/span>是&lt;span class="math">\(x_i\)&lt;/span>的函数，即&lt;span class="math">\(\vartheta=\vartheta(x_i)\)&lt;/span>。在最大似然估计中，我们假设各个观测值之间是独立的，那么每一个观测值发生的概率即为： &lt;span class="math">\[
+p(y_i)=\exp\{\frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)\}\tag{23}
+\]&lt;/span> 显然，观测值&lt;span class="math">\(x_i\)&lt;/span>通过其因变量&lt;span class="math">\(\vartheta(x_i)\)&lt;/span>影响概率与期望，&lt;span class="math">\(x_i\)&lt;/span>给定时&lt;span class="math">\(\vartheta\)&lt;/span>也确定，然后&lt;span class="math">\(b(\vartheta)\)&lt;/span>及其一阶导数也确定了，最终可以确定&lt;span class="math">\(\mu=b&amp;#39;(\vartheta)\)&lt;/span>。我们先将独立的观测值相乘取&lt;span class="math">\(log\)&lt;/span>得到对数似然函数： &lt;span class="math">\[
+\begin{aligned}
+l_n(\vartheta(X);Y)&amp;amp;=\log \prod_{i=1}^n \exp\{\frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)\}\\
+&amp;amp;=\sum_{i=1}^n \frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)
+\end{aligned}\tag{24}
+\]&lt;/span> 下面我们根据参数&lt;span class="math">\(\vartheta\)&lt;/span>，期望&lt;span class="math">\(\mu\)&lt;/span>、线性预测器&lt;span class="math">\(\beta^T x_i\)&lt;/span>以及连接函数&lt;span class="math">\(g\)&lt;/span>之间的关系对式（24）进行变形： &lt;span class="math">\[
+\left .\begin{aligned}
+式(9.1)\Rightarrow \vartheta=b&amp;#39;^{-1}(\mu)\\
+式(18.1)\Rightarrow \mu=g^{-1}(\beta^T x_i)
+\end{aligned}\right\}\Rightarrow \vartheta(x_i) = b&amp;#39;^{-1}\circ g^{-1}(\beta^T x_i)\\
+\Rightarrow \vartheta(x_i)=(g\circ b&amp;#39;)^{-1}(\beta^T x_i)\tag{25}
+\]&lt;/span> 上式集中体现了&lt;span class="math">\(\vartheta\)&lt;/span>与&lt;span class="math">\(x_i\)&lt;/span>之间的关系，代入式（24）可将变量&lt;span class="math">\(\vartheta(x_i)\)&lt;/span>替换成&lt;span class="math">\(\beta\)&lt;/span>： &lt;span class="math">\[
+l_n(\beta;Y;X)=\sum_{i=1}^n \frac{(g\circ b&amp;#39;)^{-1}(\beta^T x_i)y_i-b[(g\circ b&amp;#39;)^{-1}(\beta^T x_i)]}{\phi}+c(y_i,\phi)\tag{26}
+\]&lt;/span> 在场景中，&lt;span class="math">\((x_i,y_i)\)&lt;/span>都是已经获得的观测值，只有参数&lt;span class="math">\(\beta\)&lt;/span>是未知的，最大似然估计就是求&lt;span class="math">\(\beta\)&lt;/span>使得对数似然函数（等效于似然函数）最大。&lt;/p>
+&lt;p>一般情况下，式（26）的计算并不是平凡的，但是如果我们选用&lt;strong>标准连接函数&lt;/strong>，这个式子就能得到极大简化！&lt;strong>根据式（21）有：&lt;span class="math">\(g=b&amp;#39;^{-1}\)&lt;/span>，这使得式（26）中的函数复合&lt;span class="math">\(g\circ b&amp;#39;=I\)&lt;/span>，即二者抵消，是一个恒等变换&lt;/strong>！此时，式（26）可简化为： &lt;span class="math">\[
+l_n(\beta;Y;X)=\sum_{i=1}^n \frac{\beta^T x_iy_i-b(\beta^T x_i)}{\phi}+c(y_i,\phi)\tag{26.1}
+\]&lt;/span> 其中，&lt;span class="math">\(\beta^T x_iy_i\)&lt;/span>是一个简单的线性函数；由式（10）可知&lt;span class="math">\(b(\beta^T x_i)\)&lt;/span>二阶导海森矩阵正定是一个严格凸函数；而最后的&lt;span class="math">\(c(y_i,\phi)\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>无关，求导时不造成影响。&lt;strong>这使得采取标准连接函数的最大似然估计可以通过凸优化的方法求得唯一极值&lt;/strong>，大大简化优化流程，免除了函数复合&lt;span class="math">\(g\circ b&amp;#39;\)&lt;/span>在求导计算中复杂情形，这也是我们愿意选用标准连接函数的&lt;strong>核心原因&lt;/strong>。&lt;/p>
+&lt;p>附标准连接函数下最大似然估计的一二阶导数：&lt;/p>
+&lt;p>一阶导数： &lt;span class="math">\[
+\nabla_\beta l_n(\beta;Y;X)=\sum_{i=1}^n \frac{y_ix_i-b&amp;#39;(\beta^T x_i)x_i}{\phi};x_i\in \R^p\tag{27}
+\]&lt;/span> 二阶导数： &lt;span class="math">\[
+\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n\frac{-b&amp;#39;&amp;#39;(\beta^T x_i)x_ix_i^T}{\phi};x_i\in\R^p;x_i x_i^T \text{positive definite}\tag{28}\\
+\forall y\neq 0\in \R^p\quad y^T x_i x_i^T y=(x_i^T y)^T (x_i^Ty)&amp;gt;0
+\]&lt;/span>&lt;/p>
+&lt;h4 id="logistics回归优化举例">Logistics回归优化举例&lt;/h4>
+&lt;p>伯努利分布又叫两点分布或者0-1分布，是最简单的概率分布形式之一，其对应的广义线性模型就是Logistics回归，即二项分类。常见伯努利分布写成： &lt;span class="math">\[
+p(y;\theta)=\theta^y(1-\theta)^{1-y},y\in\{0,1\},\theta\in[0,1]
+\]&lt;/span> 转写为指数型分布族形式为： &lt;span class="math">\[
+\begin{aligned}
+p(y;\theta)&amp;amp;=\exp\{y\ln{\theta}+(1-y)\ln{(1-\theta)}\}\\
+&amp;amp;=\exp\{y\ln(\frac{\theta}{1-\theta})+\ln{(1-\theta)}\}
+\end{aligned}
+\]&lt;/span> 令&lt;span class="math">\(\vartheta=\ln(\frac{\theta}{1-\theta})\)&lt;/span>将其转换成指数分散族： &lt;span class="math">\[
+p(y;\vartheta)=\exp\{y\vartheta-\log(1+e^\vartheta)\}
+\]&lt;/span> 其&lt;span class="math">\(n\)&lt;/span>个观测值组成的对数似然函数为： &lt;span class="math">\[
+l_n(\vartheta(X);Y)=\sum_{i=1}^n (y_i\vartheta(x_i)-\log(1+e^{\vartheta(x_i)}))
+\]&lt;/span> 我们采用标准连接函数： &lt;span class="math">\[
+\vartheta(x_i)=\beta^T x_i
+\]&lt;/span> 则对数似然函数可写为： &lt;span class="math">\[
+l_n(\beta;Y;X)=\sum_{i=1}^n (\beta^T x_iy_i-\log(1+e^{\beta^Tx_i}))
+\]&lt;/span> 对&lt;span class="math">\(\beta\)&lt;/span>求一阶，二阶导数分别为： &lt;span class="math">\[
+\nabla_\beta l_n(\beta;Y;X)=\sum_{i=1}^n (y_ix_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^T x_i}}x_i);x_i\in \R^p\\
+H_{l_n}(\beta)=\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n \frac{e^{\beta^Tx_i}}{(1+e^{\beta^T x_i})^2}x_ix_i^T;x_i\in\R^p;
+\]&lt;/span> 注意，&lt;span class="math">\(x_ix_i^T\)&lt;/span>是由向量张成的矩阵。那么根据牛顿法，其优化迭代步骤为： &lt;span class="math">\[
+\beta^{(k+1)}=\beta^{(k)}-H_{l_n}(\beta^{(k)})^{-1}\nabla_\beta l_n(\beta^{(k)};Y;X)
+\]&lt;/span>&lt;/p>
+&lt;h4 id="补充牛顿法的简化方法之一fisher分数法">补充：牛顿法的简化方法之一Fisher分数法&lt;/h4>
+&lt;p>由于计算海森矩阵求和这一步很繁琐，因此我们可以用期望来替代求和操作（具体原理参见笔记&lt;a href="概率统计随机过程之最大似然估计拓展.md">概率统计随机过程之最大似然估计拓展&lt;/a>中最大似然估计与相对熵（KL散度）、交叉熵的等价性那一节）。因此有： &lt;span class="math">\[
+H_{l_n}(\beta)=\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n\frac{-b&amp;#39;&amp;#39;(\beta^T x_i)x_ix_i^T}{\phi}\\
+\simeq E[H_{l_n}(\beta)]=-I(\beta)
+\]&lt;/span> 其中，&lt;span class="math">\(I(\beta)\)&lt;/span>是Fisher信息量。所以海森矩阵也可以被Fisher信息矩阵替代，即为： &lt;span class="math">\[
+\beta^{(k+1)}=\beta^{(k)}+I(\beta^{(k)})^{-1}\nabla_\beta l_n(\beta^{(k)};Y;X)
+\]&lt;/span> 这种方法称为Fisher分数法，这算是一种近似的拟牛顿法，其收敛速度和牛顿法相近，但是计算量降低。&lt;/p>
+&lt;h3 id="回答引子的疑问最大似然估计形势下的迭代优化">回答引子的疑问，最大似然估计形势下的迭代优化&lt;/h3>
+&lt;p>还记得在文章开头时的引子吗？&lt;/p>
+&lt;blockquote>
+&lt;p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>的定义不同)： &lt;span class="math">\[
+\theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
+h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
+\vec{\theta}^T \vec{x},\quad线性回归\\
+\frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]&lt;/span> 其中，&lt;span class="math">\(\vec\theta, \vec x^{(i)}\)&lt;/span>分别是参数向量，第&lt;span class="math">\(i\)&lt;/span>个观测数据的向量。下标&lt;span class="math">\(j\)&lt;/span>表示第&lt;span class="math">\(j\)&lt;/span>个分量，&lt;span class="math">\(\alpha\)&lt;/span>表示更新的步长。&lt;/p>
+&lt;/blockquote>
+&lt;p>这一是因为我们通过指数型分布族（指数分散族）给出了广义线性模型响应变量&lt;span class="math">\(Y\)&lt;/span>的统一形式，第二点就是由于我们使用的是最大似然估计，它的似然函数求导步骤与指数分散族非常契合。&lt;strong>实际上引子中的例子就是使用标准连接函数时一阶导数的应用&lt;/strong>。在梯度下降法中，通用的迭代公式为： &lt;span class="math">\[
+\theta_j=\theta_j-\alpha\frac{\partial }{\partial \theta_j}L(\theta)
+\]&lt;/span> 代入式（27）即为(变量&lt;span class="math">\(\beta\)&lt;/span>替换为&lt;span class="math">\(\theta\)&lt;/span>，另外最大似然估计要变成最小化损失函数，加个负号): &lt;span class="math">\[
+\theta=\theta-\alpha\sum_{i=1}^n -\frac{y_ix_i-b&amp;#39;(\theta^T x_i)x_i}{\phi}=\theta-\alpha\sum_{i=1}^n(b&amp;#39;(\theta^T x_i)-y_i)x_i/\phi
+\]&lt;/span> 其中，&lt;span class="math">\(b&amp;#39;(\theta^T x_i)\)&lt;/span>写成激活函数形式为&lt;span class="math">\(h_{\vec\theta}(\vec x^{(i)})\)&lt;/span>，采用单步迭代不需要求和&lt;span class="math">\(\sum\)&lt;/span>，如果分散系数为1，那么最终结果的各维度分量就是引子中的形式。&lt;/p>
+&lt;h2 id="广义线性模型的求解irls算法">广义线性模型的求解（IRLS算法）&lt;/h2>
+&lt;p>通常情况下，如果我们不考虑计算的复杂程度，广义线性模型可以使用梯度下降法或者牛顿进行求解。在这里，我们介绍一种广义线性模型的较常用的优化算法Iteratively Re-wighted Least Squares算法。这个算法能够将循环求和运算变换成矩阵运算，提供一个较为整体化的便捷计算形式。&lt;/p>
+&lt;p>TODO&lt;/p>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;a href="https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2">https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=mc1y8m9-hOM&amp;amp;list=PLUl4u3cNGP60uVBMaoNERc6knT_MgPKS0&amp;amp;index=21">https://www.youtube.com/watch?v=mc1y8m9-hOM&amp;amp;list=PLUl4u3cNGP60uVBMaoNERc6knT_MgPKS0&amp;amp;index=21&lt;/a>&lt;/li>
+&lt;/ol></description></item><item><title>机器学习-模型评价的11个重要指标</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</link><pubDate>Fri, 09 Jul 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BB%B7%E7%9A%8411%E4%B8%AA%E9%87%8D%E8%A6%81%E6%8C%87%E6%A0%87/</guid><description/></item><item><title>机器学习-RNN相关</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</link><pubDate>Tue, 22 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-rnn%E7%9B%B8%E5%85%B3/</guid><description>
+&lt;h2 id="rnn相关">RNN相关&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="simple-rnn">simple RNN&lt;/h2>
+&lt;p>RNN借助循环核提取时间维度特征。&lt;/p>
+&lt;p>&lt;img src="../../images/simple_RNN.png" alt="simple_RNN" /> &lt;span class="math">\[
+y_t= softmax(h_t w_{hy} +b_y)\\
+h_t = tanh(x_t w_{xh + h_{t-1}w_{hh} + b_h})
+\]&lt;/span> 三个矩阵&lt;span class="math">\(w_{hy},w_{xh},w_{hh}\)&lt;/span>在前向传播中不变，只有在反向传播中才更新。通过控制循环层在时间维度上输出的&lt;span class="math">\(h_t\)&lt;/span>数量控制输出的序列长度。&lt;/p></description></item><item><title>机器学习-框架</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A1%86%E6%9E%B6/</guid><description>
+&lt;h2 id="机器学习框架">机器学习框架&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="机器学习分类">机器学习分类&lt;/h2>
+&lt;h2 id="参数学习与非参数学习">参数学习与非参数学习&lt;/h2>
+&lt;p>参数学习(parametric learning algorithm)是指有固定一组参数，通过监督学习算法的数据不断优化。&lt;/p>
+&lt;p>非参数学习(non-parametric learning algorithm)是指参数的数量不定，会随着数据量规模的变化而&lt;strong>线性&lt;/strong>变化。&lt;/p>
+&lt;p>普通的线性回归属于参数学习算法；而局部加权线性回归（LWLR）属于非参数学习算法。&lt;/p>
+&lt;h3 id="三类机器学习算法">三类机器学习算法&lt;/h3>
+&lt;p>监督学习：各种回归，决策树，随机森林，LNN，&lt;/p>
+&lt;p>无监督学习：K-means，Apriori&lt;/p>
+&lt;p>强化学习：马尔科夫决策过程（MDP）&lt;/p>
+&lt;h2 id="常用机器学习算法">常用机器学习算法&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Linear Regression&lt;/li>
+&lt;li>Logistic Regression&lt;/li>
+&lt;li>Decision Tree&lt;/li>
+&lt;li>SVM&lt;/li>
+&lt;li>Naive Bayes&lt;/li>
+&lt;li>kNN&lt;/li>
+&lt;li>K-Means&lt;/li>
+&lt;li>Random Forest&lt;/li>
+&lt;li>Dimensionality Reduction Algorithms&lt;/li>
+&lt;li>Gradient Boosting algorithms
+&lt;ol style="list-style-type: decimal">
+&lt;li>GBM&lt;/li>
+&lt;li>XGBoost&lt;/li>
+&lt;li>LightGBM&lt;/li>
+&lt;li>CatBoost&lt;/li>
+&lt;/ol>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>线性回归算法 Linear Regression&lt;/li>
+&lt;li>支持向量机算法 (Support Vector Machine,SVM)&lt;/li>
+&lt;li>最近邻居/k-近邻算法 (K-Nearest Neighbors,KNN)&lt;/li>
+&lt;li>逻辑回归算法 Logistic Regression&lt;/li>
+&lt;li>决策树算法 Decision Tree&lt;/li>
+&lt;li>k-平均算法 K-Means&lt;/li>
+&lt;li>随机森林算法 Random Forest&lt;/li>
+&lt;li>朴素贝叶斯算法 Naive Bayes&lt;/li>
+&lt;li>降维算法 Dimensional Reduction&lt;/li>
+&lt;li>梯度增强算法 Gradient Boosting&lt;/li>
+&lt;/ul></description></item><item><title>机器学习-什么是keras</title><link>https://surprisedcat.github.io/projectnotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%BB%80%E4%B9%88%E6%98%AFkeras/</link><pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%BB%80%E4%B9%88%E6%98%AFkeras/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%89%8D%E7%AB%AFkeras%E5%90%8E%E7%AB%AFtensorflowtheanocntk">前端Keras+后端TensorFlow\Theano\CNTK&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%B7%A5%E7%A8%8B%E7%9B%B8%E5%85%B3">工程相关&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tensorflow-2%E7%9A%84keras">Tensorflow 2的keras&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="keras---omit-in-toc---">Keras&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Keras 是一个Python深度学习框架，可以方便地定义和训练几乎所有类型地深度学习模型。Keras最开始是为研究人员开发的，其目的在于快速实验&lt;/p>
+&lt;p>keras具有以下重要特性：&lt;/p>
+&lt;ol>
+&lt;li>相同的代码可以在CPU或GPU上无缝切换运行&lt;/li>
+&lt;li>具有用户友好的API，便于快速开发深度学习模型的原型&lt;/li>
+&lt;li>内置支持卷积网络（用于计算机视觉）、循环网络（用于序列处理）以及二者的任意组合。&lt;/li>
+&lt;li>支持任意网络架构：多输入或多输出模型、层共享、模型共享等。&lt;/li>
+&lt;/ol>
+&lt;h2 id="前端keras后端tensorflowtheanocntk">前端Keras+后端TensorFlow\Theano\CNTK&lt;/h2>
+&lt;p>keras是一个模型级的库，为开发深度学习模型提供了高层次的构建模块。它依赖一个专门的、高度优化的张量库来完成这些运算，这个张量库就是Keras的后端引擎。Keras有三个后端实现:TensorFlow后端、Theano后端和微软认知工具包（CNTK）。这三个不同的后端引擎都可以无缝嵌入到Keras中。&lt;/p>
+&lt;p>&lt;img src="../../images/keras%E7%BB%93%E6%9E%84.jpg" alt="keras结构">&lt;/p>
+&lt;p>通过TensorFlow,Keras可以在CPU和GPU上无缝运行，在CPU上运行时，TensorFlow本身封装了一个低层次的张量运算库，叫做Eigen;在GPU上运行时，TensorFlow封装了一个高度优化的深度学习运算库，叫做NVIDIA CUDA深度卷积神经网络（cuDNN）。&lt;/p>
+&lt;h2 id="工程相关">工程相关&lt;/h2>
+&lt;p>目前：2020.7 默认的backend是tensorflow&lt;/p>
+&lt;p>在python中&lt;code>import keras&lt;/code>时会显示目前使用的后端。&lt;/p>
+&lt;h2 id="tensorflow-2的keras">Tensorflow 2的keras&lt;/h2>
+&lt;p>随着 TensorFlow 2.0 的发布，不少开发者产生了一些疑惑：作为 Keras 用户，TensorFlow 2.0 的发布跟我有关系吗？TensorFlow 中的 &lt;code>tf.keras&lt;/code> 和 Keras 有什么区别？我该用哪一个训练神经网络？在本文中，作者给出的答案是：你应该在以后所有的深度学习项目和实验中都使用 &lt;code>tf.keras&lt;/code>。&lt;/p></description></item><item><title>tensorflow-保存和载入模型</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-%E4%BF%9D%E5%AD%98%E5%92%8C%E8%BD%BD%E5%85%A5%E6%A8%A1%E5%9E%8B/</link><pubDate>Sat, 04 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-%E4%BF%9D%E5%AD%98%E5%92%8C%E8%BD%BD%E5%85%A5%E6%A8%A1%E5%9E%8B/</guid><description>
+&lt;h2 id="tensorflow-中模型的保证与载入---omit-in-toc---">Tensorflow 中模型的保证与载入&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Tensorflow中模型保存有着关键作用，无论是隔段时间保存以防止突发状况，还是保存训练完毕的模型以供使用，都需要使用tensorflow中的模型保存功能。有时候，可能也需要用到训练好的模型（迁移学习，预学习），并在这个基础上再次训练（fine tuning）。这时候我们需要掌握如何操作这些模型数据。&lt;/p>
+&lt;h2 id="模型文件">模型文件&lt;/h2>
+&lt;p>目前使用tensorflow 1.X版本，指定的模型保存目录下有4个，3类。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="p">|&lt;/span>--checkpoint_dir
+&lt;span class="ln">2&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--checkpoint
+&lt;span class="ln">3&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--MyModel.meta
+&lt;span class="ln">4&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--MyModel.data-00000-of-00001
+&lt;span class="ln">5&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>--MyModel.index
+&lt;span class="ln">6&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>checkpoint：该文件是文本文件，里面记录了保存的最新的checkpoint文件以及其它checkpoint文件列表。例如最近保存的默认5个文件名称。&lt;/li>
+&lt;li>meta文件：保存的是图结构，meta文件是pb（protocol buffer）格式文件，包含变量、op、集合等。&lt;/li>
+&lt;li>ckpt文件：包含name-global_step.data-xxxx-of-xxxx和.index文件，都是二进制文件，保存了所有的weights、biases、gradients等变量。.index是索引，.data文件保存具体数值，一般参数很多时很大。&lt;/li>
+&lt;/ul>
+&lt;h2 id="保存tensorflow模型">保存Tensorflow模型&lt;/h2>
+&lt;p>Tensorflow使用tf.train.Saver类来保存模型，值得注意的是，在tensorflow中，变量是存在于Session环境中，也就是说，只有在Session环境下才会存有变量值，因此，保存模型时需要传入session：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;Mypath/checkpoint_dir/MyModel&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以下Copy from &lt;a href="https://blog.csdn.net/huachao1001/article/details/78501928">https://blog.csdn.net/huachao1001/article/details/78501928&lt;/a>&lt;/p>
+&lt;p>如果想要在1000次迭代后，再保存模型，只需设置global_step参数即可：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>保存的模型文件名称会在后面加-1000,如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>checkpoint
+&lt;span class="ln">2&lt;/span>MyModel-1000.data-00000-of-00001
+&lt;span class="ln">3&lt;/span>MyModel-1000.index
+&lt;span class="ln">4&lt;/span>MyModel-1000.meta
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在实际训练中，我们可能会在每1000次迭代中保存一次模型数据，但是由于图是不变的，没必要每次都去保存，可以通过如下方式指定不保存图：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">step&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">write_meta_graph&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>另一种比较实用的是，如果你希望每2小时保存一次模型，并且只保存最近的5个模型文件：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">max_to_keep&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">keep_checkpoint_every_n_hours&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>注意：tensorflow默认只会保存最近的5个模型文件，如果你希望保存更多，可以通过max_to_keep来指定&lt;/p>
+&lt;/blockquote>
+&lt;p>如果我们不对tf.train.Saver指定任何参数，默认会保存所有变量。如果你不想保存所有变量，而只保存一部分变量，可以通过指定variables/collections。在创建tf.train.Saver实例时，通过将需要保存的变量构造list或者dictionary，传入到Saver中&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="n">w1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random_normal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w1&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">w2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random_normal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;w2&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="c1"># 只保存w1 , w2&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="n">sess&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">global_variables_initializer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">8&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="导入tensorflow已有模型">导入Tensorflow已有模型&lt;/h2>
+&lt;p>Tensorflow将图和变量数据分开保存为不同的文件。因此，在导入模型时，也要分为2步：构造网络图和加载参数。&lt;/p>
+&lt;h3 id="导入网络图">导入网络图&lt;/h3>
+&lt;p>一个比较笨的方法是，手敲代码，实现跟模型一模一样的图结构。其实，我们既然已经保存了图，那就没必要在去手写一次图结构代码。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel-1000.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="加载参数">加载参数&lt;/h3>
+&lt;p>仅仅有图并没有用，更重要的是，我们需要前面训练好的模型参数（即weights、biases等），本文第2节提到过，变量值需要依赖于Session，因此在加载参数时，先要构造好Session：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">sess&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">new_saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Mypath/checkpoint_dir/MyModel-1000.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">new_saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">restore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">latest_checkpoint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Mypath/checkpoint_dir&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># 选取最新的check point&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此时，W1和W2加载进了图，并且可以被访问。&lt;/p>
+&lt;p>还有一种导入模型的方式如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">ckpt&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_checkpoint_state&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">MODEL_SAVE_PATH&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 若模型存在，则加载出模型到当前对话，在测试数据集上进行准确率验证，并打印出当前轮数下的准确率&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">ckpt&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">model_checkpoint_path&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1"># 默认恢复最新的模型&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">restore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">model_checkpoint_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1"># 根据模型名称获取global_step&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="n">global_step&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">model_checkpoint_path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;-&amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>还可以遍历所有保存的模型：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">all_model_checkpoint_paths&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ckpt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">all_model_checkpoint_paths&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用恢复的模型">使用恢复的模型&lt;/h2>
+&lt;p>前面我们理解了如何保存和恢复模型，很多时候，我们希望使用一些已经训练好的模型，如prediction、fine-tuning以及进一步训练等。这时候，我们可能需要获取训练好的模型中的一些中间结果值，可以通过&lt;code>graph.get_tensor_by_name('w1:0')&lt;/code>来获取，注意&lt;code>w1:0&lt;/code>是tensor的name。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">w1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">placeholder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;float&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;w1&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="n">w2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">placeholder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;float&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;w2&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">b1&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">2.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;bias&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">#定义一个op，用于后面恢复&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="n">w3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">w4&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">multiply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">w3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">b1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;op_to_restore&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="n">sess&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">global_variables_initializer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c1">#创建一个Saver对象，用于保存所有变量&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Saver&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">15&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c1">#通过传入数据，执行op&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">w4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">feed_dict&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">}))&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c1">#打印 24.0 ==&amp;gt;(w1+w2)*b1&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c1">#现在保存模型&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;./checkpoint_dir/MyModel&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">global_step&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来我们使用&lt;code>graph.get_tensor_by_name()&lt;/code>方法来操纵这个保存的模型。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">#先加载图和参数变量&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./checkpoint_dir/MyModel-1000.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="n">saver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">restore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">latest_checkpoint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./checkpoint_dir&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># 访问placeholders变量，并且创建feed-dict来作为placeholders的新值&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">graph&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_default_graph&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="n">w1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;w1:0&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="n">w2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;w2:0&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="n">feed_dict&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="n">w1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">13.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">w2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mf">17.0&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1">#接下来，访问你想要执行的op&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="n">op_to_restore&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;op_to_restore:0&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">op_to_restore&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">feed_dict&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c1">#打印结果为60.0==&amp;gt;(13+17)*2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果只想恢复图的一部分，并且再加入其它的op用于fine-tuning。只需通过&lt;code>graph.get_tensor_by_name()&lt;/code>方法获取需要的op，并且在此基础上建立图，看一个简单例子，假设我们需要在训练好的VGG网络使用图，并且修改最后一层，将输出改为2，用于fine-tuning新数据：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="o">......&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="o">......&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">saver&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">import_meta_graph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;vgg.meta&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 访问图&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="n">graph&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_default_graph&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1">#访问用于fine-tuning的output&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="n">fc7&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">graph&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_tensor_by_name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;fc7:0&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1">#如果你想修改最后一层梯度，需要如下&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="n">fc7&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">stop_gradient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fc7&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># It&amp;#39;s an identity function&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="n">fc7_shape&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">fc7&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">as_list&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="n">new_outputs&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="n">weights&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">truncated_normal&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">fc7_shape&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">num_outputs&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">stddev&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">0.05&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="n">biases&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">constant&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.05&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">num_outputs&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="n">output&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">matmul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fc7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">weights&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">biases&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="n">pred&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">nn&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">softmax&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c1"># Now, you run this with fine-tuning data in sess.run()&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>tensorflow-tf.shape(x)、x.shape和x.get_shape()的区别</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-tf.shapexx.shape%E5%92%8Cx.get_shape%E7%9A%84%E5%8C%BA%E5%88%AB/</link><pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-tf.shapexx.shape%E5%92%8Cx.get_shape%E7%9A%84%E5%8C%BA%E5%88%AB/</guid><description>
+&lt;h2 id="tfshapexxshape和xget_shape的区别---omit-in-toc---">tf.shape(x)、x.shape和x.get_shape()的区别&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="对于tensor来说">对于Tensor来说&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="kn">import&lt;/span> &lt;span class="nn">tensorflow&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">tf&lt;/span>
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nb">input&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">constant&lt;/span>&lt;span class="p">([[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">],[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">]])&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()))&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">Out&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="nc">tensorflow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">python&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">framework&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tensor_shape&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TensorShape&lt;/span>&lt;span class="s1">&amp;#39;&amp;gt;&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="nc">tensorflow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">python&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">framework&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">tensor_shape&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TensorShape&lt;/span>&lt;span class="s1">&amp;#39;&amp;gt;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="k">class&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="nc">tensorflow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">python&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">framework&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ops&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Tensor&lt;/span>&lt;span class="s1">&amp;#39;&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到&lt;code>x.shape&lt;/code>和&lt;code>x.get_shape()&lt;/code>都是返回TensorShape类型对象，而&lt;code>tf.shape(x)&lt;/code>返回的是Tensor类型对象。&lt;/p>
+&lt;p>具体来说&lt;code>tf.shape()&lt;/code>返回的是tensor，想要获取tensor具体的shape结果需要&lt;code>sess.run&lt;/code>才行。而&lt;code>tf.get_shape&lt;/code>和&lt;code>x.shape&lt;/code>返回的是一个元组，因此要想操作维度信息，则需要调用TensorShape的&lt;code>tf.as_list()&lt;/code>方法，返回的是Python的list。&lt;/p>
+&lt;p>需要注意的是&lt;code>tf.get_shape()&lt;/code>返回的是元组，不能放到&lt;code>sess.run()&lt;/code>里面，这个里面只能放operation和tensor&lt;/p>
+&lt;h2 id="对于placeholder来说">对于placeholder来说&lt;/h2>
+&lt;p>对&lt;code>tf.placeholder&lt;/code>占位符来说，如果shape设置的其中某一个是None，那么对于&lt;code>tf.shape，sess.run&lt;/code>会报错，而&lt;code>tf.get_shape&lt;/code>不会，它会在None位置显示“?”表示此位置的shape暂时未知。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Variable&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">constant&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">float32&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="p">]),&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;a&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">placeholder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dtype&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">int32&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;b&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="n">s1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="n">s2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Tensor(&amp;#34;Shape:0&amp;#34;, shape=(7,), dtype=int32)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 元组 (1, 2, 3, 4, 5, 6, 7)&lt;/span>
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="n">s11&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="n">s21&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_shape&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s11&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Tensor(&amp;#34;Shape_1:0&amp;#34;, shape=(2,), dtype=int32)&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">s21&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 因为第一位设置的是None，所以这里的第一位显示问号表示暂时不确认 (?, 3)&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Session&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">sess&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">global_variables_initializer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="c1"># [1 2 3 4 5 6 7]&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="nb">print&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s11&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="c1"># InvalidArgumentError (see above for traceback): You must feed a value for placeholder tensor &amp;#39;b&amp;#39; with dtype int32&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1"># [[Node: b = Placeholder[dtype=DT_INT32, shape=[], _device=&amp;#34;/job:localhost/replica:0/task:0/cpu:0&amp;#34;]()]]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>tensorflow-tf.control_dependencies()作用及用法</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-tf.control_dependencies%E4%BD%9C%E7%94%A8%E5%8F%8A%E7%94%A8%E6%B3%95/</link><pubDate>Thu, 02 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-tf.control_dependencies%E4%BD%9C%E7%94%A8%E5%8F%8A%E7%94%A8%E6%B3%95/</guid><description>
+&lt;h2 id="tensorflow-tfcontrol_dependencies作用及用法---omit-in-toc---">tensorflow tf.control_dependencies()作用及用法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在有些机器学习程序中我们想要指定某些操作执行的依赖关系，这时我们可以使用&lt;code>tf.control_dependencies()&lt;/code>来实现。
+&lt;code>control_dependencies(control_inputs)&lt;/code>返回一个控制依赖的上下文管理器，使用&lt;code>with关&lt;/code>键字可以让在这个上下文环境中的操作都在&lt;code>control_inputs&lt;/code> 执行。&lt;/p>
+&lt;h2 id="原型分析">原型分析&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">control_inputs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>arguments：control_inputs: A list of &lt;code>Operation&lt;/code> or &lt;code>Tensor&lt;/code> objects
+which must be executed or computed before running the operations
+defined in the context. （注意这里control_inputs是list）
+return： A context manager that specifies control dependencies
+for all operations constructed within the context.&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1"># `d` and `e` will only run after `a`, `b`, and `c` have executed.&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">e&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="o">...&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以嵌套&lt;code>control_dependencies&lt;/code> 使用&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1"># Ops constructed here run after `a` and `b`.&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1"># Ops constructed here run after `a`, `b`, `c`, and `d`.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以传入&lt;code>None&lt;/code> 来消除依赖：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1"># Ops constructed here run after `a` and `b`.&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="c1"># Ops constructed here run normally, not waiting for either `a` or `b`.&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">g&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1"># Ops constructed here run after `c` and `d`, also not waiting&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="c1"># for either `a` or `b`.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：控制依赖只对那些在上下文环境中建立的操作有效，仅仅在context中使用一个操作或张量是没用的&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># WRONG&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="k">def&lt;/span> &lt;span class="nf">my_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">matmul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tensor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="c1"># The matmul op is created outside the context, so no control&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="c1"># dependency will be added.&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">t&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># RIGHT&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="k">def&lt;/span> &lt;span class="nf">my_func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">pred&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="c1"># The matmul op is created in the context, so a control dependency&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="c1"># will be added.&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">matmul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tensor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tensor&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>例子：在训练模型时我们每步训练可能要执行两种操作，op a, b 这时我们就可以使用如下代码：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="ln">1&lt;/span>&lt;span class="k">with&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">control_dependencies&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">]):&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="n">c&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">no_op&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;train&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c1">#tf.no_op；什么也不做&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 在这样简单的要求下，可以将上面代码替换为：&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">tf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="n">sess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其他关于&lt;code>tf.identity()&lt;/code>的奇怪操作可见&lt;a href="https://blog.csdn.net/u012436149/article/details/72084744">https://blog.csdn.net/u012436149/article/details/72084744&lt;/a>&lt;/p>
+&lt;p>使用&lt;code>tf.no_op()&lt;/code>是一个占位符，表示什么都不做，但是会返回一个operation，用以保证&lt;code>tf.control_dependencies()&lt;/code>被执行，和&lt;code>tf.group&lt;/code>操作类似。&lt;/p>
+&lt;p>版权声明：本文为CSDN博主「PKU_Jade」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：&lt;a href="https://blog.csdn.net/PKU_Jade/article/details/73498753">https://blog.csdn.net/PKU_Jade/article/details/73498753&lt;/a>&lt;/p></description></item><item><title>tensorflow-1和2的区别直观理解</title><link>https://surprisedcat.github.io/projectnotes/tensorflow-1%E5%92%8C2%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3/</link><pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/tensorflow-1%E5%92%8C2%E7%9A%84%E5%8C%BA%E5%88%AB%E7%9B%B4%E8%A7%82%E7%90%86%E8%A7%A3/</guid><description>
+&lt;h2 id="tensorflow-1-和-2-区别直观理解---omit-in-toc---">Tensorflow 1 和 2 区别直观理解&lt;!-- omit in toc -->&lt;/h2>
+&lt;ol>
+&lt;li>1.X的感觉和过去用的ns3很像，默认方式是先要定义一个静态结构，然后训练操作流程时独立的。这样运行效率比较高，但是调试起来费劲。最直观的一点，就是一些在函数中预先定义静态结构“彷佛”是不执行的，这造成有些写在后面的语句彷佛先执行了一样。2.X默认采用动态图处理的方式，和python风格更接近（Eager execution）。&lt;/li>
+&lt;li>1.X版本有很多额外的概念比如，graph，session，run，placeholder，feed_dict这些，这些其实和静态模型构建息息相关，在2.X版本中不再使用了。&lt;/li>
+&lt;li>1.X的tensorflow像一个平台工具，只是借用了python语言，tensorflow 1.X本身更像是一种描述神经网络模型的语言，2.X版本更像python的一个包。&lt;/li>
+&lt;li>1.X中的变量空间和命名空间使得变量管理比较复杂，并大量依赖隐式全局名称空间（这点类似c++），还有一些必须的初始化比如&lt;code>tf.global_variables_initializer()&lt;/code>， 2.X消除了所有这些机制，支持跟踪变量。（根据这第1点和第4点我特别怀疑1.X的设计者C++用的很6）&lt;/li>
+&lt;li>2.X版本中默认使用keras作为高级API， 1.X中需要自己装。在1.X中使用keras反而更容易移植到2.X。&lt;/li>
+&lt;li>1.X中一些API很难找，而且位置分类有很多争议，2.X版本重新归纳整理了API。&lt;/li>
+&lt;/ol></description></item><item><title>机器学习-七种回归分析</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%B8%83%E7%A7%8D%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</link><pubDate>Thu, 21 Nov 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E4%B8%83%E7%A7%8D%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90/</guid><description>
+&lt;h2 id="七种回归分析">七种回归分析&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#什么是回归分析">什么是回归分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#为什么要用回归分析--预测">为什么要用回归分析？--&amp;gt;预测&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#回归分析的种类">回归分析的种类&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性回归">线性回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#着重强调">着重强调&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#logistic回归">Logistic回归&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#它是如何工作的">它是如何工作的&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#注意点">注意点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#何时适用">何时适用&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#polynomial_regression">Polynomial_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#stepwise_regression">Stepwise_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ridge_regression">Ridge_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lasso_regression">Lasso_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#elasticnet_regression">ElasticNet_Regression&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#如何选择正确的回归分析算法">如何选择正确的回归分析算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="什么是回归分析">什么是回归分析&lt;/h2>
+&lt;p>回归分析是一种预测模型来研究因变量和自变量（们）之间的关系。例如，研究开快车和路上交通事故直接的关系。回归分析也是一种重要的数据建模与分析工具。我们想找到一条曲线/直线，尽可能的通过各个点，使线和点之间的总误差尽可能小。&lt;/p>
+&lt;h2 id="为什么要用回归分析--预测">为什么要用回归分析？--&amp;gt;预测&lt;/h2>
+&lt;p>如上所述，回归分析是一种估计两个或多个变量之间关系的。比如，我们想基于现在的经济状况估计一个公司的销售情况。根据近期的公司数据，销量的增长大约是经济增长的2.5倍。这样，我们可以依靠现有和过去的信息预测未来公司的销量。&lt;/p>
+&lt;p>使用回归分析的优点有两种：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>发现自变量和因变量之间的显著关系&lt;/li>
+&lt;li>发现各个自变量对因变量的影响程度&lt;/li>
+&lt;/ol>
+&lt;h2 id="回归分析的种类">回归分析的种类&lt;/h2>
+&lt;p>有许多种回归分析可以用来做预测？这些技术通常由三个维度驱动（自变量的数量，因变量的类型和回归曲线的形状），如下所示：&lt;/p>
+&lt;img src="../../images/regression_classification.png" alt="回归分析的种类" />
+&lt;center>
+图1 回归分析的种类
+&lt;/center>
+&lt;p>如果你富有创造性，也可以创造出新的回归方式，综合上面多种参数。在此之前，让我们来了解最常用的回归方式:&lt;/p>
+&lt;h3 id="线性回归">线性回归&lt;/h3>
+&lt;p>线性回归是最广为人知的建模技术，也是人们最先选择的回归预测模型。在这个技术中，自变量可以是离散的，也可以是连续的，但是&lt;strong>因变量必须是连续的&lt;/strong>。而且双方是一种线性关系。&lt;/p>
+&lt;p>线性回归使用最佳的拟合&lt;strong>直线&lt;/strong>（也就是回归线）在&lt;strong>因变量（Y）&lt;/strong>和一个或多个&lt;strong>自变量（X(s)）&lt;/strong>之间建立一种&lt;strong>线性&lt;/strong>关系。&lt;/p>
+&lt;p>这种关系可以用&lt;span class="math">\(Y=a+b*x+e\)&lt;/span>来表示。其中，a是截距，b是直线的斜率，e是误差项。这个公式可以通过给定的一些预测参数来预测目标值。&lt;/p>
+&lt;img src="../../images/linear_regression.png" alt="图2 线性回归" />
+&lt;center>
+图2 线性回归
+&lt;/center>
+&lt;p>单线性回归和多线性回归的区别是：多线性回归有多余1个自变量，而单线性回归只有一个自变量。现在的问题是“如何最适曲线？”。&lt;/p>
+&lt;p>如何最适曲线？&lt;/p>
+&lt;p>答案是寻找最小均方误差，这是回归分析最常用的方式。 &lt;span class="math">\[min\|Xw-y\|^2_2\]&lt;/span> 我们可以通过R-square来衡量模型的性能。更多的细节可以参考这篇文章&lt;a href="https://www.analyticsvidhya.com/blog/2015/01/model-performance-metrics-classification/">《11 Important Model Evaluation Metrics for Machine Learning Everyone should know》&lt;/a>&lt;/p>
+&lt;h3 id="着重强调">着重强调&lt;/h3>
+&lt;ul>
+&lt;li>自变量和因变量之间必须要有线性关系！&lt;/li>
+&lt;li>多变量回归容易收到&lt;strong>多重共线性，自相关和异方差性影响&lt;/strong>&lt;/li>
+&lt;li>线性回归对&lt;strong>异常值很敏感&lt;/strong>，它会对线性回归和最终的预测值产生糟糕的影响&lt;/li>
+&lt;li>多重共线性会增加系数估计的方差，使模型对微小的变动十分敏感。结果会导致系数估计不稳定&lt;/li>
+&lt;li>在多个独立自变量的场景下，我们可以使用前向选择，后向消除和逐步法来选择最显著的独立变量&lt;/li>
+&lt;/ul>
+&lt;h3 id="logistic回归">Logistic回归&lt;/h3>
+&lt;p>Logistic回归是用来区分Event=Success或Event=Failure概率的方法。我们在因变量是&lt;strong>二元变量&lt;/strong>（0/1，True/False，Yes/No）的回归分析中可以使用Logistic回归。&lt;/p>
+&lt;p>Logistic回归也是从统计学中借鉴来的，尽管名字里有回归俩字儿，但它不是一个需要预测连续结果的回归算法。与之相反，Logistic 回归是二分类任务的首选方法。它输出一个 0 到 1 之间的离散二值结果。简单来说，它的结果不是 1 就是 0。癌症检测算法可看做是 Logistic回归问题的一个简单例子，这种算法输入病理图片并且应该辨别患者是患有癌症（1）或没有癌症（0）。&lt;/p>
+&lt;h4 id="它是如何工作的">它是如何工作的&lt;/h4>
+&lt;p>Logistic 回归通过使用其固有的 logistic 函数估计概率，来衡量因变量（我们想要预测的标签）与一个或多个自变量（特征）之间的关系。&lt;/p>
+&lt;p>然后这些概率必须二值化才能真地进行预测。这就是 logistic 函数的任务，也称为 Sigmoid 函数。Sigmoid 函数是一个 S 形曲线，它可以将任意实数值映射到介于 0 和 1 之间的值，但并不能取到 0或1。然后使用阈值分类器将 0 和 1 之间的值转换为 0 或 1。&lt;/p>
+&lt;p>下面的图片说明了 logistic 回归得出预测所需的所有步骤。&lt;/p>
+&lt;img src="../../images/logistic_regression.png" alt="logistic回归步骤图" />
+&lt;center>
+图3 logistic回归步骤图
+&lt;/center>
+&lt;p>下面是 logistic 函数（sigmoid 函数）的图形表示：&lt;/p>
+&lt;img src="../../images/sigmoid.png" alt="sigmoid 函数" />
+&lt;center>
+图4 Sigmoid函数
+&lt;/center>
+&lt;h4 id="注意点">注意点&lt;/h4>
+&lt;ol style="list-style-type: decimal">
+&lt;li>常被用于分类问题。&lt;/li>
+&lt;li>Logistic回归不需要自变量和因变量有线性关系，因为是非线性的log变换。&lt;/li>
+&lt;li>为了避免过拟合和欠拟合，我们应该包括所有重要的变量。确保这一过程的一个好方法是使用逐步的方式来估计Logistic回归。&lt;/li>
+&lt;/ol>
+&lt;h4 id="何时适用">何时适用&lt;/h4>
+&lt;p>就像我已经提到的那样，Logistic 回归通过线性边界将你的输入分成两个「区域」，每个类别划分一个区域。因此，你的数据应当是线性可分的，如下图所示的数据点：&lt;/p>
+&lt;img src="../../images/Logistic回归线性可分.png" alt="Logistic回归线性可分" />
+&lt;center>
+图5 Logistic回归线性可分
+&lt;/center>
+&lt;p>换句话说：当 Y 变量只有两个值时（例如，当你面临分类问题时），您应该考虑使用逻辑回归。注意，你也可以将 Logistic 回归用于多类别分类。其他常见的分类算法有朴素贝叶斯、决策树、随机森林、支持向量机、k-近邻等等。我们将在其他文章中讨论它们，但别被这些机器学习算法的数量吓到。请注意，最好能够真正了解 4 或 5 种算法，并将精力集中在特征处理上，这也是未来工作的主题。&lt;/p>
+&lt;h3 id="polynomial_regression">Polynomial_Regression&lt;/h3>
+&lt;p>多项式回归。如果回归方程中自变量的阶数大于1，为多项式形式，则为多项式回归。&lt;/p>
+&lt;blockquote>
+&lt;p>e.g. &lt;span class="math">\(y=a+bx^2\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>这种回归得到是曲线，而不像线性回归是直线。多项式回归可以通过提高多项式的阶数来更好的拟合曲线。但是如果阶数（特征）设置的太多，特别是当特征数和训练点数相仿时，&lt;strong>拟合就趋近于插值&lt;/strong>。对于训练集，曲线将会特别好的符合，但是无法泛化的测试集中。这种现象被称为&lt;strong>过拟合&lt;/strong>。过拟合可以通过降低多项式级数（减少特征数）或者正规化来解决。&lt;/p>
+&lt;p>欠拟合，拟合与过拟合可以由图6表示。&lt;/p>
+&lt;embed src="../../images/underfitting-overfitting.webp" />
+&lt;center>
+图6 欠拟合，拟合与过拟合
+&lt;/center>
+&lt;h3 id="stepwise_regression">Stepwise_Regression&lt;/h3>
+&lt;p>逐步回归。与平时所说的 regression analysis 不太相同，stepwise regression 可以算是一种 feature extraction 的方法。&lt;/p>
+&lt;p>举个例子，假如我们的数据中有一个因变量，但却有十几或几十个自变量。为了便于对变量数过多的数据进行处理，避免 “curse of dimensionality” 中可能出现的种种问题，我们总是会对数据进行降维，根据在特定领域中的知识或是理论假设，选择其中一些可能更有意义的变量进行后续分析。但不是任何情况下我们都掌握这些先验信息，所以基于数据本身的特征提取方法应运而生。&lt;/p>
+&lt;p>在 stepwise regression 中，提取哪些变量主要基于的假设是：在线性条件下，哪些变量组合能够解释更多的因变量变异，则将其保留。&lt;/p>
+&lt;p>具体操作方法有三种：&lt;/p>
+&lt;p>Forward selection: 首先模型中只有一个单独解释因变量变异最大的自变量，之后尝试将加入另一自变量，看加入后整个模型所能解释的因变量变异是否显著增加（这里需要进行检疫，可以用 F-test， t-test 等等）；这一过程反复迭代，直到没有自变量再符合加入模型的条件。&lt;/p>
+&lt;p>Backward elimination: 与 Forward selection 相反，此时，所有变量均放入模型，之后尝试将其中一个自变量从模型中剔除，看整个模型解释因变量的变异是否有显著变化，之后将使解释量减少最少的变量剔除；此过程不断迭代，直到没有自变量符合剔除的条件。&lt;/p>
+&lt;p>Bidirectional elimination: 这种方法相当于将前两种结合起来。可以想象，如果采用第一种方法，每加入一个自变量，可能会使已存在于模型中的变量单独对因变量的解释度减小，当其的作用很小（不显著）时，则可将其从模型中剔除。而第三种方法就做了这么一件事，不是一味的增加变量，而是增加一个后，对整个模型中的所有变量进行检验，剔除作用不显著的变量。最终尽可能得到一个最优的变量组合。&lt;/p>
+&lt;p>可以想象，这样得到的变量组合，基于当前数据，应该是可以最大程度的解释因变量的变异，但其反面的作用就是会使模型有偏，即所谓的 overfitting 问题；另外，鉴于算法是基于变量解释度来进行特征提取的，当两个变量对因变量的影响相近时，则不免受到较大的噪声影响，使特征提取结果不稳定。&lt;/p>
+&lt;h3 id="ridge_regression">Ridge_Regression&lt;/h3>
+&lt;p>当使用最小二乘法计算线性回归模型参数的时候，如果数据集合矩阵（也叫做设计矩阵(design matrix)）X，存在多重共线性，那么最小二乘法对输入变量中的噪声非常的敏感，其解会极为不稳定。为了解决这个问题，就有了这一节脊回归（Ridge Regression ）。&lt;/p>
+&lt;p>当设计矩阵&lt;span class="math">\(X\)&lt;/span>存在多重共线性的时候（数学上称为病态矩阵），最小二乘法求得的参数&lt;span class="math">\(w\)&lt;/span>在数值上会非常的大，而一般的线性回归其模型是&lt;span class="math">\(y=w^Tx\)&lt;/span>，显然，就是因为&lt;span class="math">\(w\)&lt;/span>在数值上非常的大，所以，如果输入变量&lt;span class="math">\(x\)&lt;/span>有一个微小的变动，其反应在输出结果上也会变得非常大，这就是对输入变量总的噪声非常敏感的原因。&lt;/p>
+&lt;p>如果能限制参数&lt;span class="math">\(w\)&lt;/span>的增长，使&lt;span class="math">\(w\)&lt;/span>不会变得特别大，那么模型对输入&lt;span class="math">\(w\)&lt;/span>中噪声的敏感度就会降低。这就是脊回归和套索回归（Ridge Regression and Lasso Regrission）的基本思想。&lt;/p>
+&lt;p>为了限制模型参数&lt;span class="math">\(w\)&lt;/span>的数值大小，就在模型原来的目标函数上加上一个惩罚项，这个过程叫做正则化（Regularization）。&lt;/p>
+&lt;p>如果惩罚项是参数的&lt;span class="math">\(l_2\)&lt;/span>范数，就是脊回归(Ridge Regression)&lt;/p>
+&lt;p>如果惩罚项是参数的&lt;span class="math">\(l_1\)&lt;/span>范数，就是套索回归（Lasso Regrission）&lt;/p>
+&lt;p>正则化同时也是防止过拟合有效的手段，这在“多项式回归”中有详细的说明。&lt;/p>
+&lt;p>所谓脊回归，就是对于一个线性模型，&lt;strong>在原来的损失函数加入参数的&lt;span class="math">\(l_2\)&lt;/span>范数的惩罚项&lt;/strong>，其损失函数为如下形式: &lt;span class="math">\[J_w=\min_w{\|X-w\|^2+\alpha\|w\|^2},\alpha&amp;gt;0\]&lt;/span> 由于&lt;span class="math">\(w\)&lt;/span>最小化整个式子，如果&lt;span class="math">\(w\)&lt;/span>本身特别大，第二项就会很大，这样就限制了&lt;span class="math">\(w\)&lt;/span>的大小。&lt;/p>
+&lt;p>&lt;span class="math">\(α\)&lt;/span>的数值越大，那么正则项，也是惩罚项的作用就越明显；&lt;span class="math">\(α\)&lt;/span>的数值越小，正则项的作用就越弱。极端情况下，&lt;span class="math">\(α=0\)&lt;/span>则和原来的损失函数是一样的，如果&lt;span class="math">\(α=∞\)&lt;/span>，则损失函数只有正则项，此时其最小化的结果必然是&lt;span class="math">\(w=0\)&lt;/span>。&lt;/p>
+&lt;p>之前，我们根据线性回归判断参数的解为： &lt;span class="math">\[w=(X^TX)^{-1}X^Ty\]&lt;/span> 同理，脊回归的损失函数为： &lt;span class="math">\[\|Xw-y\|^2+\alpha\|w\|^2=(Xw-y)^T(Xw-y)+\alpha w^T w\]&lt;/span> 对于参数&lt;span class="math">\(w\)&lt;/span>求导之后，极值为0： &lt;span class="math">\[X^T(Xw-y)+X^T(Xw-y)+2\alpha w=0\]&lt;/span> 解得： &lt;span class="math">\[w=(X^T X+\alpha I)^{-1}X^Ty\]&lt;/span>&lt;/p>
+&lt;h3 id="lasso_regression">Lasso_Regression&lt;/h3>
+&lt;p>Lasso回归全称是(Least Absolute Shrinkage and Selection Operator)，它使用L1范数作为惩罚项。 &lt;span class="math">\[\|Xw-y\|^2+\alpha|w|\]&lt;/span>&lt;/p>
+&lt;h3 id="elasticnet_regression">ElasticNet_Regression&lt;/h3>
+&lt;p>弹性网络是一种使用 L1，L2范数作为先验正则项训练的线性回归模型.这种组合允许学习到一个只有少量参数是非零稀疏的模型，就像 Lasso一样，但是它仍然保持一些像Ridge的正则性质。我们可利用 l1_ratio 参数控制L1和L2的凸组合。弹性网络是一不断叠代的方法。&lt;/p>
+&lt;h2 id="如何选择正确的回归分析算法">如何选择正确的回归分析算法&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>数据探索是构建预测模型的必然部分。这是选择正确的模型（例如确定变量之间的关系和影响）之前的第一步。&lt;/li>
+&lt;li>为了比较不同模型的适用性，我们需要不同维度的分析，例如参数的统计特性，R-square, Adjusted r-square, AIC, BIC和误差项等。另一个方法是使用Mallow’s Cp 准则。 This essentially checks for possible bias in your model, by comparing the model with all possible submodels (or a careful selection of them).&lt;/li>
+&lt;li>Cross-validation is the best way to evaluate models used for prediction. Here you divide your data set into two group (train and validate). A simple mean squared difference between the observed and predicted values give you a measure for the prediction accuracy.&lt;/li>
+&lt;li>If your data set has multiple confounding variables, you should not choose automatic model selection method because you do not want to put these in a model at the same time.&lt;/li>
+&lt;li>It’ll also depend on your objective. It can occur that a less powerful model is easy to implement as compared to a highly statistically significant model.&lt;/li>
+&lt;li>Regression regularization methods(Lasso, Ridge and ElasticNet) works well in case of high dimensionality and multicollinearity among the variables in the data set.&lt;/li>
+&lt;/ol>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1] 7 Regression Techniques you should know!&lt;a href="https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/">https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/&lt;/a>&lt;/p></description></item><item><title>机器学习-梯度下降算法汇总（1）</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB1/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB1/</guid><description>
+&lt;h2 id="梯度下降算法1">梯度下降算法（1）&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#梯度下降法与梯度计算">梯度下降法与梯度计算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#计算梯度通过微积分计算解析梯度">计算梯度②通过微积分计算解析梯度&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#各种梯度下降法">各种梯度下降法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#batch_gradient_descent">Batch_gradient_descent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#stochastic_gradient_descent">Stochastic_gradient_descent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#mini-batch_gradient_descent">Mini-batch_gradient_descent&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#挑战">挑战&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#梯度优化算法">梯度优化算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#momentum">Momentum&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nesterov加速梯度法">Nesterov加速梯度法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#未完待续">未完待续&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>本文首先查看了多种梯度下降算法，并总结了数据训练过程中遇到的挑战。接下来，我们介绍了最常用的梯度优化算法，并指出它们做出这些算法优化的缘由。我们还会简要的说明如何在并行与分布式场景下优化梯度下降算法。最后，我们会追加一些优化梯度下降算法的有用策略。&lt;/p>
+&lt;h3 id="梯度下降法与梯度计算">梯度下降法与梯度计算&lt;/h3>
+&lt;p>从最基本的来说，梯度下降算法是一个通过向负梯度方向(-∇θJ(θ))，更新参数θ来最小化目标函数J(θ)的方法。还有超参数学习率η决定我们向（本地）最优移动的步长。计算梯度，可以有两种办法，①缓慢、近似但是最简单的办法（数值梯度）②快速、精确但是更易于出错的微积分方法（解析梯度）。我们分别介绍：&lt;/p>
+&lt;h4 id="计算梯度通过有限差值的数值计算梯度近似梯度可以适用于有些不能微分的函数">计算梯度①通过有限差值的数值计算梯度（近似梯度，可以适用于有些不能微分的函数）&lt;/h4>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">def&lt;/span> eval_numerical_gradient(f, x):
+&lt;span class="co">&amp;quot;&amp;quot;&amp;quot;&lt;/span>
+&lt;span class="co"> a naive implementation of numerical gradient of f at x&lt;/span>
+&lt;span class="co"> - f should be a function that takes a single argument&lt;/span>
+&lt;span class="co"> - x is the point (numpy array) to evaluate the gradient at&lt;/span>
+&lt;span class="co"> &amp;quot;&amp;quot;&amp;quot;&lt;/span>
+fx = f(x) &lt;span class="co"># evaluate function value at original point&lt;/span>
+grad = np.zeros(x.shape)
+h = &lt;span class="fl">0.00001&lt;/span>
+&lt;span class="co"># iterate over all indexes in x&lt;/span>
+it = np.nditer(x, flags=[&lt;span class="st">&amp;#39;multi_index&amp;#39;&lt;/span>], op_flags=[&lt;span class="st">&amp;#39;readwrite&amp;#39;&lt;/span>])
+&lt;span class="kw">while&lt;/span> not it.finished:
+&lt;span class="co"># evaluate function at x+h&lt;/span>
+ix = it.multi_index
+old_value = x[ix]
+x[ix] = old_value + h &lt;span class="co"># increment by h&lt;/span>
+fxh = f(x) &lt;span class="co"># evalute f(x + h)&lt;/span>
+x[ix] = old_value &lt;span class="co"># restore to previous value (very important!)&lt;/span>
+&lt;span class="co"># compute the partial derivative&lt;/span>
+grad[ix] = (fxh - fx) / h &lt;span class="co"># the slope&lt;/span>
+it.iternext() &lt;span class="co"># step to next dimension&lt;/span>
+&lt;span class="kw">return&lt;/span>&lt;/code>&lt;/pre>
+&lt;p>grad这个函数在每一个维度上前进了一小步（h=0.00001）,并近似计算出每一个维度的偏导数，最后组成梯度。实际上，更好的方式是使用&lt;strong>中心差分公式&lt;/strong>作为偏导数计算：&lt;span class="math">\([f(x+h)−f(x−h)]/2h\)&lt;/span>。解释在:&lt;/p>
+&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Numerical_differentiation">https://en.wikipedia.org/wiki/Numerical_differentiation&lt;/a>&lt;/p>
+&lt;p>需要指出的是超参数步长（学习率）的设置是什么重要（也是十分令人头疼的步骤），步长小收敛的速度慢，步长大容易直接跳到极值点的另一侧。&lt;/p>
+&lt;p>基于数值的梯度计算方法需要计算很多次目标函数，参数有多少个维度，就要计算多少次偏导，就要计算多少次目标函数，十分低效。对于现代神经网络动辄有成千上万的维度，计算一次梯度就要花费那么大计算量，十分不值得。而且每次计算梯度，只能获得h（步长）的收益，更使得计算量难以估计。&lt;/p>
+&lt;h4 id="计算梯度通过微积分计算解析梯度">计算梯度②通过微积分计算解析梯度&lt;/h4>
+&lt;p>我们可以通过解析方式（求导）计算梯度的解析解，这无疑又快有精确，但是对于复杂函数求导，实际计算很容易出错，所以我们常常使用数值梯度计算来验证解析梯度的正确性，又被称为&lt;strong>梯度检查（gradient check）&lt;/strong>。通过解析解求梯度只需要计算一次，即将当前点带入梯度式子即可。&lt;/p>
+&lt;h3 id="各种梯度下降法">各种梯度下降法&lt;/h3>
+&lt;p>有三种梯度下降法的变种，差别在于我们使用&lt;strong>多少数据&lt;/strong>来计算目标函数的梯度。根据数据量，我们在参数的精度和所花的时间之间做权衡。&lt;/p>
+&lt;h4 id="batch_gradient_descent">Batch_gradient_descent&lt;/h4>
+&lt;p>Batch gradient descent（Vanilla gradient descent，批量梯度下降，BGD），这就是最基本的梯度下降法，每次运行梯度运算会把所有的训练数据都带入计算，所以它的运行速度十分缓慢，并且在大数据寄情况下，能够导致内存溢出。同时，BGD不允许我们在线更新模型，因为它要把所有数据都跑一遍。总的来说，代码如下：&lt;/p>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
+params_grad = evaluate_gradient(loss_function, data, params)
+params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
+&lt;p>在给定的循环次数内，我们首先要计算损失函数在整个数据集(data)上的梯度向量，来更新我们的参数向量params。现在很多深度学习库都提供自动差分计算能力，来求解梯度。如果你自己求解梯度，需要注意进行梯度检查。 我们接下来会根据整体数据集的负梯度和学习率来更新参数。BGD对于凸的目标函数有收敛的全局最优解，对于非凸函数有局部最优解。&lt;/p>
+&lt;img src="../../images/bgd.png" alt="图1 BGD" />
+&lt;center>
+图1 BGD
+&lt;/center>
+&lt;h4 id="stochastic_gradient_descent">Stochastic_gradient_descent&lt;/h4>
+&lt;p>随机梯度下降，SGD。与此相反，随机梯度下降只根据每一个（？？）训练数据进行一次参数更新。 &lt;span class="math">\[θ=θ−η⋅∇θJ(θ;x(i);y(i)).\]&lt;/span> BGD对于大数据集做了许多冗余的运算（我觉得不能叫冗余，而是信价比很低），因为它在更新参数之前，重复计算了很多相似数据的梯度。SGD通过每次只做一次更新来原理这种冗余。所以，SGD会快很多，且常常被用于在线学习。 SGD会以较高的方差频繁的更新，导致目标函数的抖动十分剧烈，如图2所示。&lt;/p>
+&lt;img src="../../images/sgd_fluc.png" alt="图2: SGD抖动" />
+&lt;center>
+图2: SGD抖动
+&lt;/center>
+&lt;p>不同于BGD稳定地向目标函数最小值前进，SGD的抖动从另一个角度来说使它有机会跳出局部最优找到更好的局部解（甚至最优解，参考模拟退火）。但是，这给收敛带来了很大问题。解决的方案就是&lt;strong>逐步降低学习率&lt;/strong>，这使得SGD有着和BGD相似的收敛能力。代码如下所示：&lt;/p>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
+np.random.shuffle(data)
+&lt;span class="kw">for&lt;/span> example in data:
+params_grad = evaluate_gradient(loss_function, example,params)
+params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
+&lt;img src="../../images/sgd.png" alt="图3 SGD" />
+&lt;center>
+图3 SGD
+&lt;/center>
+&lt;h4 id="mini-batch_gradient_descent">Mini-batch_gradient_descent&lt;/h4>
+&lt;p>最小batch梯度下降，MBGD综合了两种（BGD）的策略，每次选取一组最小batch（n个数据）进行训练。 &lt;span class="math">\[θ=θ−η⋅∇θJ(θ;x(i:i+n);y(i:i+n)).（[i，i+n)共个数据）\]&lt;/span> 这个办法a)降低了每次更新的抖动，更加容易收敛；b）计算效率高。通常最小batch的范围在50-256之间。&lt;/p>
+&lt;pre class="sourceCode python">&lt;code class="sourceCode python">&lt;span class="kw">for&lt;/span> i in &lt;span class="dt">range&lt;/span>(nb_epochs):
+np.random.shuffle(data)
+&lt;span class="kw">for&lt;/span> batch in get_batches(data, batch_size=&lt;span class="dv">50&lt;/span>):
+params_grad = evaluate_gradient(loss_function, batch, params)
+params = params - learning_rate * params_grad&lt;/code>&lt;/pre>
+&lt;img src="../../images/mbgd.png" alt="图4 MBGD" />
+&lt;center>
+图4 MBGD
+&lt;/center>
+&lt;p>总结表格，各种算法实现：&lt;/p>
+&lt;p>&lt;a href="https://github.com/tsycnh/mlbasic">https://github.com/tsycnh/mlbasic&lt;/a> |梯度下降算法|优点|缺点| |:-:|:-:|:-:| |BGD|凸优化全局最优|计算量大，迭代速度慢，训练速度慢 |SGD|训练速度快，支持在线学习|准确度下降，有噪声，非全局最优 |MBGD|1. 训练速度较快, 取决于小批量的数目 2. 支持在线学习|准确度不如 BGD, 仍然有噪声, 非全局最优解&lt;/p>
+&lt;h3 id="挑战">挑战&lt;/h3>
+&lt;p>从上面可以看出，在优化中MBGD无疑是折衷下最佳方案。但是单纯的MBGD算法没有办法确保收敛，并且提供了一系列需要解决的问题：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>选择一个&lt;strong>合适的学习&lt;/strong>率非常困难。小的收敛慢，大的可能不收敛，或者在最小值周边浮动。&lt;/li>
+&lt;li>学习率规划尝试在训练中调节学习率，例如退火：根据一个预定的机制或目标变动之低于一个门限，就降低学习率。但是，这个调节机制或门限需要预先设定，并且不能够根据数据集特点自适应。&lt;/li>
+&lt;li>此外，相同的学习率被应用于所有的参数更新。但是如果我们的数据是稀疏的，同时特点有非常不同的频率，我们可能希望更新的程度是相当不同的，比如对于一个很少发生的事情一次性做一个大幅度的更新。&lt;/li>
+&lt;li>另一个关键挑战是避免陷入神经网络中常见的最小化非凸误差函数的局部最小值。Dauphin et al指出&lt;strong>鞍点&lt;/strong>的存在使得问题更加难解，如果一个维度使得误差函数值上升而另一个维度使得误差值下降。这些鞍点通常被一个相同误差的平台所包围，这使得SGD难以逃脱，因为梯度在所有维度上都接近于零。&lt;/li>
+&lt;/ol>
+&lt;h3 id="梯度优化算法">梯度优化算法&lt;/h3>
+&lt;p>在接下来的文章中，我们将概述一些被深度学习社区广泛使用的算法来处理上述挑战。我们不会讨论在高维数据集的实际计算中不可行的算法，例如二阶方法，如牛顿法。&lt;/p>
+&lt;h4 id="momentum">Momentum&lt;/h4>
+&lt;p>Momentum，动量法。SGD对避开“沟壑”有问题，例如，通常在局部最优附近，某一维度会远比其他维度陡峭。在这些情况下，SGD在沟谷的斜坡上振荡，而只在底部向局部最优方向缓慢前进，如图5所示：&lt;/p>
+&lt;img src="../../images/sgd_without_momentum.png" alt="图5：不加动量的SGD" />
+&lt;center>
+图5：不加动量的SGD
+&lt;/center>
+&lt;p>动量是一种在相关方向上加速SGD并抑制振荡的方法，如图6所示。它通过将过去的一部分分量，加到当前更新矢量来实现。 &lt;span class="math">\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta)\]&lt;/span> &lt;span class="math">\[\theta = \theta - v_t\]&lt;/span>&lt;/p>
+&lt;img src="../../images/momentum_vector.png" alt="图6：动量法矢量示意图" />
+&lt;center>
+图6：动量法矢量示意图
+&lt;/center>
+&lt;img src="../../images/sgd_with_momentum.png" alt="图7： 加动量的SGD" />
+&lt;center>
+图7： 加动量的SGD
+&lt;/center>
+&lt;p>γ通常是0.9，或者相似的值。&lt;/p>
+&lt;p>本质上，当使用动量时，我们把球推下山。当球滚下山时，它积累了动量，在途中变得越来越快。同样的事情也发生在我们的参数更新上：动量项对于梯度指向相同方向的维度增加，对于梯度改变方向的维度减少更新。因此，我们获得更快的收敛速度和减少振荡。（&lt;strong>通过仿真，确实降低振动，收敛更快&lt;/strong>）&lt;/p>
+&lt;img src="../../images/momentum.png" alt="图8 Momentum动量法" />
+&lt;center>
+图8 Momentum动量法
+&lt;/center>
+&lt;h4 id="nesterov加速梯度法">Nesterov加速梯度法&lt;/h4>
+&lt;p>Nesterov accelerated gradient修正动量，不让动量冲的太猛。&lt;/p>
+&lt;p>然而，当一个球滚下山坡从而带有一个初始动量之后，这个动量在其他位置就是盲目的，表现并不能令人满意。现在我们假设有一个智能球，知道这个初始动量将会把它带到何处，这样就可以提前做出一些修正，而不是仅仅用当前点的梯度来作为接下来动量的增量。&lt;/p>
+&lt;p>Nesterov加速梯度法，是一种能够提升动量精确性的方法。我们知道，在参数θ处，会带有一个初始动量γvt-1 。如果我们直接计算θ-γvt-1 处的梯度（这是估计的梯度），然后将这个梯度作为修正值来叠加在原始动量上，可以获得更加优良的效果。公式如下所示:（γ一般取0.9） &lt;span class="math">\[v_t = \gamma v_{t-1} + \eta \nabla_\theta J( \theta - \gamma v_{t-1} )\]&lt;/span> &lt;span class="math">\[\theta = \theta - v_t \]&lt;/span>&lt;/p>
+&lt;p>根据动量法和NAG法，我们可以通过图9进行对比。动量法（Momentum）首先会计算当前位置的梯度（第一段蓝线），然后加上之前累计的初始动量（第二段蓝线），总的矢量和即为走的最终路线。而NAG方法，首先根据之前累计的初始动量前进（棕色的线），然后估计在经过这个动量之后位置的梯度（红线）作为修正，实际走的是二者之和（绿线）。NAG波动也小了很多。&lt;strong>实际上NAG方法用到了二阶信息，所以才会有这么好的结果。&lt;/strong>&lt;/p>
+&lt;img src="../../images/momentum_vs_nag.png" alt="图9 动量法（蓝线） vs NAG法（棕，红，绿）" />
+&lt;center>
+图9 动量法（蓝线） vs NAG法（棕，红，绿）
+&lt;/center>
+&lt;img src="../../images/momentum_nag.png" alt="图10 Momentum_NAG" />
+&lt;center>
+图10 Nesterov加速梯度法
+&lt;/center>
+&lt;h3 id="未完待续">未完待续&lt;/h3>
+&lt;p>既然我们能够使得我们的更新适应误差函数的斜率以相应地加速SGD，我们同样也想要使得我们的更新能够适应每一个单独参数，以根据每个参数的重要性决定大的或者小的更新。下一章将说明如何自适应更新参数。（Adagrad、RMSprop、Adadelta、Adam、MaxAdam等等）&lt;/p></description></item><item><title>机器学习-梯度下降算法汇总（2）</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB2/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95%E6%B1%87%E6%80%BB2/</guid><description>
+&lt;h2 id="梯度下降算法2">梯度下降算法（2）&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#梯度优化算法">梯度优化算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adagrad">Adagrad&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#rmsprop均方根传播">RMSprop(均方根传播)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adadelta">Adadelta&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adam">Adam&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#我自己的实验到这里速度很慢了根本到不了一个理想值">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#adamax">AdaMax&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nadam">Nadam&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#amsgrad">AMSGrad&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lookahead新优化算法">Lookahead(新优化算法)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#算法可视化图">算法可视化图&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#优化器选择">优化器选择&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#并行与分布式sgd">并行与分布式SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#hogwild">Hogwild&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#downpour_sgd">Downpour_SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#delay-tolerant_algorithms_for_sgd">Delay-tolerant_Algorithms_for_SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tensorflow">TensorFlow&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#elastic_averaging_sgd">Elastic_Averaging_SGD&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#优化sgd的其他策略">优化SGD的其他策略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#数据集的洗牌和课程学习">数据集的洗牌和课程学习&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#批量归一化">批量归一化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#early_stopping">Early_stopping&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#梯度噪音">梯度噪音&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#总结">总结&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>上一篇文章我们理解到了Adagrad算法，即一个逐渐降低学习率的算法。它带来一个弊端，学习率可能过早的太小，以致于离最优点还很远就收敛了。因此有人提出了RMSprop算法来缓解这个问题，我们这篇文章从这里开始讲起。原文中先将Adadelta，但是我觉得原文这里有些难以理解，所以先从RMSprop说起。&lt;/p>
+&lt;h3 id="梯度优化算法">梯度优化算法&lt;/h3>
+&lt;h4 id="adagrad">Adagrad&lt;/h4>
+&lt;p>Adagrad在原来基础上，做了这样一个优化：让学习率适应参数，对于出现次数较少的特征，我们对其采用更大的学习率，对于出现次数较多的特征，我们对其采用较小的学习率。因此，Adagrad非常适合处理稀疏数据。&lt;/p>
+&lt;p>之前的方法中，我们对于所有的参数&lt;span class="math">\(\boldsymbol{\theta}\)&lt;/span>，都是用相同的学习速率η。而在Adagrade算法中，对于每一个维度的参数&lt;span class="math">\({\theta}_i\)&lt;/span>，采用不同的学习速率。我们先看看&lt;span class="math">\({\theta}_i\)&lt;/span>每一个维度的更新过程，然后再把它向量化。简单来看，我们使用&lt;span class="math">\(\boldsymbol{g_t}\)&lt;/span>来表示t时刻的梯度向量，&lt;span class="math">\(g_{t,i}\)&lt;/span>表示某一维度参数&lt;span class="math">\({\theta}_i\)&lt;/span>在t时刻的&lt;strong>偏导数&lt;/strong>。 &lt;span class="math">\[g_{t,i}=\frac{{\partial}J(\boldsymbol{\theta_t)}}{d\theta_{t,i}}\]&lt;/span> 对于一般SGD算法，每一个周期t内，&lt;span class="math">\(\theta_{i}\)&lt;/span>在更新是采用相同的学习率：&lt;span class="math">\(\theta_{t+1,i}=\theta_{t,i}-\eta\cdot{g_{t,i}}\)&lt;/span>. 但是对于Adagrad算法，学习率的更新的规则如下所示： &lt;span class="math">\[\theta_{t+1,i}=\theta_{t,i}-\frac{\eta}{\sqrt{G_{t,ii}}+\epsilon}\cdot g_{t,i}\]&lt;/span> 其中，&lt;span class="math">\(\boldsymbol{G_t}\)&lt;/span>是d*d的对角矩阵，其中元素&lt;span class="math">\(G_{t,ii}\)&lt;/span>表示表示之前此维度偏导数的平方和。而&lt;span class="math">\(\epsilon\)&lt;/span>的存在是为了防止分母为0，一般取值为1e-8.有意思的是，如果没有平方根这个算法的效果会很差。 由于参数&lt;span class="math">\(G_t\)&lt;/span>包含过去梯度的平方和，我们可以向量化这个表达式： &lt;span class="math">\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]&lt;/span> 其中，&lt;span class="math">\(\odot\)&lt;/span>表示矩阵和向量的积。这样随着矩阵&lt;span class="math">\(\boldsymbol{G_t}\)&lt;/span>元素逐渐变大，学习率η会逐渐减少。Adagrad算法最大的问题在于：由于每增加一个正项，在整个训练过程中，累加的和会持续增长。这会导致学习率变小以至于最终变得无限小，在学习率无限小时，Adagrad算法将无法取得额外的信息，导致算法停止。尤其是初始值的梯度很大，导致算法提前收敛。接下来的算法旨在解决这个不足。&lt;/p>
+&lt;img src="../../images/adagrad.png" alt="Adagrad based MBGD" />
+&lt;center>
+图1 Adagrad效果(batch=5)Adagrad算法提前停止
+&lt;/center>
+&lt;h4 id="rmsprop均方根传播">RMSprop(均方根传播)&lt;/h4>
+&lt;p>RMSprop算法对学习率的自适应做出了修改。之前Adagrad算法中，学习率是一只下降的，为了避免过早收敛，Geoff Hinton 提出了一种新的学习率自动更新方式，类似TCP协议中平滑计算RTT的方式： &lt;span class="math">\[TCP的平均RTT : SRTT = \alpha \times SRTT + (1-\alpha)\times RTT\]&lt;/span> &lt;span class="math">\[RMSprop 学习率自适应参数: E[g^2]_t = \gamma E[g^2]_{t-1} + (1-\gamma)g^2_t\]&lt;/span> 通常，&lt;span class="math">\(\gamma\)&lt;/span>取0.9，基础学习率&lt;span class="math">\(\eta\)&lt;/span>取0.001。我在实际使用中发现用0.001收敛的速度很慢，可以尝试使用0.2。而且损失函数的曲线明显平滑了许多。&lt;span class="math">\(E[g^2]_{t}\)&lt;/span>是0-&amp;gt;t时刻梯度的平滑值。综上所述，RMSprop的梯度更新算法为： &lt;span class="math">\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]&lt;/span> 另一个重要的建议是&lt;strong>mini-batch的值选区的大一些，否在防止震荡不收敛&lt;/strong>。&lt;/p>
+&lt;img src="../../images/rmsprop.png" alt="RMSprop based MBGD" />
+&lt;center>
+图2 RMSprop效果(batch=5)
+&lt;/center>
+&lt;h4 id="adadelta">Adadelta&lt;/h4>
+&lt;p>Adadelta算法是Adagrad算法的拓展,它能够降低Adagrad算法在学习率上单项的过度下降。相对于一直累加过去所有的梯度的平方，Adadelta算法管理了一个窗口,将过去梯度相加的个数固定为&lt;span class="math">\(\omega\)&lt;/span>。&lt;/p>
+&lt;p>但是相较于低效率地存储前&lt;span class="math">\(\omega\)&lt;/span>个梯度的平方，“梯度的和”被递归定义为逐渐衰减的之前所有梯度平方的和。这个定义有点像TCP协议中计算RTT的方式： &lt;span class="math">\[E[g^2]_t=\gamma E[g^2]_{t-1}+(1-\gamma)g^2_t\]&lt;/span> 在t时刻的实时平均&lt;span class="math">\(E[g^2]_{t}\)&lt;/span>只取决于之前的均值和当前的梯度。&lt;span class="math">\(\gamma\)&lt;/span>的作用和RMSprop中的类似，一般可以取0.9。为了清楚起见，我们重新写一般SGD算法的参数更新过程： &lt;span class="math">\[{\Delta}{\theta}_t = -{\eta}{\cdot}g_{t,i}\]&lt;/span> &lt;span class="math">\[{\theta}_{t+1} = {\theta}_t + {\Delta}{\theta}_t\]&lt;/span> 然后，我们再重写下Adagrad更新参数向量的公式： &lt;span class="math">\[\boldsymbol{\theta_{t+1}}=\boldsymbol{\theta_{t}}-\frac{\eta}{\sqrt{\boldsymbol{G_{t}}+\epsilon\cdot\boldsymbol{I}}}\odot\boldsymbol{g_{t}}\]&lt;/span> 现在，我们只要把对角矩阵&lt;span class="math">\(G_t\)&lt;/span>换成逐渐衰减的梯度平方的均值&lt;span class="math">\({E[g^2]_t}\)&lt;/span>: &lt;span class="math">\[{\Delta}{\theta}_t=-\frac{\eta}{\sqrt{E[g^2]_t+{\epsilon}}}g_t\]&lt;/span> 如果我们认为&lt;span class="math">\({\sqrt{E[g^2]_t+{\epsilon}}}\)&lt;/span>近似等于均方根值RMS，也可以用下式表示： &lt;span class="math">\[\Delta\theta_t=-\frac{\eta}{RMS[g]_t}g_t\]&lt;/span> 到这里读者一定会很奇怪，这不是RMSprop算法吗？到这里如果把&lt;span class="math">\(\gamma\)&lt;/span>设置为0.9，确实和RMSprop算法一样，所以下面才说的Adadelta的独创。&lt;/p>
+我们看到目前的部分还存在两个明显问题，第一超参数学习率&lt;span class="math">\(\eta\)&lt;/span>还得手动设置；第二表达式的量纲不统一。我们假设&lt;span class="math">\(\theta\)&lt;/span>的单位是&lt;span class="math">\(x\)&lt;/span>。那么BGD、SGD、Momentum、NAG的量纲就是&lt;span class="math">\(1/x\)&lt;/span>。 &lt;span class="math">\[\Delta\theta单位\propto \boldsymbol{g}某一维度单位\propto\frac{\partial{f}}{\partial{\theta_i}}\propto\frac{1}{x}\]&lt;/span> 而Adagrad的&lt;span class="math">\(\Delta\theta\)&lt;/span>是无量纲数。如果我们想要获得匹配的量纲，必须使用二阶信息例如使用Hessian信息（或其他近似）的牛顿法： &lt;span class="math">\[\Delta\theta单位\propto \frac{\boldsymbol{g}}{\boldsymbol{H}}\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\propto{x}\]&lt;/span> 我们知道二阶的牛顿是正确的（这点先不去证明，反正是对的），但是二阶信息的计算量大大增加了，所以我们考虑如下变化： &lt;span class="math">\[\Delta\theta\propto\frac{\frac{\partial{f}}{\partial{\theta_i}}}{\frac{\partial^2f}{\partial{\theta^2}}}\Rightarrow\frac{\Delta\theta}{{\frac{\partial{f}}{\partial{\theta_i}}}}\propto\frac{1}{\frac{\partial^2f}{\partial{\theta^2}}}\propto\frac{1}{\boldsymbol{{H}}}\propto{x^2}\]&lt;/span> 再根据： &lt;span class="math">\[\frac{1}{\boldsymbol{H}}\cdot\boldsymbol{g}\propto{x}\]&lt;/span> &lt;span class="math">\(\boldsymbol{g}\)&lt;/span>即为当前梯度，分母中的&lt;span class="math">\(\frac{\partial{f}}{\partial{\theta_i}}\)&lt;/span>就是&lt;span class="math">\(RMS[g]_t\)&lt;/span>。关键分子还缺少一个&lt;span class="math">\(\Delta\theta\)&lt;/span>。Adadelta算法使用了平滑的均方根值&lt;span class="math">\(RMS[\Delta\theta]_{t-1}\)&lt;/span>来作为分子代替&lt;span class="math">\(\eta\)&lt;/span>，即： &lt;span class="math">\[\Delta\theta_t=-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]_t}g_t\]&lt;/span> &lt;span class="math">\[其中：RMS[\Delta \theta]_{t} = \sqrt{E[\Delta \theta^2]_t + \epsilon}\]&lt;/span> &lt;span class="math">\[其中：E[\Delta \theta^2]_t = \gamma E[\Delta \theta^2]_{t-1} + (1 - \gamma) \Delta \theta^2_t\]&lt;/span> 这样，Adadelta算法不用再设置超参数学习率，量纲也得到了统一。 &lt;img src="../../images/Adadelta.png" alt="Adadelta based MBGD" />
+&lt;center>
+图3 RMSprop效果(batch=5)
+&lt;/center>
+&lt;h4 id="adam">Adam&lt;/h4>
+&lt;p>自适应矩算法（Adaptive monent），是一种对随机目标函数执行一阶梯度优化的算法。其主要利用了&lt;strong>自适应性低阶矩估计&lt;/strong>。Adam 算法很容易实现，并且有很高的计算效率和较低的内存需求。Adam 算法梯度的对角缩放（diagonal rescaling）具有不变性，因此很适合求解带有大规模数据或参数的问题。该算法同样适用于解决大噪声和稀疏梯度的非稳态（non-stationary）问题。超参数可以很直观地解释，并只需要少量调整。&lt;/p>
+&lt;p>Adam算法的核心更新规律是： &lt;span class="math">\[\theta_{t+1} = \theta_t-\frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t\]&lt;/span> 和过去一样，&lt;span class="math">\(\eta\)&lt;/span>是学习率，&lt;span class="math">\(\hat m_t\)&lt;/span>是梯度的一阶矩，&lt;span class="math">\(\hat v_t\)&lt;/span>是梯度的二阶矩。我们用&lt;span class="math">\(g_t\)&lt;/span>表示t时刻的梯度。那么一阶矩&lt;span class="math">\(\hat m_t\)&lt;/span>和二阶矩&lt;span class="math">\(\hat v_t\)&lt;/span>分别可以指数移动平均表示： &lt;span class="math">\[m_t \leftarrow \beta_1\cdot m_{t-1}+(1-\beta_1)\cdot g_t\]&lt;/span> &lt;span class="math">\[v_t \leftarrow \beta_2\cdot v_{t-1}+(1-\beta_2)\cdot g_t^2\]&lt;/span> 但是，再初始的时候，一阶矩&lt;span class="math">\(m_0\)&lt;/span>和&lt;span class="math">\(v_0\)&lt;/span>都是从0开始，因此矩估计会偏向0（因为&lt;span class="math">\(1-\beta\)&lt;/span>接近0，所以初始阶段矩大约都接近0），因此我们在初始阶段需要用它除以一个&lt;strong>小数&lt;/strong>： &lt;span class="math">\[\hat m_t = \frac{m_t}{1-\beta_1^t}\]&lt;/span> &lt;span class="math">\[\hat v_t = \frac{v_t}{1-\beta_2^t}\]&lt;/span> t表示参数&lt;span class="math">\(\beta_1\)&lt;/span>、&lt;span class="math">\(\beta_2\)&lt;/span>的t次方，在编程中表示t次迭代，这样在最开始的时候&lt;span class="math">\(1-\beta\)&lt;/span>是一个小数，可以抵消最开始移动平均矩很小的缺点，随着迭代次数t增加，&lt;span class="math">\(1-\beta^t\)&lt;/span>逐渐趋近于1，实际的移动平均矩会逐渐占据更新过程的主导权。 论文作者建议超参数取值：&lt;span class="math">\(\eta=0.001,\beta_1=0.9,\beta_2=0.999,\epsilon=10^{-8}\)&lt;/span>。&lt;/p>
+&lt;h5 id="我自己的实验到这里速度很慢了根本到不了一个理想值">我自己的实验到这里速度很慢了，根本到不了一个理想值&lt;/h5>
+&lt;h4 id="adamax">AdaMax&lt;/h4>
+&lt;p>Adamax是Adam的一种变体，此方法对学习率的上限提供了一个更简单的范围。从Adam算法可以算是二范数的比较，如果我们把二范数变成无穷范数，那么： &lt;span class="math">\[v_t \leftarrow \beta_2^p\cdot v_{t-1}+(1-\beta_2^p)\cdot g_t^p \\ where\quad p\rightarrow\infty\]&lt;/span> 为了防止混淆，我们用&lt;span class="math">\(u_t\)&lt;/span>代替&lt;span class="math">\(v_t\)&lt;/span>,通过无穷范数是最大值性质，我们可以推得： &lt;span class="math">\[u_t = max(\beta_2\cdot u_{t-1},|g_t|)\]&lt;/span> 相应的，更新公式为： &lt;span class="math">\[\theta_{t+1} = \theta_{t} - \dfrac{\eta}{u_t} \hat{m}_t\]&lt;/span> 其中，&lt;span class="math">\(\eta = 0.002,\beta_1=0.9,\beta_2=0.999\)&lt;/span>。&lt;/p>
+&lt;h4 id="nadam">Nadam&lt;/h4>
+&lt;p>Nadam可以看作是Nesterov和Adam方法的结合。Nadam对学习率有了更强的约束，同时对梯度的更新也有更直接的影响。一般而言，在想使用带动量的RMSprop，或者Adam的地方，大多可以使用Nadam取得更好的效果。&lt;/p>
+&lt;h4 id="amsgrad">AMSGrad&lt;/h4>
+&lt;h4 id="lookahead新优化算法">Lookahead(新优化算法)&lt;/h4>
+&lt;h4 id="算法可视化图">算法可视化图&lt;/h4>
+&lt;h4 id="优化器选择">优化器选择&lt;/h4>
+&lt;p>那么，我们应该选择使用哪种优化算法呢？如果输入数据是稀疏的，选择任一自适应学习率算法可能会得到最好的结果。选用这类算法的另一个好处是无需调整学习率，选用默认值就可能达到最好的结果。&lt;/p>
+&lt;p>总的来说，RMSprop是Adagrad的扩展形式，用于处理在Adagrad中急速递减的学习率。RMSprop与Adadelta相同，所不同的是Adadelta在更新规则中使用参数的均方根进行更新。最后，Adam是将偏差校正和动量加入到RMSprop中。在这样的情况下，RMSprop、Adadelta和Adam是很相似的算法并且在相似的环境中性能都不错。Kingma等人[9]指出在优化后期由于梯度变得越来越稀疏，偏差校正能够帮助Adam微弱地胜过RMSprop。综合看来，Adam可能是最佳的选择。&lt;/p>
+&lt;p>有趣的是，最近许多论文中采用不带动量的SGD和一种简单的学习率的退火策略。已表明，通常SGD能够找到最小值点，但是比其他优化的SGD花费更多的时间，与其他算法相比，SGD更加依赖鲁棒的初始化和退火策略，同时，SGD可能会陷入鞍点，而不是局部极小值点。因此，如果你关心的是快速收敛和训练一个深层的或者复杂的神经网络，你应该选择一个自适应学习率的方法。&lt;/p>
+&lt;h3 id="并行与分布式sgd">并行与分布式SGD&lt;/h3>
+&lt;p>当存在大量的大规模数据和廉价的集群时，利用分布式SGD来加速是一个显然的选择。SGD本身有固有的顺序：一步一步，我们进一步进展到最小。SGD提供了良好的收敛性，但SGD的运行缓慢，特别是对于大型数据集。相反，SGD异步运行速度更快，但客户端之间非最理想的通信会导致差的收敛。此外，我们也可以在一台机器上并行SGD，这样就无需大的计算集群。以下是已经提出的优化的并行和分布式的SGD的算法和框架。&lt;/p>
+&lt;h4 id="hogwild">Hogwild&lt;/h4>
+&lt;p>Niu等人[14]提出称为Hogwild!的更新机制，Hogwild!允许在多个CPU上并行执行SGD更新。在无需对参数加锁的情况下，处理器可以访问共享的内存。这种方法只适用于稀疏的输入数据，因为每一次更新只会修改一部分参数。在这种情况下，该更新策略几乎可以达到一个最优的收敛速率，因为CPU之间不可能重写有用的信息。&lt;/p>
+&lt;h4 id="downpour_sgd">Downpour_SGD&lt;/h4>
+&lt;p>Downpour SGD是SGD的一种异步的变形形式，在Google，Dean等人[6]在他们的DistBelief框架（TensorFlow的前身）中使用了该方法。Downpour SGD在训练集的子集上并行运行多个模型的副本。这些模型将各自的更新发送给一个参数服务器，参数服务器跨越了多台机器。每一台机器负责存储和更新模型的一部分参数。然而，因为副本之间是彼此不互相通信的，即通过共享权重或者更新，因此可能会导致参数发散而不利于收敛。&lt;/p>
+&lt;h4 id="delay-tolerant_algorithms_for_sgd">Delay-tolerant_Algorithms_for_SGD&lt;/h4>
+&lt;p>通过容忍延迟算法的开发，McMahan和Streeter[11]将AdaGraad扩展成并行的模式，该方法不仅适应于历史梯度，同时适应于更新延迟。该方法已经在实践中被证实是有效的。&lt;/p>
+&lt;h4 id="tensorflow">TensorFlow&lt;/h4>
+&lt;p>TensorFlow[1]是Google近期开源的框架，该框架用于实现和部署大规模机器学习模型。TensorFlow是基于DistBelief开发，同时TensorFlow已经在内部用来在大量移动设备和大规模分布式系统的执行计算。在2016年4月发布的分布式版本依赖于图计算，图计算即是对每一个设备将图划分成多个子图，同时，通过发送、接收节点对完成节点之间的通信。&lt;/p>
+&lt;h4 id="elastic_averaging_sgd">Elastic_Averaging_SGD&lt;/h4>
+&lt;p>Zhang等人[22]提出的弹性平均SGD（Elastic Averaging SGD，EASGD）连接了异步SGD的参数客户端和一个弹性力，即参数服务器存储的一个中心变量。EASGD使得局部变量能够从中心变量震荡得更远，这在理论上使得在参数空间中能够得到更多的探索。经验表明这种增强的探索能力通过发现新的局部最优点，能够提高整体的性能&lt;/p>
+&lt;h3 id="优化sgd的其他策略">优化SGD的其他策略&lt;/h3>
+&lt;p>最后，我们介绍可以与前面提及到的任一算法配合使用的其他的一些策略，以进一步提高SGD的性能。对于其他的一些常用技巧的概述可以参见[10]。&lt;/p>
+&lt;h4 id="数据集的洗牌和课程学习">数据集的洗牌和课程学习&lt;/h4>
+&lt;p>总的来说，我们希望避免向我们的模型中以一定意义的顺序提供训练数据，因为这样会使得优化算法产生偏差。因此，在每一轮迭代后对训练数据洗牌是一个不错的主意。&lt;/p>
+&lt;p>另一方面，在很多情况下，我们是逐步解决问题的，而将训练集按照某个有意义的顺序排列会提高模型的性能和SGD的收敛性，如何将训练集建立一个有意义的排列被称为课程学习[3]。&lt;/p>
+&lt;p>Zaremba and Sutskever[20]只能使用课程学习训练LSTM来评估简单程序，并表明组合或混合策略比单一的策略更好，通过增加难度来排列示例。&lt;/p>
+&lt;h4 id="批量归一化">批量归一化&lt;/h4>
+&lt;p>为了便于学习，我们通常用0均值和单位方差初始化我们的参数的初始值来归一化。 随着不断训练，参数得到不同的程度的更新，我们失去了这种归一化，随着网络变得越来越深，这种现象会降低训练速度，且放大参数变化。&lt;/p>
+&lt;p>批量归一化[8]在每次小批量数据反向传播之后重新对参数进行0均值单位方差标准化。通过将模型架构的一部分归一化，我们能够使用更高的学习率，更少关注初始化参数。批量归一化还充当正则化的作用，减少（有时甚至消除）Dropout的必要性。&lt;/p>
+&lt;h4 id="early_stopping">Early_stopping&lt;/h4>
+&lt;p>如Geoff Hinton所说：“Early Stopping是美丽好免费午餐”（NIPS 2015 Tutorial slides）。你因此必须在训练的过程中时常在验证集上监测误差，在验证集上如果损失函数不再显著地降低，那么应该提前结束训练。&lt;/p>
+&lt;h4 id="梯度噪音">梯度噪音&lt;/h4>
+&lt;p>Neelakantan等人[12]在每个梯度更新中增加满足高斯分布&lt;span class="math">\(N(0,σ^2_t)\)&lt;/span>的噪音： &lt;span class="math">\[g_{t,i}=g_{t,i}+N(0,σ_t^2)\]&lt;/span> 高斯分布的方差需要根据如下的策略退火： &lt;span class="math">\[σ_t^2=\frac{η}{(1+t)^γ}\]&lt;/span> 他们指出增加了噪音，使得网络对不好的初始化更加鲁棒，同时对深层的和复杂的网络的训练特别有益。他们猜测增加的噪音使得模型更优机会逃离当前的局部最优点，以发现新的局部最优点，这在更深层的模型中更加常见。&lt;/p>
+&lt;h3 id="总结">总结&lt;/h3>
+&lt;p>在这篇博客文章中，我们初步研究了梯度下降的三个变形形式，其中，小批量梯度下降是最受欢迎的。 然后我们研究了最常用于优化SGD的算法：动量法，Nesterov加速梯度，Adagrad，Adadelta，RMSprop，Adam以及不同的优化异步SGD的算法。 最后，我们已经考虑其他一些改善SGD的策略，如洗牌和课程学习，批量归一化和early stopping。&lt;/p></description></item><item><title>机器学习-梯度和方向导数</title><link>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E5%92%8C%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0/</link><pubDate>Fri, 11 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E6%A2%AF%E5%BA%A6%E5%92%8C%E6%96%B9%E5%90%91%E5%AF%BC%E6%95%B0/</guid><description>
+&lt;h2 id="梯度和方向导数">梯度和方向导数&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>梯度是向量，是输入空间的向量。其方向指向函数值上升最快的方向，模是值函数的陡峭程度。模越大，越陡峭。&lt;/p>
+&lt;p>方向导数是标量，指函数值沿着某一方向&lt;span class="math">\(\vec{v}\)&lt;/span>的变换率。 &lt;span class="math">\[\nabla_v f(\vec{x})=\lim_{t→∞}\frac{f(\vec x+t\vec v)-f(\vec x)}{t}\]&lt;/span>&lt;/p>
+&lt;p>单位长度内，&lt;strong>上升最多&lt;/strong>的方向是梯度所指的方向，梯度方向的方向导数指是梯度的模。&lt;/p>
+&lt;p>沿&lt;span class="math">\(\vec v\)&lt;/span>的方向导数和梯度的关系： &lt;span class="math">\[\nabla_v f(\vec{x})=\vec{v}\cdot\nabla f(\vec{x}),\\
+\nabla f(\vec{x})是点\vec x的梯度，\cdot是内积\]&lt;/span> 即使某点的梯度不存在，方向导数也可能存在。这时候可以用定义去求。&lt;/p>
+&lt;p>&lt;span class="math">\(\nabla_v f，f&amp;#39;_v，f&amp;#39;(x;v)，Df_x(v)，\frac{\partial f(x)}{\partial v}\)&lt;/span>都是指方向导数，为了省事向量的符号都没有打。&lt;/p>
+&lt;p>如果在方向&lt;span class="math">\(\vec v\)&lt;/span>上，方向导数小于0，那么在&lt;span class="math">\(\vec v\)&lt;/span>上总可以找到一小步&lt;span class="math">\(\bar t\)&lt;/span>，使得&lt;span class="math">\(f(\vec x+t\vec v)&amp;lt;f(\vec x)，t ∈(0,\bar t)\)&lt;/span>。当方向导数大于0，也有类似的结论。&lt;/p></description></item></channel></rss>

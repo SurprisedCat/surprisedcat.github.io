@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数值计算 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/</link><description>Recent content in 数值计算 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 02 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/index.xml" rel="self" type="application/rss+xml"/><item><title>数值计算-多项式算法与伪多项式算法</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%AE%97%E6%B3%95%E4%B8%8E%E4%BC%AA%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%AE%97%E6%B3%95/</link><pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%AE%97%E6%B3%95%E4%B8%8E%E4%BC%AA%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%AE%97%E6%B3%95/</guid><description>
+&lt;h2 id="多项式算法与伪多项式算法">多项式算法与伪多项式算法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>为了理解多项式算法和为伪多项式算法的区别，我们先要明确什么是&lt;strong>多项式算法&lt;/strong>。&lt;/p>
+&lt;p>多项式时间算法的一个常见的直觉就是对于某一&lt;span class="math">\(k\)&lt;/span>，时间复杂度伪&lt;span class="math">\(O(n^k)\)&lt;/span>。例如，&lt;code>选择排序算法&lt;/code>的时间运行时间为&lt;span class="math">\(O(n^2)\)&lt;/span>，就是多项式时间的。然而，使用暴力计算&lt;code>TSP&lt;/code>问题需要的时间为&lt;span class="math">\(O(n\cdot n!)\)&lt;/span>，就不是多项式时间的。&lt;/p>
+&lt;p>这些运行时间都和一个变量，表示数据的输入规模的&lt;span class="math">\(n\)&lt;/span>有关。例如在选择排序算法中，n表示输入数组中元素的数量，而在TSP问题中，n表示图中节点的个数。但是，这些所谓的输入规模，仅仅是直观的定义，并不足够严谨。为了标准化这些&lt;span class="math">\(n\)&lt;/span>，在计算标准时间复杂度时，我们给出了输入规模的标准定义：&lt;/p>
+&lt;blockquote>
+&lt;p>一个问题的输入规模是保存输入数据所需要的bit位数。&lt;/p>
+&lt;/blockquote>
+&lt;p>比如，如果排序算法的输入是一个32-bit整数数组，那么输入规模就是&lt;span class="math">\(32n\)&lt;/span>，&lt;span class="math">\(n\)&lt;/span>是指数组中元素的个数。对于一个带有n个节点、m条边的图，,假设每一个点或边用32-bit来存储，需要的bit位数就是&lt;span class="math">\(\Omega(32(n+m))\)&lt;/span>。&lt;/p>
+&lt;p>了解了输入规模的定义，我们来看“多项式时间”的标准定义：&lt;/p>
+&lt;blockquote>
+&lt;p>对于一个问题，在输入规模为&lt;span class="math">\(x\)&lt;/span>的情况下(即需要&lt;span class="math">\(x\)&lt;/span> bits来表示问题的输入)，对于某一常数&lt;span class="math">\(k\)&lt;/span>，如果一个算法能够在&lt;span class="math">\(O(x^k)\)&lt;/span>时间内解决此问题，则我们称此算法是多项式时间的。&lt;/p>
+&lt;/blockquote>
+&lt;p>当我们处理一些图论、链表、数组、树等问题时，这个&lt;strong>标准定义下的多项式时间和我们传统的多项式时间&lt;/strong>相差无几。还是以选择算法为例，对元素个数为&lt;span class="math">\(n\)&lt;/span>的数组进行排序时，传统时间复杂度为&lt;span class="math">\(O(n^2)\)&lt;/span>。那么如何将数组中的元素个数和输入规模的比特数联系起来呢？之前我们提到过，如果用32-bit表示一个元素，那么有&lt;span class="math">\(x=32n\)&lt;/span>，那么用&lt;span class="math">\(x\)&lt;/span>替换&lt;span class="math">\(n\)&lt;/span>就有&lt;span class="math">\(O((32x)^2)=O(x^2)\)&lt;/span>，仍然是多项式时间。&lt;/p>
+&lt;p>类似的，假设在带有&lt;span class="math">\(n\)&lt;/span>个节点、&lt;span class="math">\(m\)&lt;/span>条边的图中做&lt;code>DFS(深度优先搜索)&lt;/code>，传统时间复杂度为&lt;span class="math">\(O(m+n)\)&lt;/span>。数据规模&lt;span class="math">\(x=\Theta(m+n)\)&lt;/span>，因此，标准时间复杂度是&lt;span class="math">\(O(x)\)&lt;/span>，仍是多项式时间的。&lt;/p>
+&lt;p>然而，当我们处理一些与&lt;strong>数有关的问题&lt;/strong>时，事情就不太乐观了。现在我们来讨论判断一个整数是否为素数的算法，下面是一个简单的判断素数算法：&lt;/p>
+&lt;pre class="sourceCode javascript">&lt;code class="sourceCode javascript">&lt;span class="kw">function&lt;/span> &lt;span class="fu">isPrime&lt;/span>(n):
+&lt;span class="kw">for&lt;/span> i from &lt;span class="dv">2&lt;/span> to n - &lt;span class="dv">1&lt;/span>:
+&lt;span class="kw">if&lt;/span> (n mod i) = &lt;span class="dv">0&lt;/span>, &lt;span class="kw">return&lt;/span> &lt;span class="kw">false&lt;/span>
+&lt;span class="kw">return&lt;/span> &lt;span class="kw">true&lt;/span>&lt;/code>&lt;/pre>
+&lt;p>这段代码的时间复杂度是什么？首先看函数显然循环了&lt;span class="math">\(O(n)\)&lt;/span>次，内部的&lt;code>n mod i&lt;/code>复杂度，我们不妨设&lt;em>一个很保守的上界&lt;/em>&lt;span class="math">\(O(n^3)\)&lt;/span>，因此这个算法的整体复杂度为&lt;span class="math">\(O(n^4)\)&lt;/span>。（由于求模运算会比&lt;span class="math">\(O(n^3)\)&lt;/span>更快，所以实际上没有&lt;span class="math">\(n^4\)&lt;/span>那么高的复杂度）。&lt;/p>
+&lt;p>有意思的是，直到2004年，三位计算机科学才发表了一篇具有&lt;strong>里程碑意义的文章&lt;/strong>:&lt;a href="https://annals.math.princeton.edu/2004/160-2/p12">PRIMES is in p&lt;/a>，&lt;em>这篇文章给出了一个测定任意一个数是否是质数的多项式算法&lt;/em>。&lt;/p>
+&lt;p>可能有读者在想，这算什么？我们刚刚不是很轻松的给出了一个多项式时间内判断一个数为素数的算法了吗？&lt;/p>
+&lt;p>不幸的是，&lt;strong>上面那个简单的算法并没有在多项式时间内得出结果&lt;/strong>。回忆一下，我们正式定义时间复杂度的时候用的算法输入规模是如何衡量的？是&lt;strong>输入的比特数&lt;/strong>。我们的简单的判断素数的算法关于n的复杂度是&lt;span class="math">\(O(n^4)\)&lt;/span>，但是它的输入规模是多少呢？显然，输入大小为n的数需要&lt;span class="math">\(x=O(\log_2 n)\)&lt;/span>比特，即&lt;span class="math">\(n=\Theta(2^x)\)&lt;/span>。所以用标准的输入规模&lt;span class="math">\(x\)&lt;/span>表示，我们的那个简单算法的实际算法复杂度变成了&lt;span class="math">\(O(2^{4x})\)&lt;/span>，这已经成了指数时间复杂度了！&lt;/p>
+&lt;p>&lt;strong>这里就是多项式时间算法和伪多项式时间算法的核心区别&lt;/strong>。一方面，我们的简单算法看上去是多项式复杂度的&lt;span class="math">\(O(n^4)\)&lt;/span>，另一方面，在标准输入规模的定义下，却不是多项式时间复杂度。&lt;/p>
+&lt;p>我们可以从下面这个例子中直观感受一下简单判断素数算法的指数时间的增长速度。对于一个二进制串： &lt;span class="math">\[10001010101011\]&lt;/span> 我们记指数时间复杂度算法运行时间为&lt;span class="math">\(T\)&lt;/span>。然后，我们在二进制串后面仅仅增加一位： &lt;span class="math">\[100010101010111\]&lt;/span> 这时，算法运行时间会变为&lt;span class="math">\(2T\)&lt;/span>(至少)！因此，我们仅仅增加几个bit 就会使得算法运行时间成倍成倍的增长。(相当于数字&lt;span class="math">\(\times 2\)&lt;/span>，上面 提到的简单素数判断算法的计算量也&lt;span class="math">\(\times 2\)&lt;/span>)&lt;/p>
+&lt;p>最后我们来说伪多项式时间的定义：&lt;/p>
+&lt;blockquote>
+&lt;p>如果一个算法的复杂度以&lt;strong>数字大小&lt;/strong>记是&lt;strong>多项式时间&lt;/strong>的，而&lt;strong>标准时间复杂度不是多项式时间&lt;/strong>的，则我们称这个算法是&lt;strong>伪多项式时间&lt;/strong>的。&lt;/p>
+&lt;p>也可以理解为：算法的复杂度与&lt;strong>输入规模&lt;/strong>呈&lt;strong>指数&lt;/strong>关系，与输入的&lt;strong>数值大小&lt;/strong>呈&lt;strong>多项式&lt;/strong>关系。&lt;/p>
+&lt;/blockquote>
+&lt;p>一个具有伪多项式时间复杂度的NP完全问题称之为&lt;strong>弱NP完全问题&lt;/strong>，而在&lt;span class="math">\(P!=NP\)&lt;/span>的情况下，若一个NP完全问题被证明没有伪多项式时间复杂度的解，则称之为&lt;strong>强NP完全问题&lt;/strong>。&lt;/p>
+&lt;h2 id="附言">附言&lt;/h2>
+&lt;p>&lt;a href="https://annals.math.princeton.edu/2004/160-2/p12">PRIMES is in p&lt;/a>这篇文章证明了可以使用&lt;span class="math">\(O(\log^{12} n)即O(x^{12})\)&lt;/span>的算法来判断一个数是不是素数，因此是一个多项式时间复杂度算法。&lt;/p></description></item><item><title>数值计算-多项式插值方法</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E6%96%B9%E6%B3%95/</link><pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E6%96%B9%E6%B3%95/</guid><description>
+&lt;h2 id="多项式插值方法">多项式插值方法&lt;!-- omit in toc -->&lt;/h2>
+&lt;blockquote>
+&lt;p>本笔记框架主要来自于知乎：&lt;a href="https://www.zhihu.com/question/22320408">https://www.zhihu.com/question/22320408&lt;/a>,作者：最爱麦丽素&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="#多项式插值综述">多项式插值综述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lagrange插值法">Lagrange插值法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#重心拉格朗日插值法">重心拉格朗日插值法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#newton插值法">Newton插值法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#newton插值法余项与泰勒公式">Newton插值法余项与泰勒公式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫节点与勒贝格常数">切比雪夫节点与勒贝格常数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#切比雪夫节点">切比雪夫节点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#勒贝格常数">勒贝格常数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#hermite插值">Hermite插值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#插值法的变形">插值法的变形&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#附录">附录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#克莱姆法则证明">克莱姆法则证明&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="多项式插值综述">多项式插值综述&lt;/h2>
+&lt;p>给定（n+1）个数据点&lt;span class="math">\((x_i,y_i),i\in\{0,...,n\}\)&lt;/span>，且&lt;strong>任意两个&lt;/strong>&lt;span class="math">\(x_i\)&lt;/span>都不相等。可以用一个p阶多项式&lt;span class="math">\((0\leq p \leq n)\)&lt;/span>进行插值，使： &lt;span class="math">\[p(x_i)=y_i,0 \leq i \leq n\]&lt;/span> &lt;span class="math">\(p(x)\)&lt;/span>具体可以写为： &lt;span class="math">\[p(x)=a_nx^n+a_{n-1}x^{n-1}+\dotsb+a_1x+a_0\]&lt;/span> 在&lt;span class="math">\(p(x)\)&lt;/span>中最多会有n阶多项式，n+1个未知参数，而给定的n+1个数据点&lt;span class="math">\((x_i,y_i)\)&lt;/span>，和这些未知数恰好可以构成n+1元一次方程组。如果用矩阵的形式可以写成： &lt;span class="math">\[\begin{bmatrix}x_0^n&amp;amp;x_0^{n-1}&amp;amp;\dotsb&amp;amp;x_0&amp;amp;1\\
+x_1^n&amp;amp;x_1^{n-1}&amp;amp;\dotsb&amp;amp;x_1&amp;amp;1\\
+\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots&amp;amp;\vdots\\
+x_n^n&amp;amp;x_n^{n-1}&amp;amp;\dotsb&amp;amp;x_n&amp;amp;1\\
+\end{bmatrix}
+\begin{bmatrix}a_n\\
+a_{n-1}\\
+\vdots\\
+a_0\\
+\end{bmatrix}=
+\begin{bmatrix}y_0\\
+y_1\\
+\vdots\\
+y_n\\
+\end{bmatrix}
+\]&lt;/span> 简写为&lt;span class="math">\(X\vec{a}=\vec{y}\)&lt;/span>。我们所要求的就是多项式的系数向量&lt;span class="math">\(\vec{a}\)&lt;/span>，最直观的方式当然是求逆矩阵，从而得到&lt;span class="math">\(\vec{a}=X^{-1}\vec{y}\)&lt;/span>。由于X为范德蒙矩阵，且&lt;span class="math">\(x_i,x_j\)&lt;/span>两两不相等，这就是的范德蒙矩阵&lt;span class="math">\(X\)&lt;/span>必然可逆且唯一（行列式不为0）。&lt;/p>
+&lt;p>但是计算大矩阵的逆是一项艰巨的工作，因此我们可以使用克莱姆法则(Cramer‘s Rule) （证明见附录），直接求出每一项系数，即： &lt;span class="math">\[a_i=\frac
+{\begin{vmatrix}
+x_0^n&amp;amp;x_0^{n-1}&amp;amp;\dotsb&amp;amp;y_0&amp;amp;\dotsb&amp;amp;x_0&amp;amp;1\\
+x_1^n&amp;amp;x_1^{n-1}&amp;amp;\dotsb&amp;amp;y_1&amp;amp;\dotsb&amp;amp;x_1&amp;amp;1\\
+\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots\\
+x_n^n&amp;amp;x_n^{n-1}&amp;amp;\dotsb&amp;amp;y_n&amp;amp;\dotsb&amp;amp;x_n&amp;amp;1\\
+\end{vmatrix}}
+{\begin{vmatrix}
+x_0^n&amp;amp;x_0^{n-1}&amp;amp;\dotsb&amp;amp;x_0^i&amp;amp;\dotsb&amp;amp;x_0&amp;amp;1\\
+x_1^n&amp;amp;x_1^{n-1}&amp;amp;\dotsb&amp;amp;x_1^i&amp;amp;\dotsb&amp;amp;x_1&amp;amp;1\\
+\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots&amp;amp;\vdots\\
+x_n^n&amp;amp;x_n^{n-1}&amp;amp;\dotsb&amp;amp;x_n^i&amp;amp;\dotsb&amp;amp;x_n&amp;amp;1\\
+\end{vmatrix}}(0 \leq i \leq n)\]&lt;/span> 分子中被替换的是范德蒙行列式的第i列。且由于范德蒙矩阵的性质，x只要两两不相同，则行列式不等于0。&lt;/p>
+&lt;p>从这个式子中，我们也可以发现无论是求矩阵的逆，还是用克莱姆法则，他们的结果是一样且唯一的，只是计算量复杂。&lt;strong>因此后来改进的Newton法，Lagrange法等等都只是降低了计算量，求出来的多项式系数都是唯一的&lt;/strong>。&lt;/p>
+&lt;h2 id="lagrange插值法">Lagrange插值法&lt;/h2>
+&lt;p>Lagrange插值法利用了基函数构造的特点，用基函数的线性组合来组成插值多项式。从这个角度来看，Lagrange插值法可以用以下式子表示： &lt;span class="math">\[L(x)=a_0l_0(x)+a_1l_1(x)+a_2l_2(x)+\dotsb+a_nl_n(x)\]&lt;/span> 其中&lt;span class="math">\(l_i(x)\)&lt;/span>就是基函数，&lt;span class="math">\(a_i\)&lt;/span>为基函数线性组合的系数。&lt;/p>
+&lt;p>因为&lt;span class="math">\(L(x)\)&lt;/span>需要经过每一个点&lt;span class="math">\((x_i,y_i)\)&lt;/span>，即&lt;span class="math">\(y_i=L(x_i)\)&lt;/span>。我们可以让&lt;span class="math">\(a_i\)&lt;/span>直接等于&lt;span class="math">\(y_i\)&lt;/span>, 那我们就只需要构造对应的&lt;span class="math">\(l_i(x_i)=1,l_i(x_j)=0\)&lt;/span>就好了。Lagrange精巧第构造了这些基函数： &lt;span class="math">\[l_i(x)=\prod_{j=0,j\neq i}^n\frac{(x-x_j)}{(x_i-x_j)}\]&lt;/span> &lt;span class="math">\[L(x)=\sum_{i=0}^n{y_i \prod_{j=0,j\neq i}^n\frac{(x-x_j)}{(x_i-x_j)}}\]&lt;/span> 从表达式中，我们不难得到以下性质：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(i \neq j\)&lt;/span>，则&lt;span class="math">\(l_i(x_j)=0\)&lt;/span>，因为&lt;span class="math">\(\exist x_j-x_j=0,\)&lt;/span>使得分子为0&lt;/li>
+&lt;li>&lt;span class="math">\(i=j\)&lt;/span>，则&lt;span class="math">\(l_i(x_j)=1\)&lt;/span>，因为分子和分母完全相同。&lt;/li>
+&lt;li>&lt;span class="math">\(L(x)\)&lt;/span>的阶数最大为n。&lt;span class="math">\(\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}\)&lt;/span>一共有n个x相乘。&lt;/li>
+&lt;li>插值多项式是唯一的，和范德蒙矩阵求出来的是一样的。&lt;/li>
+&lt;/ol>
+&lt;p>拉格朗日插值法的公式结构整齐紧凑，在理论分析中十分方便，然而在计算中，&lt;strong>当插值点增加或减少一个时，所对应的基本多项式就需要全部重新计算&lt;/strong>，于是整个公式都会变化，非常繁琐。这时可以用&lt;strong>重心拉格朗日插值法或牛顿插值法&lt;/strong>来代替。此外，当插值点比较多的时候，拉格朗日插值多项式的次数可能会很高，因此具有数值不稳定的特点，也就是说尽管在已知的几个点取到给定的数值，但在附近却会和“实际上”的值之间有很大的偏差（如图1）。这类现象也被称为龙格现象，解决的办法是&lt;strong>分段用较低次数的插值多项式&lt;/strong>。&lt;/p>
+&lt;img src="../../images/Lagrange_polynomial_Divergence.jpg" alt="龙格现象" />
+&lt;center>
+图1 拉格朗日插值法的数值稳定性：如图，用于模拟一个十分平稳的函数时，插值多项式的取值可能会突然出现一个大的偏差（图中的14至15中间）
+&lt;/center>
+&lt;h3 id="重心拉格朗日插值法">重心拉格朗日插值法&lt;/h3>
+&lt;p>来源维基百科：&lt;a href="https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95">https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95&lt;/a>&lt;/p>
+&lt;p>重心拉格朗日插值法是拉格朗日插值法的改进。在拉格朗日插值多项式中，运用多项式： &lt;span class="math">\[l(x)=(x-x_0)(x-x_1)\dotsb (x-x_k)\]&lt;/span> 可以将原拉格朗日多项式的项改写： &lt;span class="math">\[l_j(x)=\frac{l(x)}{x-x_j}\frac{1}{\prod_{i=0,i\neq j}^k(x_j-x_i)}\]&lt;/span> 如果我们将&lt;strong>重心权&lt;/strong>定义为： &lt;span class="math">\[w_j=\frac{1}{\prod_{i=0,i\neq j}^k(x_j-x_i)}\]&lt;/span> 拉格朗日多项式的项可以变为： &lt;span class="math">\[l_j(x)=l(x)\frac{w_j}{x-x_j}\]&lt;/span> 同样，原拉格朗日多项式可以把&lt;span class="math">\(l(x)\)&lt;/span>提取出来： &lt;span class="math">\[L(x)=l(x)\sum_{j=0}^k\frac{w_j}{x-x_j}y_j\]&lt;/span> 即所谓的&lt;strong>重心拉格朗日插值公式第一型&lt;/strong>或改进拉格朗日插值公式。它的优点是当插值点的个数增加一个时，将每个&lt;span class="math">\(w_{j}\)&lt;/span>都除以&lt;span class="math">\((x_{j}-x_{k+1})\)&lt;/span>，就可以得到新的重心权&lt;span class="math">\(w_{k+1}\)&lt;/span>，计算复杂度为&lt;span class="math">\(O(n)\)&lt;/span>，比重新计算每个基本多项式所需要的复杂度&lt;span class="math">\(O(n^{2})\)&lt;/span>降了一个量级。&lt;/p>
+&lt;p>将以上的拉格朗日插值多项式用来对函数&lt;span class="math">\(g(x)\equiv 1\)&lt;/span>插值，可以得到： &lt;span class="math">\[\because y_i \equiv 1 \\
+\therefore \forall x,g(x)=l(x)\sum_{j=0}^k\frac{w_j}{(x-x_j)} \]&lt;/span> 我们用&lt;span class="math">\(L(x)\)&lt;/span>除以&lt;span class="math">\(g(x) \equiv 1\)&lt;/span>，可以得到： &lt;span class="math">\[L(x)=\frac{\sum_{j=0}^k\frac{w_j}{x-x_j}y_j}{\sum_{j=0}^k\frac{w_j}{(x-x_j)}}\]&lt;/span> 这个公式被称为&lt;strong>重心拉格朗日插值公式（第二型）或真正的重心拉格朗日插值公式&lt;/strong>。它继承了第一型容易计算的特点，并且在代入&lt;span class="math">\(x\)&lt;/span>值计算&lt;span class="math">\(L(x)\)&lt;/span>的时候不必计算多项式&lt;span class="math">\(l(x)\)&lt;/span>。它的另一个优点是，结合&lt;strong>切比雪夫节点进行插值的话，可以很好地模拟给定的函数，使得插值点个数趋于无穷时，最大偏差趋于零&lt;/strong>。同时，重心拉格朗日插值结合切比雪夫节点进行插值可以达到极佳的数值稳定性。第一型拉格朗日插值是&lt;strong>向后稳定&lt;/strong>的，而第二型拉格朗日插值是&lt;strong>向前稳定&lt;/strong>的，并且&lt;strong>勒贝格常数很小&lt;/strong>。&lt;/p>
+&lt;p>前向稳定：算法的前向误差是结果与真解之间的差别，即&lt;span class="math">\(\Delta y=y^{*}-y\)&lt;/span>。&lt;/p>
+&lt;p>后向稳定：后向误差是满足&lt;span class="math">\(f(x+\Delta x)=y^{*}\)&lt;/span>的最小&lt;span class="math">\(\Delta x\)&lt;/span>，也就是说后向误差说明算法的所解决的问题。如果对于任意的输入&lt;span class="math">\(x\)&lt;/span>来说后向误差都很小，那么算法就是后向稳定的。&lt;/p>
+&lt;p>前向误差和后向误差通过条件数发生关系：前向误差的幅度最多是条件数乘以后向误差的幅度。&lt;/p>
+&lt;h2 id="newton插值法">Newton插值法&lt;/h2>
+&lt;p>回头看看Lagrange的基函数，如果我们能找到一组新的基函数，使得新增的基函数对原有函数进行修正，就能防止有新节点插入时Lagrange的重复计算。考虑以下&lt;strong>基函数&lt;/strong>。 &lt;span class="math">\[\begin{aligned}
+\phi_0(x)&amp;amp;=1\\
+\phi_1(x)&amp;amp;=(x-x_0)\\
+\phi_2(x)&amp;amp;=(x-x_0)(x-x_1)\\
+\dotsb&amp;amp;=\dotsb\\
+\phi_{n+1}(x)&amp;amp;=\prod_{i=0}^n(x-x_i)\\
+\end{aligned}
+\]&lt;/span> 根据线性无关的基函数我们可以用其线性组合得到&lt;strong>待定系数&lt;/strong>的插值多项式： &lt;span class="math">\[p(x)=a_0\phi_0(x)+a_1\phi_1(x)\dotsb+a_n\phi_n(x)\]&lt;/span> 首先，对于1个点&lt;span class="math">\((x_0,y_0),p_0(x)=a_0=y_0\)&lt;/span>，显然。&lt;/p>
+&lt;p>对于2个点&lt;span class="math">\((x_0,y_0),(x_1,y_1)\)&lt;/span>。 &lt;span class="math">\[p_1(x)=y_0+a_1(x-x_0)\\
+a_1=\frac{y_1-y_0}{x_1-x_0}\]&lt;/span>&lt;/p>
+&lt;p>对于三个点&lt;span class="math">\((x_0,y_0),(x_1,y_1),(x_2,y_2)\)&lt;/span>。 &lt;span class="math">\[p_2(x)=y_0+\frac{y_1-y_0}{x_1-x_0}+a_2\phi_2(x)\\
+a_2=\frac{\frac{y_2-y_1}{x_2-x_1}-\frac{y_1-y_0}{x_1-x_0}}{x_2-x_0}\]&lt;/span>&lt;/p>
+&lt;p>根据系数的特定，我们定义&lt;strong>均差（或差商）&lt;/strong>： &amp;gt;一阶均差： &amp;gt;&lt;span class="math">\[f[x_i,x_j]=\frac{f(x_i)-f(x_j)}{x_i-x_j}\]&lt;/span> &amp;gt;二阶均差：一阶均差的均差。 &amp;gt;&lt;span class="math">\[f[x_i,x_j,x_k]=\frac{f[x_i,x_j]-f[x_j,x_k]}{x_i-x_k}\]&lt;/span> &amp;gt;N阶均差：N-1阶均差的均差。&lt;/p>
+&lt;p>均差具有对称性：均差&lt;span class="math">\(f[x_0,x_1,\dotsb,x_k]\)&lt;/span>与插值节点的顺序无关，即 &lt;span class="math">\[f[x_0,x_1,\dotsb,x_k]=f[x_{i_0},x_{i_1},\dotsb,x_{i_k}]\]&lt;/span> 其中，&lt;span class="math">\(x_{i_0},x_{i_1},\dotsb,x_{i_k}\)&lt;/span>是&lt;span class="math">\(x_0,x_1,\dotsb,x_k\)&lt;/span>的任意一个排列。&lt;/p>
+&lt;p>根据上述定义和规律，我们知道对于n+1个节点，其插值多项式为： &lt;span class="math">\[\begin{aligned}
+p_n(x)=&amp;amp;f(x_0)+\\
+&amp;amp;f[x_1,x_0](x-x_0)+\\
+&amp;amp;f[x_2,x_1,x_0](x-x_0)(x-x_1)+\\
+&amp;amp;f[x_3,x_2,x_1,x_0](x-x_0)(x-x_1)+(x-x_2)+\\
+&amp;amp;\dotsb
+\end{aligned}\]&lt;/span> 每新增一个节点&lt;span class="math">\((x_{n+1},y_{n+1})\)&lt;/span>时，只需要增加一项新的基函数&lt;span class="math">\(\phi_{n+1}=(x-x_0)(x-x_1)\dotsb(x-x_n)\)&lt;/span>和新的系数&lt;span class="math">\(f[x_0,x_1,\dotsb,x_{n+1}]\)&lt;/span>即可。其中， &lt;span class="math">\[f[x_0,x_1,\dotsb,x_{n+1}]=\frac{f[x_0,x_1,\dotsb,x_n]-f[x_1,x_2,\dotsb,x_{n+1}]}{x_0-x_{n+1}}\]&lt;/span> 下面这个图显示了均差表的计算，由于实际运算中，这些都是数值，因此计算并不困难。也是O(n)的计算复杂度。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/均差计算1.jpg" alt="均差计算1" />&lt;p class="caption">均差计算1&lt;/p>
+&lt;/div>
+&lt;p>新增一个插值点，只需要计算相关的差分就可以了。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/均差计算2.jpg" alt="均差计算2" />&lt;p class="caption">均差计算2&lt;/p>
+&lt;/div>
+&lt;h3 id="newton插值法余项与泰勒公式">Newton插值法余项与泰勒公式&lt;/h3>
+&lt;p>泰勒把牛顿插值法做了一些改造。 首先，设&lt;span class="math">\(f(x)\)&lt;/span>是一个函数，它在&lt;span class="math">\(x_0,x_0+\Delta x,x_0+2\Delta x,x_0+3\Delta x,\cdots,x_0+n\Delta x\)&lt;/span>的值已知（和之前的相比，相当于每个点都是等距离间隔的，间隔&lt;span class="math">\(\Delta x\)&lt;/span>），令： &lt;span class="math">\[
+\Delta f(x_0)=f(x_0+\Delta x)-f(x_0)，也称为一阶差分，\]&lt;/span> &lt;span class="math">\[\Delta f(x_0+\Delta x)=f(x_0+2\Delta x)-f(x_0+\Delta x),
+\]&lt;/span> 进一步令： &lt;span class="math">\[\Delta^2 f(x_0)=\Delta f(x_0+\Delta x)-\Delta f(x_0)，也称为二阶差分（为一阶差分的差分）\\
+\Delta^3 f(x_0)=\Delta^2 f(x_0+\Delta x)-\Delta^2 f(x_0)，也称为三阶差分。\]&lt;/span> 做了这些假设之后我们来看看之前提到的&lt;span class="math">\(a_1\)&lt;/span>会变成什么样子： &lt;span class="math">\[a_1=\frac{f(x_1)-f(x_0)}{x_1-x_0}\implies a_1=\frac{\Delta f(x_0)}{\Delta x}。\]&lt;/span> 而&lt;span class="math">\(f_1(x)\)&lt;/span>会变成： &lt;span class="math">\[f_1(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)\\
+\implies f_1(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)。\]&lt;/span> 同样的&lt;span class="math">\(f_2(x)\)&lt;/span>就变成了： &lt;span class="math">\[f_2(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)+\frac{\Delta^2 f(x_0)}{2\Delta x}(x-x_0)(x-x_1)。\]&lt;/span> 泰勒断言，当&lt;span class="math">\(\Delta x=0\)&lt;/span>时： &lt;span class="math">\[f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)\\
+f_1(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2\\
+（\Delta x=0时有x-x_1=x-x_0）\]&lt;/span> 以此类推泰勒就得到了大名鼎鼎的泰勒公式： &lt;span class="math">\[f(x)=f(x_0)+f&amp;#39;(x_0)(x-x_0)+\frac{f&amp;#39;&amp;#39;(x_0)}{2!}(x-x_0)^2+\cdots\]&lt;/span>&lt;/p>
+&lt;h2 id="切比雪夫节点与勒贝格常数">切比雪夫节点与勒贝格常数&lt;/h2>
+&lt;p>&lt;a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC">https://zh.wikipedia.org/wiki/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC&lt;/a>&lt;/p>
+&lt;p>切比雪夫节点与勒贝格常数都是在没有给定插值节点时，自己选择插值节点的准则。&lt;/p>
+&lt;h3 id="切比雪夫节点">切比雪夫节点&lt;/h3>
+&lt;p>对于一个插值区间&lt;span class="math">\([a, b]\)&lt;/span> 如果要在这个插值区间上选取&lt;span class="math">\(n\)&lt;/span>个点作为插值基点，使得上面的最大误差最小，则基点的选法如下: &lt;span class="math">\[x_i=\frac{b+a}{2}+\frac{b-a}{2}\cos\frac{(2i-1)\pi}{2n}\\
+(i=1,2,\dotsb,n)\]&lt;/span> 这些节点称为切比雪夫（插值）节点。&lt;/p>
+&lt;h3 id="勒贝格常数">勒贝格常数&lt;/h3>
+&lt;p>在插值节点&lt;span class="math">\(x_0、\dotsb、x_n\)&lt;/span>以及包含所有插值节点的区间&lt;span class="math">\([a, b]\)&lt;/span>确定下来，插值的过程就是将函数&lt;span class="math">\(f\)&lt;/span>映射到多项式&lt;span class="math">\(p\)&lt;/span>。这定义了一个&lt;span class="math">\([a, b]\)&lt;/span>区间上所有连续函数从空间&lt;span class="math">\(C([a, b])\)&lt;/span>到其自身的映射。映射&lt;span class="math">\(X\)&lt;/span>是线性的，并且它是函数&lt;span class="math">\(f\)&lt;/span>在子空间&lt;span class="math">\(Π_n\)&lt;/span>上的投影。勒贝格常数&lt;span class="math">\(L\)&lt;/span>定义为&lt;span class="math">\(X\)&lt;/span>的算子范数，它满足勒贝格引理： &lt;span class="math">\[\|f-X(f)\|\leq (L+1)\|f-p^{*}\|.\]&lt;/span> 换句话说，插值多项式的误差最多是最优逼近的&lt;span class="math">\(L+1\)&lt;/span>倍，这表明我们要找使&lt;span class="math">\(L\)&lt;/span>最小的插值节点。尤其是选择切比雪夫节点时： &lt;span class="math">\[L \ge \frac{2}{\pi}log(n+1)+C \quad for\quad some\quad costant\quad C \]&lt;/span> 我们再次证明切比雪夫节点是多项式插值中比较好的选择，但是这些节点并不是最优的。&lt;/p>
+&lt;h2 id="hermite插值">Hermite插值&lt;/h2>
+&lt;p>&lt;strong>埃尔米特插值&lt;/strong>是另一类插值问题，这类插值在给定的节点处，不但要求插值多项式的函数值与原函数值相同。同时还要求在节点处，插值多项式的一阶直至指定阶的导数值，也与被插函数的相应阶导数值相等，这样的插值称为埃尔米特(Hermite)插值。 Hermite插值在不同的节点，提出的插值条件个数可以不同，若在某节点&lt;span class="math">\(x_{i}\)&lt;/span>，要求插值函数多项式的函数值，一阶导数值，直至&lt;span class="math">\(m_{i}-1\)&lt;/span>阶导数值均与被插函数的函数值相同及相应的导数值相等。我们称&lt;span class="math">\(x_{i}\)&lt;/span>为&lt;span class="math">\(m_{i}\)&lt;/span>重插值点节,因此，Hermite插值应给出两组数，一组为插值点&lt;span class="math">\(\{x_{i}\}_{i=0}^{n}\)&lt;/span>节点，另一组为相应的重数标号&lt;span class="math">\(\{m_{i}\}_{i=0}^{n}\)&lt;/span>。&lt;/p>
+&lt;h2 id="插值法的变形">插值法的变形&lt;/h2>
+&lt;p>讲到这里基本上所有插值都是上面这些方法的结合体或者扩展了，根据不同的应用我们会使用不同的算法来解决我们的问题，像已知很多点的一次导数和他的位置，一般只有在应用物体位置和速度都知道的情况下，而这也只有在方程次数很高的情况下才会应用高次Hermite插值。通常我们接触的插值应用也只在3次方程进行。比如当我们仅仅知道点的位置而想让曲线更加平滑，不考虑误差，用最普通的Newton来算就好。为了增加视觉上的平滑或者说和周围点的连贯行，我们可以根据已知相邻点的位置来计算当前点的导数，进而使用Hermite算法。&lt;/p>
+&lt;p>如果我们将所有的点分段进行计算，则变为&lt;strong>样条插值&lt;/strong>。&lt;/p>
+&lt;p>对于样条插值的连续性，如果我们选择3次样条插值来满足一阶导数连续的话，实际上是满足不了2阶导数连续的，举个例子，&lt;span class="math">\(x^3\)&lt;/span>在y轴左侧，&lt;span class="math">\(x^2\)&lt;/span>在y轴右侧构成的曲线，在原点处的一阶导数都为0，而&lt;span class="math">\(f_+&amp;#39;&amp;#39;(0)=2,f_-&amp;#39;&amp;#39;(0)=0\)&lt;/span>就会导致看起来略微有些别扭的情况，但是实际应用中，这种不合适经常被忽略。&lt;/p>
+&lt;p>在多段插值中，已知点的位置，对于点上的导数的计算的选择的不同则变为不同的插值。 &lt;img src="../../images/插值法变形.svg" alt="插值法的变形" />&lt;/p>
+&lt;h2 id="附录">附录&lt;/h2>
+&lt;h3 id="克莱姆法则证明">克莱姆法则证明&lt;/h3>
+&lt;p>来源：维基百科&lt;a href="https://zh.wikipedia.org/wiki/%E5%85%8B%E8%90%8A%E5%A7%86%E6%B3%95%E5%89%87">https://zh.wikipedia.org/wiki/%E5%85%8B%E8%90%8A%E5%A7%86%E6%B3%95%E5%89%87&lt;/a>&lt;/p>
+&lt;p>克莱姆法则：一个线性方程组可以用矩阵与向量的方程来表示： &lt;span class="math">\[Ax=c \quad(1)\]&lt;/span> 其中的&lt;span class="math">\(A\)&lt;/span>是一个&lt;span class="math">\(n\times n\)&lt;/span>的方块矩阵，而向量&lt;span class="math">\(x=( x_1, x_2, \cdots x_n )^T\)&lt;/span>是一个长度为n的列向量&lt;span class="math">\(c=( c_1, c_2, \cdots c_n )^T\)&lt;/span>也一样。&lt;/p>
+&lt;p>克莱姆法则说明：如果&lt;span class="math">\(A\)&lt;/span>是一个可逆矩阵（&lt;span class="math">\(\det{A} \neq 0\)&lt;/span>），那么方程(1)有解&lt;span class="math">\(x=( x_1, x_2, \cdots x_n )^T\)&lt;/span>，其中&lt;/p>
+&lt;p>&lt;span class="math">\[x_i = { \det(A_i) \over \det(A)} \quad(1)\]&lt;/span>&lt;/p>
+&lt;p>当中&lt;span class="math">\(A_{i}\)&lt;/span>是被列向量&lt;span class="math">\(c\)&lt;/span>取代了&lt;span class="math">\(A\)&lt;/span>的第i列的列向量后得到的矩阵。为了方便，我们通常使用&lt;span class="math">\(\Delta\)&lt;/span>来表示&lt;span class="math">\(\det(A)\)&lt;/span>，用&lt;span class="math">\(\Delta_i\)&lt;/span>来表示&lt;span class="math">\(\det(A_i)\)&lt;/span>。所以等式(1)可以写成为： &lt;span class="math">\[x_i = { \Delta_i \over \Delta }。\]&lt;/span>&lt;/p>
+&lt;p>证明：&lt;/p>
+&lt;p>对于n元线性方程组&lt;span class="math">\(Ax=c\)&lt;/span>&lt;/p>
+&lt;p>把系数矩阵&lt;span class="math">\(A\)&lt;/span>表示成列向量的形式 &lt;span class="math">\[A=\left(u_{1},u_{2},\cdots ,u_{n}\right)\]&lt;/span> 由于系数矩阵可逆，故方程组一定有解&lt;span class="math">\(x^{*}=A^{{-1}}c\)&lt;/span>.&lt;/p>
+&lt;p>设&lt;span class="math">\(x^{*}=(x_{1},x_{2},\cdots ,x_{n})^{T}\)&lt;/span>，即 &lt;span class="math">\[Ax^{*}=\sum _{{k=1}}^{n}x_{k}u_{k}=c\]&lt;/span>&lt;/p>
+&lt;p>考虑&lt;span class="math">\(\Delta_i\)&lt;/span>的值，利用行列式的线性和交替性质，有&lt;/p>
+&lt;p>&lt;span class="math">\[{\begin{aligned}
+\Delta _{i}&amp;amp;=det\left(\cdots ,u_{{i-1}},c,u_{{i+1}},\cdots \right) \\&amp;amp;=det\left(\cdots ,u_{{i-1}},\sum _{{k=1}}^{n}x_{k}u_{k},u_{{i+1}},\cdots \right)
+\\&amp;amp;=\sum _{{k=1}}^{n}x_{k}\cdot det\left(\cdots ,u_{{i-1}},u_{k},u_{{i+1}},\cdots \right)
+\\&amp;amp;=x_{i}\cdot det\left(\cdots ,u_{{i-1}},u_{i},u_{{i+1}},\cdots \right)
+\\&amp;amp;=x_{i}\Delta
+\end{aligned}}\]&lt;/span>&lt;/p>
+&lt;p>于是&lt;span class="math">\(x_{i}=\frac{\Delta_{i}}{\Delta}\)&lt;/span>。&lt;/p></description></item><item><title>数值计算-插值与回归</title><link>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E6%8F%92%E5%80%BC%E4%B8%8E%E5%9B%9E%E5%BD%92/</link><pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E6%8F%92%E5%80%BC%E4%B8%8E%E5%9B%9E%E5%BD%92/</guid><description>
+&lt;h2 id="插值与回归">插值与回归&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#引言">引言&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#魏尔施特拉斯逼近定理">魏尔施特拉斯逼近定理&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#逼近-回归-插值">逼近-回归-插值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#插值理论">插值理论&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性插值最简单">线性插值——最简单&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#双线性插值">双线性插值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#多项式插值">多项式插值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#lagrange插值">Lagrange插值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#回归算法">回归算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性回归">线性回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#多项式回归">多项式回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#其他">其他&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#内插法外推法曲线拟合及回归">内插法、外推法、曲线拟合及回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#参考文献">参考文献&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="引言">引言&lt;/h2>
+&lt;h3 id="魏尔施特拉斯逼近定理">魏尔施特拉斯逼近定理&lt;/h3>
+&lt;p>魏尔施特拉斯逼近定理（Stone–Weierstrass theorem、Weierstrass theorem）共有两个：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>闭区间上的连续函数可用多项式级数一致逼近。(泰勒级数特例)&lt;/li>
+&lt;li>闭区间上周期为&lt;span class="math">\(2\pi\)&lt;/span>的连续函数可用三角函数级数一致逼近。（傅里叶级数特例）&lt;/li>
+&lt;/ol>
+&lt;h3 id="逼近-回归-插值">逼近-回归-插值&lt;/h3>
+&lt;p>在一个闭区间内，多项式可以逼近任何一个连续函数。在这种情况下，研究如何使用&lt;strong>多项式来进行数据的拟合&lt;/strong>就成为了一个关键的问题（最小误差）。这就是所谓的多项式的&lt;strong>回归算法&lt;/strong>。&lt;/p>
+&lt;p>在数值分析中，多项式插值是使用多项式对一组给定的数据来进行插值的过程，也就是说，在给定一组数据的情况下，多项式&lt;strong>插值&lt;/strong>的目的就是找到一个多项式，使得它&lt;strong>恰好通过&lt;/strong>这些数据点。拉格朗日插值算法可以对实践中的某些物理量进行观测，然后得到一个多项式，从而表示各个结果之间的内在联系。多项式插值算法也是数值积分和数值常微分方程的算法基础。&lt;/p>
+&lt;h2 id="插值理论">插值理论&lt;/h2>
+&lt;h3 id="线性插值最简单">线性插值——最简单&lt;/h3>
+&lt;p>给定两个点&lt;span class="math">\((x_0,y_0),(x_1,y_1)\)&lt;/span>，线性插值是一条连接两个点的直线。对于&lt;span class="math">\(x\in(x_0,x_1)\)&lt;/span>，y可以通过斜截式给出： &lt;span class="math">\[\frac{y-y_0}{x-x_0}=\frac{y_1-y_0}{x_1-x_0}\implies y=y_0+\frac{y_1-y_0}{x_1-x_0}(x-x_0),x\in(x_0,x_1)\]&lt;/span>&lt;/p>
+&lt;p>对于多个点的线性插值来说，x的值之和最近的两点相关，每个采样点都是用折现连接的（如图1）。其公式可以表达为： &lt;span class="math">\[y=f(x)=y_i+\frac{y_i-y_{i-1}}{x_i-x_{i-1}}(x-x_i),x\in(x_{i-1},x_i)\]&lt;/span>&lt;/p>
+&lt;img src="../../images/linear_interpolation.png" alt="线性插值" />
+&lt;center>
+图1 线性插值
+&lt;/center>
+&lt;h3 id="双线性插值">双线性插值&lt;/h3>
+&lt;p>双线性插值一般用于&lt;span class="math">\(z=f(x,y)\)&lt;/span>的2+1维模式，在&lt;strong>平面图形&lt;/strong>处理中有广泛应用。其本质上是做&lt;strong>2+1次线性插值&lt;/strong>。&lt;/p>
+&lt;p>典型的示意图如图2：&lt;/p>
+&lt;img src="../../images/bilinear_interpolation.png" alt="双线性插值" />
+&lt;center>
+图2 双线性插值
+&lt;/center>
+&lt;p>在2D网格上，我们给出四个点&lt;span class="math">\((x_1,y_1),(x_1,y_2),(x_2,y_1),(x_2,y_2)\)&lt;/span>和四个点的函数值，要求&lt;span class="math">\(x\in(x_1,x_2),y\in(y_1,y_2)\)&lt;/span>，双线性插值求&lt;span class="math">\(f(x,y)\)&lt;/span>则如下：&lt;/p>
+&lt;p>&lt;span class="math">\[f(R_1)\approx f(Q_{11})\frac{x_2-x}{x_2-x_1}+f(Q_{21})\frac{x-x_1}{x_2-x_1}\]&lt;/span> &lt;span class="math">\[f(R_2)\approx f(Q_{21})\frac{x_2-x}{x_2-x_1}+f(Q_{22})\frac{x-x_1}{x_2-x_1}\]&lt;/span> 有点像加权平均。然后将&lt;span class="math">\(R_1,R_2\)&lt;/span>再做一次线性插值： &lt;span class="math">\[f(x,y)=f(P)=f(R_1)\frac{y_2-y}{y_2-y_1}+f(R_2)\frac{y-y_1}{y_2-y_1}\]&lt;/span> 带入&lt;span class="math">\(f(R_1),f(R_2)\)&lt;/span>可得： &lt;span class="math">\[f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}[f(Q_{11})(x_2-x)(y_2-y)+f(Q_{12})(x-x_1)(y_2-y) \\
++f(Q_{21})(x_2-x)(y-y_1)+f(Q_{22})(x-x_1)(y-y_1)]\]&lt;/span> 写成矩阵形式： &lt;span class="math">\[f(x,y)=\frac{1}{(x_2-x_1)(y_2-y_1)}\begin{bmatrix} x_2-x&amp;amp;x-x_1\end{bmatrix}\begin{bmatrix} Q_{11}&amp;amp;Q_{12}\\Q_{21}&amp;amp;Q_{22}\end{bmatrix}\begin{bmatrix} y_2-y\\y-y_1\end{bmatrix}\]&lt;/span> 在CV计算中，&lt;span class="math">\(x_2-x_1,y_2-y_1\)&lt;/span>经常为1（相邻像素点），因此可直接写成： &lt;span class="math">\[f(x,y)=\begin{bmatrix} x_2-x&amp;amp;x-x_1\end{bmatrix}\begin{bmatrix} Q_{11}&amp;amp;Q_{12}\\Q_{21}&amp;amp;Q_{22}\end{bmatrix}\begin{bmatrix} y_2-y\\y-y_1\end{bmatrix}\]&lt;/span>&lt;/p>
+&lt;h3 id="多项式插值">多项式插值&lt;/h3>
+&lt;p>给定（n+1）个数据点&lt;span class="math">\((x_i,y_i),i\in\{0,...,n\}\)&lt;/span>，且&lt;strong>任意两个&lt;/strong>&lt;span class="math">\(x_i\)&lt;/span>都不相等。可以用一个p阶多项式&lt;span class="math">\((0\leq p \leq n)\)&lt;/span>进行插值，使： &lt;span class="math">\[p(x_i)=y_i,0 \leq i \leq n\]&lt;/span> &lt;span class="math">\(p(x)\)&lt;/span>具体可以写为： &lt;span class="math">\[p(x)=a_nx^n+a_{n-1}x^{n-1}+\dotsb+a_1x+a_0\]&lt;/span> 求解系数&lt;span class="math">\(a_i\)&lt;/span>这是一个n+1元一次方程组,写成范德蒙矩阵为： &lt;span class="math">\[\begin{bmatrix}x_0^n&amp;amp;x_0^{n-1}&amp;amp;\dotsb&amp;amp;x_0&amp;amp;1\\
+x_1^n&amp;amp;x_1^{n-1}&amp;amp;\dotsb&amp;amp;x_1&amp;amp;1\\
+\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots&amp;amp;\vdots\\
+x_n^n&amp;amp;x_n^{n-1}&amp;amp;\dotsb&amp;amp;x_n&amp;amp;1\\
+\end{bmatrix}
+\begin{bmatrix}a_n\\
+a_{n-1}\\
+\vdots\\
+a_0\\
+\end{bmatrix}=
+\begin{bmatrix}y_0\\
+y_1\\
+\vdots\\
+y_n\\
+\end{bmatrix}
+\]&lt;/span> 可以通过标准方式来求解系数&lt;span class="math">\(a_i\)&lt;/span>，由于在范德蒙矩阵中，如果&lt;span class="math">\(\forall x_i,x_j\)&lt;/span>两两不同，则范德蒙矩阵的行列式不为0，可以获得&lt;strong>唯一解&lt;/strong>。以后的无论是牛顿法还是Lagrange插值法得到的结果和这种方式解出来是一样的，只是加快了计算。&lt;/p>
+&lt;h3 id="lagrange插值">Lagrange插值&lt;/h3>
+&lt;p>同样，给点（n+1）个数据点&lt;span class="math">\((x_i,y_i),i\in\{0,...,n\}\)&lt;/span>，且&lt;strong>任意两个&lt;/strong>&lt;span class="math">\(x_i\)&lt;/span>都不相等，可以通过Lagrange插值公式得到多项式，其可以写成： &lt;span class="math">\[L(x)=\sum_{i=0}^{n}l_i(x)y_i\]&lt;/span> 其中，&lt;span class="math">\(l_i(x)\)&lt;/span>为Lagrange插值系数，表达式为： &lt;span class="math">\[l_i(x)=\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}\]&lt;/span> 从表达式中，我们不难得到以下性质：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(i \neq m\)&lt;/span>，则&lt;span class="math">\(l_i(x_m)=0\)&lt;/span>，因为&lt;span class="math">\(\exist x_m==x_j,\)&lt;/span>使得分子为0&lt;/li>
+&lt;li>&lt;span class="math">\(i=m\)&lt;/span>，则&lt;span class="math">\(l_i(x_m)=1\)&lt;/span>，因为分子和分母完全相同。&lt;/li>
+&lt;li>&lt;span class="math">\(L(x)\)&lt;/span>的阶数最大为n。&lt;span class="math">\(\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}\)&lt;/span>一共有n个x相乘。&lt;/li>
+&lt;li>插值多项式是唯一的，和范德蒙矩阵求出来的是一样的。&lt;/li>
+&lt;/ol>
+&lt;h2 id="回归算法">回归算法&lt;/h2>
+&lt;h3 id="线性回归">线性回归&lt;/h3>
+&lt;p>线性回归使用一个线性函数（一次函数），调节各个参数，使它尽量满足数据误差最小。 其他笔记中写过，根据最小方差准则计算可逆矩阵回归参数的公式为： &lt;span class="math">\[\vec{\alpha}=(X^TX)^{-1}X^T\vec{y}\]&lt;/span>&lt;/p>
+&lt;h3 id="多项式回归">多项式回归&lt;/h3>
+&lt;p>给定n个数据点&lt;span class="math">\((x_i,y_i),i\in\{1,\dots,n\}\)&lt;/span>，可以建立一个m阶多项式来预测&lt;span class="math">\(y\)&lt;/span>的值，其推到公式如下： &lt;span class="math">\[y=\beta_0+\beta_1 x+\beta_2 x^2+\dotsb+\beta_m x^m+\epsilon\]&lt;/span> 对于每一个二元点有： &lt;span class="math">\[y_i=\beta_0+\beta_1 x_i+\beta_2 x_i^2+\dotsb+\beta_m x_i^m+\epsilon_i,1 \leq i \leq n\]&lt;/span> 如果把这些点组合成矩阵形式，则有： &lt;span class="math">\[\begin{bmatrix}y_0\\
+y_1\\
+\vdots\\
+y_n\\
+\end{bmatrix}=
+\begin{bmatrix}1&amp;amp;x_1&amp;amp;\dotsb&amp;amp;x_1^m\\
+1&amp;amp;x_2&amp;amp;\dotsb&amp;amp;x_2^m\\
+\vdots&amp;amp;\vdots&amp;amp;\ddots&amp;amp;\vdots\\
+1&amp;amp;x_n&amp;amp;\dotsb&amp;amp;x_n^m\\
+\end{bmatrix}
+\begin{bmatrix}\beta_0\\
+\beta_1\\
+\vdots\\
+\beta_m\\
+\end{bmatrix}+
+\begin{bmatrix}\epsilon_0\\
+\epsilon_1\\
+\vdots\\
+\epsilon_m\\
+\end{bmatrix}
+\]&lt;/span> 即&lt;span class="math">\(\vec{y}=X\vec{\beta}+\vec{\epsilon}\)&lt;/span>，根据最小方差估计，同线性回归可得多项式回归的系数： &lt;span class="math">\[\vec{\beta}=(X^TX)^{-1}X^T\vec{y}(m&amp;lt;n)\]&lt;/span>&lt;/p>
+&lt;h3 id="其他">其他&lt;/h3>
+&lt;p>其他回归算法如脊回归，Log回归等有专门笔记记录。&lt;/p>
+&lt;h2 id="内插法外推法曲线拟合及回归">内插法、外推法、曲线拟合及回归&lt;/h2>
+&lt;p>&lt;strong>内插法&lt;/strong>求解以下的问题：有一未知函数在一些特定位置下的值，求未知函数在已知数值的点之间某一点的值。&lt;/p>
+&lt;p>&lt;strong>外推法&lt;/strong>类似内插法，但需要知道数值的点是在其他已知数值点的范围以外。一般而言外推法的误差会大于内插法。&lt;/p>
+&lt;p>&lt;strong>曲线拟合&lt;/strong>是在已知一些数据的条件下，找到一条曲线完全符合现有的数据，数据可能是一些特定位置及其对应的值，也可能是其他资料，例如角度或曲率等。&lt;/p>
+&lt;p>&lt;strong>回归分析&lt;/strong>类似曲线拟合，也是根据一些特定位置及其对应的值，要找到对应曲线。但回归分析考虑到数据可能有误差，因此所得的的曲线不需要和数据完全符合。一般会使用最小方差法来进行回归分析。[1]&lt;/p>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1] 数值分析，维基百科&lt;a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90">https://zh.wikipedia.org/wiki/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90&lt;/a>&lt;/p>
+&lt;p>[2] 多项式插值算法与回归算法.张戎.知乎.&lt;a href="https://zhuanlan.zhihu.com/p/33690607">https://zhuanlan.zhihu.com/p/33690607&lt;/a>&lt;/p></description></item></channel></rss>

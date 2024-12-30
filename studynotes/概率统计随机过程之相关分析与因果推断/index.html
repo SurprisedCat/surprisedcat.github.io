@@ -1,0 +1,754 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>概率统计随机过程之相关分析与因果推断 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="概率统计随机过程之相关分析与因果推断 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%9B%B8%E5%85%B3%E5%88%86%E6%9E%90%E4%B8%8E%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
+<meta property="og:title" content="概率统计随机过程之相关分析与因果推断">
+<meta property="og:description" content="概率统计随机过程之相关分析与因果推断 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%8E%A2%E7%B4%A2%E5%8F%98%E9%87%8F%E9%97%B4%E5%85%B3%E7%B3%BB.png">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%9B%B8%E5%85%B3%E5%88%86%E6%9E%90%E4%B8%8E%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>概率统计随机过程之相关分析与因果推断</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Nov 26, 2022</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
+</a><a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6 title=统计学 class="post_tag button button_translucent">统计学
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%9B%B8%E5%85%B3%E5%88%86%E6%9E%90%E4%B8%8E%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<h2 id=概率统计随机过程之相关分析与因果推断>概率统计随机过程之相关分析与因果推断</h2>
+<p>因果关系是人类不断探寻的深刻议题，不过想要探究因果联系并不是那么容易的，因此很多学者都会退一步从更弱的关联性分析入手，尤其在大数据时代，关联性的作用也不容小觑。因此，统计学上的关系分析是非常重要的一个环节。本文主要讲解分类数据和数值数据的列联分析和方差分析等内容。</p>
+<ul>
+<li><a href=#因果分析的复杂性>因果分析的复杂性</a></li>
+<li><a href=#分类数据的chi2拟合优度检验>分类数据的<span class=math>\(\\chi^2\)</span>拟合优度检验</a></li>
+<li><a href=#列联分析>列联分析</a></li>
+<li><a href=#方差分析analysis-of-variance-anova>方差分析（Analysis of variance, ANOVA）</a></li>
+<li><a href=#单因素方差分析>单因素方差分析</a></li>
+<li><a href=#双因素方差分析>双因素方差分析</a></li>
+<li><a href=#正态性检验>正态性检验</a></li>
+<li><a href=#w检验>W检验</a></li>
+<li><a href=#方差齐性检验>方差齐性检验</a></li>
+</ul>
+<h2 id=因果分析的复杂性>因果分析的复杂性</h2>
+<p>统计学上如果想要进行因果分析，通常会有如下图的阶段：</p>
+<div class=figure>
+<img src=../../images/统计学探索变量间关系.png alt=统计学探索变量间关系><p class=caption>统计学探索变量间关系</p>
+</div>
+<p>首先，查看变量间是否具有关联性，没有关联性的就是相互独立的变量，一个变量的变化并不会对另一个变量产生影响；当发现两个变量具备关联性时，我们还得查看关联性的强弱，是强相关还是弱相关；在之后，需要检查这种相关性是不是有什么其他隐含的因素，比如二者都是同一个原因的结果，二者本身不具备因果性；最后才能进一步确认因果性。在确认因果性时，一般通过以下模型实现：</p>
+<div class=figure>
+<img src=../../images/因果关系理论抽象.drawio.svg alt=因果关系理论抽象.drawio.svg><p class=caption>因果关系理论抽象.drawio.svg</p>
+</div>
+<p>在复杂的统计模型中，其中上边的每一步也需要仔细、系统的研究。当然上述只是因果分析的简要流程。</p>
+<p>在因果分析中，对于自变量、因变量不同的类型，也有着不同的分析方法，对于本科生水平大概如下：</p>
+<div class=figure>
+<img src=../../images/统计分析一般方法.png alt=统计分析一般方法><p class=caption>统计分析一般方法</p>
+</div>
+<p>其中，数据类型一般可以分成定性的分类数据（品质数据）、顺序数据和定量的数值数据，数值数据还可分为离散数据和连续数据。这些数据的级别是由低到高的，高阶数据可以转换为低阶数据，例如连续数据可以归并成离散数据，数值数据可以按照大小排成顺序数据，顺序数据也可以分成几类形成分类数据。但是低阶数据无法转换成高阶数据。</p>
+<p>对于硕士研究生可能需要掌握到下面的成程度：</p>
+<p>分类数据统计分析方法：</p>
+<div class=figure>
+<img src=../../images/分类数据统计分析方法.png alt=分类数据统计分析方法><p class=caption>分类数据统计分析方法</p>
+</div>
+<p>数值数据统计分析方法：</p>
+<div class=figure>
+<img src=../../images/数值数据统计分析方法.png alt=数值数据统计分析方法><p class=caption>数值数据统计分析方法</p>
+</div>
+<p>对于博士生大概是这样的：</p>
+<div class=figure>
+<img src=../../images/组间差异检验.png alt=组间差异检验.png><p class=caption>组间差异检验.png</p>
+</div>
+<p>接下来我将有选择的挑几个阐明。首先，先从本科阶段的内容说起吧。&lt;( ￣^￣)></p>
+<h2 id=分类数据的chi2拟合优度检验>分类数据的<span class=math>\(\chi^2\)</span>拟合优度检验</h2>
+<p>对于离散分布，比如对于二项分布<span class=math>\(B(n,p)\)</span>，我们希望验证其服从二项分布，进行了<span class=math>\(M\)</span>次<span class=math>\(n\)</span>重伯努利实验得到<span class=math>\(M\)</span>个值，其中实验成功次数为<span class=math>\(0,1,2,3,\dotsb,n\)</span>的频数分别为<span class=math>\(m_0,m_1,m_2,\dotsb,m_n,M=\sum\limits_{i=0}^n m_i\)</span>。那么如果想要验证该n重伯努利分布得到的随机变量<span class=math>\(X\)</span>是服从二项分布<span class=math>\(B(n,p)\)</span>的，需要怎么做呢？一个简单可用的方法是<span class=math>\(\chi^2\)</span>拟合优度检验。</p>
+<p>分布的拟合检验是在随机变量<span class=math>\(X\)</span>分布未知时的检验（因为我们要验证的即是其分布类型），因此不同于参数的假设检验问题，属于非参数检验。一般而言分类数据的结果是频数，<span class=math>\(\chi^2\)</span>检验是对分类数据的频数进行分析的统计方法。</p>
+<p>之所以叫<span class=math>\(\chi^2\)</span>拟合优度检验，是因为在1900年，统计学四大天王之一卡尔-皮尔逊证明提出对于实验统计出来的频数<span class=math>\(f_i,i\in \mathrel{\Theta}\)</span>，它和理论期望的频数<span class=math>\(e_i=M×p_i\)</span>，（<span class=math>\(M\)</span>为总数，<span class=math>\(p_i\)</span>为对应概率）存在以下关系： <span class=math>\[
+X^2=\sum_{i\in\mathrel{\Theta}} \frac{(f_i-e_i)^2}{e_i}\sim \chi^2(|\mathrel{\Theta}|-1)\tag{1}
+\]</span> 即构造的统计量<span class=math>\(X^2=\sum\limits_{i\in\mathrel{\Theta}} \frac{(f_i-e_i)^2}{e_i}\)</span>应该服从自由度为<span class=math>\(|\mathrel{\Theta}|-1\)</span>的卡方分布，<span class=math>\(|\mathrel{\Theta}|\)</span>为实验可能出现结果的样数。并且期望频数越大，该分布与卡方分布越接近。当期望频数大于5时，与卡方分布符合比较好。此外，卡方分布只适用于观测数均不小于5的大样本场合。</p>
+<p>我们从数学角度单纯地看式（1）,<span class=math>\((f_i-e_i)^2\)</span>实际是指实验做出的实际结果与理论分布差值的平方，体现的是实际与理论的差异，这个值越大，说明二者越不相符，分母的<span class=math>\(e_i\)</span>更像是正则系数，降低绝对差值的比例影响。所以，从式（1）也可以看出随机变量<span class=math>\(X^2\)</span>越大，我们越倾向于不认同实验分布服从理论分布，从数学角度讲是拒绝域在右侧的<span class=math>\(\chi^2\)</span>检验。这种方式最早由卡尔-皮尔逊提出，通常也称之为皮尔逊<span class=math>\(\chi^2\)</span>拟合优度检验。</p>
+<p>下面我们用泰坦尼克号的存活率与性别是否相关举一个简单的例子：</p>
+<div class=figure>
+<img src=../../images/卡方优度检验.png alt=卡方优度检验><p class=caption>卡方优度检验</p>
+</div>
+<p>拟合优度检验只针对一个分类变量进行检验，如果需要对两个或多个分类变量进行出里就需要列联分析。</p>
+<h2 id=列联分析>列联分析</h2>
+<p>如果我们希望<strong>分析两个或多个分类变量之间的是否独立，可以使用列联表</strong>。列联分析是一种<strong>独立性检验</strong>，通常列联表常用于分类数据的两两分析，多维数据的多维列联表不太直观，一般用的较少。</p>
+<p>原理也是使用卡方统计量。</p>
+<p>列联表中，若两个分类变量<span class=math>\(A,B\)</span>，其中<span class=math>\(A\)</span>有<span class=math>\(r\)</span>个可取值，记为<span class=math>\(A_1,\dotsb,A_r\)</span>，<span class=math>\(B\)</span>有<span class=math>\(c\)</span>个可取值，记为<span class=math>\(B_1,\dotsb,B_c\)</span>，从总体中抽取样本容量为<span class=math>\(n\)</span>的样本，设其中有<span class=math>\(n_{ij}\)</span>个个体，其属性为<span class=math>\(A_i,B_j\)</span>，称其为频数，我们根据上述信息可制作频数列联表：</p>
+<table>
+<thead>
+<tr class=header>
+<th align=center><span class=math>\(A\setminus B\)</span></th>
+<th align=center><span class=math>\(B_1\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
+<th align=center><span class=math>\(B_j\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
+<th align=center><span class=math>\(B_c\)</span></th>
+<th align=center>行和</th>
+</tr>
+</thead>
+<tbody>
+<tr class=odd>
+<td align=center><span class=math>\(A_1\)</span></td>
+<td align=center><span class=math>\(n_{11}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{1j}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{1c}\)</span></td>
+<td align=center><span class=math>\(n_{1\cdot}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center><span class=math>\(A_i\)</span></td>
+<td align=center><span class=math>\(n_{i1}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{ij}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{ic}\)</span></td>
+<td align=center><span class=math>\(n_{i\cdot}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center><span class=math>\(A_r\)</span></td>
+<td align=center><span class=math>\(n_{r1}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{rj}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{rc}\)</span></td>
+<td align=center><span class=math>\(n_{r\cdot}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>列和</td>
+<td align=center><span class=math>\(n_{\cdot 1}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{\cdot j}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(n_{\cdot c}\)</span></td>
+<td align=center><span class=math>\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>以上列联表是会根据实验或数据集给出的数据制作而成，都是已知的数据。我们将上述表中数据都除以总数<span class=math>\(n\)</span>得到频率/概率表：</p>
+<table>
+<thead>
+<tr class=header>
+<th align=center><span class=math>\(A\setminus B\)</span></th>
+<th align=center><span class=math>\(B_1\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
+<th align=center><span class=math>\(B_j\)</span></th>
+<th align=center><span class=math>\(\dotsb\)</span></th>
+<th align=center><span class=math>\(B_c\)</span></th>
+<th align=center>行和</th>
+</tr>
+</thead>
+<tbody>
+<tr class=odd>
+<td align=center><span class=math>\(A_1\)</span></td>
+<td align=center><span class=math>\(p_{11}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{1j}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{1c}\)</span></td>
+<td align=center><span class=math>\(p_{1\cdot}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center><span class=math>\(A_i\)</span></td>
+<td align=center><span class=math>\(p_{i1}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{ij}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{ic}\)</span></td>
+<td align=center><span class=math>\(p_{i\cdot}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center><span class=math>\(A_r\)</span></td>
+<td align=center><span class=math>\(p_{r1}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{rj}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{rc}\)</span></td>
+<td align=center><span class=math>\(p_{r\cdot}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>列和</td>
+<td align=center><span class=math>\(p_{\cdot 1}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{\cdot j}\)</span></td>
+<td align=center><span class=math>\(\dotsb\)</span></td>
+<td align=center><span class=math>\(p_{\cdot c}\)</span></td>
+<td align=center><span class=math>\(1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>根据频率/概率关系有<span class=math>\(\sum_i\sum_j p_{ij}=1, \sum_j p_{\cdot j}=1, \sum_i p_{i\cdot}=1\)</span>。这个表格的目的就是计算<span class=math>\(p_{i\cdot}\)</span>和<span class=math>\(p_{\cdot j}\)</span>。如果变量<span class=math>\(A,B\)</span>是独立的，那么会有<span class=math>\(p_{ij}=p_{i\cdot}p_{\cdot j}\)</span>，但是实际统计频率<span class=math>\(p_{ij}\)</span>必然和理论值有所偏差，我们用计算得到的<span class=math>\(p_{i\cdot}\)</span>和<span class=math>\(p_{\cdot j}\)</span>相乘，得到独立假设下的理论概率<span class=math>\(\hat{p}_{ij}=p_{i\cdot}×p_{\cdot j}\)</span>，再乘以总数<span class=math>\(n\)</span>得到期望频数<span class=math>\(n\hat{p}_{ij}\)</span>，那么这就可以看成有<span class=math>\(r×c\)</span>个可选值的卡方拟合优度检验，其自由度为<span class=math>\((r-1)×(c-1)\)</span>。据此，检验统计量为： <span class=math>\[
+X^2=\sum_{i=1}^r\sum_{j=1}^c \frac{(n_{ij}-n\hat{p}_{ij})^2}{n\hat{p}_{ij}}\tag{2}
+\]</span> 其中，<span class=math>\(\hat{p}_{ij}=p_{i\cdot}×p_{\cdot j}=\frac{n_{i\cdot}}{n}×\frac{n_{\cdot j}}{n}\)</span>，同样的<span class=math>\(n_{ij}\)</span>和<span class=math>\(n\hat{p}_{ij}\)</span>差别越大，统计量值越大，概率分布服从性也越差。又因为理论概率为独立假设下的概率分布，概率服从性差意味着两个分类变量独立性也越差。</p>
+<p>下面举一个例子：</p>
+<div class=figure>
+<img src=../../images/列联表分析.png alt=列联表分析.png><p class=caption>列联表分析.png</p>
+</div>
+<p>此外，对于数值型数据，我们也可以通过将其分割归类成几段，降维成分类数据，从而使用列联表分析。不过，我们还有一种对其有更佳的处理方式，即方差分析。</p>
+<h2 id=方差分析analysis-of-variance-anova>方差分析（Analysis of variance, ANOVA）</h2>
+<p><strong>当自变量是分类变量，因变量是数值变量时的相关性分析，可以使用方差分析</strong>。比如探究不同教学方式是否对成绩有影响、不同专业毕业之后的薪资是否有区别等等。区别于列联分析，方差分析的因变量都是数值。</p>
+<p>如果只是想知道是否数值型因变量是否受到分类型自变量影响，那么使用假设检验也是可以的。但是需要研究的目标变多时，例如设4个总体的均值分别为<span class=math>\(\mu_1,\mu_2,\mu_3,\mu_4\)</span>，如果用一般假设检验方法，如t检验，一次只能研究两个样本，要检验4个均值是否相等，就需要检验6次：</p>
+<ul>
+<li>检验1：<span class=math>\(H_0:\mu_1=\mu_2\)</span>；</li>
+<li>检验2：<span class=math>\(H_0:\mu_1=\mu_3\)</span>；</li>
+<li>检验3：<span class=math>\(H_0:\mu_1=\mu_4\)</span>；</li>
+<li>检验4：<span class=math>\(H_0:\mu_2=\mu_3\)</span>；</li>
+<li>检验5：<span class=math>\(H_0:\mu_2=\mu_4\)</span>；</li>
+<li>检验6：<span class=math>\(H_0:\mu_3=\mu_4\)</span>；</li>
+</ul>
+<p>很显然，这样做十分的繁琐，并且多次检验会导致出错概率增加，如果设拒绝域<span class=math>\(\alpha=0.05\)</span>，即每次检验犯第一类错误的概率为0.05，做6次检验会使犯第一类（至少一次）的概率变成<span class=math>\(1-(1-\alpha)^6\approx 0.265\)</span>，相应置信水平会降低到0.735。因此使用方差分析一是可以提升检验的效率，二是可以增加分析的可靠性，避免多次检验造成的误差累积。</p>
+<blockquote>
+<p>方差分析：在共同的显著性水平<span class=math>\(\alpha\)</span>下，同时考虑多个平均值的差异。通常以F分布来进行检验，称为方差分析。</p>
+</blockquote>
+<p>方差分析由统计学四天王之一的Fisher于1923年提出。我们在进行方差分析之前还要注意其需要满足以下三个条件：</p>
+<ol style=list-style-type:decimal>
+<li>正太总体。每个组的总体应服从正态分布，对于因素的每一个水平，其观测值是来自正太分布总体的简单随机样本。</li>
+<li>方差齐性。各个总体的方差<span class=math>\(\sigma^2\)</span>必须相同。</li>
+<li>独立性。每个观测值必须是独立的。</li>
+</ol>
+<p>在上述假设成立的前提下，<strong>要分析自变量对因变量是否有影响，在形式上也就转化成为检验自变量的各个水平（总体）的均值是否相等</strong>。而以上三种假设都有对应的检验方法。如正态性检验、方差齐性检验以及独立性检验。</p>
+<p>方差分析的原理是<strong>对数据误差的来源进行分类分析</strong>。对于同一因素的不同处理水平，产生的结果可能有不同。根据误差来源，结果的不同可能确实是不同处理水平导致的，也有可能仅仅是因为随机误差。但是这种不同到底是不是不同因素水平导致的呢？方差分析就是通过将<strong>误差分解成组间误差和组内误差，用二者的比值的偏离程度</strong>来进行分析。而数据中，误差的体现可以由方差透露，因此对误差的分析就能够变成对方差的分析。</p>
+<ul>
+<li>组内误差：在因素<strong>同一</strong>水平处理下，数据的差异，这种差异只可能是随机性导致的。</li>
+<li>组间误差：在因素<strong>不同</strong>水平处理下，数据的差异，这种差异虽然也包含随机性，但也可能是不同处理水平造成的系统性差异。</li>
+</ul>
+<h3 id=单因素方差分析>单因素方差分析</h3>
+<p>如果只考虑一个因素（自变量）对结果（因变量）的影响，那么只需要单因素方差分析。我们将数据集用<span class=math>\(X\)</span>表示，每一个样品<span class=math>\(x_{ij}\)</span>表示在自变量第<span class=math>\(i,i\in\{1,2,\dotsb,r\}\)</span>个处理水平下，获取到的第<span class=math>\(j,j\in\{1,2,\dotsb,m\}\)</span>个结果。那么可以用<span class=math>\(\overline{\overline{X}}\)</span>表示数据集整体的均值，<span class=math>\(\overline{X}_i\)</span>表示第<span class=math>\(i\)</span>个因素水平的组内均值。<span class=math>\(x_{ij}\)</span>还可进行如下分解： <span class=math>\[
+\begin{aligned}
+x_{ij}-\overline{\overline{X}}&=(x_{ij}-\overline{X}_i)+(\overline{X}_i-\overline{\overline{X}})\\
+x_{ij}&=\overline{\overline{X}}+\underbrace{(x_{ij}-\overline{X}_i)}_{\text{组内误差}}+\underbrace{(\overline{X}_i-\overline{\overline{X}})}_{组间误差}
+\end{aligned}\tag{3}
+\]</span> 为了进一步分析误差来源，我们假设<span class=math>\(x_{ij}\)</span>所在的处理组其服从分布为<span class=math>\(N(\mu_i,\sigma^2)\)</span>的正态分布（正态总体假设，且由于方差齐性，各个处理组方差都是<span class=math>\(\sigma^2\)</span>），那么<span class=math>\(x_{ij}\)</span>也可以表示成<span class=math>\(x_{ij}=\mu_i+\varepsilon_{ij}\)</span>，其中<span class=math>\(\varepsilon_{ij}\)</span>是数据<span class=math>\(x_{ij}\)</span>与组内真实均值<span class=math>\(\mu_i\)</span>的离差，该离差的来源就是随机性。</p>
+<p>而根据中心极限定理，组内数据平均值<span class=math>\(\overline{X}_i\)</span>应服从<span class=math>\(N(\mu_i,\frac{\sigma^2}{m})\)</span>的正态分布，<span class=math>\(m\)</span>为组内数据数量，那么<span class=math>\(\overline{X}_i\)</span>可以表示成<span class=math>\(\overline{X}_i=\mu_i+\varepsilon_i\)</span>，其中<span class=math>\(\varepsilon_i\)</span>是数据的组内平均值<span class=math>\(\overline{X}_i\)</span>与组内真实均值<span class=math>\(\mu_i\)</span>的离差，不难证明<span class=math>\(\varepsilon_i=\frac{1}{m}\sum_{j=1}^m \varepsilon_{ij}\)</span>，即组内均值的离差等于组内数据离差的均值。式（3）中的组内误差等价于： <span class=math>\[
+x_{ij}-\overline{X}_i=(\mu_i+\varepsilon_{ij})-(\mu_i+\varepsilon_i)=\varepsilon_{ij}-\varepsilon_i\tag{4}
+\]</span> 所以<strong>组内误差来源是随机性</strong>。</p>
+<p>同理，若我们将总体平均表示成<span class=math>\(\overline{\overline{X}}=\mu+\varepsilon\)</span>的形式，其中<span class=math>\(\mu\)</span>是所有分布真实的均值（各组都服从正态分布，和也服从正态分布），<span class=math>\(\varepsilon\)</span>是数据均值与真正均值的离差，式(3)中的组间误差等价于 <span class=math>\[
+\overline{X}_i-\overline{\overline{X}}=(\mu_i+\varepsilon_i)-(\mu+\varepsilon)\tag{5}
+\]</span> 如果组间没有系统性差异，那么组内真实均值<span class=math>\(\mu_i\)</span>应该和总体均值<span class=math>\(\mu\)</span>相同<span class=math>\(\mu_i=\mu\)</span>，此时造成差异的只有离差<span class=math>\(\varepsilon_i-\varepsilon\)</span>，就只有随机性造成的偏差。但当不同处理水平确实有影响时，那么某些组的均值就不会等同于整体均值<span class=math>\(\mu_i\neq \mu\)</span>，此时式（5）中就会存在<strong>系统误差</strong>项<span class=math>\(\mu_i-\mu\)</span>和<strong>随机误差</strong>项<span class=math>\(\varepsilon_i-\varepsilon\)</span>。系统误差越大，组间误差就会越大。</p>
+<p>为了去除误差正负号的影响以及方便计算，我们将总误差进行平方求和<span class=math>\(S_T=\sum_{i=1}^r\sum_{j=1}^m(x_{ij}-\overline{\overline{X}})^2\)</span>，结合式（3）有： <span class=math>\[
+\begin{aligned}
+S_T&=\sum_{i=1}^r\sum_{j=1}^m(x_{ij}-\overline{\overline{X}})^2=\sum_{i=1}^r\sum_{j=1}^m[(x_{ij}-\overline{X}_i)+(\overline{X}_i-\overline{\overline{X}})]^2\\
+S_T&=\sum_{i=1}^r\sum_{j=1}^m[(x_{ij}-\overline{X}_i)^2+(\overline{X}_i-\overline{\overline{X}})^2]+\underbrace{\sum_{i=1}^r\sum_{j=1}^m 2(x_{ij}-\overline{X}_i)(\overline{X}_i-\overline{\overline{X}})}_{=0}\\
+S_T&=\underbrace{\sum_{i=1}^r\sum_{j=1}^m (x_{ij}-\overline{X}_i)^2}_{\text{组内误差平方和}}+\underbrace{\sum_{i=1}^r\sum_{j=1}^m (\overline{X}_i-\overline{\overline{X}})^2}_{组间误差平方和}
+\end{aligned}
+\]</span> 我们令组内误差平方和<span class=math>\(S_e=\sum_{i=1}^r\sum_{j=1}^m (x_{ij}-\overline{X}_i)^2\)</span>，组间误差平方和<span class=math>\(S_A=\sum_{i=1}^r\sum_{j=1}^m (\overline{X}_i-\overline{\overline{X}})^2=\sum_{i=1}^r m (\overline{X}_i-\overline{\overline{X}})^2\)</span>，所以有 <span class=math>\[
+S_T=S_E+S_A\tag{6}
+\]</span> 这就是误差的平方和分解。下面我们不加证明地给出： <span class=math>\[
+\frac{S_e}{\sigma^2}\sim \chi^2(n-r)\tag{7}
+\]</span> 当组间误差没有系统误差，即<span class=math>\(\mu_i=\mu\)</span>时： <span class=math>\[
+\frac{S_A}{\sigma^2}\sim \chi^2(r-1)\tag{8}
+\]</span> 且<span class=math>\(S_e, S_A\)</span>二者独立。</p>
+<p>因此，当不同处理组没有区别，即不存在系统误差时，式(7)(8)都服从卡方分布，那么他们的商（还需除以自由度）就应该服从F分布： <span class=math>\[
+\frac{\frac{S_A}{\sigma^2×(r-1)}}{\frac{S_e}{\sigma^2×(n-r)}}=\frac{S_A/(r-1)}{S_e/(n-r)}\sim F(r-1,n-r)\tag{9}
+\]</span> 考虑到系统误差<span class=math>\(\mu_i-\mu\)</span>越大，<span class=math>\(S_A\)</span>也就越大，那么式（9）的F统计量就越大。因此，该检验的拒绝域应为： <span class=math>\[
+W=\{F≥F_{1-\alpha}(r-1,n-r)\}\tag{10}
+\]</span> 通常我们会将上述计算过程的结果汇总成<strong>单因子方差分析表</strong>：</p>
+<table>
+<thead>
+<tr class=header>
+<th align=center>来源</th>
+<th align=center>平方和</th>
+<th align=center>自由度</th>
+<th align=center>均方</th>
+<th align=center>F比</th>
+<th align=center>p值</th>
+</tr>
+</thead>
+<tbody>
+<tr class=odd>
+<td align=center>因子</td>
+<td align=center><span class=math>\(S_A\)</span></td>
+<td align=center><span class=math>\(f_A=r-1\)</span></td>
+<td align=center><span class=math>\(MS_A=S_A/f_A\)</span></td>
+<td align=center><span class=math>\(F=MS_A/MS_e\)</span></td>
+<td align=center>p</td>
+</tr>
+<tr class=even>
+<td align=center>误差</td>
+<td align=center><span class=math>\(S_e\)</span></td>
+<td align=center><span class=math>\(f_e=n-r\)</span></td>
+<td align=center><span class=math>\(MS_e=S_E/f_e\)</span></td>
+<td align=center>-</td>
+<td align=center>-</td>
+</tr>
+<tr class=odd>
+<td align=center>总和</td>
+<td align=center><span class=math>\(S_T\)</span></td>
+<td align=center><span class=math>\(f_t=n-1\)</span></td>
+<td align=center>-</td>
+<td align=center>-</td>
+<td align=center>-</td>
+</tr>
+</tbody>
+</table>
+<p>对于给定的<span class=math>\(\alpha\)</span>，若<span class=math>\(F≥F_{1-\alpha}(f_A,f_e)\)</span>，则认为因子显著，自变量的不同水平会对因变量有影响。</p>
+<p>如果认为因子的影响是显著的，想要进一步检验到底是哪个水平影响比较显著，还可继续进行多重检验（也叫事后检验），常用的一种多重检验是利用了t分布的LSD-t检验，其他还有SNK-q检验、Turkey、Duncan、Scheffe检验等。</p>
+<p>此外，还可以用组间方差占总误差的比例来衡量关系的强度，记为<span class=math>\(R^2=SSA/SST\Rightarrow R=\sqrt{SSA/SST}\)</span>，当<span class=math>\(R>0.5\)</span>，可认为是中等相关，若<span class=math>\(R>0.8\)</span>可认为是强相关。</p>
+<h3 id=双因素方差分析>双因素方差分析</h3>
+<p>根据名字我们就知道，双因素方差分析是分析两个分类变量（常称为行因素和列因素）对试验结果的影响。根据两个因素对试验结果的影响是否独立，还可以分为<strong>无交互作用的（无重复）双因素方差分析和有交互作用的（可重复）双因素方差分析</strong>。</p>
+<p>双因素方差分析也需要满足方差分析的三个假设：正态性、方差齐性、独立性。</p>
+<p>双因素方差分析的基本方法和单因素类似，区别是：</p>
+<p>无交互作用时：分为行因素误差平方和、列因素误差平方和、随机误差平方和三类。可以将行因素、列因素当成两个单因素误差分析来看。</p>
+<p>有交互作用时：还要添加第四类交互效应误差平方和。有交互作用时数据量会比较大。</p>
+<h2 id=正态性检验>正态性检验</h2>
+<p>正态分布时统计学中最重要的分布之一，判断一组数据是否来自正态总体是很多分析步骤的前置要求，甚至还有国标GB/T4882-2001专门设计了正态概率图来辅助我们判断数据是否服从正态分布。</p>
+<blockquote>
+<p>正态概率图是一种特殊绘制的坐标图，我们将所给数据绘制在坐标图上，如果这些数据大概处于一条直线上，那么可以认为服从正态分布。</p>
+</blockquote>
+<p>当然，数理统计学还有更技术化的方法，比例最常用的W检验和EP检验。</p>
+<h3 id=w检验>W检验</h3>
+<p>W检验全称sharpiro-wilk检验，是由二人于1965年提出的正态检验方法。其适用范围为样本容量<span class=math>\(8\leq n \leq 2000\)</span>，非常适合小样本的正态性检验，但是当样本容量小于7时，对偏离正态分布的检验不太有效，同时当数据量大于5000时也不适用。</p>
+<p>正态性检验方法总结图：</p>
+<div class=figure>
+<img src=../../images/正态性检验.png alt=正态性检验.png><p class=caption>正态性检验.png</p>
+</div>
+<p>贝叶斯检验主要利用了KL散度，这是衡量两种分布偏差程度的一种度量，也叫相对熵。</p>
+<p>正态性检验的计算往往十分复杂且常常需要查表，最好使用计算机程序辅助计算。</p>
+<h2 id=方差齐性检验>方差齐性检验</h2>
+<p>总结下这几种方法的利弊及适用条件：方差比、Hartley检验、Bartlett检验都需要原始数据是正态分布，Levene检验和BF法对正态分布不是很依赖。比较常用的是Levene检验，适用于多组方差的比较，且对正态性没要求。 <a href=https://zhuanlan.zhihu.com/p/313397172>https://zhuanlan.zhihu.com/p/313397172</a></p>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>深度学习 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 深度学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 06 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>深度学习-吴恩达深度学习重点</title><link>https://surprisedcat.github.io/studynotes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%87%8D%E7%82%B9/</link><pubDate>Mon, 06 Jul 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E9%87%8D%E7%82%B9/</guid><description>
+&lt;h2 id="吴恩达深度学习重点">吴恩达深度学习重点&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#改善深层神经网络">改善深层神经网络&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#训练-开发-测试集划分">训练-开发-测试集划分&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#偏差与方差-bias-vs-variance">偏差与方差-Bias vs Variance&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正则化">正则化&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#归一化输入">归一化输入&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#梯度消失和梯度爆炸">梯度消失和梯度爆炸&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#梯度检查">梯度检查&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#优化算法">优化算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#mini-batch">mini-batch&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#指数加权平均">指数加权平均&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#momentum-动量法梯度下降">Momentum 动量法梯度下降&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#rmsprop均方根法">RMSprop均方根法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#adam">Adam&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#学习率">学习率&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#局部最优点和鞍点">局部最优点和鞍点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#超参数调试batch正则化和softmax回归">超参数调试、Batch正则化和Softmax回归&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#超参数调参经验">超参数调参经验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#batch-norm">Batch Norm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#softmax">Softmax&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#机器学习策略">机器学习策略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单一数字评估指标">单一数字评估指标&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#优化指标和满足指标">优化指标和满足指标&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#人的表现">人的表现&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#人工误差分析适用于机器学习还没到人的水平">人工误差分析（适用于机器学习还没到人的水平）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#迁移学习串行">迁移学习：串行&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#多任务学习并行">多任务学习：并行&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#端到端学习">端到端学习&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#卷积神经网络cnn">卷积神经网络CNN&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#经典神经网络">经典神经网络&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#循环神经网络rnn">循环神经网络RNN&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#基本结构">基本结构&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#gru与lstm">GRU与LSTM&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#生成对抗网络gan">生成对抗网络GAN&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#强化学习">强化学习&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="改善深层神经网络">改善深层神经网络&lt;/h2>
+&lt;h3 id="训练-开发-测试集划分">训练-开发-测试集划分&lt;/h3>
+&lt;p>传统：100-1000-10000 70%/30% 训练/测试 60%/20%/20% 训练/开发（交叉验证）/测试 大数据：1000000 98%/1%/1% 训练/开发/测试 或者 99.5%/0.25%/0.25% 训练/开发/测试&lt;/p>
+&lt;p>如果训练集和开发/测试集的分布不同，也不太致命，最好保证开发集和测试集的分布是一致的，有时候只有开发集没有测试集也是可以的。&lt;/p>
+&lt;h3 id="偏差与方差-bias-vs-variance">偏差与方差-Bias vs Variance&lt;/h3>
+&lt;p>Optimal/Base Error理论最优值是机器学习不可能超过的上限，常用的近似方式就是以人类的能力为Optimal/Base Error.&lt;/p>
+&lt;p>如果Optimal/Base Error很小，并且训练集和开发集分布相同：&lt;/p>
+&lt;ul>
+&lt;li>高偏差高方差（偏差，方差近似）：欠拟合--&amp;gt;更大的网络，更新网络结构，训练时间加长，&lt;/li>
+&lt;li>高偏差高方差（偏差大，方差更大）：欠拟合同时部分数据过拟合。这种情形在高维数据中会出现，即某些维度过拟合。&lt;/li>
+&lt;li>低偏差高方差：过拟合--&amp;gt;更多数据，正则化，更新网络结构&lt;/li>
+&lt;li>低偏差低方差：正好&lt;/li>
+&lt;/ul>
+&lt;h3 id="正则化">正则化&lt;/h3>
+&lt;p>L2:&lt;span class="math">\(+\frac{\lambda}{2m}\sum_l||W^{[l]}||^2_F\)&lt;/span>&lt;/p>
+&lt;p>L1:&lt;span class="math">\(+\frac{\lambda}{m}\sum_l|W^{[l]}|\)&lt;/span>&lt;/p>
+&lt;p>Dropout:每一轮训练中随机使一些点失效。不可与梯度验证合用。CV中几乎是默认选项。&lt;/p>
+&lt;p>数据扩增（Data augemntation）:数据做些修改作为新数据（图片旋转、扭曲、图片剪裁、加噪声）&lt;/p>
+&lt;p>Early Stopping： 当损失函数不在随着迭代次数下降时停止训练，本质时减少训练次数。但是不利于正交化，降低损失函数和early stopping正则化是相悖的。&lt;/p>
+&lt;h3 id="归一化输入">归一化输入&lt;/h3>
+&lt;p>归一化输入可以使&lt;strong>训练的速度更快&lt;/strong>。注意不要分别计算测试集和开发集的均值和方差，而是先统一归一化整体数据集，再划分训练集、开发集和测试集。&lt;/p>
+&lt;h3 id="梯度消失和梯度爆炸">梯度消失和梯度爆炸&lt;/h3>
+&lt;p>在很多层的神经网络中，参数可能非常大或者非常接近0，因为每一层乘参数都是指数增长/降低的一部分。很长一段时间以来，梯度消失和爆炸都是深度学习难以解决的问题。&lt;/p>
+&lt;p>一个部分解决的方案是&lt;strong>合理的初始化参数&lt;/strong>&lt;/p>
+&lt;p>激活函数Relu--&amp;gt;&lt;code>np.random.randn(shape)*np.sqrt(2/n[l-1])&lt;/code>&lt;/p>
+&lt;p>激活函数tanh--&amp;gt;&lt;code>np.random.randn(shape)*np.sqrt(1/n[l-1])&lt;/code>(Xavier)&lt;/p>
+&lt;h3 id="梯度检查">梯度检查&lt;/h3>
+&lt;p>双边差计算近似梯度&lt;span class="math">\(f&amp;#39;(\theta)\approx \frac{f(\theta+\epsilon)-f(\theta-\epsilon)}{2*\epsilon}\)&lt;/span>，其中&lt;span class="math">\(\epsilon\)&lt;/span>是一个很小的值，例如0.001.&lt;/p>
+&lt;p>注记：&lt;/p>
+&lt;ul>
+&lt;li>梯度检查只用于debug&lt;/li>
+&lt;li>查看误差大的项尝试debug&lt;/li>
+&lt;li>记住正则化也影响梯度检查&lt;/li>
+&lt;li>不能和dropout一起用&lt;/li>
+&lt;li>如果实在怕错，那么使用机器学习框架吧(tensorflow, keras, pytorch)&lt;/li>
+&lt;/ul>
+&lt;h2 id="优化算法">优化算法&lt;/h2>
+&lt;h3 id="mini-batch">mini-batch&lt;/h3>
+&lt;p>&lt;span class="math">\(X^{[l]\{t\}(s)}\)&lt;/span>:第&lt;span class="math">\(l\)&lt;/span>层，mini-batch中第&lt;span class="math">\(t\)&lt;/span>组中第&lt;span class="math">\(s\)&lt;/span>个样本。一般的 mini-batch 大小为 64 到 1024，考虑到电脑内存设置和使用的方式，如果mini-batch 大小是2的n次方,代码会运行地快一些。&lt;/p>
+&lt;h3 id="指数加权平均">指数加权平均&lt;/h3>
+&lt;p>&lt;span class="math">\(V_t=\beta×V_{t-1} + (1-\beta)×\theta_t, \beta=0.9,0.99\dotsb\)&lt;/span>，大概计算了&lt;span class="math">\(1/(1-\beta)\)&lt;/span>轮的平均数据。&lt;/p>
+&lt;p>但是指数加权平均在初始化的时候很不准确，需要&lt;strong>偏差修正&lt;/strong>。 &lt;span class="math">\[
+V_t=\beta×V_{t-1} + (1-\beta)×\theta_t \\
+V_t = V_t /(1-\beta^t)
+\]&lt;/span> 当&lt;span class="math">\(t\rightarrow \infty时, 1-\beta^t\rightarrow 1\)&lt;/span>&lt;/p>
+&lt;h3 id="momentum-动量法梯度下降">Momentum 动量法梯度下降&lt;/h3>
+实际上就是指数加权平均/移动平均的梯度下降： &lt;span class="math">\[
+dV_t = \beta×dV_{t-1} + (1-\beta) dW_t \\
+(偏差修正也可以不要)\\
+dV_t = dV_t/(1-\beta^t) \\
+W_t = W_t - \alpha* dV_t\\
+通常\beta = 0.9
+\]&lt;/span> 其原理在于使用移动平均，抵消了振荡。 &lt;img src="../../images/momentum_vs_vanilla.png" alt="momentum_vs_vanilla.png" />
+&lt;center>
+动量法效果--红色为动量法
+&lt;/center>
+&lt;h3 id="rmsprop均方根法">RMSprop均方根法&lt;/h3>
+&lt;p>对于上面的这个椭圆形的抛物面（图中的椭圆代表等高线），沿着横轴收敛速度是最快的，所以我们希望在横轴（假设记为w1）方向步长大一些，在纵轴（假设记为w2）方向步长小一些。这时候可以通过RMSprop实现，分维度来看，迭代更新公式如下： &lt;span class="math">\[
+\begin{cases} s_1=\beta_1 s_1+(1-\beta_1)dw_1^2 \\ s_2=\beta_2 s_2+(1-\beta_2)dw_2^2 \end{cases}\\
+\begin{cases} w_1=w_1-\alpha \frac{dw_1}{\sqrt{s_1+\epsilon}} \\ w_2=w_2-\alpha \frac{dw_2}{\sqrt{s_2+\epsilon}} \end{cases}
+\]&lt;/span> 观察上面的公式可以看到，&lt;span class="math">\(s_i\)&lt;/span>是对梯度的平方做了一次平滑。在更新&lt;span class="math">\(w_i\)&lt;/span>时，先用梯度除以&lt;span class="math">\(\sqrt{s_i+\epsilon}\)&lt;/span>，相当于对梯度做了一次归一化。如果某个方向上梯度震荡很大，应该减小其步长；而震荡大，则这个方向的&lt;span class="math">\(s_i\)&lt;/span>也较大，除完之后，归一化的梯度就小了；如果某个方向上梯度震荡很小，应该增大其步长；而震荡小，则这个方向的&lt;span class="math">\(s_i\)&lt;/span>也较小，归一化的梯度就大了。因此，通过RMSprop，我们可以调整不同维度上的步长，加快收敛速度。把上式合并后，RMSprop迭代更新公式如下： &lt;span class="math">\[
+\begin{cases} s=\beta s+(1-\beta)dw^2 \\ w=w-\alpha\frac{dw}{\sqrt{s+\epsilon}} \end{cases}
+\]&lt;/span> 注意，这里的&lt;span class="math">\(s,w\)&lt;/span>都是多维向量。&lt;span class="math">\(β\)&lt;/span>的典型值是0.999。公式中还有一个&lt;span class="math">\(ϵ\)&lt;/span>，这是一个很小的数，是为了防止分母为0，典型值是&lt;span class="math">\(10^{−8}\)&lt;/span>。&lt;/p>
+&lt;h3 id="adam">Adam&lt;/h3>
+&lt;p>Adam = Momentum+RMSprop &lt;span class="math">\[
+\begin{cases} v=\beta_1 v+(1-\beta_1)dw \\ s=\beta_2 s+(1-\beta_2)dw^2 \\ w=w-\alpha\frac{v}{\sqrt{s+\epsilon}} \end{cases}
+\]&lt;/span> 典型值：&lt;span class="math">\(β_1=0.9,β_2=0.999,ϵ=10^{−8}\)&lt;/span>。Adam算法相当于先把原始梯度做一个指数加权平均，再做一次归一化处理，然后再更新梯度值。&lt;/p>
+&lt;p>其他新算法还有AdaMax，Nadam=Nag+Adam。&lt;/p>
+&lt;h3 id="学习率">学习率&lt;/h3>
+&lt;p>PS:1 epoch 代表每遍历所有训练数据一次,mini-batch中，&lt;span class="math">\(1 epoch = M/mini-batch-size\)&lt;/span>&lt;/p>
+&lt;p>几种常见学习率衰减法： &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;\alpha =\alpha_0*\frac{1}{1+decay\_rate*epoch\_num}\\
+&amp;amp;\alpha =\alpha_0*decay\_rate^{epoch\_num}\\
+&amp;amp;\alpha =\alpha_0* \frac{k}{\sqrt{epoch\_num}}
+\end{aligned}
+\]&lt;/span>&lt;/p>
+&lt;p>有时也会用一个离散下降的学习率，也就是某个步骤有某个学习率，一会之后，学习率减少了一半，一会儿减少一半，一会儿又一半，这就是离散下降（discrete stair cease）的意思。&lt;/p>
+&lt;h3 id="局部最优点和鞍点">局部最优点和鞍点&lt;/h3>
+&lt;p>一个具有高维度空间的函数，如果梯度为 0，那么在每个方向，它可能是凸函数，也可能是凹函数。如果你在 2 万维空间中，那么想要得到局部最优，所有的 2 万个方向都需要是这样，但发生的机率也许很小，也许是&lt;span class="math">\(2^{−20000}\)&lt;/span>，你更有可能遇到有些方向的曲线会这样向上弯曲，另一些方向曲线向下弯，而不是所有的都向上弯曲，因此在高维度空间，你更可能碰到鞍点，而不会碰到局部最优。&lt;/p>
+&lt;p>所以我们从深度学习历史中学到的一课就是，我们对低维度空间的大部分直觉，比如你可以画出上面的图，并不能应用到高维度空间中。&lt;/p>
+&lt;h2 id="超参数调试batch正则化和softmax回归">超参数调试、Batch正则化和Softmax回归&lt;/h2>
+&lt;h3 id="超参数调参经验">超参数调参经验&lt;/h3>
+&lt;p>随机一点，从粗到细，有重点&lt;/p>
+&lt;p>合适的范围：线性，log，1-线性+log等等&lt;/p>
+&lt;h3 id="batch-norm">Batch Norm&lt;/h3>
+&lt;p>我们知道对输入进行归一化可以提升模型训练的速度，假设我们对每一个隐藏层进行归一化，是否能够更快的提升速度呢？答案是可以的，这就是Batch Normalization。在深层网络训练的过程中，由于网络中参数变化而引起内部结点数据分布发生变化的这一过程被称作Internal Covariate Shift。Internal Covariate Shift会导致上层网络需要不停调整来适应输入数据分布的变化，导致网络学习速度的降低，同时网络的训练过程容易陷入梯度饱和区，减缓网络收敛速度。&lt;/p>
+&lt;p>因此，我们在非线性函数之前把第&lt;span class="math">\(l\)&lt;/span>层的数据先归一化，即 &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;Z^{[l]}=W^{[l]}A^{[l-1]}+b^{[l]}\\
+&amp;amp;\mu=\frac{1}{m}\sum_{i=1}^m Z^{[l](i)}\\
+&amp;amp;\sigma=\frac{1}{m}\sum_{i=1}^m (Z^{[l](i)}-\mu)^2\\
+&amp;amp;\hat Z^{[l]}=\frac{Z^{[l]}-\mu}{\sqrt{\sigma^2+\epsilon}}
+\end{aligned}
+\]&lt;/span> 需要指出的是BN算法一般针对mini-batch梯度下降，因此&lt;span class="math">\(\mu,\sigma^2\)&lt;/span>的计算量不会很大。&lt;span class="math">\(\epsilon=10^{-8}\)&lt;/span>为了不让分母为0。&lt;/p>
+&lt;p>Normalization操作我们虽然缓解了ICS问题，让每一层网络的输入数据分布都变得稳定，但却导致了数据表达能力的缺失。也就是我们通过变换操作改变了原有数据的信息表达（representation ability of the network），使得底层网络学习到的参数信息丢失。另一方面，通过让每一层的输入分布均值为0，方差为1，会使得输入在经过sigmoid或tanh激活函数时，容易陷入非线性激活函数的线性区域。&lt;/p>
+&lt;p>因此，BN又引入了两个可学习（learnable）的参数&lt;span class="math">\(\gamma\)&lt;/span>与&lt;span class="math">\(\beta\)&lt;/span>。这两个参数的引入是为了恢复数据本身的表达能力，对规范化后的数据进行线性变换，即 &lt;span class="math">\[
+\tilde Z^{[l]}=\gamma \hat Z^{[l]}+\beta\\
+A^{[l]}=g(\tilde Z^{[l]})
+\]&lt;/span> 通过上面的步骤，我们就在一定程度上保证了输入数据的表达能力。补充： 在进行normalization的过程中，由于我们的规范化操作会对减去均值，因此，偏置项 [公式] 可以被忽略掉或可以被置为0。&lt;/p>
+&lt;p>在测试数据中，使用mini-batch的均值和方差的移动平均作为测试数据的均值和方差。&lt;/p>
+&lt;h3 id="softmax">Softmax&lt;/h3>
+&lt;p>Softmax函数用于多分类问题，定义方式如下： &lt;span class="math">\[
+A_i=\frac{e^{Z_i}}{\sum_j e^{Z_j}}
+\]&lt;/span> 使用这种定义一是因为其满足概率条件和为1，且特征对概率的影响是乘性的；同时方便交叉熵损失函数计算。二是反向传播求导方便。&lt;/p>
+&lt;blockquote>
+&lt;p>softmax VS k个二元分类器&lt;/p>
+&lt;p>如果你在开发一个音乐分类的应用，需要对k种类型的音乐进行识别，那么是选择使用 softmax 分类器呢，还是使用 logistic 回归算法建立 k 个独立的二元分类器呢？&lt;/p>
+&lt;p>这一选择取决于你的类别之间是否互斥，例如，如果你有四个类别的音乐，分别为：古典音乐、乡村音乐、摇滚乐和爵士乐，那么你可以假设每个训练样本只会被打上一个标签（即：一首歌只能属于这四种音乐类型的其中一种），此时你应该使用类别数 k = 4 的softmax回归。（如果在你的数据集中，有的歌曲不属于以上四类的其中任何一类，那么你可以添加一个“其他类”，并将类别数 k 设为5。）&lt;/p>
+&lt;p>如果你的四个类别如下：人声音乐、舞曲、影视原声、流行歌曲，那么这些类别之间并不是互斥的。例如：一首歌曲可以来源于影视原声，同时也包含人声 。这种情况下，使用4个二分类的 logistic 回归分类器更为合适。这样，对于每个新的音乐作品 ，我们的算法可以分别判断它是否属于各个类别。&lt;/p>
+&lt;p>现在我们来看一个计算视觉领域的例子，你的任务是将图像分到三个不同类别中。(i) 假设这三个类别分别是：室内场景、户外城区场景、户外荒野场景。你会使用sofmax回归还是 3个logistic 回归分类器呢？ (ii) 现在假设这三个类别分别是室内场景、黑白图片、包含人物的图片，你又会选择 softmax 回归还是多个 logistic 回归分类器呢？&lt;/p>
+&lt;p>在第一个例子中，三个类别是互斥的，因此更适于选择softmax回归分类器 。而在第二个例子中，建立三个独立的 logistic回归分类器更加合适。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="机器学习策略">机器学习策略&lt;/h2>
+&lt;h3 id="单一数字评估指标">单一数字评估指标&lt;/h3>
+&lt;ul>
+&lt;li>TP：实际为正，预测为正的样本数量&lt;/li>
+&lt;li>FP：实际为负，预测为正的样本数量&lt;/li>
+&lt;li>FN：实际为正，预测为负的样本数量&lt;/li>
+&lt;li>TN：实际为负，预测为负的样本数量&lt;/li>
+&lt;li>TP+FP：表示所有预测为正的样本数量&lt;/li>
+&lt;li>TN+FN：表示所有预测为负的样本数量&lt;/li>
+&lt;li>TP+FN：表示实际为正的样本数量&lt;/li>
+&lt;li>TN+FP：表示实际为负的样本数量&lt;/li>
+&lt;/ul>
+&lt;img src="../../images/混淆矩阵.png" alt="混淆矩阵" />
+&lt;center>
+混淆矩阵
+&lt;/center>
+&lt;p>&lt;strong>准确率（accuracy）&lt;/strong>：准确率是分类正确的样本占总样本个数，即 &lt;span class="math">\[
+accuracy=\frac{TP+TN}{TP+FP+FN+TN}
+\]&lt;/span> 准确率是分类问题中最简单最直观的评价指标，但存在明显的缺陷。比如正负样本的比例不均衡。假设样本中正样本占 95%，负样本占5%，那分类器只需要一直预测为正，就可以得到95% 的准确率，但其实际性能是非常低下的。&lt;/p>
+&lt;p>&lt;strong>精确率（precision）&lt;/strong>：精确率指模型预测为正的样本中实际也为正的样本占被预测为正的样本的比例。计算公式为 &lt;span class="math">\[
+precision=\frac{TP}{TP+FP}
+\]&lt;/span> 细分：Macro、Micro、weighted&lt;/p>
+&lt;p>&lt;strong>召回率（recall）&lt;/strong>：召回率指实际为正的样本中，预测也为正的样本占实际为正的样本的比例。计算公式为 &lt;span class="math">\[
+recall = \frac{TP}{TP+FN}
+\]&lt;/span>&lt;/p>
+&lt;p>&lt;strong>F1-score&lt;/strong>：精确率和召回率的加权平均值，计算公式为 &lt;span class="math">\[
+F1 = \frac{2*precision*recall}{precision+recall}
+\]&lt;/span> Precision 体现了模型对负样本的区分能力，Precision 越高，模型对负样本的区分能力越强。&lt;/p>
+&lt;p>Recall 体现了模型对正样本的识别能力，Recall 越高，模型对正样本的识别能力越强。&lt;/p>
+&lt;p>F1-score 是两者的综合，F1-score 越高，说明模型越稳健。&lt;/p>
+&lt;h3 id="优化指标和满足指标">优化指标和满足指标&lt;/h3>
+&lt;p>优化目标：最小化或最大化&lt;/p>
+&lt;p>限制目标：大于，小于，等于&lt;/p>
+&lt;h3 id="人的表现">人的表现&lt;/h3>
+&lt;p>理论最优：贝叶斯最优错误率（Bayes optimal error）&lt;/p>
+&lt;p>很多场景下人的性能接近贝叶斯最优错误率，同时很多数据是人标注的。而机器学习接近或超过人的能力后，很难在迅速提高。&lt;/p>
+&lt;p>可避免的偏差：训练集上的错误率和理论（或人）的错误率之间的差距。&lt;/p>
+&lt;p>对人类水平有大概的估计可以让你做出对贝叶斯错误率的估计，这样可以让你更快地作出决定是否应该专注于减少算法的偏差，或者减少算法的方差。这个决策技巧通常很有效，直到你的系统性能开始超越人类，那么你对贝叶斯错误率的估计就不再准确了，但这些技巧还是可以帮你做出明确的决定。&lt;/p>
+&lt;h3 id="人工误差分析适用于机器学习还没到人的水平">人工误差分析（适用于机器学习还没到人的水平）&lt;/h3>
+&lt;p>训练集标记错误：随机错误问题大不；系统性错误会有影响。&lt;/p>
+&lt;p>开发集标记错误：如果这些标记错误严重影响了你在开发集上评估算法的能力，那么就应该去花时间修正错误的标签。但是，如果它们没有严重影响到你用开发集评估成本偏差的能力，那么可能就不应该花宝贵的时间去处理。但是需要指出，开发集和测试集需要一起标记修正错误。&lt;/p>
+&lt;p>训练/开发/测试集划分：有大量相关数据（辅助训练）和核心数据的情形下，&lt;strong>把核心数据放在开发/测试集&lt;/strong>，而不是训练集，即使这样会导致训练集和开发集分布不太一致也无所谓。&lt;/p>
+&lt;p>数据分布不匹配时的偏差与方差的分析：如果训练数据和开发数据分布不同，那么训练错误率和开发集错误率之间就不仅仅是方差问题，有可能本来开发集的数据就更难处理。为了区分时方差还是数据差异，&lt;strong>就需要构造一个和训练集同分布的训练开发集&lt;/strong>（例如random shuffle后再划分），来查看方差问题。整体过程就如下：&lt;/p>
+&lt;blockquote>
+&lt;p>optimal&amp;lt;-可避免偏差-&amp;gt;train set&amp;lt;-方差-&amp;gt;train-dev set&amp;lt;-数据不匹配（差距正负都有可能）&amp;gt;dev set&amp;lt;-开发集过拟合-&amp;gt;test set&lt;/p>
+&lt;/blockquote>
+&lt;p>数据不匹配处理方式：人工审阅训练集和开发集查找二者差别==&amp;gt;寻找更接近开发集的数据/加工训练集数据使其更与开发集更相似&lt;/p>
+&lt;h3 id="迁移学习串行">迁移学习：串行&lt;/h3>
+&lt;p>应用场景：类似问题之间，从数据量很多的问题迁移到数据量相对小的问题，低层次特征有相似性。&lt;/p>
+&lt;p>足够多新数据，预训练（pre-training）==&amp;gt; 微调（fine tuning）。&lt;/p>
+&lt;p>小数据集，只需要重新训练最后几层网络。因为，原理上来说很多低层特征是类似的。&lt;/p>
+&lt;h3 id="多任务学习并行">多任务学习：并行&lt;/h3>
+&lt;p>多任务学习能让你训练一个神经网络来执行许多任务。&lt;/p>
+&lt;p>应用场景：任务间共享相似的低层特征；每个任务需要的数据量相似，且任务间有一定对等性（这个准则不绝对）；可以训练一个足够大的神经网络，足以做好所有的工作。&lt;/p>
+&lt;p>Softmax（判断互斥） vs 多个神经网络（判断不互斥） vs 一个神经网络多个判断（不互斥）&lt;/p>
+&lt;h3 id="端到端学习">端到端学习&lt;/h3>
+&lt;p>端到端：忽略中间处理步骤，把深度神经网络作为一个黑盒子。&lt;/p>
+&lt;p>端到端深度学习的挑战之一是，你可能需要大量数据才能让系统表现良好。&lt;/p>
+&lt;h2 id="卷积神经网络cnn">卷积神经网络CNN&lt;/h2>
+&lt;p>步骤：图像--&amp;gt;卷积--&amp;gt;(非线性函数)--&amp;gt;池化--&amp;gt;全连接--&amp;gt;结果&lt;/p>
+&lt;h3 id="经典神经网络">经典神经网络&lt;/h3>
+&lt;p>PS：非线性函数在卷积conv之后&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Lenet5(conv的参数，padding等可以根据实际输入调整，关键是结构)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>conv 5*5*1*6 valid s=1&lt;/li>
+&lt;li>pooling 2*2 same s=2&lt;/li>
+&lt;li>conv 5*5*6*16 valid s=1&lt;/li>
+&lt;li>pooling: 2*2 same s=2&lt;/li>
+&lt;li>flatten and FC&lt;/li>
+&lt;/ul>
+&lt;ol start="2" style="list-style-type: decimal">
+&lt;li>AlexNet&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>input :&lt;span class="math">\(227*227*3\)&lt;/span>()&lt;/li>
+&lt;li>conv: &lt;span class="math">\(11*11*3*96, s=4--&amp;gt; 55*55*96\)&lt;/span>&lt;/li>
+&lt;li>maxpool: &lt;span class="math">\(3*3, s=2 ,--&amp;gt;27*27*96\)&lt;/span>&lt;/li>
+&lt;li>conv: &lt;span class="math">\(5*5*96*256, s=1, padding=same,--&amp;gt; 27*27*256\)&lt;/span>&lt;/li>
+&lt;li>maxpool: &lt;span class="math">\(3*3,s=2, --&amp;gt;13*13*256\)&lt;/span>&lt;/li>
+&lt;li>conv: &lt;span class="math">\(3*3*256*384,s=1, padding=same\)&lt;/span> 两次 &lt;span class="math">\(--&amp;gt;13*13*385\)&lt;/span>&lt;/li>
+&lt;li>conv: &lt;span class="math">\(3*3*384*256, s=1, padding=same--&amp;gt;13*13*256\)&lt;/span>&lt;/li>
+&lt;li>maxpool: &lt;span class="math">\(3*3,s=2--&amp;gt;6*6*256=9216\)&lt;/span>&lt;/li>
+&lt;li>flatten: &lt;span class="math">\(9216 --&amp;gt; FC(4096) --&amp;gt; FC(4096) --&amp;gt;softmax(1000)\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;ol start="3" style="list-style-type: decimal">
+&lt;li>VGG16(conv: 3*3, s=1 ,same; maxpool: 2*2, s=2)&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>conv, c=64 两次&lt;/li>
+&lt;li>maxpool&lt;/li>
+&lt;li>conv, c=128 两次&lt;/li>
+&lt;li>maxpool&lt;/li>
+&lt;li>conv, c=256 三次&lt;/li>
+&lt;li>maxpool&lt;/li>
+&lt;li>conv, c=512 三次&lt;/li>
+&lt;li>maxpool&lt;/li>
+&lt;li>conv, c=512 三次&lt;/li>
+&lt;li>maxpool&lt;/li>
+&lt;li>FC input--&amp;gt;4096--&amp;gt;4096--&amp;gt;1000--&amp;gt;softmax&lt;/li>
+&lt;li>VGG16：16个卷积和全连接层，约1.38亿参数&lt;/li>
+&lt;/ul>
+&lt;h2 id="循环神经网络rnn">循环神经网络RNN&lt;/h2>
+&lt;p>RNN很适合处理序列数据/模型。&lt;span class="math">\(x^{\lt t\gt}--&amp;gt;y^{\lt t\gt}\)&lt;/span> &lt;span class="math">\[
+x^{\lt t\gt (i)}:第i个样本序列第t个序列项\\
+T_x^{i}:样本i的长度
+\]&lt;/span>&lt;/p>
+&lt;h3 id="基本结构">基本结构&lt;/h3>
+&lt;div class="figure">
+&lt;img src="../../images/RNN_desc.jpg" alt="RNN_desc" />&lt;p class="caption">RNN_desc&lt;/p>
+&lt;/div>
+&lt;p>如果把上面左上角有W的那个带箭头的圈（或者大图中左边部分）去掉，它就变成了最普通的全连接神经网络。&lt;strong>x是一个向量&lt;/strong>，它表示输入层的值（这里面没有画出来表示神经元节点的圆圈）；&lt;strong>s是一个向量&lt;/strong>，它表示隐藏层的值（这里隐藏层面画了一个节点，你也可以想象这一层其实是多个节点，节点数与向量s的维度相同）；U是输入层到隐藏层的权重矩阵；o也是一个向量，它表示输出层的值；V是隐藏层到输出层的权重矩阵。那么，现在我们来看看W是什么。循环神经网络的隐藏层的值s&lt;strong>不仅仅取决于当前这次的输入x，还取决于上一次隐藏层的值s&lt;/strong>。权重矩阵 W就是隐藏层上一次的值作为这一次的输入的权重。&lt;/p>
+&lt;p>RNN只能使用之前输入的信息，而忽略之后的输入，因此有人提出&lt;strong>BRNN&lt;/strong>，双向RNN来利用当前点以后的输入信息。&lt;/p>
+&lt;p>&lt;span class="math">\[
+\begin{aligned}
+\mathrm{o}_t&amp;amp;=g(V\mathrm{s}_t+b_2)\qquad\qquad\quad(式1)\\
+\mathrm{s}_t&amp;amp;=f(U\mathrm{x}_t+W\mathrm{s}_{t-1}+b_1)\qquad(式2)\\
+\end{aligned}
+\]&lt;/span> 式1是输出层的计算公式，输出层是一个全连接层。V是输出层的权重矩阵，g是激活函数。式2是隐藏层的计算公式，它是循环层。U是输入x的权重矩阵，W是上一次的值&lt;span class="math">\(s_{t-1}\)&lt;/span>作为这一次的输入的权重矩阵，f是激活函数。一般激活函数使用tanh或relu。&lt;/p>
+&lt;h3 id="gru与lstm">GRU与LSTM&lt;/h3>
+&lt;p>记住一些信息，形成长依赖。&lt;/p>
+&lt;h2 id="生成对抗网络gan">生成对抗网络GAN&lt;/h2>
+&lt;h2 id="强化学习">强化学习&lt;/h2></description></item><item><title>深度学习-必须要知道的25个概念</title><link>https://surprisedcat.github.io/studynotes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%BF%85%E9%A1%BB%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%8425%E4%B8%AA%E6%A6%82%E5%BF%B5/</link><pubDate>Tue, 30 Jun 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%BF%85%E9%A1%BB%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%8425%E4%B8%AA%E6%A6%82%E5%BF%B5/</guid><description>
+&lt;h2 id="深度学习入门者必看25个你一定要知道的概念">深度学习入门者必看：25个你一定要知道的概念&lt;!-- omit in toc -->&lt;/h2>
+&lt;blockquote>
+&lt;p>人工智能，深度学习，机器学习……不管你在从事什么工作，都需要了解这些概念。否则的话，三年之内你就会变成一只恐龙。 —— 马克·库班&lt;/p>
+&lt;/blockquote>
+&lt;p>库班的这句话，乍听起来有些偏激，但是“话糙理不糙”，我们现在正处于一场由大数据和超算引发的改革洪流之中。&lt;/p>
+&lt;p>首先，我们设想一下，如果一个人生活在20世纪早期却不知电为何物，是怎样一种体验。在过去的岁月里，他已经习惯于用特定的方法来解决相应的问题，霎时间周围所有的事物都发生了剧变。以前需要耗费大量人力物力的工作，现在只需要一个人和电就能完成了。&lt;/p>
+&lt;p>而在现在的背景下，机器学习、深度学习就是新的“电力”。&lt;/p>
+&lt;p>所以呢，如果你还不了解深度学习有多么强大，不妨就从这篇文章开始。在这篇文章中，作者Dishashree Gupta为想了解深度学习的人，罗列并解释了25个这一领域最常用的术语。&lt;/p>
+&lt;p>这25个术语被分成三组：&lt;/p>
+&lt;ul>
+&lt;li>神经网络中的基础概念(包含常用的一些激活函数)&lt;/li>
+&lt;li>卷积神经网络&lt;/li>
+&lt;li>递归神经网络&lt;/li>
+&lt;/ul>
+&lt;h2 id="基础概念">基础概念&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>神经元(Neuron)&lt;/li>
+&lt;/ol>
+&lt;p>正如我们大脑中的基本组成单元，神经元是组成神经网络的基础结构。设想一下当接触到新的信息时，我们的身体会对其进行处理，最后产生一些特定的反应。&lt;/p>
+&lt;p>相似地，在神经网络中，在收到输入的信号之后，神经元通过处理，然后把结果输出给其它的神经元或者直接作为最终的输出。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/neuron.jpg" alt="神经图" />&lt;p class="caption">神经图&lt;/p>
+&lt;/div>
+&lt;ol start="2" style="list-style-type: decimal">
+&lt;li>加权/权重(Weights)&lt;/li>
+&lt;/ol>
+&lt;p>当输入信号进入到神经元后，会被乘以相应的权重因子。举例来说，假设一个神经元有两个输入信号，那么每个输入将会存在着一个与之相应的权重因子。在初始化网络的时候，这些权重会被随机设置，然后在训练模型的过程中再不断地发生更改。&lt;/p>
+&lt;p>在经过训练后的神经网络中，一个输入具有的权重因子越高，往往意味着它的重要性更高，对输出的影响越大。另一方面，当权重因子为0时意味着这个输入是无价值的。&lt;/p>
+&lt;p>如下图所示，假设输入为a，相应的权重为W1。那么通过赋权节点后相应的输入应变为a*W1。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/neuron_weight.png" alt="加权/权重" />&lt;p class="caption">加权/权重&lt;/p>
+&lt;/div>
+&lt;p>(3)偏差（Bias）&lt;/p>
+&lt;p>除了权重之外，另一个被应用于输入的线性分量被称为偏差。它被加到权重与输入相乘的结果中。基本上添加偏差的目的是来改变权重与输入相乘所得结果的范围的。添加偏差后，结果将看起来像a* W1 +偏差。这是输入变换的最终线性分量。&lt;/p>
+&lt;p>(4)激活函数（Activation Function）&lt;/p>
+&lt;p>一旦将线性分量应用于输入，将会需要应用一个非线性函数。这通过将激活函数应用于线性组合来完成。激活函数将输入信号转换为输出信号。应用激活函数后的输出看起来像&lt;span class="math">\(f(a*W_1 + b）\)&lt;/span>，其中&lt;span class="math">\(f()\)&lt;/span>就是激活函数。&lt;/p>
+&lt;p>在下图中，我们将“n”个输入给定为&lt;span class="math">\(X_1\)&lt;/span>到&lt;span class="math">\(X_n\)&lt;/span>而与其相应的权重为&lt;span class="math">\(W_{k1}\)&lt;/span>到&lt;span class="math">\(W_{kn}\)&lt;/span>。我们有一个给定值为&lt;span class="math">\(b_k\)&lt;/span>的偏差。权重首先乘以与其对应的输入，然后与偏差加在一起。而这个值叫做&lt;span class="math">\(U\)&lt;/span>。 &lt;span class="math">\[U=\sum W*X+b\]&lt;/span> 激活函数被应用于&lt;span class="math">\(U\)&lt;/span>，即&lt;span class="math">\(f(U)\)&lt;/span>，并且我们会从神经元接收最终输出，如&lt;span class="math">\(y_k=f(U)\)&lt;/span>。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/神经元激活函数.jpg" alt="神经元激活函数" />&lt;p class="caption">神经元激活函数&lt;/p>
+&lt;/div>
+&lt;p>接下来我们讲一讲常用的一些激活函数：Sigmoid函数， 线性整流函数(ReLU) 和 softmax函数&lt;/p>
+&lt;ol style="list-style-type: lower-alpha">
+&lt;li>sigmoid函数&lt;/li>
+&lt;/ol>
+&lt;p>&lt;span class="math">\[sigmoid(x)=\frac{1}{1+e^{-x}}\]&lt;/span> sigmoid函数为值域在0到1之间的光滑函数，当需要观察输入信号数值上微小的变化时，与阶梯函数相比，平滑函数(比如Sigmoid函数)的表现更好。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/sigmoid.png" alt="Sigmoid函数" />&lt;p class="caption">Sigmoid函数&lt;/p>
+&lt;/div>
+&lt;ol start="2" style="list-style-type: lower-alpha">
+&lt;li>线性整流函数(ReLU-Rectified Linear Units)&lt;/li>
+&lt;/ol>
+&lt;p>与Sigmoid函数不同的是，最近的网络更喜欢使用ReLu激活函数来处理隐藏层。该函数定义为： &lt;span class="math">\[f(x)=max(x,0)\]&lt;/span> 当x大于0时，函数输出x，其余的情况输出为0。函数的图像是： &lt;img src="../../images/线性整流函数.png" alt="线性整流函数" />&lt;/p>
+&lt;p>使用ReLU函数的最主要的好处是对于大于0的所有输入来说，它都有一个不变的导数值。常数导数值有助于网络训练进行得更快。&lt;/p>
+&lt;ol start="3" style="list-style-type: lower-alpha">
+&lt;li>Softmax&lt;/li>
+&lt;/ol>
+&lt;p>Softmax激活函数通常用于输出层，用于分类问题。它与sigmoid函数是很类似的，唯一的区别就是输出被归一化为总和为1。Sigmoid函数将发挥作用以防我们有一个二进制输出，但是如果我们有一个多类分类问题，softmax函数使为每个类分配值这种操作变得相当简单，而这可以将其解释为概率。&lt;/p>
+&lt;p>以这种方式来操作的话，我们很容易看到——假设你正在尝试识别一个可能看起来像8的6。该函数将为每个数字分配值如下。我们可以很容易地看出，最高概率被分配给6，而下一个最高概率分配给8，依此类推……&lt;/p>
+&lt;ol start="5" style="list-style-type: decimal">
+&lt;li>神经网络&lt;/li>
+&lt;/ol>
+&lt;p>神经网络是构成深度学习系统的框架。神经网络的任务是找到一个未知函数的近似表达方式，它是由彼此相连的神经元所组成，这些神经元会在训练网络的过程中根据误差来更改它们的权重和偏置。激活函数将非线性变化用线性变化的组合来表示，最终产生输出。&lt;/p>
+&lt;p>关于神经网络最好的定义是由Matthew Mayo给出的：&lt;/p>
+&lt;p>神经网络是由大量彼此相连、概念化的人造神经元组成的，这些神经元彼此之间传递着数据，相应的权重也会随着神经网络的经历而进行调整。神经元们有着激活的阈值，当它们遇到相应的数据以及权重时会被激活，这些被激活的神经元组合起来导致了“学习”行为的产生。&lt;/p>
+&lt;ol start="6" style="list-style-type: decimal">
+&lt;li>输入层/输出层/隐藏层&lt;/li>
+&lt;/ol>
+&lt;p>从名字中就能看出，输入层代表接受输入数据的一层，基本上是网络的第一层；输出层是产生输出的一层，或者是网络的最后一层，而网络中间的处理层叫做隐藏层。&lt;/p>
+&lt;p>这些隐藏层对输入的数据进行特定的处理，再将其输入到下一层。输入层和输出层是可见的，而中间层通常是被隐藏起来的。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/输入_输出_隐藏层.jpg" alt="输入/输出/隐藏层" />&lt;p class="caption">输入/输出/隐藏层&lt;/p>
+&lt;/div>
+&lt;ol start="7" style="list-style-type: decimal">
+&lt;li>MLP（多层感知器）&lt;/li>
+&lt;/ol>
+&lt;p>一个单一的神经元不能够完成复杂的任务，因此需要将它们堆叠起来工作进而产生有用的输出。&lt;/p>
+&lt;p>最简单的神经网络包括一个输入层、一个隐藏层和一个输出层。每一层都由多个神经元组成，每一层的每个神经元都与下一层中的所有神经元相连。这样的网络可以被称为是全连接网络。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/多层感知器.jpg" alt="多层感知器" />&lt;p class="caption">多层感知器&lt;/p>
+&lt;/div>
+&lt;ol start="8" style="list-style-type: decimal">
+&lt;li>正向传播（Forward Propagation）&lt;/li>
+&lt;/ol>
+&lt;p>正向传播是指输入通过隐藏层到输出层的运动。在正向传播中，信息沿着一个单一方向前进。输入层将输入提供给隐藏层，然后生成输出。这过程中是没有反向运动的。&lt;/p>
+&lt;ol start="9" style="list-style-type: decimal">
+&lt;li>成本函数（Cost Function）&lt;/li>
+&lt;/ol>
+&lt;p>当我们建立一个网络时，网络试图将输出预测得尽可能靠近实际值。我们使用成本/损失函数来衡量网络的准确性。而成本或损失函数会在发生错误时尝试惩罚网络。&lt;/p>
+&lt;p>我们在运行网络时的目标是提高我们的预测精度并减少误差，从而最大限度地降低成本。最优化的输出是那些成本或损失函数值最小的输出。&lt;/p>
+&lt;p>如果我将成本函数定义为均方误差，则可以写为： &lt;span class="math">\[C= 1/m\sum(y–a)^2\]&lt;/span> 其中&lt;span class="math">\(m\)&lt;/span>是训练输入的数量，&lt;span class="math">\(a\)&lt;/span>是预测值，&lt;span class="math">\(y\)&lt;/span>是该特定示例的实际值。学习过程围绕最小化成本来进行。&lt;/p>
+&lt;ol start="10" style="list-style-type: decimal">
+&lt;li>梯度下降（Gradient Descent）&lt;/li>
+&lt;/ol>
+&lt;p>梯度下降是一种最小化成本的优化算法。要直观地想一想，在爬山的时候，你应该会采取小步骤，一步一步走下来，而不是一下子跳下来。因此，我们所做的就是，如果我们从一个点 x 开始，我们向下移动一点，即Δh，并将我们的位置更新为 x-Δh，并且我们继续保持一致，直到达到底部。考虑最低成本点。在数学上，为了找到函数的局部最小值，我们通常采取与函数梯度的负数成比例的步长。&lt;/p>
+&lt;ol start="11" style="list-style-type: decimal">
+&lt;li>学习率（Learning Rate）&lt;/li>
+&lt;/ol>
+&lt;p>学习率被定义为每次迭代中成本函数中最小化的量。简单来说，我们下降到成本函数的最小值的速率是学习率。我们应该非常仔细地选择学习率，因为它不应该是非常大的，以至于最佳解决方案被错过，也不应该非常低，以至于网络需要融合。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/学习率影响.jpg" alt="学习率影响" />&lt;p class="caption">学习率影响&lt;/p>
+&lt;/div>
+&lt;ol start="12" style="list-style-type: decimal">
+&lt;li>反向传播（Backpropagation）&lt;/li>
+&lt;/ol>
+&lt;p>当我们定义神经网络时，我们为我们的节点分配随机权重和偏差值。一旦我们收到单次迭代的输出，我们就可以计算出网络的错误。然后将该错误与成本函数的梯度一起反馈给网络以更新网络的权重。 最后更新这些权重，以便减少后续迭代中的错误。使用成本函数的梯度的权重的更新被称为反向传播。&lt;/p>
+&lt;p>在反向传播中，网络的运动是向后的，错误随着梯度从外层通过隐藏层流回，权重被更新。&lt;/p>
+&lt;p>&lt;a href="https://blog.csdn.net/weixin_38347387/article/details/82936585">反向传播具体解析&lt;/a>&lt;/p>
+&lt;ol start="13" style="list-style-type: decimal">
+&lt;li>批次（Batches）&lt;/li>
+&lt;/ol>
+&lt;p>在训练神经网络的同时，不用一次发送整个输入，我们将输入分成几个随机大小相等的块。与整个数据集一次性馈送到网络时建立的模型相比，批量训练数据使得模型更加广义化。&lt;/p>
+&lt;ol start="14" style="list-style-type: decimal">
+&lt;li>周期（Epochs）&lt;/li>
+&lt;/ol>
+&lt;p>周期被定义为向前和向后传播中所有批次的单次训练迭代。这意味着1个周期是整个输入数据的单次向前和向后传递。&lt;/p>
+&lt;p>你可以选择你用来训练网络的周期数量，更多的周期将显示出更高的网络准确性，然而，网络融合也需要更长的时间。另外，你必须注意，如果周期数太高，&lt;strong>网络可能会过度拟合&lt;/strong>。&lt;/p>
+&lt;ol start="15" style="list-style-type: decimal">
+&lt;li>丢弃（Dropout）&lt;/li>
+&lt;/ol>
+&lt;p>Dropout 是一种正则化技术，可防止网络过度拟合套。顾名思义，在训练期间，隐藏层中的一定数量的神经元被随机地丢弃。这意味着训练发生在神经网络的不同组合的神经网络的几个架构上。你可以将 Dropout 视为一种综合技术，然后将多个网络的输出用于产生最终输出。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/dropout.jpg" alt="droput" />&lt;p class="caption">droput&lt;/p>
+&lt;/div>
+&lt;ol start="16" style="list-style-type: decimal">
+&lt;li>批量归一化？？（Batch Normalization）&lt;/li>
+&lt;/ol>
+&lt;p>作为一个概念，批量归一化可以被认为是我们在河流中设定为特定检查点的水坝。这样做是为了确保数据的分发与希望获得的下一层相同。当我们训练神经网络时，权重在梯度下降的每个步骤之后都会改变，这会改变数据的形状如何发送到下一层。&lt;/p>
+&lt;p>&lt;a href="https://blog.csdn.net/u013289254/article/details/99690730">深度学习中的五种归一化&lt;/a>&lt;/p>
+&lt;h2 id="卷积神经网络cnn">卷积神经网络CNN&lt;/h2>
+&lt;ol start="17" style="list-style-type: decimal">
+&lt;li>滤波器（Filters）&lt;/li>
+&lt;/ol>
+&lt;p>CNN中的滤波器与加权矩阵一样，它与输入图像的一部分相乘以产生一个回旋输出。我们假设有一个大小为28*28的图像，我们随机分配一个大小为3*3的滤波器，然后与图像不同的3*3部分相乘，形成所谓的卷积输出。滤波器尺寸通常小于原始图像尺寸。在成本最小化的反向传播期间，滤波器值被更新为重量值。&lt;/p>
+&lt;p>参考一下，这里filter是一个3*3矩阵： &lt;span class="math">\[\begin{bmatrix}
+1&amp;amp;0&amp;amp;1\\
+0&amp;amp;1&amp;amp;0\\
+1&amp;amp;0&amp;amp;1\\
+\end{bmatrix}\]&lt;/span> 与图像的每个3*3部分相乘以形成卷积特征。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/cnn_example.jpg" alt="cnn_example" />&lt;p class="caption">cnn_example&lt;/p>
+&lt;/div>
+&lt;ol start="18" style="list-style-type: decimal">
+&lt;li>卷积神经网络（CNN）&lt;/li>
+&lt;/ol>
+&lt;p>卷积神经网络基本上应用于图像数据。假设我们有一个输入的大小（28*28*3），如果我们使用正常的神经网络，将有2352（28*28*3）参数。并且随着图像的大小增加参数的数量变得非常大。我们“卷积”图像以减少参数数量（如上面滤波器定义所示）。当我们将滤波器滑动到输入体积的宽度和高度时，将产生一个二维激活图，给出该滤波器在每个位置的输出。我们将沿深度尺寸堆叠这些激活图，并产生输出量。&lt;/p>
+&lt;p>你可以看到下面的图，以获得更清晰的印象。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/CNN_Structure.jpg" alt="CNN_Structure" />&lt;p class="caption">CNN_Structure&lt;/p>
+&lt;/div>
+&lt;p>(19)池化（Pooling）&lt;/p>
+&lt;p>通常在卷积层之间定期引入池层。这基本上是为了减少一些参数，并防止过度拟合。最常见的池化类型是使用MAX操作的滤波器尺寸(2,2)的池层。它会做的是，它将占用原始图像的每个4*4矩阵的最大值。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/cnn_pooling.jpg" alt="cnn_pooling" />&lt;p class="caption">cnn_pooling&lt;/p>
+&lt;/div>
+&lt;p>你还可以使用其他操作（如平均池）进行池化，但是最大池数量在实践中表现更好。&lt;/p>
+&lt;p>(20)填充（Padding）&lt;/p>
+&lt;p>填充是指在图像之间添加额外的零层，以使输出图像的大小与输入相同。这被称为相同的填充。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/cnn_padding.jpg" alt="cnn_padding" />&lt;p class="caption">cnn_padding&lt;/p>
+&lt;/div>
+&lt;p>在应用滤波器之后，在相同填充的情况下，卷积层具有等于实际图像的大小。&lt;/p>
+&lt;p>有效填充是指将图像保持为具有实际或“有效”的图像的所有像素。在这种情况下，在应用滤波器之后，输出的长度和宽度的大小在每个卷积层处不断减小。&lt;/p>
+&lt;p>(21)数据增强（Data Augmentation）&lt;/p>
+&lt;p>数据增强是指从给定数据导出的新数据的添加，这可能被证明对预测有益。例如，如果你使光线变亮，可能更容易在较暗的图像中看到猫，或者例如，数字识别中的9可能会稍微倾斜或旋转。在这种情况下，旋转将解决问题并提高我们的模型的准确性。通过旋转或增亮，我们正在提高数据的质量。这被称为数据增强。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/cnn_data_augmentation.jpg" alt="Data_Augmentation" />&lt;p class="caption">Data_Augmentation&lt;/p>
+&lt;/div>
+&lt;h2 id="循环神经网络">循环神经网络&lt;/h2>
+&lt;div class="figure">
+&lt;img src="../../images/rnn_structure.jpg" alt="rnn_structure" />&lt;p class="caption">rnn_structure&lt;/p>
+&lt;/div>
+&lt;ol start="22" style="list-style-type: decimal">
+&lt;li>循环神经元（Recurrent Neuron）&lt;/li>
+&lt;/ol>
+&lt;p>循环神经元是在 T 时间内将神经元的输出发送回给它。如上图，输出将返回输入 t 次。展开的神经元看起来像连接在一起的 t 个不同的神经元。这个神经元的基本优点是它给出了更广义的输出。&lt;/p>
+&lt;ol start="23" style="list-style-type: decimal">
+&lt;li>循环神经网络（RNN）&lt;/li>
+&lt;/ol>
+&lt;p>循环神经网络特别用于顺序数据，其中先前的输出用于预测下一个输出。在这种情况下，网络中有循环。隐藏神经元内的循环使他们能够存储有关前一个单词的信息一段时间，以便能够预测输出。隐藏层的输出在 t 时间戳内再次发送到隐藏层。展开的神经元看起来像上图。只有在完成所有的时间戳后，循环神经元的输出才能进入下一层。发送的输出更广泛，以前的信息保留的时间也较长。&lt;/p>
+&lt;p>然后根据展开的网络将错误反向传播以更新权重。这被称为通过时间的反向传播（BPTT）。&lt;/p>
+&lt;p>(24)消失梯度问题（Vanishing Gradient Problem）&lt;/p>
+&lt;p>激活函数的梯度非常小的情况下会出现消失梯度问题。在权重乘以这些低梯度时的反向传播过程中，它们往往变得非常小，并且随着网络进一步深入而“消失”。这使得神经网络忘记了长距离依赖。这对循环神经网络来说是一个问题，长期依赖对于网络来说是非常重要的。&lt;/p>
+&lt;p>这可以通过使用不具有小梯度的激活函数ReLu来解决。&lt;/p>
+&lt;ol start="25" style="list-style-type: decimal">
+&lt;li>激增梯度问题（Exploding Gradient Problem）&lt;/li>
+&lt;/ol>
+&lt;p>这与消失的梯度问题完全相反，激活函数的梯度过大。在反向传播期间，它使特定节点的权重相对于其他节点的权重非常高，这使得它们不重要。这可以通过剪切梯度来轻松解决，使其不超过一定值。&lt;/p></description></item></channel></rss>

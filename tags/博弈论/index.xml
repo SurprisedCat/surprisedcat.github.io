@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>博弈论 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/</link><description>Recent content in 博弈论 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>博弈论之完全信息静态博弈(贝叶斯博弈)</title><link>https://surprisedcat.github.io/studynotes/%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%E5%AE%8C%E5%85%A8%E4%BF%A1%E6%81%AF%E9%9D%99%E6%80%81%E5%8D%9A%E5%BC%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%8D%9A%E5%BC%88/</link><pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%E5%AE%8C%E5%85%A8%E4%BF%A1%E6%81%AF%E9%9D%99%E6%80%81%E5%8D%9A%E5%BC%88%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%8D%9A%E5%BC%88/</guid><description>
+&lt;h2 id="完全信息静态博弈贝叶斯博弈">完全信息静态博弈（贝叶斯博弈）&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#信息分割和信息函数">信息分割和信息函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#补充知识函数">补充：知识函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#奥曼模型">奥曼模型&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯纯策略">贝叶斯纯策略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯行为策略类似于混合策略">贝叶斯行为策略（类似于混合策略）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯博弈的收益计算">贝叶斯博弈的收益计算&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯行为策略均衡">贝叶斯行为策略均衡&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#代理人博弈">代理人博弈&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯混合策略">贝叶斯混合策略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#贝叶斯混合均衡">贝叶斯混合均衡&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#哈萨尼模型">哈萨尼模型&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="信息分割和信息函数">信息分割和信息函数&lt;/h2>
+&lt;blockquote>
+&lt;p>信息分割：对于全集&lt;span class="math">\(\Omega\)&lt;/span>,集系&lt;span class="math">\(\mathcal{H}\subseteq 2^{\Omega}\setminus \varnothing\)&lt;/span>是&lt;span class="math">\(\Omega\)&lt;/span>的一个分割，如果它是&lt;span class="math">\(\Omega\)&lt;/span>互不相交的子集的集合（即为集系）且这些子集的并是&lt;span class="math">\(\Omega\)&lt;/span>。&lt;/p>
+&lt;p>形式化定义：&lt;span class="math">\(\bigcup_{h_i\in\mathcal{H}}h_i=\Omega;\forall h_i,h_j\in \mathcal{H},h_i\cap h_j=\varnothing(i\neq j)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>直观的看，信息分割就是把全集&lt;span class="math">\(\Omega\)&lt;/span>分成互不相交的几份。&lt;/p>
+&lt;p>信息分割出来的每一个片段称之为&lt;strong>信息集&lt;/strong>。对每一局中人来说，&lt;strong>其无法区分同一信息集中的元素&lt;/strong>，即局中人只能直到是哪个信息集，但是不知道是该信息集中的哪一个元素。&lt;/p>
+&lt;blockquote>
+&lt;p>信息分割&lt;span class="math">\(\xlongequal{等价于}\)&lt;/span>信息函数。&lt;br />信息函数：映射&lt;span class="math">\(H:\Omega→2^\Omega\)&lt;/span>满足：&lt;br />(i)&lt;span class="math">\(\forall \omega\in\Omega, \omega\in H(\omega)\)&lt;/span>&lt;br />(ii)&lt;span class="math">\(\forall \omega\in\Omega,\forall \omega&amp;#39;\in H(\omega), H(\omega&amp;#39;)=H(\omega)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>信息函数意义在于给出任一个元素&lt;span class="math">\(\omega\)&lt;/span>得出它在哪一个信息集（分割）中。由于信息集两两不互相交，因此两个元素要么都在同一个信息集中要么不在同一个信息集中。信息函数是构成贝叶斯博弈的重要组成部分。&lt;/p>
+&lt;h3 id="补充知识函数">补充：知识函数&lt;/h3>
+&lt;blockquote>
+&lt;p>知识函数：映射&lt;span class="math">\(K:2^\Omega→2^\Omega\)&lt;/span>使得&lt;span class="math">\(\forall E\in 2^\Omega, K(E)=\{\omega∈ \Omega|H(\omega)\subseteq E\}\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>若&lt;span class="math">\(\omega∈ K(E)\Rightarrow \omega\)&lt;/span>发生，那么事件E也发生了。知识函数可以通过一个线索&lt;span class="math">\(\omega\)&lt;/span>，推断事件E是否发生。&lt;/p>
+&lt;h2 id="奥曼模型">奥曼模型&lt;/h2>
+&lt;p>使用奥曼模型表示贝叶斯博弈为&lt;span class="math">\(G=(N,A,{\color{red}{\Omega,H,P}},u)\)&lt;/span>。其中：&lt;/p>
+&lt;ul>
+&lt;li>局中人集合&lt;span class="math">\(N=\{1,2,3,\dotsb,n\}\)&lt;/span>和静态博弈中一样&lt;/li>
+&lt;li>策略/动作空间：&lt;span class="math">\(A=A_1×A_2×\dotsb×A_n\)&lt;/span>和和静态博弈中一样&lt;/li>
+&lt;li>&lt;strong>状态空间&lt;span class="math">\({\color{red}{\Omega}}\)&lt;/span>&lt;/strong>：非空有限集合。状态空间描述了贝叶斯博弈中的状态，即存在多少种的博弈，每一种博弈以一定的概率出现。&lt;/li>
+&lt;li>&lt;strong>信息函数&lt;span class="math">\({\color{red}{H}}\)&lt;/span>&lt;/strong>：这是一个关键概念。它描述的是每一位局中人对此贝叶斯博弈的了解程度。首先，每一个局中人都有自己的信息函数即&lt;span class="math">\(H=(H_1,H_2,\dotsb,H_n)\)&lt;/span>；若局中人观察到某一元素发生，那他可以推到该元素属于的信息集发生了。局中人对博弈了解越清晰，其信息集越小，不确定也就越小。（对于完美信息博弈，信息集都是单元素集）&lt;/li>
+&lt;li>&lt;strong>共同先验信息&lt;span class="math">\({\color{red}{P}}\)&lt;/span>&lt;/strong>：首先&lt;span class="math">\(P\)&lt;/span>描述了状态空间的概率分布，即&lt;span class="math">\(\Omega→[0,1]\)&lt;/span>。显然，有&lt;span class="math">\(\sum_{\omega \in \Omega}P(\omega)=1\)&lt;/span>。同时要求每一局中人的信息集也大于0，即&lt;span class="math">\(\forall i∈ N,\forall \omega\in\Omega,P(H_i(\omega))&amp;gt;0\)&lt;/span>&lt;/li>
+&lt;li>收益&lt;span class="math">\(u=(u_1,u_2,\dotsb,u_n)\)&lt;/span>：定义和完全信息静态博弈一样，但是其&lt;strong>原像空间多了状态可供选择&lt;/strong>：&lt;span class="math">\(u_i→A×\Omega→\mathbb{R}\)&lt;/span>，即动作确定后，还需要知道目前处于哪个状态（那一个博弈）。&lt;/li>
+&lt;/ul>
+&lt;p>对于信息函数有：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(\forall E\subseteq \Omega,P(E)=\sum_{\omega\in E}P(\omega)\)&lt;/span>&lt;/li>
+&lt;li>&lt;span class="math">\(\forall \omega\in \Omega,\forall \omega&amp;#39;\in H_i(\omega)有P(\omega&amp;#39;|H_i(\omega))=\frac{P(\omega&amp;#39;)}{P(H_i(\omega))}\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;h3 id="贝叶斯纯策略">贝叶斯纯策略&lt;/h3>
+&lt;p>贝叶斯纯策略不再是单纯的一个动作，而是&lt;strong>一个与状态相关的函数&lt;/strong>。对于局中人&lt;span class="math">\(i\)&lt;/span>其纯策略空间也不再是&lt;span class="math">\(A_i\)&lt;/span>，而是一个&lt;strong>函数的集合&lt;/strong>： &lt;span class="math">\[
+S_i=\{s_i:\Omega→A_i |\;\forall\omega,\omega&amp;#39;\in\Omega[H_i(\omega)=H_i(\omega&amp;#39;)]\Rightarrow [s_i(\omega)=s_i(\omega&amp;#39;)]\}
+\]&lt;/span> 其中，每一个函数&lt;span class="math">\(s_i\)&lt;/span>要做的就是当知道现在状态&lt;span class="math">\(\omega\)&lt;/span>的时候，给出对应的动作&lt;span class="math">\(a_i\)&lt;/span>（在状态和动作都有限的情况下，这种映射应该是有限的，个人意见）。在贝叶斯纯策略中，&lt;strong>如果状态&lt;span class="math">\(\omega\)&lt;/span>给定，那么局中人的动作也是确定的&lt;/strong>。但是这类函数需要满足一个限制条件，&lt;strong>由于局中人无法分辨其同一信息集中的不同元素，因此对于同一信息集下的所有元素，在特定状态&lt;span class="math">\(\omega\)&lt;/span>下，其给出的动作是一样的&lt;/strong>。&lt;/p>
+&lt;h3 id="贝叶斯行为策略类似于混合策略">贝叶斯行为策略（类似于混合策略）&lt;/h3>
+&lt;p>和贝叶斯纯策略集类似，贝叶斯行为策略也是一个&lt;strong>函数&lt;/strong>，定义域还是状态空间，但是至于不再限于单个动作集&lt;span class="math">\(A\)&lt;/span>，可以是混合策略，记局中人的混合策略空间为&lt;span class="math">\(M=M_1×M_2×\dotsb×M_n\)&lt;/span>，其中局中人&lt;span class="math">\(i\)&lt;/span>的混合策略空间为&lt;span class="math">\(M_i\)&lt;/span>，则局中人&lt;span class="math">\(i\)&lt;/span>的一个贝叶斯行为策略为 &lt;span class="math">\[
+b_i:\Omega→M_i |\;\forall\omega,\omega&amp;#39;\in\Omega[H_i(\omega)=H_i(\omega&amp;#39;)]\Rightarrow [s_i(\omega)=s_i(\omega&amp;#39;)]
+\]&lt;/span> 其中，每一个函数&lt;span class="math">\(b_i\)&lt;/span>要做的就是当知道现在状态&lt;span class="math">\(\omega\)&lt;/span>的时候，给出对应的混合策略&lt;span class="math">\(m_i\)&lt;/span>（&lt;span class="math">\(m_i\)&lt;/span>是在&lt;span class="math">\(A_i\)&lt;/span>是的一个概率组合，由于混合策略集是无限多，这种映射当然也是无穷的）。在贝叶斯行为策略中，&lt;strong>如果状态&lt;span class="math">\(\omega\)&lt;/span>给定，那么局中人的混合策略（动作的概率分布）也是确定的&lt;/strong>。同样，也需要满足和贝叶斯纯策略中一样的信息集限制，这里不再赘述。&lt;/p>
+&lt;p>综合所有这样的函数，得到局中人&lt;span class="math">\(i\)&lt;/span>的贝叶斯行为策略空间 &lt;span class="math">\[
+B_i=\{b_i:\Omega→M_i |\;\forall\omega,\omega&amp;#39;\in\Omega[H_i(\omega)=H_i(\omega&amp;#39;)]\Rightarrow [s_i(\omega)=s_i(\omega&amp;#39;)]\}
+\]&lt;/span> 那么整体贝叶斯行为策略描述为&lt;span class="math">\(B=B_1×B_2×\dotsb×B_n\)&lt;/span>&lt;/p>
+&lt;h3 id="贝叶斯博弈的收益计算">贝叶斯博弈的收益计算&lt;/h3>
+&lt;p>在纯策略中，每一个贝叶斯纯策略&lt;span class="math">\(s_i\)&lt;/span>的收益是该纯策略在&lt;strong>不同状态&lt;span class="math">\(\omega\)&lt;/span>下，所给定的每一个动作收益的期望&lt;/strong>。有两点需要注意：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>局中人在应对不同信息集时，给出的动作可能是不一样的&lt;/li>
+&lt;li>在同一状态&lt;span class="math">\(\omega\)&lt;/span>下，局中人&lt;span class="math">\(i\)&lt;/span>的收益不仅仅和自己的动作&lt;span class="math">\(s_i(\omega)\)&lt;/span>有关，也和其他人在状态&lt;span class="math">\(\omega\)&lt;/span>下的动作&lt;span class="math">\(s_{-i}(\omega)\)&lt;/span>有关（这和完全信息静态博弈一个道理）。需要指出，在状态&lt;span class="math">\(\omega\)&lt;/span>给定（即信息集给定）时，其他局中人&lt;span class="math">\({-i}\)&lt;/span>的动作也是确定的，即&lt;span class="math">\(s_{-i}(\omega)\)&lt;/span>是一个唯一确定的&lt;span class="math">\(n-1\)&lt;/span>维向量。&lt;/li>
+&lt;/ol>
+&lt;p>总结，收益由三个要素决定：状态，状态下局中人的动作，状态下其他局中人的动作，可记为： &lt;span class="math">\[
+u_i(s)=\sum_{\omega\in\Omega}P(\omega)u_i(s_i(\omega),s_{-i}(\omega),\omega)
+\]&lt;/span>&lt;/p>
+&lt;p>在贝叶斯行为策略中，我们可以仿照纯策略写出贝叶斯行为策略的收益表达式： &lt;span class="math">\[
+u_i(b)=\sum_{\omega\in\Omega}P(\omega)u_i(b_i(\omega),b_{-i}(\omega),\omega),\forall b\in B
+\]&lt;/span> 到这一步与纯策略的收益只有&lt;span class="math">\(s\rightarrow b\)&lt;/span>这点不同。对于某一具体的状态&lt;span class="math">\(\omega\)&lt;/span>，由于&lt;span class="math">\(b_i(\omega)\)&lt;/span>是混合策略，因此该状态下的收益是混合策略中各个动作收益的期望，即 &lt;span class="math">\[
+u_i(b_i(\omega),b_{-i}(\omega),\omega)=\sum_{a\in A}\prod_{j\in N}b_j(\omega)(a_j) u_i(a,\omega)
+\]&lt;/span> 需指出，&lt;span class="math">\(a\in A\)&lt;/span>是一个N维向量，表示N个局中人各自的动作（纯策略）。 &lt;span class="math">\(u_i(a,\omega)\)&lt;/span>就是在状态&lt;span class="math">\(\omega\)&lt;/span>下执行纯策略&lt;span class="math">\(a\)&lt;/span>的收益。那么每一个纯策略发生的概率是多少呢？就是这一项&lt;span class="math">\(\prod_{j\in N}b_j(\omega)(a_j)\)&lt;/span>其中&lt;span class="math">\(b_j(\omega)(a_j)\)&lt;/span>是在状态&lt;span class="math">\(\omega\)&lt;/span>下，局中人&lt;span class="math">\(j\)&lt;/span>执行&lt;span class="math">\(a\)&lt;/span>中自身动作&lt;span class="math">\(a_j\)&lt;/span>的概率，N个局中人连乘就是纯策略&lt;span class="math">\(a\)&lt;/span>的发生概率，在对所有的&lt;span class="math">\(a\in A\)&lt;/span>求和，即为求混合策略的收益期望。在对所有的状态的概率求期望： &lt;span class="math">\[
+u_i(b)=\sum_{\omega\in\Omega}P(\omega)\sum_{a\in A}\prod_{j\in N}b_j(\omega)(a_j) u_i(a,\omega)
+\]&lt;/span> 就是混合策略&lt;span class="math">\(b\in B\)&lt;/span>的收益。我们可以发现，者本质上是求 两次期望，一次是状态概率下的期望，一次是动作发生概率下的期望。&lt;/p>
+&lt;h3 id="贝叶斯行为策略均衡">贝叶斯行为策略均衡&lt;/h3>
+&lt;p>其定义和完美信息博弈是类似的，都是用最优反应来定义。 &amp;gt;贝叶斯行动策略均衡：对于一个贝叶斯行为策略&lt;span class="math">\(b\in B\)&lt;/span>，如果&lt;span class="math">\(\forall i \in N,\forall b&amp;#39;_i\in B_i\)&lt;/span>都有 &amp;gt;&lt;span class="math">\[
+&amp;gt;u_i(b_i,b_-i{})\geq u_i(b_i&amp;#39;,b_{-i})
+&amp;gt;\]&lt;/span> &amp;gt;则贝叶斯行为策略&lt;span class="math">\(b\in B\)&lt;/span>是一个&lt;strong>贝叶斯行为均衡&lt;/strong>。&lt;/p>
+&lt;p>为了计算方便，我们有以下定理：&lt;/p>
+&lt;blockquote>
+&lt;p>定理1：贝叶斯混合策略是一个贝叶斯行为均衡当且仅当&lt;span class="math">\(\forall i\in N,\forall \omega\in \Omega,\forall m_i\in M_i\)&lt;/span>有 &lt;span class="math">\[
+\sum_{\omega&amp;#39;\in H_i(\omega)}P(\omega&amp;#39;)u_i(b_i(\omega&amp;#39;),b_{-i}(\omega&amp;#39;),\omega&amp;#39;)\geq\sum_{\omega&amp;#39;\in H_i(\omega)}P(\omega&amp;#39;)u_i(m_i,b_{-i}(\omega&amp;#39;),\omega&amp;#39;)\]&lt;/span> 且仅当&lt;span class="math">\(\forall i\in N,\forall \omega\in \Omega,\forall m_i\in M_i\)&lt;/span>有 &lt;span class="math">\[
+\sum_{\omega&amp;#39;\in H_i(\omega)}P(\omega&amp;#39;|H_i(\omega))u_i(b_i(\omega&amp;#39;),b_{-i}(\omega&amp;#39;),\omega&amp;#39;)\geq\sum_{\omega&amp;#39;\in H_i(\omega)}P(\omega&amp;#39;|H_i(\omega))u_i(m_i,b_{-i}(\omega&amp;#39;),\omega&amp;#39;)
+\]&lt;/span> 多个信息集的不等式可以求出每个信息集中作为最佳相应的贝叶斯行为策略的在纯策略上的概率分布。&lt;/p>
+&lt;/blockquote>
+&lt;p>我们来理解一下这个定理。先看这个定理的第一部分，它和贝叶斯行为均衡的区别仅在于概率求和的范围不同。贝叶斯行为均衡的定义是对所有状态下收益函数求期望即&lt;span class="math">\(\sum_{\omega\in\Omega}P(\omega)\dotsb\)&lt;/span>而定理中缩减了范围，由于我们知道，贝叶斯博弈中的行为策略是针对每一信息集的，信息集中的元素无法区分，因此只要&lt;strong>针对每一信息集其贝叶斯行为策略是最优的，那么整体的行为策略也会是最有的&lt;/strong>，所以就有&lt;span class="math">\(\forall \omega\in\Omega,\sum_{\omega&amp;#39;\in H(\omega)}P(\omega&amp;#39;)\dotsb\)&lt;/span>&lt;/p>
+&lt;p>定理的第2部分是第1部分的扩展，实际上就是两边同时乘以了一个大于0的数:&lt;span class="math">\(\frac{P(H_i(\omega)|\omega&amp;#39;)}{P(H_i(\omega))}\)&lt;/span>。由于&lt;span class="math">\(\omega&amp;#39;\in H(\omega)\)&lt;/span>，所以分子&lt;span class="math">\(P(H_i(\omega)|\omega&amp;#39;)=1\)&lt;/span>，只要信息集&lt;span class="math">\(P(H_i(\omega))&amp;gt;0\)&lt;/span>，定理的第一部分和第二部分就是等价的。第二部分定理给出了我们一个考虑贝叶斯博弈的另一个思路，&lt;strong>即在每一个信息集中，可以独立考虑如何进行动作/策略选择&lt;/strong>，信息集之间的策略选择是没有互相影响的。接下来我们介绍基于这个思想的代理人博弈。&lt;/p>
+&lt;h3 id="代理人博弈">代理人博弈&lt;/h3>
+&lt;p>可以将每一个局中人在每一个信息集下的决策是独立的，即在此信息集下设置一个&lt;strong>代理人&lt;/strong>，由这个代理人来实现此信息集的&lt;strong>条件期望最大化&lt;/strong>。将贝叶斯博弈转换为代理人博弈的原理是就是&lt;code>定理1&lt;/code>的第二部分。&lt;/p>
+&lt;blockquote>
+&lt;p>定义贝叶斯代理人模式博弈：&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="贝叶斯混合策略">贝叶斯混合策略&lt;/h2>
+&lt;h2 id="贝叶斯混合均衡">贝叶斯混合均衡&lt;/h2>
+&lt;p>在贝叶斯博弈下，贝叶斯混合策略均衡和贝叶斯行为策略均衡是等价。&lt;/p>
+&lt;h2 id="哈萨尼模型">哈萨尼模型&lt;/h2>
+&lt;p>哈萨尼模型的描述结构与奥曼模型类似，使用的是类型而不是信息集与状态；二者分析的结果是一样。&lt;/p></description></item><item><title>博弈论之合作博弈</title><link>https://surprisedcat.github.io/studynotes/%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%E5%90%88%E4%BD%9C%E5%8D%9A%E5%BC%88/</link><pubDate>Wed, 06 Jan 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%E5%90%88%E4%BD%9C%E5%8D%9A%E5%BC%88/</guid><description>
+&lt;h2 id="博弈论之合作博弈">博弈论之合作博弈&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#合作博弈的一般表示形式">合作博弈的一般表示形式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#大联盟博弈">大联盟博弈&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#shapley值">Shapley值&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#班扎夫权力系数">班扎夫权力系数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#存在小团体的合作博弈">存在小团体的合作博弈&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#核">核&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#凸博弈">凸博弈&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;/ul>
+&lt;h2 id="合作博弈的一般表示形式">合作博弈的一般表示形式&lt;/h2>
+&lt;p>在&lt;span class="math">\(n\)&lt;/span>人博弈中，参与人的集合用&lt;span class="math">\(I=\{1, 2,...,n\}\)&lt;/span>表示，&lt;span class="math">\(I\)&lt;/span>的任意子集&lt;span class="math">\(S\)&lt;/span>称为一个联盟。&lt;/p>
+&lt;p>下面给出&lt;span class="math">\(n\)&lt;/span>人博弈的特征函数式：&lt;/p>
+&lt;p>设有&lt;span class="math">\(n\)&lt;/span>个人参与人的集合&lt;span class="math">\(I=\{1, 2,...,n\}\)&lt;/span>，对任一子集&lt;span class="math">\(S\subseteq I\)&lt;/span>，定义一个集合到实数的映射（集合函数）&lt;span class="math">\(V(S)\)&lt;/span>满足条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;span class="math">\(V(\varnothing)=0\)&lt;/span>&lt;/li>
+&lt;li>当&lt;span class="math">\(S_1\cap S_2=\varnothing,S_1\subset I, S_2 \subset I\)&lt;/span>时，&lt;span class="math">\(V(S_1\cup S_2)≥V(S_1)+V(S_2)\)&lt;/span>（称为超可加性，在经济学上称之为协同效应）&lt;/li>
+&lt;/ol>
+&lt;p>我们把&lt;span class="math">\([I,V]\)&lt;/span>称为一个&lt;span class="math">\(n\)&lt;/span>人合作博弈，称&lt;span class="math">\(V(S)\)&lt;/span>为这个&lt;span class="math">\(n\)&lt;/span>人合作博弈的&lt;font color=red>特征函数&lt;/font>，其中&lt;span class="math">\(S\)&lt;/span>是&lt;span class="math">\(I\)&lt;/span>的任意子集（联盟），&lt;span class="math">\(V(S)\)&lt;/span>描述了联盟的&lt;strong>效益&lt;/strong>。特征函数式对&lt;span class="math">\(n\)&lt;/span>人合作博弈的&lt;strong>每一种可能联盟&lt;/strong>都给出了相应的联盟收益，也就是给出了一种集合函数。&lt;/p>
+&lt;h2 id="大联盟博弈">大联盟博弈&lt;/h2>
+&lt;p>参与博弈的&lt;span class="math">\(n\)&lt;/span>个人形成一个合作联盟，称此联盟对应的博弈为&lt;strong>n人大联盟合作博弈&lt;/strong>。&lt;span class="math">\(n\)&lt;/span>人大联盟合作博弈的解是指对大结盟所获利益&lt;span class="math">\(V (I)\)&lt;/span>的一个&lt;strong>分配方案&lt;/strong>。即大联盟主要研究&lt;font color=red>分配方案&lt;/font>（前提是允许局中人之间&lt;font color=red>转移支付&lt;/font>）。&lt;/p>
+&lt;p>若用&lt;span class="math">\(\varphi_i(V(I)),i\in I\)&lt;/span>表示参与人&lt;span class="math">\(i\)&lt;/span>从&lt;span class="math">\(n\)&lt;/span>人大联盟合作博弈中获得的收益，则&lt;span class="math">\(\varphi_i(V(I))\)&lt;/span>至少应该满足：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;strong>个体合理性&lt;/strong>：&lt;span class="math">\(\varphi_i(V(I))≥V(\{i\}),i\in I\)&lt;/span>，即合作至少不比单干差；&lt;/li>
+&lt;li>&lt;strong>总体合理性&lt;/strong>：&lt;span class="math">\(\sum\limits_{i\in I}\varphi_i(V(I))=V(I)\)&lt;/span>，即将合作博弈&lt;span class="math">\([I,V]\)&lt;/span>中获得的收益&lt;span class="math">\(V(I)\)&lt;/span>分光。&lt;/li>
+&lt;/ol>
+&lt;p>因此，解决&lt;span class="math">\(n\)&lt;/span>人合作博弈问题的任务是如何获得一个合理的分配方案 &lt;span class="math">\[
+\varPhi(V(I))=(\varphi_1(V(I)),\varphi_2(V(I)),\dotsb,\varphi_n(V(I)))
+\]&lt;/span>&lt;/p>
+&lt;h3 id="shapley值">Shapley值&lt;/h3>
+&lt;p>如果说纳什均衡是非合作博弈中的核心概念，那么 Shapley 值是合作博弈中的最重要的概念，&lt;strong>Shapley 值是合作性博弈的一种解&lt;/strong>。&lt;/p>
+&lt;p>1953年，美国运筹学家罗伊德·夏普利（Lloyd S. Shapley）采用&lt;strong>逻辑建模方法&lt;/strong>归纳出了三条合理分配原则，即在&lt;span class="math">\(n\)&lt;/span>人合作博弈&lt;span class="math">\([I,V]\)&lt;/span>中，参与人&lt;span class="math">\(i\)&lt;/span>从&lt;span class="math">\(n\)&lt;/span>人大联盟博弈所获得的收益&lt;span class="math">\(\varphi_i(V)\)&lt;/span>应当满足的基本性质（用公理形式表示），进而证明满足这些基本性质的合作博弈解是&lt;font color=red>惟一存在的&lt;/font>，从而妥善地解决了某类合作博弈的合理分配问题。&lt;/p>
+&lt;p>这三条分配原则是：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>&lt;strong>对称性原则&lt;/strong>。每个参与人获得的分配与他在集合&lt;span class="math">\(I=\{1,2,\dotsb,n\}\)&lt;/span>中的排列位置无关。&lt;/li>
+&lt;li>&lt;strong>有效性原则&lt;/strong>。若参与人&lt;span class="math">\(i\)&lt;/span>对他所参加的&lt;strong>任一合作&lt;/strong>都无贡献,则给他的分配应为&lt;strong>0&lt;/strong>。数学表达式为：任意&lt;span class="math">\(i\in S\)&lt;/span>，若&lt;span class="math">\(V(S)=V(S\setminus \{i\})\)&lt;/span>，则&lt;span class="math">\(\varphi_i(V)=0\)&lt;/span>。完全分配：&lt;span class="math">\(\sum\limits_{i\in I}\varphi_i(V)=V(I)\)&lt;/span>&lt;/li>
+&lt;li>可加性原则。对&lt;span class="math">\(I\)&lt;/span>上任意两个特征函数&lt;span class="math">\(U\)&lt;/span>与&lt;span class="math">\(V\)&lt;/span>，&lt;span class="math">\(\varPhi(U+V)=\varPhi(U)+\varPhi(V)\)&lt;/span>。可加性原则表明：&lt;span class="math">\(n\)&lt;/span>个人同时&lt;strong>进行两项互不影响的合作，则两项合作的分配也应互不影响&lt;/strong>，每人的分配额是两项合作单独进行时应分配数的和。&lt;/li>
+&lt;/ol>
+&lt;p>满足上述三条分配原则的&lt;span class="math">\(\varphi_i(V),i\in I\)&lt;/span>,称为&lt;font color=red>Shapley值&lt;/font>。夏普利不仅证明了 Shapley 值的&lt;strong>存在惟一性&lt;/strong>，而且给出了Shapley值的&lt;strong>计算公式&lt;/strong>。下面给出这个重要结果：&lt;/p>
+&lt;p>对任一&lt;span class="math">\(n\)&lt;/span>人合作博弈&lt;span class="math">\([I,V]\)&lt;/span>，Shapley值是惟一存在的，且 &lt;span class="math">\[
+\varphi_i(V)=\sum_{S \subseteq I\setminus \{i\}}W(|S|) [V(S)\cup \{i\}-V(S)],i=1,2,\dotsb,n
+\]&lt;/span> 其中，&lt;span class="math">\(W(|S|)=\frac{|S|!(n-|S|-1)!}{n!},|S|\)&lt;/span>为集合&lt;span class="math">\(S\)&lt;/span>的基数。&lt;/p>
+&lt;p>Shapley公式解释：首先Shapley值是用来在&lt;strong>联盟内部&lt;/strong>进行收益公平分配的，不考虑联盟以外的成员。分配原则本质上是对共同收益的&lt;strong>加权平均&lt;/strong>。&lt;/p>
+&lt;p>先看第二项&lt;span class="math">\(V(S)\cup \{i\}-V(S)\)&lt;/span>这个说的是有没有用户&lt;span class="math">\(i\)&lt;/span>对联盟&lt;span class="math">\(S\)&lt;/span>收益（特征函数）的影响，即&lt;span class="math">\(i\)&lt;/span>在加入联盟&lt;span class="math">\(S\)&lt;/span>的边际收益或者说&lt;span class="math">\(i\)&lt;/span>对联盟&lt;span class="math">\(S\cup \{i\}\)&lt;/span>的&lt;strong>贡献值&lt;/strong>。而系数&lt;span class="math">\(W(|S|)\)&lt;/span>是指联盟&lt;span class="math">\(S\)&lt;/span>的加权平均系数，以联盟人数&lt;span class="math">\(|S|\)&lt;/span>为分组标准，分为组内平均和组间平均。组建平均很好理解，依照联盟的人数，可以分为&lt;span class="math">\(0\rightarrow N-1\)&lt;/span>共&lt;span class="math">\(N\)&lt;/span>个组，因此平均为&lt;span class="math">\(\frac{1}{N}\)&lt;/span>。而从&lt;span class="math">\(N-1\)&lt;/span>个剩余成员中挑选人数为&lt;span class="math">\(|S|\)&lt;/span>的联盟共有&lt;span class="math">\(\frac{(n-1)!}{|S|!(n-|S|-1)!}\)&lt;/span>个，我们简单用其倒数来平均&lt;span class="math">\(i\)&lt;/span>的贡献值，组内组间平均综合即为&lt;span class="math">\(W(|S|)\)&lt;/span>。&lt;/p>
+&lt;h3 id="班扎夫权力系数">班扎夫权力系数&lt;/h3>
+&lt;p>称为关键参与者的次数紧性归一化即为班扎夫权力指数。&lt;/p>
+&lt;h2 id="存在小团体的合作博弈">存在小团体的合作博弈&lt;/h2>
+&lt;p>在参与人多于两个的情况下，就可能出现部分参与人联合起来追求小团体利益的行为，但其前提条件是&lt;strong>参与人在小团体中得到的利益大或等于在大联盟中得到的利益&lt;/strong>，即存在子集&lt;span class="math">\(S=\{i_1,i_2,\dotsb,i_k\}\subset I\)&lt;/span>，相应的总收益为&lt;span class="math">\(V(S)\)&lt;/span>，分配方案 &lt;span class="math">\[
+\varPhi(V(S))=(\varphi_{i_1}(V(S)),\varphi_{i_2}(V(S)),\dotsb,\varphi_{i_n}(V(S)))
+\]&lt;/span> 满足 &lt;span class="math">\[
+\begin{aligned}
+&amp;amp;\varphi_{i_1}(V(S))≥\varphi_{i_1}(V(I))\\
+&amp;amp;\varphi_{i_2}(V(S))≥\varphi_{i_2}(V(I))\\
+&amp;amp;\dots\dots\\
+&amp;amp;\varphi_{i_k}(V(S))≥\varphi_{i_k}(V(I))\\
+\end{aligned}
+\]&lt;/span> 且其中至少有一个&lt;strong>严格不等式&lt;/strong>成立。&lt;/p>
+&lt;p>为使记号简便，我们将&lt;span class="math">\(V(\{i\})\)&lt;/span>简记为&lt;span class="math">\(V(i)\)&lt;/span>，将&lt;span class="math">\(n\)&lt;/span>人合作博弈问题的分配方案简记为&lt;span class="math">\(\varPhi(V)=(\varphi_1(V),\varphi_2(V),\dotsb,\varphi_n(V))\)&lt;/span>。&lt;/p>
+&lt;h3 id="核">核&lt;/h3>
+&lt;p>在一个合作博弈中，满足&lt;strong>帕累托标准&lt;/strong>（除非损人才能利己）的联盟结构称为博弈的一个&lt;strong>有效解&lt;/strong>，&lt;strong>所有有效解&lt;/strong>的集合称为该博弈的&lt;strong>解集&lt;/strong>。&lt;/p>
+&lt;p>但是解集中的有效解并不都是稳定的。通俗的来说，如果在某一联盟&lt;span class="math">\(V(S)\)&lt;/span>中，一部分成员通过组成另一个联盟&lt;span class="math">\(V(S&amp;#39;)\)&lt;/span>，并且&lt;span class="math">\(S&amp;#39;\)&lt;/span>的所有成员按照分配规则&lt;span class="math">\(Φ(V(S&amp;#39;))\)&lt;/span>（比如shapley值）能够比在按原来联盟中分配&lt;span class="math">\(Φ(V(S))\)&lt;/span>获得更高的收益，那么这些原来联盟的成员就有理由背离联盟&lt;span class="math">\(S\)&lt;/span>，使得这个联盟不稳定，从而这个有效解也是不稳定的。&lt;/p>
+&lt;p>如果&lt;strong>一个联盟结构能使得所有参与者都不能从联盟重组中获益&lt;/strong>，这个联盟结构就是这个合作博弈的&lt;strong>核&lt;/strong>。也就是说在这种联盟结构中所有的参与者都没有改变目前结构的动力。&lt;/p>
+&lt;blockquote>
+&lt;p>形式化定义：对于合作博弈中&lt;span class="math">\((I,V)\)&lt;/span>的核，核内的成员收益应当且仅当满足 &lt;span class="math">\[
+\forall S\subseteq I, \sum_{i\in S} x_i\geq V(S)
+\]&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>核不一定存在，如果核存在，则其一定是博弈的有效解&lt;/strong>。&lt;/p>
+&lt;h4 id="凸博弈">凸博弈&lt;/h4>
+&lt;blockquote>
+&lt;p>定义：对于一个博弈&lt;span class="math">\(G=(I,V)\)&lt;/span>如果是凸博弈，那么对于&lt;span class="math">\(\forall S,T\subset N,V(S\cup T)\geq V(S)+V(T)-V(S\cap T)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>凸博弈的要求比超可加性更强。&lt;/p>
+&lt;blockquote>
+&lt;p>定理：每一个凸博弈都有非空的核，并且Shapley值在核中。&lt;/p>
+&lt;/blockquote></description></item><item><title>博弈论1-纳什均衡存在性</title><link>https://surprisedcat.github.io/studynotes/%E5%8D%9A%E5%BC%88%E8%AE%BA1-%E7%BA%B3%E4%BB%80%E5%9D%87%E8%A1%A1%E5%AD%98%E5%9C%A8%E6%80%A7/</link><pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%8D%9A%E5%BC%88%E8%AE%BA1-%E7%BA%B3%E4%BB%80%E5%9D%87%E8%A1%A1%E5%AD%98%E5%9C%A8%E6%80%A7/</guid><description>
+&lt;h2 id="博弈论1-纳什均衡存在性">博弈论1-纳什均衡存在性&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>对于有限非合作博弈的纳什均衡的存在性具有普遍性，其证明主要用到了布劳尔(Brouwer)不动点定理和角谷静夫(Kakutani)不动点定理，这两个定理的证明用到了复杂的数学工具，在这里不给出证明。&lt;/p>
+&lt;h2 id="不动点定理">不动点定理&lt;/h2>
+&lt;p>所有的纳什均衡存在性定理证明都采用了不动点定理，这是因为，纳什均衡的概念在数学上就是一个不动点的概念。在给出存在性定理及其证明之前，我们先来说&lt;strong>明不动点的概念和给出不动点定理&lt;/strong>。&lt;/p>
+&lt;p>什么是“不动点”呢？考虑一个&lt;strong>方程(不是函数)&lt;/strong>&lt;span class="math">\(f(x)=x\)&lt;/span>，其中&lt;span class="math">\(x\)&lt;/span>为方程的解。&lt;/p>
+&lt;p>我们将&lt;span class="math">\(f(\cdot)\)&lt;/span>视为一种“变换”，即&lt;span class="math">\(f(\cdot)\)&lt;/span>是将&lt;span class="math">\(x\)&lt;/span>对应为&lt;span class="math">\(y=f(x)\)&lt;/span>的变换，其中&lt;span class="math">\(x\)&lt;/span>和&lt;span class="math">\(y\)&lt;/span>分别是属于集合&lt;span class="math">\(X\)&lt;/span>和&lt;span class="math">\(Y\)&lt;/span>的两个元素，&lt;span class="math">\(x\in X\)&lt;/span>，&lt;span class="math">\(y\in Y\)&lt;/span>。如果&lt;span class="math">\(X=Y\)&lt;/span>，则方程&lt;span class="math">\(f(x)=x\)&lt;/span>的几何意义就是：变换&lt;span class="math">\(f(\cdot)\)&lt;/span>将&lt;span class="math">\(x\)&lt;/span>变为自己，即&lt;span class="math">\(x\)&lt;/span>在&lt;span class="math">\(f(\cdot)\)&lt;/span>变换下是不变的，故称&lt;span class="math">\(f(x)=x\)&lt;/span>的&lt;strong>解&lt;/strong>为变换&lt;span class="math">\(f(\cdot)\)&lt;/span>的不动点。&lt;/p>
+&lt;p>一般地，我们可以将所有的方程都写为&lt;span class="math">\(f(x,y)=0\)&lt;/span>的形式，比如&lt;span class="math">\(f(x)=x\)&lt;/span>可以写成&lt;span class="math">\(f(x)-x=0\)&lt;/span>。&lt;strong>这样求不动点问题就和方程求根问题联系起来&lt;/strong>。&lt;/p>
+&lt;p>对于这样一种非常一般地的问题，数学家们感到十分高兴的是居然在不太严格的条件下&lt;span class="math">\(f(x,y)=0\)&lt;/span>存在解，即不动点是&lt;strong>较为广泛地存在的&lt;/strong>。&lt;/p>
+&lt;p>譬如，图1表明不动点是曲线&lt;span class="math">\(f(\cdot)\)&lt;/span>与&lt;span class="math">\(45\degree\)&lt;/span>线的交点。当函数&lt;span class="math">\(f(x)\)&lt;/span>定义在&lt;span class="math">\(x\in[0,1]\)&lt;/span>区间上且因变量&lt;span class="math">\(y=f(x)\)&lt;/span>的值域也为&lt;span class="math">\([0,1]\)&lt;/span>区间时，如果&lt;span class="math">\(f(x)\)&lt;/span>是连续的，则必然存在不动点。&lt;/p>
+&lt;img src="../../images/不动点示意图.png" alt="不动点示意图.png" />
+&lt;center>
+图1 [0,1]区间上的自变换函数的不动点
+&lt;/center>
+&lt;p>那么，这种现象到底具有多大的一般性意义呢？数学家Brouwer在很久以前就注意到这一现象，他得出了如下的一般性定理，即著名的Brouwer不动点定理。&lt;/p>
+&lt;blockquote>
+&lt;p>定理1(Brouwer不动点定理)：设&lt;span class="math">\(f(x)\)&lt;/span>是定义在集合&lt;span class="math">\(X\subset \mathbf{R^n}\)&lt;/span>上的实函数，且&lt;span class="math">\(f(x)\in X, \forall x\in X\)&lt;/span>。如果&lt;span class="math">\(f(x)\)&lt;/span>是&lt;strong>连续&lt;/strong>的，&lt;span class="math">\(X\)&lt;/span>为一&lt;strong>非空的有界凸闭集(非空紧凸集)&lt;/strong>，则至少存在一个&lt;span class="math">\(x^\star \in X\)&lt;/span>使&lt;span class="math">\(f(x^\star)=x^\star\)&lt;/span>。即&lt;span class="math">\(f(x)\)&lt;/span>至少存在一个不动点&lt;span class="math">\(^{[1]}\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>有意思的是，Brouwer不动点定理存在很强的几何直观&lt;span class="math">\(^{[2]}\)&lt;/span>，但其数学证明却十分艰深，需要动用代数拓扑这类就是职业数学家也感到望而生畏的超级抽象数学工具&lt;span class="math">\(^{[3]}\)&lt;/span>。在此，我们不给出Brouwer不动点定理的证明。&lt;/p>
+&lt;p>&lt;strong>直接用来证明纳什存在性定理的不动点定理还不是Brouwer不动点定理，而是角谷静夫(Kakutani)不动点定理&lt;/strong>，而后者的证明只是前者的一个相对简单的运用。&lt;/p>
+&lt;p>我们所以要引用角谷静夫不动点定理，是因为在纳什均衡存在性证明中所遇到的&lt;strong>反应函数一般是多个因变量函数&lt;/strong>，即所谓&lt;strong>对应(correspondence)&lt;/strong>，而角谷静夫不动点定理正好描述的是对应的一种性质。角谷静夫不动点定理是Brouwer不动点定理的推广，但其自身的证明要用到Brouwer不动点定理。我们在这里不打算给出这两个不动点定理的证明，因为这类证明只是一种纯数学过程，但我们将给出纳什存在性定理的一种证明，因为了解存在性定理的证明过程有助于我们更好地理解纳什均衡。&lt;/p>
+&lt;p>为了解读角谷静夫不动点定理，我们先来准备一下一些有关的数学概念。&lt;/p>
+&lt;h3 id="角谷静夫不动点定理">角谷静夫不动点定理&lt;/h3>
+&lt;p>对于任一有限集&lt;span class="math">\(M\)&lt;/span>，我们用&lt;span class="math">\(R^M\)&lt;/span>表示形如&lt;span class="math">\(x=(x_m)_{m\in M}\)&lt;/span>的所有&lt;span class="math">\(M\)&lt;/span>维向量组成的集合，其中对&lt;span class="math">\(M\)&lt;/span>中每一个&lt;span class="math">\(m\)&lt;/span>，第&lt;span class="math">\(m\)&lt;/span>个分量&lt;span class="math">\(x_m\)&lt;/span>是实数域&lt;span class="math">\(\mathcal R\)&lt;/span>的一个元素。为方便计，我们也可将&lt;span class="math">\(R^M\)&lt;/span>等价地理解为&lt;span class="math">\(M\)&lt;/span>到&lt;span class="math">\(\mathcal R\)&lt;/span>上的&lt;strong>所有函数&lt;/strong>组成的集合，这时&lt;span class="math">\(R^M\)&lt;/span>中&lt;span class="math">\(x\)&lt;/span>的&lt;span class="math">\(m\)&lt;/span>分量&lt;span class="math">\(x_m\)&lt;/span>也可被记为&lt;span class="math">\(x(m)\)&lt;/span>。&lt;/p>
+&lt;h2 id="纳什存在性定理及其证明">纳什存在性定理及其证明&lt;/h2>
+&lt;h2 id="其它的纳什均衡存在性定理">其它的纳什均衡存在性定理&lt;/h2>
+&lt;h2 id="注释">注释&lt;/h2>
+&lt;p>【1】 这个定理的表述中隐含了&lt;span class="math">\(X\)&lt;/span>为一个度量空间，所谓度量空间，即在空间&lt;span class="math">\(X\)&lt;/span>上定义了一个“距离”函数&lt;span class="math">\(||\cdot||\)&lt;/span>，使得对任意的&lt;span class="math">\(x_1,x_2\in X\)&lt;/span>都有&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>三角不等式&lt;span class="math">\(||x_1+x_2||\leq ||x_1||+||x_2||\)&lt;/span>，(意思是三角形的两边之和大于第三边)&lt;/li>
+&lt;li>&lt;span class="math">\(||x||\geq 0, \forall x\in X\)&lt;/span>；同时还有&lt;span class="math">\(||x||=0\)&lt;/span>当且仅当&lt;span class="math">\(x=0\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>当然，这种定义又要求在空间&lt;span class="math">\(X\)&lt;/span>上首先定义了一种加法“+”和“零”元素。一般地，度量空间的形式化定义为：集合&lt;span class="math">\(X\)&lt;/span>上的“距离”指&lt;span class="math">\(X\times X\)&lt;/span>到实数轴&lt;span class="math">\(\mathcal R\)&lt;/span>上的一个函数 ，满足：对&lt;span class="math">\(X\)&lt;/span>中任意的&lt;span class="math">\(x,y\)&lt;/span>和&lt;span class="math">\(z\)&lt;/span>，有：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>(对称性)&lt;span class="math">\(\delta(x,y)=\delta(y,x)\)&lt;/span>&lt;/li>
+&lt;li>(非负性)&lt;span class="math">\(\delta(x,y)=0\)&lt;/span>当且仅当&lt;span class="math">\(x=y\)&lt;/span>&lt;/li>
+&lt;li>(三角不等式)&lt;span class="math">\(\delta(x,y)+\delta(y,z)\geq \delta(x,z)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>【2】 一些几何例子比如：取两张一样大小的白纸，在上面画好垂直的坐标系以及纵横的方格。将一张纸平铺在桌面，而另外一张随意揉成一个形状（但不能撕裂），放在第一张白纸之上，不超出第一张的边界。那么第二张纸上一定有一点正好就在第一张纸的对应点的正上方。一个更简单的说法是：将一张白纸平铺在桌面上，再将它揉成一团（不撕裂），放在原来白纸所在的地方，那么只要它不超出原来白纸平铺时的边界，那么白纸上一定有一点在水平方向上没有移动过。这个断言的根据就是布劳威尔不动点定理在二维欧几里得空间（欧几里得平面）的情况，因为把纸揉皱是一个连续的变换过程。&lt;/p>
+&lt;p>另一个例子是大商场等地方可以看到的平面地图，上面标有“您在此处”的红点。如果标注足够精确，那么这个点就是把实际地形射到地图的连续函数的不动点。&lt;/p>
+&lt;p>三维空间中的情况：如果我们用一个密封的锅子煮水，那么总有一个水分子在煮开前的某一刻和煮开后的某一刻处于同样的位置。地球绕着它的自转轴自转。自转轴在自转过程中是不变的，也就是自转运动的不动点。&lt;/p>
+&lt;p>【3】某些数学家声称已找到Brouwer不动点定理的初等证明，但从严格的数学证明所要求的严密程度看，这类“证明”，并非真正数学意义上的证明，同时，它们还十分繁锁。&lt;/p></description></item></channel></rss>

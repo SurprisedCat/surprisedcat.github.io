@@ -1,0 +1,879 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>Shell 骨干流程2——复合命令与控制流程 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="Shell 骨干流程2——复合命令与控制流程 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/">
+<meta property="og:title" content="Shell 骨干流程2——复合命令与控制流程">
+<meta property="og:description" content="Shell 骨干流程2——复合命令与控制流程 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>Shell 骨干流程2——复合命令与控制流程</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Jan 3, 2022</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/shell title=shell class="post_tag button button_translucent">shell
+</a><a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B title=CLI处理流程 class="post_tag button button_translucent">CLI处理流程
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B2%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<ul>
+<li><a href=#shell%E5%A4%8D%E5%90%88%E5%91%BD%E4%BB%A4%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6>shell复合命令——流程控制</a>
+<ul>
+<li><a href=#%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84>循环结构</a></li>
+<li><a href=#%E6%9D%A1%E4%BB%B6%E7%BB%93%E6%9E%84>条件结构</a></li>
+<li><a href=#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6%E5%8F%B7%E4%B8%8E%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%E5%8F%B7>条件运算符号与算术运算符号</a></li>
+<li><a href=#%E7%BB%84%E5%91%BD%E4%BB%A4>组命令</a></li>
+<li><a href=#%E5%8D%8F%E5%90%8C%E8%BF%9B%E7%A8%8B>协同进程</a></li>
+</ul>
+</li>
+<li><a href=#shell%E5%87%BD%E6%95%B0>shell函数</a>
+<ul>
+<li><a href=#%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89>函数的定义</a></li>
+<li><a href=#%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8>函数的使用</a></li>
+</ul>
+</li>
+<li><a href=#shell%E5%8F%82%E6%95%B0>shell参数</a>
+<ul>
+<li><a href=#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0>位置参数</a></li>
+<li><a href=#%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0>特殊参数</a></li>
+</ul>
+</li>
+<li><a href=#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9>参考内容</a></li>
+</ul>
+<h2 id=复合命令与控制流程---omit-in-toc--->复合命令与控制流程</h2>
+<p>复合命令是通过shell保留字和简单命令组合形成的组合命令，算是shell脚本语言的基本结构。<strong>每一个复合命令结构都由每一个保留字或控制符开始，并以对应的保留字或控制符结束</strong>，这算是shell编程语言的一个特色，例如以<code>if</code>开头，<code>fi</code>结尾；<code>case</code>开头，<code>esac</code>结尾等等。对shell复合命令结构的输入、输出重定向将被应用到该结构的每一个简单命令中，除非其中有某个简单命令用显式的重定向覆盖该结构的重定向。写shell语言时，为了保证代码可读性，在复合命令结构之间通常用<code>newline</code>来分割，而不是用<code>;</code>来分割，虽然从语法上来讲，二者作用是一样的，但是过长的代码会给后续的维护造成困难。</p>
+<p>The Bourne Again SHell（bash）提供循环、条件、组命令、协同四种复合命令，并用相应的保留字指示bash是哪一种复合命令。bash的保留字如以下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+<th style=text-align:center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>if</td>
+<td style=text-align:center>then</td>
+<td style=text-align:center>elif</td>
+<td style=text-align:center>else</td>
+<td style=text-align:center>fi</td>
+<td style=text-align:center>time</td>
+</tr>
+<tr>
+<td style=text-align:center>for</td>
+<td style=text-align:center>in</td>
+<td style=text-align:center>until</td>
+<td style=text-align:center>while</td>
+<td style=text-align:center>do</td>
+<td style=text-align:center>done</td>
+</tr>
+<tr>
+<td style=text-align:center>case</td>
+<td style=text-align:center>esac</td>
+<td style=text-align:center>coproc</td>
+<td style=text-align:center>select</td>
+<td style=text-align:center>function</td>
+<td></td>
+</tr>
+<tr>
+<td style=text-align:center>{</td>
+<td style=text-align:center>}</td>
+<td style=text-align:center>[[</td>
+<td style=text-align:center>]]</td>
+<td style=text-align:center>!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>需要注意的是，在其他编程语言中，<code>continue, break</code>算是关键字，而在shell中<code>continue, break</code>是内置命令。</p>
+<p>我们将循环、条件、组命令、协同作为四种控制流程。此外，还有一种特殊的复合命令叫做<strong>函数</strong>，基本上有点编程基础的人对此都不陌生，shell的函数定义、使用方式和其他编程语言大同小异。</p>
+<p>总体处理流程上，shell会先检查第一个标记，如果是可前置保留字(<code>if, for, while, until, case, select, time, function, coproc, {, [[, !</code>)，则开启复合命令流程；如果是非可前置保留字(<code>then, elif, fi, in, do, done, esac, }, ]]</code>)，且之前没有与之对应的可前置保留字，则报语法错误；如果不是保留字则当作简单命令，执行下一步骤。</p>
+<h2 id=shell复合命令流程控制>shell复合命令——流程控制</h2>
+<p>基本上所有的变成语言流程控制都包含顺序执行、条件执行、循环执行三种流程控制，shell语言也不例外。此外，shell还有分组命令、协同处理两种特殊的流程控制方法。</p>
+<h3 id=循环结构>循环结构</h3>
+<p>until循环: 循环执行一系列命令直至条件<code>test-commands</code>为<code>true</code>时停止。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 单行</span>
+<span class=ln>2</span><span class=k>until</span> test-commands<span class=p>;</span> <span class=k>do</span> consequent-commands<span class=p>;</span> <span class=k>done</span>
+<span class=ln>3</span><span class=c1>#多行</span>
+<span class=ln>4</span><span class=k>until</span> test-commands
+<span class=ln>5</span><span class=k>do</span>
+<span class=ln>6</span>  consequent-commands
+<span class=ln>7</span><span class=k>done</span>
+</code></pre></div><p>例子：输出 0 ~ 9 的数字</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#!/bin/bash
+</span><span class=ln>2</span><span class=cp></span>
+<span class=ln>3</span><span class=nv>a</span><span class=o>=</span><span class=m>0</span>
+<span class=ln>4</span>
+<span class=ln>5</span><span class=k>until</span> <span class=o>[</span> ! <span class=nv>$a</span> -lt <span class=m>10</span> <span class=o>]</span>
+<span class=ln>6</span><span class=k>do</span>
+<span class=ln>7</span>   <span class=nb>echo</span> <span class=nv>$a</span>
+<span class=ln>8</span>   <span class=nv>a</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$a</span> + 1<span class=sb>`</span>
+<span class=ln>9</span><span class=k>done</span>
+</code></pre></div><p>while循环：和until循环相反，循环执行一系列命令直至条件<code>test-commands</code>为<code>false</code>时停止。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 单行</span>
+<span class=ln>2</span><span class=k>while</span> test-commands<span class=p>;</span> <span class=k>do</span> consequent-commands<span class=p>;</span> <span class=k>done</span>
+<span class=ln>3</span><span class=c1># 多行</span>
+<span class=ln>4</span><span class=k>while</span> test-commands
+<span class=ln>5</span><span class=k>do</span>
+<span class=ln>6</span>  consequent-commands
+<span class=ln>7</span><span class=k>done</span>
+</code></pre></div><p>例子：输出 0 ~ 9 的数字</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#!/bin/bash
+</span><span class=ln>2</span><span class=cp></span>
+<span class=ln>3</span><span class=nv>a</span><span class=o>=</span><span class=m>0</span>
+<span class=ln>4</span>
+<span class=ln>5</span><span class=k>while</span> <span class=o>[</span> <span class=nv>$a</span> -lt <span class=m>10</span> <span class=o>]</span> <span class=c1># 和until相比少了一个取反的&#34;!&#34;</span>
+<span class=ln>6</span><span class=k>do</span>
+<span class=ln>7</span>   <span class=nb>echo</span> <span class=nv>$a</span>
+<span class=ln>8</span>   <span class=nv>a</span><span class=o>=</span><span class=sb>`</span>expr <span class=nv>$a</span> + 1<span class=sb>`</span>
+<span class=ln>9</span><span class=k>done</span>
+</code></pre></div><p>for循环：有两种模式，一种是C风格的条件模式，条件需要用shell算数表达式表示，还有一种python风格的遍历模式。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 单行C风格</span>
+<span class=ln> 2</span><span class=k>for</span> <span class=o>((</span> expr1 <span class=p>;</span> expr2 <span class=p>;</span> expr3 <span class=o>))</span> <span class=p>;</span> <span class=k>do</span> commands <span class=p>;</span> <span class=k>done</span>
+<span class=ln> 3</span>
+<span class=ln> 4</span><span class=c1># 多行C风格</span>
+<span class=ln> 5</span><span class=k>for</span> <span class=o>((</span> expr1 <span class=p>;</span> expr2 <span class=p>;</span> expr3 <span class=o>))</span>
+<span class=ln> 6</span><span class=k>do</span>
+<span class=ln> 7</span>  commands
+<span class=ln> 8</span><span class=k>done</span>
+<span class=ln> 9</span>
+<span class=ln>10</span><span class=c1># 单行 遍历风格</span>
+<span class=ln>11</span><span class=k>for</span> name in <span class=o>[</span>words …<span class=o>]</span> <span class=p>;</span> <span class=k>do</span> commands<span class=p>;</span> <span class=k>done</span>
+<span class=ln>12</span>
+<span class=ln>13</span><span class=c1># 多行 遍历风格</span>
+<span class=ln>14</span><span class=k>for</span> name in <span class=o>[</span>words …<span class=o>]</span>
+<span class=ln>15</span><span class=k>do</span>
+<span class=ln>16</span>  commands
+<span class=ln>17</span><span class=k>done</span>
+</code></pre></div><p>跳出循环：在循环过程中，有时候需要在未达到循环结束条件时强制跳出循环，Shell使用两内置命令来实现该功能：<code>break</code>和<code>continue</code>。<code>break</code>命令允许跳出所有循环（终止执行后面的所有循环）。<code>continue</code>命令与<code>break</code>命令类似，只有一点差别，它不会跳出所有循环，仅仅跳出当前循环，有时甚至是加速循环。</p>
+<h3 id=条件结构>条件结构</h3>
+<p>首先介绍两个各大语言常见的条件结构if和case。其中的分号都可以用<code>newline</code>替换，反之亦然。"[]"中的内容表示不是一定需要。</p>
+<p>if条件结构：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=k>if</span> test-commands<span class=p>;</span> <span class=k>then</span>
+<span class=ln>2</span>  consequent-commands<span class=p>;</span>
+<span class=ln>3</span><span class=o>[</span><span class=k>elif</span> more-test-commands<span class=p>;</span> <span class=k>then</span>
+<span class=ln>4</span>  more-consequents<span class=p>;</span><span class=o>]</span>
+<span class=ln>5</span><span class=o>[</span><span class=k>else</span> alternate-consequents<span class=p>;</span><span class=o>]</span>
+<span class=ln>6</span><span class=k>fi</span>
+</code></pre></div><p>代码实例：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=nv>a</span><span class=o>=</span><span class=m>10</span>
+<span class=ln> 2</span><span class=nv>b</span><span class=o>=</span><span class=m>20</span>
+<span class=ln> 3</span><span class=k>if</span> <span class=o>[</span> <span class=nv>$a</span> <span class=o>==</span> <span class=nv>$b</span> <span class=o>]</span>
+<span class=ln> 4</span><span class=k>then</span>
+<span class=ln> 5</span>   <span class=nb>echo</span> <span class=s2>&#34;a 等于 b&#34;</span>
+<span class=ln> 6</span><span class=k>elif</span> <span class=o>[</span> <span class=nv>$a</span> -gt <span class=nv>$b</span> <span class=o>]</span>
+<span class=ln> 7</span><span class=k>then</span>
+<span class=ln> 8</span>   <span class=nb>echo</span> <span class=s2>&#34;a 大于 b&#34;</span>
+<span class=ln> 9</span><span class=k>elif</span> <span class=o>[</span> <span class=nv>$a</span> -lt <span class=nv>$b</span> <span class=o>]</span>
+<span class=ln>10</span><span class=k>then</span>
+<span class=ln>11</span>   <span class=nb>echo</span> <span class=s2>&#34;a 小于 b&#34;</span>
+<span class=ln>12</span><span class=k>else</span>
+<span class=ln>13</span>   <span class=nb>echo</span> <span class=s2>&#34;没有符合的条件&#34;</span>
+<span class=ln>14</span><span class=k>fi</span>
+</code></pre></div><p>case条件结构：<code>case ... esac</code>为多选择语句，与其他语言中的<code>switch ... case</code>语句类似，是一种多分支选择结构，每个<code>case</code>分支用<strong>右圆括号</strong>开始，用<strong>两个分号;;表示</strong> break，即执行结束，跳出整个<code>case ... esac</code>语句，<code>esac</code>（就是<code>case</code>反过来）作为结束标记。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=k>case</span> <span class=nv>$var</span> in 
+<span class=ln>2</span>  pattern1 <span class=p>|</span> pattern2<span class=o>)</span>
+<span class=ln>3</span>    statements <span class=p>;;</span> 
+<span class=ln>4</span>  pattern3 <span class=p>|</span> pattern4<span class=o>)</span>
+<span class=ln>5</span>    statements <span class=p>;;</span> 
+<span class=ln>6</span> ... 
+<span class=ln>7</span>  *<span class=o>)</span>
+<span class=ln>8</span>    statements <span class=p>;;</span>
+<span class=ln>9</span><span class=k>esac</span> 
+</code></pre></div><p><code>case</code>工作方式如上所示，<code>case</code>后面跟需要判断的变量<code>$var</code>，再后面必须为单词<code>in</code>。该复合语句根据模式匹配<code>case</code>后面的<code>$var</code>，模式类似于正则表达式，多个模式之间用“|”分割，最后必须以右括号结束。<code>$var</code>可以为变量或常数，匹配发现取值符合某一模式后，其间所有命令开始执行直至 ;;。</p>
+<p><code>$var</code>将检测匹配的每一个模式。一旦模式匹配，则执行完匹配模式相应命令后<strong>不再继续其他模式</strong>。如果无一匹配模式，<strong>使用星号<code>*</code>捕获该值</strong>，再执行后面的命令。</p>
+<p>举一个简单的例子</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=nb>echo</span> <span class=s1>&#39;输入 1 到 6 之间的数字:&#39;</span>
+<span class=ln> 2</span><span class=nb>echo</span> <span class=s1>&#39;你输入的数字为:&#39;</span>
+<span class=ln> 3</span><span class=nb>read</span> aNum
+<span class=ln> 4</span><span class=k>case</span> <span class=nv>$aNum</span> in
+<span class=ln> 5</span>    <span class=m>1</span> <span class=p>|</span> 2<span class=o>)</span>  <span class=nb>echo</span> <span class=s1>&#39;你选择了 1或2&#39;</span>
+<span class=ln> 6</span>    <span class=p>;;</span>
+<span class=ln> 7</span>    <span class=m>3</span> <span class=p>|</span> 4<span class=o>)</span>  <span class=nb>echo</span> <span class=s1>&#39;你选择了 3或4&#39;</span>
+<span class=ln> 8</span>    <span class=p>;;</span>
+<span class=ln> 9</span>    5<span class=o>)</span>  <span class=nb>echo</span> <span class=s1>&#39;你选择了 5&#39;</span>
+<span class=ln>10</span>    <span class=p>;;</span>
+<span class=ln>11</span>    6<span class=o>)</span>  <span class=nb>echo</span> <span class=s1>&#39;你选择了 6&#39;</span>
+<span class=ln>12</span>    <span class=p>;;</span>
+<span class=ln>13</span>    *<span class=o>)</span>  <span class=nb>echo</span> <span class=s1>&#39;你没有输入 1 到 6 之间的数字&#39;</span>
+<span class=ln>14</span>    <span class=p>;;</span>
+<span class=ln>15</span><span class=k>esac</span>
+</code></pre></div><p>另外，一些版本的shell还提供了<code>select</code>结构，<code>select in</code>结构用来增强交互性，它可以显示出带编号的菜单，用户输入不同的编号就可以选择不同的菜单，并执行不同的功能。但是个人觉得在实践中，这种结果使用较少，用起来也比较鸡肋，所以不做介绍了，有兴趣同读者可以自行搜索。</p>
+<h3 id=条件运算符号与算术运算符号>条件运算符号与算术运算符号</h3>
+<p>我们在之前的循环与条件结构中，都会遇到条件判断语句，例如在<code>if</code>后面的内容、<code>while, until</code>后面的内容以及<code>for</code>在C风格下的<code>((...))</code>表达式。条件结构会<strong>根据判断语句的返回码</strong>决定执行哪些后续内容，有趣的是，由于在shell中，返回码<code>0</code>表示进程正常执行完毕，其他返回码表示进程执行遇到错误。在shell中执行<code>true</code>的返回码为0，执行<code>false</code>的返回码为1；算数表达式计算结果不为0时，返回码为0，计算结果等于0时，返回码为1。还是要记住，条件结构看的是返回码，不是执行的输出。</p>
+<p>判断语句一般有三种，一是单中括号<code>[]</code>，二是双中括号<code>[[]]</code>，三是双小括号<code>(())</code>。</p>
+<p>单中括号<code>[ ]</code>是bash特有的<strong>内置命令</strong>，等同于<code>test</code>命令。关于test命令的具体用法，可参考《shell-test命令使用》。</p>
+<p>双中括号<code>[[ ]]</code>是bash程序语言的<strong>关键字</strong>，并不是一个命令，双中括号中的<strong>表达式被看作一个单独的元素</strong>，计算此元素结果并返回一个退出状态码。由于<code>[[ ]]</code>是关键字，因此，它们<strong>和表达式之间都需要空格分割</strong>，<code>[[ ]]</code>结构比<code>[ ]</code>结构更加通用。在<code>[[</code>和<code>]]</code>之间所有的字符都不会发生文件名扩展或者单词分割，但是会发生参数扩展和命令替换。使用<code>[[ ]]</code>条件判断结构，而不是<code>[ ]</code>，能够防止脚本中的许多逻辑错误。比如，<code>&&、||、&lt;</code>和<code>></code>操作符能够正常存在于<code>[[ ]]</code>条件判断结构中，但是如果出现在<code>[ ]</code>结构中的话，会报错。比如可以直接使用<code>if [[ $a != 1 && $a != 2 ]]</code>, 如果不适用双括号, 则为<code>if [ $a -ne 1] && [ $a != 2 ]</code>或者<code>if [ $a -ne 1 -a $a != 2 ]</code>。此外，<code>[[ ]]</code>支持字符串的模式匹配，使用<code>==, !=</code>操作符时甚至支持shell的模式匹配，此时会把<strong>运算符右边的表达式作为一个匹配模式</strong>，而不仅仅是一个字符串，比如<code>[[ hello == hell? ]]</code>，<code>[[ hello == h* ]]</code>结果都为真。<code>[[ ]]</code>中匹配字符串或通配符，不需要引号。</p>
+<blockquote>
+<p>关于双中括号<code>[[ ]]</code>中的匹配，如果我们使用<code>=~</code>操作符，支持字符串的shell模式匹配可升级为POSIX的正则匹配，提供更加丰富的匹配功能。</p>
+</blockquote>
+<p>双小括号<code>(( ))</code>是<strong>整数扩展</strong>。这种扩展计算是<strong>整数型的计算，不支持浮点型</strong>。<code>(( ))</code>结构扩展并计算一个算术表达式的值，如果表达式的结果为0，那么返回的退出状态码为1，或者 是"false"，而一个非零值的表达式所返回的退出状态码将为0，或者是"true"。单纯用<code>(( ))</code> 也可重定义变量值，比如<code>a=5; ((a++))</code>可将<code>$a</code>重定义为6。注意由于<code>(( ))</code>是C风格的，因此双括号中的变量可以不使用$符号前缀。括号内支持多个表达式用逗号分开，只要括号中的表达式符合C语言运算规则,比如可以直接使用<code>for((i=0;i&lt;5;i++))</code>。</p>
+<h3 id=组命令>组命令</h3>
+<p>shell提供了两种方式来将一组命令（无论是简单命令还是复合命令）做一个单元来执行，一是单个小括号<code>( command list )</code>，二是单个大括号<code>{ command list; }</code>。当组命令存在时，可以改变原有的执行流程，组内的命令看作一个小单元一起执行，就像在数学中使用括号改变运算优先级一样；同时，对组命令的重定向将会生效于组内每一条命令。</p>
+<p>举一个组命令改变原有的执行流程的例子，。示例：<code>echo $a</code>被执行几次？</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 先执行a=1;echo $a，再执行a=1 || echo $a，由于a=1成功执行，||右面的echo $a不会执行了</span>
+<span class=ln>2</span><span class=c1># 最后再执行最后一个echo $a；共输出两次</span>
+<span class=ln>3</span>$ <span class=nv>a</span><span class=o>=</span><span class=m>1</span> <span class=p>;</span><span class=nb>echo</span> <span class=nv>$a</span> <span class=p>;</span> <span class=nv>a</span><span class=o>=</span><span class=m>1</span> <span class=o>||</span> <span class=nb>echo</span> <span class=nv>$a</span> <span class=p>;</span><span class=nb>echo</span> <span class=nv>$a</span>
+<span class=ln>4</span><span class=m>1</span>
+<span class=ln>5</span><span class=m>1</span>
+<span class=ln>6</span><span class=c1># 先执行a=1;echo $a，后面a=1 || (echo $a ;echo $a)做为同优先级的组合命令执行，由于a=1成功执行</span>
+<span class=ln>7</span><span class=c1># ||右面的(echo $a ;echo $a)组命令作为一个整体都不会执行，共输出一次</span>
+<span class=ln>8</span>$ <span class=nv>a</span><span class=o>=</span><span class=m>1</span> <span class=p>;</span><span class=nb>echo</span> <span class=nv>$a</span> <span class=p>;</span> <span class=nv>a</span><span class=o>=</span><span class=m>1</span> <span class=o>||</span> <span class=o>(</span><span class=nb>echo</span> <span class=nv>$a</span> <span class=p>;</span><span class=nb>echo</span> <span class=nv>$a</span><span class=o>)</span>
+<span class=ln>9</span><span class=m>1</span>
+</code></pre></div><p>那么，使用单个小括号<code>( command list )</code>和单个大括号<code>{ command list; }</code>到底有什么区别呢？</p>
+<ol>
+<li>语法层面。<code>()</code>是<strong>shell的操作符</strong>，因此会被shell解释器自动分割，且不用在小括号左右加空格；而<code>{}</code>是<strong>shell的保留字</strong>，因此需要在左大括号后面添加空格（开头不需要，后面那个右大括号也不需要），同时<code>{ }</code>最后一个命令要加<strong>分号分割</strong>。</li>
+<li>执行层面。当shell执行<code>( )</code>中的命令时将再创建一个新的子shell，然后这个子shell去执行圆括弧中的命令。<code>( )</code>所有的改变只对子shell产生影响，而原shell不受任何干扰，比如在<code>( )</code>内部定义、改变的变量，外面是不受影响的；<code>{ }</code>是在当前shell中执行，不会衍生子shell，<code>{ }</code>中操作都是对当前shell有影响的。</li>
+</ol>
+<p>我们据下面这个例子来说明<code>( )</code>与<code>{ }</code>的区别。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># {} 内部定义变量。原进程可用</span>
+<span class=ln> 2</span>$ <span class=o>{</span> <span class=nv>b</span><span class=o>=</span>1<span class=p>;</span> <span class=o>}</span> <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=nv>$b</span>
+<span class=ln> 3</span><span class=m>1</span>
+<span class=ln> 4</span><span class=c1># 没有空格、分号的话会将{b=2}整体当作一个命令</span>
+<span class=ln> 5</span>$ <span class=o>{</span><span class=nv>b</span><span class=o>=</span>2<span class=o>}</span> <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=nv>$b</span>
+<span class=ln> 6</span>-bash: <span class=o>{</span><span class=nv>b</span><span class=o>=</span>2<span class=o>}</span>: <span class=nb>command</span> not found
+<span class=ln> 7</span><span class=c1># 有分号无空格会报语法错误</span>
+<span class=ln> 8</span>$ <span class=o>{</span><span class=nv>b</span><span class=o>=</span>2<span class=p>;</span><span class=o>}</span> <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=nv>$b</span>
+<span class=ln> 9</span>-bash: syntax error near unexpected token <span class=sb>`</span><span class=o>}</span><span class=err>&#39;</span>
+<span class=ln>10</span><span class=c1># ()中的命令会在子shell执行，不影响原本的shell</span>
+<span class=ln>11</span>$ <span class=o>(</span><span class=nv>b</span><span class=o>=</span>2<span class=o>)</span> <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=nv>$b</span>
+<span class=ln>12</span><span class=m>1</span>
+</code></pre></div><h3 id=协同进程>协同进程</h3>
+<p>自bash4.0开始，bash引入了一个保留字<code>coproc</code>, 用来在后台创建一个<strong>异步执行的子协作进程</strong>(co-process)。使用<code>coproc</code>的效果就像在命令结尾加上<code>&</code>符号一样，但是<code>coproc</code>还会创建一个<strong>双向管道</strong>，将协作进程的输入和输出通过管道与文件句柄相连，与原进程进行通信。如果我们希望原进程和子进程交互执行，可以考虑使用<code>coproc</code>。其语法如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>coproc <span class=o>[</span>NAME<span class=o>]</span> <span class=nb>command</span> <span class=o>[</span>redirections<span class=o>]</span>
+<span class=ln>2</span><span class=c1># 有没有觉得它跟bash中定义函数的语法 function NAME {cmds} 很类似？</span>
+</code></pre></div><p>创建的协作子进程被命名为给出的参数<code>NAME</code>，如果没有给参数<code>NAME</code>则默认为“COPROC”。但是只有当<code>command</code>不是简单命令时，才可以给它命名，如果是简单命令，则一定不可以添加<code>NAME</code>参数，否则<code>NAME</code>会被当成简单命令的首单词。</p>
+<p>当<code>coproc</code>命令执行时，shell在当前进程中创建一个名为<code>NAME</code>的数组变量，命令的<strong>标准输出</strong>同当前进程的文件描述符<code>NAME[0]</code>相连，<strong>标准输入</strong>同<code>NAME[1]</code>相连（和标准输入输出的默认文件描述符相反）。协作进程的进程号保存在变量<code>NAME_PID</code>中，我们可以在当前进程使用shell内建命令<code>wait</code>等待协作进程的结束。</p>
+<p><code>coproc</code>的用法和GO语言中的协程有点类似，感觉在shell实际应用中并不太常见。大多数时候，有类似功效的<code>expect</code>命令更受欢迎。</p>
+<h2 id=shell函数>shell函数</h2>
+<p>shell中函数是另一种复合命令的方式，shell中的函数定义和使用与其他变成语言中函数大同小异。然而，shell的函数设计有一个特点：<strong>函数用起来尽量像个正常的命令</strong>。这个特点既有有点也有缺点，优点在于函数和命令使用的一致性，可以简化编程语法，二者互相替换会很方便；但是这也让我们无法直接分清哪些是命令哪些是函数，容易产生二义性。</p>
+<h3 id=函数的定义>函数的定义</h3>
+<p>shell函数的定义遵循以下两种方式：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 方法一</span>
+<span class=ln>2</span>fname <span class=o>()</span> compound-command <span class=o>[</span> redirections <span class=o>]</span>
+<span class=ln>3</span><span class=c1># 方法二</span>
+<span class=ln>4</span><span class=k>function</span> fname <span class=o>[()]</span> compound-command <span class=o>[</span> redirections <span class=o>]</span>
+</code></pre></div><p>其中，<code>function</code>是shell关于函数的<strong>保留字</strong>，<code>fname</code>是给出的<strong>函数名称</strong>，后面跟的单小括号<code>( )</code>也表明定义的是个函数，其中里面什么都不要添加。后面跟的是<strong>函数体</strong>，注意函数体一定要是<strong>复合命令</strong>。由于保留字<code>function</code>和单小括号<code>( )</code>都表明了是定义函数，因此二者至少有一个存在即可。比如：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>funcName <span class=o>()</span> <span class=o>{</span> command<span class=p>;</span> <span class=o>}</span> <span class=c1># 只存在单小括号( )</span>
+<span class=ln>2</span><span class=k>function</span> funcName <span class=o>{</span> command<span class=p>;</span> <span class=o>}</span> <span class=c1># 只存在保留字function</span>
+<span class=ln>3</span><span class=k>function</span> funcName <span class=o>()</span> <span class=o>{</span> command<span class=p>;</span> <span class=o>}</span> <span class=c1># 单小括号( )、保留字function同时存在</span>
+</code></pre></div><p>最后的<code>[ redirections ]</code>表示整个函数的重定向。如果，我们想删除定义的函数，可以用<code>unset -f</code>内置命令：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 删除名为funcName的函数</span>
+<span class=ln>2</span>$ <span class=nb>unset</span> -f funcName
+</code></pre></div><p>那么使用<code>function</code>保留字和不使用该保留字有什么区别呢？使用<code>function</code>保留字后，后面的单词<code>funcName</code>一定会被shell当成函数名，<strong>即使使用已经存在的命令作为名称也可以</strong>，举个例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=k>function</span> ls <span class=o>()</span> <span class=o>{</span> whoami<span class=p>;</span> pwd<span class=p>;</span> <span class=o>}</span> 
+<span class=ln>2</span>$ ls
+<span class=ln>3</span>lelouch <span class=c1># 这是我自己用户的名称</span>
+<span class=ln>4</span>/home/lelouch
+</code></pre></div><p>在这个例子中，我作死把原来的<code>ls</code>命令名称，定义成了一个新的函数，这个函数会执行<code>whoami; pwd;</code>两个命令，所以执行结果并不是<code>ls</code>原本的结果，而是显示当前用户和路径。如果我在作死一点，定义一个另一个函数：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 注意这里的ls已经不是过去显示文件的命令，而是之前定义的函数</span>
+<span class=ln>2</span>$ <span class=k>function</span> <span class=nb>pwd</span> <span class=o>()</span> <span class=o>{</span> whoami<span class=p>;</span> ls<span class=p>;</span> <span class=o>}</span>
+</code></pre></div><p>我在函数体中，又添加了<code>ls</code>，你猜猜现在执行<code>pwd</code>结果会怎么样~~</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ <span class=nb>pwd</span>
+<span class=ln> 2</span>lelouch
+<span class=ln> 3</span>lelouch
+<span class=ln> 4</span>lelouch
+<span class=ln> 5</span>lelouch
+<span class=ln> 6</span>lelouch
+<span class=ln> 7</span>lelouch
+<span class=ln> 8</span>lelouch
+<span class=ln> 9</span>lelouch
+<span class=ln>10</span>lelouch
+<span class=ln>11</span>lelouch
+<span class=ln>12</span>lelouch
+<span class=ln>13</span>lelouch
+<span class=ln>14</span>lelouch
+<span class=ln>15</span>lelouch
+<span class=ln>16</span>lelouch
+<span class=ln>17</span>....
+</code></pre></div><p>结果会无限地执行<code>whoami</code>。因为<code>pwd</code>函数会调用函数<code>ls</code>（不是<code>ls</code>命令），函数<code>ls</code>又会调用函数<code>pwd</code>，……，产生循环调用，命令体中的<code>whoami</code>会被反复执行。这也说明了shell语言并不是一个很严谨的语言，很容易产生能让系统崩溃的错误。<code>function</code>保留字就是能让后面的单词强制变成函数名，覆盖原来的含义。</p>
+<blockquote>
+<p>我们可以设置FUNCNEST环境变量来限制函数嵌套调用的次数：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nv>FUNCNEST</span><span class=o>=</span><span class=m>4</span>
+<span class=ln>2</span>$ <span class=nb>pwd</span>
+<span class=ln>3</span>lelouch
+<span class=ln>4</span>lelouch
+<span class=ln>5</span>lelouch
+<span class=ln>6</span>lelouch
+<span class=ln>7</span>-bash: pwd: maximum <span class=k>function</span> nesting level exceeded <span class=o>(</span>4<span class=o>)</span>
+<span class=ln>8</span><span class=c1># 让我们结束作死，释放ls,pwd两个函数</span>
+<span class=ln>9</span><span class=nv>$unset</span> -f <span class=nb>pwd</span> ls
+</code></pre></div><p>当函数被嵌套到达4次后，shell会自动停止，防止出现循环调用。</p>
+</blockquote>
+<p>如果不使用<code>function</code>保留字，那么第一个单词就不能某个命令的名称，因为一个单词会被当成要执行的命令名，后面的内容会被当成命令的参数。<code>( )</code>显然会因为不符合参数规范而报错。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ ls <span class=o>()</span> <span class=o>{</span> whoami<span class=p>;</span> pwd<span class=p>;</span> <span class=o>}</span>
+<span class=ln>2</span>-bash: syntax error near unexpected token <span class=sb>`</span><span class=o>(</span><span class=err>&#39;</span>
+</code></pre></div><p>关于函数名称的规范，shell的要求很松，除了使用<code>function</code>保留字造成的区别外，只要求是<strong>不含有<code>$</code>符号的单词(word)就可以（单词中默认不应含有元字符，但是非元字符的符号可以，比如func^@Name）</strong>。</p>
+<p>关于函数体，只要是复合命令都可以。shell在习惯上，会像C语言一样用<strong>大括号</strong>包裹函数体，需要注意的是由于大括号<code>{ }</code>是shell的保留字，所以左边的大括号后面必须要用空格或者<code>newline</code>分割后面的命令，同时大括号内部的命令也要用分号、<code>&</code>符号或<code>newline</code>分割。本质上这些就是使用大括号的组命令的规范啊。</p>
+<p>如果在函数体中定义了局部变量，也是和其他函数一样，函数内定义的局部变量会覆盖外部定义的变量，举个例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ func1<span class=o>()</span>
+<span class=ln> 2</span>&gt;<span class=o>{</span>
+<span class=ln> 3</span>&gt;    <span class=nb>local</span> <span class=nv>var</span><span class=o>=</span><span class=s1>&#39;func1 local&#39;</span>
+<span class=ln> 4</span>&gt;    func2
+<span class=ln> 5</span>&gt;<span class=o>}</span>
+<span class=ln> 6</span>
+<span class=ln> 7</span>$ func2<span class=o>()</span>
+<span class=ln> 8</span>&gt;<span class=o>{</span>
+<span class=ln> 9</span>&gt;    <span class=nb>echo</span> <span class=s2>&#34;In func2, var = </span><span class=nv>$var</span><span class=s2>&#34;</span>
+<span class=ln>10</span>&gt;<span class=o>}</span>
+<span class=ln>11</span>$ <span class=nv>var</span><span class=o>=</span>global
+<span class=ln>12</span>$ func1
+<span class=ln>13</span>In func2, <span class=nv>var</span> <span class=o>=</span> func1 <span class=nb>local</span>
+</code></pre></div><h3 id=函数的使用>函数的使用</h3>
+<p>shell函数的使用和命令、脚本的使用没有区别，都是<code>命令/函数/脚本名称 参数1 参数2 ...</code>的形式。之前说过这也是shell语言的特色。</p>
+<p>由于shell也是解释型语言，当函数执行时，会根据控制流程依次一步步执行，如果遇到错误就自动终止执行。</p>
+<p>函数执行完成后的返回值，当函数定义时，如果未检查到语法错误，则定义语句返回状态0。当函数执行时，和其他编程语言一样，shell也用<code>return</code>来返回状态值。只不过shell的<code>return</code>后面只能跟一个数字，而非其他东西。如果<code>return</code>后面什么都没加或者函数体中没有<code>return</code>，则返回函数体最后执行的简单命令的返回值。</p>
+<p>我们可以使用<code>declare -f</code>查看当前环境所有的函数名称和定义，<code>declare -F</code>仅查看当前环境所有的函数名称。此外，shell的函数也支持递归，但是递归的层数也受到FUNCNEST环境变量的限制。</p>
+<p>说到这里，很多读者会发现，我们没有提到函数<strong>最关键的功能——传参执行</strong>，即根据传入的参数变量执行函数。在Shell中，调用函数时确实可以向其传递参数。但是，传参的方式是shell语言特有的。在函数体内部，传入的参数通过位置参数<code>$n</code>的形式来代表，例如，<code>$1</code>表示第一个参数，<code>$2</code>表示第二个参数...</p>
+<p>下一节，我们将具体说说shell中的参数传递。</p>
+<h2 id=shell参数>shell参数</h2>
+<p>参数是一种存储值的实体，可以是名称、数字或是特殊字符。参数中用<strong>名称</strong>存储值的叫<strong>变量</strong>。变量由一个值和0-N个属性。变量值由赋值语句指定；属性由<code>declare</code>命令指定。赋值语句格式如下，如果要删除变量则用<code>unset</code>命令。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=c1># 给名为name的变量赋值为value</span>
+<span class=ln>2</span>$ <span class=nv>name</span><span class=o>=[</span>value<span class=o>]</span>
+<span class=ln>3</span><span class=c1># 删除变量</span>
+<span class=ln>4</span>$ <span class=nb>unset</span> name
+</code></pre></div><p>由于shell把空字符串也认为是合理的变量值，因此value值可以不用给出即<code>name=</code>，此时shell给name空字符串作为默认值。</p>
+<h3 id=位置参数>位置参数</h3>
+<p>位置参数是由<code>$</code>和数字组成的参数。当一条命令、脚本或函数执行时，后面可以跟多个参数，我们使用位置参数变量来表示这些参数。也就是说在shell中<strong>位置参数承担这向函数、脚本传参的使用</strong>。</p>
+<p>其中，<code>$0</code>代表命令、脚本本身，注意不是函数名称，<code>$1</code>代表第1个参数，<code>$2</code>代表第2个参数，依次类推。当参数个数超过10个时，就必须要用<strong>大括号</strong>把这个数字括起来，例如，<code>${10}</code>代表第 10 个参数，<code>${100}</code>则代表第100个参数。</p>
+<p>举个简单的例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ funWithParam<span class=o>(){</span>
+<span class=ln>2</span>&gt;     <span class=nb>echo</span> <span class=s2>&#34;命令/脚本的名称是：</span><span class=nv>$0</span><span class=s2> !&#34;</span>
+<span class=ln>3</span>&gt;     <span class=nb>echo</span> <span class=s2>&#34;第一个参数为 </span><span class=nv>$1</span><span class=s2> !&#34;</span>
+<span class=ln>4</span>&gt;     <span class=nb>echo</span> <span class=s2>&#34;第二个参数为 </span><span class=nv>$2</span><span class=s2> !&#34;</span>
+<span class=ln>5</span>&gt;     <span class=nb>echo</span> <span class=s2>&#34;第十个参数为 </span><span class=nv>$10</span><span class=s2> !&#34;</span>
+<span class=ln>6</span>&gt;     <span class=c1># $10 不能获取第十个参数，获取第十个参数需要${10}。当n&gt;=10时，需要使用${n}来获取参数。</span>
+<span class=ln>7</span>&gt;     <span class=nb>echo</span> <span class=s2>&#34;第十个参数为 </span><span class=si>${</span><span class=nv>10</span><span class=si>}</span><span class=s2> !&#34;</span>
+<span class=ln>8</span>&gt;     <span class=nb>echo</span> <span class=s2>&#34;第十一个参数为 </span><span class=si>${</span><span class=nv>11</span><span class=si>}</span><span class=s2> !&#34;</span>
+<span class=ln>9</span>&gt; <span class=o>}</span>
+</code></pre></div><p>输出结果：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ funWithParam <span class=m>1</span> <span class=m>2</span> <span class=m>3</span> <span class=m>4</span> <span class=m>5</span> <span class=m>6</span> <span class=m>7</span> <span class=m>8</span> <span class=m>9</span> <span class=m>34</span> <span class=m>73</span>
+<span class=ln>2</span>函数/命令的名称是：-bash !
+<span class=ln>3</span>第一个参数为 <span class=m>1</span> !
+<span class=ln>4</span>第二个参数为 <span class=m>2</span> !
+<span class=ln>5</span>第十个参数为 <span class=m>10</span> !
+<span class=ln>6</span>第十个参数为 <span class=m>34</span> !
+<span class=ln>7</span>第十一个参数为 <span class=m>73</span> !
+</code></pre></div><h3 id=特殊参数>特殊参数</h3>
+<p>除了位置参数，shell为了方便编程，还提供一些特殊参数，如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>参数处理</th>
+<th style=text-align:center>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>$#</td>
+<td style=text-align:center>传递到脚本或函数的参数个数</td>
+</tr>
+<tr>
+<td style=text-align:center>$*</td>
+<td style=text-align:center>以一个单字符串显示所有向脚本传递的参数</td>
+</tr>
+<tr>
+<td style=text-align:center>$$</td>
+<td style=text-align:center>脚本运行的当前进程ID号</td>
+</tr>
+<tr>
+<td style=text-align:center>$!</td>
+<td style=text-align:center>后台运行的最后一个进程的ID号</td>
+</tr>
+<tr>
+<td style=text-align:center>$@</td>
+<td style=text-align:center>与$*相同，但是使用时加引号，并在引号中返回每个参数。</td>
+</tr>
+<tr>
+<td style=text-align:center>$-</td>
+<td style=text-align:center>显示Shell使用的当前选项，与set命令功能相同。</td>
+</tr>
+<tr>
+<td style=text-align:center>$?</td>
+<td style=text-align:center>显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</td>
+</tr>
+</tbody>
+</table>
+<p>需要指出，我们<strong>不能给这些特殊参数进行赋值操作</strong>。关于<code>$*,S#</code>二者的区别。当<code>$*</code>和<code>$@</code>不被双引号<code>" "</code>包围时，它们之间没有任何区别，都是将接收到的每个参数看做一份数据，彼此之间以空格来分隔。但是当它们被双引号<code>" "</code>包含时，就会有区别了：</p>
+<ul>
+<li>"$*"会将所有的参数从整体上看做一份数据，而不是把每个参数都看做一份数据。</li>
+<li>"$@"仍然将每个参数都看作一份数据，彼此之间是独立的。</li>
+</ul>
+<p>比如传递了5个参数，那么对于<code>$*</code>来说，这5个参数会合并到一起形成一份数据，它们之间是无法分割的；而对于<code>$@</code>来说，这5个参数是相互独立的，它们是5份数据。如果使用<code>echo</code>直接输出<code>$*</code>和<code>$@</code>做对比，是看不出区别的；但如果使用<code>for</code>循环来逐个输出数据，立即就能看出区别来。</p>
+<p>我们将上一个例子增加一些功能如下，为了方便，我们新建一个<code>test.sh</code>文件存放函数：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=cp>#! /bin/bash
+</span><span class=ln> 2</span><span class=cp></span>funWithParam<span class=o>(){</span>
+<span class=ln> 3</span>    <span class=nb>echo</span> <span class=s2>&#34;命令的名称是：</span><span class=nv>$0</span><span class=s2> !&#34;</span>
+<span class=ln> 4</span>    <span class=nb>echo</span> <span class=s2>&#34;第一个参数为 </span><span class=nv>$1</span><span class=s2> !&#34;</span>
+<span class=ln> 5</span>    <span class=nb>echo</span> <span class=s2>&#34;第二个参数为 </span><span class=nv>$2</span><span class=s2> !&#34;</span>
+<span class=ln> 6</span>    <span class=nb>echo</span> <span class=s2>&#34;第十个参数为 </span><span class=nv>$10</span><span class=s2> !&#34;</span>
+<span class=ln> 7</span>    <span class=c1># $10 不能获取第十个参数，获取第十个参数需要${10}。当n&gt;=10时，需要使用${n}来获取参数。</span>
+<span class=ln> 8</span>    <span class=nb>echo</span> <span class=s2>&#34;第十个参数为 </span><span class=si>${</span><span class=nv>10</span><span class=si>}</span><span class=s2> !&#34;</span>
+<span class=ln> 9</span>    <span class=nb>echo</span> <span class=s2>&#34;第十一个参数为 </span><span class=si>${</span><span class=nv>11</span><span class=si>}</span><span class=s2> !&#34;</span>
+<span class=ln>10</span>    <span class=nb>echo</span> <span class=s2>&#34;参数总数有 </span><span class=nv>$#</span><span class=s2> 个!&#34;</span>
+<span class=ln>11</span>    <span class=nb>echo</span> <span class=s2>&#34;作为一个字符串输出所有参数 </span><span class=nv>$*</span><span class=s2> !&#34;</span>
+<span class=ln>12</span>    <span class=nb>echo</span> <span class=s1>&#39;$*与S@的区别：&#39;</span> <span class=c1># 这里是单引号防止参数展开</span>
+<span class=ln>13</span>    <span class=nb>echo</span> <span class=s1>&#39;使用for循环输出$* !&#39;</span> <span class=c1># 这里是单引号防止参数展开</span>
+<span class=ln>14</span>    <span class=k>for</span> var in <span class=s2>&#34;</span><span class=nv>$*</span><span class=s2>&#34;</span>
+<span class=ln>15</span>    <span class=k>do</span>
+<span class=ln>16</span>      <span class=nb>echo</span> <span class=nv>$var</span>
+<span class=ln>17</span>    <span class=k>done</span>
+<span class=ln>18</span>    <span class=nb>echo</span> <span class=s1>&#39;使用for循环输出$@ !&#39;</span> <span class=c1># 这里是单引号防止参数展开</span>
+<span class=ln>19</span>    <span class=k>for</span> var in <span class=s2>&#34;</span><span class=nv>$@</span><span class=s2>&#34;</span>
+<span class=ln>20</span>    <span class=k>do</span>
+<span class=ln>21</span>      <span class=nb>echo</span> <span class=nv>$var</span>
+<span class=ln>22</span>    <span class=k>done</span>
+<span class=ln>23</span>    <span class=nb>echo</span> <span class=s2>&#34;脚本运行的当前进程ID号 </span><span class=nv>$$</span><span class=s2> !&#34;</span>
+<span class=ln>24</span>    <span class=nb>echo</span> <span class=s2>&#34;显示Shell使用的当前选项 </span><span class=nv>$-</span><span class=s2> !&#34;</span>
+<span class=ln>25</span>    <span class=nb>echo</span> <span class=s2>&#34;上一个命令的结束状态 </span><span class=nv>$?</span><span class=s2> !&#34;</span>
+<span class=ln>26</span><span class=o>}</span>
+<span class=ln>27</span>funWithParam <span class=m>1</span> <span class=m>2</span> <span class=m>3</span> <span class=m>4</span> <span class=m>5</span> <span class=m>6</span> <span class=m>7</span> <span class=m>8</span> <span class=m>9</span> <span class=m>34</span> <span class=m>73</span>
+</code></pre></div><p>输出结果：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ bash test.sh
+<span class=ln> 2</span>命令的名称是：test.sh !
+<span class=ln> 3</span>第一个参数为 <span class=m>1</span> !
+<span class=ln> 4</span>第二个参数为 <span class=m>2</span> !
+<span class=ln> 5</span>第十个参数为 <span class=m>10</span> !
+<span class=ln> 6</span>第十个参数为 <span class=m>34</span> !
+<span class=ln> 7</span>第十一个参数为 <span class=m>73</span> !
+<span class=ln> 8</span>参数总数有 <span class=m>11</span> 个!
+<span class=ln> 9</span>作为一个字符串输出所有参数 <span class=m>1</span> <span class=m>2</span> <span class=m>3</span> <span class=m>4</span> <span class=m>5</span> <span class=m>6</span> <span class=m>7</span> <span class=m>8</span> <span class=m>9</span> <span class=m>34</span> <span class=m>73</span> !
+<span class=ln>10</span><span class=nv>$*</span>与S@的区别：
+<span class=ln>11</span>使用for循环输出<span class=nv>$*</span> !
+<span class=ln>12</span><span class=m>1</span> <span class=m>2</span> <span class=m>3</span> <span class=m>4</span> <span class=m>5</span> <span class=m>6</span> <span class=m>7</span> <span class=m>8</span> <span class=m>9</span> <span class=m>34</span> <span class=m>73</span>
+<span class=ln>13</span>使用for循环输出<span class=nv>$@</span> !
+<span class=ln>14</span><span class=m>1</span>
+<span class=ln>15</span><span class=m>2</span>
+<span class=ln>16</span><span class=m>3</span>
+<span class=ln>17</span><span class=m>4</span>
+<span class=ln>18</span><span class=m>5</span>
+<span class=ln>19</span><span class=m>6</span>
+<span class=ln>20</span><span class=m>7</span>
+<span class=ln>21</span><span class=m>8</span>
+<span class=ln>22</span><span class=m>9</span>
+<span class=ln>23</span><span class=m>34</span>
+<span class=ln>24</span><span class=m>73</span>
+<span class=ln>25</span>脚本运行的当前进程ID号 <span class=m>30483</span> !
+<span class=ln>26</span>显示Shell使用的当前选项 hB !
+<span class=ln>27</span>上一个命令的结束状态 <span class=m>0</span> !
+</code></pre></div><h2 id=参考内容>参考内容</h2>
+<ul>
+<li><a href=https://www.gnu.org/software/bash/manual/bash.html>https://www.gnu.org/software/bash/manual/bash.html</a></li>
+<li><a href=https://www.runoob.com/linux/linux-shell-process-control.html>https://www.runoob.com/linux/linux-shell-process-control.html</a></li>
+<li><a href=https://www.runoob.com/w3cnote/linux-shell-brackets-features.html>https://www.runoob.com/w3cnote/linux-shell-brackets-features.html</a></li>
+<li><a href=http://c.biancheng.net/view/807.html>http://c.biancheng.net/view/807.html</a></li>
+</ul>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>无线通信 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/</link><description>Recent content in 无线通信 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 14 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/index.xml" rel="self" type="application/rss+xml"/><item><title>无线通信之信息熵回忆总结</title><link>https://surprisedcat.github.io/studynotes/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E6%81%AF%E7%86%B5%E5%9B%9E%E5%BF%86%E6%80%BB%E7%BB%93/</link><pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E6%81%AF%E7%86%B5%E5%9B%9E%E5%BF%86%E6%80%BB%E7%BB%93/</guid><description>
+&lt;h2 id="转载-详解机器学习中的熵条件熵相对熵和交叉熵">转载： 详解机器学习中的熵、条件熵、相对熵和交叉熵&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>原文链接：&lt;a href="https://www.cnblogs.com/kyrieng/p/8694705.html">https://www.cnblogs.com/kyrieng/p/8694705.html&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#信息熵information-entropy">信息熵(information entropy)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#联合熵joint-entropy">联合熵(Joint entropy)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#条件熵conditional-entropy">条件熵(Conditional entropy)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#相对熵-relative-entropykl散度">相对熵 (Relative entropy)（KL散度）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#交叉熵cross-entropy">交叉熵(Cross entropy)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#机器学习中的应用">机器学习中的应用&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#总结">总结&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#证明随机分布为均匀分布时熵最大">证明随机分布为均匀分布时熵最大&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#jenson不等式证明相对熵大于等于0">Jenson不等式证明相对熵大于等于0&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="信息熵information-entropy">信息熵(information entropy)&lt;/h2>
+&lt;p>&lt;strong>熵 (entropy)&lt;/strong> 这一词最初来源于热力学。1948年，克劳德·爱尔伍德·香农将热力学中的熵引入信息论，所以也被称为香农熵 (Shannon entropy)，信息熵 (information entropy)。本文只讨论信息熵。首先，我们先来理解一下信息这个概念。信息是一个很抽象的概念，百度百科将它定义为：指音讯、消息、通讯系统传输和处理的对象，泛指人类社会传播的一切内容。那信息可以被量化么？可以的！香农提出的“信息熵”概念解决了这一问题。&lt;/p>
+&lt;p>熵是接收的每条消息中包含的信息的平均量，又被称为信息熵、信源熵、&lt;strong>平均自信息量&lt;/strong>。一条信息的信息量大小和它的&lt;strong>不确定性&lt;/strong>有直接的关系。我们需要搞清楚一件非常非常不确定的事，或者是我们一无所知的事，就需要了解大量的信息。相反，如果我们对某件事已经有了较多的了解，我们就不需要太多的信息就能把它搞清楚。所以，从这个角度，我们可以认为，&lt;strong>信息量的度量就等于不确定性的多少&lt;/strong>。比如，有人说广东下雪了。对于这句话，我们是十分不确定的。因为广东几十年来下雪的次数寥寥无几。为了搞清楚，我们就要去看天气预报，新闻，询问在广东的朋友，而这就需要大量的信息，信息熵很高。再比如，中国男足近10年能赢世界杯决赛圈。对于这句话，因为确定性很高，几乎不需要引入信息，信息熵很低。&lt;/p>
+&lt;p>考虑一个离散的随机变量&lt;span class="math">\(x\)&lt;/span>，由上面两个例子可知，信息的量度应该依赖于概率分布&lt;span class="math">\(p(x)\)&lt;/span>，因此我们想要寻找一个函数&lt;span class="math">\(I(x)\)&lt;/span>，它是概率&lt;span class="math">\(p(x)\)&lt;/span>的单调函数，表达了信息的内容。怎么寻找呢？如果我们有两个不相关的事件&lt;span class="math">\(x 和 y\)&lt;/span>，那么观察两个事件同时发生时获得的信息量应该等于观察到事件各自发生时获得的信息之和，即：&lt;span class="math">\(I(x,y)=I(x)+I(y)\)&lt;/span>。&lt;/p>
+&lt;p>因为两个事件是独立不相关的，因此&lt;span class="math">\(p(x,y)=p(x)p(y)\)&lt;/span>。根据这两个关系，&lt;strong>很容易看出&lt;span class="math">\(I(x)\)&lt;/span>一定与&lt;span class="math">\(p(x)\)&lt;/span>的对数&lt;/strong>有关 (因为对数的运算法则是&lt;span class="math">\(\log_a(mn)=\log_a m+\log_a n)\)&lt;/span>。因此，我们有 &lt;span class="math">\[
+I(x)=−\log p(x)
+\]&lt;/span> &lt;strong>其中负号是用来保证信息量是正数或者零。而 log 函数基的选择是任意的&lt;/strong>（信息论中基常常选择为2，因此信息的单位为比特bits；而机器学习中基常常选择为自然常数，因此单位常常被称为奈特nats）。&lt;strong>&lt;span class="math">\(I(x)\)&lt;/span>也被称为随机变量&lt;span class="math">\(x\)&lt;/span>的自信息 (self-information)，描述的是随机变量的某个事件发生所带来的信息量&lt;/strong>。图像如图：&lt;/p>
+&lt;img src="../../images/self_information.png" alt="self_information" />
+&lt;center>
+概率与自信息
+&lt;/center>
+&lt;p>最后，我们正式引出信息熵。 现在假设一个发送者想传送一个随机变量的值给接收者。那么在这个过程中，他们传输的&lt;strong>平均信息量&lt;/strong>可以通过求&lt;span class="math">\(I(x)=−\log p(x)\)&lt;/span>关于概率分布&lt;span class="math">\(p(x)\)&lt;/span>的期望得到，即： &lt;span class="math">\[
+H(X)=-\displaystyle\sum_{x}p(x)\log p(x)=-\sum_{i=1}^{n}p(x_i)\log p(x_i)
+\]&lt;/span> &lt;span class="math">\(H(X)\)&lt;/span>就被称为随机变量&lt;span class="math">\(x\)&lt;/span>的&lt;strong>熵,它是表示随机变量不确定的度量，是对所有可能发生的事件产生的信息量的期望&lt;/strong>。从公式可得，随机变量的&lt;strong>取值个数越多&lt;/strong>，&lt;strong>状态数也就越多&lt;/strong>，&lt;strong>信息熵就越大&lt;/strong>，&lt;strong>混乱程度就越大&lt;/strong>。当随机分布为&lt;strong>均匀分布&lt;/strong>时，熵最大，且&lt;span class="math">\(0≤H(X)≤\log n\)&lt;/span>。可见证明&lt;a href="#证明随机分布为均匀分布时熵最大">证明随机分布为均匀分布时熵最大&lt;/a>&lt;/p>
+&lt;h3 id="联合熵joint-entropy">联合熵(Joint entropy)&lt;/h3>
+&lt;p>将一维随机变量分布推广到&lt;strong>多维随机变量&lt;/strong>分布，则其联合熵 (Joint entropy) 为： &lt;span class="math">\[
+\begin{aligned}
+H(X,Y)&amp;amp;=-\displaystyle\sum_{x,y}p(x,y)logp(x,y)\\
+&amp;amp;=-\sum_{i=1}^{n}\sum_{j=1}^{m}p(x_i,y_i)logp(x_i,y_i)
+\end{aligned}
+\]&lt;/span> &lt;strong>注意点：&lt;/strong>&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>熵只依赖于随机变量的分布，与随机变量取值无关，所以也可以将&lt;span class="math">\(X\)&lt;/span>的熵记作&lt;span class="math">\(H(p)\)&lt;/span>。&lt;/li>
+&lt;li>令&lt;span class="math">\(0\log 0=0\)&lt;/span>(因为某个取值概率可能为0)。&lt;/li>
+&lt;/ol>
+&lt;p>那么这些定义有着什么样的性质呢？考虑一个随机变量&lt;span class="math">\(x\)&lt;/span>。这个随机变量有4种可能的状态，每个状态都是等可能的。为了把&lt;span class="math">\(x\)&lt;/span>的值传给接收者，我们&lt;strong>至少&lt;/strong>需要传输2比特的消息。（&lt;span class="math">\(H(X)=-4\times\dfrac{1}{4}log_2\dfrac{1}{4}=2\ bits\)&lt;/span>）&lt;/p>
+&lt;p>现在考虑一个具有4种可能的状态&lt;span class="math">\(\{a,b,c,d\}\)&lt;/span> 的随机变量，每个状态各自的概率为&lt;span class="math">\((1/2,1/4,1/8,1/8)\)&lt;/span>。这种情形下的熵为： &lt;span class="math">\[
+H(X)=-\displaystyle\frac{1}{2}log_2\frac{1}{2}-\frac{1}{4}log_2\frac{1}{4}-\frac{1}{8}log_2\frac{1}{8}-\frac{1}{8}log_2\frac{1}{8}=1.75\ bits
+\]&lt;/span> 这个实例也佐证了&lt;strong>非均匀分布比均匀分布的熵要小&lt;/strong>。现在让我们考虑如何把变量状态的类别传递给接收者。与之前一样，我们可以使用一个2比特的数字来完成这件事情。然而，我们可以利用非均匀分布这个特点，使用&lt;strong>更短的编码来描述更可能的事件，使用更长的编码来描述不太可能的事件&lt;/strong>。我们希望这样做能够得到一个更短的平均编码长度。我们可以使用下面的编码串（哈夫曼编码）：0、10、110、111来表示状态&lt;span class="math">\(\{a,b,c,d\}\)&lt;/span>。传输的编码的平均长度就是： &lt;span class="math">\[
+1\times \frac{1}{2}\times1+1\times \frac{1}{4}\times2+2\times\frac{1}{8}\times3=1.75\ bits
+\]&lt;/span> 和该分布信息的熵一致。这个值与上方的随机变量的熵相等。熵和最短编码长度的这种关系是一种普遍的情形，称为&lt;strong>Shannon无损信源编码定理&lt;/strong>。定理表明熵是&lt;strong>传输一个随机变量状态值所需的比特位下界（最短平均编码长度）&lt;/strong>。因此，信息熵可以应用在数据压缩方面。这里这篇文章&lt;http://www.ruanyifeng.com/blog/2014/09/information-entropy.html>讲的很详细了，我就不赘述了。&lt;/p>
+&lt;h2 id="条件熵conditional-entropy">条件熵(Conditional entropy)&lt;/h2>
+&lt;p>条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>表示在已知随机变量&lt;span class="math">\(X\)&lt;/span>的条件下随机变量&lt;span class="math">\(Y\)&lt;/span>的不确定性。条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>定义为&lt;span class="math">\(X\)&lt;/span>给定条件下&lt;span class="math">\(Y\)&lt;/span>的条件概率分布的熵对&lt;span class="math">\(X\)&lt;/span>的数学期望： &lt;span class="math">\[
+\begin{aligned}
+H(Y|X) &amp;amp;= \sum_x p(x)H(Y|X=x)\\
+&amp;amp;=-\sum_x p(x) \sum_y p(y|x)\log p(y|x)\\
+&amp;amp;=-\sum_x\sum_y p(x,y) \log p(y|x)\\
+&amp;amp;=-\sum_{x,y} p(x,y) \log p(y|x)
+\end{aligned}
+\]&lt;/span> 条件熵&lt;span class="math">\(H(Y|X)\)&lt;/span>相当于联合熵&lt;span class="math">\(H(X,Y)\)&lt;/span>减去单独的熵&lt;span class="math">\(H(X)\)&lt;/span>，即 &lt;span class="math">\[
+H(Y|X)=H(X,Y)−H(X)
+\]&lt;/span> 证明如下： &lt;span class="math">\[
+\begin{aligned}
+H(X,Y)&amp;amp;=-\sum_{x,y} p(x,y) \log p(x,y) \\
+&amp;amp;=-\sum_{x,y}p(x,y)\log(p(y|x)p(x))\\
+&amp;amp;=-\sum_{x,y} p(x,y) \log p(y|x) - \sum_{x,y}p(x,y)\log p(x)\\
+&amp;amp;=H(Y|X)-\sum_x\sum_y p(x,y)\log p(x)\\
+&amp;amp;=H(Y|X)-\sum_x p(x)\log p(x)\\
+&amp;amp;=H(Y|X)+H(X)
+\end{aligned}
+\]&lt;/span> 举个例子，比如环境温度是低还是高，和我穿短袖还是外套这两个事件可以组成联合概率分布&lt;span class="math">\(H(X,Y)\)&lt;/span>，因为两个事件加起来的信息量肯定是大于单一事件的信息量的。假设&lt;span class="math">\(H(X)\)&lt;/span>对应着今天环境温度的信息量，由于今天环境温度和今天我穿什么衣服这两个事件并不是独立分布的，所以在已知今天环境温度的情况下，我穿什么衣服的信息量或者说不确定性是被减少了。当已知&lt;span class="math">\(H(X)\)&lt;/span>这个信息量的时候，&lt;span class="math">\(H(X,Y)\)&lt;/span>剩下的信息量就是条件熵： &lt;span class="math">\[
+H(Y|X)=H(X,Y)-H(X)
+\]&lt;/span> 因此，可以这样理解，&lt;strong>描述&lt;span class="math">\(X\)&lt;/span>和&lt;span class="math">\(Y\)&lt;/span>所需的信息是描述&lt;span class="math">\(X\)&lt;/span>自己所需的信息,加上给定&lt;span class="math">\(X\)&lt;/span>的条件下具体化&lt;span class="math">\(Y\)&lt;/span>所需的额外信息&lt;/strong>。可以看这篇文章，讲得很详细。&lt;a href="https://zhuanlan.zhihu.com/p/26551798">https://zhuanlan.zhihu.com/p/26551798&lt;/a>&lt;/p>
+&lt;h2 id="相对熵-relative-entropykl散度">相对熵 (Relative entropy)（KL散度）&lt;/h2>
+&lt;p>设&lt;span class="math">\(p(x)、q(x)\)&lt;/span>是离散随机变量&lt;span class="math">\(X\)&lt;/span>中取值的两个概率分布，则&lt;span class="math">\(p\)&lt;/span>对&lt;span class="math">\(q\)&lt;/span>的相对熵是： &lt;span class="math">\[
+D_{KL}(p||q)=\displaystyle\sum_{x}p(x)log\frac{p(x)}{q(x)}=E_{p(x)}log\frac{p(x)}{q(x)}
+\]&lt;/span> 性质：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>如果&lt;span class="math">\(p(x)\)&lt;/span>和&lt;span class="math">\(q(x)\)&lt;/span>两个分布相同，那么相对熵等于0&lt;/li>
+&lt;li>&lt;span class="math">\(D_{KL}(p||q)≠D_{KL}(q||p)\)&lt;/span>，相对熵具有不对称性。&lt;/li>
+&lt;li>&lt;span class="math">\(D_{KL}(p||q)≥0\)&lt;/span>。&lt;a href="#Jenson不等式证明相对熵大于等于0">可利用Jensen不等式证明&lt;/a>。&lt;/li>
+&lt;/ol>
+&lt;p>总结：&lt;strong>相对熵可以用来衡量两个概率分布之间的差异&lt;/strong>，上面公式的意义就是求&lt;span class="math">\(p\)&lt;/span>与&lt;span class="math">\(q\)&lt;/span>之间的对数差在&lt;span class="math">\(p\)&lt;/span>上的期望值。&lt;/p>
+&lt;h2 id="交叉熵cross-entropy">交叉熵(Cross entropy)&lt;/h2>
+&lt;p>现在有关于样本集的两个概率分布&lt;span class="math">\(p(x)\)&lt;/span>和&lt;span class="math">\(q(x)\)&lt;/span>，其中&lt;span class="math">\(p(x)\)&lt;/span>为真实分布，&lt;span class="math">\(q(x)\)&lt;/span>非真实分布。如果用真实分布&lt;span class="math">\(p(x)\)&lt;/span>来衡量识别别一个样本所需要编码长度的期望（平均编码长度）为: &lt;span class="math">\[
+H(p) =\displaystyle\sum_{x}p(x)log\frac{1}{p(x)}
+\]&lt;/span> 如果使用非真实分布&lt;span class="math">\(q(x)\)&lt;/span>来表示来自真实分布&lt;span class="math">\(p(x)\)&lt;/span>的平均编码长度，则是： &lt;span class="math">\[
+H(p,q) =\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}
+\]&lt;/span> 因为用&lt;span class="math">\(q(x)\)&lt;/span>来编码的样本来自于分布&lt;span class="math">\(p(x)\)&lt;/span>，所以&lt;span class="math">\(H(p,q)\)&lt;/span>中的概率是&lt;span class="math">\(p(x)\)&lt;/span>。此时就将&lt;span class="math">\(H(p,q)\)&lt;/span>称之为交叉熵。举个例子。考虑一个随机变量&lt;span class="math">\(x\)&lt;/span>，真实分布&lt;span class="math">\(p(x)= \left( \displaystyle\frac{1}{2},\frac{1}{4},\frac{1}{8},\frac{1}{8} \right)\)&lt;/span>，非真实分布&lt;span class="math">\(q(x)=\left( \displaystyle\frac{1}{4},\frac{1}{4},\frac{1}{4},\frac{1}{4} \right)\)&lt;/span>，则&lt;span class="math">\(H(p)=1.75bits\)&lt;/span>（最短平均码长），交叉熵&lt;span class="math">\(H(p,q)=\displaystyle\frac{1}{2}log_24+\frac{1}{4}log_24+\frac{1}{8}log_24+\frac{1}{8}log_24=2\ bits\)&lt;/span>。由此可以看出根据&lt;strong>非真实分布&lt;span class="math">\(q(x)\)&lt;/span>得到的平均码长总是大于根据真实分布&lt;span class="math">\(p(x)\)&lt;/span>得到的平均码长&lt;/strong>。&lt;/p>
+&lt;p>我们再化简一下相对熵的公式。 &lt;span class="math">\[
+D_{KL}(p||q)=\displaystyle\sum_{x}p(x)log\frac{p(x)}{q(x)}=\sum_{x}p(x)logp(x)-p(x)logq(x)
+\]&lt;/span> 有没有发现什么？&lt;/p>
+&lt;p>熵的公式 &lt;span class="math">\[
+H(p)=-\displaystyle\sum_{x}p(x)logp(x)
+\]&lt;/span> 交叉熵的公式 &lt;span class="math">\[
+H(p,q)=\displaystyle\sum_{x}p(x)log\frac{1}{q(x)}=-\sum_{x}p(x)logq(x)
+\]&lt;/span> 所以有： &lt;span class="math">\[
+D_{KL}(p||q)=H(p,q)-H(p)
+\]&lt;/span> 当用非真实分布 q(x) 得到的平均码长比真实分布 p(x) 得到的平均码长多出的比特数就是相对熵。又因为&lt;span class="math">\(D_{KL}(p||q)≥0\)&lt;/span>恒成立。所以： &lt;span class="math">\[
+H(p,q)≥H(p),当且仅当p(x)=q(x)时，等号成立
+\]&lt;/span> &lt;strong>并且当&lt;span class="math">\(H(p)\)&lt;/span>为常量时（注：在机器学习中，训练数据分布是固定的），最小化相对熵&lt;span class="math">\(D_{KL}(p||q)\)&lt;/span>等价于最小化交叉熵&lt;span class="math">\(H(p,q)\)&lt;/span>也等价于最大化似然估计&lt;/strong>。&lt;/p>
+&lt;h3 id="机器学习中的应用">机器学习中的应用&lt;/h3>
+&lt;p>在机器学习中，我们希望在训练数据上模型学到的分布&lt;span class="math">\(P(model)\)&lt;/span>和真实数据的分布&lt;span class="math">\(P(real)\)&lt;/span>越接近越好，所以我们可以使其相对熵最小。但是我们没有真实数据的分布，所以只能希望模型学到的分布&lt;span class="math">\(P(model)\)&lt;/span>和训练数据的分布&lt;span class="math">\(P(train)\)&lt;/span>尽量相同。假设训练数据是从总体中独立同分布采样的，那么我们可以通过最小化训练数据的经验误差来降低模型的泛化误差。即：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>希望学到的模型的分布和真实分布一致，&lt;span class="math">\(P(model)≃P(real)\)&lt;/span>&lt;/li>
+&lt;li>但是真实分布不可知，&lt;strong>假设&lt;/strong>训练数据是从真实数据中独立同分布采样的，&lt;span class="math">\(P(train)≃P(real)\)&lt;/span>&lt;/li>
+&lt;li>因此，我们希望学到的模型分布至少和训练数据的分布一致，&lt;span class="math">\(P(train)≃P(model)\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>根据之前的描述，最小化训练数据上的分布&lt;span class="math">\(P(train)\)&lt;/span>与最小化模型分布&lt;span class="math">\(P(model)\)&lt;/span>的差异等价于&lt;strong>最小化相对熵&lt;/strong>，即&lt;span class="math">\(D_{KL}(P(train)||P(model))\)&lt;/span>。此时，&lt;span class="math">\(P(train)\)&lt;/span>就是&lt;span class="math">\(D_{KL}(p||q)\)&lt;/span>中的&lt;span class="math">\(p\)&lt;/span>，即真实分布，&lt;span class="math">\(P(model)\)&lt;/span>就是&lt;span class="math">\(q\)&lt;/span>。又因为训练数据的分布&lt;span class="math">\(p\)&lt;/span>是给定的，所以最小化&lt;span class="math">\(D_{KL}(p||q)\)&lt;/span>等价于最小化&lt;span class="math">\(H(p,q)\)&lt;/span>。得证，&lt;strong>交叉熵可以用来计算学习模型分布与训练分布之间的差异&lt;/strong>。交叉熵广泛用于逻辑回归的Sigmoid和Softmax函数中作为损失函数使用。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>信息熵是衡量随机变量分布的混乱程度，是随机分布各事件发生的信息量的期望值，随机变量的取值个数越多，状态数也就越多，信息熵就越大，混乱程度就越大。当随机分布为均匀分布时，熵最大；信息熵推广到多维领域，则可得到联合信息熵；条件熵表示的是在&lt;span class="math">\(X\)&lt;/span>给定条件下，&lt;span class="math">\(Y\)&lt;/span>的条件概率分布的熵对&lt;span class="math">\(X\)&lt;/span>的期望。&lt;/li>
+&lt;li>相对熵可以用来衡量两个概率分布之间的差异。&lt;/li>
+&lt;li>交叉熵可以来衡量在给定的真实分布下，使用非真实分布所指定的策略消除系统的不确定性所需要付出的努力的大小。&lt;/li>
+&lt;/ol>
+&lt;p>或者从信息论的角度:&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>信息熵是传输一个随机变量状态值所需的比特位下界（最短平均编码长度）。&lt;/li>
+&lt;li>相对熵是指用&lt;span class="math">\(q\)&lt;/span>来表示分布&lt;span class="math">\(p\)&lt;/span>额外需要的编码长度。&lt;/li>
+&lt;li>交叉熵是指用分布&lt;span class="math">\(q\)&lt;/span>来表示分布&lt;span class="math">\(p\)&lt;/span>的平均编码长度。&lt;/li>
+&lt;/ol>
+&lt;h2 id="证明随机分布为均匀分布时熵最大">证明随机分布为均匀分布时熵最大&lt;/h2>
+&lt;p>证明：&lt;span class="math">\(0≤H(X)≤ \log n\)&lt;/span>&lt;/p>
+&lt;p>利用拉格朗日乘子法求极值，因为&lt;span class="math">\(p(x_1)+p(x_2)+\dotsb+p(x_n)=1\)&lt;/span>，同时信息熵为 &lt;span class="math">\[
+目标函数：H(X)=p(x_1)\log(p(x_1))+p(x_2)\log(p(x_2))+\dotsb+p(x_n)\log(p(x_n))\\
+s.t.\qquad p(x_1)+p(x_2)+\dotsb+p(x_n)-1=0
+\]&lt;/span> 我们可以构造拉格朗日函数： &lt;span class="math">\[
+\begin{aligned}
+L(p(x_1),p(x_2),\dots,p(x_n),\lambda)=&amp;amp;-(p(x_1)\log p(x_1)+p(x_2)\log p(x_2)+\dots+p(x_n)\log p(x_n))\\&amp;amp;+\lambda(p(x_1)+p(x_2)+\dots+p(x_n)-1)
+\end{aligned}
+\]&lt;/span> &lt;span class="math">\(L(p(x_1),p(x_2),…,p(x_n),λ)\)&lt;/span>分别对&lt;span class="math">\(p(x_1),p(x_2),\dotsb,p(x_n),λ\)&lt;/span>求偏导数，令偏导数为&lt;span class="math">\(0\)&lt;/span>，假设&lt;span class="math">\(\log以e\)&lt;/span>为底： &lt;span class="math">\[
+\lambda-log(e\cdot p(x_1))=0\\
+\lambda-log(e\cdot p(x_2))=0\\
+\dotsb\\
+\lambda-log(e\cdot p(x_n))=0\\
+p(x_1)+p(x_2)+\dots+p(x_n)-1=0
+\]&lt;/span> 不难求出： &lt;span class="math">\[
+p(x_1)=p(x_2)=\dots=p(x_n)=\frac{1}{n}
+\]&lt;/span> 将上式代数熵&lt;span class="math">\(H(X)\)&lt;/span>的计算公式可得 &lt;span class="math">\[
+H(X)=-(\frac{1}{n}\log \frac{1}{n}+\frac{1}{n}\log \frac{1}{n}+\dotsb+\frac{1}{n}\log \frac{1}{n})\\
+=-\log \frac{1}{n}=\log n
+\]&lt;/span> 由此可证&lt;span class="math">\(\log n\)&lt;/span>为最大值。&lt;/p>
+&lt;h2 id="jenson不等式证明相对熵大于等于0">Jenson不等式证明相对熵大于等于0&lt;/h2>
+&lt;p>&lt;span class="math">\[
+\begin{aligned}
+D_{KL}(p||q)&amp;amp;=\sum_x p(x) \log\frac{p(x)}{q(x)}\\
+&amp;amp;=-\sum_x p(x) \log \frac{q(x)}{p(x)}\\
+&amp;amp;=-E_{p(x)}(\log\frac{q(x)}{p(x)})\\
+&amp;amp;≥-\log\sum_x p(x)\frac{q(x)}{p(x)}\\
+&amp;amp;=\log \sum_x q(x)\\
+&amp;amp;\because \sum_x q(x)=1\qquad q(x)≥0\\
+&amp;amp;\therefore D_{KL}(p||q)≥0
+\end{aligned}
+\]&lt;/span>&lt;/p></description></item><item><title>无线通信之信道模型</title><link>https://surprisedcat.github.io/studynotes/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E9%81%93%E6%A8%A1%E5%9E%8B/</link><pubDate>Wed, 30 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1%E4%B9%8B%E4%BF%A1%E9%81%93%E6%A8%A1%E5%9E%8B/</guid><description/></item></channel></rss>

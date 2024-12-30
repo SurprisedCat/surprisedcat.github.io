@@ -1,0 +1,543 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>优化理论之非线性方法-高斯牛顿法与莱文贝格-马夸特方法 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="优化理论之非线性方法-高斯牛顿法与莱文贝格-马夸特方法 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%96%B9%E6%B3%95-%E9%AB%98%E6%96%AF%E7%89%9B%E9%A1%BF%E6%B3%95%E4%B8%8E%E8%8E%B1%E6%96%87%E8%B4%9D%E6%A0%BC-%E9%A9%AC%E5%A4%B8%E7%89%B9%E6%96%B9%E6%B3%95/">
+<meta property="og:title" content="优化理论之非线性方法-高斯牛顿法与莱文贝格-马夸特方法">
+<meta property="og:description" content="优化理论之非线性方法-高斯牛顿法与莱文贝格-马夸特方法 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/L-Mprocessure.png">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%96%B9%E6%B3%95-%E9%AB%98%E6%96%AF%E7%89%9B%E9%A1%BF%E6%B3%95%E4%B8%8E%E8%8E%B1%E6%96%87%E8%B4%9D%E6%A0%BC-%E9%A9%AC%E5%A4%B8%E7%89%B9%E6%96%B9%E6%B3%95/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>优化理论之非线性方法-高斯牛顿法与莱文贝格-马夸特方法</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Nov 4, 2019</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA title=优化理论 class="post_tag button button_translucent">优化理论
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/studynotes/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA%E4%B9%8B%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%96%B9%E6%B3%95-%E9%AB%98%E6%96%AF%E7%89%9B%E9%A1%BF%E6%B3%95%E4%B8%8E%E8%8E%B1%E6%96%87%E8%B4%9D%E6%A0%BC-%E9%A9%AC%E5%A4%B8%E7%89%B9%E6%96%B9%E6%B3%95/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<h2 id=高斯-牛顿法guass-newton-algorithm与莱文贝格-马夸特方法levenbergmarquardt-algorithm求解非线性最小二乘问题>高斯-牛顿法(Guass-Newton Algorithm)与莱文贝格-马夸特方法(Levenberg–Marquardt algorithm)求解非线性最小二乘问题</h2>
+<p>众所周知，最小二乘法通过最小化误差平方和获得最佳函数。有时候你可能产生疑问，为什么不能通过其他方式获得最优函数，比如说最小化误差的绝对值的和？本文中，我将会从概率的角度解释最小二乘法的依据（参考自andrew ng 《机器学习课程》 第三讲）。最小二乘问题可以分为线性最小二乘和非线性最小二乘两类，本文的目标是介绍两种经典的最小二乘问题解法：高斯牛顿法与莱文贝格-马夸特方法。实际上，后者是对前者以及梯度下降法的综合。</p>
+<h2 id=最小二乘法的概率解释probabilistic-interpretation>最小二乘法的概率解释(probabilistic interpretation)</h2>
+<p>以线性回归为例，假设最佳函数为 <span class=math>\(y=\mathbf{\theta}^T\mathbf{x}\)</span> (<span class=math>\(\theta,x\)</span>为向量), 对于每对观测结果<span class=math>\((x^{(i)},y^{(i)})\)</span>，都有 <span class=math>\[y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}\]</span> 其中 <span class=math>\(\epsilon\)</span>为误差，基于一种合理的假设（中心极限定理），我们可以认为误差的分布服从正态分布(又称高斯分布)，即 <span class=math>\(\epsilon \sim N(0,\sigma^2)\)</span> ，那么，我们可以认为<span class=math>\(y^{(i)} \sim N(\theta^Tx^{(i)},\sigma^2)\)</span>,根据正态分布的概率公式 <span class=math>\[P(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]</span> 在统计学中，将所有的<span class=math>\(P(y|x)\)</span>累乘作为<span class=math>\(\theta\)</span>的似然函数,用以衡量<span class=math>\(\theta\)</span>的或然性(likelihood) <span class=math>\[L(\theta)=P(y|x;\theta)=\prod _{i=0}^m \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]</span> 最佳的参数<span class=math>\(\theta\)</span>应该是使得所有数据出现的概率最大的那个，这个过程称之为最大似然估计(maximum likelihood estimation)。为了数学计算上的便利，采用单调函数:log函数<span class=math>\(l(\theta)=log(L(\theta))\)</span>，称为对数似然函数代表<span class=math>\(L(\theta)\)</span>: <span class=math>\[l(\theta)=log\prod_{i=0}^m \frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2}) \\ =\sum_{i=0}^mlog\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\\=mlog\frac{1}{\sqrt{2\pi}\sigma} – \frac{1}{2\sigma^2}\sum_{i=0}^m(y^{(i)}-\theta^Tx^{(i)})^2\]</span> 需要指出的是，在Andrew ng的讲解认为<span class=math>\(\sigma\)</span>不影响<span class=math>\(\theta\)</span>的决定，因此，最大化<span class=math>\(l(\theta)\)</span>等同于最小化<span class=math>\(\sum_{i=0}^m(y^{(i)}-\theta^Tx^{(i)})^2\)</span>。最小二乘法通过最小化误差平方和得到最佳函数的方法存在概率论方面的基础。</p>
+<h2 id=高斯-牛顿法guass-newton-algorithm>高斯-牛顿法(Guass-Newton Algorithm)</h2>
+<p>高斯-牛顿法是在牛顿法基础上进行修改得到的，用来(仅用于)解决非线性最小二乘问题。高斯-牛顿法相较牛顿法的最大优点是不需要计算二阶导数矩阵(Hessian矩阵)，当然，这项好处的代价是其仅适用于最小二乘问题。如下是其推导过程：</p>
+<p>最小二乘方法的目标是令残差的平方和最小： <span class=math>\[f(\theta) = \frac{1}{2}\sum_{i=0}^mr(\mathbf{x_i})^2\]</span> 采用牛顿法求解<span class=math>\(f(\theta)\)</span>的最小值，需要计算其梯度向量与Hessian矩阵。 <span class=math>\[\nabla_\theta f =\frac{\partial f}{\partial \theta}=\sum r_i\frac{\partial r_i}{\partial \theta}\\
+=\begin{bmatrix}
+r(x_1)&r(x_2)&\dots&r(r_m)\end{bmatrix} \begin{bmatrix}
+\nabla_\theta r(x_1)^T \\
+\nabla_\theta r(x_2)^T \\
+\vdots\\
+\nabla_\theta r(x_m)^T \\
+\end{bmatrix}\]</span></p>
+<p>其中 <span class=math>\[J_r(\theta)=\begin{bmatrix}\frac{\partial r_j}{\partial\theta_i}\end{bmatrix}_{j=1,\dots,m;i=1,\dots,n}=\begin{bmatrix}
+\nabla_\theta r(x_1)^T \\
+\nabla_\theta r(x_2)^T \\
+\vdots\\
+\nabla_\theta r(x_m)^T \\\
+\end{bmatrix}\]</span> 称为<span class=math>\(r\)</span>的雅各比(Jacobian)矩阵。因此上式可以写作 <span class=math>\[\nabla_\theta f = r^TJ_r=J_r^Tr\]</span> 其中<span class=math>\(r=\begin{bmatrix}r(x_1)&r(x_2)&\dots&r_m\end{bmatrix}^T\)</span>。再看Hessian矩阵的计算： <span class=math>\[H = \begin{bmatrix}\frac{\partial^2f}{\partial \theta^2} \end{bmatrix}=\sum\begin{bmatrix}r_i\frac{\partial^2r_i}{\partial\theta^2}+(\frac{\partial r_i}{\partial \theta})(\frac{\partial r_i}{\partial \theta})^T \end{bmatrix}\]</span> 观察二阶导数项<span class=math>\(r_i\frac{\partial^2r_i}{\partial\theta^2}\)</span>，因为残差 <span class=math>\(r_i\approx 0\)</span>,因此我们可以认为此项接近于0而舍去。所以Hessian矩阵可以近似写成： <span class=math>\[H\approx\sum\begin{bmatrix}(\frac{\partial r_i}{\partial\theta})(\frac{\partial r_i}{\partial\theta})^T\end{bmatrix}=J_r^TJ_r\]</span> 这里我们可以看到高斯-牛顿法相对于牛顿法的不同就是在于采用了近似的Hessian矩阵降低了计算的难度，但是同时，舍去项仅适用于最小二乘问题中残差较小的情形。</p>
+<p>将梯度向量，Hessian矩阵(近似)带入牛顿法求根公式，得到高斯-牛顿法的迭代式： <span class=math>\[\theta_i = \theta_{i-1}-{(J_r^TJ_r)}^{-1}J_r^Tr\]</span> 只需要计算出<span class=math>\(m\times n\)</span>的Jacobian矩阵便可以进行高斯-牛顿法的迭代，计算已经算是非常简便的了。</p>
+<h2 id=levenberg-marquart-算法>Levenberg-Marquart 算法</h2>
+<p>与牛顿法一样，当初始值距离最小值较远时，高斯-牛顿法的并不能保证收敛。并且当<span class=math>\(J_r^TJ_r\)</span>近似奇异的时候，高斯牛顿法也不能正确收敛。Levenberg-Marquart 算法是对上述缺点的改进。L-M方法是对梯度下降法与高斯-牛顿法进行线性组合以充分利用两种算法的优势。通过在Hessian矩阵中加入阻尼系数<span class=math>\(\lambda\)</span>来控制每一步迭代的步长以及方向： <span class=math>\[(H+\lambda I)\epsilon = -J_r^Tr\]</span></p>
+<ul>
+<li>当<span class=math>\(\lambda\)</span>增大时，<span class=math>\(H+\lambda I\)</span>趋向于<span class=math>\(\lambda I\)</span>，因此<span class=math>\(\epsilon\)</span>趋向于 <span class=math>\(-\lambda J_r^Tr\)</span>，也就是梯度下降法给出的迭代方向；</li>
+<li>当<span class=math>\(\lambda\)</span>减小时，<span class=math>\(H+\lambda I\)</span>趋向于<span class=math>\(H\)</span>，<span class=math>\(\epsilon\)</span>趋向于<span class=math>\(-H^{-1}J_r^Tr\)</span>，也就是高斯-牛顿法给出的方向。</li>
+</ul>
+<p><span class=math>\(\lambda\)</span>的大小通过如下规则调节，也就是L-M算法的流程：</p>
+<div class=figure>
+<img src=../../images/L-Mprocessure.png alt=L-Mprocessure.png><p class=caption>L-Mprocessure.png</p>
+</div>
+<ol style=list-style-type:decimal>
+<li>初始化 <span class=math>\(\theta_0\)</span>，<span class=math>\(\lambda_0\)</span>。</li>
+<li>计算当前点<span class=math>\(\theta_i\)</span>处的残差向量<span class=math>\(r_i\)</span>与雅各比矩阵<span class=math>\(J_r\)</span>。</li>
+<li>通过求解<span class=math>\((H_i+\lambda I)\epsilon = -J_r^Tr_i\)</span>求解迭代方向<span class=math>\(\epsilon\)</span>。</li>
+<li>计算<span class=math>\(\theta_i^\prime=\theta_i+\epsilon\)</span>点处的残差向量<span class=math>\(r_i^\prime\)</span>。</li>
+<li>如果<span class=math>\(\|r_i\prime\|^2>\|r_i\|^2\)</span>?,即残差没有下降，则更新<span class=math>\(\lambda = \beta\lambda\)</span>，增大<span class=math>\(\lambda\)</span>重新回到第三步重新求解新的<span class=math>\(\epsilon\)</span>。如果残差下降，则更新<span class=math>\(\theta_{i+1} = \theta_i+\epsilon\)</span> ，到第二步，并且降低<span class=math>\(\lambda=\alpha\lambda\)</span>，增大迭代步长。</li>
+</ol>
+<p>在曲线拟合实践中，<span class=math>\(\alpha\)</span>通常选取 0.1，<span class=math>\(\beta\)</span>选取10。</p>
+<p>相比于高斯-牛顿法，L-M算法的优势在于非常的鲁棒，很多情况下即使初始值距离(局部)最优解非常远，仍然可以保证求解成功。作为一种阻尼最小二乘解法，LMA(Levenberg-Marquart Algorithm)的收敛速度要稍微低于GNA(Guass-Newton Algorithm)。L-M算法作为求解非线性最小二乘问题最流行的算法广泛被各类软件包实现，例如google用于求解优化问题的库Ceres Solver。后续，我会通过最小二乘圆拟合的案例给出L-M算法的实现细节。</p>
+<h2 id=最小二乘法的改进>最小二乘法的改进</h2>
+<p>传统的最小二乘法是针对线性函数与线性场景，典型的场景如下图：</p>
+<div class=figure>
+<img src=../../images/Linear_regression.svg alt=Linear_regression.svg><p class=caption>Linear_regression.svg</p>
+</div>
+<p>其需要优化的方程是： <span class=math>\[
+\min\|X\theta-y\|^2
+\]</span> 其中，<span class=math>\(\theta\)</span>表示参数向量，参数的个数与特征的个数一样（算上常数项的），<span class=math>\(X\)</span>表示<span class=math>\(m\)</span>个观察到的数据，每个数据有<span class=math>\(n\)</span>个特征（算上常数项的），因此<span class=math>\(X\)</span>是一个<span class=math>\(m\times n\)</span>维矩阵。<span class=math>\(y\)</span>是实际观察到的结果向量。详细表示起来则是： <span class=math>\[
+X=\begin{bmatrix}
+——(x^{(1)})^T——\\
+——(x^{(2)})^T——\\
+\vdots\\
+——(x^{(m)})^T——\\
+\end{bmatrix},
+x^{(i)}=\begin{bmatrix}
+x^{(i)}_0(=1)\\
+x^{(i)}_1\\
+\vdots\\
+x^{(i)}_{n-1}\\
+\end{bmatrix},
+\theta=\begin{bmatrix}
+\theta_0\\
+\theta_1\\
+\vdots\\
+\theta_{n-1}\\
+\end{bmatrix},
+y=\begin{bmatrix}
+y_1\\
+y_2\\
+\vdots\\
+y_m\\
+\end{bmatrix}
+\]</span> 根据矩阵计算结果： <span class=math>\[
+\theta=(X^TX)^{-1}X^Ty
+\]</span> 显然，<span class=math>\(X\theta\)</span>只能表示直线结果，对于曲线结果无能为力。针对曲线场景，通常有两种改进思路，第一个就是将特征<span class=math>\(x_j\)</span>的高阶项加入其中，举个简单例子，比如除了常数项，只有一个特征的场景： <span class=math>\[
+y=\theta_0+\theta_0 x_1+\theta_2 x^2_1+\theta_3 x^3_1
+\]</span> 这样通过高阶多项式就可以拟合曲线，且根据拉格朗日插值法，只有阶数够多，那么就能够很好的拟合任意曲线。然而，高阶项数都是超参数，而且如果让每个特征都有高阶参数，那么参数数量就是几何数量级增长，难以控制参数规模。比如，有两个特征时，引入二次项就会有<span class=math>\(\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_1^2+\theta_4x_2^2+\theta_5x_1x_2\)</span>共6项，如果到三次方项，那会有更多参数。我们知道，当参数少时会有欠拟合现象，偏差大；参数过多就是过拟合，方差大，因此引入高次方项后，情况变得难以控制。同时，高次函数拟合会出现龙格现象。</p>
+<blockquote>
+<p>在数值分析领域中，龙格现象是在一组等间插值点上使用具有高次多项式的多项式插值时出现的区间边缘处的振荡问题。</p>
+</blockquote>
+<div class=figure>
+<img src=../../images/曲线拟合.png alt=曲线拟合><p class=caption>曲线拟合</p>
+</div>
+<center>
+左图：一阶函数欠拟合；中图：二阶函数适当拟合；右图：5阶函数过拟合
+</center>
+<p>第二个改进思路就是使用<strong>局部加权线性回归算法</strong>(Locally Weighted Linear Regression, LWLR)。它的核心思想就是弯曲点附近的局部曲线，接近整体曲线。我们知道传统的线性规划的代价函数为 <span class=math>\[\sum_i (y^{(i)} − θ^T x^{(i)})^2\]</span> 而局部加权线性回归算法需要体现加权特性，它在不同线性函数之间进行加权，代价函数修改为： <span class=math>\[\sum_i w^{(i)}(y^{(i)} − θ^T x^{(i)})^2\]</span> 这里<span class=math>\(w^{(i)}\)</span>是非负的加权值，可以令<span class=math>\(w^{(i)}=\exp{(-\frac{(x^{(i)}-x)^2}{2\tau^2})}\)</span>。虽然<span class=math>\(w^{(i)}\)</span>有高斯分布形式，但是和高斯分布没有直接联系。显然，当<span class=math>\(|x^{(i)}-x|\)</span>比较小时，<span class=math>\(|x^{(i)}-x|\rightarrow 0\)</span>，此时<span class=math>\(w^{(i)}\rightarrow 1\)</span>；当<span class=math>\(|x^{(i)}-x|\)</span>比较大时，<span class=math>\(w^{(i)}\rightarrow 0\)</span>，权重较小。</p>
+<p>局部加权线性回归的优化函数写成矩阵形式为： <span class=math>\[
+J(\theta)=(X\theta-y)^TW(X\theta-y)
+\]</span> 多了一个权重矩阵<span class=math>\(W\)</span>，它是一个对角矩阵，对角元素<span class=math>\(w_{ii}={1\over 2}w^{(i)}\)</span>。根据矩阵求导公式可得： <span class=math>\[
+\begin{aligned}
+\nabla J(\theta)&=\nabla (X\theta-y)^TW(X\theta-y)\\
+&=2\frac{\partial{(X\theta-y)}}{\partial{\theta}}W(X\theta-y)\\
+&=2X^TW(X\theta-y)
+\end{aligned}
+\]</span> 当取极值时，<span class=math>\(\nabla J(\theta)=0\)</span>，即<span class=math>\(2X^TW(X\theta-y)=0\)</span>，所以有： <span class=math>\[
+2X^TW(X\theta-y)=0\\
+X^TWX\theta=X^TWy\\
+\theta=(X^TWX)^{-1}X^TWy
+\]</span> 关于矩阵求导的细节，请查阅网页资料<a href=../../网页资料/线性代数与矩阵-矩阵求导表.html>线性代数与矩阵-矩阵求导表</a></p>
+<p>此外，整个代价函数中只有一个超参数<span class=math>\(\tau\)</span>，称为<strong>带宽参数</strong>。它控制着加权参数随着对<span class=math>\(x\)</span>的远离，衰减的速度。当<span class=math>\(\tau\)</span>值比较大时，<span class=math>\(w^{(i)}\)</span>衰减得慢，容易出现欠拟合；当<span class=math>\(\tau\)</span>值比较小时，<span class=math>\(w^{(i)}\)</span>衰减得快，容易出现过拟合。从词义上来看，带宽参数意味着能够容纳周围参数的多少，容纳的越多函数越平缓，当<span class=math>\(\tau\rightarrow \infty\)</span>时，<span class=math>\(w^{(i)}\rightarrow 1\)</span>此时，带宽无限大，容纳了所有数据点，局部加权线性回归算法退化为传统线性规划算法。当<span class=math>\(\tau\)</span>很小时，<span class=math>\(w^{(i)}\)</span>衰减很快，只有在当前点才有效，此时局部加权线性回归算法退化为插值算法。这个算法的问题在于，对于每一个要预测的点，都要重新依据整个数据集计算一个线性回归模型出来，使得算法代价极高。局部加权线性回归效果如下</p>
+<div class=figure>
+<img src=../../images/局部加权线性规划.png alt=局部加权线性规划.png><p class=caption>局部加权线性规划.png</p>
+</div>
+<center>
+上图：带宽参数过大，欠拟合；中图：适当拟合；下图：带宽参数过小，过拟合
+</center>
+<p>在局部加权线性回归算法中，参数数量<span class=math>\(w^{(i)}\)</span>是随着数据量增加而线性增加的，这个参数不固定的监督学习算法成为<strong>非参数学习算法</strong>；相对的参数固定的监督学习算法，比如传统的线性规划就称作<strong>参数学习算法</strong>。</p>
+<h2 id=参考资料>参考资料</h2>
+<ol style=list-style-type:decimal>
+<li><a href=http://ece.eng.umanitoba.ca/undergraduate/ECE4850T02/Lecture%20Slides/MLRegression.pdf>maximum likelihood regression-university of manitoba</a></li>
+<li><a href=http://open.163.com/special/opencourse/machinelearning.html>过拟合与欠拟合-网易公开课：斯坦福大学机器学习课程</a></li>
+<li><a href=http://www.gatsby.ucl.ac.uk/teaching/courses/ml2-2008/graddescent.pdf>Using Gradient Descent for Optimization and Learning</a></li>
+<li><a href=https://mads.lanl.gov/presentations/Leif_LM_presentation_m.pdf>Numerical Optimization using the Levenberg-Marquardt Algorithm-Los Alamos National Laboratory</a></li>
+<li><a href=http://people.cas.uab.edu/~mosya/cl/>Circular and Linear Regression Fitting Circles and Lines by Least Squares – Nikolai Chernov – UAB</a></li>
+</ol>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>机器学习之广义线性模型 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="机器学习之广义线性模型 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/">
+<meta property="og:title" content="机器学习之广义线性模型">
+<meta property="og:description" content="机器学习之广义线性模型 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B.png">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>机器学习之广义线性模型</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+May 28, 2022</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0 title=机器学习 class="post_tag button button_translucent">机器学习
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/studynotes/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<h2 id=机器学习之广义线性模型>机器学习之广义线性模型</h2>
+<p>在机器学习中，我们常常是从线性回归和Logistics回归这两种模型入手。大多数人在学的时候时将其当成两个独立的模型去学习的，线性回归用来拟合直线，Logistics回归用来分类。实际上，这两种模型都是一个更广泛模型的特例，这就是广义线性模型（Generalized Linear Models, 简称GLM）。</p>
+<ul>
+<li><a href=#引子线性回归和logistics回归>引子：线性回归和Logistics回归</a></li>
+<li><a href=#从概率的角度解释回归>从概率的角度解释回归</a></li>
+<li><a href=#指数型分布族指数族>指数型分布族（指数族）</a></li>
+<li><a href=#指数型分布族的向量化写法>指数型分布族的向量化写法</a></li>
+<li><a href=#自然指数族>自然指数族</a></li>
+<li><a href=#指数分散族>指数分散族</a></li>
+<li><a href=#广义线性模型与指数型分布族核心>广义线性模型与指数型分布族（核心）</a></li>
+<li><a href=#线性的体现>线性的体现</a></li>
+<li><a href=#连接函数与激活函数>连接函数与激活函数</a></li>
+<li><a href=#标准连接>标准连接</a></li>
+<li><a href=#广义线性模型的参数关系>广义线性模型的参数关系</a></li>
+<li><a href=#广义线性模型的最大似然估计>广义线性模型的最大似然估计</a></li>
+<li><a href=#标准连接函数下的广义线性模型最大似然估计>标准连接函数下的广义线性模型最大似然估计</a>
+<ul>
+<li><a href=#logistics回归优化举例>Logistics回归优化举例</a></li>
+<li><a href=#补充牛顿法的简化方法之一fisher分数法>补充：牛顿法的简化方法之一Fisher分数法</a></li>
+</ul></li>
+<li><a href=#回答引子的疑问最大似然估计形势下的迭代优化>回答引子的疑问，最大似然估计形势下的迭代优化</a></li>
+<li><a href=#广义线性模型的求解irls算法>广义线性模型的求解（IRLS算法）</a></li>
+<li><a href=#参考文献>参考文献</a></li>
+</ul>
+<h2 id=引子线性回归和logistics回归>引子：线性回归和Logistics回归</h2>
+<p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然<span class=math>\(h_{\vec\theta}(\vec x^{(i)})\)</span>的定义不同)： <span class=math>\[
+\theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
+h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
+\vec{\theta}^T \vec{x},\quad线性回归\\
+\frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]</span> 其中，<span class=math>\(\vec\theta, \vec x^{(i)}\)</span>分别是参数向量，第<span class=math>\(i\)</span>个观测数据的向量。下标<span class=math>\(j\)</span>表示第<span class=math>\(j\)</span>个分量，<span class=math>\(\alpha\)</span>表示更新的步长。那么他们二者为什么都有相同的更新公式呢？(只有<span class=math>\(h_{\vec{\theta}}(\vec{x})\)</span>的具体表现形式不同)。第一个原因是他们本质上都可以从最大似然估计推导出来；第二个原因则是它们二者都是一种更普遍的模型的特殊情况，这个模型就是<strong>广义线性模型</strong>。</p>
+<h2 id=从概率的角度解释回归>从概率的角度解释回归</h2>
+<p>如果我们详细看统计回归的过程，就能发现它有两步组成。第一步是参数估计，确定特定模型中的未知参数，即求模型的参数<span class=math>\(\Theta\)</span>；第二部根据已经确定的模型与参数，预测新数据的函数值，即求<span class=math>\(y_{pred}\)</span>。</p>
+<p>我们使用参数估计的过程主要是使用MLE、MAP、Bayesian等准则（推荐文章<a href=https://engineering.purdue.edu/kak/Tutorials/Trinity.pdf>ML, MAP, and Bayesian --- The Holy Trinity of Parameter Estimation and Data Prediction</a>），这种方式往往是以上述某个准则推导出的概率最大的值作为参数估计的结果。因此，在第二部预测步骤时，给定参数估计结果<span class=math>\(\theta\)</span>和自变量<span class=math>\(x\)</span>后，通过模型得到的预测结果往往也不是实际真实值，而是<strong>真实值和某个概率分布相关的误差组合起来的结果</strong>（我们希望这个组合出来的概率分布期望就是真实值）。</p>
+<p>回看线性回归的结果，其预测模型是一条直线，但是真实的数据点并不一定在直线上，而是以某个概率分布在预测模型周围。</p>
+<img src=../../images/linear_regression.png alt=线性回归>
+<center>
+图中线性回归为根据身高预测体重
+</center>
+<p>以线性回归模型为例，假设回归函数为<span class=math>\(y=\mathbf{\theta}^T\mathbf{x}\)</span> (<span class=math>\(\theta,x\)</span>为向量), 对于每对观测结果<span class=math>\((x^{(i)},y^{(i)})\)</span>，都有 <span class=math>\[y^{(i)}=\theta^Tx^{(i)}+\epsilon^{(i)}\]</span> 其中 <span class=math>\(\epsilon\)</span>为误差，基于一种合理的假设（中心极限定理），我们可以认为误差的分布服从正态分布(又称高斯分布)，即 <span class=math>\(\epsilon \sim N(0,\sigma^2)\)</span> ，那么，我们可以认为<span class=math>\(y^{(i)} \sim N(\theta^Tx^{(i)},\sigma^2)\)</span>,根据正态分布的概率公式 <span class=math>\[P(y^{(i)}|x^{(i)};\theta)=\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{(y^{(i)}-\theta^Tx^{(i)})^2}{2\sigma^2})\]</span></p>
+<p>我们可以通过最大似然估计求出模型的参数<span class=math>\(\mathbf{\theta}\)</span>，进而得到线性模型<span class=math>\(y=\mathbf{\theta}^T\mathbf{x}\)</span>。我们不难发现，<span class=math>\(\mathbf{\theta}^T\mathbf{x}\)</span>正好是<span class=math>\(y\)</span>这个高斯随机变量的期望！</p>
+<p>线性回归这条直线<span class=math>\(y=f(x)\)</span>的真实含义其实是：<strong>回归模型中，对于取特定的自变量<span class=math>\(x^{(i)}\)</span>，其因变量概率的期望是<span class=math>\(f(x^{(i)})\)</span>。同样，在Logistics回归中，最终的预测结果也是二项分布中取0或1的期望</strong>，其以0.5作为阈值的原因也在于此，若以大于0.5的期望取1，那么我们就认为结果是1；若以小于0.5的期望取1（取0概率大于0.5），那么我们就认为结果是0，本质上就是这么直白。</p>
+<p>此外，也可从<span class=math>\(y_{pred}\)</span>为一个统计量的角度理解。</p>
+<p>我们之前已经说过，我们使用回归模型预测的值，其实也并不是精确值，而是预测值概率的期望。广义线性模型和概率的关系，就是我们的<strong>预测值<span class=math>\(y_{pred}\)</span>的概率分布服从指数族分布。而指数族的参数通过连接函数和线性函数连接到一起</strong>，即<span class=math>\(g(u)=\theta^T x\)</span>，这一点我们之后再说。下面我们先看指数族。</p>
+<h2 id=指数型分布族指数族>指数型分布族（指数族）</h2>
+<p>指数型分布族是指数分布族的推广，囊括了正态分布族、二项分布族、伽马分布族、多项分布族常见分布等等。具体定义形式如下：</p>
+<blockquote>
+<p><strong>指数型分布族</strong>：一个概率分布族<span class=math>\(\mathfrak{p}=\{p_{\theta}(x);\theta∈\varTheta\}\)</span>可称为<strong>指数型分布族</strong>，假如<span class=math>\(\mathfrak{p}\)</span>中的分布（分布列或密度函数）都可表示为如下形式： <span class=math>\[p_\theta(x)=h(x)c(\theta)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\}\tag{1}\]</span> 其中，k为自然数；<span class=math>\(\theta\)</span>可以是数字，也可以是向量。分布的支撑<span class=math>\(\{x:p(x)>0\}\)</span>与参数<span class=math>\(\theta\)</span>无关；诸<span class=math>\(c(\theta),c_1(\theta),\dotsb,c_k(\theta)\)</span>是定义在参数空间<span class=math>\(\varTheta\)</span>上的函数；诸<span class=math>\(T_1(x),\dotsb,T_k(x)\)</span>是<span class=math>\(x\)</span>的函数，称为充分统计向量，但<span class=math>\(T_1(x),\dotsb,T_k(x)\)</span>线性无关。<span class=math>\(h(x)\)</span>也只是<span class=math>\(x\)</span>的函数，且<span class=math>\(h(x)>0\)</span>，通常是一个常数。</p>
+</blockquote>
+<p><span class=math>\(c(\theta)\)</span>是作为归一化参数存在的，称为叫做配分函数(partition function)。 <span class=math>\[c(\theta)^{-1} = \int h(x) \exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)\right\} dx\]</span> 此外，指数族还有另一种表述方式，就是将外面的<span class=math>\(c(\theta)\)</span>放到指数符号中： <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{2}\]</span> 由于通常<span class=math>\(A(\theta)\)</span>含有<span class=math>\(\log\)</span>符号，该部分也称为“Log Partition Function”，易知<span class=math>\(A(\theta)=\ln c(\theta)\)</span>。 如果我们使用向量值函数来表达指数型分布族可写为: <span class=math>\[p_\theta(x)=h(x)\exp\left\{\sum_{j=1}^k c_j(\theta)T_j(x)-A(\theta)\right\}\tag{3}\]</span></p>
+<p>从上述定义可知，一个分布族是不是指数型分布族的<strong>关键在于其概率分布能否改写为定义中方式</strong>。</p>
+<h3 id=指数型分布族的向量化写法>指数型分布族的向量化写法</h3>
+<p>下面我们使用<strong>向量值函数</strong>将式(4)进行进一步改造。</p>
+<blockquote>
+<p>向量值函数：有时也称为向量函数，是一个单变量或多变量的、<strong>值域是多维向量或者无穷维向量的集合的函数</strong>。向量值函数的输入可以是一个标量或者一个向量，输出是向量，定义域的维度和值域的维度是不相关的。</p>
+</blockquote>
+<p>对于<span class=math>\(\theta\)</span>的一系列函数<span class=math>\(c_1(\theta),c_2(\theta),\dotsb\)</span>和充分统计量向量<span class=math>\(T_1(x),T_2(x),\dotsb\)</span>，我们写出列向量形式： <span class=math>\[
+\mathbf{C}(\theta)=\begin{bmatrix}c_1(\theta)\\c_2(\theta)\\\vdots\\c_k(\theta)\end{bmatrix}
+\mathbf{T}(x)=\begin{bmatrix}T_1(x)\\T_2(x)\\\vdots\\T_k(x)\end{bmatrix}
+\]</span> 那么式（3）可写成 <span class=math>\[
+p(x;\theta)=h(x)\exp\left\{\mathbf{C}^T(\theta)\mathbf{T}(x)-A(\theta)\right\}\tag{4}
+\]</span> 其中，<span class=math>\(\mathbf{C}(\theta),\mathbf{T}(x)\)</span>都是向量值函数，<span class=math>\(h(x),A(\theta)\)</span>都是普通函数。通常文章会把<span class=math>\(A(\theta)\)</span>写成<span class=math>\(A(\mathbf{C}(\theta))\)</span>的形式，这两种本质上是等价的，但是<span class=math>\(A(\mathbf{C}(\theta))\)</span>的参数形式更加统一，为主流用法。由于<span class=math>\(\mathbf{C}(\theta)\)</span>的计算结果本质上就是一个向量，我们可令向量值函数<span class=math>\(\mathbf{C(\theta)}=\eta\)</span>，那么式（4）可表示为： <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]</span> 这就是其他资料中的常见形式。其中<span class=math>\(\eta=\mathbf{C}(\theta)\)</span>，参数<span class=math>\(η\)</span>通常叫做自然参数(natural parameter)或者标准参数(canonical parameter)。这里注明：<span class=math>\(A(\theta)\)</span>与<span class=math>\(A(\eta)\)</span>实际上是两个不同的函数，但是可以通过<span class=math>\(\eta=\mathbf{C}(\theta),\theta=\mathbf{C}^{-1}(\eta)\)</span>进行互换，因此在后文对他们不做区分。此外，<span class=math>\(\eta,\theta\)</span>是一一对应的，这里先不加证明地写出这个引理。</p>
+<blockquote>
+<p>引理1：在指数族中函数<span class=math>\(C(\cdot)\)</span>总是<strong>单调连续的(存在逆函数)</strong>，所以自然参数<span class=math>\(η\)</span>和原始参数<span class=math>\(θ\)</span>是<strong>存在一一映射关系的</strong>。 <span class=math>\[
+\eta=\mathbf{C}(\theta)\\
+\theta=\mathbf{C}^{-1}(\eta)
+\]</span></p>
+</blockquote>
+<p>在指数型分布族中，使用标准参数<span class=math>\(η\)</span>表示的公式形式称为<strong>指数族分布的标准形式(canonical form)</strong>，在标准形式下，分布的参数是<span class=math>\(η\)</span>。<strong>实际上，从原始分布向指数型分布转换的过程就是将<span class=math>\(\theta\)</span>转换为<span class=math>\(\eta\)</span>的过程</strong>。</p>
+<p>广义线性模型的<strong>预测值概率分布都属于指数型分布族</strong>。</p>
+<p>具体关于指数型分布式的细节请看笔记<a href=概率统计随机过程之指数型分布族应用.md>概率统计随机过程之指数型分布族应用.md</a></p>
+<h3 id=自然指数族>自然指数族</h3>
+<p>我们在式（5）中给出了指数型分布族的一般形式 <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{T}(x)-A(\eta)\right\}\tag{5}
+\]</span> 但是对于广义线性模型的应用场景而言，还是复杂了一些，因此有一种简化的<strong>自然指数族</strong>。在自然指数族中，<span class=math>\(\mathbf{T}(\mathbf{x})=\mathbf{x}\)</span>，不存在类似于<span class=math>\(x^2,x^3,\log(x),\frac{1}{x}\)</span>这种带有函数关系的充分统计量，其可以简化写成： <span class=math>\[
+p(x;\eta)=h(x)\exp\left\{\eta^T\mathbf{x}-A(\eta)\right\}\tag{6}
+\]</span> 二项分布，负二项分布，伯努利分布，泊松分布，参数<span class=math>\(\alpha\)</span>已知的Gamma分布，已知方差的高斯分布，参数<span class=math>\(\lambda\)</span>已知的逆高斯分布（又称Wald分布）等都可以写成自然指数族形式，其他分布如卡方分布、Beta分布、帕累托分布，对数正态分布，一般正态分布，一般Gamma分布则无法写成自然指数族的形式。他们是否是自然指数族的核心就在于是不是充分统计量<span class=math>\(T(x)=x\)</span>。</p>
+<h3 id=指数分散族>指数分散族</h3>
+<p>在自然指数族的基础上，研究者们为了方便探究分布的期望和方差，对自然指数族做了少些变形得到指数分散族。其处理方法是将自然指数族的规范形式(式(6))的规范（自然）参数<span class=math>\(\eta\)</span>拆分成与位置（期望）相关的位置函数<span class=math>\(b(\vartheta)\)</span>以及和方差相关的分散函数<span class=math>\(a(\phi)\)</span>。其形式如下： <span class=math>\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{a(\phi)}+c(x,\phi)\}\tag{7}
+\]</span> 这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，<span class=math>\(a(ϕ)\)</span>称为分散函数(dispersion function)，是已知的。<span class=math>\(ϕ\)</span>称为分散参数(dispersion parameter)。<span class=math>\(\vartheta\)</span>仍然叫自然参数(natural parameter)或者规范参数(canonical parameter)，它和自然指数族中参数差了个系数，因为两种模式中<span class=math>\(\vartheta^T x,\eta^Tx\)</span>的模式都是<strong>参数<span class=math>\(\times\)</span>充分统计量</strong>，所以不难发现，实际上我们对自然参数做一个<span class=math>\(\frac{1}{a(\phi)}\)</span>倍的缩放。需要指出的是，在广义线性模型中，<span class=math>\(a(\phi)\)</span>一般是 已知的，且通常是个常数系数，如果样本之间的重要性没有区别，我们可以令<span class=math>\(a(\phi)=\phi\)</span>，即 <span class=math>\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{\phi}+c(x,\phi)\}\tag{7.1}
+\]</span></p>
+<p><strong>指数分散族形式本质上是对自然指数族的参数<span class=math>\(\eta\)</span>进行了拆分，把期望参数和方差参数拆分开（二者实际是可逆的变换）</strong>。使得自然参数<span class=math>\(\vartheta\)</span>仅和期望<span class=math>\(μ\)</span>相关，分散参数<span class=math>\(ϕ\)</span>和分布的方差参数相关。分拆后，规范参数<span class=math>\(\vartheta\)</span>仅和分布的期望参数<span class=math>\(μ\)</span>相关，并且和<span class=math>\(μ\)</span>之间存在一一映射的函数关系，换句话说，<span class=math>\(\vartheta\)</span>和<span class=math>\(μ\)</span>可以互相转化。 <span class=math>\[
+\vartheta=f(\mu)\\
+\mu=f^{−1}(\vartheta)\tag{8}
+\]</span> 这一点接下来会证明。</p>
+<p>由笔记<a href=概率统计随机过程之指数型分布族应用.md>概率统计随机过程之指数型分布族应用</a>可知，指数分散族的期望和方差可表达为： <span class=math>\[
+E[X]=b'(\vartheta)=\mu\tag{9}
+\]</span> <span class=math>\[
+\mathrm{Var}[X]=a(\phi)b''(\vartheta)\tag{10}
+\]</span> 从期望和方差的关系，我们能发现<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>也是一一对应关系。根据式（9）可知，<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>有函数关系，且由于<span class=math>\(b'(\vartheta)\)</span>的导数<span class=math>\(b''(\vartheta)\)</span>是方差（恒大于0）乘以一个已知数<span class=math>\(a(\phi)\)</span>（式（10）结论），因此<span class=math>\(b'(\vartheta)\)</span>的导数必然恒为正数或负数（取决于已知数<span class=math>\(a(\phi)\)</span>），即<span class=math>\(b'(\vartheta)\)</span>必为单调函数，而单调函数必存在反函数，推得必存在<span class=math>\(b'^{-1}\)</span>，使得<span class=math>\(\vartheta=b'^{-1}(\mu)\)</span>。因此<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>是一一对应的。</p>
+<p>我们定义配分函数<span class=math>\(b(\vartheta)\)</span>的二阶导数为<strong>方差函数</strong>(variance function)，方差函数是一个关于期望<span class=math>\(μ\)</span>的函数，即 <span class=math>\[
+b''(\vartheta)=\nu(μ)\tag{11}
+\]</span> 方差函数<span class=math>\(ν(μ)\)</span>存在两种情况：</p>
+<ol style=list-style-type:decimal>
+<li>方差函数是一个常量值，<span class=math>\(ν(μ)=b''(\vartheta)=C\)</span>，此时分布的方差与均值无关。典型的分布就是正态分布。</li>
+<li>方差函数是一个关于均值<span class=math>\(μ\)</span>的函数，<span class=math>\(ν(μ)=b''(\vartheta)\)</span>，此时分布的方差与均值有关。</li>
+</ol>
+<p>我们从一般的概率分布推导出指数族，然后其中的一个子集自然指数族，最后给它做一个变型的指数分散族，这么兜兜绕绕就是为了方便广义线性的计算与推导。</p>
+<h2 id=广义线性模型与指数型分布族核心>广义线性模型与指数型分布族（核心）</h2>
+<p>我们在前面提到了用概率的形式理解回归模型和指数型分布族，这两个概率论的概念其实是广义线性模型的核心，然而在实际应用中，不论是一般线性模型还是广义线性模型，都没有体现出概率的影子。概率论似乎从回归模型中消失了，这一节我们将概率论从幕后拖出来，展示其操作广义线性模型的真面目。</p>
+<p>我们在<a href=#从概率的角度解释回归>从概率的角度解释回归</a>章节中指出，根据参数估计形成的预测模型给出的预测值<span class=math>\(y_{pred}\)</span>实际上并不会和观测到的<span class=math>\(y_{obs}\)</span>(observation)完全一致。这其中的缘由主要有两点：</p>
+<ol style=list-style-type:decimal>
+<li>观测值<span class=math>\(y_{obs}\)</span>与对应的<span class=math>\(x_{obs}\)</span>并不是严格的函数关系，而是在某个与<span class=math>\(x_{obs}\)</span>相关的函数附近随机波动，即<span class=math>\(y_{obs}=f(x_{obs})+\varepsilon\)</span>，其中<span class=math>\(\varepsilon\)</span>是随机数，服从特定分布。但是，实际场景下<span class=math>\(f(x_{obs})\)</span>与<span class=math>\(\varepsilon\)</span>也不一定是相加的关系。</li>
+<li>我们的预测模型<span class=math>\(f(\cdot)\)</span>并不保证一定准确，模型的参数也是通过观测数据通过统计推断的形式如（最大似然估计、最大后验概率估计）得到的，而非精确推导。</li>
+</ol>
+<p>因此，我们认为响应变量<span class=math>\(y_{obs}\)</span>也服从带有特定参数的分布<span class=math>\(Y=P(y_{obs}|x_{obs})\)</span>，即<span class=math>\(y_{obs}\)</span>是个随机变量。然而，<span class=math>\(y_{obs}\)</span>不是一个独立的随机变量，它和<span class=math>\(x_{obs}\)</span>有着密切关系，我们可以把<span class=math>\(x_{obs}\)</span>看成<span class=math>\(Y\)</span>的分布参数。实际应用中，我们不会说给出<span class=math>\(Y\)</span>的分布当成<span class=math>\(y_{pred}\)</span>让用户或者系统使用，这样一是不好用，二是计算起来经常无法得到数值结果。所以我们有个自然而然的想法：<strong>使用一个代表性的数字来替代<span class=math>\(Y\)</span>的概率分布</strong>。</p>
+<p>那么，如果只选一个数字来代替整个概率分布，大家的第一反应基本都是<strong>期望</strong>。因此，我们在建立回归模型的时候，<strong>希望根据给定的<span class=math>\(x_{obs}\)</span>得到的预测值<span class=math>\(y_{pred}\)</span>等于<span class=math>\(Y\)</span>分布的条件期望<span class=math>\(E[Y|x_{obs}]\)</span></strong>。 <span class=math>\[
+\mu=E[Y|x_{obs}]=y_{pred}=f(x_{obs})\tag{12}
+\]</span> 式（12）是推导广义线性模型的核心。由于求概率的期望是一个抹除随机性的过程，因此在回归模型中，概率分布的痕迹被隐藏了起来。其中的<span class=math>\(f(\cdot)\)</span>就是要训练的广义线性模型。</p>
+<p>从函数的角度来看，<span class=math>\(x_{obs}\)</span>为自变量，<span class=math>\(f(\cdot)\)</span>为映射关系（广义线性模型），<span class=math>\(y_{pred}\)</span>为因变量，又称响应变量（Response variable）。从式（12）我们也可以看出，建立的广义线性模型其根据自变量计算得到的因变量，应等于随机变量<span class=math>\(Y\)</span>的期望。</p>
+<p>我们要解析广义线性模型，首先就要从<span class=math>\(Y\)</span>的分布谈起。经过之前章节的铺垫，我们应该已经猜到，<span class=math>\(Y\)</span><strong>是属于指数型分布族</strong>，即<span class=math>\(Y\sim P(y;\theta)\)</span>。这是有现实意义的，比如认为估计的连续型随机变量属于高斯分布、二分类型随机变量属于伯努利分布等等。同时，我们也认识到，之所以广义线性模型都属于指数型分布族只不过是因为我们人为地挑了容易研究的这类分布族罢了。<strong>所以，从因果关系上来讲，并非广义线性模型都使用指数型分布族，而是我们先选中指数型分布族，然后把符合这些分布族的模型命名为广义线性模型</strong>。</p>
+<p>虽说，<span class=math>\(P(y;\theta)\)</span>是指数型分布族，<strong>但是广义线性模型用到的指数族模型并不像式（5）那么复杂，而是属于自然指数族或指数分散族</strong>。由于自然指数族和指数分布族是等效的，且指数分散族更适合模型的推导，同时我们一般不对样本的重要性有区分，因此我们下文主要使用<span class=math>\(a(\phi)\)</span>为常函数的指数分散族的形式，如式（7.1）所示： <span class=math>\[
+p(x;\vartheta)=\exp\{\frac{\vartheta^T x-b(\vartheta)}{\phi}+c(x,\phi)\}\tag{7.1}
+\]</span> 为了区别观测数据<span class=math>\(x_{obs}\)</span>和式（7.1）pdf中的自变量<span class=math>\(x\)</span>，我们使用预测值<span class=math>\(y\)</span>替代式（7.1）中的<span class=math>\(x\)</span>，即 <span class=math>\[
+p(y;\vartheta)=\exp\{\frac{\vartheta^T y-b(\vartheta)}{\phi}+c(y,\phi)\}\tag{7.2}
+\]</span> <strong>此式（7.2）即为在下文中使用的广义线性模型概率分布表达式</strong>。</p>
+<p>根据公式（9）我们可知，给定<span class=math>\(\vartheta\)</span>的<span class=math>\(Y\)</span>的期望为配分函数<span class=math>\(b(\vartheta)\)</span>的一阶导数: <span class=math>\[
+E[Y;\vartheta]=b'(\vartheta)=\mu\tag{9.1}
+\]</span> 也就是说，我们使用期望<span class=math>\(b'(\vartheta)\)</span>来代表<span class=math>\(Y\)</span>的整个分布，并且也应是广义线性模型预测的结果<span class=math>\(y_{pred}\)</span>。需要指出的是，<span class=math>\(\vartheta\)</span>是<span class=math>\(x_{obs}\)</span>的函数（有确定关系），因此<span class=math>\(E[Y|x_{obs}]=E[Y|\vartheta]\)</span>。综合式（12）（9.1）我们有： <span class=math>\[
+b'(\vartheta)=\mu=y_{pred}=f(x_{obs})\\
+\Rightarrow b'(\vartheta)=f(x_{obs})\tag{13}
+\]</span> 从式（12）、式（9.1）、式（13）我们通过求期望的方式去除了<span class=math>\(Y\)</span>的随机性，得到了一个确定性的表达式，这也将概率统计的影子从广义线性模型中消去了。如果说还是留有概率分布的痕迹的话，那么就只有指数分散族的配分函数的导数<span class=math>\(b'(\vartheta)\)</span>还在其中。</p>
+<p>式（13）还说明我们<strong>要求的广义线性模型的表达式和配分函数的导数<span class=math>\(b'(\vartheta)\)</span>是存在密切关系的！</strong> 此外，我们在式（9）（10）的介绍中指出由于<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>是一一对应的，即存在反函数 <span class=math>\[\vartheta=b'^{-1}(\mu)\tag{14}\]</span> 这个式子将会把广义线性模型中的“线性”和指数型分布族联系起来。</p>
+<h3 id=线性的体现>线性的体现</h3>
+<p>我们前面说了指数型分布族、期望，甚至得到了自变量<span class=math>\(x_{obs}\)</span>与<span class=math>\(y_{pred}\)</span>的某种关系<span class=math>\(\mu=b'(\vartheta)=y_{pred}=f(x_{obs})\)</span>，然而还有一个关键点没有解决，那就是如何将概率分布的参数<span class=math>\(\vartheta\)</span>和<span class=math>\(x\)</span>观测值<span class=math>\(x_{obs}\)</span>联系起来。我们可以通过上式发现，<span class=math>\(\vartheta\)</span>和<span class=math>\(x_{obs}\)</span>是通过均值<span class=math>\(\mu\)</span>联系在一起的。而<span class=math>\(\vartheta\)</span>与<span class=math>\(\mu\)</span>的关系可以通过式（14）确定。然而，<span class=math>\(x_{obs}\)</span>与<span class=math>\(\mu\)</span>的关系还没有定下来。这也是广义“线性”模型中线性一词的由来，我们人为地设计一个<strong>线性预测器</strong>： <span class=math>\[
+\kappa=\beta^T x_{obs}+b\tag{15}
+\]</span> 即我们<strong>设定</strong>参数<span class=math>\(\kappa\)</span>是<span class=math>\(x_{obs}\)</span>的线性组合，<span class=math>\(x_{obs}\)</span>可以是标量也可以是向量。为了简洁性，通常会人为的为<span class=math>\(x\)</span>扩充一个一维常量值1，并且把截距参数<span class=math>\(b\)</span>算在<span class=math>\(β\)</span>中，这样上述线性函数可以写成向量內积的形式。 <span class=math>\[
+\kappa=\beta^T x_{obs}\tag{15.1}
+\]</span> 结合式（13）（14）我们可以得到 <span class=math>\[
+\mu=b'(\vartheta)=h(\kappa)\tag{16}
+\]</span> <span class=math>\[
+\vartheta=b'^{-1}(\mu)=b'^{-1}(h(\kappa))=b'^{-1}(h(\beta^T x_{obs}))\tag{17}
+\]</span> 根据式（13）的关系，显然有<span class=math>\(f(x_{obs})=h(\kappa)=h(\beta^T x_{obs})\)</span>。由于<span class=math>\(f\)</span>与<span class=math>\(h\)</span>之间自变量<span class=math>\(x_{obs},\beta^T x_{obs}\)</span>是线性变换，因此只要<span class=math>\(f(\cdot)\)</span>存在，那么一般情况下，<span class=math>\(h(\cdot)\)</span>必然存在。这样我们就得到了广义线性模型，我们使用式（16）来通过观测值<span class=math>\(x_{obs}\)</span>与<span class=math>\(\beta\)</span>的线性组合得到预测值<span class=math>\(y_{pred}=\mu\)</span>。而式（17）则表明了线性预测器<span class=math>\(\beta^T x_{obs}\)</span>与自然参数<span class=math>\(\vartheta\)</span>的关系。现在还有一个问题，就是函数关系<span class=math>\(h(\cdot)\)</span>是什么样的呢？</p>
+<h3 id=连接函数与激活函数>连接函数与激活函数</h3>
+<p>从式（16）（17）我们可以看出预测值（期望）和线性预测器之间的关系。我们将令 <span class=math>\(g(\mu)=h^{-1}(\mu)\)</span>称为<strong>连接函数（Link function）</strong>，之所以叫这个名字是因为它将线性预测器和最终的预测值（期望）联系到了一起，即 <span class=math>\[
+g(\mu)=h^{-1}\circ h(\beta^T x_{obs})=\beta^T x_{obs}=\kappa\tag{18}
+\]</span> 但是在实际使用中，连接函数并不常用，反倒是连接函数的反函数<span class=math>\(g^{-1}=h\)</span>更常见，因为我们可以用过<span class=math>\(g^{-1}(\beta^T x_{obs})\)</span>计算出广义线性模型的预测值<span class=math>\(y_{pred}\)</span>，我们称<span class=math>\(h=g^{-1}\)</span>为<strong>激活函数(Activation function)</strong>。 <span class=math>\[
+y_{pred}=g^{-1}(\kappa)=g^{-1}(\beta^T x_{obs})=h(\beta^ T x_{obs})\tag{19}
+\]</span> 显然，广义线性模型中<strong>通过线性预测器和激活函数就可以得到预测结果<span class=math>\(y_{pred}\)</span></strong>，而激活函数与连接函数是反函数的关系。现在，如果我们能知道连接函数，就可以完成整个广义线性模型了！</p>
+<p>那么现在就有一个问题，我们如何来确定连接函数呢？此外，也引出另一个问题:连接函数是唯一的吗？我们先回答后一个问题，即连接函数并不是唯一的。下面我们讨论如何找连接函数<span class=math>\(g\)</span>。</p>
+<p>前面我们提到过<span class=math>\(\vartheta\)</span>是<span class=math>\(x_{obs}\)</span>的函数（有确定关系），且有<span class=math>\(E[Y|x_{obs}]=E[Y|\vartheta]=\mu=h(x_{obs})\)</span>，因此本质上期望<span class=math>\(\mu\)</span>也是一个关于<span class=math>\(x_{obs}\)</span>的函数。那么，式（18）可简写成 <span class=math>\[
+g(\mu)=\beta^T x_{obs}\tag{18.1}
+\]</span> 这是一个比较有意思的式子，左右两边根源自变量都是<span class=math>\(x_{obs}\)</span>。那么连接函数<span class=math>\(g\)</span>就必须要满足2个条件：</p>
+<ol style=list-style-type:decimal>
+<li>由于<span class=math>\(\beta^T x_{obs}\)</span>的取值可能是整个实数域，但是期望<span class=math>\(\mu\)</span>是有范围的，比如泊松分布的均值必大于0，即<span class=math>\(\mu\in (0,+\infty)\)</span>，因此<span class=math>\(g\)</span>必须将<span class=math>\(\mu\)</span>的取值范围映射到整个实数域，这称为<strong>定义域要求</strong>。连接函数本质上，就是把实数域范围的<span class=math>\(\beta^T x_{obs}\)</span>转换到特定分布合法的<span class=math>\(\mu\)</span>值空间上。</li>
+<li>此外，我们希望<span class=math>\(g\)</span>是可逆的（可微且严格单调），这样<span class=math>\(\mu\)</span>与<span class=math>\(\beta^T x_{obs}\)</span>就有了一一对应的关系，这是因为函数一旦不可逆<span class=math>\(\beta^T x_{obs}\)</span>就可能求出多个预测值，这显然是不符合实际情况的，这称为<strong>可逆要求</strong>。</li>
+</ol>
+<p>满足以上2点，就可以初步得到一个连接函数。可以看出，上面2个要求还是相对宽泛的，不同的映射可能得到不同的线性关系组合即<span class=math>\(\beta_1^Tx_{obs},\beta_2^Tx_{obs},\dotsb\)</span>，这些都满足连接函数的要求，也就是说满足定义域映射关系的可逆函数都可以作为连接函数，因此<strong>连接函数并不是唯一的</strong>。</p>
+<p>举两个例子：</p>
+<p>一：伯努利分布，我们知道其期望<span class=math>\(\mu\in(0,1)\)</span>，那么连接函数<span class=math>\(g\)</span>应该能够将定义域为<span class=math>\((0,1)\)</span>的范围映射到整个实数域<span class=math>\(\R\)</span>，那么下面三个连续单调函数（可逆）都可以满足：</p>
+<ol style=list-style-type:decimal>
+<li>Logit：<span class=math>\(\log(\frac{\mu}{1-\mu})\)</span>；</li>
+<li>Probit：<span class=math>\(\varPhi^{-1}(\mu)\)</span>，其中<span class=math>\(\varPhi^{-1}\)</span>是正态分布概率累计函数的反函数，实际上在伯努利分布中，任意定义域为<span class=math>\(\R\)</span>的概率累计函数的反函数都可以作为连接函数；</li>
+<li>互补Log-Log：<span class=math>\(\log(-\log(1-\mu))\)</span></li>
+</ol>
+<p>可以验证以上三个函数都可以将<span class=math>\(\mu\in(0,1)\)</span>映射到实数域<span class=math>\(\R\)</span>。</p>
+<p>二：泊松分布，泊松分布的期望值<span class=math>\(\mu>0\)</span>，那么连接函数<span class=math>\(g\)</span>需要将定义域<span class=math>\((0,\infty)\)</span>的范围映射到整个实数域<span class=math>\(\R\)</span>，那么下面两个连续单调函数（可逆）都可以满足：</p>
+<ol style=list-style-type:decimal>
+<li>Log函数：<span class=math>\(\log(\mu)\)</span>;</li>
+<li>初等函数：<span class=math>\(\mu-\frac{1}{\mu}\)</span>，虽然此函数在全局并不是连续单调的，但是在<span class=math>\(\mu>0\)</span>时是全局单调的，存在反函数<span class=math>\(y=\frac{x+\sqrt{x^2+4}}{2}\)</span>。</li>
+</ol>
+<p>既然连接函数并不是唯一的，那么我们就要从中选出最为合适的连接函数。下一节，我们介绍一个比较常用的连接函数选择方式：<strong>标准连接函数</strong>。</p>
+<h3 id=标准连接>标准连接</h3>
+<p>我们之前说个，连接函数并不是唯一的，那么选择哪一个连接函数比较好呢？这里我们推荐一种<strong>比较自然的选择</strong>，注意只是说比较自然，但不一定是最合适的，在不同场景下某些连接函数确实表现地比其他连接函数更好。</p>
+<p><strong>所谓比较自然的选择，就是选择连接函数使得<span class=math>\(g(\mu)=\vartheta=\beta^Tx_{obs}\)</span>。首先，<span class=math>\(\vartheta\)</span>的取值范围就是<span class=math>\(\R\)</span>，因此可以当成连接函数的值域，同时，我们也能保证常见情景下，这样选择的连接函数是可逆的（可用指数型分布族配分函数的二阶导数含义证明）。选择标准连接函数的一大优势就是可以极大地简化数学运算，非常契合广义线性模型的最大似然估计，我们在下一章节会详细讨论这个问题，这里先记住这个结论</strong>。</p>
+<p>根据式（16）与标准连接函数的条件<span class=math>\(g(\mu)=\vartheta=\beta^Tx_{obs}\)</span>可以推出： <span class=math>\[
+g(\mu)=g(b'(\vartheta))=\vartheta\tag{20}
+\]</span> 其中，<span class=math>\(\vartheta\)</span>经过两次变换<span class=math>\(g\circ b'\)</span>又变回了<span class=math>\(\vartheta\)</span>，显然有<span class=math>\(g\circ b'\)</span>为恒等变换，那么<span class=math>\(g\)</span>与<span class=math>\(b'\)</span>就互为反函数！即有 <span class=math>\[
+g^{-1}=b'\tag{21}
+\]</span> 这样我们的标准连接函数就可以根据指数型分布族的配分函数<span class=math>\(b'(\vartheta)\)</span>的反函数推得了！我们终于不用再在一堆连接函数中盲目地搜索、构造，只需要通过<span class=math>\(b'(\vartheta)\)</span>就能求得。同时，我们知道，激活函数与连接函数也是互为反函数，那么根据式（21）的关系也不难发现： <span class=math>\[
+b'=h\tag{22}
+\]</span> <strong>指数型分布族的配分函数的一阶导数正好就是激活函数的形式</strong>！我们最终得到了一个既简洁又优美的结果！</p>
+<p>下表列出了常用广义线性模型的配分函数、激活函数、连接函数以及典型使用场景。注：在自然指数族中，我们只允许充分统计量<span class=math>\(T(x)=x\)</span>，在其他文献中有别的设置方式，因此标准连接函数会略有所不同，大多数只是系数的差别。</p>
+<table>
+<thead>
+<tr class=header>
+<th align=center>分布</th>
+<th align=center>一般形式</th>
+<th align=center>原参数与自然参数、分散参数关系</th>
+<th align=center>指数分散族形式</th>
+<th align=center>使用场景</th>
+<th align=center>配分函数<span class=math>\(b(\vartheta)\)</span></th>
+<th align=center>激活函数<span class=math>\(\mu=b'(\vartheta)=g^{-1}(\vartheta)\)</span></th>
+<th align=center>连接函数<span class=math>\(\beta^Tx=b'^{-1}(\mu)=g(\mu)\)</span></th>
+<th align=center>分布的支撑</th>
+</tr>
+</thead>
+<tbody>
+<tr class=odd>
+<td align=center>正态分布<br>已知<span class=math>\(\sigma\)</span></td>
+<td align=center><span class=math>\(\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\mu\\\phi=\sigma^2\)</span></td>
+<td align=center><span class=math>\(\exp\{\frac{\vartheta x}{\phi}-\frac{\vartheta^2}{2\phi}-[\frac{x^2}{2\phi}+\ln(\sqrt{2\pi\phi})]\}\)</span></td>
+<td align=center>随机误差服从正态分布，一般线性回归</td>
+<td align=center><span class=math>\(\frac{1}{2}\vartheta^2\)</span></td>
+<td align=center><span class=math>\(\mu=\vartheta\)</span></td>
+<td align=center><span class=math>\(\vartheta=\mu\)</span></td>
+<td align=center><span class=math>\((-\infty,+\infty)\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>逆高斯分布<br>已知<span class=math>\(\lambda(>0)\)</span></td>
+<td align=center><span class=math>\(\sqrt{\frac{\lambda}{2\pi x^3}}e^{-\frac{\lambda(x-\mu)^2}{2\mu^2x}}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\frac{1}{2\mu^2}\\\phi=-\frac{1}{\lambda}&lt;0\)</span></td>
+<td align=center><span class=math>\(\exp\{\frac{\vartheta x}{\phi}-\frac{\sqrt{2\vartheta}}{\phi}+(\frac{1}{2\phi x}+\ln(\sqrt{\frac{-1}{2\pi\phi x^3}}))\}\)</span></td>
+<td align=center>逆高斯分布描述的是布朗运动中到达固定距离所需时间的分布</td>
+<td align=center><span class=math>\(\sqrt{2\vartheta}\)</span></td>
+<td align=center><span class=math>\(\mu=(2\vartheta)^{-1/2}\)</span></td>
+<td align=center><span class=math>\(\vartheta=(2\mu^2)^{-1}\)</span></td>
+<td align=center><span class=math>\((0,+\infty)\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center>伯努利分布</td>
+<td align=center><span class=math>\(p^x(1-p)^{1-x}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln\frac{p}{1-p}\\\phi=1\)</span></td>
+<td align=center><span class=math>\(\exp\{\vartheta x-\ln(1+e^{\vartheta})\}\)</span></td>
+<td align=center>典型的二选一，比如抛硬币</td>
+<td align=center><span class=math>\(\ln(1+e^\vartheta)\)</span></td>
+<td align=center><span class=math>\(\mu=\frac{1}{1+e^{-\vartheta}}\)</span>又称sigmoid函数</td>
+<td align=center><span class=math>\(\vartheta=\ln\frac{\mu}{1-\mu}\)</span></td>
+<td align=center><span class=math>\(\{0,1\}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>二项分布(已知<span class=math>\(n\)</span>)</td>
+<td align=center><span class=math>\(C_n^xp^x(1-p)^{n-x}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln\frac{p}{1-p}\\\phi=1\)</span></td>
+<td align=center><span class=math>\(\exp\{\vartheta x-n\ln(1+e^\vartheta)+\ln C_n^x\}\)</span></td>
+<td align=center>在n次尝试中，概率为<span class=math>\(p\)</span>的事件出现<span class=math>\(x\)</span>次的概率</td>
+<td align=center><span class=math>\(n\ln(1+e^\vartheta)\)</span></td>
+<td align=center><span class=math>\(\mu=\frac{n}{1+e^{-\vartheta}}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln\frac{\mu}{n-\mu}\)</span></td>
+<td align=center><span class=math>\(\{0,1,\dotsb,n\}\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center>负二项分布(已知成功次数<span class=math>\(r\)</span>)</td>
+<td align=center><span class=math>\(C_{r+x-1}^{r-1} p^r(1-p)^{x}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln(1-p)\\\phi=1\)</span></td>
+<td align=center><span class=math>\(\exp\{\vartheta x+r\ln(1-e^\vartheta)+\ln C_{r+x-1}^{r-1}\}\)</span></td>
+<td align=center>在成功次数为<span class=math>\(r\)</span>时，失败次数的分布，第<span class=math>\(r\)</span>次必然是成功的</td>
+<td align=center><span class=math>\(-r\ln(1-e^\vartheta)\)</span></td>
+<td align=center><span class=math>\(\mu=\frac{re^\vartheta}{1-e^\vartheta}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln\frac{\mu}{r+\mu}\)</span></td>
+<td align=center><span class=math>\(\{0,1,2,\dotsb\}\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>泊松分布</td>
+<td align=center><span class=math>\(e^{-\lambda}\frac{\lambda^x}{x!}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln\lambda\\\phi=1\)</span></td>
+<td align=center><span class=math>\(\exp\{\vartheta x-e^\vartheta-\ln(x!)\}\)</span></td>
+<td align=center>表示在单位时间内，项目出现次数的概率分布，广泛应用于排队论</td>
+<td align=center><span class=math>\(e^\vartheta\)</span></td>
+<td align=center><span class=math>\(\mu=e^\vartheta\)</span></td>
+<td align=center><span class=math>\(\vartheta=\ln\mu\)</span></td>
+<td align=center><span class=math>\(\{0,1,2,\dotsb\}\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center>指数分布</td>
+<td align=center><span class=math>\(\lambda e^{-\lambda x}\)</span></td>
+<td align=center><span class=math>\(\vartheta=\lambda\\\phi=-1\)</span></td>
+<td align=center><span class=math>\(\exp\{\frac{\vartheta x-\ln\lambda}{-1}\}\)</span></td>
+<td align=center>基础分布，用途广泛</td>
+<td align=center><span class=math>\(\ln\vartheta\)</span></td>
+<td align=center><span class=math>\(\mu=1/\vartheta\)</span></td>
+<td align=center><span class=math>\(\vartheta=1/\mu\)</span></td>
+<td align=center><span class=math>\((0,+\infty)\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>GAMMA分布(已知<span class=math>\(k>0\)</span>)</td>
+<td align=center><span class=math>\(\frac{1}{\theta ^{k}\Gamma (k)}x^{k-1}e^{-x/\theta }\)</span></td>
+<td align=center><span class=math>\(\vartheta=1/\theta\\\phi=-1\)</span></td>
+<td align=center><span class=math>\(\exp\{\frac{\vartheta x-k\ln\vartheta}{-1}+(k-1)\ln x-\ln\Gamma(k)\}\)</span></td>
+<td align=center>可看成是指数分布的加和，具有可加性</td>
+<td align=center><span class=math>\(k\ln\vartheta\)</span></td>
+<td align=center><span class=math>\(\mu=k/\vartheta\)</span></td>
+<td align=center><span class=math>\(\vartheta=k/\mu\)</span></td>
+<td align=center><span class=math>\((0,+\infty)\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center>分类分布(共<span class=math>\(m\)</span>个分类)</td>
+<td align=center><span class=math>\(\prod_{i=1}^m\theta_i^{x_i}\\\sum_i\theta_i=1\\\sum_i x_i=1\)</span></td>
+<td align=center><span class=math>\(\vartheta=\begin{bmatrix}\ln(\theta_1/\theta_m)\\\ln(\theta_2/\theta_m)\\\vdots\\\ln(\theta_{m-1}/\theta_m)\\\ln(\theta_m/\theta_m)\end{bmatrix}\\\phi=1\)</span></td>
+<td align=center><span class=math>\(\exp\{\vartheta x-\ln\sum_{i=1}^me^{\vartheta_i}\}\)</span></td>
+<td align=center>伯努利分布的拓展，多个当中只有一个发生</td>
+<td align=center><span class=math>\(\ln\sum_{i=1}^me^{\vartheta_i}\)</span></td>
+<td align=center><span class=math>\(\mu_i=\frac{e^\vartheta_i}{\sum_{i=1}^me^{\vartheta_i}}\)</span></td>
+<td align=center><span class=math>\(\vartheta_i=\ln\frac{\vartheta_i}{\vartheta_m}\)</span></td>
+<td align=center><span class=math>\(\{1,2,\dotsb,k\}\)</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id=广义线性模型的参数关系>广义线性模型的参数关系</h3>
+<p>我们在上表中，可以看出广义线性模型的表达式等于激活函数，即<span class=math>\(f_{GLM}(x)=g^{-1}(\beta^T x)\)</span>，如果我们梳理一下上面的内容，可总结出广义线性模型的三大组成部分。</p>
+<ol style=list-style-type:decimal>
+<li>一个指数族分布(指数分散族)作为响应变量<span class=math>\(Y\)</span>概率分布<span class=math>\(p(Y;\vartheta)\)</span>，被称为随机组件(random component)。</li>
+<li>一个线性预测器<span class=math>\(\vartheta=β^Tx_{obs}\)</span>，被称为系统组件(systematic component)。</li>
+<li>一个连接函数<span class=math>\(g\)</span>使得<span class=math>\(E[Y]=\mu=g(\vartheta)=g(\beta^T x_{obs})\)</span>，描述了随机组件和系统组件之间的关系。</li>
+</ol>
+<p>用图像表达他们的关系为（假设使用标准连接函数）：</p>
+<div class=figure>
+<img src=../../images/广义线性分布关系图.drawio.svg alt=广义线性分布关系图><p class=caption>广义线性分布关系图</p>
+</div>
+<p>先从图坐往右看，待定参数<span class=math>\(\beta\)</span>与观测值<span class=math>\(x_{obs}\)</span>组成线性预测期，其结果为指数分散族的参数<span class=math>\(\vartheta\)</span>，且其分散参数<span class=math>\(\phi\)</span>已知。由于指数分散族和常使用的一般概率分布表达式是可以相互转换的，我们也可以得到原参数<span class=math>\(\theta\)</span>和自然参数<span class=math>\(\vartheta\)</span>的转换关系，可以证明它们是一一对应的。</p>
+<p>再从图右往左看，由于观测结果<span class=math>\(y_{obs}\)</span>与<span class=math>\(x_{obs}\)</span>存在相关性，而非确定函数关系，我们认为其<span class=math>\(y_{obs}\)</span>服从特定的分布，我们认为这种分布是指数型分布族（指数分散族），因此可以用<span class=math>\(P(y;\vartheta)\)</span>来表达<span class=math>\(y_{obs}\)</span>的分布，用随机变量<span class=math>\(Y\)</span>表示。当然，这个随机变量也可以用原始参数的概率分布<span class=math>\(P(y;\theta)\)</span>表示。但是，在实际使用中，我们更希望得到一个具体值，而非一个分布，因此我们应使用最具代表性的值——期望<span class=math>\(\mu\)</span>来表示分布，即期望应等于广义线性模型的预测值<span class=math>\(\mu=y_{pred}\)</span>。同时，指数分散族有一个非常好的性质，其配分函数的导数<span class=math>\(b'(\vartheta)\)</span>正好等于期望<span class=math>\(\mu\)</span>。而原始参数的概率分布<span class=math>\(P(y;\theta)\)</span>与期望<span class=math>\(\mu\)</span>的关系<span class=math>\(\varphi(\theta)\)</span>则需要根据具体情况计算，因此在广义线性模型中不太常用。</p>
+<p>由于<span class=math>\(\mu\)</span>和线性预测期直接不是相等关系，需要一个桥梁，即连接函数<span class=math>\(g(\mu)\)</span>，它阐述了期望和线性预测期之间的关系：<span class=math>\(g(\mu)=\vartheta=\beta^T x_{obs}\)</span>。我们可以证明这个连接函数必存在反函数<span class=math>\(g^{-1}\)</span>，这样我们就可以使用这个反函数来预测结果，即<span class=math>\(g^{-1}(\vartheta)=g^{-1}(\beta^T x)\)</span>。我们将这个反函数称之为激活函数。最后我们发现配分函数的导数<span class=math>\(b'(\vartheta)\)</span>与激活函数<span class=math>\(g^{-1}(\vartheta)\)</span>有着一样的作用，因此我们得到激活函数就是配分函数的导数，即<span class=math>\(b'=g^{-1}\)</span>。它们就是广义线性模型的函数<span class=math>\(f(x_{obs})=b'(\beta^T x_{obs})=g^{-1}(\beta^T x_{obs})\)</span>。</p>
+<h2 id=广义线性模型的最大似然估计>广义线性模型的最大似然估计</h2>
+<p>本笔记的最后分两步，首先我们将说明使用标准连接函数时，使用最大似然估计方法我们可以得到非常简洁的解析结果；然后我们将首位呼应，回收文章开头引子中提出的疑问。</p>
+<h3 id=标准连接函数下的广义线性模型最大似然估计>标准连接函数下的广义线性模型最大似然估计</h3>
+<p>最大似然估计是广义线性模型中参数估计的一般方法，其目的是最大化似然函数，具体细节可参考笔记<a href=概率统计随机过程之最大似然估计拓展.md>《概率统计随机过程之最大似然估计拓展.md》</a>。其模型通常假设如下：我们有一组<span class=math>\(n\)</span>个观测值<span class=math>\((x_i,y_i)\in(\R^p\times \R),i=1,2,\dotsb,n\)</span>，其中<span class=math>\(x_i\)</span>是一个<span class=math>\(p\)</span>维向量，<span class=math>\(y_i\)</span>是观测结果是一个实数。观测值<span class=math>\(x_i\)</span>会影响到广义线性模型的参数<span class=math>\(\vartheta\)</span>，或者说<span class=math>\(\vartheta\)</span>是<span class=math>\(x_i\)</span>的函数，即<span class=math>\(\vartheta=\vartheta(x_i)\)</span>。在最大似然估计中，我们假设各个观测值之间是独立的，那么每一个观测值发生的概率即为： <span class=math>\[
+p(y_i)=\exp\{\frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)\}\tag{23}
+\]</span> 显然，观测值<span class=math>\(x_i\)</span>通过其因变量<span class=math>\(\vartheta(x_i)\)</span>影响概率与期望，<span class=math>\(x_i\)</span>给定时<span class=math>\(\vartheta\)</span>也确定，然后<span class=math>\(b(\vartheta)\)</span>及其一阶导数也确定了，最终可以确定<span class=math>\(\mu=b'(\vartheta)\)</span>。我们先将独立的观测值相乘取<span class=math>\(log\)</span>得到对数似然函数： <span class=math>\[
+\begin{aligned}
+l_n(\vartheta(X);Y)&=\log \prod_{i=1}^n \exp\{\frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)\}\\
+&=\sum_{i=1}^n \frac{\vartheta(x_i)y_i-b(\vartheta(x_i))}{\phi}+c(y_i,\phi)
+\end{aligned}\tag{24}
+\]</span> 下面我们根据参数<span class=math>\(\vartheta\)</span>，期望<span class=math>\(\mu\)</span>、线性预测器<span class=math>\(\beta^T x_i\)</span>以及连接函数<span class=math>\(g\)</span>之间的关系对式（24）进行变形： <span class=math>\[
+\left .\begin{aligned}
+式(9.1)\Rightarrow \vartheta=b'^{-1}(\mu)\\
+式(18.1)\Rightarrow \mu=g^{-1}(\beta^T x_i)
+\end{aligned}\right\}\Rightarrow \vartheta(x_i) = b'^{-1}\circ g^{-1}(\beta^T x_i)\\
+\Rightarrow \vartheta(x_i)=(g\circ b')^{-1}(\beta^T x_i)\tag{25}
+\]</span> 上式集中体现了<span class=math>\(\vartheta\)</span>与<span class=math>\(x_i\)</span>之间的关系，代入式（24）可将变量<span class=math>\(\vartheta(x_i)\)</span>替换成<span class=math>\(\beta\)</span>： <span class=math>\[
+l_n(\beta;Y;X)=\sum_{i=1}^n \frac{(g\circ b')^{-1}(\beta^T x_i)y_i-b[(g\circ b')^{-1}(\beta^T x_i)]}{\phi}+c(y_i,\phi)\tag{26}
+\]</span> 在场景中，<span class=math>\((x_i,y_i)\)</span>都是已经获得的观测值，只有参数<span class=math>\(\beta\)</span>是未知的，最大似然估计就是求<span class=math>\(\beta\)</span>使得对数似然函数（等效于似然函数）最大。</p>
+<p>一般情况下，式（26）的计算并不是平凡的，但是如果我们选用<strong>标准连接函数</strong>，这个式子就能得到极大简化！<strong>根据式（21）有：<span class=math>\(g=b'^{-1}\)</span>，这使得式（26）中的函数复合<span class=math>\(g\circ b'=I\)</span>，即二者抵消，是一个恒等变换</strong>！此时，式（26）可简化为： <span class=math>\[
+l_n(\beta;Y;X)=\sum_{i=1}^n \frac{\beta^T x_iy_i-b(\beta^T x_i)}{\phi}+c(y_i,\phi)\tag{26.1}
+\]</span> 其中，<span class=math>\(\beta^T x_iy_i\)</span>是一个简单的线性函数；由式（10）可知<span class=math>\(b(\beta^T x_i)\)</span>二阶导海森矩阵正定是一个严格凸函数；而最后的<span class=math>\(c(y_i,\phi)\)</span>与<span class=math>\(\beta\)</span>无关，求导时不造成影响。<strong>这使得采取标准连接函数的最大似然估计可以通过凸优化的方法求得唯一极值</strong>，大大简化优化流程，免除了函数复合<span class=math>\(g\circ b'\)</span>在求导计算中复杂情形，这也是我们愿意选用标准连接函数的<strong>核心原因</strong>。</p>
+<p>附标准连接函数下最大似然估计的一二阶导数：</p>
+<p>一阶导数： <span class=math>\[
+\nabla_\beta l_n(\beta;Y;X)=\sum_{i=1}^n \frac{y_ix_i-b'(\beta^T x_i)x_i}{\phi};x_i\in \R^p\tag{27}
+\]</span> 二阶导数： <span class=math>\[
+\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n\frac{-b''(\beta^T x_i)x_ix_i^T}{\phi};x_i\in\R^p;x_i x_i^T \text{positive definite}\tag{28}\\
+\forall y\neq 0\in \R^p\quad y^T x_i x_i^T y=(x_i^T y)^T (x_i^Ty)>0
+\]</span></p>
+<h4 id=logistics回归优化举例>Logistics回归优化举例</h4>
+<p>伯努利分布又叫两点分布或者0-1分布，是最简单的概率分布形式之一，其对应的广义线性模型就是Logistics回归，即二项分类。常见伯努利分布写成： <span class=math>\[
+p(y;\theta)=\theta^y(1-\theta)^{1-y},y\in\{0,1\},\theta\in[0,1]
+\]</span> 转写为指数型分布族形式为： <span class=math>\[
+\begin{aligned}
+p(y;\theta)&=\exp\{y\ln{\theta}+(1-y)\ln{(1-\theta)}\}\\
+&=\exp\{y\ln(\frac{\theta}{1-\theta})+\ln{(1-\theta)}\}
+\end{aligned}
+\]</span> 令<span class=math>\(\vartheta=\ln(\frac{\theta}{1-\theta})\)</span>将其转换成指数分散族： <span class=math>\[
+p(y;\vartheta)=\exp\{y\vartheta-\log(1+e^\vartheta)\}
+\]</span> 其<span class=math>\(n\)</span>个观测值组成的对数似然函数为： <span class=math>\[
+l_n(\vartheta(X);Y)=\sum_{i=1}^n (y_i\vartheta(x_i)-\log(1+e^{\vartheta(x_i)}))
+\]</span> 我们采用标准连接函数： <span class=math>\[
+\vartheta(x_i)=\beta^T x_i
+\]</span> 则对数似然函数可写为： <span class=math>\[
+l_n(\beta;Y;X)=\sum_{i=1}^n (\beta^T x_iy_i-\log(1+e^{\beta^Tx_i}))
+\]</span> 对<span class=math>\(\beta\)</span>求一阶，二阶导数分别为： <span class=math>\[
+\nabla_\beta l_n(\beta;Y;X)=\sum_{i=1}^n (y_ix_i-\frac{e^{\beta^Tx_i}}{1+e^{\beta^T x_i}}x_i);x_i\in \R^p\\
+H_{l_n}(\beta)=\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n \frac{e^{\beta^Tx_i}}{(1+e^{\beta^T x_i})^2}x_ix_i^T;x_i\in\R^p;
+\]</span> 注意，<span class=math>\(x_ix_i^T\)</span>是由向量张成的矩阵。那么根据牛顿法，其优化迭代步骤为： <span class=math>\[
+\beta^{(k+1)}=\beta^{(k)}-H_{l_n}(\beta^{(k)})^{-1}\nabla_\beta l_n(\beta^{(k)};Y;X)
+\]</span></p>
+<h4 id=补充牛顿法的简化方法之一fisher分数法>补充：牛顿法的简化方法之一Fisher分数法</h4>
+<p>由于计算海森矩阵求和这一步很繁琐，因此我们可以用期望来替代求和操作（具体原理参见笔记<a href=概率统计随机过程之最大似然估计拓展.md>概率统计随机过程之最大似然估计拓展</a>中最大似然估计与相对熵（KL散度）、交叉熵的等价性那一节）。因此有： <span class=math>\[
+H_{l_n}(\beta)=\nabla^2_\beta l_n(\beta;Y;X)=\sum_{i=1}^n\frac{-b''(\beta^T x_i)x_ix_i^T}{\phi}\\
+\simeq E[H_{l_n}(\beta)]=-I(\beta)
+\]</span> 其中，<span class=math>\(I(\beta)\)</span>是Fisher信息量。所以海森矩阵也可以被Fisher信息矩阵替代，即为： <span class=math>\[
+\beta^{(k+1)}=\beta^{(k)}+I(\beta^{(k)})^{-1}\nabla_\beta l_n(\beta^{(k)};Y;X)
+\]</span> 这种方法称为Fisher分数法，这算是一种近似的拟牛顿法，其收敛速度和牛顿法相近，但是计算量降低。</p>
+<h3 id=回答引子的疑问最大似然估计形势下的迭代优化>回答引子的疑问，最大似然估计形势下的迭代优化</h3>
+<p>还记得在文章开头时的引子吗？</p>
+<blockquote>
+<p>如果刚学完线性回归和Logistics回归，那么是否会注意到，二者的梯度更新步骤都是(虽然<span class=math>\(h_{\vec\theta}(\vec x^{(i)})\)</span>的定义不同)： <span class=math>\[
+\theta_j=\theta_j-\alpha(h_{\vec\theta}(\vec x^{(i)})-y^{(i)})x_j^{(i)}\\
+h_{\vec\theta}(\vec x^{(i)})=\begin{cases}
+\vec{\theta}^T \vec{x},\quad线性回归\\
+\frac{1}{1+e^{-\vec{\theta}^T \vec{x}}},\quad Logistics回归\end{cases}
+\]</span> 其中，<span class=math>\(\vec\theta, \vec x^{(i)}\)</span>分别是参数向量，第<span class=math>\(i\)</span>个观测数据的向量。下标<span class=math>\(j\)</span>表示第<span class=math>\(j\)</span>个分量，<span class=math>\(\alpha\)</span>表示更新的步长。</p>
+</blockquote>
+<p>这一是因为我们通过指数型分布族（指数分散族）给出了广义线性模型响应变量<span class=math>\(Y\)</span>的统一形式，第二点就是由于我们使用的是最大似然估计，它的似然函数求导步骤与指数分散族非常契合。<strong>实际上引子中的例子就是使用标准连接函数时一阶导数的应用</strong>。在梯度下降法中，通用的迭代公式为： <span class=math>\[
+\theta_j=\theta_j-\alpha\frac{\partial }{\partial \theta_j}L(\theta)
+\]</span> 代入式（27）即为(变量<span class=math>\(\beta\)</span>替换为<span class=math>\(\theta\)</span>，另外最大似然估计要变成最小化损失函数，加个负号): <span class=math>\[
+\theta=\theta-\alpha\sum_{i=1}^n -\frac{y_ix_i-b'(\theta^T x_i)x_i}{\phi}=\theta-\alpha\sum_{i=1}^n(b'(\theta^T x_i)-y_i)x_i/\phi
+\]</span> 其中，<span class=math>\(b'(\theta^T x_i)\)</span>写成激活函数形式为<span class=math>\(h_{\vec\theta}(\vec x^{(i)})\)</span>，采用单步迭代不需要求和<span class=math>\(\sum\)</span>，如果分散系数为1，那么最终结果的各维度分量就是引子中的形式。</p>
+<h2 id=广义线性模型的求解irls算法>广义线性模型的求解（IRLS算法）</h2>
+<p>通常情况下，如果我们不考虑计算的复杂程度，广义线性模型可以使用梯度下降法或者牛顿进行求解。在这里，我们介绍一种广义线性模型的较常用的优化算法Iteratively Re-wighted Least Squares算法。这个算法能够将循环求和运算变换成矩阵运算，提供一个较为整体化的便捷计算形式。</p>
+<p>TODO</p>
+<h2 id=参考文献>参考文献</h2>
+<ol style=list-style-type:decimal>
+<li><a href=https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2>https://zhangzhenhu.github.io/blog/glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2</a></li>
+<li><a href="https://www.youtube.com/watch?v=mc1y8m9-hOM&list=PLUl4u3cNGP60uVBMaoNERc6knT_MgPKS0&index=21">https://www.youtube.com/watch?v=mc1y8m9-hOM&list=PLUl4u3cNGP60uVBMaoNERc6knT_MgPKS0&index=21</a></li>
+</ol>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

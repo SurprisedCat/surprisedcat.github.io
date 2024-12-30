@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>强化学习 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</link><description>Recent content in 强化学习 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 10 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml"/><item><title>强化学习之价值函数近似与DQN</title><link>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0%E8%BF%91%E4%BC%BC%E4%B8%8Edqn/</link><pubDate>Mon, 10 May 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8B%E4%BB%B7%E5%80%BC%E5%87%BD%E6%95%B0%E8%BF%91%E4%BC%BC%E4%B8%8Edqn/</guid><description>
+&lt;h2 id="强化学习之价值函数近似与dqn">强化学习之价值函数近似与DQN&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>强化学习中的&lt;strong>查表法只适用于规模较小的问题&lt;/strong>。生活中有许多实际问题要复杂得多，有些是属于状态数量巨大甚至是连续的，有些行为数量较大或者是连续的。这些问题要是使用SARSA，DP，Q-learning等基本算法效率会很低，甚至会无法得到较好的解决。因此需要用价值函数近似求解那些状态数量多或者是连续状态的强化学习问题。&lt;/p></description></item><item><title>强化学习之DP,MC,TD</title><link>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8Bdpmctd/</link><pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E4%B9%8Bdpmctd/</guid><description>
+&lt;h2 id="强化学习之-dpmctd">强化学习之 DP、MC、TD&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>转载自：Yunhui1998 &lt;a href="https://github.com/Yunhui1998/How-do-I-learn-RL/blob/main/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%20DP%E3%80%81MC%E3%80%81TD.md">https://github.com/Yunhui1998/How-do-I-learn-RL/blob/main/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%20DP%E3%80%81MC%E3%80%81TD.md&lt;/a>&lt;/p>
+&lt;h2 id="动态规划dp蒙特卡罗mc时间差分td">动态规划（DP）、蒙特卡罗（MC）、时间差分（TD）&lt;/h2>
+&lt;h3 id="dynamic-programming利用贝尔曼方程迭代">Dynamic Programming（利用贝尔曼方程迭代）&lt;/h3>
+&lt;div class="figure">
+&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200827193937569.png" alt="image-20200827193937569" />&lt;p class="caption">image-20200827193937569&lt;/p>
+&lt;/div>
+&lt;p>​ 其实可以把MC、TD都理解成DP的一种近似，只不过降低了计算复杂度以及削弱了对环境模型完备性的假设。&lt;/p>
+&lt;ul>
+&lt;li>&lt;p>&lt;a href="https://sites.google.com/a/chaoskey.com/algorithm/03/03">动态规划的使用条件&lt;/a>：&lt;/p>&lt;/li>
+&lt;li>最优化原理：如果问题的最优解所包含的子问题的解也是最优的，就称该问题具有最优子结构，即满足最优化原理。&lt;/li>
+&lt;li>&lt;p>无后效性：即某阶段状态一旦确定，就不受这个状态以后决策的影响。也就是说，某状态以后的过程不会影响以前的状态，只与当前状态有关。&lt;/p>&lt;/li>
+&lt;li>&lt;p>有重叠子问题：即子问题之间是不独立的，一个子问题在下一阶段决策中可能被多次使用到。（&lt;strong>该性质并不是动态规划适用的必要条件，但是如果没有这条性质，动态规划算法同其他算法相比就不具备优势&lt;/strong>）&lt;/p>&lt;/li>
+&lt;li>&lt;p>&lt;a href="https://www.cnblogs.com/steven_oyj/archive/2010/05/22/1741374.html">动态规划的步骤&lt;/a>&lt;/p>&lt;/li>
+&lt;li>&lt;p>&lt;strong>划分阶段&lt;/strong>：按照问题的时间或空间特征，把问题分为若干个阶段。在划分阶段时，注意划分后的阶段一定要是有序的或者是可排序的，否则问题就无法求解。&lt;/p>&lt;/li>
+&lt;li>&lt;p>&lt;strong>确定状态和状态变量&lt;/strong>：将问题发展到各个阶段时所处于的各种客观情况用不同的状态表示出来。当然，状态的选择要满足无后效性。&lt;/p>&lt;/li>
+&lt;li>&lt;p>&lt;strong>确定决策并写出状态转移方程&lt;/strong>：因为决策和状态转移有着天然的联系，状态转移就是根据上一阶段的状态和决策来导出本阶段的状态。所以如果确定了决策，状态转移方程也就可写出。但事实上常常是反过来做，根据相邻两个阶段的状态之间的关系来确定决策方法和状态转移方程。&lt;/p>&lt;/li>
+&lt;li>&lt;p>&lt;strong>寻找边界条件&lt;/strong>：给出的状态转移方程是一个递推式，需要一个递推的终止条件或边界条件。&lt;/p>
+&lt;p>一般，只要解决问题的阶段、状态和状态转移决策确定了，就可以写出状态转移方程（包括边界条件）。&lt;/p>&lt;/li>
+&lt;li>&lt;p>动态规划三要素&lt;/p>&lt;/li>
+&lt;li>问题的阶段&lt;/li>
+&lt;li>每个阶段的状态&lt;/li>
+&lt;li>&lt;p>从前一个阶段转化到后一个阶段之间的递推关系&lt;/p>&lt;/li>
+&lt;/ul>
+&lt;h3 id="异步的动态规划asynchronous-dynamic-programming">&lt;a href="https://zhuanlan.zhihu.com/p/30518290">异步的动态规划&lt;/a>：Asynchronous Dynamic Programming&lt;/h3>
+&lt;p>在我们之前的算法中，我们每一次的迭代都会完全更新所有的，这样对于程序资源需求特别大。这样的做法叫做同步备份(synchronous backups)。异步备份的思想就是通过某种方式，使得每一次迭代不需要更新所有的，因为事实上，很多的也不需要被更新。异步备份有以下几种方案&lt;/p>
+&lt;p>1.&lt;strong>In-place 动态规划所做的改进，是直接去掉了原来的副本 &lt;span class="math">\(v_{k}\)&lt;/span>, 只保留最新的副本&lt;/strong>(也就是说，在 一次更新过程中，存在着有些用的是 &lt;span class="math">\(v_{k},\)&lt;/span> 有些用的是 &lt;span class="math">\(v_{k+1}\)&lt;/span> )。具体而言，我们可以这样表示，对于所有的状态s： &lt;span class="math">\[
+v(s) \leftarrow \max _{a \in A}\left(R_{s}^{a}+\gamma \sum_{s^{\prime} \in S} P_{s s^{\prime}}^{a} v\left(s^{\prime}\right)\right)
+\]&lt;/span>&lt;/p>
+&lt;p>2.&lt;strong>加权扫描动态规划：Prioritized Sweeping Dynamic Programming&lt;/strong>&lt;/p>
+&lt;p>Prioritized Sweeping 的思想是，根据某种方式，来确定每一个状态现在是否重要，&lt;strong>对于重要的状态进行更多的更新，对于不重要的状态更新的次数就比较少。&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>更新顺序：可以使用priority queue 来有效的确定更新次序(按照优先权排队，每次把优先权最高的拿出来更新&lt;/li>
+&lt;li>权重设计规则：可以使用Bellman error 来确定优先权，这个公式是通过两次的value的差异来作为state的评估标准，&lt;strong>如果某个状态上次的value和这次的value相差不大，我们有理由认为他即将达到稳定，则更新他的价值就比较小&lt;/strong>，反之则比较大。具体公式如下： &lt;span class="math">\[\max _{a \in A}\left(R_{s}^{a}+\gamma \sum_{s^{\prime} \in S} P_{s s^{\prime}}^{a} v\left(s^{\prime}\right)-v(s) \right).\]&lt;/span>&lt;/li>
+&lt;li>所以说，这个方法需要我们进行反向规划，因为我们需要知道当前状态之前的value是多少。&lt;/li>
+&lt;/ul>
+&lt;p>3.&lt;strong>实时动态规划：Real-Time Dynamic Programming&lt;/strong>&lt;/p>
+&lt;p>实时动态规划的思想是只有Agent现在关注的状态会被更新。与当前无关的状态暂时不被更新。&lt;/p>
+&lt;p>就比如我们在时间步t进入状态 &lt;span class="math">\(S_{t}\)&lt;/span> ，进行动作 &lt;span class="math">\(A_{t}\)&lt;/span>，结果是得到反馈 &lt;span class="math">\(R_{t+1}\)&lt;/span>，那么我们要做的就是，仅仅更新 &lt;span class="math">\(S_{t}\)&lt;/span> 的value function，公式如下： &lt;span class="math">\[
+v\left(S_{t}\right) \leftarrow \max_{a \in A}\left(R_{S_{t}}^{a}+\gamma \sum_{s^{\prime} \in S} P_{S_{t} s^{\prime}}^{a} v\left(s^{\prime}\right)\right)
+\]&lt;/span>&lt;/p>
+&lt;p>4.&lt;strong>Full-Width Backups and Sample Backups&lt;/strong>&lt;/p>
+&lt;p>Full-Width 和 Sample Backups的区别在于更新状态时考虑的后继状态的个数的区别，他和同步DP，异步DP思考的是两个维度的优化方向。&lt;/p>
+&lt;p>Full-Width Backups 介绍的是：当我们在考虑更新某一个state 的value function的时候，我们需要遍历这个state的所有可能的action，和每一个action所可能达到的后继state，这个遍历的开销非常大，对于每一次迭代，如果有m个action和n个state，则时间复杂度为 &lt;span class="math">\(O\left(m n^{2}\right)\)&lt;/span>，也就是说，遍历次数会随着n而指数增长，这在大型的DP问题中，代价是无法接受的，所以提出了sample backups。&lt;/p>
+&lt;p>sample backups 的思路是将state-to-state的过程进行采样，也就是说，我们以整个MDP&lt;span class="math">\(&amp;lt;S, A, R, S^{\prime}&amp;gt;\)&lt;/span>为单位，得到很多的样本，也就是说，对&lt;strong>于一个样本，一个state对应一个action，通过采样多个MDP过程，来估计当前的策略的优劣，而不是每个节点直接遍历所有的可能性&lt;/strong>，我们可以用下图表示：&lt;/p>
+&lt;div class="figure">
+&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/v2-90a0552f35411aa45017cbcd3361187d_720w.jpg" alt="img" />&lt;p class="caption">img&lt;/p>
+&lt;/div>
+&lt;p>​ 这样做有如下的优点：&lt;/p>
+&lt;ul>
+&lt;li>Model-free：一个非常重要的好处就是，由于我们不再需要计算所有的action可到达的状态，就意味着我们不需要使用状态转换概率矩阵，也就是说，我们不再需要提前完全搞明白环境的变化模型，这便是一个model-free的算法！&lt;/li>
+&lt;li>假设我们采样的个数为a，那么我们一次迭代的时间复杂度就是 &lt;span class="math">\(O(a m n)\)&lt;/span>，随着state的增加，我们的时间复杂度仅仅是常数增长。一定程度避免了维度灾难。&lt;/li>
+&lt;/ul>
+&lt;h3 id="monte-carlo-evalution采样的一种办法">Monte-Carlo evalution（采样的一种办法）&lt;/h3>
+&lt;p>​ 蒙特卡罗方法是一种基于采样的方法，也就是我们采样得到很多轨迹，然后根据采样得到的结果平均去算V（s）&lt;/p>
+&lt;ul>
+&lt;li>MC simulation: we can simply sample a lot of trajectories, compute the actual returns for all the trajectories, then average them&lt;/li>
+&lt;li>To evaluate state &lt;span class="math">\(v(s)\)&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;ol style="list-style-type: decimal">
+&lt;li>Every time-step &lt;span class="math">\(t\)&lt;/span> that state s is visited in an episode, 2. Increment counter &lt;span class="math">\(N(s) \leftarrow N(s)+1\)&lt;/span> 3. Increment total return &lt;span class="math">\(S(s) \leftarrow S(s)+G_{t}\)&lt;/span> 4. Value is estimated by mean return &lt;span class="math">\(v(s)=S(s) / N(s)\)&lt;/span>,&lt;strong>这里计算这个均值的时候，我们其实可以用Incremental Mean的方式，也就是新估计←旧估计+步长[目标−旧估计]&lt;/strong> &lt;span class="math">\(v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\frac{1}{N\left(S_{t}\right)}\left(G_{t}-v\left(S_{t}\right)\right)\)&lt;/span> &lt;strong>By law of large numbers, &lt;span class="math">\(v(s) \rightarrow v^{\pi}(s)\)&lt;/span> as &lt;span class="math">\(N(s) \rightarrow \infty\)&lt;/span>&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;div class="figure">
+&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200827192441184.png" alt="image-20200827192441184" />&lt;p class="caption">image-20200827192441184&lt;/p>
+&lt;/div>
+&lt;h3 id="tempor-difference-learning">Tempor-Difference learning&lt;/h3>
+&lt;ul>
+&lt;li>&lt;p>TD methods learn directly from episodes of experience TD方法从序列的经验里面进行学习&lt;/p>&lt;/li>
+&lt;li>&lt;p>TD is model-free: no knowledge of MDP transitions/rewards 没有状态概率转移矩阵&lt;/p>&lt;/li>
+&lt;li>&lt;p>TD learns from incomplete episodes, by bootstrapping 通过bootstrapping从不完全的轨迹学习&lt;/p>&lt;/li>
+&lt;li>&lt;p>Objective: learn &lt;span class="math">\(v_{\pi}\)&lt;/span> online from experience under policy &lt;span class="math">\(\pi\)&lt;/span> Simplest TD algorithm: &lt;span class="math">\(\operatorname{TD}(0)\)&lt;/span> 也就是往前走一步进行估计 U Undate &lt;span class="math">\(v\left(S_{t}\right)\)&lt;/span> toward estimated return &lt;span class="math">\(R_{t+1}+\gamma v\left(S_{t+1}\right)\)&lt;/span> &lt;span class="math">\[
+v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\alpha\left(R_{t+1}+\gamma v\left(S_{t+1}\right)-v\left(S_{t}\right)\right)
+\]&lt;/span> &lt;span class="math">\(R_{t+1}+\gamma v\left(S_{t+1}\right)\)&lt;/span> is called &lt;strong>TD target&lt;/strong> &lt;span class="math">\(\delta_{t}=R_{t+1}+\gamma v\left(S_{t+1}\right)-v\left(S_{t}\right)\)&lt;/span> is called the &lt;strong>TD error&lt;/strong> Comparison: Incremental Monte-Carlo &lt;span class="math">\[
+v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\alpha\left(G_{i, t}-v\left(S_{t}\right)\right)
+\]&lt;/span>&lt;/p>&lt;/li>
+&lt;/ul>
+&lt;h3 id="n-step-td">n-step TD&lt;/h3>
+&lt;p>n-step TD像是控制n的大小在TD(0)和MC中找一个平衡&lt;/p>
+&lt;p>&lt;span class="math">\(\begin{array}{ll}n=1(T D) &amp;amp; G_{t}^{(1)}=R_{t+1}+\gamma v\left(S_{t+1}\right) \\ n=2 &amp;amp; G_{t}^{(2)}=R_{t+1}+\gamma R_{t+2}+\gamma^{2} v\left(S_{t+2}\right) \\ &amp;amp; \vdots \\ n=\infty(M C) &amp;amp; G_{t}^{\infty}=R_{t+1}+\gamma R_{t+2}+\ldots+\gamma^{T-t-1} R_{T}\end{array}\)&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829165754594.png" alt="image-20200829165754594" style="zoom: 33%;" />&lt;/p>
+&lt;p>Thus the n-step return is defined as &lt;span class="math">\[
+G_{t}^{n}=R_{t+1}+\gamma R_{t+2}+\ldots+\gamma^{n-1} R_{t+n}+\gamma^{n} v\left(S_{t+n}\right)
+\]&lt;/span> n-step &lt;span class="math">\(\mathrm{TD}: v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\alpha\left(G_{t}^{n}-v\left(S_{t}\right)\right)\)&lt;/span>&lt;/p>
+&lt;h3 id="mcdp以及td算法的对比">MC、DP以及TD算法的对比&lt;/h3>
+&lt;p>Dynamic Programming &lt;span class="math">\((\mathrm{DP})\)&lt;/span> computes &lt;span class="math">\(v_{i}\)&lt;/span> by &lt;strong>bootstrapping&lt;/strong> the rest of the expected return by the value estimate &lt;span class="math">\(v_{i-1}\)&lt;/span> Iteration on Bellman expectation backup: &lt;span class="math">\[
+v_{i}(s) \leftarrow \sum_{a \in \mathcal{A}} \pi(a \mid s)\left(R(s, a)+\gamma \sum_{s^{\prime} \in \mathcal{S}} P\left(s^{\prime} \mid s, a\right) v_{i-1}\left(s^{\prime}\right)\right)
+\]&lt;/span> &lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829103402838.png" alt="image-20200829103402838" style="zoom:30%;" />&lt;/p>
+&lt;p>&lt;span class="math">\(\mathrm{MC}\)&lt;/span> updates the empirical mean return with one sampled episode &lt;span class="math">\[
+v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\alpha\left(G_{i, t}-v\left(S_{t}\right)\right)
+\]&lt;/span> &lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829103510012.png" alt="image-20200829103510012" style="zoom:33%;" />&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829170841169.png" alt="image-20200829164545152" style="zoom:40%;" />&lt;/p>
+&lt;h2 id="mc相比于dp的优点">MC相比于DP的优点&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>MC works when the environment is unknown&lt;/strong> 当环境未知时，MC更管用&lt;/li>
+&lt;li>Working with sample episodes has a huge advantage, even when one has complete knowledge of the environment's dynamics, for example, &lt;strong>transition probability is complex to compute&lt;/strong> 可以从采样的轨迹中进行学习总是好的，即使是知道环境的动态性，比如说，转移矩阵很难计算&lt;/li>
+&lt;li>Cost of estimating a single state's value is independent of the total number of states. So you can sample episodes starting from the states of interest then average returns 不管整体的状态数量有多少，计算一个状态的价值是相对容易的。&lt;/li>
+&lt;/ul>
+&lt;h2 id="td相比于mc的优点">TD相比于MC的优点&lt;/h2>
+&lt;p>1、TD不需要等到epsilon结束后才学习（Incomplete sequences）&lt;/p>
+&lt;ul>
+&lt;li>&lt;p>TD can learn online after every step &lt;span class="math">\(\mathrm{MC}\)&lt;/span> must wait until end of episode before return is known&lt;/p>&lt;/li>
+&lt;li>TD can learn from incomplete sequences &lt;span class="math">\(\mathrm{M} \mathrm{C}\)&lt;/span> can only learn from complete sequences&lt;/li>
+&lt;li>&lt;p>TD works in continuing (non-terminating) environments &lt;span class="math">\(\mathrm{MC}\)&lt;/span> only works for episodic (terminating) environment&lt;/p>&lt;/li>
+&lt;/ul>
+&lt;p>2、TD在马尔科夫的环境中更有效（因为用了bootstraping）&lt;/p>
+&lt;ul>
+&lt;li>TD exploits Markov property, more efficient in Markov environments &lt;span class="math">\(\mathrm{MC}\)&lt;/span> does not exploit Markov property, more effective in non-Markov environments&lt;/li>
+&lt;/ul>
+&lt;p>3、Lower variance&lt;/p>
+&lt;p>4、Online&lt;/p>
+&lt;ul>
+&lt;li>总结：由于MC的高方差，无偏差的特性，有以下几个特点：&lt;/li>
+&lt;/ul>
+&lt;ol style="list-style-type: decimal">
+&lt;li>他有更好的收敛性质。他总能够很好的拟合函数（他能够更容易接近真实的价值函数）；&lt;/li>
+&lt;li>对初始化数据不敏感（因为他的标注是真实的，所以最后总会调整到正确的轨道上）；&lt;/li>
+&lt;li>收敛速度比较慢&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>由于TD算法的有偏差，低方差的特性，他有以下几个特点：&lt;/li>
+&lt;/ul>
+&lt;ol style="list-style-type: decimal">
+&lt;li>他通常速度比较快（因为数据的方差比较小，而我们一般认为收敛的准则是：当数据的波动比较小，则认为他收敛了）；&lt;/li>
+&lt;li>但是对初始化数据比较敏感（如果有一个不好的初始化值，那么他虽然可以很快收敛，但不是收敛到正确的解）；&lt;/li>
+&lt;/ol>
+&lt;h2 id="是否有bootstrapping和sampling">是否有Bootstrapping和Sampling&lt;/h2>
+&lt;ul>
+&lt;li>Bootstrapping：update involves an estimate&lt;/li>
+&lt;li>MC does not bootstrap&lt;/li>
+&lt;li>DP bootstraps&lt;/li>
+&lt;li>TD bootstraps&lt;/li>
+&lt;li>Sampling:update samples an expectation&lt;/li>
+&lt;li>MC samples&lt;/li>
+&lt;li>DP does not sample&lt;/li>
+&lt;li>TD samples&lt;/li>
+&lt;/ul>
+&lt;h2 id="画图理解">画图理解&lt;/h2>
+&lt;p>DP：&lt;span class="math">\(v\left(S_{t}\right) \leftarrow \mathbb{E}_{\pi}\left[R_{t+1}+\gamma v\left(S_{t+1}\right)\right]\)&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829170841169.png" alt="image-20200829170841169" style="zoom:33%;" />&lt;/p>
+&lt;p>MC：&lt;span class="math">\(v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\alpha\left(G_{t}-v\left(S_{t}\right)\right)\)&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829170920684.png" alt="image-20200829170920684" style="zoom:33%;" />&lt;/p>
+&lt;p>TD(0):&lt;span class="math">\(T D(0): v\left(S_{t}\right) \leftarrow v\left(S_{t}\right)+\alpha\left(R_{t+1}+\gamma v\left(s_{t+1}\right)-v\left(S_{t}\right)\right)\)&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829171010565.png" alt="image-20200829171010565" style="zoom:33%;" />&lt;/p>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/Yunhui1998/markdown_image/main/RL/image-20200829171235088.png" alt="image-20200829171235088" style="zoom:33%;" />&lt;/p></description></item><item><title>强化学习-基础</title><link>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80/</guid><description>
+&lt;h2 id="强化基础">强化基础&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#分类">分类&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#强化学习基础模型马尔可夫决策">强化学习基础模型马尔可夫决策&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#状态价值函数与行为价值函数">状态价值函数与行为价值函数&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#bellman方程递推公式">Bellman方程递推公式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#不基于模型的预测vs">不基于模型的预测(&lt;span class="math">\(V(s)\)&lt;/span>)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#蒙特卡洛价值更新">蒙特卡洛价值更新&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#时间差分价值更新">时间差分价值更新&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#不基于模型的控制qsa">不基于模型的控制(&lt;span class="math">\(Q(s,a)\)&lt;/span>)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#on-policy-vs-off-policy">On-policy VS Off-policy&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ε-greedy策略">ε-greedy策略&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#on-policy-蒙特卡洛mc控制">On-policy 蒙特卡洛（MC）控制&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#on-policy-td-control--sarsasarsalambda">On-policy TD control —— SARSA,SARSA(&lt;span class="math">\(\lambda\)&lt;/span>)&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#td0更新的sarsa">TD(0)更新的SARSA&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#tdlambda更新的sarsalambda">TD(&lt;span class="math">\(\lambda\)&lt;/span>)更新的SARSA(&lt;span class="math">\(\lambda\)&lt;/span>)&lt;/a>&lt;/li>
+&lt;/ul>&lt;/li>
+&lt;li>&lt;a href="#为什么off-policy-mc-control不好">为什么Off-policy MC control不好&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#off-policy-td-control--q-learning">Off-policy TD control —— Q-learning&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#td与dp的关系">TD与DP的关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特点">特点&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="分类">分类&lt;/h2>
+&lt;ul>
+&lt;li>Valued-based / policy-based / A3C=A+C&lt;/li>
+&lt;li>Model based / Model free&lt;/li>
+&lt;li>回合更新（蒙特卡洛） / 时间差分（步更新）&lt;/li>
+&lt;li>On-policy / off-policy&lt;/li>
+&lt;li>稳态和非稳态&lt;/li>
+&lt;li>全部可观测MDP / 部分可观测&lt;/li>
+&lt;/ul>
+&lt;p>DRL：本质把DNN作为一个actor。&lt;/p>
+&lt;h2 id="强化学习基础模型马尔可夫决策">强化学习基础模型马尔可夫决策&lt;/h2>
+&lt;p>MDP--&amp;gt;动态规划（策略迭代，值迭代）&lt;/p>
+&lt;h3 id="状态价值函数与行为价值函数">状态价值函数与行为价值函数&lt;/h3>
+&lt;p>在给定策略&lt;span class="math">\(\pi\)&lt;/span>下，状态转移概率与即时收获期望（这两项其实都是概率平均即期望）： &lt;span class="math">\[
+P_{s,s&amp;#39;}^{\pi}=\sum_{a\in A}\pi(a|s)P_{s,s&amp;#39;}^a \tag{1}
+\]&lt;/span> &lt;span class="math">\[
+R_{s}^{\pi} = \sum_{a\in A}\pi(a|s)R_s^a\tag{2}
+\]&lt;/span> 其中，&lt;span class="math">\(\pi(a|s)\)&lt;/span>表示给定策略&lt;span class="math">\(\pi\)&lt;/span>下，在状态&lt;span class="math">\(s\)&lt;/span>时，选用动作&lt;span class="math">\(a\)&lt;/span>的概率。&lt;span class="math">\(P_{s,s&amp;#39;}^a\)&lt;/span>表示在状态&lt;span class="math">\(s\)&lt;/span>时，选用动作&lt;span class="math">\(a\)&lt;/span>后，转移到目标状态&lt;span class="math">\(s&amp;#39;\)&lt;/span>的概率。&lt;/p>
+&lt;blockquote>
+&lt;p>状态价值函数：表示从状态&lt;span class="math">\(s\)&lt;/span>开始，遵循当前策略&lt;span class="math">\(pi\)&lt;/span>时所获得的收获的期望，即&lt;span class="math">\(v_\pi (s) = E[G_t | S_t = s]\)&lt;/span>&lt;/p>
+&lt;p>行为价值函数(状态行为对价值函数)：遵循当前策略&lt;span class="math">\(pi\)&lt;/span>时，对当前状态&lt;span class="math">\(s\)&lt;/span>执行某一具体行为&lt;span class="math">\(a\)&lt;/span>，所能获得的收获的期望，即&lt;span class="math">\(q_\pi(s,a) = E[G_t | S_t = s, A_t = a]\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="bellman方程递推公式">Bellman方程递推公式&lt;/h3>
+&lt;p>我们根据定义可以推到出现在具体状态&lt;span class="math">\(s\)&lt;/span>与下一可能状态&lt;span class="math">\(S_{t+1}\)&lt;/span>的关系。注意&lt;span class="math">\(S_{t+1}\)&lt;/span>是一个随机变量，是&lt;span class="math">\(t+1\)&lt;/span>时刻状态的随机变量。 &lt;span class="math">\[
+\begin{aligned}
+v(s) &amp;amp;= E[G_t | S_t = s]\\
+&amp;amp;=E[R_{t+1}+\gamma R_{t+2} + \gamma^2 R_{t+3} + \dotsb | S_t = s]\\
+&amp;amp;=E[R_{t+1} + \gamma(R_{t+2} + \gamma R_{t+3} + \dotsb)| S_t = s]\\
+&amp;amp;=E[R_{t+1} + \gamma G_{t+1} | S_t = s]\\
+&amp;amp;=E[R_{t+1} + \gamma v(S_{t+1}) | S_t =s]
+\end{aligned}\tag{3}
+\]&lt;/span> 其中，&lt;span class="math">\(E[v(S_{t+1})|S_t = s]\)&lt;/span>表示此时状态为s时，&lt;span class="math">\(t+1\)&lt;/span>时刻状态价值函数的期望。简而言之，我们有 &lt;span class="math">\[
+v_\pi(s) = E[R_{t+1} + \gamma v_\pi(S_{t+1}) | S_t = s]\tag{4}
+\]&lt;/span> 同理可得： &lt;span class="math">\[
+q_\pi(s,a) = E[R_{t+1} + \gamma q_\pi(S_{t+1},A_{t+1}) | S_t = s, A_t = a ]\tag{5}
+\]&lt;/span> 由于行为是连接状态转换的桥梁，一个行为的价值与状态的价值关系紧密，我们可以用下式来表达 &lt;span class="math">\[
+v_\pi(s)=\sum_{a\in A}\pi(a|s)q_\pi(s,a)\tag{6}
+\]&lt;/span> 状态的价值是相关行为价值的概率加权平均。类似的，一个行为价值可以用该行为所能到达的后续状态的价值概率加权平均来表达： &lt;span class="math">\[
+q_\pi(s,a) = \underbrace{R_s^a}_{即时回报}+\underbrace{\gamma\sum_{s&amp;#39;\in S}P_{s,s&amp;#39;}^a v_\pi(s&amp;#39;)}_{下一步状态价值的期望}\tag{7}
+\]&lt;/span> 联立&lt;span class="math">\((6)(7)\)&lt;/span>两式，可以得到如下两递推公式： &lt;span class="math">\[
+v_\pi(s)=\sum_{a\in A}\pi(a|s)\big(R_s^a+\gamma\sum_{s&amp;#39;\in S}P_{s,s&amp;#39;}^a v_\pi(s&amp;#39;)\big)\tag{8}
+\]&lt;/span> &lt;span class="math">\[
+q_\pi(s,a) = R_s^a+\gamma\sum_{s&amp;#39;\in S}P_{s,s&amp;#39;}^a \big(\sum_{a\in A}\pi(a&amp;#39;|s&amp;#39;)q_\pi(s&amp;#39;,a&amp;#39;)\big)\tag{9}
+\]&lt;/span> 这两个地推公式的迭代（策略迭代，价值迭代）就可以得出收敛的价值函数。&lt;/p>
+&lt;p>策略迭代：根据公式&lt;span class="math">\((8)\)&lt;/span>迭代更新状态价值，通过贪婪法迭代获得策略。最终能够收敛（压缩映射定理证明）&lt;/p>
+&lt;p>值迭代：根据公式&lt;span class="math">\(v_*(s)=\max\limits_{a\in A}(R_s^a + \gamma \sum\limits_{s&amp;#39;\in S}P_{s,s&amp;#39;}^a v_*(s&amp;#39;))\)&lt;/span>，逐步迭代更新。&lt;/p>
+&lt;h2 id="不基于模型的预测vs">不基于模型的预测(&lt;span class="math">\(V(s)\)&lt;/span>)&lt;/h2>
+&lt;p>蒙特卡洛方法 MC；时间差分 TD；动态规划DP&lt;/p>
+&lt;h3 id="蒙特卡洛价值更新">蒙特卡洛价值更新&lt;/h3>
+&lt;p>&lt;strong>MC法更新&lt;/strong>：&lt;strong>基础是累进更新平均值&lt;/strong>。在这种方法中，我们只需要直到上次状态值和此次新加入的值。 &lt;span class="math">\[
+\begin{aligned}
+\mu_k &amp;amp;= \frac{1}{k}\sum_{j=1}^k x_j\\
+&amp;amp;=\frac{1}{k}(x_k+\sum_{j=1}^{k-1} x_j)\\
+&amp;amp;=\frac{1}{k}(x_k+(k-1)\mu_{k-1})\\
+&amp;amp;=u_{k-1}+\frac{1}{k}(x_k-\mu_{k-1})
+\end{aligned}
+\]&lt;/span> 具体到蒙特卡洛法更新状态价值就是： &lt;span class="math">\[
+N(S_t)\leftarrow N(S_t)+1\\
+V(S_t)\leftarrow \underbrace{V(S_t)}_{\mu_{k-1}}+\frac{1}{\underbrace{N(S_t)}_{k}}(\underbrace{G_t}_{x_k}-\underbrace{V(S_t)}_{\mu_{k-1}})\tag{10}
+\]&lt;/span> 在一些&lt;strong>实时或者无法准确统计状态被访问次数时&lt;/strong>，可以用一个系数&lt;span class="math">\(\alpha\)&lt;/span>来代替状态计数的倒数&lt;span class="math">\(\frac{1}{N(S_t)}\)&lt;/span>，此时公式&lt;span class="math">\((10)\)&lt;/span>可以简化为： &lt;span class="math">\[
+\color{red}{\star V(S_t) \leftarrow V(S_t) + \alpha(G_t-V(S_t))}\tag{11}
+\]&lt;/span> 公式&lt;span class="math">\((11)\)&lt;/span>&lt;strong>是以后所有更新公式的一个基础&lt;/strong>。&lt;/p>
+&lt;h3 id="时间差分价值更新">时间差分价值更新&lt;/h3>
+&lt;p>&lt;strong>TD法更新&lt;/strong>：MC法更新中，&lt;span class="math">\(G_t=R_{t+1}+\gamma R_{t+2} + \dotsb + \gamma^{T-1} R_{t+T}\)&lt;/span>是一个完整的episode。而TD方法是用不完整的轨迹序列完成更新，是使用bootstrapping的方法。 &lt;span class="math">\[
+V(S_t) \leftarrow V(S_t) + \alpha(\underbrace{\underbrace{R_{t+1}+\gamma V(S_{t+1}}_{TD目标值\rightarrow G_t})-V(S_t)}_{TD误差})\tag{12}
+\]&lt;/span> 其中&lt;span class="math">\(G_t\approx R_{t+1}+\gamma V(S_{t+1})\)&lt;/span>，如果&lt;span class="math">\(V(S_{t+1})\)&lt;/span>是真实值，那么&lt;span class="math">\(G_t\)&lt;/span>就是无偏估计，但实际上&lt;span class="math">\(V(S_{t+1})\)&lt;/span>是采样累进更新来的，所以TD法的更新可能会有偏差。&lt;/p>
+&lt;p>&lt;strong>TD-n更新&lt;/strong>：TD法本质上用了下一步的即时收获和状态价值。我们可以使用n步来预测。 &lt;span class="math">\[
+G_t^{(n)}= R_{t+1}+\gamma R_{t+2} + \dotsb + \gamma^{n-1} R_{t+n}+\gamma^n V(S_{t+n})\\
+V(S_t) \leftarrow V(S_t) + \alpha(G_t^{(n)}-V(S_t))\tag{13}
+\]&lt;/span> 当&lt;span class="math">\(n=1\)&lt;/span>时，即为TD法更新，当&lt;span class="math">\(n=T or\infty\)&lt;/span>时，即为MC法。&lt;/p>
+&lt;p>&lt;strong>TD(λ)更新&lt;/strong>：在TD-n中，n是一个离散的超参数，为了能够简化计算并&lt;strong>综合考虑所有步数n的影响&lt;/strong>，我们引入了一个带&lt;strong>λ&lt;/strong>的加权求和方法。 &lt;span class="math">\[
+G_t^{(\lambda)}= (1-\lambda)\sum_{n=1}^{T-t-1}\lambda^{n-1}G_t^{(n)} + \lambda^{T-t-1}G_t^{T-t}\\
+\approx (1-\lambda)\sum_{n=1}^{\infty}\lambda^{n-1}G_t^{(n)}(T\rightarrow\infty) \\
+V(S_t) \leftarrow V(S_t) + \alpha(G_t^{(\lambda)}-V(S_t))\tag{14}
+\]&lt;/span>&lt;/p>
+&lt;p>他们之间的关系可以参考笔记《强化学习之 DP、MC、TD》&lt;/p>
+&lt;h2 id="不基于模型的控制qsa">不基于模型的控制(&lt;span class="math">\(Q(s,a)\)&lt;/span>)&lt;/h2>
+&lt;p>从已知模型的、基于全宽度采样的动态规划学习转至模型未知、基于采样的蒙特卡洛或时序差分学习进行控制是朝着高效解决中等规模实际问题的一个突破。&lt;/p>
+&lt;p>不基于模型的控制无法得知整体的状态价值和状态转移概率，因此我们需要脚踏实地，从当前状态的&lt;strong>行为状态价值对&lt;/strong>出发。因此，&lt;strong>在不基于模型的控制中，行为价值函数很重要&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>即我们现在更关注&lt;span class="math">\(Q(s,a)\)&lt;/span>而非&lt;span class="math">\(V(s)\)&lt;/span>&lt;/strong>。&lt;/p>
+&lt;h3 id="on-policy-vs-off-policy">On-policy VS Off-policy&lt;/h3>
+&lt;ul>
+&lt;li>行为策略：指导个体和环境进行实际交互的策略&lt;/li>
+&lt;li>目标策略：评价状态价值、行为价值或者待优化的策略&lt;/li>
+&lt;li>如果&lt;span class="math">\(行为策略 == 目标策略\rightarrow on-policy\)&lt;/span>（现时策略、同策略）&lt;/li>
+&lt;li>如果&lt;span class="math">\(行为策略 \neq 目标策略\rightarrow off-policy\)&lt;/span>（借鉴策略、异策略）&lt;/li>
+&lt;/ul>
+&lt;p>在off-policy下，产生行为序列的策略和评价状态价值的策略时两个策略。&lt;/p>
+&lt;h3 id="ε-greedy策略">ε-greedy策略&lt;/h3>
+&lt;p>假设我们在状态&lt;span class="math">\(s\)&lt;/span>有&lt;span class="math">\(m\)&lt;/span>个可以选择的动作。 &lt;span class="math">\[
+\pi(a|s) = \begin{cases}
+\varepsilon/m + 1- \varepsilon, a^\ast = \argmax_{a\in A} Q(s,a)\\
+\varepsilon/m, Others
+\end{cases}\tag{15}
+\]&lt;/span> 可以证明，ε-greedy方法可以提升原有的策略&lt;span class="math">\(\pi\)&lt;/span>。&lt;/p>
+&lt;h3 id="on-policy-蒙特卡洛mc控制">On-policy 蒙特卡洛（MC）控制&lt;/h3>
+&lt;p>on-policy MC 控制 = MC+ε-greedy方法&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>初始化一系列状态价值&lt;span class="math">\(Q(S_0,A_0)\)&lt;/span>，ε-greedy策略选择动作&lt;/li>
+&lt;li>依照策略和环境交互，得到一组（或几组）轨迹，根据MC更新方法（公式&lt;span class="math">\((10),(11)\)&lt;/span>），更新状态价值。&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>需要注意，区别于公式(10)现在更新的不是&lt;span class="math">\(V(S_t)\)&lt;/span>,而是 &lt;span class="math">\[\color{red}{Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\frac{1}{N(S_t,A_t)}(G_t-Q(S_t,A_t))}\tag{16}\]&lt;/span>&lt;/li>
+&lt;/ul>
+&lt;ol start="3" style="list-style-type: decimal">
+&lt;li>回到步骤1&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>公式(16)也是接下来工作的基础&lt;/strong>。注意，并不需要每次交互都要更新状态价值，可以多跑几组数据来更新状态价值。&lt;strong>但是实际中，我们通常仅得到一个完整状态序列就进行一次策略迭代以加速更新&lt;/strong>。&lt;/p>
+&lt;blockquote>
+&lt;p>GLIE定理(Greedy in the Limit with Infinite Exploration)：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>所有状态行为对会被无数次探索：&lt;span class="math">\(\lim\limits_{k\rightarrow \infty} N_k(s,a)=\infty\)&lt;/span>&lt;/li>
+&lt;li>随着采样次数趋近于无穷，策略最终收敛至一个贪婪策略:&lt;span class="math">\(\lim\limits_{k\rightarrow \infty}\pi_k(a|s) = 1(a = \argmax\limits_{a&amp;#39;\in A}Q_k(s,a&amp;#39;))\)&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>那么MC控制能够&lt;strong>收敛到最优的状态行为价值函数&lt;/strong>，即&lt;span class="math">\(Q_k(s,a)\xrightarrow{k\rightarrow\infty} q^\ast(s,a)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>显然，&lt;strong>当我们无限采样且使ε-greedy策略中，ε=1/k，其中k是完整的采样次数&lt;/strong>。这个策略就满足GLIE定理。&lt;/p>
+&lt;h3 id="on-policy-td-control-sarsasarsalambda">On-policy TD control —— SARSA,SARSA(&lt;span class="math">\(\lambda\)&lt;/span>)&lt;/h3>
+&lt;h4 id="td0更新的sarsa">TD(0)更新的SARSA&lt;/h4>
+&lt;p>在每一个采样序列中，&lt;strong>每一个时间步&lt;/strong>，在状态&lt;span class="math">\(S\)&lt;/span>下采取一个行为&lt;span class="math">\(A\)&lt;/span>到达状态&lt;span class="math">\(S&amp;#39;\)&lt;/span>后，都要更新状态行为对&lt;span class="math">\((S,A)\)&lt;/span>的价值&lt;span class="math">\(Q(S,A)\)&lt;/span>，交互过程和评价过程都使用ε-greedy策略（on-policy）。&lt;/p>
+&lt;p>&lt;strong>关键——行为价值函数更新过程&lt;/strong>： &lt;span class="math">\[
+Q(S,A)\leftarrow Q(S,A)+\alpha(R+\gamma Q(S&amp;#39;,A&amp;#39;)-Q(S,A))\tag{17}
+\]&lt;/span> &lt;img src="../../images/sarsa.png" alt="sarsa" />&lt;/p>
+&lt;blockquote>
+&lt;p>算法的收敛性。当行为策略满足GLIE定理，且学习率&lt;span class="math">\(\alpha\)&lt;/span>满足 &lt;span class="math">\[\sum_{t=1}^\infty \alpha_t=\infty, \text{and} \sum_{t=1}^\infty \alpha_t^2&amp;lt;\infty\]&lt;/span> SARSA算法将收敛至最优策略和最优价值函数。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="tdlambda更新的sarsalambda">TD(&lt;span class="math">\(\lambda\)&lt;/span>)更新的SARSA(&lt;span class="math">\(\lambda\)&lt;/span>)&lt;/h4>
+&lt;p>和TD-n法更新价值函数一样，我们可以定义n步Q收获 &lt;span class="math">\[
+q_t^{(n)}=R_{t+1}+\gamma R_{t+2}+\dotsb+\gamma^{n-1} R_{t+n}+\gamma^nQ(S_t,A_t)
+\]&lt;/span> 类似的，我们根据n步Q收获可以定义&lt;strong>SARSA(n)&lt;/strong>的行为价值更新函数： &lt;span class="math">\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha(q_t^{(n)}-Q(S_t,A_t))\tag{18-1}
+\]&lt;/span> 和TD(n)一样，&lt;span class="math">\(n\)&lt;/span>是一个需要条件的超参数，为了计算的方便，我们模仿&lt;span class="math">\(TD(\lambda)\)&lt;/span>的加权方式给&lt;span class="math">\(q^{(n)}_t\)&lt;/span>进行加权求和,结合所有n步Q收获： &lt;span class="math">\[
+q_t^\lambda = (1-\lambda)\sum_{n=1}^\infty \lambda^{n-1} q_t^{(n)}
+\]&lt;/span> 我们可以用&lt;span class="math">\(q_t^\lambda\)&lt;/span>代替公式&lt;span class="math">\((18)\)&lt;/span>中的&lt;span class="math">\(q_t^{(n)}\)&lt;/span>。这就是SARSA&lt;span class="math">\((\lambda)\)&lt;/span>的夹着更新公式。 &lt;span class="math">\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha(q_t^{\lambda}-Q(S_t,A_t))\tag{18-2}
+\]&lt;/span>&lt;/p>
+&lt;p>但是，&lt;strong>迭代一次Q值，需要完整的一次episode&lt;/strong>。为了解决这个问题，引入&lt;strong>效用迹&lt;/strong>的概念，实现增量更新。效用迹针对的状态行为对。 &lt;span class="math">\[
+E_0(s,a)=0(初始化为0)\\
+E_t(s,a)=\gamma\lambda E_{t-1}(s,a)+\mathbf{1}(S_t=s,A_t=a),\gamma,\lambda\in[0,1]\tag{19}
+\]&lt;/span> 其中，&lt;span class="math">\(\mathbf{1}\)&lt;/span>是判别函数，成立为1，不成立为0。它体现的是一个结果与某一个状态行为对的因果关系，与得到该结果&lt;strong>最近的&lt;/strong>状态行为对，以及那些在此之前&lt;strong>频繁发生的&lt;/strong>状态行为对得到这个结果的影响最大。引入&lt;strong>效用迹&lt;/strong>后，Q值的更新公式为： &lt;span class="math">\[
+\delta_t = R_{t+1}+\gamma Q(S_{t+1},A_{t+1})-Q(S_{t},A_{t})\\
+Q(s,a)\leftarrow Q(s,a)+\alpha\delta_t E_t(s,a)\tag{20}
+\]&lt;/span> 可以证明在&lt;span class="math">\(\lambda\in(0,1)\)&lt;/span>时，公式(20)与公式(18-2)是等效的（一个是前向认识，一个是反向认识），但是公式(20)中的数据学习完即可丢弃，&lt;strong>在线学习更有效&lt;/strong>。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/sarsa_lambda.png" alt="sarsa_lambda.png" />&lt;p class="caption">sarsa_lambda.png&lt;/p>
+&lt;/div>
+&lt;p>这里要提及一下的是&lt;span class="math">\(E(s,a)\)&lt;/span>在&lt;strong>每浏览完一个状态序列后需要重新置0&lt;/strong>，这体现了效用迹仅在一个状态序列中发挥作用；其次要提及的是算法更新&lt;span class="math">\(Q\)&lt;/span>和&lt;span class="math">\(E\)&lt;/span>的时候针对的不是某个状态序列里的&lt;span class="math">\(Q\)&lt;/span>或&lt;span class="math">\(E\)&lt;/span>，而是针对&lt;strong>个体掌握的&lt;/strong>整个状态空间和行为空间产生的&lt;span class="math">\(Q\)&lt;/span>和&lt;span class="math">\(E\)&lt;/span>。&lt;/p>
+&lt;h3 id="为什么off-policy-mc-control不好">为什么Off-policy MC control不好&lt;/h3>
+&lt;p>根据重要性采样，在off-policy MC更新下，收获函数应为 &lt;span class="math">\[
+G_t^{\pi/\mu}=\underbrace{\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}\frac{\pi(A_{t+1}|S_{t+1})}{\mu(A_{t+1}|S_{t+1})}\dotsb\frac{\pi(A_T|S_T)}{\mu(A_T|S_T)}}_{方差被放的很大}G_t\\
+V(S_t) = V(S_t)+\alpha(G_t^{\pi/\mu}-V(S_t))\tag{21}
+\]&lt;/span> 其中，&lt;span class="math">\(\mu(a|s)\)&lt;/span>是行为策略，&lt;span class="math">\(\pi(a|s)\)&lt;/span>是目标策略。但是&lt;span class="math">\(G_t^{\pi/\mu}\)&lt;/span>的方差会特别大，使得估计偏差大到无法使用，且&lt;span class="math">\(\mu(a|s)=0\)&lt;/span>时无法使用。因此基于蒙特卡洛的借鉴策略学习目前认为仅有理论上的研究价值，在实际中用处不大。&lt;/p>
+&lt;h3 id="off-policy-td-control-q-learning">Off-policy TD control —— Q-learning&lt;/h3>
+&lt;p>相较于off-policy MC更新中多个步骤的概率商相乘，&lt;strong>TD更新只用修正一次概率&lt;/strong>，方差还是可以接受的。 &lt;span class="math">\[
+G_t^{\pi/\mu}=\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)}G_t
+\]&lt;/span>&lt;/p>
+&lt;p>Q-learning是一个典型的off-policy TD控制方案。行为策略&lt;span class="math">\(µ\)&lt;/span>是基于行为价值函数&lt;span class="math">\(Q(s,a)\)&lt;/span>&lt;strong>ϵ-贪婪策略&lt;/strong>，借鉴策略&lt;span class="math">\(π\)&lt;/span>则是基于&lt;span class="math">\(Q(s，a)\)&lt;/span>的&lt;strong>完全贪婪策略&lt;/strong>。需要指出，Q-learning没有用到重要性采样。Q-learning的价值更新公式如下： &lt;span class="math">\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha({\color{red}R_{t+1}+\gamma Q(S_{t+1},A&amp;#39;)}-Q(S_t,A_t))\tag{22}
+\]&lt;/span> 注意：红色部分的TD目标是基于借鉴策略&lt;span class="math">\(π\)&lt;/span>（贪婪策略）产生的行为&lt;span class="math">\(A’\)&lt;/span>得到的&lt;span class="math">\(Q\)&lt;/span>值。而每次的交互使用的是策略&lt;span class="math">\(\mu\)&lt;/span>（ϵ-贪婪策略），状态&lt;span class="math">\(S_t\)&lt;/span>依据&lt;span class="math">\(\mu\)&lt;/span>得到行为&lt;span class="math">\(A_t\)&lt;/span>并朝着&lt;span class="math">\(S_{t+1}\)&lt;/span>前进。&lt;/p>
+&lt;p>由于&lt;span class="math">\(A&amp;#39;\)&lt;/span>是根据贪婪策略选出来的，所以公式（22）可以简化为： &lt;span class="math">\[
+Q(S_t,A_t)\leftarrow Q(S_t,A_t)+\alpha({\color{red}R_{t+1}+\gamma \max_{a&amp;#39;}Q(S_{t+1},a&amp;#39;)}-Q(S_t,A_t))\tag{23}
+\]&lt;/span>&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/Q-learning.png" alt="Q-learning" />&lt;p class="caption">Q-learning&lt;/p>
+&lt;/div>
+&lt;h3 id="td与dp的关系">TD与DP的关系&lt;/h3>
+&lt;p>&lt;img src="../../images/DP与TD关系1.jpg" alt="DP与TD关系1" /> &lt;img src="../../images/DP与TD关系2.jpg" alt="DP与TD关系2" />&lt;/p>
+&lt;h2 id="特点">特点&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>explore and exploit&lt;/li>
+&lt;li>Delayed reward&lt;/li>
+&lt;li>Time critical(时间处理实现)&lt;/li>
+&lt;li>Agent actor稳定提升&lt;/li>
+&lt;/ol></description></item><item><title>强化学习-多臂老虎机问题</title><link>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E5%A4%9A%E8%87%82%E8%80%81%E8%99%8E%E6%9C%BA%E9%97%AE%E9%A2%98/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E5%A4%9A%E8%87%82%E8%80%81%E8%99%8E%E6%9C%BA%E9%97%AE%E9%A2%98/</guid><description>
+&lt;h2 id="多臂老虎机问题">多臂老虎机问题&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#名词解释">名词解释&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#bandit算法">Bandit算法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#基本的bandit对应">基本的Bandit对应&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="名词解释">名词解释&lt;/h2>
+&lt;ul>
+&lt;li>stochastic MAB(stationary random rewards MAB)&lt;/li>
+&lt;li>non-stochastic MAB(Adversarial Bandits) 对抗性质，有对手会改变每个臂的收益，根据对手是否与玩家独立可分为oblivious和non-oblivious两种&lt;/li>
+&lt;li>restless 马尔可夫MAB的一种，每个臂都会独立地进行状态转移，无论臂是否被选中&lt;/li>
+&lt;li>rested MAB 马尔可夫MAB的一种，只有被选中的臂进行状态转移，其他臂状态不变，处于冻结状态&lt;/li>
+&lt;li>non-stationary MAB&lt;/li>
+&lt;li>contextual MAB 会带有一定的附属信息，可以根据附属信息来帮助判断选择哪个或哪一类臂&lt;/li>
+&lt;li>variants&lt;/li>
+&lt;li>dualing MAB&lt;/li>
+&lt;li>etc&lt;/li>
+&lt;/ul>
+&lt;h2 id="bandit算法">Bandit算法&lt;/h2>
+&lt;ul>
+&lt;li>汤普森采样&lt;/li>
+&lt;li>e-greedy&lt;/li>
+&lt;li>UCB及其变种&lt;/li>
+&lt;li>COFIBA&lt;/li>
+&lt;li>exp3&lt;/li>
+&lt;li>hedge&lt;/li>
+&lt;li>softmax&lt;/li>
+&lt;/ul>
+&lt;h2 id="基本的bandit对应">基本的Bandit对应&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>stochastic -- UCB&lt;/li>
+&lt;li>adversarial -- Exp3&lt;/li>
+&lt;li>Oblivious: 每个杆变换的分布独立于拉栏者，基本上这种就是撞大运，研究的少&lt;/li>
+&lt;li>Non-oblivious： 每个杆的分布会一句拉杆者的策略而变化，有点博弈的意思。&lt;/li>
+&lt;li>Markovian -- Gittins indices&lt;/li>
+&lt;/ol></description></item><item><title>强化学习-概要</title><link>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E6%A6%82%E8%A6%81/</link><pubDate>Sat, 12 Oct 2019 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-%E6%A6%82%E8%A6%81/</guid><description>
+&lt;h2 id="强化学习">强化学习&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="分类">分类&lt;/h2>
+&lt;ul>
+&lt;li>Valued-based / policy-based / A3C=A+C&lt;/li>
+&lt;li>Model based / Model free&lt;/li>
+&lt;li>回合更新（蒙特卡洛） / 时间差分（步更新）&lt;/li>
+&lt;li>On-policy / off-policy&lt;/li>
+&lt;li>稳态和非稳态&lt;/li>
+&lt;li>全部可观测MDP / 部分可观测&lt;/li>
+&lt;/ul>
+&lt;p>DRL：本质把DNN作为一个actor。&lt;/p>
+&lt;h2 id="特点">特点&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>explore and exploit&lt;/li>
+&lt;li>Delayed reward&lt;/li>
+&lt;li>Time critical(时间处理实现)&lt;/li>
+&lt;li>Agent actor稳定提升&lt;/li>
+&lt;/ol></description></item></channel></rss>

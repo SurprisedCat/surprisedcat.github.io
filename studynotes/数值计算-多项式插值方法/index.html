@@ -1,0 +1,569 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>数值计算-多项式插值方法 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="数值计算-多项式插值方法 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E6%96%B9%E6%B3%95/">
+<meta property="og:title" content="数值计算-多项式插值方法">
+<meta property="og:description" content="数值计算-多项式插值方法 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/Lagrange_polynomial_Divergence.jpg">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E6%96%B9%E6%B3%95/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>数值计算-多项式插值方法</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Dec 1, 2020</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97 title=数值计算 class="post_tag button button_translucent">数值计算
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/studynotes/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97-%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC%E6%96%B9%E6%B3%95/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<h2 id=多项式插值方法>多项式插值方法</h2>
+<blockquote>
+<p>本笔记框架主要来自于知乎：<a href=https://www.zhihu.com/question/22320408>https://www.zhihu.com/question/22320408</a>,作者：最爱麦丽素</p>
+</blockquote>
+<ul>
+<li><a href=#多项式插值综述>多项式插值综述</a></li>
+<li><a href=#lagrange插值法>Lagrange插值法</a></li>
+<li><a href=#重心拉格朗日插值法>重心拉格朗日插值法</a></li>
+<li><a href=#newton插值法>Newton插值法</a></li>
+<li><a href=#newton插值法余项与泰勒公式>Newton插值法余项与泰勒公式</a></li>
+<li><a href=#切比雪夫节点与勒贝格常数>切比雪夫节点与勒贝格常数</a></li>
+<li><a href=#切比雪夫节点>切比雪夫节点</a></li>
+<li><a href=#勒贝格常数>勒贝格常数</a></li>
+<li><a href=#hermite插值>Hermite插值</a></li>
+<li><a href=#插值法的变形>插值法的变形</a></li>
+<li><a href=#附录>附录</a></li>
+<li><a href=#克莱姆法则证明>克莱姆法则证明</a></li>
+</ul>
+<h2 id=多项式插值综述>多项式插值综述</h2>
+<p>给定（n+1）个数据点<span class=math>\((x_i,y_i),i\in\{0,...,n\}\)</span>，且<strong>任意两个</strong><span class=math>\(x_i\)</span>都不相等。可以用一个p阶多项式<span class=math>\((0\leq p \leq n)\)</span>进行插值，使： <span class=math>\[p(x_i)=y_i,0 \leq i \leq n\]</span> <span class=math>\(p(x)\)</span>具体可以写为： <span class=math>\[p(x)=a_nx^n+a_{n-1}x^{n-1}+\dotsb+a_1x+a_0\]</span> 在<span class=math>\(p(x)\)</span>中最多会有n阶多项式，n+1个未知参数，而给定的n+1个数据点<span class=math>\((x_i,y_i)\)</span>，和这些未知数恰好可以构成n+1元一次方程组。如果用矩阵的形式可以写成： <span class=math>\[\begin{bmatrix}x_0^n&x_0^{n-1}&\dotsb&x_0&1\\
+x_1^n&x_1^{n-1}&\dotsb&x_1&1\\
+\vdots&\vdots&\ddots&\vdots&\vdots\\
+x_n^n&x_n^{n-1}&\dotsb&x_n&1\\
+\end{bmatrix}
+\begin{bmatrix}a_n\\
+a_{n-1}\\
+\vdots\\
+a_0\\
+\end{bmatrix}=
+\begin{bmatrix}y_0\\
+y_1\\
+\vdots\\
+y_n\\
+\end{bmatrix}
+\]</span> 简写为<span class=math>\(X\vec{a}=\vec{y}\)</span>。我们所要求的就是多项式的系数向量<span class=math>\(\vec{a}\)</span>，最直观的方式当然是求逆矩阵，从而得到<span class=math>\(\vec{a}=X^{-1}\vec{y}\)</span>。由于X为范德蒙矩阵，且<span class=math>\(x_i,x_j\)</span>两两不相等，这就是的范德蒙矩阵<span class=math>\(X\)</span>必然可逆且唯一（行列式不为0）。</p>
+<p>但是计算大矩阵的逆是一项艰巨的工作，因此我们可以使用克莱姆法则(Cramer‘s Rule) （证明见附录），直接求出每一项系数，即： <span class=math>\[a_i=\frac
+{\begin{vmatrix}
+x_0^n&x_0^{n-1}&\dotsb&y_0&\dotsb&x_0&1\\
+x_1^n&x_1^{n-1}&\dotsb&y_1&\dotsb&x_1&1\\
+\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+x_n^n&x_n^{n-1}&\dotsb&y_n&\dotsb&x_n&1\\
+\end{vmatrix}}
+{\begin{vmatrix}
+x_0^n&x_0^{n-1}&\dotsb&x_0^i&\dotsb&x_0&1\\
+x_1^n&x_1^{n-1}&\dotsb&x_1^i&\dotsb&x_1&1\\
+\vdots&\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\
+x_n^n&x_n^{n-1}&\dotsb&x_n^i&\dotsb&x_n&1\\
+\end{vmatrix}}(0 \leq i \leq n)\]</span> 分子中被替换的是范德蒙行列式的第i列。且由于范德蒙矩阵的性质，x只要两两不相同，则行列式不等于0。</p>
+<p>从这个式子中，我们也可以发现无论是求矩阵的逆，还是用克莱姆法则，他们的结果是一样且唯一的，只是计算量复杂。<strong>因此后来改进的Newton法，Lagrange法等等都只是降低了计算量，求出来的多项式系数都是唯一的</strong>。</p>
+<h2 id=lagrange插值法>Lagrange插值法</h2>
+<p>Lagrange插值法利用了基函数构造的特点，用基函数的线性组合来组成插值多项式。从这个角度来看，Lagrange插值法可以用以下式子表示： <span class=math>\[L(x)=a_0l_0(x)+a_1l_1(x)+a_2l_2(x)+\dotsb+a_nl_n(x)\]</span> 其中<span class=math>\(l_i(x)\)</span>就是基函数，<span class=math>\(a_i\)</span>为基函数线性组合的系数。</p>
+<p>因为<span class=math>\(L(x)\)</span>需要经过每一个点<span class=math>\((x_i,y_i)\)</span>，即<span class=math>\(y_i=L(x_i)\)</span>。我们可以让<span class=math>\(a_i\)</span>直接等于<span class=math>\(y_i\)</span>, 那我们就只需要构造对应的<span class=math>\(l_i(x_i)=1,l_i(x_j)=0\)</span>就好了。Lagrange精巧第构造了这些基函数： <span class=math>\[l_i(x)=\prod_{j=0,j\neq i}^n\frac{(x-x_j)}{(x_i-x_j)}\]</span> <span class=math>\[L(x)=\sum_{i=0}^n{y_i \prod_{j=0,j\neq i}^n\frac{(x-x_j)}{(x_i-x_j)}}\]</span> 从表达式中，我们不难得到以下性质：</p>
+<ol style=list-style-type:decimal>
+<li><span class=math>\(i \neq j\)</span>，则<span class=math>\(l_i(x_j)=0\)</span>，因为<span class=math>\(\exist x_j-x_j=0,\)</span>使得分子为0</li>
+<li><span class=math>\(i=j\)</span>，则<span class=math>\(l_i(x_j)=1\)</span>，因为分子和分母完全相同。</li>
+<li><span class=math>\(L(x)\)</span>的阶数最大为n。<span class=math>\(\prod_{0 \leq j \leq n,j\neq i}\frac{x-x_j}{x_i-x_j}\)</span>一共有n个x相乘。</li>
+<li>插值多项式是唯一的，和范德蒙矩阵求出来的是一样的。</li>
+</ol>
+<p>拉格朗日插值法的公式结构整齐紧凑，在理论分析中十分方便，然而在计算中，<strong>当插值点增加或减少一个时，所对应的基本多项式就需要全部重新计算</strong>，于是整个公式都会变化，非常繁琐。这时可以用<strong>重心拉格朗日插值法或牛顿插值法</strong>来代替。此外，当插值点比较多的时候，拉格朗日插值多项式的次数可能会很高，因此具有数值不稳定的特点，也就是说尽管在已知的几个点取到给定的数值，但在附近却会和“实际上”的值之间有很大的偏差（如图1）。这类现象也被称为龙格现象，解决的办法是<strong>分段用较低次数的插值多项式</strong>。</p>
+<img src=../../images/Lagrange_polynomial_Divergence.jpg alt=龙格现象>
+<center>
+图1 拉格朗日插值法的数值稳定性：如图，用于模拟一个十分平稳的函数时，插值多项式的取值可能会突然出现一个大的偏差（图中的14至15中间）
+</center>
+<h3 id=重心拉格朗日插值法>重心拉格朗日插值法</h3>
+<p>来源维基百科：<a href=https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95>https://zh.wikipedia.org/wiki/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E6%8F%92%E5%80%BC%E6%B3%95</a></p>
+<p>重心拉格朗日插值法是拉格朗日插值法的改进。在拉格朗日插值多项式中，运用多项式： <span class=math>\[l(x)=(x-x_0)(x-x_1)\dotsb (x-x_k)\]</span> 可以将原拉格朗日多项式的项改写： <span class=math>\[l_j(x)=\frac{l(x)}{x-x_j}\frac{1}{\prod_{i=0,i\neq j}^k(x_j-x_i)}\]</span> 如果我们将<strong>重心权</strong>定义为： <span class=math>\[w_j=\frac{1}{\prod_{i=0,i\neq j}^k(x_j-x_i)}\]</span> 拉格朗日多项式的项可以变为： <span class=math>\[l_j(x)=l(x)\frac{w_j}{x-x_j}\]</span> 同样，原拉格朗日多项式可以把<span class=math>\(l(x)\)</span>提取出来： <span class=math>\[L(x)=l(x)\sum_{j=0}^k\frac{w_j}{x-x_j}y_j\]</span> 即所谓的<strong>重心拉格朗日插值公式第一型</strong>或改进拉格朗日插值公式。它的优点是当插值点的个数增加一个时，将每个<span class=math>\(w_{j}\)</span>都除以<span class=math>\((x_{j}-x_{k+1})\)</span>，就可以得到新的重心权<span class=math>\(w_{k+1}\)</span>，计算复杂度为<span class=math>\(O(n)\)</span>，比重新计算每个基本多项式所需要的复杂度<span class=math>\(O(n^{2})\)</span>降了一个量级。</p>
+<p>将以上的拉格朗日插值多项式用来对函数<span class=math>\(g(x)\equiv 1\)</span>插值，可以得到： <span class=math>\[\because y_i \equiv 1 \\
+\therefore \forall x,g(x)=l(x)\sum_{j=0}^k\frac{w_j}{(x-x_j)} \]</span> 我们用<span class=math>\(L(x)\)</span>除以<span class=math>\(g(x) \equiv 1\)</span>，可以得到： <span class=math>\[L(x)=\frac{\sum_{j=0}^k\frac{w_j}{x-x_j}y_j}{\sum_{j=0}^k\frac{w_j}{(x-x_j)}}\]</span> 这个公式被称为<strong>重心拉格朗日插值公式（第二型）或真正的重心拉格朗日插值公式</strong>。它继承了第一型容易计算的特点，并且在代入<span class=math>\(x\)</span>值计算<span class=math>\(L(x)\)</span>的时候不必计算多项式<span class=math>\(l(x)\)</span>。它的另一个优点是，结合<strong>切比雪夫节点进行插值的话，可以很好地模拟给定的函数，使得插值点个数趋于无穷时，最大偏差趋于零</strong>。同时，重心拉格朗日插值结合切比雪夫节点进行插值可以达到极佳的数值稳定性。第一型拉格朗日插值是<strong>向后稳定</strong>的，而第二型拉格朗日插值是<strong>向前稳定</strong>的，并且<strong>勒贝格常数很小</strong>。</p>
+<p>前向稳定：算法的前向误差是结果与真解之间的差别，即<span class=math>\(\Delta y=y^{*}-y\)</span>。</p>
+<p>后向稳定：后向误差是满足<span class=math>\(f(x+\Delta x)=y^{*}\)</span>的最小<span class=math>\(\Delta x\)</span>，也就是说后向误差说明算法的所解决的问题。如果对于任意的输入<span class=math>\(x\)</span>来说后向误差都很小，那么算法就是后向稳定的。</p>
+<p>前向误差和后向误差通过条件数发生关系：前向误差的幅度最多是条件数乘以后向误差的幅度。</p>
+<h2 id=newton插值法>Newton插值法</h2>
+<p>回头看看Lagrange的基函数，如果我们能找到一组新的基函数，使得新增的基函数对原有函数进行修正，就能防止有新节点插入时Lagrange的重复计算。考虑以下<strong>基函数</strong>。 <span class=math>\[\begin{aligned}
+\phi_0(x)&=1\\
+\phi_1(x)&=(x-x_0)\\
+\phi_2(x)&=(x-x_0)(x-x_1)\\
+\dotsb&=\dotsb\\
+\phi_{n+1}(x)&=\prod_{i=0}^n(x-x_i)\\
+\end{aligned}
+\]</span> 根据线性无关的基函数我们可以用其线性组合得到<strong>待定系数</strong>的插值多项式： <span class=math>\[p(x)=a_0\phi_0(x)+a_1\phi_1(x)\dotsb+a_n\phi_n(x)\]</span> 首先，对于1个点<span class=math>\((x_0,y_0),p_0(x)=a_0=y_0\)</span>，显然。</p>
+<p>对于2个点<span class=math>\((x_0,y_0),(x_1,y_1)\)</span>。 <span class=math>\[p_1(x)=y_0+a_1(x-x_0)\\
+a_1=\frac{y_1-y_0}{x_1-x_0}\]</span></p>
+<p>对于三个点<span class=math>\((x_0,y_0),(x_1,y_1),(x_2,y_2)\)</span>。 <span class=math>\[p_2(x)=y_0+\frac{y_1-y_0}{x_1-x_0}+a_2\phi_2(x)\\
+a_2=\frac{\frac{y_2-y_1}{x_2-x_1}-\frac{y_1-y_0}{x_1-x_0}}{x_2-x_0}\]</span></p>
+<p>根据系数的特定，我们定义<strong>均差（或差商）</strong>： >一阶均差： ><span class=math>\[f[x_i,x_j]=\frac{f(x_i)-f(x_j)}{x_i-x_j}\]</span> >二阶均差：一阶均差的均差。 ><span class=math>\[f[x_i,x_j,x_k]=\frac{f[x_i,x_j]-f[x_j,x_k]}{x_i-x_k}\]</span> >N阶均差：N-1阶均差的均差。</p>
+<p>均差具有对称性：均差<span class=math>\(f[x_0,x_1,\dotsb,x_k]\)</span>与插值节点的顺序无关，即 <span class=math>\[f[x_0,x_1,\dotsb,x_k]=f[x_{i_0},x_{i_1},\dotsb,x_{i_k}]\]</span> 其中，<span class=math>\(x_{i_0},x_{i_1},\dotsb,x_{i_k}\)</span>是<span class=math>\(x_0,x_1,\dotsb,x_k\)</span>的任意一个排列。</p>
+<p>根据上述定义和规律，我们知道对于n+1个节点，其插值多项式为： <span class=math>\[\begin{aligned}
+p_n(x)=&f(x_0)+\\
+&f[x_1,x_0](x-x_0)+\\
+&f[x_2,x_1,x_0](x-x_0)(x-x_1)+\\
+&f[x_3,x_2,x_1,x_0](x-x_0)(x-x_1)+(x-x_2)+\\
+&\dotsb
+\end{aligned}\]</span> 每新增一个节点<span class=math>\((x_{n+1},y_{n+1})\)</span>时，只需要增加一项新的基函数<span class=math>\(\phi_{n+1}=(x-x_0)(x-x_1)\dotsb(x-x_n)\)</span>和新的系数<span class=math>\(f[x_0,x_1,\dotsb,x_{n+1}]\)</span>即可。其中， <span class=math>\[f[x_0,x_1,\dotsb,x_{n+1}]=\frac{f[x_0,x_1,\dotsb,x_n]-f[x_1,x_2,\dotsb,x_{n+1}]}{x_0-x_{n+1}}\]</span> 下面这个图显示了均差表的计算，由于实际运算中，这些都是数值，因此计算并不困难。也是O(n)的计算复杂度。</p>
+<div class=figure>
+<img src=../../images/均差计算1.jpg alt=均差计算1><p class=caption>均差计算1</p>
+</div>
+<p>新增一个插值点，只需要计算相关的差分就可以了。</p>
+<div class=figure>
+<img src=../../images/均差计算2.jpg alt=均差计算2><p class=caption>均差计算2</p>
+</div>
+<h3 id=newton插值法余项与泰勒公式>Newton插值法余项与泰勒公式</h3>
+<p>泰勒把牛顿插值法做了一些改造。 首先，设<span class=math>\(f(x)\)</span>是一个函数，它在<span class=math>\(x_0,x_0+\Delta x,x_0+2\Delta x,x_0+3\Delta x,\cdots,x_0+n\Delta x\)</span>的值已知（和之前的相比，相当于每个点都是等距离间隔的，间隔<span class=math>\(\Delta x\)</span>），令： <span class=math>\[
+\Delta f(x_0)=f(x_0+\Delta x)-f(x_0)，也称为一阶差分，\]</span> <span class=math>\[\Delta f(x_0+\Delta x)=f(x_0+2\Delta x)-f(x_0+\Delta x),
+\]</span> 进一步令： <span class=math>\[\Delta^2 f(x_0)=\Delta f(x_0+\Delta x)-\Delta f(x_0)，也称为二阶差分（为一阶差分的差分）\\
+\Delta^3 f(x_0)=\Delta^2 f(x_0+\Delta x)-\Delta^2 f(x_0)，也称为三阶差分。\]</span> 做了这些假设之后我们来看看之前提到的<span class=math>\(a_1\)</span>会变成什么样子： <span class=math>\[a_1=\frac{f(x_1)-f(x_0)}{x_1-x_0}\implies a_1=\frac{\Delta f(x_0)}{\Delta x}。\]</span> 而<span class=math>\(f_1(x)\)</span>会变成： <span class=math>\[f_1(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)\\
+\implies f_1(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)。\]</span> 同样的<span class=math>\(f_2(x)\)</span>就变成了： <span class=math>\[f_2(x)=f(x_0)+\frac{\Delta f(x_0)}{\Delta x}(x-x_0)+\frac{\Delta^2 f(x_0)}{2\Delta x}(x-x_0)(x-x_1)。\]</span> 泰勒断言，当<span class=math>\(\Delta x=0\)</span>时： <span class=math>\[f_1(x)=f(x_0)+f'(x_0)(x-x_0)\\
+f_1(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2\\
+（\Delta x=0时有x-x_1=x-x_0）\]</span> 以此类推泰勒就得到了大名鼎鼎的泰勒公式： <span class=math>\[f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)}{2!}(x-x_0)^2+\cdots\]</span></p>
+<h2 id=切比雪夫节点与勒贝格常数>切比雪夫节点与勒贝格常数</h2>
+<p><a href=https://zh.wikipedia.org/wiki/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC>https://zh.wikipedia.org/wiki/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8F%92%E5%80%BC</a></p>
+<p>切比雪夫节点与勒贝格常数都是在没有给定插值节点时，自己选择插值节点的准则。</p>
+<h3 id=切比雪夫节点>切比雪夫节点</h3>
+<p>对于一个插值区间<span class=math>\([a, b]\)</span> 如果要在这个插值区间上选取<span class=math>\(n\)</span>个点作为插值基点，使得上面的最大误差最小，则基点的选法如下: <span class=math>\[x_i=\frac{b+a}{2}+\frac{b-a}{2}\cos\frac{(2i-1)\pi}{2n}\\
+(i=1,2,\dotsb,n)\]</span> 这些节点称为切比雪夫（插值）节点。</p>
+<h3 id=勒贝格常数>勒贝格常数</h3>
+<p>在插值节点<span class=math>\(x_0、\dotsb、x_n\)</span>以及包含所有插值节点的区间<span class=math>\([a, b]\)</span>确定下来，插值的过程就是将函数<span class=math>\(f\)</span>映射到多项式<span class=math>\(p\)</span>。这定义了一个<span class=math>\([a, b]\)</span>区间上所有连续函数从空间<span class=math>\(C([a, b])\)</span>到其自身的映射。映射<span class=math>\(X\)</span>是线性的，并且它是函数<span class=math>\(f\)</span>在子空间<span class=math>\(Π_n\)</span>上的投影。勒贝格常数<span class=math>\(L\)</span>定义为<span class=math>\(X\)</span>的算子范数，它满足勒贝格引理： <span class=math>\[\|f-X(f)\|\leq (L+1)\|f-p^{*}\|.\]</span> 换句话说，插值多项式的误差最多是最优逼近的<span class=math>\(L+1\)</span>倍，这表明我们要找使<span class=math>\(L\)</span>最小的插值节点。尤其是选择切比雪夫节点时： <span class=math>\[L \ge \frac{2}{\pi}log(n+1)+C \quad for\quad some\quad costant\quad C \]</span> 我们再次证明切比雪夫节点是多项式插值中比较好的选择，但是这些节点并不是最优的。</p>
+<h2 id=hermite插值>Hermite插值</h2>
+<p><strong>埃尔米特插值</strong>是另一类插值问题，这类插值在给定的节点处，不但要求插值多项式的函数值与原函数值相同。同时还要求在节点处，插值多项式的一阶直至指定阶的导数值，也与被插函数的相应阶导数值相等，这样的插值称为埃尔米特(Hermite)插值。 Hermite插值在不同的节点，提出的插值条件个数可以不同，若在某节点<span class=math>\(x_{i}\)</span>，要求插值函数多项式的函数值，一阶导数值，直至<span class=math>\(m_{i}-1\)</span>阶导数值均与被插函数的函数值相同及相应的导数值相等。我们称<span class=math>\(x_{i}\)</span>为<span class=math>\(m_{i}\)</span>重插值点节,因此，Hermite插值应给出两组数，一组为插值点<span class=math>\(\{x_{i}\}_{i=0}^{n}\)</span>节点，另一组为相应的重数标号<span class=math>\(\{m_{i}\}_{i=0}^{n}\)</span>。</p>
+<h2 id=插值法的变形>插值法的变形</h2>
+<p>讲到这里基本上所有插值都是上面这些方法的结合体或者扩展了，根据不同的应用我们会使用不同的算法来解决我们的问题，像已知很多点的一次导数和他的位置，一般只有在应用物体位置和速度都知道的情况下，而这也只有在方程次数很高的情况下才会应用高次Hermite插值。通常我们接触的插值应用也只在3次方程进行。比如当我们仅仅知道点的位置而想让曲线更加平滑，不考虑误差，用最普通的Newton来算就好。为了增加视觉上的平滑或者说和周围点的连贯行，我们可以根据已知相邻点的位置来计算当前点的导数，进而使用Hermite算法。</p>
+<p>如果我们将所有的点分段进行计算，则变为<strong>样条插值</strong>。</p>
+<p>对于样条插值的连续性，如果我们选择3次样条插值来满足一阶导数连续的话，实际上是满足不了2阶导数连续的，举个例子，<span class=math>\(x^3\)</span>在y轴左侧，<span class=math>\(x^2\)</span>在y轴右侧构成的曲线，在原点处的一阶导数都为0，而<span class=math>\(f_+''(0)=2,f_-''(0)=0\)</span>就会导致看起来略微有些别扭的情况，但是实际应用中，这种不合适经常被忽略。</p>
+<p>在多段插值中，已知点的位置，对于点上的导数的计算的选择的不同则变为不同的插值。 <img src=../../images/插值法变形.svg alt=插值法的变形></p>
+<h2 id=附录>附录</h2>
+<h3 id=克莱姆法则证明>克莱姆法则证明</h3>
+<p>来源：维基百科<a href=https://zh.wikipedia.org/wiki/%E5%85%8B%E8%90%8A%E5%A7%86%E6%B3%95%E5%89%87>https://zh.wikipedia.org/wiki/%E5%85%8B%E8%90%8A%E5%A7%86%E6%B3%95%E5%89%87</a></p>
+<p>克莱姆法则：一个线性方程组可以用矩阵与向量的方程来表示： <span class=math>\[Ax=c \quad(1)\]</span> 其中的<span class=math>\(A\)</span>是一个<span class=math>\(n\times n\)</span>的方块矩阵，而向量<span class=math>\(x=( x_1, x_2, \cdots x_n )^T\)</span>是一个长度为n的列向量<span class=math>\(c=( c_1, c_2, \cdots c_n )^T\)</span>也一样。</p>
+<p>克莱姆法则说明：如果<span class=math>\(A\)</span>是一个可逆矩阵（<span class=math>\(\det{A} \neq 0\)</span>），那么方程(1)有解<span class=math>\(x=( x_1, x_2, \cdots x_n )^T\)</span>，其中</p>
+<p><span class=math>\[x_i = { \det(A_i) \over \det(A)} \quad(1)\]</span></p>
+<p>当中<span class=math>\(A_{i}\)</span>是被列向量<span class=math>\(c\)</span>取代了<span class=math>\(A\)</span>的第i列的列向量后得到的矩阵。为了方便，我们通常使用<span class=math>\(\Delta\)</span>来表示<span class=math>\(\det(A)\)</span>，用<span class=math>\(\Delta_i\)</span>来表示<span class=math>\(\det(A_i)\)</span>。所以等式(1)可以写成为： <span class=math>\[x_i = { \Delta_i \over \Delta }。\]</span></p>
+<p>证明：</p>
+<p>对于n元线性方程组<span class=math>\(Ax=c\)</span></p>
+<p>把系数矩阵<span class=math>\(A\)</span>表示成列向量的形式 <span class=math>\[A=\left(u_{1},u_{2},\cdots ,u_{n}\right)\]</span> 由于系数矩阵可逆，故方程组一定有解<span class=math>\(x^{*}=A^{{-1}}c\)</span>.</p>
+<p>设<span class=math>\(x^{*}=(x_{1},x_{2},\cdots ,x_{n})^{T}\)</span>，即 <span class=math>\[Ax^{*}=\sum _{{k=1}}^{n}x_{k}u_{k}=c\]</span></p>
+<p>考虑<span class=math>\(\Delta_i\)</span>的值，利用行列式的线性和交替性质，有</p>
+<p><span class=math>\[{\begin{aligned}
+\Delta _{i}&=det\left(\cdots ,u_{{i-1}},c,u_{{i+1}},\cdots \right) \\&=det\left(\cdots ,u_{{i-1}},\sum _{{k=1}}^{n}x_{k}u_{k},u_{{i+1}},\cdots \right)
+\\&=\sum _{{k=1}}^{n}x_{k}\cdot det\left(\cdots ,u_{{i-1}},u_{k},u_{{i+1}},\cdots \right)
+\\&=x_{i}\cdot det\left(\cdots ,u_{{i-1}},u_{i},u_{{i+1}},\cdots \right)
+\\&=x_{i}\Delta
+\end{aligned}}\]</span></p>
+<p>于是<span class=math>\(x_{i}=\frac{\Delta_{i}}{\Delta}\)</span>。</p>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

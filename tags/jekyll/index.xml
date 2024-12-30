@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jekyll on SurprisedCat</title><link>https://surprisedcat.github.io/tags/jekyll/</link><description>Recent content in Jekyll on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sun, 19 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/jekyll/index.xml" rel="self" type="application/rss+xml"/><item><title>Jekyll-default-settings</title><link>https://surprisedcat.github.io/projectnotes/jekyll-default-settings/</link><pubDate>Sun, 19 Nov 2017 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/jekyll-default-settings/</guid><description>
+&lt;h2 id="jekyll的默认配置---omit-in-toc---">Jekyll的默认配置&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="jekyll的默认配置规则">Jekyll的默认配置规则&lt;/h2>
+&lt;p>为了加深对Jekyll指令的了解，从官网上查找了 _config.yml 文件的默认配置$^{[1]}$，如下所示：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="ln"> 1&lt;/span># Where things are
+&lt;span class="ln"> 2&lt;/span>source: .
+&lt;span class="ln"> 3&lt;/span>destination: ./_site
+&lt;span class="ln"> 4&lt;/span>plugins_dir: ./_plugins
+&lt;span class="ln"> 5&lt;/span>layouts_dir: ./_layouts
+&lt;span class="ln"> 6&lt;/span>data_dir: ./_data
+&lt;span class="ln"> 7&lt;/span>includes_dir: ./_includes
+&lt;span class="ln"> 8&lt;/span>collections: null
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span># Handling Reading
+&lt;span class="ln">11&lt;/span>safe: false
+&lt;span class="ln">12&lt;/span>include: [&amp;#34;.htaccess&amp;#34;]
+&lt;span class="ln">13&lt;/span>exclude: []
+&lt;span class="ln">14&lt;/span>keep_files: [&amp;#34;.git&amp;#34;, &amp;#34;.svn&amp;#34;]
+&lt;span class="ln">15&lt;/span>encoding: &amp;#34;utf-8&amp;#34;
+&lt;span class="ln">16&lt;/span>markdown_ext: &amp;#34;markdown,mkdown,mkdn,mkd,md&amp;#34;
+&lt;span class="ln">17&lt;/span>
+&lt;span class="ln">18&lt;/span># Filtering Content
+&lt;span class="ln">19&lt;/span>show_drafts: null
+&lt;span class="ln">20&lt;/span>limit_posts: 0
+&lt;span class="ln">21&lt;/span>future: false
+&lt;span class="ln">22&lt;/span>unpublished: false
+&lt;span class="ln">23&lt;/span>
+&lt;span class="ln">24&lt;/span># Plugins
+&lt;span class="ln">25&lt;/span>whitelist: []
+&lt;span class="ln">26&lt;/span>gems: []
+&lt;span class="ln">27&lt;/span>
+&lt;span class="ln">28&lt;/span># Conversion
+&lt;span class="ln">29&lt;/span>markdown: kramdown
+&lt;span class="ln">30&lt;/span>highlighter: rouge
+&lt;span class="ln">31&lt;/span>lsi: false
+&lt;span class="ln">32&lt;/span>excerpt_separator: &amp;#34;\n\n&amp;#34;
+&lt;span class="ln">33&lt;/span>incremental: false
+&lt;span class="ln">34&lt;/span>
+&lt;span class="ln">35&lt;/span># Serving
+&lt;span class="ln">36&lt;/span>detach: false
+&lt;span class="ln">37&lt;/span>port: 4000
+&lt;span class="ln">38&lt;/span>host: 127.0.0.1
+&lt;span class="ln">39&lt;/span>baseurl: &amp;#34;&amp;#34; # does not include hostname
+&lt;span class="ln">40&lt;/span>
+&lt;span class="ln">41&lt;/span># Outputting
+&lt;span class="ln">42&lt;/span>permalink: date
+&lt;span class="ln">43&lt;/span>paginate_path: /page:num
+&lt;span class="ln">44&lt;/span>timezone: null
+&lt;span class="ln">45&lt;/span>
+&lt;span class="ln">46&lt;/span>quiet: false
+&lt;span class="ln">47&lt;/span>defaults: []
+&lt;span class="ln">48&lt;/span>
+&lt;span class="ln">49&lt;/span># Markdown Processors
+&lt;span class="ln">50&lt;/span>rdiscount:
+&lt;span class="ln">51&lt;/span> extensions: []
+&lt;span class="ln">52&lt;/span>
+&lt;span class="ln">53&lt;/span>redcarpet:
+&lt;span class="ln">54&lt;/span> extensions: []
+&lt;span class="ln">55&lt;/span>
+&lt;span class="ln">56&lt;/span>kramdown:
+&lt;span class="ln">57&lt;/span> auto_ids: true
+&lt;span class="ln">58&lt;/span> footnote_nr: 1
+&lt;span class="ln">59&lt;/span> entity_output: as_char
+&lt;span class="ln">60&lt;/span> toc_levels: 1..6
+&lt;span class="ln">61&lt;/span> smart_quotes: lsquo,rsquo,ldquo,rdquo
+&lt;span class="ln">62&lt;/span> enable_coderay: false
+&lt;span class="ln">63&lt;/span>
+&lt;span class="ln">64&lt;/span> coderay:
+&lt;span class="ln">65&lt;/span> coderay_wrap: div
+&lt;span class="ln">66&lt;/span> coderay_line_numbers: inline
+&lt;span class="ln">67&lt;/span> coderay_line_number_start: 1
+&lt;span class="ln">68&lt;/span> coderay_tab_width: 4
+&lt;span class="ln">69&lt;/span> coderay_bold_every: 10
+&lt;span class="ln">70&lt;/span> coderay_css: style
+&lt;span class="ln">71&lt;/span>
+&lt;span class="ln">72&lt;/span> redcloth:
+&lt;span class="ln">73&lt;/span> hard_breaks: true
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1] &lt;a href="http://jekyll.com.cn/docs/configuration/">http://jekyll.com.cn/docs/configuration/&lt;/a>&lt;/p></description></item><item><title>Jekyll-architecture</title><link>https://surprisedcat.github.io/projectnotes/jekyll-architecture/</link><pubDate>Thu, 16 Nov 2017 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/jekyll-architecture/</guid><description>
+&lt;h2 id="jekyll-结构分析---omit-in-toc---">Jekyll 结构分析&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="1-jekyll目录结构分析">1. Jekyll目录结构分析&lt;/h2>
+&lt;p>Jekyll（发音/'dʒiːk əl/）是一个静态站点生成器，它会根据网页源码生成静态文件（纯HTML+CSS+JS）。它提供了模板、变量、插件等功能，所以实际上可以用来编写整个网站。Jekyll是基于Ruby语言开发的，因此安装Jekyll需要Ruby以及相关的组件，具体安装可以参考&lt;a href="http://jekyllcn.com/docs/installation/">Jekyll的中文网站安装指南&lt;/a>。使用Jekyll可以让我们尽量少的接触网站相关的知识的同时，搭建出漂亮的个人博客网站。本文采用自顶向下的方式来介绍Jekyll如何实现建站。&lt;/p>
+&lt;p>Jekyll 的核心其实是一个文本转换引擎。它的概念其实就是：你用你最喜欢的标记语言来写文章，可以是 Markdown, 也可以是 Textile, 或者就是简单的 HTML, 然后 Jekyll 就会帮你套入一个或一系列的布局中。在整个过程中你可以设置 URL 路径，你的文本在布局中的显示样式等等。这些都可以通过纯文本编辑来实现，最终生成的静态页面就是你的成品了。$^{[1]}$&lt;/p>
+&lt;p>一个基本的 Jekyll 网站的目录结构一般是像这样的：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>.
+&lt;span class="ln"> 2&lt;/span>├── _config.yml
+&lt;span class="ln"> 3&lt;/span>├── _drafts
+&lt;span class="ln"> 4&lt;/span>&lt;span class="p">|&lt;/span> ├── begin-with-the-crazy-ideas.textile
+&lt;span class="ln"> 5&lt;/span>&lt;span class="p">|&lt;/span> └── on-simplicity-in-technology.markdown
+&lt;span class="ln"> 6&lt;/span>├── _includes
+&lt;span class="ln"> 7&lt;/span>&lt;span class="p">|&lt;/span> ├── footer.html
+&lt;span class="ln"> 8&lt;/span>&lt;span class="p">|&lt;/span> └── header.html
+&lt;span class="ln"> 9&lt;/span>├── _layouts
+&lt;span class="ln">10&lt;/span>&lt;span class="p">|&lt;/span> ├── default.html
+&lt;span class="ln">11&lt;/span>&lt;span class="p">|&lt;/span> └── post.html
+&lt;span class="ln">12&lt;/span>├── _posts
+&lt;span class="ln">13&lt;/span>&lt;span class="p">|&lt;/span> ├── 2007-10-29-why-every-programmer-should-play-nethack.textile
+&lt;span class="ln">14&lt;/span>&lt;span class="p">|&lt;/span> └── 2009-04-26-barcamp-boston-4-roundup.textile
+&lt;span class="ln">15&lt;/span>├── _page
+&lt;span class="ln">16&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>—— category.html
+&lt;span class="ln">17&lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>—— tags.html
+&lt;span class="ln">18&lt;/span>&lt;span class="p">|&lt;/span> └── archive.html
+&lt;span class="ln">19&lt;/span>├── js
+&lt;span class="ln">20&lt;/span>&lt;span class="p">|&lt;/span> └── main.js
+&lt;span class="ln">21&lt;/span>├── css
+&lt;span class="ln">22&lt;/span>&lt;span class="p">|&lt;/span> └── main.css
+&lt;span class="ln">23&lt;/span>├── _site
+&lt;span class="ln">24&lt;/span>├── .jekyll-metadata
+&lt;span class="ln">25&lt;/span>└── index.html
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>更精确的说，目录是一个&lt;strong>迭代包括&lt;/strong>的结构,大体来说，可以分为这几个部分：(请保持足够的屏宽来看这个插图)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span> -------------- ----------------- ---------------
+&lt;span class="ln"> 2&lt;/span> &lt;span class="p">|&lt;/span> page YML &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> _posts YML &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> index.html &lt;span class="p">|&lt;/span> -- --------------
+&lt;span class="ln"> 3&lt;/span> -------------- ----------------- --------------- &lt;span class="p">|&lt;/span>&amp;lt;--&lt;span class="p">|&lt;/span> _config.yml&lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 4&lt;/span> ^ ^ ^ &lt;span class="p">|&lt;/span> --------------
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">|&lt;/span>_____________________&lt;span class="p">|&lt;/span>______________________&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> --------------
+&lt;span class="ln"> 6&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&amp;lt;--&lt;span class="p">|&lt;/span> js css sass&lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> --------------
+&lt;span class="ln"> 8&lt;/span> ------------------ ---------------- &lt;span class="p">|&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">|&lt;/span> _layouts &lt;span class="p">|&lt;/span>&amp;lt;------&lt;span class="p">|&lt;/span> _includes &lt;span class="p">|&lt;/span>______________&lt;span class="p">|&lt;/span>
+&lt;span class="ln">10&lt;/span> ------------------ ----------------
+&lt;span class="ln">11&lt;/span> ^ YML &lt;span class="p">|&lt;/span> ^ &lt;span class="p">|&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">|&lt;/span>______&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>______&lt;span class="p">|&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，_includes文件中是常用代码快，可以被包含在模板（_layouts ）中，用来组成模板。includes之间也快成互相包括，模板之间也可互相包括。最后页面（ _posts,page,index.html）包含所需模板实现一个完整的页面。以&lt;a href="https://github.com/Gaohaoyang/gaohaoyang.github.io">Gaohaoyang&lt;/a>的index.html为例(个人非常喜欢他改进的这个Theme)。这里就是使用了default模板，所有的内容都被放在的default模板的{{content}}里面。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln"> 1&lt;/span>index.html
+&lt;span class="ln"> 2&lt;/span>---
+&lt;span class="ln"> 3&lt;/span>layout: default
+&lt;span class="ln"> 4&lt;/span>---
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;page clearfix&amp;#34;&lt;/span> &lt;span class="na">index&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;left&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Welcome to HyG&amp;#39;s Blog!&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">small&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>这里记录着我的前端学习之路&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">small&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">hr&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">12&lt;/span> ....................中间省略.........................
+&lt;span class="ln">13&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ul&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;content-ul&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">14&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ul&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> --&amp;gt;
+&lt;span class="ln">17&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c">&amp;lt;!-- &amp;lt;script src=&amp;#34;{{ &amp;#34;/js/scroll.min.js &amp;#34; | prepend: site.baseurl }}&amp;#34; charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; --&amp;gt;&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="c">&amp;lt;!-- &amp;lt;script src=&amp;#34;{{ &amp;#34;/js/pageContent.js &amp;#34; | prepend: site.baseurl }}&amp;#34; charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; --&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个是default.html模板。它包括了一些代码片段（ head.html、header.html、footer.html、backToTop.html ）这些都是在_includes文件夹中的内容，{{content}}表示如果有网页使用了这个模板，内容就会放在这个位置,比如上面index.html的内容就是替换了{{content}}的部分。这也解释了为什么index.html中没有常见的一些头信息。此外，这个模板还包含了一些公用的js文件（main.js、smooth-scroll.min.js）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="ln"> 1&lt;/span>default.html
+&lt;span class="ln"> 2&lt;/span>&lt;span class="cp">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span> {% include head.html %}
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span> {% include header.html %}
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> {{ content }}
+&lt;span class="ln">12&lt;/span>
+&lt;span class="ln">13&lt;/span> {% include footer.html %}
+&lt;span class="ln">14&lt;/span> {% include backToTop.html %}
+&lt;span class="ln">15&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;{{ &amp;#34;&lt;/span>&lt;span class="err">/&lt;/span>&lt;span class="na">js&lt;/span>&lt;span class="err">/&lt;/span>&lt;span class="na">main&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">js&lt;/span> &lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">|&lt;/span> &lt;span class="na">prepend:&lt;/span> &lt;span class="na">site&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">baseurl&lt;/span> &lt;span class="err">}}&amp;#34;&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;{{ &amp;#34;&lt;/span>&lt;span class="err">/&lt;/span>&lt;span class="na">js&lt;/span>&lt;span class="err">/&lt;/span>&lt;span class="na">smooth-scroll&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">min&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">js&lt;/span> &lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">|&lt;/span> &lt;span class="na">prepend:&lt;/span> &lt;span class="na">site&lt;/span>&lt;span class="err">.&lt;/span>&lt;span class="na">baseurl&lt;/span> &lt;span class="err">}}&amp;#34;&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text/javascript&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="nx">smoothScroll&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">init&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="nx">speed&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Integer. How fast to complete the scroll in milliseconds
+&lt;/span>&lt;span class="ln">20&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">easing&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;easeInOutCubic&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Easing pattern to use
+&lt;/span>&lt;span class="ln">21&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">offset&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Integer. How far to offset the scrolling anchor location in pixels
+&lt;/span>&lt;span class="ln">22&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c">&amp;lt;!-- &amp;lt;script src=&amp;#34;{{ &amp;#34; /js/scroll.min.js &amp;#34; | prepend: site.baseurl }}&amp;#34; charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; --&amp;gt;&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;span class="ln">26&lt;/span>
+&lt;span class="ln">27&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="11theme的包含结构">1.1Theme的包含结构&lt;/h3>
+&lt;p>在这个Theme中，包含结构大致如下：&lt;/p>
+&lt;ul>
+&lt;li>index.html--&amp;gt;default.html(包含head.html(&lt;strong>网页的头信息&lt;/strong>)、header.html、footer.html、backToTop.html)&lt;/li>
+&lt;li>0archives.html、1categoty.html、2tags.html (包含tag.html、category.html)--&amp;gt;default.html(包含head.html(&lt;strong>网页的头信息&lt;/strong>)、header.html、footer.html、backToTop.html)&lt;/li>
+&lt;li>pages（ e.g.3collections.md、4about.md )--&amp;gt;page.html(包括pageContent.js)--&amp;gt;default.html(包含head.html(&lt;strong>网页的头信息&lt;/strong>)、header.html、footer.html、backToTop.html)&lt;/li>
+&lt;li>_posts(文章)--&amp;gt;post.html（包含tag.html、category.html、previousAndNext.html）--&amp;gt;default.html&lt;/li>
+&lt;li>_drafts(草稿)--&amp;gt;post.html（包含tag.html、category.html、previousAndNext.html）--&amp;gt;default.html&lt;/li>
+&lt;/ul>
+&lt;p>此外，还有一些js，css，sass文件。Jekyll的大体结构就是这样了。如果想了解每一个文件夹的具体内容可以参考Jekyll的中文文档:&lt;a href="http://jekyllcn.com/docs/home/">将纯文本转换为静态博客网站&lt;/a>。&lt;/p>
+&lt;h2 id="2-参考文献">2. 参考文献&lt;/h2>
+&lt;p>[1] &lt;a href="http://jekyllcn.com/docs/structure/">http://jekyllcn.com/docs/structure/&lt;/a>&lt;/p></description></item></channel></rss>

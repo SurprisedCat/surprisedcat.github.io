@@ -1,0 +1,846 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>shell-骨干流程4——命令执行与job控制 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="shell-骨干流程4——命令执行与job控制 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/">
+<meta property="og:title" content="shell-骨干流程4——命令执行与job控制">
+<meta property="og:description" content="shell-骨干流程4——命令执行与job控制 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>shell-骨干流程4——命令执行与job控制</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Jan 5, 2022</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/shell title=shell class="post_tag button button_translucent">shell
+</a><a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B title=CLI处理流程 class="post_tag button button_translucent">CLI处理流程
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/projectnotes/shell-%E9%AA%A8%E5%B9%B2%E6%B5%81%E7%A8%8B4%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E4%B8%8Ejob%E6%8E%A7%E5%88%B6/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<ul>
+<li><a href=#%E5%91%BD%E4%BB%A4%E6%9F%A5%E6%89%BE>命令查找</a></li>
+<li><a href=#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C>命令执行</a></li>
+<li><a href=#%E7%94%A8%E6%88%B7%E6%89%8B%E5%8A%A8%E7%AE%A1%E7%90%86%E4%BB%BB%E5%8A%A1>用户手动管理任务</a>
+<ul>
+<li><a href=#%E4%BF%A1%E5%8F%B7%E6%9C%BA%E5%88%B6%E4%B8%8Etrap>信号机制与trap</a></li>
+<li><a href=#%E4%BD%9C%E4%B8%9A%E6%8E%A7%E5%88%B6>作业控制</a></li>
+</ul>
+</li>
+<li><a href=#linux%E4%BF%A1%E5%8F%B7%E8%A1%A8>Linux信号表</a></li>
+</ul>
+<p>总体流程图镇楼：</p>
+<p><img src=../../images/shell%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.drawio.svg alt=shell执行流程></p>
+<h2 id=命令执行与job控制---omit-in-toc--->命令执行与job控制</h2>
+<p>经过前面12个步骤的处理，shell命令中引号引用、保留字、别名、展开、替换、重定向等内容都已经设置完成，到了真正来执行命令的阶段。前面所有的步骤都是为了能够顺利执行命令而存在的，可以说命令执行是shell流程的<strong>核心</strong>。命令执行的流程只有两步（如图中蓝色部分所示），包括寻找可执行命令的第13步和执行该命令的第14步。</p>
+<p>第13步中，<strong>我们要明确哪些地方能够查找到所需要的可执行命令，以及查找这些地方的顺序</strong>。在非复合命令中，<strong>首个单词</strong>（word）通常指的是需要执行的命令，后面的部分都是该命令的参数。如果找到了可执行命令，那么最终在第14步执行命令（首个单词）+参数（后面所有的单词），并返回结果，命令执行的过程中，还会涉及到执行环境的问题，不同的执行环境会对执行的过程结果有不同影响。如果存在未执行命令则读取下一条命令从第一步再开始处理，若遇到文件结束符（EOF）则完成shell流程。</p>
+<p>到这里，shell的骨干流程算是结束了。</p>
+<p>然而，对于一个多任务操作系统，bash shell可能启动了多个任务同时运行，因此还需要进行作业的管理和监控。除了Linux内核自动运行的任务/作业管理机制，bash shell也提供了手动调整任务/作业执行流程、方式的机制，主要包括两个机制：作业控制机制和信号机制。<strong>作业控制</strong>（job control）是针对即将执行和正在执行命令的一套控制机制，也是shell流程中不可缺少的一部分。此外，还可以通过<strong>信号</strong>的捕获与处理，来与正在运行的任务/作业进行通信，从而实现特定的控制功能。这一部分内容严格来说并不是shell命令处理的骨干流程，但是能够让我们更深刻地理解bash shell的运行方式。</p>
+<h2 id=命令查找>命令查找</h2>
+<p>根据shell分词的结果，shell会产生**一个简单的命令（首个单词）和一个可选的参数列表。首个单词将会被认为是shell需要执行的命令名称。**这里需要在强调下，shell中的单词和一般语言中的单词是不一样的：单词，word，可以被shell认为是一个单元的一串字符，单词不能包括不带引号的元字符。也就是说，一个字符串只要不能被元字符分割，那就是shell中所谓的单词。</p>
+<p>根据《shell骨干流程1——形成初始命令》一文中的说明，shell的分割元字符包括<code>()&lt;>;&| \t\n</code>这几个，因此我们来举几个shell中的单词例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>./exec
+<span class=ln>2</span>/bin/more
+<span class=ln>3</span>../../test.sh
+<span class=ln>4</span><span class=s2>&#34;hello world&#34;</span> <span class=c1># 必须要在引号中</span>
+<span class=ln>5</span>cat
+</code></pre></div><p>上面的例子都可以称为一个单词来作为简单命令。</p>
+<p>那么bash如何来查找这个命令呢？</p>
+<p>首先如果这个命令以<code>.</code>或者<code>/</code>开头，则说明用户指定了命令的路径，bash必须<strong>根据用户指定的路径去查找是否存在该命令</strong>。其中，如果以<code>.</code>开头，则以当前文件夹为基准使用相对路径；如果以<code>/</code>开头，则使用绝对路径。</p>
+<p>如果命令中不以<code>.</code>或者<code>/</code>开头，则依以下顺序来查找命令：</p>
+<ol>
+<li>查看命令名称是否为shell函数，如果这个名称是shell函数，那么命令将按照Shell函数中的描述被调用。（可以用<code>set</code>命令查看当前所有定义的函数）</li>
+<li>查看命令是否为内建命令（<code>builtins</code>），如果找到匹配，则调用该内建命令。</li>
+<li>查看<code>$PATH</code>路径，按顺序从左到右依次查找<code>$PATH</code>路径中的每一项，查看该元素下所有可执行文件，直到匹配到命令。</li>
+<li>如果<code>$PATH</code>中没有找到匹配的路径，那么shell会抛出<code>command_not_found</code>错误。</li>
+</ol>
+<p>在shell实现时，bash使用哈希表来记住可执行文件的完整路径名，以避免频繁的<code>$PATH</code>搜索。只有在哈希表中找不到该命令时，才会执行<code>$PATH</code>目录中的完整搜索，这通常发生在修改了<code>$PATH</code>变量之后。</p>
+<h2 id=命令执行>命令执行</h2>
+<p>如果我们在第13步中找到了可行性文件，那么将来到最后一步，执行该命令。<strong>这一步是shell运行的最终目的</strong>，但也是bash管的最少的一步，因为接下来如何执行该命令就完全交由可执行文件自己决定。</p>
+<p>bash要做的只是将执行的命令为位置参数0，并把后面的所有单词作为位置参数传递给可执行文件，之后就等待可执行文件运行结束并收集其退出状态。当然如果该命令是异步执行的，shell就不必等待其结束。</p>
+<p>最核心的一步也是shell最简单的一步，颇有一种功成身退，翩然而去的风味。</p>
+<p>如果我们在深入的了解一下执行流程，会发现shell在执行命令之前还做了一些环境设置的工作，这些环境设置工作虽然不显山不露水，但是若是不了解，就会产生不少奇怪的问题。</p>
+<p>此外，当执行一个简单的命令，而不是一个内建函数或shell函数时，它将在一个<strong>独立的执行环境中调用</strong>，该环境由以下几部分组成。 除非另有说明，否则这些值是从原shell继承而来的。</p>
+<p>我们先来看看shell有哪些命令执行环境：</p>
+<ol>
+<li>打开的文件信息。Linux中一切皆文件，因此这个打开的“文件”是一个广义概念，目前正在使用的设备、socket等都是文件的范畴，最常见的文件信息就是标准输入输出文件，它们记录了文件输入输出的位置。</li>
+<li>当前的工作目录。这个环境可通过<code>cd, pushd, popd</code>修改也可继承自启动该bash的程序。</li>
+<li>umask信息和文件的读写执行权限有关。</li>
+<li>trap(后面会提，常用于信号的处理)</li>
+<li>通过set设置或从父shell继承的shell参数</li>
+<li>在执行期间定义的shell函数或从环境中的shell父项继承的函数</li>
+<li>在调用时启用的选项（默认或通过命令行参数或set设置）</li>
+<li>由shopt启用的选项</li>
+<li>使用alias定义的shell别名</li>
+<li>各种进程ID，包括包括后台作业信息，$$和$PPID的值</li>
+</ol>
+<p>当执行一个<code>$PATH</code>中的命令，而不是一个内建函数或shell函数时，它将在一个<strong>独立的执行环境中</strong>调用，该环境由以下几部分组成。</p>
+<ol>
+<li>打开的文件信息。</li>
+<li>当前的工作目录。</li>
+<li>umask信息</li>
+<li>trap</li>
+<li>在环境中传递的标记为<code>export</code>的shell变量和函数以及为命令导出的变量</li>
+</ol>
+<p>在这个单独的环境中调用的命令不会影响shell的执行环境。</p>
+<h2 id=用户手动管理任务>用户手动管理任务</h2>
+<p>shell每执行一个命令，Linux就相当于启动了一个任务。任务之间未必是一个接一个顺序执行的，bash shell可能启动了多个任务同时运行，因此还需要进行任务管理和调度。对于大多数小型计算机系统来说，任务（进程）都是由内核自动进行调度的，用户几乎无法直接控制任务的执行顺序，至多给他们设置任务优先级，进行间接调控。<strong>Unix系统是第一个让用户能够直接控制多个进程的小型操作系统</strong>，这个做法评价不一，Linux也继承这个功能，被称为<strong>用户控制的多任务</strong>。</p>
+<p>首先，要区别的进程ID（Process ID）和作业号（Job Number）。当shell开始执行一个命令时，Linux会创建对应的进程并给进程标号，这个标号就是<strong>进程ID</strong>。进程执行时，默认情况下让bash等待其运行完，如果命令后面加个<code>&</code>符号，进程会被放到后台执行，bash仍能够和用户交互。示例如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ which ls <span class=p>&amp;</span>
+<span class=ln>2</span><span class=o>[</span>1<span class=o>]</span> <span class=m>7091</span>
+<span class=ln>3</span>/usr/bin/ls
+</code></pre></div><p>其中，7091是Linux系统分配的<strong>进程ID</strong>，[1]是当前shell给它分配的<strong>作业号</strong>。作业号只是当前shell给它所启动的任务分配的编号，而进程ID是整个系统中，所有用户正在执行任务的编号。</p>
+<h3 id=信号机制与trap>信号机制与trap</h3>
+<p>信号（Signal）是在软件层次上对中断机制的一种<strong>模拟</strong>，一个进程通过给另一个进程发送信号，使其执行相应的处理函数，属于一种进程间通信（Interprocess Communication, IPC）。在shell语境下，bash通常使用<code>kill</code>命令发送信号命令给某一进程（常用进程ID指定），而收到信号的进程使用<code>trap</code>命令处理信号。当然，bash也支持从键盘快捷键直接输入信号，如ctrl+c, ctrl+z等。Linux支持的信号用1-64的数字表示，分为非实时信号(不可靠信号)和实时信号(可靠信号)两种类型，对应于 Linux 的信号值为 1-31 和 34-64。非实时信号，不支持队列，信号可能会丢失，比如发送多次相同的信号，进程只能收到一次，如果第一个信号没有处理完，第二个信号将会丢弃。实时信号支持队列，发多少次进程就可以收到多少次。</p>
+<p>我们先看看<code>kill</code>命令格式。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>kill</span> <span class=o>[</span>-s sigspec <span class=p>|</span> -n signum <span class=p>|</span> -sigspec<span class=o>]</span> pid <span class=p>|</span> jobspec ... <span class=c1># 给特定进程发送信号</span>
+<span class=ln>2</span><span class=c1># 默认发送信号为 TERM （15）</span>
+<span class=ln>3</span>-l <span class=o>[</span>sigspec/signum<span class=o>]</span> <span class=c1># 打印名称/编号对应的特定信号编号/名称</span>
+<span class=ln>4</span>-s  <span class=c1># 使用信号名称</span>
+<span class=ln>5</span>-n  <span class=c1># 使用信号编号</span>
+<span class=ln>6</span>-l  <span class=c1># 打印编号1-31信号名称</span>
+<span class=ln>7</span>pid <span class=c1># 进程ID</span>
+<span class=ln>8</span>jobapec <span class=c1># 作业号，使用的时候前面加%，例如作业号为1的作业为%1</span>
+</code></pre></div><p><code>kill</code>虽然名字叫<code>杀</code>，却是发送任意信号的命令。之所以叫杀，是因为默认发送的是杀死进程的命令（SIGTERM）。举个例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 我们在后台启动一个cat程序</span>
+<span class=ln> 2</span>$ cat <span class=p>&amp;</span>
+<span class=ln> 3</span><span class=o>[</span>1<span class=o>]</span> <span class=m>31930</span> <span class=c1># [1]是作业号，属于当前shell，31930是进程ID，属于系统</span>
+<span class=ln> 4</span><span class=c1># 我们用kill 发送一个信号终止cat进程</span>
+<span class=ln> 5</span>$ <span class=nb>kill</span> -n <span class=m>15</span> <span class=m>31930</span> <span class=c1># 或者 kill -s SINTERM 31930</span>
+<span class=ln> 6</span><span class=o>[</span>1<span class=o>]</span>+  Stopped                 cat
+<span class=ln> 7</span>$ cat <span class=p>&amp;</span>
+<span class=ln> 8</span><span class=o>[</span>2<span class=o>]</span> <span class=m>31931</span>
+<span class=ln> 9</span>$ <span class=nb>kill</span> -s SIGTERM %2 <span class=c1># 使用作业号</span>
+<span class=ln>10</span><span class=o>[</span>2<span class=o>]</span>+  Stopped                 cat
+</code></pre></div><p>如果SIGTERM（15）信号无法终止，可以再尝试SIGKILL（9）信号，该信号要求立即停止进程，不能捕获，不能忽略。</p>
+<p><strong>Linux支持的信号见</strong><a href=#linux%E4%BF%A1%E5%8F%B7%E8%A1%A8>Linux信号表</a>。</p>
+<p>如果一个进程收到了信号，可以通过三种方式来响应一个信号：</p>
+<ol>
+<li>忽略信号，即对信号不做任何处理，其中有两个信号不能忽略：SIGKILL及SIGSTOP。</li>
+<li>执行缺省操作，Linux对每种信号都规定了默认操作。</li>
+<li>捕捉信号。</li>
+</ol>
+<p>默认情况下，当一个进程接收到信号之后，会根据<a href=#linux%E4%BF%A1%E5%8F%B7%E8%A1%A8>Linux信号表</a>的默认（缺省）操作行事，或者根据系统情况直接忽略信号。然后，bash给我们提供了一个能够按需要自行处理信号的功能，<code>trap</code>。<code>trap</code>命令定义shell脚本在运行时根据接收的信号做相应的处理，该命令对于编写较复杂shell程序有很大意义，提供了类似其他编程语言中异常处理的功能。其使用如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>trap</span> <span class=o>[</span>-lp<span class=o>]</span> <span class=o>[[</span>arg<span class=o>]</span> sigspec ...<span class=o>]</span>
+<span class=ln>2</span>-l  <span class=c1># 打印编号1-64编号信号名称</span>
+<span class=ln>3</span>-p  <span class=c1># 查看当前已经设置的trap内容</span>
+<span class=ln>4</span>arg <span class=c1># 捕获信号后执行的命令或者函数</span>
+<span class=ln>5</span>signal_spec <span class=c1># 信号名或编号，可以是一个或多个</span>
+</code></pre></div><p>当接收到特定信号后，<code>trap</code>检查是否是自己需要处理的信号，如果是则执行<code>arg</code>指定的命令或函数，执行完后，从刚刚程序中断的地方继续执行。如果命令参数<code>arg</code>为空字符串或者<code>-</code>，这时shell进程和shell进程内的子进程都会<strong>忽略</strong>该信号（相当于什么都不执行）。我们新建一个有执行权限的<code>loop.sh</code>的文件来举例，其内容如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#! /bin/bash
+</span><span class=ln>2</span><span class=cp></span><span class=c1># 无限循环睡眠60s的操作</span>
+<span class=ln>3</span><span class=k>while</span> true<span class=p>;</span> <span class=k>do</span>
+<span class=ln>4</span>    sleep <span class=m>60</span>
+<span class=ln>5</span><span class=k>done</span>
+</code></pre></div><p>当我们直接执行上述shell脚本时，bash会处于一直等待状态，直到我们使用键盘的键入中断命令ctrl+c。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ ./loop.sh
+<span class=ln>2</span>^C
+<span class=ln>3</span>$ 
+</code></pre></div><p><strong>Bash所有脚本都自带默认的处理信号的机制</strong>，当我们输入ctrl+c之后，相当于向正在执行的<code>loop.sh</code>进程发送了<code>SIGINT(2)</code>，并触发了默认处理即中断正在运行的任务。</p>
+<p>如果我们希望接收到信号之后，由<code>trap</code>捕获并按照自己的需求处理信号，而非默认方式，例如：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#! /bin/bash
+</span><span class=ln>2</span><span class=cp></span><span class=nb>trap</span> <span class=s2>&#34;echo &#39;You hit control-C!&#39;&#34;</span> INT <span class=c1># 使用自定义的命令处理SIGINT信号</span>
+<span class=ln>3</span><span class=c1># 无限循环睡眠60s的操作</span>
+<span class=ln>4</span><span class=k>while</span> true<span class=p>;</span> <span class=k>do</span>
+<span class=ln>5</span>    sleep <span class=m>60</span>
+<span class=ln>6</span><span class=k>done</span>
+</code></pre></div><p>当我们再次执行<code>loop.sh</code>脚本时有:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ ./loop.sh
+<span class=ln>2</span>^CYou hit control-C
+<span class=ln>3</span>^CYou hit control-C
+</code></pre></div><p>我们发现，当我们输入ctrl+c之后（即向进程发送<code>SIGINT(2)</code>），脚本并没有停止运行，只是返回了'You hit control-C'。在脚本中，<code>trap</code>捕获了<code>SIGINT(2)</code>信号，并通过用户自定义的<code>echo 'You hit control-C!'</code>命令来实现对信号的处理，覆盖了默认的终止操作。我们还可以给脚本添加其他信号处理的<code>trap</code>：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#! /bin/bash
+</span><span class=ln>2</span><span class=cp></span><span class=nb>trap</span> <span class=s2>&#34;echo &#39;You tried to kill me!&#39;&#34;</span> TERM <span class=c1># 使用自定义的命令处理SIGTERM信号(kill的默认信号) </span>
+<span class=ln>3</span><span class=nb>trap</span> <span class=s2>&#34;echo &#39;You hit control-C!&#39;&#34;</span> INT <span class=c1># 使用自定义的命令处理SIGINT信号</span>
+<span class=ln>4</span><span class=c1># 无限循环睡眠60s的操作</span>
+<span class=ln>5</span><span class=k>while</span> true<span class=p>;</span> <span class=k>do</span>
+<span class=ln>6</span>    sleep <span class=m>60</span>
+<span class=ln>7</span><span class=k>done</span>
+</code></pre></div><p>现在执行<code>loop.sh</code>后，不管是使用默认的<code>kill</code>还是直接键盘输入ctrl+c，都不会终止程序，反而会给我们返回信息。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ ./loop.sh
+<span class=ln>2</span>^CYou hit control-C!
+<span class=ln>3</span>^Z <span class=c1># ctrl+z 放到后台并终止</span>
+<span class=ln>4</span><span class=o>[</span>1<span class=o>]</span>+  Stopped                 ./loop.sh
+<span class=ln>5</span>$ <span class=nb>kill</span> %1
+<span class=ln>6</span>Terminated <span class=c1># 接收到终止信号，并没有实际终止loop.sh</span>
+<span class=ln>7</span>You tried to <span class=nb>kill</span> me!
+<span class=ln>8</span>$ <span class=nb>jobs</span> <span class=c1># 表明loop.sh还在运行</span>
+<span class=ln>9</span><span class=o>[</span>1<span class=o>]</span>+  Running                 ./loop.sh <span class=p>&amp;</span>
+</code></pre></div><p>如果我们希望杀死该运行中的脚本，需要使用其他信号，例如SIGKILL（9）.</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>kill</span> -9 %1
+<span class=ln>2</span>$ <span class=nb>jobs</span>
+<span class=ln>3</span><span class=o>[</span>1<span class=o>]</span>+  Killed                  ./loop.sh
+<span class=ln>4</span>$ <span class=nb>jobs</span>
+</code></pre></div><p>最后，还有一点需要说明，如果脚本中针对同一个信号设置了多个<code>trap</code>，那么后一个<strong>执行的</strong><code>trap</code>会覆盖之前的<code>trap</code>，即<strong>对于同一个信号，只有最后一次<code>trap</code>生效</strong>。另外，<code>trap</code>只在本进程内有效，它的子进程不会继承<code>trap</code>的设置。例子如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=cp>#! /bin/bash
+</span><span class=ln>2</span><span class=cp></span><span class=nb>trap</span> <span class=s2>&#34;echo &#39;Frist trap: You hit control-C!&#39;&#34;</span> INT
+<span class=ln>3</span><span class=nb>trap</span> <span class=s2>&#34;echo &#39;Second trap: You hit control-C!&#39;&#34;</span> INT
+<span class=ln>4</span><span class=c1># 无限循环睡眠60s的操作</span>
+<span class=ln>5</span><span class=k>while</span> true<span class=p>;</span> <span class=k>do</span>
+<span class=ln>6</span>    sleep <span class=m>60</span>
+<span class=ln>7</span><span class=k>done</span>
+<span class=ln>8</span><span class=nb>trap</span> <span class=s2>&#34;echo &#39;Third trap: You hit control-C!&#39;&#34;</span> INT
+</code></pre></div><p>在执行此脚本后，键盘使用<code>ctrl+c</code>结果是<code>^CSecond trap: You hit control-C!</code>。因为shell在顺序执行时，第二个<code>trap</code>覆盖了第一个<code>trap</code>的操作，同时由于陷入了<code>while true</code>死循环，第三个<code>trap</code>一直没有执行到，因此第三个<code>trap</code>也一直没有生效。最后结果就是第二个<code>trap</code>生效。</p>
+<h3 id=作业控制>作业控制</h3>
+<p>我们前一节已经了解了基于信号的任务控制管理机制，例如<code>kill, trap</code>等，而bash为了方便进程管理，也有自己一套作业控制系统，包括<code>&, bg, fg, disown, suspend</code>等。作业控制系统不仅支持使用进程ID来指定要管理的进程，也支持通过作业号(<code>%</code>符号, jobspec)指定。</p>
+<p>最常见的作业控制符号就是<code>&</code>，当一个命令以<code>&</code>结尾时，意味着这条命令放到后台执行。现在我们打开三个后台执行的命令:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span>$ less /etc/cron.d/anacron <span class=p>&amp;</span>
+<span class=ln> 2</span><span class=o>[</span>1<span class=o>]</span> <span class=m>17357</span>
+<span class=ln> 3</span>$ vim <span class=p>&amp;</span>
+<span class=ln> 4</span><span class=o>[</span>2<span class=o>]</span> <span class=m>18781</span>
+<span class=ln> 5</span>
+<span class=ln> 6</span><span class=o>[</span>1<span class=o>]</span>+  Stopped                 less /etc/cron.d/anacron
+<span class=ln> 7</span>$ cat <span class=p>&amp;</span>
+<span class=ln> 8</span><span class=o>[</span>3<span class=o>]</span> <span class=m>20137</span>
+<span class=ln> 9</span>
+<span class=ln>10</span><span class=o>[</span>2<span class=o>]</span>+  Stopped                 vim
+</code></pre></div><p>这三个命令分别形成了当前bash的三个作业，如果我们要查看当前bash的作业情况，可使用<code>jobs</code>命令。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>jobs</span> <span class=o>[</span>-lnprs<span class=o>]</span> <span class=o>[</span> jobspec ... <span class=o>]</span>
+<span class=ln>2</span>    -l     列出当前作业信息（包括进程ID）
+<span class=ln>3</span>    -n     仅显示有关自上次通知用户以来，状态已更的作业信息。
+<span class=ln>4</span>    -p     仅列出作业进程组组长的进程ID。
+<span class=ln>5</span>    -r     仅显示running状态的作业。
+<span class=ln>6</span>    -s     仅显示stopped状态的作业
+</code></pre></div><p>当前shell执行<code>jobs</code>效果如下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span>$ <span class=nb>jobs</span> -l
+<span class=ln>2</span><span class=o>[</span>1<span class=o>]</span>  <span class=m>17357</span> Stopped <span class=o>(</span>tty output<span class=o>)</span>    less /etc/cron.d/anacron
+<span class=ln>3</span><span class=o>[</span>2<span class=o>]</span>- <span class=m>18781</span> Stopped <span class=o>(</span>tty output<span class=o>)</span>    vim
+<span class=ln>4</span><span class=o>[</span>3<span class=o>]</span>+ <span class=m>20137</span> Stopped <span class=o>(</span>tty input<span class=o>)</span>     cat
+</code></pre></div><p>第一行表示的就是作业号(jobspec)，后面的<code>+</code>表示最近添加到作业列表中的作业，<code>-</code>表示倒数第二最近添加到作业列表中的作业。第二组数字表示进程号，第三组表示状态，当前三个作业都是停止状态。目前此shell中，有三个处于后台的作业，即我们刚才启动的作业。如果我们希望把后台的作业调到前台来继续执行，可以使用<code>fg</code>命令，其使用方式为</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=nb>fg</span> <span class=o>[</span>%<span class=o>][</span>jobspec<span class=o>]</span> 
+<span class=ln> 2</span><span class=c1># 在指定作业号时，加不加%符号没有区别。如果不加任何参数，那么会将最近添加到作业列表中的作业（带+号）放到前台</span>
+<span class=ln> 3</span><span class=nb>fg</span> %1
+<span class=ln> 4</span><span class=c1># /etc/cron.d/anacron: crontab entries for the anacron package</span>
+<span class=ln> 5</span>
+<span class=ln> 6</span><span class=nv>SHELL</span><span class=o>=</span>/bin/sh
+<span class=ln> 7</span><span class=nv>PATH</span><span class=o>=</span>/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=m>30</span> <span class=m>7</span>    * * *   root    <span class=nb>test</span> -x /etc/init.d/anacron <span class=o>&amp;&amp;</span> /usr/sbin/invoke-rc.d anacron start &gt;/dev/null
+<span class=ln>10</span>
+</code></pre></div><p>当我们恢复作业号为1的任务时，效果如上，将<code>less /etc/cron.d/anacron</code>命令调到了前台。如果我们想在把它放回后台，可以使用<code>ctrl+z</code>，即可挂起该进程变放入后台。</p>
+<p>若我们仅仅是想让一个任务在后台执行起来而不用调到前台，可以使用<code>bg</code>命令直接在后台恢复执行，用法和<code>fg</code>相似。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span><span class=nb>bg</span> <span class=o>[</span>jobspec …<span class=o>]</span>
+<span class=ln>2</span><span class=c1># 在后台恢复每个挂起的作业jobspec，就好像它已经以‘&amp;’开始。 如果不加任何参数，那么启动最近添加到作业列表中的作业（带+号）</span>
+</code></pre></div><p>此外，还有两个常用的作业控制命令<code>disown</code>和<code>suspend</code>，简要介绍下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln> 1</span><span class=c1># 从当前shell的作业列表中移除作业</span>
+<span class=ln> 2</span><span class=nb>disown</span> <span class=o>[</span>-ar<span class=o>]</span> <span class=o>[</span>-h<span class=o>]</span> <span class=o>[</span>jobspec … <span class=p>|</span> pid … <span class=o>]</span>
+<span class=ln> 3</span>    -h    标记每个作业标识符，这些作业将不会在shell接收到sighup信号时接收到sighup信号。
+<span class=ln> 4</span>    -a    移除所有的作业。
+<span class=ln> 5</span>    -r    移除运行的作业。
+<span class=ln> 6</span>    jobspec（可选）：要移除的作业标识符，可以是一到多个。
+<span class=ln> 7</span>    pid（可选）：要移除的作业对应的进程ID，可以是一到多个。
+<span class=ln> 8</span>
+<span class=ln> 9</span><span class=c1># 暂停目前正在执行的shell。若要恢复，则必须使用SIGCONT信息。</span>
+<span class=ln>10</span><span class=nb>suspend</span> <span class=o>[</span>-f<span class=o>]</span>
+<span class=ln>11</span>-f 　若目前执行的shell为登入的shell，则suspend预设无法暂停此shell。若要强迫暂停登入的shell，则必须使用-f参数。
+</code></pre></div><p>在此，我们完成了对shell骨干流程的梳理。这个笔记涵盖了shell执行流程中的大部分问题，还有一些小的方面比如进程协同、多进程、进程替换等并未说明，这是由于用的比较少，等到用到的时候再去学习吧。Keep going!</p>
+<h2 id=linux信号表>Linux信号表</h2>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>编号</th>
+<th style=text-align:center>信号名称</th>
+<th style=text-align:center>缺省动作</th>
+<th style=text-align:center>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style=text-align:center>1</td>
+<td style=text-align:center>SIGHUP</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>终止进程，挂起</td>
+</tr>
+<tr>
+<td style=text-align:center>2</td>
+<td style=text-align:center>SIGINT</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>键盘输入中断命令，一般是CTRL+C</td>
+</tr>
+<tr>
+<td style=text-align:center>3</td>
+<td style=text-align:center>SIGQUIT</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>键盘输入退出命令，一般是CTRL+\</td>
+</tr>
+<tr>
+<td style=text-align:center>4</td>
+<td style=text-align:center>SIGILL</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>非法指令</td>
+</tr>
+<tr>
+<td style=text-align:center>5</td>
+<td style=text-align:center>SIGTRAP</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>trap指令发出，一般调试用</td>
+</tr>
+<tr>
+<td style=text-align:center>6</td>
+<td style=text-align:center>SIGABRT</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>abort(3)发出的终止信号</td>
+</tr>
+<tr>
+<td style=text-align:center>7</td>
+<td style=text-align:center>SIGBUS</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>非法地址</td>
+</tr>
+<tr>
+<td style=text-align:center>8</td>
+<td style=text-align:center>SIGFPE</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>浮点数异常</td>
+</tr>
+<tr>
+<td style=text-align:center>9</td>
+<td style=text-align:center>SIGKILL</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>立即停止进程，不能捕获，不能忽略</td>
+</tr>
+<tr>
+<td style=text-align:center>10</td>
+<td style=text-align:center>SIGUSR</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>用户自定义信号1，像Nginx就支持USR1信号，用于重载配置，重新打开日志</td>
+</tr>
+<tr>
+<td style=text-align:center>11</td>
+<td style=text-align:center>SIGSEGV</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>无效内存引用</td>
+</tr>
+<tr>
+<td style=text-align:center>12</td>
+<td style=text-align:center>SIGUSR</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>用户自定义信号2</td>
+</tr>
+<tr>
+<td style=text-align:center>13</td>
+<td style=text-align:center>SIGPIPE</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>管道不能访问</td>
+</tr>
+<tr>
+<td style=text-align:center>14</td>
+<td style=text-align:center>SIGALRM</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>时钟信号，alrm(2)发出的终止信号</td>
+</tr>
+<tr>
+<td style=text-align:center>15</td>
+<td style=text-align:center>SIGTERM</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>终止信号，进程会先关闭正在运行的任务或打开的文件再终止，有时间进程在有运行的任务而忽略此信号。不能捕捉</td>
+</tr>
+<tr>
+<td style=text-align:center>16</td>
+<td style=text-align:center>SIGSTKFLT</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>处理器栈错误</td>
+</tr>
+<tr>
+<td style=text-align:center>17</td>
+<td style=text-align:center>SIGCHLD</td>
+<td style=text-align:center>可忽略</td>
+<td style=text-align:center>子进程结束时，父进程收到的信号</td>
+</tr>
+<tr>
+<td style=text-align:center>18</td>
+<td style=text-align:center>SIGCONT</td>
+<td style=text-align:center>可忽略</td>
+<td style=text-align:center>让终止的进程继续执行</td>
+</tr>
+<tr>
+<td style=text-align:center>19</td>
+<td style=text-align:center>SIGSTOP</td>
+<td style=text-align:center>停止</td>
+<td style=text-align:center>停止进程，不能忽略，不能捕获</td>
+</tr>
+<tr>
+<td style=text-align:center>20</td>
+<td style=text-align:center>SIGSTP</td>
+<td style=text-align:center>停止</td>
+<td style=text-align:center>停止进程，一般是CTRL+Z</td>
+</tr>
+<tr>
+<td style=text-align:center>21</td>
+<td style=text-align:center>SIGTTIN</td>
+<td style=text-align:center>停止</td>
+<td style=text-align:center>后台进程从终端读数据</td>
+</tr>
+<tr>
+<td style=text-align:center>22</td>
+<td style=text-align:center>SIGTTOU</td>
+<td style=text-align:center>停止</td>
+<td style=text-align:center>后台进程从终端写数据</td>
+</tr>
+<tr>
+<td style=text-align:center>23</td>
+<td style=text-align:center>SIGURG</td>
+<td style=text-align:center>可忽略</td>
+<td style=text-align:center>紧急数组是否到达socket</td>
+</tr>
+<tr>
+<td style=text-align:center>24</td>
+<td style=text-align:center>SIGXCPU</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>超出CPU占用资源限制</td>
+</tr>
+<tr>
+<td style=text-align:center>25</td>
+<td style=text-align:center>SIGXFSZ</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>超出文件大小资源限制</td>
+</tr>
+<tr>
+<td style=text-align:center>26</td>
+<td style=text-align:center>SIGVTALRM</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>虚拟时钟信号，类似于SIGALRM，但计算的是进程占用的时间</td>
+</tr>
+<tr>
+<td style=text-align:center>27</td>
+<td style=text-align:center>SIGPROF</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>类似与SIGALRM，但计算的是进程占用CPU的时间</td>
+</tr>
+<tr>
+<td style=text-align:center>28</td>
+<td style=text-align:center>SIGWINCH</td>
+<td style=text-align:center>可忽略</td>
+<td style=text-align:center>窗口大小改变发出的信号</td>
+</tr>
+<tr>
+<td style=text-align:center>29</td>
+<td style=text-align:center>SIGIO</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>文件描述符准备就绪，可以输入/输出操作了</td>
+</tr>
+<tr>
+<td style=text-align:center>30</td>
+<td style=text-align:center>SIGPWR</td>
+<td style=text-align:center>终止</td>
+<td style=text-align:center>电源失败</td>
+</tr>
+<tr>
+<td style=text-align:center>31</td>
+<td style=text-align:center>SIGSYS</td>
+<td style=text-align:center>CoreDump</td>
+<td style=text-align:center>非法系统调用</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>CoreDump（核心转储）：当程序运行过程中异常退出时，内核把当前程序在内存状况存储在一个core文件中，以便调试。</p>
+</blockquote>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

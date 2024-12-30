@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on SurprisedCat</title><link>https://surprisedcat.github.io/tags/docker/</link><description>Recent content in docker on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 23 May 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>raspberry-kubernetes-node</title><link>https://surprisedcat.github.io/projectnotes/raspberry-kubernetes-node/</link><pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/raspberry-kubernetes-node/</guid><description>
+&lt;h2 id="将树莓派变成kubernetes的一个节点---omit-in-toc---">将树莓派变成Kubernetes的一个节点&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="前提">前提&lt;/h2>
+&lt;p>我在自己的主机上搭建了一个K8S集群，一个master节点，两个node节点，手边还有三个树莓派，想把他们也并到集群中。昨天我在docker中安装了docker，而kubernetes官网上也有arm的二进制文件，今天打算将这些文件配置到raspberry上，使之成为K8S集群的新节点。&lt;/p>
+&lt;p>&lt;strong>需要指出的是&lt;/strong>，我原来的集群是X86_64架构的机器，raspberry是arm架构的，他们用的是不一样的镜像，在master节点需要指定不同架构的镜像给不同的node节点。&lt;/p>
+&lt;h2 id="下载kubernetes-node节点">下载kubernetes node节点&lt;/h2>
+&lt;p>本人使用的是k8s 1.8版本的（master节点是这个版本）$^{[1]}$
+&lt;img src="../../images/k8s-nodes.jpg" alt="K8S node 节点">&lt;/p>
+&lt;p>解压后新建文件夹：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>sudo mkdir -p /opt/kubernetes/&lt;span class="o">{&lt;/span>bin,cfg&lt;span class="o">}&lt;/span>
+&lt;span class="ln">2&lt;/span>sudo mv kubelet kubectl kube-proxy /opt/kubernetes/bin/
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="编写kubernetes配置文件">编写Kubernetes配置文件&lt;/h2>
+&lt;h3 id="创建kubeconfig配置文件">创建kubeconfig配置文件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>sudo vim /opt/kubernetes/cfg/kubelet.kubeconfig
+&lt;span class="ln"> 2&lt;/span>apiVersion: v1
+&lt;span class="ln"> 3&lt;/span>kind: Config
+&lt;span class="ln"> 4&lt;/span>clusters:
+&lt;span class="ln"> 5&lt;/span> - cluster:
+&lt;span class="ln"> 6&lt;/span> server: http://&lt;span class="o">{&lt;/span>master 节点 IP&lt;span class="o">}&lt;/span>:8080
+&lt;span class="ln"> 7&lt;/span> name: &lt;span class="nb">local&lt;/span>
+&lt;span class="ln"> 8&lt;/span>contexts:
+&lt;span class="ln"> 9&lt;/span> - context:
+&lt;span class="ln">10&lt;/span> cluster: &lt;span class="nb">local&lt;/span>
+&lt;span class="ln">11&lt;/span> name: &lt;span class="nb">local&lt;/span>
+&lt;span class="ln">12&lt;/span>current-context: &lt;span class="nb">local&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建配置文件kubeconfig用于kubelet连接master apiserver。&lt;/p>
+&lt;h3 id="创建自身配置文件">创建自身配置文件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>sudo vim /opt/kubernetes/cfg/kubelet
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># 启用日志标准错误&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nv">KUBE_LOGTOSTDERR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--logtostderr=true&amp;#34;&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 日志级别&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nv">KUBE_LOG_LEVEL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--v=4&amp;#34;&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># Kubelet服务IP地址&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nv">NODE_ADDRESS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--address={本机IP}&amp;#34;&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># Kubelet服务端口&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="nv">NODE_PORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--port=10250&amp;#34;&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 自定义节点名称&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nv">NODE_HOSTNAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--hostname-override={本机IP}&amp;#34;&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c1"># kubeconfig路径，指定连接API服务器&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="nv">KUBELET_KUBECONFIG&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--kubeconfig=/opt/kubernetes/cfg/kubelet.kubeconfig&amp;#34;&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1"># 允许容器请求特权模式，默认false&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="nv">KUBE_ALLOW_PRIV&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--allow-privileged=false&amp;#34;&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c1"># DNS信息&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="nv">KUBELET_DNS_IP&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--cluster-dns=172.16.76.2&amp;#34;&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="nv">KUBELET_DNS_DOMAIN&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--cluster-domain=cluster.local&amp;#34;&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="c1"># 禁用使用Swap&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="nv">KUBELET_SWAP&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--fail-swap-on=false&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="创建systemd服务文件">创建systemd服务文件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>sudo vim /lib/systemd/system/kubelet.service
+&lt;span class="ln"> 2&lt;/span>&lt;span class="o">[&lt;/span>Unit&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nv">Description&lt;/span>&lt;span class="o">=&lt;/span>Kubernetes Kubelet
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nv">After&lt;/span>&lt;span class="o">=&lt;/span>docker.service
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nv">Requires&lt;/span>&lt;span class="o">=&lt;/span>docker.service
+&lt;span class="ln"> 6&lt;/span>&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nv">EnvironmentFile&lt;/span>&lt;span class="o">=&lt;/span>-/opt/kubernetes/cfg/kubelet
+&lt;span class="ln"> 8&lt;/span>&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/opt/kubernetes/bin/kubelet &lt;span class="se">\
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBE_LOGTOSTDERR&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBE_LOG_LEVEL&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">NODE_ADDRESS&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">NODE_PORT&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">13&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">NODE_HOSTNAME&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">14&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBELET_KUBECONFIG&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBE_ALLOW_PRIV&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">16&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBELET_DNS_IP&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">17&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBELET_DNS_DOMAIN&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBELET_SWAP&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="nv">Restart&lt;/span>&lt;span class="o">=&lt;/span>on-failure
+&lt;span class="ln">20&lt;/span>&lt;span class="nv">KillMode&lt;/span>&lt;span class="o">=&lt;/span>process
+&lt;span class="ln">21&lt;/span>&lt;span class="o">[&lt;/span>Install&lt;span class="o">]&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="nv">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>multi-user.target
+&lt;span class="ln">23&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="c1"># systemctl daemon-reload&lt;/span>
+&lt;span class="ln">25&lt;/span>&lt;span class="c1"># systemctl enable kubelet&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="c1"># systemctl restart kubelet&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="创建kube-proxy配置文件">创建kube-proxy配置文件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>sudo vim /opt/kubernetes/cfg/kube-proxy
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 启用日志标准错误&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="nv">KUBE_LOGTOSTDERR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--logtostderr=true&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># 日志级别&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="nv">KUBE_LOG_LEVEL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--v=4&amp;#34;&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="c1"># 自定义节点名称&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="nv">NODE_HOSTNAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--hostname-override={本机IP}&amp;#34;&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="c1"># API服务地址&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="nv">KUBE_MASTER&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--master=http://{master 节点 IP}:8080&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="创建proxy的systemd服务文件">创建proxy的systemd服务文件&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>sudo vim /lib/systemd/system/kube-proxy.service
+&lt;span class="ln"> 2&lt;/span>&lt;span class="o">[&lt;/span>Unit&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nv">Description&lt;/span>&lt;span class="o">=&lt;/span>Kubernetes Proxy
+&lt;span class="ln"> 4&lt;/span>&lt;span class="nv">After&lt;/span>&lt;span class="o">=&lt;/span>network.target
+&lt;span class="ln"> 5&lt;/span>&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nv">EnvironmentFile&lt;/span>&lt;span class="o">=&lt;/span>-/opt/kubernetes/cfg/kube-proxy
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/opt/kubernetes/bin/kube-proxy &lt;span class="se">\
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBE_LOGTOSTDERR&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln"> 9&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBE_LOG_LEVEL&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">10&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">NODE_HOSTNAME&lt;/span>&lt;span class="si">}&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;span class="ln">11&lt;/span>&lt;span class="se">&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">KUBE_MASTER&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="nv">Restart&lt;/span>&lt;span class="o">=&lt;/span>on-failure
+&lt;span class="ln">13&lt;/span>&lt;span class="o">[&lt;/span>Install&lt;span class="o">]&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="nv">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>multi-user.target
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>最后将/opt/kubernetes/bin 放到PATH变量中。&lt;/p>
+&lt;h2 id="遇到问题">遇到问题&lt;/h2>
+&lt;blockquote>
+&lt;p>Failed to start ContainerManager system validation failed - Following Cgroup subsystem not mounted: [memory]&lt;/p>
+&lt;/blockquote>
+&lt;p>新建文件/etc/default/grub,添加：$^{[2]}$&lt;/p>
+&lt;blockquote>
+&lt;p>GRUB_CMDLINE_LINUX=&amp;quot;cgroup_enable=memory swapaccount=1&amp;quot;&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>sudo update-grub
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 如果无法找到 update-grub 命令，你可以通过下面的命令安装它。&lt;/span>
+&lt;span class="ln">3&lt;/span>sudo apt-get install grub2-common
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者更有效的是，在/boot/cmdline.txt之后加入
+cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1&lt;br>
+再reboot。就可以了。$^{[3]}$&lt;/p>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1]&lt;a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.8.md#node-binaries">Kubernetes Github&lt;/a>&lt;/p>
+&lt;p>[2]&lt;a href="https://linux.cn/article-2268-1.html">如何在linux上通过GRUB添加内核参数&lt;/a>&lt;/p>
+&lt;p>[3]&lt;a href="https://www.raspberrypi.org/forums/viewtopic.php?p=1312253">树莓派论坛&lt;/a>&lt;/p></description></item><item><title>raspberry-docker-install</title><link>https://surprisedcat.github.io/projectnotes/raspberry-docker-install/</link><pubDate>Tue, 22 May 2018 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/raspberry-docker-install/</guid><description>
+&lt;h2 id="树莓派安装-docker---omit-in-toc---">树莓派安装 docker&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="系统选择">系统选择&lt;/h2>
+&lt;p>我使用的是2018-04-18的RASPBIAN STRETCH LITE版本，我之前用过时间靠前的版本但是安装总是失败，还了这个版本是成功的。
+官网上说:&lt;/p>
+&lt;blockquote>
+&lt;p>To install Docker CE, you need the 64-bit version of one of these Debian or Raspbian versions:&lt;/p>
+&lt;ul>
+&lt;li>Buster 10 (Docker CE 17.11 Edge only)&lt;/li>
+&lt;li>Stretch 9 (stable) / Raspbian Stretch&lt;/li>
+&lt;li>Jessie 8 (LTS) / Raspbian Jessie&lt;/li>
+&lt;li>Wheezy 7.7 (LTS)&lt;/li>
+&lt;/ul>
+&lt;p>Docker CE is supported on both x86_64 (or amd64) and armhf architectures for Jessie and Stretch.&lt;/p>
+&lt;/blockquote>
+&lt;p>但是我看了树莓派目前的官方版本是32位的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>file /bin/dash
+&lt;span class="ln">2&lt;/span>/bin/dash: ELF 32-bit LSB executable, ARM, EABI5 version &lt;span class="m">1&lt;/span> &lt;span class="o">(&lt;/span>SYSV&lt;span class="o">)&lt;/span>, dynamically linked, interpreter /lib/ld-linux-armhf.so.3, &lt;span class="k">for&lt;/span> GNU/Linux 3.2.0, BuildID&lt;span class="o">[&lt;/span>sha1&lt;span class="o">]=&lt;/span>18bddc2d67c785bbaaf97cbb2c0dd5420a1861b3, stripped
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是，&lt;strong>也安装成功了&lt;/strong>。&lt;/p>
+&lt;h2 id="修改树莓派源">修改树莓派源&lt;/h2>
+&lt;p>我认为这是非常重要的一步，我在用官方源的时候opencas的镜像总是无法访问，后来换成了&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># /etc/apt/sources.list&lt;/span>
+&lt;span class="ln">2&lt;/span>deb http://mirrors.shu.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后，奇迹的可以用了。&lt;/p>
+&lt;h2 id="安装docker">安装docker&lt;/h2>
+&lt;p>根据官方文档的说法：一些方式是不适用于rasbian系统的。&lt;/p>
+&lt;blockquote>
+&lt;p>Raspbian users cannot use this method!&lt;br>
+For Raspbian, installing using the repository is not yet supported. You must instead use the &lt;strong>convenience script&lt;/strong>.&lt;/p>
+&lt;/blockquote>
+&lt;p>官方推荐是使用一个&lt;strong>便捷脚本&lt;/strong>，我在没有改源之前使用这个脚本也没有成功，换了源就安装成功了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>pi@raspberrypi:~ $ curl -fsSL get.docker.com -o get-docker.sh
+&lt;span class="ln"> 2&lt;/span>pi@raspberrypi:~ $ sudo sh get-docker.sh
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># Executing docker install script, commit: 36b78b2&lt;/span>
+&lt;span class="ln"> 4&lt;/span>+ sh -c apt-get update -qq &amp;gt;/dev/null
+&lt;span class="ln"> 5&lt;/span>+ sh -c apt-get install -y -qq apt-transport-https ca-certificates curl &amp;gt;/dev/null
+&lt;span class="ln"> 6&lt;/span>+ sh -c curl -fsSL &lt;span class="s2">&amp;#34;https://download.docker.com/linux/raspbian/gpg&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> apt-key add -qq - &amp;gt;/dev/null
+&lt;span class="ln"> 7&lt;/span>Warning: apt-key output should not be parsed &lt;span class="o">(&lt;/span>stdout is not a terminal&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 8&lt;/span>+ sh -c &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;deb [arch=armhf] https://download.docker.com/linux/raspbian stretch edge&amp;#34;&lt;/span> &amp;gt; /etc/apt/sources.list.d/docker.list
+&lt;span class="ln"> 9&lt;/span>+ &lt;span class="o">[&lt;/span> &lt;span class="nv">raspbian&lt;/span> &lt;span class="o">=&lt;/span> debian &lt;span class="o">]&lt;/span>
+&lt;span class="ln">10&lt;/span>+ sh -c apt-get update -qq &amp;gt;/dev/null
+&lt;span class="ln">11&lt;/span>+ sh -c apt-get install -y -qq --no-install-recommends docker-ce &amp;gt;/dev/null
+&lt;span class="ln">12&lt;/span>+ sh -c docker version
+&lt;span class="ln">13&lt;/span>Client:
+&lt;span class="ln">14&lt;/span> Version: 18.05.0-ce
+&lt;span class="ln">15&lt;/span> API version: 1.37
+&lt;span class="ln">16&lt;/span> Go version: go1.9.5
+&lt;span class="ln">17&lt;/span> Git commit: f150324
+&lt;span class="ln">18&lt;/span> Built: Wed May &lt;span class="m">9&lt;/span> 22:24:36 &lt;span class="m">2018&lt;/span>
+&lt;span class="ln">19&lt;/span> OS/Arch: linux/arm
+&lt;span class="ln">20&lt;/span> Experimental: &lt;span class="nb">false&lt;/span>
+&lt;span class="ln">21&lt;/span> Orchestrator: swarm
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span>Server:
+&lt;span class="ln">24&lt;/span> Engine:
+&lt;span class="ln">25&lt;/span> Version: 18.05.0-ce
+&lt;span class="ln">26&lt;/span> API version: 1.37 &lt;span class="o">(&lt;/span>minimum version 1.12&lt;span class="o">)&lt;/span>
+&lt;span class="ln">27&lt;/span> Go version: go1.9.5
+&lt;span class="ln">28&lt;/span> Git commit: f150324
+&lt;span class="ln">29&lt;/span> Built: Wed May &lt;span class="m">9&lt;/span> 22:20:37 &lt;span class="m">2018&lt;/span>
+&lt;span class="ln">30&lt;/span> OS/Arch: linux/arm
+&lt;span class="ln">31&lt;/span> Experimental: &lt;span class="nb">false&lt;/span>
+&lt;span class="ln">32&lt;/span>If you would like to use Docker as a non-root user, you should now consider
+&lt;span class="ln">33&lt;/span>adding your user to the &lt;span class="s2">&amp;#34;docker&amp;#34;&lt;/span> group with something like:
+&lt;span class="ln">34&lt;/span>
+&lt;span class="ln">35&lt;/span> sudo usermod -aG docker your-user
+&lt;span class="ln">36&lt;/span>
+&lt;span class="ln">37&lt;/span>Remember that you will have to log out and back in &lt;span class="k">for&lt;/span> this to take effect!
+&lt;span class="ln">38&lt;/span>
+&lt;span class="ln">39&lt;/span>WARNING: Adding a user to the &lt;span class="s2">&amp;#34;docker&amp;#34;&lt;/span> group will grant the ability to run
+&lt;span class="ln">40&lt;/span> containers which can be used to obtain root privileges on the
+&lt;span class="ln">41&lt;/span> docker host.
+&lt;span class="ln">42&lt;/span> Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
+&lt;span class="ln">43&lt;/span> &lt;span class="k">for&lt;/span> more information.
+&lt;span class="ln">44&lt;/span>pi@raspberrypi:~ $ sudo usermod -aG docker &lt;span class="sb">`&lt;/span>whoami&lt;span class="sb">`&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>重启下cmd界面（否则还是需要sudo），安装成功。&lt;/p>
+&lt;h2 id="测试">测试&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>pi@raspberrypi:~ $ docker run -ti armhf/alpine:3.5 /bin/sh
+&lt;span class="ln"> 2&lt;/span>Unable to find image &lt;span class="s1">&amp;#39;armhf/alpine:3.5&amp;#39;&lt;/span> locally
+&lt;span class="ln"> 3&lt;/span>3.5: Pulling from armhf/alpine
+&lt;span class="ln"> 4&lt;/span>e68f2aaec91c: Pull &lt;span class="nb">complete&lt;/span>
+&lt;span class="ln"> 5&lt;/span>Digest: sha256:5959291b202522ad454cab5ee9960d5a7bc2c59a88ddb00a5de01d36fb70ca9e
+&lt;span class="ln"> 6&lt;/span>Status: Downloaded newer image &lt;span class="k">for&lt;/span> armhf/alpine:3.5
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>/ &lt;span class="c1"># echo &amp;#34;Hi, this is a tiny Linux distribution!&amp;#34; | base64 &lt;/span>
+&lt;span class="ln"> 9&lt;/span>SGksIHRoaXMgaXMgYSB0aW55IExpbnV4IGRpc3RyaWJ1dGlvbiEK
+&lt;span class="ln">10&lt;/span>/ &lt;span class="c1"># cat /etc/issue&lt;/span>
+&lt;span class="ln">11&lt;/span>Welcome to Alpine Linux 3.5
+&lt;span class="ln">12&lt;/span>Kernel &lt;span class="se">\r&lt;/span> on an &lt;span class="se">\m&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="se">\l&lt;/span>&lt;span class="o">)&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>/ &lt;span class="c1"># exit&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>&lt;a href="https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-repository">Docker官网&lt;/a>&lt;/p></description></item></channel></rss>

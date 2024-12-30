@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>拓扑学 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/</link><description>Recent content in 拓扑学 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>拓扑学之同坯</title><link>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%90%8C%E5%9D%AF/</link><pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%90%8C%E5%9D%AF/</guid><description>
+&lt;h2 id="同坯的通俗解释">同坯的通俗解释&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="同胚的通俗解释">同胚的通俗解释&lt;/h2>
+&lt;p>拓扑学是研究几何图形或空间在连续改变形状后还能保持不变的一些性质的学科。它只考虑物体间的位置关系而不考虑它们的形状和大小。在拓扑学里，重要的拓扑性质包括连通性与紧致性 ——百度百科&lt;/p>
+&lt;p>拓扑学也被称为&lt;strong>橡皮泥几何学&lt;/strong> ，拓扑学不是很在意空间的距离或物体的长度，而是更重视空间的形态，比如在拓扑学家眼中，骰子和台球可以归类到一种物体，但是他们两个和面包圈却不是同一种物体，我们通过拉伸，挤压等“温和操作”，可以把骰子“捏”成台球，所以拓扑学认为他俩是一种东西，但是面包圈有一个洞，只有通过撕裂，钻孔，粘合等“暴力操作”，才能把没洞的台球变成有洞的面包圈，所以拓扑学认为他俩是两种东西。&lt;/p>
+&lt;p>因此只要是一个“胚子”捏出来的形状，在拓扑学中就是同一种东西，这种概念叫做&lt;strong>同胚&lt;/strong>，也可以叫做&lt;strong>拓扑等价&lt;/strong>。&lt;/p>
+&lt;p>两个物体是否同胚，要看在拓扑变换后，点、线、体的数目和原来是不是一样。一般来说，对于任意形状的闭曲面，只要不把曲面撕裂或割破，它的变换就可以算作是拓扑变换，变换后的各种形态都是拓扑等价的。&lt;/p>
+&lt;h2 id="同胚的数学描述">同胚的数学描述&lt;/h2>
+&lt;blockquote>
+&lt;p>同胚：&lt;span class="math">\(\varphi：X→Y\)&lt;/span>称为同胚的，若&lt;span class="math">\(\varphi\)&lt;/span>为双射，且&lt;span class="math">\(\varphi\)&lt;/span>连续，&lt;span class="math">\(\varphi^{-1}\)&lt;/span>连续。&lt;/p>
+&lt;/blockquote>
+&lt;p>先要搞清楚：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>什么是拓扑空间。&lt;/li>
+&lt;li>什么是拓扑空间之间的连续映射。&lt;/li>
+&lt;/ol>
+&lt;h2 id="同胚涉及了拓扑学的终极目标">同胚涉及了拓扑学的终极目标&lt;/h2>
+&lt;p>哪些空间是一样的？即分类互不同胚的空间。&lt;/p>
+&lt;p>重要的方法：拓扑不变量（代数拓扑）来证明不同胚从而区分空间。可以是亏格，群，环 &amp;gt;拓扑不变量：设对任意空间&lt;span class="math">\(X\)&lt;/span>定义了一个量&lt;span class="math">\(\mu(X)\)&lt;/span>，若&lt;span class="math">\(\mu\)&lt;/span>满足：只要&lt;span class="math">\(X\)&lt;/span>与&lt;span class="math">\(Y\)&lt;/span>同胚，则&lt;span class="math">\(\mu(X)=\mu(Y)\)&lt;/span>，则称&lt;span class="math">\(\mu\)&lt;/span>为一个拓扑不变量。其中相等“=”可以换成同构。&lt;/p>
+&lt;p>e.g. 欧拉示性数（v-e+f）&lt;/p>
+&lt;p>拓扑不变量的常用方法是用其逆否命题，即拓扑不变量不等，二者不同胚。&lt;/p>
+&lt;p>另一类常见的问题是证明两个空间同胚，这个一般比较困难。&lt;/p></description></item><item><title>拓扑学之紧性</title><link>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E7%B4%A7%E6%80%A7/</link><pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E7%B4%A7%E6%80%A7/</guid><description>
+&lt;h2 id="拓扑学之紧性">拓扑学之紧性&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>详见：文档中拓扑课程讲义第三课。&lt;/p>
+&lt;h2 id="连续函数">连续函数&lt;/h2>
+&lt;p>一般定义与六种等价定义&lt;/p>
+&lt;h2 id="极限">极限&lt;/h2>
+&lt;h3 id="极限唯一性条件">极限唯一性条件&lt;/h3>
+&lt;p>在Hausdorff空间中极限具有唯一性&lt;/p>
+&lt;h2 id="hausdorff空间">Hausdorff空间&lt;/h2>
+&lt;p>T2空间，应该我以后遇到的大多数空间都是Hausdorff空间&lt;/p>
+&lt;h3 id="度量空间与hausdorff空间">度量空间与Hausdorff空间&lt;/h3>
+&lt;p>度量空间都是Hausdorff空间&lt;/p>
+&lt;h3 id="极限与映射的可交换性">极限与映射的可交换性&lt;/h3>
+&lt;p>Hausdorff空间中的连续映射可以交换极限和映射。&lt;/p>
+&lt;h2 id="紧性">紧性&lt;/h2>
+&lt;p>有限覆盖定理&lt;/p>
+&lt;blockquote>
+&lt;p>定义1：&lt;/p>
+&lt;/blockquote>
+&lt;p>紧性的必要性&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>无限化为有限，便于操作&lt;/li>
+&lt;li>可放心使用定积分&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>定义2：&lt;/p>
+&lt;/blockquote>
+&lt;hr />
+&lt;blockquote>
+&lt;p>定义3：&lt;/p>
+&lt;/blockquote>
+&lt;p>两种形式的紧性定义的一致性&lt;/p>
+&lt;h3 id="absubset-r是紧子集">&lt;span class="math">\([a,b]\subset R\)&lt;/span>是紧子集&lt;/h3>
+&lt;h3 id="紧与闭">紧与闭&lt;/h3>
+&lt;p>&lt;strong>什么时候紧&lt;span class="math">\(\Rightarrow\)&lt;/span>闭&lt;/strong>？&lt;/p>
+&lt;p>Hausdorff空间&lt;/p>
+&lt;h3 id="rn空间中紧集与有界闭集等价性">&lt;span class="math">\(R^n\)&lt;/span>空间中紧集与有界闭集等价性&lt;/h3></description></item><item><title>拓扑学之基础</title><link>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%9F%BA%E7%A1%80/</link><pubDate>Fri, 17 Apr 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%8B%93%E6%89%91%E5%AD%A6%E4%B9%8B%E5%9F%BA%E7%A1%80/</guid><description>
+&lt;h2 id="拓扑数学">拓扑数学&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#拓扑空间">拓扑空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#子空间拓扑">子空间拓扑&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#度量空间">度量空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#紧度量空间">紧度量空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#完备空间">完备空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#有界与完全有界空间">有界与完全有界空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#紧致空间">紧致空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#banach空间">Banach空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#柯西序列">柯西序列&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#子序列">子序列&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#空间">空间&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#线性空间关系">线性空间关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#空间关系">空间关系&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="拓扑空间">拓扑空间&lt;/h2>
+&lt;p>&lt;strong>拓扑空间&lt;/strong>是一个集&lt;span class="math">\(X\)&lt;/span>和其上定义的拓扑结构&lt;span class="math">\(\tau\)&lt;/span>组成的二元组&lt;span class="math">\((X,\tau)\)&lt;/span>，简记为&lt;span class="math">\(X\)&lt;/span>。&lt;span class="math">\(X\)&lt;/span>的元素&lt;span class="math">\(x\)&lt;/span>通常称为拓扑空间&lt;span class="math">\((X,\tau )\)&lt;/span>的点。而拓扑结构&lt;span class="math">\(\tau\)&lt;/span>一词涵盖了&lt;strong>开集，闭集，邻域，开核，闭包，导集，滤子&lt;/strong>等若干概念。从这些概念出发，可以给拓扑空间&lt;span class="math">\((X,\tau)\)&lt;/span>作出若干种等价的定义。在教科书中最常见的定义是从&lt;strong>开集&lt;/strong>开始的。&lt;/p>
+&lt;blockquote>
+&lt;p>开集公理： &lt;span class="math">\(X\)&lt;/span>的子集的集合族&lt;span class="math">\({\mathfrak {O}}\)&lt;/span>称为&lt;strong>开集系&lt;/strong>（其中的元素称为&lt;strong>开集&lt;/strong>），当且仅当其满足如下&lt;strong>开集公理&lt;/strong>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>O1&lt;/strong>：&lt;span class="math">\(\varnothing \in {\mathfrak {O}}，X\in {\mathfrak {O}}\)&lt;/span>。&lt;/li>
+&lt;li>&lt;strong>O2&lt;/strong>:若&lt;span class="math">\(A_{\lambda }\in {\mathfrak {O}}（\lambda \in \Lambda）\)&lt;/span>，则&lt;span class="math">\(\bigcup_{{\lambda \in \Lambda }}A_{{\lambda }}\in {\mathfrak {O}}\)&lt;/span>（对&lt;strong>任意并&lt;/strong>运算封闭）。&lt;/li>
+&lt;li>&lt;strong>O3&lt;/strong>:若&lt;span class="math">\(A,B\in {\mathfrak {O}}\)&lt;/span>，则&lt;span class="math">\(A\cap B\in {\mathfrak {O}}\)&lt;/span>。（对&lt;strong>有限交&lt;/strong>运算封闭）。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>需要指出的是：以上所有信息构成了&lt;span class="math">\(X\)&lt;/span>上拓扑的定义，集合系&lt;span class="math">\(\mathfrak{O}\)&lt;/span>中的元素称为开集。集合&lt;span class="math">\(X\)&lt;/span>和其上的拓扑结构组成了拓扑空间。&lt;/p>
+&lt;p>注：在拓扑空间中，开集是基础性的概念。你可以&lt;strong>从任意集合X出发，再选取&lt;span class="math">\(X\)&lt;/span>的某个特定的子集族&lt;span class="math">\(\mathfrak{F}\)&lt;/span>，使&lt;span class="math">\(\mathfrak{F}\)&lt;/span>中的集合都满足作为开集应有的每一性质&lt;/strong>。我们过去说的开集都是度量空间中的开集，实际上，&lt;strong>开集的拓扑定义推广了度量空间定义&lt;/strong>。因此自然地，任何度量空间都是拓扑空间。&lt;/p>
+&lt;h3 id="子空间拓扑">子空间拓扑&lt;/h3>
+&lt;blockquote>
+&lt;p>设&lt;span class="math">\(X\)&lt;/span>为一个拓扑空间，&lt;span class="math">\(Y\subset X\)&lt;/span>为&lt;span class="math">\(X\)&lt;/span>的一个子集，则&lt;span class="math">\(Y\)&lt;/span>上可以如下定义一个拓扑结构： &lt;span class="math">\[\mathfrak{F}=\{U\cap Y\big\vert U\underset{open}{\subset}X\}\]&lt;/span> 则&lt;span class="math">\(\mathfrak{F}\)&lt;/span>定义了&lt;span class="math">\(Y\)&lt;/span>上的一个拓扑空间结构，此结构称为&lt;span class="math">\(X\)&lt;/span>在&lt;span class="math">\(Y\)&lt;/span>上诱导的拓扑，或称为&lt;span class="math">\(Y\)&lt;/span>被赋予子空间拓扑。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="度量空间">度量空间&lt;/h2>
+&lt;p>&lt;strong>度量空间&lt;/strong>是个有序对&lt;span class="math">\((M,d)\)&lt;/span>，这里的&lt;span class="math">\(M\)&lt;/span>是集合而&lt;span class="math">\(d\)&lt;/span>是在&lt;span class="math">\(M\)&lt;/span>上的度量(metric)，即为函数&lt;span class="math">\(d:M\times M\rightarrow \mathbb{R}\)&lt;/span>。&lt;/p>
+&lt;p>使得对于任何在&lt;span class="math">\(M\)&lt;/span>内的&lt;span class="math">\(x、y、z\)&lt;/span>，下列条件均成立：&lt;/p>
+&lt;ul>
+&lt;li>&lt;span class="math">\(d(x, y) ≥ 0\)&lt;/span> (非负性)&lt;/li>
+&lt;li>&lt;span class="math">\(d(x, y) = 0\)&lt;/span> 当且仅当&lt;span class="math">\(x = y\)&lt;/span>(不可区分者的同一性)&lt;/li>
+&lt;li>&lt;span class="math">\(d(x, y) = d(y, x)\)&lt;/span>(对称性)&lt;/li>
+&lt;li>&lt;span class="math">\(d(x, z) ≤ d(x, y) + d(y, z)\)&lt;/span>(三角不等式)。&lt;/li>
+&lt;/ul>
+&lt;p>条件1可由其他三个条件中导出。条件1做为度量空间的性质更恰当一些，但是很多课本都将其包含于定义之中。（以上四条要求也可以称之为度量，metric）&lt;/p>
+&lt;h3 id="紧度量空间">紧度量空间&lt;/h3>
+&lt;ul>
+&lt;li>度量空间&lt;span class="math">\(X\)&lt;/span>是紧的(compact)&lt;span class="math">\(\Leftrightarrow X\)&lt;/span>中的每个序列都有收敛子序列&lt;/li>
+&lt;li>紧闭集而有界&lt;/li>
+&lt;li>集合的每一个开覆盖都有有限的子覆盖。&lt;/li>
+&lt;li>这个理论强大在于强调&lt;strong>每一个&lt;/strong>开覆盖都有有限自覆盖，如果能构造出一个开覆盖没有有限自覆盖则不能称之为紧的(compact)。&lt;/li>
+&lt;/ul>
+&lt;h2 id="完备空间">完备空间&lt;/h2>
+&lt;p>度量空间&lt;span class="math">\(M\)&lt;/span>称之为完备的，若&lt;strong>每个柯西序列均收敛于&lt;span class="math">\(M\)&lt;/span>内&lt;/strong>，亦即：若&lt;span class="math">\(d(x_{n},x_{m})\to 0\)&lt;/span>，其中&lt;span class="math">\(n\)&lt;/span>与&lt;span class="math">\(m\)&lt;/span>各自趋近于无限大，则存在某个&lt;span class="math">\(y\in M\)&lt;/span>，使得&lt;span class="math">\(d(x_{n},y)\to 0\)&lt;/span>。&lt;/p>
+&lt;p>每个&lt;strong>欧氏空间&lt;/strong>都是完备的，而且该空间的每个闭子集也都是完备空间。使用绝对值度量&lt;span class="math">\(d(x,y) = \vert x - y \vert\)&lt;/span>的有理数集合则不是完备的。&lt;/p>
+&lt;p>相关定理：&lt;/p>
+&lt;ul>
+&lt;li>任一紧致度量空间都是完备的。实际上，一个度量空间是紧致的当且仅当该空间是完备且完全有界的。&lt;/li>
+&lt;li>完备空间的任一子空间是完备的当且仅当它是一个闭子集。&lt;/li>
+&lt;/ul>
+&lt;h2 id="有界与完全有界空间">有界与完全有界空间&lt;/h2>
+&lt;p>度量空间&lt;span class="math">\(M\)&lt;/span>被称为有界的，如果存在某个数&lt;span class="math">\(r\)&lt;/span>，使得对于所有&lt;span class="math">\(M\)&lt;/span>中的&lt;span class="math">\(x\)&lt;/span>和&lt;span class="math">\(y\)&lt;/span>有&lt;span class="math">\(d(x,y)≤r\)&lt;/span>。&lt;span class="math">\(r\)&lt;/span>最小可能的值称之为 M 的直径。&lt;/p>
+&lt;p>空间&lt;span class="math">\(M\)&lt;/span>称之为预紧致的或完全有界的，如果对于所有&lt;span class="math">\(r &amp;gt; 0\)&lt;/span>存在有限多个半径为&lt;span class="math">\(r\)&lt;/span>的开球，其并集覆盖&lt;span class="math">\(M\)&lt;/span>。因为这些球为&lt;strong>有限个&lt;/strong>，所以该空间的&lt;strong>直径亦为有限值&lt;/strong>，从而得出(使用三角不等式)所有完全有界空间都是&lt;strong>有界&lt;/strong>的。但逆命题不成立。&lt;/p>
+&lt;h2 id="紧致空间">紧致空间&lt;/h2>
+&lt;p>度量空间&lt;span class="math">\(M\)&lt;/span>是紧致的，若每个&lt;span class="math">\(M\)&lt;/span>内的序列均有个子序列，会收敛于&lt;span class="math">\(M\)&lt;/span>内的一点。这称为序列紧致性，且在度量空间（但不是一般拓扑空间）里，这等价于可数紧致与以开覆盖定义之紧致性等拓扑性质。&lt;strong>每个紧致集合的闭子集亦是紧致的&lt;/strong>。&lt;/p>
+&lt;p>一度量空间为紧致的，当且仅当该空间是&lt;strong>完备&lt;/strong>的，且为完全有界的。这即是所谓的海涅－博雷尔定理。须注意，紧致性仅决取于拓扑，而有界性则决取于度量。&lt;/p>
+&lt;p>勒贝格数引理表示，对于紧致度量空间 M 内的每个开覆盖，均存在一个“勒贝格数”δ，使得每个 M 内直径 &amp;lt; δ 的子集均会被包含于某些覆盖内。&lt;/p>
+&lt;h2 id="banach空间">Banach空间&lt;/h2>
+&lt;p>巴拿赫空间（英语：Banach space）是一个完备赋范向量空间。更精确地说，巴拿赫空间是一个具有范数并对此范数完备的向量空间。其完备性体现在，空间内任意向量的柯西序列总是收敛到一个良定义的位于空间内部的极限。&lt;/p>
+&lt;h2 id="柯西序列">柯西序列&lt;/h2>
+&lt;p>在数学中，&lt;strong>柯西序列、柯西列、柯西数列或基本列&lt;/strong>是指这样一个数列，它的元素随着序数的增加而愈发靠近。更确切地说，在去掉有限个元素后，可以使得余下的元素中任何两点间的距离的最大值不超过任意给定的正数。&lt;/p>
+&lt;p>柯西列的定义依赖于&lt;strong>距离的定义&lt;/strong>，所以只有在&lt;strong>度量空间&lt;/strong>中柯西列才有意义。&lt;/p>
+&lt;p>在完备空间中，所有的柯西数列都有极限且极限在这空间里。&lt;/p>
+&lt;h3 id="子序列">子序列&lt;/h3>
+&lt;p>给定序列&lt;span class="math">\(\{x^m\}\)&lt;/span>，设有一个严格递增函数&lt;span class="math">\(m(k)\)&lt;/span>，他将每个正整数&lt;span class="math">\(k\)&lt;/span>分配给一个正整数&lt;span class="math">\(m(k)\)&lt;/span>，则序列&lt;span class="math">\(\{x^{m(k)}\}\)&lt;/span>称为&lt;span class="math">\(\{x^m\}\)&lt;/span>的&lt;strong>子序列&lt;/strong>（subsequence）。&lt;/p>
+&lt;h2 id="空间">空间&lt;/h2>
+&lt;p>空间是附加结构的&lt;strong>集合&lt;/strong>。现代数学&lt;/p>
+&lt;h2 id="线性空间关系">线性空间关系&lt;/h2>
+&lt;p>线性空间等同于向量空间。&lt;/p>
+&lt;p>研究向量空间很自然涉及一些额外结构。额外结构如下：&lt;/p>
+&lt;ul>
+&lt;li>一个实数或复数向量空间加上长度概念（就是范数）则成为赋范向量空间。&lt;/li>
+&lt;li>一个实数或复数向量空间加上长度和角度的概念则成为内积空间。&lt;/li>
+&lt;li>一个向量空间加上拓扑结构并满足连续性要求（加法及标量乘法是连续映射）则成为拓扑向量空间。&lt;/li>
+&lt;li>一个向量空间加上双线性算子（定义为向量乘法）则成为域代数。&lt;/li>
+&lt;/ul>
+&lt;h2 id="空间关系">空间关系&lt;/h2>
+&lt;div class="figure">
+&lt;img src="../../images/空间关系维恩图.jpeg" alt="空间关系维恩图.jpeg" />&lt;p class="caption">空间关系维恩图.jpeg&lt;/p>
+&lt;/div>
+&lt;p>注：图中黄色的字是拓扑空间。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/空间关系说明表.jpeg" alt="空间关系维恩图.jpeg" />&lt;p class="caption">空间关系维恩图.jpeg&lt;/p>
+&lt;/div>
+&lt;p>现代数学的一个特点就是以集合为研究对象，这样的好处就是可以将很多不同问题的本质抽象出来，变成同一个问题，当然这样的坏处就是描述起来比较抽象，很多人就难以理解了。&lt;/p>
+&lt;p>既然是研究集合，每个人感兴趣的角度不同，研究的方向也就不同。为了能有效地研究集合，必须给集合赋予一些“结构”（从一些具体问题抽象出来的结构）。 从数学的本质来看，最基本的集合有两类：线性空间（有线性结构的集合）、度量空间（有度量结构的集合）。&lt;/p>
+&lt;p>对线性空间而言，主要研究集合的描述，直观地说就是如何清楚地告诉地别人这个集合是什么样子。为了描述清楚，就引入了基（相当于三维空间中的坐标系）的概念，所以对于一个线性空间来说，只要知道其基即可，集合中的元素只要知道其在给定基下的坐标即可。&lt;/p>
+&lt;p>但线性空间中的元素没有“长度”（相当于三维空间中线段的长度），为了量化线性空间中的元素，所以又在线性空间引入特殊的“长度”，即范数。赋予了范数的线性空间即称为赋范线性空间。同时，两个赋范线性空间的所有线性算子构成了另一个空间，叫线性算子空间。&lt;/p>
+&lt;p>但赋范线性空间中两个元素之间没有角度的概念，为了解决该问题，所以在线性空间中又引入了内积的概念。&lt;/p>
+&lt;p>因为有度量，所以可以在度量空间、赋范线性空间以及内积空间中引入极限，但抽象空间中的极限与实数上的极限有一个很大的不同就是，极限点可能不在原来给定的集合中，所以又引入了完备的概念，完备的内积空间就称为Hilbert空间。&lt;/p>
+&lt;p>这几个空间之间的关系是：&lt;/p>
+&lt;ul>
+&lt;li>线性空间与度量空间是两个不同的概念，没有必然联系。线性空间中，不定义度量结构就不是度量空间，度量也可以定义在非线性空间中。二者的交集叫度量线性空间。&lt;/li>
+&lt;li>赋范线性空间就是赋予了范数的线性空间，也是度量空间（具有线性结构的度量空间），因为范数也是距离的一种，即度量和原点的距离。&lt;/li>
+&lt;li>Banach空间是完备的赋范线性空间。&lt;/li>
+&lt;li>内积空间必为赋范线性空间，但是在其基础上引入了角度，并产生了一些负数运算结果；但线性赋范空间不一定是内积空间。任何有限维内积空间都是完备的，因此也是banach空间。&lt;/li>
+&lt;li>希尔伯特空间就是完备的内积空间，也可以说是定义了内积的Banach空间，算是banach空间和内积空间的交集。&lt;/li>
+&lt;li>有限维欧式空间、有限维酉空间都是Banach空间以及希尔伯特空间&lt;/li>
+&lt;/ul>
+&lt;p>其他阅读材料：如何理解空间，这是最基础的。 &lt;a href="https://www.jianshu.com/p/1a8241cae23f">https://www.jianshu.com/p/1a8241cae23f&lt;/a>&lt;/p></description></item></channel></rss>

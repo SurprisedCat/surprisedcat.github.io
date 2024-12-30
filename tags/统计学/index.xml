@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>统计学 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/</link><description>Recent content in 统计学 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sat, 26 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>概率统计随机过程之相关分析与因果推断</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%9B%B8%E5%85%B3%E5%88%86%E6%9E%90%E4%B8%8E%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/</link><pubDate>Sat, 26 Nov 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%9B%B8%E5%85%B3%E5%88%86%E6%9E%90%E4%B8%8E%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/</guid><description>
+&lt;h2 id="概率统计随机过程之相关分析与因果推断">概率统计随机过程之相关分析与因果推断&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>因果关系是人类不断探寻的深刻议题，不过想要探究因果联系并不是那么容易的，因此很多学者都会退一步从更弱的关联性分析入手，尤其在大数据时代，关联性的作用也不容小觑。因此，统计学上的关系分析是非常重要的一个环节。本文主要讲解分类数据和数值数据的列联分析和方差分析等内容。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#因果分析的复杂性">因果分析的复杂性&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#分类数据的chi2拟合优度检验">分类数据的&lt;span class="math">\(\\chi^2\)&lt;/span>拟合优度检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#列联分析">列联分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#方差分析analysis-of-variance-anova">方差分析（Analysis of variance, ANOVA）&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单因素方差分析">单因素方差分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#双因素方差分析">双因素方差分析&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正态性检验">正态性检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#w检验">W检验&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#方差齐性检验">方差齐性检验&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="因果分析的复杂性">因果分析的复杂性&lt;/h2>
+&lt;p>统计学上如果想要进行因果分析，通常会有如下图的阶段：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/统计学探索变量间关系.png" alt="统计学探索变量间关系" />&lt;p class="caption">统计学探索变量间关系&lt;/p>
+&lt;/div>
+&lt;p>首先，查看变量间是否具有关联性，没有关联性的就是相互独立的变量，一个变量的变化并不会对另一个变量产生影响；当发现两个变量具备关联性时，我们还得查看关联性的强弱，是强相关还是弱相关；在之后，需要检查这种相关性是不是有什么其他隐含的因素，比如二者都是同一个原因的结果，二者本身不具备因果性；最后才能进一步确认因果性。在确认因果性时，一般通过以下模型实现：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/因果关系理论抽象.drawio.svg" alt="因果关系理论抽象.drawio.svg" />&lt;p class="caption">因果关系理论抽象.drawio.svg&lt;/p>
+&lt;/div>
+&lt;p>在复杂的统计模型中，其中上边的每一步也需要仔细、系统的研究。当然上述只是因果分析的简要流程。&lt;/p>
+&lt;p>在因果分析中，对于自变量、因变量不同的类型，也有着不同的分析方法，对于本科生水平大概如下：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/统计分析一般方法.png" alt="统计分析一般方法" />&lt;p class="caption">统计分析一般方法&lt;/p>
+&lt;/div>
+&lt;p>其中，数据类型一般可以分成定性的分类数据（品质数据）、顺序数据和定量的数值数据，数值数据还可分为离散数据和连续数据。这些数据的级别是由低到高的，高阶数据可以转换为低阶数据，例如连续数据可以归并成离散数据，数值数据可以按照大小排成顺序数据，顺序数据也可以分成几类形成分类数据。但是低阶数据无法转换成高阶数据。&lt;/p>
+&lt;p>对于硕士研究生可能需要掌握到下面的成程度：&lt;/p>
+&lt;p>分类数据统计分析方法：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/分类数据统计分析方法.png" alt="分类数据统计分析方法" />&lt;p class="caption">分类数据统计分析方法&lt;/p>
+&lt;/div>
+&lt;p>数值数据统计分析方法：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/数值数据统计分析方法.png" alt="数值数据统计分析方法" />&lt;p class="caption">数值数据统计分析方法&lt;/p>
+&lt;/div>
+&lt;p>对于博士生大概是这样的：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/组间差异检验.png" alt="组间差异检验.png" />&lt;p class="caption">组间差异检验.png&lt;/p>
+&lt;/div>
+&lt;p>接下来我将有选择的挑几个阐明。首先，先从本科阶段的内容说起吧。&amp;lt;( ￣^￣)&amp;gt;&lt;/p>
+&lt;h2 id="分类数据的chi2拟合优度检验">分类数据的&lt;span class="math">\(\chi^2\)&lt;/span>拟合优度检验&lt;/h2>
+&lt;p>对于离散分布，比如对于二项分布&lt;span class="math">\(B(n,p)\)&lt;/span>，我们希望验证其服从二项分布，进行了&lt;span class="math">\(M\)&lt;/span>次&lt;span class="math">\(n\)&lt;/span>重伯努利实验得到&lt;span class="math">\(M\)&lt;/span>个值，其中实验成功次数为&lt;span class="math">\(0,1,2,3,\dotsb,n\)&lt;/span>的频数分别为&lt;span class="math">\(m_0,m_1,m_2,\dotsb,m_n,M=\sum\limits_{i=0}^n m_i\)&lt;/span>。那么如果想要验证该n重伯努利分布得到的随机变量&lt;span class="math">\(X\)&lt;/span>是服从二项分布&lt;span class="math">\(B(n,p)\)&lt;/span>的，需要怎么做呢？一个简单可用的方法是&lt;span class="math">\(\chi^2\)&lt;/span>拟合优度检验。&lt;/p>
+&lt;p>分布的拟合检验是在随机变量&lt;span class="math">\(X\)&lt;/span>分布未知时的检验（因为我们要验证的即是其分布类型），因此不同于参数的假设检验问题，属于非参数检验。一般而言分类数据的结果是频数，&lt;span class="math">\(\chi^2\)&lt;/span>检验是对分类数据的频数进行分析的统计方法。&lt;/p>
+&lt;p>之所以叫&lt;span class="math">\(\chi^2\)&lt;/span>拟合优度检验，是因为在1900年，统计学四大天王之一卡尔-皮尔逊证明提出对于实验统计出来的频数&lt;span class="math">\(f_i,i\in \mathrel{\Theta}\)&lt;/span>，它和理论期望的频数&lt;span class="math">\(e_i=M×p_i\)&lt;/span>，（&lt;span class="math">\(M\)&lt;/span>为总数，&lt;span class="math">\(p_i\)&lt;/span>为对应概率）存在以下关系： &lt;span class="math">\[
+X^2=\sum_{i\in\mathrel{\Theta}} \frac{(f_i-e_i)^2}{e_i}\sim \chi^2(|\mathrel{\Theta}|-1)\tag{1}
+\]&lt;/span> 即构造的统计量&lt;span class="math">\(X^2=\sum\limits_{i\in\mathrel{\Theta}} \frac{(f_i-e_i)^2}{e_i}\)&lt;/span>应该服从自由度为&lt;span class="math">\(|\mathrel{\Theta}|-1\)&lt;/span>的卡方分布，&lt;span class="math">\(|\mathrel{\Theta}|\)&lt;/span>为实验可能出现结果的样数。并且期望频数越大，该分布与卡方分布越接近。当期望频数大于5时，与卡方分布符合比较好。此外，卡方分布只适用于观测数均不小于5的大样本场合。&lt;/p>
+&lt;p>我们从数学角度单纯地看式（1）,&lt;span class="math">\((f_i-e_i)^2\)&lt;/span>实际是指实验做出的实际结果与理论分布差值的平方，体现的是实际与理论的差异，这个值越大，说明二者越不相符，分母的&lt;span class="math">\(e_i\)&lt;/span>更像是正则系数，降低绝对差值的比例影响。所以，从式（1）也可以看出随机变量&lt;span class="math">\(X^2\)&lt;/span>越大，我们越倾向于不认同实验分布服从理论分布，从数学角度讲是拒绝域在右侧的&lt;span class="math">\(\chi^2\)&lt;/span>检验。这种方式最早由卡尔-皮尔逊提出，通常也称之为皮尔逊&lt;span class="math">\(\chi^2\)&lt;/span>拟合优度检验。&lt;/p>
+&lt;p>下面我们用泰坦尼克号的存活率与性别是否相关举一个简单的例子：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/卡方优度检验.png" alt="卡方优度检验" />&lt;p class="caption">卡方优度检验&lt;/p>
+&lt;/div>
+&lt;p>拟合优度检验只针对一个分类变量进行检验，如果需要对两个或多个分类变量进行出里就需要列联分析。&lt;/p>
+&lt;h2 id="列联分析">列联分析&lt;/h2>
+&lt;p>如果我们希望&lt;strong>分析两个或多个分类变量之间的是否独立，可以使用列联表&lt;/strong>。列联分析是一种&lt;strong>独立性检验&lt;/strong>，通常列联表常用于分类数据的两两分析，多维数据的多维列联表不太直观，一般用的较少。&lt;/p>
+&lt;p>原理也是使用卡方统计量。&lt;/p>
+&lt;p>列联表中，若两个分类变量&lt;span class="math">\(A,B\)&lt;/span>，其中&lt;span class="math">\(A\)&lt;/span>有&lt;span class="math">\(r\)&lt;/span>个可取值，记为&lt;span class="math">\(A_1,\dotsb,A_r\)&lt;/span>，&lt;span class="math">\(B\)&lt;/span>有&lt;span class="math">\(c\)&lt;/span>个可取值，记为&lt;span class="math">\(B_1,\dotsb,B_c\)&lt;/span>，从总体中抽取样本容量为&lt;span class="math">\(n\)&lt;/span>的样本，设其中有&lt;span class="math">\(n_{ij}\)&lt;/span>个个体，其属性为&lt;span class="math">\(A_i,B_j\)&lt;/span>，称其为频数，我们根据上述信息可制作频数列联表：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">&lt;span class="math">\(A\setminus B\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(B_1\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(B_j\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(B_c\)&lt;/span>&lt;/th>
+&lt;th align="center">行和&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(A_1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{11}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{1j}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{1c}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{1\cdot}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(A_i\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{i1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{ij}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{ic}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{i\cdot}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(A_r\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{r1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{rj}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{rc}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{r\cdot}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">列和&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{\cdot 1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{\cdot j}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n_{\cdot c}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(n\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>以上列联表是会根据实验或数据集给出的数据制作而成，都是已知的数据。我们将上述表中数据都除以总数&lt;span class="math">\(n\)&lt;/span>得到频率/概率表：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">&lt;span class="math">\(A\setminus B\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(B_1\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(B_j\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/th>
+&lt;th align="center">&lt;span class="math">\(B_c\)&lt;/span>&lt;/th>
+&lt;th align="center">行和&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(A_1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{11}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{1j}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{1c}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{1\cdot}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(A_i\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{i1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{ij}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{ic}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{i\cdot}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\vdots\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">&lt;span class="math">\(A_r\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{r1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{rj}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{rc}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{r\cdot}\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">列和&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{\cdot 1}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{\cdot j}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(\dotsb\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(p_{\cdot c}\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(1\)&lt;/span>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>根据频率/概率关系有&lt;span class="math">\(\sum_i\sum_j p_{ij}=1, \sum_j p_{\cdot j}=1, \sum_i p_{i\cdot}=1\)&lt;/span>。这个表格的目的就是计算&lt;span class="math">\(p_{i\cdot}\)&lt;/span>和&lt;span class="math">\(p_{\cdot j}\)&lt;/span>。如果变量&lt;span class="math">\(A,B\)&lt;/span>是独立的，那么会有&lt;span class="math">\(p_{ij}=p_{i\cdot}p_{\cdot j}\)&lt;/span>，但是实际统计频率&lt;span class="math">\(p_{ij}\)&lt;/span>必然和理论值有所偏差，我们用计算得到的&lt;span class="math">\(p_{i\cdot}\)&lt;/span>和&lt;span class="math">\(p_{\cdot j}\)&lt;/span>相乘，得到独立假设下的理论概率&lt;span class="math">\(\hat{p}_{ij}=p_{i\cdot}×p_{\cdot j}\)&lt;/span>，再乘以总数&lt;span class="math">\(n\)&lt;/span>得到期望频数&lt;span class="math">\(n\hat{p}_{ij}\)&lt;/span>，那么这就可以看成有&lt;span class="math">\(r×c\)&lt;/span>个可选值的卡方拟合优度检验，其自由度为&lt;span class="math">\((r-1)×(c-1)\)&lt;/span>。据此，检验统计量为： &lt;span class="math">\[
+X^2=\sum_{i=1}^r\sum_{j=1}^c \frac{(n_{ij}-n\hat{p}_{ij})^2}{n\hat{p}_{ij}}\tag{2}
+\]&lt;/span> 其中，&lt;span class="math">\(\hat{p}_{ij}=p_{i\cdot}×p_{\cdot j}=\frac{n_{i\cdot}}{n}×\frac{n_{\cdot j}}{n}\)&lt;/span>，同样的&lt;span class="math">\(n_{ij}\)&lt;/span>和&lt;span class="math">\(n\hat{p}_{ij}\)&lt;/span>差别越大，统计量值越大，概率分布服从性也越差。又因为理论概率为独立假设下的概率分布，概率服从性差意味着两个分类变量独立性也越差。&lt;/p>
+&lt;p>下面举一个例子：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/列联表分析.png" alt="列联表分析.png" />&lt;p class="caption">列联表分析.png&lt;/p>
+&lt;/div>
+&lt;p>此外，对于数值型数据，我们也可以通过将其分割归类成几段，降维成分类数据，从而使用列联表分析。不过，我们还有一种对其有更佳的处理方式，即方差分析。&lt;/p>
+&lt;h2 id="方差分析analysis-of-variance-anova">方差分析（Analysis of variance, ANOVA）&lt;/h2>
+&lt;p>&lt;strong>当自变量是分类变量，因变量是数值变量时的相关性分析，可以使用方差分析&lt;/strong>。比如探究不同教学方式是否对成绩有影响、不同专业毕业之后的薪资是否有区别等等。区别于列联分析，方差分析的因变量都是数值。&lt;/p>
+&lt;p>如果只是想知道是否数值型因变量是否受到分类型自变量影响，那么使用假设检验也是可以的。但是需要研究的目标变多时，例如设4个总体的均值分别为&lt;span class="math">\(\mu_1,\mu_2,\mu_3,\mu_4\)&lt;/span>，如果用一般假设检验方法，如t检验，一次只能研究两个样本，要检验4个均值是否相等，就需要检验6次：&lt;/p>
+&lt;ul>
+&lt;li>检验1：&lt;span class="math">\(H_0:\mu_1=\mu_2\)&lt;/span>；&lt;/li>
+&lt;li>检验2：&lt;span class="math">\(H_0:\mu_1=\mu_3\)&lt;/span>；&lt;/li>
+&lt;li>检验3：&lt;span class="math">\(H_0:\mu_1=\mu_4\)&lt;/span>；&lt;/li>
+&lt;li>检验4：&lt;span class="math">\(H_0:\mu_2=\mu_3\)&lt;/span>；&lt;/li>
+&lt;li>检验5：&lt;span class="math">\(H_0:\mu_2=\mu_4\)&lt;/span>；&lt;/li>
+&lt;li>检验6：&lt;span class="math">\(H_0:\mu_3=\mu_4\)&lt;/span>；&lt;/li>
+&lt;/ul>
+&lt;p>很显然，这样做十分的繁琐，并且多次检验会导致出错概率增加，如果设拒绝域&lt;span class="math">\(\alpha=0.05\)&lt;/span>，即每次检验犯第一类错误的概率为0.05，做6次检验会使犯第一类（至少一次）的概率变成&lt;span class="math">\(1-(1-\alpha)^6\approx 0.265\)&lt;/span>，相应置信水平会降低到0.735。因此使用方差分析一是可以提升检验的效率，二是可以增加分析的可靠性，避免多次检验造成的误差累积。&lt;/p>
+&lt;blockquote>
+&lt;p>方差分析：在共同的显著性水平&lt;span class="math">\(\alpha\)&lt;/span>下，同时考虑多个平均值的差异。通常以F分布来进行检验，称为方差分析。&lt;/p>
+&lt;/blockquote>
+&lt;p>方差分析由统计学四天王之一的Fisher于1923年提出。我们在进行方差分析之前还要注意其需要满足以下三个条件：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>正太总体。每个组的总体应服从正态分布，对于因素的每一个水平，其观测值是来自正太分布总体的简单随机样本。&lt;/li>
+&lt;li>方差齐性。各个总体的方差&lt;span class="math">\(\sigma^2\)&lt;/span>必须相同。&lt;/li>
+&lt;li>独立性。每个观测值必须是独立的。&lt;/li>
+&lt;/ol>
+&lt;p>在上述假设成立的前提下，&lt;strong>要分析自变量对因变量是否有影响，在形式上也就转化成为检验自变量的各个水平（总体）的均值是否相等&lt;/strong>。而以上三种假设都有对应的检验方法。如正态性检验、方差齐性检验以及独立性检验。&lt;/p>
+&lt;p>方差分析的原理是&lt;strong>对数据误差的来源进行分类分析&lt;/strong>。对于同一因素的不同处理水平，产生的结果可能有不同。根据误差来源，结果的不同可能确实是不同处理水平导致的，也有可能仅仅是因为随机误差。但是这种不同到底是不是不同因素水平导致的呢？方差分析就是通过将&lt;strong>误差分解成组间误差和组内误差，用二者的比值的偏离程度&lt;/strong>来进行分析。而数据中，误差的体现可以由方差透露，因此对误差的分析就能够变成对方差的分析。&lt;/p>
+&lt;ul>
+&lt;li>组内误差：在因素&lt;strong>同一&lt;/strong>水平处理下，数据的差异，这种差异只可能是随机性导致的。&lt;/li>
+&lt;li>组间误差：在因素&lt;strong>不同&lt;/strong>水平处理下，数据的差异，这种差异虽然也包含随机性，但也可能是不同处理水平造成的系统性差异。&lt;/li>
+&lt;/ul>
+&lt;h3 id="单因素方差分析">单因素方差分析&lt;/h3>
+&lt;p>如果只考虑一个因素（自变量）对结果（因变量）的影响，那么只需要单因素方差分析。我们将数据集用&lt;span class="math">\(X\)&lt;/span>表示，每一个样品&lt;span class="math">\(x_{ij}\)&lt;/span>表示在自变量第&lt;span class="math">\(i,i\in\{1,2,\dotsb,r\}\)&lt;/span>个处理水平下，获取到的第&lt;span class="math">\(j,j\in\{1,2,\dotsb,m\}\)&lt;/span>个结果。那么可以用&lt;span class="math">\(\overline{\overline{X}}\)&lt;/span>表示数据集整体的均值，&lt;span class="math">\(\overline{X}_i\)&lt;/span>表示第&lt;span class="math">\(i\)&lt;/span>个因素水平的组内均值。&lt;span class="math">\(x_{ij}\)&lt;/span>还可进行如下分解： &lt;span class="math">\[
+\begin{aligned}
+x_{ij}-\overline{\overline{X}}&amp;amp;=(x_{ij}-\overline{X}_i)+(\overline{X}_i-\overline{\overline{X}})\\
+x_{ij}&amp;amp;=\overline{\overline{X}}+\underbrace{(x_{ij}-\overline{X}_i)}_{\text{组内误差}}+\underbrace{(\overline{X}_i-\overline{\overline{X}})}_{组间误差}
+\end{aligned}\tag{3}
+\]&lt;/span> 为了进一步分析误差来源，我们假设&lt;span class="math">\(x_{ij}\)&lt;/span>所在的处理组其服从分布为&lt;span class="math">\(N(\mu_i,\sigma^2)\)&lt;/span>的正态分布（正态总体假设，且由于方差齐性，各个处理组方差都是&lt;span class="math">\(\sigma^2\)&lt;/span>），那么&lt;span class="math">\(x_{ij}\)&lt;/span>也可以表示成&lt;span class="math">\(x_{ij}=\mu_i+\varepsilon_{ij}\)&lt;/span>，其中&lt;span class="math">\(\varepsilon_{ij}\)&lt;/span>是数据&lt;span class="math">\(x_{ij}\)&lt;/span>与组内真实均值&lt;span class="math">\(\mu_i\)&lt;/span>的离差，该离差的来源就是随机性。&lt;/p>
+&lt;p>而根据中心极限定理，组内数据平均值&lt;span class="math">\(\overline{X}_i\)&lt;/span>应服从&lt;span class="math">\(N(\mu_i,\frac{\sigma^2}{m})\)&lt;/span>的正态分布，&lt;span class="math">\(m\)&lt;/span>为组内数据数量，那么&lt;span class="math">\(\overline{X}_i\)&lt;/span>可以表示成&lt;span class="math">\(\overline{X}_i=\mu_i+\varepsilon_i\)&lt;/span>，其中&lt;span class="math">\(\varepsilon_i\)&lt;/span>是数据的组内平均值&lt;span class="math">\(\overline{X}_i\)&lt;/span>与组内真实均值&lt;span class="math">\(\mu_i\)&lt;/span>的离差，不难证明&lt;span class="math">\(\varepsilon_i=\frac{1}{m}\sum_{j=1}^m \varepsilon_{ij}\)&lt;/span>，即组内均值的离差等于组内数据离差的均值。式（3）中的组内误差等价于： &lt;span class="math">\[
+x_{ij}-\overline{X}_i=(\mu_i+\varepsilon_{ij})-(\mu_i+\varepsilon_i)=\varepsilon_{ij}-\varepsilon_i\tag{4}
+\]&lt;/span> 所以&lt;strong>组内误差来源是随机性&lt;/strong>。&lt;/p>
+&lt;p>同理，若我们将总体平均表示成&lt;span class="math">\(\overline{\overline{X}}=\mu+\varepsilon\)&lt;/span>的形式，其中&lt;span class="math">\(\mu\)&lt;/span>是所有分布真实的均值（各组都服从正态分布，和也服从正态分布），&lt;span class="math">\(\varepsilon\)&lt;/span>是数据均值与真正均值的离差，式(3)中的组间误差等价于 &lt;span class="math">\[
+\overline{X}_i-\overline{\overline{X}}=(\mu_i+\varepsilon_i)-(\mu+\varepsilon)\tag{5}
+\]&lt;/span> 如果组间没有系统性差异，那么组内真实均值&lt;span class="math">\(\mu_i\)&lt;/span>应该和总体均值&lt;span class="math">\(\mu\)&lt;/span>相同&lt;span class="math">\(\mu_i=\mu\)&lt;/span>，此时造成差异的只有离差&lt;span class="math">\(\varepsilon_i-\varepsilon\)&lt;/span>，就只有随机性造成的偏差。但当不同处理水平确实有影响时，那么某些组的均值就不会等同于整体均值&lt;span class="math">\(\mu_i\neq \mu\)&lt;/span>，此时式（5）中就会存在&lt;strong>系统误差&lt;/strong>项&lt;span class="math">\(\mu_i-\mu\)&lt;/span>和&lt;strong>随机误差&lt;/strong>项&lt;span class="math">\(\varepsilon_i-\varepsilon\)&lt;/span>。系统误差越大，组间误差就会越大。&lt;/p>
+&lt;p>为了去除误差正负号的影响以及方便计算，我们将总误差进行平方求和&lt;span class="math">\(S_T=\sum_{i=1}^r\sum_{j=1}^m(x_{ij}-\overline{\overline{X}})^2\)&lt;/span>，结合式（3）有： &lt;span class="math">\[
+\begin{aligned}
+S_T&amp;amp;=\sum_{i=1}^r\sum_{j=1}^m(x_{ij}-\overline{\overline{X}})^2=\sum_{i=1}^r\sum_{j=1}^m[(x_{ij}-\overline{X}_i)+(\overline{X}_i-\overline{\overline{X}})]^2\\
+S_T&amp;amp;=\sum_{i=1}^r\sum_{j=1}^m[(x_{ij}-\overline{X}_i)^2+(\overline{X}_i-\overline{\overline{X}})^2]+\underbrace{\sum_{i=1}^r\sum_{j=1}^m 2(x_{ij}-\overline{X}_i)(\overline{X}_i-\overline{\overline{X}})}_{=0}\\
+S_T&amp;amp;=\underbrace{\sum_{i=1}^r\sum_{j=1}^m (x_{ij}-\overline{X}_i)^2}_{\text{组内误差平方和}}+\underbrace{\sum_{i=1}^r\sum_{j=1}^m (\overline{X}_i-\overline{\overline{X}})^2}_{组间误差平方和}
+\end{aligned}
+\]&lt;/span> 我们令组内误差平方和&lt;span class="math">\(S_e=\sum_{i=1}^r\sum_{j=1}^m (x_{ij}-\overline{X}_i)^2\)&lt;/span>，组间误差平方和&lt;span class="math">\(S_A=\sum_{i=1}^r\sum_{j=1}^m (\overline{X}_i-\overline{\overline{X}})^2=\sum_{i=1}^r m (\overline{X}_i-\overline{\overline{X}})^2\)&lt;/span>，所以有 &lt;span class="math">\[
+S_T=S_E+S_A\tag{6}
+\]&lt;/span> 这就是误差的平方和分解。下面我们不加证明地给出： &lt;span class="math">\[
+\frac{S_e}{\sigma^2}\sim \chi^2(n-r)\tag{7}
+\]&lt;/span> 当组间误差没有系统误差，即&lt;span class="math">\(\mu_i=\mu\)&lt;/span>时： &lt;span class="math">\[
+\frac{S_A}{\sigma^2}\sim \chi^2(r-1)\tag{8}
+\]&lt;/span> 且&lt;span class="math">\(S_e, S_A\)&lt;/span>二者独立。&lt;/p>
+&lt;p>因此，当不同处理组没有区别，即不存在系统误差时，式(7)(8)都服从卡方分布，那么他们的商（还需除以自由度）就应该服从F分布： &lt;span class="math">\[
+\frac{\frac{S_A}{\sigma^2×(r-1)}}{\frac{S_e}{\sigma^2×(n-r)}}=\frac{S_A/(r-1)}{S_e/(n-r)}\sim F(r-1,n-r)\tag{9}
+\]&lt;/span> 考虑到系统误差&lt;span class="math">\(\mu_i-\mu\)&lt;/span>越大，&lt;span class="math">\(S_A\)&lt;/span>也就越大，那么式（9）的F统计量就越大。因此，该检验的拒绝域应为： &lt;span class="math">\[
+W=\{F≥F_{1-\alpha}(r-1,n-r)\}\tag{10}
+\]&lt;/span> 通常我们会将上述计算过程的结果汇总成&lt;strong>单因子方差分析表&lt;/strong>：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">来源&lt;/th>
+&lt;th align="center">平方和&lt;/th>
+&lt;th align="center">自由度&lt;/th>
+&lt;th align="center">均方&lt;/th>
+&lt;th align="center">F比&lt;/th>
+&lt;th align="center">p值&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">因子&lt;/td>
+&lt;td align="center">&lt;span class="math">\(S_A\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(f_A=r-1\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MS_A=S_A/f_A\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(F=MS_A/MS_e\)&lt;/span>&lt;/td>
+&lt;td align="center">p&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">误差&lt;/td>
+&lt;td align="center">&lt;span class="math">\(S_e\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(f_e=n-r\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(MS_e=S_E/f_e\)&lt;/span>&lt;/td>
+&lt;td align="center">-&lt;/td>
+&lt;td align="center">-&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">总和&lt;/td>
+&lt;td align="center">&lt;span class="math">\(S_T\)&lt;/span>&lt;/td>
+&lt;td align="center">&lt;span class="math">\(f_t=n-1\)&lt;/span>&lt;/td>
+&lt;td align="center">-&lt;/td>
+&lt;td align="center">-&lt;/td>
+&lt;td align="center">-&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>对于给定的&lt;span class="math">\(\alpha\)&lt;/span>，若&lt;span class="math">\(F≥F_{1-\alpha}(f_A,f_e)\)&lt;/span>，则认为因子显著，自变量的不同水平会对因变量有影响。&lt;/p>
+&lt;p>如果认为因子的影响是显著的，想要进一步检验到底是哪个水平影响比较显著，还可继续进行多重检验（也叫事后检验），常用的一种多重检验是利用了t分布的LSD-t检验，其他还有SNK-q检验、Turkey、Duncan、Scheffe检验等。&lt;/p>
+&lt;p>此外，还可以用组间方差占总误差的比例来衡量关系的强度，记为&lt;span class="math">\(R^2=SSA/SST\Rightarrow R=\sqrt{SSA/SST}\)&lt;/span>，当&lt;span class="math">\(R&amp;gt;0.5\)&lt;/span>，可认为是中等相关，若&lt;span class="math">\(R&amp;gt;0.8\)&lt;/span>可认为是强相关。&lt;/p>
+&lt;h3 id="双因素方差分析">双因素方差分析&lt;/h3>
+&lt;p>根据名字我们就知道，双因素方差分析是分析两个分类变量（常称为行因素和列因素）对试验结果的影响。根据两个因素对试验结果的影响是否独立，还可以分为&lt;strong>无交互作用的（无重复）双因素方差分析和有交互作用的（可重复）双因素方差分析&lt;/strong>。&lt;/p>
+&lt;p>双因素方差分析也需要满足方差分析的三个假设：正态性、方差齐性、独立性。&lt;/p>
+&lt;p>双因素方差分析的基本方法和单因素类似，区别是：&lt;/p>
+&lt;p>无交互作用时：分为行因素误差平方和、列因素误差平方和、随机误差平方和三类。可以将行因素、列因素当成两个单因素误差分析来看。&lt;/p>
+&lt;p>有交互作用时：还要添加第四类交互效应误差平方和。有交互作用时数据量会比较大。&lt;/p>
+&lt;h2 id="正态性检验">正态性检验&lt;/h2>
+&lt;p>正态分布时统计学中最重要的分布之一，判断一组数据是否来自正态总体是很多分析步骤的前置要求，甚至还有国标GB/T4882-2001专门设计了正态概率图来辅助我们判断数据是否服从正态分布。&lt;/p>
+&lt;blockquote>
+&lt;p>正态概率图是一种特殊绘制的坐标图，我们将所给数据绘制在坐标图上，如果这些数据大概处于一条直线上，那么可以认为服从正态分布。&lt;/p>
+&lt;/blockquote>
+&lt;p>当然，数理统计学还有更技术化的方法，比例最常用的W检验和EP检验。&lt;/p>
+&lt;h3 id="w检验">W检验&lt;/h3>
+&lt;p>W检验全称sharpiro-wilk检验，是由二人于1965年提出的正态检验方法。其适用范围为样本容量&lt;span class="math">\(8\leq n \leq 2000\)&lt;/span>，非常适合小样本的正态性检验，但是当样本容量小于7时，对偏离正态分布的检验不太有效，同时当数据量大于5000时也不适用。&lt;/p>
+&lt;p>正态性检验方法总结图：&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/正态性检验.png" alt="正态性检验.png" />&lt;p class="caption">正态性检验.png&lt;/p>
+&lt;/div>
+&lt;p>贝叶斯检验主要利用了KL散度，这是衡量两种分布偏差程度的一种度量，也叫相对熵。&lt;/p>
+&lt;p>正态性检验的计算往往十分复杂且常常需要查表，最好使用计算机程序辅助计算。&lt;/p>
+&lt;h2 id="方差齐性检验">方差齐性检验&lt;/h2>
+&lt;p>总结下这几种方法的利弊及适用条件：方差比、Hartley检验、Bartlett检验都需要原始数据是正态分布，Levene检验和BF法对正态分布不是很依赖。比较常用的是Levene检验，适用于多组方差的比较，且对正态性没要求。 &lt;a href="https://zhuanlan.zhihu.com/p/313397172">https://zhuanlan.zhihu.com/p/313397172&lt;/a>&lt;/p></description></item><item><title>概率统计随机过程之统计实验设计</title><link>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%BB%9F%E8%AE%A1%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1/</link><pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E7%BB%9F%E8%AE%A1%E5%AE%9E%E9%AA%8C%E8%AE%BE%E8%AE%A1/</guid><description>
+&lt;h2 id="概率统计随机过程之统计实验设计">概率统计随机过程之统计实验设计&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>实验是现代科学中不可缺少的一环，随着科学的发展，科学实验的成本也越来越高，例如现在大型强子对撞机的建设成本需要几十亿，甚至上百亿美元。此外，合理的实验也能让我们减少实验误差，提高数据精度。因此每次我们进行实验前都需要合理的设计实验（Design of Experiments）。目前，设计实验是数理统计学的一个分支，科学探究的一部分，涉及“用何方法可更好的设计一个实验”，属于方法论的范畴。由于任何实验都会受到外来环境影响，如何设计实验，使外来环境的变化能够对实验造成最小的影响，就是实验规划的目的。实验设计法广泛用于自然科学、社会科学、医学等各学科的实验设计里。&lt;/p>
+&lt;p>经常使用的实验设计方法有完全随机设计、随机区组设计、交叉设计、析因设计、拉丁方设计、正交设计、嵌套设计、重复测量设计、裂区设计以及均匀设计等。不同的实验设计方法适用不同的情况。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#实验设计总述">实验设计总述&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#单因素实验设计">单因素实验设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#完全随机设计">完全随机设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#配对实验设计">配对实验设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#随机区组设计">随机区组设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#双多因素实验设计">双/多因素实验设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#交叉设计">交叉设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#拉丁方设计">拉丁方设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#析因设计">析因设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#正交设计">正交设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#均匀设计">均匀设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#特殊实验设计方法">特殊实验设计方法&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#嵌套设计">嵌套设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#重复测量设计">重复测量设计&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#裂区设计">裂区设计&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="实验设计总述">实验设计总述&lt;/h2>
+&lt;p>实验设计原则：随机、对照、可重复、区域化（即尽量保证其他影响因素一致）。&lt;/p>
+&lt;p>因素：实验中会影响最终结果的变量。&lt;/p>
+&lt;p>水平：实验中一个因素所能取的值。不一定是数字，也可包含符号、文本性描述。因为实验中我们不能无限地取值，只能选取有代表性的值，因此水平必须是有限个。&lt;/p>
+&lt;p>处理组：接受因素不同水平处理的实验组。比如在医学实验中，处理组A使用新的药剂，处理组B接受安慰剂。因素为用药，该因素水平为：用新药和用安慰剂两种。&lt;/p>
+&lt;p>根据考虑变化因素对实验结果的影响，可以分为单因素实验设计、多因素实验设计。&lt;/p>
+&lt;h2 id="单因素实验设计">单因素实验设计&lt;/h2>
+&lt;p>当我们只考虑单个因素的影响时，可采用的设计方式。&lt;/p>
+&lt;h3 id="完全随机设计">完全随机设计&lt;/h3>
+&lt;p>完全随机设计只涉及一个处理因素的两个或多个水平，所以也称单因素设计。它的核心就是将样本中的&lt;strong>样品随机地分配&lt;/strong>到各处理组，分别接受不同的处理，然后得出实验结论。&lt;/p>
+&lt;p>按照各处理组样本容量是否大体相等（个别处理组多或少一个样品，问题也不大）可分为&lt;strong>平衡设计&lt;/strong>：各组样本含量相等 （样本含量相等时检验效率较高）和&lt;strong>非平衡设计&lt;/strong>：各组样本含量不相等。&lt;/p>
+&lt;p>由于分的处理组数和因素的水平个数相同，当水平数为2时为&lt;strong>二组比较的完全随机设计&lt;/strong>，当水平数有三个及以上时为&lt;strong>多组比较的完全随机设计&lt;/strong>。通常多组比较的实验比两组比较的实验要复杂一些，数据使用的检验方法也不一样。&lt;/p>
+&lt;p>完全随时实验是实验设计最基础的方式，也体现了实验设计的几大原则。不过其缺点也不少例如样品个体客观上是存在个体差异的，这会导致组间样品的不平衡，尤其是在小样本场景下；其次，这种完全随机设计效率不算高；并且只能分析单因素。&lt;/p>
+&lt;h3 id="配对实验设计">配对实验设计&lt;/h3>
+&lt;p>配对实验设计的核心思想是&lt;strong>控制变量&lt;/strong>。&lt;/p>
+&lt;p>配对设计是将受试对象按配对条件配成对子，&lt;strong>每对中的个体接受不同的处理&lt;/strong>。&lt;strong>配对设计的最主要动因是排除非考察因素的干扰&lt;/strong>，因此我们需要将非常接近的两个样品配成一对，然后每一对的两个个体分别接受不同的处理。比如动物实验中，常将同性别、同窝别、体重相近的两个动物配成一对，然后将每一对的样品分别进行两种因素水平的处理。&lt;/p>
+&lt;p>配对实验的优点就是组间均衡性好，由于人为的控制了非处理因素的干扰，组间误差小需要的例数少，提高了检验效率。但是欠妥的配对方案会导致实验出现难以察觉的错误。&lt;/p>
+&lt;h3 id="随机区组设计">随机区组设计&lt;/h3>
+&lt;p>随机区组设计是配对实验设计的推广，因为配对实验设计只能处理因素的两个水平，而区组设计是针对因素多个水平而提出的。&lt;/p>
+&lt;p>其处理手法和配对实验设计是共通的，首先是将样品按照性质分成N组，组内的样品性质要求接近，组件样品是有性质差异的，例如如病人的性别、年龄、体重和病情等非实验因素差异分成N个区组。然后将组内样品随机分配到同一因素不同水平的处理组。&lt;/p>
+&lt;p>其优点和配对实验一样：每个区组内的受试对象有较好的同质性，排除了非实验因素对分析结果的影响，提高了分析效率。但是，这样也要求每个处理组至少分到一个受试对象，实验结果中若有数据缺失，统计分析较麻烦。&lt;/p>
+&lt;h2 id="双多因素实验设计">双/多因素实验设计&lt;/h2>
+&lt;p>当我们考虑的因素增多时，不仅要考虑每个因素对实验结果的影响，还要考虑存在因素之间的交互作用。&lt;/p>
+&lt;p>对于无相互影响的多因素实验，有交叉设计和拉丁方设计；适用于有交互作用的实验设计方法有析因设计、正交设计和均匀设计。&lt;/p>
+&lt;h3 id="交叉设计">交叉设计&lt;/h3>
+&lt;p>交叉设计是一种特殊的自身对照设计，常用在临床试验中，在同一病人身上观察两种或多种处理水平的效应，消除不同病人之间的差异，减少误差。我们以两个阶段、两种处理水平为例说明操作步骤。首先将条件相近的观察对象进行配对，随机分配到两个实验组中。第一组先用处理方法A处理，然后再用处理方法B处理，处理顺序是AB；另一组则相反，先用处理方法B处理，再用处理方法A处理，处理顺序是BA。两种处理水平在全部实验过程中“交叉”进行。&lt;/p>
+&lt;p>使用注意：交叉设计的&lt;strong>两个实验阶段之间需要留出足够的“衰减时间”&lt;/strong>。为了减除前一实验阶段对后一实验阶段的影响，需要设置“衰减时间”。如果是新药实验，那么衰减时间可以根据药物半衰期确定。&lt;/p>
+&lt;p>交叉设计实际上就是自身对照实验设计，通过“交叉”的方式将时间因素的影响分解出来，避免了时间因素对研究结果的干扰。因此该设计的最大优点是可控制时间因素及个体差异对处理方式的影响，故节约样本含量，效率较高。但是交叉设计一般只用于两个因素之间的比较，如果因素多的话，就会因时间太长产生更多不可控的变量。&lt;/p>
+&lt;h3 id="拉丁方设计">拉丁方设计&lt;/h3>
+&lt;p>拉丁方设计用于&lt;strong>研究三个因素，各因素间无交互作用且每个因素的水平数相同的情况&lt;/strong>。其中有一个最重要的因素称之为处理因素，另外两个是需要加以控制的因素。此外，拉丁方设计还要求处理具有方差齐性。&lt;/p>
+&lt;p>因素之间没有交互作用的情况毕竟是少数，更多的情况是存在因素之间的交互作用。下面几种实验设计方法适用于有交互作用的情况。&lt;/p>
+&lt;h3 id="析因设计">析因设计&lt;/h3>
+&lt;p>析因设计是单因素完全随机实验在多因素场景下的推广，其需要将两个或两个以上因素及其各种水平进行排列组合、交叉分组的试验设计。它可以研究单个因素多个水平的效应，也可以研究因素之间是否有交互作用，同时找到最佳组合。&lt;/p>
+&lt;p>例如，现在有两个处理因素，一个因素有2个水平，另一个因素有三个水平，那么就进行&lt;span class="math">\(2\times 3=6\)&lt;/span>次实验；如果有三个处理因素，每个因素都有5个处理水平，那么就进行&lt;span class="math">\(5×5×5=125\)&lt;/span>次实验。析因分析的原理就是对每个因素的每个水平都进行实验，这样能够照顾到所有的因素和水平。&lt;/p>
+&lt;p>显然析因设计是非常消耗资源的设计，需要进行大量实验，当因素或水平增加时，实验次数需要几何倍数增长，这在很多实验中是难以实施的。&lt;/p>
+&lt;h3 id="正交设计">正交设计&lt;/h3>
+&lt;p>为了降低析因设计的试验次数，后人提出了正交设计。&lt;strong>正交设计是析因设计的高效化&lt;/strong>。当析因设计要求的实验次数太多时，一个非常自然的想法就是从析因设计的水平组合中，选择一部分有代表性水平组合进行试验，而正交设计就能满足这个要求。&lt;/p>
+&lt;p>正交试验设计一般包括以下几步：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>确定研究因素和指标水平；&lt;/li>
+&lt;li>制作成正交试验表格；&lt;/li>
+&lt;li>实施试验；&lt;/li>
+&lt;li>试验结果分析&lt;/li>
+&lt;/ol>
+&lt;p>其中制作正交试验表格是关键步骤，也是正交设计的核心所在，不过我看网上大多数教程都是用软件或者直接查的正交表。&lt;/p>
+&lt;h3 id="均匀设计">均匀设计&lt;/h3>
+&lt;p>均匀设计是一种多因素多水平的试验设计，它放弃了正交表的整齐可比性，是在正交设计的基础上进一步发展而成的。均匀设计进一步提高了试验点的“均匀分散性”。均匀设计的最大优点是可以使因素的水平数很大，而试验次数又最节省。与正交设计一样，可以通过均匀设计表设计实验。&lt;/p>
+&lt;p>正交设计和均匀设计都是设计实验需要系统学习的方法，这里我们不再赘述。&lt;/p>
+&lt;h2 id="特殊实验设计方法">特殊实验设计方法&lt;/h2>
+&lt;h3 id="嵌套设计">嵌套设计&lt;/h3>
+&lt;p>如果处理因素之间存在层次性结构，或处理因素之间有主次之分，这时就需要用到嵌套设计。例如，研究催化剂和温度两个处理因素对化学反应速度的影响就是典型的例子。&lt;/p>
+&lt;h3 id="重复测量设计">重复测量设计&lt;/h3>
+&lt;p>重复测量设计广泛应用于各种科学研究中，它的显著特点就是在&lt;strong>不同的实验条件下，从同一个受试对象身上采集到多个数据，也就是同一个受试者在不同实验条件下进行数次实验&lt;/strong>，以获得更多信息。这里的数次实验需要考虑的就是“时间因素”。最常见的重复测量设计是在药物的临床试验中，例如，比较两种不同药物的疗效，将病人随机分成两组，分别给予不同的药物，然后在不同时间作病人的动态观察。&lt;/p>
+&lt;h3 id="裂区设计">裂区设计&lt;/h3>
+&lt;p>裂区试验设计（split-plot experiment design）：又称为分割试验设计，把一个或多个完全随机设计、随机区组设计或拉丁方设计结合起来的试验方法。其原理为先将受试对象作一级实验单位，再分为二级实验单位，分别施以不同的处理。实验单位分级是指当实验单位具有隶属关系时，高级实验单位包含低级实验单位。如小鼠接种不同的瘤株后，观察不同浓度的某注射液的抑瘤效果，这时接种瘤株的小鼠为一级单位，相应因素为一级处理，注射浓度为二级单位，相应因素为二级处理。当试验单位不存在明显的隶属关系时，实验单位分级可按因素的主次确定。在裂区试验中一级处理与一级单位混杂，而二级处理与二级单位不混杂。因此，设计时将最感兴趣或最主要的因素，差异较小、要求精度较高、试验条件较少、工序较易改变的因素作为二级因素。&lt;/p></description></item><item><title>读书笔记之协和八公众号文章总结笔记</title><link>https://surprisedcat.github.io/studynotes/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</link><pubDate>Fri, 26 Aug 2022 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%8D%8F%E5%92%8C%E5%85%AB%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0%E6%80%BB%E7%BB%93%E7%AC%94%E8%AE%B0/</guid><description>
+&lt;h2 id="概率统计随机过程之协和八公众号文章总结笔记">概率统计随机过程之协和八公众号文章总结笔记&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>在公众号【协和八】读到了一个将统计学的专栏，虽然是医学系研究者写的，但是他山之石可以攻玉，其中讲解了很多很有用的统计学知识和难解的点。本篇笔记是该专栏的阅读笔记。&lt;/p>
+&lt;p>专栏链接：&lt;a href="https://mp.weixin.qq.com/s?__biz=MzAxMDA4NjU3OA==&amp;amp;mid=2652555217&amp;amp;idx=1&amp;amp;sn=da5332753856efb4a86aa695839523e6&amp;amp;chksm=80bbd60cb7cc5f1a3571f2f6389b3e0331fdf2612db62ae95de172c0d49b172efd8e4d236772&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0826Jegh5eGekDeo3gagkNmi&amp;amp;sharer_sharetime=1661503954453&amp;amp;sharer_shareid=2ac9f69d9b7a82eb74ce119fa6cee32f&amp;amp;key=38beb1eea6d155d34b2c714171a9bbdb1023b5929c6a8d4959ab5030989d46cf92a10bac409bfa0cd4d56ee20f279321f8723c97faa6694ae7d7835c23e88d84b080cf6e011938d7a86e0e3f88c01a06158aa31a07f803d47f5ec841f6d9e05a6f6c34694e85cfe4a434adb30c7f79de0d3f1f539bcca43bc11dbadcd1cb40ce&amp;amp;ascene=1&amp;amp;uin=MTcxMzg4NjU4MQ%3D%3D&amp;amp;devicetype=Windows+10+x64&amp;amp;version=62090538&amp;amp;lang=zh_CN&amp;amp;exportkey=AVUF2MlVFJXP3eTrXT%2FKrac%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=BjR6ClCbka%2Fh7sRrwT4qhuK4uUG4PH9gs7DDKMgyVwMixFT6vexfMRG4H8Sf%2Fq8J&amp;amp;wx_header=0">说人话的统计学——终点·起点 | 协和八&lt;/a>&lt;/p>
+&lt;h2 id="第1章高屋建瓴看统计">第1章：高屋建瓴看统计&lt;/h2>
+&lt;h3 id="你真的懂p值吗">你真的懂p值吗？&lt;/h3>
+&lt;h3 id="做统计多少数据才算够上">做统计，多少数据才算够？（上）&lt;/h3>
+&lt;h3 id="做统计多少数据才算够下">做统计，多少数据才算够？（下）&lt;/h3>
+&lt;h3 id="提升统计功效让评审心服口服">提升统计功效，让评审心服口服&lt;/h3>
+&lt;h3 id="你的科研成果都是真的吗">你的科研成果都是真的吗？&lt;/h3>
+&lt;h3 id="见识数据分析的独孤九剑">见识数据分析的「独孤九剑」&lt;/h3>
+&lt;h3 id="贝叶斯vs频率派武功到底哪家强">贝叶斯vs频率派：武功到底哪家强？&lt;/h3>
+&lt;h2 id="第2章算术平均数与正态分布">第2章：算术平均数与正态分布&lt;/h2>
+&lt;h3 id="数据到手了第一件事先干啥">数据到手了，第一件事先干啥？&lt;/h3>
+&lt;h3 id="算术平均数简单背后有乾坤">算术平均数：简单背后有乾坤&lt;/h3>
+&lt;h3 id="正态分布到底是怎么来的">正态分布到底是怎么来的？&lt;/h3>
+&lt;h2 id="第3章t检验两组平均数的比较">第3章：t检验：两组平均数的比较&lt;/h2>
+&lt;h3 id="想玩转t检验你得从这一篇看起">想玩转t检验？你得从这一篇看起&lt;/h3>
+&lt;h3 id="就是要实用t检验的七十二变">就是要实用！t检验的七十二变&lt;/h3>
+&lt;h3 id="不是正态分布t检验还能用吗">不是正态分布，t检验还能用吗？&lt;/h3>
+&lt;h3 id="只有-15-个标本也能指望t检验吗">只有 15 个标本，也能指望t检验吗？&lt;/h3>
+&lt;h3 id="样本分布不正态数据变换来救场">样本分布不正态？数据变换来救场&lt;/h3>
+&lt;h3 id="数据变换的万能钥匙box-cox变换">数据变换的万能钥匙：Box-Cox变换&lt;/h3>
+&lt;h3 id="t检验用不了别慌还有神奇的非参数检验">t检验用不了？别慌，还有神奇的非参数检验&lt;/h3>
+&lt;h3 id="只讲p值不讲效应大小都是耍流氓">只讲p值，不讲效应大小，都是耍流氓&lt;/h3>
+&lt;h3 id="找出t检验的效应大小对耍流氓-say-no">找出t检验的效应大小，对耍流氓 say no&lt;/h3>
+&lt;h3 id="用置信区间就是这么不自信">用置信区间，就是这么（不）自信&lt;/h3>
+&lt;h3 id="如何确定t检验的置信区间">如何确定t检验的置信区间&lt;/h3>
+&lt;h3 id="优雅秀出你的t检验提升paper逼格">优雅秀出你的t检验，提升Paper逼格&lt;/h3>
+&lt;h3 id="要做t检验这两口毒奶可喝不得">要做t检验，这两口毒奶可喝不得&lt;/h3>
+&lt;h2 id="第4章方差分析anova多组平均数的比较">第4章：方差分析（ANOVA）：多组平均数的比较&lt;/h2>
+&lt;h3 id="要比较三组数据t检验还能用吗">要比较三组数据，t检验还能用吗？&lt;/h3>
+&lt;h3 id="anova在手多组比较不犯愁">ANOVA在手，多组比较不犯愁&lt;/h3>
+&lt;h3 id="anova的基本招式你掌握了吗">ANOVA的基本招式你掌握了吗？&lt;/h3>
+&lt;h3 id="anova做出了显著性事儿还没完呢">ANOVA做出了显著性？事儿还没完呢&lt;/h3>
+&lt;h3 id="听说成对t检验还有-anova进阶版">听说，成对t检验还有 ANOVA进阶版？&lt;/h3>
+&lt;h3 id="重复测量-anova你要知道的事儿都在这里啦">重复测量 ANOVA：你要知道的事儿都在这里啦&lt;/h3>
+&lt;h3 id="没听说过多因素-anova那你就可就-out了">没听说过多因素 ANOVA？那你就可就 OUT了&lt;/h3>
+&lt;h3 id="多因素-anova好几个单因素-anova可没这么简单">多因素 ANOVA＝好几个单因素 ANOVA？可没这么简单&lt;/h3>
+&lt;h3 id="两个因素相互影响anova结果该如何判读">两个因素相互影响，ANOVA结果该如何判读？&lt;/h3>
+&lt;h3 id="anova还能搞三四五因素等等我头有点儿晕">ANOVA还能搞三四五因素？等等，我头有点儿晕&lt;/h3>
+&lt;h3 id="要做-anova样本量多大才够用">要做 ANOVA，样本量多大才够用&lt;/h3>
+&lt;h2 id="第5章线性回归统计建模初步">第5章：线性回归：统计建模初步&lt;/h2>
+&lt;h3 id="车模航模你玩过统计学模型你会玩吗">车模航模你玩过，统计学模型你会玩吗？&lt;/h3>
+&lt;h3 id="如果只能学习一种统计方法我选择线性回归">如果只能学习一种统计方法，我选择线性回归&lt;/h3>
+&lt;h3 id="回归线三千我只取这一条">回归线三千，我只取这一条&lt;/h3>
+&lt;h3 id="三千回归线里选中了你你靠谱吗">三千回归线里选中了你，你靠谱吗？&lt;/h3>
+&lt;h3 id="自变量不止一个线性回归该怎么做">自变量不止一个，线性回归该怎么做？&lt;/h3>
+&lt;h3 id="找出交互效应让线性模型更万能">找出「交互效应」，让线性模型更万能&lt;/h3>
+&lt;h3 id="天啦噜没考虑到混杂因素后果会这么严重">天啦噜！没考虑到混杂因素，后果会这么严重？&lt;/h3>
+&lt;h3 id="回归系数不显著也许是打开方式不对">回归系数不显著？也许是打开方式不对&lt;/h3>
+&lt;h3 id="评价线性模型r平方是个好裁判吗">评价线性模型，R平方是个好裁判吗？&lt;/h3>
+&lt;h3 id="如果r平方是砒霜本文教你三种解药">如果R平方是砒霜，本文教你三种解药&lt;/h3>
+&lt;h3 id="线性模型生病了你懂得怎样诊断吗">线性模型生病了，你懂得怎样诊断吗？&lt;/h3>
+&lt;h3 id="脱离群众的数据点是春风化雨还是秋风扫落叶">「脱离群众」的数据点，是「春风化雨」还是「秋风扫落叶」&lt;/h3>
+&lt;h2 id="第6章广义线性模型统计建模进阶">第6章：广义线性模型：统计建模进阶&lt;/h2>
+&lt;h3 id="你在-或者不在-需要逻辑回归来算">你在 或者不在 需要逻辑回归来算&lt;/h3>
+&lt;h3 id="逻辑回归的袅娜曲线你是否会过目难忘">逻辑回归的袅娜曲线，你是否会过目难忘？&lt;/h3>
+&lt;h3 id="逻辑回归的统计检验原来招数辣么多">逻辑回归的统计检验，原来招数辣么多？&lt;/h3>
+&lt;h3 id="线性回归能玩多变量逻辑回归当然也能">线性回归能玩多变量，逻辑回归当然也能&lt;/h3>
+&lt;h3 id="喂你的逻辑回归模型该做个体检啦">喂，你的逻辑回归模型该做个体检啦&lt;/h3>
+&lt;h3 id="逻辑回归能摆平二分类因变量那不止二分类呢">逻辑回归能摆平二分类因变量，那……不止二分类呢？&lt;/h3>
+&lt;h3 id="让人眼花缭乱的多项逻辑回归原来是这么用的">让人眼花缭乱的多项逻辑回归，原来是这么用的&lt;/h3>
+&lt;h3 id="只问方向无问远近定序回归的执念你懂吗">只问方向，无问远近，定序回归的执念你懂吗？&lt;/h3>
+&lt;h3 id="包教包会定序回归实战">包教包会：定序回归实战&lt;/h3>
+&lt;h3 id="数风流人物还靠泊松回归">「数」风流人物，还靠泊松回归&lt;/h3>
+&lt;h3 id="广义线性模型到底是个什么鬼">广义线性模型到底是个什么鬼？&lt;/h3>
+&lt;h2 id="自检">自检&lt;/h2>
+&lt;h3 id="妈妈说答对的童鞋才能中奖">妈妈说答对的童鞋才能中奖&lt;/h3>
+&lt;h3 id="统计学的十个误区你答对了吗">统计学的十个误区，你答对了吗？&lt;/h3></description></item></channel></rss>

@@ -1,0 +1,648 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>linux-与终端交互的发展 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="深入理解Linux交互流程">
+<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/">
+<meta property="og:title" content="linux-与终端交互的发展">
+<meta property="og:description" content="深入理解Linux交互流程">
+<meta property="og:image" content="https://surprisedcat.github.io/images/DEC_VT100_terminal.jpg">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>linux-与终端交互的发展</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Dec 10, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/linux title=linux class="post_tag button button_translucent">linux
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/projectnotes/linux-%E4%B8%8E%E7%BB%88%E7%AB%AF%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8F%91%E5%B1%95/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<ul>
+<li><a href=#%E7%8B%AC%E7%AB%8B%E7%89%A9%E7%90%86%E7%BB%88%E7%AB%AF%E7%9A%84%E5%B4%9B%E8%B5%B7%E6%96%87%E6%9C%AC%E6%A8%A1%E5%BC%8F%E4%B8%80%E7%BB%9F%E5%A4%A9%E4%B8%8B>独立物理终端的崛起——文本模式一统天下</a></li>
+<li><a href=#%E4%BB%8E%E7%89%A9%E7%90%86%E7%BB%88%E7%AB%AF%E5%88%B0%E8%99%9A%E6%8B%9F%E7%BB%88%E7%AB%AF>从物理终端到虚拟终端</a></li>
+<li><a href=#%E5%9B%BE%E5%BD%A2%E5%8C%96%E5%B4%9B%E8%B5%B7linux%E4%BB%8E%E6%96%87%E6%9C%AC%E8%BF%88%E5%90%91%E5%9B%BE%E5%83%8F>图形化崛起——Linux从文本迈向图像</a></li>
+<li><a href=#desktop%E9%97%AE%E9%BC%8E>Desktop问鼎</a></li>
+<li><a href=#%E4%BC%AA%E7%BB%88%E7%AB%AFcli%E4%BA%A4%E4%BA%92%E7%9A%84%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0>伪终端——CLI交互的薪火相传</a>
+<ul>
+<li><a href=#gui%E4%B8%AD%E7%9A%84cli>GUI中的CLI</a></li>
+<li><a href=#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F>远程连接操作系统</a></li>
+<li><a href=#%E5%90%8E%E5%8F%B0%E4%BF%9D%E9%9A%9C%E8%BF%90%E8%A1%8C%E7%9A%84tmux>后台保障运行的Tmux</a></li>
+</ul>
+</li>
+<li><a href=#%E6%80%BB%E7%BB%93>总结</a></li>
+<li><a href=#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0%E5%8F%8A%E8%B5%84%E6%96%99>参考文章及资料</a></li>
+</ul>
+<h2 id=linux-与终端交互的发展---omit-in-toc--->linux-与终端交互的发展</h2>
+<p>终端（英语：Computer terminal），是一台电脑或者计算机系统，用来让用户输入数据，及显示其计算结果的机器，简而言之就是人类用户与计算机交互的设备。终端其实就是一种输入输出设备，相对于计算机主机而言属于外设，本身并不提供运算处理功能。终端可分为文本终端和图形终端，从文本终端向图形终端的发展，就是计算机逐渐普及的历史，也催生了越来越强大的硬件设备和越来越用户友好的操作系统。文本终端本身也经历从物理终端到虚拟终端再到伪终端的转变，本文交错地介绍这两条终端发展路线，希望读者能更好地理解操作系统的交互方式。</p>
+<h2 id=独立物理终端的崛起文本模式一统天下>独立物理终端的崛起——文本模式一统天下</h2>
+<p>计算机在起步阶段都是体积庞大、复杂且昂贵的，即使发展到20世纪80，90年代，一台相对小巧一体化电脑（比如笔记本电脑）是很罕见的，在Linux诞生的1991年，一台最便宜的Apple Macintosh PowerBook 100的价格是<strong>2,299美元</strong>，要知道那可是1991年的2,299美元，当年中国人民的人均GDP才333美元。所以在计算机发展早期，主流做法是多个用户是通过物理终端（外设）连接到大型计算机或中型计算机的，共享一台计算机。</p>
+<p>早期的计算机终端一般是机电的电传打字机，比如ASR33。但是对于大多数应用来说它们太慢了，需要在卡片或磁带等物理性的材料上标记好资料之后，放入计算机，再印出结果，过程非常费工。20世纪70年代中，许多电脑公司认识到带显示器的打字机输入终端比穿孔卡片要好得多，而且可以使得计算机更加容易与用户互动，产生新的应用。终于，在神奇的1978年，计算机界迎来了一次创新性爆发，很多影响至今的产品被提了出来，比如：x86-CPU芯片的初代产品8086处理器，现代计算机网络的基石之一传输控制协议即TCP协议（同年ISO提出了对标TCP/IP的OSI网络体系），BIOS的存储介质第一款EEPROM-Intel 2816，苹果电脑系统的鼻祖Apple DOS，以及本文要提的第一位主角，最畅销、甚至成为实际标准的终端设备VT-100。</p>
+<p><img src=../../images/DEC_VT100_terminal.jpg alt=VT100></p>
+<p>上面这台长得像小台式机一样的机器，就是VT100终端啦。别看到长得像台式机，但是实际上只相当于现在的显示器+键盘组合在一起（还是只能显示文本不能显示图片的显示器），不包含CPU、内存、硬盘等硬件，只能通过RS232串口线连接到真正意义上的计算机，所以实际上以21世纪概念看，完整的一台电脑应该是下图这个样子（图中的计算机是DEC公司生产于1970到1980年代的PDP-11型计算机）：</p>
+<p><img src=../../images/RS232-serial-communication.jpg alt=RS232-serial-communication.jpg></p>
+<p>而从操作系统的角度看，终端是外接的设备（外设），并不属于计算机本体的功能，但是为了让终端和处理器能够相互理解、交互，就需要单独的程序担当二者的桥梁，这种充当计算机本体和外设桥梁的程序就是<strong>设备驱动程序(driver)</strong>。设备驱动程序是添加到操作系统中的特殊程序，其中包含有关硬件设备的信息，此信息能够使计算机与相应的设备进行通信。</p>
+<p>由于在计算机早期的快速发展阶段，基本上所有的交互设备都是像VT100的这样<strong>只能进行字符交互</strong>的终端，当时操作系统要处理的26个拉丁字母机及其衍生字母、特殊符号也很有限（不像汉字……感谢王选院士），所以当时最流行的操作系统Unix以及后来参考Unix设计的linux操作系统，都在内核中留有专门为此类终端设计的teletype terminal subsystem，简称tty子系统。tty子系统主要由三个部分组成：处理硬件相关的tty驱动、处理文本与控制码的line discipline和提供统一抽象操作的tty (I/O) core。对于每个连接到计算机的物理终端，tty子系统还会分别创建对应的字符设备文件描述符<code>/dev/ttyX</code>（X表示一个数字），并维护每个终端与对应<code>/dev/ttyX</code>之间的数据流会话。逻辑结构如下所示：</p>
+<p><img src=../../images/terminal-ttysubsystem.drawio.svg alt=terminal-ttysubsystem></p>
+<blockquote>
+<p>我查阅资料的过程中，操作系统与终端直接连接的模块，有人画的是UART驱动，有人画的是tty驱动。<strong>UART（通用异步收发器）是一种串口通信方式</strong>。串口即串行接口，是一种信息传输方法，与之相对应的另一种接口叫并口，并行接口。两者的区别是，传输一个字节（8个位）的数据时，串口是将8个位排好队，逐个比特地在<strong>1条连接线</strong>上传输，而并口则将8个位一字排开，分别在<strong>8条连接线</strong>上同时传输1位比特，在相同的数据传输速率下，并口的确比串口更快，但由于高频传输时，并口的各个连接线之间容易互相干扰，高速情况下难以同步各连接线的数据，而且硬件成本也相对串口更高（线多），因而<strong>串口取代并口成为了现在的主流接口</strong>。除了UART，目前常用的其他串口通信方式还包括RJ-45(网口)、USB系列、I2C、SPI等等。在VT100终端时代，UART是最流行的串口通信方式，常见的标准有一般电脑应用的RS-232（使用25针或9针连接器）和工业电脑应用的半双工RS-485与全双工RS-422（不要与通用串行总线Universal Serial Bus，USB混淆），以至于现在所提到的串口，默认就指的是UART串口。</p>
+<p>具体说下UART驱动和tty驱动的区别。UART驱动是指<strong>通信方式为UART串口</strong>的驱动程序，而tty驱动是从使用外设种类（种类为tty）的角度来描述驱动。比如网卡设备的网卡驱动，键盘、鼠标的驱动等等。二者不是一个方面的东西。如果一个外设使用了UART串口作为通信方式，那么这个外设就需要UART驱动；当然，如果该设备使用了USB作为通信方式，那么就要用USB驱动。一般的设备驱动不仅仅包括通信层面的驱动，还包括与自身硬件密切相关的程序，例如现在的家用打印机驱动程序主要就是由USB驱动和GDI打印驱动组成。</p>
+<p>在物理终端的时代，由于tty终端大多数使用的都是UART传输方式，并且所有终端制造商共同采用事实标准ANSI转义序列（不需要额外的硬件驱动），所以在图中画UART驱动或tty驱动本质是一个。看tty子系统的源码，我们也可以发现tty驱动中描述的驱动类型就是UART；严格的来讲，UART驱动可以算是tty驱动的一种具体实现，在Linux中tty子系统的驱动代码里，tty驱动操作都是直接使用UART串口驱动的操作:</p>
+</blockquote>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=ln> 1</span><span class=cm>/* Linux 的driver/tty/serial/serial_core.c文件中，
+</span><span class=ln> 2</span><span class=cm>uart_ops就是基于tty_operation结构体创建的*/</span>
+<span class=ln> 3</span><span class=k>static</span> <span class=k>const</span> <span class=k>struct</span> <span class=n>tty_operations</span> <span class=n>uart_ops</span> <span class=o>=</span> <span class=p>{</span>
+<span class=ln> 4</span> <span class=p>.</span><span class=n>install</span> <span class=o>=</span> <span class=n>uart_install</span><span class=p>,</span>
+<span class=ln> 5</span> <span class=p>.</span><span class=n>open</span>  <span class=o>=</span> <span class=n>uart_open</span><span class=p>,</span>
+<span class=ln> 6</span> <span class=p>.</span><span class=n>close</span>  <span class=o>=</span> <span class=n>uart_close</span><span class=p>,</span>
+<span class=ln> 7</span> <span class=p>.</span><span class=n>write</span>  <span class=o>=</span> <span class=n>uart_write</span><span class=p>,</span>
+<span class=ln> 8</span> <span class=p>.</span><span class=n>put_char</span> <span class=o>=</span> <span class=n>uart_put_char</span><span class=p>,</span>
+<span class=ln> 9</span> <span class=p>.</span><span class=n>flush_chars</span> <span class=o>=</span> <span class=n>uart_flush_chars</span><span class=p>,</span>
+<span class=ln>10</span> <span class=p>.</span><span class=n>write_room</span> <span class=o>=</span> <span class=n>uart_write_room</span><span class=p>,</span>
+<span class=ln>11</span> <span class=p>.</span><span class=n>chars_in_buffer</span><span class=o>=</span> <span class=n>uart_chars_in_buffer</span><span class=p>,</span>
+<span class=ln>12</span> <span class=p>.</span><span class=n>flush_buffer</span> <span class=o>=</span> <span class=n>uart_flush_buffer</span><span class=p>,</span>
+<span class=ln>13</span> <span class=p>.</span><span class=n>ioctl</span>  <span class=o>=</span> <span class=n>uart_ioctl</span><span class=p>,</span>
+<span class=ln>14</span> <span class=p>.</span><span class=n>throttle</span> <span class=o>=</span> <span class=n>uart_throttle</span><span class=p>,</span>
+<span class=ln>15</span> <span class=p>.</span><span class=n>unthrottle</span> <span class=o>=</span> <span class=n>uart_unthrottle</span><span class=p>,</span>
+<span class=ln>16</span> <span class=p>.</span><span class=n>send_xchar</span> <span class=o>=</span> <span class=n>uart_send_xchar</span><span class=p>,</span>
+<span class=ln>17</span> <span class=p>.</span><span class=n>set_termios</span> <span class=o>=</span> <span class=n>uart_set_termios</span><span class=p>,</span>
+<span class=ln>18</span> <span class=p>.</span><span class=n>set_ldisc</span> <span class=o>=</span> <span class=n>uart_set_ldisc</span><span class=p>,</span>
+<span class=ln>19</span> <span class=p>.</span><span class=n>stop</span>  <span class=o>=</span> <span class=n>uart_stop</span><span class=p>,</span>
+<span class=ln>20</span> <span class=p>.</span><span class=n>start</span>  <span class=o>=</span> <span class=n>uart_start</span><span class=p>,</span>
+<span class=ln>21</span> <span class=p>.</span><span class=n>hangup</span>  <span class=o>=</span> <span class=n>uart_hangup</span><span class=p>,</span>
+<span class=ln>22</span> <span class=p>.</span><span class=n>break_ctl</span> <span class=o>=</span> <span class=n>uart_break_ctl</span><span class=p>,</span>
+<span class=ln>23</span> <span class=p>.</span><span class=n>wait_until_sent</span><span class=o>=</span> <span class=n>uart_wait_until_sent</span><span class=p>,</span>
+<span class=ln>24</span> <span class=c1>// 结构体以下代码省略 ……
+</span><span class=ln>25</span><span class=c1></span><span class=p>};</span>
+</code></pre></div><blockquote>
+<p>此外，由于串口设备的在这个阶段的主流地位，tty子系统为串口物理终端（如VT100）创建字符设备文件描述符实际上不是<code>/dev/ttyX</code>，而是特地用<code>/dev/ttySX</code>表示，其中“S”表示Serial，即串口的英文。我们现在还能在<code>/dev/</code>目录下看到保留的<code>/dev/ttySX</code>，只不过现在一般只有嵌入式或工控设备还在使用。</p>
+</blockquote>
+<p>终端与计算机的数据交互逻辑流程如下</p>
+<ul>
+<li>输入数据流的逻辑流程如下：
+<ol>
+<li>终端（例如VT100）键盘的输入数据触发系统中断，并经过串口线（RS232）传输给计算机的串口接口，并由驱动程序接收（数方波）。驱动程序将来自硬件的数据整合成OS能够理解的字节；</li>
+<li>line discipline将驱动的数据读取到字符设备缓冲区，并进行进一步解释，例：特殊符号如backspace、tab符号做出相应解释，还有将一些终端指令如ctrl+c解释为中断，将Ctrl+e解释成将光标移至行尾等转换。需要指出不同设备（如鼠标、触摸板）的line discipline内容是不一样。当前的串行通信子系统至少支持17种line discipline。解释完输入内容后，line discipline还会把输入的数据写回到echo buffer，送回终端屏幕（这是我们在键盘打字然后在terminal终端实时显示的原理）；</li>
+<li>tty I/O 将字符设备缓冲区的内容read/copy到标准输入设备文件（stdin，文件描述符为<code>/dev/stdin</code>实际指向<code>/dev/ttySX</code>）；</li>
+<li>用户进程从标准输入设备（stdin）读取输入内容作为程序运行所需的数据。</li>
+</ol>
+</li>
+<li>输出数据流的逻辑流程如下：
+<ol>
+<li>用户进程将输出的文本数据写入标准输出设备文件（<code>/dev/stdout</code>）或标准错误设备文件（<code>/dev/stderr</code>）（这两个文件实际都指向<code>/dev/ttySX</code>）；</li>
+<li>tty I/O 先读取stdout和stderr的内容，再调用tty core的write操作，将数据写入字符设备缓冲区；</li>
+<li>line discipline接收字符设备缓冲区的数据，调用line discipline的write操作，写入echo buffer,并对数据进行整理，例如将所有LF字符替换为CR/LF序列等；</li>
+<li>最后，调用tty驱动的write操作，将echo buffer中的字节转换成UART能够理解的比特位，通过串口线返回给终端（VT100）的文本显示器。</li>
+</ol>
+</li>
+</ul>
+<p>有一点需要再次强调，当年的终端设备显示器和现在的显示器接收的数据类型完全不一样。VT100终端接收的是ANSI转义序列码，只能显示规定的字符；而现在的显示器接收的数据是图像点阵，所以能够显示各种图片、视频等多媒体文件。因此，VT100等终端自然也没有分辨率的说法，只能显示24行80列的字符（后来扩充到25行，25*80成为最终标准）😅。</p>
+<p>即使如此由于VT100先进地拥有双向滚动、允许自由移动光标控制屏幕、滚动翻页等功能成为当时最畅销的终端，取得了600万的销量，这在当时可算是天皇巨星级别的产品了。</p>
+<h2 id=从物理终端到虚拟终端>从物理终端到虚拟终端</h2>
+<blockquote>
+<p>集成电路上可以容纳的晶体管数目在大约每经过18个月便会增加一倍。——戈登·摩尔</p>
+</blockquote>
+<p>物理终端在个人电脑（personal computer, PC）普及之前，一直是计算机硬件系统中不可或缺的重要组成部分，然而我们今天貌似只能在博物馆里才能看见这些浑身冒着历史感的设备。击败了流行一时的VT100等物理终端的并不是更先进的终端机或是更先进的交互方式，而是<strong>摩尔定律导致的个人电脑的普及</strong>。在VT100卖的最好的年代，计算机并非人人能拥有的平民设备，它不仅需要大量的金钱(a lot of money)，大量的空间(a lot of space)，还需要大量的技术能力(a lot of technology)，3A大作了属于是。</p>
+<p>随着电子元件的微型化和集成电路的快速发展，计算机由一整个房间的设备逐渐缩减成等身高的机器，再到手提包大小的可随身携带的设备，整体制造成本也大大减少，人人拥有一台电脑已经不是天方夜谈。加上人们对新事物的学习与认知，也让计算机不在是“悬在天边的明月”。那么如果电脑已经能够人手一台了，那么只能打字输入和显示器输出的终端外设还需要独立售卖吗？面对这样的降维打击，终端机制造商们开始沿着两条路交错发展，一条路是把终端机拆成屏幕和键盘两部分，独立发展，屏幕开始专注于显示功能，提供彩色的、加粗、更清晰的字符显示；键盘也逐渐摆脱承重的机械装置向着轻量化、多功能化、规范化发展。第二条路是将终端设备和计算机本地融为一体，完全成为PC机不可拆分的一部分，比如笔记本电脑，同时由于集成化程度高，硬件间距离近，并口的干扰与不同步等问题大大降低，排线也取代了UART作为内部连接的高速传输通道。下图即为最接近现在笔记本电脑形态的可移动计算机——1989年的NEC UltraLite，运行MS-DOS 3.3。</p>
+<p><img src=../../images/nec-ultralite.jpg alt=nec-ultralite.jpg></p>
+<p>但是从操作系统的交互角度来说，它要做的事情大体上没有什么变化，即接收来自输入设备的字符，交给用户进程处理，再把用户进程返回的信息返回给输出终端。因此内核TTY子系统架构也一直没有发生变化。不过硬件的发展，导致了和硬件密切相关的驱动程序的大规模变化，为了适应这些变化，同时尽量兼容过去的程序（才不是因为不想改代码🤣），Linux/Unix提出了一个折衷的办法：<strong>假设终端依旧存在</strong>。用软件设计一个中间层，对外接收来自“城头变幻大王旗”一般的各种外设的交互数据，然后转换成过去tty终端的数据形式，再提供给其他进程。对于其他进程而言，还是像过去一样和“某个终端”进行交互，只不过这个终端不再是物理终端，而是由程序“伪装”的<strong>虚拟终端（Virtual Console or Virtual Terminal）</strong>。</p>
+<p>注：虽然Linux源代码中关于的终端模拟器的代码在tty目录下，但是一般不把终端模拟器作为tty子系统的一部分。</p>
+<p>上节中，我们介绍了内核中tty子系统是如何充当物理终端和操作系统交互的媒介，这节我们着重介绍一下再物理终端到虚拟终端的演变过程中，哪些部分发生了变化。新的逻辑结构图如下：</p>
+<p><img src=../../images/virtual-terminal-text-mode.drawio.svg alt=虚拟终端文本模式></p>
+<p>数据流方面，从诞生到至今也没有太大变化，最大区别在于物理终端和计算器的半双工通信，变成了计算机和显示器、键盘、鼠标等外设的单工通信。在内部程序结构方面，由于外设是变化的源头，所以Linux操作系统侧最直接的变化就是<strong>硬件驱动</strong>。物理终端分成两个部分后，显示器和键盘需要独立和计算机连接，显示器主要是通过VGA（Video Graphics Array）接口，键盘主要通过PS/2接口。</p>
+<p>键盘部分独立出来之后变化比较简单，只需要添加自己独立的驱动，这个驱动直接为终端模拟器提供用户输入字符以及控制指令。PS/2接口作为IBM专为交互外设设计的接口，目前已经慢慢的被更为通用的USB所取代，只有少部分的台式机仍然提供完整的PS/2键盘及鼠标接口。不过，由于USB接口对键盘无特殊调整下最大只能支持6键无冲突，而PS/2键盘接口可以支持所有按键同时而无冲突。现在大家追求的机械、无冲突键盘就是历史中曾经被放弃的产物，果然科技创新靠考古啊。</p>
+<p>显示器部分相对复杂一些。VGA中文翻译叫视频图像阵列，可是在Linux系统2.1版本之前，是图像输出支持的并不好，所以VGA显示器还有一个VGA text Mode，即输出的不是任意像素点而是规定好的字符点阵。典型地，支持文本模式的屏幕由一个个均匀的矩形栅格字符元组成，其中每一个字符元包含字符集中的一个字符点阵。文本模式下显示器只能显示字符集里的内容，不能显示图片、视频等多媒体内容。vga接口相连的计算机部件叫显示适配器（display adapter），这个物件就是各种显卡的统称了，只不过其内容还包括了相应的驱动程序。这个称呼我们至今还能在windows系统的设备管理器的里看到。点阵图示例如下（实际屏幕使用的点阵图会更加精细）</p>
+<p><img src=../../images/%E5%AD%97%E6%AF%8D%E7%82%B9%E9%98%B5%E5%9B%BE.jpg alt=字母点阵图></p>
+<p>display (VGA) adapter会直接从一段内存（显存，当时二者还没有分离开）中读取字符数据，交由显示器渲染显示。这段内存由于是字符，不是像素数据，我们也可以通过工具直接查看。Linux的virtual console screen(vcs)设备就是指向这段字符内存，我们可以通过<code>cat /dev/vcsX</code>查看，其中“X”表示所用tty X对应的数字。如果我们查看目前正在使用的tty1，例如<code>sudo cat /dev/vcs1 > /tmp/foo</code>，然后用<code>vim /tmp/foo</code>打开这个文件，就能够发现这个文件里的内容正是刚才屏幕上显示的内容！vcs设备（及其对应的内存）为终端模拟器扮演了过去物理终端显示器的角色。</p>
+<p>该场景下，终端模拟器由于使用VGA连接，又叫做VGA console。一般叫“console”的，都和电脑上自带可以直接操作电脑和能够显示系统信息的控制台有关。由于PC电脑的“个人”属性，默认每个PC都只有一人正在使用计算机，该用户也就直接使用console。Linux/Unix从设计之初，就是一个多用户操作系统，tty子系统除了为普通用户提供了串口驱动外，本来就都有为管理员操作console准备的console driver，只不过现在console driver不用连接实体控制台，而是连接虚拟终端软件（终端模拟器）。<strong>从相互关系来看，虚拟终端对于tty子系统扮演的是物理终端，但是对于整个操作系统而言，虚拟终端只是个普通进程，因此虚拟终端和tty子系统间采用进程间通信方法，例如socket、管道，而非UART串口，因此，对应的tty设备也不用特地加一个“S”，直接用<code>/dev/ttyX</code>即可</strong>。</p>
+<p>基于软件实现的虚拟终端数量不再受到物理硬件的限制，系统可以开启多个进程来表示多个虚拟终端，Linux系统中可以通过<code>ctrl+alt+F1~F6</code>切换的tty1-tty6（<code>/dev/tty1~/dev/tty6</code>）六个终端就是这个时期历史遗留的产物（在具有桌面环境的Linux发行版中，X Window Systemy一般在/dev/tty7上运行，也有把桌面终端放在tty1和tty2的比如Ubuntu，依各Linux发行版自己决定）。虚拟终端能够显示的字符行列数由其模拟的终端型号决定，并且可以根据自己的喜好切换，下图即为文本模式的虚拟终端，默认模拟的终端类型为linux。</p>
+<p><img src=../../images/terminal_text_mode.png alt=terminal_text_mode></p>
+<p>由于虚拟终端是交互的主流方式之一，Linux/Unix刚开始处于性能和通用性了考虑，都是在内核中实现了终端模拟器，但是当我们需要终端模拟器有更灵活的功能而又不想乱动内核时（内核一个进程崩溃容易导致其他进程的连锁崩溃），如果我们让终端模拟程序运行在用户区，就需要<strong>伪终端</strong>（pseudoterminal或pseudotty, PTY）。伪终端作为CLI交互方式的后起之秀，在后来tty子系统使用空间被X-windows等视窗系统不断挤压之时，成为坚守CLI的坚实城墙。</p>
+<h2 id=图形化崛起linux从文本迈向图像>图形化崛起——Linux从文本迈向图像</h2>
+<p>20世纪80年代末，计算机显示器已经逐渐从字符显示设备转变成了像素显示设备，它们不再只能显示键盘上字符内容，也不再受到UART传输能力的限制，而是像电视机一样能够显示各种各样的多媒体内容，显示高清化，接口也发展出HDMI、DVI等更高速接口。于是计算机开始被运用到越来越多的领域，除了传统的科学计算与信息通信，图像、视频、3D、设计、游戏等多媒体内容也开始运用计算机来开展工作；此外，命令行为主的CLI对于很多不熟悉计算机的从业人员而言，学习成本很高，也不能直观的理解操作的流程和意义，这导致PC电脑在很长时间都是专业人士使用的工具。计算机潜在的商业价值和难用而不普及的矛盾，让很多商业公司看到了巨大的利润，能解决这个矛盾的公司，比如微软、苹果，都成为了这个世界上最挣钱的公司之一。</p>
+<p>为了能让人们，更方便、直观地操作计算机，研究人员开始为程序提供图形化交互界面，用户只要通过移动光标、点击按钮、在特定位置输入内容就能很容易地操作程序。PC机上的第一个图形界面——Xerox Alto(并未商用，主要用于研究和大学)，其于1973年被施乐公司Xerox Palo Alto Research Center (PARC)所设计，从此，开启了计算机图形界面的新纪元，20世纪80末至90年代初，图形化界面设计经历了众多变迁，虽然距离完善的图形化操作系统（Graphical User Interface）还有距离，但是初具雏形的OS/2，Amiga Workbench，Windows 1.0-3.0还是受到的大众的热烈欢迎。</p>
+<p>图形化界面本质上也是shell的一种，只是其复杂程度比基于命令行的Bash，Tcsh高得多，需要图形学、优化理论、人体工程学、UI设计等一系列知识，还需要更加精细的内存管理、更加复杂的进程通信机制、更加人性化的交互设计。而在传统计算机、网络领域，程序员对基于命令行的Shell表现的已经足够满足了，且Linux在发布之后一直都以自由免费软件称著，主要靠社区开发者“用爱发电”，缺乏商业激励和图形化程序繁重的工作量，让Linux系统图形化交互界面的发展比商业公司确实慢了不少。</p>
+<p>为了实现图像领域的应用，Linux还是对CLI做了很多改进，第一个就是能让图片、pdf文档、视频能够在CLI界面中显示、处理。多媒体文件和文本类文件有着本质的区别，无法用某一字符集去描述多媒体文件，程序都是通过像素点的方式，拼出多媒体文件。通常显示一幅图片，其数据分为像素数和颜色位数两部分。如果使用最容易理解的RGB描述方法，一幅图画的一个像素点需要一个三元组（R，G，B）来描述，即红色成分R，绿色成分G和蓝色成分B，每种成分都由1字节（8bits）来细分。因此一个原始未经压缩的图像数据=宽像素数X高像素数X3字节。面对处理图像所带来的挑战，Linux在2.1.109 kernel正式引入了帧缓冲区(frambe buffer, fb)。最初它实现是为了允许内核在没有文本模式显示的Apple Macintosh等系统上模拟文本控制台，到后来甚至发展出了一个在内核空间中实现的称为FramebufferUI (fbui)的窗口系统，它提供了基本的 2D 窗口体验，并且占用的内存很少。使用framebuffer系统的结构图如下所示：</p>
+<p><img src=../../images/virtual-terminal-pixel-mode.drawio.svg alt=虚拟终端像素模式></p>
+<p>fb系统起到了显示驱动的作用，可以代替传统的VGA driver，它在内存中开辟一片区域作为显存，其内容对应于屏幕上的界面显示，可以将其简单理解为屏幕上显示内容对应的缓存，修改Framebuffer中的内容，即表示修改屏幕上的内容，所以，直接操作Framebuffer可以直接从显示器上观察到效果。但Framebuffer并不是屏幕内容的直接的像素表示。Framebuffer实际上包含了几个不同作用的缓存，比如颜色缓存、深度缓存等，因此无法像查看virtual console screen一样查看framebuffer里面的内容。</p>
+<p>Linux中用设备<code>/dev/fbX</code>指向这段内存，其中“X”代表一个数字。fb设备是Linux为显示设备提供的一个接口，把显存抽象后的一种设备，他允许上层应用程序在图形模式下直接对显示缓冲区进行读写操作。这种操作是抽象的，统一的，用户不必关心物理显存的位置、换页机制等等具体细节。物理实体相关的细节都是由Framebuffer设备驱动来完成的。</p>
+<p>相应地，使用framebuffer的终端模拟器叫做<strong>帧缓冲区控制台(framebuffer console, fbcon)</strong>，它在具有VGA console全部文本模式功能的基础上，<strong>增加了对图形特性的支持</strong>。fbcon支持高分辨率、不同字体类型、显示旋转、以及底层显卡能够实现的大多数功能。在x86架构中，由于存在其他更高效的图形化机制，fbcon是可选的，有些人甚至把它当作玩具。对于其他架构，它是唯一可用的文本或图形显示设备，例如在基于光盘或USB闪存盘启动的GNU/Linux系统，KNOPPIX，为了保证对不同硬件架构的支持就是用内核必备的framebuffer作为显示驱动，通常使用framebuffer的CLI终端，都会在启动时放一个Linux吉祥物Tux的图像标志，如下图：</p>
+<p><img src=../../images/fbcon_KNOPPIX.png alt=fbcon_KNOPPIX.png></p>
+<p>此外，很多第三方应用也直接使用framebuffer在内存中的内容来显示多媒体文件，尤其在嵌入式Linux常见，一些常见的第三方应用如显示图片的fbi，显示pdf的fbgs，播放视频的mplayer等等，下图中我们分别举例使用fbi和fgbs来显示多媒体内容：</p>
+<p><img src=../../images/fbconsole.png alt=fbcon></p>
+<p>除了framebuffer，Linux还有其他支持图形化的机制，如DMA，专业显卡驱动等。这些内容超出了本文阐述的范围，如果有想详细了解的读者，我推荐一个Linux图形化系统介绍的Youtube视频，从硬件到软件都有，<a href="https://www.youtube.com/watch?v=wjAJmqwg47k">An Overview of the Linux and Userspace Graphics Stack , Paul Kocialkowski</a>，有条件的建议看看。</p>
+<p>第二个改变则更彻底，就是也想商业公司一样，提供图形化交互界面。Linux上的第一个“桌面”还不是桌面。相反，它们是运行在X窗口系统上的“窗口管理器window manager（WM）”。</p>
+<p>这里出现了两个关键词。第一个关键词：X窗口系统（X Window System，也常称为X11或X，天窗口系统）是一种以位图方式显示的软件窗口系统。最初是1984年麻省理工学院的研究，之后变成UNIX、类UNIX（包括Linux）、以及OpenVMS等操作系统所一致适用的<strong>标准化软件工具包及显示架构的运作协议</strong>。现在几乎所有的操作系统都能支持与使用X。更重要的是，今日知名的桌面环境——GNOME和KDE也都是以X窗口系统为基础建构成的。</p>
+<p>理解X视窗系统有两点很关键：</p>
+<ol>
+<li>X 是一个“软件”而不是一个操作系统；</li>
+<li>X 是用来进行图形接口的执行与绘制；</li>
+</ol>
+<p>X视窗系统从逻辑上主要分为三层：最底层的X Server（X服务器）主要处理输入/输出信息并维护相关资源，它接受来自键盘、鼠标的操作并将它交给X Client（X客户端）作出反馈，而由X Client传来的输出信息也由它来负责输出；最外层的X Client则提供一个完整的GUI界面，负责与用户的直接交互（KDE、Gnome等桌面管理器本质上都是一个X Client），而衔接X Server与X Client的就是X Protocol(X通讯协议)也称为X11协议，它的任务是充当这两者的沟通管道。X视窗系统与操作系统的关系如下图所示（完全独立于tty子系统）：</p>
+<p><img src=../../images/x-window-system.drawio.svg alt=x-window-system></p>
+<p>从交互的流程来看，每当由输入操作改变桌面部件（如点击鼠标拖动窗口、关闭窗口等），输入设备驱动就会将信息交给X server，X server会通过X11协议将动作内容转递给相应的X client。X client将会改变自身状态并向X server发出一个重新绘画、渲染的请求；X server使用图形渲染机制（如DDX）完成图像的计算，交给Compositor绘制具体的图像内容。X server将绘制好的图像信息从Compositor的缓冲区更新到显示驱动的缓冲区，最终在显示器上出现新的内容。</p>
+<p>从系统架构来看，由于X视窗系统从刚开始阶段就是独立于操作系统设计的，因此对于Linux而言，X视窗系统也只算个普通软件，工作在用户区。X server作为图形界面的核心负责与Linux内核交互，这种用户区工作的模式虽然降低了性能，但是增加系统的稳定性。在图形化界面初期，由于其复杂的设计模式和开发人员经验不够丰富，图形交互界面的BUG层出不穷，像windows早期系统以图形化为核心的操作系统，出BUG导致整个系统崩溃、蓝屏的现象并不罕见。X server作为用户区进程，即使崩溃了也只是造成X client的关闭，不会影响Linux内核的运行，这也是Linux一直以稳定性称著的原因之一。</p>
+<p>我们在X window系统中，也标出了第二个关键词：窗口管理器window manager。它是为了方便X图形环境使用的一种特殊X client，其作用就是来管理其他所有窗口。窗口管理器也是图形化操作系统的雏形。</p>
+<p>当我们运行<code>xterm</code>或<code>xclock</code>之类的图形化程序，X client程序就会在一个窗口中打开该程序。窗口管理器可以跟踪窗口并进行基本的内部管理，例如让你可以来回移动窗口并将其最小化。其余的事情取决于你自己。你可以通过将程序名列在<code>~/.xinitrc</code>文件中以在 X 开始时启动这些程序，但是通常，你会从<code>xterm</code>中运行新程序。</p>
+<p>在1993年，最常见的窗口管理器是TWM。TWM相当简单，仅仅提供了基本的窗口管理功能。其效果如下图所示：</p>
+<p><img src=../../images/TWM.png alt=TWM></p>
+<p>图中的三个窗口分别是<code>xterm</code>、<code>xclock</code>以及<code>EMacs</code>。它们是三个独立的窗口，之间无法相互交互。默认的X视窗系统运行在<code>tty7</code>。</p>
+<p>虽然，Linux后来也发展出了FVWM95和其他窗口管理器，但核心问题仍然存在：它们并不是真正的桌面。它只是能够管理一堆窗口管理器，仅此而已。使用图形用户界面的Linux应用程序（基本上意味着它们是X应用程序）看起来形态各异且工作方式也不同。除了有些X窗口系统提供的简单的“纯文本”复制/粘贴功能外，你不能从一个应用程序复制和粘贴到另一个应用程序里。Linux真正需要的是在其图形用户界面中进行彻底的重新打造，以创建它的第一个桌面。</p>
+<h2 id=desktop问鼎>Desktop问鼎</h2>
+<p>自诞生以来，Linux都被普遍认为是以命令行（CLI）交互为主的操作系统，大部分是因为Linux/UNIX的tty子系统在终端设备变革的大潮中日久弥坚，即使经历了不少改造，动了根本的改变是基本没有的。虽然，此时的Linux系统已经能够以图形化界面的方式提供一部分程序的交互，但是最大的问题还没有解决：<strong>不好用</strong>。</p>
+<p>在1995年，微软公司发布的Windows 95对Windows 3.x进行重新设计，整个GUI焕然一些，许多经典设计沿用至今，例如在每个窗口上加上了关闭按钮，也是最著名的“开始”按钮第一次出现。Windows 95系统一经推出就受到了市场和研究界的双重赞誉，叫好也叫座。这是Microsoft历史上最大的一步，从此走上了帝国之路。</p>
+<p>然而，Windows 95的价格也十分美丽，$209.95的售价也让很多想使用图形化操作系统的用户再三踌躇。受到windows 95的启发，在1996年，Matthias Ettrich 有感于 X windows之下Linux应用程序体验不一致的困扰。他想使找个更易于使用的图形环境，而且更重要的是，他想让所有东西都“集成”在一起，就像Windows 95的桌面一样。</p>
+<p>Matthias开始了K桌面环境K Desktop Environment（KDE）的工作。那个“K”代表着 “Kool”。但是 KDE 这个名字也意味着可以类似通用桌面环境Common Desktop Environment（CDE）的做法，而CDE 是“大 Unix”世界的标准（尽管到了1996年，CDE已经有点过时了）。KDE 1.0于1998年7月完成，KDE是Linux向前迈出的一大步。最终，Linux有了一个真正的桌面，集成了应用程序和更多现代的桌面图标。KDE的设计与Windows 95并无不同。屏幕底部有一个任务栏，它提供了相当于Windows 95 的“开始”菜单以及一些应用程序的快捷键，KDE还支持虚拟桌面。正在运行的应用程序通过位于屏幕顶部单独的任务栏的按钮表示。</p>
+<p><img src=../../images/KDE1.0.png alt=KDE></p>
+<p>从此，Linux的图像化界面发展就进入了快车道。</p>
+<p>然而，KDE并不能算是完全的自由软件，因为其使用了Trolltech的Qt工具套件库，而Qt并不是以自由软件的许可证进行分发的。面对这种情况，Miguel de Icaza和Federico Mena 于 1997年开始开发新的Linux桌面上。这个新项目被称为GNOME，即GNU网络对象模型环境GNU Network Object Model Environment的缩写。GNOME旨在成为一个完全自由的软件，并使用了一个不同的工具套件库——来自GIMP图像编辑器的GTK。GTK从字面上的意思GIMP工具套件GIMP Tool Kit。当GNOME 1.0终于在1999年发布时，Linux又多了一个现代化的桌面环境。但是GNOME 1.0的做的十分匆忙，BUG层出不穷，甚至不如KDE 1.0的测试版。好在GNOME之后的版本有了大量改进，使它逐渐趋于稳定。</p>
+<p>关于linux的图形化历程我推荐大家可以看看这篇文章：<a href=https://linux.cn/article-12068-1.html>《Linux 桌面史话》</a>，其纷繁复杂的过程远超过了本文的讨论范围。</p>
+<p>即使，Linux的桌面操作系统有了长远的进步，总体而言，Linux的桌面系统和微软的Windows还是有不少差距，支持图形化的Linux软件，则表现的更不尽如人意，似乎Linux的GUI的完成度，总是让人下不了决心完全拥抱它。</p>
+<p>然而，Linux的一个远亲，Unix系统的一个变体，2001年发布的Mac OS似乎解决这个问题。这个图形化操作系统是如此的完善，优雅，以至于大多数使用Mac OS的人都不会接触它的CLI，即使它的CLI做的也很好。受到Mac OS的激励，Linux的一个桌面发行版Ubuntu也在2004年正式问世。Ubuntu基于开源自由的Debian发行版和GNOME桌面环境，目标在于为一般用户提供一个最新同时又相当稳定，主要以自由软件建构而成的操作系统。除此之外，越来越多的程序员在追求功能和性能的同时，将“颜值就是正义”也纳入了考虑范围，更多的优雅的桌面发行版如Centos，Mint Linux，elementary OS，deepin等等如雨后春笋一般迅速冒出生长。这也给了很多用户拥抱Linux桌面操作系统的信心。在2020年，Ubuntu系统已经占到所有桌面操作系统市场份额的1.04%，是所有Linux桌面发行版中最高的一个。下图是Unbuntu 20.04的桌面：</p>
+<p><img src=../../images/Ubuntu-20.04-cat.png alt=Ubuntu-20.04-cat.png></p>
+<p>当前的形势来看，图形化操作系统的大潮已经势不可挡，使用文本模式交互也变成了特定专业人员的选项。我们从下面这张操作系统市场份额图中可以看出，图形化操作系统已经稳稳地占据了目前绝大多数市场份额。图形化操作系统如安卓、Windows、iOS、OS X占据绝大多数用户的屏幕，纯Linux只是最底下那条趴趴着的红线，还是众多桌面发行版与命令行发行版共享的份额。这里特别提一下Android系统，目前安卓系统已经超越windows成为使用人数最多的操作系统，它是一个基于Linux内核与其他开源软件的开放源代码的移动操作系统，由谷歌成立的开放手持设备联盟持续领导与开发，本质上也算是Linux的一个衍生发行版，所以从广义上来讲，Linux已经成为使用人数最多的操作系统也没错呢。</p>
+<p>实际生活中，由于图形化用户界面（Graphic User Interface, GUI）的普及，现在绝大多数人基本上没有使用过CLI，即便是很多计算机专业的本科生，也不用CLI。即使在Linux CLI的使用人群中，使用传统text console的人很少了，越来越多的人使用伪终端，例如Xterm来代替传统终端或在远程ssh连接中使用伪终端。</p>
+<p><img src=../../images/os_combined-ww-monthly-200901-202111.png alt=os_combined-ww-monthly-200901-202111.png></p>
+<h2 id=伪终端cli交互的薪火相传>伪终端——CLI交互的薪火相传</h2>
+<p>我们之前的文章中，一直由提到虚拟终端是在<strong>Linux内核</strong>中实现的模拟物理终端的程序，一般由内核的终端模拟器完成。当我们需要终端模拟器有更灵活、更花里胡哨的功能而又不想乱动内核时（内核一个进程崩溃容易导致其他进程的连锁崩溃），我们也可以让<strong>终端模拟程序运行在用户区</strong>，如果我们让终端模拟程序运行在用户区，就需要<strong>伪终端</strong>（pseudoterminal或pseudotty, PTY）。PTY是描述并非单个设备文件，而是<strong>一对可异步双向通信的虚拟字符设备</strong>，这对伪终端设备为主从关系分别为 PTY master(ptmx)和 PYT slave(pts)。master端是更贴近硬件的一端，提供复用、slave端会话管理等功能，slave端则是模拟标准文字终端的<strong>一套接口</strong>。之所以叫它“伪”终端，是因为伪终端不像虚拟终端拥有一个实实在在的终端模拟器，而是对外表现的像终端一样的空壳，壳子里的内容需要用户区运行的终端模拟器，甚至远程的终端模拟器去填。当前PTY有BSD（master名<code>/dev/pty[p-za-e][0-9a-f]</code>，salve名<code>/dev/tty[p-za-e][0-9a-f]</code>）和UNIX 98(master名<code>/dev/ptmx</code>，salve名<code>/dev/pts/*</code>)两种命名与实现方式，但是目前Linux大多数都用的是UNIX98标准。</p>
+<p>从用户空间的程序来看，使用虚拟终端tty还是伪终端的slave，pts都是一样的。从内核的角度来看，pty系统是个不与内核其他模块交互的数据转发系统，一端是ptmx，与Gnomes terminal server，sshd和TMUX等用户空间应用程序连接，另一端是pts也是直接和用户空间程序交互。而TTY系统则和内核关系密切，其一端与内核的终端模拟器连接，内核终端模拟器的另一端则与内核中特定的硬件驱动连接，如键盘和显示器。</p>
+<p>此外，如果系统有多个交互需求，伪终端系统使用ptmx和pts合力完成多个伪终端的会话管理。而TTY系统是靠内核终端模拟器创建多个虚拟终端，并维护各个虚拟终端的会话关系。因此，ptmx和内核终端模拟器都需要负责维护会话和转发数据包。不同的是，伪终端系统将终端模拟器部分交给了用户区软件去做，从而方便实现更多的扩展功能，从功能角度简单来说，内核终端模拟器=ptmx+（用户区终端模拟器-扩展功能）。</p>
+<p>但由于PTY运行在用户区，更加安全和灵活，同时仍然保留了传统TTY驱动的功能，因此我们目前在Linux桌面发行版中调出来的命令行工具、telnet、ssh、VNC远程连接几乎都是伪终端。伪终端常在三种情形下使用，一是在GUI中希望使用CLI进行更方便的操作，如使用xterm，gnome-terminal；二是远程终端连接，如telnet、ssh等；第三个情形算是第二点的扩展，即用tmux，screen之类软件，让程序在后台运行，就算ssh连接断开，正在运行的程序也不会终止。</p>
+<p>关于这三种场景，我花了很长时间来画他们的总体结构图，每一场景我都用一种颜色标识出来，接下来我将根据三个场景分别阐释。</p>
+<p><img src=../../images/pty-all.drawio.svg alt=伪终端总体结构图></p>
+<p>我们先来说说三个场景共性的部分——PTY子系统。PTY子系统的核心功能与TTY子系统一致，本质是TTY子系统的同一代码，调用了不同功能函数，只是现在使用的是伪终端，所以叫PTY子系统。例如，在传统物理终端连接时，tty驱动调用的是串口驱动；在使用虚拟终端时，tty驱动调用的是console驱动；现在使用伪终端时，则调用的伪终端驱动。它比传统的TTY子系统增加了伪终端的Master端，ptmx，这是因为没有了内核中的终端模拟器提供多路复用和会话管理，就让ptmx完成上述功能；PTY子系统产生的接口设备叫pts，存储在<code>/dev/pts/X</code>，“X”表示一个数字，由ptmx管理，通常有几个伪终端连接，<code>/dev/pts/</code>路径下就有几个数字表示的伪终端设备，pts在对用户程序的表现和<code>/dev/ttyX</code>一致。</p>
+<h3 id=gui中的cli>GUI中的CLI</h3>
+<p>Linux桌面系统的普及为程序员们提供了更加方便的系统管理和编程环境，GUI操作直观，配置方式易懂，却也掩盖不了操作流程复杂，需要打开多个窗口，鼠标+键盘反复交互的问题。有时候只是修改一个配置就需要找很久对应的按钮和操作框；一方面GUI突出了用户集中使用的重点功能，另一方面GUI隐藏了普通用户容易误用的系统设置。恰恰这些设置，对系统管理员和计算机从业者而言是很重要的。有些程序员开始怀念其CLI的简洁、直接与高效。为了能够在GUI中使用传统的CLI，终端模拟器开始作为用户区软件被广泛地接受。</p>
+<p>目前Linux中最流行的终端模拟器应该要算xterm了，它能为X Window System上创建标准虚拟终端，用户可以在同一个显示器上开启许多xterm，每一个都为其中运行的进程提供独立的输入输出（一般来说此进程是shell）。此外有许多xterm变体可用，大多数的X虚拟终端都是从xterm的变体起步的。</p>
+<p>我们以Ubuntu 20.04这个桌面操作系统为例，之前我们说过桌面操作系统中的终端模拟器相当于X 视窗系统中的一个X client，所以这里也不例外。我们用下图中蓝色的部分表示GUI中的伪终端相关模块。</p>
+<p>内核部分，硬件以及驱动部分和普通的GUI是一样的；PTY子系统的变化本节开头已经说过了。用户空间中，x server与x client的模式也没用变化，作为GUI中用户区终端模拟器的Gnome terminal server作为x client打开，负责处理和转化用户交互信息，Gnome terminal server持有PTY master的文件描述符<code>/dev/ptmx</code>,并负责监听键盘事件，通过PTY master接收或发送字符到 PTY slave，还会在屏幕上绘制来自PTY master的字符输出。<strong>每当我们通过Gnome terminal server打开一个新的CLI，它就会fork出一个进程来模拟一个终端（如xterm，vt100等），并执行bash命令变成一个CLI shell，以<code>/dev/pts/X</code>为标准输入输出，因此模拟出来的CLI终端都是Gnome terminal server的子进程。Gnome terminal server接收到的数据会交给内核的PTY子系统，并由相应的pts接口提供给shell，实现数据流交互</strong>。</p>
+<p>需要指出，Gnome terminal server父进程和shell子进程之间并不会直接传递信息，首先因为数据模式不同，来自Gnome terminal server的信息需要经过PTY子系统驱动转换和line discipline的进一步解码成CLI能够接受的模式；同时复用PTY子系统大大降低了Gnome terminal server程序的复杂度，由其是IPC方面的内容；另一方面这种结构兼容了Linux一直以来的系统结构，在稳定性和成熟度方面也更加可靠。对终端模拟器的程序编写者来说，维护和CLI的数据交互也并非终端模拟器的职责，终端模拟器只是一个模拟器，它的任务只是用软件生成一个“虚拟的终端”，一个复杂的terminal server不符合UNIX系统 <strong>keep it simple, stupid (KISS)</strong> 的设计哲学。</p>
+<p><img src=../../images/pty-gui.drawio.svg alt=pty-gui></p>
+<p>我们以实际的例子，看看在 terminal 执行一个命令的全过程（当前进程的终端是<code>/dev/pts/0</code>）。</p>
+<ol>
+<li>我们在桌面启动终端程序gnome-terminal，它向gnome terminal server请求ptmx建一个会话，并通过x server把gnome-terminal的图像绘制在显示器上；</li>
+<li>gnome terminal server先fork启动子进程，再执行<code>bash</code>命令；</li>
+<li><code>bash</code>的标准输入、标准输出和标准错误都设置为PTY slave，即<code>/dev/pts/0</code>；</li>
+<li>gnome terminal server监听键盘事件，并将输入的字符发送到ptmx；</li>
+<li>PTY子系统执行传统TTY子系统的buffer，line discipline，字符回显的功能；当按下回车键时，tty I/O core负责将缓冲的数据复制到PTY slave，<code>/dev/pts/0</code>；</li>
+<li><code>bash</code>接收来自<code>/dev/pts/0</code>的标准输入，执行输入的命令，在将结果写入给标准输入（标准错误）<code>/dev/pts/0</code>；</li>
+<li>tty I/O core将<code>/dev/pts/0</code>中的结果复制给ptmx的buffer；</li>
+<li>gnome-terminal循环从ptmx读取字节，并交给x server绘制到用户界面上。</li>
+</ol>
+<h3 id=远程连接操作系统>远程连接操作系统</h3>
+<p>伪终端另一个重要应用场景就是使用网络远程登录Linux主机。这个场景的伪终端应用出现远早于GUI场景下的伪终端，甚至早于GUI的出现。CLI远程登录的主要手段就是telnet和ssh。由于telnet是使用明码来传送数据，安全性不够好，已经逐渐被舍弃，所以当前几乎所有的CLI远程登录都是使用ssh。</p>
+<p>ssh登录需要远程主机上运行ssh服务器，比如openssh server，其守护进程一般为<code>sshd</code>，负责远程主机ssh协议封装、加密解密、维护ssh会话等功能。但<code>ssd</code>不再监听键盘事件，以及在屏幕上绘制输出结果，而是通过TCP连接，向ssh client发送或接收字符。在远程登录场景下，<code>sshd</code>取代terminal server担任fork子进程并执行bash命令生成CLI shell的功能，而终端模拟功能则交给本地终端模拟器执行。</p>
+<p>硬件方面，由于使用网络连接取代键盘屏幕的直连，因此对应硬件换成了网卡（network interface card, NIC）。内核中，硬件驱动改成了网卡驱动（network interface card driver, NIC driver），数据经过网卡驱动后，还要通过 TCP/IP协议栈层层解包（返回给客户端时则是层层封装数据包），最后将应用层数据交付给对应的应用进程，如<code>sshd</code>。本地客户端程序担任终端模拟器的角色并启动ssh client，通过互联网或以太网等网络连接与远程主机传输信息。</p>
+<p><strong>从<code>sshd</code>往后的部分和本地直接使用键盘、显示器连接没有区别</strong>，驱动、协议栈以及应用层软件<code>sshd</code>已经屏蔽了底层的区别，为上层提供了统一的接口。</p>
+<p><img src=../../images/pty-ssh.drawio.svg alt=pty-ssh></p>
+<p>简单梳理一下远程终端是如何执行命令的，此处PTS为<code>/dev/pts/1</code>：</p>
+<ol>
+<li>用户在客户端的终端模拟器中输入<code>ssh username@hostIP</code>命令，经过网络到达远程主机，通过网卡驱动、TCP/IP协议栈解包后，内核通过ssh协议对应端口（默认22），找到监听的<code>sshd</code>进程。</li>
+<li><code>sshd</code>接受ssh请求后，向内核申请创建 PTY，获得一对设备文件描述符。让<code>sshd</code>持有ptmx，<code>sshd</code> fork 出的子进程<code>bash</code>持有PTY slave。<code>bash</code>的标准输入、标准输出和标准错误都设置为了<code>/dev/pts/1</code>。完成会话建立。</li>
+<li>用户端数据通过<code>sshd</code>传输给PTY子系统，到达PTY slave，<code>/dev/pts/1</code>。</li>
+<li>之后过程和<a href=#gui%E4%B8%AD%E7%9A%84cli>GUI中的CLI</a>章节中4-7步一样，只不过<code>sshd</code>取代了gnome terminal server的作用；</li>
+<li><code>sshd</code>循环从ptmx读取字节，并通过之间建立的TCP连接发送给 ssh client。</li>
+</ol>
+<p>注意1：在客户端，我们在屏幕上看到的所有字符都来自于远程服务器。包括我们输入的内容，也是远程服务器上的 line discipline 应用<code>echo</code>规则的结果，将这些字符回显了回来。表面看似简单的在远程终端上执行了一条命令，实际上底下确是波涛汹涌。</p>
+<p>注意2：当我们查看进程时，细心的人可能会发现，<code>sshd</code>并非只是简单的fork了一个<code>bash</code>子进程，而是<code>sshd───sshd───sshd───bash</code>这种结构。第一个<code>sshd</code>是负责监听的进程，第二个<code>sshd</code>是fork出来实际和ssh client建立连接的子进程，第三个<code>sshd</code>是ssh中基于安全性考虑使用"privilege separation"的结果，最后一个<code>bash</code>才是真正的CLI shell。由于这种细节不影响我们整体的讨论，所以只是在这里提一下。</p>
+<h3 id=后台保障运行的tmux>后台保障运行的Tmux</h3>
+<p>本节开头已经说过，第三个场景时第二个场景的扩展。当我们使用ssh远程连接时，常遇到一个问题：所有的工作默认都是从<code>sshd</code>产生的子进程中启动，即它们属于同一个会话。当作为根进程的<code>sshd</code>一旦被终止，那么它产生的子进程，全部会关闭。为了解决这个问题，<code>sshd</code>与会话可以"解绑"，将它们彻底分离：<code>sshd</code>关闭时，会话并不终止，而是继续运行，等到以后需要的时候，再让会话"绑定"其他<code>sshd</code>进程。这就是<code>Tmux</code>以及类似应用<code>screen</code>的主要作用。</p>
+<p><strong>Tmux的作用机理很简单，就是改变当前会话的根进程</strong>。当我们启动Tmux client的时候，并不是在原来<code>sshd--bash</code>的进程关系中启动新的CLI shell，而是通知Tmux server，让它fork子进程，然后执行<code>bash</code>,然后Tmux client通过IPC方式（Unix domain socket）连到这个<code>bash</code>上，这样这个新的<code>bash</code>就从<code>sshd</code>中独立出来，即使ssh断开连接，也只是Unix domain socket连接断了，Tmux server启动的<code>bash</code>及其子进程不受影响。当新的ssh连接建立后，可以通过<code>tmux attach</code>命令再建立新的Unix domain socket连接。</p>
+<p>Tmux server的作用和之前场景中<code>sshd</code>的作用类似，但是不同处理复杂的ssh协议。</p>
+<p><img src=../../images/pty-tmux.drawio.svg alt=pty-tmux></p>
+<p>Tmux场景下，数据流程会稍微复杂一下，我们根据上图梳理一下。从<code>sshd</code>启动子进程shell 3的<code>Bash</code>之后开始。</p>
+<ol start=0>
+<li>如上图红色部分，ssh client和<code>sshd</code>建立网络连接，并产生Bash Shell 3，其使用PTY slave，<code>/dev/pts/2</code>作为标准输入输出。此阶段和<a href=#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F>远程连接操作系统</a>中的过程一致。</li>
+<li>当<code>sshd</code>子进程的<code>bash</code>执行<code>tmux</code>后，shell 3的<code>bash</code> fork出子进程，并运行tmux client作为其前台应用，占用<code>/dev/pts/2</code>，此时bash shell 3和<code>/dev/pts/2</code>的逻辑连接被中断，<code>/dev/pts/2</code>和tmux client连接；</li>
+<li>由于tmux client并非一个shell，因此它唤醒了tmux server（如果当前tmux server未启动，则启动tmux server），让其fork出一个子进程，并执行<code>bash</code>命令，形成shell 4，准备供给tmux client使用；</li>
+<li>tmux server通知PTY子系统，tmux server持有ptmx，PTY子系统生成新的伪终端接口<code>/dev/pts/3</code>交由shell 4持有，作为其标准输入输出设备，此时shell 4只能和tmux server连通；</li>
+<li>tmux client和tmux server建立Unix domain socket连接，tmux client将来自<code>sshd</code>(本质来自ssh client)的数据通过该socket连接传递给tmux server，并接收其返回的信息；</li>
+<li>tmux server通过PTY子系统将数据加工、传递给<code>/dev/pts/3</code>，即shell 4的标准输入输出；</li>
+<li>shell 4从标准输入输出<code>/dev/pts/3</code>中读取来自用户的命令，执行后再返回给<code>/dev/pts/3</code>；</li>
+<li>返回的信息经PTY子系统处理后交付给tmux server，并通过之前建立socket连接传输回tmux client。</li>
+<li>tmux client收到数据后将消息返回给占用的<code>/dev/pts/2</code>，同样通过PTY子系统，转发给<code>sshd</code>；</li>
+<li><code>sshd</code>像之前一样，循环从ptmx读取字节，并通过之间建立的TCP连接发送给 ssh client。</li>
+</ol>
+<p>需要注意的是，父进程和子进程之间通常不直接传递数据，sshd server和tmux server数据传输流程相似，都通过PTY子系统传递数据，且两者互不干涉；使用Tmux的场景下，每个单项数据流都要经过PTY子系统<strong>两次</strong>。</p>
+<p>从数据流程中，我们也能看出，当ssh连接断开时，<code>sshd</code>侧关闭的只是shell 3和socket连接，实际上运行程序的shell 4并不受影响。</p>
+<h2 id=总结>总结</h2>
+<p>与用户交互的终端经历了从物理终端到虚拟终端再到伪终端的演变，总的趋势是硬件通用化，功能软件化；交互的形式上，也从文字CLI终端向图形GUI终端不断发展，但是我们不能否认CLI也一直有它独到的优势，才能在半个世纪的剧变中生生不息。现在，输入输出一体化终端如触摸屏方兴未艾，3D交互、甚至脑机接口也渐入人们的视野，或许现在常用的交互的方式未来也只能像物理终端一样进入博物馆，最终最适合的才会留下来，“适者生存”不仅仅适用于自然界的生物呢。</p>
+<h2 id=参考文章及资料>参考文章及资料</h2>
+<ol>
+<li><a href=https://xie.infoq.cn/article/a6153354865c225bdce5bd55e>https://xie.infoq.cn/article/a6153354865c225bdce5bd55e</a></li>
+<li><a href=https://www.computerhope.com/history/index.htm>https://www.computerhope.com/history/index.htm</a></li>
+<li><a href=https://developpaper.com/overview-of-linux-tty-pts-differences/>https://developpaper.com/overview-of-linux-tty-pts-differences/</a></li>
+<li><a href=https://www.feyrer.de/NetBSD/ttys.html>https://www.feyrer.de/NetBSD/ttys.html</a></li>
+<li><a href=https://linux.cn/article-12068-1.html>https://linux.cn/article-12068-1.html</a></li>
+<li><a href=https://www.linusakesson.net/programming/tty/>https://www.linusakesson.net/programming/tty/</a></li>
+<li><a href=https://blog.csdn.net/dog250/article/details/78766716>https://blog.csdn.net/dog250/article/details/78766716</a></li>
+<li><a href=https://www.kernel.org/doc/html/latest/fb/index.html>https://www.kernel.org/doc/html/latest/fb/index.html</a></li>
+<li>Wikipedia</li>
+</ol>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

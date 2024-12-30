@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>大数据 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</link><description>Recent content in 大数据 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Thu, 26 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/index.xml" rel="self" type="application/rss+xml"/><item><title>hadoop-HDFS集群部署</title><link>https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</link><pubDate>Thu, 26 Dec 2024 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</guid><description>
+&lt;h2 id="hdfs集群部署---omit-in-toc---">HDFS集群部署&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>本篇笔记使用的Hadoop版本为3.4.1，下载链接&lt;a href="https://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-3.4.1/hadoop-3.4.1.tar.gz">hadoop-3.4.1.tar.gz&lt;/a>。&lt;/p>
+&lt;p>根据前面的笔记，部署HDFS的3台虚拟机配置如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">节点&lt;/th>
+&lt;th style="text-align:center">CPU&lt;/th>
+&lt;th style="text-align:center">内存&lt;/th>
+&lt;th style="text-align:center">服务&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">node1&lt;/td>
+&lt;td style="text-align:center">1 core&lt;/td>
+&lt;td style="text-align:center">4GB&lt;/td>
+&lt;td style="text-align:center">NameNode, DataNode, SecondaryNameNode&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">node2&lt;/td>
+&lt;td style="text-align:center">1 core&lt;/td>
+&lt;td style="text-align:center">2GB&lt;/td>
+&lt;td style="text-align:center">DataNode&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">node3&lt;/td>
+&lt;td style="text-align:center">1 core&lt;/td>
+&lt;td style="text-align:center">2GB&lt;/td>
+&lt;td style="text-align:center">DataNode&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Hadoop HDFS的角色包含：&lt;/p>
+&lt;ul>
+&lt;li>NameNode，主节点管理者&lt;/li>
+&lt;li>DataNode，从节点工作者&lt;/li>
+&lt;li>SecondaryNameNode，主节点辅助&lt;/li>
+&lt;/ul>
+&lt;p>我们将使用&lt;code>node1&lt;/code>作为NameNode主节点，将会部署更多的软件。本质上，HDFS的三种角色都是作为进程运行在主机上。hadoop-3.4.1.tar.gz安装包中包含了3种角色的程序，我们将其分别上传到3台虚拟机&lt;code>node1&lt;/code>，&lt;code>node2&lt;/code>，&lt;code>node3&lt;/code>。具体操作步骤（以&lt;code>node1&lt;/code>为例，以&lt;code>root&lt;/code>用户操作）如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 1. 上传Hadoop安装报到node1节点中，本人使用的是MobaXterm直接上传，并切换到上传所在目录&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># 2. 解压缩安装包到/export/server中&lt;/span>
+&lt;span class="ln"> 3&lt;/span>tar -zxvf hadoop-3.4.1.tar.gz -C /export/server
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1"># 3. 构建软连接方便操作&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="nb">cd&lt;/span> /export/server
+&lt;span class="ln"> 7&lt;/span>ln -s /export/server/hadoop-3.4.1 hadoop
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 进入hadoop安装包准备安装&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nb">cd&lt;/span> hadoop
+&lt;span class="ln">11&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>hadoop-搭建Hadoop虚拟机环境</title><link>https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/</link><pubDate>Thu, 26 Dec 2024 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#vmware-%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE">VMware 虚拟网卡设置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E7%A1%80%E8%99%9A%E6%8B%9F%E6%9C%BA">创建基础虚拟机&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%85%8B%E9%9A%86%E8%99%9A%E6%8B%9F%E6%9C%BA">克隆虚拟机&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%BB%E6%9C%BA%E5%90%8Dipssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95">主机名、IP、SSH免密登录&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%B8%BB%E6%9C%BA%E5%90%8D%E4%B8%8Eip%E8%AE%BE%E7%BD%AE">主机名与IP设置&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#ssh%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95">SSH免密登录&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#jdk%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2">JDK环境部署&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%98%B2%E7%81%AB%E5%A2%99selinux%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5">防火墙、SELinux、时间同步&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99%E5%92%8Cselinux">关闭防火墙和SELinux&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5">时间同步&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E8%AE%BE%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%BF%AB%E7%85%A7">设置虚拟机快照&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="hadoop虚拟机集群的设置---omit-in-toc---">Hadoop虚拟机集群的设置&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>本笔记主要记录黑马程序Hadoop课程对应的，在Windows 11上通过3台虚拟机搭建Hadoop平台的笔记。需要的软件如下：&lt;/p>
+&lt;ul>
+&lt;li>VMware workstation 17.6&lt;/li>
+&lt;li>Oracle JDK 8 [https://download.oracle.com/otn/java/jdk/8u421-b09/d8aa705069af427f9b83e66b34f5e380/jdk-8u421-linux-x64.tar.gz]&lt;/li>
+&lt;li>Centos 7.6 [https://vault.centos.org/7.6.1810/isos/x86_64/CentOS-7-x86_64-DVD-1810.iso] 可能需要翻墙。&lt;/li>
+&lt;li>Hadoop 3.4&lt;/li>
+&lt;/ul>
+&lt;h2 id="vmware-虚拟网卡设置">VMware 虚拟网卡设置&lt;/h2>
+&lt;p>首先，点击&lt;code>编辑&lt;/code>，打开&lt;code>虚拟网络编辑器&lt;/code>，选择&lt;code>VMnet8&lt;/code>按照如下网络设置虚拟网络网段和网关。&lt;/p>
+&lt;ul>
+&lt;li>子网IP：&lt;code>192.168.88.0&lt;/code>，子网掩码&lt;code>255.255.255.0&lt;/code>&lt;/li>
+&lt;li>网关IP：&lt;code>192.168.88.2&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE.png" alt="Hadoop-VMware-虚拟网络设置">&lt;/p>
+&lt;h2 id="创建基础虚拟机">创建基础虚拟机&lt;/h2>
+&lt;p>由于VMware提供了虚拟机克隆功能，因此我们不必一个个创建虚拟机，而是通过先创建一个基础虚拟机，然后再克隆成多个虚拟机再微调的方式。&lt;/p>
+&lt;p>点击&lt;code>创建新的虚拟机&lt;/code>-&amp;gt;选择&lt;code>典型(推荐)&lt;/code>-&amp;gt;填入Centos 7.6光盘镜像所在位置，如下图&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%9B%E5%BB%BA1.png" alt="Hadoop-VMware-虚拟机创建1">&lt;/p>
+&lt;p>点击&lt;code>下一步&lt;/code>，之后设置虚拟机的账号，密码，再点击下一步。并选择虚拟机存放位置（最好选一个空间比较大的磁盘）。&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%9B%E5%BB%BA2.png" alt="Hadoop-VMware-虚拟机创建2">&lt;/p>
+&lt;p>基础虚拟机磁盘可以先设置为20G，之后如果需要可以随时扩容，这也是使用虚拟机的好处。接下来，都直接点击&lt;code>下一步&lt;/code>，不用更改什么，点击&lt;code>完成&lt;/code>后，即开机了Centos系统的安装，其安装过程是自动化的。&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%9B%E5%BB%BA3.png" alt="Hadoop-VMware-虚拟机创建3">&lt;/p>
+&lt;p>等待系统安装好后，就完成了基础虚拟机的创建。&lt;/p>
+&lt;h2 id="克隆虚拟机">克隆虚拟机&lt;/h2>
+&lt;p>我们目前一共需要3台虚拟机，来构建Hadoop集群。VMware可以直接通过现有的虚拟克隆出其他虚拟机，而不用重复创建。&lt;/p>
+&lt;p>克隆虚拟机之前，先用保证被克隆的虚拟机处于关闭状态。然后在已建立好的虚拟机上右键菜单-&amp;gt;&lt;code>管理&lt;/code>-&amp;gt;&lt;code>克隆&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%8B%E9%9A%861.png" alt="Hadoop-VMware-虚拟机克隆1">&lt;/p>
+&lt;p>克隆选项分别是：克隆自&lt;code>虚拟机中的当前状态&lt;/code>--&amp;gt;&lt;code>创建完整克隆&lt;/code>--&amp;gt;虚拟机名称分别为&lt;code>node1&lt;/code>,&lt;code>node2&lt;/code>,&lt;code>node3&lt;/code>，虚拟机位置分别为&lt;code>D:\VMware\bigdata\node1&lt;/code>,&lt;code>D:\VMware\bigdata\node2&lt;/code>,&lt;code>D:\VMware\bigdata\node3&lt;/code>。&lt;/p>
+&lt;p>为了方便管理，我们可以在VMware资源管理栏添加一个文件夹叫&lt;code>大数据集群&lt;/code>，把node1，node2，node3三个虚拟机移入文件夹中。&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%8B%E9%9A%862.png" alt="Hadoop-VMware-虚拟机克隆2">&lt;/p>
+&lt;p>克隆好3台虚拟机后，我们设置以下3台虚拟机的内存。我们计划使用node1作为master节点，运行更多功能，所以将其内存大小设置为4GB，其他为2GB。如下表：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">节点&lt;/th>
+&lt;th style="text-align:center">CPU&lt;/th>
+&lt;th style="text-align:center">内存&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">node1&lt;/td>
+&lt;td style="text-align:center">1 core&lt;/td>
+&lt;td style="text-align:center">4GB&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">node2&lt;/td>
+&lt;td style="text-align:center">1 core&lt;/td>
+&lt;td style="text-align:center">2GB&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">node3&lt;/td>
+&lt;td style="text-align:center">1 core&lt;/td>
+&lt;td style="text-align:center">2GB&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>下图中以node1为例，其他两个节点操作方法一样。&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%8B%E9%9A%863.png" alt="Hadoop-VMware-虚拟机克隆3">&lt;/p>
+&lt;p>这样我们就设置好了Hadoop的虚拟机集群。&lt;/p>
+&lt;h2 id="主机名ipssh免密登录">主机名、IP、SSH免密登录&lt;/h2>
+&lt;p>为了方便Hadoop集群中虚拟机的通信，我们将修改主机名以及设置固定IP。同时将使用密钥登陆的方式实现主从之间的免密登录。&lt;/p>
+&lt;h3 id="主机名与ip设置">主机名与IP设置&lt;/h3>
+&lt;p>开启node1，右键选择&lt;code>Open Terminal&lt;/code>。修改主机名为&lt;code>node1&lt;/code>，并修改固定IP为&lt;code>192.168.88.131&lt;/code>，最后重启网卡。具体命令如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 切换到root(否则无权限)&lt;/span>
+&lt;span class="ln"> 2&lt;/span>su - root
+&lt;span class="ln"> 3&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 修改主机名&lt;/span>
+&lt;span class="ln"> 5&lt;/span>hostnamectl set-hostname node1
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 设置IP地址&lt;/span>
+&lt;span class="ln"> 8&lt;/span>vim /etc/sysconfig/network-scripts/ifcfg-ens33
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 1. 修改IP获取方式为静态&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="nv">BOOTPROTO&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;static&amp;#34;&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="c1"># 2. 在文本末尾添加IP地址相关信息&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="nv">IPADDR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;192.168.88.131&amp;#34;&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="nv">NETMASK&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;255.255.255.0&amp;#34;&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="nv">GATEWAY&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;192.168.88.2&amp;#34;&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="nv">DNS1&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;192.168.88.2&amp;#34;&lt;/span>
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="c1">#重启网卡&lt;/span>
+&lt;span class="ln">18&lt;/span>systemctl restart network
+&lt;span class="ln">19&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c1"># 设置hosts文件，方便DNS解析&lt;/span>
+&lt;span class="ln">21&lt;/span>vim /etc/hosts
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="c1"># 添加以下内容&lt;/span>
+&lt;span class="ln">24&lt;/span>192.168.88.131 node1
+&lt;span class="ln">25&lt;/span>192.168.88.132 node2
+&lt;span class="ln">26&lt;/span>192.168.88.133 node3
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>同样的操作启动&lt;code>node2&lt;/code>和&lt;code>node3&lt;/code>，对应的名称为&lt;code>node2&lt;/code>,&lt;code>node3&lt;/code>，IP为&lt;code>192.168.88.132&lt;/code>,&lt;code>192.168.88.133&lt;/code>。&lt;/p>
+&lt;p>黑马的教程中，还需要将windows实体机的&lt;code>hosts&lt;/code>文件也添加上DNS解析项，不知道是不是必须的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># windows中C:\Windows\System32\drivers\etc\hosts&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 在文本最后添加&lt;/span>
+&lt;span class="ln">3&lt;/span>192.168.88.131 node1
+&lt;span class="ln">4&lt;/span>192.168.88.132 node2
+&lt;span class="ln">5&lt;/span>192.168.88.133 node3
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ssh免密登录">SSH免密登录&lt;/h3>
+&lt;p>后续安装的集群画软件，多数需要远程登录以及远程执行命令，为了方便起见，我们让3台虚拟机之间可以相互免密登录。我们不仅需要root节点的相互登录，同时创建了一个&lt;code>hadoop&lt;/code>用户，让各个节点的&lt;code>hadoop&lt;/code>用户也可以免密登录。下面是&lt;code>node1&lt;/code>中的操作，其他两个节点也类似。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 生成密钥，一路回车&lt;/span>
+&lt;span class="ln"> 2&lt;/span>ssh-keygen -t rsa -b &lt;span class="m">4096&lt;/span>
+&lt;span class="ln"> 3&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 将密钥复制到各个节点上（包括自己）&lt;/span>
+&lt;span class="ln"> 5&lt;/span>ssh-copy-id node1
+&lt;span class="ln"> 6&lt;/span>ssh-copy-id node2
+&lt;span class="ln"> 7&lt;/span>ssh-copy-id node3
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 创建单独的hadoop用户，以备装以后的软件&lt;/span>
+&lt;span class="ln">10&lt;/span>useradd hadoop
+&lt;span class="ln">11&lt;/span>&lt;span class="c1"># 设置密码&lt;/span>
+&lt;span class="ln">12&lt;/span>passwd hadoop
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1"># 切换到hadoop用户,执行免密登录&lt;/span>
+&lt;span class="ln">15&lt;/span>su - hadoop
+&lt;span class="ln">16&lt;/span>&lt;span class="c1"># 生成密钥，一路回车&lt;/span>
+&lt;span class="ln">17&lt;/span>ssh-keygen -t rsa -b &lt;span class="m">4096&lt;/span>
+&lt;span class="ln">18&lt;/span>ssh-copy-id node1
+&lt;span class="ln">19&lt;/span>ssh-copy-id node2
+&lt;span class="ln">20&lt;/span>ssh-copy-id node3
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意，免密需要退出后重新登录才能生效。另外，上述命令是使得各虚拟机&lt;code>root&lt;/code>用户之前，&lt;code>hadoop&lt;/code>用户之前可以相互免密登录。&lt;code>root&lt;/code>用户登录其他&lt;code>hadoop&lt;/code>用户，或者&lt;code>hadoo&lt;/code>p登录&lt;code>root&lt;/code>用户还是需要密码的。&lt;/p>
+&lt;h2 id="jdk环境部署">JDK环境部署&lt;/h2>
+&lt;p>Hadoop很多软件是需要Java运行环境的，目前推荐使用JDK 8。首先将下载好的JDK 8版本压缩包（jdk-18.0.2.1_linux-x64_bin.tar.gz）上传到3台linux虚拟机。&lt;/p>
+&lt;p>注：Oracle的JDK下载很垃圾，首先要免费注册，还得清理cookies，不然容易发生400错误。我为了不清理cookies，是用了无痕模式才下载成功。&lt;/p>
+&lt;p>我们将JDK压缩包上传到&lt;code>/tmp&lt;/code>文件夹下，上传好了后，分别在3台虚拟机上部署jdk，具体步骤如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>su - root
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c1"># 1. 创建文件夹，用来部署jdk，将jdk，tomcat都安装部署到:/export/server内&lt;/span>
+&lt;span class="ln"> 3&lt;/span>mkdir -p /export/server
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c1"># 2. 解压缩jdk安装文件&lt;/span>
+&lt;span class="ln"> 6&lt;/span>tar -zxvf /tmp/jdk-8u421-linux-x64.tar.gz -C /export/server
+&lt;span class="ln"> 7&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c1"># 3. 配置java环境&lt;/span>
+&lt;span class="ln"> 9&lt;/span>vim /etc/profile
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># 文末添加&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">JAVA_HOME&lt;/span>&lt;span class="o">=&lt;/span>/export/server/jdk1.8.0_421
+&lt;span class="ln">12&lt;/span>&lt;span class="nb">export&lt;/span> &lt;span class="nv">PATH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nv">$PATH&lt;/span>:&lt;span class="nv">$JAVA_HOME&lt;/span>/bin
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c1"># 4. 使环境变量生效&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="nb">source&lt;/span> /etc/profile
+&lt;span class="ln">16&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="c1"># 5. 配置java执行程序, centos默认使用openjdk&lt;/span>
+&lt;span class="ln">18&lt;/span>mv /usr/bin/java /usr/bin/openjava
+&lt;span class="ln">19&lt;/span>ln -s /export/server/jdk1.8.0_421/bin/java /usr/bin/java
+&lt;span class="ln">20&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="c1"># 6. 执行验证展示&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="o">[&lt;/span>root@node1 ~&lt;span class="o">]&lt;/span>&lt;span class="c1"># java -version&lt;/span>
+&lt;span class="ln">23&lt;/span>java version &lt;span class="s2">&amp;#34;1.8.0_421&amp;#34;&lt;/span>
+&lt;span class="ln">24&lt;/span>Java&lt;span class="o">(&lt;/span>TM&lt;span class="o">)&lt;/span> SE Runtime Environment &lt;span class="o">(&lt;/span>build 1.8.0_421-b09&lt;span class="o">)&lt;/span>
+&lt;span class="ln">25&lt;/span>Java HotSpot&lt;span class="o">(&lt;/span>TM&lt;span class="o">)&lt;/span> 64-Bit Server VM &lt;span class="o">(&lt;/span>build 25.421-b09, mixed mode&lt;span class="o">)&lt;/span>
+&lt;span class="ln">26&lt;/span>javac -version
+&lt;span class="ln">27&lt;/span>&lt;span class="o">[&lt;/span>root@node1 ~&lt;span class="o">]&lt;/span>&lt;span class="c1"># javac -version&lt;/span>
+&lt;span class="ln">28&lt;/span>javac 1.8.0_421
+&lt;span class="ln">29&lt;/span>
+&lt;span class="ln">30&lt;/span>&lt;span class="c1"># 7. 最后清理垃圾文件&lt;/span>
+&lt;span class="ln">31&lt;/span>rm /tmp/jdk-8u421-linux-x64.tar.gz
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="防火墙selinux时间同步">防火墙、SELinux、时间同步&lt;/h2>
+&lt;p>我们还需要在三台虚拟机上分别执行以下操作，来方便Hadoop程序的运行。&lt;/p>
+&lt;h3 id="关闭防火墙和selinux">关闭防火墙和SELinux&lt;/h3>
+&lt;p>集群化软件之间需要通过端口互相通讯，为了简单起见，我们直接关闭防火墙。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 关闭防火墙&lt;/span>
+&lt;span class="ln">2&lt;/span>systemctl stop firewalld
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 开机不再启动这个服务&lt;/span>
+&lt;span class="ln">4&lt;/span>systemctl disable firewalld
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Linux有一个安全模块，叫SELinux，用以限制用户和程序的相关权限，来确保系统的安全稳定。在当前学习阶段，为了简单起见，我们也直接关闭SELinux功能。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>vim /etc/sysconfig/selinux
+&lt;span class="ln">2&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 将该行disabled&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="nv">SELINUX&lt;/span>&lt;span class="o">=&lt;/span>disabled
+&lt;span class="ln">5&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="c1"># 保存后退出，重启虚拟机生效&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="时间同步">时间同步&lt;/h3>
+&lt;p>修改时区并配置自动时间同步。集群的同步非常重要，否则会出现混乱。时间同步是通过&lt;code>ntp&lt;/code>这个软件实现的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 1. 安装ntp软件&lt;/span>
+&lt;span class="ln">2&lt;/span>yum install -y ntp
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 2. 更新时区在同一位置，这里设置为上海&lt;/span>
+&lt;span class="ln">4&lt;/span>rm -f /etc/localtime&lt;span class="p">;&lt;/span> sudo ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 3. 同步时间,使用阿里云的时间同步服务器&lt;/span>
+&lt;span class="ln">6&lt;/span>ntpdate -u ntp.aliyun.com
+&lt;span class="ln">7&lt;/span>&lt;span class="c1"># 4. 开启ntp服务并设置开机自启动&lt;/span>
+&lt;span class="ln">8&lt;/span>systemctl start ntpd
+&lt;span class="ln">9&lt;/span>systemctl &lt;span class="nb">enable&lt;/span> ntpd
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意，现在这个年代，&lt;code>yum install&lt;/code>基本上很难直接安装成功。源大概率没了。因此，我们最后用阿里的Centos 7源更换下默认的&lt;code>yum&lt;/code>源。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 下载源&lt;/span>
+&lt;span class="ln">2&lt;/span>wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 清空并生成缓存&lt;/span>
+&lt;span class="ln">4&lt;/span>yum clean all
+&lt;span class="ln">5&lt;/span>yum makecache
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后就可以&lt;code>yum install&lt;/code>了。(没必要先&lt;code>yum update&lt;/code>)&lt;/p>
+&lt;h2 id="设置虚拟机快照">设置虚拟机快照&lt;/h2>
+&lt;p>经过以上设置，3台虚拟机的状态已经装备就绪，可以对当前来之不易的状态进行快照保存，以备后续恢复。&lt;/p>
+&lt;p>对3台虚拟机均执行拍摄快照。首先我们将3台虚拟机关机（保存的更快），然后菜单栏上&lt;code>虚拟机&lt;/code>-&amp;gt;&lt;code>快照&lt;/code>-&amp;gt;&lt;code>拍摄快照&lt;/code>。就可拍摄快照进行备份了。&lt;/p>
+&lt;p>&lt;img src="../../images/Hadoop-VMware-%E6%8B%8D%E6%91%84%E5%BF%AB%E7%85%A7.png" alt="Hadoop-VMware-拍摄快照">&lt;/p>
+&lt;p>至此，Hadoop平台的虚拟机设置已经完成。&lt;/p></description></item></channel></rss>

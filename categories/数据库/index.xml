@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>数据库 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link><description>Recent content in 数据库 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 29 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml"/><item><title>数据库-左右内外连接与关键字1对n关系</title><link>https://surprisedcat.github.io/projectnotes/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%B7%A6%E5%8F%B3%E5%86%85%E5%A4%96%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%85%B3%E9%94%AE%E5%AD%971%E5%AF%B9n%E5%85%B3%E7%B3%BB/</link><pubDate>Tue, 29 Jun 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%B7%A6%E5%8F%B3%E5%86%85%E5%A4%96%E8%BF%9E%E6%8E%A5%E4%B8%8E%E5%85%B3%E9%94%AE%E5%AD%971%E5%AF%B9n%E5%85%B3%E7%B3%BB/</guid><description>
+&lt;h2 id="数据库表连接与关键字对应---omit-in-toc---">数据库表连接与关键字对应&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="数据库表连接">数据库表连接&lt;/h2>
+&lt;p>连接问题主要处理的是在两张表合并查询时，如果一个表中的关键字在另一个表中不存在的问题。&lt;/p>
+&lt;p>数据库常见连接为：内连接和外连接，外连接分为左外连接、右外连接和全外连接。&lt;/p>
+&lt;h2 id="合并中的关键字对应">合并中的关键字对应&lt;/h2>
+&lt;p>一对一 一对多 多对多；复制呈多份&lt;/p></description></item></channel></rss>

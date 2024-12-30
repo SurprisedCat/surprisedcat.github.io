@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>安全 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/</link><description>Recent content in 安全 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Tue, 18 Oct 2016 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml"/><item><title>cplus-DES对称加密实现</title><link>https://surprisedcat.github.io/projectnotes/cplus-des%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%AE%9E%E7%8E%B0/</link><pubDate>Tue, 18 Oct 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/cplus-des%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%AE%9E%E7%8E%B0/</guid><description>
+&lt;h2 id="desdata-encryption-standard对称加密方法---omit-in-toc---">DES（Data Encryption Standard）对称加密方法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>DES算法全称为Data Encryption Standard，即数据加密标准，是一种使用密钥加密的块算法。DES算法是一种对称算法，即可以使用同一个密钥进行加密和解密。DES的具体原理解析，&lt;strong>本人推荐J. Orlin Grabbe的名作&lt;a href="http://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm">《DES Algorithm Illustrated》&lt;/a> 以及一篇非常优秀的中文介绍：&lt;a href="http://www.hankcs.com/security/des-algorithm-illustrated.html">DES算法示例讲解&lt;/a>&lt;/strong>。本文的重点是用C++代码 &lt;strong>逐步实现DES算法的具体过程&lt;/strong> 。&lt;/p>
+&lt;h2 id="0前提说明">0.前提说明&lt;/h2>
+&lt;p>本文实现的是基于ECB的Zeropadding的DES加密算法。ECB指的是将加密的数据分成若干组，每组的大小跟加密密钥长度相同；然后每组都用相同的密钥加密， 如果最后一个分组长度不够64位，要补齐64位。Zeropadding指的是补齐着这64位的方法是用&lt;strong>0&lt;/strong>填充。这种模式是实现DES的&lt;strong>基本模式&lt;/strong>。
+DES的输入有三个部分，第一个部分是明文，就是需要加密内容；第二个部分是密钥，用来加密数据；第三个部分是工作模式，有两种，加密和解密。明文的长度不固定，但是都被分为固定的64位“数据块”，以一个块为单位进行加密，输出的密文也是一个64位的“块”；密钥的长度是64位，但是实际用到的只有56位，第8、16、24、32、40、48、56、64位是校验位，做加密中用不到。本文输入的格式为文本，例如明文‘12345678’，等同于16进制&lt;/p>
+&lt;h2 id="1密钥的生成">1.密钥的生成&lt;/h2>
+&lt;h2 id="11实现字符到bit的转换">1.1实现字符到bit的转换&lt;/h2>
+&lt;p>DES加密本质上是对二进制数据的加密，而正常我们输入电脑的多用的是文本形式，因此我们需要将字符转变为文本。我们把它放在类的成员函数中，在密钥生成阶段和明文加密阶段都会用到。本文以密钥“12345678”为例。主要分成两个函数：
+第一个函数：选取8字节密钥，超过8字节只选取前面8字节，不足8字节用0补齐。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span> &lt;span class="c1">//设置密钥的内容，截取或补齐
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">DataEncrytionStandard&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">SetKey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="kt">char&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">_key&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 3&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">lengthCout&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_key&lt;/span>&lt;span class="o">!=&lt;/span>&lt;span class="sc">&amp;#39;\0&amp;#39;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">lengthCout&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">lengthCout&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_key&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">lengthCout&lt;/span>&lt;span class="p">];&lt;/span>&lt;span class="c1">//密码的长度只截取前面8位，不够的话用‘0’补齐。
+&lt;/span>&lt;span class="ln"> 8&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">lengthCout&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>第二个函数将8字节转换为64bits。本文使用的是64位的array&amp;lt;bool,64&amp;gt;实现。过去曾用bitset尝试过，但是bitset默认存储的是二进制数字，比特位顺序和DES加密的顺序相反；同时bitset还要考虑小端规则，对于降下来的处理不是很方便，因此用数组替代。本人发现网上的一些C++实现没有注意到这些问题，导致加密的结果与标准结果不一样。现推荐一个网站可以查看每一步实现的数据变化：&lt;a href="http://people.eku.edu/styere/Encrypt/JS-DES.html">JavaScript DES Example&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">DataEncrytionStandard&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">CharToBits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="n">_inChar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">bits&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">j&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="c1">//这里注意顺序
+&lt;/span>&lt;span class="ln">7&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">bits&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mi">8&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">7&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">_inChar&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">bits&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>获得密钥:0011000100110010001100110011010000110101001101100011011100111000&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="12密钥的pc-1转换">1.2密钥的PC-1转换&lt;/h2>
+&lt;p>这个64位的秘钥首先根据表格PC-1进行变换，变成56位的密钥。这个表格含义是64bits密钥的第57位，变成新密钥的第1位；原密钥的第49位变成新密钥的第2位；以此类推。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span> PC-1
+&lt;span class="ln"> 2&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="m">57&lt;/span> &lt;span class="m">49&lt;/span> &lt;span class="m">41&lt;/span> &lt;span class="m">33&lt;/span> &lt;span class="m">25&lt;/span> &lt;span class="m">17&lt;/span> &lt;span class="m">9&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="m">58&lt;/span> &lt;span class="m">50&lt;/span> &lt;span class="m">42&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="m">18&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="m">10&lt;/span> &lt;span class="m">2&lt;/span> &lt;span class="m">59&lt;/span> &lt;span class="m">51&lt;/span> &lt;span class="m">43&lt;/span> &lt;span class="m">35&lt;/span> &lt;span class="m">27&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="m">19&lt;/span> &lt;span class="m">11&lt;/span> &lt;span class="m">3&lt;/span> &lt;span class="m">60&lt;/span> &lt;span class="m">52&lt;/span> &lt;span class="m">44&lt;/span> &lt;span class="m">36&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="m">63&lt;/span> &lt;span class="m">55&lt;/span> &lt;span class="m">47&lt;/span> &lt;span class="m">39&lt;/span> &lt;span class="m">31&lt;/span> &lt;span class="m">23&lt;/span> &lt;span class="m">15&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="m">7&lt;/span> &lt;span class="m">62&lt;/span> &lt;span class="m">54&lt;/span> &lt;span class="m">46&lt;/span> &lt;span class="m">38&lt;/span> &lt;span class="m">30&lt;/span> &lt;span class="m">22&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="m">14&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">61&lt;/span> &lt;span class="m">53&lt;/span> &lt;span class="m">45&lt;/span> &lt;span class="m">37&lt;/span> &lt;span class="m">29&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="m">21&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">5&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="m">20&lt;/span> &lt;span class="m">12&lt;/span> &lt;span class="m">4&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="c1">//第一次转换，将64bit的密钥根据PC-1变换转换成56bit。
+&lt;/span>&lt;span class="ln">3&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyInit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CharToBits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyPC_1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="n">keyPC_1&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyInit&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">PC_1&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">9&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>56位密钥：00000000000000001111111111110110011001111000100000001111&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="13-密钥拆分与移位构成16轮子密钥">1.3 密钥拆分与移位构成16轮子密钥&lt;/h2>
+&lt;p>现在我们将56位的密钥拆分成前后两个等长部分（28位），C0、D0。我们现在创建16个块Cn 和 Dn, 1&amp;lt;=n&amp;lt;=16。每一对Cn 和 Dn都是由前一对Cn-1 和 Dn-1移位而来。具体说来，对于n = 1, 2, …, 16，在前一轮移位的结果上，使用下表进行一些次数的左移操作。这意味着，比如说，C3 和 D3是C2 和 D2移位而来的，具体来说，通过2次左移位；C16 和 D16 则是由C15和D15通过1次左移得到的。移位完成后，再将其拼接起来。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln"> 1&lt;/span>第n轮 左移位数
+&lt;span class="ln"> 2&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="m">4&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="m">5&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="m">6&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="m">7&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="m">8&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="m">9&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="m">10&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="m">11&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="m">12&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="m">13&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="m">14&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="m">15&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="m">16&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>具体代码如下所示：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln"> 1&lt;/span> &lt;span class="c1">//进行16轮移位，获取16个子密钥块
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//array&amp;lt;array&amp;lt;bool,48&amp;gt;,16&amp;gt;subKeys; defined in the head file
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">//array&amp;lt;array&amp;lt;bool,48&amp;gt;,16&amp;gt;subKeys; defined in the head file
+&lt;/span>&lt;span class="ln"> 4&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">iterator&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">SubKeyOff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">keyPC_1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">keyOff&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="k">else&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">SubKeyOff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">],&lt;/span>&lt;span class="n">keyOff&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">DataEncrytionStandard&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">SubKeyOff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">_key56&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">off&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="c1">//将密钥拆分成左右两半，各28位。
+&lt;/span>&lt;span class="ln">15&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">list&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">list&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="c1">//移位后的结果
+&lt;/span>&lt;span class="ln">18&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c1">//前28位
+&lt;/span>&lt;span class="ln">20&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_key56&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c1">//后28位
+&lt;/span>&lt;span class="ln">25&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_key56&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="c1">//循环移位,for内是一次移位
+&lt;/span>&lt;span class="ln">30&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">off&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">35&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="n">temp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_back&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">temp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="n">keyC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">28&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">56&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">46&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">47&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">48&lt;/span> &lt;span class="n">keyD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pop_front&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="ln">49&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">50&lt;/span>
+&lt;span class="ln">51&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">keyOffResult&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">52&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以得到如下16组子密钥。&lt;/p>
+&lt;blockquote>
+&lt;p>C0 = 0000000000000000111111111111
+D0 = 0110011001111000100000001111
+C1: 0000000000000001111111111110
+D1: 1100110011110001000000011110
+C2: 0000000000000011111111111100
+D2: 1001100111100010000000111101
+C3: 0000000000001111111111110000
+D3: 0110011110001000000011110110
+C4: 0000000000111111111111000000
+D4: 1001111000100000001111011001
+C5: 0000000011111111111100000000
+D5: 0111100010000000111101100110
+C6: 0000001111111111110000000000
+D6: 1110001000000011110110011001
+C7: 0000111111111111000000000000
+D7: 1000100000001111011001100111
+C8: 0011111111111100000000000000
+D8: 0010000000111101100110011110
+C9: 0111111111111000000000000000
+D9: 0100000001111011001100111100
+C10: 1111111111100000000000000001
+D10: 0000000111101100110011110001
+C11: 1111111110000000000000000111
+D11: 0000011110110011001111000100
+C12: 1111111000000000000000011111
+D12: 0001111011001100111100010000
+C13: 1111100000000000000001111111
+D13: 0111101100110011110001000000
+C14: 1110000000000000000111111111
+D14: 1110110011001111000100000001
+C15: 1000000000000000011111111111
+D15: 1011001100111100010000000111
+C16: 0000000000000000111111111111
+D16: 0110011001111000100000001111&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="14子密钥变换">1.4子密钥变换&lt;/h2>
+&lt;p>以上获得的16个56位子密钥并不是最后加密用的子密钥，还需要根据PC-2变换成48位的子密钥。于是，第n轮的新秘钥Kn 的第1位来自组合子秘钥CnDn的第14位，第2位来自第17位，依次类推，知道新秘钥的第48位来自组合秘钥的第32位。这才是加密用的子密钥。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span> PC-2
+&lt;span class="ln">2&lt;/span>&lt;span class="m">14&lt;/span> &lt;span class="m">17&lt;/span> &lt;span class="m">11&lt;/span> &lt;span class="m">24&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="m">15&lt;/span> &lt;span class="m">6&lt;/span> &lt;span class="m">21&lt;/span> &lt;span class="m">10&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="m">23&lt;/span> &lt;span class="m">19&lt;/span> &lt;span class="m">12&lt;/span> &lt;span class="m">4&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="m">8&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="m">16&lt;/span> &lt;span class="m">7&lt;/span> &lt;span class="m">27&lt;/span> &lt;span class="m">20&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="m">41&lt;/span> &lt;span class="m">52&lt;/span> &lt;span class="m">31&lt;/span> &lt;span class="m">37&lt;/span> &lt;span class="m">47&lt;/span> &lt;span class="m">55&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">30&lt;/span> &lt;span class="m">40&lt;/span> &lt;span class="m">51&lt;/span> &lt;span class="m">45&lt;/span> &lt;span class="m">33&lt;/span> &lt;span class="m">48&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="m">44&lt;/span> &lt;span class="m">49&lt;/span> &lt;span class="m">39&lt;/span> &lt;span class="m">56&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">53&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="m">46&lt;/span> &lt;span class="m">42&lt;/span> &lt;span class="m">50&lt;/span> &lt;span class="m">36&lt;/span> &lt;span class="m">29&lt;/span> &lt;span class="m">32&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span>&lt;span class="c1">//第二次转换，通过PC-2将56位子密钥变成48位子密钥，得到最后的第n轮加密使用的子密钥。
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">iterator&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">16&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">4&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">48&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="n">subKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">offKeys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">iterator&lt;/span>&lt;span class="p">][&lt;/span>&lt;span class="n">PC_2&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>KS1:010100000010110010101100010101110010101011000010
+KS2:010100001010110010100100010100001010001101000111
+KS3:110100001010110000100110111101101000010010001100
+KS4:111000001010011000100110010010000011011111001011
+KS5:111000001001011000100110001111101111000000101001
+KS6:111000001001001001110010011000100101110101100010
+KS7:101001001101001001110010100011001010100100111010
+KS8:101001100101001101010010111001010101111001010000
+KS9:001001100101001101010011110010111001101001000000
+KS10:001011110101000101010001110100001100011100111100
+KS11:000011110100000111011001000110010001111010001100
+KS12:000111110100000110011001110110000111000010110001
+KS13:000111110000100110001001001000110110101000101101
+KS14:000110110010100010001101101100100011100110010010
+KS15:000110010010110010001100101001010000001100110111
+KS16:010100010010110010001100101001110100001111000000&lt;/p>
+&lt;/blockquote>
+&lt;p>得到最终的16轮48位子密钥。&lt;/p>
+&lt;h2 id="2加密64位的数据块">2.加密64位的数据块&lt;/h2>
+&lt;h2 id="21-字符到比特的转换">2.1 字符到比特的转换&lt;/h2>
+&lt;p>本文的明文将以“helloDES”为例。明文的预处理和密钥是一样的，我们这一节只考虑正好8个字节的明文。首先还是要将字符串转换成二进制bit位，这里用的方法和处理密钥的是一样的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">msgInit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CharToBits&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="n">msg&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>2进制明文：01101000 01100101 01101100 01101100 01101111 01000100 01000101 01010011&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="22-初始ip变换">2.2 初始IP变换&lt;/h2>
+&lt;p>IP是重新变换数据M的每一位产生的。产生过程由下表决定，表格的下标对应新数据的下标，表格的数值x表示新数据的这一位来自旧数据的第x位。原理和密钥的PC-1、PC-2变换也是一样的。区别是IP是一个64位到64位变换，位数不变。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="ln">1&lt;/span> IP
+&lt;span class="ln">2&lt;/span>&lt;span class="m">58&lt;/span> &lt;span class="m">50&lt;/span> &lt;span class="m">42&lt;/span> &lt;span class="m">34&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="m">18&lt;/span> &lt;span class="m">10&lt;/span> &lt;span class="m">2&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="m">60&lt;/span> &lt;span class="m">52&lt;/span> &lt;span class="m">44&lt;/span> &lt;span class="m">36&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="m">20&lt;/span> &lt;span class="m">12&lt;/span> &lt;span class="m">4&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="m">62&lt;/span> &lt;span class="m">54&lt;/span> &lt;span class="m">46&lt;/span> &lt;span class="m">38&lt;/span> &lt;span class="m">30&lt;/span> &lt;span class="m">22&lt;/span> &lt;span class="m">14&lt;/span> &lt;span class="m">6&lt;/span>
+&lt;span class="ln">5&lt;/span>&lt;span class="m">64&lt;/span> &lt;span class="m">56&lt;/span> &lt;span class="m">48&lt;/span> &lt;span class="m">40&lt;/span> &lt;span class="m">32&lt;/span> &lt;span class="m">24&lt;/span> &lt;span class="m">16&lt;/span> &lt;span class="m">8&lt;/span>
+&lt;span class="ln">6&lt;/span>&lt;span class="m">57&lt;/span> &lt;span class="m">49&lt;/span> &lt;span class="m">41&lt;/span> &lt;span class="m">33&lt;/span> &lt;span class="m">25&lt;/span> &lt;span class="m">17&lt;/span> &lt;span class="m">9&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">7&lt;/span>&lt;span class="m">59&lt;/span> &lt;span class="m">51&lt;/span> &lt;span class="m">43&lt;/span> &lt;span class="m">35&lt;/span> &lt;span class="m">27&lt;/span> &lt;span class="m">19&lt;/span> &lt;span class="m">11&lt;/span> &lt;span class="m">3&lt;/span>
+&lt;span class="ln">8&lt;/span>&lt;span class="m">61&lt;/span> &lt;span class="m">53&lt;/span> &lt;span class="m">45&lt;/span> &lt;span class="m">37&lt;/span> &lt;span class="m">29&lt;/span> &lt;span class="m">21&lt;/span> &lt;span class="m">13&lt;/span> &lt;span class="m">5&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="m">63&lt;/span> &lt;span class="m">55&lt;/span> &lt;span class="m">47&lt;/span> &lt;span class="m">39&lt;/span> &lt;span class="m">31&lt;/span> &lt;span class="m">23&lt;/span> &lt;span class="m">15&lt;/span> &lt;span class="m">7&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>参照上表，明文2进制的第58位成为IP变换后的第1位，第50位成为IP变换后的第2位，第7位成为IP变换后的最后1位。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="ln">1&lt;/span> &lt;span class="n">array&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">msgIP&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="k">for&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">counter&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">64&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">3&lt;/span> &lt;span class="n">msgIP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">msgInit&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">IP&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">counter&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>IP转换后 ： 11111111 10000000 01111110 11010010 00000000 00011111 00011101 10010000&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="23">2.3&lt;/h2>
+&lt;h2 id="3输入明文拆分与填充">3.输入明文拆分与填充&lt;/h2>
+&lt;p>TODO&lt;/p>
+&lt;h2 id="4拼接密文块并输出">4.拼接密文块并输出&lt;/h2>
+&lt;p>TODO&lt;/p>
+&lt;h2 id="遇到的问题">遇到的问题&lt;/h2>
+&lt;h2 id="问题1为什么网上的des加密算法得到的结果不一样">问题1.为什么网上的DES加密算法得到的结果不一样？&lt;/h2>
+&lt;p>这个问题主要涉及编码、输入格式、输出格式、加密模式这几个方面的问题，还有一些细节问题比如空格与回车。
+首先是编码问题，在线的编码格式一般默认是UTF-8，因此如果网页编码不是UTF-8，则会导致加密的结果不一样。因为DES算法本质上是对二进制内容进行加密，同样的文字经过不同的编码映射成的二进制内容并不相同。
+其次，是输入格式问题。一般在网页的输入是文本格式（Plain Text），但是许多教程为了方便理解，写的输入格式是16进制，比如 &lt;a href="http://www.hankcs.com/security/des-algorithm-illustrated.html">DES算法实例讲解&lt;/a> 这篇文章里面主要用的是16进制格式作为讲解，对于许多在线工具，明文和密钥输入用的是文本格式。因此，在输入的时候一定要注意区分。
+然后，是输出格式的问题。有些在线加密工具输出会自动进行Base64编码，这样结果和直接加密的结果完全不同。DES加密的密文是16进制格式的，无法一一对应成ASCII码。密文要么以16进制输出，要么输出一堆乱码，而Base64能将一个较长的16进制数组编码为一个字符串，方便处理。
+最后，是加密模式的问题。DES本身采用的是ECB（电子密码本）模式，即将加密的数据分成若干组，每组的大小跟加密密钥长度相同，这样密文输出完全由明文和密钥决定。为了进一步加强安全性，有许多安全性扩展，就诞生了别的加密模式，比如加密块链模式CBC、加密反馈模式CFB等等。不同的模式加密结果也会完全不同。
+在附带一点细节问题，即空格与回车的问题。尤其是在字符串处理的时候，有些字符串会带回车换行（0x0D 0x0A）,这会造成最后一个64位字符块加密有些许差别。还有一些文本框自动（trigger）去除空格，就导致文本中的空格没有被计算在内，导致加密不同。&lt;/p></description></item></channel></rss>

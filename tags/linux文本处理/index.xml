@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux文本处理 on SurprisedCat</title><link>https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/</link><description>Recent content in Linux文本处理 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Wed, 24 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/index.xml" rel="self" type="application/rss+xml"/><item><title>linux-管道pipe与xargs</title><link>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</link><pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/linux-%E7%AE%A1%E9%81%93pipe%E4%B8%8Exargs/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#%E7%AE%A1%E9%81%93pipe">管道——Pipe&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4">管道命令&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E6%95%B0%E4%BB%A3%E6%8D%A2xargs">参数代换——&lt;code>xargs&lt;/code>&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%8C%BA%E5%88%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%E5%92%8C%E5%8F%82%E6%95%B0">区分标准输入和参数&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%85%B3%E4%BA%8E%E5%87%8F%E5%8F%B7-%E7%9A%84%E7%94%A8%E9%80%94">关于减号“-”的用途&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9">参考内容&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-管道pipe与xargs---omit-in-toc---">linux-管道pipe与xargs&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>Linux CLI shell（如bash，zsh）通常情况下都是每输入一条指令，输出一个结果，一来一回的交互，但是有的时候一条指令的输出是冗长且繁杂的，我们需要对其输出进行再处理，才能找到我们需要的内容。此时，我们就需要像筛金子一样，逐层过滤掉无用的沙子，Linux提供了这样的筛子——&lt;strong>管道&lt;/strong>，使我们能够接续处理数据。&lt;/p>
+&lt;h2 id="管道pipe">管道——Pipe&lt;/h2>
+&lt;blockquote>
+&lt;p>管道（Pipeline）操作符为“|”，是一系列将&lt;strong>标准输入输出链接起来&lt;/strong>的进程，其中每一个进程的输出被直接作为下一个进程的输入。管道中的组成元素也被称作过滤程序。这个概念是由道格拉斯·麦克罗伊为Unix 命令行发明的，因与物理上的管道相似而得名。&lt;/p>
+&lt;/blockquote>
+&lt;p>这是来自Wikipedia的定义。定义中指出，默认情况下，管道只会将上一个程序的标准输出(stdout)，传递给下一个命令，作为标准的输入(stdin)，对标准错误(stderr)信息没有直接处理能力。最后的命令将会把标准输出和标准错误都输出到屏幕上。画个简图来描述他们的关系：&lt;/p>
+&lt;p>&lt;img src="../../images/%E7%AE%A1%E9%81%93%E5%91%BD%E4%BB%A4%E7%A4%BA%E6%84%8F%E5%9B%BE.drawio.svg" alt="管道命令示意图">&lt;/p>
+&lt;p>注意：&lt;/p>
+&lt;ol>
+&lt;li>管道命令只处理前一个命令正确输出，不处理错误输出。&lt;/li>
+&lt;li>管道命令右边命令，必须能够接收标准输入流命令才行。&lt;/li>
+&lt;li>管道触发两个子进程分别执行&amp;quot;|&amp;quot;两边的程序；而重定向是在一个进程内执行。&lt;/li>
+&lt;li>如果使用&lt;code>|&amp;amp;&lt;/code>，则表示命令1的标准错误和标准输出都作为命令2的标准输入，这是&lt;code>2&amp;gt;&amp;amp;1 |&lt;/code>的简写。&lt;/li>
+&lt;/ol>
+&lt;h2 id="管道命令">管道命令&lt;/h2>
+&lt;p>管道需要搭配&lt;strong>管道命令&lt;/strong>来使用，除了最开始的命令，在管道右边的命令，&lt;strong>必须能够接收标准输入流&lt;/strong>命令才行。以下这些命令就是常用的管道命令：&lt;/p>
+&lt;ul>
+&lt;li>撷取命令： cut, grep&lt;/li>
+&lt;li>排序命令： sort, uniq, wc&lt;/li>
+&lt;li>双向重导向： tee&lt;/li>
+&lt;li>字符转换命令： tr, col, join, paste, expand&lt;/li>
+&lt;li>分割命令： split&lt;/li>
+&lt;li>文本查看： cat, tac, more, less, head, tail&lt;/li>
+&lt;li>文本比较： diff&lt;/li>
+&lt;li>流文本处理： sed, awk&lt;/li>
+&lt;li>参数代换： xargs&lt;/li>
+&lt;/ul>
+&lt;p>我们不鼓励现在就了解这些命令的具体用途，因为这样学习是枯燥且低效的。我们更鼓励只有当实际用到的时候再去查找这些命令的用法。&lt;/p>
+&lt;h2 id="参数代换xargs">参数代换——&lt;code>xargs&lt;/code>&lt;/h2>
+&lt;p>上面这些命令中，有一个需要单独拎出来强调下，就是参数代换——&lt;code>xargs&lt;/code>。它的运作方式有少许不同，一般的管道命令都是把上一个命令的标准输出作为本命令的标准输入；而&lt;code>xargs&lt;/code>可以将来自管道的输出、标准输入或文件数据转换成&lt;strong>命令行参数&lt;/strong>。&lt;/p>
+&lt;p>我们先举个例子，看看&lt;code>xargs&lt;/code>带来的区别：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># xargstest目录下有一个test.txt文件&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ tree xargstest/
+&lt;span class="ln"> 3&lt;/span>xargstest/
+&lt;span class="ln"> 4&lt;/span>└── test.txt
+&lt;span class="ln"> 5&lt;/span>&lt;span class="m">0&lt;/span> directories, &lt;span class="m">1&lt;/span> file
+&lt;span class="ln"> 6&lt;/span>$ &lt;span class="nb">cd&lt;/span> xargstest/
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c1"># 直接使用管道命令&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ ls &lt;span class="p">|&lt;/span> cat
+&lt;span class="ln"> 9&lt;/span>test.txt
+&lt;span class="ln">10&lt;/span>&lt;span class="c1"># xargs下的管道命令&lt;/span>
+&lt;span class="ln">11&lt;/span>$ ls &lt;span class="p">|&lt;/span> xargs cat
+&lt;span class="ln">12&lt;/span>测试文件
+&lt;span class="ln">13&lt;/span>xargs的区别实例
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>首先，我们在&lt;code>xargstest/&lt;/code>目录下使用&lt;code>ls&lt;/code>命令，结果是显示其目录下的文件&lt;code>test.txt&lt;/code>，也就是说标准输出(stdout)是&lt;code>&amp;quot;test.txt&amp;quot;&lt;/code>。当我们直接使用管道命令&lt;code>ls | cat&lt;/code>时，标准输出&lt;code>&amp;quot;test.txt&amp;quot;&lt;/code>作为&lt;code>cat&lt;/code>的标准输入(stdin)，因此&lt;code>cat&lt;/code>的输出结果就是显示标准输入的内容，即&lt;code>&amp;quot;test.txt&amp;quot;&lt;/code>。当我们使用参数代换&lt;code>xargs&lt;/code>时，前一个命令&lt;code>ls&lt;/code>的标准输出作为&lt;strong>参数&lt;/strong>传递给&lt;code>cat&lt;/code>，而非标准输入，后一个命令在执行时，实际执行的命令是&lt;code>cat test.txt&lt;/code>，因此最终结果是显示&lt;code>test.txt&lt;/code>文件中的内容。&lt;/p>
+&lt;p>一句话总结：&lt;strong>xargs命令的作用，是将标准输入转为命令行参数&lt;/strong>。&lt;/p>
+&lt;h3 id="区分标准输入和参数">区分标准输入和参数&lt;/h3>
+&lt;p>大多数时候，&lt;code>xargs&lt;/code>命令都是跟管道一起使用的。为了进一步区分标准输入和参数，我们可以看看在&lt;strong>不使用管道时&lt;code>xargs&lt;/code>的效果&lt;/strong>。通常境况下，&lt;code>xargs&lt;/code>后面跟一个Linux shell命令，来自标准输入的内容都会是该命令的参数。如果我们单独使用&lt;code>xargs&lt;/code>，就会使用默认命令&lt;code>echo&lt;/code>，即&lt;code>xargs == xargs echo&lt;/code>。当我们直接执行&lt;code>xargs&lt;/code>后，会出现空行让我们随意输入内容，我们从键盘输入的内容就是&lt;strong>标准输入&lt;/strong>，直到我们使用&lt;code>ctrl+d&lt;/code>或者在一行仅输入“End of File”标志（使用&lt;code>-E&lt;/code>参数指定）。然后，&lt;code>echo&lt;/code>命令就会把前面的输入打印出来。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ xargs
+&lt;span class="ln">2&lt;/span>xargs测试 &lt;span class="c1"># 按Ctrl + d&lt;/span>
+&lt;span class="ln">3&lt;/span>xargs测试 &lt;span class="c1"># 输出内容&lt;/span>
+&lt;span class="ln">4&lt;/span>$ xargs -E EOF &lt;span class="c1"># 指定结束符为EOF&lt;/span>
+&lt;span class="ln">5&lt;/span>xargs测试
+&lt;span class="ln">6&lt;/span>EOF
+&lt;span class="ln">7&lt;/span>xargs测试 &lt;span class="c1"># 输出内容&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看出&lt;code>xargs + stdin == echo 'stdin'&lt;/code>，注意这里我用单引号，表示&lt;code>stdin&lt;/code>内容作为&lt;code>echo&lt;/code>的参数被执行时是直接输出，不用转义。这就是所说的&lt;code>xargs&lt;/code>将标准输入转为命令行参数。如果不好理解，我们再举个使用其他命令的例子：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ xargs touch &lt;span class="c1"># 打算创建一个文件，文件名由键盘输入&lt;/span>
+&lt;span class="ln">2&lt;/span>newfile.txt &lt;span class="c1"># 按Ctrl + d&lt;/span>
+&lt;span class="ln">3&lt;/span>$ ls -l newfile.txt
+&lt;span class="ln">4&lt;/span>-rw-rw-r-- &lt;span class="m">1&lt;/span> username username &lt;span class="m">0&lt;/span> Nov &lt;span class="m">24&lt;/span> 00:43 newfile.txt &lt;span class="c1"># 确实创建了此文件&lt;/span>
+&lt;span class="ln">5&lt;/span>$ &lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;newfile.txt&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> xargs -t rm &lt;span class="c1">#我们可以使用-t参数，显示xargs实际执行的命令。&lt;/span>
+&lt;span class="ln">6&lt;/span>rm newfile.txt
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个例子中，来自键盘的标准输入作为&lt;code>touch&lt;/code>命令的参数，决定了被新建文件的名称，等同于&lt;code>touch newfile.txt&lt;/code>。参数都是跟在命令后面的，比如&lt;code>touch&lt;/code>是&lt;code>xargs&lt;/code>的参数，&lt;code>touch newfile.txt&lt;/code>中&lt;code>newfile.txt&lt;/code>是&lt;code>touch&lt;/code>的参数。而标准输入是独立于命令存在的，由用户决定其内容，通常是命令执行后，等待用户提供的，比如执行&lt;code>xargs&lt;/code>命令后，等待来自用户键盘的输入内容。&lt;/p>
+&lt;p>其他&lt;code>xargs&lt;/code>命令的参数，可以参考其&lt;a href="https://man7.org/linux/man-pages/man1/xargs.1.html">&lt;code>man&lt;/code>帮助页面&lt;/a>。&lt;/p>
+&lt;h2 id="关于减号-的用途">关于减号“-”的用途&lt;/h2>
+&lt;p>减号“-”在shell脚本中根据使用上下文的不同，有不同的含义。在管道语境下，减号“-”代表着&lt;strong>标准输入或标准输出&lt;/strong>，用来&lt;strong>代替某个文件名参数&lt;/strong>（在非管道语境下，也可以表示标准输入或标准输出）。需要指出，并不是所有命令都支持减号“-”。&lt;/p>
+&lt;p>我们先举个做为&lt;strong>标准输出&lt;/strong>的例子。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 默认情况下，此命令会下载一个名为docker的文件，此为安装docker容器的脚本&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ wget https://get.daocloud.io/docker
+&lt;span class="ln"> 3&lt;/span>--2021-11-24 09:22:21-- https://get.daocloud.io/docker
+&lt;span class="ln"> 4&lt;/span>Resolving get.daocloud.io &lt;span class="o">(&lt;/span>get.daocloud.io&lt;span class="o">)&lt;/span>... 106.75.86.15
+&lt;span class="ln"> 5&lt;/span>...... &lt;span class="c1"># 中间省略&lt;/span>
+&lt;span class="ln"> 6&lt;/span>HTTP request sent, awaiting response... &lt;span class="m">200&lt;/span> OK
+&lt;span class="ln"> 7&lt;/span>Length: &lt;span class="m">18617&lt;/span> &lt;span class="o">(&lt;/span>18K&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>None&lt;span class="o">]&lt;/span>
+&lt;span class="ln"> 8&lt;/span>Saving to: ‘docker’ &lt;span class="c1"># 注意这里就是保存到文件&lt;/span>
+&lt;span class="ln"> 9&lt;/span>
+&lt;span class="ln">10&lt;/span>docker 100%&lt;span class="o">[=============================================================&lt;/span>&amp;gt;&lt;span class="o">]&lt;/span> 18.18K --.-KB/s in 0.03s
+&lt;span class="ln">11&lt;/span>
+&lt;span class="ln">12&lt;/span>2021-11-24 09:22:21 &lt;span class="o">(&lt;/span>&lt;span class="m">566&lt;/span> KB/s&lt;span class="o">)&lt;/span> - ‘docker’ saved &lt;span class="o">[&lt;/span>18617/18617&lt;span class="o">]&lt;/span>
+&lt;span class="ln">13&lt;/span>$ ls -l docker
+&lt;span class="ln">14&lt;/span>-rw-r--r-- &lt;span class="m">1&lt;/span> username username &lt;span class="m">18617&lt;/span> Nov &lt;span class="m">24&lt;/span> 09:22 docker
+&lt;span class="ln">15&lt;/span>&lt;span class="c1"># 当我们加上参数&amp;#34;-O&amp;#34;表示目标位置，通常情况下为文件名&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c1"># 我们可使用&amp;#34;-O -&amp;#34;将下载的内容直接输出到标准输出（屏幕），而非文件&lt;/span>
+&lt;span class="ln">17&lt;/span>$ wget https://get.daocloud.io/docker -O -
+&lt;span class="ln">18&lt;/span>--2021-11-24 10:03:50-- https://get.daocloud.io/docker
+&lt;span class="ln">19&lt;/span>Resolving get.daocloud.io &lt;span class="o">(&lt;/span>get.daocloud.io&lt;span class="o">)&lt;/span>... 106.75.86.15
+&lt;span class="ln">20&lt;/span>...... &lt;span class="c1"># 中间省略&lt;/span>
+&lt;span class="ln">21&lt;/span>HTTP request sent, awaiting response... &lt;span class="m">200&lt;/span> OK
+&lt;span class="ln">22&lt;/span>Length: &lt;span class="m">18617&lt;/span> &lt;span class="o">(&lt;/span>18K&lt;span class="o">)&lt;/span> &lt;span class="o">[&lt;/span>None&lt;span class="o">]&lt;/span>
+&lt;span class="ln">23&lt;/span>Saving to: ‘STDOUT’ &lt;span class="c1"># 注意这里就是保存到标准输出，实际效果为输出到屏幕&lt;/span>
+&lt;span class="ln">24&lt;/span>
+&lt;span class="ln">25&lt;/span>- 0%&lt;span class="o">[&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="m">0&lt;/span> --.-KB/s &lt;span class="c1">#!/bin/sh&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="nb">set&lt;/span> -e
+&lt;span class="ln">27&lt;/span>&lt;span class="c1"># Docker CE for Linux installation script&lt;/span>
+&lt;span class="ln">28&lt;/span>&lt;span class="c1">#&lt;/span>
+&lt;span class="ln">29&lt;/span>&lt;span class="c1"># See https://docs.docker.com/engine/install/ for the installation steps.&lt;/span>
+&lt;span class="ln">30&lt;/span>&lt;span class="c1">#&lt;/span>
+&lt;span class="ln">31&lt;/span>...... &lt;span class="c1"># 中间省略&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;ERROR: Unsupported distribution &amp;#39;&lt;/span>&lt;span class="nv">$lsb_dist&lt;/span>&lt;span class="s2">&amp;#39;&amp;#34;&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="nb">echo&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="nb">exit&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="p">;;&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="k">esac&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="nb">exit&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">38&lt;/span>&lt;span class="o">}&lt;/span>
+&lt;span class="ln">39&lt;/span>
+&lt;span class="ln">40&lt;/span>&lt;span class="c1"># wrapped up in a function so that we have some protection against only getting&lt;/span>
+&lt;span class="ln">41&lt;/span>&lt;span class="c1"># half the file during &amp;#34;curl | sh&amp;#34;&lt;/span>
+&lt;span class="ln">42&lt;/span>do_install
+&lt;span class="ln">43&lt;/span>- 100%&lt;span class="o">[=============================================================&lt;/span>&amp;gt;&lt;span class="o">]&lt;/span> 18.18K --.-KB/s in 0.03s
+&lt;span class="ln">44&lt;/span>
+&lt;span class="ln">45&lt;/span>2022-01-05 10:03:51 &lt;span class="o">(&lt;/span>&lt;span class="m">684&lt;/span> KB/s&lt;span class="o">)&lt;/span> - written to stdout &lt;span class="o">[&lt;/span>18617/18617&lt;span class="o">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里我们使用减号“-”代替“-O”参数指向的文件名，来表示将下载的内容发到标准输出。此时相当于只是在屏幕中输出文件内容，并非下载文件。&lt;/p>
+&lt;p>而将减号“-”用于标准输入，不仅需要命令的支持，还需要命令能够从标准输入接收参数。典型的例子是&lt;code>diff&lt;/code>命令。例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">echo&lt;/span> -e &lt;span class="s2">&amp;#34;line 1 \nline 2\nline 3&amp;#34;&lt;/span> &amp;gt; minus_1.txt
+&lt;span class="ln"> 2&lt;/span>$ cat minus_1.txt
+&lt;span class="ln"> 3&lt;/span>line &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 4&lt;/span>line &lt;span class="m">2&lt;/span>
+&lt;span class="ln"> 5&lt;/span>line &lt;span class="m">3&lt;/span>
+&lt;span class="ln"> 6&lt;/span>$ diff - minus_1.txt &lt;span class="c1"># - 表示会从标准输入（键盘）接收内容&lt;/span>
+&lt;span class="ln"> 7&lt;/span>line &lt;span class="m">1&lt;/span>
+&lt;span class="ln"> 8&lt;/span>line &lt;span class="m">2&lt;/span> changed
+&lt;span class="ln"> 9&lt;/span>line &lt;span class="m">3&lt;/span> &lt;span class="c1"># 这里按ctrl+d&lt;/span>
+&lt;span class="ln">10&lt;/span>1,2c1,2
+&lt;span class="ln">11&lt;/span>&amp;lt; line &lt;span class="m">1&lt;/span>
+&lt;span class="ln">12&lt;/span>&amp;lt; line &lt;span class="m">2&lt;/span> changed
+&lt;span class="ln">13&lt;/span>---
+&lt;span class="ln">14&lt;/span>&amp;gt; line &lt;span class="m">1&lt;/span>
+&lt;span class="ln">15&lt;/span>&amp;gt; line &lt;span class="m">2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们生成了一个三行的文件&lt;code>minus_1.txt&lt;/code>，然后使用&lt;code>diff - minus_1.txt&lt;/code>让从键盘输入的内容和文件内容比较。&lt;/p>
+&lt;p>知道了减号作为标准输入输出的用法，我们就可以把它运用到管道中，在管道左边的命令中，减号可以代表标准输出；在管道右边的命令中，减号代表标准输入。例子如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 将/var/log中的文件打包并压缩为log.zip&lt;/span>
+&lt;span class="ln">2&lt;/span>tar -cvPf - /var/log &lt;span class="p">|&lt;/span> zip -r log.zip -
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>管道左边的第一条语句不再输入到具体文件，而输出到stdout中， 而作为第二条件的标准输入(stdin), 而stdin和 stdout都可以用“-”来取代。其实际效果等同于：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 将/var/log/中的文件打包到中间文件log.tar&lt;/span>
+&lt;span class="ln">2&lt;/span>$ tar -cvPf log.tar /var/log/
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># zip压缩log.tar为log.tar.zip&lt;/span>
+&lt;span class="ln">4&lt;/span>$ zip -r log.tar.zip log.tar
+&lt;span class="ln">5&lt;/span>&lt;span class="c1"># 删除中间文件log.tar&lt;/span>
+&lt;span class="ln">6&lt;/span>$ rm -rf log.tar
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用减号不仅使命令更加简洁，也避免生成中间文件&lt;code>log.tar&lt;/code>。&lt;/p>
+&lt;h2 id="参考内容">参考内容&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html">https://www.cnblogs.com/ggjucheng/archive/2012/10/24/2737918.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html">https://www.cnblogs.com/chengmo/archive/2010/10/21/1856577.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7">http://cn.linux.vbird.org/linux_basic/0320bash_6.php#pipe_7&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

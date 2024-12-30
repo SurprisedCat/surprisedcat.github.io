@@ -1,0 +1,712 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>概率统计随机过程之参数估计 | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="概率统计随机过程之参数估计 description.">
+<meta property="og:url" content="https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/">
+<meta property="og:title" content="概率统计随机过程之参数估计">
+<meta property="og:description" content="概率统计随机过程之参数估计 description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1.jpg">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>概率统计随机过程之参数估计</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Apr 16, 2021</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B title=概率统计随机过程 class="post_tag button button_translucent">概率统计随机过程
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/studynotes/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E4%B9%8B%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<h2 id=概率统计随机过程之参数估计>概率统计随机过程之参数估计</h2>
+<ul>
+<li><a href=#点估计>点估计</a></li>
+<li><a href=#点估计的优良性准则>点估计的优良性准则</a></li>
+<li><a href=#矩估计>矩估计</a>
+<ul>
+<li><a href=#矩估计存在的要求>矩估计存在的要求</a></li>
+<li><a href=#矩估计的一般步骤>矩估计的一般步骤</a></li>
+<li><a href=#矩估的特点>矩估的特点</a></li>
+</ul></li>
+<li><a href=#极大似然估计>极大似然估计</a>
+<ul>
+<li><a href=#最大似然估计的不变原理>最大似然估计的不变原理</a></li>
+</ul></li>
+<li><a href=#点估计的有效性详解>点估计的有效性详解</a></li>
+<li><a href=#一致最小方差无偏估计>一致最小方差无偏估计</a>
+<ul>
+<li><a href=#改进一个无偏估计>改进一个无偏估计</a></li>
+<li><a href=#零无偏估计法>零无偏估计法</a></li>
+<li><a href=#充分完全统计量法>充分完全统计量法</a></li>
+</ul></li>
+<li><a href=#cramer-raoc-r不等式与界>Cramer-Rao（C-R）不等式与界</a></li>
+<li><a href=#区间估计>区间估计</a></li>
+<li><a href=#置信区间与枢轴变量>置信区间与枢轴变量</a></li>
+<li><a href=#一个正态总体的期望和方差的区间估计>一个正态总体的期望和方差的区间估计</a></li>
+</ul>
+<p>统计推断三大内容：<strong>抽样分布、参数估计（点估计、区间估计）与假设检验</strong>。</p>
+<p>参数估计的核心思想：用抽样出来的样本构造函数（统计量）来尝试近似实际分布的参数。</p>
+<h2 id=点估计>点估计</h2>
+<blockquote>
+<p>估计量：在参数估计大类的点估计中，那么用于估计未知参数的<strong>统计量</strong>称为<strong>点估计(量)</strong>，简称为<strong>估计(量)</strong>。</p>
+</blockquote>
+<p>估计一个<strong>具体的数值</strong>，实际比较困难。我们用样本来构造一个函数 <span class=math>\[
+\hat\theta = \Theta(X),X=(x_1,\dotsb,x_n)
+\]</span> 用以计算参数<span class=math>\(\theta\)</span>，由于是估计值所以用<span class=math>\(\hat\theta\)</span>表示。其中<span class=math>\(X=(x_1,\dotsb,x_n)\)</span>为容量为n的样本。有时也用<span class=math>\(\hat g(\theta)\)</span>表示，因为有时要估计的不是<span class=math>\(\theta\)</span>，而是<span class=math>\(\theta\)</span>的某个函数。</p>
+<p>具体可参见笔记《概率统计随机过程之数理统计常用概念》中统计量与估计量那一小节。</p>
+<p>具体方法：</p>
+<ol style=list-style-type:decimal>
+<li>矩估计</li>
+<li>最大似然估计（MLE）</li>
+<li>贝叶斯估计（MAP等）</li>
+<li>LSE（MMSE）</li>
+<li>……</li>
+</ol>
+<h3 id=点估计的优良性准则>点估计的优良性准则</h3>
+<ol style=list-style-type:decimal>
+<li>无偏性。<span class=math>\(E(\hat\theta)=\theta\)</span>（样本方差的系数<span class=math>\(n-1\)</span>就是这里的无偏性得出来的）</li>
+</ol>
+<ul>
+<li><span class=math>\(\hat\theta\)</span>是<span class=math>\(\theta\)</span>的无偏估计，但是<span class=math>\(g(\hat\theta)\)</span>不一定是<span class=math>\(g(\theta)\)</span>的无偏估计。例如说明1。</li>
+</ul>
+<ol start=2 style=list-style-type:decimal>
+<li>有效性。估计值的方差越小越好。<span class=math>\(D(\hat\theta_1)\leq D(\hat\theta_2)\)</span>则<span class=math>\(\hat\theta_1\)</span>更好。波动性小，无偏情况下，更可能接近于真实值。</li>
+<li>相合性（一致性）。<span class=math>\(\lim_{n\rightarrow \infty} P(|\hat\theta-\theta|&lt;\varepsilon)=1\)</span>，取的样本越多，越趋近于真实值。</li>
+<li>渐进正态性（大样本性质）。体现了估计量随样本数量趋近于真实值的速度。</li>
+</ol>
+<p>说明1：样本方差<span class=math>\(S^2\)</span>是<span class=math>\(\sigma^2\)</span>的无偏估计，但是<span class=math>\(\sqrt{(S^2)}\)</span>不是<span class=math>\(\sqrt{\sigma^2}\)</span>的无偏估计。</p>
+<p>说明2：无偏性+有效性（尽量小方差）=一致最小方差无偏估计（UMVUE）</p>
+<p>说明3：无偏性和相合性是两个方面的性质，无偏性是概率性质，相合性是统计性质，无偏不一定相合。</p>
+<p>具体可参见笔记<a href=概率统计随机过程之数理统计常用概念.md>《概率统计随机过程之数理统计常用概念》</a>中估计量的评价指标那一小节。</p>
+<h3 id=矩估计>矩估计</h3>
+<p>核心思想：近似替代。<strong>用样本的矩代替总体的矩，用样本矩的函数估计总体矩的相应函数</strong>。就把样本当总体。</p>
+<p>理论基础是<strong>格涅坚科大数定理</strong>（原始数据用原点矩估计）</p>
+<table>
+<thead>
+<tr class=header>
+<th align=center>总体的矩</th>
+<th align=center>&lt;-----></th>
+<th align=center>样本的矩</th>
+</tr>
+</thead>
+<tbody>
+<tr class=odd>
+<td align=center>一阶 <span class=math>\(E(X)\)</span></td>
+<td align=center>&lt;-----></td>
+<td align=center>一阶 <span class=math>\(\bar X = {1\over n}\sum X_i\)</span></td>
+</tr>
+<tr class=even>
+<td align=center>二阶 <span class=math>\(E(X^2)\)</span></td>
+<td align=center>&lt;-----></td>
+<td align=center>二阶 <span class=math>\(A_2 = {1\over n}\sum X_i^2\)</span></td>
+</tr>
+<tr class=odd>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+<td align=center><span class=math>\(\vdots\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>同时有： <span class=math>\[\begin{aligned}
+&\hat \mu = \bar X\\
+&\hat \sigma^2 = A_2 - \hat \mu^2 =B_2(二阶中心矩)
+\end{aligned}
+\]</span> 不难发现，中心矩可以用原点矩来表示。</p>
+<h4 id=矩估计存在的要求>矩估计存在的要求</h4>
+<ol style=list-style-type:decimal>
+<li>该分布的k阶矩是存在的</li>
+<li>估计量或其函数<span class=math>\(g(\theta)\)</span>可以写成各阶矩组成的函数，即<span class=math>\(g(\theta)=G(\underbrace{\alpha_1,\alpha_2,\dotsb,\alpha_k}_{k原点矩},\underbrace{\mu_2,\mu_3,\dotsb,\mu_s}_{s阶中心矩})\)</span>，则<span class=math>\(g(\theta)\)</span>可以用样本矩的函数<span class=math>\(\hat g(X)=G(a_1,a_2,\dotsb,a_k,m_2,\dotsb,m_s)\)</span>进行矩估计，其中<span class=math>\(a_i,s_i\)</span>分别是<span class=math>\(i\)</span>阶样本原点矩和中心矩。</li>
+</ol>
+<h4 id=矩估计的一般步骤>矩估计的一般步骤</h4>
+<ol style=list-style-type:decimal>
+<li>求出一些矩。一般情况下，原分布中有几个未知参数，就需要几阶矩估计。（有时也确定需要哪些矩）</li>
+<li>将<span class=math>\(\theta\)</span>或<span class=math>\(g(\theta)\)</span>用矩表示（表示方法不唯一，可以根据UMVUE准则判断优劣，即要无偏，方差要小）。</li>
+<li>替换矩（样本矩→总体矩，<span class=math>\(\hat\theta = \varTheta(X)→\theta\)</span>或<span class=math>\(\hat g(X)→g(\theta)\)</span>）。</li>
+</ol>
+<h4 id=矩估的特点>矩估的特点</h4>
+<ol style=list-style-type:decimal>
+<li>简单。</li>
+<li>一般矩估计是渐进无偏的。由于原点矩都是无偏的，中心距是渐进无偏的；只有当估计量是原点矩的线性组合时，才是无偏估计。</li>
+<li>没有运用到总体的分布信息，准确性稍差。而且要求总体的矩一定存在。</li>
+<li>矩估计不唯一，取决于<span class=math>\(\theta\)</span>或<span class=math>\(g(\theta)\)</span>如何被各阶矩表示。</li>
+<li>相合性：略</li>
+</ol>
+<h3 id=极大似然估计>极大似然估计</h3>
+<p>核心思想：概率大的事件比概率小的事件更容易发生。<strong>要估计的参数能够使产生这个样本的概率最大</strong>。</p>
+<p>步骤：</p>
+<ol style=list-style-type:decimal>
+<li>总体的概率/密度函数。</li>
+<li>写出似然估计函数<span class=math>\(L(\lambda)\)</span>。</li>
+<li>两边取<span class=math>\(\ln\)</span>，即为<span class=math>\(\ln(L(\lambda))\)</span>。</li>
+<li>对<span class=math>\(\lambda\)</span>求导（多参数估计就是偏导），令导数为0。</li>
+</ol>
+<p>TIPS：对于有些分布的极大似然估计没法直接求，比如均匀分布。</p>
+<p><strong>似然函数取对数的原因</strong>:</p>
+<ol style=list-style-type:decimal>
+<li>减少计算量。乘法变成加法，从而减少了计算量；同时，如果概率中含有指数项，如高斯分布，能把指数项也化为求和形式，进一步减少计算量；另外，在对联合概率求导时，和的形式会比积的形式更方便。</li>
+<li>计算时更准确。为概率值都在[0,1]之间，因此，概率的连乘将会变成一s个很小的值，可能会引起浮点数下溢，尤其是当数据集很大的时候，联合概率会趋向于0，非常不利于之后的计算。</li>
+</ol>
+<p>需要指出的是：<strong>取对数不影响单调性</strong>。 <span class=math>\[
+p(x|\theta_1)>p(x|\theta_2)\Leftrightarrow \ln(p(x|\theta_1))>\ln(p(x|\theta_2))
+\]</span> 因为相同的单调性，它确保了概率的最大对数值出现在与原始概率函数相同的点上。因此，可以用更简单的对数似然来代替原来的似然。</p>
+<h4 id=最大似然估计的不变原理>最大似然估计的不变原理</h4>
+<p>我们介绍一个致使最大似然估计得到广泛应用的定理。</p>
+<blockquote>
+<p>定理1（不变定理）：设<span class=math>\(X\sim p(x;\theta),\;\theta\in\mathcal{\Theta}\)</span>，若<span class=math>\(\theta\)</span>的最大似然估计为<span class=math>\(\hat\theta\)</span>，则对任意函数<span class=math>\(\gamma=g(\theta)\)</span>，<span class=math>\(\gamma\)</span>的最大似然估计为<span class=math>\(\hat\gamma=g(\hat\theta)\)</span>。</p>
+</blockquote>
+<p>这个定理的条件很宽，致使最大似然估计的应用也会广泛。在函数<span class=math>\(g(\theta)\)</span>非单调的时候，它的证明需要测度论的内容，暂时不予证明。</p>
+<h3 id=点估计的有效性详解>点估计的有效性详解</h3>
+<p>我们在前面提到过可以用估计值的方差来代表估计的有效性，但是这有一个前提条件：<strong>需要该估计为无偏估计</strong>。这样估计值才能紧密散布在真值周围，如果是估计值偏差较大，方差很小，那只会猜到一个错误的位置。如果用图像表示无偏与方差的关系，如下图：</p>
+<div class=figure>
+<img src=../../images/点估计偏差与方差.jpg alt=点估计偏差与方差><p class=caption>点估计偏差与方差</p>
+</div>
+<p>从上图中，我们可以看出：第一幅子图中，当无偏估计且方差很小时，估计点密布在真值周围，我们可以用取平均的方法贴近真实值；如果像第二个子图中，是有偏估计，而方差又很小，那么我们有很大可能会得到一个错误的估计。第二行的两个子图是方差较大的情况，我们可以观察到，无偏估计在方差较大时，点比较散，因此会增大估计误差；而有偏估计在方差较大时，反而可能比小方差时表现的更好。</p>
+<p>下面我们给出无偏估计有效性的精确定义：</p>
+<blockquote>
+<p>设<span class=math>\(\hat\theta_1=\hat\theta_1(x_1,x_2,\dotsb,x_n)\)</span>与<span class=math>\(\hat\theta_2=\hat\theta_2(x_1,x_2,\dotsb,x_n)\)</span>都是参数<span class=math>\(\theta\)</span>的无偏估计，如果： <span class=math>\[\mathrm{Var}(\hat\theta_1)\leq \mathrm{Var}(\hat\theta_2),\forall \theta\in \varTheta\]</span> 且至少对一个<span class=math>\(\theta_0\in\varTheta\)</span>，有严格不等号成立，则称<span class=math>\(\hat\theta_1\)</span>比<span class=math>\(\hat\theta_2\)</span>有效。</p>
+</blockquote>
+<p>那么对于<strong>有偏估计</strong>，我们要如何评价它的优劣呢？有偏估计与无偏估计相比，除了随机散布造成的方差时存在的，还有与真实值之间的系统性<strong>偏差</strong>。由于随机造成的误差有正有负，因此我们用<strong>平方的方式</strong>来去除正负的影响（用绝对值也可以叫平均绝对误差，不过平方有更好的运算性质）。</p>
+<p>在此，我们定义有偏估计的有效性：</p>
+<blockquote>
+<p>设<span class=math>\(\hat\theta_1=\hat\theta_1(x_1,x_2,\dotsb,x_n)\)</span>与<span class=math>\(\hat\theta_2=\hat\theta_2(x_1,x_2,\dotsb,x_n)\)</span>都是参数<span class=math>\(\theta\)</span>的估计量，如果： <span class=math>\[E(\hat\theta_1-\theta)^2\leq E(\hat\theta_2-\theta)^2,\forall \theta\in \varTheta\]</span> 且至少对一个<span class=math>\(\theta_0\in\varTheta\)</span>，有严格不等号成立，则称在<strong>均方误差</strong>意义下<span class=math>\(\hat\theta_1\)</span>优于<span class=math>\(\hat\theta_2\)</span>。其中，<span class=math>\(E(\hat\theta_i-\theta)^2\)</span>称为<span class=math>\(\theta_i\)</span>d的<strong>均方误差</strong>，常记为<span class=math>\(MSE(\hat\theta_i)\)</span>。</p>
+</blockquote>
+<p>根据定义不难发现，如果<span class=math>\(\hat\theta_i\)</span>是无偏估计，那么均方误差等于方差，即<span class=math>\(MSE(\hat\theta)=Var(\hat\theta)\)</span>。我们可以将均方误差的式子做如下变换： <span class=math>\[\begin{aligned}
+MSE(\hat\theta)&=E(\hat\theta-\theta)^2=E\{[\hat\theta-E(\hat\theta)]+[E(\hat\theta)-\theta]\}^2\\
+&=E[(\hat\theta-E(\hat\theta))^2]+[E(\hat\theta)-\theta]^2\\
+&=\mathrm{Var}(\hat\theta)+\delta^2
+\end{aligned}
+\]</span> 其中，我们将<span class=math>\(\delta=|E(\hat\theta)-\theta|\)</span>称为（绝对）偏差，它体现了估计<span class=math>\(\hat\theta\)</span>与真实值<span class=math>\(\theta\)</span>之间的系统误差。由此可见，均方误差<span class=math>\(MSE(\hat\theta_i)\)</span>可以分解成<strong>系统误差和随机误差两部分</strong>两部分组成。无偏性可以让偏差<span class=math>\(\delta\)</span>为0，有效性指标等同于要求方差最小化，而有偏估计则要求二者之和越小越好。假如有一个有偏估计其均方误差比任一个无偏估计的方差还小，则此种有偏估计应予以肯定。如下例子所示：</p>
+<div class=figure>
+<img src=../../images/有偏估计MSE例子.png alt=有偏估计MSE例子.png><p class=caption>有偏估计MSE例子.png</p>
+</div>
+<p>可惜的是，参数的一切可能估计组成的估计类中一致最小均方误差估计不存在。</p>
+<p>思想实验：为什么参数的一切可能估计组成的估计类中一致最小均方误差估计不存在？</p>
+<blockquote>
+<p>如果一个估计<span class=math>\(\theta^*\)</span>为一致最小均方误差，那么对于其他任意对于<span class=math>\(\theta\)</span>的估计方法<span class=math>\(\tilde{\theta}\)</span>在参数空间<span class=math>\(\varTheta\)</span>上都有<span class=math>\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)</span>。问题就出自两个任意上，一是任意估计方法，二是<span class=math>\(\forall\theta\in\varTheta\)</span>；这两个要求太严格了。我们来设计这样一个场景：参数的真值为<span class=math>\(\theta_0\)</span>，有一个奇葩的估计方式<span class=math>\(\tilde{\theta}_0\)</span>，无论给出什么样本，其估计结果都是<span class=math>\(\theta_0\)</span>（固定值完全消除了样本随机性带来的随机性，导致方差为0）。尽管这个估计方式对于<span class=math>\(\varTheta\)</span>中除了真实值为<span class=math>\(\theta_0\)</span>的情况，一无是处，但是我们不能否认在真实值为<span class=math>\(\theta_0\)</span>，这个估计很完美（绝对误差为0）。此时，<span class=math>\(MSE(\tilde{\theta}_0)=0\)</span>。而一致最小均方误差<span class=math>\(\theta^*\)</span>要满足<span class=math>\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)</span>，那么<span class=math>\(\theta^*\)</span>必须是方差为0，偏差为0，那么只能让<span class=math>\(\theta^*=\tilde{\theta}_0\)</span>。那么对于<span class=math>\(\varTheta\)</span>中的任意<span class=math>\(\theta_i\)</span>都可以构造类似的奇葩估计：无论给出什么样本，其估计结果都是<span class=math>\(\theta_i\)</span>。根据<span class=math>\(MSE(\theta^*)\leq MSE(\tilde{\theta})\)</span>，又必须让<span class=math>\(\theta^*=\tilde\theta_i\)</span>。那么对于不同<span class=math>\(\theta_i\)</span>，一致最小均方误差估计<span class=math>\(\theta^*\)</span>根本不是同一个估计方式，所以一致最小均方误差估计不存在。</p>
+</blockquote>
+<p>对此，我们的处理方式是将需要将估计方式范围缩小一些，做出一些限制，例如要求估计方法都必须是无偏的。此时产生一类非常重要的估计类：一致最小方差无偏估计，简称UMVUE。</p>
+<h3 id=一致最小方差无偏估计>一致最小方差无偏估计</h3>
+<p>我们前面已经分析过，均方误差在无偏估计中会简化为方差，此时一致最小均方误差估计简化为一致最小方差无偏估计。仿照前面的形式，我们给出一致最小方差无偏估计的定义：</p>
+<blockquote>
+<p>一致最小方差无偏估计：在参数估计<span class=math>\(\mathcal{F}=\{f(x,\theta),\theta\in\varTheta\}\)</span>中，如果<span class=math>\(\hat\theta\)</span>是参数<span class=math>\(\theta\)</span>的<strong>无偏估计</strong>，如果对另外任意一个<span class=math>\(\theta\)</span>的<strong>无偏估计</strong><span class=math>\(\tilde{\theta}\)</span>，在参数空间<span class=math>\(\varTheta\)</span>上都有： <span class=math>\[\mathrm{Var}(\hat\theta)\leq \mathrm{Var}(\tilde{\theta})\]</span> 则称<span class=math>\(\hat{\theta}\)</span>是<span class=math>\(\theta\)</span>的<strong>一致最小方差无偏估计，简记为UMVUE(Uniformly minimum variance unbiased estimation)</strong>。</p>
+</blockquote>
+<p>需要指出，有些参数可能不存在无偏估计，即UMVUE可能也不存在。如果参数的无偏估计存在，我们称此参数为<strong>可估参数</strong>。为什么加上无偏之后，一致最小方差估计就可以存在了呢？前面我们提到两个任意上，一是任意估计方法，二是<span class=math>\(\forall\theta\in\varTheta\)</span>，这两个要求太严格。无偏其实是对第一个任意的限制，缩小了估计类范围，把很多奇葩的估计方法（如上文提到的<span class=math>\(\tilde{\theta}_0\)</span>方法）排除在外。</p>
+<p>显然，在给定样本数量后，从无偏性和有效性两个角度，UMVUE是最优解，下面我们给出三个求UMVUE的方法。第一个是零无偏估计法，第二个是充分完全统计量法，第三个用了C-R不等式（单拎出来介绍）。下面我们分别介绍。</p>
+<h4 id=改进一个无偏估计>改进一个无偏估计</h4>
+<p>假设我们已经知道了一个无偏估计，有没有办法能够优化它的方差呢？我们先介绍一种改进无偏估计的方法——Rao–Blackwell定理。</p>
+<blockquote>
+<p>定理2（Rao–Blackwell定理）：设<span class=math>\(T=T(x)\)</span>是样本<span class=math>\(x\)</span>关于参数<span class=math>\(\theta\)</span>的<strong>充分统计量</strong>，<span class=math>\(\hat\theta(x)\)</span>是<span class=math>\(\theta\)</span>的一个<strong>无偏估计</strong>，即<span class=math>\(E[\hat\theta(x)]=\theta\)</span>，则 <span class=math>\[h(T)=E[\hat\theta(x)|T]\]</span> 是<span class=math>\(\theta\)</span>的无偏估计，并且 <span class=math>\[D[h(T)]\leq D[\hat\theta(x)]\]</span> 其中当且仅当<span class=math>\(P(\hat\theta(x))=h(T)=1\)</span>，即<span class=math>\(h(T)=\hat\theta(x)\)</span>，a.s. P成立。</p>
+</blockquote>
+<p>我们先解释下<span class=math>\(h(T)=E[\hat\theta(x)|T]\)</span>，从条件期望的<span class=math>\(E(X|Y)\)</span>可知，我们是对<span class=math>\(X\)</span>求期望，会将<span class=math>\(X\)</span>的随机性抹去，<span class=math>\(E(X|Y)\)</span>实际上是关于<span class=math>\(Y\)</span>的随机变量函数，即<span class=math>\(f(Y)=E(X|Y)\)</span>，当<span class=math>\(Y=y\)</span>时，函数的值就确定了。因此<span class=math>\(h(T)=E[\hat\theta(x)|T]\)</span>就是一个关于<span class=math>\(T\)</span>的随机变量函数<span class=math>\(h(T)\)</span>。这个定理的关键就是说，这样的复合函数<span class=math>\(h\cdot T\)</span>是<span class=math>\(\theta\)</span>的无偏估计，且方差比原来的无偏估计<span class=math>\(\hat\theta(x)\)</span>小。</p>
+<p><span class=math>\(h\cdot T\)</span>是<span class=math>\(\theta\)</span>的无偏估计这点用重期望公式可以证明： <span class=math>\[
+E[h(T)]=E[E(\hat\theta(x)|T)]=E[\hat\theta(x)]
+\]</span> 由于<span class=math>\(\hat\theta(x)\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，所以<span class=math>\(E[h(T)]=E[\hat\theta(x)]=\theta\)</span>，即<span class=math>\(E[h(T)]\)</span>也是<span class=math>\(\theta\)</span>的一个无偏估计。</p>
+<p>对于方差的证明，我们需要用一个小技巧： <span class=math>\[
+\begin{aligned}
+D[\hat\theta(x)]&=E\{\hat\theta(x)-E[\hat\theta(x)]\}^2\\
+&=E\{\hat\theta(x)\underbrace{-h(T)+h(T)}_{引入h(T)}-\underbrace{E[\hat\theta(x)]}_\theta\}^2\\
+&=E[\hat\theta(x)-h(T)]^2+\underbrace{E[h(T)-\theta]^2}_{D[h(T)]}+2\{E[h(T)-\theta][\hat\theta(x)-h(T)]\}
+\end{aligned}
+\]</span> 前面两项好理解，需要处理一下交叉相乘的最后一项。我们可以根据重期望公式将其换种写法： <span class=math>\[
+E\{[h(T)-\theta][\hat\theta(x)-h(T)]\}=E_T\{E[(h(T)-\theta)(\hat\theta(x)-h(T))|T]\}\\
+当T=t为给定的条件时，h(T)为一常数\\
+原式=E_T\{(h(T)-\theta)E[\hat\theta(x)-h(T)|T]\}=E_T\{(h(T)-\theta)\{E[\hat\theta(x)|T]-h(T)\}\}\\
+\]</span> 在式子的最后，我们发现有一项<span class=math>\(E[\hat\theta(x)|T]\)</span>，而这正是<span class=math>\(h(T)\)</span>的定义啊，所以必有 <span class=math>\[
+E_T\{(h(T)-\theta)\underbrace{\{E[\hat\theta(x)|T]-h(T)\}}_{E[\hat\theta(x)|T]=h(T)}\}=0
+\]</span> 因此，<span class=math>\(2\{E[h(T)-\theta][\hat\theta(x)-h(T)]\}=0\)</span>，<span class=math>\(D[\hat\theta(x)]\)</span>可以写成： <span class=math>\[
+D[\hat\theta(x)]=E[\hat\theta(x)-h(T)]^2+D[h(T)]\geq D[h(T)],\forall \theta \in \varTheta
+\]</span> 并且等号成立的条件是<span class=math>\(E[\hat\theta(x)-h(T)]^2=0\)</span>，即<span class=math>\(\hat\theta(x)=h(T)\)</span>。这里再多解释一句，充分统计量<span class=math>\(T\)</span>也是<span class=math>\(x\)</span>的函数，所以前式具体应写为<span class=math>\(\hat\theta(x)=h(T(x))\)</span>或<span class=math>\(\hat\theta=h\cdot T\)</span>。</p>
+<p>Rao–Blackwell定理的意义在于，<strong>如果我们能够找到一个充分统计量，那么就用<span class=math>\(E[\hat\theta(x)|T]\)</span>可以改进任何<span class=math>\(\theta\)</span>的无偏估计，得到<span class=math>\(h(T(x))\)</span></strong>。且在<strong>充分统计量存在</strong>的情况下，UMVUE一定是充分统计量的函数（除非相等），否则我们可以通过<span class=math>\(h(T)\)</span>构造一个方差更小的无偏估计。</p>
+<p>举个例子：设<span class=math>\(X=(X_1,\dotsb,X_n)\)</span>是从两点分布族<span class=math>\(\{b(1,p):0&lt;p&lt;1\}\)</span>中抽取的简单样本。显然<span class=math>\(X_1\)</span>是<span class=math>\(p\)</span>的一个无偏估计，从前文可知<span class=math>\(T(X)=\sum_{i=1}^n X_i\)</span>是<span class=math>\(p\)</span>的充分统计量，试利用<span class=math>\(T\)</span>构造一个比<span class=math>\(X_1\)</span>方差更小的无偏估计。</p>
+<p>利用Rao–Blackwell定理可知，通过条件期望构造的无偏估计如下： <span class=math>\[
+h(t)=E[X_1|T=t]=1\times P(X_1=1|T=t)+0\times P(X_1=0|T=t)\\
+=E[X_1|T=t]=1\times P(X_1=1|T=t)=\frac{P(X_1=1,T=t)}{P(T=t)}\\
+=\frac{P(X_1=1,X_2+\dots+X_n={t-1})}{P(T=t)}=\frac{p\cdot{n-1\choose{t-1}}p^{t-1}(1-p)^{n-t}}{{n\choose{t}}p^{t}(1-p)^{n-t}}\\
+=\frac{t}{n}=\frac{\sum_{i=1}^n X_i}{n}=\bar{X}
+\]</span> 显然，样本均值<span class=math>\(h(T)=\bar{X}\)</span>也是<span class=math>\(p\)</span>的无偏估计，且方差为<span class=math>\(p(1-p)/n\)</span>，而<span class=math>\(X_1\)</span>的方差为<span class=math>\(p(1-p)\)</span>，只要当<span class=math>\(n\geq 2\)</span>时，<span class=math>\(\bar{X}\)</span>的方差就会小于<span class=math>\(X_1\)</span>。然而，Rao-Blackwell定理能够通过充分统计量改进无偏估计统计量，却并没有告诉我们改进后的估计是否为UMVUE或者如何改进成UMVUE。为了判断一个统计量是否为UMVUE，我们先介绍一些判别方法。</p>
+<h4 id=零无偏估计法>零无偏估计法</h4>
+<blockquote>
+<p>定理3：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自某总体的一个样本，<span class=math>\(\hat\theta(X)\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，<span class=math>\(D[\hat\theta(X)]&lt;\infty\)</span>，则<span class=math>\(\hat\theta\)</span>是<span class=math>\(\theta\)</span>的UMVUE的<strong>充要条件</strong>是：</p>
+<p>对任意一个满足<span class=math>\(E[\varphi(X)]=0\)</span>且<span class=math>\(\mathrm{Var}[\varphi(X)]&lt;\infty\)</span>的<span class=math>\(\varphi(X)\)</span>，都有 <span class=math>\[\mathrm{Cov}(\hat\theta,\varphi)=0,\forall\theta\in\varTheta\]</span></p>
+</blockquote>
+<p>其中，<span class=math>\(\varphi(X)\)</span>是一个统计量，其期望为0，可称为零的无偏估计，这也是这个方法名字的由来。这个定理的常用解释为：<span class=math>\(\theta\)</span>的UMVUE必与任何零的无偏估计<strong>线性不相关</strong>。反之，与任何零的无偏估计<strong>线性不相关</strong>的估计量，必然是<span class=math>\(\theta\)</span>的UMVUE。</p>
+<blockquote>
+<p>我们先证明这个定理的<strong>充分性</strong>，即<span class=math>\(\Rightarrow\)</span> UMVUE</p>
+<p>设有另一个<span class=math>\(\theta\)</span>的无偏估计<span class=math>\(\tilde{\theta}(X)\)</span>，那么构造函数<span class=math>\(\varphi(X)=\hat\theta(X)-\tilde{\theta}(X)\)</span>，其期望为 <span class=math>\[E[\varphi(X)]=E[\hat\theta(X)-\tilde{\theta}(X)]=E[\hat\theta(X)]-E[\tilde{\theta}(X)]=\theta-\theta=0\]</span> 方差为： <span class=math>\[\mathrm{Var}[\tilde\theta(X)]=E[\tilde\theta(X)-\theta]^2=E[(\tilde{\theta}(X)-\hat\theta(X))+(\hat\theta(X)-\theta)]^2\\
+=\underbrace{E[(\tilde{\theta}(X)-\hat\theta(X))^2]}_{E(\varphi^2(X))}+\underbrace{E[(\hat\theta(X)-\theta)^2]}_{\mathrm{Var}(\hat\theta)}+2\underbrace{\mathrm{Cov}(\varphi(X),\hat\theta(X))}_{定理充分性体现：=0}\\
+=\underbrace{E(\varphi^2(X))}_{\geq 0}+\mathrm{Var}(\hat\theta)\geq \mathrm{Var}(\hat\theta)\]</span> 这表明，<span class=math>\(\hat\theta\)</span>在<span class=math>\(\theta\)</span>的无偏估计中方差最小，即为UMVUE。</p>
+<p>我们再证明定理的<strong>必要性</strong>，即UMVUE<span class=math>\(\Rightarrow \mathrm{Cov}(\hat\theta,\varphi)=0,\forall\theta\in\varTheta\)</span>。我们采用反证法证明必要性。</p>
+<p>设<span class=math>\(\hat\theta(X)\)</span>是<span class=math>\(\theta\)</span>的UMVUE，存在一个<span class=math>\(\varphi(X)\)</span>满足<span class=math>\(E[\varphi(X)]=0\)</span>且<span class=math>\(\mathrm{Var}[\varphi(X)]&lt;\infty\)</span>。假设，在参数空间<span class=math>\(\varTheta\)</span>中存在一个<span class=math>\(\theta_0\)</span>使得<span class=math>\(\mathrm{Cov}(\varphi(X),\hat\theta(X))=a\neq 0\)</span>。下面就是一系列神仙操作，令： <span class=math>\[
+b=-\frac{\mathrm{Cov}(\varphi(X),\hat\theta(X))}{\mathrm{Var}[\varphi(X)])}=-\frac{a}{\mathrm{Var}[\varphi(X)])}\neq 0
+\]</span> 现在，构造一个<span class=math>\(X\)</span>的估计<span class=math>\(\tilde{\theta}=\hat{\theta}+b\varphi(X)\)</span>，对其求期望可得<span class=math>\(E[\tilde{\theta}]=E[\hat{\theta}+b\varphi(X)]=E[\hat{\theta}]+bE[\varphi(X)]\)</span>，由于<span class=math>\(\varphi(X)\)</span>期望为0，所以<span class=math>\(E[\tilde{\theta}]=\theta\)</span>，也是一个无偏估计，然而其方差为： <span class=math>\[\begin{aligned}\mathrm{Var}(\tilde{\theta})&=E[\hat{\theta}+b\varphi(X)-\theta]^2\\
+&=E(\hat{\theta}-\theta)^2+b^2E[\varphi^2(X)]+2bE[(\hat{\theta}-\theta)\varphi(X)]\\
+\because E(\hat{\theta}-\theta)^2&=\mathrm{Var}(\hat{\theta});E[\varphi^2(X)]=\mathrm{Var}[\varphi(X)]\\
+\because E[(\hat{\theta}-\theta)\varphi(X)]&=E[(\hat{\theta}-\theta)(\varphi(X)-0)]= \mathrm{Cov}[\varphi(X),\hat\theta(X)]=a\\
+原式&=\mathrm{Var}(\hat{\theta})+b^2\mathrm{Var}[\varphi(X)]+2ab\end{aligned}\]</span> 由于<span class=math>\(b=-\frac{a}{\mathrm{Var}[\varphi(X)])}\)</span>，因此<span class=math>\(b^2\mathrm{Var}[\varphi(x)]=\frac{a^2}{\mathrm{Var}[\varphi(x)]},\quad 2ab=\frac{-2a^2}{\mathrm{Var}[\varphi(x)]}\)</span>。因此上式可化简为： <span class=math>\[
+原式=\mathrm{Var}(\hat{\theta})-\frac{a^2}{\mathrm{Var}[\varphi(X)]}&lt;\mathrm{Var}(\hat{\theta})
+\]</span> 显然，此时<span class=math>\(\mathrm{Var}(\tilde{\theta})&lt;\mathrm{Var}(\hat{\theta})\)</span>，即<span class=math>\(\hat\theta(X)\)</span>并不是<span class=math>\(\theta\)</span>的UMVUE，与前提矛盾。所以必有<span class=math>\(\mathrm{Cov}(\varphi(X),\hat\theta(X))=0\)</span>。</p>
+<p>得证。</p>
+</blockquote>
+<p>对于统计量<span class=math>\(\hat\theta(X)\)</span>，我们必须对任意的零无偏估计统计量<span class=math>\(\varphi(x)\)</span>都要有<span class=math>\(\mathrm{Cov}(\hat{\theta},\varphi)=0\)</span>，这在证明时需要很多技巧，而且很多时候很难证明。但如果，我们能够证明这个统计量是个<strong>充分统计量</strong>，那么就可以有以下推论：</p>
+<blockquote>
+<p>推论3-1：设<span class=math>\(T=T(X)\)</span>是<span class=math>\(\theta\)</span>的充分统计量，<span class=math>\(h(T(X))\)</span>是<span class=math>\(\theta\)</span>的一个无偏估计，且方差<span class=math>\(D[h(T(X))]&lt;\infty\)</span>。对任何充分统计量<span class=math>\(T\)</span>的函数<span class=math>\(\delta(T)\)</span>，如果<span class=math>\(E[\delta(T)]=0\)</span>，必有 <span class=math>\[\mathrm{Cov}[h(T),\delta(T)]=E[h(T)\times\delta(T)]=0\]</span> 那么，<span class=math>\(h(T(X))\)</span>是<span class=math>\(\theta\)</span>的UMVUE。</p>
+</blockquote>
+<p>此推论在充分统计量的条件下，将所有的零无偏估计缩小到零无偏的充分统计函数的函数。</p>
+<h4 id=充分完全统计量法>充分完全统计量法</h4>
+<p>充分完全统计量法的核心是LS定理，它不仅给出了UMVUE的充分条件，还给出了唯一性和如何构造UMVUE的线索。</p>
+<blockquote>
+<p>定理4（Lehmann-Scheff定理，简称LS定理）：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自总体<span class=math>\(\{f(x,\theta),\theta\in\varTheta\}\)</span>的一个样本，<span class=math>\(\varTheta\)</span>为参数空间，<span class=math>\(T(X)\)</span>是参数<span class=math>\(\theta\)</span>的<strong>充分完全统计量</strong>，若<span class=math>\(\hat{g}(T(X))\)</span>为<span class=math>\(\theta\)</span>的一个无偏估计，则<span class=math>\(\hat{g}(T(X))\)</span>是<span class=math>\(\theta\)</span>的<strong>唯一的UMVUE</strong>。</p>
+</blockquote>
+<p>注意，此处唯一是依概率1的唯一，即设<span class=math>\(\hat{g},\hat{g}_1\)</span>是<span class=math>\(\theta\)</span>的两个估计量，若<span class=math>\(P(\hat{g}=\hat{g}_1)=1\)</span>，对一切<span class=math>\(\theta\in\varTheta\)</span>，则视<span class=math>\(\hat{g},\hat{g}_1\)</span>为同一个估计量。</p>
+<p>定理的证明：</p>
+<blockquote>
+<p>先证利用统计量的完全性证明唯一性。</p>
+<p>设<span class=math>\(\hat{g}_1(T(X))\)</span>为<span class=math>\(\theta\)</span>的任一无偏估计，令<span class=math>\(\delta(T(X))=\hat{g}(T(X))-\hat{g}_1(T(X))\)</span>，则<span class=math>\(E[\delta(T(X))]=E[\hat{g}(T(X))]-E[\hat{g}_1(T(X))]=0, \theta\in\varTheta\)</span>。由于<span class=math>\(T(X)\)</span>是完全统计量，而<span class=math>\(\delta(T(X))\)</span>是其函数，根据信息处理过程中的信息量不增定理，<span class=math>\(\delta(T(X))\)</span>也是完全统计量。</p>
+<p>根据完全统计量的定义，<span class=math>\(E[\delta(T(X))]=0\)</span>，几乎处处成立（a.s.）时，<span class=math>\(\delta(T(X))=0\)</span>，即<span class=math>\(\hat{g}(T(X))=\hat{g}_1(T(X))\)</span>几乎处处成立（a.s.）。又由于<span class=math>\(\hat{g}_1(T(X))\)</span>的任意性，唯一性得证。</p>
+<p>在唯一性得证的基础上，我们使用充分性证明方差最小。设<span class=math>\(\varphi(X)\)</span>为<span class=math>\(\theta\)</span>的<strong>任一</strong>无偏估计，令<span class=math>\(h(T(X))=E[\varphi(X)|T]\)</span>，由于<span class=math>\(T(X)\)</span>时充分统计量，因此<span class=math>\(p(\varphi(X)|T)\)</span>的概率分布与<span class=math>\(\theta\)</span>无关，那么其期望<span class=math>\(h(T(X))=E[\varphi(X)|T]\)</span>也与待估计参数无关，因此<span class=math>\(h(T(X))\)</span>也是一个统计量。而由定理2，Rao–Blackwell定理可知： <span class=math>\[
+E[h(T(X))]=E[E[\varphi(X)|T]]=E[\varphi(X)]=\theta,\forall \theta\in\varTheta\\
+D[h(T(X))]\leq D[\varphi(X)],\forall \theta\in\varTheta
+\]</span> 又因为由充分完全统计量构造出来的无偏估计是唯一的（唯一性），因此对任一<span class=math>\(\varphi(X)\)</span>构造出来的<span class=math>\(h(T(X))=E[\varphi(X)|T]\)</span>，都等于<span class=math>\(\hat{g}(T(X))\)</span>。综上可知有： <span class=math>\[\hat{g}(T(X)) \leq D[\varphi(X)],\forall \theta\in\varTheta\]</span> 最小方差特性得证。</p>
+</blockquote>
+<p>这个方法的<strong>核心是先找到个一个充分完全统计量</strong>，比如可以通过因子分解定理，指数族概率函数特性，定义等方式获得。当有了充分完全统计量后，可以有两个方法求UMVUE。</p>
+<ol style=list-style-type:decimal>
+<li>使用Rao–Blackwell定理。首先找个一个无偏估计<span class=math>\(\varphi(X)\)</span>，然后通过条件期望<span class=math>\(h(T)=E[\varphi(x)|T]\)</span>，得到充分统计量<span class=math>\(T\)</span>的函数，且根据Rao–Blackwell定理，<span class=math>\(h(T)\)</span>是无偏的。</li>
+<li>直接使用充分统计量，构造<span class=math>\(\theta\)</span>无偏估计的函数。适用于充分统计量与无偏估计关系比较简单的情形。</li>
+</ol>
+<blockquote>
+<p>推论4-1：设<span class=math>\(X=(x_1,x_2,\dotsb,x_n)\)</span>是来自指数族总体 <span class=math>\[f(\bm{x},\bm{\theta})=c(\bm\theta)\exp\left\{\sum_{j=1}^k \theta_j T_j(x)\right\}h(x),\bm\theta=(\theta_1,\dotsb,\theta_k)\in\varTheta^\star\]</span> 令<span class=math>\(T(x)=(T_1(x),\dotsb,T_k(x))\)</span>，且自然参数空间<span class=math>\(\varTheta^\star\)</span>作为<span class=math>\(R_k\)</span>的自己有内点，且<span class=math>\(g(T(X))\)</span>为<span class=math>\(\theta\)</span>的无偏估计，则<span class=math>\(g(T(X))\)</span>为<span class=math>\(\theta\)</span>的唯一的UMVUE。</p>
+</blockquote>
+<p>其实，根据指数族分布的性质可知，<span class=math>\(T(X)\)</span>实际上就是充分完全统计量，因此只有找到一个函数<span class=math>\(g\)</span>使<span class=math>\(g(T(X))\)</span>无偏，那么根据定理4，它就是参数<span class=math>\(\theta\)</span>的唯一的UMVUE。</p>
+<h3 id=cramer-raoc-r不等式与界>Cramer-Rao（C-R）不等式与界</h3>
+<p>Cramer-Rao不等式是另一个判别无偏估计是否为UMVUE的方法，但是Cramer-Rao不等式有更深层的含义。</p>
+<p>我们知道估计量始终会是一个随机变量，有自己的概率分布，而不是一个准确的值。Cramer-Rao除了给出了Cramer-Rao正则分布族这种费雪信息的存在条件，还有另一个更重要的贡献：<strong>C-R不等式</strong>，可以说给了统计学理论上的绝望。</p>
+<p>C-R不等式，其实就是在说：统计，对真实的概率分布参数估计能力是有限的。举个不太恰当的类比，有点像量子理论中的测不准原理 （二者证明有相似之处哦）。C-R不等式告诉我们，无论我们如何抽样充足，无论我们统计方法如何科学，我们对参数的估计值，永远不可能无限逼近是逻辑上的真实值！</p>
+<p>回到C-R不等式和UMVUE的关系上来，其思想如下：设<span class=math>\(\mathcal{U}_g\)</span>是<span class=math>\(\theta\)</span>的一切无偏估计构成的集合，所有的这些<span class=math>\(\mathcal{U}_g\)</span>中的无偏估计的方差必有一个下界（一定非负），这个下界称为C-R下界。如果<span class=math>\(\mathcal{U}_g\)</span>中某一个估计量<span class=math>\(\hat g\)</span>的方差达到了这个下界，则<span class=math>\(\hat{g}\)</span>就一定是参数的UMVUE，当然会对样本分布族和<span class=math>\(\hat{g}\)</span>有一些正则条件。当时，使用这种下界的方法，都一个缺点，即<strong>C-R不等式给出的下界经常比实际的下界更小一些</strong>。这一情况下，C-R不等式就无法判断UMVUE的存在性。此外，C-R不等式还有其他一些用处，比如计算估计的效率、有效估计等等。</p>
+<p>具体C-R不等式的细节，见笔记<a href=概率统计随机过程之C-R不等式.md>《概率统计随机过程之C-R不等式》</a></p>
+<h2 id=区间估计>区间估计</h2>
+<p>估计一个<strong>数值范围</strong>，核心要求：<strong>希望以尽可能大的概率落在尽可能小的区间内</strong>。</p>
+<h3 id=置信区间与枢轴变量>置信区间与枢轴变量</h3>
+<ul>
+<li>区间长度：越长概率越大，越不精确</li>
+<li>以多大概率落在区间中</li>
+<li>希望以尽可能大的概率落在尽可能小的区间内</li>
+</ul>
+<p>需要指出的是，置信区间是指其能包括待估计参数的区间，而不是待估计参数落入区间的意思。待估计值是客观存在的。</p>
+<blockquote>
+<p>枢轴变量：枢轴变量一般满足特定的分布，枢轴变量和待估计参数之间存在确定的函数关系，因此通过枢轴变量可以求出置信区间。</p>
+</blockquote>
+<div class=figure>
+<img src=../../images/枢轴变量.jpg alt=枢轴变量.jpg><p class=caption>枢轴变量.jpg</p>
+</div>
+<h3 id=一个正态总体的期望和方差的区间估计>一个正态总体的期望和方差的区间估计</h3>
+<p>当我们从一个含有未知参数的正态分布<span class=math>\(N(\mu,\sigma^2)\)</span>抽样时，可以通过抽样的样本对参数<span class=math>\(\mu,\sigma^2\)</span>进行区间估计，分为以下四种情况。</p>
+<div class=figure>
+<img src=../../images/一个正态总体的期望和方差的区间估计.jpg alt=一个正态总体的期望和方差的区间估计><p class=caption>一个正态总体的期望和方差的区间估计</p>
+</div>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

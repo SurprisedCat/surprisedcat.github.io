@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>matlab on SurprisedCat</title><link>https://surprisedcat.github.io/categories/matlab/</link><description>Recent content in matlab on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Sun, 30 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/matlab/index.xml" rel="self" type="application/rss+xml"/><item><title>matlab-与c混合编程</title><link>https://surprisedcat.github.io/projectnotes/matlab-%E4%B8%8Ec%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</link><pubDate>Sun, 30 Aug 2020 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/matlab-%E4%B8%8Ec%E6%B7%B7%E5%90%88%E7%BC%96%E7%A8%8B/</guid><description>
+&lt;h2 id="matlab与c混合编程---omit-in-toc---">Matlab与C混合编程&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>MATLAB是一种解释性语言，不需要编译，调试比较方便，但是缺点是速度慢。这一点在执行复杂的科学算法的时候体现极为明显。而C语言虽然相对比 较复杂，但是执行效率很高，MATLAB很多内置函数都是用C写的。另外有时候很多算法已经已C语言的形式写好，于是我们会想到是否有方法将C语言代码与 MATLAB连接起来。MATLAB提供一个C语言中的MEX函数库，可以实现以上功能。&lt;/p>
+&lt;p>MEX文件是由&lt;strong>原C代码加上MEX文件专用的接口函数&lt;/strong>后编译而成的，本质是一个加了MATLAB调用规范的DLL文件。DLL函数本质上是实现h头文件中的接口声明的。所以可以这样理解，MEX文件实现了一种接口，它把在Matlab中调用函数时输入的自变量通过特定的接口调入了C函数，得出的结果再通过该接口调回Matlab。该特定接口的操作，包含在mexFunction这个函数中，由使用者具体设定。&lt;/p>
+&lt;h2 id="mex文件怎么用">Mex文件怎么用&lt;/h2></description></item><item><title>matlab-genetic-toolbox-2</title><link>https://surprisedcat.github.io/projectnotes/matlab-genetic-toolbox-2/</link><pubDate>Fri, 15 Jan 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/matlab-genetic-toolbox-2/</guid><description>
+&lt;h2 id="matlab遗传算法工具箱sheffield源码解析2---omit-in-toc---">MatLab遗传算法工具箱（Sheffield）源码解析（2）&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="适应度计算函数">适应度计算函数&lt;/h2>
+&lt;h2 id="目标函数与适应度函数">目标函数与适应度函数&lt;/h2>
+&lt;p>目标函数和适应度函数是GA算法中非常重要的两个概念。目标函数（objective function），是衡量一个种群的个体好坏的判别式。通常，目标函数是我们需要解决的问题。例如在$f(x)=\frac{sin(10\pi x)}{x}$,$f(x)$就是目标函数，我们可以直接通过目标函数判断某个个体的好坏，比如求$min_{f(x)}$,适应度最好的个体就是使$f(x)$最小的个体。&lt;/p>
+&lt;p>但是，$f(x)$的值域是不确定的，在一个函数中很大的值在另一个函数中有可能只是沧海一粟，绝对值的比较在GA算法中意义不太，而且直接用目标函数的值去进行“选择”操作也不太好操作，因此需要将$f(x)$的值做一些规划与变换，将$f(x)$的值由绝对值转换成相对值，即$F(x)=g(f(x))$,$F(x)$表示相对的适应度，这个变化的函数$g(\cdot )$，我们称之为&lt;strong>适应函数(fitness function)&lt;/strong>。GA Manual中的解释为：&lt;/p>
+&lt;blockquote>
+&lt;p>The fitness function, is normally used to transform the objective function value into a measure of relative fitness.$^{[1]}$&lt;/p>
+&lt;/blockquote>
+&lt;p>matlab的Sheffield工具箱中，适应度计算函数共有一下两个：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln">1&lt;/span>&lt;span class="c">% Fitness assignment&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c">% ranking - rank-based fitness assignment&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c">% scaling - proportional fitness-scaling&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="scaling">Scaling&lt;/h2>
+&lt;p>适应函数,原理是将本来不可限制的值域映射到一个指定的范围中。最简单的适应函数就是按比例归一化，将值域映射到(0,1)上。公式表达为&lt;/p>
+&lt;p>$F(x_i) =\frac{f(x_i)}{\sum_{i=1}^{N_{ind}} f(x_i)}$&lt;/p>
+&lt;p>其中，$N_{ind}$是种群的数量，$x_i$是每一个基因的表现性（即二进制编码对应目标函数定义域的值）。这种适应函数直观容易理解，每一个个体繁殖的概率和它的适应能力成正比。换一个通用的表达式：&lt;/p>
+&lt;p>$F(x)=af(x)+b$&lt;/p>
+&lt;p>其中，a是缩放因子，我们如果求目标最大值，则a为正；反之，a为负。b为偏移量，用来保证$F(x)$非负。但是这种适应函数对于负数无能为力，&lt;strong>同时容易快速收敛（这会降低找到全局最优的概率）&lt;/strong>。因为在完全线性的变换中，一旦一个种群在早期出现一个明显优秀的个体，那么根据繁殖概率正比于适应能力，这个个体将主导种群的繁衍，如果这个个体是一个局部最优，这种线性变化能以跳出局部最优的限制。&lt;strong>scaling&lt;/strong>函数就是这种使用$F(x)=af(x)+b$的适应函数，这个变换的优点明显：简单易用。scaling函数的参数计算有些难以理解的地方，也不推荐使用，这里按下不表。&lt;/p>
+&lt;h2 id="ranking">Ranking&lt;/h2>
+&lt;h3 id="线性适应函数">线性适应函数&lt;/h3>
+&lt;p>于是，有很多人提出了其他的适应函数。在GA工具箱中，大体分为线性和非线性两类。线性适应函数形如：，Baker$^{[2]}$提出了基于限定范围和划分等级的适应函数（大概是这个意思）。首先，选定一个MAX值，用来决定对最好个体的偏好（这个值在文献也有被翻译为&lt;strong>压差，selective pressure&lt;/strong>），然后规定了以下几个值：&lt;/p>
+&lt;ul>
+&lt;li>$MIN = 2.0 - MAX$&lt;/li>
+&lt;li>$INC = (MAX -MIN)/N_{ind} = 2.0 * (MAX-1.0)/N_{ind}$&lt;/li>
+&lt;li>$LOW = INC / 2.0$&lt;/li>
+&lt;/ul>
+&lt;p>MAX通常取在[1.1,2.0]之间，MIN表示下界。将[MIN,MAX]划分成$N_{ind}$份，INC表示相邻两个等级之间差距，LOW表示选择的次数？？。因此，可以将目标函数做如下变化：&lt;/p>
+&lt;p>$F(x_i) = MIN + 2(MAX-1.0)\frac {x_i-1}{N_{ind}-1}$ 可以看出后面一项是INC的变形，分成$N_{ind}-1$份是因为包括了上下边界。&lt;/p>
+&lt;p>这个式子中最重要的${x_i}$，这个是将$N_{ind}$个个体按照排序（从大到小，或者从小到大，根据求最大还是最小值）之后，在排序中的位置。&lt;/p>
+&lt;h3 id="非线性适应函数">非线性适应函数&lt;/h3>
+&lt;p>非线性函数使用的是指数分割的方法。&lt;/p>
+&lt;h3 id="适应值的分配">适应值的分配&lt;/h3>
+&lt;p>我们如果不考虑多种群的场景，函数中适应值的分配很简单，按照目标值大小分配适应值。&lt;/p>
+&lt;h3 id="实现代码">实现代码&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">function&lt;/span>&lt;span class="w"> &lt;/span>FitnV &lt;span class="p">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">cxranking&lt;/span>&lt;span class="p">(&lt;/span>ObjV, RFun, SUBPOP&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c">%Identify the vector size (Nind)&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ObjV&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 5&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="c">%第二个参数的处理&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nargin&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[]&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="k">end&lt;/span> &lt;span class="c">%仅有一个参数，后面会有默认赋值&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nargin&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c">% 不合理RFun的处理&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">isnan&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[];&lt;/span>&lt;span class="k">end&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="c">% numel函数返回的是矩阵中元素的个数,增强性能&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">numel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="c">% RFun 为1行2列的向量&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">NonLin&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c">%判断线性还是非线性&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">NonLin&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Parameter for ranking method must be 0 or 1&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">isnan&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="nb">numel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c">% RFun是一个列向量，列向量和ObjV对应 &lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">numel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;ObjV and RFun disagree&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">22&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="c">%第三个参数分组的处理&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nargin&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">SUBPOP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nargin&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">isempty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">SUBPOP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="nb">isnan&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">SUBPOP&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="nb">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;SUBPOP must be a scalar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="c">%分组必须能够整除总数&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="nb">fix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;ObjV and SUBPOP disagree&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="n">Nind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c">% Compute &lt;/span>
+&lt;span class="ln">34&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="c">% Check ranking function and use default values if necessary&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">isempty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c">%为空的时候，采用默认值&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="c">% 默认值：selective pressure： 2，线性&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">&amp;#39;/&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="nb">numel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c">%RFun在之前已经处理过，变成一个标量&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">NonLin&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="c">%非线性处理,指数分割&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Selective pressure must be greater than 1&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">43&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Selective pressure too big&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">44&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">45&lt;/span> &lt;span class="n">Root1&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">roots&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">Nind&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)]]);&lt;/span>
+&lt;span class="ln">46&lt;/span> &lt;span class="c">%指数分割&lt;/span>
+&lt;span class="ln">47&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nb">abs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Root1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">.^&lt;/span> &lt;span class="p">[(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln">48&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">49&lt;/span> &lt;span class="k">else&lt;/span>
+&lt;span class="ln">50&lt;/span> &lt;span class="c">%线性处理&lt;/span>
+&lt;span class="ln">51&lt;/span> &lt;span class="c">% linear ranking with SP between 1 and 2&lt;/span>
+&lt;span class="ln">52&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="ln">53&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Selective pressure for linear ranking must be between 1 and 2&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">54&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">55&lt;/span> &lt;span class="n">RFun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">RFun&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">&amp;#39;/&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">56&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">57&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">58&lt;/span>
+&lt;span class="ln">59&lt;/span> &lt;span class="n">FitnV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;span class="ln">60&lt;/span>
+&lt;span class="ln">61&lt;/span> &lt;span class="c">%子群处理&lt;/span>
+&lt;span class="ln">62&lt;/span>&lt;span class="c">% loop over all subpopulations&lt;/span>
+&lt;span class="ln">63&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="n">irun&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">SUBPOP&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">64&lt;/span> &lt;span class="c">% Copy objective values of actual subpopulation&lt;/span>
+&lt;span class="ln">65&lt;/span> &lt;span class="n">ObjVSub&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ObjV&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">irun&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">irun&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">66&lt;/span> &lt;span class="c">% Sort does not handle NaN values as required. So, find those...&lt;/span>
+&lt;span class="ln">67&lt;/span> &lt;span class="n">NaNix&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">isnan&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ObjVSub&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">68&lt;/span> &lt;span class="n">Validix&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="n">NaNix&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">69&lt;/span> &lt;span class="c">% ... and sort only numeric values (smaller is better).&lt;/span>
+&lt;span class="ln">70&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">sort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">ObjVSub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Validix&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="ln">71&lt;/span>
+&lt;span class="ln">72&lt;/span> &lt;span class="c">% Now build indexing vector assuming NaN are worse than numbers,&lt;/span>
+&lt;span class="ln">73&lt;/span> &lt;span class="c">% (including Inf!)...&lt;/span>
+&lt;span class="ln">74&lt;/span> &lt;span class="n">ix&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nb">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NaNix&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="n">Validix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">)];&lt;/span>
+&lt;span class="ln">75&lt;/span> &lt;span class="c">% ... and obtain a sorted version of ObjV&lt;/span>
+&lt;span class="ln">76&lt;/span> &lt;span class="n">Sorted&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ObjVSub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">77&lt;/span>
+&lt;span class="ln">78&lt;/span> &lt;span class="c">% Assign fitness according to RFun.&lt;/span>
+&lt;span class="ln">79&lt;/span> &lt;span class="nb">i&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">80&lt;/span> &lt;span class="n">FitnVSub&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">zeros&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">81&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="nb">j&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nb">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Sorted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="n">Sorted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="ln">82&lt;/span> &lt;span class="n">FitnVSub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">i&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nb">j&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">sum&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RFun&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">i&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nb">j&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">j&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nb">i&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nb">j&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nb">i&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">83&lt;/span> &lt;span class="nb">i&lt;/span> &lt;span class="p">=&lt;/span>&lt;span class="nb">j&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">84&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">85&lt;/span>
+&lt;span class="ln">86&lt;/span> &lt;span class="c">% Finally, return unsorted vector.&lt;/span>
+&lt;span class="ln">87&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">uix&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">sort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ix&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">88&lt;/span> &lt;span class="n">FitnVSub&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">FitnVSub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uix&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">89&lt;/span>
+&lt;span class="ln">90&lt;/span> &lt;span class="c">% Add FitnVSub to FitnV&lt;/span>
+&lt;span class="ln">91&lt;/span> &lt;span class="n">FitnV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">FitnV&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">FitnVSub&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;span class="ln">92&lt;/span>&lt;span class="k">end&lt;/span>
+&lt;span class="ln">93&lt;/span>
+&lt;span class="ln">94&lt;/span>
+&lt;span class="ln">95&lt;/span>&lt;span class="c">% End of function&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="未完成多种群">未完成：多种群&lt;/h3>
+&lt;h2 id="参考文献">参考文献&lt;/h2>
+&lt;p>[1] K. A. De Jong, Analysis of the Behaviour of a Class of Genetic Adaptive Systems, PhD Thesis, Dept. of Computer and Communication Sciences, University of Michigan, Ann Arbor, 1975.&lt;/p>
+&lt;p>[2] J. E. Baker, “Adaptive Selection Methods for Genetic Algorithms”, Proc. ICGA 1, pp. 101-111, 1985.&lt;/p></description></item><item><title>matlab-genetic-toolbox-1</title><link>https://surprisedcat.github.io/projectnotes/matlab-genetic-toolbox-1/</link><pubDate>Wed, 13 Jan 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/matlab-genetic-toolbox-1/</guid><description>
+&lt;h2 id="matlab遗传算法工具箱sheffield源码解析1---omit-in-toc---">MatLab遗传算法工具箱（Sheffield）源码解析（1）&lt;!-- omit in toc -->&lt;/h2>
+&lt;h2 id="创建种群相关函数">创建种群相关函数&lt;/h2>
+&lt;p>crtbase：创建一个包含基因基因座信息的向量。&lt;/p>
+&lt;h2 id="crtbase">crtbase&lt;/h2>
+&lt;p>crtbase：创建一个包含基因基因座信息的向量。&lt;/p>
+&lt;p>关于这个函数的释义，原文文档解释如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="c">% CRTBASE.m - Create base vector &lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c">% This function creates a vector containing the base of the loci&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c">% in a chromosome.&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c">% Syntax: BaseVec = crtbase(Lind, Base)&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c">% Input Parameters:&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c">% Lind - A scalar or vector containing the lengths&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="c">% of the alleles. Sum(Lind) is the length of&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c">% the corresponding chromosome.这句话很重要Lind的和是基因的长度。&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c">% Base - A scalar or vector containing the base of&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c">% the loci contained in the Alleles.&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="c">% Output Parameters:&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="c">% BaseVec - A vector whose elements correspond to the base&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c">% of the loci of the associated chromosome structure.&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="c">% Author: Andrew Chipperfield&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="c">% Date: 19-Jan-94&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是看了源码之后，我发现一些疑似bug的地方，下文用将会标注出来，我自己修正了一下。这个项目是九几年的，而且matlab也出了自己的遗传算法工具箱gatool，所以这个bug权当是学习了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">function&lt;/span>&lt;span class="w"> &lt;/span>BaseVec &lt;span class="p">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">crtbase&lt;/span>&lt;span class="p">(&lt;/span>Lind, Base&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="c">%使用逗号区分返回值&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">ml&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">LenL&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">nargin&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="mi">2&lt;/span> &lt;span class="c">% 只有一个参数执行&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="c">%这里ones()的行列是相反的&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="n">Base&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">LenL&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="k">end&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c">%使用逗号区分返回值&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">mb&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">LenB&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Base&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="c">% check parameter consistency&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c">% 使用||和&amp;amp;&amp;amp;替换|和&amp;amp;&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">ml&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="n">mb&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c">% 限定必须都是一维行向量&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Lind or Base is not a vector&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="k">elseif&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">LenL&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">LenB&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">LenL&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="n">LenB&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">LenL&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">LenB&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Vector dimension must agree&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="k">elseif&lt;/span> &lt;span class="n">LenB&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">LenL&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="mi">1&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="c">%这里的ones()行列是相反的&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="n">Base&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Base&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">LenL&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="k">end&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="n">BaseVec&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[];&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="nb">i&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">LenL&lt;/span>
+&lt;span class="ln">24&lt;/span> &lt;span class="c">%这里ones()的行列是相反的&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="n">BaseVec&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">BaseVec&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Base&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">i&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">i&lt;/span>&lt;span class="p">))];&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="k">end&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="crtbp">crtbp&lt;/h2>
+&lt;p>crtbp:创建任意进制的离散随机种群。这个函数可有三种格式。&lt;/p>
+&lt;ol>
+&lt;li>[Chrom, Lind, BaseV] = crtbp(Nind, Lind)。 创建一个Nind*Lind的随机二进制矩阵。Nind与Lind都是标量，Nind表示种群中个体数量，Lind表示基因长度。&lt;/li>
+&lt;li>[Chrom, Lind, BaseV] = crtbp(Nind, Base)。创建一个Nind*Base长度的矩阵。Nind是标量，Base是矢量，base中的值，表示基因位的进制数。或者Nind是矢量，第一位表示个数，第二位表示基因长度Base是矢量，base中的值，表示基因位的进制数。&lt;/li>
+&lt;li>[Chrom, Lind, BaseV] = crtbp(Nind, Lind, Base)。创建一个Nind*Lind的随机矩阵，每一位的进制数由Base决定。&lt;/li>
+&lt;/ol>
+&lt;p>关于这个函数的释义，原文文档解释如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="c">% crtbp.m - Create an initial population&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c">% This function creates a binary population of given size and structure.&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c">% Syntax: [Chrom Lind BaseV] = crtbp(Nind, Lind, Base)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c">% Input Parameters:&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c">% Nind - Either a scalar containing the number of individuals&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c">% in the new population or a row vector of length two&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="c">% containing the number of individuals and their length.&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c">% Lind - A scalar containing the length of the individual&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c">% chromosomes.&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c">% Base - A scalar containing the base of the chromosome &lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="c">% elements or a row vector containing the base(s) &lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c">% of the loci of the chromosomes.&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c">% Output Parameters:&lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="c">% Chrom - A matrix containing the random valued chromosomes &lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="c">% row wise.&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">25&lt;/span>&lt;span class="c">% Lind - A scalar containing the length of the chromosome.&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">27&lt;/span>&lt;span class="c">% BaseV - A row vector containing the base of the &lt;/span>
+&lt;span class="ln">28&lt;/span>&lt;span class="c">% chromosome loci.&lt;/span>
+&lt;span class="ln">29&lt;/span>
+&lt;span class="ln">30&lt;/span>&lt;span class="c">% Author: Andrew Chipperfield&lt;/span>
+&lt;span class="ln">31&lt;/span>&lt;span class="c">% Date: 19-Jan-94&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码解析如下：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">function&lt;/span>&lt;span class="w"> &lt;/span>[Chrom, Lind, BaseV] &lt;span class="p">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">cxcrtbp&lt;/span>&lt;span class="p">(&lt;/span>Nind, Lind, Base&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="n">nargs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">nargin&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln"> 3&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c">%~表示这个变量后面不会用到&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">nargs&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">nN&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">nargs&lt;/span> &lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">nL&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="o">~&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">nB&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Base&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="n">nN&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="c">%Nind是一个向量，第一位Nind(1)表示种群数量，第二位Nind(2)表示基因长度。&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c">%仅有一个参数&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="n">Lind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="n">Nind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">13&lt;/span> &lt;span class="n">BaseV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">cxcrtbase&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">nL&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c">%Nind是一个向量,两个参数的时候，第二个参数必然是基因位的进制数,并且是一个标量&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="n">BaseV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">cxcrtbase&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="n">Lind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c">%Nind(2)其实是基因的长度，Lind原来值是进制数&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="n">Nind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">18&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">nL&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c">%Nind是一个向量,两个参数的时候，第二个参数必然是基因位的进制数,是一个向量&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c">%BUG 原来的代码if Lind ~= length(Lind), error(&amp;#39;Lind and Base disagree&amp;#39;); end&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="c">%这里是想做一个判断，看看基因的长度和基向量的长度是否一致，但是长度应该是Nind（2）而不是Lind，Lind在这个分值里BaseV&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="nb">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Lind and Base disagree&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">BaseV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Lind&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="n">Lind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span> &lt;span class="n">Nind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Nind&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">24&lt;/span>&lt;span class="k">elseif&lt;/span> &lt;span class="n">nN&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c">%Nind是一个标量，表示种群数量&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="c">%仅有一个参数&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Not enough input arguments.&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="c">%两个参数，需要看看第二位是标量还是向量&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nL&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="c">%第二个参数是标量。说明是基因长度&lt;/span>
+&lt;span class="ln">29&lt;/span> &lt;span class="n">BaseV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">cxcrtbase&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">30&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="c">% 第二个参数是向量，表示他是基向量&lt;/span>
+&lt;span class="ln">31&lt;/span> &lt;span class="n">BaseV&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Lind&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">32&lt;/span> &lt;span class="n">Lind&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">nL&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c">%基向量的长度表示基因的长度&lt;/span>
+&lt;span class="ln">33&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">34&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="n">nargs&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="c">% 第二位 Lind 标量，第三位基因进制信息&lt;/span>
+&lt;span class="ln">35&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nB&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;span class="ln">36&lt;/span> &lt;span class="n">BaseV&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">cxcrtbase&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Base&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c">%第三位标量，表示基因有统一的进制base&lt;/span>
+&lt;span class="ln">37&lt;/span> &lt;span class="k">elseif&lt;/span> &lt;span class="n">nB&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="n">Lind&lt;/span>
+&lt;span class="ln">38&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Lind and Base disagree&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">;&lt;/span>&lt;span class="c">%第三位向量，看看长度是否匹配&lt;/span>
+&lt;span class="ln">39&lt;/span> &lt;span class="k">else&lt;/span>
+&lt;span class="ln">40&lt;/span> &lt;span class="n">BaseV&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">Base&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="c">%标准形式，第一位Nind，第二位Lind，第三位BaseV&lt;/span>
+&lt;span class="ln">41&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">42&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">43&lt;/span>&lt;span class="k">end&lt;/span>
+&lt;span class="ln">44&lt;/span>
+&lt;span class="ln">45&lt;/span>&lt;span class="c">% Create a structure of random chromosomes in row wise order, dimensions&lt;/span>
+&lt;span class="ln">46&lt;/span>&lt;span class="c">% Nind by Lind. The base of each chromosomes loci is given by the value&lt;/span>
+&lt;span class="ln">47&lt;/span>&lt;span class="c">% of the corresponding element of the row vector base.&lt;/span>
+&lt;span class="ln">48&lt;/span>
+&lt;span class="ln">49&lt;/span>&lt;span class="c">%BaseV(ones(Nind,1),:)表示向量扩展成矩阵，重复扩展Nind行&lt;/span>
+&lt;span class="ln">50&lt;/span>&lt;span class="c">%floor 向下取整&lt;/span>
+&lt;span class="ln">51&lt;/span>&lt;span class="n">Chrom&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">rand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Lind&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.*&lt;/span>&lt;span class="n">BaseV&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">ones&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">),:));&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="crtrp">crtrp&lt;/h2>
+&lt;p>crtrp的功能是产生一个实数值种群,crtbp可以产生一定进制的种群，但都是离散值，crtrp是产生连续值（相对的）的种群。&lt;/p>
+&lt;p>crtrp的参数相对固定，必须要有两个，第一个Nind表示种群的个数，第二个参数为一个2*Lind的矩阵，分别代表着上下界，Lind为基因的长度。函数的源码介绍如下:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="c">% crtrp.m (CReaTe an initial (Real-value) Population)&lt;/span>
+&lt;span class="ln"> 2&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c">% This function creates a population of given size of random real-values. &lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="c">% Syntax: Chrom = crtrp(Nind,FieldDR);&lt;/span>
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="c">% Input parameters:&lt;/span>
+&lt;span class="ln"> 8&lt;/span>&lt;span class="c">% Nind - A scalar containing the number of individuals in the new &lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c">% population.&lt;/span>
+&lt;span class="ln">10&lt;/span>&lt;span class="c">%&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="c">% FieldDR - A matrix of size 2 by number of variables describing the&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c">% boundaries of each variable. It has the following structure:&lt;/span>
+&lt;span class="ln">13&lt;/span>&lt;span class="c">% [lower_bound; (vector with lower bound for each veriable)&lt;/span>
+&lt;span class="ln">14&lt;/span>&lt;span class="c">% upper_bound] (vector with upper bound for each veriable)&lt;/span>
+&lt;span class="ln">15&lt;/span>&lt;span class="c">% [lower_bound_var_1 lower_bound_var_2 ... lower_bound_var_Nvar;&lt;/span>
+&lt;span class="ln">16&lt;/span>&lt;span class="c">% upper_bound_var_1 upper_bound_var_2 ... upper_bound_var_Nvar]&lt;/span>
+&lt;span class="ln">17&lt;/span>&lt;span class="c">% example - each individuals consists of 4 variables:&lt;/span>
+&lt;span class="ln">18&lt;/span>&lt;span class="c">% FieldDR = [-100 -50 -30 -20; % lower bound&lt;/span>
+&lt;span class="ln">19&lt;/span>&lt;span class="c">% 100 50 30 20] % upper bound&lt;/span>
+&lt;span class="ln">20&lt;/span>&lt;span class="c">% &lt;/span>
+&lt;span class="ln">21&lt;/span>&lt;span class="c">% Output parameter:&lt;/span>
+&lt;span class="ln">22&lt;/span>&lt;span class="c">% Chrom - A matrix containing the random valued individuals of the&lt;/span>
+&lt;span class="ln">23&lt;/span>&lt;span class="c">% new population of size Nind by number of variables.&lt;/span>
+&lt;span class="ln">24&lt;/span>
+&lt;span class="ln">25&lt;/span>&lt;span class="c">% Author: Hartmut Pohlheim&lt;/span>
+&lt;span class="ln">26&lt;/span>&lt;span class="c">% History: 23.11.93 file created&lt;/span>
+&lt;span class="ln">27&lt;/span>&lt;span class="c">% 25.02.94 clean up, check parameter consistency&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>源码中输入参数处理的部分比上两个函数简单很多，却有一个明显bug，很多人也提过，就是nargin赋值的问题。同时将rep函数替换成系统自带的repmat函数，提高可靠性与性能。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln"> 1&lt;/span>&lt;span class="k">function&lt;/span>&lt;span class="w"> &lt;/span>Chrom &lt;span class="p">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">crtrp&lt;/span>&lt;span class="p">(&lt;/span>Nind,FieldDR&lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="ln"> 3&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">nargs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">nargin&lt;/span>
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="c">% Check parameter consistency&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">nargs&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;parameter FieldDR missing&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="c">%下面这句明显是个错误，nargin是个函数，不能赋值。注释掉，不需要&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="c">% BUG&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="c">%if nargs &amp;gt; 2, nargin = 2; end&lt;/span>
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">mN&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">nN&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">12&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">mF&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Nvar&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">FieldDR&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="ln">13&lt;/span>
+&lt;span class="ln">14&lt;/span> &lt;span class="c">%Nind必须是个标量，表示种群个数&lt;/span>
+&lt;span class="ln">15&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">mN&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="n">nN&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;Nind has to be a scalar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">16&lt;/span> &lt;span class="c">% FieldDR必须是个2行矩阵，第一行为下界，第二行为上界&lt;/span>
+&lt;span class="ln">17&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">mF&lt;/span> &lt;span class="o">~=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;FieldDR must be a matrix with 2 rows&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="k">end&lt;/span>
+&lt;span class="ln">18&lt;/span>
+&lt;span class="ln">19&lt;/span> &lt;span class="c">% Compute Matrix with Range of variables and Matrix with Lower value&lt;/span>
+&lt;span class="ln">20&lt;/span> &lt;span class="c">% 用来生成制定范围的随机数，使用matlab自带的repmat函数代替工具箱中的rep函数&lt;/span>
+&lt;span class="ln">21&lt;/span> &lt;span class="c">% repmat（arg1,arg2）函数：将矩阵arg1,扩展行arg2(1)次，列arg2(2)次&lt;/span>
+&lt;span class="ln">22&lt;/span> &lt;span class="n">Range&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">repmat&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">FieldDR&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,:)&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">FieldDR&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,:)),[&lt;/span>&lt;span class="n">Nind&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">23&lt;/span> &lt;span class="n">Lower&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">repmat&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">FieldDR&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,:),&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">Nind&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;span class="ln">24&lt;/span>
+&lt;span class="ln">25&lt;/span> &lt;span class="c">% Create initial population&lt;/span>
+&lt;span class="ln">26&lt;/span> &lt;span class="c">% Each row contains one individual, the values of each variable uniformly&lt;/span>
+&lt;span class="ln">27&lt;/span> &lt;span class="c">% distributed between lower and upper bound (given by FieldDR)&lt;/span>
+&lt;span class="ln">28&lt;/span> &lt;span class="n">Chrom&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">rand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Nind&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Nvar&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">.*&lt;/span> &lt;span class="n">Range&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Lower&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="ln">29&lt;/span>
+&lt;span class="ln">30&lt;/span>&lt;span class="c">% End of function&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>至此，Sheffield工具箱中的种群随机生成函数就这么多了。&lt;/p></description></item><item><title>matlab-notes</title><link>https://surprisedcat.github.io/projectnotes/matlab-notes/</link><pubDate>Sat, 09 Jan 2016 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/matlab-notes/</guid><description>
+&lt;h2 id="matlab使用的tips---omit-in-toc---">MatLab使用的Tips&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>Matlab安装新的工具箱，以Sheffield（设菲尔德大学）遗传算法工具箱为例。
+&lt;ol>
+&lt;li>解压gatbx-origin.zip，得到DOC和SRC文件夹；&lt;/li>
+&lt;li>拷贝SRC到Matlab安装目录下的toolbox文件夹中，并将SRC更名为genetic；&lt;/li>
+&lt;li>在Matlab的setpath中添加genetic所在的位置&lt;/li>
+&lt;li>v=ver('genetic')检验是否成功安装。如果成功：&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="ln">1&lt;/span>&lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">ver&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#39;genetic&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="ln">2&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="n">v&lt;/span> &lt;span class="p">=&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;span class="ln">5&lt;/span> &lt;span class="n">Name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#39;Genetic Algorithm Toolbox&amp;#39;&lt;/span>
+&lt;span class="ln">6&lt;/span> &lt;span class="n">Version&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#39;1.2&amp;#39;&lt;/span>
+&lt;span class="ln">7&lt;/span> &lt;span class="n">Release&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#39;&amp;#39;&lt;/span>
+&lt;span class="ln">8&lt;/span> &lt;span class="n">Date&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#39;15-Apr-94&amp;#39;&lt;/span>
+&lt;span class="ln">9&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

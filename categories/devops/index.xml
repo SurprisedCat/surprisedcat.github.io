@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>devops on SurprisedCat</title><link>https://surprisedcat.github.io/categories/devops/</link><description>Recent content in devops on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Thu, 25 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>devops-自动化部署自己的博客</title><link>https://surprisedcat.github.io/projectnotes/devops-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</link><pubDate>Thu, 25 Nov 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/projectnotes/devops-%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/</guid><description>
+&lt;h2 id="自动化部署自己的博客---omit-in-toc---">自动化部署自己的博客&lt;!-- omit in toc -->&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%80%9D%E8%B7%AF%E6%B1%87%E6%80%BB">思路汇总&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E9%80%89%E5%AE%9A%E9%9C%80%E8%A6%81git%E7%AE%A1%E7%90%86%E7%9A%84%E5%86%85%E5%AE%B9">选定需要git管理的内容&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#gitignore%E6%B7%BB%E5%8A%A0%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6%E5%A4%B1%E6%95%88%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95">gitignore添加忽略文件失效的处理方法&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E5%9C%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%90%AD%E5%BB%BAgit%E6%9C%8D%E5%8A%A1%E5%99%A8">在云服务器上搭建git服务器&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E5%88%9B%E5%BB%BAgit%E7%94%A8%E6%88%B7%E5%92%8C%E5%BA%93%E6%96%87%E4%BB%B6">创建Git用户和库文件&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%B7%BB%E5%8A%A0ssh%E5%85%AC%E9%92%A5">添加ssh公钥&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%9C%AC%E5%9C%B0%E5%BA%93%E8%AE%BE%E7%BD%AE%E8%BF%9C%E7%A8%8B%E5%BA%93%E7%9A%84%E5%9C%B0%E5%9D%80">本地库设置远程库的地址&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%9B%B4%E6%96%B0%E6%96%B9%E6%B3%95">远程仓库的工作区更新方法&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E6%8E%A8%E9%80%81%E7%BB%99%E8%A3%B8%E4%BB%93%E5%BA%93%E7%9A%84%E6%83%85%E5%BD%A2">推送给裸仓库的情形&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%8E%A8%E9%80%81%E7%BB%99%E6%99%AE%E9%80%9A%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E6%83%85%E5%BD%A2">推送给普通远程仓库的情形&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E8%AE%BE%E7%BD%AEpost-receive-hook%E5%AE%8C%E6%88%90%E5%86%85%E5%AE%B9%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0">设置post-receive hook完成内容自动更新&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E8%A3%B8%E4%BB%93%E5%BA%93%E7%9A%84%E6%9B%B4%E6%96%B0">裸仓库的更新&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%99%AE%E9%80%9A%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E6%9B%B4%E6%96%B0%E8%84%9A%E6%9C%AC">普通远程仓库的更新脚本&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E4%BD%BF%E7%94%A8hugo%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7">使用HUGO作为博客生成工具&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#%E4%BF%AE%E6%94%B9hugo%E5%8D%9A%E5%AE%A2%E7%9A%84clarity%E4%B8%BB%E9%A2%98">修改Hugo博客的clarity主题&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E4%B8%8A%E4%BC%A0%E4%BF%AE%E6%94%B9%E5%A5%BD%E7%9A%84hugo%E5%8D%9A%E5%AE%A2">上传修改好的Hugo博客&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#%E4%BD%BF%E7%94%A8jenkins%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2%E7%BD%91%E7%AB%99">使用Jenkins自动化部署网站&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#%E6%8E%A8%E9%80%81%E5%88%B0github%E5%B9%B6%E7%94%9F%E6%88%90gitpages">推送到Github并生成Gitpages&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="思路汇总">思路汇总&lt;/h2>
+&lt;p>我自己分几个文件夹写了一些笔记和资料，现在想用Hugo部署到自己的云主机上同时同步到github上，利用gitpage在生成一个blog，也就是自动生成两个同步的blog，初步体验一下DevOps流程。目前本地使用win10，带有git；云主机是Debian 10，有golang 1.15.14环境。主要使用了git hooks和jenkins，以及rsync作为补充。&lt;/p>
+&lt;p>&lt;img src="../../images/devops.png" alt="DevOps">&lt;/p>
+&lt;p>总体思路：&lt;/p>
+&lt;ol>
+&lt;li>由于本地文件夹都放在一起，首先通过编辑.gitignore文件，指定需要git管理的几个文件。&lt;/li>
+&lt;li>将自己的云服务器作为一个git remote仓库，管理自己的这些资料和笔记&lt;/li>
+&lt;li>在云服务器的git repo中设置hook，将这些本来在不同文件夹中笔记和资料&lt;del>复制到特定文件夹中&lt;/del>。注:用hook复制的方法并不好，因为当文件名称修改或被删除时，就无法实现文件的同步。
+&lt;ul>
+&lt;li>改成在远程主机上再设置一个git仓库，设置post-receive hook通知jenkins将提交的内容pull到云主机新的仓库中&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>建立hugo文件到git仓库的软链接，不能使用软链接的用rsync同步过去，当hugo编译的时候实际使用的是git仓库中的文件&lt;/li>
+&lt;li>使用jenkins自动构建部署云服务器上的Hugo blog&lt;/li>
+&lt;li>将完整的编译好的Hugo blog推送到GitHub，利用GitPages生成网站。&lt;/li>
+&lt;/ol>
+&lt;p>为什么不设置两个remote repo分别推送？怕自己疏忽，造成大量的冲突处理问题。&lt;/p>
+&lt;p>为什么不先推送到GitHub再用Github Actions推送到云上？自己觉得在云上折腾比较方便，就当云是测试环境，GitHub是发布环境吧。&lt;/p>
+&lt;h2 id="选定需要git管理的内容">选定需要git管理的内容&lt;/h2>
+&lt;p>我们在有很多文件/文件夹的地方执行&lt;code>git init .&lt;/code>时，会有大量不需要的文件也被放入待添加空间，我们需要先创建一个&lt;code>.gitignore&lt;/code>文件筛选出我们需要的文件。比如，我们需要保留images，学习笔记，工程笔记，网页资料四个文件夹，其他全部不要，则&lt;code>.gitignore&lt;/code>文件可以写成:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 先忽略跟文件下所有文件，开头使用/防止递归&lt;/span>
+&lt;span class="ln"> 2&lt;/span>/*
+&lt;span class="ln"> 3&lt;/span>&lt;span class="c1"># 取反所有需要git管理的文件&lt;/span>
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># images图片文件夹&lt;/span>
+&lt;span class="ln"> 5&lt;/span>!/images
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># 笔记文件夹：学习笔记，工程笔记&lt;/span>
+&lt;span class="ln"> 7&lt;/span>!/学习笔记
+&lt;span class="ln"> 8&lt;/span>!/工程笔记
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 资料文件夹，已提前都转为网页格式&lt;/span>
+&lt;span class="ln">10&lt;/span>!/网页资料
+&lt;span class="ln">11&lt;/span>&lt;span class="c1"># .gitignore本身&lt;/span>
+&lt;span class="ln">12&lt;/span>!.gitignore
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后查看目前状态：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ git status
+&lt;span class="ln"> 2&lt;/span>On branch master
+&lt;span class="ln"> 3&lt;/span>No commits yet
+&lt;span class="ln"> 4&lt;/span>Untracked files:
+&lt;span class="ln"> 5&lt;/span> &lt;span class="o">(&lt;/span>use &lt;span class="s2">&amp;#34;git add &amp;lt;file&amp;gt;...&amp;#34;&lt;/span> to include in what will be committed&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span> .gitignore
+&lt;span class="ln"> 7&lt;/span> images/
+&lt;span class="ln"> 8&lt;/span> 学习笔记/
+&lt;span class="ln"> 9&lt;/span> 工程笔记/
+&lt;span class="ln">10&lt;/span> 网页资料/
+&lt;span class="ln">11&lt;/span>nothing added to commit but untracked files present &lt;span class="o">(&lt;/span>use &lt;span class="s2">&amp;#34;git add&amp;#34;&lt;/span> to track&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>没有问题，接下来正常流程，添加进git本地库。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ git add .
+&lt;span class="ln">2&lt;/span>......
+&lt;span class="ln">3&lt;/span>$ git commit -m &lt;span class="s2">&amp;#34;首次将images，学习笔记，工程笔记，网页资料四个文件夹添加进repo&amp;#34;&lt;/span>
+&lt;span class="ln">4&lt;/span>......
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果是初次使用git，还要先配置用户信息，这一点很重要，因为每一个Git提交都会使用这些信息，它们会写入到你的每一次提交中，不可更改。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ git config --global user.name &lt;span class="s2">&amp;#34;John Doe&amp;#34;&lt;/span>
+&lt;span class="ln">2&lt;/span>$ git config --global user.email johndoe@example.com
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 然后查看现有的全局信息，已有用户信息&lt;/span>
+&lt;span class="ln">4&lt;/span>$ git config --list
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="gitignore添加忽略文件失效的处理方法">gitignore添加忽略文件失效的处理方法&lt;/h3>
+&lt;p>如果项目开始的时候没有将一些无关文件配置进&lt;code>.gitignore&lt;/code>里面,导致文件已经进行跟踪了，但是目前想把这些文件添加到&lt;code>.gitignore&lt;/code>文件中，但是发现没有效果。&lt;strong>这是因为&lt;code>.gitignore&lt;/code>对已被&lt;code>git&lt;/code>管理的文件无效&lt;/strong>。在这种情况下，必须使用&lt;code>git rm --cached &amp;lt; file name &amp;gt;&lt;/code>这个命令来移除对这个文件的跟踪，然后将不想被跟踪的文件添加到&lt;code>.gitignore&lt;/code>文件里面就可以了。&lt;/p>
+&lt;h2 id="在云服务器上搭建git服务器">在云服务器上搭建git服务器&lt;/h2>
+&lt;p>由于git是完全分布式设计，本质上，各个git库之间是没有主次之分的（各个库之间实际上都可以互相pull/push）。因此，在云服务器上搭建一个git服务器和客户端安装git过程上没有区别。在win 10 上安装git安装包（&lt;strong>包括git bash，它有一个奇葩设计之后再说&lt;/strong>），在Debian 10上使用&lt;code>sudo apt install git&lt;/code>安装。我们“人为决定”让云服务器上的git repo作为“公共库”，本地主机上的作为工作环境。&lt;/p>
+&lt;h3 id="创建git用户和库文件">创建Git用户和库文件&lt;/h3>
+&lt;p>在云服务器上，我们最好再添加一个专用git用户（不添加也可以，URL中git@domain.com:port或git@ip:port就是git作为用户名，如果你用的是别的用户，比如jack，那么就用jack@domain.com:port）&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 在云服务器上&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ sudo adduser git
+&lt;span class="ln"> 3&lt;/span>......... &lt;span class="c1"># 这里会设定git的密码，要记住&lt;/span>
+&lt;span class="ln"> 4&lt;/span>.........
+&lt;span class="ln"> 5&lt;/span>.........
+&lt;span class="ln"> 6&lt;/span>$ &lt;span class="nb">cd&lt;/span> /srv &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> sudo mkdir gitblogs.git &lt;span class="c1"># 未来把/srv/gitblogs.git作为库位置，一般git库都以.git作为结尾&lt;/span>
+&lt;span class="ln"> 7&lt;/span>$ sudo chown -R git:git gitblogs.git &lt;span class="c1"># 把所属用户从root改成git&lt;/span>
+&lt;span class="ln"> 8&lt;/span>$ su - git &lt;span class="c1"># 带 - 符号表示环境变量也跟着切换&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 如果把git设置成非登录用户，则以下操作用root执行，再把文件拥有者和组改成git&lt;/span>
+&lt;span class="ln">10&lt;/span>.......... &lt;span class="c1"># 输入git用户密码&lt;/span>
+&lt;span class="ln">11&lt;/span>$ id &lt;span class="c1"># 实际id号码可能有区别&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="nv">uid&lt;/span>&lt;span class="o">=&lt;/span>1001&lt;span class="o">(&lt;/span>git&lt;span class="o">)&lt;/span> &lt;span class="nv">gid&lt;/span>&lt;span class="o">=&lt;/span>1001&lt;span class="o">(&lt;/span>git&lt;span class="o">)&lt;/span> &lt;span class="nv">groups&lt;/span>&lt;span class="o">=&lt;/span>1001&lt;span class="o">(&lt;/span>git&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>有的用&lt;code>useradd git&lt;/code>创建新用户，这样只是创建了一个最小用户结构，里面很多设置、环境变量得自己弄，比较麻烦。自己也没那么多安全性讲究（包括但不限于nonlogin设置），就不那么麻烦了，直接&lt;code>sudo adduser git&lt;/code>搞定。下面我们要在云端建立存储内容的仓库，有两种方式：一是建立裸库，二是建立普通库来实现同步。建立裸库之后，里面什么都没有，即使push内容之后也不会显示到工作区，也无法进行操作，只是单纯的一个存储仓库，需要在云端建立一个中转普通仓库来读取内容；建立普通库可以不用再在云端建立中转库，但是需要post-receive钩子来实现内容更新。我这里更推荐第一种。&lt;/p>
+&lt;p>下面是初始化裸库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">cd&lt;/span> /srv/gitblogs.git
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 远程服务器初始化仓库&lt;/span>
+&lt;span class="ln">3&lt;/span>$ git init . --bare
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下面是初始化普通库&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">cd&lt;/span> /srv/gitblogs.git
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 远程服务器初始化仓库&lt;/span>
+&lt;span class="ln">3&lt;/span>$ git init .
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># 允许向普通库push&lt;/span>
+&lt;span class="ln">5&lt;/span>$ git config receive.denyCurrentBranch ignore
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>详细说明如下：&lt;/p>
+&lt;p>（1）我们可以用&lt;code>git init .&lt;/code>建立一个普通库，而非裸库。当你创建一个普通库时，在工作目录下，除了.git目录之外，你还可以看到库中所包含的所有源文件。你拥有了一个可以进行浏览和修改（add, commit, delete等）的本地库。当你创建一个裸库时，在工作目录下，只有一个.git目录，&lt;strong>裸库是没有工作区的&lt;/strong>！库仅包含记录着版本历史的文件。如果建立的是普通库，由于有工作区，可以直接把hugo博客内容的软连接建立到普通库的文件中，但是git不鼓励直接操作远程仓库的内容，所以我推荐在云上建立裸库后，在建立第二个普通库作为中转。&lt;/p>
+&lt;p>（2）自Git 1.6.2版以来，Git默认不会让你推送到非裸库。这是因为&lt;code>git push&lt;/code>命令仅更新远程存储库上的分支和HEAD引用。&lt;strong>它不会更新非裸机中的工作区副本、暂存区和版本指针&lt;/strong>。因此我们让git需要忽略这个要求，即&lt;code>git config receive.denyCurrentBranch ignore&lt;/code>。此外，由于工作区也不会自动更新，我们后面会使用post-receive hook来更新工作区内容。&lt;/p>
+&lt;h3 id="添加ssh公钥">添加ssh公钥&lt;/h3>
+&lt;p>首先，保证&lt;strong>服务端&lt;/strong>是允许通过公钥登陆，在&lt;code>/etc/ssh/sshd_config&lt;/code>中，去掉公钥登录相关的注释符。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 通过公钥登录，如果需要就去掉前面的注释符&lt;/span>
+&lt;span class="ln">2&lt;/span>PubkeyAuthentication yes
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 指定存放客户端ssh公钥的文件的位置&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># Expect .ssh/authorized_keys2 to be disregarded by default in future.&lt;/span>
+&lt;span class="ln">5&lt;/span>AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其次，在&lt;strong>客户端生成公私钥对&lt;/strong>，win 10可以用cmd或git bash生成：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 生成公私钥对，下面一路回车即可&lt;/span>
+&lt;span class="ln">2&lt;/span>$ ssh-keygen -t rsa
+&lt;span class="ln">3&lt;/span>Generating public/private rsa key pair.
+&lt;span class="ln">4&lt;/span>Enter file in which to save the key &lt;span class="o">(&lt;/span>++++++++++&lt;span class="o">)&lt;/span>:
+&lt;span class="ln">5&lt;/span>Created directory &lt;span class="s1">&amp;#39;++++++++++&amp;#39;&lt;/span>.
+&lt;span class="ln">6&lt;/span>Enter passphrase &lt;span class="o">(&lt;/span>empty &lt;span class="k">for&lt;/span> no passphrase&lt;span class="o">)&lt;/span>:
+&lt;span class="ln">7&lt;/span>Enter same passphrase again:
+&lt;span class="ln">8&lt;/span>Your identification has been saved in ++++++++++/id_rsa.
+&lt;span class="ln">9&lt;/span>Your public key has been saved in ++++++++++/id_rsa.pub.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>'++++++++++'指的是公私钥对存放的位置（Windows用户在C:\用户\“用户名”\.ssh目录下可以看到系统的.ssh公钥id_rsa.pub），打开该位置，然后将&lt;code>id_rsa.pub&lt;/code>文件中的内容复制出来，放到&lt;strong>服务端&lt;/strong>的&lt;code>.ssh/authorized_keys&lt;/code>文件中(没有就在此位置新建一个)，即可通过公钥进行clone、push和pull操作。&lt;/p>
+&lt;blockquote>
+&lt;p>也可不添加公钥，每次使用git用户的密码进行clone、push和pull操作。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="本地库设置远程库的地址">本地库设置远程库的地址&lt;/h3>
+&lt;p>由于为了平衡简单和安全，我们不用HTTP和Git协议（没装git-daemon），而选用SSH协议作为本地端和云服务器段的传输。SSH协议用于为Git提供远程读写操作，是远程写操作的标准服务，在智能HTTP协议出现之前，甚至是写操作的唯一标准服务。&lt;/p>
+&lt;p>对于拥有shell登录权限的用户帐号，可以用下面的语法访问Git版本库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1">#语法1： &lt;/span>
+&lt;span class="ln">2&lt;/span>$ ssh://&lt;span class="o">[&lt;/span>&amp;lt;username&amp;gt;@&lt;span class="o">]&lt;/span>&amp;lt;server&amp;gt;&lt;span class="o">[&lt;/span>:&amp;lt;port&amp;gt;&lt;span class="o">]&lt;/span>/path/to/repos/myrepo.git
+&lt;span class="ln">3&lt;/span>&lt;span class="c1">#语法2：&lt;/span>
+&lt;span class="ln">4&lt;/span>$ &lt;span class="o">[&lt;/span>&amp;lt;username&amp;gt;@&lt;span class="o">]&lt;/span>&amp;lt;server&amp;gt;:/path/to/repos/myrepo.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>第一种是使用ssh://开头的SSH协议标准URL写法，另外一种是SCP格式的写法。
+两种写法均可，SSH协议标准URL写法稍嫌复杂，&lt;strong>但是对于非标准SSH端口（非22端口），可以通过URL给出端口号&lt;/strong>。由于我使用5122作为ssh端口号，所以我使用第一种语法。&lt;/p>
+&lt;p>在本地git库添加远程仓库地址&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 添加远程地址&lt;/span>
+&lt;span class="ln">2&lt;/span>$ git remote add origin ssh://git@&lt;span class="s2">&amp;#34;your IP or domain&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;port number&amp;#34;&lt;/span>/srv/gitblogs.git
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 推送本地仓库到远程仓库&lt;/span>
+&lt;span class="ln">4&lt;/span>$ git push -u origin master
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>下面要要体现一个git bash的骚操作了&lt;/strong>！&lt;/p>
+&lt;p>由于，我的云服务器上的git用户是新创建的，因此其ssh公钥也是新添加的，首次登陆git用户也是通过root用户&lt;code>su&lt;/code>过去的，之后就没有尝试登陆。我通过&lt;code>git push -u origin master&lt;/code>推送的时候，git bash跳出了让我输密码的框框，如下图：&lt;/p>
+&lt;p>&lt;img src="../../images/git_bash%E5%9D%91%E4%BA%BA%E8%AE%BE%E8%AE%A1.png" alt="git_bash坑人设计">&lt;/p>
+&lt;p>我觉得有些不对劲，因为我已经添加了公钥，理论上不应该再需要密码。我还是尝试输入了云服务器git用户的密码，显示不对，我有输入本地电脑的密码也不对，我就很奇怪。查了查资料，也没有我这个情况。&lt;/p>
+&lt;p>接下来，我尝试直接用VS code的git插件push，居然等了10多分钟还push不上去。最后，我使用windows自带的cmd执行&lt;code>git push -u origin master&lt;/code>，跳出来一行通知：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-cmd" data-lang="cmd">&lt;span class="ln">1&lt;/span>Microsoft Windows [版本 10.0.18363.1916]
+&lt;span class="ln">2&lt;/span>&lt;span class="p">(&lt;/span>c&lt;span class="p">)&lt;/span> 2019 Microsoft Corporation。保留所有权利。
+&lt;span class="ln">3&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> git push -u origin master
+&lt;span class="ln">4&lt;/span>The authenticity of host &amp;#39;[xxx.xxx.xxx.xxx]:xxxx ([xxx.xxx.xxx.xxx]:xxxx)&amp;#39; can&amp;#39;t be established.
+&lt;span class="ln">5&lt;/span>ECDSA key fingerprint is SHA256:8KEtnlH6cLQlFGYgDZgK12qDiiElEgX3PDV+X9xaiYY.
+&lt;span class="ln">6&lt;/span>Are you sure you want to continue connecting (yes/no)?
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>额，发现了没有？首次登陆ssh服务端首要确认key fingerprint的！也就是说，我们在git bash跳出的密码框里输入的不是什么密码，而是“yes”!!!&lt;/p>
+&lt;p>我重置了环境，在git bash跳出的密码框输了“yes”，不出所料，通过了…………🤣🤣🤣所以，git bash为什么要跳出密码框啊！误导人啊！之后，VS Code的git插件也能自动push上去了，这里也算发现VS Code git插件的一个小小问题，希望以后能改正吧。&lt;/p>
+&lt;h3 id="远程仓库的工作区更新方法">远程仓库的工作区更新方法&lt;/h3>
+&lt;p>无论是使用裸仓库还是使用普通仓库，我们都要读取最新更新的内容，裸仓库可以被正常clone和push更新，但是裸仓库不包含工作区，所以并不会存在在裸仓库上直接出现可用文件，需要建立一个普通中转仓库读取最新内容；而普通仓库存在工作区不自动更新问题，也需要用户自己更新。&lt;/p>
+&lt;h4 id="推送给裸仓库的情形">推送给裸仓库的情形&lt;/h4>
+&lt;p>如果之前建立的是裸仓库，里面是不会显示出任何用户内容的，需要建立一个中转普通仓库。这个中转普通仓库从裸仓库中pull最新的内容，提供给hugo blog。&lt;/p>
+&lt;p>我们在云端裸仓库同一文件夹中，新建一个中转仓库：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ &lt;span class="nb">cd&lt;/span> /srv &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> sudo mkdir blogtransfer.git &lt;span class="c1"># /srv/blogtransfer.git作为中转仓库，一般git库都以.git作为结尾&lt;/span>
+&lt;span class="ln">2&lt;/span>$ sudo chown -R git:git blogtransfer.git &lt;span class="c1"># 把所属用户从root改成git&lt;/span>
+&lt;span class="ln">3&lt;/span>$ su - git &lt;span class="c1"># 带 - 符号表示环境变量也跟着切换&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># 将裸仓库内容clone到中转仓库，使用git的本地协议&lt;/span>
+&lt;span class="ln">5&lt;/span>$ git clone /srv/gitblogs.git/ /srv/blogtransfer.git
+&lt;span class="ln">6&lt;/span>Cloning into &lt;span class="s1">&amp;#39;/srv/blogtransfer.git&amp;#39;&lt;/span>...
+&lt;span class="ln">7&lt;/span>&lt;span class="k">done&lt;/span>.
+&lt;span class="ln">8&lt;/span>$ ls /srv/blogtransfer.git
+&lt;span class="ln">9&lt;/span>images 学习笔记 工程笔记 网页资料
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>初次&lt;code>git clone&lt;/code>后，每当我们从本地提交新的内容，可以在&lt;code>/srv/blogtransfer.git&lt;/code>文件夹中，使用&lt;code>git pull&lt;/code>更新。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ &lt;span class="nb">cd&lt;/span> /srv/blogtransfer.git/
+&lt;span class="ln"> 2&lt;/span>$ git pull &lt;span class="c1"># 我做了一个修改，来进行测试&lt;/span>
+&lt;span class="ln"> 3&lt;/span>remote: Counting objects: 7, &lt;span class="k">done&lt;/span>.
+&lt;span class="ln"> 4&lt;/span>remote: Compressing objects: 100% &lt;span class="o">(&lt;/span>4/4&lt;span class="o">)&lt;/span>, &lt;span class="k">done&lt;/span>.
+&lt;span class="ln"> 5&lt;/span>remote: Total &lt;span class="m">4&lt;/span> &lt;span class="o">(&lt;/span>delta 3&lt;span class="o">)&lt;/span>, reused &lt;span class="m">0&lt;/span> &lt;span class="o">(&lt;/span>delta 0&lt;span class="o">)&lt;/span>
+&lt;span class="ln"> 6&lt;/span>Unpacking objects: 100% &lt;span class="o">(&lt;/span>4/4&lt;span class="o">)&lt;/span>, &lt;span class="k">done&lt;/span>.
+&lt;span class="ln"> 7&lt;/span>From /srv/gitblogs
+&lt;span class="ln"> 8&lt;/span> f9e0b20..a33731d master -&amp;gt; origin/master
+&lt;span class="ln"> 9&lt;/span>Updating f9e0b20..a33731d
+&lt;span class="ln">10&lt;/span>Fast-forward
+&lt;span class="ln">11&lt;/span> ...s-&lt;span class="se">\3&lt;/span>50&lt;span class="se">\2&lt;/span>07&lt;span class="se">\2&lt;/span>52&lt;span class="se">\3&lt;/span>45&lt;span class="se">\2&lt;/span>12&lt;span class="se">\2&lt;/span>50&lt;span class="se">\3&lt;/span>45&lt;span class="se">\2&lt;/span>14&lt;span class="se">\2&lt;/span>26&lt;span class="se">\3&lt;/span>51&lt;span class="se">\2&lt;/span>03&lt;span class="se">\2&lt;/span>50&lt;span class="se">\3&lt;/span>47&lt;span class="se">\2&lt;/span>75&lt;span class="se">\2&lt;/span>62&lt;span class="se">\3&lt;/span>50&lt;span class="se">\2&lt;/span>07&lt;span class="se">\2&lt;/span>52&lt;span class="se">\3&lt;/span>45&lt;span class="se">\2&lt;/span>67&lt;span class="se">\2&lt;/span>61&lt;span class="se">\3&lt;/span>47&lt;span class="se">\2&lt;/span>32&lt;span class="se">\2&lt;/span>04&lt;span class="se">\3&lt;/span>45&lt;span class="se">\2&lt;/span>15&lt;span class="se">\2&lt;/span>32&lt;span class="se">\3&lt;/span>45&lt;span class="se">\2&lt;/span>56&lt;span class="se">\2&lt;/span>42.md&lt;span class="s2">&amp;#34; | 105 ++++++++++++++++++++++++++++++++++++++++++++++----------------------
+&lt;/span>&lt;span class="ln">12&lt;/span>&lt;span class="s2"> 1 file changed, 71 insertions(+), 34 deletions(-)
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样，我们就可以从中转仓库读取内容。&lt;/p>
+&lt;h4 id="推送给普通远程仓库的情形">推送给普通远程仓库的情形&lt;/h4>
+&lt;p>如果之前建立的是普通库，当我们在本地完成第一次远程仓库推送后，登录到服务器的&lt;code>/srv/gitblogs.git&lt;/code>目录会发现，该目录里还是什么都没有啊，那和裸库有什么区别？！我们之前说了:&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;code>git push&lt;/code>命令仅更新远程存储库上的分支和HEAD信息。&lt;strong>它不会更新非裸机中的工作区副本、暂存区和版本指针&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>如果我们用&lt;code>git status&lt;/code>查看，会发现多了大量的修改记录，因此我们需要手动把版本库的“指针”指向最新的地方。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 把工作区回退到git库的版本（此情况下等同于更新）&lt;/span>
+&lt;span class="ln">2&lt;/span>$ git reset --hard
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样再查看&lt;code>/srv/gitblogs.git&lt;/code>目录就有最新的内容了。需要注意的是，每一次push推送后，普通仓库都要用&lt;code>git reset --hard&lt;/code>手动更新工作区。&lt;/p>
+&lt;h2 id="设置post-receive-hook完成内容自动更新">设置post-receive hook完成内容自动更新&lt;/h2>
+&lt;p>上面一章就已经提到过push裸仓库需要中转仓库来更新内容和push到非裸库，工作区不更新的这两方面问题，大多数人都是用post-receive hook来处理的。&lt;/p>
+&lt;p>Hook就是钩子，本质是一种触发器，代表在某种情况触发某种操作。Git的钩子脚本位于&lt;code>版本库.git/hooks&lt;/code>目录下，当Git执行特定操作时会调用特定的钩子脚本。当版本库通过&lt;code>git init&lt;/code>或者&lt;code>git clone&lt;/code>创建时，会在&lt;code>hooks&lt;/code>目录下创建示例脚本，用户可以参照示例脚本的写法开发适合的钩子脚本。&lt;/p>
+&lt;p>钩子脚本要设置为可运行，并使用特定的名称。Git提供的示例脚本都带有&lt;code>.sample&lt;/code>扩展名，是为了防止被意外运行。如果需要启用相应的钩子脚本，需要对其重命名（去掉&lt;code>.sample&lt;/code>扩展名）。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ ls
+&lt;span class="ln">2&lt;/span>applypatch-msg.sample fsmonitor-watchman.sample pre-applypatch.sample prepare-commit-msg.sample pre-rebase.sample update.sample
+&lt;span class="ln">3&lt;/span>commit-msg.sample post-update.sample pre-commit.sample pre-push.sample pre-receive.sample
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中，pre-commit、post-update、pre-receive、update等等代表着钩子被触发的情况。我们要的post-receive这里恰好没有，没关系，自己创建一个就行。&lt;/p>
+&lt;p>需要指出：裸仓库内直接可以看到&lt;code>hooks&lt;/code>目录，而非裸仓库需要在隐藏目录&lt;code>.git/hooks&lt;/code>下查看。&lt;/p>
+&lt;ul>
+&lt;li>裸仓库&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 新建post-receive构造，这是一个shell文件&lt;/span>
+&lt;span class="ln">2&lt;/span>$ touch /srv/gitblogs.git/hooks/post-receive
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 增加可执行权限&lt;/span>
+&lt;span class="ln">4&lt;/span>$ chmod +x /srv/gitblogs.git/hooks/post-receive
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>普通仓库&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 新建post-receive构造，这是一个shell文件&lt;/span>
+&lt;span class="ln">2&lt;/span>$ touch /srv/gitblogs.git/.git/hooks/post-receive
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 增加可执行权限&lt;/span>
+&lt;span class="ln">4&lt;/span>$ chmod +x /srv/gitblogs.git/.git/hooks/post-receive
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="裸仓库的更新">裸仓库的更新&lt;/h3>
+&lt;p>复制以下脚本到&lt;code>post-receive&lt;/code>文件来实现中转仓库的更新。&lt;/p>
+&lt;p>注意：这个脚本要复制到&lt;code>gitblogs.git&lt;/code>这个裸库的&lt;code>hooks/post-receive&lt;/code>文件中，而不是中转库的！&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;span class="ln">2&lt;/span>&lt;span class="cp">&lt;/span>git --work-tree&lt;span class="o">=&lt;/span>/srv/blogtransfer.git/ --git-dir&lt;span class="o">=&lt;/span>/srv/blogtransfer.git/.git pull
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="普通远程仓库的更新脚本">普通远程仓库的更新脚本&lt;/h3>
+&lt;p>我们将下面这个脚本复制到&lt;code>post-receive&lt;/code>文件来完成普通远程仓库的更新工作区。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;span class="ln"> 2&lt;/span>&lt;span class="cp">&lt;/span>&lt;span class="c1"># 几个地址变量&lt;/span>
+&lt;span class="ln"> 3&lt;/span>&lt;span class="nv">GITBLOGS_PATH&lt;/span>&lt;span class="o">=&lt;/span>/srv/gitblogs.git/
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 下面是自己记录的日志，方便查询记录用&lt;/span>
+&lt;span class="ln"> 5&lt;/span>&lt;span class="nv">LOG_PATH&lt;/span>&lt;span class="o">=&lt;/span>/tmp/gitblogs-post-receive-log
+&lt;span class="ln"> 6&lt;/span>
+&lt;span class="ln"> 7&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Here is the post-receive hook to update work tree by &amp;#39;git reset --hard&amp;#39;&amp;#34;&lt;/span> &amp;gt;&amp;gt; &lt;span class="nv">$LOG_PATH&lt;/span>
+&lt;span class="ln"> 8&lt;/span>
+&lt;span class="ln"> 9&lt;/span>&lt;span class="c1"># 输入时间等信息用于方便记录&lt;/span>
+&lt;span class="ln">10&lt;/span>date &amp;gt;&amp;gt; &lt;span class="nv">$LOG_PATH&lt;/span>
+&lt;span class="ln">11&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;git reset --hard&amp;#34;&lt;/span> &amp;gt;&amp;gt; &lt;span class="nv">$LOG_PATH&lt;/span>
+&lt;span class="ln">12&lt;/span>&lt;span class="c1"># 回复工作区到最新版本库&lt;/span>
+&lt;span class="ln">13&lt;/span>git --work-tree&lt;span class="o">=&lt;/span>&lt;span class="nv">$GITBLOGS_PATH&lt;/span> --git-dir&lt;span class="o">=&lt;/span>&lt;span class="nv">$GITBLOGS_PATH&lt;/span>/.git reset --hard &amp;gt;&amp;gt; &lt;span class="nv">$LOG_PATH&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="使用hugo作为博客生成工具">使用HUGO作为博客生成工具&lt;/h2>
+&lt;p>我们这里这里使用Hugo作为生成博客的工具。我们根据自身需求，要做以下修改：&lt;/p>
+&lt;ol>
+&lt;li>我的笔记是分类放在多个文件夹中，希望Hugo能够从多个目录中读取markdown 博客文章，这样我就不需要对本地文件结构做调整。&lt;/li>
+&lt;li>我有一个网页资料的文件夹，希望把它单独设置一个目录页面，而不出把它算成博客文章。我需要一个能生成文件夹目录txt文章的工具，然后此目录页面通过js读取并生成链接。&lt;/li>
+&lt;li>我的在本地写markdown的时候，使用图片的相对路径，且所有图片相对于博客文章的路径都是&lt;code>../images/&lt;/code>，而Hugo默认的图片路径都是根目录的绝对路径。&lt;/li>
+&lt;li>希望能把内容条件给百度等搜索引擎，github page其实不需要这个功能。&lt;/li>
+&lt;li>增加安全的评论功能，应该需要生成永久链接。&lt;/li>
+&lt;li>处理yaml front matter与一级目录重复的问题。&lt;/li>
+&lt;li>文章中遇到太多公式的时候。hugo自带的编译器渲染出来的公式效果很差，有大量无法编译的公式。&lt;/li>
+&lt;/ol>
+&lt;p>问题1解决：我将文章目录都放到了hugo的content目录，hugo会自动读取content下所有的目录和文件，并根据目录结构生成这也是选择hugo框架的一个优势。&lt;/p>
+&lt;p>问题2解决：由于hugo在content文件中不支持编译纯html文件，我将网页资料的文件夹放在&lt;code>/static/&lt;/code>目录下，然后在主题的&lt;code>lib_webpages&lt;/code>模板中用&lt;code>hugo&lt;/code>的&lt;code>readDir&lt;/code>函数读取文件夹中的内容，然后拼接成链接，不需要能生成文件夹目录txt文章的工具等步骤。目录则使用&lt;code>/content/library/webpages.html&lt;/code>生成，其调用了主题中的&lt;code>lib_webpages&lt;/code>模板。有个小缺点，即URL的层级关系被破坏。&lt;/p>
+&lt;p>问题3解决：在本地我用的是VS Code写markdown，我发现它是支持打开的文件作为根目录来索引文件的，即支持以打开的目录为&amp;quot;/&amp;quot;索引。因此，我把我所有本地的markdown文件中的&lt;code>../images/&lt;/code>改成了&lt;code>/images/&lt;/code>。其实用绝对路径对本地写markdown也是有好处的，就是主要打开的文件夹不变，就可以用多层文件结构编写文档，而不用总记相对路径；对网站的SEO也有利。此外，hugo对相对路径的支持也是有很多问题的，不值得花太多精力处理。&lt;/p>
+&lt;p>问题4TODO：参考&lt;a href="https://www.kyfws.com/post/kyfws-hugo-baidu-seo/">https://www.kyfws.com/post/kyfws-hugo-baidu-seo/&lt;/a>&lt;/p>
+&lt;p>问题5解决：可以通过hugo内置的&lt;code>_internal/disqus.html&lt;/code>完成评论功能，但是感觉我目前不太需要。&lt;/p>
+&lt;p>问题6解决：为了不让vscode 的markdownlint报错，我们首先将其多个一级标题警告“MD025/single-title/single-h1: Multiple top-level headings in the same document”取消。因为，VS Code的markdownlint插件会把yaml元标题当成是一级标题，因此需要在本地编辑环境目录中设置&lt;code>.markdownlint.json&lt;/code>文件&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="ln">1&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="ln">2&lt;/span> &lt;span class="nt">&amp;#34;MD025&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="ln">4&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后，我们为了让文章看起来更美观，采用以下形式：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="ln">1&lt;/span>---
+&lt;span class="ln">2&lt;/span>yaml meta info
+&lt;span class="ln">3&lt;/span>title : &amp;#34;TITLE&amp;#34;
+&lt;span class="ln">4&lt;/span>date : &amp;#34;2020-02-02&amp;#34;
+&lt;span class="ln">5&lt;/span>---
+&lt;span class="ln">6&lt;/span>
+&lt;span class="ln">7&lt;/span>目录/table of contents
+&lt;span class="ln">8&lt;/span>
+&lt;span class="ln">9&lt;/span>&lt;span class="gu">## H1 title&amp;lt;!-- omit in toc --&amp;gt;
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样在渲染成网页的时候，两个大标题会夹着目录，因此会美观一些。如果hugo能提供自动把一级标题当元信息，或者VS Code能够markdown能够渲染yaml头信息就不同这么麻烦。此外，我将H1 title前面变成二级标题，可以在不改变&lt;code>.markdownlint.json&lt;/code>文件的情况下在VS Code中不报错。&lt;/p>
+&lt;p>问题7解决：在有大量公式的文章中，不要使用hugo自带的golden编译器，替换成pandoc。pandoc的安装方法可在网上查到。我们还需要在该文章的头部信息中加入&lt;code>markup: pandoc&lt;/code>这一条。&lt;/p>
+&lt;h3 id="修改hugo博客的clarity主题">修改Hugo博客的clarity主题&lt;/h3>
+&lt;p>我的博客是基于&lt;a href="https://github.com/chipzoller/hugo-clarity">clarity&lt;/a>主题修改而来，基本改动有&lt;/p>
+&lt;ul>
+&lt;li>在头部导航添加了归档和分类两项，添加了二者的模板、功能和archive type;&lt;/li>
+&lt;li>在头部导航添加了资料库-&amp;gt;资料web版，基于readDir实现了网页信息遍历的post，网页资料存放在&lt;code>/static/网页资料&lt;/code>&lt;/li>
+&lt;li>在头部导航添加了资料库-&amp;gt;书签地址，书签位置&lt;code>/content/library&lt;/code>；&lt;/li>
+&lt;li>在头部导航添加了专栏项，基于原来的series修改而来；&lt;/li>
+&lt;li>删除了多语言支持，因为总是出bug；&lt;/li>
+&lt;li>修改了侧边栏的内容显示顺序，取消了个人信息阅读更多按钮，将链接移植到了名字上；&lt;/li>
+&lt;li>精简了分享链接，由于外国大多社交网站不可访问和国内社交网站的封闭性，只保留了复制网页链接的功能，删除了多余的社交网站链接；&lt;/li>
+&lt;li>简化了默认的archetypes；&lt;/li>
+&lt;li>修改了主题配色、链接、404页面等样式&lt;/li>
+&lt;/ul>
+&lt;p>现在只要将我的markdown文章的文件夹放入&lt;code>content&lt;/code>目录，网页资料的内容放到&lt;code>/static/网页资料&lt;/code>，images中的图片文件夹放到&lt;code>/static/images&lt;/code>中，即可自动生成静态网站。&lt;/p>
+&lt;h3 id="上传修改好的hugo博客">上传修改好的Hugo博客&lt;/h3>
+&lt;p>首先，我们把改好的网站主题上传到云主机，路径为&lt;code>/opt/blogtheme&lt;/code>，并把&lt;code>/opt/blogtheme&lt;/code>的拥有者改为git。然后将其中content的内容建立软链接，连接到git工作区的相应目录。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 将/opt/blogtheme的拥有者改为git&lt;/span>
+&lt;span class="ln">2&lt;/span>$ sudo chown git:git -R /opt/blogtheme
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>如果使用&lt;strong>裸仓库&lt;/strong>，需要从中转仓库提取需要的文件，路径为&lt;code>/srv/blogtransfer.git&lt;/code>。我们建立目录的软链接：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 如果主题中已经有了/opt/blogtheme/static/projectnotes，则删除&lt;/span>
+&lt;span class="ln">2&lt;/span>$ ln -s /srv/blogtransfer.git/工程笔记 /opt/blogtheme/content/projectnotes
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 如果主题中已经有了/opt/blogtheme/static/studynotes，则删除&lt;/span>
+&lt;span class="ln">4&lt;/span>$ ln -s /srv/blogtransfer.git/学习笔记 /opt/blogtheme/content/studynotes
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在hugo 0.62以后，不在支持static的软链接复制（说是因为存在可能导致循环链接），因此hugo主题的static文件夹中无法直接使用ln，退一步，我使用rsync同步文件夹。我们把下面两命令加到之前的post-receive脚本中。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># rsync -a source destination&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 图片同步&lt;/span>
+&lt;span class="ln">3&lt;/span>rsync -a /srv/blogtransfer.git/images/ /opt/blogtheme/static/images
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># 网页同步&lt;/span>
+&lt;span class="ln">5&lt;/span>rsync -a /srv/blogtransfer.git/网页资料/ /opt/blogtheme/static/网页资料
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>如果使用&lt;strong>普通仓库&lt;/strong>，路径为&lt;code>/srv/gitblogs.git/&lt;/code>。我们建立目录的软链接：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 如果主题中已经有了/opt/blogtheme/static/projectnotes，则删除&lt;/span>
+&lt;span class="ln">2&lt;/span>$ ln -s /srv/gitblogs.git/工程笔记 /opt/blogtheme/content/projectnotes
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># 如果主题中已经有了/opt/blogtheme/static/studynotes，则删除&lt;/span>
+&lt;span class="ln">4&lt;/span>$ ln -s /srv/gitblogs.git/学习笔记 /opt/blogtheme/content/studynotes
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在hugo 0.62以后，不在支持static的软链接复制（说是因为存在可能导致循环链接），因此hugo主题的static文件夹中无法直接使用ln，退一步，我使用rsync同步文件夹。我们把下面两命令加到之前的post-receive脚本中。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 在hugo0.62以后，不在支持static的软链接复制（说是因为存在可能导致循环链接），因此static文件中&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 无法直接使用ln，退一步，我用rsync同步。&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># rsync -a source destination&lt;/span>
+&lt;span class="ln">4&lt;/span>&lt;span class="c1"># 图片同步&lt;/span>
+&lt;span class="ln">5&lt;/span>$ rsync -a /srv/gitblogs.git/images/ /opt/blogtheme/static/images
+&lt;span class="ln">6&lt;/span>&lt;span class="c1"># 网页同步&lt;/span>
+&lt;span class="ln">7&lt;/span>$ rsync -a /srv/gitblogs.git/网页资料/ /opt/blogtheme/static/网页资料
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样，我们也实现了内容和格式的分离，&lt;code>/opt/blogtheme&lt;/code>做为存放格式的位置，基本不用动，每次只要git更新内容即可。&lt;/p>
+&lt;h2 id="使用jenkins自动化部署网站">使用Jenkins自动化部署网站&lt;/h2>
+&lt;p>经过上述准备，我们已经准备好了所需的内容，下面就是使用jenkins将它们构建成网站。我们首先新建网站的目录文件夹&lt;code>/opt/public/&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>$ sudo mkdir /opt/public
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># 将/opt/public的拥有者改为git&lt;/span>
+&lt;span class="ln">3&lt;/span>$ sudo chown git:git /opt/public
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果直接从shell手动输入构建命令，就一句指令很简单。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ hugo --minify -s /opt/blogtheme -d /opt/public/
+&lt;span class="ln"> 2&lt;/span>Start building sites …
+&lt;span class="ln"> 3&lt;/span>hugo v0.89.4-AB01BA6E+extended linux/amd64 &lt;span class="nv">BuildDate&lt;/span>&lt;span class="o">=&lt;/span>2021-11-17T08:24:09Z &lt;span class="nv">VendorInfo&lt;/span>&lt;span class="o">=&lt;/span>gohugoio
+&lt;span class="ln"> 4&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="p">|&lt;/span> ZH-CN
+&lt;span class="ln"> 6&lt;/span>-------------------+--------
+&lt;span class="ln"> 7&lt;/span> Pages &lt;span class="p">|&lt;/span> &lt;span class="m">335&lt;/span>
+&lt;span class="ln"> 8&lt;/span> Paginator pages &lt;span class="p">|&lt;/span> &lt;span class="m">54&lt;/span>
+&lt;span class="ln"> 9&lt;/span> Non-page files &lt;span class="p">|&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;span class="ln">10&lt;/span> Static files &lt;span class="p">|&lt;/span> &lt;span class="m">361&lt;/span>
+&lt;span class="ln">11&lt;/span> Processed images &lt;span class="p">|&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;span class="ln">12&lt;/span> Aliases &lt;span class="p">|&lt;/span> &lt;span class="m">80&lt;/span>
+&lt;span class="ln">13&lt;/span> Sitemaps &lt;span class="p">|&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">14&lt;/span> Cleaned &lt;span class="p">|&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;span class="ln">15&lt;/span>
+&lt;span class="ln">16&lt;/span>Total in &lt;span class="m">18050&lt;/span> ms
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>不过，我们希望在git完成push后自动执行。这里我们使用jenkins来完成自动构建命令。&lt;/p>
+&lt;p>首先，为了解决jenkins的权限和环境变量问题，安装好jenkins后，我们需要先进行以下配置：&lt;/p>
+&lt;ol>
+&lt;li>防止jenkins出现command not found的错误，我们要为jenkins添加&lt;code>PATH&lt;/code>环境变量。在系统管理-&amp;gt;系统配置-&amp;gt;全局属性对话框中选中“环境变量”，添加键值对“PATH”和PATH对应值。PATH对应值在系统中使用&lt;code>echo $PATH&lt;/code>获取，复制粘贴到这里即可。&lt;/li>
+&lt;li>防止jenkins出现Permission denied权限不够的问题，我们要重新以git用户启动jenkins，以git用户启动是因为我们之前文件拥有者都是git。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>$ sudo vim /etc/sysconfig/jenkins
+&lt;span class="ln"> 2&lt;/span>......
+&lt;span class="ln"> 3&lt;/span> &lt;span class="c1">## Type: string&lt;/span>
+&lt;span class="ln"> 4&lt;/span> &lt;span class="m">22&lt;/span> &lt;span class="c1">## Default: &amp;#34;jenkins&amp;#34;&lt;/span>
+&lt;span class="ln"> 5&lt;/span> &lt;span class="m">23&lt;/span> &lt;span class="c1">## ServiceRestart: jenkins&lt;/span>
+&lt;span class="ln"> 6&lt;/span> &lt;span class="m">24&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln"> 7&lt;/span> &lt;span class="m">25&lt;/span> &lt;span class="c1"># Unix user account that runs the Jenkins daemon&lt;/span>
+&lt;span class="ln"> 8&lt;/span> &lt;span class="m">26&lt;/span> &lt;span class="c1"># Be careful when you change this, as you need to update&lt;/span>
+&lt;span class="ln"> 9&lt;/span> &lt;span class="m">27&lt;/span> &lt;span class="c1"># permissions of $JENKINS_HOME and /var/log/jenkins.&lt;/span>
+&lt;span class="ln">10&lt;/span> &lt;span class="m">28&lt;/span> &lt;span class="c1">#&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="m">29&lt;/span> &lt;span class="nv">JENKINS_USER&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;git&amp;#34;&lt;/span> &lt;span class="c1"># 由默认值jenkins改为git&lt;/span>
+&lt;span class="ln">12&lt;/span>......
+&lt;span class="ln">13&lt;/span>&lt;span class="c1"># 修改jenkins对应文件拥有者&lt;/span>
+&lt;span class="ln">14&lt;/span>$ sudo chown -R git:git /var/lib/jenkins
+&lt;span class="ln">15&lt;/span>$ sudo chown -R git:git /var/cache/jenkins
+&lt;span class="ln">16&lt;/span>$ sudo chown -R git:git /var/log/jenkins
+&lt;span class="ln">17&lt;/span>&lt;span class="c1"># 重启jenkins&lt;/span>
+&lt;span class="ln">18&lt;/span>$ sudo systemctl restart jenkins
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>接下来，我们打开jenkins网站界面，默认是8080端口。首先按照页面提示进行初始化（因为我的jenkins早就安装了，这里就不介绍初始化流程了），然后点击左边菜单栏的“新建任务”，输入任务名称，选择构建一个自由风格的软件项目。&lt;/p>
+&lt;p>&lt;img src="../../images/devops-jenkins1.png" alt="jenkins1">&lt;/p>
+&lt;p>按照如下配置，设置构建流程。我们不需要源码，因此也没有工作区，在构建一栏中加上需要执行的命令。构建触发器接下来再设置。&lt;/p>
+&lt;p>&lt;img src="../../images/devops-jenkins2.png" alt="jenkins2">&lt;/p>
+&lt;p>设置好后，我们点击保存，然后点击左侧菜单栏的“立即构建”，就可通过jenkins执行构建命令。目前为止，我们做的以上的工作，只不过是把在命令行做的工作放到jenkins里完成而已，若需要自动触发构建，还需要构建触发器，如下图所示：&lt;/p>
+&lt;p>&lt;img src="../../images/devops-jenkins3.png" alt="jenkins3">&lt;/p>
+&lt;p>构建的触发器种类选择“触发远程构建”，然后在身份验证令牌中输入一串随机数作为验证码，接下面，我们只需要访问一个网址&lt;a href="http://127.0.0.1:8080/job/hugoblog/build?token=TOKEN_NAME">http://127.0.0.1:8080/job/hugoblog/build?token=TOKEN_NAME&lt;/a>，就能触发这个构建。由于我们的git库和jenkins在同一台主机上，所以IP写127.0.0.1就行，端口8080是jenkins的默认端口，后面的url是固定的，最后在“TOKEN_NAME”处用我们刚在身份验证令牌中输入的随机替代。我们在浏览器中输入这个URL，就可以发现jenkins启动了一个新的构建。&lt;/p>
+&lt;p>一般这样就没什么问若发生403错误：Error 403 No valid crumb was included in the request，则考虑jenkins关闭全局安全设置中的“跨站请求伪造保护”；若真心为了安全考虑，则增加获取crumb值，具体步骤自行搜索。&lt;/p>
+&lt;p>接下来我们要把触发网址的工作交给git的hook脚本，我们在post-receive脚本的最后添加如下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>&lt;span class="c1"># 触发jenkins编译新网站&lt;/span>
+&lt;span class="ln">2&lt;/span>&lt;span class="c1"># -X 表示请求类型，用post；-u 表示认证信息，填写登录jenkins的用户名密码；-v表示显示详细过程&lt;/span>
+&lt;span class="ln">3&lt;/span>&lt;span class="c1"># URL触发远程构建所用的URL&lt;/span>
+&lt;span class="ln">4&lt;/span>curl -X post -u &lt;span class="s1">&amp;#39;username:password&amp;#39;&lt;/span> -v http://127.0.0.1:8080/job/hugoblog/build?token&lt;span class="o">=&lt;/span>TOKEN_NAME
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>到此，我们已经完成了本地&lt;code>git push&lt;/code>后，自动完成内容更新、网站构建的工作。&lt;/p>
+&lt;h2 id="推送到github并生成gitpages">推送到Github并生成Gitpages&lt;/h2>
+&lt;p>如果要使用GitPages，我们需要&lt;strong>将hugo编译好的网站，而非原始数据推送到GitHub&lt;/strong>。&lt;/p>
+&lt;p>首先，我们要在GitHub新建一个库，库名比较特殊，必须是：&lt;strong>用户名.github.io&lt;/strong>，且&lt;strong>所有字母必须小写&lt;/strong>。选择public类型，然后下面的README、证书、.gitignore都不用添加。如下图所示：&lt;/p>
+&lt;p>&lt;img src="../../images/devops-gitpages.png" alt="创建gitpages">&lt;/p>
+&lt;p>由于我们自己云服务和GitHub的域名不一样，所以不能直接把云上编译好的网站直接push到GitHub。我们需要&lt;strong>改变baseUrl参数&lt;/strong>，重新编译。为了公式完整，我们之前在markdown编译时用了pandoc编译速度慢，同时国内连接github网络不稳定，所以我在jenkins中单独为Github的推送流程新建了一个任务，以免拖累本地编译过程。&lt;/p>
+&lt;p>我们先做一些准备工作。&lt;/p>
+&lt;p>第一步，我们为了能让云服务器有权限把内容推送给GitHub的库，因此要将自己的公钥存放到GitHub上。我们存放的是云服务器上git用户的公钥，查看git用户的公钥&lt;code>cat /home/git/.ssh/id_rsa.pub&lt;/code>，若没有此文件则使用git用户的&lt;code>ssh-keygen -t rsa&lt;/code>创建。将公钥放到GitHub右上角图像-&amp;gt;settings-&amp;gt;SSH and GPG keys-&amp;gt;New SSH key，然后把公钥复制粘贴过来。&lt;/p>
+&lt;p>第二步，我们为推送到github的库做一些初始化工作。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln"> 1&lt;/span>&lt;span class="c1"># 为GitHub新建库文件夹，并将所有者改为git&lt;/span>
+&lt;span class="ln"> 2&lt;/span>$ sudo mkdir &lt;span class="nb">cd&lt;/span> /opt/surprisedcat.github.io
+&lt;span class="ln"> 3&lt;/span>$ sudo chown git:git /opt/surprisedcat.github.io
+&lt;span class="ln"> 4&lt;/span>&lt;span class="c1"># 切换到git用户执行以下操作&lt;/span>
+&lt;span class="ln"> 5&lt;/span>$ su - git
+&lt;span class="ln"> 6&lt;/span>&lt;span class="c1"># 重新编译网站，注意baseUrl是不同的&lt;/span>
+&lt;span class="ln"> 7&lt;/span>$ hugo --minify --baseUrl&lt;span class="o">=&lt;/span>https://surprisedcat.github.io -s /opt/blogtheme -d /opt/surprisedcat.github.io/
+&lt;span class="ln"> 8&lt;/span>Start building sites …
+&lt;span class="ln"> 9&lt;/span>hugo v0.89.4-AB01BA6E+extended linux/amd64 &lt;span class="nv">BuildDate&lt;/span>&lt;span class="o">=&lt;/span>2021-11-17T08:24:09Z &lt;span class="nv">VendorInfo&lt;/span>&lt;span class="o">=&lt;/span>gohugoio
+&lt;span class="ln">10&lt;/span>
+&lt;span class="ln">11&lt;/span> &lt;span class="p">|&lt;/span> ZH-CN
+&lt;span class="ln">12&lt;/span>-------------------+--------
+&lt;span class="ln">13&lt;/span> Pages &lt;span class="p">|&lt;/span> &lt;span class="m">335&lt;/span>
+&lt;span class="ln">14&lt;/span> Paginator pages &lt;span class="p">|&lt;/span> &lt;span class="m">54&lt;/span>
+&lt;span class="ln">15&lt;/span> Non-page files &lt;span class="p">|&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;span class="ln">16&lt;/span> Static files &lt;span class="p">|&lt;/span> &lt;span class="m">364&lt;/span>
+&lt;span class="ln">17&lt;/span> Processed images &lt;span class="p">|&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;span class="ln">18&lt;/span> Aliases &lt;span class="p">|&lt;/span> &lt;span class="m">80&lt;/span>
+&lt;span class="ln">19&lt;/span> Sitemaps &lt;span class="p">|&lt;/span> &lt;span class="m">1&lt;/span>
+&lt;span class="ln">20&lt;/span> Cleaned &lt;span class="p">|&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;span class="ln">21&lt;/span>
+&lt;span class="ln">22&lt;/span>Total in &lt;span class="m">18596&lt;/span> ms
+&lt;span class="ln">23&lt;/span>&lt;span class="c1"># 初始化git库&lt;/span>
+&lt;span class="ln">24&lt;/span>$ &lt;span class="nb">cd&lt;/span> /opt/surprisedcat.github.io
+&lt;span class="ln">25&lt;/span>$ git init .
+&lt;span class="ln">26&lt;/span>&lt;span class="c1"># 第一次commit和添加远程库，commit带上日期&lt;/span>
+&lt;span class="ln">27&lt;/span>$ git add .
+&lt;span class="ln">28&lt;/span>$ git commit -m &lt;span class="s2">&amp;#34;`date` commit&amp;#34;&lt;/span>
+&lt;span class="ln">29&lt;/span>&lt;span class="c1"># 将主分支重命名为main&lt;/span>
+&lt;span class="ln">30&lt;/span>$ git branch -M main
+&lt;span class="ln">31&lt;/span>$ git remote add origin git@github.com:SurprisedCat/surprisedcat.github.io.git
+&lt;span class="ln">32&lt;/span>$ git push -u origin main
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>第三步，在jenkins中新建构建任务。源码管理选择“无”，构建触发器选择如下图：&lt;/p>
+&lt;p>&lt;img src="../../images/devops-jenkins-gitpages.png" alt="jenkins-github">&lt;/p>
+&lt;p>我们建立两个触发器，一是传统远程触发器，二是在云构建完成后，自动构建推送到github的流程。&lt;/p>
+&lt;p>在构建栏目下，选择“执行shell”，并填入以下命令：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="ln">1&lt;/span>hugo --minify --baseUrl&lt;span class="o">=&lt;/span>https://surprisedcat.github.io -s /opt/blogtheme -d /opt/surprisedcat.github.io/
+&lt;span class="ln">2&lt;/span>&lt;span class="nb">cd&lt;/span> /opt/surprisedcat.github.io
+&lt;span class="ln">3&lt;/span>git add .
+&lt;span class="ln">4&lt;/span>git commit -m &lt;span class="s2">&amp;#34;`date` commit&amp;#34;&lt;/span>
+&lt;span class="ln">5&lt;/span>git push -u origin main
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>点击保存。&lt;/p>
+&lt;p>一整套配置完成。&lt;/p>
+&lt;p>接下来，为了安全起见，我们不再允许git使用shell登录（过河拆桥啦），我们修改&lt;code>/etc/passwd&lt;/code>下git用户的最后一项，将&lt;code>/bin/bash&lt;/code>改为&lt;code>/usr/bin/git-shell&lt;/code>，这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。&lt;/p></description></item></channel></rss>

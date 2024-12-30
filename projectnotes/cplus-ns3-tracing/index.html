@@ -1,0 +1,585 @@
+<!doctype html><html lang=zh-cn data-figures=true class=page>
+<head>
+<title>cplus-NS3-Tracing | SurprisedCat</title>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','XXXXXXXXXX')</script>
+<meta property="og:locale" content="zh-cn">
+<meta property="og:type" content="article">
+<meta name=description content="cplus-NS3-Tracing description.">
+<meta property="og:url" content="https://surprisedcat.github.io/projectnotes/cplus-ns3-tracing/">
+<meta property="og:title" content="cplus-NS3-Tracing">
+<meta property="og:description" content="cplus-NS3-Tracing description.">
+<meta property="og:image" content="https://surprisedcat.github.io/images/cplus.png">
+<link rel=apple-touch-icon sizes=180x180 href=https://surprisedcat.github.io/icons/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=https://surprisedcat.github.io/icons/favicon-32x32.png>
+<link rel=manifest href=https://surprisedcat.github.io/icons/site.webmanifest>
+<link rel=canonical href=https://surprisedcat.github.io/projectnotes/cplus-ns3-tracing/>
+<link rel=preload href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" as=style crossorigin=anonymous>
+<link rel=preload href=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js as=script integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous>
+<link rel=stylesheet type=text/css href=https://surprisedcat.github.io/css/styles.a3742134d3e1b4d5a43d5d99d6fde5df18cdb8e92f1b06e883302e8d743fda2b39f326b1db81554458e7df32a333512eadc6927c4148f7e4606c4bd65564110a.css integrity="sha512-o3QhNNPhtNWkPV2Z1v3l3xjNuOkvGwbogzAujXQ/2is58yax24FVRFjn3zKjM1EurcaSfEFI9+RgbEvWVWQRCg==" crossorigin=anonymous>
+</head>
+<body data-code=20 data-lines=true id=documentTop>
+<header class=nav_header>
+<nav class=nav><a href=https://surprisedcat.github.io class="nav_brand nav_item" title=SurprisedCat>
+<img src=https://surprisedcat.github.io/logos/logo.png class=logo alt=SurprisedCat>
+<div class=nav_close>
+<div><svg class="icon"><use xlink:href="#open-menu"/></svg><svg class="icon"><use xlink:href="#closeme"/></svg></div>
+</div>
+</a>
+<div class="nav_body nav_body_left">
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=主页>主页 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=专栏>专栏 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/studynotes/ class="nav_child nav_item" title=学习笔记>学习笔记</a>
+<a href=https://surprisedcat.github.io/projectnotes/ class="nav_child nav_item" title=工程笔记>工程笔记</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io class=nav_item title=资料库>资料库 <img src=https://surprisedcat.github.io/icons/caret-icon.svg alt=icon class=nav_icon></a>
+<div class=nav_sub>
+<span class=nav_child></span>
+<a href=https://surprisedcat.github.io/library/webpages/ class="nav_child nav_item" title=资料Web版>资料Web版</a>
+<a href=https://surprisedcat.github.io/library/bookmarks/ class="nav_child nav_item" title=资料库链接>资料库链接</a>
+</div>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/category/ class=nav_item title=分类>分类 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/archives/ class=nav_item title=归档>归档 </a>
+</div>
+<div class=nav_parent>
+<a href=https://surprisedcat.github.io/about/ class=nav_item title=关于>关于 </a>
+</div>
+<div class=follow>
+<a href=https://github.com/SurprisedCat><svg class="icon"><use xlink:href="#github"/></svg>
+</a>
+<a href=https://www.linkedin.com/in/#><svg class="icon"><use xlink:href="#linkedin"/></svg>
+</a>
+<div class=color_mode>
+<input type=checkbox class=color_choice id=mode>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="grid-inverse wrap content">
+<article class=post_content>
+<h1 class=post_title>cplus-NS3-Tracing</h1>
+<div class=post_meta>
+<span><svg class="icon"><use xlink:href="#calendar"/></svg></span>
+<span class=post_date>
+Dec 11, 2016</span><span>&nbsp;· <a href=https://surprisedcat.github.io/tags/cplus title=cplus class="post_tag button button_translucent">cplus
+</a>
+</span>
+<span class=page_only>&nbsp;·
+<div class=post_share>
+分享到:
+<a href=https://surprisedcat.github.io/projectnotes/cplus-ns3-tracing/ title="Copy Link" class="link link_yank"><svg class="icon"><use xlink:href="#copy"/></svg>
+</a>
+</div>
+</span>
+</div>
+<h2 id=ns3-tutorial-tracing---omit-in-toc--->NS3 Tutorial Tracing</h2>
+<h2 id=tracing>Tracing</h2>
+<h2 id=背景>背景</h2>
+<p>在Using the Tracing System中提到,ns3的整个目的在于使用仿真来产生用于研究的数据。目前，ns3提供了两种策略来获取数据：通过通用的预先定义的块输出机制，并将他们的内容转换为可以提取有效信息方式（我觉得应该说的是系统定义的NS_LOG）；或者，使用一种输出机制，只传递我们想要的信息。</p>
+<p>使用预定义的块输出机制有一些优点，比如不需要对ns3有额外的修改，但是需要我们写额外的脚本来转换和过滤我们感兴趣的消息。通常，PCAP和NS_LOG输出消息会在仿真运行中被收集起来，并通过运行额外的脚本程序（grep，sed，awk）来将输出精简转换成方便管理的形式。我们必须自己写一些转换程序，因此也不能说是完全不费功夫的。NS_LOG的输出不被认为是ns3 API的一部分，并且可能不经通知就在不同版本之间做出修改。此外，NS_LOG输出只在DEBUG模式下有效，因此依赖于LOG必然会导致一些性能的损失。当然，如果我们感兴趣的信息并不以预定义的信息块模式出现，这种方式就没法用了。</p>
+<p>如果你需要给预先定义的信息增加一些额外的小片段，这当然也是可以的；如果你使用了一种预先定义的ns3机制，你的工作可以作为对ns3的一些contribution。</p>
+<p>ns3提供了另一套机制，叫做Tracing，来避免从块状输出机制固有的一些问题。它有一些重要的优点。首先，你可以通过只Tracing你感兴趣的事件来降低你需要处理的数据量（在一些大型的仿真中，记录所有的事件会造成IO瓶颈）。第二，如果你使用这种方式，你可以直接控制输出的格式，因此可以避免后期处理的时候使用grep，sed，awk，perl或者python脚本。如果你希望的话，可以直接讲格式定义为gnuplot可以识别的格式。你可以在core中添加钩子（hook）来给别人使用，但是这不会给出明确的信息，除非明确被要求这么做。因为这些理由，我们相信ns3的Tracing系统使我们获取仿真信息的最好方式，所以也是在ns3中需要我们理解的重要机制。</p>
+<h2 id=blunt-instrument>Blunt Instrument</h2>
+<p>有许多从程序获取信息的办法，最直接的方式就是通过标准输入输出来直接打印信息（C语言是的printf，cout等等）。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=cp>#include</span>  <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=ln>2</span><span class=cp></span><span class=p>...</span>
+<span class=ln>3</span><span class=kt>void</span> <span class=n>SomeFunction</span><span class=p>(</span><span class=kt>void</span><span class=p>)</span>
+<span class=ln>4</span><span class=p>{</span>
+<span class=ln>5</span><span class=kt>uint32_t</span> <span class=n>x</span><span class=o>=</span> <span class=n>Some_INTERESTING_VALUE</span><span class=p>;</span>
+<span class=ln>6</span><span class=p>...</span>
+<span class=ln>7</span><span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=o>&lt;&lt;</span><span class=s>&#34;The Value of x is &#34;</span><span class=o>&lt;&lt;</span><span class=n>x</span><span class=o>&lt;&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=ln>8</span><span class=p>...</span>
+<span class=ln>9</span><span class=p>}</span>
+</code></pre></div><p>没人会制止你在ns3的核心代码从加入额外的输出信息。这种做法也不是很难，然而，你需要完全掌控你自己的ns3分支。从长期来看，这并不会得到令人满意的结果</p>
+<p>随着在自己代码中添加的输出信息越来越多，管理和处理这些输出信息也变得越来越复杂。最终，你可能觉得需要一些方式来控制哪些信息需要被输出，而哪些不需要；或许通过打开或关闭某些输出类，或者增加或减少所需信息的数量。如果在这条路上越走越远，最终你可能发现自己重新实现了一遍NS_LOG机制。为了避免这一点，我们应该合理的最大化利用NS_LOG本身。</p>
+<p>我们在上面提到过，一个获取ns3有效信息的方式是将现存的NS_LOG输出转换成感兴趣的消息。如果你发现你感兴趣的信息片段不在LOG信息中，你可以编辑ns3的core模块将你需要的信息加入输出流中。目前，这显然比添加自己的输出语句要好，因为这遵循了ns3的惯例，并且有可能作为一个补丁加入到ns3内核中，从而帮助其他人。</p>
+<p>让我们随机选一个例子。如果你希望增加一些额外的logging给ns3的Tcp Socket（tcp-scoket-base.cc），你可以只是在实现中增加一个新的消息。注意，在 <code>TCPSocketBase::ReceivedAck()</code>,原本没有任何关于no ack 情况下的log信息。你可以简单地增加一句话。</p>
+<p>这是原来的代码：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln> 1</span><span class=cm>/** Process the newly received ACK */</span>
+<span class=ln> 2</span><span class=kt>void</span>
+<span class=ln> 3</span><span class=n>TcpSocketBase</span><span class=o>::</span><span class=n>ReceivedAck</span> <span class=p>(</span><span class=n>Ptr</span><span class=o>&lt;</span><span class=n>Packet</span><span class=o>&gt;</span> <span class=n>packet</span><span class=p>,</span> <span class=k>const</span> <span class=n>TcpHeader</span><span class=o>&amp;</span> <span class=n>tcpHeader</span><span class=p>)</span>
+<span class=ln> 4</span><span class=p>{</span>
+<span class=ln> 5</span><span class=n>NS_LOG_FUNCTION</span> <span class=p>(</span><span class=k>this</span> <span class=o>&lt;&lt;</span> <span class=n>tcpHeader</span><span class=p>);</span>
+<span class=ln> 6</span>
+<span class=ln> 7</span><span class=c1>// Received ACK. Compare the ACK number against highest unacked seqno
+</span><span class=ln> 8</span><span class=c1></span><span class=k>if</span> <span class=p>(</span><span class=mi>0</span> <span class=o>==</span> <span class=p>(</span><span class=n>tcpHeader</span><span class=p>.</span><span class=n>GetFlags</span> <span class=p>()</span> <span class=o>&amp;</span> <span class=n>TcpHeader</span><span class=o>::</span><span class=n>ACK</span><span class=p>))</span>
+<span class=ln> 9</span><span class=p>{</span> <span class=c1>// Ignore if no ACK flag
+</span><span class=ln>10</span><span class=c1></span><span class=p>}</span>
+<span class=ln>11</span><span class=p>...</span>
+</code></pre></div><p>为了记录no ack的情况，你可以增加一个NS_LOG_LOGIC在if语句中：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln> 1</span><span class=cm>/** Process the newly received ACK */</span>
+<span class=ln> 2</span><span class=kt>void</span>
+<span class=ln> 3</span><span class=n>TcpSocketBase</span><span class=o>::</span><span class=n>ReceivedAck</span> <span class=p>(</span><span class=n>Ptr</span><span class=o>&lt;</span><span class=n>Packet</span><span class=o>&gt;</span> <span class=n>packet</span><span class=p>,</span> <span class=k>const</span> <span class=n>TcpHeader</span><span class=o>&amp;</span> <span class=n>tcpHeader</span><span class=p>)</span>
+<span class=ln> 4</span><span class=p>{</span>
+<span class=ln> 5</span><span class=n>NS_LOG_FUNCTION</span> <span class=p>(</span><span class=k>this</span> <span class=o>&lt;&lt;</span> <span class=n>tcpHeader</span><span class=p>);</span>
+<span class=ln> 6</span>
+<span class=ln> 7</span><span class=c1>// Received ACK. Compare the ACK number against highest unacked seqno
+</span><span class=ln> 8</span><span class=c1></span><span class=k>if</span> <span class=p>(</span><span class=mi>0</span> <span class=o>==</span> <span class=p>(</span><span class=n>tcpHeader</span><span class=p>.</span><span class=n>GetFlags</span> <span class=p>()</span> <span class=o>&amp;</span> <span class=n>TcpHeader</span><span class=o>::</span><span class=n>ACK</span><span class=p>))</span>
+<span class=ln> 9</span><span class=p>{</span> <span class=c1>// Ignore if no ACK flag
+</span><span class=ln>10</span><span class=c1></span>  <span class=n>NS_LOG_LOGIC</span> <span class=p>(</span><span class=s>&#34;TcpSocketBase &#34;</span> <span class=o>&lt;&lt;</span> <span class=k>this</span> <span class=o>&lt;&lt;</span> <span class=s>&#34; no ACK flag&#34;</span><span class=p>);</span>
+<span class=ln>11</span><span class=p>}</span>
+<span class=ln>12</span><span class=p>...</span>
+</code></pre></div><p>这样乍看上去看起来似乎相当简单和令人满意。但是必须考虑到，如果你在NS_LOG中添加额外的代码，你同时也必须使用文本处理脚本（grep、sed、awk）来转换输出的信息以分离出你需要的内容。这是因为即使你通某种方式控制了logging系统，也只是控制了输出的级别，是一种非常粗粒度的管理。</p>
+<p>如果你正在向ns3模块中添加新的输出信息，也需要考虑到其他开发者也正在添加他们自己所感兴趣的信息。你最终可能发现，为了得到自己所需要的一小片信息，你必须处理一大片自己完全没有兴趣的大段输出内容。最终这些大量的log文件会占用大量的磁盘，无论你需要什么信息都必须进行了大量额外处理。</p>
+<p>既然，对ns3的NS_LOG输出的稳定我们并没有严格的稳定性保证，你可能发现你需要或依赖的log信息可能在不同的版本是不一样的，甚至可能在下一个版本完全删除了。如果你依赖于这种类型的输出，你会发现不同版本的ns3会需要不同的文本处理脚本！</p>
+<p>最后，NS_LOG只在DEBUG模式下有效，在优化模式下是没有log输出的（优化模式运行速度快了两倍）。依赖NS_LOG会严重影响仿真的性能。</p>
+<p>由于这些原因，我们认为使用<code>std::cout</code> 和 <code>NS_LOG</code> 是一种快速不标准的获取ns3更多信息的方式，但是并不适合严格的工作。</p>
+<p>我们实际上十分需要一种稳定的API同时能够只获得我们所需要的信息的机制。同时不需要改变额重新编译仿真平台的核心系统。更好的是，如果能通知用户代码他所感兴趣的事件改变或者发生了，这样用户就不用在系统的大段输出中到处找东西了。</p>
+<p>ns3的Tracing系统被设计和代码一起工作，并且和<strong>Attribute</strong>和<strong>Config</strong>子系统融合在一起，来提供相对简单的使用环境。</p>
+<h2 id=概要>概要</h2>
+<p>ns3的Tracing系统是由独立的跟踪源（Tracing Source）和跟踪槽（Tracing Sink）以及一种统一的机制连接跟踪源和跟踪槽组成的。</p>
+<p>跟踪源是仿真过程中信号事件产生的实体，并提供底层数据的获取。例如，一个跟踪源可能意味着当一个数据包被一个网络设备收到，并能够为跟踪槽提供数据包内容。一个跟踪源也可能是系统模型的可改变的状态，比如，一个TCP模型的拥塞窗口是一个初始状态代表着一个跟踪源。每当拥塞窗口发生变化时，跟踪槽就会收到原先的值和现在的值。</p>
+<p>跟踪源本身是没有什么用的，它必须和代码中其他部分联系起来，这些代码会使用源的这些有用信息做一些有用的事情。这些使用跟踪源信息的实体叫做跟踪槽。跟踪源是数据的产生者，而跟踪槽是数据的消费者。这种显式的分离模式可以使大量的跟踪源分布在系统不同的地方，这些地方往往是建模者认为有用的地方。插入跟踪源只需要增加很小的负载。</p>
+<p>一个跟踪源产生的信息可能被一个或多个使用者使用。我们可以想象一个跟踪源是一个点到多点的链路。你的代码和可以和其他使用这个被追踪事件源的代码愉快地共存。</p>
+<p>除非一个用户将一个跟踪槽和其中一个跟踪源联系起来，否则不会有任何信息输出。通过使用Tracing系统，你和其他关注同一个跟踪源上的人都可以获取，并只获取你们所关心的内容。你们之间不会因为改变输出的信息二队他人造成影响。如果你增加了一个跟踪源，你在为良好开源工作者的工作将会允许其他人来提供新的对大家都有益的工作，而不需要对ns3的内核做出任何改进。</p>
+<h2 id=简单的例子>简单的例子</h2>
+<p>让我们花几分钟来过一个简单的例子。我们需要一些有关回调的背景知识来理解这个例子，所以我们先来绕一点路。</p>
+<h3 id=回调>回调</h3>
+<p>ns3中的回调系统目的在于让一段代码调用一个函数而不需要模块间依赖。这意味这你需要一些间接的方式，<strong>你需要将被调用函数的地址作为一个变量</strong>。这种变量叫做函数指针变量，函数和函数指针的关系和类与类指针的关系没有什么区别。</p>
+<p>在C语言中，函数指针的典型例子是返回整形的函数指针（pointer to function returning integer, PFI）。PFI使用一个整形参数，它可能像如下这样被声明：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>pfi</span><span class=p>)(</span><span class=kt>int</span> <span class=n>arg</span><span class=p>)</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</code></pre></div><p>从这个声明中，你可以获得一个名叫pfi的变量，被初始化为0。如果你想将这个指针初始化为更加有意义的值，你首先需要一个参数和返回值类型都匹配的函数，比如：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=kt>int</span> <span class=nf>MyFunction</span><span class=p>(</span><span class=kt>int</span> <span class=n>arg</span><span class=p>){}</span>
+</code></pre></div><p>如果你有了这个目标函数，你可以通过如下方式初始化你的函数指针：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=n>pfi</span> <span class=o>=</span> <span class=n>MyFunction</span><span class=err>；</span>
+</code></pre></div><p>然后你可以使用更具有提示性的方式来间接地调用<code>MyFunction</code>:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=kt>int</span> <span class=n>result</span> <span class=o>=</span> <span class=p>(</span><span class=o>*</span><span class=n>pfi</span><span class=p>)(</span><span class=mi>1234</span><span class=p>);</span>
+</code></pre></div><p>这个可以清楚的看出，你解引用了一个函数指针，但是通常编译器知道函数指针和函数的队友了关系，因此写成这样也是没有问题的：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=kt>int</span> <span class=n>result</span> <span class=o>=</span> <span class=n>pfi</span><span class=p>(</span><span class=mi>1234</span><span class=p>);</span>
+</code></pre></div><p>看上去就像你调用了一个叫做<code>pfi</code> 的函数一样。但是编译器足够智能，知道我们使用的是变量 <code>pfi</code> ，它间接的调用了函数 <code>MyFunction</code> 。</p>
+<p>概念上来说，这就是Tracing系统的工作方式。基本上，跟踪槽就是一个回调。当一个跟踪槽表示出对某个跟踪事件的兴趣时，它将自己加入到一个回调列表中，这个回调列表由跟踪源内部维护。当一个感兴趣的事件发生后，跟踪源唤醒它的 <code>operator(...)</code> 提供0个或者多个参数。 <code>operator(...)</code> 最终深入到系统中，做一些和刚刚的间接调用非常相似的工作，提供0个或多个参数，就像上面调用 <code>pfi</code> 传递一个参数到目标函数<code>MyFunction</code> 一样。</p>
+<p>Tracing系统和回调的重要不同是对于每一个跟踪源，内部有一系列的回调。不仅仅是触发一个回调，一个跟踪源可能出发多个回调。当一个跟踪槽对一个跟踪源表示出兴趣，只是意味着讲自己的回调加入到回调列表中。</p>
+<p>如果你对这个部分的细节希望有更多的了解，可以去查看ns3 manual中关于回调的部分。</p>
+<h2 id=walkthroughfourthcc>WalkThrough：fourth.cc</h2>
+<p>我们提供了最简单例子来解释Tracing系统的使用方式。你可以在<code>fourth.cc</code> 中发现这段代码，让我们一起看一下：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln> 1</span><span class=cm>/* -*- Mode:C++; c-file-style:&#34;gnu&#34;; indent-tabs-mode:nil; -*- */</span>
+<span class=ln> 2</span><span class=cm>/*
+</span><span class=ln> 3</span><span class=cm>* This program is free software; you can redistribute it and/or modify
+</span><span class=ln> 4</span><span class=cm>* it under the terms of the GNU General Public License version 2 as
+</span><span class=ln> 5</span><span class=cm>* published by the Free Software Foundation;
+</span><span class=ln> 6</span><span class=cm>*
+</span><span class=ln> 7</span><span class=cm>* This program is distributed in the hope that it will be useful,
+</span><span class=ln> 8</span><span class=cm>* but WITHOUT ANY WARRANTY; without even the implied warranty of
+</span><span class=ln> 9</span><span class=cm>* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+</span><span class=ln>10</span><span class=cm>* GNU General Public License for more details.
+</span><span class=ln>11</span><span class=cm>*
+</span><span class=ln>12</span><span class=cm>* You should have received a copy of the GNU General Public License
+</span><span class=ln>13</span><span class=cm>* along with this program; if not, write to the Free Software
+</span><span class=ln>14</span><span class=cm>* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+</span><span class=ln>15</span><span class=cm>*/</span>
+<span class=ln>16</span>
+<span class=ln>17</span><span class=cp>#include</span> <span class=cpf>&#34;ns3/object.h&#34;</span><span class=cp>
+</span><span class=ln>18</span><span class=cp>#include</span> <span class=cpf>&#34;ns3/uinteger.h&#34;</span><span class=cp>
+</span><span class=ln>19</span><span class=cp>#include</span> <span class=cpf>&#34;ns3/traced-value.h&#34;</span><span class=cp>
+</span><span class=ln>20</span><span class=cp>#include</span> <span class=cpf>&#34;ns3/trace-source-accessor.h&#34;</span><span class=cp>
+</span><span class=ln>21</span><span class=cp></span>
+<span class=ln>22</span><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=ln>23</span><span class=cp></span>
+<span class=ln>24</span><span class=k>using</span> <span class=k>namespace</span> <span class=n>ns3</span><span class=p>;</span>
+</code></pre></div><p>大部分代码看上去都是十分熟悉的。就像上面提到那样，Tracing系统非常依赖于Object和Attribute系统，所以我们需要先include它们。前面两个include表示将它们的声明引入系统。我们可以使用 <code>#include "ns3/core-module.h"</code> 来将它们一次性引入，我们这样分别引入只是表明这种功能食很简单的。</p>
+<p>文件 <code>traced-value.h</code> 将引入跟踪数据所需要遵循的语义。由于Tracing 系统和attribute系统融合在一起，而Attribute系统和Object 一起工作。因此跟踪源必须依附于一个类，接下来的代码段定义并声明了我们需要的一个类。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln> 1</span><span class=k>class</span> <span class=nc>MyObject</span> <span class=o>:</span> <span class=k>public</span> <span class=n>Object</span>
+<span class=ln> 2</span><span class=p>{</span>
+<span class=ln> 3</span><span class=k>public</span><span class=o>:</span>
+<span class=ln> 4</span><span class=k>static</span> <span class=n>TypeId</span> <span class=n>GetTypeId</span> <span class=p>(</span><span class=kt>void</span><span class=p>)</span>
+<span class=ln> 5</span><span class=p>{</span>
+<span class=ln> 6</span><span class=k>static</span> <span class=n>TypeId</span> <span class=n>tid</span> <span class=o>=</span> <span class=n>TypeId</span> <span class=p>(</span><span class=s>&#34;MyObject&#34;</span><span class=p>)</span>
+<span class=ln> 7</span>  <span class=p>.</span><span class=n>SetParent</span> <span class=p>(</span><span class=n>Object</span><span class=o>::</span><span class=n>GetTypeId</span> <span class=p>())</span>
+<span class=ln> 8</span>  <span class=p>.</span><span class=n>SetGroupName</span> <span class=p>(</span><span class=s>&#34;MyGroup&#34;</span><span class=p>)</span>
+<span class=ln> 9</span>  <span class=p>.</span><span class=n>AddConstructor</span><span class=o>&lt;</span><span class=n>MyObject</span><span class=o>&gt;</span> <span class=p>()</span>
+<span class=ln>10</span>  <span class=p>.</span><span class=n>AddTraceSource</span> <span class=p>(</span><span class=s>&#34;MyInteger&#34;</span><span class=p>,</span>
+<span class=ln>11</span>                   <span class=s>&#34;An integer value to trace.&#34;</span><span class=p>,</span>
+<span class=ln>12</span>                   <span class=n>MakeTraceSourceAccessor</span> <span class=p>(</span><span class=o>&amp;</span><span class=n>MyObject</span><span class=o>::</span><span class=n>m_myInt</span><span class=p>),</span>
+<span class=ln>13</span>                   <span class=s>&#34;ns3::TracedValueCallback::Int32&#34;</span><span class=p>)</span>
+<span class=ln>14</span>  <span class=p>;</span>
+<span class=ln>15</span><span class=k>return</span> <span class=n>tid</span><span class=p>;</span>
+<span class=ln>16</span><span class=p>}</span>
+<span class=ln>17</span>
+<span class=ln>18</span><span class=n>MyObject</span> <span class=p>()</span> <span class=p>{}</span>
+<span class=ln>19</span><span class=n>TracedValue</span><span class=o>&lt;</span><span class=kt>int32_t</span><span class=o>&gt;</span> <span class=n>m_myInt</span><span class=p>;</span>
+<span class=ln>20</span><span class=p>};</span>
+</code></pre></div><p>在以上的两行代码中，和Tracing密切相关的就是.AddTraceSource 和 TracedValue声明的m_myInt。</p>
+<p>.AddTraceSource提供了通过Config系统连接跟踪源和外界的钩子。第一个参数是给跟踪源的命名，名字可以自己取；第二个参数是一个提示字符串；<strong>我们需要关注的是第三个参数“<code>&MyObject::m_myInt</code>”。这表示着需要被加到跟踪类中的需要跟踪的值，第三个参数总是类的成员变量。</strong> 第四个参数是TracedValue的一个typedef,是一个字符串。这个正确的回调函数签名产生文档，在一些更为通用的回调函数中十分有用。</p>
+<p>TracedValue&lt;>声明提供了驱动回调进程的基础。任何时候，只要底层的值发生变化，TracedValue机制就会提供新的值和旧的值，在本例中是一个int32_t类型的值。跟踪槽函数traceSink跟踪这个TracedValue，并需要签名：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>traceSink</span><span class=p>)</span> <span class=p>(</span><span class=kt>int32_t</span> <span class=n>oldValue</span><span class=p>,</span><span class=kt>int32_t</span> <span class=n>newValue</span><span class=p>);</span>
+</code></pre></div><p>所有和这个跟踪源关联的跟踪槽都需要这个签名。我们接下来就讨论在其他场景下，如何决定所需回调函数的签名。</p>
+<p>我们继续过fourth.cc我们看到：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span><span class=kt>void</span> <span class=nf>IntTrace</span><span class=p>(</span><span class=kt>int32_t</span> <span class=n>oldValue</span><span class=p>,</span> <span class=kt>int32_t</span> <span class=n>newValue</span><span class=p>)</span>
+<span class=ln>2</span>  <span class=p>{</span>
+<span class=ln>3</span>        <span class=n>std</span><span class=o>::</span><span class=n>cout</span><span class=o>&lt;&lt;</span><span class=s>&#34;Traced&#34;</span><span class=o>&lt;&lt;</span><span class=n>oldValue</span><span class=o>&lt;&lt;</span><span class=s>&#34; to &#34;</span><span class=o>&lt;&lt;</span><span class=n>newValue</span><span class=o>&lt;&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=ln>4</span>  <span class=p>}</span>
+</code></pre></div><p>这里定义了一个匹配的跟踪槽函数。他直接对应与回调函数的签名。一旦被连接，这个函数就会在TracedValue 改变时被调用。</p>
+<p>我们已经看过了跟踪源和跟踪槽，代码接下来要做的就是连接跟踪源和跟踪槽，这个在main函数中完成：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span> <span class=kt>void</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=kt>char</span><span class=o>*</span> <span class=n>argv</span><span class=p>[])</span>
+<span class=ln>2</span> <span class=p>{</span>
+<span class=ln>3</span>     <span class=n>Ptr</span><span class=o>&lt;</span><span class=n>MyObject</span><span class=o>&gt;</span> <span class=n>myObject</span> <span class=o>=</span> <span class=n>CreateObject</span><span class=o>&lt;</span><span class=n>MyObject</span><span class=o>&gt;</span><span class=p>();</span>
+<span class=ln>4</span>     <span class=n>myObject</span><span class=o>-&gt;</span><span class=n>TraceConnectWithoutContext</span><span class=p>(</span><span class=s>&#34;MyInteger&#34;</span><span class=p>,</span><span class=n>MakeCallback</span><span class=p>(</span><span class=o>&amp;</span><span class=n>IntTrace</span><span class=p>));</span>
+<span class=ln>5</span>
+<span class=ln>6</span>     <span class=n>myObject</span><span class=o>-&gt;</span><span class=n>m_myInt</span> <span class=o>=</span> <span class=mi>1234</span><span class=p>;</span>
+<span class=ln>7</span> <span class=p>}</span>
+</code></pre></div><p>我们首先创造一个MyObject实例，这样我们的跟踪源可以存在。</p>
+<p>下一步，<code>TraceConnectWithoutContext</code> 形成了跟踪源和跟踪槽之间的连接。<strong>第一个参数就是跟踪源的名称</strong>,我们在上面已经定义过了。需要注意的是，<code>MakeCallback</code> 是一个函数模板，这个函数模板做一些ns3底层的回调类生成，关联函数（和IntTrace函数）等等工作。<code>TraceConnect</code>将会关联你提供的回调函数，同时重载（）操作符。关联之后，跟踪源的被跟踪的变量将会对准你提供的回调函数。<strong>第二个参数就是MakeCallback（你的函数地址）。</strong></p>
+<p>实现这些功能的代码并不平凡，但是本质上，就像一开始我们提到的使用<code>pfi</code> 回调一样。在类中<code>TracedValue&lt;int32_t> m_myInt;</code> 的声明做一些重载分配操作符的工作，将会调用<code>operator（）</code>来实际唤醒Callback并提供所需的参数。<code>.AddTraceSource</code>将会连接回调函数和Config系统，而<code>TraceConnectWithoutContext</code>将会通过Attribute系统的Attribute Name连接你的回调函数和跟踪源的名字。</p>
+<p>我们先不管其他的一些内容。最后一行是给m_myInt重新分配值。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=ln>1</span>     <span class=n>myObject</span><span class=o>-&gt;</span><span class=n>m_myInt</span> <span class=o>=</span> <span class=mi>1234</span><span class=p>;</span>
+</code></pre></div><p>需要解释的是通过重载operator=，不仅完成了赋值的工作，还将1234作为参数传递了。</p>
+<p>由于 m_myInt是一个被跟踪的值,因此它的回调函数是将两个整数值作为参数（一个旧值，一个新值），且返回空值。这也正如我们的例子所表示的那样，IntTrace。</p>
+<p>总结一下，一个跟踪源本质上是一个有一系列函调函数的变量。一个跟踪槽是一个函数被用为回调的目标。Attribute和Object类信息系统，被用来连接跟踪源和跟踪槽。当一个跟踪的数据有变动时，就是重载一个操作符触发回调。这样，就使得在跟踪源注册的回调被源所提供的参数调用。
+如果你编译运行这个例子：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span> me~$ ./waf --run fourth
+</code></pre></div><p>你将会看到IntTrace函数被执行，一旦跟踪源有变动：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=ln>1</span> Traced <span class=m>0</span> to <span class=m>1234</span>
+</code></pre></div><p>当我们执行到代码，<code>myObject->m_myInt = 1234;</code>,跟踪源被击中，并提供原先和现在的值给跟踪槽。函数IntTrace使用便准输入输出打印。</p>
+</article>
+<aside class=sidebar>
+<section class=sidebar_inner>
+<div class=author_header>
+<img src=https://surprisedcat.github.io/images/cat-avatar.png alt="SurprisedCat photo">
+<a href=https://surprisedcat.github.io/about/><h2>SurprisedCat</h2></a>
+</div>
+<div class=author_bio>
+朝花夕拾，人类从历史中学到的唯一教训，就是人类无法从历史中学到任何教训。
+</div>
+<div>
+<h4 class="mt-4 taxonomy" id=categories-section>分类</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有分类</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/categories/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/cplus/ class="post_tag button button_translucent" data-position=3 title=cplus>CPLUS<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/python/ class="post_tag button button_translucent" data-position=12 title=python>PYTHON<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=3 title=算法>算法<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/categories/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+<h4 class=mt-4>精选文章</h4>
+<ul>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%89/ class=nav-link title=javascript-Chrome扩展实例（三）>javascript-Chrome扩展实例（三）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%BA%8C/ class=nav-link title=javascript-Chrome扩展实例（二）>javascript-Chrome扩展实例（二）</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/javascript-chrome%E6%89%A9%E5%B1%95%E5%AE%9E%E4%BE%8B%E4%B8%80/ class=nav-link title=javascript-Chrome扩展实例（一）>javascript-Chrome扩展实例（一）</a>
+</li>
+</ul>
+<h4 class=mt-4>最新文章</h4>
+<ul class=flex-column>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-hdfs%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/ class=nav-link title=hadoop-HDFS集群部署>hadoop-HDFS集群部署</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/hadoop-%E6%90%AD%E5%BB%BAhadoop%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83/ class=nav-link title=hadoop-搭建Hadoop虚拟机环境>hadoop-搭建Hadoop虚拟机环境</a>
+</li>
+<li>
+<a href=https://surprisedcat.github.io/projectnotes/ai-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%8E%A9%E9%9B%85%E8%BE%BE%E5%88%A9%E6%B8%B8%E6%88%8Fatari-2600%E7%9A%84%E9%A2%84%E5%A4%84%E7%90%86/ class=nav-link title="AI-神经网络玩雅达利游戏(atari 2600)的预处理">AI-神经网络玩雅达利游戏(atari 2600)的预处理</a>
+</li>
+</ul>
+<div>
+<h4 class="mt-4 taxonomy" id=tags-section>标签</h4>
+<nav class=tags_nav>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" title=概率统计随机过程>
+概率统计随机过程
+<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" title=优化理论>
+优化理论
+<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" title=线性代数与矩阵>
+线性代数与矩阵
+<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" title=数学分析>
+数学分析
+<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" title=python>
+PYTHON
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" title=机器学习>
+机器学习
+<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" title=测度论>
+测度论
+<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" title=linux>
+LINUX
+<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" title=shell>
+SHELL
+<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" title=实变函数>
+实变函数
+<span class=button_tally>8</span>
+</a>
+<br>
+<div class="post_tags_toggle button">所有标签</div>
+<div class=post_tags>
+<div class=tags_list>
+<a href=https://surprisedcat.github.io/tags/a/ class="post_tag button button_translucent" data-position=1 title=a>A<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ai/ class="post_tag button button_translucent" data-position=1 title=ai>AI<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/bugs/ class="post_tag button button_translucent" data-position=1 title=bugs>BUGS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cli%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B/ class="post_tag button button_translucent" data-position=6 title=cli处理流程>CLI处理流程<span class=button_tally>6</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/cplus/ class="post_tag button button_translucent" data-position=4 title=cplus>CPLUS<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/devops/ class="post_tag button button_translucent" data-position=1 title=devops>DEVOPS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/docker/ class="post_tag button button_translucent" data-position=2 title=docker>DOCKER<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ecmascript/ class="post_tag button button_translucent" data-position=5 title=ecmascript>ECMASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/hadoop/ class="post_tag button button_translucent" data-position=2 title=hadoop>HADOOP<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/ide/ class="post_tag button button_translucent" data-position=2 title=ide>IDE<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/javascript/ class="post_tag button button_translucent" data-position=5 title=javascript>JAVASCRIPT<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/jekyll/ class="post_tag button button_translucent" data-position=2 title=jekyll>JEKYLL<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux/ class="post_tag button button_translucent" data-position=11 title=linux>LINUX<span class=button_tally>11</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/linux%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=linux文本处理>LINUX文本处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/matlab/ class="post_tag button button_translucent" data-position=4 title=matlab>MATLAB<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/python/ class="post_tag button button_translucent" data-position=13 title=python>PYTHON<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/pytorch/ class="post_tag button button_translucent" data-position=1 title=pytorch>PYTORCH<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/raspberry/ class="post_tag button button_translucent" data-position=7 title=raspberry>RASPBERRY<span class=button_tally>7</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/shell/ class="post_tag button button_translucent" data-position=9 title=shell>SHELL<span class=button_tally>9</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/tensorflow/ class="post_tag button button_translucent" data-position=4 title=tensorflow>TENSORFLOW<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/windows/ class="post_tag button button_translucent" data-position=1 title=windows>WINDOWS<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E4%BC%98%E5%8C%96%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=21 title=优化理论>优化理论<span class=button_tally>21</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8D%9A%E5%BC%88%E8%AE%BA/ class="post_tag button button_translucent" data-position=3 title=博弈论>博弈论<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%8F%98%E5%88%86%E6%B3%95/ class="post_tag button button_translucent" data-position=4 title=变分法>变分法<span class=button_tally>4</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/ class="post_tag button button_translucent" data-position=1 title=图像处理>图像处理<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%8D%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=1 title=复变函数>复变函数<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/ class="post_tag button button_translucent" data-position=2 title=大数据>大数据<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%89%E5%85%A8/ class="post_tag button button_translucent" data-position=1 title=安全>安全<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%AE%9E%E5%8F%98%E5%87%BD%E6%95%B0/ class="post_tag button button_translucent" data-position=8 title=实变函数>实变函数<span class=button_tally>8</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=5 title=强化学习>强化学习<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%8B%93%E6%89%91%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=拓扑学>拓扑学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/ class="post_tag button button_translucent" data-position=3 title=数值计算>数值计算<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=数学>数学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/ class="post_tag button button_translucent" data-position=14 title=数学分析>数学分析<span class=button_tally>14</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/ class="post_tag button button_translucent" data-position=1 title=数据库>数据库<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=1 title=数理统计>数理统计<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%97%A0%E7%BA%BF%E9%80%9A%E4%BF%A1/ class="post_tag button button_translucent" data-position=2 title=无线通信>无线通信<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=13 title=机器学习>机器学习<span class=button_tally>13</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B/ class="post_tag button button_translucent" data-position=27 title=概率统计随机过程>概率统计随机过程<span class=button_tally>27</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/ class="post_tag button button_translucent" data-position=1 title=正则表达式>正则表达式<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B5%8B%E5%BA%A6%E8%AE%BA/ class="post_tag button button_translucent" data-position=12 title=测度论>测度论<span class=button_tally>12</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/ class="post_tag button button_translucent" data-position=2 title=深度学习>深度学习<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=1 title=离散数学>离散数学<span class=button_tally>1</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95/ class="post_tag button button_translucent" data-position=5 title=算法>算法<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/ class="post_tag button button_translucent" data-position=5 title=算法理论>算法理论<span class=button_tally>5</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E4%B8%8E%E7%9F%A9%E9%98%B5/ class="post_tag button button_translucent" data-position=18 title=线性代数与矩阵>线性代数与矩阵<span class=button_tally>18</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/ class="post_tag button button_translucent" data-position=2 title=组合数学>组合数学<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E7%BB%9F%E8%AE%A1%E5%AD%A6/ class="post_tag button button_translucent" data-position=3 title=统计学>统计学<span class=button_tally>3</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/ class="post_tag button button_translucent" data-position=2 title=读书笔记>读书笔记<span class=button_tally>2</span>
+</a>
+<a href=https://surprisedcat.github.io/tags/%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%BB%9F%E8%AE%A1/ class="post_tag button button_translucent" data-position=2 title=贝叶斯统计>贝叶斯统计<span class=button_tally>2</span>
+</a>
+<div class=tags_sort><span title="sort alphabetically">字母</span><span title="sort by count">数量</span>
+</div>
+<span class=tags_hide><svg class="icon"><use xlink:href="#closeme"/></svg></span>
+</div>
+</div>
+</nav>
+</div>
+</section>
+</aside>
+</div>
+</main><svg width="0" height="0" class="hidden"><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter"><path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68.0 01-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043.0-1.924.366-2.643 1.078A3.56 3.56.0 008.766 5.383c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846.0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47.0.929.273 1.705.82 2.388a3.623 3.623.0 002.115 1.291c-.312.08-.641.118-.979.118-.312.0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652.0 002.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422.0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139.0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77.0 001.172-4.892v-.468a7.788 7.788.0 001.84-1.921 8.142 8.142.0 01-2.11.593z"/></symbol><symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V4e2c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5.0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar"><path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916.0 1e2v352c0 33.084 26.916 60 60 60h392c33.084.0 60-26.916 60-60V1e2c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028.0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028.0 20 8.972 20 20v48z"/><path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github"><path d="M255.968 5.329C114.624 5.329.0 120.401.0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384.0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008.0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992.0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584.0 34.368-.32 62.08-.32 70.496.0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab"><path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6.0L12.3 74.8z"/><path d="M12.3 74.7.5 111c-1 3.2.0 6.8 3 8.8l101.6 74-92.5-119z"/><path d="M105 193.7l-38.6-119h-54l92.7 119z"/><path d="M105 193.7l38.7-119H66.4l38.7 119z"/><path d="M105 193.7l38.7-119H198l-93 119z"/><path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/><path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6.0L198 74.8z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss"><circle cx="3.429" cy="20.571" r="3.429"/><path d="M11.429 24h4.57C15.999 15.179 8.821 8.001.0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"/><path d="M24 24C24 10.766 13.234.0.0.0v4.571c10.714.0 19.43 8.714 19.43 19.429z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin"><path d="M437 0H75C33.648.0.0 33.648.0 75v362c0 41.352 33.648 75 75 75h362c41.352.0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="arrow"><path d="M604.501 440.509 325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298.0 36.323s26.223 10.024 36.222.0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221.0 9.999-10.023 9.999-26.298.0-36.323z"/></symbol><symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly"><path d="M504.971 239.029 448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c19.851.0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002.0 004e2 320v108c0 19.851-16.149 36-36 36h-44c-13.255.0-24 10.745-24 24s10.745 24 24 24h44c46.318.0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568.0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255.0 24-10.745 24-24S205.255.0 192 0h-44c-46.318.0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568.0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255.0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851.0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002.0 00112 192z"/></symbol><symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy"><path d="M23 2.75A2.75 2.75.0 0020.25.0H8.75A2.75 2.75.0 006 2.75v13.5A2.75 2.75.0 008.75 19h11.5A2.75 2.75.0 0023 16.25zM18.25 14.5h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5zm0-3h-7.5a.75.75.0 010-1.5h7.5a.75.75.0 010 1.5z"/><path d="M8.75 20.5A4.255 4.255.0 014.5 16.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752.0 001 5.25v16A2.752 2.752.0 003.75 24h12a2.752 2.752.0 002.75-2.75v-.75z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme"><path d="M284.286 256.002 506.143 34.144c7.811-7.811 7.811-20.475.0-28.285-7.811-7.81-20.475-7.811-28.285.0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285.0-7.81 7.811-7.811 20.475.0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475.0 28.285a19.938 19.938.0 0014.143 5.857 19.94 19.94.0 0014.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475.0-28.285L284.286 256.002z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu"><path d="M492 236H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954.0 96s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046.0-20 8.954-20 20s8.954 20 20 20h472c11.046.0 20-8.954 20-20s-8.954-20-20-20z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram"><path d="M12 2.163c3.204.0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849.0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204.0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849.0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741.0 8.333.014 7.053.072c-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.668.072 4.948c.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403.0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zM12 16c-2.209.0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796.0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795.0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="youtube"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23.0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23.0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></symbol><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow"><path d="M21 27v-8h3v11H0V19h3v8h18z"/><path d="M17.1.2 15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8 13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"/></symbol></svg>
+<link rel=stylesheet href=../../katex/katex.min.css>
+<script defer src=../../katex/katex.min.js></script>
+<script defer src=../../katex/contrib/auto-render.js onload=renderMathInElement(document.body)></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}]})})</script>
+<footer class=footer>
+<div class="footer_inner wrap pale">
+<img src=https://surprisedcat.github.io/icons/apple-touch-icon.png class="icon icon_2 transparent" alt=SurprisedCat>
+<p>Copyright&nbsp;2020-&nbsp;<span class=year></span>&nbsp;SURPRISEDCAT. All Rights Reserved</p><a class=to_top href=#documentTop><svg class="icon"><use xlink:href="#arrow"/></svg>
+</a>
+</div>
+</footer>
+<script type=text/javascript src=https://surprisedcat.github.io/js/bundle.min.d42eaf65945a88c7a467385caae103c01ac5ca08a2c6b1751c446b8f6738f3aa0709195716639fbb56728b4e82d68f047d6cb08b7fa4044d74ef28f7085086f2.js integrity="sha512-1C6vZZRaiMekZzhcquEDwBrFygiixrF1HERrj2c486oHCRlXFmOfu1Zyi06C1o8EfWywi3+kBE107yj3CFCG8g==" crossorigin=anonymous></script>
+</body>
+</html>

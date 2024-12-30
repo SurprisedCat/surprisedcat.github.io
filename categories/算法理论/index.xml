@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>算法理论 on SurprisedCat</title><link>https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/</link><description>Recent content in 算法理论 on SurprisedCat</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>Copyright © 2020–2021, SurprisedCat; all rights reserved.</copyright><lastBuildDate>Mon, 19 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://surprisedcat.github.io/categories/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>算法理论之P，NP，NPC和NP-hard</title><link>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E4%B9%8Bpnpnpc%E5%92%8Cnp-hard/</link><pubDate>Mon, 19 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E7%90%86%E8%AE%BA%E4%B9%8Bpnpnpc%E5%92%8Cnp-hard/</guid><description>
+&lt;h2 id="算法理论之pnpnpc和np-hard">算法理论之P，NP，NPC和NP-hard&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>个人认为写的非常好的P，NP，NPC和NP-hard解释，转自Matrix67的博客&lt;a href="http://www.matrix67.com/blog/archives/105">《什么是P问题、NP问题和NPC问题》&lt;/a>&lt;/p>
+&lt;p>这或许是众多OIer最大的误区之一。&lt;/p>
+&lt;p>你会经常看到网上出现“这怎么做，这不是NP问题吗”、“这个只有搜了，这已经被证明是NP问题了”之类的话。你要知道，&lt;strong>大多数人此时所说的NP问题其实都是指的NPC问题&lt;/strong>。他们没有搞清楚NP问题和NPC问题的概念。NP问题并不是那种“只有搜才行”的问题，NPC问题才是。好，行了，基本上这个误解已经被澄清了。下面的内容都是在讲&lt;strong>什么是P问题，什么是NP问题，什么是NPC问题&lt;/strong>，你如果不是很感兴趣就可以不看了。接下来你可以看到，把NP问题当成是 NPC问题是一个多大的错误。&lt;/p>
+&lt;p>还是先用几句话简单说明一下时间复杂度。时间复杂度并不是表示一个程序解决问题需要花多少时间，而是当问题规模扩大后，程序需要的时间长度增长得有多快。也就是说，对于高速处理数据的计算机来说，处理某一个特定数据的效率不能衡量一个程序的好坏，而应该看当这个数据的规模变大到数百倍后，程序运行时间是否还是一样，或者也跟着慢了数百倍，或者变慢了数万倍。不管数据有多大，程序处理花的时间始终是那么多的，我们就说这个程序很好，具有&lt;span class="math">\(O(1)\)&lt;/span>的时间复杂度，也称常数级复杂度；数据规模变得有多大，花的时间也跟着变得有多长，这个程序的时间复杂度就是&lt;span class="math">\(O(n)\)&lt;/span>，比如找n个数中的最大值；而像冒泡排序、插入排序等，数据扩大2倍，时间变慢4倍的，属于&lt;span class="math">\(O(n^2)\)&lt;/span>的复杂度。还有一些穷举类的算法，所需时间长度成几何阶数上涨，这就是&lt;span class="math">\(O(a^n)\)&lt;/span>的指数级复杂度，甚至&lt;span class="math">\(O(n!)\)&lt;/span>的阶乘级复杂度。不会存在&lt;span class="math">\(O(2*n^2)\)&lt;/span>的复杂度，因为前面的那个“2”是系数，根本不会影响到整个程序的时间增长。同样地，&lt;span class="math">\(O(n^3+n^2)\)&lt;/span>的复杂度也就是&lt;span class="math">\(O(n^3)\)&lt;/span>的复杂度。因此，我们会说，一个&lt;span class="math">\(O(0.01*n^3)\)&lt;/span>的程序的效率比&lt;span class="math">\(O(100*n^2)\)&lt;/span>的效率低，尽管在n很小的时候，前者优于后者，但后者时间随数据规模增长得慢，最终&lt;span class="math">\(O(n^3)\)&lt;/span>的复杂度将远远超过&lt;span class="math">\(O(n^2)\)&lt;/span>。我们也说，&lt;span class="math">\(O(n^100)\)&lt;/span>的复杂度小于&lt;span class="math">\(O(1.01^n)\)&lt;/span>的复杂度。&lt;/p>
+&lt;p>容易看出，前面的几类复杂度被分为两种级别，其中后者的复杂度无论如何都远远大于前者：一种是&lt;span class="math">\(O(1),O(log(n)),O(n^a)\)&lt;/span>等，我们把它叫做&lt;strong>多项式级的复杂度&lt;/strong>，因为它的规模n出现在底数的位置；另一种是&lt;span class="math">\(O(a^n)\)&lt;/span>和&lt;span class="math">\(O(n!)\)&lt;/span>型复杂度，它是&lt;strong>非多项式级&lt;/strong>的，其复杂度计算机往往不能承受。当我们在解决一个问题时，我们选择的算法通常都需要是多项式级的复杂度，非多项式级的复杂度需要的时间太多，往往会超时，除非是数据规模非常小。&lt;/p>
+&lt;p>自然地，人们会想到一个问题：&lt;strong>会不会所有的问题都可以找到复杂度为多项式级的算法呢&lt;/strong>？很遗憾，答案是&lt;strong>否定的&lt;/strong>。有些问题甚至根本不可能找到一个正确的算法来，这称之为“&lt;strong>不可解问题&lt;/strong>”(Undecidable Decision Problem)。The Halting Problem就是一个著名的不可解问题，在我的Blog上有过专门的介绍和证明。再比如，输出从1到n这n个数的全排列。不管你用什么方法，你的复杂度都是阶乘级，因为你总得用阶乘级的时间打印出结果来。有人说，这样的“问题”不是一个“正规”的问题，正规的问题是让程序解决一个问题，输出一个“YES”或“NO”（这被称为判定性问题），或者一个什么什么的最优值（这被称为最优化问题）。那么，根据这个定义，我也能举出一个不大可能会有多项式级算法的问题来：Hamilton回路。问题是这样的：给你一个图，问你能否找到一条经过每个顶点一次且恰好一次（不遗漏也不重复）最后又走回来的路（满足这个条件的路径叫做Hamilton回路）。这个问题现在还没有找到多项式级的算法。事实上，这个问题就是我们后面要说的NPC问题。&lt;/p>
+&lt;p>下面引入P类问题的概念：&lt;strong>如果一个问题可以找到一个能在多项式的时间里解决它的算法，那么这个问题就属于P问题&lt;/strong>(读者注：多项式时间内可解)。P是英文单词多项式的第一个字母。哪些问题是P类问题呢？通常NOI和NOIP（即全国青少年信息学奥林匹克竞赛）不会出不属于P类问题的题目。我们常见到的一些信息奥赛的题目都是P问题。道理很简单，一个用穷举换来的非多项式级时间的超时程序不会涵盖任何有价值的算法。&lt;/p>
+&lt;p>接下来引入NP问题的概念。这个就有点难理解了，或者说容易理解错误。在这里强调（回到我竭力想澄清的误区上），&lt;strong>NP问题不是非P类问题。NP问题是指可以在多项式的时间里验证一个解的问题&lt;/strong>（读者注：即多项式时间内可验证解是不是所求解）。NP问题的另一个定义是，可以在多项式的时间里猜出一个解的问题。比方说，我RP很好，在程序中需要枚举时，我可以一猜一个准。现在某人拿到了一个求最短路径的问题，问从起点到终点是否有一条小于100个单位长度的路线。它根据数据画好了图，但怎么也算不出来，于是来问我：你看怎么选条路走得最少？我说，我RP很好，肯定能随便给你指条很短的路出来。然后我就胡乱画了几条线，说就这条吧。那人按我指的这条把权值加起来一看，嘿，神了，路径长度98，比100小。于是答案出来了，存在比100小的路径。别人会问他这题怎么做出来的，他就可以说，因为我找到了一个比100 小的解。在这个题中，找一个解很困难，但验证一个解很容易。验证一个解只需要&lt;span class="math">\(O(n)\)&lt;/span>的时间复杂度，也就是说我可以花&lt;span class="math">\(O(n)\)&lt;/span>的时间把我猜的路径的长度加出来。那么，只要我RP好，猜得准，我一定能在多项式的时间里解决这个问题。我猜到的方案总是最优的，不满足题意的方案也不会来骗我去选它。这就是NP问题。&lt;strong>当然有不是NP问题的问题，即你猜到了解但是没用，因为你不能在多项式的时间里去验证它&lt;/strong>。下面我要举的例子是一个经典的例子，它指出了一个目前还没有办法在多项式的时间里验证一个解的问题。很显然，前面所说的Hamilton回路是NP问题，因为验证一条路是否恰好经过了每一个顶点非常容易。但我要把问题换成这样：试问一个图中是否不存在Hamilton回路。这样问题就没法在多项式的时间里进行验证了，因为除非你试过所有的路，否则你不敢断定它“没有Hamilton回路”。&lt;/p>
+&lt;p>之所以要定义NP问题，是因为&lt;strong>通常只有NP问题才可能找到多项式的算法&lt;/strong>。我们不会指望一个连多项式地验证一个解都不行的问题存在一个解决它的多项式级的算法。相信读者很快明白，信息学中的号称最困难的问题——&lt;strong>“NP问题”，实际上是在探讨NP问题与P类问题的关系&lt;/strong>。&lt;/p>
+&lt;p>很显然，&lt;strong>所有的P类问题都是NP问题&lt;/strong>。也就是说，能多项式地解决一个问题，必然能多项式地验证一个问题的解——既然正解都出来了，验证任意给定的解也只需要比较一下就可以了。关键是，人们想知道，是否所有的NP问题都是P类问题。我们可以再用集合的观点来说明。如果把所有P类问题归为一个集合P中，把所有 NP问题划进另一个集合NP中，那么，显然有P属于NP。现在，所有对NP问题的研究都集中在一个问题上，即究竟是否有P=NP？通常所谓的“NP问题”，其实就一句话：&lt;strong>证明或推翻P=NP&lt;/strong>。&lt;/p>
+&lt;p>NP问题一直都是信息学的巅峰。巅峰，意即很引人注目但难以解决。在信息学研究中，这是一个耗费了很多时间和精力也没有解决的终极问题，好比物理学中的大统一和数学中的歌德巴赫猜想等。&lt;/p>
+&lt;p>目前为止这个问题还“啃不动”。但是，一个总的趋势、一个大方向是有的。&lt;strong>人们普遍认为，P=NP不成立&lt;/strong>，也就是说，多数人相信，存在至少一个不可能有多项式级复杂度的算法的NP问题。人们如此坚信P≠NP是有原因的，就是在研究NP问题的过程中找出了一类非常特殊的NP问题叫做&lt;strong>NP-完全问题，也即所谓的 NPC问题&lt;/strong>(读者注：NPC问题首先是一个NP问题，它能够在多项式时间内验证解)。C是英文单词“完全”的第一个字母。正是NPC问题的存在，使人们相信P≠NP。下文将花大量篇幅介绍NPC问题，你从中可以体会到NPC问题使P=NP变得多么不可思议。&lt;/p>
+&lt;p>为了说明NPC问题，我们先引入一个概念——&lt;strong>约化&lt;/strong>(Reducibility，有的资料上叫“&lt;strong>归约&lt;/strong>”)。&lt;/p>
+&lt;p>简单地说，&lt;strong>一个问题A可以约化为问题B的含义即是，可以用问题B的解法解决问题A，或者说，问题A可以“变成”问题B&lt;/strong>。《算法导论》上举了这么一个例子。比如说，现在有两个问题：求解一个一元一次方程和求解一个一元二次方程。那么我们说，前者可以约化为后者，意即知道如何解一个一元二次方程那么一定能解出一元一次方程。我们可以写出两个程序分别对应两个问题，那么我们能找到一个“规则”，按照这个规则把解一元一次方程程序的输入数据变一下，用在解一元二次方程的程序上，两个程序总能得到一样的结果。这个规则即是：两个方程的对应项系数不变，一元二次方程的二次项系数为0。按照这个规则把前一个问题转换成后一个问题，两个问题就等价了。同样地，我们可以说，Hamilton回路可以约化为TSP问题(Travelling Salesman Problem，旅行商问题)：在Hamilton回路问题中，两点相连即这两点距离为0，两点不直接相连则令其距离为1，于是问题转化为在TSP问题中，是否存在一条长为0的路径。Hamilton回路存在当且仅当TSP问题中存在长为0的回路。&lt;/p>
+&lt;p>“问题A可约化为问题B”（读者注：即B问题更难，B问题包括A，解决B就能解决A）有一个重要的直观意义：&lt;strong>B的时间复杂度高于或者等于A的时间复杂度。也就是说，问题A不比问题B难&lt;/strong>。这很容易理解。既然问题A能用问题B来解决，倘若B的时间复杂度比A的时间复杂度还低了，那A的算法就可以改进为B的算法，两者的时间复杂度还是相同。正如解一元二次方程比解一元一次方程难，因为解决前者的方法可以用来解决后者。&lt;/p>
+&lt;p>很显然，约化具有一项重要的性质：&lt;strong>约化具有传递性&lt;/strong>。如果问题A可约化为问题B，问题B可约化为问题C，则问题A一定可约化为问题C。这个道理非常简单，就不必阐述了。&lt;/p>
+&lt;p>现在再来说一下约化的标准概念就不难理解了：如果能找到这样一个变化法则，对任意一个程序A的输入，都能按这个法则变换成程序B的输入，使两程序的输出相同，那么我们说，问题A可约化为问题B。&lt;/p>
+&lt;p>当然，我们所说的“可约化”是指的可“&lt;strong>多项式地&lt;/strong>”约化(Polynomial-time Reducible)，即变&lt;strong>换输入的方法是能在多项式的时间里完成的&lt;/strong>。约化的过程只有用多项式的时间完成才有意义。&lt;/p>
+&lt;p>好了，从约化的定义中我们看到，一个问题约化为另一个问题，时间复杂度增加了，问题的应用范围也增大了。通过对某些问题的不断约化，我们能够不断寻找复杂度更高，但应用范围更广的算法来代替复杂度虽然低，但只能用于很小的一类问题的算法。再回想前面讲的P和NP问题，联想起约化的传递性，自然地，我们会想问，如果不断地约化上去，不断找到能“通吃”若干小NP问题的一个稍复杂的大NP问题，&lt;strong>那么最后是否有可能找到一个时间复杂度最高，并且能“通吃”所有的 NP问题的这样一个超级NP问题&lt;/strong>？答案居然是&lt;strong>肯定的&lt;/strong>。也就是说，存在这样一个NP问题，所有的NP问题都可以约化成它。换句话说，只要解决了这个问题，那么所有的NP问题都解决了。这种问题的存在难以置信，并且更加不可思议的是，这种问题不只一个，它有很多个，它是一类问题。&lt;strong>这一类问题就是传说中的NPC 问题，也就是NP-完全问题&lt;/strong>（读者注：NPC问题是NP问题中最难的问题，约化的终点，所有NPC问题都是等价的）。NPC问题的出现使整个NP问题的研究得到了飞跃式的发展。我们有理由相信，NPC问题是最复杂的问题。再次回到全文开头，我们可以看到，人们想表达一个问题不存在多项式的高效算法时应该说它“属于NPC问题”。此时，我的目的终于达到了，我已经把NP问题和NPC问题区别开了。到此为止，本文已经写了近5000字了，我佩服你还能看到这里来，同时也佩服一下自己能写到这里来。&lt;/p>
+&lt;p>NPC问题的定义非常简单。同时满足下面两个条件的问题就是NPC问题。&lt;/p>
+&lt;ul>
+&lt;li>首先，它得是一个NP问题；&lt;/li>
+&lt;li>然后，所有的NP问题都可以约化到它。&lt;/li>
+&lt;/ul>
+&lt;p>证明一个问题是 NPC问题也很简单。&lt;/p>
+&lt;ul>
+&lt;li>先证明它至少是一个NP问题，&lt;/li>
+&lt;li>再证明其中一个已知的NPC问题能约化到它（由约化的传递性，则NPC问题定义的第二条也得以满足；至于第一个NPC问题是怎么来的，下文将介绍），这样就可以说它是NPC问题了。&lt;/li>
+&lt;/ul>
+&lt;p>既然所有的NP问题都能约化成NPC问题，那么只要任意一个NPC问题找到了一个多项式的算法，那么所有的NP问题都能用这个算法解决了，NP也就等于P了。因此，给NPC找一个多项式算法太不可思议了。因此，前文才说，“&lt;strong>正是NPC问题的存在，使人们相信P≠NP&lt;/strong>”。我们可以就此直观地理解，NPC问题目前没有多项式的有效算法，只能用指数级甚至阶乘级复杂度的搜索。&lt;/p>
+&lt;p>顺便讲一下NP-Hard问题。NP-Hard问题是这样一种问题，它&lt;strong>满足NPC问题定义的第二条但不一定要满足第一条&lt;/strong>（就是说，NP-Hard问题要比NPC问题的范围广）（读者注：NP-hard问题不一定是NP问题，我们甚至不一定能在多项式时间内验证解正确与否，可直观理解为&lt;strong>至少与NP完全问题一样难&lt;/strong>）。NP-Hard问题同样难以找到多项式的算法，但它不列入我们的研究范围，因为它不一定是NP问题。即使NPC问题发现了多项式级的算法，NP-Hard问题有可能仍然无法得到多项式级的算法。事实上，由于NP-Hard放宽了限定条件，它将有可能比所有的NPC问题的时间复杂度更高从而更难以解决。&lt;/p>
+&lt;p>不要以为NPC问题是一纸空谈。NPC问题是存在的。确实有这么一个非常具体的问题属于NPC问题。下文即将介绍它。 下文即将介绍&lt;strong>逻辑电路问题。这是第一个NPC问题&lt;/strong>。其它的NPC问题都是由这个问题约化而来的。因此，逻辑电路问题是NPC类问题的“鼻祖”。&lt;/p>
+&lt;p>逻辑电路问题是指的这样一个问题：给定一个逻辑电路，问是否存在一种输入使输出为True。 什么叫做逻辑电路呢？一个逻辑电路由若干个输入，一个输出，若干“逻辑门”和密密麻麻的线组成。看下面一例，不需要解释你马上就明白了。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/PNPNPCNPhard1.png" alt="PNPNPCNPhard1.png" />&lt;p class="caption">PNPNPCNPhard1.png&lt;/p>
+&lt;/div>
+&lt;p>这是个较简单的逻辑电路，当输入1、输入2、输入3分别为True、True、False或False、True、False时，输出为True。&lt;/p>
+&lt;p>有输出无论如何都不可能为True的逻辑电路吗？有。下面就是一个简单的例子。 &lt;img src="../../images/PNPNPCNPhard2.png" alt="PNPNPCNPhard2.png" />&lt;/p>
+&lt;p>上面这个逻辑电路中，无论输入是什么，输出都是False。我们就说，这个逻辑电路不存在使输出为True的一组输入。 回到上文，给定一个逻辑电路，问是否存在一种输入使输出为True，这即逻辑电路问题。&lt;/p>
+&lt;p>逻辑电路问题属于NPC问题。这是有严格证明的。它显然属于NP问题，并且可以直接证明所有的NP问题都可以约化到它（不要以为NP问题有无穷多个将给证明造成不可逾越的困难）。证明过程相当复杂，其大概意思是说&lt;strong>任意一个NP问题的输入和输出都可以转换成逻辑电路的输入和输出&lt;/strong>（想想计算机内部也不过是一些 0和1的运算），因此对于一个NP问题来说，问题转化为了求出满足结果为True的一个输入（即一个可行解）。&lt;/p>
+&lt;p>有了第一个NPC问题后，一大堆NPC问题就出现了，因为再证明一个新的NPC问题只需要将一个已知的NPC问题约化到它就行了。后来，Hamilton 回路成了NPC问题，TSP问题也成了NPC问题。现在被证明是NPC问题的有很多，任何一个找到了多项式算法的话所有的NP问题都可以完美解决了。因此说，&lt;strong>正是因为NPC问题的存在，P=NP变得难以置信&lt;/strong>。P=NP问题还有许多有趣的东西，有待大家自己进一步的挖掘。攀登这个信息学的巅峰是我们这一代的终极目标。现在我们需要做的，至少是不要把概念弄混淆了。&lt;/p>
+&lt;p>Matrix67原创&lt;/p>
+&lt;p>补充：&lt;/p>
+&lt;img src="../../images/P_np_np-complete_np-hard.svg" alt="P_np_np-complete_np-hard.svg" />
+&lt;center>
+P、NP、NPC、NP-hard关系图
+&lt;/center></description></item><item><title>算法导论-贪心</title><link>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E8%B4%AA%E5%BF%83/</link><pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E8%B4%AA%E5%BF%83/</guid><description>
+&lt;h2 id="贪心算法">贪心算法&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>贪心算法通常是自顶向下设计的。也需要具有最优子结构。贪心算法也是一种启发式算法，并不能一定保证是最优解。&lt;/p>
+&lt;p>从动态规划到贪心算法的转化中，我们通常经理如下步骤：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>确定问题的最优子结构&lt;/li>
+&lt;li>设计一个递归算法，可以用动态规划做&lt;/li>
+&lt;li>证明如果做出一个贪心选择，则只剩一个子问题&lt;/li>
+&lt;li>证明贪心选择总是安全的（3，4可以交换顺序）&lt;/li>
+&lt;li>设计一个递归的贪心算法&lt;/li>
+&lt;li>将递归贪心算法通过尾递归改成迭代算法&lt;/li>
+&lt;/ol>
+&lt;p>简化来看，我们可以根据以下步骤来设计贪心算法：&lt;/p>
+&lt;ol style="list-style-type: decimal">
+&lt;li>将最优化问题转换为这样的形式：对其做出一次选择后，只剩下一个子问题需要求解&lt;/li>
+&lt;li>证明做出贪心选择后，原问题总是存在最优解，即贪心选择是安全的&lt;/li>
+&lt;li>证明做出贪心选择后，剩下的子问题满足性质：其最优解与贪心选择的组合可以得到原问题的最优解，这样就得到了最优子结构。&lt;/li>
+&lt;/ol>
+&lt;p>对于每一个贪心算法，都有一个更加繁琐的DP算法。关于如何证明贪心算法是最优算法，没有适用于所有情况的方法，但&lt;strong>贪心选择性质和最优子结构&lt;/strong>是两个关键因素。&lt;/p>
+&lt;h2 id="拟阵">拟阵&lt;/h2></description></item><item><title>算法导论-渐进记号</title><link>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7/</link><pubDate>Sat, 17 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E6%B8%90%E8%BF%9B%E8%AE%B0%E5%8F%B7/</guid><description>
+&lt;h2 id="算法导论-渐进记号">算法导论-渐进记号&lt;!-- omit in toc -->&lt;/h2>
+&lt;blockquote>
+&lt;p>来自：&lt;a href="https://blog.csdn.net/so_geili/article/details/53353593">https://blog.csdn.net/so_geili/article/details/53353593&lt;/a> 版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a href="#渐近紧确界记号θbig-theta">渐近紧确界记号：&lt;span class="math">\(Θ\)&lt;/span>(big-theta)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#渐进上界记号obig-oh">渐进上界记号：&lt;span class="math">\(O\)&lt;/span>(big-oh)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#几种常见的复杂度关系">几种常见的复杂度关系&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#符号用法测试素数测试">符号用法测试：素数测试&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#渐进下界记号omegabig-omega">渐进下界记号：&lt;span class="math">\(\Omega\)&lt;/span>(big-omega)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#非渐进紧确上界osmall-oh">非渐进紧确上界：&lt;span class="math">\(o\)&lt;/span>(small-oh)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#非渐进紧确下界omegasmall-omega">非渐进紧确下界：&lt;span class="math">\(\omega\)&lt;/span>(small-omega)&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#渐近记号θοoωω关系">渐近记号&lt;span class="math">\(Θ、Ο、o、Ω、ω\)&lt;/span>关系&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="渐近紧确界记号θbig-theta">渐近紧确界记号：&lt;span class="math">\(Θ\)&lt;/span>(big-theta)&lt;/h2>
+&lt;p>假设算法A的运行时间表达式&lt;span class="math">\(T_1(n)\)&lt;/span>为：&lt;span class="math">\(T_1(n)=30n^4+20n^3+40n^2+46n+100\)&lt;/span>&lt;/p>
+&lt;p>假设算法B的运行时间表达式&lt;span class="math">\(T_2(n)\)&lt;/span>为：&lt;span class="math">\(T_2(n)=1000n^3+50n^2+78n+10\)&lt;/span>&lt;/p>
+&lt;p>当问题规模足够大的时候，例如&lt;span class="math">\(n=1,000,000\)&lt;/span>，算法的运行时间将主要取决于时间表达式的第一项，其它项的执行时间只有它的几十万分之一，可以忽略不计。第一项的常数系数，随着&lt;span class="math">\(n\)&lt;/span>的增大，对算法的执行时间也变得不重要了。&lt;/p>
+&lt;p>于是，算法A的运行时间可以记为&lt;span class="math">\(T_1(n)≈n^4\)&lt;/span>，记为&lt;span class="math">\(T_1(n)=Θ(n^4)\)&lt;/span>；算法B的运行时间可以记为：&lt;span class="math">\(T_2(n)≈n^3\)&lt;/span>，记为&lt;span class="math">\(T_2(n)=Θ(n^3)\)&lt;/span>。&lt;/p>
+&lt;blockquote>
+&lt;p>Θ的数学含义&lt;/p>
+&lt;p>方式一：设&lt;span class="math">\(f(n)\)&lt;/span>和&lt;span class="math">\(g(n)\)&lt;/span>是定义域为自然数集合的函数。如果&lt;span class="math">\(\lim\limits_{n\rightarrow ∞}\dfrac{f(n)}{g(n)}\)&lt;/span>存在，并且等于某个常数&lt;span class="math">\(c(c&amp;gt;0)\)&lt;/span>，那么&lt;span class="math">\(f(n)=Θ(g(n))\)&lt;/span>。通俗理解为&lt;span class="math">\(f(n)和g(n)\)&lt;/span>同阶，&lt;span class="math">\(Θ\)&lt;/span>用来表示算法的精确阶。&lt;/p>
+&lt;p>方式二：&lt;span class="math">\(Θ(g(n))=\{f(n)\)&lt;/span>：存在正常量&lt;span class="math">\(c_1、c_2和n_0\)&lt;/span>，使得对所有&lt;span class="math">\(n≥n_0\)&lt;/span>，有&lt;span class="math">\(0≤c_1g(n)≤f(n)≤c_2g(n)\)&lt;/span>，若存在正常量&lt;span class="math">\(c_1、c_2\)&lt;/span>，使得对于足够大的&lt;span class="math">\(n\)&lt;/span>，函数&lt;span class="math">\(f(n)\)&lt;/span>能“夹入”&lt;span class="math">\(c_1g(n)与c_2g(n)\)&lt;/span>之间，则&lt;span class="math">\(f(n)\)&lt;/span>属于集合&lt;span class="math">\(Θ(g(n))\)&lt;/span>，记作&lt;span class="math">\(f(n)∈Θ(g(n))\)&lt;/span>。作为代替，我们通常记“&lt;span class="math">\(f(n)=Θ(g(n))\)&lt;/span>”。&lt;/p>
+&lt;/blockquote>
+&lt;p>由下图中左侧&lt;span class="math">\(f(n)=Θ(g(n))\)&lt;/span>图可以看出，对所有&lt;span class="math">\(n&amp;gt;n_0\)&lt;/span>时，函数&lt;span class="math">\(f(n)\)&lt;/span>乘一个常量因子可等于&lt;span class="math">\(g(n)\)&lt;/span>，我们称&lt;span class="math">\(g(n)\)&lt;/span>是&lt;span class="math">\(f(n)\)&lt;/span>的一个&lt;strong>渐近紧确界&lt;/strong>。&lt;span class="math">\(Θ\)&lt;/span>记号在五个记号中，&lt;strong>要求是最严格的&lt;/strong>，因为&lt;span class="math">\(g(n)\)&lt;/span>即可以表示上界也可以表示下界。&lt;/p>
+&lt;div class="figure">
+&lt;img src="../../images/渐进紧确界.jpg" alt="渐进紧确界" />&lt;p class="caption">渐进紧确界&lt;/p>
+&lt;/div>
+&lt;p>需要注意的是：&lt;span class="math">\(Θ(g(n)\)&lt;/span>的定义要求每个成员&lt;span class="math">\(f(n)∈Θ(g(n))\)&lt;/span>均&lt;strong>渐近非负&lt;/strong>，即当&lt;span class="math">\(n\)&lt;/span>足够大时，&lt;span class="math">\(f(n)\)&lt;/span>非负。&lt;strong>渐近正函数&lt;/strong>就是对所有足够大的&lt;span class="math">\(n\)&lt;/span>均为正的函数。&lt;/p>
+&lt;h2 id="渐进上界记号obig-oh">渐进上界记号：&lt;span class="math">\(O\)&lt;/span>(big-oh)&lt;/h2>
+&lt;blockquote>
+&lt;p>定义：设&lt;span class="math">\(f(n)和g(n)\)&lt;/span>是定义域为自然数集&lt;span class="math">\(N\)&lt;/span>上的函数。若存在正数&lt;span class="math">\(c\)&lt;/span>和&lt;span class="math">\(n_0\)&lt;/span>使得对一切&lt;span class="math">\(n≥n_0\)&lt;/span>都有&lt;span class="math">\(0≤f(n)≤cg(n)\)&lt;/span>成立，则称&lt;span class="math">\(f(n)\)&lt;/span>的渐进的上界是&lt;span class="math">\(g(n)\)&lt;/span>，记作&lt;span class="math">\(f(n)=O(g(n))\)&lt;/span>。通俗的说&lt;span class="math">\(n\)&lt;/span>满足一定条件范围内，函数&lt;span class="math">\(f(n)\)&lt;/span>的阶&lt;strong>不高于&lt;/strong>函数&lt;span class="math">\(g(n)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>根据符号&lt;span class="math">\(O\)&lt;/span>的定义，用它评估算法的复杂度得到的只是问题规模&lt;strong>充分大时的一个上界&lt;/strong>。这个上界的阶越低，评估越精确，越有价值。&lt;/p>
+&lt;blockquote>
+&lt;p>例如：设&lt;span class="math">\(f(n)=n^2+n\)&lt;/span>，则&lt;/p>
+&lt;p>&lt;span class="math">\(f(n)=O(n^2)\)&lt;/span>,取&lt;span class="math">\(c=2,n_0=1\)&lt;/span>即可&lt;/p>
+&lt;p>&lt;span class="math">\(f(n)=O(n^3)\)&lt;/span>,取&lt;span class="math">\(c=2,n_0=2\)&lt;/span>即可。显然，&lt;span class="math">\(O(n^2)\)&lt;/span>作为上界更为精确。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="几种常见的复杂度关系">几种常见的复杂度关系&lt;/h3>
+&lt;p>&lt;span class="math">\[O(1)&amp;lt;O(log(n))&amp;lt;O(n)&amp;lt;O(nlogn)&amp;lt;O(n^2)&amp;lt;O(2^n)&amp;lt;O(n!)&amp;lt;O(n^n)\]&lt;/span> 需要注意的是：对数函数在没有底数时，默认底数为2；如&lt;span class="math">\(\lg n=\log n=\log_2 n\)&lt;/span>。因为计算机中很多程序是用二分法实现的。&lt;/p>
+&lt;h3 id="符号用法测试素数测试">符号用法测试：素数测试&lt;/h3>
+&lt;pre class="sourceCode C">&lt;code class="sourceCode c">&lt;span class="dt">int&lt;/span> isprime(&lt;span class="dt">int&lt;/span> n) {
+&lt;span class="kw">for&lt;/span>(&lt;span class="dt">int&lt;/span> i=&lt;span class="dv">2&lt;/span>; i&amp;lt;=(&lt;span class="dt">int&lt;/span>)sqrt(n); i++) {
+&lt;span class="kw">if&lt;/span>(n%i==&lt;span class="dv">0&lt;/span>) {
+&lt;span class="kw">return&lt;/span> &lt;span class="dv">0&lt;/span>;
+}
+}
+&lt;span class="kw">return&lt;/span> &lt;span class="dv">1&lt;/span>;
+}&lt;/code>&lt;/pre>
+&lt;p>在上面这个素数测试的例子中，基本运算是整除；时间复杂度&lt;span class="math">\(T(n)=O(n^{\frac{1}{2}})\)&lt;/span>是正确的。当被测的数&lt;span class="math">\(n\)&lt;/span>为偶数时，基本运算一次也没执行，所以&lt;span class="math">\(T(n)=Θ(n^{\frac{1}{2}})\)&lt;/span>是错误的，因为没有办法证明&lt;span class="math">\(T(n)\)&lt;/span>的下界是&lt;span class="math">\(Ω(n^{\frac{1}{2}})\)&lt;/span>。&lt;/p>
+&lt;h2 id="渐进下界记号omegabig-omega">渐进下界记号：&lt;span class="math">\(\Omega\)&lt;/span>(big-omega)&lt;/h2>
+&lt;p>定义：设&lt;span class="math">\(f(n)和g(n)\)&lt;/span>是定义域为自然数集&lt;span class="math">\(N\)&lt;/span>上的函数。若存在正数&lt;span class="math">\(c和n_0\)&lt;/span>，使得对一切&lt;span class="math">\(n≥n_0\)&lt;/span>都有&lt;span class="math">\(0≤cg(n)≤f(n)\)&lt;/span>成立，则称&lt;span class="math">\(f(n)\)&lt;/span>的渐进的下界是&lt;span class="math">\(g(n)\)&lt;/span>，记作&lt;span class="math">\(f(n)=Ω(g(n))\)&lt;/span>。通俗的说&lt;span class="math">\(n\)&lt;/span>满足一定条件范围内，函数&lt;span class="math">\(f(n)\)&lt;/span>的阶&lt;strong>不低于&lt;/strong>函数&lt;span class="math">\(g(n)\)&lt;/span>。&lt;/p>
+&lt;p>据符号&lt;span class="math">\(Ω\)&lt;/span>的定义，用它评估算法的复杂度得到的只是问题规模充分大时的一个下界。这个下界的阶越高，评估越精确，越有价值。&lt;/p>
+&lt;blockquote>
+&lt;p>例如：设&lt;span class="math">\(f(n)=n^2+n\)&lt;/span>,则&lt;/p>
+&lt;p>&lt;span class="math">\(f(n)=Ω(n^2)，取c=1n_0=1即可\)&lt;/span>&lt;/p>
+&lt;p>&lt;span class="math">\(f(n)=Ω(100n)，取c=1/100n_0=1即可\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;p>显然，&lt;span class="math">\(Ω(n^2)\)&lt;/span>作为下界更为精确。&lt;/p>
+&lt;h2 id="非渐进紧确上界osmall-oh">非渐进紧确上界：&lt;span class="math">\(o\)&lt;/span>(small-oh)&lt;/h2>
+&lt;blockquote>
+&lt;p>定义1：设&lt;span class="math">\(f(n)和g(n)\)&lt;/span>是定义域为自然数集&lt;span class="math">\(N\)&lt;/span>上的函数。若对于任意正数&lt;span class="math">\(c，都存在n_0\)&lt;/span>，使得对一切&lt;span class="math">\(n≥n_0\)&lt;/span>都有&lt;span class="math">\(0≤f(n)&amp;lt;cg(n)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>由&lt;span class="math">\(O\)&lt;/span>记号提供的渐近上界&lt;strong>可能是渐近紧确的，也可能是非紧确的&lt;/strong>。（如：&lt;span class="math">\(n^2=O(n^2)\)&lt;/span>是渐近紧确的，而&lt;span class="math">\(2n=O(n^2)\)&lt;/span>是非紧确上界。）&lt;/p>
+&lt;blockquote>
+&lt;p>例子：&lt;span class="math">\(f(n)=n^2+n\)&lt;/span>，则&lt;span class="math">\(f(n)=o(n^3)\)&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="非渐进紧确下界omegasmall-omega">非渐进紧确下界：&lt;span class="math">\(\omega\)&lt;/span>(small-omega)&lt;/h2>
+&lt;blockquote>
+&lt;p>定义1：设&lt;span class="math">\(f(n)和g(n)\)&lt;/span>是定义域为自然数集&lt;span class="math">\(N\)&lt;/span>上的函数。若对于任意正数&lt;span class="math">\(c，都存在n_0\)&lt;/span>，使得对一切&lt;span class="math">\(n≥n_0\)&lt;/span>都有&lt;span class="math">\(0≤cg(n)&amp;lt;f(n)\)&lt;/span>。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;span class="math">\(ω\)&lt;/span>记号与&lt;span class="math">\(Ω\)&lt;/span>的关系类似于&lt;span class="math">\(o和O\)&lt;/span>记号的关系。我们用&lt;span class="math">\(ω\)&lt;/span>表示一个&lt;strong>非渐近紧确的下界&lt;/strong>。&lt;/p>
+&lt;p>例子：&lt;span class="math">\(f(n)=n^2+n\)&lt;/span>，则&lt;span class="math">\(f(n)=ω(n)\)&lt;/span>是正确的。&lt;span class="math">\(f(n)=ω(n^2)\)&lt;/span>则是错误的，&lt;span class="math">\(f(n)=Ω(n^2)\)&lt;/span>是正确的。&lt;/p>
+&lt;h2 id="渐近记号θοoωω关系">渐近记号&lt;span class="math">\(Θ、Ο、o、Ω、ω\)&lt;/span>关系&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr class="header">
+&lt;th align="center">记号&lt;/th>
+&lt;th align="center">含义&lt;/th>
+&lt;th align="center">通俗理解&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr class="odd">
+&lt;td align="center">(1)Θ（西塔）&lt;/td>
+&lt;td align="center">紧确界&lt;/td>
+&lt;td align="center">相当于&amp;quot;=&amp;quot;&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">(2)O （大欧）&lt;/td>
+&lt;td align="center">上界&lt;/td>
+&lt;td align="center">相当于&amp;quot;&amp;lt;=&amp;quot;&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">(3)o（小欧）&lt;/td>
+&lt;td align="center">非紧的上界&lt;/td>
+&lt;td align="center">相当于&amp;quot;&amp;lt;&amp;quot;&lt;/td>
+&lt;/tr>
+&lt;tr class="even">
+&lt;td align="center">(4)Ω（大欧米伽）&lt;/td>
+&lt;td align="center">下界&lt;/td>
+&lt;td align="center">相当于&amp;quot;&amp;gt;=&amp;quot;&lt;/td>
+&lt;/tr>
+&lt;tr class="odd">
+&lt;td align="center">(5)ω（小欧米伽）&lt;/td>
+&lt;td align="center">非紧的下界&lt;/td>
+&lt;td align="center">相当于&amp;quot;&amp;gt;&amp;quot;&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;div class="figure">
+&lt;img src="../../images/渐进记号关系.png" alt="渐进记号关系.png" />&lt;p class="caption">渐进记号关系.png&lt;/p>
+&lt;/div></description></item><item><title>算法导论-分治</title><link>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E5%88%86%E6%B2%BB/</link><pubDate>Fri, 16 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-%E5%88%86%E6%B2%BB/</guid><description>
+&lt;h2 id="分治divide-and-conquer">分治（divide and conquer）&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>分治算法的三个步骤：&lt;/p>
+&lt;p>分开-解决-合并&lt;/p>
+&lt;h2 id="递归式复杂度分析">递归式复杂度分析&lt;/h2>
+&lt;h3 id="用代入法求解递归式">用代入法求解递归式&lt;/h3>
+&lt;p>核心思想是首先猜测算法的复杂度大概是多少，然后通过数学归纳法求解其中的常数，证明算法是正确的。&lt;/p>
+&lt;h3 id="递归树">递归树&lt;/h3>
+&lt;p>通过画图估计生成一个好的猜测，然后再通过代入法进行验证&lt;/p>
+&lt;h3 id="主方法">主方法&lt;/h3>
+&lt;p>类似于母函数笔记中的递推公式。&lt;/p></description></item><item><title>算法导论-DP</title><link>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-dp/</link><pubDate>Thu, 15 Apr 2021 00:00:00 +0000</pubDate><guid>https://surprisedcat.github.io/studynotes/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-dp/</guid><description>
+&lt;h2 id="动态规划">动态规划&lt;!-- omit in toc -->&lt;/h2>
+&lt;p>动态规划和分治算法的区别在于，分治算法将问题分成不重叠的几个子问题，分别求解；而动态规划的子问题是重叠的，每次求解子问题后会把子问题保存起来（例如表格），避免了重复计算。&lt;/p>
+&lt;h2 id="动态规划的四个步骤">动态规划的四个步骤&lt;/h2>
+&lt;ol style="list-style-type: decimal">
+&lt;li>刻画一个最优解的结构特征&lt;/li>
+&lt;li>递归的定义最优解的值&lt;/li>
+&lt;li>计算最优解的值，通常采用自底向上的方法&lt;/li>
+&lt;li>利用计算出的信息构造一个最优解&lt;/li>
+&lt;/ol>
+&lt;p>步骤1-3是动态规划的基础，如果我们仅仅需要最优解的值，第四步可以省略。第四步的作用在于维护一个最优解构造信息。&lt;/p>
+&lt;h2 id="动态规划模式">动态规划模式&lt;/h2>
+&lt;p>如果只用正常的递归求解，会反复求一些相同的子问题，造成指数级别的增长。DP有两种等价的实现方法：带备忘的自顶向下法（top-down with memoization）和自底向上法（bottom-up method）。&lt;/p>
+&lt;h3 id="带备忘的自顶向下法top-down-with-memoization">带备忘的自顶向下法（top-down with memoization）&lt;/h3>
+&lt;ul>
+&lt;li>此方法仍然按照自然的递归形式编写过程，但是过程会保存每个子问题的解（通常保存在一个数组或散列表中）。&lt;/li>
+&lt;li>当需要一个子问题的解时，过程首先检查是否已经保存过此解，&lt;/li>
+&lt;li>如果是，则直接返回保存的值，从而节省了计算时间；&lt;/li>
+&lt;li>否则，按照通常方式计算这个子问题。&lt;/li>
+&lt;/ul>
+&lt;h3 id="自底向上法bottom-up-method">自底向上法（bottom-up method）&lt;/h3>
+&lt;ul>
+&lt;li>方法一般需要恰当定义子问题“规模”的概念，使得任何子问题的求解都只依赖于“更小的”子问题的求解。&lt;/li>
+&lt;li>因而可以将子问题按规模排序，按由小到大的顺序进行求解。&lt;/li>
+&lt;li>当求解某个子问题时，所依赖的那些更小的子问题都已经求解完毕，结果已经保存。&lt;/li>
+&lt;li>每个子问题只求解一次，当求解它时（也是第一次遇到它），所有前提子问题都已经求解完成。&lt;/li>
+&lt;/ul>
+&lt;p>两种方法得到的算法具有相同的渐进运行时间，仅有的差异是在某些特殊情况下，自顶向下方法并未真正递归地考察所有可能的子问题。由于没有频繁的递归调用开销，自底向上的复杂度函数通常具有更小的系数。&lt;/p>
+&lt;h2 id="动态规划的两个关键要素">动态规划的两个关键要素&lt;/h2>
+&lt;ul>
+&lt;li>最优子结构，一个问题的最优解包含其子问题的最优解&lt;/li>
+&lt;li>子问题重叠&lt;/li>
+&lt;/ul>
+&lt;p>某个问题是否适合应用动态规划，它是否具有最优子结构是一个好线索。在DP中，我们通常自底向上的使用最优子结构。同时，DP要求子问题是无关的，同一个原问题的一个子问题的解不影响另一个子问题的解。&lt;/p>
+&lt;p>适合动态规划的另一个方面是子问题空间必须足够的&amp;quot;小&amp;quot;，即问题的递归算法会反复地求解相同的子问题，而不是一直生成新的子问题。&lt;/p></description></item></channel></rss>

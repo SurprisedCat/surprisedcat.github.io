@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #test3 {
+            border-style: solid;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+    <title>Web accessible resources</title>
+  </head>  
+  <body>
+    <h1>Web可用资源示例</h1>
+    <h2>本页面位于外部网站</h2>
+    <h2>Web页面直接使用Extension ID加载：text1.png</h2>
+    <form><label>Extension ID:</label><input type="text" id="extension_id_input"><input type="button" id="testButton" value="确定"></form><br>
+    <img id="test1" height="100" width="100"><br>
+    <h2 id="header2">Content script加载：text2.png</h2>
+    <img id="test2" height="100" width="100"><br>
+    <h2 id="header3">CSS作为背景加载：text3.png</h2>
+    <div id="test3"></div><br>
+    <h2>一个不在web accessible resources中的文件：text4.png</h2>
+    <img id="test4" height="100" width="100"><br>
+
+    <script src="js/web_access_resources.js"></script>
+  </body>
+</html>
